@@ -1,5 +1,10 @@
 # NieFrontend
 
+![Travis build](https://api.travis-ci.org/nie-ine/nie-frontend.svg)
+![Docker build](https://img.shields.io/docker/build/nieine/nie-frontend.svg)
+![Docker automated build](https://img.shields.io/docker/automated/nie-frontend/nie-frontend.svg)
+![Docker pulls](https://img.shields.io/docker/pulls/nieine/nie-frontend.svg)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.3.
 
 ## Development server
