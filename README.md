@@ -1,6 +1,15 @@
 # NieFrontend
 
+![Travis build](https://api.travis-ci.org/nie-ine/nie-frontend.svg)
+![Docker build](https://img.shields.io/docker/build/nieine/nie-frontend.svg)
+![Docker automated build](https://img.shields.io/docker/automated/nie-frontend/nie-frontend.svg)
+![Docker pulls](https://img.shields.io/docker/pulls/nieine/nie-frontend.svg)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.3.
+
+## Run in Docker container
+
+`docker run -p 5555:80 nieine/nie-frontend:latest` and open `localhost:5555` in browser. You can also change `host` and `port` where the website is served by setting the `NGINX_HOST` and `NGINX_PORT` variable. E.g. `docker run -e NGINX_HOST=http://example.com -e NGINX_PORT=1234 -p 1234:1234 nie/nie-frontend:latest`.
 
 ## Development server
 
