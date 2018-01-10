@@ -20,6 +20,3 @@ before_script:
 script:
   - ng test --single-run
 
-branches:
-  only:
-  - master
