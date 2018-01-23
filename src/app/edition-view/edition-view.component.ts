@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {KnoraRequestService} from '../shared/knora-request.service';
+import {SparqlRequestService} from '../shared/sparql-request.service';
+import {ResultToEditionMapperService} from './result-to-edition-mapper.service';
 
 @Component({
   selector: 'app-edition-view',
@@ -7,7 +10,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditionViewComponent implements OnInit {
 
-  constructor() { }
+  constructor(knoraRequestService: KnoraRequestService,
+              sparqlRequestService: SparqlRequestService,
+              resultToEditionMapperService: ResultToEditionMapperService) {
+  }
 
   ngOnInit() {
   }
