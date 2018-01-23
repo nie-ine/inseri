@@ -1,29 +1,48 @@
 @startuml
 
-package "Shared Models" #EFEFFF {
-  abstract class BasicModel
-	class Person {
-		+firstname: string
-		+name: string
+package "Shared" #EFEFFF {
+	package "Shared Models" #DEDEDE {
+
+		abstract class BasicModel
+		class Person {
+			+firstname: string
+			+name: string
+		}
+		class JulianDate
+		class Place 
+		
+		BasicModel <|-- Person
+		BasicModel <|-- JulianDate
+		BasicModel <|-- Place
 	}
-	class JulianDate
-	class Place 
 	
-	abstract class ResultToModelMapper {
-		+ abstract parseResult(res: any): BasicModel
+	abstract class ResultToModelMapperService {
+		+ abstract parseResult(res: Observable<any>): BasicModel
 	}
+	abstract class RequestTemplate
+	abstract class RequestService {
+		+ abstract send(template: RequestTemplate): Observable<any>;
+	}
+	class KnoraRequestService << (C,#DEBD08) Service >> {
+		+ send(template: RequestTemplate): Observable<any>;
+	}
+	class SparqlRequestService << (C,#DEBD08) Service >> {
+		+ send(template: RequestTemplate): Observable<any>;
+	}
+	class KnoraAuthService << (C,#DEBD08) Service >>
+
+	RequestService <|-- KnoraRequestService
+	RequestService <|-- SparqlRequestService
+	RequestTemplate <.. RequestService
+	KnoraAuthService <.. KnoraRequestService 
 	
-	BasicModel <|-- Person
-	BasicModel <|-- JulianDate
-	BasicModel <|-- Place
 }
 
 package "Edition View Module" #DDDDDD {
 	
 	package "Views" #CCCCCC {
 
-		class EditionViewComponent << (C,#FF7700) Component >> {	
-		}
+		class EditionViewComponent << (C,#FF7700) Component >>
 		
 		class EditionViewCanvasComponent  << (C,#FF7700) Component >>
 
@@ -33,6 +52,7 @@ package "Edition View Module" #DDDDDD {
 
 		class EditionViewToolsComponent << (C,#FF7700) Component >> 
 
+
 		EditionViewComponent o-- EditionViewCanvasComponent
 		EditionViewComponent o-- EditionViewMetadataComponent
 		EditionViewComponent o-- EditionViewStructureComponent
@@ -40,7 +60,7 @@ package "Edition View Module" #DDDDDD {
 		
 	}
 
-	package "Models" #CCCCCC {
+	package "Edition View Models" #CCCCCC {
 
 		class Edition {
 			+ editor: Person[]
@@ -50,15 +70,18 @@ package "Edition View Module" #DDDDDD {
 			+ place?: Place
 		}
 
-		class EditedText {
-			
-		}
+		class EditedText
 
 		Edition *-- EditedText
 	}
 
 	class EditionTemplate
+	class ResultToEditionMapperService << (C,#DEBD08) Service >> {
+		+ parseResult(res: Observable<any>): BasicModel
+	}
+
 	EditionTemplate <-- EditionViewComponent
+	ResultToEditionMapperService <.. EditionViewComponent
 
 }
 
@@ -86,6 +109,10 @@ BasicModel <|-- EditedText
 Edition *-- JulianDate
 Edition *-- Person
 Edition *-- Place
-ResultToModelMapper <|-- EditionTemplate
+ResultToModelMapperService <|-- ResultToEditionMapperService
+RequestTemplate <|-- EditionTemplate
+KnoraRequestService <.. EditionViewComponent
+SparqlRequestService <.. EditionViewComponent
+
 
 @enduml
