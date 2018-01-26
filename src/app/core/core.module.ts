@@ -1,20 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { StaticPagesModule } from '../static-pages/static-pages.module'
-import { MaterialModule } from '../material.module'
+import { StaticPagesModule } from '../static-pages/static-pages.module';
+import { MaterialModule } from '../material.module';
 
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { MainComponent } from './main/main.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import { NpmModule } from '../nie-npm-module/npm.module';
 
 @NgModule({
   imports: [
 		CommonModule,
 		StaticPagesModule,
 		MaterialModule,
+    NpmModule,
 		RouterModule.forRoot([
 			{path: '**', component: PageNotFoundComponent}
 		])
