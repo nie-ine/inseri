@@ -9,19 +9,19 @@ import { FooterComponent } from './footer/footer.component';
 import { MainComponent } from './main/main.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { NavigationComponent } from './navigation/navigation.component';
-import { NpmModule } from '../nie-npm-module/npm.module';
+import { ArithmeticModule } from 'nie-ine';
 
 @NgModule({
   imports: [
-		CommonModule,
-		StaticPagesModule,
-		MaterialModule,
-    NpmModule,
-		RouterModule.forRoot([
-			{path: '**', component: PageNotFoundComponent}
-		])
+    CommonModule,
+    StaticPagesModule,
+    MaterialModule,
+    ArithmeticModule,
+    RouterModule.forRoot([
+      {path: '**', component: PageNotFoundComponent}
+      ])
   ],
-	declarations: [HeaderComponent, FooterComponent, MainComponent, PageNotFoundComponent, NavigationComponent],
-	exports: [HeaderComponent, FooterComponent, MainComponent, RouterModule]
+  declarations: [HeaderComponent, FooterComponent, MainComponent, PageNotFoundComponent, NavigationComponent],
+  exports: [HeaderComponent, FooterComponent, MainComponent, RouterModule]
 })
 export class CoreModule { }
