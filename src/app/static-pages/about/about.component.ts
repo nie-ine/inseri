@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ExampleComponent } from 'nie-ine';
 
 @Component({
   selector: 'app-about',
@@ -10,6 +11,7 @@ export class AboutComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log(ExampleComponent);
   }
 
 }
