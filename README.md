@@ -9,7 +9,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Run in Docker container
 
-`docker run -p 5555:80 nieine/nie-frontend:latest` and open `localhost:5555` in browser. You can also change `host` and `port` where the website is served by setting the `NGINX_HOST` and `NGINX_PORT` variable. E.g. `docker run -e NGINX_HOST=http://example.com -e NGINX_PORT=1234 -p 1234:1234 nie/nie-frontend:latest`.
+1. Download and run Docker container: `docker run -p 5555:80 nieine/nie-frontend:latest`
+2. Open `localhost:5555` in browser
+3. Optional: Set `NGINX_HOST` and `NGINX_PORT` to customise the webserver. E.g. `docker run -e NGINX_HOST=http://example.com -e NGINX_PORT=1234 -p 1234:1234 nie/nie-frontend:latest`.
 
 ## Development server
 

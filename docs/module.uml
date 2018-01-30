@@ -1,0 +1,118 @@
+@startuml
+
+package "Shared" #EFEFFF {
+	package "Shared Models" #DEDEDE {
+
+		abstract class BasicModel
+		class Person {
+			+firstname: string
+			+name: string
+		}
+		class JulianDate
+		class Place 
+		
+		BasicModel <|-- Person
+		BasicModel <|-- JulianDate
+		BasicModel <|-- Place
+	}
+	
+	abstract class ResultToModelMapperService {
+		+ abstract parseResult(res: Observable<any>): BasicModel
+	}
+	abstract class RequestTemplate
+	abstract class RequestService {
+		+ abstract send(template: RequestTemplate): Observable<any>;
+	}
+	class KnoraRequestService << (C,#DEBD08) Service >> {
+		+ send(template: RequestTemplate): Observable<any>;
+	}
+	class SparqlRequestService << (C,#DEBD08) Service >> {
+		+ send(template: RequestTemplate): Observable<any>;
+	}
+	class KnoraAuthService << (C,#DEBD08) Service >>
+
+	RequestService <|-- KnoraRequestService
+	RequestService <|-- SparqlRequestService
+	RequestTemplate <.. RequestService
+	KnoraAuthService <.. KnoraRequestService 
+	
+}
+
+package "Edition View Module" #DDDDDD {
+	
+	package "Views" #CCCCCC {
+
+		class EditionViewComponent << (C,#FF7700) Component >>
+		
+		class EditionViewCanvasComponent  << (C,#FF7700) Component >>
+
+		class EditionViewMetadataComponent << (C,#FF7700) Component >> 
+
+		class EditionViewStructureComponent << (C,#FF7700) Component >> 
+
+		class EditionViewToolsComponent << (C,#FF7700) Component >> 
+
+
+		EditionViewComponent o-- EditionViewCanvasComponent
+		EditionViewComponent o-- EditionViewMetadataComponent
+		EditionViewComponent o-- EditionViewStructureComponent
+		EditionViewComponent o-- EditionViewToolsComponent
+		
+	}
+
+	package "Edition View Models" #CCCCCC {
+
+		class Edition {
+			+ editor: Person[]
+			+ title?: string
+			+ text: EditedText
+			+ date?: JulianDate
+			+ place?: Place
+		}
+
+		class EditedText
+
+		Edition *-- EditedText
+	}
+
+	class EditionTemplate
+	class ResultToEditionMapperService << (C,#DEBD08) Service >> {
+		+ parseResult(res: Observable<any>): BasicModel
+	}
+
+	EditionTemplate <-- EditionViewComponent
+	ResultToEditionMapperService <.. EditionViewComponent
+
+}
+
+package "CoreModule" #DDDDDD {
+	class HeaderComponent << (C,#FF7700) Component >> 
+	class FooterComponent << (C,#FF7700) Component >> 
+	class MainComponent << (C,#FF7700) Component >> 
+	class NavigationComponent << (C,#FF7700) Component >> 
+	class PageNotFoundComponent << (C,#FF7700) Component >> 
+
+	MainComponent o-- PageNotFoundComponent
+	HeaderComponent o-- NavigationComponent
+	
+}
+
+class AppComponent << (C,#FF7700) Component >> 
+
+AppComponent o-- HeaderComponent
+AppComponent o-- FooterComponent
+AppComponent o-- MainComponent
+MainComponent o-- EditionViewComponent
+
+BasicModel <|-- Edition
+BasicModel <|-- EditedText
+Edition *-- JulianDate
+Edition *-- Person
+Edition *-- Place
+ResultToModelMapperService <|-- ResultToEditionMapperService
+RequestTemplate <|-- EditionTemplate
+KnoraRequestService <.. EditionViewComponent
+SparqlRequestService <.. EditionViewComponent
+
+
+@enduml
