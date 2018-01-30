@@ -1,21 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HomeComponent } from './home.component';
-import { ExampleComponent } from 'nie-ine';
+import { EditionViewToolsComponent } from './edition-view-tools.component';
 
-describe('HomeComponent', () => {
-  let component: HomeComponent;
-  let fixture: ComponentFixture<HomeComponent>;
+describe('EditionViewToolsComponent', () => {
+  let component: EditionViewToolsComponent;
+  let fixture: ComponentFixture<EditionViewToolsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomeComponent, ExampleComponent ]
+      declarations: [ EditionViewToolsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HomeComponent);
+    fixture = TestBed.createComponent(EditionViewToolsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
