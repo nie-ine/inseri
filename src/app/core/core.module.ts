@@ -24,4 +24,5 @@ import { ArithmeticModule } from 'nie-ine';
   declarations: [HeaderComponent, FooterComponent, MainComponent, PageNotFoundComponent, NavigationComponent],
   exports: [HeaderComponent, FooterComponent, MainComponent, RouterModule]
 })
-export class CoreModule { }
+export class CoreModule {
+}
