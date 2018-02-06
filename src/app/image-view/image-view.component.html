@@ -1,0 +1,6 @@
+<app-image-frame-sizes (viewerWidthChange)="viewerWidth = $event">
+  <app-image-frame [image]="picData"
+                   [width]="viewerWidth"
+                   [height]="viewerWidth * picData.ny / picData.nx">
+  </app-image-frame>
+</app-image-frame-sizes>
