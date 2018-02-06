@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GrapesjsComponent } from './grapesjs.component';
+import { ExampleComponent } from 'nie-ine';
 
 describe('GrapesjsComponent', () => {
   let component: GrapesjsComponent;
@@ -8,7 +9,7 @@ describe('GrapesjsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GrapesjsComponent ]
+      declarations: [ GrapesjsComponent, ExampleComponent ]
     })
     .compileComponents();
   }));
