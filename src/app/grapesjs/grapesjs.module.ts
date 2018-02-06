@@ -14,7 +14,9 @@ import { Service } from './createComponentInstances.service';
       { path: 'grapesjs', component: GrapesjsComponent }
     ])
   ],
-  providers: [Service],
+  providers: [
+    Service
+  ],
   declarations: [
     GrapesjsComponent
   ],
