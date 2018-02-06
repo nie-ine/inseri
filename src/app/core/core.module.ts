@@ -9,11 +9,13 @@ import {FooterComponent} from './footer/footer.component';
 import {MainComponent} from './main/main.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {NavigationComponent} from './navigation/navigation.component';
+import {ImageViewModule} from "../image-view/image-view.module";
 
 @NgModule({
   imports: [
     CommonModule,
     StaticPagesModule,
+    ImageViewModule,
     MaterialModule,
     RouterModule.forRoot([
       {path: '**', component: PageNotFoundComponent}
