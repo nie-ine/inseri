@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GrapesjsComponent } from './grapesjs/grapesjs.component';
 import { RouterModule } from '@angular/router';
-import { ExampleComponent } from 'nie-ine';
 import { ArithmeticModule } from 'nie-ine';
 import { Service } from './createComponentInstances.service';
 
@@ -22,9 +21,6 @@ import { Service } from './createComponentInstances.service';
   ],
   exports: [
     GrapesjsComponent
-  ],
-  entryComponents: [
-    ExampleComponent
   ]
 })
 export class GrapesjsModule { }
