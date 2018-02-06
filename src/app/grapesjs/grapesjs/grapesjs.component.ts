@@ -11,6 +11,7 @@ declare var grapesjs: any; // Important!
 @Component({
   selector: 'app-grapesjs',
   template: '<div id="gjs"></div>',
+  providers: [Service],
   styleUrls: ['./grapesjs.component.scss']
 })
 export class GrapesjsComponent implements OnInit {
