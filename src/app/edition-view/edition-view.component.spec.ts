@@ -1,8 +1,19 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
+import {By} from '@angular/platform-browser';
 
 import {EditionViewComponent} from './edition-view.component';
-import {By} from '@angular/platform-browser';
+import {KnoraRequestService} from '../shared/knora-request.service';
+import {SparqlRequestService} from '../shared/sparql-request.service';
+import {ResultToEditionMapperService} from './result-to-edition-mapper.service';
+
+
+class knoraRequestServiceStub {} 
+
+class sparqlRequestServiceStub {}
+
+class resultToEditionMapperServiceStub {}
+
 
 describe('EditionViewComponent', () => {
   let component: EditionViewComponent;
@@ -15,7 +26,12 @@ describe('EditionViewComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [EditionViewComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+			schemas: [NO_ERRORS_SCHEMA],
+			providers: [
+				{provide: KnoraRequestService, useValue: knoraRequestServiceStub},
+				{provide: SparqlRequestService, useValue: sparqlRequestServiceStub},
+				{provide: ResultToEditionMapperService, useValue: resultToEditionMapperServiceStub}
+			]
     })
       .compileComponents();
   }));
