@@ -1,11 +1,8 @@
 import {
   ComponentFactoryResolver,
   Injectable,
-  Inject,
-  ReflectiveInjector
+  Inject
 } from '@angular/core';
-
-import { ExampleComponent } from 'nie-ine';
 
 @Injectable()
 export class Service {
@@ -21,15 +18,14 @@ export class Service {
     this.rootViewContainer = viewContainerRef;
   }
 
-  addDynamicComponent() {
-
+  addDynamicComponent(newComponent) {
     const factory = this.factoryResolver
-      .resolveComponentFactory(ExampleComponent);
+      .resolveComponentFactory(newComponent.constructor);
 
     const component = factory
       .create(this.rootViewContainer.parentInjector);
 
     this.rootViewContainer.insert(component.hostView);
-    return (ExampleComponent as any).decorators[0].args[0].template;
+    return newComponent.constructor.decorators[0].args[0].template;
   }
 }
