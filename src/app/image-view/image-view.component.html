@@ -1,6 +1,17 @@
+<h2>Component in this project</h2>
+
 <app-image-frame-sizes (viewerWidthChange)="viewerWidth = $event">
   <app-image-frame [image]="picData"
                    [width]="viewerWidth"
                    [height]="viewerWidth * picData.ny / picData.nx">
   </app-image-frame>
 </app-image-frame-sizes>
+
+<h2>Imported component</h2>
+
+<nie-image-frame-sizes (viewerWidthChange)="viewerWidth = $event">
+  <nie-image-frame [image]="picData"
+                   [width]="viewerWidth"
+                   [height]="viewerWidth * picData.ny / picData.nx">
+  </nie-image-frame>
+</nie-image-frame-sizes>
