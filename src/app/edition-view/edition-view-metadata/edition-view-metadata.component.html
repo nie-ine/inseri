@@ -1,3 +1,14 @@
-<p>
-  edition-view-metadata works!
-</p>
+<ul>
+  <li *ngIf="editors">Editore: <ul>
+    <li *ngFor="let editor of editors">{{editor.name}}, {{editor.firstname}}</li>
+    </ul>
+  </li>
+  <li *ngIf="title">Titolo: {{title}}</li>
+  <li *ngIf="authors">Autore: <ul>
+    <li *ngFor="let author of authors">
+      {{author.name}}, {{author.firstname}}
+    </li>
+  </ul>
+  <li *ngIf="place">Luogo: {{place.label}}</li>
+  <li *ngIf="date">Data: {{date}}</li>
+</ul>
