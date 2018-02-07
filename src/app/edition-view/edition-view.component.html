@@ -1,4 +1,10 @@
 <app-edition-view-tools></app-edition-view-tools>
 <app-edition-view-structure></app-edition-view-structure>
-<app-edition-view-metadata></app-edition-view-metadata>
-<app-edition-view-canvas [text]="dummyText"></app-edition-view-canvas>
+<app-edition-view-metadata [editors]="testData.editors"
+                           [title]="testData.title"
+                           [authors]="testData.authors"
+                           [date]="testData.date"
+                           [place]="testData.place">
+
+</app-edition-view-metadata>
+<app-edition-view-canvas [text]="testData.text"></app-edition-view-canvas>

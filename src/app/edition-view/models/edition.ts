@@ -4,8 +4,9 @@ import {Place} from '../../shared/models/place';
 import {BasicModel} from '../../shared/models/basic-model';
 
 export class Edition extends BasicModel {
-  editor: Person[];
+  editors: Person[];
   title?: string;
+  authors?: Person[];
   text: string;
   date?: JulianDate;
   place?: Place;
