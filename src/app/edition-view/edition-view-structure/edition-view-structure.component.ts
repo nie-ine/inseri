@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Standoff} from '../../shared/models/standoff';
 
 @Component({
   selector: 'app-edition-view-structure',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./edition-view-structure.component.scss']
 })
 export class EditionViewStructureComponent implements OnInit {
+
+  structure: Array<Standoff>;
 
   constructor() { }
 

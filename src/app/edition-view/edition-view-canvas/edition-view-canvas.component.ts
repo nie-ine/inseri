@@ -1,17 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnChanges} from '@angular/core';
+import {StandoffReconcilerService} from '../../shared/standoff-reconciler.service';
+import {Standoff} from '../../shared/models/standoff';
 
 @Component({
   selector: 'app-edition-view-canvas',
   templateUrl: './edition-view-canvas.component.html',
-  styleUrls: ['./edition-view-canvas.component.scss']
+  styleUrls: ['./edition-view-canvas.component.scss'],
+  providers: [StandoffReconcilerService]
 })
-export class EditionViewCanvasComponent implements OnInit {
+export class EditionViewCanvasComponent implements OnChanges {
 
-  title: string;
+  @Input() text: string;
+  @Input() standoffs: Standoff[];
+  html: string;
 
-  constructor() { }
+  constructor(private standoffReconcilerService: StandoffReconcilerService) {
+  }
 
-  ngOnInit() {
+  ngOnChanges() {
+    this.html = this.standoffReconcilerService.reconcile(this.text, this.standoffs);
   }
 
 }
