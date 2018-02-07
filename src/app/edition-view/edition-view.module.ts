@@ -6,10 +6,16 @@ import {EditionViewStructureComponent} from './edition-view-structure/edition-vi
 import {EditionViewMetadataComponent} from './edition-view-metadata/edition-view-metadata.component';
 import {EditionViewCanvasComponent} from './edition-view-canvas/edition-view-canvas.component';
 import {RouterModule} from '@angular/router';
+import {MaterialModule} from '../material.module';
+import {CanvasOptionsService} from './canvas-options.service';
+import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forChild([
       {path: 'edition-view', component: EditionViewComponent}
     ])],
@@ -19,6 +25,7 @@ import {RouterModule} from '@angular/router';
     EditionViewStructureComponent,
     EditionViewMetadataComponent,
     EditionViewCanvasComponent],
+  providers: [CanvasOptionsService]
 })
 export class EditionViewModule {
 

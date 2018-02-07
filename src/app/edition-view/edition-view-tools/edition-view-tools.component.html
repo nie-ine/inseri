@@ -1,3 +1,15 @@
-<p>
-  edition-view-toolbox works!
-</p>
+<form [formGroup]="toolbox">
+
+<!--  <mat-button-toggle formControlName="nightView" value="nightView">Visione notturna
+  </mat-button-toggle>-->
+
+
+  <mat-slide-toggle formControlName="nightView">Visione notturna</mat-slide-toggle>
+
+
+
+  <mat-form-field>
+    <input formControlName="fontSize" matInput placeholder="Font size" value="100">
+  </mat-form-field>
+
+</form>
