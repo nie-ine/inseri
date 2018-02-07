@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { ExampleComponent } from 'nie-ine';
 import { ArithmeticModule } from 'nie-ine';
 
+
 @NgModule({
   imports: [
     CommonModule,
