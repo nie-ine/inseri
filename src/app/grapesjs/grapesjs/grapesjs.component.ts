@@ -5,6 +5,7 @@ import {
   ViewContainerRef
 } from '@angular/core';
 import { Service } from '../createComponentInstances.service';
+import {ExampleComponent} from 'nie-ine';
 
 declare var grapesjs: any; // Important!
 
@@ -19,10 +20,9 @@ export class GrapesjsComponent implements OnInit {
   name = 'from Angular';
   testblock: string;
 
-  constructor(@Inject(Service) service, @Inject(ViewContainerRef) viewContainerRef) {
+  constructor(private service: Service, private viewContainerRef: ViewContainerRef) {
     service.setRootViewContainerRef(viewContainerRef);
-    this.testblock = service.addDynamicComponent();
-    console.log(service.addDynamicComponent());
+    this.testblock = service.addDynamicComponent(new ExampleComponent);
   }
 
   ngOnInit() {
