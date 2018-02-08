@@ -1,15 +1,28 @@
 <form [formGroup]="toolbox">
 
-<!--  <mat-button-toggle formControlName="nightView" value="nightView">Visione notturna
-  </mat-button-toggle>-->
-
+  <!--  <mat-button-toggle formControlName="nightView" value="nightView">Visione notturna
+    </mat-button-toggle>-->
 
   <mat-slide-toggle formControlName="nightView">Visione notturna</mat-slide-toggle>
 
+  <span>
+    <mat-form-field style="max-width: 100px;">
+      <input formControlName="fontSize" matInput [errorStateMatcher]="matcher" placeholder="Font size" value="100" type="number" min="25" max="500">
+      <span matSuffix>%</span>
+      <mat-error *ngIf="toolbox.get('fontSize').hasError('max')">too much</mat-error>
+      <mat-error *ngIf="toolbox.get('fontSize').hasError('min')">too few</mat-error>
+    </mat-form-field>
+    <!--<button mat-icon-button formControlName=""><mat-icon>zoom_in</mat-icon></button>-->
+    <!--<button mat-icon-button formControlName=""><mat-icon>zoom_out</mat-icon></button>-->
+  </span>
 
-
-  <mat-form-field>
-    <input formControlName="fontSize" matInput placeholder="Font size" value="100">
-  </mat-form-field>
+  <span>
+    <mat-form-field style="max-width: 200px;">
+      <input formControlName="find" matInput placeholder="Find in the text" type="text">
+    </mat-form-field>
+    <button mat-icon-button formControlName="clearFind"><mat-icon>close</mat-icon></button>
+    <button mat-icon-button formContolName="previousFind"><mat-icon>&lt;</mat-icon></button>
+    <button mat-icon-button formControlName="nextFind"><mat-icon>&gt;</mat-icon></button>
+  </span>
 
 </form>
