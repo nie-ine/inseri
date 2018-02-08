@@ -31,9 +31,8 @@ export class EditionViewToolsComponent implements OnInit {
     this.toolbox.get('nightView').valueChanges.subscribe(v => canvasOptionsService.toggleNightView());
     this.toolbox.get('fontSize').valueChanges.subscribe(size => canvasOptionsService.changeFontSize(size));
     this.toolbox.get('find').valueChanges.subscribe(term => {
-      if (term.length >= 3) {
-        this.canvasOptionsService.find(term);
-      }
+      const t = term.length >= 3 ? term : '';
+      this.canvasOptionsService.find(t);
     });
     // this.toolbox.get('clearFind').valueChanges.subscribe(x => this.canvasOptionsService.clearFind());
     // this.toolbox.get('previousFind').valueChanges.subscribe(prev => this.canvasOptionsService.prevFind());

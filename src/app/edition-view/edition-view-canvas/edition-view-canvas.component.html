@@ -1,1 +1,4 @@
+<button (click)="increaseIndexOfFocus()">+</button>
+<button (click)="decreaseIndexOfFocus()">-</button>
 <div [innerHtml]="html" [ngClass]="{'nightView': nightView}" [ngStyle]="{'font-size': fontSize + '%'}"></div>
+<p *ngIf="numberOfMatches > 0">Number of matches: {{numberOfMatches}} </p>
