@@ -35,9 +35,9 @@ export class EditionViewToolsComponent implements OnInit {
         this.canvasOptionsService.find(term);
       }
     });
-    this.toolbox.get('clearFind').valueChanges.subscribe(x => this.canvasOptionsService.clearFind());
-    this.toolbox.get('previousFind').valueChanges.subscribe(prev => this.canvasOptionsService.prevFind());
-    this.toolbox.get('nextFind').valueChanges.subscribe(next => this.canvasOptionsService.nextFind());
+    // this.toolbox.get('clearFind').valueChanges.subscribe(x => this.canvasOptionsService.clearFind());
+    // this.toolbox.get('previousFind').valueChanges.subscribe(prev => this.canvasOptionsService.prevFind());
+    // this.toolbox.get('nextFind').valueChanges.subscribe(next => this.canvasOptionsService.nextFind());
   }
 
   ngOnInit() {

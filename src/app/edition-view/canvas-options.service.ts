@@ -27,4 +27,17 @@ export class CanvasOptionsService {
     this.fontSizeSource.next(size);
   }
 
+  find(term: string) {
+    this.termSource.next(term);
+  }
+
+  // clearFind() {
+  // }
+  //
+  // prevFind() {
+  // }
+  //
+  // nextFind(){
+  // }
+
 }
