@@ -3,12 +3,15 @@ import {Subject} from 'rxjs/Subject';
 
 @Injectable()
 export class CanvasOptionsService {
-  nightViewSource = new Subject<boolean>();
+  private nightViewSource = new Subject<boolean>();
   nightView$ = this.nightViewSource.asObservable();
-  nightViewState = false;
+  private nightViewState = false;
 
-  fontSizeSource = new Subject<number>();
+  private fontSizeSource = new Subject<number>();
   fontSize$ = this.fontSizeSource.asObservable();
+
+  private termSource = new Subject<string>();
+  term$ = this.termSource.asObservable();
 
   constructor() {
   }
