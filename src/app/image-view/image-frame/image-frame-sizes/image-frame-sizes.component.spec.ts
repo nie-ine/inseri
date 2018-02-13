@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ImageFrameSizesComponent } from './image-frame-sizes.component';
 import {ImageFrameComponent} from '../image-frame/image-frame.component';
 import {FormsModule} from '@angular/forms';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('ImageFrameSizesComponent', () => {
   let component: ImageFrameSizesComponent;
@@ -14,7 +15,8 @@ describe('ImageFrameSizesComponent', () => {
       declarations: [
         ImageFrameSizesComponent,
         ImageFrameComponent
-      ]
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
   }));

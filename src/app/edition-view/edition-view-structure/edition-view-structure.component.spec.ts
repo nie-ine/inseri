@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditionViewStructureComponent } from './edition-view-structure.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('EditionViewStructureComponent', () => {
   let component: EditionViewStructureComponent;
@@ -8,7 +9,8 @@ describe('EditionViewStructureComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EditionViewStructureComponent ]
+      declarations: [ EditionViewStructureComponent ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
   }));
