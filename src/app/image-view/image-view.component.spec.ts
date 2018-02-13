@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ImageViewComponent } from './image-view.component';
 import { ImageFrameModule } from './image-frame/image-frame.module';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('ImageViewComponent', () => {
   let component: ImageViewComponent;
@@ -10,7 +11,8 @@ describe('ImageViewComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ ImageFrameModule ],
-      declarations: [ ImageViewComponent ]
+      declarations: [ ImageViewComponent ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
   }));

@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditionViewMetadataComponent } from './edition-view-metadata.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('EditionViewMetadataComponent', () => {
   let component: EditionViewMetadataComponent;
@@ -8,7 +9,8 @@ describe('EditionViewMetadataComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EditionViewMetadataComponent ]
+      declarations: [ EditionViewMetadataComponent ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
   }));

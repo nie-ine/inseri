@@ -8,7 +8,7 @@ import {SparqlRequestService} from '../shared/sparql-request.service';
 import {ResultToEditionMapperService} from './result-to-edition-mapper.service';
 
 
-class knoraRequestServiceStub {} 
+class knoraRequestServiceStub {}
 
 class sparqlRequestServiceStub {}
 
