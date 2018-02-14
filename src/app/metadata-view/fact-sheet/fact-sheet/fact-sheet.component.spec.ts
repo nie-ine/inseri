@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FactSheetComponent } from './fact-sheet.component';
+import { IndirectEntryComponent } from '../indirect-entry/indirect-entry.component';
 
 describe('FactSheetComponent', () => {
   let component: FactSheetComponent;
@@ -8,7 +9,7 @@ describe('FactSheetComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FactSheetComponent ]
+      declarations: [ FactSheetComponent, IndirectEntryComponent ]
     })
     .compileComponents();
   }));
