@@ -11,6 +11,7 @@ import { MainComponent } from './main/main.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { ArithmeticModule } from 'nie-ine';
+import { MetadataViewModule } from '../metadata-view/metadata-view.module';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { ArithmeticModule } from 'nie-ine';
     CommonModule,
     StaticPagesModule,
     MaterialModule,
+    MetadataViewModule,
     ArithmeticModule,
     GrapesjsModule,
     RouterModule.forRoot([
