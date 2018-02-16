@@ -29,6 +29,7 @@
     "nie-ine": "../npm-package/nie-ine-0.0.16.tgz",
     "openseadragon": "^2.3.1",
     "rxjs": "^5.5.2",
+    "svg-overlay": "github:openseadragon/svg-overlay",
     "zone.js": "^0.8.14"
   },
   "devDependencies": {
