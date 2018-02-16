@@ -12,6 +12,6 @@
 <nie-image-frame-sizes (viewerWidthChange)="viewerWidth = $event">
   <nie-image-frame [image]="picData2"
                    [width]="viewerWidth"
-                   [height]="viewerWidth * picData.ny / picData.nx">
+                   [height]="viewerWidth * picData2['knora-api:stillImageFileValueHasDimX'] / picData2['knora-api:stillImageFileValueHasDimX']">
   </nie-image-frame>
 </nie-image-frame-sizes>
