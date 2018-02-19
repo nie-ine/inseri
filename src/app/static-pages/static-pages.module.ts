@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
-import { ExampleComponent } from 'nie-ine';
-import { ArithmeticModule } from 'nie-ine';
+import { ArithmeticModule } from 'nie-ine/dist/src/modules/arithmetic.module';
+import { ExampleComponent } from 'nie-ine/dist/src/modules/exampleComponent/example.component';
 
 @NgModule({
   imports: [

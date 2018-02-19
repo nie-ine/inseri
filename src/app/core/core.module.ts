@@ -10,8 +10,8 @@ import { FooterComponent } from './footer/footer.component';
 import { MainComponent } from './main/main.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { NavigationComponent } from './navigation/navigation.component';
-import { ArithmeticModule } from 'nie-ine';
 import { MetadataViewModule } from '../metadata-view/metadata-view.module';
+import { ArithmeticModule } from 'nie-ine/dist/src/modules/arithmetic.module';
 
 
 @NgModule({
