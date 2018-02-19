@@ -5,7 +5,7 @@ import {
   ReflectiveInjector
 } from '@angular/core';
 
-import { ExampleComponent } from 'nie-ine';
+import { ExampleComponent } from 'nie-ine/dist/src/modules/exampleComponent/example.component';
 
 @Injectable()
 export class Service {
