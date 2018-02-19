@@ -11,6 +11,7 @@ import { MainComponent } from './main/main.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { ArithmeticModule } from 'nie-ine';
+import {DashboardModule} from "../dashboard/dashboard.module";
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { ArithmeticModule } from 'nie-ine';
     MaterialModule,
     ArithmeticModule,
     GrapesjsModule,
+    DashboardModule,
     RouterModule.forRoot([
       {path: '**', component: PageNotFoundComponent}
       ])
