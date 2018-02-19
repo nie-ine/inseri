@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ExampleComponent } from 'nie-ine/dist/src/modules/exampleComponent/example.component';
+import { ExampleComponent } from 'nie-ine';
 
 @Component({
   selector: 'app-about',
