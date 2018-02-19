@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { GrapesjsComponent } from './grapesjs/grapesjs.component';
 import { RouterModule } from '@angular/router';
 import { Service } from './createComponentInstances.service';
-import { ArithmeticModule } from 'nie-ine/dist/src/modules/arithmetic.module';
+import { ArithmeticModule } from 'nie-ine';
 
 @NgModule({
   imports: [

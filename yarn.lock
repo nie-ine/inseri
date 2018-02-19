@@ -3923,6 +3923,13 @@ negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
 
+nie-ine@../npm-package/nie-ine-0.0.16.tgz:
+  version "0.0.16"
+  resolved "../npm-package/nie-ine-0.0.16.tgz#4c8f782610de5d46cfdeaad430c2b73585dd991f"
+  dependencies:
+    "@angular/forms" ">= 5.0.0"
+    tslib "^1.7.1"
+
 "nie-ine@file:../npm-package/nie-ine-0.0.16.tgz":
   version "0.0.16"
   resolved "file:../npm-package/nie-ine-0.0.16.tgz#2e8a138aec2961030c0d5704f1753f843113ec03"
