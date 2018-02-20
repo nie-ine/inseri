@@ -13,6 +13,12 @@ export class CanvasOptionsService {
   private termSource = new Subject<string>();
   term$ = this.termSource.asObservable();
 
+  private numberOfMatchesSource = new Subject<number>();
+  numberOfMatches$ = this.numberOfMatchesSource.asObservable();
+
+  private shiftIndexOfFocusSource = new Subject<boolean>();
+  shiftIndexOfFocus$ = this.shiftIndexOfFocusSource.asObservable();
+
   constructor() {
   }
 
@@ -31,13 +37,16 @@ export class CanvasOptionsService {
     this.termSource.next(term);
   }
 
+  setNumberOfMatches(matches: number) {
+    this.numberOfMatchesSource.next(matches);
+  }
+
+  shiftIndexOfFocus(increase: boolean) {
+    this.shiftIndexOfFocusSource.next(increase);
+  }
+
+
   // clearFind() {
-  // }
-  //
-  // prevFind() {
-  // }
-  //
-  // nextFind(){
   // }
 
 }

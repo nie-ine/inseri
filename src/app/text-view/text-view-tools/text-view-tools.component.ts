@@ -21,6 +21,7 @@ export class TextViewToolsComponent implements OnInit {
   toolbox: FormGroup;
 
   matcher = new MyErrorStateMatcher();
+  private numberOfMatches: number;
 
   constructor(public canvasOptionsService: CanvasOptionsService, private formBuilder: FormBuilder) {
     this.toolbox = formBuilder.group({
@@ -34,12 +35,15 @@ export class TextViewToolsComponent implements OnInit {
       const t = term.length >= 3 ? term : '';
       this.canvasOptionsService.find(t);
     });
+    this.canvasOptionsService.numberOfMatches$.subscribe(matches => this.numberOfMatches = matches);
     // this.toolbox.get('clearFind').valueChanges.subscribe(x => this.canvasOptionsService.clearFind());
-    // this.toolbox.get('previousFind').valueChanges.subscribe(prev => this.canvasOptionsService.prevFind());
-    // this.toolbox.get('nextFind').valueChanges.subscribe(next => this.canvasOptionsService.nextFind());
   }
 
   ngOnInit() {
+  }
+
+  shiftIndexOfFocus(increase: boolean) {
+    this.canvasOptionsService.shiftIndexOfFocus(increase);
   }
 
 }
