@@ -24,7 +24,9 @@ export class TextViewCanvasComponent implements OnChanges, AfterViewChecked {
   private findTerm: string;
   private scroll = false;
 
-  constructor(private standoffReconcilerService: StandoffReconcilerService, private canvasOptionsService: CanvasOptionsService, private domSanitizer: DomSanitizer) {
+  constructor(private standoffReconcilerService: StandoffReconcilerService,
+              private canvasOptionsService: CanvasOptionsService,
+              private domSanitizer: DomSanitizer) {
     canvasOptionsService.nightView$.subscribe(state => this.nightView = state);
     canvasOptionsService.fontSize$.subscribe(size => this.fontSize = size);
     canvasOptionsService.term$.subscribe(term => {
