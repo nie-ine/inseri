@@ -37,6 +37,7 @@ export class TextViewCanvasComponent implements OnChanges {
       this.findTerm = term;
       this.highlight();
     });
+    this.canvasOptionsService.shiftIndexOfFocus$.subscribe(increase => increase ? this.increaseIndexOfFocus() : this.decreaseIndexOfFocus());
   }
 
   ngOnChanges() {
@@ -61,6 +62,7 @@ export class TextViewCanvasComponent implements OnChanges {
       const regex = new RegExp('(' + this.findTerm + ')', 'gi');
       const occurrences = TextViewCanvasComponent.replaceAndCountOccurrences(this.standoffHtml, regex, this.focusedMatchIndex);
       this.html = this.domSanitizer.bypassSecurityTrustHtml(occurrences[0]);
+      this.canvasOptionsService.setNumberOfMatches(occurrences[1]);
       this.numberOfMatches = occurrences[1];
     }
   }
