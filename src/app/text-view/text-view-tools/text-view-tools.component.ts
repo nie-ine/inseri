@@ -12,11 +12,11 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 }
 
 @Component({
-  selector: 'app-edition-view-tools',
-  templateUrl: './edition-view-tools.component.html',
-  styleUrls: ['./edition-view-tools.component.scss']
+  selector: 'app-text-view-tools',
+  templateUrl: './text-view-tools.component.html',
+  styleUrls: ['./text-view-tools.component.scss']
 })
-export class EditionViewToolsComponent implements OnInit {
+export class TextViewToolsComponent implements OnInit {
 
   toolbox: FormGroup;
 

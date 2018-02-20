@@ -3,7 +3,7 @@ import {JulianDate} from '../../shared/models/julian-date';
 import {Place} from '../../shared/models/place';
 import {BasicModel} from '../../shared/models/basic-model';
 
-export class Edition extends BasicModel {
+export class Text extends BasicModel {
   editors: Person[];
   title?: string;
   authors?: Person[];
