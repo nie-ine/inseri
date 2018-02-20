@@ -1,3 +1,164 @@
-<p>
-  home works!
-</p>
+<nav id="mainNav" class="navbar navbar-default  navbar-fixed-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header page-scroll">
+      <a class="navbar-brand page-scroll" href="#page-top">NIE-INE Platform</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="hidden">
+          <a href="#page-top"></a>
+        </li>
+        <li>
+          <a class="page-scroll" href="#Anforderungsanalyse">Funktionen</a>
+        </li>
+        <li>
+          <a class="page-scroll" href="dashboard">Login</a>
+        </li>
+        <li>
+          <a class="page-scroll" href="#ontologien">Sprache</a>
+        </li>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container-fluid -->
+</nav>
+
+<!-- Header -->
+<header>
+  <div class="container">
+    <div class="intro-text">
+      <div class="intro-lead-in">Arbeiten Sie hier an Ihrer Edition, sie bleibt bei uns</div>
+      <div class="intro-heading">Langfristig Verfügbar</div>
+      <a href="dashboard" class="page-scroll btn btn-xl">Login</a>
+    </div>
+  </div>
+</header>
+
+<!-- Services Section -->
+<section id="Anforderungsanalyse">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h2 class="section-heading">Funktionen</h2>
+        <h3 class="section-subheading text-muted">Arbeitsschritte auf der NIE-INE Plattform</h3>
+      </div>
+    </div>
+    <div class="row text-center">
+      <div class="col-md-4">
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-cogs fa-stack-1x fa-inverse"></i>
+                    </span>
+        <h4 class="service-heading">Arbeiten Sie an Ihrer Edition</h4>
+        <p class="text-muted">Arbeiten Sie online an Ihrer Edition, mit handgefertigten NIE-INE Workflows.
+        Benutzen Sie beispielsweise vorgefertigte Workflows für Briefeditionen und andere Templates oder
+        stellen Sie sich selbst Workflows zusammen.</p>
+      </div>
+      <div class="col-md-4">
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-asterisk fa-stack-1x fa-inverse"></i>
+                    </span>
+        <h4 class="service-heading">Arbeiten Sie an Ihrer Ontologie</h4>
+        <p class="text-muted">Eine Ontologie ist eine nachhaltige Datenstruktur.
+          Haben Sie Wünsche bezüglich Ihrer Ontologie? Mit unseren Workflows spezifizieren
+        Sie Ihre Anliegen, sodass unser Ontologie - Experte diese normcompliant umsetzen kann</p>
+      </div>
+      <div class="col-md-4">
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-laptop fa-stack-1x fa-inverse"></i>
+                    </span>
+        <h4 class="service-heading">Weboberfläche</h4>
+        <p class="text-muted">Auf unserer Platform haben Sie Zugang zu den NIE-INE Anzeigekomponenten,
+        die Sie interaktiv zu einem ersten provisorischen oder auch professionellen Webauftritt zusammenstellen und mit
+        unserer Hilfe verfeinern können.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h2 class="section-heading">Login</h2>
+        <h3 class="section-subheading text-muted">Sie haben keinen Useraccount? Zögern Sie nicht, uns zu kontaktieren!</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <form name="sentMessage" id="contactForm" novalidate>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Username" id="name" required data-validation-required-message="Please enter your name.">
+                <p class="help-block text-danger"></p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Password" id="pw" required data-validation-required-message="Please enter your name.">
+                <p class="help-block text-danger"></p>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-lg-12 text-center">
+              <div id="success"></div>
+              <button href="dashboard" type="submit" class="btn btn-xl">Login</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <span class="copyright">Copyright &copy; NIE-INE 2018</span>
+      </div>
+      <div class="col-md-4">
+        <ul class="list-inline social-buttons">
+          <li><a href="#"><i class="fa fa-twitter"></i></a>
+          </li>
+          <li><a href="#"><i class="fa fa-facebook"></i></a>
+          </li>
+          <li><a href="#"><i class="fa fa-linkedin"></i></a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <ul class="list-inline quicklinks">
+          <li><a href="#">Privacy Policy</a>
+          </li>
+          <li><a href="#">Terms of Use</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- jQuery -->
+<script src="vendor/jquery/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js" integrity="sha384-mE6eXfrb8jxl0rzJDBRanYqgBxtJ6Unn4/1F7q4xRRyIw7Vdg9jP4ycT7x1iVsgb" crossorigin="anonymous"></script>
+
+<!-- Contact Form JavaScript -->
+<script src="js/jqBootstrapValidation.js"></script>
+<script src="js/contact_me.js"></script>
+
+<!-- Theme JavaScript -->
+<script src="js/agency.min.js"></script>
