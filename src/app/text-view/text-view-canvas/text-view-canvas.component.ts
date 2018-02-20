@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnChanges, ViewChild} from '@angular/core';
+import {AfterViewChecked, Component, Input, OnChanges} from '@angular/core';
 import {StandoffReconcilerService} from '../../shared/standoff-reconciler.service';
 import {Standoff} from '../../shared/models/standoff';
 import {CanvasOptionsService} from '../canvas-options.service';
@@ -10,7 +10,7 @@ import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
   styleUrls: ['./text-view-canvas.component.scss'],
   providers: [StandoffReconcilerService]
 })
-export class TextViewCanvasComponent implements OnChanges {
+export class TextViewCanvasComponent implements OnChanges, AfterViewChecked {
 
   @Input() text: string;
   @Input() standoffs: Standoff[];
@@ -19,16 +19,9 @@ export class TextViewCanvasComponent implements OnChanges {
   html: SafeHtml;
   nightView: boolean;
   fontSize = 100;
-  private findTerm: string;
   numberOfMatches = 0;
   focusedMatchIndex = 1;
-
-  private static replaceAndCountOccurrences(text: string, regex: RegExp, selectIndex?: number): [string, number] {
-    let counter = 0;
-    return [text.replace(regex,
-      (x) => '<span id="occ' + ++counter + '" class="highlight ' + (counter === selectIndex ? 'focused' : '') + '">' + x + '</span>'
-    ), counter];
-  }
+  private findTerm: string;
 
   constructor(private standoffReconcilerService: StandoffReconcilerService, private canvasOptionsService: CanvasOptionsService, private domSanitizer: DomSanitizer) {
     canvasOptionsService.nightView$.subscribe(state => this.nightView = state);
@@ -40,8 +33,21 @@ export class TextViewCanvasComponent implements OnChanges {
     this.canvasOptionsService.shiftIndexOfFocus$.subscribe(increase => increase ? this.increaseIndexOfFocus() : this.decreaseIndexOfFocus());
   }
 
+  private static replaceAndCountOccurrences(text: string, regex: RegExp, selectIndex?: number): [string, number] {
+    let counter = 0;
+    return [text.replace(regex,
+      (x) => '<span id="occ' + ++counter + '" class="highlight ' + (counter === selectIndex ? 'focused' : '') + '">' + x + '</span>'
+    ), counter];
+  }
+
   ngOnChanges() {
     this.updateText();
+  }
+
+  ngAfterViewChecked() {
+    if (document.getElementsByClassName('focused')[0]) {
+      document.getElementsByClassName('focused')[0].scrollIntoView();
+    }
   }
 
   decreaseIndexOfFocus() {
