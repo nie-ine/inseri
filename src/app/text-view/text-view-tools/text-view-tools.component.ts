@@ -46,4 +46,8 @@ export class TextViewToolsComponent implements OnInit {
     this.canvasOptionsService.shiftIndexOfFocus(increase);
   }
 
+  clearFind() {
+    this.toolbox.get('find').setValue('');
+  }
+
 }

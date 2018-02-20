@@ -22,6 +22,7 @@ export class TextViewCanvasComponent implements OnChanges, AfterViewChecked {
   numberOfMatches = 0;
   focusedMatchIndex = 1;
   private findTerm: string;
+  private scroll = false;
 
   constructor(private standoffReconcilerService: StandoffReconcilerService, private canvasOptionsService: CanvasOptionsService, private domSanitizer: DomSanitizer) {
     canvasOptionsService.nightView$.subscribe(state => this.nightView = state);
@@ -45,8 +46,9 @@ export class TextViewCanvasComponent implements OnChanges, AfterViewChecked {
   }
 
   ngAfterViewChecked() {
-    if (document.getElementsByClassName('focused')[0]) {
+    if (document.getElementsByClassName('focused')[0] && this.scroll) {
       document.getElementsByClassName('focused')[0].scrollIntoView();
+      this.scroll = false;
     }
   }
 
@@ -70,6 +72,7 @@ export class TextViewCanvasComponent implements OnChanges, AfterViewChecked {
       this.html = this.domSanitizer.bypassSecurityTrustHtml(occurrences[0]);
       this.canvasOptionsService.setNumberOfMatches(occurrences[1]);
       this.numberOfMatches = occurrences[1];
+      this.scroll = true;
     }
   }
 
