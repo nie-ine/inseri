@@ -9,24 +9,24 @@ import {FooterComponent} from './footer/footer.component';
 import {MainComponent} from './main/main.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {NavigationComponent} from './navigation/navigation.component';
-import {EditionViewModule} from '../edition-view/edition-view.module';
+import {TextViewModule} from '../text-view/text-view.module';
 import {KnoraRequestService} from '../shared/knora-request.service';
 import {SparqlRequestService} from '../shared/sparql-request.service';
-import {ResultToEditionMapperService} from '../edition-view/result-to-edition-mapper.service';
+import {ResultToTextMapperService} from '../text-view/result-to-text-mapper.service';
 import {KnoraAuthService} from '../shared/knora-auth.service';
 
 @NgModule({
   imports: [
     CommonModule,
     StaticPagesModule,
-    EditionViewModule,
+    TextViewModule,
     MaterialModule,
     RouterModule.forRoot([
       {path: '**', component: PageNotFoundComponent}
     ])
   ],
   declarations: [HeaderComponent, FooterComponent, MainComponent, PageNotFoundComponent, NavigationComponent],
-  providers: [KnoraRequestService, SparqlRequestService, ResultToEditionMapperService, KnoraAuthService],
+  providers: [KnoraRequestService, SparqlRequestService, ResultToTextMapperService, KnoraAuthService],
   exports: [HeaderComponent, FooterComponent, MainComponent, RouterModule]
 })
 export class CoreModule {

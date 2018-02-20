@@ -1,4 +1,4 @@
-import {Edition} from './models/edition';
+import {Text} from './models/text';
 import {Person} from '../shared/models/person';
 import {Place} from '../shared/models/place';
 
@@ -16,7 +16,7 @@ const place: Place = {
   label: 'Mendrisio'
 };
 
-export const edition: Edition = {
+export const text: Text = {
   editors: [editor],
   title: 'Titolo',
   authors: [author],

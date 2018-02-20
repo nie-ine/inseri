@@ -5,12 +5,12 @@ import {CanvasOptionsService} from '../canvas-options.service';
 import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-edition-view-canvas',
-  templateUrl: './edition-view-canvas.component.html',
-  styleUrls: ['./edition-view-canvas.component.scss'],
+  selector: 'app-text-view-canvas',
+  templateUrl: './text-view-canvas.component.html',
+  styleUrls: ['./text-view-canvas.component.scss'],
   providers: [StandoffReconcilerService]
 })
-export class EditionViewCanvasComponent implements OnChanges {
+export class TextViewCanvasComponent implements OnChanges {
 
   @Input() text: string;
   @Input() standoffs: Standoff[];
@@ -59,7 +59,7 @@ export class EditionViewCanvasComponent implements OnChanges {
       this.numberOfMatches = 0;
     } else {
       const regex = new RegExp('(' + this.findTerm + ')', 'gi');
-      const occurrences = EditionViewCanvasComponent.replaceAndCountOccurrences(this.standoffHtml, regex, this.focusedMatchIndex);
+      const occurrences = TextViewCanvasComponent.replaceAndCountOccurrences(this.standoffHtml, regex, this.focusedMatchIndex);
       this.html = this.domSanitizer.bypassSecurityTrustHtml(occurrences[0]);
       this.numberOfMatches = occurrences[1];
     }

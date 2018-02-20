@@ -1,23 +1,23 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditionViewToolsComponent } from './edition-view-tools.component';
+import { TextViewToolsComponent } from './text-view-tools.component';
 import {KnoraRequestService} from '../../shared/knora-request.service';
 
-describe('EditionViewToolsComponent', () => {
-  let component: EditionViewToolsComponent;
-  let fixture: ComponentFixture<EditionViewToolsComponent>;
+describe('TextViewToolsComponent', () => {
+  let component: TextViewToolsComponent;
+  let fixture: ComponentFixture<TextViewToolsComponent>;
 
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EditionViewToolsComponent ],
+      declarations: [ TextViewToolsComponent ],
 
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EditionViewToolsComponent);
+    fixture = TestBed.createComponent(TextViewToolsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

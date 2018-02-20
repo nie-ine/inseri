@@ -4,11 +4,11 @@ import {JulianDate} from '../../shared/models/julian-date';
 import {Place} from '../../shared/models/place';
 
 @Component({
-  selector: 'app-edition-view-metadata',
-  templateUrl: './edition-view-metadata.component.html',
-  styleUrls: ['./edition-view-metadata.component.scss']
+  selector: 'app-text-view-metadata',
+  templateUrl: './text-view-metadata.component.html',
+  styleUrls: ['./text-view-metadata.component.scss']
 })
-export class EditionViewMetadataComponent implements OnInit {
+export class TextViewMetadataComponent implements OnInit {
 
   @Input() authors: Person;
   @Input() title: string;

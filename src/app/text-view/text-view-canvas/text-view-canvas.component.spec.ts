@@ -1,21 +1,21 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {EditionViewCanvasComponent} from './edition-view-canvas.component';
+import {TextViewCanvasComponent} from './text-view-canvas.component';
 import {By} from '@angular/platform-browser';
 
-describe('EditionViewCanvasComponent', () => {
-  let component: EditionViewCanvasComponent;
-  let fixture: ComponentFixture<EditionViewCanvasComponent>;
+describe('TextViewCanvasComponent', () => {
+  let component: TextViewCanvasComponent;
+  let fixture: ComponentFixture<TextViewCanvasComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [EditionViewCanvasComponent]
+      declarations: [TextViewCanvasComponent]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EditionViewCanvasComponent);
+    fixture = TestBed.createComponent(TextViewCanvasComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
