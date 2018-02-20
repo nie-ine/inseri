@@ -1,13 +1,18 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { KnoraRequestService } from './knora-request.service';
-import {KnoraAuthService} from './knora-auth.service';
+import { KnoraAuthService } from './knora-auth.service';
+
+class knoraAuthServiceStub {}
 
 describe('KnoraRequestService', () => {
   const knoraAuthServiceStub = {};
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [KnoraRequestService, {provide: KnoraAuthService, useValue: knoraAuthServiceStub}]
+		providers: [
+			KnoraRequestService,
+			{ provide: KnoraAuthService, useValue: knoraAuthServiceStub }
+		]
     });
   });
 
