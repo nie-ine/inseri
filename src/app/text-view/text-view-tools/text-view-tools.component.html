@@ -20,10 +20,10 @@
     <mat-form-field style="max-width: 200px;">
       <input formControlName="find" matInput placeholder="Find in the text" type="text">
     </mat-form-field>
-    <button mat-icon-button (click)="shiftIndexOfFocus(false)"><mat-icon>&lt;</mat-icon></button>
-    <button mat-icon-button (click)="shiftIndexOfFocus(true)"><mat-icon>&gt;</mat-icon></button>
+    <button mat-icon-button (click)="clearFind()" type="button"><mat-icon>close</mat-icon></button>
+    <button mat-icon-button (click)="shiftIndexOfFocus(false)" type="button"><mat-icon>&lt;</mat-icon></button>
+    <button mat-icon-button (click)="shiftIndexOfFocus(true)" type="button"><mat-icon>&gt;</mat-icon></button>
     <p *ngIf="numberOfMatches > 0">Number of matches: {{numberOfMatches}} </p>
-    <!--<button mat-icon-button formControlName="clearFind"><mat-icon>close</mat-icon></button>-->
   </span>
 
 </form>
