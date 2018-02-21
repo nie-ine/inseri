@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
+import { MaterialModule } from '../material.module';
 import { ArithmeticModule } from 'nie-ine';
 import { ExampleComponent } from 'nie-ine';
 
 @NgModule({
   imports: [
     CommonModule,
+    MaterialModule,
     ArithmeticModule,
     RouterModule.forChild([
       { path: 'about', component: AboutComponent },
@@ -24,4 +26,5 @@ import { ExampleComponent } from 'nie-ine';
     AboutComponent,
     HomeComponent]
 })
-export class StaticPagesModule { }
+export class StaticPagesModule {
+}
