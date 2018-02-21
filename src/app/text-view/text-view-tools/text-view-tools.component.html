@@ -1,0 +1,29 @@
+<form [formGroup]="toolbox">
+
+  <!--  <mat-button-toggle formControlName="nightView" value="nightView">Visione notturna
+    </mat-button-toggle>-->
+
+  <mat-slide-toggle formControlName="nightView">Visione notturna</mat-slide-toggle>
+
+  <span>
+    <mat-form-field style="max-width: 100px;">
+      <input formControlName="fontSize" matInput [errorStateMatcher]="matcher" placeholder="Font size" value="100" type="number" min="25" max="500">
+      <span matSuffix>%</span>
+      <mat-error *ngIf="toolbox.get('fontSize').hasError('max')">too much</mat-error>
+      <mat-error *ngIf="toolbox.get('fontSize').hasError('min')">too few</mat-error>
+    </mat-form-field>
+    <!--<button mat-icon-button formControlName=""><mat-icon>zoom_in</mat-icon></button>-->
+    <!--<button mat-icon-button formControlName=""><mat-icon>zoom_out</mat-icon></button>-->
+  </span>
+
+  <span>
+    <mat-form-field style="max-width: 200px;">
+      <input formControlName="find" matInput placeholder="Find in the text" type="text">
+    </mat-form-field>
+    <button mat-icon-button (click)="clearFind()" type="button"><mat-icon>close</mat-icon></button>
+    <button mat-icon-button (click)="shiftIndexOfFocus(false)" type="button"><mat-icon>&lt;</mat-icon></button>
+    <button mat-icon-button (click)="shiftIndexOfFocus(true)" type="button"><mat-icon>&gt;</mat-icon></button>
+    <p *ngIf="numberOfMatches > 0">Number of matches: {{numberOfMatches}} </p>
+  </span>
+
+</form>
