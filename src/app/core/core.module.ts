@@ -10,6 +10,7 @@ import { FooterComponent } from './footer/footer.component';
 import { MainComponent } from './main/main.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import { MetadataViewModule } from '../metadata-view/metadata-view.module';
 import { ArithmeticModule } from 'nie-ine';
 import {DashboardModule} from "../dashboard/dashboard.module";
 import {TextViewModule} from '../text-view/text-view.module';
@@ -24,6 +25,7 @@ import {KnoraAuthService} from '../shared/knora-auth.service';
     StaticPagesModule,
     TextViewModule,
     MaterialModule,
+    MetadataViewModule,
     ArithmeticModule,
     GrapesjsModule,
     DashboardModule,
