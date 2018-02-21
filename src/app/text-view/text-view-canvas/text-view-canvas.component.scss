@@ -1,0 +1,12 @@
+.nightView {
+  color: white;
+  background-color: black;
+}
+
+::ng-deep .highlight {
+  background-color: #ffeb67;
+}
+
+::ng-deep .focused {
+  background-color: green !important;
+}
