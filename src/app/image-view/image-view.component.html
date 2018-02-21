@@ -9,9 +9,11 @@
 
 <h2>Imported component, V2-like input</h2>
 
-<nie-image-frame-sizes (viewerWidthChange)="viewerWidth = $event">
-  <nie-image-frame [image]="picData2"
+<app-image-frame-sizes (viewerWidthChange)="viewerWidth = $event">
+  <app-image-with-overlay [image]="picData2"
+                          [regions]="regions"
                    [width]="viewerWidth"
-                   [height]="viewerWidth * picData2['knora-api:stillImageFileValueHasDimX'] / picData2['knora-api:stillImageFileValueHasDimX']">
-  </nie-image-frame>
-</nie-image-frame-sizes>
+                   [height]="viewerWidth * picData2['knora-api:stillImageFileValueHasDimY'] / picData2['knora-api:stillImageFileValueHasDimX']">
+  </app-image-with-overlay>
+</app-image-frame-sizes>
+
