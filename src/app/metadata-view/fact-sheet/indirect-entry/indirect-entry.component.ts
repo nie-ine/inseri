@@ -8,11 +8,16 @@ import { Component, Input, OnInit } from '@angular/core';
 export class IndirectEntryComponent implements OnInit {
 
   @Input() iri: string;
+  uri: string;
+  title = ' ';
 
   constructor() { }
 
   ngOnInit() {
+    this.uri = encodeURIComponent(this.iri);
 
+    // TODO: use knora service to get the title of the linked resource when the services are ready.
+    this.title = '(include requested title here)';
 
   }
 
