@@ -136,12 +136,6 @@
   dependencies:
     tslib "^1.7.1"
 
-"@angular/forms@>= 5.0.0":
-  version "5.2.5"
-  resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-5.2.5.tgz#2ad7a420c6ef6cd87a34071c5319ec83f7ed56aa"
-  dependencies:
-    tslib "^1.7.1"
-
 "@angular/http@5.2.2":
   version "5.2.2"
   resolved "https://registry.yarnpkg.com/@angular/http/-/http-5.2.2.tgz#d33c128d5737f8d701bbac3e7e23d831deec3457"
@@ -3923,18 +3917,10 @@ negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
 
-nie-ine@../npm-package/nie-ine-0.0.16.tgz:
+nie-ine@0.0.16:
   version "0.0.16"
-  resolved "../npm-package/nie-ine-0.0.16.tgz#4c8f782610de5d46cfdeaad430c2b73585dd991f"
+  resolved "https://registry.yarnpkg.com/nie-ine/-/nie-ine-0.0.16.tgz#aee854884181e0a453a005977853bfd5a7957cb6"
   dependencies:
-    "@angular/forms" ">= 5.0.0"
-    tslib "^1.7.1"
-
-"nie-ine@file:../npm-package/nie-ine-0.0.16.tgz":
-  version "0.0.16"
-  resolved "file:../npm-package/nie-ine-0.0.16.tgz#2e8a138aec2961030c0d5704f1753f843113ec03"
-  dependencies:
-    "@angular/forms" ">= 5.0.0"
     tslib "^1.7.1"
 
 no-case@^2.2.0:
