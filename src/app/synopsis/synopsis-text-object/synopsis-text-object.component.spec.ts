@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SynopsisObjectComponent } from './synopsis-object.component';
+import { SynopsisTextObjectComponent } from './synopsis-text-object.component';
 
-describe('SynopsisObjectComponent', () => {
-  let component: SynopsisObjectComponent;
-  let fixture: ComponentFixture<SynopsisObjectComponent>;
+describe('SynopsisTextObjectComponent', () => {
+  let component: SynopsisTextObjectComponent;
+  let fixture: ComponentFixture<SynopsisTextObjectComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SynopsisObjectComponent ]
+      declarations: [ SynopsisTextObjectComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SynopsisObjectComponent);
+    fixture = TestBed.createComponent(SynopsisTextObjectComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

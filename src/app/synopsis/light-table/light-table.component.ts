@@ -1,6 +1,8 @@
 import {Component, ComponentFactoryResolver, Input, OnInit, ViewChild} from '@angular/core';
-import {SynopsisObjectComponent} from '../synopsis-object/synopsis-object.component';
 import {SynopsisAnchorDirective} from '../synopsis-anchor.directive';
+import {SynopsisItem} from '../synopsis-item';
+import {SynopsisTextObjectComponent} from '../synopsis-text-object/synopsis-text-object.component';
+import {SynopsisDataObject} from '../synopsis-data-object';
 
 @Component({
   selector: 'app-light-table',
@@ -9,7 +11,6 @@ import {SynopsisAnchorDirective} from '../synopsis-anchor.directive';
 })
 export class LightTableComponent implements OnInit {
 
-  synopsisObjects: SynopsisObjectComponent[] = [];
   @ViewChild(SynopsisAnchorDirective) synopsisObjectsHost: SynopsisAnchorDirective;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver) {
@@ -20,14 +21,12 @@ export class LightTableComponent implements OnInit {
   }
 
   onDrop(data: any) {
-    const synopsisObject = new SynopsisObjectComponent();
-    this.synopsisObjects.push(synopsisObject);
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(synopsisObject.component);
+    const synopsisItem = new SynopsisItem(SynopsisTextObjectComponent, 'awefwaefawfawef awef awef wef');
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(synopsisItem.component);
     const viewContainerRef = this.synopsisObjectsHost.viewContainerRef;
-    viewContainerRef.clear();
+    // viewContainerRef.clear();
     const componentRef = viewContainerRef.createComponent(componentFactory);
-    (<SynopsisObjectComponent>componentRef.instance).data = synopsisObject.data;
-    console.log(this.synopsisObjects);
+    (<SynopsisDataObject>componentRef.instance).data = synopsisItem.data;
   }
 
 }

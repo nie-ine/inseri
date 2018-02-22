@@ -2,13 +2,13 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SynopsisComponent} from './synopsis.component';
 import {LightTableComponent} from './light-table/light-table.component';
-import {SynopsisObjectComponent} from './synopsis-object/synopsis-object.component';
 import {DraggableDirective} from './draggable.directive';
 import {DropTargetDirective} from './drop-target.directive';
 import {RouterModule} from '@angular/router';
 import {DragService} from './drag.service';
 import { SynopsisThumbnailbarComponent } from './synopsis-thumbnailbar/synopsis-thumbnailbar.component';
 import { SynopsisAnchorDirective } from './synopsis-anchor.directive';
+import { SynopsisTextObjectComponent } from './synopsis-text-object/synopsis-text-object.component';
 
 @NgModule({
   imports: [
@@ -20,13 +20,14 @@ import { SynopsisAnchorDirective } from './synopsis-anchor.directive';
   declarations: [
     SynopsisComponent,
     LightTableComponent,
-    SynopsisObjectComponent,
     DraggableDirective,
     DropTargetDirective,
     SynopsisThumbnailbarComponent,
-    SynopsisAnchorDirective
+    SynopsisAnchorDirective,
+    SynopsisTextObjectComponent
   ],
-  providers: [DragService]
+  providers: [DragService],
+  entryComponents: [SynopsisTextObjectComponent]
 })
 export class SynopsisModule {
 }
