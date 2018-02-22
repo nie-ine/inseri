@@ -6,9 +6,10 @@ import {DraggableDirective} from './draggable.directive';
 import {DropTargetDirective} from './drop-target.directive';
 import {RouterModule} from '@angular/router';
 import {DragService} from './drag.service';
-import { SynopsisThumbnailbarComponent } from './synopsis-thumbnailbar/synopsis-thumbnailbar.component';
-import { SynopsisAnchorDirective } from './synopsis-anchor.directive';
-import { SynopsisTextObjectComponent } from './synopsis-text-object/synopsis-text-object.component';
+import {SynopsisThumbnailbarComponent} from './synopsis-thumbnailbar/synopsis-thumbnailbar.component';
+import {SynopsisAnchorDirective} from './synopsis-anchor.directive';
+import {SynopsisTextObjectComponent} from './synopsis-text-object/synopsis-text-object.component';
+import {SynopsisImageObjectComponent} from './synopsis-image-object/synopsis-image-object.component';
 
 @NgModule({
   imports: [
@@ -24,10 +25,14 @@ import { SynopsisTextObjectComponent } from './synopsis-text-object/synopsis-tex
     DropTargetDirective,
     SynopsisThumbnailbarComponent,
     SynopsisAnchorDirective,
-    SynopsisTextObjectComponent
+    SynopsisTextObjectComponent,
+    SynopsisImageObjectComponent
   ],
   providers: [DragService],
-  entryComponents: [SynopsisTextObjectComponent]
+  entryComponents: [
+    SynopsisImageObjectComponent,
+    SynopsisTextObjectComponent
+  ]
 })
 export class SynopsisModule {
 }

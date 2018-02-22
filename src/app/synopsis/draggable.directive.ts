@@ -1,5 +1,6 @@
 import {Directive, HostBinding, HostListener, Input} from '@angular/core';
 import {DragService} from './drag.service';
+import {SynopsisObjectData} from './synopsis-object-data';
 
 @Directive({
   selector: '[appDraggable]'
@@ -15,24 +16,16 @@ export class DraggableDirective {
   }
 
   @Input()
-  set appDraggable(options: DraggableOptions) {
-    if (options) {
-      this.options = options;
-    }
+  set appDraggable(data: SynopsisObjectData) {
+    this.data = data;
   }
 
-  private options: DraggableOptions = {};
+  private data: SynopsisObjectData;
 
   @HostListener('dragstart', ['$event'])
   onDragStart(event) {
-    const {zone = 'zone', data = {}} = this.options;
-    this.dragService.startDrag(zone);
-    event.dataTransfer.setData('Text', JSON.stringify(data));
+    this.dragService.startDrag('zone');
+    event.dataTransfer.setData('Text', JSON.stringify(this.data));
   }
 
-}
-
-export interface DraggableOptions {
-  zone?: string;
-  data?: any;
 }

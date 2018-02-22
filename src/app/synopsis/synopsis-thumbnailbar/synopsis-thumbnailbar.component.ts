@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {SynopsisImageData, SynopsisTextData} from '../synopsis-object-data';
 
 @Component({
   selector: 'app-synopsis-thumbnailbar',
@@ -7,7 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SynopsisThumbnailbarComponent implements OnInit {
 
-  constructor() { }
+  thumbnails = [
+    new SynopsisTextData('A text', '<h1>A title...</h1><p>...with a text in <i>italic</i> and <b>bold</b>'),
+    new SynopsisImageData('A plane', '../../../assets/img/about/2.jpg')
+  ];
+
+  constructor() {
+  }
 
   ngOnInit() {
   }
