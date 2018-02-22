@@ -18,6 +18,7 @@ import {KnoraRequestService} from '../shared/knora-request.service';
 import {SparqlRequestService} from '../shared/sparql-request.service';
 import {ResultToTextMapperService} from '../text-view/result-to-text-mapper.service';
 import {KnoraAuthService} from '../shared/knora-auth.service';
+import {SynopsisModule} from '../synopsis/synopsis.module';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import {KnoraAuthService} from '../shared/knora-auth.service';
     TextViewModule,
     MaterialModule,
     MetadataViewModule,
+    SynopsisModule,
     ArithmeticModule,
     GrapesjsModule,
     DashboardModule,
