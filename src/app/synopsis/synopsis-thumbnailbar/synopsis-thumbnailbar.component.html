@@ -1,2 +1,1 @@
-<div [appDraggable]="{data: 'Draggable A'}" class="draggable">Draggable A</div>
-<div [appDraggable]="{data: 'Draggable B'}" class="draggable">Draggable B</div>
+<div *ngFor="let t of thumbnails" [appDraggable]="t" class="draggable">{{t.name}}</div>
