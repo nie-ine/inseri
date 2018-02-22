@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { GrapesjsComponent } from './grapesjs/grapesjs.component';
 import { RouterModule } from '@angular/router';
 import { Service } from './createComponentInstances.service';
-import { ArithmeticModule } from 'nie-ine';
+import {ArithmeticModule, ImageFrameComponent} from 'nie-ine';
+import { BreakComponent } from './grapesjs/grapesjs.component';
 
 @NgModule({
   imports: [
@@ -17,10 +18,15 @@ import { ArithmeticModule } from 'nie-ine';
     Service
   ],
   declarations: [
-    GrapesjsComponent
+    GrapesjsComponent,
+    BreakComponent
   ],
   exports: [
     GrapesjsComponent
+  ],
+  entryComponents: [
+    BreakComponent,
+    ImageFrameComponent
   ]
 })
 export class GrapesjsModule { }
