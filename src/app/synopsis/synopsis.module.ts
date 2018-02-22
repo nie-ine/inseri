@@ -8,6 +8,7 @@ import {DropTargetDirective} from './drop-target.directive';
 import {RouterModule} from '@angular/router';
 import {DragService} from './drag.service';
 import { SynopsisThumbnailbarComponent } from './synopsis-thumbnailbar/synopsis-thumbnailbar.component';
+import { SynopsisAnchorDirective } from './synopsis-anchor.directive';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { SynopsisThumbnailbarComponent } from './synopsis-thumbnailbar/synopsis-
     SynopsisObjectComponent,
     DraggableDirective,
     DropTargetDirective,
-    SynopsisThumbnailbarComponent
+    SynopsisThumbnailbarComponent,
+    SynopsisAnchorDirective
   ],
   providers: [DragService]
 })

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Type} from '@angular/core';
 
 @Component({
   selector: 'app-synopsis-object',
@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SynopsisObjectComponent implements OnInit {
 
-  constructor() { }
+  constructor(public component: Type<any>, public data: any) { }
 
   ngOnInit() {
   }
