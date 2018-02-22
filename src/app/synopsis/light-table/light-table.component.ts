@@ -1,4 +1,4 @@
-import {Component, ComponentFactoryResolver, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ComponentFactoryResolver, OnInit, ViewChild} from '@angular/core';
 import {SynopsisAnchorDirective} from '../synopsis-anchor.directive';
 import {SynopsisItem} from '../synopsis-item';
 import {SynopsisTextObjectComponent} from '../synopsis-text-object/synopsis-text-object.component';
@@ -21,11 +21,9 @@ export class LightTableComponent implements OnInit {
   }
 
   onDrop(data: any) {
-    const synopsisItem = new SynopsisItem(SynopsisTextObjectComponent, 'awefwaefawfawef awef awef wef');
+    const synopsisItem = new SynopsisItem(SynopsisTextObjectComponent, data);
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(synopsisItem.component);
-    const viewContainerRef = this.synopsisObjectsHost.viewContainerRef;
-    // viewContainerRef.clear();
-    const componentRef = viewContainerRef.createComponent(componentFactory);
+    const componentRef = this.synopsisObjectsHost.viewContainerRef.createComponent(componentFactory);
     (<SynopsisDataObject>componentRef.instance).data = synopsisItem.data;
   }
 
