@@ -1,6 +1,5 @@
 
-  <button md-button (click)="popup1.appear()">show popup 1</button>
-  <button md-button (click)="popup2.appear()">show popup 2</button>
+
 
 
   <popup #popup1 [title]="'Image Viewer 1'">
@@ -18,3 +17,24 @@
   </popup>
 
 
+  <mat-drawer-container  align="end" style="height:100vh">
+    <mat-drawer #drawer mode="side" align="end">
+      <div>
+        <button mat-button (click)="popup1.appear()">Image Viewer</button><br>
+
+        <button mat-button (click)="popup2.appear()">Text Editor</button><br>
+
+
+        <button mat-button (click)="popup1.appear()">Suche</button><br>
+        <button mat-button (click)="popup2.appear()">......</button><br>
+
+      </div>
+    </mat-drawer>
+
+    <div >
+      <button type="button" mat-button (click)="drawer.toggle()">
+        NIE-INE Apps
+      </button>
+    </div>
+
+  </mat-drawer-container>

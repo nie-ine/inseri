@@ -2,11 +2,13 @@ import {Component, NgModule, VERSION} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {Popup} from './popup';
 
+
 @Component({
   selector: 'my-app',
   templateUrl: `grapesjs.component.html`,
 })
 export class GrapesjsComponent {
+  showFiller = false;
   image = {
     '@id' : 'http://rdfh.ch/kuno-raeber/Uzo2YDhzTr-8CUSg1pQL4Q/values/gJVf-AQjSbSTAo8EsU8ErQ',
     '@type' : 'knora-api:StillImageFileValue',
@@ -21,6 +23,7 @@ export class GrapesjsComponent {
   }
   showPopup1: boolean;
   showPopup2: boolean;
+  variable = 'popup1';
   constructor() {
   }
   showPopup(num: number) {

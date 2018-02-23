@@ -5,13 +5,17 @@ import { RouterModule } from '@angular/router';
 import { Service } from './createComponentInstances.service';
 import {ArithmeticModule, ImageFrameComponent} from 'nie-ine';
 import { Popup } from './grapesjs/popup';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   imports: [
     CommonModule,
     ArithmeticModule,
+    MatSidenavModule,
+    MatButtonModule,
     RouterModule.forChild([
-      { path: 'grapesjs', component: GrapesjsComponent }
+      { path: 'arbeitsflaeche', component: GrapesjsComponent }
     ])
   ],
   providers: [
@@ -22,7 +26,8 @@ import { Popup } from './grapesjs/popup';
     Popup
   ],
   exports: [
-    GrapesjsComponent
+    GrapesjsComponent,
+    MatSidenavModule
   ],
   entryComponents: [
     ImageFrameComponent
