@@ -1,4 +1,5 @@
 import { Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChange } from '@angular/core';
+import { connectableObservableDescriptor } from 'rxjs/observable/ConnectableObservable';
 
 // This component needs the openseadragon library itself, as well as the openseadragon plugin openseadragon-svg-overlay
 // Both libraries are installed via package.json, and loaded globally via the script tag in .angular-cli.json
@@ -19,13 +20,14 @@ export class ImageWithOverlayComponent implements OnInit, OnChanges, OnDestroy {
   @Input() regions: any;
   @Input() width: number;
   @Input() height: number;
+  maxSide: number = 1;
 
   private viewer;
 
   constructor(private elementRef: ElementRef) {
   }
 
-  private static createSvgElement(region) {
+  private createSvgElement(region) {
 
     if (region.type === 'polygon') {
 
@@ -39,7 +41,7 @@ export class ImageWithOverlayComponent implements OnInit, OnChanges, OnDestroy {
         points += ' ';
       }
       svgElement.setAttribute('points', points);
-      svgElement.setAttribute('style', 'fill:rgb(0,0,255);stroke-width:' + 0 + 'px;stroke:' + region.lineColor);
+      svgElement.setAttribute('style', 'fill:rgb(0,0,255);stroke-width:' + region.lineWidth / this.maxSide + ';stroke:' + region.lineColor);
 
       return svgElement;
 
@@ -51,7 +53,7 @@ export class ImageWithOverlayComponent implements OnInit, OnChanges, OnDestroy {
       svgElement.setAttribute('height', (region.points[1].y - region.points[0].y).toString());
       svgElement.setAttribute('x', region.points[0].x);
       svgElement.setAttribute('y', region.points[0].y);
-      svgElement.setAttribute('style', 'fill:rgb(0,255,0);stroke-width:' + 0 + 'px;stroke:' + region.lineColor);
+      svgElement.setAttribute('style', 'fill:rgb(0,255,0);stroke-width:' + region.lineWidth / this.maxSide + ';stroke:' + region.lineColor);
 
       return svgElement;
 
@@ -64,7 +66,7 @@ export class ImageWithOverlayComponent implements OnInit, OnChanges, OnDestroy {
       svgElement.setAttribute('r',
         Math.sqrt(Math.pow(region.radius.x, 2) + Math.pow(region.radius.y, 2)).toString());
       svgElement.setAttribute('stroke', region.lineColor);
-      svgElement.setAttribute('stroke-width', region.lineWidth);
+      svgElement.setAttribute('stroke-width', (region.lineWidth / this.maxSide).toString());
       svgElement.setAttribute('fill', 'red');
 
       return svgElement;
@@ -79,6 +81,14 @@ export class ImageWithOverlayComponent implements OnInit, OnChanges, OnDestroy {
       console.log(this.image);
       this.setupViewer();
     }
+    if (changes['width'] || changes['height']) {
+      console.log('lala');
+      if (this.width > this.height) {
+        this.maxSide = this.width;
+      } else {
+        this.maxSide = this.height;
+      }
+    }
     if (changes['image']) {
       this.openImage();
 
@@ -87,7 +97,7 @@ export class ImageWithOverlayComponent implements OnInit, OnChanges, OnDestroy {
       const svgGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
 
       for (let i = 0; i < this.regions.length; i++) {
-        svgGroup.appendChild(ImageWithOverlayComponent.createSvgElement(this.regions[i]));
+        svgGroup.appendChild(this.createSvgElement(this.regions[i]));
       }
 
       overlay.node().appendChild(svgGroup);
