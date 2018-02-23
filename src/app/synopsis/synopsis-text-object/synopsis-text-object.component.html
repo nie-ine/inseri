@@ -1,2 +1,4 @@
-<h1>{{data.name}}</h1>
-<div [innerHtml]="data.htmlText"></div>
+<div class="text-object" [ngStyle]="{'top': data.top + 'px', 'left': data.left + 'px'}">
+  <h1>{{data.name}}</h1>
+  <div [innerHtml]="data.htmlText"></div>
+</div>
