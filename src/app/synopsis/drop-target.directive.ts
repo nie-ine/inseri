@@ -31,6 +31,12 @@ export class DropTargetDirective {
 
   @HostListener('drop', ['$event'])
   onDrop(event) {
+    if (event.preventDefault) {
+      event.preventDefault();
+    }
+    if (event.stopPropagation) {
+      event.stopPropagation();
+    }
     const data = JSON.parse(event.dataTransfer.getData('Text'));
     data.top = event.clientY;
     data.left = event.clientX;
