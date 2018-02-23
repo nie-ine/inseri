@@ -1,27 +1,20 @@
-<button (click)="addImageComponent()"> New Image Component </button><br>
 
-<div *ngFor="let imageComponent of imageComponentArray; let i = index">
+  <button md-button (click)="popup1.appear()">show popup 1</button>
+  <button md-button (click)="popup2.appear()">show popup 2</button>
 
-  <!--<nie-image-frame class="draggable"-->
-                   <!--[image]="image"-->
-                   <!--width="500"-->
-                   <!--height="500">-->
-  <!--</nie-image-frame>-->
-</div>
 
-<div class="popup" >
+  <popup #popup1 [title]="'Image Viewer 1'">
+    <nie-image-frame class="draggable"
+                     [image]="image"
+                     width="500"
+                     height="500">
+    </nie-image-frame>
+  </popup>
+  <popup #popup2 [title]="'Image Viewer 2'">
+    <nie-image-frame [image]="image"
+                     width="500"
+                     height="500">
+    </nie-image-frame>
+  </popup>
 
-  <div class="popup-win"
-       [ngStyle]="{'top': curY + 'px', 'left': curX + 'px','z-index': curZIndex}"
-       (mousedown)="mousedown($event)">
-    <div class="popup-title-bar popup-drag">
-      <h2>
-        {{title}}
-      </h2>
-    </div>
 
-    <div class="popup-content">
-      <ng-content></ng-content>
-    </div>
-  </div>
-</div>
