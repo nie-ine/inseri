@@ -1,4 +1,4 @@
-<div class="text-object" [ngStyle]="{'top': data.top + 'px', 'left': data.left + 'px'}">
+<div class="text-object" [ngStyle]="{'top': data.top + 'px', 'left': data.left + 'px'}" [appDraggable]="data">
   <h1>{{data.name}}</h1>
   <div [innerHtml]="data.htmlText"></div>
 </div>
