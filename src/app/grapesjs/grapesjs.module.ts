@@ -4,7 +4,7 @@ import { GrapesjsComponent } from './grapesjs/grapesjs.component';
 import { RouterModule } from '@angular/router';
 import { Service } from './createComponentInstances.service';
 import {ArithmeticModule, ImageFrameComponent} from 'nie-ine';
-import { BreakComponent } from './grapesjs/grapesjs.component';
+import { Popup } from './grapesjs/popup';
 
 @NgModule({
   imports: [
@@ -19,13 +19,12 @@ import { BreakComponent } from './grapesjs/grapesjs.component';
   ],
   declarations: [
     GrapesjsComponent,
-    BreakComponent
+    Popup
   ],
   exports: [
     GrapesjsComponent
   ],
   entryComponents: [
-    BreakComponent,
     ImageFrameComponent
   ]
 })

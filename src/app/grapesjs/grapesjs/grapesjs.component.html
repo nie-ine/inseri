@@ -1,11 +1,27 @@
-<p>
-  grapesjs works!
-</p>
-
-<nie-image-frame [image]="picdata"
-                 width="500"
-                 height="500">
-</nie-image-frame>
-
-<!--<button (click)="addExampleComponent()"> New Example Component </button><br>-->
 <button (click)="addImageComponent()"> New Image Component </button><br>
+
+<div *ngFor="let imageComponent of imageComponentArray; let i = index">
+
+  <!--<nie-image-frame class="draggable"-->
+                   <!--[image]="image"-->
+                   <!--width="500"-->
+                   <!--height="500">-->
+  <!--</nie-image-frame>-->
+</div>
+
+<div class="popup" >
+
+  <div class="popup-win"
+       [ngStyle]="{'top': curY + 'px', 'left': curX + 'px','z-index': curZIndex}"
+       (mousedown)="mousedown($event)">
+    <div class="popup-title-bar popup-drag">
+      <h2>
+        {{title}}
+      </h2>
+    </div>
+
+    <div class="popup-content">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

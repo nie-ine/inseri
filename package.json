@@ -30,6 +30,7 @@
     "jquery": "^3.3.1",
     "nie-ine": "0.0.18",
     "openseadragon": "^2.3.1",
+    "primeng": "^5.2.0",
     "rxjs": "^5.5.2",
     "zone.js": "^0.8.14"
   },
