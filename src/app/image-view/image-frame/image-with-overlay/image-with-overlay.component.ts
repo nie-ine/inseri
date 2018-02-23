@@ -82,7 +82,6 @@ export class ImageWithOverlayComponent implements OnInit, OnChanges, OnDestroy {
       this.setupViewer();
     }
     if (changes['width'] || changes['height']) {
-      console.log('lala');
       if (this.width > this.height) {
         this.maxSide = this.width;
       } else {
