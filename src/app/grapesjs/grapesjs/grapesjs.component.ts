@@ -1,42 +1,29 @@
-//our root app component
-import {Component, NgModule, VERSION} from '@angular/core'
-import {BrowserModule} from '@angular/platform-browser'
-import {Popup} from './popup'
+import {Component, NgModule, VERSION} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {Popup} from './popup';
 
 @Component({
   selector: 'my-app',
-  template: `
-    <div>
-      <h2>Hello {{name}}</h2>
-      
-<popup #popup1 [title]="'Title of Popup1'">
-    <p>html content of  Popup1</p>
-</popup>
-<popup #popup2 [title]="'Title of Popup2'">
-    <p>html content of  Popup2</p>
-</popup>
-<button md-button (click)="popup1.appear()">show popup 1</button>
-<button md-button (click)="popup2.appear()">show popup 2</button>
-
-    </div>
-  `,
+  templateUrl: `grapesjs.component.html`,
 })
 export class GrapesjsComponent {
-  name:string;
+  image = {
+    '@id' : 'http://rdfh.ch/kuno-raeber/Uzo2YDhzTr-8CUSg1pQL4Q/values/gJVf-AQjSbSTAo8EsU8ErQ',
+    '@type' : 'knora-api:StillImageFileValue',
+    'knora-api:fileValueAsUrl' :
+      'https://tools.wmflabs.org/' +
+      'zoomviewer/proxy.php?iiif=Lions_Family_Portrait_Masai_Mara.jpg/pct:65,81,35,15/full/0/default.jpg',
+    'knora-api:fileValueHasFilename' : 'proxy.php?iiif=Lions_Family_Portrait_Masai_Mara.jpg',
+    'knora-api:fileValueIsPreview' : false,
+    'knora-api:stillImageFileValueHasDimX' : 5184,
+    'knora-api:stillImageFileValueHasDimY' : 3456,
+    'knora-api:stillImageFileValueHasIIIFBaseUrl' : 'https://tools.wmflabs.org/zoomviewer'
+  }
   showPopup1: boolean;
-  showPopup11: boolean;
-  showPopup111: boolean;
-  showPopup12: boolean;
   showPopup2: boolean;
   constructor() {
-    this.name = `Angular! v${VERSION.full}`
   }
   showPopup(num: number) {
     this["showPopup" + num] = true;
-  }
-
-
-  hidePopup(num: number) {
-    this["showPopup" + num] = false;
   }
 }

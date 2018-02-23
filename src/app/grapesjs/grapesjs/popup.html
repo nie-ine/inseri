@@ -12,8 +12,13 @@
     <div class="popup-content">
       <ng-content></ng-content>
     </div>
+
+    <button (click)="disappear()">X</button>
+
   </div>
 
-  <div class="popup-overlay blur-in" [ngStyle]="{'z-index': curZIndex - 1}" (click)="disappear()">
-  </div>
+
+
+<!--  <div class="popup-overlay blur-in" [ngStyle]="{'z-index': curZIndex - 1}" (click)="disappear()">
+  </div>-->
 </div>

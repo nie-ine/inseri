@@ -1,4 +1,13 @@
-import { Component, Input, Output, EventEmitter, AfterContentInit, ContentChildren, QueryList, ElementRef, Renderer2 } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  AfterContentInit,
+  ContentChildren,
+  QueryList,
+  ElementRef,
+  Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'popup',
