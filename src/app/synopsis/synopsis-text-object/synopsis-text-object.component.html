@@ -1,4 +1,5 @@
 <div class="text-object" [ngStyle]="{'top': data.top + 'px', 'left': data.left + 'px'}" [appDraggable]="data">
+  <app-synopsis-object-toolbox [uid]="data.uid"></app-synopsis-object-toolbox>
   <h1>{{data.name}}</h1>
   <div [innerHtml]="data.htmlText"></div>
 </div>

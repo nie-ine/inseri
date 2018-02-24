@@ -10,10 +10,14 @@ import {SynopsisThumbnailbarComponent} from './synopsis-thumbnailbar/synopsis-th
 import {SynopsisAnchorDirective} from './synopsis-anchor.directive';
 import {SynopsisTextObjectComponent} from './synopsis-text-object/synopsis-text-object.component';
 import {SynopsisImageObjectComponent} from './synopsis-image-object/synopsis-image-object.component';
+import {SynopsisObjectToolboxComponent} from './synopsis-object-toolbox/synopsis-object-toolbox.component';
+import {MaterialModule} from '../material.module';
+import {SynopsisObjectModifierService} from './synopsis-object-modifier.service';
 
 @NgModule({
   imports: [
     CommonModule,
+    MaterialModule,
     RouterModule.forChild([
       {path: 'synopsis', component: SynopsisComponent}
     ])
@@ -26,9 +30,13 @@ import {SynopsisImageObjectComponent} from './synopsis-image-object/synopsis-ima
     SynopsisThumbnailbarComponent,
     SynopsisAnchorDirective,
     SynopsisTextObjectComponent,
-    SynopsisImageObjectComponent
+    SynopsisImageObjectComponent,
+    SynopsisObjectToolboxComponent
   ],
-  providers: [DragService],
+  providers: [
+    DragService,
+    SynopsisObjectModifierService
+  ],
   entryComponents: [
     SynopsisImageObjectComponent,
     SynopsisTextObjectComponent

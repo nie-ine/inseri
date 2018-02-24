@@ -5,6 +5,11 @@ import {SynopsisTextObjectComponent} from '../synopsis-text-object/synopsis-text
 import {SynopsisObject} from '../synopsis-object';
 import {SynopsisObjectData, SynopsisObjectType} from '../synopsis-object-data';
 import {SynopsisImageObjectComponent} from '../synopsis-image-object/synopsis-image-object.component';
+import {SynopsisObjectModifierService} from '../synopsis-object-modifier.service';
+
+interface ComponentRefTracker {
+  [uid: number]: ComponentRef<SynopsisObject>;
+}
 
 @Component({
   selector: 'app-light-table',
@@ -15,7 +20,12 @@ export class LightTableComponent implements OnInit {
 
   @ViewChild(SynopsisAnchorDirective) synopsisObjectsHost: SynopsisAnchorDirective;
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver) {
+  private componentRefTracker: ComponentRefTracker = [];
+
+
+  constructor(private componentFactoryResolver: ComponentFactoryResolver,
+              private synopsisObjectModifierService: SynopsisObjectModifierService) {
+    synopsisObjectModifierService.closeObject$.subscribe(uid => this.closeObject(uid));
   }
 
   ngOnInit() {
@@ -28,15 +38,25 @@ export class LightTableComponent implements OnInit {
       new SynopsisItem(SynopsisImageObjectComponent, data);
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(synopsisItem.component);
     let componentRef: ComponentRef<SynopsisObject>;
-    if (data.viewRefIndex >= 0) {
-      this.synopsisObjectsHost.viewContainerRef.remove(data.viewRefIndex);
-      componentRef = this.synopsisObjectsHost.viewContainerRef.createComponent(componentFactory, data.viewRefIndex);
+    if (data.uid) {
+      this.synopsisObjectsHost.viewContainerRef.remove(this.viewRefIndex(data.uid));
+      componentRef = this.synopsisObjectsHost.viewContainerRef.createComponent(componentFactory);
+      this.componentRefTracker[data.uid] = componentRef;
     } else {
-      const viewRefIndex = this.synopsisObjectsHost.viewContainerRef.length;
-      componentRef = this.synopsisObjectsHost.viewContainerRef.createComponent(componentFactory, viewRefIndex);
-      data.viewRefIndex = viewRefIndex;
+      data.uid = +(Math.random().toString().substr(2));
+      componentRef = this.synopsisObjectsHost.viewContainerRef.createComponent(componentFactory);
+      this.componentRefTracker[data.uid] = componentRef;
     }
-    (<SynopsisObject>componentRef.instance).data = synopsisItem.data;
+    (<SynopsisObject>componentRef.instance).data = data;
+  }
+
+  closeObject(uid: number) {
+    this.synopsisObjectsHost.viewContainerRef.remove(this.viewRefIndex(uid));
+    this.componentRefTracker[uid] = undefined;
+  }
+
+  private viewRefIndex(uid: number): number {
+    return this.synopsisObjectsHost.viewContainerRef.indexOf(this.componentRefTracker[uid].hostView);
   }
 
 }

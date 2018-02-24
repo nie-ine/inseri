@@ -1,7 +1,8 @@
 export interface SynopsisObjectData {
   readonly dataType: SynopsisObjectType;
   readonly name: string;
-  viewRefIndex: number;
+
+  uid: number;
   height: number;
   width: number;
   top: number;
@@ -18,7 +19,7 @@ export class SynopsisTextData implements SynopsisObjectData {
   readonly name: string;
   readonly htmlText: string;
 
-  viewRefIndex = -1;
+  uid: number;
   height: number;
   width: number;
   top: number;
@@ -37,7 +38,7 @@ export class SynopsisImageData implements SynopsisObjectData {
   readonly name: string;
   readonly src: string;
 
-  viewRefIndex = -1;
+  uid: number;
   height: number;
   width: number;
   top: number;
