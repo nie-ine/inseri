@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {SynopsisObjectModifierService} from '../synopsis-object-modifier.service';
 
 @Component({
@@ -6,18 +6,29 @@ import {SynopsisObjectModifierService} from '../synopsis-object-modifier.service
   templateUrl: './synopsis-object-toolbox.component.html',
   styleUrls: ['./synopsis-object-toolbox.component.scss']
 })
-export class SynopsisObjectToolboxComponent implements OnInit {
+export class SynopsisObjectToolboxComponent {
 
   @Input() uid: number;
+  @Output() rotate = new EventEmitter<number>();
+  @Output() nightView = new EventEmitter();
 
   constructor(private synopsisObjectModifierService: SynopsisObjectModifierService) {
   }
 
-  ngOnInit() {
-  }
-
   closeObject() {
     this.synopsisObjectModifierService.closeObject(this.uid);
+  }
+
+  rotateLeft() {
+    this.rotate.emit(-90);
+  }
+
+  rotateRight() {
+    this.rotate.emit(90);
+  }
+
+  toggleNightView() {
+    this.nightView.emit();
   }
 
 }

@@ -3,4 +3,11 @@
   border: 1px darkgrey solid;
   background-color:white;
   cursor:move;
+  resize: both;
+  overflow: auto;
+}
+
+.nightView {
+  background-color: black;
+  color: white;
 }

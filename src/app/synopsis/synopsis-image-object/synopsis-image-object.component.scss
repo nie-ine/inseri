@@ -1,6 +1,18 @@
 .image-object {
   position: absolute;
   border: 1px darkgrey solid;
-  background-color:white;
-  cursor:move;
+  background-color: white;
+  cursor: move;
+  resize: both;
+  overflow: auto;
+}
+
+.nightView {
+  background-color: black;
+  color: white;
+}
+
+.nightView img {
+  -webkit-filter: invert(1);
+  filter: invert(1);
 }

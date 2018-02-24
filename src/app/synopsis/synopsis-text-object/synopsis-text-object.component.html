@@ -1,5 +1,8 @@
-<div class="text-object" [ngStyle]="{'top': data.top + 'px', 'left': data.left + 'px'}" [appDraggable]="data">
-  <app-synopsis-object-toolbox [uid]="data.uid"></app-synopsis-object-toolbox>
+<div class="text-object" [ngClass]="{'nightView': nightView}"
+     [ngStyle]="{'top': data.top + 'px', 'left': data.left + 'px', 'width': data.width + 'px', 'height': data.height + 'px', 'transform': 'rotate(' + data.rotation + 'deg)'}"
+     [appDraggable]="data" (mouseup)="propagateHeightAndWidth()" #textObject>
+  <app-synopsis-object-toolbox [uid]="data.uid" (rotate)="rotate($event)"
+                               (nightView)="toggleNightView()"></app-synopsis-object-toolbox>
   <h1>{{data.name}}</h1>
   <div [innerHtml]="data.htmlText"></div>
 </div>

@@ -1,4 +1,4 @@
-import {Component, ComponentFactoryResolver, ComponentRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ComponentFactoryResolver, ComponentRef, ViewChild} from '@angular/core';
 import {SynopsisAnchorDirective} from '../synopsis-anchor.directive';
 import {SynopsisItem} from '../synopsis-item';
 import {SynopsisTextObjectComponent} from '../synopsis-text-object/synopsis-text-object.component';
@@ -16,7 +16,7 @@ interface ComponentRefTracker {
   templateUrl: './light-table.component.html',
   styleUrls: ['./light-table.component.scss']
 })
-export class LightTableComponent implements OnInit {
+export class LightTableComponent {
 
   @ViewChild(SynopsisAnchorDirective) synopsisObjectsHost: SynopsisAnchorDirective;
 
@@ -26,10 +26,7 @@ export class LightTableComponent implements OnInit {
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
               private synopsisObjectModifierService: SynopsisObjectModifierService) {
     synopsisObjectModifierService.closeObject$.subscribe(uid => this.closeObject(uid));
-  }
-
-  ngOnInit() {
-
+    synopsisObjectModifierService.modifyObject$.subscribe(change => this.modifyObject(change.uid, change.property, change.value));
   }
 
   onDrop(data: SynopsisObjectData) {
@@ -50,13 +47,17 @@ export class LightTableComponent implements OnInit {
     (<SynopsisObject>componentRef.instance).data = data;
   }
 
-  closeObject(uid: number) {
+  private closeObject(uid: number) {
     this.synopsisObjectsHost.viewContainerRef.remove(this.viewRefIndex(uid));
     this.componentRefTracker[uid] = undefined;
   }
 
   private viewRefIndex(uid: number): number {
     return this.synopsisObjectsHost.viewContainerRef.indexOf(this.componentRefTracker[uid].hostView);
+  }
+
+  private modifyObject(uid: number, property: string, value: number) {
+    this.componentRefTracker[uid].instance.data[property] = value;
   }
 
 }
