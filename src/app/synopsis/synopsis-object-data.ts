@@ -3,10 +3,11 @@ export interface SynopsisObjectData {
   readonly name: string;
 
   uid: number;
-  height: number;
-  width: number;
   top: number;
   left: number;
+  height: number;
+  width: number;
+  rotation: number;
 }
 
 export enum SynopsisObjectType {
@@ -20,10 +21,11 @@ export class SynopsisTextData implements SynopsisObjectData {
   readonly htmlText: string;
 
   uid: number;
-  height: number;
-  width: number;
   top: number;
   left: number;
+  height = 400;
+  width = 300;
+  rotation = 0;
 
   constructor(name: string, htmlText: string) {
     this.dataType = SynopsisObjectType.Text;
@@ -39,10 +41,11 @@ export class SynopsisImageData implements SynopsisObjectData {
   readonly src: string;
 
   uid: number;
-  height: number;
-  width: number;
   top: number;
   left: number;
+  height: number;
+  width: number;
+  rotation = 0;
 
   constructor(name: string, src: string) {
     this.dataType = SynopsisObjectType.Image;

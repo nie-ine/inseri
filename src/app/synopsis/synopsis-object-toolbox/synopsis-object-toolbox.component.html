@@ -1,10 +1,10 @@
-<button mat-icon-button>
+<button mat-icon-button (click)="rotateLeft()">
   <mat-icon>rotate_left</mat-icon>
 </button>
-<button mat-icon-button>
+<button mat-icon-button (click)="rotateRight()">
   <mat-icon>rotate_right</mat-icon>
 </button>
-<button mat-icon-button>
+<button mat-icon-button (click)="toggleNightView()">
   <mat-icon>invert_colors</mat-icon>
 </button>
 <button mat-icon-button (click)="closeObject()">
