@@ -26,25 +26,23 @@ export class LightTableComponent {
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
               private synopsisObjectModifierService: SynopsisObjectModifierService) {
     synopsisObjectModifierService.closeObject$.subscribe(uid => this.closeObject(uid));
-    synopsisObjectModifierService.modifyObject$.subscribe(change => this.modifyObject(change.uid, change.property, change.value));
   }
 
   onDrop(data: SynopsisObjectData) {
+    const componentRef = data.uid ? this.componentRefTracker[data.uid] : this.createNewComponentRef(data);
+    if (!data.uid) {
+      data.uid = +(Math.random().toString().substr(2));
+      this.componentRefTracker[data.uid] = componentRef;
+    }
+    (<SynopsisObject>componentRef.instance).data = data;
+  }
+
+  private createNewComponentRef(data: SynopsisObjectData) {
     const synopsisItem = (data.dataType === SynopsisObjectType.Text) ?
       new SynopsisItem(SynopsisTextObjectComponent, data) :
       new SynopsisItem(SynopsisImageObjectComponent, data);
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(synopsisItem.component);
-    let componentRef: ComponentRef<SynopsisObject>;
-    if (data.uid) {
-      this.synopsisObjectsHost.viewContainerRef.remove(this.viewRefIndex(data.uid));
-      componentRef = this.synopsisObjectsHost.viewContainerRef.createComponent(componentFactory);
-      this.componentRefTracker[data.uid] = componentRef;
-    } else {
-      data.uid = +(Math.random().toString().substr(2));
-      componentRef = this.synopsisObjectsHost.viewContainerRef.createComponent(componentFactory);
-      this.componentRefTracker[data.uid] = componentRef;
-    }
-    (<SynopsisObject>componentRef.instance).data = data;
+    return this.synopsisObjectsHost.viewContainerRef.createComponent(componentFactory);
   }
 
   private closeObject(uid: number) {
@@ -54,10 +52,6 @@ export class LightTableComponent {
 
   private viewRefIndex(uid: number): number {
     return this.synopsisObjectsHost.viewContainerRef.indexOf(this.componentRefTracker[uid].hostView);
-  }
-
-  private modifyObject(uid: number, property: string, value: number) {
-    this.componentRefTracker[uid].instance.data[property] = value;
   }
 
 }
