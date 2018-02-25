@@ -7,6 +7,8 @@ export interface SynopsisObjectData {
   left: number;
   height: number;
   width: number;
+  mouseOffsetX: number;
+  mouseOffsetY: number;
   rotation: number;
 }
 
@@ -25,6 +27,8 @@ export class SynopsisTextData implements SynopsisObjectData {
   left: number;
   height = 400;
   width = 300;
+  mouseOffsetX = 0;
+  mouseOffsetY = 0;
   rotation = 0;
 
   constructor(name: string, htmlText: string) {
@@ -45,6 +49,8 @@ export class SynopsisImageData implements SynopsisObjectData {
   left: number;
   height: number;
   width: number;
+  mouseOffsetX = 0;
+  mouseOffsetY = 0;
   rotation = 0;
 
   constructor(name: string, src: string) {

@@ -16,7 +16,7 @@ export class DropTargetDirective {
     }
   }
 
-  @Output('appDrop') drop = new EventEmitter();
+  @Output() appDrop = new EventEmitter();
 
   private options: DropTargetOptions = {};
 
@@ -38,9 +38,9 @@ export class DropTargetDirective {
       event.stopPropagation();
     }
     const data = JSON.parse(event.dataTransfer.getData('Text'));
-    data.top = event.clientY;
-    data.left = event.clientX;
-    this.drop.next(data);
+    data.top = event.clientY - data.mouseOffsetY;
+    data.left = event.clientX - data.mouseOffsetX;
+    this.appDrop.next(data);
   }
 
 }
