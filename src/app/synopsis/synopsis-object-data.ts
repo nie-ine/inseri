@@ -5,11 +5,8 @@ export interface SynopsisObjectData {
   uid: number;
   top: number;
   left: number;
-  height: number;
-  width: number;
   mouseOffsetX: number;
   mouseOffsetY: number;
-  rotation: number;
 }
 
 export enum SynopsisObjectType {
@@ -25,11 +22,8 @@ export class SynopsisTextData implements SynopsisObjectData {
   uid: number;
   top: number;
   left: number;
-  height = 400;
-  width = 300;
   mouseOffsetX = 0;
   mouseOffsetY = 0;
-  rotation = 0;
 
   constructor(name: string, htmlText: string) {
     this.dataType = SynopsisObjectType.Text;
@@ -47,11 +41,8 @@ export class SynopsisImageData implements SynopsisObjectData {
   uid: number;
   top: number;
   left: number;
-  height: number;
-  width: number;
   mouseOffsetX = 0;
   mouseOffsetY = 0;
-  rotation = 0;
 
   constructor(name: string, src: string) {
     this.dataType = SynopsisObjectType.Image;

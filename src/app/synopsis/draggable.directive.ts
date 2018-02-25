@@ -1,4 +1,4 @@
-import {Directive, ElementRef, HostBinding, HostListener, Input} from '@angular/core';
+import {Directive, ElementRef, HostBinding, HostListener, Input, Renderer2} from '@angular/core';
 import {DragService} from './drag.service';
 import {SynopsisObjectData} from './synopsis-object-data';
 
@@ -7,7 +7,7 @@ import {SynopsisObjectData} from './synopsis-object-data';
 })
 export class DraggableDirective {
 
-  constructor(private dragService: DragService, private el: ElementRef) {
+  constructor(private dragService: DragService, private el: ElementRef, private renderer: Renderer2) {
   }
 
   @HostBinding('draggable')
@@ -24,8 +24,8 @@ export class DraggableDirective {
 
   @HostListener('dragstart', ['$event'])
   onDragStart(event) {
-    this.el.nativeElement.style.opacity = 0.5;
-    setTimeout(() => this.el.nativeElement.style.visibility = 'hidden', 1);
+    this.renderer.setStyle(this.el.nativeElement, 'opacity', 0.5);
+    setTimeout(() => this.renderer.setStyle(this.el.nativeElement, 'visibility', 'hidden'), 1);
     this.dragService.startDrag('zone');
     this.data.mouseOffsetX = event.clientX - this.data.left;
     this.data.mouseOffsetY = event.clientY - this.data.top;
