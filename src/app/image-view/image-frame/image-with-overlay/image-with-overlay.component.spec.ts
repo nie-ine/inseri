@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ImageWithOverlayComponent } from './image-with-overlay.component';
+import { RegionToSvgService } from '../../region-to-svg.service';
+import { By } from '@angular/platform-browser';
+
+declare let OpenSeadragon: any;
 
 describe('ImageWithOverlayComponent', () => {
   let component: ImageWithOverlayComponent;
@@ -8,7 +12,8 @@ describe('ImageWithOverlayComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ImageWithOverlayComponent ]
+      declarations: [ ImageWithOverlayComponent ],
+      providers: [ RegionToSvgService ]
     })
     .compileComponents();
   }));

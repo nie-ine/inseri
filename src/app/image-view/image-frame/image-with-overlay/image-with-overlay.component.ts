@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChange } from '@angular/core';
-import { connectableObservableDescriptor } from 'rxjs/observable/ConnectableObservable';
 import { RegionToSvgService } from '../../region-to-svg.service';
+
 
 // This component needs the openseadragon library itself, as well as the openseadragon plugin openseadragon-svg-overlay
 // Both libraries are installed via package.json, and loaded globally via the script tag in .angular-cli.json
@@ -30,7 +30,6 @@ export class ImageWithOverlayComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnChanges(changes: { [key: string]: SimpleChange }) {
     if (changes['image'] && changes['image'].isFirstChange()) {
-      console.log(this.image);
       this.setupViewer();
     }
     if (changes['width'] || changes['height']) {
@@ -42,17 +41,7 @@ export class ImageWithOverlayComponent implements OnInit, OnChanges, OnDestroy {
     }
     if (changes['image']) {
       this.openImage();
-
-      const overlay = this.viewer.svgOverlay();
-
-      const svgGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-
-      for (let i = 0; i < this.regions.length; i++) {
-        svgGroup.appendChild(RegionToSvgService.createSvgElement(this.regions[i], this.maxSide));
-      }
-
-      overlay.node().appendChild(svgGroup);
-
+      this.drawRegions();
     }
   }
 
@@ -65,6 +54,28 @@ export class ImageWithOverlayComponent implements OnInit, OnChanges, OnDestroy {
       this.viewer.destroy();
       this.viewer = undefined;
     }
+  }
+
+  drawRegions() {
+    const overlay = this.viewer.svgOverlay();
+
+    const svgGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+
+    for (let i = 0; i < this.regions.length; i++) {
+      const element = RegionToSvgService.createSvgElement(this.regions[i], this.maxSide);
+
+      const id = element.id;
+
+      element.addEventListener('mouseover', function () {
+        console.log(id);
+        //const dialog: MatDialog = new MatDialog();
+        //dialog.open(ImageFrameComponent);
+      });
+
+      svgGroup.appendChild(element);
+    }
+
+    overlay.node().appendChild(svgGroup);
   }
 
   private setupViewer(): void {
