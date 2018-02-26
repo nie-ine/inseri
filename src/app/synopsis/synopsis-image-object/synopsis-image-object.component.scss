@@ -8,12 +8,12 @@
   overflow: auto;
 }
 
-.nightView {
+.night-view {
   background-color: black;
   color: white;
 }
 
-.nightView img {
+.night-view img {
   -webkit-filter: invert(1);
   filter: invert(1);
 }

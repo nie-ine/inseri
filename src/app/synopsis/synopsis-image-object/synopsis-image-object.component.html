@@ -1,9 +1,7 @@
 <div class="image-object"
-     [ngClass]="{'nightView': nightView}"
-     [ngStyle]="{'top': data.top + 'px', 'left': data.left + 'px', 'transform': 'rotate(' + rotation + 'deg)'}"
-     [appDraggable]="data" [appSelectable]="data.uid" #imageObject>
-  <app-synopsis-object-toolbox [uid]="data.uid" (rotate)="rotate($event)"
-                               (nightView)="toggleNightView()"></app-synopsis-object-toolbox>
+     [ngStyle]="{'top': data.top + 'px', 'left': data.left + 'px'}"
+     [appDraggable]="data" [appModifiable]="data.uid" [appSelectable]="data.uid">
+  <app-synopsis-object-toolbox [uid]="data.uid"></app-synopsis-object-toolbox>
   <h1>{{data.name}}</h1>
   <img [src]="data.src" draggable="false">
 </div>

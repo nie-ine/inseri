@@ -15,6 +15,7 @@ import {MaterialModule} from '../material.module';
 import {SynopsisObjectModifierService} from './synopsis-object-modifier.service';
 import { SelectableDirective } from './selectable.directive';
 import {SynopsisObjectSelectorService} from './synopsis-object-selector.service';
+import { ModifiableDirective } from './modifiable.directive';
 
 @NgModule({
   imports: [
@@ -34,7 +35,8 @@ import {SynopsisObjectSelectorService} from './synopsis-object-selector.service'
     SynopsisTextObjectComponent,
     SynopsisImageObjectComponent,
     SynopsisObjectToolboxComponent,
-    SelectableDirective
+    SelectableDirective,
+    ModifiableDirective
   ],
   providers: [
     DragService,
