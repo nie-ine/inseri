@@ -19,7 +19,7 @@ export class RegionToSvgService {
         points += ' ';
       }
       svgElement.setAttribute('points', points);
-      svgElement.setAttribute('style', 'fill:rgb(0,0,255);stroke-width:' + region.lineWidth / maxSide + ';stroke:' + region.lineColor);
+      svgElement.setAttribute('style', 'fill:' + region.lineColor + ';fill-opacity:0.2;stroke-width:' + region.lineWidth / maxSide + ';stroke:' + region.lineColor);
 
       return svgElement;
 
@@ -31,7 +31,7 @@ export class RegionToSvgService {
       svgElement.setAttribute('height', (region.points[1].y - region.points[0].y).toString());
       svgElement.setAttribute('x', region.points[0].x);
       svgElement.setAttribute('y', region.points[0].y);
-      svgElement.setAttribute('style', 'fill:rgb(0,255,0);stroke-width:' + region.lineWidth / maxSide + ';stroke:' + region.lineColor);
+      svgElement.setAttribute('style', 'fill:' + region.lineColor + ';fill-opacity:0.2;stroke-width:' + region.lineWidth / maxSide + ';stroke:' + region.lineColor);
 
       return svgElement;
 
@@ -45,7 +45,9 @@ export class RegionToSvgService {
         Math.sqrt(Math.pow(region.radius.x, 2) + Math.pow(region.radius.y, 2)).toString());
       svgElement.setAttribute('stroke', region.lineColor);
       svgElement.setAttribute('stroke-width', (region.lineWidth / maxSide).toString());
-      svgElement.setAttribute('fill', 'red');
+      svgElement.setAttribute('fill', region.lineColor);
+      svgElement.setAttribute('style', 'fill-opacity:0.2;');
+
 
       return svgElement;
 
