@@ -20,15 +20,18 @@ export class SynopsisObjectToolboxComponent {
   }
 
   rotateLeft() {
-    this.rotate.emit(-90);
+    // this.rotate.emit(-90);
+    this.synopsisObjectModifierService.rotateObject(this.uid, -90);
   }
 
   rotateRight() {
-    this.rotate.emit(90);
+    // this.rotate.emit(90);
+    this.synopsisObjectModifierService.rotateObject(this.uid, 90);
   }
 
-  toggleNightView() {
-    this.nightView.emit();
+  invertColors() {
+    // this.nightView.emit();
+    this.synopsisObjectModifierService.invertColors(this.uid);
   }
 
 }
