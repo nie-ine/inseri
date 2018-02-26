@@ -13,6 +13,8 @@ import {SynopsisImageObjectComponent} from './synopsis-image-object/synopsis-ima
 import {SynopsisObjectToolboxComponent} from './synopsis-object-toolbox/synopsis-object-toolbox.component';
 import {MaterialModule} from '../material.module';
 import {SynopsisObjectModifierService} from './synopsis-object-modifier.service';
+import { SelectableDirective } from './selectable.directive';
+import {SynopsisObjectSelectorService} from './synopsis-object-selector.service';
 
 @NgModule({
   imports: [
@@ -31,11 +33,13 @@ import {SynopsisObjectModifierService} from './synopsis-object-modifier.service'
     SynopsisAnchorDirective,
     SynopsisTextObjectComponent,
     SynopsisImageObjectComponent,
-    SynopsisObjectToolboxComponent
+    SynopsisObjectToolboxComponent,
+    SelectableDirective
   ],
   providers: [
     DragService,
-    SynopsisObjectModifierService
+    SynopsisObjectModifierService,
+    SynopsisObjectSelectorService
   ],
   entryComponents: [
     SynopsisImageObjectComponent,

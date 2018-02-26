@@ -1,8 +1,9 @@
 .text-object {
   position: absolute;
   border: 1px darkgrey solid;
-  background-color:white;
-  cursor:move;
+  background-color: white;
+  padding: 3px;
+  cursor: move;
   resize: both;
   overflow: auto;
 }
