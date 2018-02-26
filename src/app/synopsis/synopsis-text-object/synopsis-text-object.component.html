@@ -1,6 +1,6 @@
 <div class="text-object" [ngClass]="{'nightView': nightView}"
      [ngStyle]="{'top': data.top + 'px', 'left': data.left + 'px', 'transform': 'rotate(' + rotation + 'deg)'}"
-     [appDraggable]="data" #textObject>
+     [appDraggable]="data" [appSelectable]="data.uid" #textObject>
   <app-synopsis-object-toolbox [uid]="data.uid" (rotate)="rotate($event)"
                                (nightView)="toggleNightView()"></app-synopsis-object-toolbox>
   <h1>{{data.name}}</h1>
