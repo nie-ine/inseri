@@ -1,4 +1,4 @@
-import {Directive, ElementRef, Input, Renderer2} from '@angular/core';
+import {Directive, ElementRef, HostListener, Input, Renderer2} from '@angular/core';
 import {SynopsisObjectModifierService} from './synopsis-object-modifier.service';
 
 @Directive({
@@ -9,6 +9,7 @@ export class ModifiableDirective {
   @Input() appModifiable: number;
   nightView = false;
   rotation = 0;
+  bottomRightCornerArea: [number, number];
 
   constructor(private synopsisObjectModifierService: SynopsisObjectModifierService,
               private el: ElementRef,
@@ -36,6 +37,25 @@ export class ModifiableDirective {
       this.renderer.addClass(this.el.nativeElement, 'night-view');
     } else {
       this.renderer.removeClass(this.el.nativeElement, 'night-view');
+    }
+  }
+
+  @HostListener('mouseenter')
+  @HostListener('mouseup')
+  onPossibleResize() {
+    this.bottomRightCornerArea = [
+      this.el.nativeElement.getBoundingClientRect().right - 16,
+      this.el.nativeElement.getBoundingClientRect().bottom - 16
+    ];
+  }
+
+  @HostListener('mousemove', ['$event'])
+  onMouseMove(event) {
+    if (event.clientX > this.bottomRightCornerArea[0] && event.clientY > this.bottomRightCornerArea[1]) {
+      this.renderer.setStyle(this.el.nativeElement, 'cursor', 'nw-resize');
+    } else {
+      this.renderer.setStyle(this.el.nativeElement, 'cursor', 'move');
+
     }
   }
 
