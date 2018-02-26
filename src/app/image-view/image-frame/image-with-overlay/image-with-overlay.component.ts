@@ -1,5 +1,6 @@
 import { Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChange } from '@angular/core';
 import { connectableObservableDescriptor } from 'rxjs/observable/ConnectableObservable';
+import { RegionToSvgService } from '../../region-to-svg.service';
 
 // This component needs the openseadragon library itself, as well as the openseadragon plugin openseadragon-svg-overlay
 // Both libraries are installed via package.json, and loaded globally via the script tag in .angular-cli.json
@@ -24,56 +25,7 @@ export class ImageWithOverlayComponent implements OnInit, OnChanges, OnDestroy {
 
   private viewer;
 
-  constructor(private elementRef: ElementRef) {
-  }
-
-  private createSvgElement(region) {
-
-    if (region.type === 'polygon') {
-
-      const svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-      svgElement.id = 'roi-svgoverlay-' + Math.random() * 10000;
-      let points = '';
-      for (let j = 0; j < region.points.length; j++) {
-        points += region.points[j].x;
-        points += ',';
-        points += region.points[j].y;
-        points += ' ';
-      }
-      svgElement.setAttribute('points', points);
-      svgElement.setAttribute('style', 'fill:rgb(0,0,255);stroke-width:' + region.lineWidth / this.maxSide + ';stroke:' + region.lineColor);
-
-      return svgElement;
-
-    } else if (region.type === 'rectangle') {
-
-      const svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-      svgElement.id = 'roi-svgoverlay-' + Math.random() * 10000;
-      svgElement.setAttribute('width', (region.points[1].x - region.points[0].x).toString());
-      svgElement.setAttribute('height', (region.points[1].y - region.points[0].y).toString());
-      svgElement.setAttribute('x', region.points[0].x);
-      svgElement.setAttribute('y', region.points[0].y);
-      svgElement.setAttribute('style', 'fill:rgb(0,255,0);stroke-width:' + region.lineWidth / this.maxSide + ';stroke:' + region.lineColor);
-
-      return svgElement;
-
-    } else if (region.type === 'circle') {
-
-      const svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      svgElement.id = 'roi-svgoverlay-' + Math.random() * 10000;
-      svgElement.setAttribute('cx', region.points[0].x);
-      svgElement.setAttribute('cy', region.points[0].y);
-      svgElement.setAttribute('r',
-        Math.sqrt(Math.pow(region.radius.x, 2) + Math.pow(region.radius.y, 2)).toString());
-      svgElement.setAttribute('stroke', region.lineColor);
-      svgElement.setAttribute('stroke-width', (region.lineWidth / this.maxSide).toString());
-      svgElement.setAttribute('fill', 'red');
-
-      return svgElement;
-
-    } else {
-      return document.createElementNS('http://www.w3.org/2000/svg', 'title');
-    }
+  constructor(private elementRef: ElementRef, private regionToSvgService: RegionToSvgService) {
   }
 
   ngOnChanges(changes: { [key: string]: SimpleChange }) {
@@ -96,7 +48,7 @@ export class ImageWithOverlayComponent implements OnInit, OnChanges, OnDestroy {
       const svgGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
 
       for (let i = 0; i < this.regions.length; i++) {
-        svgGroup.appendChild(this.createSvgElement(this.regions[i]));
+        svgGroup.appendChild(RegionToSvgService.createSvgElement(this.regions[i], this.maxSide));
       }
 
       overlay.node().appendChild(svgGroup);

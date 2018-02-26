@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule} from '@angular/router';
 import { ImageFrameModule } from './image-frame/image-frame.module';
 import { ImageViewComponent } from './image-view.component';
+import { RegionToSvgService } from './region-to-svg.service';
 // import { ArithmeticModule } from 'nie-ine';
 
 @NgModule({
@@ -15,6 +16,7 @@ import { ImageViewComponent } from './image-view.component';
     ])
   ],
   declarations: [ ImageViewComponent ],
-  exports: [ ImageViewComponent ]
+  exports: [ ImageViewComponent ],
+  providers: [ RegionToSvgService ]
 })
 export class ImageViewModule { }
