@@ -7,6 +7,8 @@ import {ArithmeticModule, ImageFrameComponent} from 'nie-ine';
 import { Popup } from './grapesjs/popup';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatButtonModule} from '@angular/material/button';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   imports: [
@@ -14,6 +16,8 @@ import {MatButtonModule} from '@angular/material/button';
     ArithmeticModule,
     MatSidenavModule,
     MatButtonModule,
+    MatMenuModule,
+    MatIconModule,
     RouterModule.forChild([
       { path: 'arbeitsflaeche', component: GrapesjsComponent }
     ])
