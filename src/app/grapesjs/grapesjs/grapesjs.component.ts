@@ -3,6 +3,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {Popup} from './popup';
 
 
+
 @Component({
   selector: 'my-app',
   templateUrl: `grapesjs.component.html`,
@@ -23,10 +24,27 @@ export class GrapesjsComponent {
   }
   showPopup1: boolean;
   showPopup2: boolean;
-  variable = 'popup1';
+  imageViewerModel = [];
+  numberOfImageViewers = 0;
+  length: number;
   constructor() {
   }
   showPopup(num: number) {
     this["showPopup" + num] = true;
   }
+
+  logReference(reference: any){
+    console.log(reference);
+  }
+
+  addAnotherImageViewer() {
+    this.length = this.imageViewerModel.length;
+    this.imageViewerModel[this.length] = this.numberOfImageViewers + 1;
+    this.numberOfImageViewers += 1;
+  }
+
+  closeImageViewer(i: number) {
+    this.imageViewerModel.splice( i,1 );
+  }
+
 }

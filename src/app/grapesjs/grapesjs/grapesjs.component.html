@@ -1,33 +1,9 @@
 
 
-
-
-  <popup #popup1 [title]="'Image Viewer 1'">
-    <nie-image-frame class="draggable"
-                     [image]="image"
-                     width="500"
-                     height="500">
-    </nie-image-frame>
-  </popup>
-  <popup #popup2 [title]="'Image Viewer 2'">
-    <nie-image-frame [image]="image"
-                     width="500"
-                     height="500">
-    </nie-image-frame>
-  </popup>
-
-
   <mat-drawer-container  align="end" style="height:100vh">
     <mat-drawer #drawer mode="side" align="end">
       <div>
-        <button mat-button (click)="popup1.appear()">Image Viewer</button><br>
-
-        <button mat-button (click)="popup2.appear()">Text Editor</button><br>
-
-
-        <button mat-button (click)="popup1.appear()">Suche</button><br>
-        <button mat-button (click)="popup2.appear()">......</button><br>
-
+        <button mat-button (click)="addAnotherImageViewer()">Add image Viewer</button><br>
       </div>
     </mat-drawer>
 
@@ -35,6 +11,22 @@
       <button type="button" mat-button (click)="drawer.toggle()">
         NIE-INE Apps
       </button>
+    </div>
+
+    <div *ngFor="let imageViewer of imageViewerModel; let i = index;" >
+      <popup #imageViewer [title]="'Image Viewer ' + imageViewerModel[i]" >
+        <nie-image-frame class="draggable"
+                         [image]="image"
+                         width="500"
+                         height="500">
+        </nie-image-frame>
+      </popup>
+      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>settings</mat-icon></button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="closeImageViewer(i)">Close this app</button>
+        <button mat-menu-item>Choose Image</button>
+      </mat-menu>
+      <button mat-button (click)="imageViewer.appear()" >Image Viewer {{ imageViewerModel[i] }}</button><br>
     </div>
 
   </mat-drawer-container>
