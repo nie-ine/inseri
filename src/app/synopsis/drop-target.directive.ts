@@ -1,12 +1,14 @@
-import {Directive, EventEmitter, HostListener, Input, Output} from '@angular/core';
+import {AfterViewInit, Directive, ElementRef, EventEmitter, HostListener, Input, Output} from '@angular/core';
 import {DragService} from './drag.service';
 
 @Directive({
   selector: '[appDropTarget]'
 })
-export class DropTargetDirective {
+export class DropTargetDirective implements AfterViewInit {
 
-  constructor(private dragService: DragService) {
+  private coordinates: any | ClientRect;
+
+  constructor(private dragService: DragService, private el: ElementRef) {
   }
 
   @Input()
@@ -19,6 +21,10 @@ export class DropTargetDirective {
   @Output() appDrop = new EventEmitter();
 
   private options: DropTargetOptions = {};
+
+  ngAfterViewInit(): void {
+    this.coordinates = this.el.nativeElement.getBoundingClientRect();
+  }
 
   @HostListener('dragenter', ['$event']) // For IE compatibility
   @HostListener('dragover', ['$event'])
@@ -38,8 +44,21 @@ export class DropTargetDirective {
       event.stopPropagation();
     }
     const data = JSON.parse(event.dataTransfer.getData('Text'));
-    data.top = event.clientY - data.mouseOffsetY;
-    data.left = event.clientX - data.mouseOffsetX;
+    const draggedObjDim = this.dragService.objectDimensions;
+    if (event.clientY - draggedObjDim.mouseOffsetY < this.coordinates.top) {
+      data.top = this.coordinates.top;
+    } else if (event.clientY - draggedObjDim.mouseOffsetY + draggedObjDim.height > this.coordinates.bottom) {
+      data.top = this.coordinates.bottom - draggedObjDim.height;
+    } else {
+      data.top = event.clientY - draggedObjDim.mouseOffsetY;
+    }
+    if (event.clientX - draggedObjDim.mouseOffsetX < this.coordinates.left) {
+      data.left = this.coordinates.left;
+    } else if (event.clientX - draggedObjDim.mouseOffsetX + draggedObjDim.width > this.coordinates.right) {
+      data.left = this.coordinates.right - draggedObjDim.width - 10;
+    } else {
+      data.left = event.clientX - draggedObjDim.mouseOffsetX;
+    }
     this.appDrop.next(data);
   }
 
