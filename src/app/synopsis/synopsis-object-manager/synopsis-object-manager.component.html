@@ -1,0 +1,14 @@
+<h2>Add new synopsis object</h2>
+<form class="add-object-form">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Synopsis Object" aria-label="Synopsis Object" [matAutocomplete]="auto" [formControl]="objectCtrl">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let obj of filteredObjects | async; let i = index;" [value]="i">
+        <img style="vertical-align:middle;" aria-hidden src="{{obj.src}}" height="25" />
+        <span>{{ obj.name }}</span> |
+        <small>{{obj.htmlText}}</small>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <button mat-button (click)="closeDialog();">Ok</button>
+</form>
