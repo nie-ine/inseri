@@ -1,46 +1,50 @@
-import { Component, OnInit, ComponentRef } from '@angular/core';
-import 'rxjs/add/operator/map';
-import {
-  Inject,
-  ViewContainerRef
-} from '@angular/core';
-import { Service } from '../createComponentInstances.service';
-import {ExampleComponent} from 'nie-ine';
+import {Component, NgModule, VERSION} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {Popup} from './popup';
 
-declare var grapesjs: any; // Important!
+
 
 @Component({
-  selector: 'app-grapesjs',
-  template: '<div id="gjs"></div>',
-  providers: [Service],
-  styleUrls: ['./grapesjs.component.scss']
+  selector: 'my-app',
+  templateUrl: `grapesjs.component.html`,
 })
-export class GrapesjsComponent implements OnInit {
-
-  name = 'from Angular';
-  testblock: string;
-
-  constructor(private service: Service, private viewContainerRef: ViewContainerRef) {
-    service.setRootViewContainerRef(viewContainerRef);
-    this.testblock = service.addDynamicComponent(new ExampleComponent);
+export class GrapesjsComponent {
+  showFiller = false;
+  image = {
+    '@id' : 'http://rdfh.ch/kuno-raeber/Uzo2YDhzTr-8CUSg1pQL4Q/values/gJVf-AQjSbSTAo8EsU8ErQ',
+    '@type' : 'knora-api:StillImageFileValue',
+    'knora-api:fileValueAsUrl' :
+      'https://tools.wmflabs.org/' +
+      'zoomviewer/proxy.php?iiif=Lions_Family_Portrait_Masai_Mara.jpg/pct:65,81,35,15/full/0/default.jpg',
+    'knora-api:fileValueHasFilename' : 'proxy.php?iiif=Lions_Family_Portrait_Masai_Mara.jpg',
+    'knora-api:fileValueIsPreview' : false,
+    'knora-api:stillImageFileValueHasDimX' : 5184,
+    'knora-api:stillImageFileValueHasDimY' : 3456,
+    'knora-api:stillImageFileValueHasIIIFBaseUrl' : 'https://tools.wmflabs.org/zoomviewer'
+  }
+  showPopup1: boolean;
+  showPopup2: boolean;
+  imageViewerModel = [];
+  numberOfImageViewers = 0;
+  length: number;
+  constructor() {
+  }
+  showPopup(num: number) {
+    this["showPopup" + num] = true;
   }
 
-  ngOnInit() {
+  logReference(reference: any){
+    console.log(reference);
+  }
 
-    const editor = grapesjs.init({
-      container : '#gjs',
-      components: '<div class="txt-red">Beginning Template</div>',
-      style: '.txt-red{color: red}',
-    });
+  addAnotherImageViewer() {
+    this.length = this.imageViewerModel.length;
+    this.imageViewerModel[this.length] = this.numberOfImageViewers + 1;
+    this.numberOfImageViewers += 1;
+  }
 
-    const blockManager = editor.BlockManager;
-
-    blockManager.add('nie-test', {
-      label: 'nie test',
-      attributes: { class:'fa fa-newspaper-o' },
-      content:  this.testblock,
-    });
-
+  closeImageViewer(i: number) {
+    this.imageViewerModel.splice( i,1 );
   }
 
 }
