@@ -7,7 +7,7 @@
     </span>
 
     <span *ngIf="props[l.prop] && props[l.prop]['knora-api:linkValueHasTarget']">
-      <app-indirect-entry [iri]="props[l.prop]['knora-api:linkValueHasTarget']['@id']"></app-indirect-entry>
+      <app-indirect-entry [iri]="props[l.prop]['knora-api:linkValueHasTarget']['@id']" [prop]="l.indirectProp"></app-indirect-entry>
     </span>
 
   </p>
