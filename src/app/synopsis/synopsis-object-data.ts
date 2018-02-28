@@ -19,7 +19,7 @@ export class SynopsisTextData implements SynopsisObjectData {
 
   uid: number;
   top = 0;
-  left= 0;
+  left = 0;
 
   constructor(name: string, htmlText: string) {
     this.dataType = SynopsisObjectType.Text;

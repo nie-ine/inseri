@@ -18,9 +18,8 @@ export class SynopsisObjectStorageService {
     this.synopsisObjectsSource.next(this.synopsisObjects);
   }
 
-  remove(uid: number): boolean {
-    const index = this.synopsisObjects.findIndex(x => x.uid === uid);
-    if (index > -1) {
+  remove(index: number) {
+    if (this.synopsisObjects.length > index) {
       this.synopsisObjects.splice(index, 1);
       return true;
     } else {
