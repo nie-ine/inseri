@@ -4,8 +4,8 @@ import { RouterModule } from '@angular/router';
 import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
 import { MaterialModule } from '../material.module';
-import { ExampleComponent } from 'nie-ine';
 import { ArithmeticModule } from 'nie-ine';
+import { ExampleComponent } from 'nie-ine';
 
 @NgModule({
   imports: [
