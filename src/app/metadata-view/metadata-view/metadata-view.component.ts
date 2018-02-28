@@ -54,7 +54,7 @@ export class MetadataViewComponent implements OnInit {
   }, {
     'prop': 'text:hasCarrierDescription', 'label': 'Textträger'
   }, {
-    'prop': 'text:containsEarlierStagesOfPublicationValue', 'label': 'Spätere Drucke'
+    'prop': 'text:containsEarlierStagesOfPublicationValue', 'label': 'Spätere Drucke', 'indirectProp': 'text:hasConvoluteTitle'
   }];
 
   constructor() { }
