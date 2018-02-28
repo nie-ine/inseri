@@ -11,7 +11,6 @@ import { MainComponent } from './main/main.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { MetadataViewModule } from '../metadata-view/metadata-view.module';
-import { ArithmeticModule } from 'nie-ine';
 import { DashboardModule } from '../dashboard/dashboard.module';
 import { TextViewModule } from '../text-view/text-view.module';
 import { KnoraRequestService } from '../shared/knora-request.service';
@@ -20,6 +19,8 @@ import { ResultToTextMapperService } from '../text-view/result-to-text-mapper.se
 import { KnoraAuthService } from '../shared/knora-auth.service';
 import { SynopsisModule } from '../synopsis/synopsis.module';
 import { SynopsisObjectStorageService } from '../synopsis/synopsis-object-storage.service';
+import { ArithmeticModule } from '../npm-package/src/modules/arithmetic.module';
+import { ExampleComponent } from '../npm-package/src/modules/exampleComponent/example.component';
 
 @NgModule({
   imports: [
@@ -28,34 +29,16 @@ import { SynopsisObjectStorageService } from '../synopsis/synopsis-object-storag
     TextViewModule,
     MaterialModule,
     MetadataViewModule,
-    SynopsisModule,
     ArithmeticModule,
     GrapesjsModule,
     DashboardModule,
     RouterModule.forRoot([
       {path: '**', component: PageNotFoundComponent}
-    ])
+      ])
   ],
-  declarations: [
-    HeaderComponent,
-    FooterComponent,
-    MainComponent,
-    PageNotFoundComponent,
-    NavigationComponent
-  ],
-  providers: [
-    KnoraRequestService,
-    SparqlRequestService,
-    ResultToTextMapperService,
-    KnoraAuthService,
-    SynopsisObjectStorageService
-  ],
-  exports: [
-    HeaderComponent,
-    FooterComponent,
-    MainComponent,
-    RouterModule
-  ]
+  declarations: [HeaderComponent, FooterComponent, MainComponent, PageNotFoundComponent, NavigationComponent],
+  providers: [KnoraRequestService, SparqlRequestService, ResultToTextMapperService, KnoraAuthService],
+  exports: [HeaderComponent, FooterComponent, MainComponent, RouterModule]
 })
 export class CoreModule {
 }
