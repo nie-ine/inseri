@@ -9,11 +9,14 @@
 }
 
 .night-view {
-  background-color: black;
-  color: white;
-}
-
-.night-view img {
   -webkit-filter: invert(1);
   filter: invert(1);
+}
+
+.show-menu {
+  right: 3px;
+  top: 3px;
+  position: absolute;
+  background-color: rgba(200, 200, 200, 0.8);
+  border-radius: 4px;
 }
