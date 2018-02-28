@@ -32,7 +32,7 @@ import { ExampleComponent } from '../npm-package/src/modules/exampleComponent/ex
     DashboardModule,
     ArithmeticModule,
     RouterModule.forRoot([
-      { path: 'example', component: ExampleComponent },
+      { path: 'example2', component: ExampleComponent },
       { path: '**', component: PageNotFoundComponent }
       ])
   ],
