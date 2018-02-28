@@ -2,6 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { IndirectEntryComponent } from './indirect-entry.component';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 describe('IndirectEntryComponent', () => {
   let component: IndirectEntryComponent;
@@ -9,8 +11,9 @@ describe('IndirectEntryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule ],
-      declarations: [ IndirectEntryComponent ]
+      imports: [ RouterTestingModule, HttpClientModule, HttpClientTestingModule ],
+      declarations: [ IndirectEntryComponent ],
+      providers: [ HttpClient ]
     })
     .compileComponents();
   }));
