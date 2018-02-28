@@ -3,5 +3,5 @@
      [appDraggable]="data" [appModifiable]="data.uid" [appSelectable]="data.uid">
   <app-synopsis-object-toolbox [uid]="data.uid"></app-synopsis-object-toolbox>
   <h1>{{data.name}}</h1>
-  <div [innerHtml]="data.htmlText"></div>
+  <div [innerHtml]="safeHtml"></div>
 </div>
