@@ -1,7 +1,7 @@
 <div class="text-object" [ngClass]="{'nightView': nightView}"
      [ngStyle]="{'top': data.top + 'px', 'left': data.left + 'px'}"
-     [appDraggable]="data" [appModifiable]="data.uid" [appSelectable]="data.uid">
-  <app-synopsis-object-toolbox [uid]="data.uid"></app-synopsis-object-toolbox>
+     [appDraggable]="data" [appModifiable]="data.uid" [appSelectable]="data.uid" (showMenu)="toggleShowMenu($event)">
+  <app-synopsis-object-toolbox class="show-menu" [uid]="data.uid" *ngIf="showMenu"></app-synopsis-object-toolbox>
   <h1>{{data.name}}</h1>
   <div [innerHtml]="safeHtml"></div>
 </div>

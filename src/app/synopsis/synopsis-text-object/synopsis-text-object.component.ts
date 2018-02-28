@@ -1,6 +1,6 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import {SynopsisObject} from '../synopsis-object';
-import {SynopsisTextData} from '../synopsis-object-data';
+import { Component, Input, OnInit } from '@angular/core';
+import { SynopsisObject } from '../synopsis-object';
+import { SynopsisTextData } from '../synopsis-object-data';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
@@ -11,11 +11,17 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 export class SynopsisTextObjectComponent implements SynopsisObject, OnInit {
   @Input() data: SynopsisTextData;
   safeHtml: SafeHtml;
+  showMenu = false;
 
-  constructor(private domSanitizer: DomSanitizer) {}
+  constructor(private domSanitizer: DomSanitizer) {
+  }
 
   ngOnInit() {
     this.safeHtml = this.domSanitizer.bypassSecurityTrustHtml(this.data.htmlText);
+  }
+
+  toggleShowMenu(state: boolean) {
+    this.showMenu = state;
   }
 
 }

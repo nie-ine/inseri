@@ -1,6 +1,6 @@
-import {Component, Input} from '@angular/core';
-import {SynopsisObject} from '../synopsis-object';
-import {SynopsisImageData} from '../synopsis-object-data';
+import { Component, Input } from '@angular/core';
+import { SynopsisObject } from '../synopsis-object';
+import { SynopsisImageData } from '../synopsis-object-data';
 
 @Component({
   selector: 'app-synopsis-image-object',
@@ -9,4 +9,9 @@ import {SynopsisImageData} from '../synopsis-object-data';
 })
 export class SynopsisImageObjectComponent implements SynopsisObject {
   @Input() data: SynopsisImageData;
+  showMenu = false;
+
+  toggleShowMenu(state: boolean) {
+    this.showMenu = state;
+  }
 }
