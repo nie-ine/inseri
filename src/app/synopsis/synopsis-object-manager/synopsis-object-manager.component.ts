@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { DUMMYSYNOPSISOBJECTS } from '../dummy-synopsis-objects';
-import { SynopsisImageData, SynopsisObjectData, SynopsisTextData } from '../synopsis-object-data';
+import { SynopsisObjectData } from '../synopsis-object-data';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { startWith } from 'rxjs/operators';
@@ -19,7 +19,8 @@ export class SynopsisObjectManagerComponent {
   objectCtrl: FormControl;
   filteredObjects: Observable<any[]>;
 
-  constructor(public dialogRef: MatDialogRef<SynopsisObjectManagerComponent>, private synopsisObjectStorageService: SynopsisObjectStorageService) {
+  constructor(public dialogRef: MatDialogRef<SynopsisObjectManagerComponent>,
+              private synopsisObjectStorageService: SynopsisObjectStorageService) {
     this.thumbnails = DUMMYSYNOPSISOBJECTS;
     this.objectCtrl = new FormControl();
     this.filteredObjects = this.objectCtrl.valueChanges
@@ -34,8 +35,13 @@ export class SynopsisObjectManagerComponent {
       obj.name.toLowerCase().indexOf(name.toLowerCase()) === 0);
   }
 
+  saveAndCloseDialog() {
+    const splittedValue = this.objectCtrl.value.split('-');
+    this.synopsisObjectStorageService.add(this.thumbnails[splittedValue[splittedValue.length - 1]]);
+    this.closeDialog();
+  }
+
   closeDialog() {
-    this.synopsisObjectStorageService.add(this.thumbnails[this.objectCtrl.value]);
     this.dialogRef.close();
   }
 

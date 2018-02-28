@@ -22,13 +22,8 @@ export class SynopsisThumbnailbarComponent {
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(SynopsisObjectManagerComponent, {
+    this.dialog.open(SynopsisObjectManagerComponent, {
       width: '500px'
-    });
-
-    dialogRef.afterClosed().subscribe( res => {
-      console.log(res);
-      // TODO: Maybe a bit of code...
     });
   }
 
