@@ -17,8 +17,8 @@ import { KnoraRequestService } from '../shared/knora-request.service';
 import { SparqlRequestService } from '../shared/sparql-request.service';
 import { ResultToTextMapperService } from '../text-view/result-to-text-mapper.service';
 import { KnoraAuthService } from '../shared/knora-auth.service';
-import { ArithmeticModule } from '../npm-package/src/modules/arithmetic.module';
-import { ExampleComponent } from '../npm-package/src/modules/exampleComponent/example.component';
+import { ArithmeticModule } from 'nie-ine';
+import { ExampleComponent } from 'nie-ine';
 
 @NgModule({
   imports: [
@@ -28,6 +28,7 @@ import { ExampleComponent } from '../npm-package/src/modules/exampleComponent/ex
     MaterialModule,
     MetadataViewModule,
     ArithmeticModule,
+    MetadataViewModule,
     GrapesjsModule,
     DashboardModule,
     ArithmeticModule,
