@@ -32,8 +32,10 @@ import { ExampleComponent } from '../npm-package/src/modules/exampleComponent/ex
     ArithmeticModule,
     GrapesjsModule,
     DashboardModule,
+    ArithmeticModule,
     RouterModule.forRoot([
-      {path: '**', component: PageNotFoundComponent}
+      { path: 'example2', component: ExampleComponent },
+      { path: '**', component: PageNotFoundComponent }
       ])
   ],
   declarations: [HeaderComponent, FooterComponent, MainComponent, PageNotFoundComponent, NavigationComponent],
