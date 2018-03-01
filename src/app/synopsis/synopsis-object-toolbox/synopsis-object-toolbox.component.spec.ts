@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SynopsisObjectToolboxComponent } from './synopsis-object-toolbox.component';
+import { MatIconModule } from '@angular/material';
+import { SynopsisObjectModifierService } from '../synopsis-object-modifier.service';
 
 describe('SynopsisObjectToolboxComponent', () => {
   let component: SynopsisObjectToolboxComponent;
@@ -8,9 +10,13 @@ describe('SynopsisObjectToolboxComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SynopsisObjectToolboxComponent ]
+      imports: [
+        MatIconModule,
+      ],
+      declarations: [SynopsisObjectToolboxComponent],
+      providers: [{provide: SynopsisObjectModifierService, useValue: {}}]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LightTableComponent } from './light-table.component';
+import { SynopsisObjectModifierService } from '../synopsis-object-modifier.service';
 
 describe('LightTableComponent', () => {
   let component: LightTableComponent;
@@ -8,7 +9,8 @@ describe('LightTableComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LightTableComponent ]
+      declarations: [ LightTableComponent ],
+      providers: [SynopsisObjectModifierService]
     })
     .compileComponents();
   }));
