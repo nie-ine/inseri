@@ -32,14 +32,14 @@ import { ExampleComponent } from '../npm-package/src/modules/exampleComponent/ex
     ArithmeticModule,
     GrapesjsModule,
     DashboardModule,
-    ArithmeticModule,
+    SynopsisModule,
     RouterModule.forRoot([
       { path: 'example2', component: ExampleComponent },
       { path: '**', component: PageNotFoundComponent }
       ])
   ],
   declarations: [HeaderComponent, FooterComponent, MainComponent, PageNotFoundComponent, NavigationComponent],
-  providers: [KnoraRequestService, SparqlRequestService, ResultToTextMapperService, KnoraAuthService],
+  providers: [KnoraRequestService, SparqlRequestService, ResultToTextMapperService, KnoraAuthService, SynopsisObjectStorageService],
   exports: [HeaderComponent, FooterComponent, MainComponent, RouterModule]
 })
 export class CoreModule {
