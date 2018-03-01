@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SynopsisThumbnailbarComponent } from './synopsis-thumbnailbar.component';
+import { DraggableStubDirective } from '../stubs/directive-stubs';
+import { MatDialogModule, MatIconModule } from '@angular/material';
+import { SynopsisObjectStorageService } from '../synopsis-object-storage.service';
 
 describe('SynopsisThumbnailbarComponent', () => {
   let component: SynopsisThumbnailbarComponent;
@@ -8,9 +11,19 @@ describe('SynopsisThumbnailbarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SynopsisThumbnailbarComponent ]
+      imports: [
+        MatDialogModule,
+        MatIconModule
+      ],
+      declarations: [
+        DraggableStubDirective,
+        SynopsisThumbnailbarComponent
+      ],
+      providers: [
+        SynopsisObjectStorageService
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
