@@ -25,7 +25,7 @@ describe('SynopsisTextObjectComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SynopsisTextObjectComponent);
     component = fixture.componentInstance;
-    component.data = new SynopsisTextData('test', '../../test.jpg');
+    component.data = new SynopsisTextData('1', 'test', '../../test.jpg');
     fixture.detectChanges();
   });
 
