@@ -1,0 +1,77 @@
+#container {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  max-width: 120px;
+}
+
+.draggable {
+  position: relative;
+  border: 1px solid #ccc;
+  margin: 1rem;
+  padding: 2px;
+  cursor: move;
+  max-height: 120px;
+  overflow-y: hidden;
+  overflow-wrap: break-word;
+  resize: none !important;
+}
+
+.thumbnail-image {
+  max-width: 100%;
+}
+
+.small {
+  font-size: 80%;
+}
+
+.smaller {
+  font-size: 65%;
+}
+
+.close-button {
+  position: absolute;
+  right: 1px;
+  top: 1px;
+  background-color: rgba(26, 157, 198, 0.9);
+  min-width: 10px;
+  min-height: 10px;
+}
+
+.draggable .close-button {
+  opacity: 0;
+}
+
+.draggable:hover .close-button {
+  opacity: 1;
+  -webkit-animation: toggle 0.5s;
+  -o-animation: toggle 0.5s;
+  animation: toggle 0.5s;
+}
+
+@-moz-keyframes toggle {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes toggle {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes toggle {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

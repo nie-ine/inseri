@@ -17,8 +17,10 @@ import { KnoraRequestService } from '../shared/knora-request.service';
 import { SparqlRequestService } from '../shared/sparql-request.service';
 import { ResultToTextMapperService } from '../text-view/result-to-text-mapper.service';
 import { KnoraAuthService } from '../shared/knora-auth.service';
-import { ArithmeticModule } from 'nie-ine';
-import { ExampleComponent } from 'nie-ine';
+import { SynopsisModule } from '../synopsis/synopsis.module';
+import { SynopsisObjectStorageService } from '../synopsis/synopsis-object-storage.service';
+import { ArithmeticModule } from '../npm-package/src/modules/arithmetic.module';
+import { ExampleComponent } from '../npm-package/src/modules/exampleComponent/example.component';
 
 @NgModule({
   imports: [
@@ -28,17 +30,16 @@ import { ExampleComponent } from 'nie-ine';
     MaterialModule,
     MetadataViewModule,
     ArithmeticModule,
-    MetadataViewModule,
     GrapesjsModule,
     DashboardModule,
-    ArithmeticModule,
+    SynopsisModule,
     RouterModule.forRoot([
       { path: 'example2', component: ExampleComponent },
       { path: '**', component: PageNotFoundComponent }
       ])
   ],
   declarations: [HeaderComponent, FooterComponent, MainComponent, PageNotFoundComponent, NavigationComponent],
-  providers: [KnoraRequestService, SparqlRequestService, ResultToTextMapperService, KnoraAuthService],
+  providers: [KnoraRequestService, SparqlRequestService, ResultToTextMapperService, KnoraAuthService, SynopsisObjectStorageService],
   exports: [HeaderComponent, FooterComponent, MainComponent, RouterModule]
 })
 export class CoreModule {

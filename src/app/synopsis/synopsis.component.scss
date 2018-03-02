@@ -1,0 +1,11 @@
+#thumbnailbar {
+  height: 100vh;
+  width: 120px;
+  background-color:lightgray;
+}
+
+#light-table {
+  width:calc(100% - 120px);
+  height:100vh;
+}
+
