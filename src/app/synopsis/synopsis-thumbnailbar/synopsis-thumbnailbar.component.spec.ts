@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SynopsisThumbnailbarComponent } from './synopsis-thumbnailbar.component';
 import { DraggableStubDirective } from '../stubs/directive-stubs';
-import { MatDialogModule, MatIconModule } from '@angular/material';
+import { MatDialogModule, MatIconModule, MatMenuModule } from '@angular/material';
 import { SynopsisObjectStorageService } from '../synopsis-object-storage.service';
 
 describe('SynopsisThumbnailbarComponent', () => {
@@ -13,7 +13,8 @@ describe('SynopsisThumbnailbarComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         MatDialogModule,
-        MatIconModule
+        MatIconModule,
+        MatMenuModule
       ],
       declarations: [
         DraggableStubDirective,
