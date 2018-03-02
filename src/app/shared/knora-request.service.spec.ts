@@ -6,6 +6,7 @@ import { KnoraAuthService } from './knora-auth.service';
 class knoraAuthServiceStub {}
 
 describe('KnoraRequestService', () => {
+  const knoraAuthServiceStub = {};
   beforeEach(() => {
     TestBed.configureTestingModule({
 		providers: [

@@ -1,1 +1,4 @@
 
+[submodule "src/app/npm-package"]
+	path = src/app/npm-package
+	url = https://github.com/nie-ine/npm-package.git
