@@ -13,6 +13,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { MetadataViewModule } from '../metadata-view/metadata-view.module';
 import { DashboardModule } from '../dashboard/dashboard.module';
 import { TextViewModule } from '../text-view/text-view.module';
+import { ImageViewModule } from '../image-view/image-view.module';
 import { KnoraRequestService } from '../shared/knora-request.service';
 import { SparqlRequestService } from '../shared/sparql-request.service';
 import { ResultToTextMapperService } from '../text-view/result-to-text-mapper.service';
@@ -26,6 +27,7 @@ import { ExampleComponent } from '../npm-package/src/modules/exampleComponent/ex
   imports: [
     CommonModule,
     StaticPagesModule,
+    ImageViewModule,
     TextViewModule,
     MaterialModule,
     MetadataViewModule,

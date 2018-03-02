@@ -7,6 +7,7 @@ import { MaterialModule } from '../material.module';
 import { ArithmeticModule } from 'nie-ine';
 import { ExampleComponent } from 'nie-ine';
 
+
 @NgModule({
   imports: [
     CommonModule,
