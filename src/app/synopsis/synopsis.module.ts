@@ -19,6 +19,8 @@ import { ModifiableDirective } from './modifiable.directive';
 import { SynopsisObjectManagerComponent } from './synopsis-object-manager/synopsis-object-manager.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
+import { SynopsisSaveLightTableComponent } from './synopsis-save-light-table/synopsis-save-light-table.component';
+import { SynopsisLoadLightTableComponent } from './synopsis-load-light-table/synopsis-load-light-table.component';
 
 @NgModule({
   imports: [
@@ -42,7 +44,9 @@ import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
     SynopsisObjectToolboxComponent,
     SelectableDirective,
     ModifiableDirective,
-    SynopsisObjectManagerComponent
+    SynopsisObjectManagerComponent,
+    SynopsisSaveLightTableComponent,
+    SynopsisLoadLightTableComponent
   ],
   providers: [
     DragService,
@@ -52,12 +56,14 @@ import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
   ],
   entryComponents: [
     SynopsisImageObjectComponent,
+    SynopsisLoadLightTableComponent,
     SynopsisObjectManagerComponent,
+    SynopsisSaveLightTableComponent,
     SynopsisTextObjectComponent
   ],
   exports: [
     SynopsisComponent,
-    SynopsisObjectManagerComponent
+    SynopsisObjectManagerComponent,
   ]
 })
 export class SynopsisModule {
