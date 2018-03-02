@@ -18,6 +18,7 @@ export class SynopsisObjectManagerComponent {
   thumbnails: SynopsisObjectData[];
   objectCtrl: FormControl;
   filteredObjects: Observable<any[]>;
+  private loadedObjects: Array<SynopsisObjectData>;
 
   constructor(public dialogRef: MatDialogRef<SynopsisObjectManagerComponent>,
               private synopsisObjectStorageService: SynopsisObjectStorageService) {
@@ -28,11 +29,16 @@ export class SynopsisObjectManagerComponent {
         startWith(''),
         map(obj => obj ? this.filterObjects(obj) : this.thumbnails.slice())
       );
+    this.synopsisObjectStorageService.synopsisObjects$.subscribe(objList => {this.loadedObjects = objList; console.log(objList); } );
   }
 
   filterObjects(name: string): SynopsisObjectData[] {
     return this.thumbnails.filter(obj =>
       obj.name.toLowerCase().indexOf(name.toLowerCase()) === 0);
+  }
+
+  checkIfLoaded(id: string) {
+    return this.loadedObjects && this.loadedObjects.some(x => x.id === id);
   }
 
   saveAndCloseDialog() {
