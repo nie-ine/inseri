@@ -10,6 +10,8 @@ export class ImageViewComponent implements OnInit {
   constructor() {
   }
 
+  hoveredRegion: string;
+
   viewerWidth = 300;
 
   // picture data like received from Knora
