@@ -1,5 +1,5 @@
-import {Directive, ElementRef, HostListener, Input, Renderer2} from '@angular/core';
-import {SynopsisObjectModifierService} from './synopsis-object-modifier.service';
+import { Directive, ElementRef, HostListener, Input, Renderer2 } from '@angular/core';
+import { SynopsisObjectModifierService } from './synopsis-object-modifier.service';
 
 @Directive({
   selector: '[appModifiable]'
@@ -47,6 +47,11 @@ export class ModifiableDirective {
       this.el.nativeElement.getBoundingClientRect().right - 16,
       this.el.nativeElement.getBoundingClientRect().bottom - 16
     ];
+    this.synopsisObjectModifierService.resizeObject(
+      this.appModifiable,
+      this.el.nativeElement.getBoundingClientRect().width,
+      this.el.nativeElement.getBoundingClientRect().height
+    );
   }
 
   @HostListener('mousemove', ['$event'])

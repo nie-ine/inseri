@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {Subject} from 'rxjs/Subject';
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class SynopsisObjectModifierService {
@@ -10,6 +10,8 @@ export class SynopsisObjectModifierService {
   rotateObject$ = this.rotateObjectSource.asObservable();
   private invertColorsSource = new Subject<number>();
   invertColors$ = this.invertColorsSource.asObservable();
+  private resizeObjectSource = new Subject<[number, number, number]>();
+  resizeObject$ = this.resizeObjectSource.asObservable();
 
   closeObject(uid: number) {
     this.closeObjectSource.next(uid);
@@ -21,6 +23,10 @@ export class SynopsisObjectModifierService {
 
   invertColors(uid: number) {
     this.invertColorsSource.next(uid);
+  }
+
+  resizeObject(uid: number, width: number, height: number) {
+    this.resizeObjectSource.next([uid, width, height]);
   }
 
 }
