@@ -18,7 +18,8 @@ import { SparqlRequestService } from '../shared/sparql-request.service';
 import { ResultToTextMapperService } from '../text-view/result-to-text-mapper.service';
 import { KnoraAuthService } from '../shared/knora-auth.service';
 import { ArithmeticModule } from '../npm-package/src/modules/arithmetic.module';
-import { ExampleComponent } from '../npm-package/src/modules/exampleComponent/example.component';
+import { SearchComponent } from '../npm-package/src/modules/searchComponent/search.component';
+import { HighlightSearchTermService } from '../npm-package/src/services/highlightSearchTerm.service';
 
 @NgModule({
   imports: [
@@ -32,12 +33,17 @@ import { ExampleComponent } from '../npm-package/src/modules/exampleComponent/ex
     DashboardModule,
     ArithmeticModule,
     RouterModule.forRoot([
-      { path: 'example2', component: ExampleComponent },
+      { path: 'search', component: SearchComponent },
       { path: '**', component: PageNotFoundComponent }
       ])
   ],
   declarations: [HeaderComponent, FooterComponent, MainComponent, PageNotFoundComponent, NavigationComponent],
-  providers: [KnoraRequestService, SparqlRequestService, ResultToTextMapperService, KnoraAuthService],
+  providers: [
+    KnoraRequestService,
+    SparqlRequestService,
+    ResultToTextMapperService,
+    KnoraAuthService,
+    HighlightSearchTermService],
   exports: [HeaderComponent, FooterComponent, MainComponent, RouterModule]
 })
 export class CoreModule {
