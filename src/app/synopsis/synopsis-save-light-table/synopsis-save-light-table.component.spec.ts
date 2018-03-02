@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SynopsisSaveLightTableComponent } from './synopsis-save-light-table.component';
+import { MatDialogRef } from '@angular/material';
 
 describe('SynopsisSaveLightTableComponent', () => {
   let component: SynopsisSaveLightTableComponent;
@@ -8,7 +9,10 @@ describe('SynopsisSaveLightTableComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SynopsisSaveLightTableComponent ]
+      declarations: [ SynopsisSaveLightTableComponent ],
+      providers: [
+        {provide: MatDialogRef, useValue: {}}
+      ],
     })
     .compileComponents();
   }));
