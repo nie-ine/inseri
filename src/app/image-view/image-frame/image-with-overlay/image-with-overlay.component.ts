@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChange } from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChange} from "@angular/core";
 import { RegionToSvgService } from '../../region-to-svg.service';
 
 
@@ -21,6 +21,7 @@ export class ImageWithOverlayComponent implements OnInit, OnChanges, OnDestroy {
   @Input() regions: any;
   @Input() width: number;
   @Input() height: number;
+  @Output() hoveredRegion = new EventEmitter();
   maxSide: number = 1;
 
   private viewer;
@@ -66,12 +67,9 @@ export class ImageWithOverlayComponent implements OnInit, OnChanges, OnDestroy {
 
       const id = element.id;
 
-      element.addEventListener('mouseover', function () {
-        console.log(id);
-        //const dialog: MatDialog = new MatDialog();
-        //dialog.open(ImageFrameComponent);
+      element.addEventListener('mouseover', (e) => {
+        this.hoveredRegion.emit(id);
       });
-
       svgGroup.appendChild(element);
     }
 
