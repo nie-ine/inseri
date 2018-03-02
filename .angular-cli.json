@@ -19,9 +19,12 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.scss"
+        "styles.scss",
+        "../node_modules/grapesjs/dist/css/grapes.min.css"
       ],
       "scripts": [
+        "../node_modules/jquery/dist/jquery.min.js",
+        "../node_modules/grapesjs/dist/grapes.min.js",
         "../node_modules/openseadragon/build/openseadragon/openseadragon.min.js",
         "../node_modules/svg-overlay/openseadragon-svg-overlay.js"
       ],
