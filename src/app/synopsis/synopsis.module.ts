@@ -21,6 +21,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
 import { SynopsisSaveLightTableComponent } from './synopsis-save-light-table/synopsis-save-light-table.component';
 import { SynopsisLoadLightTableComponent } from './synopsis-load-light-table/synopsis-load-light-table.component';
+import {SynopsisObjectSerializerService} from './synopsis-object-serializer.service';
 
 @NgModule({
   imports: [
@@ -52,6 +53,7 @@ import { SynopsisLoadLightTableComponent } from './synopsis-load-light-table/syn
     DragService,
     SynopsisObjectModifierService,
     SynopsisObjectSelectorService,
+    SynopsisObjectSerializerService,
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
   ],
   entryComponents: [

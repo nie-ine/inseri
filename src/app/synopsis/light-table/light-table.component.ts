@@ -6,6 +6,7 @@ import { SynopsisObject } from '../synopsis-object';
 import { SynopsisObjectData, SynopsisObjectType } from '../synopsis-object-data';
 import { SynopsisImageObjectComponent } from '../synopsis-image-object/synopsis-image-object.component';
 import { SynopsisObjectModifierService } from '../synopsis-object-modifier.service';
+import {SynopsisObjectSerializerService} from '../synopsis-object-serializer.service';
 
 interface ComponentRefTracker {
   [uid: number]: ComponentRef<SynopsisObject>;
@@ -25,9 +26,12 @@ export class LightTableComponent {
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
               private synopsisObjectModifierService: SynopsisObjectModifierService,
+              private synopsisObjectSerializerService: SynopsisObjectSerializerService,
               private renderer: Renderer2) {
     synopsisObjectModifierService.closeObject$.subscribe(uid => this.closeObject(uid));
     synopsisObjectModifierService.resizeObject$.subscribe(obj => this.updateDimensions(obj[0], obj[1], obj[2]));
+    synopsisObjectSerializerService.makeLightTableSnapshot$.subscribe(() => this.makeSnapshot());
+    synopsisObjectSerializerService.loadLightTableSnapshot$.subscribe(snapshot => this.load(snapshot));
   }
 
   onDrop(data: SynopsisObjectData) {
@@ -39,44 +43,17 @@ export class LightTableComponent {
     (<SynopsisObject>componentRef.instance).data = data;
   }
 
-  save() {
+  makeSnapshot() {
     const serializedData = Object.keys(this.componentRefTracker).map(key =>
       (<SynopsisObject>this.componentRefTracker[key].instance).data
     );
-    console.log(serializedData);
+    this.synopsisObjectSerializerService.sendLightTableSnapshot(serializedData);
   }
 
-  load() {
-    const testObj = [
-      {
-        dataType: 1,
-        height: 277,
-        id: '9',
-        left: 312,
-        name: 'Mountains',
-        src: '../../../assets/img/about/4.jpg',
-        top: 232,
-        uid: 5005053034081766,
-        width: 242.65625,
-        transform: 90,
-        invertedColors: true
-      },
-      {
-        dataType: 1,
-        height: 277,
-        id: '7',
-        left: 375,
-        name: 'A plane',
-        src: '../../../assets/img/about/2.jpg',
-        top: 679,
-        uid: 42712775863801976,
-        width: 500,
-        transform: 270,
-        invertedColors: false
-      }];
+  load(snapshot: SynopsisObjectData[]) {
     this.synopsisObjectsHost.viewContainerRef.clear();
     this.componentRefTracker = [];
-    for (const obj of testObj) {
+    for (const obj of snapshot) {
       const componentRef = this.createNewComponentRef(<SynopsisObjectData>obj);
       this.componentRefTracker[obj.uid] = componentRef;
       (<SynopsisObject>componentRef.instance).data = <SynopsisObjectData>obj;
