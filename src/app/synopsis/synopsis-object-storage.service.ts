@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { SynopsisObjectData } from './synopsis-object-data';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+import {Injectable} from '@angular/core';
+import {SynopsisObjectData} from './synopsis-object-data';
+import {ReplaySubject} from 'rxjs/ReplaySubject';
 
 @Injectable()
 export class SynopsisObjectStorageService {
@@ -15,6 +15,11 @@ export class SynopsisObjectStorageService {
 
   add(synopsisObjectData: SynopsisObjectData) {
     this.synopsisObjects.push(synopsisObjectData);
+    this.synopsisObjectsSource.next(this.synopsisObjects);
+  }
+
+  replace(snapshot: SynopsisObjectData[]) {
+    this.synopsisObjects = snapshot;
     this.synopsisObjectsSource.next(this.synopsisObjects);
   }
 
