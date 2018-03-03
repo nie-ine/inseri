@@ -19,8 +19,12 @@ class LightTableStorage {
     return Object.keys(this.storage).some(x => x === name);
   }
 
-  get(name: string) {
+  get(name: string): [SynopsisObjectData[], SynopsisObjectData[]] {
     return this.storage[name];
+  }
+
+  getAllFilenames(): string[] {
+    return Object.keys(this.storage);
   }
 
   remove(name: string): boolean {
@@ -45,7 +49,8 @@ export class SynopsisObjectSerializerService {
   loadLightTableSnapshot$ = this.loadLightTableSnapshotSource.asObservable();
 
   constructor(private synopsisObjectStorageService: SynopsisObjectStorageService) {
-    synopsisObjectStorageService.synopsisObjects$.subscribe(objList => this.thumbnailsSnapshot = objList);
+    synopsisObjectStorageService.synopsisObjects$
+      .subscribe(objList => this.thumbnailsSnapshot = objList.map(x => Object.assign({}, x)));
   }
 
   save(name: string): boolean {
@@ -61,6 +66,10 @@ export class SynopsisObjectSerializerService {
     const snapshot = this.lightTableStorage.get(name);
     this.synopsisObjectStorageService.replace(snapshot[0]);
     this.loadLightTableSnapshotSource.next(snapshot[1]);
+  }
+
+  getAllFilenames(): string[] {
+    return this.lightTableStorage.getAllFilenames();
   }
 
   sendLightTableSnapshot(snapshot: SynopsisObjectData[]) {
