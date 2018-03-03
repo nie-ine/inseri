@@ -1,3 +1,9 @@
-<p>
-  synopsis-load-light-table works!
-</p>
+<mat-form-field>
+  <mat-select placeholder="Load snapshot" [formControl]="loadSnapshotFormControl">
+    <mat-option *ngFor="let filename of getAllFilenames()" [value]="filename">
+      {{ filename }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<button mat-button (click)="loadSnapshot(loadSnapshotFormControl.value)">Load</button>
+<button mat-button (click)="closeDialog()">Cancel</button>

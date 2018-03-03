@@ -1,12 +1,11 @@
-import { Component } from '@angular/core';
-import { DUMMYSYNOPSISOBJECTS } from '../dummy-synopsis-objects';
-import { SynopsisObjectData } from '../synopsis-object-data';
-import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs/Observable';
-import { startWith } from 'rxjs/operators';
-import { map } from 'rxjs/operators';
-import { MatDialogRef } from '@angular/material';
-import { SynopsisObjectStorageService } from '../synopsis-object-storage.service';
+import {Component} from '@angular/core';
+import {DUMMYSYNOPSISOBJECTS} from '../dummy-synopsis-objects';
+import {SynopsisObjectData} from '../synopsis-object-data';
+import {FormControl} from '@angular/forms';
+import {Observable} from 'rxjs/Observable';
+import {map, startWith} from 'rxjs/operators';
+import {MatDialogRef} from '@angular/material';
+import {SynopsisObjectStorageService} from '../synopsis-object-storage.service';
 
 @Component({
   selector: 'app-synopsis-object-manager',
@@ -29,7 +28,7 @@ export class SynopsisObjectManagerComponent {
         startWith(''),
         map(obj => obj ? this.filterObjects(obj) : this.thumbnails.slice())
       );
-    this.synopsisObjectStorageService.synopsisObjects$.subscribe(objList => {this.loadedObjects = objList; console.log(objList); } );
+    this.synopsisObjectStorageService.synopsisObjects$.subscribe(objList => this.loadedObjects = objList);
   }
 
   filterObjects(name: string): SynopsisObjectData[] {
