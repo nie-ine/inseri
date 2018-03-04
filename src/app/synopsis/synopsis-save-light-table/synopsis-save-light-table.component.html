@@ -1,7 +1,16 @@
+<h3>Save light table snapshot</h3>
 <form class="example-form">
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="Filename" [formControl]="filenameFormControl">
+    <input matInput placeholder="Filename" [formControl]="filenameFormControl" [errorStateMatcher]="matcher">
+    <mat-error *ngIf="filenameFormControl.hasError('reservedFilename') && !filenameFormControl.hasError('required')">
+      Filename is already in use
+    </mat-error>
+    <mat-error *ngIf="filenameFormControl.hasError('required')">
+      Please enter a filename
+    </mat-error>
   </mat-form-field>
-  <button mat-button (click)="saveAndCloseDialog()">Save</button>
+  <button mat-button (click)="saveAndCloseDialog()"
+          [disabled]="filenameFormControl.hasError('reservedFilename') || filenameFormControl.hasError('required')">Save
+  </button>
   <button mat-button (click)="closeDialog()">Cancel</button>
 </form>
