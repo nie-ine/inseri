@@ -57,7 +57,7 @@ export class ModifiableDirective {
   @HostListener('mousemove', ['$event'])
   onMouseMove(event) {
     if (event.clientX > this.bottomRightCornerArea[0] && event.clientY > this.bottomRightCornerArea[1]) {
-      this.renderer.setStyle(this.el.nativeElement, 'cursor', 'nw-resize');
+      this.renderer.setStyle(this.el.nativeElement, 'cursor', 'se-resize');
     } else {
       this.renderer.setStyle(this.el.nativeElement, 'cursor', 'move');
 
