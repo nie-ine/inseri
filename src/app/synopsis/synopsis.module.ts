@@ -22,6 +22,7 @@ import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
 import { SynopsisSaveLightTableComponent } from './synopsis-save-light-table/synopsis-save-light-table.component';
 import { SynopsisLoadLightTableComponent } from './synopsis-load-light-table/synopsis-load-light-table.component';
 import {SynopsisObjectSerializerService} from './synopsis-object-serializer.service';
+import { SynopsisMenuComponent } from './synopsis-menu/synopsis-menu.component';
 
 @NgModule({
   imports: [
@@ -47,7 +48,8 @@ import {SynopsisObjectSerializerService} from './synopsis-object-serializer.serv
     ModifiableDirective,
     SynopsisObjectManagerComponent,
     SynopsisSaveLightTableComponent,
-    SynopsisLoadLightTableComponent
+    SynopsisLoadLightTableComponent,
+    SynopsisMenuComponent,
   ],
   providers: [
     DragService,

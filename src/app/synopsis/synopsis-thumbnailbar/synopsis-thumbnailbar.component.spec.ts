@@ -1,9 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SynopsisThumbnailbarComponent } from './synopsis-thumbnailbar.component';
-import { DraggableStubDirective } from '../stubs/directive-stubs';
-import { MatDialogModule, MatIconModule, MatMenuModule } from '@angular/material';
-import { SynopsisObjectStorageService } from '../synopsis-object-storage.service';
+import {SynopsisThumbnailbarComponent} from './synopsis-thumbnailbar.component';
+import {DraggableStubDirective} from '../stubs/directive-stubs';
+import {SynopsisObjectStorageService} from '../synopsis-object-storage.service';
+import {NO_ERRORS_SCHEMA} from '@angular/core';
 
 describe('SynopsisThumbnailbarComponent', () => {
   let component: SynopsisThumbnailbarComponent;
@@ -11,18 +11,14 @@ describe('SynopsisThumbnailbarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        MatDialogModule,
-        MatIconModule,
-        MatMenuModule
-      ],
       declarations: [
         DraggableStubDirective,
         SynopsisThumbnailbarComponent
       ],
       providers: [
         SynopsisObjectStorageService
-      ]
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
       .compileComponents();
   }));

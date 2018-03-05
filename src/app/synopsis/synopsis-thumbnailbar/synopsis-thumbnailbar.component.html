@@ -1,20 +1,4 @@
-<button mat-icon-button [matMenuTriggerFor]="menu">
-  <mat-icon>menu</mat-icon>
-</button>
-<mat-menu #menu="matMenu">
-  <button mat-menu-item (click)="openAddObjectDialog()">
-    <mat-icon>add</mat-icon>
-    <span>Add object</span>
-  </button>
-  <button mat-menu-item (click)="openSaveLightTableDialog()">
-    <mat-icon>cloud_upload</mat-icon>
-    <span>Save light table</span>
-  </button>
-  <button mat-menu-item (click)="openLoadLightTableDialog()">
-    <mat-icon>cloud_download</mat-icon>
-    <span>Load light table</span>
-  </button>
-</mat-menu>
+<app-synopsis-menu></app-synopsis-menu>
 <div id="container">
   <div *ngFor="let t of thumbnails; let i = index;" [appDraggable]="t" class="draggable">
     <button mat-button class="close-button" (click)="closeThumbnail(i)" >X</button>
