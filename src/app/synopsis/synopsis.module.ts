@@ -1,28 +1,34 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { SynopsisComponent } from './synopsis.component';
-import { LightTableComponent } from './light-table/light-table.component';
-import { DraggableDirective } from './draggable.directive';
-import { DropTargetDirective } from './drop-target.directive';
-import { RouterModule } from '@angular/router';
-import { DragService } from './drag.service';
-import { SynopsisThumbnailbarComponent } from './synopsis-thumbnailbar/synopsis-thumbnailbar.component';
-import { SynopsisAnchorDirective } from './synopsis-anchor.directive';
-import { SynopsisTextObjectComponent } from './synopsis-text-object/synopsis-text-object.component';
-import { SynopsisImageObjectComponent } from './synopsis-image-object/synopsis-image-object.component';
-import { SynopsisObjectToolboxComponent } from './synopsis-object-toolbox/synopsis-object-toolbox.component';
-import { MaterialModule } from '../material.module';
-import { SynopsisObjectModifierService } from './synopsis-object-modifier.service';
-import { SelectableDirective } from './selectable.directive';
-import { SynopsisObjectSelectorService } from './synopsis-object-selector.service';
-import { ModifiableDirective } from './modifiable.directive';
-import { SynopsisObjectManagerComponent } from './synopsis-object-manager/synopsis-object-manager.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
-import { SynopsisSaveLightTableComponent } from './synopsis-save-light-table/synopsis-save-light-table.component';
-import { SynopsisLoadLightTableComponent } from './synopsis-load-light-table/synopsis-load-light-table.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {SynopsisComponent} from './synopsis.component';
+import {LightTableComponent} from './light-table/light-table.component';
+import {DraggableDirective} from './draggable.directive';
+import {DropTargetDirective} from './drop-target.directive';
+import {RouterModule} from '@angular/router';
+import {DragService} from './drag.service';
+import {ThumbnailbarComponent} from './thumbnailbar/thumbnailbar.component';
+import {SynopsisObjectAnchorDirective} from './synopsis-object-anchor.directive';
+import {FloatingTextObjectComponent} from './floating-text-object/floating-text-object.component';
+import {FloatingImageObjectComponent} from './floating-image-object/floating-image-object.component';
+import {SynopsisObjectToolboxComponent} from './synopsis-object-toolbox/synopsis-object-toolbox.component';
+import {MaterialModule} from '../material.module';
+import {SynopsisObjectModifierService} from './synopsis-object-modifier.service';
+import {SelectableDirective} from './selectable.directive';
+import {SynopsisObjectSelectorService} from './synopsis-object-selector.service';
+import {ModifiableDirective} from './modifiable.directive';
+import {SynopsisObjectManagerComponent} from './synopsis-object-manager/synopsis-object-manager.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material';
+import {SaveLightTableComponent} from './save-light-table/save-light-table.component';
+import {LoadLightTableComponent} from './load-light-table/load-light-table.component';
 import {SynopsisObjectSerializerService} from './synopsis-object-serializer.service';
-import { SynopsisMenuComponent } from './synopsis-menu/synopsis-menu.component';
+import {LightTableMenuComponent} from './light-table-menu/light-table-menu.component';
+import {TiledLightTableComponent} from './tiled-light-table/tiled-light-table.component';
+import {LightTableLayoutService} from './light-table-layout.service';
+import {FloatLightTableComponent} from './float-light-table/float-light-table.component';
+import {LightTableStashService} from './light-table-stash.service';
+import { TiledTextObjectComponent } from './tiled-text-object/tiled-text-object.component';
+import { TiledImageObjectComponent } from './tiled-image-object/tiled-image-object.component';
 
 @NgModule({
   imports: [
@@ -39,31 +45,37 @@ import { SynopsisMenuComponent } from './synopsis-menu/synopsis-menu.component';
     LightTableComponent,
     DraggableDirective,
     DropTargetDirective,
-    SynopsisThumbnailbarComponent,
-    SynopsisAnchorDirective,
-    SynopsisTextObjectComponent,
-    SynopsisImageObjectComponent,
+    ThumbnailbarComponent,
+    SynopsisObjectAnchorDirective,
+    FloatingTextObjectComponent,
+    FloatingImageObjectComponent,
     SynopsisObjectToolboxComponent,
     SelectableDirective,
     ModifiableDirective,
     SynopsisObjectManagerComponent,
-    SynopsisSaveLightTableComponent,
-    SynopsisLoadLightTableComponent,
-    SynopsisMenuComponent,
+    SaveLightTableComponent,
+    LoadLightTableComponent,
+    LightTableMenuComponent,
+    TiledLightTableComponent,
+    FloatLightTableComponent,
+    TiledTextObjectComponent,
+    TiledImageObjectComponent
   ],
   providers: [
     DragService,
+    LightTableLayoutService,
+    LightTableStashService,
     SynopsisObjectModifierService,
     SynopsisObjectSelectorService,
     SynopsisObjectSerializerService,
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
   ],
   entryComponents: [
-    SynopsisImageObjectComponent,
-    SynopsisLoadLightTableComponent,
+    FloatingImageObjectComponent,
+    LoadLightTableComponent,
     SynopsisObjectManagerComponent,
-    SynopsisSaveLightTableComponent,
-    SynopsisTextObjectComponent
+    SaveLightTableComponent,
+    FloatingTextObjectComponent
   ],
   exports: [
     SynopsisComponent,

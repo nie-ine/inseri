@@ -1,0 +1,6 @@
+<div class="text-object" [ngClass]="{'nightView': nightView}"
+     (mouseenter)="showMenu = true" (mouseout)="showMenu = false">
+  <app-synopsis-object-toolbox class="show-menu" [uid]="data.uid" *ngIf="showMenu"></app-synopsis-object-toolbox>
+  <h1>{{data.name}}</h1>
+  <div [innerHtml]="safeHtml"></div>
+</div>

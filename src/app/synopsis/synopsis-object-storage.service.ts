@@ -2,6 +2,9 @@ import {Injectable} from '@angular/core';
 import {SynopsisObjectData} from './synopsis-object-data';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
 
+/**
+ * Application-wide storage for objects which were selected for synopsis view
+ */
 @Injectable()
 export class SynopsisObjectStorageService {
 
