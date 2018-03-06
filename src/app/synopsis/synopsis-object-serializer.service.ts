@@ -7,6 +7,9 @@ interface StorageObject {
   [name: string]: [SynopsisObjectData[], SynopsisObjectData[]];
 }
 
+/**
+ * Saves light table permanently
+ */
 class LightTableStorage {
 
   private storage: StorageObject = {};

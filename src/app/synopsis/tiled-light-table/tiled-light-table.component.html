@@ -1,0 +1,11 @@
+<div appDropTarget (appDrop)="onDrop($event)" class="drop-target">
+  <mat-grid-list [cols]="columns" rowHeight="2:1">
+    <mat-grid-tile *ngFor="let obj of synopsisObjects; trackBy: trackBySynopsisObjects">
+      <ng-container [ngSwitch]="obj.dataType">
+        <app-tiled-text-object *ngSwitchCase="synopsisObjectTypes.Text" [data]="obj"></app-tiled-text-object>
+        <app-tiled-image-object *ngSwitchCase="synopsisObjectTypes.Image" [data]="obj">
+        </app-tiled-image-object>
+      </ng-container>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
