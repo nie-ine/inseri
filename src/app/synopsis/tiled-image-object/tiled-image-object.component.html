@@ -1,6 +1,12 @@
-<div class="image-object"
-     (mouseenter)="showMenu = true" (mouseleave)="showMenu = false">
-  <app-synopsis-object-toolbox class="show-menu" [uid]="data.uid" *ngIf="showMenu"></app-synopsis-object-toolbox>
-  <h1>{{data.name}}</h1>
-  <img [src]="data.src" draggable="false">
-</div>
+<mat-card class="image-object" [appModifiable]="data.uid">
+  <mat-card-header>
+    <mat-card-title>{{data.name}}</mat-card-title>
+  </mat-card-header>
+  <img mat-card-image [src]="data.src" draggable="false">
+  <mat-card-content>
+
+  </mat-card-content>
+  <mat-card-actions>
+    <app-synopsis-object-toolbox class="show-menu" [uid]="data.uid"></app-synopsis-object-toolbox>
+  </mat-card-actions>
+</mat-card>

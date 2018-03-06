@@ -29,6 +29,7 @@ import {FloatLightTableComponent} from './float-light-table/float-light-table.co
 import {LightTableStashService} from './light-table-stash.service';
 import { TiledTextObjectComponent } from './tiled-text-object/tiled-text-object.component';
 import { TiledImageObjectComponent } from './tiled-image-object/tiled-image-object.component';
+import { TileDropTargetDirective } from './tile-drop-target.directive';
 
 @NgModule({
   imports: [
@@ -59,7 +60,8 @@ import { TiledImageObjectComponent } from './tiled-image-object/tiled-image-obje
     TiledLightTableComponent,
     FloatLightTableComponent,
     TiledTextObjectComponent,
-    TiledImageObjectComponent
+    TiledImageObjectComponent,
+    TileDropTargetDirective
   ],
   providers: [
     DragService,
