@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { StaticPagesModule } from '../static-pages/static-pages.module';
 import { MaterialModule } from '../material.module';
-import { GrapesjsModule } from '../grapesjs/grapesjs.module';
+import { NIEOSModule } from '../nie-OS/nie-OS.module';
 
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -29,7 +29,7 @@ import { HighlightSearchTermService } from '../npm-package/src/services/highligh
     MaterialModule,
     MetadataViewModule,
     ArithmeticModule,
-    GrapesjsModule,
+    NIEOSModule,
     DashboardModule,
     ArithmeticModule,
     RouterModule.forRoot([

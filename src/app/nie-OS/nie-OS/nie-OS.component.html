@@ -4,6 +4,7 @@
     <mat-drawer #drawer mode="side" align="end">
       <div>
         <button mat-button (click)="addAnotherImageViewer()">Add image Viewer</button><br>
+        <button mat-button (click)="addAnotherSearch()">Add search Viewer</button><br>
       </div>
     </mat-drawer>
 
@@ -13,9 +14,10 @@
       </button>
     </div>
 
+    <!-- Image Viewer -->
     <div *ngFor="let imageViewer of imageViewerModel; let i = index;" >
       <popup #imageViewer [title]="'Image Viewer ' + imageViewerModel[i]" >
-        <nie-image-frame class="draggable"
+        <nie-image-frame style="height: 100%;"
                          [image]="image"
                          width="500"
                          height="500">
@@ -27,6 +29,21 @@
         <button mat-menu-item>Choose Image</button>
       </mat-menu>
       <button mat-button (click)="imageViewer.appear()" >Image Viewer {{ imageViewerModel[i] }}</button><br>
+    </div>
+
+    <!-- Search -->
+    <div *ngFor="let search of searchModel; let i = index;" >
+      <popup #searchViewer [title]="'Search ' + searchModel[i]" >
+        <nie-search
+        style="height: 100%;">
+
+        </nie-search>
+      </popup>
+      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>settings</mat-icon></button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="closeSearch(i)">Close this app</button>
+      </mat-menu>
+      <button mat-button (click)="searchViewer.appear()" >Search Viewer {{ searchModel[i] }}</button><br>
     </div>
 
   </mat-drawer-container>
