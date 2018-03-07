@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 
+/**
+ * Propagates the modification of a synopsis object
+ */
 @Injectable()
 export class SynopsisObjectModifierService {
 

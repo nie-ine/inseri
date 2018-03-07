@@ -1,10 +1,11 @@
 import {AfterViewInit, Directive, ElementRef, EventEmitter, HostListener, Input, Output} from '@angular/core';
 import {DragService} from './drag.service';
+import {DropTargetOptions} from './drop-target-options';
 
 @Directive({
   selector: '[appDropTarget]'
 })
-export class DropTargetDirective implements AfterViewInit {
+export class FloatDropTargetDirective implements AfterViewInit {
 
   private coordinates: any | ClientRect;
 
@@ -12,7 +13,7 @@ export class DropTargetDirective implements AfterViewInit {
   }
 
   @Input()
-  set appDropTarget(options: DropTargetOptions) {
+  set appFloatDropTarget(options: DropTargetOptions) {
     if (options) {
       this.options = options;
     }
@@ -64,6 +65,3 @@ export class DropTargetDirective implements AfterViewInit {
 
 }
 
-export interface DropTargetOptions {
-  zone?: string;
-}
