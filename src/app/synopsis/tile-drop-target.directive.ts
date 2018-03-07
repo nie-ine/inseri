@@ -8,8 +8,10 @@ import {DropTargetOptions} from './drop-target-options';
 export class TileDropTargetDirective implements AfterViewInit {
 
   private coordinates: any | ClientRect;
+  private overlay;
 
   constructor(private dragService: DragService, private el: ElementRef, private renderer: Renderer2) {
+    this.createOverlay();
   }
 
   @Input()
@@ -39,10 +41,12 @@ export class TileDropTargetDirective implements AfterViewInit {
   @HostListener('dragenter')
   onDragEnter() {
     this.renderer.setStyle(this.el.nativeElement, 'opacity', 0.5);
+    this.renderer.appendChild(this.el.nativeElement, this.overlay);
   }
 
   @HostListener('dragleave')
   onDragLeave() {
+    this.renderer.removeChild(this.el.nativeElement, this.overlay);
     this.renderer.setStyle(this.el.nativeElement, 'opacity', 1);
   }
 
@@ -55,8 +59,16 @@ export class TileDropTargetDirective implements AfterViewInit {
       event.stopPropagation();
     }
     const data = JSON.parse(event.dataTransfer.getData('Text'));
+    this.renderer.removeChild(this.el.nativeElement, this.overlay);
     this.renderer.setStyle(this.el.nativeElement, 'opacity', 1);
     this.appDrop.next(data);
+  }
+
+  private createOverlay() {
+    this.overlay = this.renderer.createElement('div');
+    this.renderer.addClass(this.overlay, 'overlay');
+    const text = this.renderer.createText('Drop here');
+    this.renderer.appendChild(this.overlay, text);
   }
 
 }
