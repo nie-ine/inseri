@@ -1,10 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { LightTableLayoutService } from '../light-table-layout.service';
-import { SynopsisObjectData, SynopsisObjectType } from '../synopsis-object-data';
-import { LightTableStashService } from '../light-table-stash.service';
-import { SynopsisObjectModifierService } from '../synopsis-object-modifier.service';
-import { SynopsisObjectSerializerService } from '../synopsis-object-serializer.service';
-import { Subscription } from 'rxjs/Subscription';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {LightTableLayoutService} from '../light-table-layout.service';
+import {SynopsisObjectData, SynopsisObjectType} from '../synopsis-object-data';
+import {LightTableStashService} from '../light-table-stash.service';
+import {SynopsisObjectModifierService} from '../synopsis-object-modifier.service';
+import {SynopsisObjectSerializerService} from '../synopsis-object-serializer.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-tiled-light-table',
@@ -43,16 +43,17 @@ export class TiledLightTableComponent implements OnInit, OnDestroy {
     this.loadLightTableSnapshotSubscriber.unsubscribe();
   }
 
-  onDrop(data: SynopsisObjectData) {
+  onDrop(data: SynopsisObjectData, index?: number) {
     if (!data.uid) {
       data.uid = +(Math.random().toString().substr(2));
     }
-    this.synopsisObjects.push(data);
-  }
-
-  // noinspection JSMethodCanBeStatic
-  trackBySynopsisObjects(index: number, object: SynopsisObjectData): number {
-    return object.uid;
+    if (index === 0) {
+      this.synopsisObjects.unshift(data);
+    } else if (index) {
+      this.synopsisObjects.splice(index, 0, data);
+    } else {
+      this.synopsisObjects.push(data);
+    }
   }
 
   private closeObject(uid: number) {

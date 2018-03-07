@@ -1,13 +1,17 @@
 <div class="drop-target">
   <mat-grid-list [cols]="columns" rowHeight="2:1">
-    <mat-grid-tile appDropTarget (appDrop)="onDrop($event)" *ngFor="let obj of synopsisObjects; trackBy: trackBySynopsisObjects" class="grid-tile">
+    <mat-grid-tile appTileDropTarget (appDrop)="onDrop($event, i)"
+                   *ngFor="let obj of synopsisObjects; let i = index;"
+                   class="grid-tile">
       <ng-container [ngSwitch]="obj.dataType">
-        <app-tiled-text-object *ngSwitchCase="synopsisObjectTypes.Text" [data]="obj" style="min-width:100%"></app-tiled-text-object>
+        <app-tiled-text-object *ngSwitchCase="synopsisObjectTypes.Text" [data]="obj"
+                               style="min-width:100%"></app-tiled-text-object>
         <app-tiled-image-object *ngSwitchCase="synopsisObjectTypes.Image" [data]="obj" style="min-width:100%">
         </app-tiled-image-object>
       </ng-container>
     </mat-grid-tile>
-    <mat-grid-tile appDropTarget (appDrop)="onDrop($event)" class="grid-tile" id="new-drop-zone">
+    <mat-grid-tile appTileDropTarget (appDrop)="onDrop($event)" class="grid-tile" id="new-drop-zone">
+      <p>Drop here</p>
     </mat-grid-tile>
   </mat-grid-list>
 </div>

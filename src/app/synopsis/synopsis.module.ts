@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {SynopsisComponent} from './synopsis.component';
 import {LightTableComponent} from './light-table/light-table.component';
 import {DraggableDirective} from './draggable.directive';
-import {DropTargetDirective} from './drop-target.directive';
+import {FloatDropTargetDirective} from './float-drop-target.directive';
 import {RouterModule} from '@angular/router';
 import {DragService} from './drag.service';
 import {ThumbnailbarComponent} from './thumbnailbar/thumbnailbar.component';
@@ -45,7 +45,7 @@ import { TileDropTargetDirective } from './tile-drop-target.directive';
     SynopsisComponent,
     LightTableComponent,
     DraggableDirective,
-    DropTargetDirective,
+    FloatDropTargetDirective,
     ThumbnailbarComponent,
     SynopsisObjectAnchorDirective,
     FloatingTextObjectComponent,

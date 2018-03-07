@@ -1,6 +1,6 @@
-import { AfterViewInit, Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from '@angular/core';
-import { DragService } from './drag.service';
-import { DropTargetOptions } from './drop-target.directive';
+import {AfterViewInit, Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2} from '@angular/core';
+import {DragService} from './drag.service';
+import {DropTargetOptions} from './drop-target-options';
 
 @Directive({
   selector: '[appTileDropTarget]'
@@ -13,7 +13,7 @@ export class TileDropTargetDirective implements AfterViewInit {
   }
 
   @Input()
-  set appDropTarget(options: DropTargetOptions) {
+  set appTileDropTarget(options: DropTargetOptions) {
     if (options) {
       this.options = options;
     }
@@ -27,18 +27,23 @@ export class TileDropTargetDirective implements AfterViewInit {
     this.coordinates = this.el.nativeElement.getBoundingClientRect();
   }
 
-  @HostListener('dragenter', ['$event']) // For IE compatibility
+  // @HostListener('dragenter', ['$event']) // For IE compatibility
   @HostListener('dragover', ['$event'])
   onDragOver(event) {
     const {zone = 'zone'} = this.options;
     if (this.dragService.accepts(zone)) {
       event.preventDefault();
     }
-    const imageObject = this.renderer.createElement('app-tiled-image-object');
-    console.log(event);
-    this.renderer.setAttribute(imageObject, 'data', JSON.parse(event.dataTransfer.getData('Text')));
-    this.renderer.setStyle(imageObject, 'opacity', 0.5);
-    this.renderer.appendChild(this.el.nativeElement, imageObject);
+  }
+
+  @HostListener('dragenter')
+  onDragEnter() {
+    this.renderer.setStyle(this.el.nativeElement, 'opacity', 0.5);
+  }
+
+  @HostListener('dragleave')
+  onDragLeave() {
+    this.renderer.setStyle(this.el.nativeElement, 'opacity', 1);
   }
 
   @HostListener('drop', ['$event'])
@@ -50,7 +55,7 @@ export class TileDropTargetDirective implements AfterViewInit {
       event.stopPropagation();
     }
     const data = JSON.parse(event.dataTransfer.getData('Text'));
-    const draggedObjDim = this.dragService.objectDimensions;
+    this.renderer.setStyle(this.el.nativeElement, 'opacity', 1);
     this.appDrop.next(data);
   }
 
