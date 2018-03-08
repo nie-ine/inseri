@@ -10,7 +10,7 @@
         </app-tiled-image-object>
       </ng-container>
     </mat-grid-tile>
-    <mat-grid-tile appTileDropTarget (appDrop)="onDrop($event)" class="grid-tile" id="new-drop-zone">
+    <mat-grid-tile appTileDropTarget (appDrop)="onDrop($event)" class="grid-tile" id="new-drop-zone" *ngIf="dragging">
     </mat-grid-tile>
   </mat-grid-list>
 </div>

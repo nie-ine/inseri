@@ -5,6 +5,7 @@ import {LightTableStashService} from '../light-table-stash.service';
 import {SynopsisObjectModifierService} from '../synopsis-object-modifier.service';
 import {SynopsisObjectSerializerService} from '../synopsis-object-serializer.service';
 import {Subscription} from 'rxjs/Subscription';
+import {DragService} from '../drag.service';
 
 @Component({
   selector: 'app-tiled-light-table',
@@ -18,11 +19,13 @@ export class TiledLightTableComponent implements OnInit, OnDestroy {
   private loadLightTableSnapshotSubscriber: Subscription;
   private makeLightTableSnapshotSubscriber: Subscription;
   private closeObjectSubscriber: Subscription;
+  dragging: boolean;
 
   constructor(private lightTableLayoutService: LightTableLayoutService,
               private lightTableStashService: LightTableStashService,
               private synopsisObjectModifierService: SynopsisObjectModifierService,
-              private synopsisObjectSerializerService: SynopsisObjectSerializerService) {
+              private synopsisObjectSerializerService: SynopsisObjectSerializerService,
+              private dragService: DragService) {
     lightTableLayoutService.numberOfColumns$.subscribe(cols => this.columns = cols);
     this.closeObjectSubscriber =
       synopsisObjectModifierService.closeObject$.subscribe(uid => this.closeObject(uid));
@@ -30,6 +33,7 @@ export class TiledLightTableComponent implements OnInit, OnDestroy {
       synopsisObjectSerializerService.makeLightTableSnapshot$.subscribe(() => this.makeSnapshot());
     this.loadLightTableSnapshotSubscriber =
       synopsisObjectSerializerService.loadLightTableSnapshot$.subscribe(snapshot => this.load(snapshot));
+    dragService.dragging$.subscribe(dragging => this.dragging = dragging);
   }
 
   ngOnInit() {

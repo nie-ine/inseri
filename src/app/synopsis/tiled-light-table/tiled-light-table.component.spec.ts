@@ -6,6 +6,7 @@ import {LightTableLayoutService} from '../light-table-layout.service';
 import {LightTableStashService} from '../light-table-stash.service';
 import {SynopsisObjectModifierService} from '../synopsis-object-modifier.service';
 import {SynopsisObjectSerializerService} from '../synopsis-object-serializer.service';
+import {DragService} from '../drag.service';
 
 describe('TiledLightTableComponent', () => {
   let component: TiledLightTableComponent;
@@ -15,6 +16,7 @@ describe('TiledLightTableComponent', () => {
     TestBed.configureTestingModule({
       declarations: [TiledLightTableComponent],
       providers: [
+        DragService,
         LightTableLayoutService,
         {provide: SynopsisObjectModifierService, useValue: {}},
         {provide: SynopsisObjectSerializerService, useValue: {}},
