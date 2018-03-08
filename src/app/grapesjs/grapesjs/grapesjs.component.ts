@@ -55,7 +55,7 @@ export class GrapesjsComponent {
     this.numberOfTextViewers += 1;
   }
 
-  closeTextViewer() {
+  closeTextViewer(i: number) {
     this.textViewerModel.splice(i, 1);
   }
 
