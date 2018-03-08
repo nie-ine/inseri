@@ -1,6 +1,11 @@
-<div class="text-object" [ngClass]="{'nightView': nightView}"
-     (mouseenter)="showMenu = true" (mouseleave)="showMenu = false" [appModifiable]="data.uid" [appDraggable]="data">
-  <app-synopsis-object-toolbox class="show-menu" [uid]="data.uid" *ngIf="showMenu"></app-synopsis-object-toolbox>
-  <h1>{{data.name}}</h1>
-  <div [innerHtml]="safeHtml"></div>
-</div>
+<mat-card class="text-object" [appModifiable]="data.uid" [appDraggable]="data">
+  <mat-card-header>
+    <mat-card-title>{{data.name}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content style="resize:vertical; border-bottom: 1px darkgray solid; height: 200px; overflow-y: auto; overflow-x: auto">
+    <div [innerHtml]="safeHtml" style="resize:vertical"></div>
+  </mat-card-content>
+  <mat-card-actions>
+    <app-synopsis-object-toolbox [uid]="data.uid"></app-synopsis-object-toolbox>
+  </mat-card-actions>
+</mat-card>

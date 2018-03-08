@@ -1,11 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {LightTableLayoutService} from '../light-table-layout.service';
-import {SynopsisObjectData, SynopsisObjectType} from '../synopsis-object-data';
-import {LightTableStashService} from '../light-table-stash.service';
-import {SynopsisObjectModifierService} from '../synopsis-object-modifier.service';
-import {SynopsisObjectSerializerService} from '../synopsis-object-serializer.service';
-import {Subscription} from 'rxjs/Subscription';
-import {DragService} from '../drag.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { LightTableLayoutService } from '../light-table-layout.service';
+import { SynopsisObjectData, SynopsisObjectType } from '../synopsis-object-data';
+import { LightTableStashService } from '../light-table-stash.service';
+import { SynopsisObjectModifierService } from '../synopsis-object-modifier.service';
+import { SynopsisObjectSerializerService } from '../synopsis-object-serializer.service';
+import { Subscription } from 'rxjs/Subscription';
+import { DragService } from '../drag.service';
 
 @Component({
   selector: 'app-tiled-light-table',
@@ -19,7 +19,7 @@ export class TiledLightTableComponent implements OnInit, OnDestroy {
   private loadLightTableSnapshotSubscriber: Subscription;
   private makeLightTableSnapshotSubscriber: Subscription;
   private closeObjectSubscriber: Subscription;
-  dragging: boolean;
+  dragging = false;
 
   constructor(private lightTableLayoutService: LightTableLayoutService,
               private lightTableStashService: LightTableStashService,
@@ -59,6 +59,16 @@ export class TiledLightTableComponent implements OnInit, OnDestroy {
       this.synopsisObjects.splice(index, 0, data);
     } else {
       this.synopsisObjects.push(data);
+    }
+    this.dragging = false;
+  }
+
+  // noinspection JSMethodCanBeStatic
+  setColumns(cols: number) {
+    switch (cols) {
+      case 1: return 'col-1';
+      case 2: return 'col-2';
+      case 3: return 'col-3';
     }
   }
 

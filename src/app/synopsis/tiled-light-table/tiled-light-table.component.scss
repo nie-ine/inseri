@@ -8,7 +8,6 @@
 
 .grid-tile {
   border: 1px solid lightgrey;
-  resize: vertical;
   padding: 3px;
   overflow-y: auto;
 }
@@ -17,6 +16,21 @@
   background-color: #f5f5f5;
   border: 3px dashed lightgray;
   resize: none;
+}
+
+#container {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.col-1 {
+  grid-template-columns: 100%;
+}
+.col-2 {
+  grid-template-columns: 50% 50%;
+}
+.col-3 {
+  grid-template-columns: 33% 33% 33%;
 }
 
 .overlay {
@@ -40,4 +54,3 @@
   opacity: 1;
   pointer-events: none;
 }
-
