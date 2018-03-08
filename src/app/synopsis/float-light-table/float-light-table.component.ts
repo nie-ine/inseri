@@ -37,14 +37,14 @@ export class FloatLightTableComponent implements OnInit, OnDestroy {
     synopsisObjectModifierService.resizeObject$.subscribe(obj => this.updateDimensions(obj[0], obj[1], obj[2]));
     this.makeLightTableSnapshotSubscriber =
     synopsisObjectSerializerService.makeLightTableSnapshot$.subscribe(() => this.makeSnapshot());
-    this.loadLightTableSnapshotSubscriber =
-    synopsisObjectSerializerService.loadLightTableSnapshot$.subscribe(snapshot => this.load(snapshot));
   }
 
   ngOnInit() {
     if (this.lightTableStashService.fetch()) {
       this.load(this.lightTableStashService.fetch());
     }
+    this.loadLightTableSnapshotSubscriber =
+      this.synopsisObjectSerializerService.loadLightTableSnapshot$.subscribe(snapshot => this.load(snapshot));
   }
 
   ngOnDestroy() {
@@ -68,7 +68,9 @@ export class FloatLightTableComponent implements OnInit, OnDestroy {
   }
 
   load(snapshot: SynopsisObjectData[]) {
-    this.synopsisObjectsHost.viewContainerRef.clear();
+    if (this.synopsisObjectsHost) {
+      this.synopsisObjectsHost.viewContainerRef.clear();
+    }
     this.componentRefTracker = [];
     for (const obj of snapshot) {
       const componentRef = this.createNewComponentRef(<SynopsisObjectData>obj);
