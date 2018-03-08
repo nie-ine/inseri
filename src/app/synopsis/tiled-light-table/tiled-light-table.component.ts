@@ -46,6 +46,8 @@ export class TiledLightTableComponent implements OnInit, OnDestroy {
   onDrop(data: SynopsisObjectData, index?: number) {
     if (!data.uid) {
       data.uid = +(Math.random().toString().substr(2));
+    } else {
+      this.synopsisObjects = this.synopsisObjects.filter(x => x.uid !== data.uid);
     }
     if (index === 0) {
       this.synopsisObjects.unshift(data);
