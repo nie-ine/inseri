@@ -26,6 +26,8 @@ export class GrapesjsComponent {
   showPopup2: boolean;
   imageViewerModel = [];
   numberOfImageViewers = 0;
+  textViewerModel = [];
+  numberOfTextViewers = 0;
   length: number;
   constructor() {
   }
@@ -45,6 +47,16 @@ export class GrapesjsComponent {
 
   closeImageViewer(i: number) {
     this.imageViewerModel.splice( i,1 );
+  }
+
+  addAnotherTextViewer() {
+    this.length = this.textViewerModel.length;
+    this.textViewerModel[this.length] = this.numberOfTextViewers + 1;
+    this.numberOfTextViewers += 1;
+  }
+
+  closeTextViewer(i: number) {
+    this.textViewerModel.splice(i, 1);
   }
 
 }
