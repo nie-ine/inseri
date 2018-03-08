@@ -1,7 +1,8 @@
-import {Injectable} from '@angular/core';
-import {SynopsisObjectStorageService} from './synopsis-object-storage.service';
-import {SynopsisObjectData} from './synopsis-object-data';
-import {Subject} from 'rxjs/Subject';
+import { Injectable } from '@angular/core';
+import { SynopsisObjectStorageService } from './synopsis-object-storage.service';
+import { SynopsisObjectData } from './synopsis-object-data';
+import { Subject } from 'rxjs/Subject';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 interface StorageObject {
   [name: string]: [SynopsisObjectData[], SynopsisObjectData[]];
@@ -45,11 +46,14 @@ export class SynopsisObjectSerializerService {
   private thumbnailsSnapshot: Array<SynopsisObjectData>;
   private lightTableStorage = new LightTableStorage();
   private snapshotName: string;
+  private sharedSnapshot = false;
 
   private makeLightTableSnapshotSource = new Subject();
   makeLightTableSnapshot$ = this.makeLightTableSnapshotSource.asObservable();
-  private loadLightTableSnapshotSource = new Subject<SynopsisObjectData[]>();
+  private loadLightTableSnapshotSource = new ReplaySubject<SynopsisObjectData[]>(1);
   loadLightTableSnapshot$ = this.loadLightTableSnapshotSource.asObservable();
+  private propagateLightTableSharedSnapshotSource = new Subject<[SynopsisObjectData[], SynopsisObjectData[]]>();
+  propagateLightTableSharedSnapshot$ = this.propagateLightTableSharedSnapshotSource.asObservable();
 
   constructor(private synopsisObjectStorageService: SynopsisObjectStorageService) {
     synopsisObjectStorageService.synopsisObjects$
@@ -65,10 +69,20 @@ export class SynopsisObjectSerializerService {
     return false;
   }
 
+  generateSharedSnapshot() {
+    this.sharedSnapshot = true;
+    this.makeLightTableSnapshotSource.next();
+  }
+
   load(name: string) {
     const snapshot = this.lightTableStorage.get(name);
     this.synopsisObjectStorageService.replace(snapshot[0]);
     this.loadLightTableSnapshotSource.next(snapshot[1]);
+  }
+
+  loadFromUrl(snapshot: any) {
+    this.synopsisObjectStorageService.replace(<SynopsisObjectData[]>snapshot[0]);
+    this.loadLightTableSnapshotSource.next(<SynopsisObjectData[]>snapshot[1]);
   }
 
   getAllFilenames(): string[] {
@@ -76,7 +90,12 @@ export class SynopsisObjectSerializerService {
   }
 
   sendLightTableSnapshot(snapshot: SynopsisObjectData[]) {
-    this.lightTableStorage.add(this.snapshotName, this.thumbnailsSnapshot, snapshot);
+    if (this.sharedSnapshot) {
+      this.propagateLightTableSharedSnapshotSource.next([this.thumbnailsSnapshot, snapshot]);
+      this.sharedSnapshot = false;
+    } else {
+      this.lightTableStorage.add(this.snapshotName, this.thumbnailsSnapshot, snapshot);
+    }
   }
 
 }
