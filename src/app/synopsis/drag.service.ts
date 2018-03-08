@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {Subject} from 'rxjs/Subject';
 
 export interface ObjectDimensions {
   width: number;
@@ -18,8 +19,16 @@ export class DragService {
     mouseOffsetY: 0
   };
 
+  private draggingSource = new Subject<boolean>();
+  dragging$ = this.draggingSource.asObservable();
+
   startDrag(zone: string) {
     this.zone = zone;
+    this.draggingSource.next(true);
+  }
+
+  endDrag() {
+    this.draggingSource.next(false);
   }
 
   accepts(zone: string): boolean {
