@@ -1,12 +1,12 @@
-<button mat-icon-button (click)="rotateLeft()">
+<button mat-icon-button (click)="rotateLeft()" *ngIf="rotateLeftButton">
   <mat-icon>rotate_left</mat-icon>
 </button>
-<button mat-icon-button (click)="rotateRight()">
+<button mat-icon-button (click)="rotateRight()" *ngIf="rotateRightButton">
   <mat-icon>rotate_right</mat-icon>
 </button>
-<button mat-icon-button (click)="invertColors()">
+<button mat-icon-button (click)="invertColors()" *ngIf="invertColorsButton">
   <mat-icon>invert_colors</mat-icon>
 </button>
-<button mat-icon-button (click)="closeObject()">
+<button mat-icon-button (click)="closeObject()" *ngIf="closeButton">
   <mat-icon>close</mat-icon>
 </button>
