@@ -1,20 +1,17 @@
 <div class="drop-target">
-  <mat-grid-list [cols]="columns" [gutterSize]="4">
-    <mat-grid-tile appTileDropTarget (appDrop)="onDrop($event, i)"
-                   *ngFor="let obj of synopsisObjects; let i = index;"
-                   class="grid-tile">
+  <div id="container" [ngClass]="setColumns(columns)">
+    <div class="tile" appTileDropTarget (appDrop)="onDrop($event, i)"
+         *ngFor="let obj of synopsisObjects; let i = index;">
       <ng-container [ngSwitch]="obj.dataType">
         <app-tiled-text-object *ngSwitchCase="synopsisObjectTypes.Text" [data]="obj"
-                               style="min-width:100%"></app-tiled-text-object>
-        <app-tiled-image-object *ngSwitchCase="synopsisObjectTypes.Image" [data]="obj" style="min-width:100%">
+                               class="object-container"></app-tiled-text-object>
+        <app-tiled-image-object *ngSwitchCase="synopsisObjectTypes.Image" [data]="obj" class="object-container">
         </app-tiled-image-object>
       </ng-container>
-    </mat-grid-tile>
-    <mat-grid-tile appTileDropTarget (appDrop)="onDrop($event)" class="grid-tile" id="new-drop-zone" *ngIf="dragging">
-    </mat-grid-tile>
-  </mat-grid-list>
-</div>
-
-<div id="container" [ngClass]="setColumns(columns)">
-  <div class="tile"></div>
+    </div>
+    <div class="tile" appTileDropTarget (appDrop)="onDrop($event)" id="new-drop-zone"
+         *ngIf="dragging">
+      <div class="object-container" style="height:50vh"></div>
+    </div>
+  </div>
 </div>

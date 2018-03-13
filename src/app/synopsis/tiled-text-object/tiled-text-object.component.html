@@ -1,11 +1,10 @@
-<mat-card class="text-object" [appModifiable]="data.uid" [appDraggable]="data">
+<mat-card class="text-object" [appModifiable]="data.uid" [appDraggable]="data" (mouseenter)="showMenu = true" (mouseleave)="showMenu = false">
+  <app-synopsis-object-toolbox [uid]="data.uid" [rotateRightButton]="false" [rotateLeftButton]="false" class="show-menu" *ngIf="showMenu">
+  </app-synopsis-object-toolbox>
   <mat-card-header>
     <mat-card-title>{{data.name}}</mat-card-title>
   </mat-card-header>
-  <mat-card-content style="resize:vertical; border-bottom: 1px darkgray solid; height: 200px; overflow-y: auto; overflow-x: auto">
-    <div [innerHtml]="safeHtml" style="resize:vertical"></div>
+  <mat-card-content class="card-content">
+    <div [innerHtml]="safeHtml"></div>
   </mat-card-content>
-  <mat-card-actions>
-    <app-synopsis-object-toolbox [uid]="data.uid"></app-synopsis-object-toolbox>
-  </mat-card-actions>
 </mat-card>
