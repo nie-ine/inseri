@@ -1,4 +1,4 @@
-<mat-card class="text-object" [appModifiable]="data.uid" [appDraggable]="data" (mouseenter)="showMenu = true" (mouseleave)="showMenu = false">
+<mat-card class="text-object" [appModifiable]="data" [appDraggable]="data" (mouseenter)="showMenu = true" (mouseleave)="showMenu = false">
   <app-synopsis-object-toolbox [uid]="data.uid" [rotateRightButton]="false" [rotateLeftButton]="false" class="show-menu" *ngIf="showMenu">
   </app-synopsis-object-toolbox>
   <mat-card-header>

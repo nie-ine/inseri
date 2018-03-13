@@ -1,29 +1,35 @@
-import {Directive, ElementRef, HostListener, Input, Renderer2} from '@angular/core';
+import { Directive, ElementRef, HostListener, Input, OnInit, Renderer2 } from '@angular/core';
 import {SynopsisObjectModifierService} from './synopsis-object-modifier.service';
+import { SynopsisObjectData } from './synopsis-object-data';
 
 @Directive({
   selector: '[appModifiable]'
 })
-export class ModifiableDirective {
+export class ModifiableDirective implements OnInit {
 
-  @Input() appModifiable: number;
-  nightView = false;
-  rotation = 0;
+  @Input() appModifiable: SynopsisObjectData;
+  nightView: boolean;
+  rotation: number;
   bottomRightCornerArea: [number, number];
 
   constructor(private synopsisObjectModifierService: SynopsisObjectModifierService,
               private el: ElementRef,
               private renderer: Renderer2) {
     synopsisObjectModifierService.rotateObject$.subscribe(x => {
-      if (x[0] === this.appModifiable) {
+      if (x[0] === this.appModifiable.uid) {
         this.rotate(x[1]);
       }
     });
     synopsisObjectModifierService.invertColors$.subscribe(uid => {
-      if (uid === this.appModifiable) {
+      if (uid === this.appModifiable.uid) {
         this.invertColors();
       }
     });
+  }
+
+  ngOnInit() {
+    this.rotation = this.appModifiable.transform ? this.appModifiable.transform : 0;
+    this.nightView = this.appModifiable.invertedColors;
   }
 
   private rotate(angle: number) {
@@ -48,7 +54,7 @@ export class ModifiableDirective {
       this.el.nativeElement.getBoundingClientRect().bottom - 16
     ];
     this.synopsisObjectModifierService.resizeObject(
-      this.appModifiable,
+      this.appModifiable.uid,
       this.el.nativeElement.getBoundingClientRect().width,
       this.el.nativeElement.getBoundingClientRect().height
     );
