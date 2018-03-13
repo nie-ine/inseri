@@ -1,4 +1,6 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
+import { SynopsisObjectSerializerService } from './synopsis-object-serializer.service';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-synopsis',
@@ -7,9 +9,20 @@ import {Component} from '@angular/core';
 })
 export class SynopsisComponent {
 
-  constructor() {
+  constructor(private route: ActivatedRoute, private synopsisObjectSerializerService: SynopsisObjectSerializerService) {
+    route.paramMap.subscribe(params => this.loadStateFromUrl(params));
   }
 
+  loadStateFromUrl(params: ParamMap) {
+    if (params.has('snapshot')) {
+      try {
+        const snapshot = JSON.parse(decodeURIComponent(params.get('snapshot')));
+        this.synopsisObjectSerializerService.loadFromUrl(snapshot);
+      } catch (e) {
+        console.log(e.message);
+      }
+    }
+  }
 
 
 }

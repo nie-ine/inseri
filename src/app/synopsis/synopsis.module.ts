@@ -30,6 +30,7 @@ import {LightTableStashService} from './light-table-stash.service';
 import { TiledTextObjectComponent } from './tiled-text-object/tiled-text-object.component';
 import { TiledImageObjectComponent } from './tiled-image-object/tiled-image-object.component';
 import { TileDropTargetDirective } from './tile-drop-target.directive';
+import { ShareLightTableComponent } from './share-light-table/share-light-table.component';
 
 @NgModule({
   imports: [
@@ -61,7 +62,8 @@ import { TileDropTargetDirective } from './tile-drop-target.directive';
     FloatLightTableComponent,
     TiledTextObjectComponent,
     TiledImageObjectComponent,
-    TileDropTargetDirective
+    TileDropTargetDirective,
+    ShareLightTableComponent
   ],
   providers: [
     DragService,
@@ -74,10 +76,11 @@ import { TileDropTargetDirective } from './tile-drop-target.directive';
   ],
   entryComponents: [
     FloatingImageObjectComponent,
+    FloatingTextObjectComponent,
     LoadLightTableComponent,
-    SynopsisObjectManagerComponent,
     SaveLightTableComponent,
-    FloatingTextObjectComponent
+    ShareLightTableComponent,
+    SynopsisObjectManagerComponent,
   ],
   exports: [
     SynopsisComponent,
