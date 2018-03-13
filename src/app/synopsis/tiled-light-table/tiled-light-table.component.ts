@@ -69,6 +69,8 @@ export class TiledLightTableComponent implements OnInit, OnDestroy {
       case 1: return 'col-1';
       case 2: return 'col-2';
       case 3: return 'col-3';
+      case 4: return 'col-4';
+      case 5: return 'col-5';
     }
   }
 
