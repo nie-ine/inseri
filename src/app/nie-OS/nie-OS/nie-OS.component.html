@@ -5,6 +5,7 @@
       <div>
         <button mat-button (click)="addAnotherImageViewer()">Add image Viewer</button><br>
         <button mat-button (click)="addAnotherSearch()">Add search Viewer</button><br>
+        <button mat-button (click)="addAnotherGrapesJS()">Add grapesJS Viewer</button><br>
       </div>
     </mat-drawer>
 
@@ -46,4 +47,20 @@
       <button mat-button (click)="searchViewer.appear()" >Search Viewer {{ searchModel[i] }}</button><br>
     </div>
 
+    <!-- GrapesJS -->
+    <div *ngFor="let grapesJS of grapesJSModel; let i = index;" >
+      <popup #grapesJSViewer [title]="'GrapesJS ' + grapesJSModel[i]" >
+        <div id="grapesJSViewer">Please drag this window to desired size and open other app. <br>
+          ( Click for example on image view, this will cause the instantiation of  grapesjs as well. )<br>
+        This is necessary because of a current bug.</div>
+      </popup>
+      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>settings</mat-icon></button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="closeGrapesJS( i )">Close this app</button>
+      </mat-menu>
+      <button mat-button (click)="grapesJSViewer.appear()" >GrapesJS Viewer {{ grapesJSModel[i] }}</button><br>
+    </div>
+
   </mat-drawer-container>
+
+
