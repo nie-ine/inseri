@@ -1,5 +1,5 @@
-import { Directive, ElementRef, HostListener, Input, Renderer2 } from '@angular/core';
-import { SynopsisObjectModifierService } from './synopsis-object-modifier.service';
+import {Directive, ElementRef, HostListener, Input, Renderer2} from '@angular/core';
+import {SynopsisObjectModifierService} from './synopsis-object-modifier.service';
 
 @Directive({
   selector: '[appModifiable]'

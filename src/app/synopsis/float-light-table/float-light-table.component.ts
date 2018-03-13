@@ -36,6 +36,8 @@ export class FloatLightTableComponent implements OnInit, OnDestroy {
     this.closeObjectSubscriber =
       synopsisObjectModifierService.closeObject$.subscribe(uid => this.closeObject(uid));
     synopsisObjectModifierService.resizeObject$.subscribe(obj => this.updateDimensions(obj[0], obj[1], obj[2]));
+    synopsisObjectModifierService.rotateObject$.subscribe(obj => this.updateRotation(obj[0], obj[1]));
+    synopsisObjectModifierService.invertColors$.subscribe(uid => this.updateInversion(uid));
     this.makeLightTableSnapshotSubscriber =
       synopsisObjectSerializerService.makeLightTableSnapshot$.subscribe(() => this.makeSnapshot());
     this.loadLightTableSnapshotSubscriber =
@@ -71,7 +73,6 @@ export class FloatLightTableComponent implements OnInit, OnDestroy {
   load(snapshot: SynopsisObjectData[]) {
     this.synopsisObjectsHost.viewContainerRef.clear();
     this.componentRefTracker = [];
-    console.log(this.el.nativeElement.getBoundingClientRect());
     for (const obj of snapshot) {
       const dropZoneLeft = this.el.nativeElement.getBoundingClientRect().left;
       const dropZoneTop = this.el.nativeElement.getBoundingClientRect().top;
@@ -114,6 +115,19 @@ export class FloatLightTableComponent implements OnInit, OnDestroy {
     if (this.componentRefTracker[uid]) {
       (<SynopsisObject>this.componentRefTracker[uid].instance).data.width = width;
       (<SynopsisObject>this.componentRefTracker[uid].instance).data.height = height;
+    }
+  }
+
+  private updateRotation(uid: number, angle: number) {
+    if (this.componentRefTracker[uid]) {
+      (<SynopsisObject>this.componentRefTracker[uid].instance).data.transform = angle;
+    }
+  }
+
+  private updateInversion(uid: number) {
+    if (this.componentRefTracker[uid]) {
+      (<SynopsisObject>this.componentRefTracker[uid].instance).data.invertedColors =
+        !(<SynopsisObject>this.componentRefTracker[uid].instance).data.invertedColors;
     }
   }
 
