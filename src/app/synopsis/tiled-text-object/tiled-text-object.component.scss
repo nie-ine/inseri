@@ -14,3 +14,10 @@
   background-color: rgba(200, 200, 200, 0.8);
   border-radius: 4px;
 }
+
+.card-content {
+  resize: vertical;
+  border-bottom: 1px darkgray solid;
+  height: 200px;
+  overflow: auto;
+}
