@@ -16,7 +16,7 @@
       <span>Float layout</span>
     </ng-template>
   </button>
-  <button mat-menu-item *ngIf="tiled" [disableRipple]="true">
+  <span mat-menu-item *ngIf="tiled" [disableRipple]="true">
     <mat-icon>view_column</mat-icon>
     <span>
       <button mat-icon-button (click)="decrementNumberOfColumns($event);" [disableRipple]="true"
@@ -25,11 +25,11 @@
       </button>
       {{numberOfColumns}}
       <button mat-icon-button (click)="incrementNumberOfColumns($event)" [disableRipple]="true"
-              [disabled]="numberOfColumns >= 3">
+              [disabled]="numberOfColumns >= 5">
         <mat-icon>add_circle_outline</mat-icon>
       </button>
     </span>
-  </button>
+  </span>
   <button mat-menu-item (click)="openSaveLightTableDialog()">
     <mat-icon>cloud_upload</mat-icon>
     <span>Save light table</span>

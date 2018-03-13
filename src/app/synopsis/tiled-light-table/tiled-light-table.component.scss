@@ -35,6 +35,14 @@
   grid-template-columns: 1fr 1fr 1fr !important;
 }
 
+.col-4 {
+  grid-template-columns: 1fr 1fr 1fr 1fr !important;
+}
+
+.col-5 {
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr !important;
+}
+
 .overlay {
   position: relative;
   top: -50%;
