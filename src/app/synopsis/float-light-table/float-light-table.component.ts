@@ -122,7 +122,9 @@ export class FloatLightTableComponent implements OnInit, OnDestroy {
 
   private updateRotation(uid: number, angle: number) {
     if (this.componentRefTracker[uid]) {
-      (<SynopsisObject>this.componentRefTracker[uid].instance).data.transform = angle;
+      (<SynopsisObject>this.componentRefTracker[uid].instance).data.transform =
+        ((<SynopsisObject>this.componentRefTracker[uid].instance).data.transform ?
+          (<SynopsisObject>this.componentRefTracker[uid].instance).data.transform : 0) + angle;
     }
   }
 
@@ -144,5 +146,6 @@ export class FloatLightTableComponent implements OnInit, OnDestroy {
       (<SynopsisObject>this.componentRefTracker[key].instance).data
     );
   }
+
 
 }
