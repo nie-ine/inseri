@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { ArithmeticModule } from '../npm-package/src/modules/arithmetic.module';
+import { GrapesjsComponent } from './grapesjs/grapesjs.component';
 
 @NgModule({
   imports: [
@@ -20,14 +21,16 @@ import { ArithmeticModule } from '../npm-package/src/modules/arithmetic.module';
     MatIconModule,
     ArithmeticModule,
     RouterModule.forChild([
-      { path: 'arbeitsflaeche', component: NIEOSComponent }
+      { path: 'arbeitsflaeche', component: NIEOSComponent },
+      { path: 'grapesjs', component: GrapesjsComponent }
     ])
   ],
   providers: [
   ],
   declarations: [
     NIEOSComponent,
-    Popup
+    Popup,
+    GrapesjsComponent
   ],
   exports: [
     NIEOSComponent,

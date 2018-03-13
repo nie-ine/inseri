@@ -28,6 +28,8 @@ export class NIEOSComponent {
   numberOfImageViewers = 0;
   searchModel = [];
   numberOfSearches = 0;
+  grapesJSModel = [];
+  numberOfgrapesJS = 0;
   length: number;
   constructor() {}
 
@@ -50,4 +52,15 @@ export class NIEOSComponent {
   closeSearch(i: number) {
     this.searchModel.splice( i, 1 );
   }
+
+  //GrapesJS
+  addAnotherGrapesJS() {
+    this.length = this.grapesJSModel.length;
+    this.grapesJSModel[this.length] = this.numberOfgrapesJS + 1;
+    this.numberOfgrapesJS += 1;
+  }
+  closeGrapesJS(i: number) {
+    this.grapesJSModel.splice( i, 1 );
+  }
+
 }
