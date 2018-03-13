@@ -1,14 +1,14 @@
-import { Component, ComponentFactoryResolver, ComponentRef, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { SynopsisObjectAnchorDirective } from '../synopsis-object-anchor.directive';
-import { SynopsisObjectSerializerService } from '../synopsis-object-serializer.service';
-import { SynopsisObjectModifierService } from '../synopsis-object-modifier.service';
-import { SynopsisObjectData, SynopsisObjectType } from '../synopsis-object-data';
-import { SynopsisObject } from '../synopsis-object';
-import { FloatingTextObjectComponent } from '../floating-text-object/floating-text-object.component';
-import { FloatingImageObjectComponent } from '../floating-image-object/floating-image-object.component';
-import { SynopsisItem } from '../synopsis-item';
-import { LightTableStashService } from '../light-table-stash.service';
-import { Subscription } from 'rxjs/Subscription';
+import {Component, ComponentFactoryResolver, ComponentRef, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {SynopsisObjectAnchorDirective} from '../synopsis-object-anchor.directive';
+import {SynopsisObjectSerializerService} from '../synopsis-object-serializer.service';
+import {SynopsisObjectModifierService} from '../synopsis-object-modifier.service';
+import {SynopsisObjectData, SynopsisObjectType} from '../synopsis-object-data';
+import {SynopsisObject} from '../synopsis-object';
+import {FloatingTextObjectComponent} from '../floating-text-object/floating-text-object.component';
+import {FloatingImageObjectComponent} from '../floating-image-object/floating-image-object.component';
+import {SynopsisItem} from '../synopsis-item';
+import {LightTableStashService} from '../light-table-stash.service';
+import {Subscription} from 'rxjs/Subscription';
 
 interface ComponentRefTracker {
   [uid: number]: ComponentRef<SynopsisObject>;
@@ -31,14 +31,15 @@ export class FloatLightTableComponent implements OnInit, OnDestroy {
               private lightTableStashService: LightTableStashService,
               private synopsisObjectModifierService: SynopsisObjectModifierService,
               private synopsisObjectSerializerService: SynopsisObjectSerializerService,
+              private el: ElementRef,
               private renderer: Renderer2) {
     this.closeObjectSubscriber =
       synopsisObjectModifierService.closeObject$.subscribe(uid => this.closeObject(uid));
     synopsisObjectModifierService.resizeObject$.subscribe(obj => this.updateDimensions(obj[0], obj[1], obj[2]));
     this.makeLightTableSnapshotSubscriber =
-    synopsisObjectSerializerService.makeLightTableSnapshot$.subscribe(() => this.makeSnapshot());
+      synopsisObjectSerializerService.makeLightTableSnapshot$.subscribe(() => this.makeSnapshot());
     this.loadLightTableSnapshotSubscriber =
-    synopsisObjectSerializerService.loadLightTableSnapshot$.subscribe(snapshot => this.load(snapshot));
+      synopsisObjectSerializerService.loadLightTableSnapshot$.subscribe(snapshot => this.load(snapshot));
   }
 
   ngOnInit() {
@@ -70,7 +71,16 @@ export class FloatLightTableComponent implements OnInit, OnDestroy {
   load(snapshot: SynopsisObjectData[]) {
     this.synopsisObjectsHost.viewContainerRef.clear();
     this.componentRefTracker = [];
+    console.log(this.el.nativeElement.getBoundingClientRect());
     for (const obj of snapshot) {
+      const dropZoneLeft = this.el.nativeElement.getBoundingClientRect().left;
+      const dropZoneTop = this.el.nativeElement.getBoundingClientRect().top;
+      if (obj.left < dropZoneLeft) {
+        obj.left = dropZoneLeft;
+      }
+      if (obj.top < dropZoneTop) {
+        obj.top = dropZoneTop;
+      }
       const componentRef = this.createNewComponentRef(<SynopsisObjectData>obj);
       this.componentRefTracker[obj.uid] = componentRef;
       (<SynopsisObject>componentRef.instance).data = <SynopsisObjectData>obj;
