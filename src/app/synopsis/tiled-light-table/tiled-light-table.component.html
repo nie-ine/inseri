@@ -1,5 +1,5 @@
 <div class="drop-target">
-  <mat-grid-list [cols]="columns" rowHeight="2:1">
+  <mat-grid-list [cols]="columns" [gutterSize]="4">
     <mat-grid-tile appTileDropTarget (appDrop)="onDrop($event, i)"
                    *ngFor="let obj of synopsisObjects; let i = index;"
                    class="grid-tile">
@@ -13,4 +13,8 @@
     <mat-grid-tile appTileDropTarget (appDrop)="onDrop($event)" class="grid-tile" id="new-drop-zone" *ngIf="dragging">
     </mat-grid-tile>
   </mat-grid-list>
+</div>
+
+<div id="container" [ngClass]="setColumns(columns)">
+  <div class="tile"></div>
 </div>

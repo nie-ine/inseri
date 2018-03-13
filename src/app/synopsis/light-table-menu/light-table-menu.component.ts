@@ -1,9 +1,10 @@
-import {Component} from '@angular/core';
-import {SynopsisObjectManagerComponent} from '../synopsis-object-manager/synopsis-object-manager.component';
-import {SaveLightTableComponent} from '../save-light-table/save-light-table.component';
-import {LoadLightTableComponent} from '../load-light-table/load-light-table.component';
-import {MatDialog} from '@angular/material';
-import {LightTableLayoutService} from '../light-table-layout.service';
+import { Component } from '@angular/core';
+import { SynopsisObjectManagerComponent } from '../synopsis-object-manager/synopsis-object-manager.component';
+import { SaveLightTableComponent } from '../save-light-table/save-light-table.component';
+import { LoadLightTableComponent } from '../load-light-table/load-light-table.component';
+import { MatDialog } from '@angular/material';
+import { LightTableLayoutService } from '../light-table-layout.service';
+import { ShareLightTableComponent } from '../share-light-table/share-light-table.component';
 
 @Component({
   selector: 'app-light-table-menu',
@@ -53,6 +54,12 @@ export class LightTableMenuComponent {
     event.stopPropagation();
     this.numberOfColumns--;
     this.lightTableLayoutService.numberOfColumns(this.numberOfColumns);
+  }
+
+  openShareLightTableDialog(): void {
+    this.dialog.open(ShareLightTableComponent, {
+      width: '500px'
+    });
   }
 
 }
