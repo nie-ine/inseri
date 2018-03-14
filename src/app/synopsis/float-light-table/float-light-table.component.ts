@@ -26,6 +26,9 @@ export class FloatLightTableComponent implements OnInit, OnDestroy {
   private closeObjectSubscriber: Subscription;
   private loadLightTableSnapshotSubscriber: Subscription;
   private makeLightTableSnapshotSubscriber: Subscription;
+  private invertColorsSubscriber: Subscription;
+  private resizeObjectSubscriber: Subscription;
+  private rotateObjectSubscriber: Subscription;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
               private lightTableStashService: LightTableStashService,
@@ -35,9 +38,12 @@ export class FloatLightTableComponent implements OnInit, OnDestroy {
               private renderer: Renderer2) {
     this.closeObjectSubscriber =
       synopsisObjectModifierService.closeObject$.subscribe(uid => this.closeObject(uid));
-    synopsisObjectModifierService.resizeObject$.subscribe(obj => this.updateDimensions(obj[0], obj[1], obj[2]));
-    synopsisObjectModifierService.rotateObject$.subscribe(obj => this.updateRotation(obj[0], obj[1]));
-    synopsisObjectModifierService.invertColors$.subscribe(uid => this.updateInversion(uid));
+    this.resizeObjectSubscriber =
+      synopsisObjectModifierService.resizeObject$.subscribe(obj => this.updateDimensions(obj[0], obj[1], obj[2]));
+    this.rotateObjectSubscriber =
+      synopsisObjectModifierService.rotateObject$.subscribe(obj => this.updateRotation(obj[0], obj[1]));
+    this.invertColorsSubscriber =
+      synopsisObjectModifierService.invertColors$.subscribe(uid => this.updateInversion(uid));
     this.makeLightTableSnapshotSubscriber =
       synopsisObjectSerializerService.makeLightTableSnapshot$.subscribe(() => this.makeSnapshot());
   }
@@ -55,6 +61,9 @@ export class FloatLightTableComponent implements OnInit, OnDestroy {
     this.closeObjectSubscriber.unsubscribe();
     this.makeLightTableSnapshotSubscriber.unsubscribe();
     this.loadLightTableSnapshotSubscriber.unsubscribe();
+    this.resizeObjectSubscriber.unsubscribe();
+    this.invertColorsSubscriber.unsubscribe();
+    this.rotateObjectSubscriber.unsubscribe();
   }
 
   onDrop(data: SynopsisObjectData) {
