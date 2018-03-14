@@ -1,7 +1,8 @@
-import { Component, ViewChild } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
-import { SynopsisObjectSerializerService } from '../synopsis-object-serializer.service';
-import { SynopsisObjectData } from '../synopsis-object-data';
+import {Component, ViewChild} from '@angular/core';
+import {MatDialogRef} from '@angular/material';
+import {SynopsisObjectSerializerService} from '../synopsis-object-serializer.service';
+import {SynopsisObjectData} from '../synopsis-object-data';
+import {LightTableLayoutService} from '../light-table-layout.service';
 
 @Component({
   selector: 'app-share-light-table',
@@ -10,14 +11,19 @@ import { SynopsisObjectData } from '../synopsis-object-data';
 })
 export class ShareLightTableComponent {
 
+  @ViewChild('url') textarea;
   shareUrl: string;
   showButton = false;
-  @ViewChild('url') textarea;
+  private tiled = false;
+  private numberOfColumns = 2;
 
   constructor(public dialogRef: MatDialogRef<ShareLightTableComponent>,
-              private synopsisObjectSerializerService: SynopsisObjectSerializerService) {
+              private synopsisObjectSerializerService: SynopsisObjectSerializerService,
+              private lightTableLayoutService: LightTableLayoutService) {
+    lightTableLayoutService.tiledLayout$.subscribe(tiled => this.tiled = tiled);
+    lightTableLayoutService.numberOfColumns$.subscribe(cols => this.numberOfColumns = cols);
     synopsisObjectSerializerService.propagateLightTableSharedSnapshot$.subscribe(objs => this.encodeUrl(objs));
-    this.synopsisObjectSerializerService.generateSharedSnapshot();
+    synopsisObjectSerializerService.generateSharedSnapshot();
   }
 
   copyToClipboardAndClose() {
@@ -31,7 +37,10 @@ export class ShareLightTableComponent {
   }
 
   private encodeUrl(objs: [SynopsisObjectData[], SynopsisObjectData[]]) {
-    this.shareUrl = window.location.href + ';snapshot=' + encodeURIComponent(JSON.stringify(objs));
+    this.shareUrl = window.location.href +
+      ';tiled=' + this.tiled +
+      (this.tiled ? ';cols=' + this.numberOfColumns : '') +
+      ';snapshot=' + encodeURIComponent(JSON.stringify(objs));
   }
 
 }

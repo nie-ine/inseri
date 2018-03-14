@@ -12,9 +12,7 @@ export class LightTableComponent {
   tiled = false;
 
   constructor(private lightTableLayoutService: LightTableLayoutService) {
-    lightTableLayoutService.tiledLayout$.subscribe(tiled => {
-      this.tiled = tiled;
-    });
+    lightTableLayoutService.tiledLayout$.subscribe(tiled => this.tiled = tiled);
   }
 
 }
