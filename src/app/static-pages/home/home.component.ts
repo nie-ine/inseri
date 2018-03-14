@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+declare let OpenSeadragon: any;
 
 @Component({
   selector: 'app-home',
