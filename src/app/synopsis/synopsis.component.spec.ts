@@ -6,6 +6,7 @@ import {ActivatedRoute} from '@angular/router';
 import {ActivatedRouteStub} from '../../testing/activated-route-stub';
 import {SynopsisObjectSerializerServiceStub} from './stubs/synopsis-object-serializer-service-stub';
 import {SynopsisObjectSerializerService} from './synopsis-object-serializer.service';
+import {LightTableLayoutService} from './light-table-layout.service';
 
 describe('SynopsisComponent', () => {
   let component: SynopsisComponent;
@@ -19,6 +20,7 @@ describe('SynopsisComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
         {provide: ActivatedRoute, useValue: activatedRouteStub},
+        LightTableLayoutService,
         {provide: SynopsisObjectSerializerService, useValue: synopsisObjectSerializerStub}
       ]
     })

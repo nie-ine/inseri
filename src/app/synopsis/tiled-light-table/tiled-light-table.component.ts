@@ -31,13 +31,15 @@ export class TiledLightTableComponent implements OnInit, OnDestroy {
       synopsisObjectModifierService.closeObject$.subscribe(uid => this.closeObject(uid));
     this.makeLightTableSnapshotSubscriber =
       synopsisObjectSerializerService.makeLightTableSnapshot$.subscribe(() => this.makeSnapshot());
-    this.loadLightTableSnapshotSubscriber =
-      synopsisObjectSerializerService.loadLightTableSnapshot$.subscribe(snapshot => this.load(snapshot));
     dragService.dragging$.subscribe(dragging => this.dragging = dragging);
   }
 
   ngOnInit() {
-    this.synopsisObjects = this.lightTableStashService.fetch();
+    if (this.lightTableStashService.fetch()) {
+      this.load(this.lightTableStashService.fetch());
+    }
+    this.loadLightTableSnapshotSubscriber =
+      this.synopsisObjectSerializerService.loadLightTableSnapshot$.subscribe(snapshot => this.load(snapshot));
   }
 
   ngOnDestroy() {

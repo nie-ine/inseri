@@ -4,6 +4,7 @@ import { ShareLightTableComponent } from './share-light-table.component';
 import {MatDialogRef} from '@angular/material';
 import {SynopsisObjectSerializerService} from '../synopsis-object-serializer.service';
 import {SynopsisObjectSerializerServiceStub} from '../stubs/synopsis-object-serializer-service-stub';
+import {LightTableLayoutService} from '../light-table-layout.service';
 
 describe('ShareLightTableComponent', () => {
   let component: ShareLightTableComponent;
@@ -15,6 +16,7 @@ describe('ShareLightTableComponent', () => {
       declarations: [ ShareLightTableComponent ],
       providers: [
         {provide: MatDialogRef, useValue: {}},
+        LightTableLayoutService,
         {provide: SynopsisObjectSerializerService, useValue: synopsisObjectSerializerServiceStub}
       ]
     })

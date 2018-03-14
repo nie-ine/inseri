@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
-import {Subject} from 'rxjs/Subject';
+import {ReplaySubject} from 'rxjs/ReplaySubject';
 
 @Injectable()
 export class LightTableLayoutService {
 
-  private numberOfColumnsSource = new Subject<number>();
+  private numberOfColumnsSource = new ReplaySubject<number>(1);
   numberOfColumns$ = this.numberOfColumnsSource.asObservable();
-  private tiledLayoutSource = new Subject<boolean>();
+  private tiledLayoutSource = new ReplaySubject<boolean>(1);
   tiledLayout$ = this.tiledLayoutSource.asObservable();
 
   numberOfColumns(cols: number) {
