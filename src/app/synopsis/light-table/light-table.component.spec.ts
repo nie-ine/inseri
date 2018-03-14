@@ -3,22 +3,20 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {LightTableComponent} from './light-table.component';
 import {SynopsisObjectModifierService} from '../synopsis-object-modifier.service';
 import {SynopsisObjectSerializerService} from '../synopsis-object-serializer.service';
+import {SynopsisObjectSerializerServiceStub} from '../stubs/synopsis-object-serializer-service-stub';
 
 describe('LightTableComponent', () => {
   let component: LightTableComponent;
   let fixture: ComponentFixture<LightTableComponent>;
+  const synopsisObjectSerializerServiceStub = new SynopsisObjectSerializerServiceStub();
 
-  const synopsisObjectSerializerService = jasmine
-    .createSpyObj('SynopsisObjectSerializerService', ['makeLightTableSnapshot$', 'loadLightTableSnapshot$']);
-  synopsisObjectSerializerService.loadLightTableSnapshot$.and.returnValue({ subscribe: () => {} });
-  synopsisObjectSerializerService.makeLightTableSnapshot$.and.returnValue({ subscribe: () => {} });
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [LightTableComponent],
       providers: [
         SynopsisObjectModifierService,
-        {provide: SynopsisObjectSerializerService, useValue: synopsisObjectSerializerService}
+        {provide: SynopsisObjectSerializerService, useValue: synopsisObjectSerializerServiceStub}
       ]
     })
       .compileComponents();
@@ -30,7 +28,7 @@ describe('LightTableComponent', () => {
     fixture.detectChanges();
   });
 
-/*  it('should create', () => {
-    expect(component).toBeTruthy();
-  });*/
+  /*  it('should create', () => {
+      expect(component).toBeTruthy();
+    });*/
 });

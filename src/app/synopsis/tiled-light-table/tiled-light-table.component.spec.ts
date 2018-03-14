@@ -7,10 +7,12 @@ import {LightTableStashService} from '../light-table-stash.service';
 import {SynopsisObjectModifierService} from '../synopsis-object-modifier.service';
 import {SynopsisObjectSerializerService} from '../synopsis-object-serializer.service';
 import {DragService} from '../drag.service';
+import {SynopsisObjectSerializerServiceStub} from '../stubs/synopsis-object-serializer-service-stub';
 
 describe('TiledLightTableComponent', () => {
   let component: TiledLightTableComponent;
   let fixture: ComponentFixture<TiledLightTableComponent>;
+  const synopsisObjectSerializerServiceStub = new SynopsisObjectSerializerServiceStub();
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -19,7 +21,7 @@ describe('TiledLightTableComponent', () => {
         DragService,
         LightTableLayoutService,
         {provide: SynopsisObjectModifierService, useValue: {}},
-        {provide: SynopsisObjectSerializerService, useValue: {}},
+        {provide: SynopsisObjectSerializerService, useValue: synopsisObjectSerializerServiceStub},
         LightTableStashService
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -33,7 +35,7 @@ describe('TiledLightTableComponent', () => {
     fixture.detectChanges();
   });
 
-/*  it('should create', () => {
-    expect(component).toBeTruthy();
-  });*/
+  /*  it('should create', () => {
+      expect(component).toBeTruthy();
+    });*/
 });
