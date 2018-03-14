@@ -25,7 +25,8 @@ import {ReactiveFormsModule, FormsModule} from '@angular/forms';
     TextViewStructureComponent,
     TextViewMetadataComponent,
     TextViewCanvasComponent],
-  providers: [CanvasOptionsService]
+  providers: [CanvasOptionsService],
+  exports: [TextViewComponent]
 })
 export class TextViewModule {
 
