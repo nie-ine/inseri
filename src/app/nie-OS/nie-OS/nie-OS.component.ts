@@ -30,6 +30,8 @@ export class NIEOSComponent {
   numberOfSearches = 0;
   grapesJSModel = [];
   numberOfgrapesJS = 0;
+  textViewerModel = [];
+  numberOfTextViewers = 0;
   length: number;
   constructor() {}
 
@@ -61,6 +63,15 @@ export class NIEOSComponent {
   }
   closeGrapesJS(i: number) {
     this.grapesJSModel.splice( i, 1 );
+  }
+  addAnotherTextViewer() {
+    this.length = this.textViewerModel.length;
+    this.textViewerModel[this.length] = this.numberOfTextViewers + 1;
+    this.numberOfTextViewers += 1;
+  }
+
+  closeTextViewer(i: number) {
+    this.textViewerModel.splice(i, 1);
   }
 
 }
