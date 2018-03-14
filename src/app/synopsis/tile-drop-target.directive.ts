@@ -1,6 +1,6 @@
-import {AfterViewInit, Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2} from '@angular/core';
-import {DragService} from './drag.service';
-import {DropTargetOptions} from './drop-target-options';
+import { AfterViewInit, Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from '@angular/core';
+import { DragService } from './drag.service';
+import { DropTargetOptions } from './drop-target-options';
 
 @Directive({
   selector: '[appTileDropTarget]'
@@ -35,19 +35,15 @@ export class TileDropTargetDirective implements AfterViewInit {
     const {zone = 'zone'} = this.options;
     if (this.dragService.accepts(zone)) {
       event.preventDefault();
+      this.renderer.setStyle(this.el.nativeElement, 'opacity', 0.5);
+      this.renderer.appendChild(this.el.nativeElement, this.overlay);
     }
   }
 
-  @HostListener('dragenter')
-  onDragEnter() {
-    this.renderer.setStyle(this.el.nativeElement, 'opacity', 0.5);
-    this.renderer.appendChild(this.el.nativeElement, this.overlay);
-  }
-
-  @HostListener('dragleave')
-  onDragLeave() {
+  @HostListener('dragleave', ['$event'])
+  onDragLeave(event) {
     this.renderer.removeChild(this.el.nativeElement, this.overlay);
-    this.renderer.setStyle(this.el.nativeElement, 'opacity', 1);
+    this.renderer.removeStyle(this.el.nativeElement, 'opacity');
   }
 
   @HostListener('drop', ['$event'])
@@ -67,8 +63,10 @@ export class TileDropTargetDirective implements AfterViewInit {
   private createOverlay() {
     this.overlay = this.renderer.createElement('div');
     this.renderer.addClass(this.overlay, 'overlay');
+    const pElem = this.renderer.createElement('p');
     const text = this.renderer.createText('Drop here');
-    this.renderer.appendChild(this.overlay, text);
+    this.renderer.appendChild(pElem, text);
+    this.renderer.appendChild(this.overlay, pElem);
   }
 
 }
