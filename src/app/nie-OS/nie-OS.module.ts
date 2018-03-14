@@ -8,7 +8,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
-import { ArithmeticModule } from '../npm-package/src/modules/arithmetic.module';
+import { ArithmeticModule } from 'nie-ine';
 import { GrapesjsComponent } from './grapesjs/grapesjs.component';
 
 @NgModule({
