@@ -6,6 +6,7 @@
         <button mat-button (click)="addAnotherImageViewer()">Add image Viewer</button><br>
         <button mat-button (click)="addAnotherSearch()">Add search Viewer</button><br>
         <button mat-button (click)="addAnotherGrapesJS()">Add grapesJS Viewer</button><br>
+        <button mat-button (click)="addAnotherTextViewer()">Add text Viewer</button><br>
       </div>
     </mat-drawer>
 
@@ -59,6 +60,22 @@
         <button mat-menu-item (click)="closeGrapesJS( i )">Close this app</button>
       </mat-menu>
       <button mat-button (click)="grapesJSViewer.appear()" >GrapesJS Viewer {{ grapesJSModel[i] }}</button><br>
+    </div>
+
+    <!-- TextViewer -->
+    <div *ngFor="let textViewer of textViewerModel; let i = index;" >
+      <popup #textViewer [title]="'Text Viewer ' + textViewerModel[i]" >
+        <div style="width: 500px; max-width: 500px;">
+          <app-text-view class="draggable">
+          </app-text-view>
+        </div>
+      </popup>
+      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>settings</mat-icon></button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="closeTextViewer(i)">Close this app</button>
+        <button mat-menu-item>Choose Text</button>
+      </mat-menu>
+      <button mat-button (click)="textViewer.appear()" >Text Viewer {{ textViewerModel[i] }}</button><br>
     </div>
 
   </mat-drawer-container>
