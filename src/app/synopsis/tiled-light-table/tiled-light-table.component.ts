@@ -1,11 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { LightTableLayoutService } from '../light-table-layout.service';
-import { SynopsisObjectData, SynopsisObjectType } from '../synopsis-object-data';
-import { LightTableStashService } from '../light-table-stash.service';
-import { SynopsisObjectModifierService } from '../synopsis-object-modifier.service';
-import { SynopsisObjectSerializerService } from '../synopsis-object-serializer.service';
-import { Subscription } from 'rxjs/Subscription';
-import { DragService } from '../drag.service';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {LightTableLayoutService} from '../light-table-layout.service';
+import {SynopsisObjectData, SynopsisObjectType} from '../synopsis-object-data';
+import {LightTableStashService} from '../light-table-stash.service';
+import {SynopsisObjectModifierService} from '../synopsis-object-modifier.service';
+import {SynopsisObjectSerializerService} from '../synopsis-object-serializer.service';
+import {Subscription} from 'rxjs/Subscription';
+import {DragService} from '../drag.service';
 
 @Component({
   selector: 'app-tiled-light-table',
@@ -19,6 +19,7 @@ export class TiledLightTableComponent implements OnInit, OnDestroy {
   private loadLightTableSnapshotSubscriber: Subscription;
   private makeLightTableSnapshotSubscriber: Subscription;
   private closeObjectSubscriber: Subscription;
+  private invertColorsSubscriber: Subscription;
   dragging = false;
 
   constructor(private lightTableLayoutService: LightTableLayoutService,
@@ -31,6 +32,8 @@ export class TiledLightTableComponent implements OnInit, OnDestroy {
       synopsisObjectModifierService.closeObject$.subscribe(uid => this.closeObject(uid));
     this.makeLightTableSnapshotSubscriber =
       synopsisObjectSerializerService.makeLightTableSnapshot$.subscribe(() => this.makeSnapshot());
+    this.invertColorsSubscriber =
+      synopsisObjectModifierService.invertColors$.subscribe(uid => this.updateInversion(uid));
     dragService.dragging$.subscribe(dragging => this.dragging = dragging);
   }
 
@@ -47,6 +50,7 @@ export class TiledLightTableComponent implements OnInit, OnDestroy {
     this.closeObjectSubscriber.unsubscribe();
     this.makeLightTableSnapshotSubscriber.unsubscribe();
     this.loadLightTableSnapshotSubscriber.unsubscribe();
+    this.invertColorsSubscriber.unsubscribe();
   }
 
   onDrop(data: SynopsisObjectData, index?: number) {
@@ -68,11 +72,16 @@ export class TiledLightTableComponent implements OnInit, OnDestroy {
   // noinspection JSMethodCanBeStatic
   setColumns(cols: number) {
     switch (cols) {
-      case 1: return 'col-1';
-      case 2: return 'col-2';
-      case 3: return 'col-3';
-      case 4: return 'col-4';
-      case 5: return 'col-5';
+      case 1:
+        return 'col-1';
+      case 2:
+        return 'col-2';
+      case 3:
+        return 'col-3';
+      case 4:
+        return 'col-4';
+      case 5:
+        return 'col-5';
     }
   }
 
@@ -86,5 +95,10 @@ export class TiledLightTableComponent implements OnInit, OnDestroy {
 
   private load(snapshot: SynopsisObjectData[]) {
     this.synopsisObjects = snapshot;
+  }
+
+  private updateInversion(uid: number) {
+    const index = this.synopsisObjects.findIndex(x => x.uid === uid);
+    this.synopsisObjects[index].invertedColors = !this.synopsisObjects[index].invertedColors;
   }
 }

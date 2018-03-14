@@ -29,7 +29,10 @@ export class ModifiableDirective implements OnInit {
 
   ngOnInit() {
     this.rotation = this.appModifiable.transform ? this.appModifiable.transform : 0;
-    this.nightView = this.appModifiable.invertedColors;
+    if (this.appModifiable.invertedColors) {
+      this.nightView = true;
+      this.renderer.addClass(this.el.nativeElement, 'night-view');
+    }
   }
 
   private rotate(angle: number) {
