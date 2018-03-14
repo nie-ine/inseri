@@ -17,9 +17,9 @@ export class SynopsisComponent {
   }
 
   loadStateFromUrl(params: ParamMap) {
-    if (params.has('snapshot') && (params.has('tiled') === params.has('cols'))) {
+    if (params.has('snapshot')) {
       try {
-        if (params.has('tiled')) {
+        if (params.has('tiled') && params.has('cols')) {
           const tiled = JSON.parse(decodeURIComponent(params.get('tiled')));
           this.lightTableLayoutService.tiledLayout(tiled);
           const cols = JSON.parse(decodeURIComponent(params.get('cols')));
