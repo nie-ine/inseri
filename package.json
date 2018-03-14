@@ -32,6 +32,7 @@
     "openseadragon": "^2.3.1",
     "primeng": "^5.2.0",
     "rxjs": "^5.5.2",
+    "svg-overlay": "github:openseadragon/svg-overlay",
     "zone.js": "^0.8.14"
   },
   "devDependencies": {

@@ -9,6 +9,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatButtonModule} from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
+import {TextViewModule} from '../text-view/text-view.module';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import {MatIconModule} from '@angular/material/icon';
     MatButtonModule,
     MatMenuModule,
     MatIconModule,
+    TextViewModule,
     RouterModule.forChild([
       { path: 'arbeitsflaeche', component: GrapesjsComponent }
     ])
