@@ -13,7 +13,7 @@ import {ShareLightTableComponent} from '../share-light-table/share-light-table.c
 })
 export class LightTableMenuComponent {
 
-  private tiled = false;
+  tiled = false;
   numberOfColumns = 2;
 
   constructor(public dialog: MatDialog,

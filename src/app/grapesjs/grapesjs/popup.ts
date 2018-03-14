@@ -16,7 +16,7 @@ import {
 })
 export class Popup {
 
-  private show = false;
+  show = false;
 
   @Input() title: string;
 

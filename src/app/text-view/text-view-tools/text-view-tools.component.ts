@@ -21,7 +21,7 @@ export class TextViewToolsComponent implements OnInit {
   toolbox: FormGroup;
 
   matcher = new MyErrorStateMatcher();
-  private numberOfMatches: number;
+  numberOfMatches: number;
 
   constructor(public canvasOptionsService: CanvasOptionsService, private formBuilder: FormBuilder) {
     this.toolbox = formBuilder.group({
@@ -29,7 +29,7 @@ export class TextViewToolsComponent implements OnInit {
       fontSize: [100, [Validators.required, Validators.max(500), Validators.min(25)]],
       find: ''
     });
-    this.toolbox.get('nightView').valueChanges.subscribe(v => canvasOptionsService.toggleNightView());
+    this.toolbox.get('nightView').valueChanges.subscribe(() => canvasOptionsService.toggleNightView());
     this.toolbox.get('fontSize').valueChanges.subscribe(size => canvasOptionsService.changeFontSize(size));
     this.toolbox.get('find').valueChanges.subscribe(term => {
       const t = term.length >= 3 ? term : '';
