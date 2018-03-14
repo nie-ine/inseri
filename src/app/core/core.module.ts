@@ -20,8 +20,8 @@ import { ResultToTextMapperService } from '../text-view/result-to-text-mapper.se
 import { KnoraAuthService } from '../shared/knora-auth.service';
 import { SynopsisModule } from '../synopsis/synopsis.module';
 import { SynopsisObjectStorageService } from '../synopsis/synopsis-object-storage.service';
-// import { ArithmeticModule } from '../npm-package/src/modules/arithmetic.module';
-// import { ExampleComponent } from '../npm-package/src/modules/exampleComponent/example.component';
+import { ArithmeticModule } from '../npm-package/src/modules/arithmetic.module';
+import { ExampleComponent } from '../npm-package/src/modules/exampleComponent/example.component';
 
 @NgModule({
   imports: [
@@ -31,12 +31,12 @@ import { SynopsisObjectStorageService } from '../synopsis/synopsis-object-storag
     TextViewModule,
     MaterialModule,
     MetadataViewModule,
-    // ArithmeticModule,
+    ArithmeticModule,
     GrapesjsModule,
     DashboardModule,
     SynopsisModule,
     RouterModule.forRoot([
-      // { path: 'example2', component: ExampleComponent },
+      { path: 'example2', component: ExampleComponent },
       { path: '**', component: PageNotFoundComponent }
       ])
   ],
