@@ -37,10 +37,12 @@ export class DraggableDirective {
   }
 
   @HostListener('dragend', ['$event'])
+  @HostListener('drop', ['$event'])
   onDragEnd() {
     this.renderer.setStyle(this.el.nativeElement, 'opacity', 1);
     this.renderer.setStyle(this.el.nativeElement, 'visibility', 'visible');
     this.renderer.setStyle(this.el.nativeElement, 'resize', 'both');
+    this.dragService.endDrag();
   }
 
 }

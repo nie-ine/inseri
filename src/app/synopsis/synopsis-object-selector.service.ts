@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import {Subject} from 'rxjs/Subject';
 
+/**
+ * Propagates the selection of a new synopsis object
+ */
 @Injectable()
 export class SynopsisObjectSelectorService {
 
