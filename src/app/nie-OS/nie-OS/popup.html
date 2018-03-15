@@ -2,23 +2,19 @@
 
   <div class="popup-win"
        [ngStyle]="{'top': curY + 'px', 'left': curX + 'px','z-index': curZIndex}"
-       (mousedown)="mousedown($event)">
-    <div class="popup-title-bar popup-drag">
-      <h2>
+       >
+    <div class="popup-title-bar popup-drag" (mousedown)="mousedown($event)">
+      <button mat-icon-button color="primary" style="position: absolute; left: 0px; top: 0px;" (click)="disappear()">-</button>
         {{title}}
-      </h2>
     </div>
 
     <div class="popup-content">
       <ng-content></ng-content>
     </div>
 
-    <button (click)="disappear()">X</button>
-
   </div>
-
-
-
 <!--  <div class="popup-overlay blur-in" [ngStyle]="{'z-index': curZIndex - 1}" (click)="disappear()">
   </div>-->
 </div>
+
+
