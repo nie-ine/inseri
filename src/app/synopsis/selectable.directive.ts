@@ -45,6 +45,7 @@ export class SelectableDirective implements AfterViewInit {
   }
 
   private selectObject() {
+    this.zindex = 999;
     this.renderer.setStyle(this.el.nativeElement, 'z-index', 999);
     this.renderer.setStyle(this.el.nativeElement, 'border', '1px #9ecaed solid');
     this.renderer.setStyle(this.el.nativeElement, 'box-shadow', '0 0 10px #9ecaed');

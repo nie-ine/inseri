@@ -19,7 +19,7 @@ declare var grapesjs: any; // Important!
 })
 export class Popup {
 
-  private show = false;
+  show = false;
 
   @Input() title: string;
 

@@ -1,3 +1,4 @@
-<div appDropTarget (appDrop)="onDrop($event)" class="drop-target">
-  <ng-template appSynopsisAnchor></ng-template>
-</div>
+<app-tiled-light-table *ngIf="tiled; else floatLightTable"></app-tiled-light-table>
+<ng-template #floatLightTable>
+  <app-float-light-table></app-float-light-table>
+</ng-template>

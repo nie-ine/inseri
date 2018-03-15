@@ -1,9 +1,9 @@
-<h2>Add new synopsis object</h2>
+<h3>Add new synopsis object</h3>
 <form>
   <mat-form-field class="full-width">
     <input matInput class="input-field" placeholder="Synopsis Object" aria-label="Synopsis Object" [matAutocomplete]="auto" [formControl]="objectCtrl">
     <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let obj of filteredObjects | async; let i = index;" [value]="obj.name + '-' + i">
+      <mat-option *ngFor="let obj of filteredObjects | async; let i = index;" [value]="obj.name + '-' + i" [disabled]="checkIfLoaded(obj.id)">
         <img style="vertical-align:middle;" src="{{obj.src}}" height="25" />
         <span>{{ obj.name }}</span> |
         <small>{{obj.htmlText}}</small>

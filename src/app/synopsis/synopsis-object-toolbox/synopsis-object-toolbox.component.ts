@@ -9,6 +9,10 @@ import {SynopsisObjectModifierService} from '../synopsis-object-modifier.service
 export class SynopsisObjectToolboxComponent {
 
   @Input() uid: number;
+  @Input() rotateRightButton = true;
+  @Input() rotateLeftButton = true;
+  @Input() invertColorsButton = true;
+  @Input() closeButton = true;
   @Output() rotate = new EventEmitter<number>();
   @Output() nightView = new EventEmitter();
 
