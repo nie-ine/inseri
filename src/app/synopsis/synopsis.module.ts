@@ -32,6 +32,7 @@ import { TiledImageObjectComponent } from './tiled-image-object/tiled-image-obje
 import { TileDropTargetDirective } from './tile-drop-target.directive';
 import { ShareLightTableComponent } from './share-light-table/share-light-table.component';
 import { DraggableStubDirective, ModifiableStubDirective, SelectableStubDirective } from './stubs/directive-stubs';
+import { RemoveObjectsByIdComponent } from './remove-objects-by-id/remove-objects-by-id.component';
 
 @NgModule({
   imports: [
@@ -67,7 +68,8 @@ import { DraggableStubDirective, ModifiableStubDirective, SelectableStubDirectiv
     TiledTextObjectComponent,
     TiledImageObjectComponent,
     TileDropTargetDirective,
-    ShareLightTableComponent
+    ShareLightTableComponent,
+    RemoveObjectsByIdComponent
   ],
   providers: [
     DragService,
@@ -82,6 +84,7 @@ import { DraggableStubDirective, ModifiableStubDirective, SelectableStubDirectiv
     FloatingImageObjectComponent,
     FloatingTextObjectComponent,
     LoadLightTableComponent,
+    RemoveObjectsByIdComponent,
     SaveLightTableComponent,
     ShareLightTableComponent,
     SynopsisObjectManagerComponent,

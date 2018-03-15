@@ -1,6 +1,8 @@
 import {Component} from '@angular/core';
 import {SynopsisObjectData, SynopsisObjectType} from '../synopsis-object-data';
 import {SynopsisObjectStorageService} from '../synopsis-object-storage.service';
+import {MatDialog} from '@angular/material';
+import {RemoveObjectsByIdComponent} from '../remove-objects-by-id/remove-objects-by-id.component';
 
 @Component({
   selector: 'app-thumbnailbar',
@@ -12,7 +14,8 @@ export class ThumbnailbarComponent {
   thumbnails: SynopsisObjectData[] = [];
   synopsisObjectTypes = SynopsisObjectType;
 
-  constructor(private synopsisObjectStorageService: SynopsisObjectStorageService) {
+  constructor(public dialog: MatDialog,
+              private synopsisObjectStorageService: SynopsisObjectStorageService) {
     synopsisObjectStorageService.synopsisObjects$.subscribe(obj => this.thumbnails = obj);
   }
 
@@ -23,7 +26,14 @@ export class ThumbnailbarComponent {
   }
 
   closeThumbnail(index: number) {
+    this.openRemoveObjectsByIdDialog(this.thumbnails[index].id);
     this.synopsisObjectStorageService.remove(index);
   }
 
+  openRemoveObjectsByIdDialog(id: string): void {
+    this.dialog.open(RemoveObjectsByIdComponent, {
+      width: '500px',
+      data: {id: id}
+    });
+  }
 }

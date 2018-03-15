@@ -19,6 +19,7 @@ export class TiledLightTableComponent implements OnInit, OnDestroy {
   private loadLightTableSnapshotSubscriber: Subscription;
   private makeLightTableSnapshotSubscriber: Subscription;
   private closeObjectSubscriber: Subscription;
+  private closeObjectsByIdSubscriber: Subscription;
   private invertColorsSubscriber: Subscription;
   dragging = false;
 
@@ -30,6 +31,8 @@ export class TiledLightTableComponent implements OnInit, OnDestroy {
     lightTableLayoutService.numberOfColumns$.subscribe(cols => this.columns = cols);
     this.closeObjectSubscriber =
       synopsisObjectModifierService.closeObject$.subscribe(uid => this.closeObject(uid));
+    this.closeObjectsByIdSubscriber =
+      synopsisObjectModifierService.closeObjectsById$.subscribe(id => this.closeObjectsById(id));
     this.makeLightTableSnapshotSubscriber =
       synopsisObjectSerializerService.makeLightTableSnapshot$.subscribe(() => this.makeSnapshot());
     this.invertColorsSubscriber =
@@ -48,6 +51,7 @@ export class TiledLightTableComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.lightTableStashService.stash(this.synopsisObjects);
     this.closeObjectSubscriber.unsubscribe();
+    this.closeObjectsByIdSubscriber.unsubscribe();
     this.makeLightTableSnapshotSubscriber.unsubscribe();
     this.loadLightTableSnapshotSubscriber.unsubscribe();
     this.invertColorsSubscriber.unsubscribe();
@@ -100,5 +104,9 @@ export class TiledLightTableComponent implements OnInit, OnDestroy {
   private updateInversion(uid: number) {
     const index = this.synopsisObjects.findIndex(x => x.uid === uid);
     this.synopsisObjects[index].invertedColors = !this.synopsisObjects[index].invertedColors;
+  }
+
+  private closeObjectsById(id: string) {
+    this.synopsisObjects = this.synopsisObjects.filter(x => x.id !== id);
   }
 }

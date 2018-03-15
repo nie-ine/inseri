@@ -4,6 +4,7 @@ import {ThumbnailbarComponent} from './thumbnailbar.component';
 import {DraggableStubDirective} from '../stubs/directive-stubs';
 import {SynopsisObjectStorageService} from '../synopsis-object-storage.service';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
+import {MatDialogModule} from '@angular/material';
 
 describe('ThumbnailbarComponent', () => {
   let component: ThumbnailbarComponent;
@@ -11,6 +12,9 @@ describe('ThumbnailbarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        MatDialogModule
+      ],
       declarations: [
         DraggableStubDirective,
         ThumbnailbarComponent

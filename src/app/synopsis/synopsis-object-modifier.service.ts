@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import {Injectable} from '@angular/core';
+import {Subject} from 'rxjs/Subject';
 
 /**
  * Propagates the modification of a synopsis object
@@ -9,6 +9,8 @@ export class SynopsisObjectModifierService {
 
   private closeObjectSource = new Subject<number>();
   closeObject$ = this.closeObjectSource.asObservable();
+  private closeObjectsByIdSource = new Subject<string>();
+  closeObjectsById$ = this.closeObjectsByIdSource.asObservable();
   private rotateObjectSource = new Subject<[number, number]>();
   rotateObject$ = this.rotateObjectSource.asObservable();
   private invertColorsSource = new Subject<number>();
@@ -18,6 +20,10 @@ export class SynopsisObjectModifierService {
 
   closeObject(uid: number) {
     this.closeObjectSource.next(uid);
+  }
+
+  closeObjectsById(id: string) {
+    this.closeObjectsByIdSource.next(id);
   }
 
   rotateObject(uid: number, angle: number) {
