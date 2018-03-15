@@ -3,11 +3,13 @@
   position: fixed;
   min-width: 300px;
   box-shadow: 0 11px 15px -7px rgba(0,0,0,.2), 0 24px 38px 3px rgba(0,0,0,.14), 0 9px 46px 8px rgba(0,0,0,.12);
+  resize: both;
+  overflow: auto;
 }
 
 .popup-content {
   opacity: 1;
-  padding: 15px;
+  padding: 7px;
   background-color: #fff;
 }
 
@@ -41,8 +43,8 @@
 
 .popup-title-bar {
   text-align: center;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  color: #fff;
-  background-color: #07a5e7;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  color: #000000;
+  background-color: rgba(255, 254, 142, 0.49);
 }

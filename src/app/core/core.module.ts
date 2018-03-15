@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { StaticPagesModule } from '../static-pages/static-pages.module';
 import { MaterialModule } from '../material.module';
-import { GrapesjsModule } from '../grapesjs/grapesjs.module';
+import { NIEOSModule } from '../nie-OS/nie-OS.module';
 
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -20,8 +20,7 @@ import { ResultToTextMapperService } from '../text-view/result-to-text-mapper.se
 import { KnoraAuthService } from '../shared/knora-auth.service';
 import { SynopsisModule } from '../synopsis/synopsis.module';
 import { SynopsisObjectStorageService } from '../synopsis/synopsis-object-storage.service';
-import { ArithmeticModule } from '../npm-package/src/modules/arithmetic.module';
-import { ExampleComponent } from '../npm-package/src/modules/exampleComponent/example.component';
+import { ArithmeticModule } from 'nie-ine';
 
 @NgModule({
   imports: [
@@ -32,16 +31,20 @@ import { ExampleComponent } from '../npm-package/src/modules/exampleComponent/ex
     MaterialModule,
     MetadataViewModule,
     ArithmeticModule,
-    GrapesjsModule,
+    NIEOSModule,
     DashboardModule,
     SynopsisModule,
     RouterModule.forRoot([
-      { path: 'example2', component: ExampleComponent },
       { path: '**', component: PageNotFoundComponent }
       ])
   ],
   declarations: [HeaderComponent, FooterComponent, MainComponent, PageNotFoundComponent, NavigationComponent],
-  providers: [KnoraRequestService, SparqlRequestService, ResultToTextMapperService, KnoraAuthService, SynopsisObjectStorageService],
+  providers: [
+    KnoraRequestService,
+    SparqlRequestService,
+    ResultToTextMapperService,
+    KnoraAuthService,
+SynopsisObjectStorageService],
   exports: [HeaderComponent, FooterComponent, MainComponent, RouterModule]
 })
 export class CoreModule {
