@@ -24,6 +24,7 @@ export class FloatLightTableComponent implements OnInit, OnDestroy {
 
   private componentRefTracker: ComponentRefTracker = [];
   private closeObjectSubscriber: Subscription;
+  private closeObjectsByIdSubscriber: Subscription;
   private loadLightTableSnapshotSubscriber: Subscription;
   private makeLightTableSnapshotSubscriber: Subscription;
   private invertColorsSubscriber: Subscription;
@@ -38,6 +39,8 @@ export class FloatLightTableComponent implements OnInit, OnDestroy {
               private renderer: Renderer2) {
     this.closeObjectSubscriber =
       synopsisObjectModifierService.closeObject$.subscribe(uid => this.closeObject(uid));
+    this.closeObjectsByIdSubscriber =
+      synopsisObjectModifierService.closeObjectsById$.subscribe(id => this.closeObjectsById(id));
     this.resizeObjectSubscriber =
       synopsisObjectModifierService.resizeObject$.subscribe(obj => this.updateDimensions(obj[0], obj[1], obj[2]));
     this.rotateObjectSubscriber =
@@ -59,6 +62,7 @@ export class FloatLightTableComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.lightTableStashService.stash(this.serializeData());
     this.closeObjectSubscriber.unsubscribe();
+    this.closeObjectsByIdSubscriber.unsubscribe();
     this.makeLightTableSnapshotSubscriber.unsubscribe();
     this.loadLightTableSnapshotSubscriber.unsubscribe();
     this.resizeObjectSubscriber.unsubscribe();
@@ -156,5 +160,10 @@ export class FloatLightTableComponent implements OnInit, OnDestroy {
     );
   }
 
+  private closeObjectsById(id: string) {
+    Object.keys(this.componentRefTracker).filter(uid =>
+      (<SynopsisObject>this.componentRefTracker[uid].instance).data.id === id)
+      .forEach(uid => this.closeObject(+uid));
+  }
 
 }
