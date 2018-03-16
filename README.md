@@ -7,6 +7,10 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.3.
 
+## Note for NieFrontend
+
+Don't forget `yarn` and `git submodule update` commands, if you build from source.
+
 ## Run in Docker container
 
 1. Download and run Docker container: `docker run -p 5555:80 nieine/nie-frontend:latest`
