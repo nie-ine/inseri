@@ -1,8 +1,8 @@
 <nav id="mainNav" class="navbar navbar-default  navbar-fixed-top">
-  <div class="container">
+  <div  class="container">
     <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header page-scroll">
-      <a class="navbar-brand page-scroll" href="#page-top">NIE-INE Platform</a>
+    <div class="navbar-header page-scroll" >
+      <a class="navbar-brand page-scroll" href="home#top">NIE-INE Platform</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -12,13 +12,13 @@
           <a href="#page-top"></a>
         </li>
         <li>
-          <a class="page-scroll" href="#Anforderungsanalyse">Funktionen</a>
+          <a href="home#login" >Login</a>
         </li>
         <li>
-          <a class="page-scroll" href="dashboard">Login</a>
+          <a href="home#funktionen" >Funktionen</a>
         </li>
         <li>
-          <a class="page-scroll" href="#ontologien">Sprache</a>
+          <a >Sprache</a>
         </li>
       </ul>
     </div>
@@ -29,17 +29,17 @@
 
 <!-- Header -->
 <header>
-  <div class="container">
+  <div id="top" class="container">
     <div class="intro-text">
       <div class="intro-lead-in">Arbeiten Sie hier an Ihrer Edition, sie bleibt bei uns</div>
       <div class="intro-heading">Langfristig Verfügbar</div>
-      <a href="dashboard" class="page-scroll btn btn-xl">Login</a>
+      <a href="home#login" class="page-scroll btn btn-xl">Login</a>
     </div>
   </div>
 </header>
 
 <!-- Services Section -->
-<section id="Anforderungsanalyse">
+<section id="funktionen">
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">
@@ -83,7 +83,7 @@
 </section>
 
 <!-- Contact Section -->
-<section id="contact">
+<section id="login">
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">
@@ -110,7 +110,7 @@
             <div class="clearfix"></div>
             <div class="col-lg-12 text-center">
               <div id="success"></div>
-              <button href="dashboard" type="submit" class="btn btn-xl">Login</button>
+              <button (click)="startLoginProcess()"  type="button" class="btn btn-xl">Login</button>
             </div>
           </div>
         </form>
