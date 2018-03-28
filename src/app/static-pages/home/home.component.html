@@ -97,13 +97,23 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Username" id="name" required data-validation-required-message="Please enter your name.">
+                <input
+                  [(ngModel)]="username"
+                  name="username"
+                  type="text"
+                  class="form-control"
+                  placeholder="Username" >
                 <p class="help-block text-danger"></p>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Password" id="pw" required data-validation-required-message="Please enter your name.">
+                <input
+                  [(ngModel)]="password"
+                  name="password"
+                  type="text"
+                  class="form-control"
+                  placeholder="Password" >
                 <p class="help-block text-danger"></p>
               </div>
             </div>
