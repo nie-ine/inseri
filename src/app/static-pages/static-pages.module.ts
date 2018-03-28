@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { MaterialModule } from '../material.module';
 import { ArithmeticModule } from 'nie-ine';
 import { ExampleComponent } from 'nie-ine';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { ExampleComponent } from 'nie-ine';
     CommonModule,
     MaterialModule,
     ArithmeticModule,
+    FormsModule,
     RouterModule.forChild([
       { path: 'about', component: AboutComponent },
       { path: 'home', component: HomeComponent },

@@ -1,5 +1,7 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AuthenticationService } from '../../shared/authentication.service';
+import { AlertService } from '../../shared/altert.service';
 
 declare let OpenSeadragon: any;
 
@@ -11,24 +13,41 @@ declare let OpenSeadragon: any;
 export class HomeComponent implements OnInit {
 
   private fragment: string;
+  username: string;
+  password: string;
+  model: any = {};
+  loading = false;
+  returnUrl: string;
 
-  constructor( router: Router ) {
-    router.events.subscribe(s => {
-      if (s instanceof NavigationEnd) {
-        const tree = router.parseUrl(router.url);
-        if (tree.fragment) {
-          const element = document.querySelector("#" + tree.fragment);
-          if (element) { element.scrollIntoView(true); }
-        }
-      }
-    });
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private authenticationService: AuthenticationService,
+    private alertService: AlertService
+  ) {
   }
 
   ngOnInit() {
+    // reset login status
+    this.authenticationService.logout();
+
+    // get return url from route parameters or default to '/'
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   startLoginProcess() {
     console.log('Start Login Process');
+    console.log(this.username);
+    console.log(this.password);
+    this.authenticationService.login(this.model.username, this.model.password)
+      .subscribe(
+        data => {
+          this.router.navigate([this.returnUrl]);
+        },
+        error => {
+          this.alertService.error(error);
+          this.loading = false;
+        });
   }
 
 }
