@@ -33,19 +33,16 @@ export class HomeComponent implements OnInit {
     this.authenticationService.logout();
 
     // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || encodeURI('/dashboard#top');
   }
 
   startLoginProcess() {
-    console.log('Start Login Process');
-    console.log(this.username);
-    console.log(this.password);
     this.loginError = false;
-    this.authenticationService.login(this.model.username, this.model.password)
+    this.authenticationService.login(this.username, this.password)
       .subscribe(
         data => {
           console.log(data);
-          this.router.navigate([this.returnUrl]);
+          this.router.navigate(['/dashboard' ], {fragment: 'top'});
         },
         error => {
           this.loginError = true;
