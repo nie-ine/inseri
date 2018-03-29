@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
   model: any = {};
   loading = false;
   returnUrl: string;
+  loginError = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -39,12 +40,16 @@ export class HomeComponent implements OnInit {
     console.log('Start Login Process');
     console.log(this.username);
     console.log(this.password);
+    this.loginError = false;
     this.authenticationService.login(this.model.username, this.model.password)
       .subscribe(
         data => {
+          console.log(data);
           this.router.navigate([this.returnUrl]);
         },
         error => {
+          this.loginError = true;
+          console.log(error);
           this.alertService.error(error);
           this.loading = false;
         });

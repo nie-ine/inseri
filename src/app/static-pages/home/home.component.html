@@ -88,7 +88,9 @@
     <div class="row">
       <div class="col-lg-12 text-center">
         <h2 class="section-heading">Login</h2>
-        <h3 class="section-subheading text-muted">Sie haben keinen Useraccount? Zögern Sie nicht, uns zu kontaktieren!</h3>
+        <h3 class="section-subheading text-muted">Sie haben keinen Useraccount?
+          Zögern Sie nicht, uns zu kontaktieren! Oder <a  href="register">registrieren</a> Sie sich!</h3>
+        <h6 *ngIf="loginError" style="color: #b05f56" class="section-subheading text-muted">Username oder Passwort ist falsch!</h6>
       </div>
     </div>
     <div class="row">

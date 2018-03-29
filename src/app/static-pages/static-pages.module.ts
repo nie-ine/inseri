@@ -7,6 +7,7 @@ import { MaterialModule } from '../material.module';
 import { ArithmeticModule } from 'nie-ine';
 import { ExampleComponent } from 'nie-ine';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RegisterComponent } from './register/register.component';
 
 
 @NgModule({
@@ -19,12 +20,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
       { path: 'about', component: AboutComponent },
       { path: 'home', component: HomeComponent },
       { path: 'example', component: ExampleComponent },
+      { path: 'register', component: RegisterComponent },
       { path: '', redirectTo: '/home', pathMatch: 'full'}
       ])
   ],
   declarations: [
     AboutComponent,
-    HomeComponent],
+    HomeComponent,
+    RegisterComponent],
   exports: [
     AboutComponent,
     HomeComponent]
