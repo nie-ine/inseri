@@ -5,7 +5,7 @@ import { CoreModule } from './core/core.module';
 import { AppComponent } from './app.component';
 import {AlertService} from "./shared/altert.service";
 import {AuthenticationService} from "./shared/authentication.service";
-import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http";
 import {JwtInterceptor} from "./shared/_helpers/jwt.interceptor";
 import {fakeBackendProvider} from "./shared/_helpers/fake-backend";
 import {AuthGuard} from "./shared/auth.guard";
@@ -18,7 +18,8 @@ import {UserService} from "./shared/user.service";
   ],
   imports: [
     BrowserModule,
-    CoreModule
+    CoreModule,
+    HttpClientModule
   ],
   providers: [
     AuthGuard,
