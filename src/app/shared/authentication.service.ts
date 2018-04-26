@@ -8,6 +8,8 @@ export class AuthenticationService {
   constructor(private http: HttpClient) { }
 
   login(username: string, password: string) {
+    console.log( 'Username: ' + username );
+    console.log( 'Password: ' + password );
     return this.http.post<any>('/api/authenticate', { username: username, password: password })
       .map(user => {
         console.log('login successful');

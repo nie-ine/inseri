@@ -7,11 +7,12 @@ import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/materialize';
 import 'rxjs/add/operator/dematerialize';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
 
-    constructor() { }
+    constructor(private http: HttpClient) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         // array in local storage for registered users
@@ -23,7 +24,14 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
             // authenticate
             if (request.url.endsWith('/api/authenticate') && request.method === 'POST') {
-              console.log('start authentication');
+              console.log( 'Send request to knora' );
+              console.log(request);
+              const url = 'http://localhost:3333';
+              request = request.clone({
+                url: url + request.url
+              });
+              console.log( request );
+              return next.handle( request );
                 // find if any user matches login credentials
                 const filteredUsers = users.filter(user => {
                     return user.username === request.body.username && user.password === request.body.password;
@@ -125,6 +133,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             }
 
             // pass through any requests not handled above
+            console.log('Pass on request');
+            console.log(request);
             return next.handle(request);
 
         })
