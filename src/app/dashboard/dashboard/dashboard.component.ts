@@ -11,6 +11,8 @@ export class DashboardComponent implements OnInit {
 
   animal: string;
   name: string;
+  user: any[] = JSON.parse(localStorage.getItem('currentUser')) || [];
+  username: string;
 
   constructor(
     public dialog: MatDialog,
@@ -30,17 +32,15 @@ export class DashboardComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-      width: '400px',
+      width: '700px',
       data: { name: this.name, animal: this.animal }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.animal = result;
-    });
   }
 
   ngOnInit() {
+    this.username = (this.user as any).firstName;
+    console.log(localStorage);
   }
 
 }

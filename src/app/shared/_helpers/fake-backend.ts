@@ -31,7 +31,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 url: url + request.url
               });
               console.log( request );
-              return next.handle( request );
+              console.log( 'After we have dhlab request, we send it to Knora in the foloowing line: ' );
+              // return next.handle( request );
                 // find if any user matches login credentials
                 const filteredUsers = users.filter(user => {
                     return user.username === request.body.username && user.password === request.body.password;
