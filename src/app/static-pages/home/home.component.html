@@ -1,45 +1,16 @@
-<nav id="mainNav" class="navbar navbar-default  navbar-fixed-top">
-  <div class="container">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header page-scroll">
-      <a class="navbar-brand page-scroll" href="#page-top">NIE-INE Platform</a>
-    </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-right">
-        <li class="hidden">
-          <a href="#page-top"></a>
-        </li>
-        <li>
-          <a class="page-scroll" href="#Anforderungsanalyse">Funktionen</a>
-        </li>
-        <li>
-          <a class="page-scroll" href="dashboard">Login</a>
-        </li>
-        <li>
-          <a class="page-scroll" href="#ontologien">Sprache</a>
-        </li>
-      </ul>
-    </div>
-    <!-- /.navbar-collapse -->
-  </div>
-  <!-- /.container-fluid -->
-</nav>
-
 <!-- Header -->
 <header>
-  <div class="container">
+  <div id="top" class="container">
     <div class="intro-text">
       <div class="intro-lead-in">Arbeiten Sie hier an Ihrer Edition, sie bleibt bei uns</div>
       <div class="intro-heading">Langfristig Verfügbar</div>
-      <a href="dashboard" class="page-scroll btn btn-xl">Login</a>
+      <a href="home#login" class="page-scroll btn btn-xl">Login</a>
     </div>
   </div>
 </header>
 
 <!-- Services Section -->
-<section id="Anforderungsanalyse">
+<section id="funktionen">
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">
@@ -83,12 +54,14 @@
 </section>
 
 <!-- Contact Section -->
-<section id="contact">
+<section id="login">
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">
         <h2 class="section-heading">Login</h2>
-        <h3 class="section-subheading text-muted">Sie haben keinen Useraccount? Zögern Sie nicht, uns zu kontaktieren!</h3>
+        <h3 class="section-subheading text-muted">Sie haben keinen Useraccount?
+          Zögern Sie nicht, uns zu kontaktieren! Oder <a  href="register">registrieren</a> Sie sich!</h3>
+        <h6 *ngIf="loginError" style="color: #b05f56" class="section-subheading text-muted">Username oder Passwort ist falsch!</h6>
       </div>
     </div>
     <div class="row">
@@ -97,20 +70,30 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Username" id="name" required data-validation-required-message="Please enter your name.">
+                <input
+                  [(ngModel)]="username"
+                  name="username"
+                  type="text"
+                  class="form-control"
+                  placeholder="Username" >
                 <p class="help-block text-danger"></p>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Password" id="pw" required data-validation-required-message="Please enter your name.">
+                <input
+                  [(ngModel)]="password"
+                  name="password"
+                  type="password"
+                  class="form-control"
+                  placeholder="Password" >
                 <p class="help-block text-danger"></p>
               </div>
             </div>
             <div class="clearfix"></div>
             <div class="col-lg-12 text-center">
               <div id="success"></div>
-              <button href="dashboard" type="submit" class="btn btn-xl">Login</button>
+              <button (click)="startLoginProcess()"  type="button" class="btn btn-xl">Login</button>
             </div>
           </div>
         </form>

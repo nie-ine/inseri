@@ -21,6 +21,7 @@ import { KnoraAuthService } from '../shared/knora-auth.service';
 import { SynopsisModule } from '../synopsis/synopsis.module';
 import { SynopsisObjectStorageService } from '../synopsis/synopsis-object-storage.service';
 import { ArithmeticModule } from 'nie-ine';
+import {AuthenticationService} from "../shared/authentication.service";
 
 @NgModule({
   imports: [
@@ -44,7 +45,8 @@ import { ArithmeticModule } from 'nie-ine';
     SparqlRequestService,
     ResultToTextMapperService,
     KnoraAuthService,
-SynopsisObjectStorageService],
+    SynopsisObjectStorageService,
+    AuthenticationService],
   exports: [HeaderComponent, FooterComponent, MainComponent, RouterModule]
 })
 export class CoreModule {
