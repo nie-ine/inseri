@@ -15,7 +15,9 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService
   ) {
-    router.events.subscribe(( route: any ) => this.updateCurrentRoute( route ) );
+    //setTimeout(() => {
+      router.events.subscribe(( route: any ) => this.updateCurrentRoute( route ) );
+   // }, 1000);
   }
 
   ngOnInit() {
@@ -45,8 +47,8 @@ export class HeaderComponent implements OnInit {
 
   generateFunktionenHomeLink(): string {
     return(
-      this.routeMapping( 'home', 'Funktionen' ) ||
-      this.routeMapping( '', 'Funktionen' )
+      this.routeMapping( 'dashboard', '' ) ||
+      this.routeMapping( 'home', 'Funktionen' )
     );
   }
 
