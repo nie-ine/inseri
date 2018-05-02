@@ -68,13 +68,13 @@ export class HeaderComponent implements OnInit {
   generateLoginOrSettingsLink() {
     return(
       this.routeMapping( 'home', 'home#login' ) ||
-      this.routeMapping( '', 'home#login' ) ||
+      this.routeMapping( '', 'home#top' ) ||
       this.routeMapping( 'dashboard', 'home#top' )
     );
   }
 
   logout(){
-    if( this.routeMapping('dashboard', 'true') ) {
+    if ( this.routeMapping('dashboard', 'true') ) {
       this.authenticationService.logout();
       console.log('logout');
     }
