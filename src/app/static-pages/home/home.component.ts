@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
   loading = false;
   returnUrl: string;
   loginError = false;
+  user: any[] = JSON.parse(localStorage.getItem('currentUser')) || [];
 
   constructor(
     private route: ActivatedRoute,
@@ -31,6 +32,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     // reset login status
     this.authenticationService.logout();
+    console.log( this.user );
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || encodeURI('/dashboard#top');
