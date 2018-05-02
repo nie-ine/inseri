@@ -1,14 +1,10 @@
-
-<div >
-  Starte eine neue Aktion: <br>
-  <button mat-button>Durchsuche die Daten auf Knora</button>
-  <br>
-  <button mat-button>Ediere einen Brief</button>
-   <br>
-  <button mat-button>Transkribiere ein Gedicht</button>
-  <br>
-  <button mat-button [routerLink]="['grapesjs']"> Erstelle ein Mockup</button>
-  <br>
-  <button mat-button [routerLink]="['arbeitsflaeche']"><i class="fa fa-circle text-primary"></i><a ></a> Erstelle einen eigenen Workflow</button>
-
+<h1 mat-dialog-title>Welche neue Aktion möchtest Du starten?</h1>
+<div mat-dialog-content>
+  <a href="/arbeitsflaeche" > - Starte einen Webauftritt </a> <br>
+  <a href="/dashboard#top" > - Gelange zur Arbeitsfläche</a> <br>
+  <a href="/dashboard#top" > - Ediere ein Gedicht (dummy)</a> <br>
+  <a href="/dashboard#top" > - ... Erstelle einen eigenen Workflow (dummy)</a>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Schliesse dieses Menü</button>
 </div>

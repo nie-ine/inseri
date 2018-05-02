@@ -28,7 +28,4 @@ export class GrapesjsComponent implements OnInit {
       content:  '<div>NIE-INE test</div>',
     });
   }
-
-
-
 }
