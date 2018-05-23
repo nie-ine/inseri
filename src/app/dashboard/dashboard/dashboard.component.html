@@ -35,6 +35,7 @@
                       <a><i class="fa fa-play fa-stack-1x fa-inverse" ></i></a>
                     </span>
                     <mat-menu #appMenu="matMenu">
+                      <button mat-menu-item (click)="continueAction( action )" >Aktion fortführen</button>
                       <button mat-menu-item (click)="deleteAction( action )" >Lösche diese Aktion</button>
                       <button mat-menu-item (click)="markAsDone( action )" >Als fertig markieren</button>
                     </mat-menu>

@@ -10,7 +10,7 @@ declare var grapesjs: any; // Important!
   selector: 'nie-os',
   templateUrl: `nie-OS.component.html`,
 })
-export class NIEOSComponent {
+export class NIEOSComponent implements OnInit {
   showFiller = false;
   image = {
     '@id' : 'http://rdfh.ch/kuno-raeber/Uzo2YDhzTr-8CUSg1pQL4Q/values/gJVf-AQjSbSTAo8EsU8ErQ',
@@ -34,6 +34,10 @@ export class NIEOSComponent {
   numberOfTextViewers = 0;
   length: number;
   constructor() {}
+
+  ngOnInit() {
+    console.log('Start der Arbeitsflaeche');
+  }
 
   // Imageviewer
   addAnotherImageViewer() {

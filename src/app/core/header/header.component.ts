@@ -30,16 +30,18 @@ export class HeaderComponent implements OnInit {
 
   generateLeftHeaderString(): string {
     return (
-      this.routeMapping( 'dashboard', 'NIE-INE Platform - Dashboard' ) ||
-      this.routeMapping( 'home', 'NIE-INE Platform' ) ||
-      this.routeMapping( '', 'NIE-INE Platform' ) ||
-      this.routeMapping( 'arbeitsflaeche', 'NIE-INE Platform - Arbeitsfläche' )
+      this.routeMapping( 'dashboard', 'nieOS - Dashboard' ) ||
+      this.routeMapping( 'home', 'nieOS' ) ||
+      this.routeMapping( 'arbeitsflaeche', 'nieOS - Arbeitsfläche' ) ||
+      this.routeMapping( '', 'nieOS' )
+
     );
   }
 
   generateLoginOrSettingsButton(): string {
     return(
       this.routeMapping( 'dashboard', 'Logout' ) ||
+      this.routeMapping( 'arbeitsflaeche', 'Einstellungen' ) ||
       this.routeMapping( 'home', 'Login' ) ||
       this.routeMapping( '', 'Login' )
     );
@@ -56,22 +58,23 @@ export class HeaderComponent implements OnInit {
     return(
       this.routeMapping( 'dashboard', 'dashboard#top' ) ||
       this.routeMapping( 'home', 'home#top' ) ||
-      this.routeMapping( '', 'home#top' ) ||
-      this.routeMapping( 'arbeitsflaeche', 'dashboard#top' )
+      this.routeMapping( 'arbeitsflaeche', 'dashboard#top' ) ||
+      this.routeMapping( '', 'home#top' )
     );
   }
 
   routeMapping( location: string, output: string ): string {
-    if ( this.currentRoute && this.currentRoute.search(location) !== -1 ) {
+    if ( this.currentRoute && this.currentRoute.search( location ) !== -1 ) {
       return output;
     }
   }
 
   generateLoginOrSettingsLink() {
     return(
+      this.routeMapping( 'dashboard', 'home#top' ) ||
+      this.routeMapping( 'arbeitsflaeche', '/settings' ) ||
       this.routeMapping( 'home', 'home#login' ) ||
-      this.routeMapping( '', 'home#top' ) ||
-      this.routeMapping( 'dashboard', 'home#top' )
+      this.routeMapping( '', 'home#top' )
     );
   }
 
