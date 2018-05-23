@@ -2,5 +2,7 @@ export class Action {
   id: number;
   title: string;
   description: string;
-  status: string; // isInProgress, isFinished
+  isFinished: boolean; // isInProgress, isFinished
+  deleted = false;
+  type: string;
 }

@@ -121,8 +121,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
               return Observable.throw('Action "' + newAction.title + '" already exists');
             }
 
-            // save new user
+            // save new action
+            console.log('Create action');
             newAction.id = actions.length + 1;
+            newAction.isFinished = false;
             actions.push(newAction);
             localStorage.setItem('actions', JSON.stringify(actions));
 
