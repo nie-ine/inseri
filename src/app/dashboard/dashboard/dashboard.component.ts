@@ -3,6 +3,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Router, NavigationEnd } from '@angular/router';
 import { ActionService } from '../../shared/action.service';
 import { AlertService} from '../../shared/altert.service';
+import {HttpParams} from '@angular/common/http';
 
 @Component({
   selector: 'app-dashboard',
@@ -46,7 +47,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.username = (this.user as any).firstName;
-    console.log(localStorage);
     console.log('Next: iterate through existing actions');
     this.actions = JSON.parse(localStorage.getItem('actions')) || [];
     console.log(this.actions);
@@ -54,6 +54,7 @@ export class DashboardComponent implements OnInit {
 
   deleteAction(action: any) {
     console.log('Delete Action ' + action.id);
+    action.deleted = true;
     this.actionService.delete(action.id)
       .subscribe(
         data => {
@@ -67,18 +68,10 @@ export class DashboardComponent implements OnInit {
         });
   }
 
-  checkIfDeleted( action: any ) {
-    console.log('Check if deleted ' + action.id);
-    const actions = JSON.parse(localStorage.getItem('actions')) || [];
-    for ( const existingActions of actions ) {
-        console.log( existingActions.id );
-        if ( action.id === existingActions.id ) {
-          return true;
-      } else {
-          return false;
-        }
-    }
+  markAsDone( action: any ) {
+    action.isFinished = true;
   }
+
 }
 
 @Component({
@@ -88,11 +81,11 @@ export class DashboardComponent implements OnInit {
 export class DialogOverviewExampleDialog {
   model: any = {};
   loading = false;
+  chooseNewAction: string;
   constructor(public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private router: Router,
-              private actionService: ActionService,
-              private alertService: AlertService) {
+              private actionService: ActionService) {
   }
   onNoClick(): void {
     this.dialogRef.close();
@@ -102,13 +95,16 @@ export class DialogOverviewExampleDialog {
     this.actionService.create(this.model)
       .subscribe(
         data => {
-          console.log(data);
-          this.alertService.success('Registration successful', true);
-          // this.router.navigate(['/home']);
+          console.log('Action created');
+          const actions = JSON.parse(localStorage.getItem('actions')) || [];
+          console.log(actions);
+          this.onNoClick();
+          const params = new HttpParams().set('actionId', actions.lengt);
+          params.append('actionId', actions.length);
+          this.router.navigate( [ this.model.type ], { queryParams: { 'actionID': actions.length } } );
         },
         error => {
           console.log(error);
-          this.alertService.error(error);
           this.loading = false;
         });
   }
