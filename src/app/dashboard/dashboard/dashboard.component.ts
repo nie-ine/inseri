@@ -20,7 +20,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    router: Router,
+    private router: Router,
     private actionService: ActionService,
     private alertService: AlertService
   ) {
@@ -70,6 +70,10 @@ export class DashboardComponent implements OnInit {
 
   markAsDone( action: any ) {
     action.isFinished = true;
+  }
+
+  continueAction( action: any ) {
+    this.router.navigate( [ action.type ], { queryParams: { 'actionID': action.id } } );
   }
 
 }
