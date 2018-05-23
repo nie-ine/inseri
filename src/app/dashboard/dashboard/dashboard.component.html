@@ -18,6 +18,20 @@
         Workflows aus oder erstellen Sie einen neuen individuellen Workflow.</p>
       </div>
     </div>
+    <div class="row text-center" *ngFor="let action of actions; let i = index">
+      <div class="col-md-4" href="#portfolioModal1" *ngIf="checkIfDeleted(action)">
+                    <span class="fa-stack fa-4x" [matMenuTriggerFor]="appMenu">
+                     <i class="fa fa-circle fa-stack-2x text-primary" ></i>
+                      <a><i class="fa fa-plus fa-stack-1x fa-inverse" ></i></a>
+                    </span>
+                    <mat-menu #appMenu="matMenu">
+                      <button mat-menu-item>Hier weiter (dummy)</button>
+                      <button mat-menu-item (click)="deleteAction( action )" >Lösche diese Aktion</button>
+                    </mat-menu>
+        <h4 class="service-heading">Aktion: {{ action.title }}</h4>
+        <p class="text-muted">Beschreibung: {{ action.description }}</p>
+      </div>
+    </div>
   </div>
 </section>
 

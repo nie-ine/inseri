@@ -18,6 +18,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         // array in local storage for registered users
         const users: any[] = JSON.parse(localStorage.getItem('users')) || [];
         console.log(users);
+      const actions: any[] = JSON.parse(localStorage.getItem('actions')) || [];
+      console.log(actions);
 
         // wrap in delayed observable to simulate server api call
         return Observable.of(null).mergeMap(() => {
@@ -107,6 +109,27 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 return Observable.of(new HttpResponse({ status: 200 }));
             }
 
+
+          // create action
+          if (request.url.endsWith('/api/actions') && request.method === 'POST') {
+            // get new user object from post body
+            const newAction = request.body;
+
+            // validation
+            const duplicateAction = users.filter(action => { return action.title === newAction.title; }).length;
+            if (duplicateAction) {
+              return Observable.throw('Action "' + newAction.title + '" already exists');
+            }
+
+            // save new user
+            newAction.id = actions.length + 1;
+            actions.push(newAction);
+            localStorage.setItem('actions', JSON.stringify(actions));
+
+            // respond 200 OK
+            return Observable.of(new HttpResponse({ status: 200 }));
+          }
+
             // delete user
             if (request.url.match(/\/api\/users\/\d+$/) && request.method === 'DELETE') {
                 // check for fake auth token in header and return user if valid,
@@ -132,6 +155,32 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     return Observable.throw('Unauthorised');
                 }
             }
+
+          // delete action
+          if (request.url.match(/\/api\/actions\/\d+$/) && request.method === 'DELETE') {
+            // check for fake auth token in header and return user if valid,
+            // this security is implemented server side in a real application
+            if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
+              // find user by id in users array
+              const urlParts = request.url.split('/');
+              const id = parseInt(urlParts[urlParts.length - 1]);
+              for (let i = 0; i < actions.length; i++) {
+                const action = actions[i];
+                if (action.id === id) {
+                  // delete user
+                  actions.splice(i, 1);
+                  localStorage.setItem('actions', JSON.stringify(actions));
+                  break;
+                }
+              }
+
+              // respond 200 OK
+              return Observable.of(new HttpResponse({ status: 200 }));
+            } else {
+              // return 401 not authorised if token is null or invalid
+              return Observable.throw('Unauthorised');
+            }
+          }
 
             // pass through any requests not handled above
             console.log('Pass on request');
