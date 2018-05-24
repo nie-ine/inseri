@@ -5,4 +5,5 @@ export class Action {
   isFinished: boolean; // isInProgress, isFinished
   deleted = false;
   type: string;
+  hasView = null;
 }
