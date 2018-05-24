@@ -2,6 +2,8 @@ import {Component, NgModule, OnInit, VERSION} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {Popup} from './popup';
 import 'rxjs/add/operator/map';
+import { ActivatedRoute } from '@angular/router';
+import { ActionService } from '../../shared/action.service';
 
 declare var grapesjs: any; // Important!
 
@@ -32,11 +34,75 @@ export class NIEOSComponent implements OnInit {
   numberOfgrapesJS = 0;
   textViewerModel = [];
   numberOfTextViewers = 0;
+  actionID: number;
   length: number;
-  constructor() {}
+  view = [
+    {
+      'imageViewers': new Set()
+    }
+  ];
+  action: any;
+  constructor(
+    private route: ActivatedRoute,
+    private actionService: ActionService
+  ) {
+    this.route.params.subscribe(params => console.log(params));
+  }
 
   ngOnInit() {
     console.log('Start der Arbeitsflaeche');
+    // Construct fake image Viewer:
+    const imageViewer = {
+      'id': 70,
+      'x': 80,
+      'y': 90,
+      'z': 100
+    };
+    this.view[ 0 ].imageViewers.add( imageViewer );
+    this.actionID = this.route.snapshot.queryParams.actionID
+    console.log( this.actionID );
+    this.actionService.getById( this.actionID )
+      .subscribe(
+        data => {
+          this.action = data;
+          // Because of the fake image viewer above
+          this.action.hasView = true;
+          console.log(data);
+          this.reconstructView();
+        },
+        error => {
+          console.log(error);
+        });
+  }
+
+  updateAppsInView() {
+    for ( const app of this.view ) {
+      console.log('Send information to apps');
+      if ( app[ 'imageViewers' ] ) {
+        console.log('Wir haben einen ImageView');
+        console.log( app[ 'imageViewers' ] );
+        this.addAnotherImageViewer();
+      }
+      console.log(app);
+    }
+  }
+
+  reconstructView() {
+    if ( this.action.hasView ) {
+      console.log('We found a view! - Update View Array and properties');
+      this.updateAppsInView();
+    } else {
+      console.log('There is no view yet for this action');
+    }
+
+  }
+
+  createTooltip() {
+    if( this.action ) {
+      return 'Aktion: ' + this.action.title + ', Beschreibung: ' + this.action.description;
+    } else {
+      return null;
+    }
   }
 
   // Imageviewer
