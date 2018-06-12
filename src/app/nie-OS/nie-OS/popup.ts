@@ -22,8 +22,11 @@ export class Popup {
   show = false;
 
   @Input() title: string;
+  @Input() type: string;
+  @Input() id: number;
   @Input() firstPopupX: number;
   @Input() firstPopupY: number;
+  @Output() sendAppCoordinatesBack: EventEmitter<any> = new EventEmitter<any>();
 
   mousemoveEvent: any;
   mouseupEvent: any;
@@ -39,6 +42,7 @@ export class Popup {
   xStartMousePoint: number;
   yStartMousePoint: number;
   fatherPopup: any;
+  sendCoordinatesBack: any;
 
   isMouseBtnOnPress: boolean;
 
@@ -121,6 +125,14 @@ export class Popup {
   }
   dragging: (event: any) => void;
   unboundDragging(event: any) {
+    this.sendCoordinatesBack = {};
+    this.sendCoordinatesBack.x = this.curX;
+    this.sendCoordinatesBack.y = this.curY;
+    this.sendCoordinatesBack.id = this.id;
+    this.sendCoordinatesBack.type = this.type;
+    this.sendAppCoordinatesBack.emit(
+      this.sendCoordinatesBack
+    );
     this.curX = this.xStartElementPoint + (event.pageX - this.xStartMousePoint);
     this.curY = this.yStartElementPoint + (event.pageY - this.yStartMousePoint);
   }

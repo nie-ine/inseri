@@ -20,6 +20,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         console.log(users);
       const actions: any[] = JSON.parse(localStorage.getItem('actions')) || [];
       console.log(actions);
+      const views: any[] = JSON.parse(localStorage.getItem('views')) || [];
+      console.log(views);
 
         // wrap in delayed observable to simulate server api call
         return Observable.of(null).mergeMap(() => {
@@ -126,6 +128,26 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 // respond 200 OK
                 return Observable.of(new HttpResponse({ status: 200 }));
             }
+
+          // create view
+          if (request.url.endsWith('/api/views') && request.method === 'POST') {
+            // get new user object from post body
+            let newView = request.body;
+
+            // validation
+            let duplicateView = views.filter(view => { return view.id === newView.id; }).length;
+            if (duplicateView) {
+              return Observable.throw('View id "' + newView.id + '" is already taken');
+            }
+
+            // save new user
+            newView.id = views.length + 1;
+            views.push(newView);
+            localStorage.setItem('views', JSON.stringify(views));
+
+            // respond 200 OK
+            return Observable.of(new HttpResponse({ status: 200 }));
+          }
 
 
           // create action

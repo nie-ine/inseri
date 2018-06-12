@@ -4,6 +4,7 @@ import {Popup} from './popup';
 import 'rxjs/add/operator/map';
 import { ActivatedRoute } from '@angular/router';
 import { ActionService } from '../../shared/action.service';
+import {ViewService} from '../../shared/view.service';
 
 declare var grapesjs: any; // Important!
 
@@ -36,54 +37,72 @@ export class NIEOSComponent implements OnInit {
   numberOfTextViewers = 0;
   actionID: number;
   length: number;
-  view = [
-    {
-      'imageViewers': new Set()
-    }
-  ];
+  view: Array<any>;
   action: any;
   constructor(
     private route: ActivatedRoute,
-    private actionService: ActionService
+    private actionService: ActionService,
+    private viewService: ViewService
   ) {
     this.route.params.subscribe(params => console.log(params));
   }
 
   ngOnInit() {
+    this.view = [];
     console.log('Start der Arbeitsflaeche');
     // Construct fake image Viewer:
-    const imageViewer = {
-      'id': 70,
-      'x': 80,
-      'y': 90,
-      'z': 100
-    };
-    this.view[ 0 ].imageViewers.add( imageViewer );
-    this.actionID = this.route.snapshot.queryParams.actionID
-    console.log( this.actionID );
-    this.actionService.getById( this.actionID )
-      .subscribe(
-        data => {
-          this.action = data;
-          // Because of the fake image viewer above
-          this.action.hasView = true;
-          console.log(data);
-          this.reconstructView();
-        },
-        error => {
-          console.log(error);
-        });
+    this.actionID = this.route.snapshot.queryParams.actionID;
+    console.log(this.actionID);
+      if ( this.actionID === '1') {
+        const imageViewer = {
+          'id': 70,
+          'x': 80,
+          'y': 90,
+          'z': 100,
+          'type': 'imageViewers'
+        };
+        this.view[imageViewer.id] = imageViewer;
+        console.log(this.actionID);
+        this.actionService.getById(this.actionID)
+          .subscribe(
+            data => {
+              this.action = data;
+              // Because of the fake image viewer above
+              this.action.hasView = true;
+              console.log(data);
+              this.reconstructView();
+            },
+            error => {
+              console.log(error);
+            });
+      }
+  }
+
+  deleteView() {
+    console.log('Delete View');
+  }
+
+  updateAppCoordinates(app: any) {
+    console.log('x: ' + app.x);
+    console.log('y: ' + app.y);
+    console.log('type: ' + app.type);
+    console.log('id: ' + app.id);
+    this.view[app.id] =  app;
   }
 
   updateAppsInView() {
     for ( const app of this.view ) {
-      console.log('Send information to apps');
-      if ( app[ 'imageViewers' ] ) {
-        console.log('Wir haben einen ImageView');
-        console.log( app[ 'imageViewers' ] );
-        this.addAnotherImageViewer();
+      if ( app ) {
+        console.log( app );
+        if ( app.type === 'imageViewers' ) {
+          this.addAnotherImageViewer();
+          console.log('Number of ImageViewers in View: ' + this.numberOfImageViewers);
+          this.imageViewerModel[ this.numberOfImageViewers - 1 ] = {};
+          this.imageViewerModel[ this.numberOfImageViewers - 1 ].x = app.x;
+          this.imageViewerModel[ this.numberOfImageViewers - 1 ].y = app.y;
+          this.imageViewerModel[ this.numberOfImageViewers - 1 ].id = app.id;
+        }
       }
-      console.log(app);
     }
   }
 
@@ -103,6 +122,20 @@ export class NIEOSComponent implements OnInit {
     } else {
       return null;
     }
+  }
+
+  saveView() {
+    console.log('Save View');
+    console.log('Action ID: ' + this.actionID);
+    console.log('Current View in Fake Backend: ');
+    this.viewService.create( this.view )
+      .subscribe(
+        data => {
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+        });
   }
 
   // Imageviewer
