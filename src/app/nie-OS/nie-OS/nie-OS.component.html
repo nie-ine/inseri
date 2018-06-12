@@ -8,6 +8,10 @@
         <button mat-button (click)="addAnotherGrapesJS()">Add grapesJS Viewer</button><br>
         <button mat-button (click)="addAnotherTextViewer()">Add text Viewer</button><br>
       </div>
+      <div style="bottom: 0; position:absolute; right: 0">
+        <button mat-button (click)="saveView()">Save View</button><br>
+        <button mat-button (click)="deleteView()">Delete View</button><br>
+      </div>
     </mat-drawer>
 
     <div >
@@ -19,9 +23,12 @@
     <!-- Image Viewer -->
     <div *ngFor="let imageViewer of imageViewerModel; let i = index;" >
       <popup #imageViewer
-             [title]="'Image Viewer ' + imageViewerModel[i]"
-             [firstPopupX]=150
-             [firstPopupY]=150>
+             [title]="'Image Viewer ' + i"
+             [id]=imageViewerModel[i].id
+             [type]="'imageViewers'"
+             [firstPopupX]=imageViewerModel[i].x
+             [firstPopupY]=imageViewerModel[i].y
+             (sendAppCoordinatesBack)="updateAppCoordinates($event)">
         <nie-image-frame style="height: 100%;"
                          [image]="image"
                          width="500"
@@ -33,7 +40,7 @@
         <button mat-menu-item (click)="closeImageViewer(i)">Close this app</button>
         <button mat-menu-item>Choose Image</button>
       </mat-menu>
-      <button mat-button (click)="imageViewer.appear()" >Image Viewer {{ imageViewerModel[i] }}</button><br>
+      <button mat-button (click)="imageViewer.appear()" >Image Viewer {{ i }}</button><br>
     </div>
 
     <!-- Search -->
