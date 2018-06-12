@@ -18,7 +18,10 @@
 
     <!-- Image Viewer -->
     <div *ngFor="let imageViewer of imageViewerModel; let i = index;" >
-      <popup #imageViewer [title]="'Image Viewer ' + imageViewerModel[i]" >
+      <popup #imageViewer
+             [title]="'Image Viewer ' + imageViewerModel[i]"
+             [firstPopupX]=150
+             [firstPopupY]=150>
         <nie-image-frame style="height: 100%;"
                          [image]="image"
                          width="500"
@@ -50,7 +53,8 @@
 
     <!-- GrapesJS -->
     <div *ngFor="let grapesJS of grapesJSModel; let i = index;" >
-      <popup #grapesJSViewer [title]="'GrapesJS ' + grapesJSModel[i]" >
+      <popup #grapesJSViewer
+             [title]="'GrapesJS ' + grapesJSModel[i]">
         <div id="grapesJSViewer">Please drag this window to desired size and open other app. <br>
           ( Click for example on image view, this will cause the instantiation of  grapesjs as well. )<br>
         This is necessary because of a current bug.</div>

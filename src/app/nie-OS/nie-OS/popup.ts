@@ -22,12 +22,11 @@ export class Popup {
   show = false;
 
   @Input() title: string;
+  @Input() firstPopupX: number;
+  @Input() firstPopupY: number;
 
   mousemoveEvent: any;
   mouseupEvent: any;
-
-  firstPopupX = 100;
-  firstPopupY = 100;
   firstPopupZ = 3;
   xStep = 30;
   yStep = 30;
@@ -50,6 +49,13 @@ export class Popup {
   }
 
   ngOnInit() {
+    // If coordinates of window are set through input, let it appear
+    if( this.firstPopupX && this.firstPopupY ) {
+      this.appear();
+    } else {
+      this.firstPopupX = 100;
+      this.firstPopupY = 100;
+    }
     const editor = grapesjs.init({
       container: '#grapesJSViewer',
       components: '<div class="txt-red">Hello world!</div>',
