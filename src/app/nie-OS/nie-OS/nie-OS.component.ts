@@ -37,8 +37,10 @@ export class NIEOSComponent implements OnInit {
   numberOfTextViewers = 0;
   actionID: number;
   length: number;
-  view: Array<any>;
+  view: any = {};
   action: any;
+  viewsInStorage: any;
+
   constructor(
     private route: ActivatedRoute,
     private actionService: ActionService,
@@ -53,15 +55,37 @@ export class NIEOSComponent implements OnInit {
     // Construct fake image Viewer:
     this.actionID = this.route.snapshot.queryParams.actionID;
     console.log(this.actionID);
-      if ( this.actionID === '1') {
+
+    console.log('get all views');
+    this.viewService.getAll()
+      .subscribe(
+        data => {
+          this.viewsInStorage = data;
+          console.log('Check if views exists for this action - Id');
+          for ( const viewArray of this.viewsInStorage ) {
+            for ( const view of viewArray ) {
+              if ( view !== null ) {
+                if ( view.belongsToAction === this.actionID ) {
+                  this.view[this.view.length] = view;
+                }
+                console.log( view );
+              }
+            }
+          }
+        },
+        error => {
+          console.log(error);
+        });
+      if ( this.actionID.toString() === '1') {
         const imageViewer = {
           'id': 70,
           'x': 80,
           'y': 90,
           'z': 100,
-          'type': 'imageViewers'
+          'type': 'imageViewers',
+          'belongsToAction': this.actionID
         };
-        this.view[imageViewer.id] = imageViewer;
+        this.view[this.view.length] = imageViewer;
         console.log(this.actionID);
         this.actionService.getById(this.actionID)
           .subscribe(

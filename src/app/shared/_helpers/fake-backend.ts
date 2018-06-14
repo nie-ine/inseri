@@ -132,21 +132,34 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           // create view
           if (request.url.endsWith('/api/views') && request.method === 'POST') {
             // get new user object from post body
+            console.log(request.body[0].id)
             let newView = request.body;
 
             // validation
-            let duplicateView = views.filter(view => { return view.id === newView.id; }).length;
+            let duplicateView = views.filter(view => { return view.id === newView[0].id; }).length;
             if (duplicateView) {
-              return Observable.throw('View id "' + newView.id + '" is already taken');
+              return Observable.throw('View id "' + newView[0].id + '" is already taken');
             }
 
-            // save new user
-            newView.id = views.length + 1;
-            views.push(newView);
+            // save new view
+            newView[0].id = views.length + 1;
+            views.push(newView[0]);
             localStorage.setItem('views', JSON.stringify(views));
 
             // respond 200 OK
             return Observable.of(new HttpResponse({ status: 200 }));
+          }
+
+          // get views
+          if (request.url.endsWith('/api/views') && request.method === 'GET') {
+            // check for fake auth token in header and return users if valid,
+            // this security is implemented server side in a real application
+            if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
+              return Observable.of(new HttpResponse({ status: 200, body: views }));
+            } else {
+              // return 401 not authorised if token is null or invalid
+              return Observable.throw('Unauthorised');
+            }
           }
 
 
