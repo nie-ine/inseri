@@ -5,5 +5,5 @@ export class Action {
   isFinished: boolean; // isInProgress, isFinished
   deleted = false;
   type: string;
-  hasView = null; // id des Views anderenfalls
+  hasViews: Array<string>; // hash des views
 }

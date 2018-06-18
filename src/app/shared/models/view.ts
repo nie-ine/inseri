@@ -3,5 +3,4 @@ export class View {
   x: number;
   y: number;
   type: string;
-  belongsToAction: string;
 }

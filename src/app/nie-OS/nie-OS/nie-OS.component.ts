@@ -54,52 +54,35 @@ export class NIEOSComponent implements OnInit {
     console.log('Start der Arbeitsflaeche');
     // Construct fake image Viewer:
     this.actionID = this.route.snapshot.queryParams.actionID;
-    console.log(this.actionID);
-
-    console.log('get all views');
-    this.viewService.getAll()
+    this.viewsInStorage = this.checkIfViewExistsForThisAction( this.actionID );
+    if ( this.viewsInStorage ) {
+      this.updateAppsInView();
+    }
+    // this.checkIfViewExistsForThisAction( this.actionID );
+  }
+  checkIfViewExistsForThisAction( actionID: number): any {
+    this.actionService.getById(actionID)
       .subscribe(
         data => {
-          this.viewsInStorage = data;
-          console.log('Check if views exists for this action - Id');
-          for ( const viewArray of this.viewsInStorage ) {
-            for ( const view of viewArray ) {
-              if ( view !== null ) {
-                if ( view.belongsToAction === this.actionID ) {
-                  this.view[this.view.length] = view;
-                }
-                console.log( view );
-              }
-            }
+          this.action = data;
+          console.log(this.action.hasViews[0]);
+          if ( this.action.hasViews[ 0 ] ) {
+            return this.action.hasViews;
+            // this.reconstructView();
+          } else {
+            console.log('No views for this action yet');
+            this.generateHashForThisView();
+            return undefined;
           }
         },
         error => {
           console.log(error);
+          return undefined;
         });
-      if ( this.actionID.toString() === '1') {
-        const imageViewer = {
-          'id': 70,
-          'x': 80,
-          'y': 90,
-          'z': 100,
-          'type': 'imageViewers',
-          'belongsToAction': this.actionID
-        };
-        this.view[this.view.length] = imageViewer;
-        console.log(this.actionID);
-        this.actionService.getById(this.actionID)
-          .subscribe(
-            data => {
-              this.action = data;
-              // Because of the fake image viewer above
-              this.action.hasView = true;
-              console.log(data);
-              this.reconstructView();
-            },
-            error => {
-              console.log(error);
-            });
-      }
+  }
+
+  generateHashForThisView() {
+    console.log('generate Has for this View');
   }
 
   deleteView() {
@@ -130,16 +113,6 @@ export class NIEOSComponent implements OnInit {
     }
   }
 
-  reconstructView() {
-    if ( this.action.hasView ) {
-      console.log('We found a view! - Update View Array and properties');
-      this.updateAppsInView();
-    } else {
-      console.log('There is no view yet for this action');
-    }
-
-  }
-
   createTooltip() {
     if( this.action ) {
       return 'Aktion: ' + this.action.title + ', Beschreibung: ' + this.action.description;
@@ -151,15 +124,20 @@ export class NIEOSComponent implements OnInit {
   saveView() {
     console.log('Save View');
     console.log('Action ID: ' + this.actionID);
-    console.log('Current View in Fake Backend: ');
-    this.viewService.create( this.view )
-      .subscribe(
-        data => {
-          console.log(data);
-        },
-        error => {
-          console.log(error);
-        });
+    if ( this.viewsInStorage ) {
+      console.log('update View');
+    } else {
+      console.log('Save new View');
+      console.log(this.view);
+    }
+    // this.viewService.create( this.view )
+    //   .subscribe(
+    //     data => {
+    //       console.log(data);
+    //     },
+    //     error => {
+    //       console.log(error);
+    //     });
   }
 
   // Imageviewer
