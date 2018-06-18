@@ -26,6 +26,7 @@ export class Popup {
   @Input() id: number;
   @Input() firstPopupX: number;
   @Input() firstPopupY: number;
+  @Input() hash: string;
   @Output() sendAppCoordinatesBack: EventEmitter<any> = new EventEmitter<any>();
 
   mousemoveEvent: any;
@@ -130,6 +131,7 @@ export class Popup {
     this.sendCoordinatesBack.y = this.curY;
     this.sendCoordinatesBack.id = this.id;
     this.sendCoordinatesBack.type = this.type;
+    this.sendCoordinatesBack.hash = this.hash;
     this.sendAppCoordinatesBack.emit(
       this.sendCoordinatesBack
     );

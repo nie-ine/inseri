@@ -17,11 +17,11 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         // array in local storage for registered users
         const users: any[] = JSON.parse(localStorage.getItem('users')) || [];
-        console.log(users);
-      const actions: any[] = JSON.parse(localStorage.getItem('actions')) || [];
-      console.log(actions);
-      const views: any[] = JSON.parse(localStorage.getItem('views')) || [];
-      console.log(views);
+        // console.log(users);
+        const actions: any[] = JSON.parse(localStorage.getItem('actions')) || [];
+        // console.log(actions);
+        const views: any[] = JSON.parse(localStorage.getItem('views')) || [];
+        console.log(views);
 
         // wrap in delayed observable to simulate server api call
         return Observable.of(null).mergeMap(() => {
@@ -109,6 +109,40 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             }
           }
 
+          // update action
+          if (request.url.match(/\/api\/actions\/\d+$/) && request.method === 'PUT') {
+            // check for fake auth token in header and return user if valid,
+            // this security is implemented server side in a real application
+            if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
+              // find user by id in users array
+              const urlParts = request.url.split('/');
+              const id = parseInt(urlParts[urlParts.length - 1]);
+              console.log('update action ' + id);
+              console.log(request.body);
+              for (let i = 0; i < actions.length; i++) {
+                const action = actions[i];
+                if ( action.id === id) {
+                  // delete action to save it again afterwards
+                  actions.splice(i, 1);
+                  localStorage.setItem('actions', JSON.stringify(actions));
+                  // save existing action again in storage
+                  const newAction = request.body;
+                  // save new action
+                  console.log('Update action');
+                  console.log(newAction);
+                  newAction.id = actions.length + 1;
+                  newAction.isFinished = false;
+                  actions.push(newAction);
+                  localStorage.setItem('actions', JSON.stringify(actions));
+                  return Observable.of(new HttpResponse({ status: 200, body: newAction }));
+                }
+              }
+            } else {
+              // return 401 not authorised if token is null or invalid
+              return Observable.throw('Unauthorised');
+            }
+          }
+
             // create user
             if (request.url.endsWith('/api/users') && request.method === 'POST') {
                 // get new user object from post body
@@ -132,19 +166,18 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           // create view
           if (request.url.endsWith('/api/views') && request.method === 'POST') {
             // get new user object from post body
-            console.log(request.body[0].id)
             let newView = request.body;
-
             // validation
-            let duplicateView = views.filter(view => { return view.id === newView[0].id; }).length;
-            if (duplicateView) {
-              return Observable.throw('View id "' + newView[0].id + '" is already taken');
+            let duplicateView = views.filter(view => { return view.hash === newView.hash; }).length;
+            if ( duplicateView ) {
+              return Observable.throw('View id "' + newView.hash + '" is already taken');
             }
 
             // save new view
-            newView[0].id = views.length + 1;
-            views.push(newView[0]);
+            newView.id = views.length + 1;
+            views.push(newView);
             localStorage.setItem('views', JSON.stringify(views));
+            console.log(JSON.parse(localStorage.getItem('views')));
 
             // respond 200 OK
             return Observable.of(new HttpResponse({ status: 200 }));

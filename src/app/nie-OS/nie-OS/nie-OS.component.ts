@@ -1,4 +1,4 @@
-import {Component, NgModule, OnInit, VERSION} from '@angular/core';
+import {AfterViewChecked, ChangeDetectorRef, Component, NgModule, OnInit, VERSION} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {Popup} from './popup';
 import 'rxjs/add/operator/map';
@@ -13,7 +13,7 @@ declare var grapesjs: any; // Important!
   selector: 'nie-os',
   templateUrl: `nie-OS.component.html`,
 })
-export class NIEOSComponent implements OnInit {
+export class NIEOSComponent implements OnInit, AfterViewChecked {
   showFiller = false;
   image = {
     '@id' : 'http://rdfh.ch/kuno-raeber/Uzo2YDhzTr-8CUSg1pQL4Q/values/gJVf-AQjSbSTAo8EsU8ErQ',
@@ -37,41 +37,44 @@ export class NIEOSComponent implements OnInit {
   numberOfTextViewers = 0;
   actionID: number;
   length: number;
-  view: any = {};
+  view: any;
   action: any;
   viewsInStorage: any;
+  hashOfView: string;
 
   constructor(
     private route: ActivatedRoute,
     private actionService: ActionService,
-    private viewService: ViewService
+    private viewService: ViewService,
+    private cdr: ChangeDetectorRef
   ) {
     this.route.params.subscribe(params => console.log(params));
   }
 
+
+  ngAfterViewChecked() {
+    this.cdr.detectChanges();
+  }
   ngOnInit() {
-    this.view = [];
+    this.view = {};
     console.log('Start der Arbeitsflaeche');
     // Construct fake image Viewer:
     this.actionID = this.route.snapshot.queryParams.actionID;
-    this.viewsInStorage = this.checkIfViewExistsForThisAction( this.actionID );
-    if ( this.viewsInStorage ) {
-      this.updateAppsInView();
-    }
-    // this.checkIfViewExistsForThisAction( this.actionID );
+    this.checkIfViewExistsForThisAction( this.actionID );
   }
-  checkIfViewExistsForThisAction( actionID: number): any {
+  checkIfViewExistsForThisAction( actionID: number) {
     this.actionService.getById(actionID)
       .subscribe(
         data => {
           this.action = data;
-          console.log(this.action.hasViews[0]);
-          if ( this.action.hasViews[ 0 ] ) {
-            return this.action.hasViews;
-            // this.reconstructView();
+          console.log(this.action);
+          if ( this.action && this.action.hasViews[ 0 ] ) {
+            console.log(this.action.hasViews);
+            this.updateAppsInView( this.action.hasViews );
           } else {
             console.log('No views for this action yet');
-            this.generateHashForThisView();
+            this.view.hash = this.generateHash();
+            console.log(this.view);
             return undefined;
           }
         },
@@ -81,8 +84,17 @@ export class NIEOSComponent implements OnInit {
         });
   }
 
-  generateHashForThisView() {
-    console.log('generate Has for this View');
+  generateHash(): string {
+    console.log('generate Hash for this app');
+    let text = '';
+    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+    for (let i = 0; i < 5; i++) {
+      text += possible.charAt(
+        Math.floor(Math.random() * possible.length )
+      );
+    }
+    return text;
   }
 
   deleteView() {
@@ -93,11 +105,23 @@ export class NIEOSComponent implements OnInit {
     console.log('x: ' + app.x);
     console.log('y: ' + app.y);
     console.log('type: ' + app.type);
-    console.log('id: ' + app.id);
-    this.view[app.id] =  app;
+    console.log('id: ' + app.hash );
+    this.view[ app.hash ] = app;
+    console.log( this.view );
   }
 
-  updateAppsInView() {
+  updateAppsInView( views: Array<any>) {
+    console.log('updateAppsInView');
+    console.log(views);
+    console.log('get views from Backend');
+    this.viewService.getById( views[ 0 ] )
+      .subscribe(
+        data => {
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+        });
     for ( const app of this.view ) {
       if ( app ) {
         console.log( app );
@@ -108,6 +132,7 @@ export class NIEOSComponent implements OnInit {
           this.imageViewerModel[ this.numberOfImageViewers - 1 ].x = app.x;
           this.imageViewerModel[ this.numberOfImageViewers - 1 ].y = app.y;
           this.imageViewerModel[ this.numberOfImageViewers - 1 ].id = app.id;
+          this.imageViewerModel[ this.numberOfImageViewers - 1 ].id = app.hash;
         }
       }
     }
@@ -122,28 +147,55 @@ export class NIEOSComponent implements OnInit {
   }
 
   saveView() {
-    console.log('Save View');
-    console.log('Action ID: ' + this.actionID);
-    if ( this.viewsInStorage ) {
-      console.log('update View');
-    } else {
+    // console.log('Save View');
+    // console.log('Action ID: ' + this.actionID);
+    // if ( this.action.hasViews[0] ) {
+    //   console.log('update view for this action');
+    //   console.log(this.action);
+    //   this.view.hash = this.action.hasViews[0];
+    //   console.log(this.view);
+    //   this.viewService.update( this.view )
+    //     .subscribe(
+    //       data => {
+    //         console.log(data);
+    //       },
+    //       error => {
+    //         console.log(error);
+    //       });
+    // } else {
       console.log('Save new View');
+      console.log('1. Attach hash of this view to action model ' + this.view.hash);
+      this.action.hasViews[ 0 ] = this.view.hash;
+      console.log(JSON.stringify(this.view));
       console.log(this.view);
-    }
-    // this.viewService.create( this.view )
-    //   .subscribe(
-    //     data => {
-    //       console.log(data);
-    //     },
-    //     error => {
-    //       console.log(error);
-    //     });
+      console.log(this.action);
+      // Update ActionService so that it contains hash of new view
+      this.actionService.update(this.action)
+        .subscribe(
+        data => {
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+        });
+      // Save new view
+      this.viewService.create( this.view )
+        .subscribe(
+          data => {
+            console.log(data);
+          },
+          error => {
+            console.log(error);
+          });
+    //}
   }
 
   // Imageviewer
   addAnotherImageViewer() {
-    this.length = this.imageViewerModel.length;
-    this.imageViewerModel[this.length] = this.numberOfImageViewers + 1;
+    const length = this.imageViewerModel.length;
+    this.imageViewerModel[ length ] = {};
+    this.imageViewerModel[ length ].numberOfImageViewers = this.numberOfImageViewers + 1;
+    this.imageViewerModel[ length ].hash = this.generateHash();
     this.numberOfImageViewers += 1;
   }
   closeImageViewer(i: number) {
