@@ -109,6 +109,26 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             }
           }
 
+          // get view by id
+          if (request.url.match(/\/api\/views\/\w+$/) && request.method === 'GET') {
+            // check for fake auth token in header and return user if valid,
+            // this security is implemented server side in a real application
+            if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
+              // find user by id in users array
+              const urlParts = request.url.split('/');
+              console.log(urlParts);
+              const hash = urlParts[urlParts.length - 1];
+              console.log('Hash: ' + hash);
+              const matchedActions = views.filter(view => { return view.hash === hash; });
+              const view = matchedActions.length ? matchedActions[0] : null;
+
+              return Observable.of(new HttpResponse({ status: 200, body: view }));
+            } else {
+              // return 401 not authorised if token is null or invalid
+              return Observable.throw('Unauthorised');
+            }
+          }
+
           // update action
           if (request.url.match(/\/api\/actions\/\d+$/) && request.method === 'PUT') {
             // check for fake auth token in header and return user if valid,
@@ -137,6 +157,32 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                   return Observable.of(new HttpResponse({ status: 200, body: newAction }));
                 }
               }
+            } else {
+              // return 401 not authorised if token is null or invalid
+              return Observable.throw('Unauthorised');
+            }
+          }
+
+          // update view
+          if (request.url.match(/\/api\/views\/\w+$/) && request.method === 'PUT') {
+            // check for fake auth token in header and return user if valid,
+            // this security is implemented server side in a real application
+            if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
+              // find user by id in users array
+              const urlParts = request.url.split('/');
+              const hash = urlParts[urlParts.length - 1];
+              console.log('update view ' + hash);
+              console.log(request.body);
+              console.log(views);
+              // save new action
+              console.log('Update action');
+              console.log('Views before');
+              console.log(views);
+              views[ 0 ] = request.body;
+              console.log('Views after');
+              console.log(views);
+              localStorage.setItem('views', JSON.stringify(views));
+                  return Observable.of(new HttpResponse({ status: 200, body: request.body }));
             } else {
               // return 401 not authorised if token is null or invalid
               return Observable.throw('Unauthorised');
@@ -174,8 +220,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             }
 
             // save new view
-            newView.id = views.length + 1;
-            views.push(newView);
+            views.push( newView );
             localStorage.setItem('views', JSON.stringify(views));
             console.log(JSON.parse(localStorage.getItem('views')));
 

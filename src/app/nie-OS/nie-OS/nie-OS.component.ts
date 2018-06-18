@@ -110,32 +110,31 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     console.log( this.view );
   }
 
-  updateAppsInView( views: Array<any>) {
+  updateAppsInView( views: Array<any> ) {
     console.log('updateAppsInView');
     console.log(views);
     console.log('get views from Backend');
     this.viewService.getById( views[ 0 ] )
       .subscribe(
         data => {
+          this.view = data;
           console.log(data);
+          for ( const app in data ) {
+            console.log( data[ app ] );
+              if ( data[ app ].type === 'imageViewers' ) {
+                this.addAnotherImageViewer();
+                console.log('Number of ImageViewers in View: ' + this.numberOfImageViewers);
+                this.imageViewerModel[ this.numberOfImageViewers - 1 ] = {};
+                this.imageViewerModel[ this.numberOfImageViewers - 1 ].x = data[ app ].x;
+                this.imageViewerModel[ this.numberOfImageViewers - 1 ].y = data[ app ].y;
+                this.imageViewerModel[ this.numberOfImageViewers - 1 ].id = data[ app ].id;
+                this.imageViewerModel[ this.numberOfImageViewers - 1 ].id = data[ app ].hash;
+              }
+          }
         },
         error => {
           console.log(error);
         });
-    for ( const app of this.view ) {
-      if ( app ) {
-        console.log( app );
-        if ( app.type === 'imageViewers' ) {
-          this.addAnotherImageViewer();
-          console.log('Number of ImageViewers in View: ' + this.numberOfImageViewers);
-          this.imageViewerModel[ this.numberOfImageViewers - 1 ] = {};
-          this.imageViewerModel[ this.numberOfImageViewers - 1 ].x = app.x;
-          this.imageViewerModel[ this.numberOfImageViewers - 1 ].y = app.y;
-          this.imageViewerModel[ this.numberOfImageViewers - 1 ].id = app.id;
-          this.imageViewerModel[ this.numberOfImageViewers - 1 ].id = app.hash;
-        }
-      }
-    }
   }
 
   createTooltip() {
@@ -147,22 +146,21 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
   }
 
   saveView() {
-    // console.log('Save View');
-    // console.log('Action ID: ' + this.actionID);
-    // if ( this.action.hasViews[0] ) {
-    //   console.log('update view for this action');
-    //   console.log(this.action);
-    //   this.view.hash = this.action.hasViews[0];
-    //   console.log(this.view);
-    //   this.viewService.update( this.view )
-    //     .subscribe(
-    //       data => {
-    //         console.log(data);
-    //       },
-    //       error => {
-    //         console.log(error);
-    //       });
-    // } else {
+    console.log('Save View');
+    console.log('Action ID: ' + this.actionID);
+    if ( this.action.hasViews[0] ) {
+      console.log('update view for this action');
+      console.log(this.action);
+      console.log(this.view);
+      this.viewService.update( this.view )
+        .subscribe(
+          data => {
+            console.log(data);
+          },
+          error => {
+            console.log(error);
+          });
+    } else {
       console.log('Save new View');
       console.log('1. Attach hash of this view to action model ' + this.view.hash);
       this.action.hasViews[ 0 ] = this.view.hash;
@@ -187,7 +185,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
           error => {
             console.log(error);
           });
-    //}
+    }
   }
 
   // Imageviewer
