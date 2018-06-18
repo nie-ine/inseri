@@ -178,6 +178,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             console.log('Create action');
             newAction.id = actions.length + 1;
             newAction.isFinished = false;
+            newAction.hasViews = [];
             actions.push(newAction);
             localStorage.setItem('actions', JSON.stringify(actions));
 
