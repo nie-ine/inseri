@@ -11,7 +11,7 @@ export class ViewService {
     return this.http.get<View[]>('/api/views');
   }
 
-  getById(hash: number) {
+  getById(hash: string) {
     return this.http.get('/api/views/' + hash);
   }
 
@@ -20,7 +20,7 @@ export class ViewService {
   }
 
   update(view: View) {
-    return this.http.put('/api/views/' + view.id, view);
+    return this.http.put('/api/views/' + ( view as any ).hash, view);
   }
 
   delete(id: number) {
