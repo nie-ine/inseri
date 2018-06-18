@@ -23,6 +23,7 @@
     <!-- Image Viewer -->
     <div *ngFor="let imageViewer of imageViewerModel; let i = index;" >
       <popup #imageViewer
+             [hash]=imageViewerModel[i].hash
              [title]="'Image Viewer ' + i"
              [id]=imageViewerModel[i].id
              [type]="'imageViewers'"

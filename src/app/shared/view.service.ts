@@ -11,8 +11,8 @@ export class ViewService {
     return this.http.get<View[]>('/api/views');
   }
 
-  getById(id: number) {
-    return this.http.get('/api/views/' + id);
+  getById(hash: number) {
+    return this.http.get('/api/views/' + hash);
   }
 
   create(view: View) {
