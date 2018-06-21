@@ -132,6 +132,7 @@ export class Popup {
     this.sendCoordinatesBack.id = this.id;
     this.sendCoordinatesBack.type = this.type;
     this.sendCoordinatesBack.hash = this.hash;
+    console.log(this.sendCoordinatesBack);
     this.sendAppCoordinatesBack.emit(
       this.sendCoordinatesBack
     );

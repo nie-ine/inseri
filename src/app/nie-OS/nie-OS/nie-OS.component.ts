@@ -105,7 +105,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     console.log('x: ' + app.x);
     console.log('y: ' + app.y);
     console.log('type: ' + app.type);
-    console.log('id: ' + app.hash );
+    console.log('hash: ' + app.hash );
     this.view[ app.hash ] = app;
     console.log( this.view );
   }
@@ -129,6 +129,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
                 this.imageViewerModel[ this.numberOfImageViewers - 1 ].y = data[ app ].y;
                 this.imageViewerModel[ this.numberOfImageViewers - 1 ].id = data[ app ].id;
                 this.imageViewerModel[ this.numberOfImageViewers - 1 ].id = data[ app ].hash;
+                console.log(this.imageViewerModel);
               }
           }
         },
@@ -164,7 +165,6 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
       console.log('Save new View');
       console.log('1. Attach hash of this view to action model ' + this.view.hash);
       this.action.hasViews[ 0 ] = this.view.hash;
-      console.log(JSON.stringify(this.view));
       console.log(this.view);
       console.log(this.action);
       // Update ActionService so that it contains hash of new view
