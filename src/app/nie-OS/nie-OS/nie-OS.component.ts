@@ -110,6 +110,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     console.log( this.view );
   }
 
+  // Next: go through code and generalise app saving mechanism
   updateAppsInView( views: Array<any> ) {
     console.log('updateAppsInView');
     console.log(views);
