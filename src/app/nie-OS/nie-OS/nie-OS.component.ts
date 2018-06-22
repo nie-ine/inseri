@@ -4,7 +4,7 @@ import {Popup} from './popup';
 import 'rxjs/add/operator/map';
 import { ActivatedRoute } from '@angular/router';
 import { ActionService } from '../../shared/action.service';
-import {ViewService} from '../../shared/view.service';
+import { ViewService } from '../apps/view/view.service';
 
 declare var grapesjs: any; // Important!
 
@@ -120,10 +120,10 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
         data => {
           this.view = data;
           console.log(data);
-          for ( const app in data ) {
+          for ( const app in this.view ) {
             console.log( data[ app ] );
               if ( data[ app ].type === 'imageViewers' ) {
-                this.addAnotherImageViewer();
+                this.addAnotherApp(this.imageViewerModel);
                 console.log('Number of ImageViewers in View: ' + this.numberOfImageViewers);
                 this.imageViewerModel[ this.numberOfImageViewers - 1 ] = {};
                 this.imageViewerModel[ this.numberOfImageViewers - 1 ].x = data[ app ].x;
@@ -188,46 +188,21 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
           });
     }
   }
-
-  // Imageviewer
-  addAnotherImageViewer() {
-    const length = this.imageViewerModel.length;
-    this.imageViewerModel[ length ] = {};
-    this.imageViewerModel[ length ].numberOfImageViewers = this.numberOfImageViewers + 1;
-    this.imageViewerModel[ length ].hash = this.generateHash();
-    this.numberOfImageViewers += 1;
+  addAnotherApp (
+    appModel: any
+  ): Array<any> {
+    const length = appModel.length;
+    appModel[ length ] = {};
+    appModel[ length ].numberOf += 1;
+    appModel[ length ].hash = this.generateHash();
+    return appModel;
   }
-  closeImageViewer(i: number) {
-    this.imageViewerModel.splice( i,1 );
+  closeApp(
+    appModel: Array<any>,
+    i: number
+  ) {
+    appModel.splice(
+      i,
+      1);
   }
-
-  // Search
-  addAnotherSearch() {
-    this.length = this.searchModel.length;
-    this.searchModel[this.length] = this.numberOfSearches + 1;
-    this.numberOfSearches += 1;
-  }
-  closeSearch(i: number) {
-    this.searchModel.splice( i, 1 );
-  }
-
-  //GrapesJS
-  addAnotherGrapesJS() {
-    this.length = this.grapesJSModel.length;
-    this.grapesJSModel[this.length] = this.numberOfgrapesJS + 1;
-    this.numberOfgrapesJS += 1;
-  }
-  closeGrapesJS(i: number) {
-    this.grapesJSModel.splice( i, 1 );
-  }
-  addAnotherTextViewer() {
-    this.length = this.textViewerModel.length;
-    this.textViewerModel[this.length] = this.numberOfTextViewers + 1;
-    this.numberOfTextViewers += 1;
-  }
-
-  closeTextViewer(i: number) {
-    this.textViewerModel.splice(i, 1);
-  }
-
 }
