@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateResourceViewComponent implements OnInit {
 
+  projectIRI = 'http://rdfh.ch/projects/0041';
   constructor() { }
 
   ngOnInit() {
+  }
+  
+  interpretPostedIRI(e) {
+    alert(e);
   }
 
 }
