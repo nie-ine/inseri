@@ -9,15 +9,21 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class CreateResourceComponent implements OnInit {
     
   vocabularies: Array<any>;
-  selectedVocabulary: string;
+  selectedVocabulary: string = '';
+  selectedVocabularyDescription: string = '';
   
   resourceClasses: Array<any>;
-  selectedResourceClass: string;
+  selectedResourceClass: string = '';
+  selectedResourceClassDescription: string = '';
   
   properties: Array<any>;
   selectedProperties: Array<any>;
   
-  resourceLabel: string;
+  resourceLabel: string = '';
+  
+  showPropertySelect: boolean = true;
+  
+  @Input() projectIRI: string;
     
   @Output() resourceIRI: EventEmitter<string> = new EventEmitter<string>();
   
@@ -39,7 +45,14 @@ export class CreateResourceComponent implements OnInit {
         res => this.resourceClasses = res['resourcetypes'];
       );
     
+    for (let v of this.vocabularies) {
+      if (v['uri'] == vocabulary) {
+        this.selectedVocabularyDescription = v['description'];
+      }
+    }
+    
     this.selectedResourceClass = '';
+    this.selectedResourceClassDescription = '';
     this.selectedProperties = [];
     this.resourceLabel = '';
   }
@@ -49,8 +62,10 @@ export class CreateResourceComponent implements OnInit {
 
     this.http.get('http://knora2.nie-ine.ch/v1/resourcetypes/' + encodeURIComponent(this.selectedResourceClass))
       .subscribe(
-        res => this.properties = res['restype_info']['properties'];
-      );
+res => {
+        this.properties = res['restype_info']['properties'];
+        this.selectedResourceClassDescription = res['restype_info']['description'];
+       });
     this.selectedProperties = [];
     this.resourceLabel = '';
   }
@@ -64,9 +79,7 @@ export class CreateResourceComponent implements OnInit {
       }
     }
   
-    this.selectedProperties.push({'structure': propertyStructure, 'value': ''});
-    
-  console.log(this.selectedProperties);
+    this.selectedProperties.push({'structure': propertyStructure, 'value': ''});  
   }
   
   deleteProperty(index: number) {
@@ -78,11 +91,14 @@ export class CreateResourceComponent implements OnInit {
       'restype_id': this.selectedResourceClass,
       'properties': { },
       'label': this.resourceLabel
-      'project_id': 'http://rdfh.ch/projects/0041'
+      'project_id': this.projectIRI
     };
     
     for (let p of this.selectedProperties) { 
       if (p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#LinkValue') {
+        //
+      }
+      else if (p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#IntValue') {
         //
       }
       else if (p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#TextValue') {
@@ -108,6 +124,7 @@ export class CreateResourceComponent implements OnInit {
       .subscribe(
       res => {
         console.log(res);
+        this.resourceIRI.emit(res['res_id']);
       },
       err => {
         console.log(err);
