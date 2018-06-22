@@ -3,10 +3,10 @@
   <mat-drawer-container  align="end" style="height:100vh; margin-top: 30px;">
     <mat-drawer #drawer mode="side" align="end">
       <div>
-        <button mat-button (click)="addAnotherApp(imageViewerModel)">Add image Viewer</button><br>
-        <button mat-button (click)="addAnotherApp(searchModel)">Add search Viewer</button><br>
-        <button mat-button (click)="addAnotherApp(grapesJSModel)">Add grapesJS Viewer</button><br>
-        <button mat-button (click)="addAnotherApp(textViewerModel)">Add text Viewer</button><br>
+        <button mat-button (click)="addAnotherApp(imageViewerModel, true)">Add image Viewer</button><br>
+        <button mat-button (click)="addAnotherApp(searchModel, true)">Add search Viewer</button><br>
+        <button mat-button (click)="addAnotherApp(grapesJSModel, true)">Add grapesJS Viewer</button><br>
+        <button mat-button (click)="addAnotherApp(textViewerModel, true)">Add text Viewer</button><br>
       </div>
       <div style="bottom: 0; position:absolute; right: 0">
         <button mat-button (click)="saveView()">Save View</button><br>
@@ -23,7 +23,7 @@
     <!-- Image Viewer -->
     <div *ngFor="let imageViewer of imageViewerModel; let i = index;" >
       <popup #imageViewer
-             [hash]=imageViewerModel[i].id
+             [hash]=imageViewerModel[i].hash
              [title]="'Image Viewer ' + i"
              [type]="'imageViewers'"
              [firstPopupX]=imageViewerModel[i].x

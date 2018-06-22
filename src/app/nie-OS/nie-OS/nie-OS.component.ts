@@ -57,19 +57,19 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
   }
   ngOnInit() {
     this.view = {};
-    console.log('Start der Arbeitsflaeche');
+    // console.log('Start der Arbeitsflaeche');
     // Construct fake image Viewer:
     this.actionID = this.route.snapshot.queryParams.actionID;
     this.checkIfViewExistsForThisAction( this.actionID );
   }
-  checkIfViewExistsForThisAction( actionID: number) {
-    this.actionService.getById(actionID)
+  checkIfViewExistsForThisAction( actionID: number ) {
+    this.actionService.getById( actionID )
       .subscribe(
         data => {
           this.action = data;
+          console.log('This action: ');
           console.log(this.action);
           if ( this.action && this.action.hasViews[ 0 ] ) {
-            console.log(this.action.hasViews);
             this.updateAppsInView( this.action.hasViews );
           } else {
             console.log('No views for this action yet');
@@ -83,9 +83,8 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
           return undefined;
         });
   }
-
   generateHash(): string {
-    console.log('generate Hash for this app');
+    console.log('generate Hash');
     let text = '';
     const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
@@ -111,26 +110,22 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
   }
 
   // Next: go through code and generalise app saving mechanism
-  updateAppsInView( views: Array<any> ) {
+  updateAppsInView( viewHashes: Array<any> ) {
     console.log('updateAppsInView');
-    console.log(views);
-    console.log('get views from Backend');
-    this.viewService.getById( views[ 0 ] )
+    console.log(viewHashes);
+    // console.log('get views from Backend');
+    this.viewService.getById( viewHashes[ 0 ] )
       .subscribe(
         data => {
           this.view = data;
-          console.log(data);
+          console.log( data );
           for ( const app in this.view ) {
-            console.log( data[ app ] );
               if ( data[ app ].type === 'imageViewers' ) {
-                this.addAnotherApp(this.imageViewerModel);
-                console.log('Number of ImageViewers in View: ' + this.numberOfImageViewers);
-                this.imageViewerModel[ this.numberOfImageViewers - 1 ] = {};
-                this.imageViewerModel[ this.numberOfImageViewers - 1 ].x = data[ app ].x;
-                this.imageViewerModel[ this.numberOfImageViewers - 1 ].y = data[ app ].y;
-                this.imageViewerModel[ this.numberOfImageViewers - 1 ].id = data[ app ].id;
-                this.imageViewerModel[ this.numberOfImageViewers - 1 ].id = data[ app ].hash;
-                console.log(this.imageViewerModel);
+                this.updateApp(
+                  'imageViewers',
+                  this.imageViewerModel,
+                  data[ app ]
+                );
               }
           }
         },
@@ -138,7 +133,18 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
           console.log(error);
         });
   }
-
+  updateApp(
+    appType: string,
+    appModel: any,
+    appFromViewModel: any
+  ) {
+    const length = appModel.length;
+    appModel[ length ] = {};
+    appModel[ length ].x = appFromViewModel.x;
+    appModel[ length ].y = appFromViewModel.y;
+    appModel[ length ].hash = appFromViewModel.hash;
+    console.log( this.imageViewerModel );
+  }
   createTooltip() {
     if( this.action ) {
       return 'Aktion: ' + this.action.title + ', Beschreibung: ' + this.action.description;
@@ -189,12 +195,16 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     }
   }
   addAnotherApp (
-    appModel: any
+    appModel: any,
+    generateHash: boolean
   ): Array<any> {
+    console.log('add another app');
     const length = appModel.length;
     appModel[ length ] = {};
-    appModel[ length ].numberOf += 1;
-    appModel[ length ].hash = this.generateHash();
+    console.log(appModel[ length ]);
+    if( generateHash ) {
+      appModel[ length ].hash = this.generateHash();
+    }
     return appModel;
   }
   closeApp(
