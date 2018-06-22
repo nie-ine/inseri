@@ -3,10 +3,10 @@
   <mat-drawer-container  align="end" style="height:100vh; margin-top: 30px;">
     <mat-drawer #drawer mode="side" align="end">
       <div>
-        <button mat-button (click)="addAnotherImageViewer()">Add image Viewer</button><br>
-        <button mat-button (click)="addAnotherSearch()">Add search Viewer</button><br>
-        <button mat-button (click)="addAnotherGrapesJS()">Add grapesJS Viewer</button><br>
-        <button mat-button (click)="addAnotherTextViewer()">Add text Viewer</button><br>
+        <button mat-button (click)="addAnotherApp(imageViewerModel)">Add image Viewer</button><br>
+        <button mat-button (click)="addAnotherApp(searchModel)">Add search Viewer</button><br>
+        <button mat-button (click)="addAnotherApp(grapesJSModel)">Add grapesJS Viewer</button><br>
+        <button mat-button (click)="addAnotherApp(textViewerModel)">Add text Viewer</button><br>
       </div>
       <div style="bottom: 0; position:absolute; right: 0">
         <button mat-button (click)="saveView()">Save View</button><br>
@@ -37,7 +37,7 @@
       </popup>
       <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>settings</mat-icon></button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="closeImageViewer(i)">Close this app</button>
+        <button mat-menu-item (click)=" closeApp( imageViewerModel, i ) ">Close this app</button>
         <button mat-menu-item>Choose Image</button>
       </mat-menu>
       <button mat-button (click)="imageViewer.appear()" >Image Viewer {{ i }}</button><br>
@@ -45,7 +45,7 @@
 
     <!-- Search -->
     <div *ngFor="let search of searchModel; let i = index;" >
-      <popup #searchViewer [title]="'Search ' + searchModel[i]" >
+      <popup #searchViewer [title]="'Search ' + i" >
         <nie-search
         style="height: 100%;">
 
@@ -53,7 +53,7 @@
       </popup>
       <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>settings</mat-icon></button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="closeSearch(i)">Close this app</button>
+        <button mat-menu-item (click)=" closeApp( searchModel, i ) ">Close this app</button>
       </mat-menu>
       <button mat-button (click)="searchViewer.appear()" >Search Viewer {{ searchModel[i] }}</button><br>
     </div>
@@ -61,21 +61,21 @@
     <!-- GrapesJS -->
     <div *ngFor="let grapesJS of grapesJSModel; let i = index;" >
       <popup #grapesJSViewer
-             [title]="'GrapesJS ' + grapesJSModel[i]">
+             [title]="'GrapesJS ' + i">
         <div id="grapesJSViewer">Please drag this window to desired size and open other app. <br>
           ( Click for example on image view, this will cause the instantiation of  grapesjs as well. )<br>
         This is necessary because of a current bug.</div>
       </popup>
       <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>settings</mat-icon></button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="closeGrapesJS( i )">Close this app</button>
+        <button mat-menu-item (click)="closeApp( grapesJSModel, i )">Close this app</button>
       </mat-menu>
       <button mat-button (click)="grapesJSViewer.appear()" >GrapesJS Viewer {{ grapesJSModel[i] }}</button><br>
     </div>
 
     <!-- TextViewer -->
     <div *ngFor="let textViewer of textViewerModel; let i = index;" >
-      <popup #textViewer [title]="'Text Viewer ' + textViewerModel[i]" >
+      <popup #textViewer [title]="'Text Viewer ' + i" >
         <div style="width: 500px; max-width: 500px;">
           <app-text-view class="draggable">
           </app-text-view>
@@ -83,7 +83,7 @@
       </popup>
       <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>settings</mat-icon></button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="closeTextViewer(i)">Close this app</button>
+        <button mat-menu-item (click)=" closeApp( textViewerModel, i ) ">Close this app</button>
         <button mat-menu-item>Choose Text</button>
       </mat-menu>
       <button mat-button (click)="textViewer.appear()" >Text Viewer {{ textViewerModel[i] }}</button><br>
