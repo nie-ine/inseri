@@ -28,19 +28,13 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     'knora-api:stillImageFileValueHasIIIFBaseUrl' : 'https://tools.wmflabs.org/zoomviewer'
   };
   imageViewerModel = [];
-  numberOfImageViewers = 0;
   searchModel = [];
-  numberOfSearches = 0;
   grapesJSModel = [];
-  numberOfgrapesJS = 0;
   textViewerModel = [];
-  numberOfTextViewers = 0;
   actionID: number;
   length: number;
   view: any;
   action: any;
-  viewsInStorage: any;
-  hashOfView: string;
 
   constructor(
     private route: ActivatedRoute,
