@@ -1,0 +1,59 @@
+<div>
+  <div>
+    <select (change)="resetVocabulary($event.target.value)">
+      <option value="null">
+        Select vocabulary
+      </option>
+      <option *ngFor="let v of vocabularies" [value]="v[ 'uri' ]">
+        {{ v[ 'shortname' ] }}
+      </option>
+    </select>
+  </div>
+  
+  <div *ngIf="selectedVocabulary != ''">
+    <select (change)="resetResourceClass($event.target.value)">
+      <option value="null">
+        Select resource class
+      </option>
+      <option *ngFor="let c of resourceClasses" [value]="c[ 'id' ]">
+        {{ c[ 'label' ] }}
+      </option>
+    </select>
+  </div>
+  
+  <div *ngIf="selectedResourceClass != ''">
+    <div>
+      Label:
+      <input [(ngModel)]="resourceLabel"/>
+    </div>
+    <div *ngFor="let p of selectedProperties, let i = index">
+      <span [title]="p[ 'structure' ][ 'description' ]">{{ p[ 'structure' ][ 'label' ] }}</span>:
+      
+      <input *ngIf="p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#TextValue'" [(ngModel)]="selectedProperties[i]['value']"/>
+      
+      <input *ngIf="p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#DateValue'" [(ngModel)]="selectedProperties[i]['value']"/>
+      
+      <input *ngIf="p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#LinkValue'" [(ngModel)]="selectedProperties[i]['value']"/>
+      
+      <button (click)="deleteProperty(i)">del</button>
+    </div>
+    <div>
+      <select (change)="addProperty($event.target.value)">
+        <option value="None">
+          Select property
+        </option>
+        <option *ngFor="let p of properties" [value]="p [ 'id' ]">
+          {{ p[ 'label' ]}}
+        </option>
+      </select>
+    </div>
+  </div>
+  
+  <div *ngIf="resourceLabel != ''">
+    <button (click)="postResource()">
+      Save
+    </button>
+  </div>
+
+</div>
+      
