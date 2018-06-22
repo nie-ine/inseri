@@ -8,7 +8,10 @@
         {{ v[ 'shortname' ] }}
       </option>
     </select>
+    <p>{{ selectedVocabularyDescription }}</p>
   </div>
+  
+  <hr/>
   
   <div *ngIf="selectedVocabulary != ''">
     <select (change)="resetResourceClass($event.target.value)">
@@ -19,7 +22,10 @@
         {{ c[ 'label' ] }}
       </option>
     </select>
+    <p>{{ selectedResourceClassDescription }}</p>
   </div>
+  
+  <hr *ngIf="selectedVocabulary != ''" />
   
   <div *ngIf="selectedResourceClass != ''">
     <div>
@@ -31,14 +37,21 @@
       
       <input *ngIf="p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#TextValue'" [(ngModel)]="selectedProperties[i]['value']"/>
       
+      <input *ngIf="p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#IntValue'" [(ngModel)]="selectedProperties[i]['value']"/>
+      
       <input *ngIf="p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#DateValue'" [(ngModel)]="selectedProperties[i]['value']"/>
       
       <input *ngIf="p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#LinkValue'" [(ngModel)]="selectedProperties[i]['value']"/>
       
       <button (click)="deleteProperty(i)">del</button>
+      
+      (not yet implemented more complicated input forms: <app-create-property 
+        [property]="p['structure']"
+        (value)="selectedProperties[i]['value_structure']">
+      </app-create-property>)
     </div>
     <div>
-      <select (change)="addProperty($event.target.value)">
+      <select *ngIf="showPropertySelect" (change)="addProperty($event.target.value)">
         <option value="None">
           Select property
         </option>
