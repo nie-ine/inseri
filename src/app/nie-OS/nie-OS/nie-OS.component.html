@@ -25,7 +25,7 @@
       <popup #imageViewer
              [hash]=imageViewerModel[i].hash
              [title]="'Image Viewer ' + i"
-             [type]="'imageViewers'"
+             [type]="appTypes[ 'imageViewer' ]"
              [firstPopupX]=imageViewerModel[i].x
              [firstPopupY]=imageViewerModel[i].y
              (sendAppCoordinatesBack)="updateAppCoordinates($event)">
@@ -45,7 +45,13 @@
 
     <!-- Search -->
     <div *ngFor="let search of searchModel; let i = index;" >
-      <popup #searchViewer [title]="'Search ' + i" >
+      <popup #searchViewer
+             [hash]=searchModel[i].hash
+             [title]="'Search ' + i"
+             [type]="appTypes[ 'searchViewer' ]"
+             [firstPopupX]=searchModel[i].x
+             [firstPopupY]=searchModel[i].y
+             (sendAppCoordinatesBack)="updateAppCoordinates($event)">
         <nie-search
         style="height: 100%;">
 
@@ -61,7 +67,11 @@
     <!-- GrapesJS -->
     <div *ngFor="let grapesJS of grapesJSModel; let i = index;" >
       <popup #grapesJSViewer
-             [title]="'GrapesJS ' + i">
+             [hash]=grapesJSModel[i].hash
+             [title]="'GrapesJS ' + i"
+             [type]="appTypes[ 'grapesJSViewers' ]"
+             [firstPopupX]=grapesJSModel[i].x
+             [firstPopupY]=grapesJSModel[i].y>
         <div id="grapesJSViewer">Please drag this window to desired size and open other app. <br>
           ( Click for example on image view, this will cause the instantiation of  grapesjs as well. )<br>
         This is necessary because of a current bug.</div>
@@ -75,7 +85,12 @@
 
     <!-- TextViewer -->
     <div *ngFor="let textViewer of textViewerModel; let i = index;" >
-      <popup #textViewer [title]="'Text Viewer ' + i" >
+      <popup #textViewer
+             [hash]=textViewerModel[i].hash
+             [title]="'Text Viewer ' + i"
+             [type]="appTypes[ 'textViewers' ]"
+             [firstPopupX]=textViewerModel[i].x
+             [firstPopupY]=textViewerModel[i].y>
         <div style="width: 500px; max-width: 500px;">
           <app-text-view class="draggable">
           </app-text-view>

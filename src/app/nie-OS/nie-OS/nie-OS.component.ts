@@ -35,6 +35,12 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
   length: number;
   view: any;
   action: any;
+  appTypes = {
+    imageViewer: 'imageViewers',
+    textViewer: 'textViewers',
+    searchViewer: 'searchViewers',
+    grapesJS: 'grapesJSViewers'
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -99,6 +105,9 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     console.log('y: ' + app.y);
     console.log('type: ' + app.type);
     console.log('hash: ' + app.hash );
+    if( this.view[ app.hash ] === null ) {
+      this.view[ app.hash ] = [];
+    }
     this.view[ app.hash ] = app;
     console.log( this.view );
   }
@@ -112,20 +121,33 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
       .subscribe(
         data => {
           this.view = data;
-          console.log( data );
           for ( const app in this.view ) {
-              if ( data[ app ].type === 'imageViewers' ) {
-                this.updateApp(
-                  'imageViewers',
-                  this.imageViewerModel,
-                  data[ app ]
-                );
-              }
+            for( const appType in this.appTypes ) {
+              this.initiateUpdateApp(
+                data[ app ],
+                this.appTypes[ appType ],
+                this.imageViewerModel
+
+              );
+            }
           }
         },
         error => {
           console.log(error);
         });
+  }
+  initiateUpdateApp(
+    appFromViewModel: any,
+    appType: string,
+    appModel: any
+  ) {
+    if ( appFromViewModel.type === appType ) {
+      this.updateApp(
+        appType,
+        appModel,
+        appFromViewModel
+      );
+    }
   }
   updateApp(
     appType: string,
@@ -137,10 +159,9 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     appModel[ length ].x = appFromViewModel.x;
     appModel[ length ].y = appFromViewModel.y;
     appModel[ length ].hash = appFromViewModel.hash;
-    console.log( this.imageViewerModel );
   }
   createTooltip() {
-    if( this.action ) {
+    if ( this.action ) {
       return 'Aktion: ' + this.action.title + ', Beschreibung: ' + this.action.description;
     } else {
       return null;
@@ -195,7 +216,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     console.log('add another app');
     const length = appModel.length;
     appModel[ length ] = {};
-    console.log(appModel[ length ]);
+    console.log('Add type and Id here');
     if( generateHash ) {
       appModel[ length ].hash = this.generateHash();
     }
