@@ -1,3 +1,13 @@
+
+
+/**
+ * Manual: How to add an app:
+ * 1. Import the Component or Module in nie-OS.module.ts
+ * 2. Add the app to the Model "appTypes" in this file
+ * 3. Add this app to the "Menu to open Apps" - div in nie-OS.component.html
+ * 4. Add an app div by copying and pasting one of the existing divs and adjusting the input variables and the selector
+ * */
+
 import {AfterViewChecked, ChangeDetectorRef, Component, NgModule, OnInit, VERSION} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {Popup} from './popup';
@@ -27,9 +37,6 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     'knora-api:stillImageFileValueHasDimY' : 3456,
     'knora-api:stillImageFileValueHasIIIFBaseUrl' : 'https://tools.wmflabs.org/zoomviewer'
   };
-  searchModel = [];
-  grapesJSModel = [];
-  textViewerModel = [];
   actionID: number;
   length: number;
   view: any;
@@ -49,6 +56,10 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     },
     grapesJSViewer: {
       type: 'grapesJSViewers',
+      model: []
+    },
+    synopsisViewer: {
+      type: 'synopsisViewers',
       model: []
     }
   };

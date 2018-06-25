@@ -12,6 +12,8 @@ import { ArithmeticModule } from 'nie-ine';
 import { GrapesjsComponent } from './grapesjs/grapesjs.component';
 import { TextViewModule } from '../text-view/text-view.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { SynopsisModule } from '../synopsis/synopsis.module';
+
 
 @NgModule({
   imports: [
@@ -24,6 +26,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     ArithmeticModule,
     TextViewModule,
     MatTooltipModule,
+    SynopsisModule,
     RouterModule.forChild([
       { path: 'arbeitsflaeche', component: NIEOSComponent },
       { path: 'grapesjs', component: GrapesjsComponent }
