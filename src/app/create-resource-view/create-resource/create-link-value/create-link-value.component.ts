@@ -34,7 +34,6 @@ export class CreateLinkValueComponent implements OnInit {
   
   selectResult(iri) {
     this.resourceIRI.emit(iri);
-  console.log(iri);
   }
 
 }
