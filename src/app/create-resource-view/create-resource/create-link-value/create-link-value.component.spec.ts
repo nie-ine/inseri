@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreatePropertyComponent } from './create-property.component';
+import { CreateLinkValueComponent } from './create-link-value.component';
 
-describe('CreatePropertyComponent', () => {
-  let component: CreatePropertyComponent;
-  let fixture: ComponentFixture<CreatePropertyComponent>;
+describe('CreateLinkValueComponent', () => {
+  let component: CreateLinkValueComponent;
+  let fixture: ComponentFixture<CreateLinkValueComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreatePropertyComponent ]
+      declarations: [ CreateLinkValueComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CreatePropertyComponent);
+    fixture = TestBed.createComponent(CreateLinkValueComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
