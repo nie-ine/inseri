@@ -27,7 +27,6 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     'knora-api:stillImageFileValueHasDimY' : 3456,
     'knora-api:stillImageFileValueHasIIIFBaseUrl' : 'https://tools.wmflabs.org/zoomviewer'
   };
-  imageViewerModel = [];
   searchModel = [];
   grapesJSModel = [];
   textViewerModel = [];
@@ -36,10 +35,22 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
   view: any;
   action: any;
   appTypes = {
-    imageViewer: 'imageViewers',
-    textViewer: 'textViewers',
-    searchViewer: 'searchViewers',
-    grapesJS: 'grapesJSViewers'
+    imageViewer: {
+      type: 'imageViewers',
+      model: []
+    },
+    textViewer: {
+      type: 'textViewers',
+      model: []
+    },
+    searchViewer: {
+      type: 'searchViewers',
+      model: []
+    },
+    grapesJSViewer: {
+      type: 'grapesJSViewers',
+      model: []
+    }
   };
 
   constructor(
@@ -114,20 +125,19 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
 
   // Next: go through code and generalise app saving mechanism
   updateAppsInView( viewHashes: Array<any> ) {
-    console.log('updateAppsInView');
-    console.log(viewHashes);
+    // console.log('updateAppsInView');
     // console.log('get views from Backend');
     this.viewService.getById( viewHashes[ 0 ] )
       .subscribe(
         data => {
           this.view = data;
+          console.log(this.view);
           for ( const app in this.view ) {
             for( const appType in this.appTypes ) {
               this.initiateUpdateApp(
                 data[ app ],
-                this.appTypes[ appType ],
-                this.imageViewerModel
-
+                this.appTypes[ appType ].type,
+                this.appTypes[ appType ].model
               );
             }
           }
@@ -159,6 +169,8 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     appModel[ length ].x = appFromViewModel.x;
     appModel[ length ].y = appFromViewModel.y;
     appModel[ length ].hash = appFromViewModel.hash;
+    appModel[ length ].type = appType;
+    console.log(appModel);
   }
   createTooltip() {
     if ( this.action ) {
@@ -226,8 +238,15 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     appModel: Array<any>,
     i: number
   ) {
+    console.log(appModel);
+    console.log(this.view);
+    console.log(this.view[appModel[ i ].hash]);
+    delete this.view[appModel[ i ].hash];
+    console.log('this.view muss upgedated werden von appModel');
     appModel.splice(
       i,
       1);
+    console.log(this.view);
+    console.log(this.appTypes);
   }
 }
