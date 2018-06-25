@@ -173,15 +173,10 @@ res => {
     this.http.post('http://knora2.nie-ine.ch/v1/resources', resourceParams, httpOptions )
       .subscribe(
       res => {
-        console.log(res);
         this.resourceIRI.emit(res['res_id']);
       },
       err => {
         console.log(err);
-        console.log('Error occured with resouce params:');
-        console.log(resourceParams);
-        console.log('and as user');
-        console.log(httpOptions);
       }
     );
     
