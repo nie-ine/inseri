@@ -1,5 +1,5 @@
 
-
+  <!-- Menu to open Apps-->
   <mat-drawer-container  align="end" style="height:100vh; margin-top: 30px;">
     <mat-drawer #drawer mode="side" align="end">
       <div>
@@ -7,6 +7,7 @@
         <button mat-button (click)="addAnotherApp(appTypes[ 'searchViewer' ].model, true)">Add search Viewer</button><br>
         <button mat-button (click)="addAnotherApp(appTypes[ 'grapesJSViewer' ].model, true)">Add grapesJS Viewer</button><br>
         <button mat-button (click)="addAnotherApp(appTypes[ 'textViewer' ].model, true)">Add text Viewer</button><br>
+        <button mat-button (click)="addAnotherApp(appTypes[ 'synopsisViewer' ].model, true)">Add Synopsis Viewer</button><br>
       </div>
       <div style="bottom: 0; position:absolute; right: 0">
         <button mat-button (click)="saveView()">Save View</button><br>
@@ -93,7 +94,7 @@
              [firstPopupX]="appTypes[ 'textViewer' ].model[i].x"
              [firstPopupY]="appTypes[ 'textViewer' ].model[i].y"
              (sendAppCoordinatesBack)="updateAppCoordinates($event)">
-        <div style="width: 500px; max-width: 500px;">
+        <div style="max-width: 500px;">
           <app-text-view class="draggable">
           </app-text-view>
         </div>
@@ -104,6 +105,29 @@
         <button mat-menu-item>Choose Text</button>
       </mat-menu>
       <button mat-button (click)="textViewer.appear()" >Text Viewer {{ i }}</button><br>
+    </div>
+
+    <!-- Synopsis -->
+    <div *ngFor="let synopsisViewer of appTypes[ 'synopsisViewer' ].model; let i = index;" >
+      <popup #synopsisViewer
+             [hash]="appTypes[ 'synopsisViewer' ].model[i].hash"
+             [title]="'Synopsis Viewer ' + i"
+             [type]="appTypes[ 'synopsisViewer' ].type"
+             [firstPopupX]="appTypes[ 'synopsisViewer' ].model[i].x"
+             [firstPopupY]="appTypes[ 'synopsisViewer' ].model[i].y"
+             (sendAppCoordinatesBack)="updateAppCoordinates($event)">
+        <div style="width: 900px; height: 400px;" >
+          <app-synopsis style="position: sticky;">
+
+          </app-synopsis>
+        </div>
+      </popup>
+      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>settings</mat-icon></button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)=" closeApp( appTypes[ 'synopsisViewer' ].model, i ) ">Close this app</button>
+        <button mat-menu-item>Choose Text</button>
+      </mat-menu>
+      <button mat-button (click)="synopsisViewer.appear()" >Synopsis Viewer {{ i }}</button><br>
     </div>
 
   </mat-drawer-container>
