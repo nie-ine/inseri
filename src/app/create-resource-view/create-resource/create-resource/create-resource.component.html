@@ -1,4 +1,5 @@
 <div>
+  
   <div>
     <select (change)="resetVocabulary($event.target.value)">
       <option value="null">
@@ -27,40 +28,70 @@
   
   <hr *ngIf="selectedVocabulary != ''" />
   
-  <div *ngIf="selectedResourceClass != ''">
-    <div>
-      Label:
-      <input [(ngModel)]="resourceLabel"/>
-    </div>
-    <div *ngFor="let p of selectedProperties, let i = index">
-      <span [title]="p[ 'structure' ][ 'description' ]">{{ p[ 'structure' ][ 'label' ] }}</span>:
-      
-      <input *ngIf="p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#TextValue'" [(ngModel)]="selectedProperties[i]['value']"/>
-      
-      <input *ngIf="p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#IntValue'" [(ngModel)]="selectedProperties[i]['value']"/>
-      
-      <input *ngIf="p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#DateValue'" [(ngModel)]="selectedProperties[i]['value']"/>
-      
-      <input *ngIf="p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#LinkValue'" [(ngModel)]="selectedProperties[i]['value']"/>
-      
-      <button (click)="deleteProperty(i)">del</button>
-      
-      (not yet implemented more complicated input forms: <app-create-property 
-        [property]="p['structure']"
-        (value)="selectedProperties[i]['value_structure']">
-      </app-create-property>)
-    </div>
-    <div>
-      <select *ngIf="showPropertySelect" (change)="addProperty($event.target.value)">
-        <option value="None">
-          Select property
-        </option>
-        <option *ngFor="let p of properties" [value]="p [ 'id' ]">
-          {{ p[ 'label' ]}}
-        </option>
-      </select>
-    </div>
-  </div>
+  <table *ngIf="selectedResourceClass != ''">
+    <tr>
+      <td>
+        Label:
+      </td>
+      <td>
+        <input [(ngModel)]="resourceLabel"/>
+      </td>
+    </tr>
+    
+    <tr *ngFor="let p of selectedProperties, let i = index">
+      <td [title]="p[ 'structure' ][ 'description' ]">{{ p[ 'structure' ][ 'label' ] }}:</td>     
+      <td>
+        <ng-container 
+          *ngIf="p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#TextValue'">
+          <input [(ngModel)]="selectedProperties[i]['value']" type="text"/>
+        </ng-container>
+
+        <ng-container 
+          *ngIf="p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#IntValue'">
+          <input [(ngModel)]="selectedProperties[i]['value']" type="number"/>
+        </ng-container>
+
+        <ng-container 
+          *ngIf="p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#DecimalValue'">
+          <input [(ngModel)]="selectedProperties[i]['value']" type="number"/>
+        </ng-container>
+
+        <ng-container 
+          *ngIf="p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#BooleanValue'">
+          <input [(ngModel)]="selectedProperties[i]['value']" type="checkbox"/>
+        </ng-container>
+
+        <ng-container 
+          *ngIf="p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#DateValue'">
+          <input [(ngModel)]="selectedProperties[i]['value']" type="date"/>
+        </ng-container>
+
+        <ng-container 
+          *ngIf="p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#LinkValue'">
+          <app-create-link-value [property]="p['structure']" 
+                                 (resourceIRI)="setLink($event, i)">
+          </app-create-link-value>
+        </ng-container>
+      </td>
+      <td>
+        <button (click)="deleteProperty(i)">del</button>
+      </td>
+    </tr>
+    
+    <tr>
+      <td>+</td>
+      <td>
+        <select *ngIf="showPropertySelect" (change)="addProperty($event.target.value)">
+          <option value="null">
+            Select property
+          </option>
+          <option *ngFor="let p of properties" [value]="p [ 'id' ]">
+            {{ p[ 'label' ]}}
+          </option>
+        </select>
+      </td>
+    </tr>
+  </table>
   
   <div *ngIf="resourceLabel != ''">
     <button (click)="postResource()">

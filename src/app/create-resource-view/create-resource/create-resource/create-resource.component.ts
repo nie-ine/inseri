@@ -31,6 +31,8 @@ export class CreateResourceComponent implements OnInit {
   }
 
   ngOnInit() {
+    
+    // TODO do request in service
     this.http.get('http://knora2.nie-ine.ch/v1/vocabularies')
       .subscribe(
         res => this.vocabularies = res['vocabularies']
@@ -40,9 +42,10 @@ export class CreateResourceComponent implements OnInit {
   resetVocabulary(vocabulary: string) {
     this.selectedVocabulary = vocabulary;
     
+    // TODO do request in service
     this.http.get('http://knora2.nie-ine.ch/v1/resourcetypes?vocabulary=' + encodeURIComponent(this.selectedVocabulary))
       .subscribe(
-        res => this.resourceClasses = res['resourcetypes'];
+        res => this.resourceClasses = res['resourcetypes']
       );
     
     for (let v of this.vocabularies) {
@@ -60,6 +63,7 @@ export class CreateResourceComponent implements OnInit {
   resetResourceClass(resourceClass: string) {
     this.selectedResourceClass = resourceClass;
 
+    // TODO do request in service
     this.http.get('http://knora2.nie-ine.ch/v1/resourcetypes/' + encodeURIComponent(this.selectedResourceClass))
       .subscribe(
 res => {
@@ -86,33 +90,78 @@ res => {
     this.selectedProperties.splice(index, 1);
   }
   
+  setLink(iri, i) {
+    this.selectedProperties[i]['value'] = iri;
+  }
+  
   postResource() {
     const resourceParams = {
       'restype_id': this.selectedResourceClass,
       'properties': { },
-      'label': this.resourceLabel
+      'label': this.resourceLabel,
       'project_id': this.projectIRI
     };
     
     for (let p of this.selectedProperties) { 
       if (p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#LinkValue') {
-        //
+        try { 
+          resourceParams['properties'][p['structure']['id']].push(
+            {'link_value': p['value'] }
+            );
+        } catch (e) {
+          resourceParams['properties'][p['structure']['id']] = [
+            {'link_value': p['value'] } ];
+        }
       }
       else if (p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#IntValue') {
-        //
+        try { 
+          resourceParams['properties'][p['structure']['id']].push(
+            {'int_value': Math.floor(p['value']) }
+            );
+        } catch (e) {
+          resourceParams['properties'][p['structure']['id']] = [
+          {'int_value': Math.floor(p['value']) } ];
+        }
+      }
+      else if (p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#DecimalValue') {
+        try { 
+          resourceParams['properties'][p['structure']['id']].push(
+            {'decimal_value': p['value'] }
+            );
+        } catch (e) {
+          resourceParams['properties'][p['structure']['id']] = [
+            {'decimal_value': p['value'] } ];
+        }
+      }
+      else if (p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#BooleanValue') {
+        try { 
+          resourceParams['properties'][p['structure']['id']].push(
+            {'boolean_value': p['value'] }
+            );
+        } catch (e) {
+          resourceParams['properties'][p['structure']['id']] = [
+            {'boolean_value': p['value'] } ];
+        }
       }
       else if (p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#TextValue') {
         try { 
           resourceParams['properties'][p['structure']['id']].push(
             {'richtext_value': {'utf8str': p['value']}}
             );
-        } catch (e: TypeError) {
+        } catch (e) {
           resourceParams['properties'][p['structure']['id']] = [
-           {'richtext_value': {'utf8str': p['value']}} ];
+            {'richtext_value': {'utf8str': p['value']}} ];
         }
       }
       else if (p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#DateValue') {
-        //
+        try { 
+          resourceParams['properties'][p['structure']['id']].push(
+            {'date_value': p['value'] }
+            );
+        } catch (e) {
+          resourceParams['properties'][p['structure']['id']] = [
+            {'date_value': p['value'] } ];
+        }
       }
     }
 
@@ -120,6 +169,7 @@ res => {
       headers: new HttpHeaders({'Authorization': 'Basic ' + btoa('root@example.com' + ':' + 'test')})
     };
 
+    // TODO do request in service
     this.http.post('http://knora2.nie-ine.ch/v1/resources', resourceParams, httpOptions )
       .subscribe(
       res => {
