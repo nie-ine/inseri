@@ -1,9 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Router, NavigationEnd } from '@angular/router';
+import {Router, NavigationEnd, ActivatedRoute} from '@angular/router';
 import { ActionService } from '../../../shared/action.service';
 import { AlertService} from '../../../shared/altert.service';
 import { HttpParams } from '@angular/common/http';
+import {EditionService} from "../model/edition.service";
+import {GenerateHashService} from "../../../shared/generateHash.service";
 
 @Component({
   selector: 'app-edition-landing-page',
@@ -14,13 +16,56 @@ export class EditionLandingPageComponent implements OnInit {
 
   animal: string;
   name: string;
+  actionID: number;
+  edition: any;
 
   constructor(
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private route: ActivatedRoute,
+    private editionService: EditionService,
+    private generateHashService: GenerateHashService
   ) { }
 
   ngOnInit() {
+    console.log('Check if edition for this action exists');
+    this.actionID = this.route.snapshot.queryParams.actionID;
+    this.checkIfEditionExists( this.actionID );
   }
+  checkIfEditionExists( actionID: number ) {
+    console.log('Check if editions exist');
+    this.editionService.getAll()
+      .subscribe(
+        data => {
+          console.log('All Editions: ');
+          console.log( data );
+          if( data && data.length ) {
+            console.log('editions exist');
+          } else {
+            console.log('no editions exist yet - create edition');
+            this.edition = {};
+            this.edition.title = 'Please change title here';
+            this.edition.description = 'Please edit description here';
+            this.edition.linkToImage = 'Please choose image here';
+            this.edition.hash = this.generateHashService.generateHash();
+            console.log( this.edition.hash );
+            this.editionService.create( this.edition )
+              .subscribe(
+                data2 => {
+                  console.log(data2);
+                },
+                error2 => {
+                  console.log(error2);
+                }
+              );
+          }
+        },
+        error => {
+          console.log(error);
+          return undefined;
+        });
+  }
+
+
 
   openDialog() {
     const dialogRef = this.dialog.open(DialogCreateNewViewComponent, {
