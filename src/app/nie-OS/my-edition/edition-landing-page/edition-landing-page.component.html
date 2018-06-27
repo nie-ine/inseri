@@ -1,18 +1,10 @@
 <div style="margin-top: 40px">
-  <h2 style="margin-left: 30px">Kuno Raeber Edition</h2>
-  <img src="https://www.zentralplus.ch/images/cache/750x420/crop_238_313_1055_771/images%7Ccms-image-007547962.jpg"
+  <h2 style="margin-left: 30px">{{ generateTitle() }}</h2>
+  <img src="{{ generateImage() }}"
        alt="Kuno Raeber"
        style="float: left; margin-right: 30px; margin-left: 30px;"
        height="300">
-  <div style="float: left; width: 300px"> Dies als Beispiel für eine Edition bei NIE-OS <br>
-    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-    eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-    At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-    takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
-    consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-    dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
-    dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-    ipsum dolor sit amet.
+  <div style="float: left; width: 300px"> {{ generateDescription() }}
   </div>
 
   <div style="margin-right: 30px; margin-left: 30px; margin-top: 330px;">
@@ -28,6 +20,11 @@
                       <a (click)="openDialog()"><i class="fa fa-plus fa-stack-1x fa-inverse" ></i></a>
                     </span>
     <h4 class="service-heading">Neuer View</h4>
+  </div>
+
+  <div style="position: fixed; bottom: 0; right: 0;">
+    <button mat-button >Update Edition</button><br>
+    <button mat-button >Save Edition</button><br>
   </div>
 
 </div>
