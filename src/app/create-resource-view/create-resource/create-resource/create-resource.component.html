@@ -1,8 +1,8 @@
 <div>
   
   <div>
-    <select (change)="resetVocabulary($event.target.value)">
-      <option value="null">
+    <select [(ngModel)]="selectedVocabulary" (ngModelChange)="resetVocabulary()">
+      <option value="">
         Select vocabulary
       </option>
       <option *ngFor="let v of vocabularies" [value]="v[ 'uri' ]">
@@ -15,8 +15,8 @@
   <hr/>
   
   <div *ngIf="selectedVocabulary != ''">
-    <select (change)="resetResourceClass($event.target.value)">
-      <option value="null">
+    <select [(ngModel)]="selectedResourceClass" (ngModelChange)="resetResourceClass()">
+      <option value="">
         Select resource class
       </option>
       <option *ngFor="let c of resourceClasses" [value]="c[ 'id' ]">
@@ -63,7 +63,8 @@
 
         <ng-container 
           *ngIf="p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#DateValue'">
-          <input [(ngModel)]="selectedProperties[i]['value']" type="date"/>
+          <app-create-date-value (dateValue)="setDate($event, i)">
+          </app-create-date-value>
         </ng-container>
 
         <ng-container 
@@ -81,8 +82,8 @@
     <tr>
       <td>+</td>
       <td>
-        <select *ngIf="showPropertySelect" (change)="addProperty($event.target.value)">
-          <option value="null">
+        <select *ngIf="showPropertySelect" [ngModel]="dropdownProperty" (ngModelChange)="addProperty($event)">
+          <option value="">
             Select property
           </option>
           <option *ngFor="let p of properties" [value]="p [ 'id' ]">
@@ -92,7 +93,7 @@
       </td>
     </tr>
   </table>
-  
+    
   <div *ngIf="resourceLabel != ''">
     <button (click)="postResource()">
       Save

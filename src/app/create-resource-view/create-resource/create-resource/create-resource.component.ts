@@ -19,18 +19,23 @@ export class CreateResourceComponent implements OnInit {
   properties: Array<any>;
   selectedProperties: Array<any>;
   
+  dropdownProperty: string = '';
+  
   resourceLabel: string = '';
   
   showPropertySelect: boolean = true;
   
+  // each resource must belong to a project. Give this as Input
   @Input() projectIRI: string;
     
+  // after posting, the IRI is available outside as output
   @Output() resourceIRI: EventEmitter<string> = new EventEmitter<string>();
   
   constructor(private http: HttpClient) {
   }
 
   ngOnInit() {
+    // get available vocabularies
     
     // TODO do request in service
     this.http.get('http://knora2.nie-ine.ch/v1/vocabularies')
@@ -39,8 +44,11 @@ export class CreateResourceComponent implements OnInit {
       );
   }
   
-  resetVocabulary(vocabulary: string) {
-    this.selectedVocabulary = vocabulary;
+  resetVocabulary() {
+    // set selected vocabulary
+    // get resource classes defined in this vocabulary
+    // get description for this vocabulary
+    // reset resource class and property data
     
     // TODO do request in service
     this.http.get('http://knora2.nie-ine.ch/v1/resourcetypes?vocabulary=' + encodeURIComponent(this.selectedVocabulary))
@@ -49,7 +57,7 @@ export class CreateResourceComponent implements OnInit {
       );
     
     for (let v of this.vocabularies) {
-      if (v['uri'] == vocabulary) {
+      if (v['uri'] == this.selectedVocabulary) {
         this.selectedVocabularyDescription = v['description'];
       }
     }
@@ -60,8 +68,10 @@ export class CreateResourceComponent implements OnInit {
     this.resourceLabel = '';
   }
   
-  resetResourceClass(resourceClass: string) {
-    this.selectedResourceClass = resourceClass;
+  resetResourceClass() {
+    // get properties for this resource class
+    // reset property data for this resource
+    // get description for the selected resource class
 
     // TODO do request in service
     this.http.get('http://knora2.nie-ine.ch/v1/resourcetypes/' + encodeURIComponent(this.selectedResourceClass))
@@ -75,26 +85,42 @@ res => {
   }
   
   addProperty(property: string) {
+    // add property with selected property IRI to this new resource
+    // save property description from Knora in 'structure' and initialize field 'value'
+    // reset dropdown TODO: does not work
+    
     let propertyStructure;
     
-    for (let p of this.properties) {
-      if (p['id'] == property) {
-        propertyStructure = p
-      }
+    if (property != '') {
+
+        for (let p of this.properties) {
+          if (p['id'] == property) {
+            propertyStructure = p
+          }
+        }
+
+        this.selectedProperties.push({'structure': propertyStructure, 'value': ''});    
     }
-  
-    this.selectedProperties.push({'structure': propertyStructure, 'value': ''});  
+    this.dropdownProperty = '';
   }
   
   deleteProperty(index: number) {
+    // remove property at index index
     this.selectedProperties.splice(index, 1);
   }
   
   setLink(iri, i) {
+    // use selected IRI for a link
     this.selectedProperties[i]['value'] = iri;
   }
   
+  setDate(date, i) {
+    // save date value
+    this.selectedProperties[i]['value'] = date;
+  }
+  
   postResource() {
+    // create JSON representation for this resource
     const resourceParams = {
       'restype_id': this.selectedResourceClass,
       'properties': { },
@@ -102,6 +128,7 @@ res => {
       'project_id': this.projectIRI
     };
     
+    // add each property with its value to this JSON
     for (let p of this.selectedProperties) { 
       if (p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#LinkValue') {
         try { 
@@ -165,10 +192,13 @@ res => {
       }
     }
 
+    // create authentication data for posting
     const httpOptions = {
       headers: new HttpHeaders({'Authorization': 'Basic ' + btoa('root@example.com' + ':' + 'test')})
     };
 
+    // post resource or log error
+    // on success, give IRI as output of this component
     // TODO do request in service
     this.http.post('http://knora2.nie-ine.ch/v1/resources', resourceParams, httpOptions )
       .subscribe(
