@@ -15,6 +15,7 @@ import 'rxjs/add/operator/map';
 import { ActivatedRoute } from '@angular/router';
 import { ActionService } from '../../shared/action.service';
 import { ViewService } from '../apps/view/view.service';
+import {GenerateHashService} from "../../shared/generateHash.service";
 
 declare var grapesjs: any; // Important!
 
@@ -68,7 +69,8 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     private route: ActivatedRoute,
     private actionService: ActionService,
     private viewService: ViewService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private generateHashService: GenerateHashService
   ) {
     this.route.params.subscribe(params => console.log(params));
   }
@@ -95,7 +97,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
             this.updateAppsInView( this.action.hasViews );
           } else {
             console.log('No views for this action yet');
-            this.view.hash = this.generateHash();
+            this.view.hash = this.generateHashService.generateHash();
             console.log(this.view);
             return undefined;
           }
@@ -104,18 +106,6 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
           console.log(error);
           return undefined;
         });
-  }
-  generateHash(): string {
-    console.log('generate Hash');
-    let text = '';
-    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
-    for (let i = 0; i < 5; i++) {
-      text += possible.charAt(
-        Math.floor(Math.random() * possible.length )
-      );
-    }
-    return text;
   }
 
   deleteView() {
@@ -241,7 +231,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     appModel[ length ] = {};
     console.log('Add type and Id here');
     if( generateHash ) {
-      appModel[ length ].hash = this.generateHash();
+      appModel[ length ].hash = this.generateHashService.generateHash();
     }
     return appModel;
   }

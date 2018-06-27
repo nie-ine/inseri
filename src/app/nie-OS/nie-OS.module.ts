@@ -14,6 +14,7 @@ import { TextViewModule } from '../text-view/text-view.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { SynopsisModule } from '../synopsis/synopsis.module';
 import {MyEditionModule} from './my-edition/my-edition.module';
+import {GenerateHashService} from "../shared/generateHash.service";
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import {MyEditionModule} from './my-edition/my-edition.module';
     ])
   ],
   providers: [
+    GenerateHashService
   ],
   declarations: [
     NIEOSComponent,
