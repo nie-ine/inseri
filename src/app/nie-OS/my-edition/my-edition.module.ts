@@ -10,6 +10,7 @@ import {FormsModule} from "@angular/forms";
 import {MatMenuModule} from '@angular/material/menu';
 import {EditionService} from "./model/edition.service";
 import {GenerateHashService} from "../../shared/generateHash.service";
+import {ActionService} from "../../shared/action.service";
 
 @NgModule({
   imports: [
@@ -33,7 +34,8 @@ import {GenerateHashService} from "../../shared/generateHash.service";
   ],
   providers: [
     EditionService,
-    GenerateHashService
+    GenerateHashService,
+    ActionService
   ]
 })
 export class MyEditionModule { }

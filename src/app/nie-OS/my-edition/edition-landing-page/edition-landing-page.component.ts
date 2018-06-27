@@ -18,12 +18,14 @@ export class EditionLandingPageComponent implements OnInit {
   name: string;
   actionID: number;
   edition: any;
+  action: any;
 
   constructor(
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private editionService: EditionService,
-    private generateHashService: GenerateHashService
+    private generateHashService: GenerateHashService,
+    private actionService: ActionService
   ) { }
 
   ngOnInit() {
@@ -32,40 +34,59 @@ export class EditionLandingPageComponent implements OnInit {
     this.checkIfEditionExists( this.actionID );
   }
   checkIfEditionExists( actionID: number ) {
-    console.log('Check if editions exist');
-    this.editionService.getAll()
+    console.log('Get Action and check if it has an edition');
+    this.actionService.getById( actionID )
       .subscribe(
         data => {
-          console.log('All Editions: ');
-          console.log( data );
-          if( data && data.length ) {
-            console.log('editions exist');
+          this.action = data;
+          console.log('This action: ');
+          console.log(this.action);
+          if ( this.action && this.action.hasEdition ) {
+            console.log('Update Edition');
           } else {
-            console.log('no editions exist yet - create edition');
             this.edition = {};
-            this.edition.title = 'Please change title here';
-            this.edition.description = 'Please edit description here';
-            this.edition.linkToImage = 'Please choose image here';
+            console.log('No edition for this action yet');
             this.edition.hash = this.generateHashService.generateHash();
-            console.log( this.edition.hash );
-            this.editionService.create( this.edition )
-              .subscribe(
-                data2 => {
-                  console.log(data2);
-                },
-                error2 => {
-                  console.log(error2);
-                }
-              );
+            this.edition.title = 'Edition Titel';
+            this.edition.linkToImage = 'https://www.zentralplus.ch/' +
+              'images/cache/750x420/crop_238_313_1055_771/images%7Ccms-image-007547962.jpg';
+            this.edition.description = 'Dies als Beispiel für eine Edition bei NIE-OS\n' +
+              '    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy\n' +
+              '    eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.\n' +
+              '    At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea\n' +
+              '    takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,\n' +
+              '    consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et\n' +
+              '    dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo\n' +
+              '    dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem\n' +
+              '    ipsum dolor sit amet.';
+            console.log(this.edition);
           }
         },
         error => {
           console.log(error);
-          return undefined;
         });
   }
-
-
+  generateDescription() {
+    if ( this.edition && this.edition.description ) {
+      return this.edition.description;
+    } else {
+      return 'Description not found';
+    }
+  }
+  generateTitle() {
+    if ( this.edition && this.edition.title ) {
+      return this.edition.title;
+    } else {
+      return 'Title not found';
+    }
+  }
+  generateImage() {
+    if ( this.edition && this.edition.linkToImage ) {
+      return this.edition.linkToImage;
+    } else {
+      return 'Image not found';
+    }
+  }
 
   openDialog() {
     const dialogRef = this.dialog.open(DialogCreateNewViewComponent, {
@@ -73,7 +94,6 @@ export class EditionLandingPageComponent implements OnInit {
       data: { name: this.name, animal: this.animal }
     });
   }
-
 }
 
 @Component({
