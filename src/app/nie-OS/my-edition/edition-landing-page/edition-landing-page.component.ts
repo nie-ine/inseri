@@ -7,6 +7,7 @@ import { HttpParams } from '@angular/common/http';
 import {EditionService} from "../model/edition.service";
 import {GenerateHashService} from "../../../shared/generateHash.service";
 import {UpdateEditionComponent} from '../update-edition/update-edition.component';
+import {CreateOrUpdateEditionService} from "../services/createOrUpdateEdition.service";
 
 @Component({
   selector: 'app-edition-landing-page',
@@ -27,9 +28,12 @@ export class EditionLandingPageComponent implements OnInit {
     private route: ActivatedRoute,
     private editionService: EditionService,
     private generateHashService: GenerateHashService,
-    private actionService: ActionService
+    private actionService: ActionService,
+    private createOrUpdateEditionService: CreateOrUpdateEditionService
   ) { }
-
+  saveOrUpdateEdition() {
+    console.log('Save or update Edition');
+  }
   ngOnInit() {
     console.log('Check if edition for this action exists');
     this.actionID = this.route.snapshot.queryParams.actionID;
@@ -62,6 +66,12 @@ export class EditionLandingPageComponent implements OnInit {
               '    dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem\n' +
               '    ipsum dolor sit amet.';
             console.log(this.edition);
+            console.log(this.action);
+            console.log('Save edition and then add edition - hash to action and update action.');
+            this.createOrUpdateEditionService.createOrUpdate(
+              this.edition,
+              this.action
+            );
           }
         },
         error => {
