@@ -5,12 +5,16 @@ import {
   EditionLandingPageComponent
 } from './edition-landing-page/edition-landing-page.component';
 import {RouterModule} from '@angular/router';
-import {MatButtonModule, MatDialogModule, MatIconModule, MatRadioModule} from "@angular/material";
+import {
+  MatButtonModule, MatDialogModule, MatIconModule, MatRadioModule, MatFormFieldModule,
+  MatInputModule
+} from "@angular/material";
 import {FormsModule} from "@angular/forms";
 import {MatMenuModule} from '@angular/material/menu';
 import {EditionService} from "./model/edition.service";
 import {GenerateHashService} from "../../shared/generateHash.service";
 import {ActionService} from "../../shared/action.service";
+import { UpdateEditionComponent } from './update-edition/update-edition.component';
 
 @NgModule({
   imports: [
@@ -21,16 +25,20 @@ import {ActionService} from "../../shared/action.service";
     MatRadioModule,
     MatMenuModule,
     MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
     RouterModule.forRoot([
       {path: 'my-edition', component: EditionLandingPageComponent}
     ])
   ],
   declarations: [
     EditionLandingPageComponent,
-    DialogCreateNewViewComponent
+    DialogCreateNewViewComponent,
+    UpdateEditionComponent
   ],
   entryComponents: [
-    DialogCreateNewViewComponent
+    DialogCreateNewViewComponent,
+    UpdateEditionComponent
   ],
   providers: [
     EditionService,

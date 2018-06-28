@@ -6,6 +6,7 @@ import { AlertService} from '../../../shared/altert.service';
 import { HttpParams } from '@angular/common/http';
 import {EditionService} from "../model/edition.service";
 import {GenerateHashService} from "../../../shared/generateHash.service";
+import {UpdateEditionComponent} from '../update-edition/update-edition.component';
 
 @Component({
   selector: 'app-edition-landing-page',
@@ -22,6 +23,7 @@ export class EditionLandingPageComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
+    public dialogUpdateEdition: MatDialog,
     private route: ActivatedRoute,
     private editionService: EditionService,
     private generateHashService: GenerateHashService,
@@ -92,6 +94,23 @@ export class EditionLandingPageComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogCreateNewViewComponent, {
       width: '700px',
       data: { name: this.name, animal: this.animal }
+    });
+  }
+  openUpdateEditionDialog() {
+    const dialogRef = this.dialogUpdateEdition.open(UpdateEditionComponent, {
+      width: '700px',
+      data: {
+        title: this.edition.title,
+        description: this.edition.description,
+        image: this.edition.linkToImage
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if ( result !== undefined ) {
+        this.edition.title = result.title;
+        this.edition.description = result.description;
+        this.edition.linkToImage = result.image;
+      }
     });
   }
 }
