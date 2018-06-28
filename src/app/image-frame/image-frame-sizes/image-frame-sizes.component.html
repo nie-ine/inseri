@@ -1,0 +1,6 @@
+<input type="radio" value="small" name="viewerWidth" [ngModel]="viewerSize" (change)="radioChange('small')"> Small Viewer
+<input type="radio" value="normal" name="viewerWidth" [ngModel]="viewerSize" (change)="radioChange('normal')"> Normal Viewer
+<input type="radio" value="large" name="viewerWidth" [ngModel]="viewerSize" (change)="radioChange('large')"> Large Viewer
+
+<ng-content select="app-image-frame" ></ng-content>
+<ng-content select="app-image-with-overlay" ></ng-content>
