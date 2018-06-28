@@ -1,3 +1,34 @@
-<p>
-  resource-form works!
-</p>
+<h4 *ngIf="resource && resource['resinfo']['restype_label']">
+  {{ resource['resinfo']['restype_label'] }}
+</h4>
+
+<table *ngIf="resource">
+  <tr *ngIf="resource['resinfo']['firstproperty']">
+    <td>
+      Label:
+    </td>
+    <td>
+      <ng-container *ngIf="!editRights">
+      {{ resource['resinfo']['firstproperty'] }}
+      </ng-container>
+      <input *ngIf="editRights" 
+             [(ngModel)]="resource['resinfo']['firstproperty']" 
+             (ngModelChange)="resetLabel()" />
+    </td>
+  </tr>
+  
+  <ng-container *ngIf="resource['props'] != undefined">
+    <ng-container *ngFor="let p of propKeys; let i = index">
+      <tr>
+        <td>{{ resource['props'][p]['label']}} </td>
+  
+      </tr>    
+    </ng-container>
+  </ng-container>
+</table>
+
+<button *ngIf="resource" 
+        (click)="deleteResource()">
+  Delete resource
+</button>
+

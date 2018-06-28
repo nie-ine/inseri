@@ -1,3 +1,5 @@
 <h2>Edit a resource</h2>
 <p>This view is here to show the Create Resource Module </p>
-<app-resource-form [resourceIRI]="resourceIRI"></app-resource-form>
+Edit rights <input type="checkbox" [(ngModel)]="editRights" />
+
+<app-resource-form [resourceIRI]="resourceIRI" [editRights]="editRights"></app-resource-form>

@@ -11,7 +11,7 @@ import { ImageViewComponent } from './image-view/image-view.component';
 //    ArithmeticModule,
     ImageFrameModule,
     RouterModule.forChild([
-      { path: 'image-view', component: ImageViewComponent }
+      { path: 'dev/image', component: ImageViewComponent }
     ])
   ],
   declarations: [ ImageViewComponent ],

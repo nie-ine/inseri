@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class EditResourceViewComponent implements OnInit {
   
   resourceIRI: string = 'http://rdfh.ch/0041/Atharvaveda/cIQgaupHTfyrHZNt80MUvA';
+  editRights: boolean = false;
 
   constructor() { }
 
