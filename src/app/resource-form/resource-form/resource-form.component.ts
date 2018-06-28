@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-resource-form',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./resource-form.component.scss']
 })
 export class ResourceFormComponent implements OnInit {
+  
+  @Input() resourceIRI: string;
 
   constructor() { }
 

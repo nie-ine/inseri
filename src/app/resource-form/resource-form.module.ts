@@ -6,6 +6,7 @@ import { ResourceFormComponent } from './resource-form/resource-form.component';
   imports: [
     CommonModule
   ],
-  declarations: [ResourceFormComponent]
+  declarations: [ResourceFormComponent],
+  exports: [ResourceFormComponent]
 })
 export class ResourceFormModule { }
