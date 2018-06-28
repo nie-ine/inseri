@@ -20,6 +20,7 @@ import { ResultToTextMapperService } from '../text-view/result-to-text-mapper.se
 import { KnoraAuthService } from '../shared/knora-auth.service';
 import { SynopsisModule } from '../synopsis/synopsis.module';
 import { SynopsisObjectStorageService } from '../synopsis/synopsis-object-storage.service';
+import { CreateResourceViewModule } from '../development-views/create-resource-view/create-resource-view.module';
 import { ArithmeticModule } from 'nie-ine';
 import { AuthenticationService } from "../shared/authentication.service";
 
@@ -35,6 +36,7 @@ import { AuthenticationService } from "../shared/authentication.service";
     NIEOSModule,
     DashboardModule,
     SynopsisModule,
+    CreateResourceViewModule,
     RouterModule.forRoot([
       { path: '**', component: PageNotFoundComponent }
       ])
