@@ -1,12 +1,13 @@
 
-
+  <!-- Menu to open Apps-->
   <mat-drawer-container  align="end" style="height:100vh; margin-top: 30px;">
     <mat-drawer #drawer mode="side" align="end">
       <div>
-        <button mat-button (click)="addAnotherImageViewer()">Add image Viewer</button><br>
-        <button mat-button (click)="addAnotherSearch()">Add search Viewer</button><br>
-        <button mat-button (click)="addAnotherGrapesJS()">Add grapesJS Viewer</button><br>
-        <button mat-button (click)="addAnotherTextViewer()">Add text Viewer</button><br>
+        <button mat-button (click)="addAnotherApp(appTypes[ 'imageViewer' ].model, true)">Add image Viewer</button><br>
+        <button mat-button (click)="addAnotherApp(appTypes[ 'searchViewer' ].model, true)">Add search Viewer</button><br>
+        <button mat-button (click)="addAnotherApp(appTypes[ 'grapesJSViewer' ].model, true)">Add grapesJS Viewer</button><br>
+        <button mat-button (click)="addAnotherApp(appTypes[ 'textViewer' ].model, true)">Add text Viewer</button><br>
+        <button mat-button (click)="addAnotherApp(appTypes[ 'synopsisViewer' ].model, true)">Add Synopsis Viewer</button><br>
       </div>
       <div style="bottom: 0; position:absolute; right: 0">
         <button mat-button (click)="saveView()">Save View</button><br>
@@ -21,13 +22,13 @@
     </div>
 
     <!-- Image Viewer -->
-    <div *ngFor="let imageViewer of imageViewerModel; let i = index;" >
+    <div *ngFor="let imageViewer of appTypes[ 'imageViewer' ].model; let i = index;" >
       <popup #imageViewer
-             [hash]=imageViewerModel[i].id
+             [hash]="appTypes[ 'imageViewer' ].model[i].hash"
              [title]="'Image Viewer ' + i"
-             [type]="'imageViewers'"
-             [firstPopupX]=imageViewerModel[i].x
-             [firstPopupY]=imageViewerModel[i].y
+             [type]="appTypes[ 'imageViewer' ].type"
+             [firstPopupX]="appTypes[ 'imageViewer' ].model[i].x"
+             [firstPopupY]="appTypes[ 'imageViewer' ].model[i].y"
              (sendAppCoordinatesBack)="updateAppCoordinates($event)">
         <nie-image-frame style="height: 100%;"
                          [image]="image"
@@ -37,15 +38,21 @@
       </popup>
       <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>settings</mat-icon></button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="closeImageViewer(i)">Close this app</button>
+        <button mat-menu-item (click)=" closeApp( appTypes[ 'imageViewer' ].model, i ) ">Close this app</button>
         <button mat-menu-item>Choose Image</button>
       </mat-menu>
       <button mat-button (click)="imageViewer.appear()" >Image Viewer {{ i }}</button><br>
     </div>
 
     <!-- Search -->
-    <div *ngFor="let search of searchModel; let i = index;" >
-      <popup #searchViewer [title]="'Search ' + searchModel[i]" >
+    <div *ngFor="let search of appTypes[ 'searchViewer' ].model; let i = index;" >
+      <popup #searchViewer
+             [hash]="appTypes[ 'searchViewer' ].model[i].hash"
+             [title]="'Search ' + i"
+             [type]="appTypes[ 'searchViewer' ].type"
+             [firstPopupX]="appTypes[ 'searchViewer' ].model[i].x"
+             [firstPopupY]="appTypes[ 'searchViewer' ].model[i].y"
+             (sendAppCoordinatesBack)="updateAppCoordinates($event)">
         <nie-search
         style="height: 100%;">
 
@@ -53,40 +60,74 @@
       </popup>
       <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>settings</mat-icon></button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="closeSearch(i)">Close this app</button>
+        <button mat-menu-item (click)=" closeApp( appTypes[ 'searchViewer' ].model, i ) ">Close this app</button>
       </mat-menu>
-      <button mat-button (click)="searchViewer.appear()" >Search Viewer {{ searchModel[i] }}</button><br>
+      <button mat-button (click)="searchViewer.appear()" >Search Viewer {{ i }}</button><br>
     </div>
 
     <!-- GrapesJS -->
-    <div *ngFor="let grapesJS of grapesJSModel; let i = index;" >
+    <div *ngFor="let grapesJS of appTypes[ 'grapesJSViewer' ].model; let i = index;" >
       <popup #grapesJSViewer
-             [title]="'GrapesJS ' + grapesJSModel[i]">
+             [hash]="appTypes[ 'grapesJSViewer' ].model[i].hash"
+             [title]="'GrapesJS ' + i"
+             [type]="appTypes[ 'grapesJSViewer' ].type"
+             [firstPopupX]="appTypes[ 'grapesJSViewer' ].model[i].x"
+             [firstPopupY]="appTypes[ 'grapesJSViewer' ].model[i].y"
+             (sendAppCoordinatesBack)="updateAppCoordinates($event)">
         <div id="grapesJSViewer">Please drag this window to desired size and open other app. <br>
           ( Click for example on image view, this will cause the instantiation of  grapesjs as well. )<br>
         This is necessary because of a current bug.</div>
       </popup>
       <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>settings</mat-icon></button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="closeGrapesJS( i )">Close this app</button>
+        <button mat-menu-item (click)="closeApp( appTypes[ 'grapesJSViewer' ].model, i )">Close this app</button>
       </mat-menu>
-      <button mat-button (click)="grapesJSViewer.appear()" >GrapesJS Viewer {{ grapesJSModel[i] }}</button><br>
+      <button mat-button (click)="grapesJSViewer.appear()" >GrapesJS Viewer {{ i }}</button><br>
     </div>
 
     <!-- TextViewer -->
-    <div *ngFor="let textViewer of textViewerModel; let i = index;" >
-      <popup #textViewer [title]="'Text Viewer ' + textViewerModel[i]" >
-        <div style="width: 500px; max-width: 500px;">
+    <div *ngFor="let textViewer of appTypes[ 'textViewer' ].model; let i = index;" >
+      <popup #textViewer
+             [hash]="appTypes[ 'textViewer' ].model[i].hash"
+             [title]="'Text Viewer ' + i"
+             [type]="appTypes[ 'textViewer' ].type"
+             [firstPopupX]="appTypes[ 'textViewer' ].model[i].x"
+             [firstPopupY]="appTypes[ 'textViewer' ].model[i].y"
+             (sendAppCoordinatesBack)="updateAppCoordinates($event)">
+        <div style="max-width: 500px;">
           <app-text-view class="draggable">
           </app-text-view>
         </div>
       </popup>
       <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>settings</mat-icon></button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="closeTextViewer(i)">Close this app</button>
+        <button mat-menu-item (click)=" closeApp( appTypes[ 'textViewer' ].model, i ) ">Close this app</button>
         <button mat-menu-item>Choose Text</button>
       </mat-menu>
-      <button mat-button (click)="textViewer.appear()" >Text Viewer {{ textViewerModel[i] }}</button><br>
+      <button mat-button (click)="textViewer.appear()" >Text Viewer {{ i }}</button><br>
+    </div>
+
+    <!-- Synopsis -->
+    <div *ngFor="let synopsisViewer of appTypes[ 'synopsisViewer' ].model; let i = index;" >
+      <popup #synopsisViewer
+             [hash]="appTypes[ 'synopsisViewer' ].model[i].hash"
+             [title]="'Synopsis Viewer ' + i"
+             [type]="appTypes[ 'synopsisViewer' ].type"
+             [firstPopupX]="appTypes[ 'synopsisViewer' ].model[i].x"
+             [firstPopupY]="appTypes[ 'synopsisViewer' ].model[i].y"
+             (sendAppCoordinatesBack)="updateAppCoordinates($event)">
+        <div style="width: 900px; height: 400px;" >
+          <app-synopsis style="position: sticky;">
+
+          </app-synopsis>
+        </div>
+      </popup>
+      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>settings</mat-icon></button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)=" closeApp( appTypes[ 'synopsisViewer' ].model, i ) ">Close this app</button>
+        <button mat-menu-item>Choose Text</button>
+      </mat-menu>
+      <button mat-button (click)="synopsisViewer.appear()" >Synopsis Viewer {{ i }}</button><br>
     </div>
 
   </mat-drawer-container>

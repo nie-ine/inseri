@@ -1,10 +1,21 @@
+
+
+/**
+ * Manual: How to add an app:
+ * 1. Import the Component or Module in nie-OS.module.ts
+ * 2. Add the app to the Model "appTypes" in this file
+ * 3. Add this app to the "Menu to open Apps" - div in nie-OS.component.html
+ * 4. Add an app div by copying and pasting one of the existing divs and adjusting the input variables and the selector
+ * */
+
 import {AfterViewChecked, ChangeDetectorRef, Component, NgModule, OnInit, VERSION} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {Popup} from './popup';
 import 'rxjs/add/operator/map';
 import { ActivatedRoute } from '@angular/router';
 import { ActionService } from '../../shared/action.service';
-import {ViewService} from '../../shared/view.service';
+import { ViewService } from '../apps/view/view.service';
+import {GenerateHashService} from "../../shared/generateHash.service";
 
 declare var grapesjs: any; // Important!
 
@@ -27,26 +38,39 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     'knora-api:stillImageFileValueHasDimY' : 3456,
     'knora-api:stillImageFileValueHasIIIFBaseUrl' : 'https://tools.wmflabs.org/zoomviewer'
   };
-  imageViewerModel = [];
-  numberOfImageViewers = 0;
-  searchModel = [];
-  numberOfSearches = 0;
-  grapesJSModel = [];
-  numberOfgrapesJS = 0;
-  textViewerModel = [];
-  numberOfTextViewers = 0;
   actionID: number;
   length: number;
   view: any;
   action: any;
-  viewsInStorage: any;
-  hashOfView: string;
+  appTypes = {
+    imageViewer: {
+      type: 'imageViewers',
+      model: []
+    },
+    textViewer: {
+      type: 'textViewers',
+      model: []
+    },
+    searchViewer: {
+      type: 'searchViewers',
+      model: []
+    },
+    grapesJSViewer: {
+      type: 'grapesJSViewers',
+      model: []
+    },
+    synopsisViewer: {
+      type: 'synopsisViewers',
+      model: []
+    }
+  };
 
   constructor(
     private route: ActivatedRoute,
     private actionService: ActionService,
     private viewService: ViewService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private generateHashService: GenerateHashService
   ) {
     this.route.params.subscribe(params => console.log(params));
   }
@@ -57,23 +81,23 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
   }
   ngOnInit() {
     this.view = {};
-    console.log('Start der Arbeitsflaeche');
+    // console.log('Start der Arbeitsflaeche');
     // Construct fake image Viewer:
     this.actionID = this.route.snapshot.queryParams.actionID;
     this.checkIfViewExistsForThisAction( this.actionID );
   }
-  checkIfViewExistsForThisAction( actionID: number) {
-    this.actionService.getById(actionID)
+  checkIfViewExistsForThisAction( actionID: number ) {
+    this.actionService.getById( actionID )
       .subscribe(
         data => {
           this.action = data;
+          console.log('This action: ');
           console.log(this.action);
           if ( this.action && this.action.hasViews[ 0 ] ) {
-            console.log(this.action.hasViews);
             this.updateAppsInView( this.action.hasViews );
           } else {
             console.log('No views for this action yet');
-            this.view.hash = this.generateHash();
+            this.view.hash = this.generateHashService.generateHash();
             console.log(this.view);
             return undefined;
           }
@@ -82,19 +106,6 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
           console.log(error);
           return undefined;
         });
-  }
-
-  generateHash(): string {
-    console.log('generate Hash for this app');
-    let text = '';
-    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
-    for (let i = 0; i < 5; i++) {
-      text += possible.charAt(
-        Math.floor(Math.random() * possible.length )
-      );
-    }
-    return text;
   }
 
   deleteView() {
@@ -106,40 +117,64 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     console.log('y: ' + app.y);
     console.log('type: ' + app.type);
     console.log('hash: ' + app.hash );
+    if( this.view[ app.hash ] === null ) {
+      this.view[ app.hash ] = [];
+    }
     this.view[ app.hash ] = app;
     console.log( this.view );
   }
 
-  updateAppsInView( views: Array<any> ) {
-    console.log('updateAppsInView');
-    console.log(views);
-    console.log('get views from Backend');
-    this.viewService.getById( views[ 0 ] )
+  // Next: go through code and generalise app saving mechanism
+  updateAppsInView( viewHashes: Array<any> ) {
+    // console.log('updateAppsInView');
+    // console.log('get views from Backend');
+    this.viewService.getById( viewHashes[ 0 ] )
       .subscribe(
         data => {
           this.view = data;
-          console.log(data);
-          for ( const app in data ) {
-            console.log( data[ app ] );
-              if ( data[ app ].type === 'imageViewers' ) {
-                this.addAnotherImageViewer();
-                console.log('Number of ImageViewers in View: ' + this.numberOfImageViewers);
-                this.imageViewerModel[ this.numberOfImageViewers - 1 ] = {};
-                this.imageViewerModel[ this.numberOfImageViewers - 1 ].x = data[ app ].x;
-                this.imageViewerModel[ this.numberOfImageViewers - 1 ].y = data[ app ].y;
-                this.imageViewerModel[ this.numberOfImageViewers - 1 ].id = data[ app ].id;
-                this.imageViewerModel[ this.numberOfImageViewers - 1 ].id = data[ app ].hash;
-                console.log(this.imageViewerModel);
-              }
+          console.log(this.view);
+          for ( const app in this.view ) {
+            for( const appType in this.appTypes ) {
+              this.initiateUpdateApp(
+                data[ app ],
+                this.appTypes[ appType ].type,
+                this.appTypes[ appType ].model
+              );
+            }
           }
         },
         error => {
           console.log(error);
         });
   }
-
+  initiateUpdateApp(
+    appFromViewModel: any,
+    appType: string,
+    appModel: any
+  ) {
+    if ( appFromViewModel.type === appType ) {
+      this.updateApp(
+        appType,
+        appModel,
+        appFromViewModel
+      );
+    }
+  }
+  updateApp(
+    appType: string,
+    appModel: any,
+    appFromViewModel: any
+  ) {
+    const length = appModel.length;
+    appModel[ length ] = {};
+    appModel[ length ].x = appFromViewModel.x;
+    appModel[ length ].y = appFromViewModel.y;
+    appModel[ length ].hash = appFromViewModel.hash;
+    appModel[ length ].type = appType;
+    console.log(appModel);
+  }
   createTooltip() {
-    if( this.action ) {
+    if ( this.action ) {
       return 'Aktion: ' + this.action.title + ', Beschreibung: ' + this.action.description;
     } else {
       return null;
@@ -187,46 +222,32 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
           });
     }
   }
-
-  // Imageviewer
-  addAnotherImageViewer() {
-    const length = this.imageViewerModel.length;
-    this.imageViewerModel[ length ] = {};
-    this.imageViewerModel[ length ].numberOfImageViewers = this.numberOfImageViewers + 1;
-    this.imageViewerModel[ length ].hash = this.generateHash();
-    this.numberOfImageViewers += 1;
+  addAnotherApp (
+    appModel: any,
+    generateHash: boolean
+  ): Array<any> {
+    console.log('add another app');
+    const length = appModel.length;
+    appModel[ length ] = {};
+    console.log('Add type and Id here');
+    if( generateHash ) {
+      appModel[ length ].hash = this.generateHashService.generateHash();
+    }
+    return appModel;
   }
-  closeImageViewer(i: number) {
-    this.imageViewerModel.splice( i,1 );
+  closeApp(
+    appModel: Array<any>,
+    i: number
+  ) {
+    console.log(appModel);
+    console.log(this.view);
+    console.log(this.view[appModel[ i ].hash]);
+    delete this.view[appModel[ i ].hash];
+    console.log('this.view muss upgedated werden von appModel');
+    appModel.splice(
+      i,
+      1);
+    console.log(this.view);
+    console.log(this.appTypes);
   }
-
-  // Search
-  addAnotherSearch() {
-    this.length = this.searchModel.length;
-    this.searchModel[this.length] = this.numberOfSearches + 1;
-    this.numberOfSearches += 1;
-  }
-  closeSearch(i: number) {
-    this.searchModel.splice( i, 1 );
-  }
-
-  //GrapesJS
-  addAnotherGrapesJS() {
-    this.length = this.grapesJSModel.length;
-    this.grapesJSModel[this.length] = this.numberOfgrapesJS + 1;
-    this.numberOfgrapesJS += 1;
-  }
-  closeGrapesJS(i: number) {
-    this.grapesJSModel.splice( i, 1 );
-  }
-  addAnotherTextViewer() {
-    this.length = this.textViewerModel.length;
-    this.textViewerModel[this.length] = this.numberOfTextViewers + 1;
-    this.numberOfTextViewers += 1;
-  }
-
-  closeTextViewer(i: number) {
-    this.textViewerModel.splice(i, 1);
-  }
-
 }
