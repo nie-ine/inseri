@@ -21,6 +21,7 @@ import { KnoraAuthService } from '../shared/knora-auth.service';
 import { SynopsisModule } from '../synopsis/synopsis.module';
 import { SynopsisObjectStorageService } from '../synopsis/synopsis-object-storage.service';
 import { CreateResourceViewModule } from '../development-views/create-resource-view/create-resource-view.module';
+import { EditResourceViewModule } from '../development-views/edit-resource-view/edit-resource-view.module';
 import { ArithmeticModule } from 'nie-ine';
 import { AuthenticationService } from "../shared/authentication.service";
 
@@ -37,6 +38,7 @@ import { AuthenticationService } from "../shared/authentication.service";
     DashboardModule,
     SynopsisModule,
     CreateResourceViewModule,
+    EditResourceViewModule,
     RouterModule.forRoot([
       { path: '**', component: PageNotFoundComponent }
       ])
