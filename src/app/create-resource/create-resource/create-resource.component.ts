@@ -37,7 +37,7 @@ export class CreateResourceComponent implements OnInit {
   ngOnInit() {
     // get available vocabularies
     
-    // TODO do request in service
+    // TODO: do request in service
     this.http.get('http://knora2.nie-ine.ch/v1/vocabularies')
       .subscribe(
         res => this.vocabularies = res['vocabularies']
@@ -50,7 +50,7 @@ export class CreateResourceComponent implements OnInit {
     // get description for this vocabulary
     // reset resource class and property data
     
-    // TODO do request in service
+    // TODO: do request in service
     this.http.get('http://knora2.nie-ine.ch/v1/resourcetypes?vocabulary=' + encodeURIComponent(this.selectedVocabulary))
       .subscribe(
         res => this.resourceClasses = res['resourcetypes']
@@ -73,7 +73,7 @@ export class CreateResourceComponent implements OnInit {
     // reset property data for this resource
     // get description for the selected resource class
 
-    // TODO do request in service
+    // TODO: do request in service
     this.http.get('http://knora2.nie-ine.ch/v1/resourcetypes/' + encodeURIComponent(this.selectedResourceClass))
       .subscribe(
 res => {
@@ -87,7 +87,7 @@ res => {
   addProperty(property: string) {
     // add property with selected property IRI to this new resource
     // save property description from Knora in 'structure' and initialize field 'value'
-    // reset dropdown TODO: does not work
+    // TODO: reset dropdown does not work - fix it
     
     let propertyStructure;
     
@@ -193,13 +193,14 @@ res => {
     }
 
     // create authentication data for posting
+    // TODO: use services
     const httpOptions = {
       headers: new HttpHeaders({'Authorization': 'Basic ' + btoa('root@example.com' + ':' + 'test')})
     };
 
     // post resource or log error
     // on success, give IRI as output of this component
-    // TODO do request in service
+    // TODO: do request in service
     this.http.post('http://knora2.nie-ine.ch/v1/resources', resourceParams, httpOptions )
       .subscribe(
       res => {
