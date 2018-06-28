@@ -1,6 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Router, NavigationEnd } from '@angular/router';
+import { ActionService } from '../../shared/action.service';
+import { AlertService} from '../../shared/altert.service';
+import {HttpParams} from '@angular/common/http';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,10 +16,14 @@ export class DashboardComponent implements OnInit {
   name: string;
   user: any[] = JSON.parse(localStorage.getItem('currentUser')) || [];
   username: string;
+  actions: Array<any>;
 
   constructor(
     public dialog: MatDialog,
-    router: Router) {
+    private router: Router,
+    private actionService: ActionService,
+    private alertService: AlertService
+  ) {
 
     router.events.subscribe(s => {
       if (s instanceof NavigationEnd) {
@@ -40,7 +47,33 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.username = (this.user as any).firstName;
-    console.log(localStorage);
+    console.log('Next: iterate through existing actions');
+    this.actions = JSON.parse(localStorage.getItem('actions')) || [];
+    console.log(this.actions);
+  }
+
+  deleteAction(action: any) {
+    console.log('Delete Action ' + action.id);
+    action.deleted = true;
+    this.actionService.delete(action.id)
+      .subscribe(
+        data => {
+          console.log(data);
+          this.alertService.success('Deletion successful', true);
+          // this.router.navigate(['/home']);
+        },
+        error => {
+          console.log(error);
+          this.alertService.error(error);
+        });
+  }
+
+  markAsDone( action: any ) {
+    action.isFinished = true;
+  }
+
+  continueAction( action: any ) {
+    this.router.navigate( [ action.type ], { queryParams: { 'actionID': action.id } } );
   }
 
 }
@@ -50,12 +83,33 @@ export class DashboardComponent implements OnInit {
   templateUrl: './dialog-overview-example-dialog.html',
 })
 export class DialogOverviewExampleDialog {
-
+  model: any = {};
+  loading = false;
+  chooseNewAction: string;
   constructor(public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
-              @Inject(MAT_DIALOG_DATA) public data: any) {
+              @Inject(MAT_DIALOG_DATA) public data: any,
+              private router: Router,
+              private actionService: ActionService) {
   }
-
   onNoClick(): void {
     this.dialogRef.close();
+  }
+  register() {
+    this.loading = true;
+    this.actionService.create(this.model)
+      .subscribe(
+        data => {
+          console.log('Action created');
+          const actions = JSON.parse(localStorage.getItem('actions')) || [];
+          console.log(actions);
+          this.onNoClick();
+          const params = new HttpParams().set('actionId', actions.lengt);
+          params.append('actionId', actions.length);
+          this.router.navigate( [ this.model.type ], { queryParams: { 'actionID': actions.length } } );
+        },
+        error => {
+          console.log(error);
+          this.loading = false;
+        });
   }
 }

@@ -8,17 +8,27 @@
         <button mat-button (click)="addAnotherGrapesJS()">Add grapesJS Viewer</button><br>
         <button mat-button (click)="addAnotherTextViewer()">Add text Viewer</button><br>
       </div>
+      <div style="bottom: 0; position:absolute; right: 0">
+        <button mat-button (click)="saveView()">Save View</button><br>
+        <button mat-button (click)="deleteView()">Delete View</button><br>
+      </div>
     </mat-drawer>
 
     <div >
-      <button type="button" mat-button (click)="drawer.toggle()">
+      <button type="button" mat-button (click)="drawer.toggle()" matTooltip='{{ createTooltip() }}'>
         NIE-INE Apps
       </button>
     </div>
 
     <!-- Image Viewer -->
     <div *ngFor="let imageViewer of imageViewerModel; let i = index;" >
-      <popup #imageViewer [title]="'Image Viewer ' + imageViewerModel[i]" >
+      <popup #imageViewer
+             [hash]=imageViewerModel[i].id
+             [title]="'Image Viewer ' + i"
+             [type]="'imageViewers'"
+             [firstPopupX]=imageViewerModel[i].x
+             [firstPopupY]=imageViewerModel[i].y
+             (sendAppCoordinatesBack)="updateAppCoordinates($event)">
         <nie-image-frame style="height: 100%;"
                          [image]="image"
                          width="500"
@@ -30,7 +40,7 @@
         <button mat-menu-item (click)="closeImageViewer(i)">Close this app</button>
         <button mat-menu-item>Choose Image</button>
       </mat-menu>
-      <button mat-button (click)="imageViewer.appear()" >Image Viewer {{ imageViewerModel[i] }}</button><br>
+      <button mat-button (click)="imageViewer.appear()" >Image Viewer {{ i }}</button><br>
     </div>
 
     <!-- Search -->
@@ -50,7 +60,8 @@
 
     <!-- GrapesJS -->
     <div *ngFor="let grapesJS of grapesJSModel; let i = index;" >
-      <popup #grapesJSViewer [title]="'GrapesJS ' + grapesJSModel[i]" >
+      <popup #grapesJSViewer
+             [title]="'GrapesJS ' + grapesJSModel[i]">
         <div id="grapesJSViewer">Please drag this window to desired size and open other app. <br>
           ( Click for example on image view, this will cause the instantiation of  grapesjs as well. )<br>
         This is necessary because of a current bug.</div>
