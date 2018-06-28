@@ -15,6 +15,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { SynopsisModule } from '../synopsis/synopsis.module';
 import {MyEditionModule} from './my-edition/my-edition.module';
 import {GenerateHashService} from "../shared/generateHash.service";
+import { CreateResourceModule } from '../create-resource/create-resource.module';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import {GenerateHashService} from "../shared/generateHash.service";
     MatTooltipModule,
     SynopsisModule,
     MyEditionModule,
+    CreateResourceModule,
     RouterModule.forChild([
       { path: 'arbeitsflaeche', component: NIEOSComponent },
       { path: 'grapesjs', component: GrapesjsComponent }
