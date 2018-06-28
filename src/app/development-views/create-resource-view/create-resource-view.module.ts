@@ -10,7 +10,7 @@ import { CreateResourceViewComponent } from './create-resource-view/create-resou
     CommonModule,
     CreateResourceModule,
     RouterModule.forChild([
-      { path: 'create-resource', component: CreateResourceViewComponent }
+      { path: 'dev/create-resource', component: CreateResourceViewComponent }
     ])
   ],
   declarations: [CreateResourceViewComponent],

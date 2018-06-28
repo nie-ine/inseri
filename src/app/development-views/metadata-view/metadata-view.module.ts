@@ -15,7 +15,7 @@ import { ArithmeticModule } from 'nie-ine';
     ArithmeticModule,
     TagChipsModule,
     RouterModule.forChild([
-      { path: 'metadata', component: MetadataViewComponent }
+      { path: 'dev/metadata', component: MetadataViewComponent }
     ])
   ],
   declarations: [MetadataViewComponent]
