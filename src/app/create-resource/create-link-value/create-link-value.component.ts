@@ -24,7 +24,7 @@ export class CreateLinkValueComponent implements OnInit {
 
   search() {
     
-    // TODO do request in service
+    // TODO: do request in service
     this.http.get('http://knora2.nie-ine.ch/v1/resources?searchstr=' +        encodeURIComponent(this.searchstring) + 
       '&restype_id=' + encodeURIComponent(this.property['attributes'].replace(/^restypeid=/, '')))
     .subscribe( res => {
