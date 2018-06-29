@@ -143,6 +143,26 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             }
           }
 
+          // get edition by hash
+          if (request.url.match(/\/api\/editions\/\w+$/) && request.method === 'GET') {
+            // check for fake auth token in header and return user if valid,
+            // this security is implemented server side in a real application
+            if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
+              // find user by id in users array
+              const urlParts = request.url.split('/');
+              console.log(urlParts);
+              const hash = urlParts[urlParts.length - 1];
+              console.log('Hash: ' + hash);
+              const matchedActions = editions.filter(edition => { return edition.hash === hash; });
+              const edition = matchedActions.length ? matchedActions[0] : null;
+
+              return Observable.of(new HttpResponse({ status: 200, body: edition }));
+            } else {
+              // return 401 not authorised if token is null or invalid
+              return Observable.throw('Unauthorised');
+            }
+          }
+
           // update action
           if (request.url.match(/\/api\/actions\/\d+$/) && request.method === 'PUT') {
             // check for fake auth token in header and return user if valid,
@@ -237,6 +257,28 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             views.push( newView );
             localStorage.setItem('views', JSON.stringify(views));
             console.log(JSON.parse(localStorage.getItem('views')));
+
+            // respond 200 OK
+            return Observable.of(new HttpResponse({ status: 200 }));
+          }
+
+          // create edition
+          if (request.url.endsWith('/api/editions') && request.method === 'POST') {
+            // get new user object from post body
+            console.log('Create edition');
+            console.log(request.body);
+            let newEdition = request.body;
+            // validation
+            let duplicateEdition = views.filter(edition => { return edition.hash === newEdition.hash; }).length;
+            if ( duplicateEdition ) {
+              return Observable.throw('Edition with hash "' + newEdition.hash + '" is already taken');
+            }
+
+            // save new edition
+            console.log()
+            editions.push( newEdition );
+            localStorage.setItem('editions', JSON.stringify(editions));
+            console.log(JSON.parse(localStorage.getItem('editions')));
 
             // respond 200 OK
             return Observable.of(new HttpResponse({ status: 200 }));
