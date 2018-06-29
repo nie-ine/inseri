@@ -8,6 +8,7 @@ import {EditionService} from "../model/edition.service";
 import {GenerateHashService} from "../../../shared/generateHash.service";
 import {UpdateEditionComponent} from '../update-edition/update-edition.component';
 import {CreateEditionAndLinkToActionService} from "../services/createEditionAndLinkToAction.service";
+import {CreateViewAndLinkToAction} from "../services/createViewAndLinkToAction.service";
 
 @Component({
   selector: 'app-edition-landing-page',
@@ -21,6 +22,7 @@ export class EditionLandingPageComponent implements OnInit {
   actionID: number;
   edition: any;
   action: any;
+  model: any;
 
   constructor(
     public dialog: MatDialog,
@@ -32,7 +34,17 @@ export class EditionLandingPageComponent implements OnInit {
     private editionService: EditionService
   ) { }
   saveOrUpdateEdition() {
-    console.log('Save or update Edition');
+    console.log('Update Edition');
+    this.editionService.update(
+      this.edition
+    )
+      .subscribe(
+        data => {
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+        });
   }
   ngOnInit() {
     console.log('Check if edition for this action exists');
@@ -142,37 +154,25 @@ export class EditionLandingPageComponent implements OnInit {
 export class DialogCreateNewViewComponent {
   model: any = {};
   loading = false;
+  actionID: number;
+  edition: any;
+  action: any;
   chooseNewAction: string;
   constructor(public dialogRef: MatDialogRef<DialogCreateNewViewComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private router: Router,
-              private actionService: ActionService) {
+              private actionService: ActionService,
+              private createViewAndLinkToAction: CreateViewAndLinkToAction,
+              private route: ActivatedRoute) {
   }
   onNoClick(): void {
     this.dialogRef.close();
   }
   register() {
     this.loading = true;
-    this.actionService.create(this.model)
-      .subscribe(
-        data => {
-          console.log('Action created');
-          const actions = JSON.parse(localStorage.getItem('actions')) || [];
-          console.log(actions);
-          this.onNoClick();
-          console.log(this.model.type.search('salsah'));
-          if ( this.model.type.search('salsah') !== -1 ) {
-            console.log('Navigate to Salsah');
-            window.open('http://salsah2.nie-ine.ch/', '_blank');
-          } else {
-            const params = new HttpParams().set('actionId', actions.lengt);
-            params.append('actionId', actions.length);
-            this.router.navigate( [ this.model.type ], { queryParams: { 'actionID': actions.length } } );
-          }
-        },
-        error => {
-          console.log(error);
-          this.loading = false;
-        });
+    this.createViewAndLinkToAction
+      .createViewAndLinkToAction(
+        this.route.snapshot.queryParams.actionID
+      );
   }
 }
