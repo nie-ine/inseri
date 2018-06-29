@@ -82,7 +82,7 @@ export class ResourceFormComponent implements OnInit {
     // TODO
     console.log(this.resource['resinfo']['firstproperty']);
     
-    this.getResourceData;
+    this.getResourceData();
   }
   
   deleteResource() {
@@ -115,7 +115,7 @@ export class ResourceFormComponent implements OnInit {
     this.http.delete('http://knora2.nie-ine.ch/v1/values/' 
       + encodeURIComponent(propertyIRI)
       + '?email=root%40example.com&password=test', httpOptions);
-    this.getResourceData;
+    this.getResourceData();
     
     this.activateValue('', null);
   }
@@ -135,7 +135,8 @@ export class ResourceFormComponent implements OnInit {
 
     // post property or log error
     // TODO: do request in service
-    this.http.post('http://knora2.nie-ine.ch/v1/values/', resourceParams, httpOptions )
+    this.http.post('http://knora2.nie-ine.ch/v1/values'
+      + '?email=root%40example.com&password=test', resourceParams, httpOptions )
       .subscribe(
         res => {
           console.log(res);
@@ -146,7 +147,7 @@ export class ResourceFormComponent implements OnInit {
         }
     );
     
-    this.getResourceData;
+    this.getResourceData();
     
     this.activateValue('', null);
   }
@@ -177,7 +178,7 @@ export class ResourceFormComponent implements OnInit {
         }
     );
     
-    this.getResourceData;
+    this.getResourceData();
     
     this.activateValue('', null)
   }
