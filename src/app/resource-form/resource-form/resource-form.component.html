@@ -3,32 +3,227 @@
 </h4>
 
 <table *ngIf="resource">
+
+  <!-- Show or edit resource label -->
   <tr *ngIf="resource['resinfo']['firstproperty']">
+    <td>Label</td>
+
     <td>
-      Label:
-    </td>
-    <td>
-      <ng-container *ngIf="!editRights">
-      {{ resource['resinfo']['firstproperty'] }}
+      <ng-container *ngIf="focusedValue != 'label'">
+
+          {{ resource['resinfo']['firstproperty'] }}
+
       </ng-container>
-      <input *ngIf="editRights" 
-             [(ngModel)]="resource['resinfo']['firstproperty']" 
-             (ngModelChange)="resetLabel()" />
+      <ng-container *ngIf="focusedValue == 'label'">
+        
+        <input type="text" [(ngModel)]="focusedValueContent"/>
+
+      </ng-container>
     </td>
-  </tr>
-  
+
+    <td *ngIf="editRights">
+      <ng-container *ngIf="focusedValue != 'label'">
+        <button (click)="activateValue('label', resource['resinfo']['firstproperty'])">Edit</button>
+      </ng-container>
+
+      <ng-container *ngIf="focusedValue == 'label'">
+        <button (click)="resetLabel()">Save</button>
+        <button (click)="activateValue('', null)">Cancel</button>
+      </ng-container>
+    </td>
+
+    <td>
+    </td>
+  </tr>  
+
+  <!-- Show or change regular properties -->
   <ng-container *ngIf="resource['props'] != undefined">
-    <ng-container *ngFor="let p of propKeys; let i = index">
-      <tr>
-        <td>{{ resource['props'][p]['label']}} </td>
-  
-      </tr>    
+    <ng-container *ngFor="let p of propKeys; let i = index"> 
+      
+      <!-- show and change existing value and show old values -->
+      <ng-container *ngFor="let v of resource['props'][p]['value_ids']; let j = index">
+        
+        <!-- show and change exisiting value -->
+        <tr>
+          <td>
+            {{ resource['props'][p]['label'] }}
+          </td>
+          
+          <td>
+            <ng-container *ngIf="focusedValue != v">
+              
+              <ng-container 
+                *ngIf="resource['props'][p]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#TextValue'">
+                {{ resource['props'][p]['values'][j]['utf8str'] }}
+              </ng-container>
+
+              <ng-container 
+                *ngIf="resource['props'][p]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#IntValue'">
+                {{ resource['props'][p]['values'][j] }}
+              </ng-container>
+
+              <ng-container 
+                *ngIf="resource['props'][p]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#DecimalValue'">
+                {{ resource['props'][p]['values'][j] }}
+              </ng-container>
+
+              <ng-container 
+                *ngIf="resource['props'][p]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#BooleanValue'">
+                {{ resource['props'][p]['values'][j] }}
+              </ng-container>
+
+              <ng-container 
+                *ngIf="resource['props'][p]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#DateValue'">
+                {{ resource['props'][p]['values'][j]['calendar'] }}
+                {{ resource['props'][p]['values'][j]['dateval1'] }}
+                {{ resource['props'][p]['values'][j]['era1'] }}
+                –
+                {{ resource['props'][p]['values'][j]['dateval2'] }}
+                {{ resource['props'][p]['values'][j]['era2'] }}
+              </ng-container>
+
+              <ng-container 
+                *ngIf="resource['props'][p]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#LinkValue'">
+                {{ resource['props'][p]['value_firstprops'][j] }}
+              </ng-container>
+
+            </ng-container>
+            <ng-container *ngIf="focusedValue == v">
+              
+              <ng-container 
+                *ngIf="resource['props'][p]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#TextValue'">
+                <input [(ngModel)]="focusedValueContent['utf8str']" type="text"/>
+              </ng-container>
+
+              <ng-container 
+                *ngIf="resource['props'][p]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#IntValue'">
+                <input [(ngModel)]="focusedValueContent" type="number"/>
+              </ng-container>
+
+              <ng-container 
+                *ngIf="resource['props'][p]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#DecimalValue'">
+                <input [(ngModel)]="focusedValueContent" type="number"/>
+              </ng-container>
+
+              <ng-container 
+                *ngIf="resource['props'][p]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#BooleanValue'">
+                <input [(ngModel)]="focusedValueContent" type="checkbox"/>
+              </ng-container>
+
+              <ng-container 
+                *ngIf="resource['props'][p]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#DateValue'">
+                TODO
+              </ng-container>
+
+              <ng-container 
+                *ngIf="resource['props'][p]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#LinkValue'">
+                TODO
+              </ng-container>
+
+                TODO
+
+            </ng-container>
+          </td>
+          
+          <td *ngIf="editRights">
+            <ng-container *ngIf="focusedValue != v">
+              <button (click)="activateValue(v, resource['props'][p]['values'][j])">Edit</button>
+            </ng-container>
+            
+            <ng-container *ngIf="focusedValue == v">
+              <button (click)="changeProperty(p, v)">Save</button>
+              <button (click)="deleteProperty(v)">Delete property</button>
+              <button (click)="activateValue('', null)">Cancel</button>
+            </ng-container>
+          </td>
+          
+          <td>
+            <ng-container *ngIf="valuesWithShownHistory.has(v)">
+              <button (click)="hideValueHistory(v)">History</button>
+            </ng-container>   
+            <ng-container *ngIf="!valuesWithShownHistory.has(v)">
+              <button (click)="activateValueHistory(v)">History</button>
+            </ng-container>  
+          </td>
+        </tr>  
+        
+        <!-- old values -->
+        <tr *ngIf="valuesWithShownHistory.has(v)">
+          <td></td>
+          <td colspan="2">
+            <app-resource-value-history [resourceIRI]="resourceIRI"
+                                      [propertyTypeIRI]="p"
+                                      [valueID]="v">
+            </app-resource-value-history>
+          </td>
+
+        </tr>
+      </ng-container>
+      
+      <!-- add new value -->
+      <tr *ngIf="editRights">
+        <td>{{ resource['props'][p]['label']}}</td>
+
+        <td>
+          <ng-container *ngIf="focusedValue != p">
+
+            <button (click)="activateValue(p, null)">Add</button>
+
+          </ng-container>
+          <ng-container *ngIf="focusedValue == p">
+            
+            <ng-container 
+              *ngIf="resource['props'][p]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#TextValue'">
+              <input [(ngModel)]="focusedValueContent" type="text"/>
+            </ng-container>
+
+            <ng-container 
+              *ngIf="resource['props'][p]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#IntValue'">
+              <input [(ngModel)]="focusedValueContent" type="number"/>
+            </ng-container>
+
+            <ng-container 
+              *ngIf="resource['props'][p]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#DecimalValue'">
+              <input [(ngModel)]="focusedValueContent" type="number"/>
+            </ng-container>
+
+            <ng-container 
+              *ngIf="resource['props'][p]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#BooleanValue'">
+              <input [(ngModel)]="focusedValueContent" type="checkbox"/>
+            </ng-container>
+
+            <ng-container 
+              *ngIf="resource['props'][p]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#DateValue'">
+              TODO
+            </ng-container>
+
+            <ng-container 
+              *ngIf="resource['props'][p]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#LinkValue'">
+              TODO
+            </ng-container>
+
+          </ng-container>
+        </td>
+
+        <td *ngIf="editRights">
+
+          <ng-container *ngIf="focusedValue == p">
+            <button (click)="addProperty(p)">Save</button>
+            <button (click)="activateValue('', null)">Cancel</button>
+          </ng-container>
+        </td>
+
+        <td>
+        </td>
+      </tr>
+      
     </ng-container>
   </ng-container>
 </table>
 
-<button *ngIf="resource" 
+<ng-container *ngIf="editRights">
+  <button *ngIf="resource" 
         (click)="deleteResource()">
-  Delete resource
-</button>
-
+    Delete resource
+  </button>
+</ng-container>

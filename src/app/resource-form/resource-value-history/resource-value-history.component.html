@@ -1,0 +1,21 @@
+<table *ngIf="valueHistory">
+  <tr *ngFor="let v of valueHistory['valueVersions']; let i = index">
+
+    <ng-container *ngIf="v['previousValue'] == null">
+      <td></td>
+      <td>
+        created: {{ v['valueCreationDate'] }}
+      </td>
+    </ng-container>
+
+    <ng-container *ngIf="v['previousValue'] != null">
+      <td>
+        {{ v['previousValue'] }}
+      </td>
+      <td>
+        replaced: {{ v['valueCreationDate'] }}
+      </td>
+    </ng-container>
+
+  </tr>
+</table>
