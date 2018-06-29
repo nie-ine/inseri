@@ -38,6 +38,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     'knora-api:stillImageFileValueHasDimY' : 3456,
     'knora-api:stillImageFileValueHasIIIFBaseUrl' : 'https://tools.wmflabs.org/zoomviewer'
   };
+  projectIRI: string = 'http://rdfh.ch/projects/0001';
   actionID: number;
   length: number;
   view: any;
@@ -61,6 +62,10 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     },
     synopsisViewer: {
       type: 'synopsisViewers',
+      model: []
+    },
+    createResourceForm: {
+      type: 'createResourceForm',
       model: []
     }
   };
