@@ -7,74 +7,76 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrls: ['./create-resource.component.scss']
 })
 export class CreateResourceComponent implements OnInit {
-    
+
   vocabularies: Array<any>;
   selectedVocabulary: string = '';
   selectedVocabularyDescription: string = '';
-  
+
   resourceClasses: Array<any>;
   selectedResourceClass: string = '';
   selectedResourceClassDescription: string = '';
-  
+
   properties: Array<any>;
   selectedProperties: Array<any>;
-  
+
   dropdownProperty: string = '';
-  
+
   resourceLabel: string = '';
-  
+
   showPropertySelect: boolean = true;
-  
+
   // each resource must belong to a project. Give this as Input
   @Input() projectIRI: string;
-    
+
   // after posting, the IRI is available outside as output
   @Output() resourceIRI: EventEmitter<string> = new EventEmitter<string>();
-  
+
   constructor(private http: HttpClient) {
   }
 
   ngOnInit() {
     // get available vocabularies
-    
+
     // TODO: do request in service
-    this.http.get('http://knora2.nie-ine.ch/v1/vocabularies')
+    this.http.get('http://knora2.nie-ine.ch/v1/vocabularies?email=root%40example.com&password=test')
       .subscribe(
         res => this.vocabularies = res['vocabularies']
       );
   }
-  
+
   resetVocabulary() {
     // set selected vocabulary
     // get resource classes defined in this vocabulary
     // get description for this vocabulary
     // reset resource class and property data
-    
+
     // TODO: do request in service
-    this.http.get('http://knora2.nie-ine.ch/v1/resourcetypes?vocabulary=' + encodeURIComponent(this.selectedVocabulary))
+    this.http.get('http://knora2.nie-ine.ch/v1/resourcetypes?vocabulary='
+      + encodeURIComponent(this.selectedVocabulary) +
+      '&email=root%40example.com&password=test' )
       .subscribe(
         res => this.resourceClasses = res['resourcetypes']
       );
-    
+
     for (let v of this.vocabularies) {
       if (v['uri'] == this.selectedVocabulary) {
         this.selectedVocabularyDescription = v['description'];
       }
     }
-    
+
     this.selectedResourceClass = '';
     this.selectedResourceClassDescription = '';
     this.selectedProperties = [];
     this.resourceLabel = '';
   }
-  
+
   resetResourceClass() {
     // get properties for this resource class
     // reset property data for this resource
     // get description for the selected resource class
 
     // TODO: do request in service
-    this.http.get('http://knora2.nie-ine.ch/v1/resourcetypes/' + encodeURIComponent(this.selectedResourceClass))
+    this.http.get('http://knora2.nie-ine.ch/v1/resourcetypes/' + encodeURIComponent(this.selectedResourceClass) + '?email=root%40example.com&password=test' )
       .subscribe(
 res => {
         this.properties = res['restype_info']['properties'];
@@ -83,14 +85,14 @@ res => {
     this.selectedProperties = [];
     this.resourceLabel = '';
   }
-  
+
   addProperty(property: string) {
     // add property with selected property IRI to this new resource
     // save property description from Knora in 'structure' and initialize field 'value'
     // TODO: reset dropdown does not work - fix it
-    
+
     let propertyStructure;
-    
+
     if (property != '') {
 
         for (let p of this.properties) {
@@ -99,26 +101,26 @@ res => {
           }
         }
 
-        this.selectedProperties.push({'structure': propertyStructure, 'value': ''});    
+        this.selectedProperties.push({'structure': propertyStructure, 'value': ''});
     }
     this.dropdownProperty = '';
   }
-  
+
   deleteProperty(index: number) {
     // remove property at index index
     this.selectedProperties.splice(index, 1);
   }
-  
+
   setLink(iri, i) {
     // use selected IRI for a link
     this.selectedProperties[i]['value'] = iri;
   }
-  
+
   setDate(date, i) {
     // save date value
     this.selectedProperties[i]['value'] = date;
   }
-  
+
   postResource() {
     // create JSON representation for this resource
     const resourceParams = {
@@ -127,11 +129,11 @@ res => {
       'label': this.resourceLabel,
       'project_id': this.projectIRI
     };
-    
+
     // add each property with its value to this JSON
-    for (let p of this.selectedProperties) { 
+    for (let p of this.selectedProperties) {
       if (p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#LinkValue') {
-        try { 
+        try {
           resourceParams['properties'][p['structure']['id']].push(
             {'link_value': p['value'] }
             );
@@ -141,7 +143,7 @@ res => {
         }
       }
       else if (p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#IntValue') {
-        try { 
+        try {
           resourceParams['properties'][p['structure']['id']].push(
             {'int_value': Math.floor(p['value']) }
             );
@@ -151,7 +153,7 @@ res => {
         }
       }
       else if (p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#DecimalValue') {
-        try { 
+        try {
           resourceParams['properties'][p['structure']['id']].push(
             {'decimal_value': p['value'] }
             );
@@ -161,7 +163,7 @@ res => {
         }
       }
       else if (p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#BooleanValue') {
-        try { 
+        try {
           resourceParams['properties'][p['structure']['id']].push(
             {'boolean_value': p['value'] }
             );
@@ -171,7 +173,7 @@ res => {
         }
       }
       else if (p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#TextValue') {
-        try { 
+        try {
           resourceParams['properties'][p['structure']['id']].push(
             {'richtext_value': {'utf8str': p['value']}}
             );
@@ -181,7 +183,7 @@ res => {
         }
       }
       else if (p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#DateValue') {
-        try { 
+        try {
           resourceParams['properties'][p['structure']['id']].push(
             {'date_value': p['value'] }
             );
@@ -201,7 +203,7 @@ res => {
     // post resource or log error
     // on success, give IRI as output of this component
     // TODO: do request in service
-    this.http.post('http://knora2.nie-ine.ch/v1/resources', resourceParams, httpOptions )
+    this.http.post('http://knora2.nie-ine.ch/v1/resources?email=root%40example.com&password=test', resourceParams, httpOptions )
       .subscribe(
       res => {
         this.resourceIRI.emit(res['res_id']);
@@ -210,7 +212,7 @@ res => {
         console.log(err);
       }
     );
-    
+
   }
-  
+
 }
