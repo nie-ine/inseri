@@ -130,7 +130,7 @@
       </mat-menu>
       <button mat-button (click)="synopsisViewer.appear()" >Synopsis Viewer {{ i }}</button><br>
     </div>
-    
+
     <!-- Resource Creation Form -->
     <div *ngFor="let createResourceForm of appTypes[ 'createResourceForm' ].model; let i = index;" >
       <popup #createResourceForm
@@ -141,9 +141,9 @@
              [firstPopupY]="appTypes[ 'createResourceForm' ].model[i].y"
              (sendAppCoordinatesBack)="updateAppCoordinates($event)">
         <div style="width: 900px; height: 400px;" >
-          <app-create-resource style="position: sticky;" 
+          <app-create-resource style="position: sticky;"
                                [projectIRI]="projectIRI"
-                               (resourceIRI)="closeApp( appTypes[ 'synopsisViewer' ].model, i )">
+                               (resourceIRI)="closeApp( appTypes[ 'createResourceForm' ].model, i )">
           </app-create-resource>
         </div>
       </popup>
