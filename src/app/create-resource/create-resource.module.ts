@@ -12,6 +12,6 @@ import { CreateDateValueComponent } from './create-date-value/create-date-value.
     FormsModule
   ],
   declarations: [ CreateResourceComponent, CreateLinkValueComponent, CreateDateValueComponent ],
-  exports: [ CreateResourceComponent ]
+  exports: [ CreateResourceComponent, CreateLinkValueComponent ]
 })
 export class CreateResourceModule { }

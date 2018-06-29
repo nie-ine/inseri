@@ -12,149 +12,21 @@ export class ResourceFormComponent implements OnInit {
   @Input() editRights: boolean;
   
   propKeys: Array<string>;
+  stableResourceIRI: string;
   
-  resource: any = {
-    "resinfo":{
-      "locations":null,
-      "restype_label":"person",
-      "resclass_has_location":false,
-      "preview":null,"person_id":"http://rdfh.ch/users/root",
-      "value_of":0,
-      "lastmod":"0000-00-00 00:00:00",
-      "resclass_name":"object",
-      "firstproperty":"test",
-      "restype_iconsrc":null,
-      "restype_name":"http://www.knora.org/ontology/0048/human#Person",
-      "regions":null,
-      "restype_description":"A real born living human.",
-      "project_id":"http://rdfh.ch/projects/0041",
-      "locdata":null,"restype_id":"http://www.knora.org/ontology/0048/human#Person"
-    },
-    "incoming":[],
-    "resdata":{
-      "restype_label":"person",
-      "restype_name":"http://www.knora.org/ontology/0048/human#Person",
-      "iconsrc":null,
-      "rights":2,
-      "res_id":"http://rdfh.ch/0041/Atharvaveda/cIQgaupHTfyrHZNt80MUvA"
-    },
-    "status":0,
-    "props":{
-      "http://www.knora.org/ontology/0048/human#hasFloruit":{
-        "regular_property":1,"guiorder":null,"is_annotation":"0",
-        "valuetype_id":"http://www.knora.org/ontology/knora-base#LinkValue","label":"has floruit","guielement":null,"attributes":"restypeid=http://www.knora.org/ontology/0048/human#Floruit","occurrence":"0-n","pid":"http://www.knora.org/ontology/0048/human#hasFloruit"
-      },
-      "http://www.knora.org/ontology/0044/concept#hasDedicatedTo":{ 
-        "regular_property":1,"guiorder":null,"is_annotation":"0",
-        "valuetype_id":"http://www.knora.org/ontology/knora-base#LinkValue","label":"has dedicated to","guielement":null,"attributes":"restypeid=http://www.knora.org/ontology/0048/human#Person","occurrence":"0-n","pid":"http://www.knora.org/ontology/0044/concept#hasDedicatedTo"
-      },
-      "http://www.knora.org/ontology/0048/human#hasDescription":{
-        "regular_property":1,"guiorder":null,"is_annotation":"0",
-        "valuetype_id":"http://www.knora.org/ontology/knora-base#TextValue","label":"has description","guielement":"richtext","attributes":"","occurrence":"0-n","pid":"http://www.knora.org/ontology/0048/human#hasDescription"
-      },
-      "http://www.knora.org/ontology/0048/human#hasDeathDate":{
-        "regular_property":1,"guiorder":null,"is_annotation":"0",
-        "valuetype_id":"http://www.knora.org/ontology/knora-base#DateValue","label":"has death date","guielement":null,"attributes":"","occurrence":"0-n","pid":"http://www.knora.org/ontology/0048/human#hasDeathDate"
-      },
-      "http://www.knora.org/ontology/0048/human#hasAlias":{
-        "regular_property":1,"guiorder":null,"is_annotation":"0",
-        "valuetype_id":"http://www.knora.org/ontology/knora-base#TextValue","label":"has alias","guielement":"richtext","attributes":"","occurrence":"0-n","pid":"http://www.knora.org/ontology/0048/human#hasAlias"
-      },
-      "http://www.knora.org/ontology/knora-base#hasStandoffLinkTo":{
-        "regular_property":1,"guiorder":null,"is_annotation":"0",
-        "valuetype_id":"http://www.knora.org/ontology/knora-base#LinkValue","label":"has Standoff Link to","guielement":null,"attributes":"restypeid=http://www.knora.org/ontology/knora-base#Resource","occurrence":"0-n","pid":"http://www.knora.org/ontology/knora-base#hasStandoffLinkTo"
-      },
-      "http://www.knora.org/ontology/0048/human#adheringToThought":{
-        "regular_property":1,"guiorder":null,"is_annotation":"0",
-        "valuetype_id":"http://www.knora.org/ontology/knora-base#LinkValue","label":"adhering to body of thought","guielement":null,"attributes":"restypeid=http://www.knora.org/ontology/0044/concept#ThoughtBody","occurrence":"0-n","pid":"http://www.knora.org/ontology/0048/human#adheringToThought"
-      },
-      "http://www.knora.org/ontology/0051/organization#isMemberOf":{
-        "regular_property":1,"guiorder":null,"is_annotation":"0",
-        "valuetype_id":"http://www.knora.org/ontology/knora-base#LinkValue","label":"is member of organization","guielement":null,"attributes":"restypeid=http://www.knora.org/ontology/0051/organization#Organization","occurrence":"0-n","pid":"http://www.knora.org/ontology/0051/organization#isMemberOf"
-      },
-      "http://www.knora.org/ontology/0048/human#hasPreferredName":{
-        "regular_property":1,"guiorder":null,"is_annotation":"0",
-        "valuetype_id":"http://www.knora.org/ontology/knora-base#TextValue","label":"has preferred name","guielement":"richtext","attributes":"","occurrence":"0-n","pid":"http://www.knora.org/ontology/0048/human#hasPreferredName"
-      },
-      "http://www.knora.org/ontology/0048/human#hasFamilyName":{
-        "regular_property":1,"guiorder":null,"is_annotation":"0",
-        "valuetype_id":"http://www.knora.org/ontology/knora-base#TextValue","label":"has family name","guielement":"richtext","attributes":"","occurrence":"0-n","pid":"http://www.knora.org/ontology/0048/human#hasFamilyName"
-      },
-      "http://www.knora.org/ontology/0048/human#hasName":{
-        "regular_property":1,"guiorder":null,"is_annotation":"0",
-        "valuetype_id":"http://www.knora.org/ontology/knora-base#TextValue","label":"has name","guielement":"richtext","attributes":"","occurrence":"0-n","pid":"http://www.knora.org/ontology/0048/human#hasName"
-      },
-      "http://www.knora.org/ontology/0048/human#hasBirthDate":{
-        "regular_property":1,
-        "value_restype":[null],
-        "guiorder":null,
-        "value_firstprops":[null],
-        "is_annotation":"0",
-        "valuetype_id":"http://www.knora.org/ontology/knora-base#DateValue",
-        "label":"has birth date",
-        "value_iconsrcs":[null],
-        "guielement":null,
-        "attributes":"",
-        "occurrence":"0-n",
-        "value_ids":[     
-          "http://rdfh.ch/0041/Atharvaveda/cIQgaupHTfyrHZNt80MUvA/values/cRqvY6fPT4Gt4WRqD-fMlw"
-        ],
-        "value_rights":[2],
-        "pid":"http://www.knora.org/ontology/0048/human#hasBirthDate",
-        "values":[
-          {
-            "dateval1":"1987-10-13",
-            "calendar":"GREGORIAN",
-            "era1":"CE",
-            "dateval2":"1987-10-13",
-            "era2":"CE"
-          }
-        ],
-        "comments":[null]
-      },
-      "http://www.knora.org/ontology/0051/organization#isMemberOfAdministration":{             
-        "regular_property":1,"guiorder":null,"is_annotation":"0",
-        "valuetype_id":"http://www.knora.org/ontology/knora-base#LinkValue","label":"is member of administration","guielement":null,"attributes":"restypeid=http://www.knora.org/ontology/0051/organization#Organization","occurrence":"0-n","pid":"http://www.knora.org/ontology/0051/organization#isMemberOfAdministration"
-      },
-      "http://www.knora.org/ontology/0048/human#hasBiologicalSex":{   
-        "regular_property":1,"guiorder":null,"is_annotation":"0",
-        "valuetype_id":"http://www.knora.org/ontology/knora-base#LinkValue","label":"has biological sex","guielement":null,"attributes":"restypeid=http://www.knora.org/ontology/0048/human#BiologicalSex","occurrence":"0-n","pid":"http://www.knora.org/ontology/0048/human#hasBiologicalSex"
-      },      
-      "http://www.knora.org/ontology/0048/human#hasGivenName":{
-        "regular_property":1,"guiorder":null,"is_annotation":"0",
-        "valuetype_id":"http://www.knora.org/ontology/knora-base#TextValue","label":"has given name","guielement":"richtext","attributes":"","occurrence":"0-n","pid":"http://www.knora.org/ontology/0048/human#hasGivenName"
-      },
-      "http://www.knora.org/ontology/0048/human#isMemberOf":{
-        "regular_property":1,"guiorder":null,"is_annotation":"0",
-        "valuetype_id":"http://www.knora.org/ontology/knora-base#LinkValue","label":"is member of","guielement":null,"attributes":"restypeid=http://www.knora.org/ontology/0048/human#Group","occurrence":"0-n","pid":"http://www.knora.org/ontology/0048/human#isMemberOf" 
-      },
-      "http://www.knora.org/ontology/0048/human#hasRole":{  
-        "regular_property":1,"guiorder":null,"is_annotation":"0",
-        "valuetype_id":"http://www.knora.org/ontology/knora-base#LinkValue","label":"person has role","guielement":null,"attributes":"restypeid=http://www.knora.org/ontology/0048/human#Role","occurrence":"0-n","pid":"http://www.knora.org/ontology/0048/human#hasRole"
-      },
-      "http://www.knora.org/ontology/0048/human#hasOccupationalRole":{   
-        "regular_property":1,"guiorder":null,"is_annotation":"0",
-        "valuetype_id":"http://www.knora.org/ontology/knora-base#LinkValue","label":"has occupational role","guielement":null,"attributes":"restypeid=http://www.knora.org/ontology/0048/human#OccupationalRole","occurrence":"0-n","pid":"http://www.knora.org/ontology/0048/human#hasOccupationalRole"
-      },
-      "http://www.knora.org/ontology/0048/human#hasLife":{ 
-        "regular_property":1,"guiorder":null,"is_annotation":"0",
-        "valuetype_id":"http://www.knora.org/ontology/knora-base#LinkValue","label":"person has life","guielement":null,"attributes":"restypeid=http://www.knora.org/ontology/0048/human#PersonLife","occurrence":"0-n","pid":"http://www.knora.org/ontology/0048/human#hasLife"
-      }
-    },
-    "access":"OK"
-    }
+  focusedValue: string = '';
+  focusedValueContent: any = '';
+  
+  valuesWithShownHistory: Set<string> = new Set();
+  valueHistory: any;
+
+  resource: any;
 
   constructor(private http: HttpClient) {
   }
   
   ngOnInit() {
     this.getResourceData();
-    
-    // DUMMY
-    
-  this.propKeys = Object.keys(this.resource['props'])//Array.from(this.resource['props'].keys());
-  console.log(this.propKeys);
-
   }
   
   getResourceData() {
@@ -162,12 +34,47 @@ export class ResourceFormComponent implements OnInit {
     
     // TODO: do request in service
     if (this.resourceIRI) {
-      this.http.get('http://knora2.nie-ine.ch/v1/resources/' + encodeURIComponent(this.resourceIRI) )
+      this.http.get('http://knora2.nie-ine.ch/v1/resources/' 
+        + encodeURIComponent(this.resourceIRI) 
+        + '?email=root%40example.com&password=test')
         .subscribe( res => {
           this.resource = res;
-          this.propKeys = Array.from(res['props'].keys());
+          this.propKeys = Object.keys(this.resource['props']);
+          
         });
+      this.stableResourceIRI = this.resourceIRI;
     }
+  }
+  
+  activateValue(id: string, content) {
+    this.focusedValue = id;
+    this.focusedValueContent = content;
+  }
+  
+  structureChangeValue(propertyIRI: string, newValue) {
+    
+    let valueStructure;
+    
+    if (this.resource['props'][propertyIRI]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#LinkValue') {
+      valueStructure = { 'link_value': newValue };
+    }
+    else if (this.resource['props'][propertyIRI]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#IntValue') {
+      valueStructure = { 'int_value': Math.floor(newValue) };
+    }
+    else if (this.resource['props'][propertyIRI]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#DecimalValue') {
+      valueStructure = { 'decimal_value': newValue };
+    }
+    else if (this.resource['props'][propertyIRI]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#BooleanValue') {
+      valueStructure = { 'boolean_value': newValue };
+    }
+    else if (this.resource['props'][propertyIRI]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#TextValue') {
+      valueStructure = { 'richtext_value': { 'utf8str': newValue } };
+    }
+    else if (this.resource['props'][propertyIRI]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#DateValue') {
+      valueStructure = { 'date_value': newValue };
+    }
+    
+    return valueStructure;
   }
   
   resetLabel() {
@@ -188,7 +95,11 @@ export class ResourceFormComponent implements OnInit {
 
     // post property or log error
     // TODO: do request in service
-    this.http.delete('http://knora2.nie-ine.ch/v1/resources/' + encodeURIComponent(this.resourceIRI), httpOptions );
+    this.http.delete('http://knora2.nie-ine.ch/v1/resources/' 
+      + encodeURIComponent(this.stableResourceIRI) 
+      + '?email=root%40example.com&password=test', httpOptions );
+    
+    this.activateValue('', null);
   }
   
   deleteProperty(propertyIRI: string) {
@@ -201,17 +112,20 @@ export class ResourceFormComponent implements OnInit {
 
     // post property or log error
     // TODO: do request in service
-    this.http.delete('http://knora2.nie-ine.ch/v1/values/' + encodeURIComponent(propertyIRI) , httpOptions);
+    this.http.delete('http://knora2.nie-ine.ch/v1/values/' 
+      + encodeURIComponent(propertyIRI)
+      + '?email=root%40example.com&password=test', httpOptions);
     this.getResourceData;
+    
+    this.activateValue('', null);
   }
   
   addProperty(propertyIRI: string) {
-    
-    const resourceParams = {
-      'richtext_value': {'utf8str': ''},// TODO
-      'comment': 'text' + Math.random() * 1000,
-      'project_id': this.resource['resinfo']['project_id']
-    };
+  
+    const resourceParams = this.structureChangeValue(propertyIRI, this.focusedValueContent);
+    resourceParams['res_id'] = this.stableResourceIRI;
+    resourceParams['prop'] = propertyIRI
+    resourceParams['project_id'] = this.resource['resinfo']['project_id'];
     
     // create authentication data for posting
     // TODO: use services
@@ -221,7 +135,7 @@ export class ResourceFormComponent implements OnInit {
 
     // post property or log error
     // TODO: do request in service
-    this.http.post('http://knora2.nie-ine.ch/v1/values/' + resourceParams, httpOptions )
+    this.http.post('http://knora2.nie-ine.ch/v1/values/', resourceParams, httpOptions )
       .subscribe(
         res => {
           console.log(res);
@@ -233,15 +147,14 @@ export class ResourceFormComponent implements OnInit {
     );
     
     this.getResourceData;
+    
+    this.activateValue('', null);
   }
   
-  changeProperty(propertyIRI: string) {
+  changeProperty(valueID: string, propertyIRI: string) {
     
-    const resourceParams = {
-      'richtext_value': {'utf8str': ''},// TODO
-      'comment': 'text' + Math.random() * 1000,
-      'project_id': this.resource['resinfo']['project_id']
-    };
+    const resourceParams = this.structureChangeValue(propertyIRI, this.focusedValueContent);
+    resourceParams['project_id'] = this.resource['resinfo']['project_id'];
     
     // create authentication data for putting
     // TODO: use services
@@ -251,7 +164,9 @@ export class ResourceFormComponent implements OnInit {
 
     // put property or log error
     // TODO: do request in service
-    this.http.put('http://knora2.nie-ine.ch/v1/values/' + encodeURIComponent(propertyIRI), resourceParams, httpOptions )
+    this.http.put('http://knora2.nie-ine.ch/v1/values/' 
+      + encodeURIComponent(valueID)
+      + '?email=root%40example.com&password=test', resourceParams, httpOptions )
       .subscribe(
         res => {
           console.log(res);
@@ -263,5 +178,15 @@ export class ResourceFormComponent implements OnInit {
     );
     
     this.getResourceData;
+    
+    this.activateValue('', null)
+  }
+  
+  activateValueHistory(valueID) {
+    this.valuesWithShownHistory.add(valueID);
+  }
+  
+  hideValueHistory(valueID) {
+    this.valuesWithShownHistory.delete(valueID);
   }
 }
