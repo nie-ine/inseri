@@ -7,7 +7,7 @@ import { HttpParams } from '@angular/common/http';
 import {EditionService} from "../model/edition.service";
 import {GenerateHashService} from "../../../shared/generateHash.service";
 import {UpdateEditionComponent} from '../update-edition/update-edition.component';
-import {CreateOrUpdateEditionService} from "../services/createOrUpdateEdition.service";
+import {CreateEditionAndLinkToActionService} from "../services/createEditionAndLinkToAction.service";
 
 @Component({
   selector: 'app-edition-landing-page',
@@ -26,10 +26,10 @@ export class EditionLandingPageComponent implements OnInit {
     public dialog: MatDialog,
     public dialogUpdateEdition: MatDialog,
     private route: ActivatedRoute,
-    private editionService: EditionService,
     private generateHashService: GenerateHashService,
     private actionService: ActionService,
-    private createOrUpdateEditionService: CreateOrUpdateEditionService
+    private createEditionAndLinkToActionService: CreateEditionAndLinkToActionService,
+    private editionService: EditionService
   ) { }
   saveOrUpdateEdition() {
     console.log('Save or update Edition');
@@ -49,6 +49,16 @@ export class EditionLandingPageComponent implements OnInit {
           console.log(this.action);
           if ( this.action && this.action.hasEdition ) {
             console.log('Update Edition');
+            console.log('Edition hash: ' + this.action.hasEdition );
+            this.editionService.getById( this.action.hasEdition )
+              .subscribe(
+                edition => {
+                  console.log(edition);
+                  this.edition = edition;
+                },
+                error => {
+                  console.log(error);
+                });
           } else {
             this.edition = {};
             console.log('No edition for this action yet');
@@ -68,7 +78,7 @@ export class EditionLandingPageComponent implements OnInit {
             console.log(this.edition);
             console.log(this.action);
             console.log('Save edition and then add edition - hash to action and update action.');
-            this.createOrUpdateEditionService.createOrUpdate(
+            this.createEditionAndLinkToActionService.createOrUpdate(
               this.edition,
               this.action
             );

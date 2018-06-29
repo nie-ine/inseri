@@ -15,7 +15,7 @@ import {EditionService} from "./model/edition.service";
 import {GenerateHashService} from "../../shared/generateHash.service";
 import {ActionService} from "../../shared/action.service";
 import { UpdateEditionComponent } from './update-edition/update-edition.component';
-import {CreateOrUpdateEditionService} from "./services/createOrUpdateEdition.service";
+import {CreateEditionAndLinkToActionService} from "./services/createEditionAndLinkToAction.service";
 
 @NgModule({
   imports: [
@@ -45,7 +45,7 @@ import {CreateOrUpdateEditionService} from "./services/createOrUpdateEdition.ser
     EditionService,
     GenerateHashService,
     ActionService,
-    CreateOrUpdateEditionService
+    CreateEditionAndLinkToActionService
   ]
 })
 export class MyEditionModule { }
