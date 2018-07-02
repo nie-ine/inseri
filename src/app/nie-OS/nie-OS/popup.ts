@@ -129,7 +129,6 @@ export class Popup {
     this.sendCoordinatesBack = {};
     this.sendCoordinatesBack.x = this.curX;
     this.sendCoordinatesBack.y = this.curY;
-    this.sendCoordinatesBack.id = this.id;
     this.sendCoordinatesBack.type = this.type;
     this.sendCoordinatesBack.hash = this.hash;
     console.log(this.sendCoordinatesBack);

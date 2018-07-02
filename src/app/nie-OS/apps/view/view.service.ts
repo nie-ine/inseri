@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { View } from './models/view';
+import { View } from './view';
 
 @Injectable()
 export class ViewService {

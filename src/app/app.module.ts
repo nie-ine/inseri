@@ -9,7 +9,7 @@ import {JwtInterceptor} from "./shared/_helpers/jwt.interceptor";
 import {fakeBackendProvider} from "./shared/_helpers/fake-backend";
 import {AuthGuard} from "./shared/auth.guard";
 import {UserService} from "./shared/user.service";
-import {ViewService} from "./shared/view.service";
+import {ViewService} from "./nie-OS/apps/view/view.service";
 
 
 @NgModule({

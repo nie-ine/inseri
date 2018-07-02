@@ -1,6 +1,7 @@
 export class View {
-  id: number;
+  hash: number;
   x: number;
   y: number;
+  z: number;
   type: string;
 }

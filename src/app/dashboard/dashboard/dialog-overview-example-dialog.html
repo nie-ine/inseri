@@ -14,11 +14,12 @@
       <div *ngIf="f.submitted && !lastName.valid" class="help-block">Bitte geben Sie eine Beschreibung der Aktion ein</div>
     </div>
     <label >Art der Aktion</label>
-    <mat-radio-group [(ngModel)]="model.type" name="type">
-      <mat-radio-button value="dummy">Starte einen Webauftritt (dummy)</mat-radio-button><br>
+    <mat-radio-group [(ngModel)]="model.type" name="type"><br>
+      <mat-radio-button value="my-edition">Starte einen Webauftritt</mat-radio-button><br>
       <mat-radio-button value="arbeitsflaeche">Gelange zur Arbeitsfläche</mat-radio-button><br>
       <mat-radio-button value="dummy">Ediere ein Gedicht (dummy)</mat-radio-button><br>
       <mat-radio-button value="dummy">... Erstelle einen eigenen Workflow (dummy)</mat-radio-button><br>
+      <mat-radio-button value="salsah">Gelange zu Salsah 2</mat-radio-button><br>
     </mat-radio-group>
     <div >
       <button [disabled]="loading" class="btn btn-primary">Starte Aktion</button>

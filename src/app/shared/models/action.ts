@@ -6,4 +6,5 @@ export class Action {
   deleted = false;
   type: string;
   hasViews: Array<string>; // hash des views
+  hasEdition: string;
 }

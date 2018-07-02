@@ -12,6 +12,11 @@ import { ArithmeticModule } from 'nie-ine';
 import { GrapesjsComponent } from './grapesjs/grapesjs.component';
 import { TextViewModule } from '../text-view/text-view.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { SynopsisModule } from '../synopsis/synopsis.module';
+import {MyEditionModule} from './my-edition/my-edition.module';
+import {GenerateHashService} from "../shared/generateHash.service";
+import { CreateResourceModule } from '../create-resource/create-resource.module';
+
 
 @NgModule({
   imports: [
@@ -24,12 +29,16 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     ArithmeticModule,
     TextViewModule,
     MatTooltipModule,
+    SynopsisModule,
+    MyEditionModule,
+    CreateResourceModule,
     RouterModule.forChild([
       { path: 'arbeitsflaeche', component: NIEOSComponent },
       { path: 'grapesjs', component: GrapesjsComponent }
     ])
   ],
   providers: [
+    GenerateHashService
   ],
   declarations: [
     NIEOSComponent,
