@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 
 import { IntValueEditorComponent } from './int-value-editor.component';
 
@@ -8,7 +9,8 @@ describe('IntValueEditorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ IntValueEditorComponent ]
+      declarations: [ IntValueEditorComponent ],
+      imports: [ FormsModule ]
     })
     .compileComponents();
   }));
