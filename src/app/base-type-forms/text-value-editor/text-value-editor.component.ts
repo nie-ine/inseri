@@ -25,7 +25,7 @@ export class TextValueEditorComponent implements OnInit {
   }
   
   sendOutput(newText) {
-    this.textValue.emit({'text_value': { 'utf8str': newText }});
+    this.textValue.emit({'richtext_value': { 'utf8str': newText }});
   }
 
 }

@@ -4,7 +4,7 @@
     <ng-container *ngIf="v['previousValue'] == null">
       <td></td>
       <td>
-        created: {{ v['valueCreationDate'] }}
+        created: {{ v['valueCreationDate'] | date : "d. MMMM y, HH:mm:ss" }}
       </td>
     </ng-container>
 
@@ -13,7 +13,7 @@
         {{ v['previousValue'] }}
       </td>
       <td>
-        replaced: {{ v['valueCreationDate'] }}
+        replaced: {{ v['valueCreationDate'] | date : "d. MMMM y, HH:mm:ss" }}
       </td>
     </ng-container>
 

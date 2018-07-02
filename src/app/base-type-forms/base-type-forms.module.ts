@@ -7,6 +7,7 @@ import { TextValueEditorComponent } from './text-value-editor/text-value-editor.
 import { IntValueEditorComponent } from './int-value-editor/int-value-editor.component';
 import { DecimalValueEditorComponent } from './decimal-value-editor/decimal-value-editor.component';
 import { BooleanValueEditorComponent } from './boolean-value-editor/boolean-value-editor.component';
+import { DateValueViewerComponent } from './date-value-viewer/date-value-viewer.component';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { BooleanValueEditorComponent } from './boolean-value-editor/boolean-valu
   declarations: [ 
     BooleanValueEditorComponent,
     DateValueEditorComponent, 
+    DateValueViewerComponent,
     DecimalValueEditorComponent,  
     IntValueEditorComponent, 
     LinkValueEditorComponent, 
@@ -24,6 +26,7 @@ import { BooleanValueEditorComponent } from './boolean-value-editor/boolean-valu
   exports: [ 
     BooleanValueEditorComponent,
     DateValueEditorComponent, 
+    DateValueViewerComponent,
     DecimalValueEditorComponent,  
     IntValueEditorComponent, 
     LinkValueEditorComponent, 

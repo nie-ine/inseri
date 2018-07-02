@@ -110,15 +110,9 @@ res => {
     // remove property at index index
     this.selectedProperties.splice(index, 1);
   }
-
-  setLink(iri, i) {
-    // use selected IRI for a link
-    this.selectedProperties[i]['value'] = iri;
-  }
-
-  setDate(date, i) {
-    // save date value
-    this.selectedProperties[i]['value'] = date;
+  
+  setValue(newValue, i) {
+    this.selectedProperties[i]['value'] = newValue;
   }
 
   postResource() {
@@ -132,65 +126,10 @@ res => {
 
     // add each property with its value to this JSON
     for (let p of this.selectedProperties) {
-      if (p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#LinkValue') {
-        try {
-          resourceParams['properties'][p['structure']['id']].push(
-            {'link_value': p['value'] }
-            );
-        } catch (e) {
-          resourceParams['properties'][p['structure']['id']] = [
-            {'link_value': p['value'] } ];
-        }
-      }
-      else if (p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#IntValue') {
-        try {
-          resourceParams['properties'][p['structure']['id']].push(
-            {'int_value': Math.floor(p['value']) }
-            );
-        } catch (e) {
-          resourceParams['properties'][p['structure']['id']] = [
-          {'int_value': Math.floor(p['value']) } ];
-        }
-      }
-      else if (p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#DecimalValue') {
-        try {
-          resourceParams['properties'][p['structure']['id']].push(
-            {'decimal_value': p['value'] }
-            );
-        } catch (e) {
-          resourceParams['properties'][p['structure']['id']] = [
-            {'decimal_value': p['value'] } ];
-        }
-      }
-      else if (p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#BooleanValue') {
-        try {
-          resourceParams['properties'][p['structure']['id']].push(
-            {'boolean_value': p['value'] }
-            );
-        } catch (e) {
-          resourceParams['properties'][p['structure']['id']] = [
-            {'boolean_value': p['value'] } ];
-        }
-      }
-      else if (p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#TextValue') {
-        try {
-          resourceParams['properties'][p['structure']['id']].push(
-            {'richtext_value': {'utf8str': p['value']}}
-            );
-        } catch (e) {
-          resourceParams['properties'][p['structure']['id']] = [
-            {'richtext_value': {'utf8str': p['value']}} ];
-        }
-      }
-      else if (p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#DateValue') {
-        try {
-          resourceParams['properties'][p['structure']['id']].push(
-            {'date_value': p['value'] }
-            );
-        } catch (e) {
-          resourceParams['properties'][p['structure']['id']] = [
-            {'date_value': p['value'] } ];
-        }
+      try {
+        resourceParams['properties'][p['structure']['id']].push(p['value']);
+      } catch (e) {
+        resourceParams['properties'][p['structure']['id']] = [p['value']];
       }
     }
 

@@ -76,12 +76,8 @@
 
                 <ng-container 
                   *ngSwitchCase="'http://www.knora.org/ontology/knora-base#DateValue'">
-                  {{ resource['props'][p]['values'][j]['calendar'] }}
-                  {{ resource['props'][p]['values'][j]['dateval1'] }}
-                  {{ resource['props'][p]['values'][j]['era1'] }}
-                  –
-                  {{ resource['props'][p]['values'][j]['dateval2'] }}
-                  {{ resource['props'][p]['values'][j]['era2'] }}
+                  <app-date-value-viewer [propertyValue]="resource['props'][p]['values'][j]">
+                  </app-date-value-viewer>
                 </ng-container>
 
                 <ng-container 
