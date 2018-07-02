@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ImageViewComponent } from './image-view.component';
-import { ImageFrameModule } from './image-frame/image-frame.module';
+import { ImageFrameModule } from '../../../image-frame/image-frame.module';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { RegionToSvgService } from './region-to-svg.service';
+import { RegionToSvgService } from '../../../image-frame/region-to-svg.service';
 import { By } from '@angular/platform-browser';
 
 describe('ImageViewComponent', () => {

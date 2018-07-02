@@ -1,8 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { BaseTypeFormsModule } from '../../base-type-forms/base-type-forms.module';
 
-import { CreateLinkValueComponent } from '../create-link-value/create-link-value.component';
-import { CreateDateValueComponent } from '../create-date-value/create-date-value.component';
 import { CreateResourceComponent } from './create-resource.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -14,8 +13,8 @@ describe('CreateResourceComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule, HttpClientModule, HttpClientTestingModule],
-      declarations: [ CreateResourceComponent, CreateLinkValueComponent, CreateDateValueComponent ]
+      imports: [FormsModule, HttpClientModule, HttpClientTestingModule, BaseTypeFormsModule],
+      declarations: [ CreateResourceComponent ]
     })
     .compileComponents();
   }));

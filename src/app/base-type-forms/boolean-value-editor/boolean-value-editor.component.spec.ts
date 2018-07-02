@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 
 import { BooleanValueEditorComponent } from './boolean-value-editor.component';
 
@@ -8,7 +9,8 @@ describe('BooleanValueEditorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BooleanValueEditorComponent ]
+      declarations: [ BooleanValueEditorComponent ],
+      imports: [ FormsModule ]
     })
     .compileComponents();
   }));

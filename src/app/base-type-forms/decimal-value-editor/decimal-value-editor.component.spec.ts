@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 
 import { DecimalValueEditorComponent } from './decimal-value-editor.component';
 
@@ -8,7 +9,8 @@ describe('DecimalValueEditorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DecimalValueEditorComponent ]
+      declarations: [ DecimalValueEditorComponent ],
+      imports: [ FormsModule ]
     })
     .compileComponents();
   }));

@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 
 import { TextValueEditorComponent } from './text-value-editor.component';
 
@@ -8,7 +9,8 @@ describe('TextValueEditorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TextValueEditorComponent ]
+      declarations: [ TextValueEditorComponent ],
+      imports: [ FormsModule ]
     })
     .compileComponents();
   }));
