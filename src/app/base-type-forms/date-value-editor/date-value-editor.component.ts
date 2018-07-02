@@ -65,11 +65,11 @@ export class DateValueEditorComponent implements OnInit {
       }
       
       if (this.oldValue['era1'] != undefined) {
-        this.calendar = this.oldValue['era1'];
+        this.era1 = this.oldValue['era1'];
       }
       
       if (this.oldValue['era2'] != undefined) {
-        this.calendar = this.oldValue['era2'];
+        this.era2 = this.oldValue['era2'];
       }
     }
   }
@@ -108,12 +108,13 @@ export class DateValueEditorComponent implements OnInit {
         dateString += '-' + ("00" + this.month2).slice (-2);
       
         if (this.day2 != undefined && this.day2 != 0) {
-          dateString += '-' + ("00" + this.day1).slice (-2);
+          dateString += '-' + ("00" + this.day2).slice (-2);
         }
       }
     
       dateString += ' ' + this.era2; 
-    }    
+    }
+    
     this.dateValue.emit({'date_value': dateString});
   }
 }

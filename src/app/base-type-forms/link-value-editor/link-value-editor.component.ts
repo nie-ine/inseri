@@ -40,7 +40,7 @@ export class LinkValueEditorComponent implements OnInit {
   }
 
   selectResult(iri) {
-    this.linkValue.emit({'text_value': iri});
+    this.linkValue.emit({'link_value': iri});
   }
 
 }
