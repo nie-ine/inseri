@@ -52,76 +52,97 @@
           <td>
             <ng-container *ngIf="focusedValue != v">
               
-              <ng-container 
-                *ngIf="resource['props'][p]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#TextValue'">
-                {{ resource['props'][p]['values'][j]['utf8str'] }}
-              </ng-container>
+              <ng-container [ngSwitch]="resource['props'][p]['valuetype_id']">
+                
+                <ng-container 
+                  *ngSwitchCase="'http://www.knora.org/ontology/knora-base#TextValue'">
+                  {{ resource['props'][p]['values'][j]['utf8str'] }}
+                </ng-container>
 
-              <ng-container 
-                *ngIf="resource['props'][p]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#IntValue'">
-                {{ resource['props'][p]['values'][j] }}
-              </ng-container>
+                <ng-container 
+                  *ngSwitchCase="'http://www.knora.org/ontology/knora-base#IntValue'">
+                  {{ resource['props'][p]['values'][j] }}
+                </ng-container>
 
-              <ng-container 
-                *ngIf="resource['props'][p]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#DecimalValue'">
-                {{ resource['props'][p]['values'][j] }}
-              </ng-container>
+                <ng-container 
+                  *ngSwitchCase="'http://www.knora.org/ontology/knora-base#DecimalValue'">
+                  {{ resource['props'][p]['values'][j] }}
+                </ng-container>
 
-              <ng-container 
-                *ngIf="resource['props'][p]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#BooleanValue'">
-                {{ resource['props'][p]['values'][j] }}
-              </ng-container>
+                <ng-container 
+                  *ngSwitchCase="'http://www.knora.org/ontology/knora-base#BooleanValue'">
+                  {{ resource['props'][p]['values'][j] }}
+                </ng-container>
 
-              <ng-container 
-                *ngIf="resource['props'][p]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#DateValue'">
-                {{ resource['props'][p]['values'][j]['calendar'] }}
-                {{ resource['props'][p]['values'][j]['dateval1'] }}
-                {{ resource['props'][p]['values'][j]['era1'] }}
-                –
-                {{ resource['props'][p]['values'][j]['dateval2'] }}
-                {{ resource['props'][p]['values'][j]['era2'] }}
-              </ng-container>
+                <ng-container 
+                  *ngSwitchCase="'http://www.knora.org/ontology/knora-base#DateValue'">
+                  {{ resource['props'][p]['values'][j]['calendar'] }}
+                  {{ resource['props'][p]['values'][j]['dateval1'] }}
+                  {{ resource['props'][p]['values'][j]['era1'] }}
+                  –
+                  {{ resource['props'][p]['values'][j]['dateval2'] }}
+                  {{ resource['props'][p]['values'][j]['era2'] }}
+                </ng-container>
 
-              <ng-container 
-                *ngIf="resource['props'][p]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#LinkValue'">
-                {{ resource['props'][p]['value_firstprops'][j] }}
-              </ng-container>
+                <ng-container 
+                  *ngSwitchCase="'http://www.knora.org/ontology/knora-base#LinkValue'">
+                  {{ resource['props'][p]['value_firstprops'][j] }}
+                </ng-container>
+                
+                <ng-container *ngSwitchDefault>
+                  type not supported                
+                </ng-container>
 
+              </ng-container>
             </ng-container>
             <ng-container *ngIf="focusedValue == v">
-              
-              <ng-container 
-                *ngIf="resource['props'][p]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#TextValue'">
-                <input [(ngModel)]="focusedValueContent['utf8str']" type="text"/>
+              <ng-container [ngSwitch]="resource['props'][p]['valuetype_id']">
+                
+                <ng-container 
+                  *ngSwitchCase="'http://www.knora.org/ontology/knora-base#TextValue'">
+                  <app-text-value-editor [oldValue]="resource['props'][p]['values'][j]"
+                                         (textValue)="setValue($event)">
+                  </app-text-value-editor>
+                </ng-container>
+
+                <ng-container 
+                  *ngSwitchCase="'http://www.knora.org/ontology/knora-base#IntValue'">
+                  <app-int-value-editor [oldValue]="resource['props'][p]['values'][j]"
+                                        (intValue)="setValue($event)">
+                  </app-int-value-editor>
+                </ng-container>
+
+                <ng-container 
+                  *ngSwitchCase="'http://www.knora.org/ontology/knora-base#DecimalValue'">
+                  <app-decimal-value-editor [oldValue]="resource['props'][p]['values'][j]"
+                                            (decimalValue)="setValue($event)">
+                  </app-decimal-value-editor>
+                </ng-container>
+
+                <ng-container 
+                  *ngSwitchCase="'http://www.knora.org/ontology/knora-base#BooleanValue'">
+                  <app-boolean-value-editor [oldValue]="resource['props'][p]['values'][j]"
+                                            (booleanValue)="setValue($event)">
+                  </app-boolean-value-editor>
+                </ng-container>
+
+                <ng-container 
+                  *ngSwitchCase="'http://www.knora.org/ontology/knora-base#DateValue'">
+                  <app-date-value-editor [oldValue]="resource['props'][p]['values'][j]"
+                                         (dateValue)="setValue($event)"></app-date-value-editor>
+                </ng-container>
+
+                <ng-container 
+                  *ngSwitchCase="'http://www.knora.org/ontology/knora-base#LinkValue'">
+                  <app-link-value-editor [targetClass]="resource['props'][p]['attributes']"
+                                         (linkValue)="setValue($event)"></app-link-value-editor>
+                </ng-container>
+                          
+                <ng-container *ngSwitchDefault>
+                  type not supported                
+                </ng-container>
+
               </ng-container>
-
-              <ng-container 
-                *ngIf="resource['props'][p]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#IntValue'">
-                <input [(ngModel)]="focusedValueContent" type="number"/>
-              </ng-container>
-
-              <ng-container 
-                *ngIf="resource['props'][p]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#DecimalValue'">
-                <input [(ngModel)]="focusedValueContent" type="number"/>
-              </ng-container>
-
-              <ng-container 
-                *ngIf="resource['props'][p]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#BooleanValue'">
-                <input [(ngModel)]="focusedValueContent" type="checkbox"/>
-              </ng-container>
-
-              <ng-container 
-                *ngIf="resource['props'][p]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#DateValue'">
-                TODO
-              </ng-container>
-
-              <ng-container 
-                *ngIf="resource['props'][p]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#LinkValue'">
-                TODO
-              </ng-container>
-
-                TODO
-
             </ng-container>
           </td>
           
@@ -172,36 +193,49 @@
           </ng-container>
           <ng-container *ngIf="focusedValue == p">
             
-            <ng-container 
-              *ngIf="resource['props'][p]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#TextValue'">
-              <input [(ngModel)]="focusedValueContent" type="text"/>
-            </ng-container>
+            <ng-container [ngSwitch]="resource['props'][p]['valuetype_id']">
+              
+              <ng-container 
+                *ngSwitchCase="'http://www.knora.org/ontology/knora-base#TextValue'">
+                <app-text-value-editor (textValue)="setValue($event)">
+                </app-text-value-editor>
+              </ng-container>
 
-            <ng-container 
-              *ngIf="resource['props'][p]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#IntValue'">
-              <input [(ngModel)]="focusedValueContent" type="number"/>
-            </ng-container>
+              <ng-container 
+                *ngSwitchCase="'http://www.knora.org/ontology/knora-base#IntValue'">
+                <app-int-value-editor (intValue)="setValue($event)">
+                </app-int-value-editor>
+              </ng-container>
 
-            <ng-container 
-              *ngIf="resource['props'][p]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#DecimalValue'">
-              <input [(ngModel)]="focusedValueContent" type="number"/>
-            </ng-container>
+              <ng-container 
+                *ngSwitchCase="'http://www.knora.org/ontology/knora-base#DecimalValue'">
+                <app-decimal-value-editor (decimalValue)="setValue($event)">
+                </app-decimal-value-editor>
+              </ng-container>
 
-            <ng-container 
-              *ngIf="resource['props'][p]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#BooleanValue'">
-              <input [(ngModel)]="focusedValueContent" type="checkbox"/>
-            </ng-container>
+              <ng-container 
+                *ngSwitchCase="'http://www.knora.org/ontology/knora-base#BooleanValue'">
+                <app-boolean-value-editor (booleanValue)="setValue($event)">
+                </app-boolean-value-editor>
+              </ng-container>
 
-            <ng-container 
-              *ngIf="resource['props'][p]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#DateValue'">
-              TODO
-            </ng-container>
+              <ng-container 
+                *ngSwitchCase="'http://www.knora.org/ontology/knora-base#DateValue'">
+                <app-date-value-editor (dateValue)="setValue($event)"></app-date-value-editor>
+              </ng-container>
 
-            <ng-container 
-              *ngIf="resource['props'][p]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#LinkValue'">
-              TODO
-            </ng-container>
+              <ng-container 
+                *ngSwitchCase="'http://www.knora.org/ontology/knora-base#LinkValue'">
+                <app-link-value-editor [targetClass]="resource['props'][p]['attributes']"
+                                       (linkValue)="setValue($event)">
+                </app-link-value-editor>
+              </ng-container>
 
+              <ng-container *ngSwitchDefault>
+                type not supported                
+              </ng-container>
+
+            </ng-container>
           </ng-container>
         </td>
 

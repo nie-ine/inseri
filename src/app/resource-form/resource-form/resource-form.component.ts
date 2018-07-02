@@ -50,31 +50,10 @@ export class ResourceFormComponent implements OnInit {
     this.focusedValue = id;
     this.focusedValueContent = content;
   }
-  
-  structureChangeValue(propertyIRI: string, newValue) {
-    
-    let valueStructure;
-    
-    if (this.resource['props'][propertyIRI]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#LinkValue') {
-      valueStructure = { 'link_value': newValue };
-    }
-    else if (this.resource['props'][propertyIRI]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#IntValue') {
-      valueStructure = { 'int_value': Math.floor(newValue) };
-    }
-    else if (this.resource['props'][propertyIRI]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#DecimalValue') {
-      valueStructure = { 'decimal_value': newValue };
-    }
-    else if (this.resource['props'][propertyIRI]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#BooleanValue') {
-      valueStructure = { 'boolean_value': newValue };
-    }
-    else if (this.resource['props'][propertyIRI]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#TextValue') {
-      valueStructure = { 'richtext_value': { 'utf8str': newValue } };
-    }
-    else if (this.resource['props'][propertyIRI]['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#DateValue') {
-      valueStructure = { 'date_value': newValue };
-    }
-    
-    return valueStructure;
+
+  setValue(newValue) {
+    // set date value
+    this.focusedValueContent = newValue;
   }
   
   resetLabel() {
@@ -122,7 +101,7 @@ export class ResourceFormComponent implements OnInit {
   
   addProperty(propertyIRI: string) {
   
-    const resourceParams = this.structureChangeValue(propertyIRI, this.focusedValueContent);
+    const resourceParams = this.focusedValueContent;
     resourceParams['res_id'] = this.stableResourceIRI;
     resourceParams['prop'] = propertyIRI
     resourceParams['project_id'] = this.resource['resinfo']['project_id'];
@@ -154,7 +133,7 @@ export class ResourceFormComponent implements OnInit {
   
   changeProperty(valueID: string, propertyIRI: string) {
     
-    const resourceParams = this.structureChangeValue(propertyIRI, this.focusedValueContent);
+    const resourceParams = this.focusedValueContent;
     resourceParams['project_id'] = this.resource['resinfo']['project_id'];
     
     // create authentication data for putting
