@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
     public dialog: MatDialog,
     private router: Router,
     private actionService: ActionService,
-    private alertService: AlertService
+    private alertService: AlertService,
   ) {
 
     router.events.subscribe(s => {
@@ -103,9 +103,15 @@ export class DialogOverviewExampleDialog {
           const actions = JSON.parse(localStorage.getItem('actions')) || [];
           console.log(actions);
           this.onNoClick();
-          const params = new HttpParams().set('actionId', actions.lengt);
-          params.append('actionId', actions.length);
-          this.router.navigate( [ this.model.type ], { queryParams: { 'actionID': actions.length } } );
+          console.log(this.model.type.search('salsah'));
+          if ( this.model.type.search('salsah') !== -1 ) {
+            console.log('Navigate to Salsah');
+            window.open('http://salsah2.nie-ine.ch/', '_blank');
+          } else {
+            const params = new HttpParams().set('actionId', actions.lengt);
+            params.append('actionId', actions.length);
+            this.router.navigate( [ this.model.type ], { queryParams: { 'actionID': actions.length } } );
+          }
         },
         error => {
           console.log(error);

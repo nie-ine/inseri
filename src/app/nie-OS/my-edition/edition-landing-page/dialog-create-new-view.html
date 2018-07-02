@@ -1,0 +1,22 @@
+<h1 mat-dialog-title>Erstelle einen neuen View</h1>
+
+
+<div class="col-md-6 col-md-offset-3">
+  <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
+    <div class="form-group" >
+      <label for="firstName">Titel des Views</label>
+      <input type="text" class="form-control" name="title" [(ngModel)]="model.title" #firstName="ngModel" required />
+      <div *ngIf="f.submitted && !title.valid" class="help-block">Bitte geben Sie einen Titel ein</div>
+    </div>
+    <div class="form-group" >
+      <label for="lastName">Beschreibung des Views</label>
+      <input type="text" class="form-control" name="description" [(ngModel)]="model.description" #lastName="ngModel" required height="48"/>
+      <div *ngIf="f.submitted && !description.valid" class="help-block">Bitte geben Sie eine Beschreibung des Views ein</div>
+    </div>
+    <div >
+      <button [disabled]="loading" class="btn btn-primary">Starte Aktion</button>
+      <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+      <button  type="button" mat-button (click)="onNoClick()">Schliesse dieses Menü</button>
+    </div>
+  </form>
+</div>

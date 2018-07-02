@@ -22,6 +22,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         // console.log(actions);
         const views: any[] = JSON.parse(localStorage.getItem('views')) || [];
         console.log(views);
+        const editions: any[] = JSON.parse(localStorage.getItem('editions')) || [];
+        console.log(editions);
 
         // wrap in delayed observable to simulate server api call
         return Observable.of(null).mergeMap(() => {
@@ -72,6 +74,18 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     return Observable.throw('Unauthorised');
                 }
             }
+
+          // get editions
+          if (request.url.endsWith('/api/editions') && request.method === 'GET') {
+            // check for fake auth token in header and return users if valid,
+            // this security is implemented server side in a real application
+            if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
+              return Observable.of(new HttpResponse({ status: 200, body: editions }));
+            } else {
+              // return 401 not authorised if token is null or invalid
+              return Observable.throw('Unauthorised');
+            }
+          }
 
             // get user by id
             if (request.url.match(/\/api\/users\/\d+$/) && request.method === 'GET') {
