@@ -22,7 +22,7 @@ export class ResourceFormComponent implements OnInit {
 
   resource: any;
 
-  constructor(private http: HttpClient) {
+constructor(private http: HttpClient) {
   }
   
   ngOnInit() {
@@ -57,11 +57,33 @@ export class ResourceFormComponent implements OnInit {
   }
   
   resetLabel() {
-  
-    // TODO
-    console.log(this.resource['resinfo']['firstproperty']);
+    
+    const resourceParams = {"label": this.focusedValueContent };
+    
+    // create authentication data for putting
+    // TODO: use services
+    const httpOptions = {
+      headers: new HttpHeaders({'Authorization': 'Basic ' + btoa('root@example.com' + ':' + 'test')})
+    };
+
+    // put property or log error
+    // TODO: do request in service
+    this.http.put('http://knora2.nie-ine.ch/v1/resources/label/' 
+      + encodeURIComponent(this.stableResourceIRI)
+      + '?email=root%40example.com&password=test', resourceParams, httpOptions )
+      .subscribe(
+        res => {
+          console.log(res);
+          console.log(resourceParams);
+        },
+        err => {
+          console.log('Error occured');
+        }
+    );
     
     this.getResourceData();
+    
+    this.activateValue('', null)
   }
   
   deleteResource() {
