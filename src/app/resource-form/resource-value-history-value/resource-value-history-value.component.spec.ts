@@ -1,4 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+
+import { BaseTypeFormsModule } from '../../base-type-forms/base-type-forms.module';
 
 import { ResourceValueHistoryValueComponent } from './resource-value-history-value.component';
 
@@ -8,6 +12,7 @@ describe('ResourceValueHistoryValueComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ BaseTypeFormsModule, HttpClientModule, HttpClientTestingModule ],
       declarations: [ ResourceValueHistoryValueComponent ]
     })
     .compileComponents();

@@ -7,13 +7,15 @@ import { BaseTypeFormsModule } from '../../base-type-forms/base-type-forms.modul
 
 import { ResourceFormComponent } from './resource-form.component';
 import { ResourceValueHistoryComponent } from '../resource-value-history/resource-value-history.component';
+import { ResourceValueHistoryValueComponent } from '../resource-value-history-value/resource-value-history-value.component';
+
 describe('ResourceFormComponent', () => {
   let component: ResourceFormComponent;
   let fixture: ComponentFixture<ResourceFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ResourceFormComponent, ResourceValueHistoryComponent ],
+      declarations: [ ResourceFormComponent, ResourceValueHistoryComponent, ResourceValueHistoryValueComponent ],
       imports: [ FormsModule, BaseTypeFormsModule, HttpClientTestingModule, HttpClientModule ]
     })
     .compileComponents();
