@@ -1,0 +1,38 @@
+<ng-container [ngSwitch]="valueData?.valuetype">
+
+  <ng-container 
+    *ngSwitchCase="'http://www.knora.org/ontology/knora-base#TextValue'">
+    {{ valueData['value']['utf8str'] }}
+  </ng-container>
+
+  <ng-container 
+    *ngSwitchCase="'http://www.knora.org/ontology/knora-base#IntValue'">
+    {{ valueData['value'] }}
+  </ng-container>
+
+  <ng-container 
+    *ngSwitchCase="'http://www.knora.org/ontology/knora-base#DecimalValue'">
+    {{ valueData['value'] }}
+  </ng-container>
+
+  <ng-container 
+    *ngSwitchCase="'http://www.knora.org/ontology/knora-base#BooleanValue'">
+    {{ valueData['value'] }}
+  </ng-container>
+
+  <ng-container 
+    *ngSwitchCase="'http://www.knora.org/ontology/knora-base#DateValue'">
+    <app-date-value-viewer [propertyValue]="valueData['value']">
+    </app-date-value-viewer>
+  </ng-container>
+
+  <ng-container 
+    *ngSwitchCase="'http://www.knora.org/ontology/knora-base#LinkValue'">
+    {{ valueData['value'] }}
+  </ng-container>
+
+  <ng-container *ngSwitchDefault>
+    cannot be displayed                
+  </ng-container>
+
+</ng-container>
