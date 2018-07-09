@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
@@ -10,6 +10,7 @@ export class ResourceFormComponent implements OnInit {
   
   @Input() resourceIRI: string;
   @Input() editRights: boolean;
+  @Output() resourceIsDeleted: EventEmitter<any> = new EventEmitter();
   
   propKeys: Array<string>;
   stableResourceIRI: string;
@@ -30,7 +31,6 @@ constructor(private http: HttpClient) {
   }
   
   getResourceData() {
-    // get available vocabularies
     
     // TODO: do request in service
     if (this.resourceIRI) {
@@ -40,7 +40,9 @@ constructor(private http: HttpClient) {
         .subscribe( res => {
           this.resource = res;
           this.propKeys = Object.keys(this.resource['props']);
-          
+        },
+        err => {
+          console.log(err);
         });
       this.stableResourceIRI = this.resourceIRI;
     }
@@ -73,17 +75,13 @@ constructor(private http: HttpClient) {
       + '?email=root%40example.com&password=test', resourceParams, httpOptions )
       .subscribe(
         res => {
-          console.log(res);
-          console.log(resourceParams);
+          this.getResourceData();
+          this.activateValue('', null)
         },
         err => {
-          console.log('Error occured');
+          console.log(err);
         }
     );
-    
-    this.getResourceData();
-    
-    this.activateValue('', null)
   }
   
   deleteResource() {
@@ -98,12 +96,19 @@ constructor(private http: HttpClient) {
     // TODO: do request in service
     this.http.delete('http://knora2.nie-ine.ch/v1/resources/' 
       + encodeURIComponent(this.stableResourceIRI) 
-      + '?email=root%40example.com&password=test', httpOptions );
-    
-    this.activateValue('', null);
+      + '?email=root%40example.com&password=test', httpOptions )
+      .subscribe(
+        res => {
+          this.resourceIsDeleted.emit();
+          this.activateValue('', null)
+        },
+        err => {
+          console.log(err);
+        }
+    );
   }
   
-  deleteProperty(propertyIRI: string) {
+  deleteProperty(valueID: string) {
     
     // create authentication data for posting
     // TODO: use services
@@ -114,11 +119,18 @@ constructor(private http: HttpClient) {
     // post property or log error
     // TODO: do request in service
     this.http.delete('http://knora2.nie-ine.ch/v1/values/' 
-      + encodeURIComponent(propertyIRI)
-      + '?email=root%40example.com&password=test', httpOptions);
-    this.getResourceData();
-    
-    this.activateValue('', null);
+      + encodeURIComponent(valueID)
+      + '?email=root%40example.com&password=test', httpOptions)
+      .subscribe(
+        res => {
+          // reload resource data
+          this.getResourceData();
+          this.activateValue('', null);
+        },
+        err => {
+          console.log(err);
+        }
+    );
   }
   
   addProperty(propertyIRI: string) {
@@ -140,20 +152,17 @@ constructor(private http: HttpClient) {
       + '?email=root%40example.com&password=test', resourceParams, httpOptions )
       .subscribe(
         res => {
-          console.log(res);
-          console.log(resourceParams);
+          // reload resource data
+          this.getResourceData();
+          this.activateValue('', null);
         },
         err => {
-          console.log('Error occured');
+          console.log(err);
         }
     );
-    
-    this.getResourceData();
-    
-    this.activateValue('', null);
   }
   
-  changeProperty(valueID: string, propertyIRI: string) {
+  changeProperty(valueID: string) {
     
     const resourceParams = this.focusedValueContent;
     resourceParams['project_id'] = this.resource['resinfo']['project_id'];
@@ -171,17 +180,14 @@ constructor(private http: HttpClient) {
       + '?email=root%40example.com&password=test', resourceParams, httpOptions )
       .subscribe(
         res => {
-          console.log(res);
-          console.log(resourceParams);
+          // reload resource data
+          this.getResourceData();
+          this.activateValue('', null);
         },
         err => {
-          console.log('Error occured');
+          console.log(err);
         }
     );
-    
-    this.getResourceData();
-    
-    this.activateValue('', null)
   }
   
   activateValueHistory(valueID) {

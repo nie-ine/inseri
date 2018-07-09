@@ -5,6 +5,7 @@ import { BaseTypeFormsModule } from '../base-type-forms/base-type-forms.module';
 import { ResourceFormComponent } from './resource-form/resource-form.component';
 import { ResourceValueHistoryComponent } from './resource-value-history/resource-value-history.component';
 import { ResourceValueHistoryValueComponent } from './resource-value-history-value/resource-value-history-value.component';
+import { ResourceValueHistoryLinkTargetComponent } from './resource-value-history-link-target/resource-value-history-link-target.component';
 
 @NgModule({
   imports: [
@@ -12,7 +13,12 @@ import { ResourceValueHistoryValueComponent } from './resource-value-history-val
     FormsModule,
     BaseTypeFormsModule
   ],
-  declarations: [ResourceFormComponent, ResourceValueHistoryComponent, ResourceValueHistoryValueComponent ],
+  declarations: [
+    ResourceFormComponent, 
+    ResourceValueHistoryComponent, 
+    ResourceValueHistoryValueComponent, 
+    ResourceValueHistoryLinkTargetComponent 
+  ],
   exports: [ResourceFormComponent]
 })
 export class ResourceFormModule { }

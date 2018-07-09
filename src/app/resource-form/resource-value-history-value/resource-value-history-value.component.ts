@@ -26,9 +26,10 @@ export class ResourceValueHistoryValueComponent implements OnInit {
         )
         .subscribe( res => {
           this.valueData = res;
-          console.log(res);
+        },
+        err => {
+          console.log(err);
         });
     }
   }
-
 }

@@ -5,6 +5,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BaseTypeFormsModule } from '../../base-type-forms/base-type-forms.module';
 
 import { ResourceValueHistoryValueComponent } from './resource-value-history-value.component';
+import { ResourceValueHistoryLinkTargetComponent } from '../resource-value-history-link-target/resource-value-history-link-target.component';
 
 describe('ResourceValueHistoryValueComponent', () => {
   let component: ResourceValueHistoryValueComponent;
@@ -13,7 +14,7 @@ describe('ResourceValueHistoryValueComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ BaseTypeFormsModule, HttpClientModule, HttpClientTestingModule ],
-      declarations: [ ResourceValueHistoryValueComponent ]
+      declarations: [ ResourceValueHistoryValueComponent, ResourceValueHistoryLinkTargetComponent ]
     })
     .compileComponents();
   }));
