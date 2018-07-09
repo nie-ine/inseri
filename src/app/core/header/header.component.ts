@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../../shared/authentication.service';
+import {ActionService} from '../../shared/action.service';
+import {ViewService} from '../../nie-OS/apps/view/view.service';
 
 @Component({
   selector: 'app-header',
@@ -10,18 +12,70 @@ import { AuthenticationService } from '../../shared/authentication.service';
 export class HeaderComponent implements OnInit {
 
   currentRoute: string;
+  viewsOfThisActtion: Array<any>;
+  hashOfThisView: string;
 
   constructor(
     private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private actionService: ActionService,
+    private viewService: ViewService,
     private authenticationService: AuthenticationService
   ) {
-    //setTimeout(() => {
-      router.events.subscribe(( route: any ) => this.updateCurrentRoute( route ) );
-   // }, 1000);
+      router.events.subscribe(( route: any ) => {
+        this.updateCurrentRoute( route );
+      } );
+    this.activatedRoute.queryParams.subscribe(params => {
+      console.log(params);
+      this.hashOfThisView = params.view;
+      this.generateNavigation(params.actionID);
+    });
   }
 
   ngOnInit() {
-
+    // console.log(this.activatedRoute);
+  }
+  produceCurrentViewDescription() {
+    for ( const view of this.viewsOfThisActtion ) {
+      if ( view.hash === this.hashOfThisView ) {
+        return view.description;
+      }
+    }
+  }
+  produceCurrentViewTitle() {
+    for ( const view of this.viewsOfThisActtion ) {
+      if ( view.hash === this.hashOfThisView ) {
+        return view.title;
+      }
+    }
+  }
+  generateNavigation( actionID: number ) {
+    console.log('Get action by id, then iterate through views');
+    console.log( actionID );
+    this.actionService.getById( actionID )
+      .subscribe(
+        data => {
+          console.log(data);
+          for ( const viewHash of ( data as any ).hasViews as any ) {
+            console.log( viewHash );
+            this.viewsOfThisActtion = [];
+            this.viewService.getById( viewHash )
+              .subscribe(
+                view => {
+                  this.viewsOfThisActtion[
+                    this.viewsOfThisActtion.length
+                    ] = view;
+                  console.log( view );
+                },
+                errorGetView => {
+                  console.log(errorGetView);
+                }
+              );
+          }
+        },
+        error => {
+          console.log(error);
+        });
   }
 
   updateCurrentRoute( route: any ) {

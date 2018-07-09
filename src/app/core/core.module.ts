@@ -4,7 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { StaticPagesModule } from '../static-pages/static-pages.module';
 import { MaterialModule } from '../material.module';
 import { NIEOSModule } from '../nie-OS/nie-OS.module';
-
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { MainComponent } from './main/main.component';
