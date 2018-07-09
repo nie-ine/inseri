@@ -41,37 +41,49 @@
     <tr *ngFor="let p of selectedProperties, let i = index">
       <td [title]="p[ 'structure' ][ 'description' ]">{{ p[ 'structure' ][ 'label' ] }}:</td>     
       <td>
-        <ng-container 
-          *ngIf="p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#TextValue'">
-          <input [(ngModel)]="selectedProperties[i]['value']" type="text"/>
-        </ng-container>
+        
+        <ng-container [ngSwitch]="p['structure']['valuetype_id']">
 
-        <ng-container 
-          *ngIf="p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#IntValue'">
-          <input [(ngModel)]="selectedProperties[i]['value']" type="number"/>
-        </ng-container>
+          <ng-container 
+            *ngSwitchCase="'http://www.knora.org/ontology/knora-base#TextValue'">
+            <app-text-value-editor (textValue)="setValue($event, i)">
+            </app-text-value-editor>
+          </ng-container>
 
-        <ng-container 
-          *ngIf="p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#DecimalValue'">
-          <input [(ngModel)]="selectedProperties[i]['value']" type="number"/>
-        </ng-container>
+          <ng-container 
+            *ngSwitchCase="'http://www.knora.org/ontology/knora-base#IntValue'">
+            <app-int-value-editor (intValue)="setValue($event, i)">
+            </app-int-value-editor>
+          </ng-container>
 
-        <ng-container 
-          *ngIf="p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#BooleanValue'">
-          <input [(ngModel)]="selectedProperties[i]['value']" type="checkbox"/>
-        </ng-container>
+          <ng-container 
+            *ngSwitchCase="'http://www.knora.org/ontology/knora-base#DecimalValue'">
+            <app-decimal-value-editor (decimalValue)="setValue($event, i)">
+            </app-decimal-value-editor>
+          </ng-container>
 
-        <ng-container 
-          *ngIf="p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#DateValue'">
-          <app-create-date-value (dateValue)="setDate($event, i)">
-          </app-create-date-value>
-        </ng-container>
+          <ng-container 
+            *ngSwitchCase="'http://www.knora.org/ontology/knora-base#BooleanValue'">
+            <app-boolean-value-editor (booleanValue)="setValue($event, i)">
+            </app-boolean-value-editor>
+          </ng-container>
 
-        <ng-container 
-          *ngIf="p['structure']['valuetype_id'] == 'http://www.knora.org/ontology/knora-base#LinkValue'">
-          <app-create-link-value [property]="p['structure']" 
-                                 (resourceIRI)="setLink($event, i)">
-          </app-create-link-value>
+          <ng-container 
+            *ngSwitchCase="'http://www.knora.org/ontology/knora-base#DateValue'">
+            <app-date-value-editor (dateValue)="setValue($event, i)"></app-date-value-editor>
+          </ng-container>
+
+          <ng-container 
+            *ngSwitchCase="'http://www.knora.org/ontology/knora-base#LinkValue'">
+            <app-link-value-editor [targetClass]="p['structure']['attributes']"
+                                   (linkValue)="setValue($event, i)">
+            </app-link-value-editor>
+          </ng-container>
+
+          <ng-container *ngSwitchDefault>
+            type not supported                
+          </ng-container>
+
         </ng-container>
       </td>
       <td>
