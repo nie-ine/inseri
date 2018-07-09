@@ -7,16 +7,9 @@
   <div style="float: left; width: 300px"> {{ generateDescription() }}
   </div>
 
-  <div style="margin-right: 30px; margin-left: 30px; margin-top: 330px;">
-    <a href="arbeitsflaeche" style="font-size: 30px">Beispiel - View - Notizbücher</a><br>
-    In diesem View sehen Sie die Notizbücher Kuno Raebers. Diese sind als erster Teil seines kreativen Prozesses
-    zu verstehen und er hielt in diesen Notizbüchern handschriftlich seine Ideen fest. Dieser View zeigt Ihnen
-    die Notizüchern aus den Jahren 1979 - 1988.
-  </div>
-
   <div style="margin-right: 30px; margin-left: 30px;" *ngFor="let view of viewsOfThisEdition; let i = index; ">
     <div >
-      <a href="arbeitsflaeche" style="font-size: 30px">{{ view.title }}</a><br>
+      <a href="{{ generateURL( view ) }}" style="font-size: 30px">{{ view.title }}</a><br>
       {{ view.description }}
     </div>
   </div>
