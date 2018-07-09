@@ -1,0 +1,13 @@
+<table *ngIf="valueHistory">
+  <tr *ngFor="let v of valueHistory['valueVersions']; let i = index">
+  
+    <td>
+      <app-resource-value-history-value [valueIRI]="v['valueObjectIri']">
+      </app-resource-value-history-value>
+    </td>
+    <td>
+      {{ v['valueCreationDate'] | date : "d. MMMM y, HH:mm:ss" }}
+    </td>
+
+  </tr>
+</table>
