@@ -5,34 +5,51 @@ import {Action} from '../../../shared/models/action';
 import {ActionService} from '../../../shared/action.service';
 import {EditionService} from '../model/edition.service';
 import {GenerateHashService} from'../../../shared/generateHash.service';
+import {ViewService} from "../../apps/view/view.service";
 
 @Injectable()
 export class CreateViewAndLinkToAction {
   action: any;
+  view: any;
   constructor(
     private http: HttpClient,
     private actionService: ActionService,
     private editionService: EditionService,
-    private generateHashService: GenerateHashService
+    private generateHashService: GenerateHashService,
+    private viewService: ViewService
   ) {
   }
   createViewAndLinkToAction(
-    actionID: number
+    actionID: number,
+    viewFormEntries: any
   ) {
-    console.log('Create new View, then append hash to action and updated action');
-    console.log(actionID);
-    this.actionService.getById( actionID )
-      .subscribe(
-        action => {
-          this.action = action;
-          this.action.hasViews[
-            this.action.hasViews.length
-            ] = this.generateHashService.generateHash();
-          console.log(this.action);
-          console.log('Get Title and description from input form');
-        },
-        error => {
-          console.log(error);
-        });
+    console.log(viewFormEntries);
+    if (viewFormEntries !== '1') {
+      this.view = {};
+      this.view.description = viewFormEntries.description;
+      this.view.title = viewFormEntries.title;
+      this.view.hash = this.generateHashService.generateHash();
+      this.viewService.create( this.view )
+        .subscribe(
+          data => {
+            console.log(data);
+          },
+          error => {
+            console.log(error);
+          });
+      console.log(actionID);
+      this.actionService.getById( actionID )
+        .subscribe(
+          action => {
+            this.action = action;
+            this.action.hasViews[
+              this.action.hasViews.length
+              ] = this.view.hash;
+            console.log(this.action);
+          },
+          error => {
+            console.log(error);
+          });
+    }
   }
 }
