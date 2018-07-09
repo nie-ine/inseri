@@ -24,32 +24,36 @@ export class CreateViewAndLinkToAction {
     viewFormEntries: any
   ) {
     console.log(viewFormEntries);
-    if (viewFormEntries !== '1') {
-      this.view = {};
-      this.view.description = viewFormEntries.description;
-      this.view.title = viewFormEntries.title;
-      this.view.hash = this.generateHashService.generateHash();
-      this.viewService.create( this.view )
-        .subscribe(
-          data => {
-            console.log(data);
-          },
-          error => {
-            console.log(error);
-          });
-      console.log(actionID);
-      this.actionService.getById( actionID )
-        .subscribe(
-          action => {
-            this.action = action;
-            this.action.hasViews[
-              this.action.hasViews.length
-              ] = this.view.hash;
-            console.log(this.action);
-          },
-          error => {
-            console.log(error);
-          });
-    }
+    this.view = {};
+    this.view.description = viewFormEntries.description;
+    this.view.title = viewFormEntries.title;
+    this.view.hash = this.generateHashService.generateHash();
+    this.viewService.create( this.view )
+      .subscribe(
+        data => {
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+        });
+    this.actionService.getById( actionID )
+      .subscribe(
+        action => {
+          this.action = action;
+          this.action.hasViews[
+            this.action.hasViews.length
+            ] = this.view.hash;
+          console.log(this.action);
+          this.actionService.update( this.action )
+            .subscribe( updatedAction => {
+              console.log(updatedAction);
+            },
+              error2 => {
+              console.log(error2);
+              });
+        },
+        error => {
+          console.log(error);
+        });
   }
 }

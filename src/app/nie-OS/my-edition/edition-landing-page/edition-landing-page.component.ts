@@ -9,6 +9,7 @@ import {GenerateHashService} from "../../../shared/generateHash.service";
 import {UpdateEditionComponent} from '../update-edition/update-edition.component';
 import {CreateEditionAndLinkToActionService} from "../services/createEditionAndLinkToAction.service";
 import {CreateViewAndLinkToAction} from "../services/createViewAndLinkToAction.service";
+import {ViewService} from "../../apps/view/view.service";
 
 @Component({
   selector: 'app-edition-landing-page',
@@ -23,6 +24,7 @@ export class EditionLandingPageComponent implements OnInit {
   edition: any;
   action: any;
   model: any;
+  viewsOfThisEdition: any;
 
   constructor(
     public dialog: MatDialog,
@@ -31,7 +33,9 @@ export class EditionLandingPageComponent implements OnInit {
     private generateHashService: GenerateHashService,
     private actionService: ActionService,
     private createEditionAndLinkToActionService: CreateEditionAndLinkToActionService,
-    private editionService: EditionService
+    private editionService: EditionService,
+    private createViewAndLinkToAction: CreateViewAndLinkToAction,
+    private viewService: ViewService
   ) { }
   saveOrUpdateEdition() {
     console.log('Update Edition');
@@ -47,25 +51,35 @@ export class EditionLandingPageComponent implements OnInit {
         });
   }
   ngOnInit() {
-    console.log('Check if edition for this action exists');
     this.actionID = this.route.snapshot.queryParams.actionID;
     this.checkIfEditionExists( this.actionID );
   }
   checkIfEditionExists( actionID: number ) {
-    console.log('Get Action and check if it has an edition');
     this.actionService.getById( actionID )
       .subscribe(
         data => {
           this.action = data;
-          console.log('This action: ');
-          console.log(this.action);
           if ( this.action && this.action.hasEdition ) {
-            console.log('Update Edition');
-            console.log('Edition hash: ' + this.action.hasEdition );
+            console.log('Instatiate Edition');
+            console.log(this.action);
+            this.viewsOfThisEdition = [];
+            for ( const viewHash of this.action.hasViews ) {
+              this.viewService.getById( viewHash )
+                .subscribe(
+                  view => {
+                    this.viewsOfThisEdition[
+                      this.viewsOfThisEdition.length
+                      ] = view;
+                    console.log( view );
+                  },
+                  errorGetView => {
+                    console.log(errorGetView);
+                  }
+                );
+            }
             this.editionService.getById( this.action.hasEdition )
               .subscribe(
                 edition => {
-                  console.log(edition);
                   this.edition = edition;
                 },
                 error => {
@@ -129,6 +143,11 @@ export class EditionLandingPageComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
+      this.createViewAndLinkToAction
+        .createViewAndLinkToAction(
+          this.route.snapshot.queryParams.actionID,
+          result
+        );
     });
   }
   openUpdateEditionDialog() {
@@ -165,7 +184,6 @@ export class DialogCreateNewViewComponent {
               @Inject(MAT_DIALOG_DATA) public data: any,
               private router: Router,
               private actionService: ActionService,
-              private createViewAndLinkToAction: CreateViewAndLinkToAction,
               private route: ActivatedRoute) {
   }
   onNoClick(): void {
@@ -174,10 +192,5 @@ export class DialogCreateNewViewComponent {
   register() {
     this.loading = true;
     console.log(this.model);
-    this.createViewAndLinkToAction
-      .createViewAndLinkToAction(
-        this.model,
-        this.route.snapshot.queryParams.actionID
-      );
   }
 }
