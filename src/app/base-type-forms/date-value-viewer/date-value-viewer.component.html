@@ -1,0 +1,20 @@
+<ng-container *ngIf="propertyValue">
+  
+  {{ propertyValue['calendar'] === 'JULIAN' ? 'Julian': 'Gregorian' }}
+  
+  {{ propertyValue['dateval1'] | date : "d. MMMM y" }}
+  <ng-container *ngIf="showEra1">
+    {{ propertyValue['era1'] }}
+  </ng-container>
+
+  <ng-container *ngIf="useRange">
+    –
+    {{ propertyValue['dateval2'] | date : "d. MMMM y" }} 
+    <ng-container *ngIf="showEra2">
+      {{ propertyValue['era2'] }}
+    </ng-container>
+  
+  </ng-container>
+
+</ng-container>
+

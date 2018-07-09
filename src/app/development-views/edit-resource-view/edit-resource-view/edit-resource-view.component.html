@@ -1,0 +1,26 @@
+<h2>Edit a resource</h2>
+<p>This view is here to show the Create Resource Module </p>
+
+<h3>First, look for a resource</h3>
+
+<input [(ngModel)]="searchstring" /><button (click)="search()">search</button>
+
+<select *ngIf="results" (change)="selectResult($event.target.value)">
+  <option value="null">
+    select result
+  </option>
+  <option *ngFor="let r of results" [value]="r['id']">
+    {{ r['value'][0] }}
+  </option>
+</select>
+
+<h3>Add edit rights (later bind this to login)</h3>
+Edit rights <input type="checkbox" [(ngModel)]="editRights" />
+
+<h3>The component for editing</h3>
+<div style="border: 4px solid blue " *ngIf="resourceIRI">
+  <app-resource-form [resourceIRI]="resourceIRI" 
+                     [editRights]="editRights"
+                     (resourceIsDeleted)="resourceDeletion()">
+  </app-resource-form>
+</div>
