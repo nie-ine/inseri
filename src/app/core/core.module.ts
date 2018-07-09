@@ -10,10 +10,10 @@ import { FooterComponent } from './footer/footer.component';
 import { MainComponent } from './main/main.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { NavigationComponent } from './navigation/navigation.component';
-import { MetadataViewModule } from '../metadata-view/metadata-view.module';
+import { MetadataViewModule } from '../development-views/metadata-view/metadata-view.module';
 import { DashboardModule } from '../dashboard/dashboard.module';
 import { TextViewModule } from '../text-view/text-view.module';
-import { ImageViewModule } from '../image-view/image-view.module';
+import { ImageViewModule } from '../development-views/image-view/image-view.module';
 import { KnoraRequestService } from '../shared/knora-request.service';
 import { SparqlRequestService } from '../shared/sparql-request.service';
 import { ResultToTextMapperService } from '../text-view/result-to-text-mapper.service';
@@ -21,8 +21,9 @@ import { KnoraAuthService } from '../shared/knora-auth.service';
 import { SynopsisModule } from '../synopsis/synopsis.module';
 import { SynopsisObjectStorageService } from '../synopsis/synopsis-object-storage.service';
 import { CreateResourceViewModule } from '../development-views/create-resource-view/create-resource-view.module';
+import { EditResourceViewModule } from '../development-views/edit-resource-view/edit-resource-view.module';
 import { ArithmeticModule } from 'nie-ine';
-import {AuthenticationService} from "../shared/authentication.service";
+import { AuthenticationService } from "../shared/authentication.service";
 
 @NgModule({
   imports: [
@@ -37,6 +38,7 @@ import {AuthenticationService} from "../shared/authentication.service";
     DashboardModule,
     SynopsisModule,
     CreateResourceViewModule,
+    EditResourceViewModule,
     RouterModule.forRoot([
       { path: '**', component: PageNotFoundComponent }
       ])
