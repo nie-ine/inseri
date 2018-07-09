@@ -59,6 +59,7 @@ export class HeaderComponent implements OnInit {
       this.routeMapping( 'dashboard', 'dashboard#top' ) ||
       this.routeMapping( 'home', 'home#top' ) ||
       this.routeMapping( 'arbeitsflaeche', 'dashboard#top' ) ||
+      this.routeMapping( 'my-edition', 'dashboard#top' ) ||
       this.routeMapping( '', 'home#top' )
     );
   }

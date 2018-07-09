@@ -4,4 +4,6 @@ export class View {
   y: number;
   z: number;
   type: string;
+  title: string; // optional
+  description: string; // optional
 }

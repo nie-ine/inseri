@@ -6,6 +6,10 @@ import { AlertService} from '../../../shared/altert.service';
 import { HttpParams } from '@angular/common/http';
 import {EditionService} from "../model/edition.service";
 import {GenerateHashService} from "../../../shared/generateHash.service";
+import {UpdateEditionComponent} from '../update-edition/update-edition.component';
+import {CreateEditionAndLinkToActionService} from "../services/createEditionAndLinkToAction.service";
+import {CreateViewAndLinkToAction} from "../services/createViewAndLinkToAction.service";
+import {ViewService} from "../../apps/view/view.service";
 
 @Component({
   selector: 'app-edition-landing-page',
@@ -19,30 +23,68 @@ export class EditionLandingPageComponent implements OnInit {
   actionID: number;
   edition: any;
   action: any;
+  model: any;
+  viewsOfThisEdition: any;
 
   constructor(
     public dialog: MatDialog,
+    public dialogUpdateEdition: MatDialog,
     private route: ActivatedRoute,
-    private editionService: EditionService,
     private generateHashService: GenerateHashService,
-    private actionService: ActionService
+    private actionService: ActionService,
+    private createEditionAndLinkToActionService: CreateEditionAndLinkToActionService,
+    private editionService: EditionService,
+    private createViewAndLinkToAction: CreateViewAndLinkToAction,
+    private viewService: ViewService
   ) { }
-
+  saveOrUpdateEdition() {
+    console.log('Update Edition');
+    this.editionService.update(
+      this.edition
+    )
+      .subscribe(
+        data => {
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+        });
+  }
   ngOnInit() {
-    console.log('Check if edition for this action exists');
     this.actionID = this.route.snapshot.queryParams.actionID;
     this.checkIfEditionExists( this.actionID );
   }
   checkIfEditionExists( actionID: number ) {
-    console.log('Get Action and check if it has an edition');
     this.actionService.getById( actionID )
       .subscribe(
         data => {
           this.action = data;
-          console.log('This action: ');
-          console.log(this.action);
           if ( this.action && this.action.hasEdition ) {
-            console.log('Update Edition');
+            console.log('Instatiate Edition');
+            console.log(this.action);
+            this.viewsOfThisEdition = [];
+            for ( const viewHash of this.action.hasViews ) {
+              this.viewService.getById( viewHash )
+                .subscribe(
+                  view => {
+                    this.viewsOfThisEdition[
+                      this.viewsOfThisEdition.length
+                      ] = view;
+                    console.log( view );
+                  },
+                  errorGetView => {
+                    console.log(errorGetView);
+                  }
+                );
+            }
+            this.editionService.getById( this.action.hasEdition )
+              .subscribe(
+                edition => {
+                  this.edition = edition;
+                },
+                error => {
+                  console.log(error);
+                });
           } else {
             this.edition = {};
             console.log('No edition for this action yet');
@@ -60,6 +102,12 @@ export class EditionLandingPageComponent implements OnInit {
               '    dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem\n' +
               '    ipsum dolor sit amet.';
             console.log(this.edition);
+            console.log(this.action);
+            console.log('Save edition and then add edition - hash to action and update action.');
+            this.createEditionAndLinkToActionService.createOrUpdate(
+              this.edition,
+              this.action
+            );
           }
         },
         error => {
@@ -93,6 +141,31 @@ export class EditionLandingPageComponent implements OnInit {
       width: '700px',
       data: { name: this.name, animal: this.animal }
     });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      this.createViewAndLinkToAction
+        .createViewAndLinkToAction(
+          this.route.snapshot.queryParams.actionID,
+          result
+        );
+    });
+  }
+  openUpdateEditionDialog() {
+    const dialogRef = this.dialogUpdateEdition.open(UpdateEditionComponent, {
+      width: '700px',
+      data: {
+        title: this.edition.title,
+        description: this.edition.description,
+        image: this.edition.linkToImage
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if ( result !== undefined ) {
+        this.edition.title = result.title;
+        this.edition.description = result.description;
+        this.edition.linkToImage = result.image;
+      }
+    });
   }
 }
 
@@ -103,37 +176,21 @@ export class EditionLandingPageComponent implements OnInit {
 export class DialogCreateNewViewComponent {
   model: any = {};
   loading = false;
+  actionID: number;
+  edition: any;
+  action: any;
   chooseNewAction: string;
   constructor(public dialogRef: MatDialogRef<DialogCreateNewViewComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private router: Router,
-              private actionService: ActionService) {
+              private actionService: ActionService,
+              private route: ActivatedRoute) {
   }
   onNoClick(): void {
     this.dialogRef.close();
   }
   register() {
     this.loading = true;
-    this.actionService.create(this.model)
-      .subscribe(
-        data => {
-          console.log('Action created');
-          const actions = JSON.parse(localStorage.getItem('actions')) || [];
-          console.log(actions);
-          this.onNoClick();
-          console.log(this.model.type.search('salsah'));
-          if ( this.model.type.search('salsah') !== -1 ) {
-            console.log('Navigate to Salsah');
-            window.open('http://salsah2.nie-ine.ch/', '_blank');
-          } else {
-            const params = new HttpParams().set('actionId', actions.lengt);
-            params.append('actionId', actions.length);
-            this.router.navigate( [ this.model.type ], { queryParams: { 'actionID': actions.length } } );
-          }
-        },
-        error => {
-          console.log(error);
-          this.loading = false;
-        });
+    console.log(this.model);
   }
 }
