@@ -35,6 +35,9 @@ export class EditResourceViewComponent implements OnInit {
   selectResult(iri) {
     this.resourceIRI = iri;
   }
-
+  
+  resourceDeletion() {
+    alert("Resource successfully deleted");
+  }
 
 }

@@ -19,5 +19,8 @@ Edit rights <input type="checkbox" [(ngModel)]="editRights" />
 
 <h3>The component for editing</h3>
 <div style="border: 4px solid blue " *ngIf="resourceIRI">
-  <app-resource-form [resourceIRI]="resourceIRI" [editRights]="editRights"></app-resource-form>
+  <app-resource-form [resourceIRI]="resourceIRI" 
+                     [editRights]="editRights"
+                     (resourceIsDeleted)="resourceDeletion()">
+  </app-resource-form>
 </div>

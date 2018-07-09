@@ -28,7 +28,9 @@
 
   <ng-container 
     *ngSwitchCase="'http://www.knora.org/ontology/knora-base#LinkValue'">
-    {{ valueData['value'] }}
+    <app-resource-value-history-link-target 
+                                            [resourceIRI]="valueData['value']['objectIri']">
+    </app-resource-value-history-link-target>
   </ng-container>
 
   <ng-container *ngSwitchDefault>
