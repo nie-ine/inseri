@@ -127,6 +127,9 @@ export class EditionLandingPageComponent implements OnInit {
       width: '700px',
       data: { name: this.name, animal: this.animal }
     });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+    });
   }
   openUpdateEditionDialog() {
     const dialogRef = this.dialogUpdateEdition.open(UpdateEditionComponent, {
@@ -170,8 +173,10 @@ export class DialogCreateNewViewComponent {
   }
   register() {
     this.loading = true;
+    console.log(this.model);
     this.createViewAndLinkToAction
       .createViewAndLinkToAction(
+        this.model,
         this.route.snapshot.queryParams.actionID
       );
   }
