@@ -8,6 +8,7 @@ import { SubjectTag } from '../../../tag-chips/tag-chips/tag';
 })
 export class MetadataViewComponent implements OnInit {
 
+  // TODO: use a real response
   // Answer from Knora v2: propInput is the content from "schema:itemListElement"
   propInput = {
     'kuno-raeber:containsEarlierStagesOfManuscriptConvoluteValue' : {

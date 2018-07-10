@@ -8,29 +8,32 @@ import { IntValueEditorComponent } from './int-value-editor/int-value-editor.com
 import { DecimalValueEditorComponent } from './decimal-value-editor/decimal-value-editor.component';
 import { BooleanValueEditorComponent } from './boolean-value-editor/boolean-value-editor.component';
 import { DateValueViewerComponent } from './date-value-viewer/date-value-viewer.component';
+import { LinkValueLabelViewerComponent } from './link-value-label-viewer/link-value-label-viewer.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule
   ],
-  declarations: [ 
+  declarations: [
     BooleanValueEditorComponent,
-    DateValueEditorComponent, 
+    DateValueEditorComponent,
     DateValueViewerComponent,
-    DecimalValueEditorComponent,  
-    IntValueEditorComponent, 
-    LinkValueEditorComponent, 
-    TextValueEditorComponent 
+    DecimalValueEditorComponent,
+    IntValueEditorComponent,
+    LinkValueEditorComponent,
+    LinkValueLabelViewerComponent,
+    TextValueEditorComponent
   ],
-  exports: [ 
+  exports: [
     BooleanValueEditorComponent,
-    DateValueEditorComponent, 
+    DateValueEditorComponent,
     DateValueViewerComponent,
-    DecimalValueEditorComponent,  
-    IntValueEditorComponent, 
-    LinkValueEditorComponent, 
-    TextValueEditorComponent 
+    DecimalValueEditorComponent,
+    IntValueEditorComponent,
+    LinkValueEditorComponent,
+    LinkValueLabelViewerComponent,
+    TextValueEditorComponent
   ]
 })
 export class BaseTypeFormsModule { }

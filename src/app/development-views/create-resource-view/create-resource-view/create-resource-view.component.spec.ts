@@ -4,7 +4,7 @@ import { CreateResourceModule } from '../../../create-resource/create-resource.m
 import { CreateResourceViewComponent } from './create-resource-view.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { KnoraV1RequestService } from '../../../shared/knora-v1-request.service';
 
 describe('CreateResourceViewComponent', () => {
   let component: CreateResourceViewComponent;
@@ -12,8 +12,9 @@ describe('CreateResourceViewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [CreateResourceModule, HttpClientModule, HttpClientTestingModule],
-      declarations: [ CreateResourceViewComponent ]
+      imports: [CreateResourceModule, HttpClientTestingModule],
+      declarations: [ CreateResourceViewComponent ],
+      providers: [ KnoraV1RequestService ]
     })
     .compileComponents();
   }));

@@ -1,17 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FactSheetComponent } from './fact-sheet/fact-sheet.component';
-import { IndirectEntryComponent } from './indirect-entry/indirect-entry.component';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { BaseTypeFormsModule } from '../base-type-forms/base-type-forms.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    HttpClientModule,
-    RouterModule
+    RouterModule,
+    BaseTypeFormsModule
   ],
-  declarations: [FactSheetComponent, IndirectEntryComponent],
+  declarations: [FactSheetComponent],
   exports: [FactSheetComponent]
 })
 export class FactSheetModule { }
