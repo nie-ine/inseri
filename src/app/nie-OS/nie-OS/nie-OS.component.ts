@@ -84,6 +84,45 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
 
   ngAfterViewChecked() {
     this.cdr.detectChanges();
+    if ( this.viewHashFromURL !==  this.route.snapshot.queryParams.view ) {
+      this.appTypes = {
+        imageViewer: {
+          type: 'imageViewers',
+          model: []
+        },
+        textViewer: {
+          type: 'textViewers',
+          model: []
+        },
+        searchViewer: {
+          type: 'searchViewers',
+          model: []
+        },
+        grapesJSViewer: {
+          type: 'grapesJSViewers',
+          model: []
+        },
+        synopsisViewer: {
+          type: 'synopsisViewers',
+          model: []
+        },
+        createResourceForm: {
+          type: 'createResourceForm',
+          model: []
+        }
+      };
+      this.view = {};
+      // console.log('Start der Arbeitsflaeche');
+      // Construct fake image Viewer:
+      this.actionID = this.route.snapshot.queryParams.actionID;
+      this.viewHashFromURL = this.route.snapshot.queryParams.view;
+      if ( this.viewHashFromURL ) {
+        this.instantiateView( this.viewHashFromURL );
+      } else {
+        this.checkIfViewExistsForThisAction( this.actionID );
+      }
+    }
+    this.cdr.detectChanges();
   }
   ngOnInit() {
     this.view = {};
@@ -91,7 +130,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     // Construct fake image Viewer:
     this.actionID = this.route.snapshot.queryParams.actionID;
     this.viewHashFromURL = this.route.snapshot.queryParams.view;
-    if( this.viewHashFromURL ) {
+    if ( this.viewHashFromURL ) {
       this.instantiateView( this.viewHashFromURL );
     } else {
       this.checkIfViewExistsForThisAction( this.actionID );

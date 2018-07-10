@@ -11,8 +11,10 @@
         <li class="hidden">
           <a href="#page-top"></a>
         </li>
-        <li>
-          <a> <span matTooltip="got to last view" > &larr; </span> &nbsp; <span matTooltip="{{ produceCurrentViewDescription() }}" >{{ produceCurrentViewTitle() }}</span> &nbsp; <span matTooltip="got to next view" >&rarr;</span></a>
+        <li *ngIf="hashOfThisView" >
+          <a> <span *ngIf="lastView" (click)="navigateToOtherView( lastView )" matTooltip="{{ produceLeftArrowTooltip() }}" > &larr; </span> &nbsp;
+            <span matTooltip="{{ produceCurrentViewDescription() }}" >{{ produceCurrentViewTitle() }}</span> &nbsp;
+            <span *ngIf="nextView" matTooltip="{{ produceRightArrowTooltip() }}" (click)="navigateToOtherView( nextView )" >&rarr;</span></a>
         </li>
         <li>
           <a href="home#funktionen" >{{ generateFunktionenHomeLink() }}</a>
@@ -25,7 +27,5 @@
         </li>
       </ul>
     </div>
-    <!-- /.navbar-collapse -->
   </div>
-  <!-- /.container-fluid -->
 </nav>

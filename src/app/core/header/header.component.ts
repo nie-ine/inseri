@@ -14,6 +14,10 @@ export class HeaderComponent implements OnInit {
   currentRoute: string;
   viewsOfThisActtion: Array<any>;
   hashOfThisView: string;
+  actionID: string;
+  lastView: any;
+  nextView: any;
+  foundHashOfThisView: boolean;
 
   constructor(
     private router: Router,
@@ -28,6 +32,7 @@ export class HeaderComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       console.log(params);
       this.hashOfThisView = params.view;
+      this.actionID = params.actionID;
       this.generateNavigation(params.actionID);
     });
   }
@@ -36,16 +41,20 @@ export class HeaderComponent implements OnInit {
     // console.log(this.activatedRoute);
   }
   produceCurrentViewDescription() {
-    for ( const view of this.viewsOfThisActtion ) {
-      if ( view.hash === this.hashOfThisView ) {
-        return view.description;
+    if ( this.viewsOfThisActtion ) {
+      for ( const view of this.viewsOfThisActtion ) {
+        if ( view.hash === this.hashOfThisView ) {
+          return view.description;
+        }
       }
     }
   }
   produceCurrentViewTitle() {
-    for ( const view of this.viewsOfThisActtion ) {
-      if ( view.hash === this.hashOfThisView ) {
-        return view.title;
+    if ( this.viewsOfThisActtion ) {
+      for (const view of this.viewsOfThisActtion) {
+        if (view.hash === this.hashOfThisView) {
+          return view.title;
+        }
       }
     }
   }
@@ -65,6 +74,8 @@ export class HeaderComponent implements OnInit {
                   this.viewsOfThisActtion[
                     this.viewsOfThisActtion.length
                     ] = view;
+                  this.produceHashOfLastView();
+                  this.produceHashOfNextView();
                   console.log( view );
                 },
                 errorGetView => {
@@ -76,6 +87,53 @@ export class HeaderComponent implements OnInit {
         error => {
           console.log(error);
         });
+  }
+
+  produceHashOfNextView() {
+    this.nextView = undefined;
+    for ( const view of this.viewsOfThisActtion ) {
+      if ( this.foundHashOfThisView ) {
+        this.nextView = view;
+        this.foundHashOfThisView = false;
+      }
+      if ( view.hash === this.hashOfThisView ) {
+        this.foundHashOfThisView = true;
+      }
+    }
+  }
+
+  navigateToOtherView( view: any) {
+    console.log('Navigate to last View');
+    this.router.navigate( [ 'arbeitsflaeche' ], {
+      queryParams: {
+        'actionID': this.actionID,
+        'view': view.hash
+      }
+    } );
+    return 'test';
+  }
+
+  produceHashOfLastView() {
+    this.lastView = undefined;
+    for ( const view of this.viewsOfThisActtion ) {
+      if ( view.hash === this.hashOfThisView ) {
+        return null;
+      } else {
+        this.lastView = view;
+      }
+    }
+  }
+
+  produceRightArrowTooltip() {
+    if ( this.nextView ) {
+      return 'go to ' + this.nextView.title;
+    }
+  }
+
+  produceLeftArrowTooltip() {
+    if ( this.lastView ) {
+      return 'go to ' + this.lastView.title;
+    }
   }
 
   updateCurrentRoute( route: any ) {
