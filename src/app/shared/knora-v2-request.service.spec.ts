@@ -1,11 +1,13 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { KnoraV2RequestService } from './knora-v2-request.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('KnoraV2RequestService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [KnoraV2RequestService]
+      providers: [KnoraV2RequestService],
+      imports: [ HttpClientTestingModule ]
     });
   });
 

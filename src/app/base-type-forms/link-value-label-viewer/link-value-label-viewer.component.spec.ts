@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LinkValueLabelViewerComponent } from './link-value-label-viewer.component';
+import { KnoraV1RequestService } from '../../shared/knora-v1-request.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('LinkValueLabelViewerComponent', () => {
   let component: LinkValueLabelViewerComponent;
@@ -8,7 +10,9 @@ describe('LinkValueLabelViewerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LinkValueLabelViewerComponent ]
+      declarations: [ LinkValueLabelViewerComponent ],
+      imports: [ HttpClientTestingModule ],
+      providers: [ KnoraV1RequestService ]
     })
     .compileComponents();
   }));
