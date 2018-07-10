@@ -74,8 +74,10 @@ export class HeaderComponent implements OnInit {
                   this.viewsOfThisActtion[
                     this.viewsOfThisActtion.length
                     ] = view;
-                  this.produceHashOfLastView();
-                  this.produceHashOfNextView();
+                  if ( this.hashOfThisView ) {
+                    this.produceHashOfLastView();
+                    this.produceHashOfNextView();
+                  }
                   console.log( view );
                 },
                 errorGetView => {
