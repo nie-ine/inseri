@@ -76,13 +76,13 @@ export class ResourceFormComponent implements OnInit {
 
     if (this.resourceIRI) {
       this.knoraV1RequestService.getResource(this.resourceIRI)
-        .subscribe( res => {
-          this.resource = res;
-          this.propKeys = Object.keys(this.resource['props']);
-        },
-        err => {
-          console.log(err);
-        });
+        .subscribe(res => {
+            this.resource = res;
+            this.propKeys = Object.keys(this.resource['props']);
+          },
+          err => {
+            console.log(err);
+          });
       this.stableResourceIRI = this.resourceIRI;
     }
   }
@@ -109,7 +109,7 @@ export class ResourceFormComponent implements OnInit {
    * Reset the label of a property, afterwards reload data
    */
   resetLabel() {
-    const resourceParams = {'label': this.focusedValueContent };
+    const resourceParams = {'label': this.focusedValueContent};
 
     // put label or log error
     this.knoraV1RequestService.changeResourceLabel(this.stableResourceIRI, resourceParams)
@@ -121,7 +121,7 @@ export class ResourceFormComponent implements OnInit {
         err => {
           console.log(err);
         }
-    );
+      );
   }
 
   /**
@@ -139,7 +139,7 @@ export class ResourceFormComponent implements OnInit {
         err => {
           console.log(err);
         }
-    );
+      );
   }
 
   /**
@@ -159,7 +159,7 @@ export class ResourceFormComponent implements OnInit {
         err => {
           console.log(err);
         }
-    );
+      );
   }
 
   /**
@@ -184,7 +184,7 @@ export class ResourceFormComponent implements OnInit {
         err => {
           console.log(err);
         }
-    );
+      );
   }
 
   /**
@@ -207,7 +207,7 @@ export class ResourceFormComponent implements OnInit {
         err => {
           console.log(err);
         }
-    );
+      );
   }
 
   /**

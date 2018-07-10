@@ -21,7 +21,8 @@ export class ResourceValueHistoryValueComponent implements OnInit {
    */
   valueData: any;
 
-  constructor(private knoraV1RequestService: KnoraV1RequestService) { }
+  constructor(private knoraV1RequestService: KnoraV1RequestService) {
+  }
 
   /**
    * Get value data on init
@@ -37,12 +38,12 @@ export class ResourceValueHistoryValueComponent implements OnInit {
     // TODO: do request in service
     if (this.valueIRI) {
       this.knoraV1RequestService.getPropetyValue(this.valueIRI)
-        .subscribe( res => {
-          this.valueData = res;
-        },
-        err => {
-          console.log(err);
-        });
+        .subscribe(res => {
+            this.valueData = res;
+          },
+          err => {
+            console.log(err);
+          });
     }
   }
 }

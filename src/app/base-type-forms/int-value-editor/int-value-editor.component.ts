@@ -9,14 +9,15 @@ export class IntValueEditorComponent implements OnInit {
 
   @Input() oldValue;
   @Output() intValue: EventEmitter<any> = new EventEmitter<any>();
-  
-  constructor() { }
+
+  constructor() {
+  }
 
   ngOnInit() {
   }
-  
+
   sendOutput(newValue: number) {
-    let newIntValue = Math.floor(newValue)
-    this.intValue.emit({'int_value': newIntValue})
+    const newIntValue = Math.floor(newValue);
+    this.intValue.emit({'int_value': newIntValue});
   }
 }
