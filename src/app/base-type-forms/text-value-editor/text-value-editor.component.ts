@@ -6,16 +6,17 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./text-value-editor.component.scss']
 })
 export class TextValueEditorComponent implements OnInit {
-  
+
   @Input() oldValue: any;
   @Output() textValue: EventEmitter<any> = new EventEmitter<any>();
-  
-  newText: string = '';
-  
-  constructor() { }
+
+  newText = '';
+
+  constructor() {
+  }
 
   ngOnInit() {
-    if(this.oldValue) {
+    if (this.oldValue) {
       try {
         this.newText = this.oldValue['utf8str'];
       } catch {
@@ -23,9 +24,9 @@ export class TextValueEditorComponent implements OnInit {
       }
     }
   }
-  
+
   sendOutput(newText) {
-    this.textValue.emit({'richtext_value': { 'utf8str': newText }});
+    this.textValue.emit({'richtext_value': {'utf8str': newText}});
   }
 
 }
