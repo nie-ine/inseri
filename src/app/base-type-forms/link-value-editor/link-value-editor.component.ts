@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { KnoraV1RequestService } from '../../shared/knora-v1-request.service';
 
 @Component({
   selector: 'app-link-value-editor',
@@ -15,28 +15,27 @@ export class LinkValueEditorComponent implements OnInit {
 
   searchstring: string;
 
-  constructor(private http: HttpClient) {
+  constructor(private knoraV1RequestService: KnoraV1RequestService) {
   }
 
   ngOnInit() {
   }
 
   search() {
-    // TODO: do request in service
-    
-    let request = 'http://knora2.nie-ine.ch/v1/resources?searchstr=' 
-      + encodeURIComponent(this.searchstring)
-      + '&email=root%40example.com&password=test';
-    
-    if (this.targetClass){ 
-      request += '&restype_id=' +
-      encodeURIComponent(this.targetClass.replace(/^restypeid=/, ''))
+
+    if (this.targetClass) {
+      const resourceClassIRI = this.targetClass.replace(/^restypeid=/, '');
+
+      this.knoraV1RequestService.searchResourcesByLabelByResourceClass(this.searchstring, resourceClassIRI)
+        .subscribe(res => {
+          this.results = res['resources'];
+        });
+    } else {
+      this.knoraV1RequestService.searchResourcesByLabel(this.searchstring)
+        .subscribe(res => {
+          this.results = res['resources'];
+        });
     }
-      
-    this.http.get(request)
-    .subscribe( res => {
-      this.results = res['resources'];
-    });
   }
 
   selectResult(iri) {

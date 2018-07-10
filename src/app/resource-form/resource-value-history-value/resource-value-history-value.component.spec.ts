@@ -1,11 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { BaseTypeFormsModule } from '../../base-type-forms/base-type-forms.module';
 
 import { ResourceValueHistoryValueComponent } from './resource-value-history-value.component';
-import { ResourceValueHistoryLinkTargetComponent } from '../resource-value-history-link-target/resource-value-history-link-target.component';
+import { KnoraV1RequestService } from '../../shared/knora-v1-request.service';
 
 describe('ResourceValueHistoryValueComponent', () => {
   let component: ResourceValueHistoryValueComponent;
@@ -14,7 +14,8 @@ describe('ResourceValueHistoryValueComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ BaseTypeFormsModule, HttpClientModule, HttpClientTestingModule ],
-      declarations: [ ResourceValueHistoryValueComponent, ResourceValueHistoryLinkTargetComponent ]
+      declarations: [ ResourceValueHistoryValueComponent ],
+      providers: [ KnoraV1RequestService ]
     })
     .compileComponents();
   }));
