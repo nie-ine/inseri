@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { SubjectTag } from '../../../tag-chips/tag-chips/tag';
 
+/**
+ * This component shows the use of the modules FactSheetModule and TagChipsModule.
+ * It can be deleted after development.
+ */
 @Component({
   selector: 'app-metadata-view',
   templateUrl: './metadata-view.component.html',

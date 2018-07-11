@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { KnoraV1RequestService } from '../../../shared/knora-v1-request.service';
 
+/**
+ * This component shows the use of the module ResourceFormModule.
+ * It can be deleted after development.
+ */
 @Component({
   selector: 'app-edit-resource-view',
   templateUrl: './edit-resource-view.component.html',

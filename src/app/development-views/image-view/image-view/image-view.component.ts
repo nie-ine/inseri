@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
+/**
+ * This component shows the use of the module ImageFrameModule.
+ * It can be deleted after development.
+ */
 @Component({
   selector: 'app-image-view',
   templateUrl: './image-view.component.html',

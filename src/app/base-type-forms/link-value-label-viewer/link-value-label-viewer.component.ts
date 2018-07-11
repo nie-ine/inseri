@@ -1,6 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { KnoraV1RequestService } from '../../shared/knora-v1-request.service';
 
+/**
+ * This components purpose is to make link values more readable.
+ * Its only function is to take a resource IRI and to show its label.
+ */
 @Component({
   selector: 'app-link-value-label-viewer',
   templateUrl: './link-value-label-viewer.component.html',
