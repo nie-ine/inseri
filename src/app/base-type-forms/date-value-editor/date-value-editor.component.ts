@@ -77,7 +77,7 @@ export class DateValueEditorComponent implements OnInit {
   day2 = 0;
 
   /**
-   * Output as event containing the formatted { 'date_value': <formatted value> } .
+   * Output as event containing the formatted { 'date_value': <formatted value> }` .
    * Sent out on any change.
    * @type {EventEmitter<any>}
    */

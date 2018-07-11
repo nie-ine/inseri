@@ -17,7 +17,7 @@ export class BooleanValueEditorComponent implements OnInit {
   @Input() oldValue;
 
   /**
-   * Event containing the new value like { 'boolean_value': true }
+   * Event containing the new value like `{ 'boolean_value': true }`
    * @type {EventEmitter<any>}
    */
   @Output() booleanValue: EventEmitter<any> = new EventEmitter<any>();

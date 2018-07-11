@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+/**
+ * This service deals with requests to the Knora V1 API and centralizes parameters for it.
+ */
 @Injectable()
 export class KnoraV1RequestService {
 
@@ -182,5 +185,4 @@ export class KnoraV1RequestService {
       + '/' + encodeURIComponent(valueIRI)
       + '?' + this.basicAuthentication );
   }
-  
 }
