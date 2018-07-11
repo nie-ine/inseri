@@ -43,8 +43,10 @@ export class HeaderComponent implements OnInit {
   produceCurrentViewDescription() {
     if ( this.viewsOfThisActtion ) {
       for ( const view of this.viewsOfThisActtion ) {
-        if ( view.hash === this.hashOfThisView ) {
-          return view.description;
+        if ( view ) {
+          if ( view.hash === this.hashOfThisView ) {
+            return view.description;
+          }
         }
       }
     }
@@ -52,8 +54,10 @@ export class HeaderComponent implements OnInit {
   produceCurrentViewTitle() {
     if ( this.viewsOfThisActtion ) {
       for (const view of this.viewsOfThisActtion) {
-        if (view.hash === this.hashOfThisView) {
-          return view.title;
+        if ( view ) {
+          if (view.hash === this.hashOfThisView) {
+            return view.title;
+          }
         }
       }
     }
@@ -94,12 +98,14 @@ export class HeaderComponent implements OnInit {
   produceHashOfNextView() {
     this.nextView = undefined;
     for ( const view of this.viewsOfThisActtion ) {
-      if ( this.foundHashOfThisView ) {
-        this.nextView = view;
-        this.foundHashOfThisView = false;
-      }
-      if ( view.hash === this.hashOfThisView ) {
-        this.foundHashOfThisView = true;
+      if ( view ) {
+        if ( this.foundHashOfThisView ) {
+          this.nextView = view;
+          this.foundHashOfThisView = false;
+        }
+        if ( view.hash === this.hashOfThisView ) {
+          this.foundHashOfThisView = true;
+        }
       }
     }
   }
@@ -118,10 +124,12 @@ export class HeaderComponent implements OnInit {
   produceHashOfLastView() {
     this.lastView = undefined;
     for ( const view of this.viewsOfThisActtion ) {
-      if ( view.hash === this.hashOfThisView ) {
-        return null;
-      } else {
-        this.lastView = view;
+      if ( view ) {
+        if ( view.hash === this.hashOfThisView ) {
+          return null;
+        } else {
+          this.lastView = view;
+        }
       }
     }
   }
