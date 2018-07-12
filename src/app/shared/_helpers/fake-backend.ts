@@ -212,7 +212,15 @@ export class FakeBackendInterceptor implements HttpInterceptor {
               console.log('Update action');
               console.log('Views before');
               console.log(views);
-              views[ 0 ] = request.body;
+              let index = 0;
+              let finalIndex = 0;
+              for ( const view of views ) {
+                if ( view.hash === hash ) {
+                  finalIndex = index;
+                }
+                index += 1;
+              }
+              views[ finalIndex ] = request.body;
               console.log('Views after');
               console.log(views);
               localStorage.setItem('views', JSON.stringify(views));
