@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FactSheetComponent } from './fact-sheet.component';
-import { IndirectEntryComponent } from '../indirect-entry/indirect-entry.component';
 import { RouterTestingModule } from '@angular/router/testing';
+import { BaseTypeFormsModule } from '../../base-type-forms/base-type-forms.module';
 
 describe('FactSheetComponent', () => {
   let component: FactSheetComponent;
@@ -10,8 +10,8 @@ describe('FactSheetComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule ],
-      declarations: [ FactSheetComponent, IndirectEntryComponent ]
+      imports: [ RouterTestingModule, BaseTypeFormsModule ],
+      declarations: [ FactSheetComponent ]
     })
     .compileComponents();
   }));

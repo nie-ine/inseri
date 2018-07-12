@@ -1,6 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { KnoraV1RequestService } from '../../shared/knora-v1-request.service';
 
+/**
+ * Form to fill in the data of a resource and then create it on a running instance of Knora
+ */
 @Component({
   selector: 'app-create-resource',
   templateUrl: './create-resource.component.html',
@@ -8,58 +11,110 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class CreateResourceComponent implements OnInit {
 
+  /**
+   * Vocabularies on an instance
+   */
   vocabularies: Array<any>;
-  selectedVocabulary: string = '';
-  selectedVocabularyDescription: string = '';
 
+  /**
+   * The vocabulary IRI, that the resource we want to create, belongs to.
+   * @type {string}
+   */
+  selectedVocabulary = '';
+
+  /**
+   * The description for the vocabulary 'selectedVocabulary'
+   * @type {string}
+   */
+  selectedVocabularyDescription = '';
+
+  /**
+   * The resource classes in 'selectedVocabulary'
+   */
   resourceClasses: Array<any>;
-  selectedResourceClass: string = '';
-  selectedResourceClassDescription: string = '';
 
+  /**
+   * The resource class IRI for the new resource
+   * @type {string}
+   */
+  selectedResourceClass = '';
+
+  /**
+   * The description for the resource class in 'selectedResourceClass'
+   */
+  selectedResourceClassDescription = '';
+
+  /**
+   * The properties available for 'selectedResourceClass'
+   */
   properties: Array<any>;
+
+  /**
+   * The used properties and their values for the new resource
+   */
   selectedProperties: Array<any>;
 
-  dropdownProperty: string = '';
+  /**
+   * Input for the select tag in the template
+   * @type {string}
+   */
+  dropdownProperty = '';
 
-  resourceLabel: string = '';
+  /**
+   * The label of the new resource
+   * @type {string}
+   */
+  resourceLabel = '';
 
-  showPropertySelect: boolean = true;
+  /**
+   * Makes the select tag in the template appear or disappear depending in the values that should be set before
+   * @type {boolean}
+   */
+  showPropertySelect = true;
 
-  // each resource must belong to a project. Give this as Input
+  /**
+   * each resource must belog to a project. Therefore have the project IRI as input.
+   */
   @Input() projectIRI: string;
 
-  // after posting, the IRI is available outside as output
+  /**
+   * After the resource has been posted, the new IRI is given as output that it can be used in other parts of the program.
+   * @type {EventEmitter<string>}
+   */
   @Output() resourceIRI: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private http: HttpClient) {
+  constructor(private knora1RequestService: KnoraV1RequestService) {
   }
 
+  /**
+   * Get all the instance's vocabularies on init
+   */
   ngOnInit() {
     // get available vocabularies
 
-    // TODO: do request in service
-    this.http.get('http://knora2.nie-ine.ch/v1/vocabularies?email=root%40example.com&password=test')
+    this.knora1RequestService.getVocabularies()
       .subscribe(
         res => this.vocabularies = res['vocabularies']
       );
   }
 
+  /**
+   * After selecting a vocabulary, get the corresponding resource classes.
+   * Clear dependent data.
+   */
   resetVocabulary() {
     // set selected vocabulary
     // get resource classes defined in this vocabulary
     // get description for this vocabulary
     // reset resource class and property data
 
-    // TODO: do request in service
-    this.http.get('http://knora2.nie-ine.ch/v1/resourcetypes?vocabulary='
-      + encodeURIComponent(this.selectedVocabulary) +
-      '&email=root%40example.com&password=test' )
+    this.knora1RequestService.getResourcesOfVocabulary(this.selectedVocabulary)
       .subscribe(
         res => this.resourceClasses = res['resourcetypes']
       );
 
-    for (let v of this.vocabularies) {
-      if (v['uri'] == this.selectedVocabulary) {
+    for (const v of this.vocabularies) {
+      if (v['uri'] === this.selectedVocabulary) {
         this.selectedVocabularyDescription = v['description'];
       }
     }
@@ -70,15 +125,17 @@ export class CreateResourceComponent implements OnInit {
     this.resourceLabel = '';
   }
 
+  /**
+   * After selecting a resource class, get the resource class information, like description and available properties.
+   * Clear dependent data.
+   */
   resetResourceClass() {
     // get properties for this resource class
     // reset property data for this resource
     // get description for the selected resource class
 
-    // TODO: do request in service
-    this.http.get('http://knora2.nie-ine.ch/v1/resourcetypes/' + encodeURIComponent(this.selectedResourceClass) + '?email=root%40example.com&password=test' )
-      .subscribe(
-res => {
+    this.knora1RequestService.getResourceClass(this.selectedResourceClass)
+      .subscribe(res => {
         this.properties = res['restype_info']['properties'];
         this.selectedResourceClassDescription = res['restype_info']['description'];
        });
@@ -86,18 +143,22 @@ res => {
     this.resourceLabel = '';
   }
 
-  addProperty(property: string) {
+  /**
+   * Adds a property to the selected properties and initialize with empty value.
+   * @param {string} propertyIRI  The propertyIRI of a property that is added to the list to later be filled.
+   */
+  addProperty(propertyIRI: string) {
     // add property with selected property IRI to this new resource
     // save property description from Knora in 'structure' and initialize field 'value'
     // TODO: reset dropdown does not work - fix it
 
     let propertyStructure;
 
-    if (property != '') {
+    if (propertyIRI !== '') {
 
-        for (let p of this.properties) {
-          if (p['id'] == property) {
-            propertyStructure = p
+        for (const p of this.properties) {
+          if (p['id'] === propertyIRI) {
+            propertyStructure = p;
           }
         }
 
@@ -106,15 +167,27 @@ res => {
     this.dropdownProperty = '';
   }
 
+  /**
+   * remove property at index index
+   * @param {number} index  The place in the property data array that has to be deleted
+   */
   deleteProperty(index: number) {
-    // remove property at index index
     this.selectedProperties.splice(index, 1);
   }
-  
-  setValue(newValue, i) {
-    this.selectedProperties[i]['value'] = newValue;
+
+  /**
+   * Set the value for a specific property (depending on its index)
+   * @param newValue  The value of a yet unset property
+   * @param {number} index  The place in the property data array where the new value is set
+   */
+  setValue(newValue, index: number) {
+    this.selectedProperties[index]['value'] = newValue;
   }
 
+  /**
+   * Fill in the resource parameters for the new resource and send them to a post request.
+   * Emits an event from the component if the post succeeded, containing the new IRI.
+   */
   postResource() {
     // create JSON representation for this resource
     const resourceParams = {
@@ -125,7 +198,7 @@ res => {
     };
 
     // add each property with its value to this JSON
-    for (let p of this.selectedProperties) {
+    for (const p of this.selectedProperties) {
       try {
         resourceParams['properties'][p['structure']['id']].push(p['value']);
       } catch (e) {
@@ -133,16 +206,9 @@ res => {
       }
     }
 
-    // create authentication data for posting
-    // TODO: use services
-    const httpOptions = {
-      headers: new HttpHeaders({'Authorization': 'Basic ' + btoa('root@example.com' + ':' + 'test')})
-    };
-
     // post resource or log error
     // on success, give IRI as output of this component
-    // TODO: do request in service
-    this.http.post('http://knora2.nie-ine.ch/v1/resources?email=root%40example.com&password=test', resourceParams, httpOptions )
+    this.knora1RequestService.postResource(resourceParams)
       .subscribe(
       res => {
         this.resourceIRI.emit(res['res_id']);

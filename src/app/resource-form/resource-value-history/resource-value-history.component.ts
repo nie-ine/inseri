@@ -1,40 +1,58 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { KnoraV1RequestService } from '../../shared/knora-v1-request.service';
 
+/**
+ * A list of old property values for a recent value.
+ */
 @Component({
   selector: 'app-resource-value-history',
   templateUrl: './resource-value-history.component.html',
   styleUrls: ['./resource-value-history.component.scss']
 })
 export class ResourceValueHistoryComponent implements OnInit {
-  
+
+  /**
+   * The resource IRI the value belongs to.
+   */
   @Input() resourceIRI: string;
+
+  /**
+   * The property type of the value.
+   */
   @Input() propertyTypeIRI: string;
-  @Input() valueID: string;
-  
+
+  /**
+   * The IRI of the newest version of this value.
+   */
+  @Input() valueIRI: string;
+
+  /**
+   * Values history as response from Knora instance.
+   */
   valueHistory: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private knoraV1RequestService: KnoraV1RequestService) {
+  }
 
+  /**
+   * Initialize with getting the value history.
+   */
   ngOnInit() {
     this.getValueHistory();
   }
-  
+
+  /**
+   * Get value history
+   */
   getValueHistory() {
-    // TODO: do request in service
     if (this.resourceIRI) {
-      this.http.get('http://knora2.nie-ine.ch/v1/values/history/' 
-        + encodeURIComponent(this.resourceIRI) 
-        + '/' + encodeURIComponent(this.propertyTypeIRI) 
-        + '/' + encodeURIComponent(this.valueID)
-        + '?email=root%40example.com&password=test'
-        )
-        .subscribe( res => {
-          this.valueHistory = res;
-        },
-        err => {
-          console.log(err);
-        });
+      this.knoraV1RequestService.getPropertyValueHistory(this.resourceIRI, this.propertyTypeIRI, this.valueIRI)
+        .subscribe(res => {
+            this.valueHistory = res;
+          },
+          err => {
+            console.log(err);
+          });
     }
   }
 }

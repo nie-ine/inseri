@@ -5,7 +5,7 @@ import { BaseTypeFormsModule } from '../base-type-forms/base-type-forms.module';
 import { ResourceFormComponent } from './resource-form/resource-form.component';
 import { ResourceValueHistoryComponent } from './resource-value-history/resource-value-history.component';
 import { ResourceValueHistoryValueComponent } from './resource-value-history-value/resource-value-history-value.component';
-import { ResourceValueHistoryLinkTargetComponent } from './resource-value-history-link-target/resource-value-history-link-target.component';
+import { KnoraV1RequestService } from '../shared/knora-v1-request.service';
 
 @NgModule({
   imports: [
@@ -14,11 +14,11 @@ import { ResourceValueHistoryLinkTargetComponent } from './resource-value-histor
     BaseTypeFormsModule
   ],
   declarations: [
-    ResourceFormComponent, 
-    ResourceValueHistoryComponent, 
-    ResourceValueHistoryValueComponent, 
-    ResourceValueHistoryLinkTargetComponent 
+    ResourceFormComponent,
+    ResourceValueHistoryComponent,
+    ResourceValueHistoryValueComponent
   ],
-  exports: [ResourceFormComponent]
+  exports: [ResourceFormComponent],
+  providers: [ KnoraV1RequestService ]
 })
 export class ResourceFormModule { }

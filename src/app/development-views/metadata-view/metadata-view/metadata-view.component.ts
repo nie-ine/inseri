@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { SubjectTag } from '../../../tag-chips/tag-chips/tag';
 
+/**
+ * This component shows the use of the modules FactSheetModule and TagChipsModule.
+ * It can be deleted after development.
+ */
 @Component({
   selector: 'app-metadata-view',
   templateUrl: './metadata-view.component.html',
@@ -8,6 +12,7 @@ import { SubjectTag } from '../../../tag-chips/tag-chips/tag';
 })
 export class MetadataViewComponent implements OnInit {
 
+  // TODO: use a real response
   // Answer from Knora v2: propInput is the content from "schema:itemListElement"
   propInput = {
     'kuno-raeber:containsEarlierStagesOfManuscriptConvoluteValue' : {

@@ -5,7 +5,7 @@ import { BaseTypeFormsModule } from '../../base-type-forms/base-type-forms.modul
 import { CreateResourceComponent } from './create-resource.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { KnoraV1RequestService } from '../../shared/knora-v1-request.service';
 
 describe('CreateResourceComponent', () => {
   let component: CreateResourceComponent;
@@ -13,8 +13,9 @@ describe('CreateResourceComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule, HttpClientModule, HttpClientTestingModule, BaseTypeFormsModule],
-      declarations: [ CreateResourceComponent ]
+      imports: [FormsModule, HttpClientTestingModule, BaseTypeFormsModule],
+      declarations: [ CreateResourceComponent ],
+      providers: [ KnoraV1RequestService ]
     })
     .compileComponents();
   }));
