@@ -6,6 +6,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import { DataChooserSettingsComponent } from './data-chooser-settings/data-chooser-settings.component';
+import {MatDialogModule} from "@angular/material";
 
 @NgModule({
   imports: [
@@ -13,6 +14,7 @@ import { DataChooserSettingsComponent } from './data-chooser-settings/data-choos
     MatSelectModule,
     MatIconModule,
     MatButtonModule,
+    MatDialogModule,
     RouterModule.forChild([
       { path: 'data-chooser', component: DataChooserComponent }
     ])

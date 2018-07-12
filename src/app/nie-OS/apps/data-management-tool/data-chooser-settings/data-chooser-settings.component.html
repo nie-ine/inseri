@@ -1,3 +1,8 @@
-<p>
-  data-chooser-settings works!
-</p>
+<h4> Data-Chooser Settings </h4>
+<mat-select placeholder="Please choose project">
+  <mat-option>
+    Test
+  </mat-option>
+</mat-select>
+<button mat-button [mat-dialog-close]="data" >Ok</button>
+<button  type="button" mat-button (click)="onNoClick()">Abbrechen</button>
