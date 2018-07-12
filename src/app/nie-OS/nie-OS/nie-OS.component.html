@@ -1,7 +1,7 @@
 
   <!-- Menu to open Apps-->
-  <mat-drawer-container  align="end" style="height:100vh; margin-top: 30px;">
-    <mat-drawer #drawer mode="side" align="end">
+  <mat-drawer-container  style="height:100vh; margin-top: 30px;">
+    <mat-drawer #drawer mode="side" >
       <div>
         <button mat-button (click)="addAnotherApp(appTypes[ 'imageViewer' ].model, true)">Add image Viewer</button><br>
         <button mat-button (click)="addAnotherApp(appTypes[ 'searchViewer' ].model, true)">Add search Viewer</button><br>
@@ -11,6 +11,7 @@
         <button mat-button (click)="addAnotherApp(appTypes[ 'createResourceForm' ].model, true)">Add Resource Creation Form</button><br>
       </div>
       <div style="bottom: 0; position:absolute; right: 0">
+        <button mat-button (click)="addAnotherApp(appTypes[ 'dataChooser' ].model, true)">Add Data Chooser</button><br>
         <button mat-button (click)="saveView()">Save View</button><br>
         <button mat-button (click)="deleteView()">Delete View</button><br>
       </div>
@@ -154,7 +155,25 @@
       <button mat-button (click)="createResourceForm.appear()" >Resource creation form {{ i }}</button><br>
     </div>
 
+    <!-- Data Chooser -->
+    <div *ngFor="let dataChooser of appTypes[ 'dataChooser' ].model; let i = index;" >
+      <popup #dataChooser
+             [hash]="appTypes[ 'dataChooser' ].model[i].hash"
+             [title]="'Data Chooser ' + i"
+             [type]="appTypes[ 'dataChooser' ].type"
+             [firstPopupX]="appTypes[ 'dataChooser' ].model[i].x"
+             [firstPopupY]="appTypes[ 'dataChooser' ].model[i].y"
+             (sendAppCoordinatesBack)="updateAppCoordinates($event)">
+        <div style="width: 400px; height: 50px;" >
+          <app-data-chooser></app-data-chooser>
+        </div>
+      </popup>
+      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>settings</mat-icon></button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)=" closeApp( appTypes[ 'dataChooser' ].model, i ) ">Close this app</button>
+      </mat-menu>
+      <button mat-button (click)="dataChooser.appear()" >Data Chooser {{ i }}</button><br>
+    </div>
+
 
   </mat-drawer-container>
-
-
