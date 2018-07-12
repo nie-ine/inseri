@@ -4,7 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { StaticPagesModule } from '../static-pages/static-pages.module';
 import { MaterialModule } from '../material.module';
 import { NIEOSModule } from '../nie-OS/nie-OS.module';
-
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { MainComponent } from './main/main.component';
@@ -24,6 +23,7 @@ import { CreateResourceViewModule } from '../development-views/create-resource-v
 import { EditResourceViewModule } from '../development-views/edit-resource-view/edit-resource-view.module';
 import { ArithmeticModule } from 'nie-ine';
 import { AuthenticationService } from "../shared/authentication.service";
+import {ViewService} from "../nie-OS/apps/view/view.service";
 
 @NgModule({
   imports: [
@@ -50,7 +50,9 @@ import { AuthenticationService } from "../shared/authentication.service";
     ResultToTextMapperService,
     KnoraAuthService,
     SynopsisObjectStorageService,
-    AuthenticationService],
+    AuthenticationService,
+    ViewService
+  ],
   exports: [HeaderComponent, FooterComponent, MainComponent, RouterModule]
 })
 export class CoreModule {

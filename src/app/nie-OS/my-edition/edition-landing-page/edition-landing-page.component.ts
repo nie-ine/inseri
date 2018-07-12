@@ -167,6 +167,21 @@ export class EditionLandingPageComponent implements OnInit {
       }
     });
   }
+  generateURL(view: any) {
+    if( view ) {
+      return 'arbeitsflaeche?actionID=' + this.actionID + '&view=' + view.hash;
+    }
+  }
+  generateViewTitle ( view: any) {
+    if ( view ) {
+      return view.title;
+    }
+  }
+  generateViewDescription ( view: any ) {
+    if ( view ) {
+      return view.description;
+    }
+  }
 }
 
 @Component({

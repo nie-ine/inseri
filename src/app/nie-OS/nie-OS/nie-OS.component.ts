@@ -43,6 +43,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
   length: number;
   view: any;
   action: any;
+  viewHashFromURL: string;
   appTypes = {
     imageViewer: {
       type: 'imageViewers',
@@ -83,13 +84,70 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
 
   ngAfterViewChecked() {
     this.cdr.detectChanges();
+    if ( this.viewHashFromURL !==  this.route.snapshot.queryParams.view ) {
+      this.appTypes = {
+        imageViewer: {
+          type: 'imageViewers',
+          model: []
+        },
+        textViewer: {
+          type: 'textViewers',
+          model: []
+        },
+        searchViewer: {
+          type: 'searchViewers',
+          model: []
+        },
+        grapesJSViewer: {
+          type: 'grapesJSViewers',
+          model: []
+        },
+        synopsisViewer: {
+          type: 'synopsisViewers',
+          model: []
+        },
+        createResourceForm: {
+          type: 'createResourceForm',
+          model: []
+        }
+      };
+      this.view = {};
+      // console.log('Start der Arbeitsflaeche');
+      // Construct fake image Viewer:
+      this.actionID = this.route.snapshot.queryParams.actionID;
+      this.viewHashFromURL = this.route.snapshot.queryParams.view;
+      if ( this.viewHashFromURL ) {
+        this.instantiateView( this.viewHashFromURL );
+      } else {
+        this.checkIfViewExistsForThisAction( this.actionID );
+      }
+    }
+    this.cdr.detectChanges();
   }
   ngOnInit() {
     this.view = {};
     // console.log('Start der Arbeitsflaeche');
     // Construct fake image Viewer:
     this.actionID = this.route.snapshot.queryParams.actionID;
-    this.checkIfViewExistsForThisAction( this.actionID );
+    this.viewHashFromURL = this.route.snapshot.queryParams.view;
+    if ( this.viewHashFromURL ) {
+      this.instantiateView( this.viewHashFromURL );
+    } else {
+      this.checkIfViewExistsForThisAction( this.actionID );
+    }
+  }
+  instantiateView( viewHash: string ) {
+    console.log( 'ViewHash: ' + viewHash );
+    this.updateAppsInView( viewHash );
+    this.actionService.getById( this.actionID )
+      .subscribe(
+        data => {
+          this.action = data;
+        },
+        error => {
+          console.log(error);
+          return undefined;
+        });
   }
   checkIfViewExistsForThisAction( actionID: number ) {
     this.actionService.getById( actionID )
@@ -99,7 +157,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
           console.log('This action: ');
           console.log(this.action);
           if ( this.action && this.action.hasViews[ 0 ] ) {
-            this.updateAppsInView( this.action.hasViews );
+            this.updateAppsInView( this.action.hasViews[ 0 ] );
           } else {
             console.log('No views for this action yet');
             this.view.hash = this.generateHashService.generateHash();
@@ -130,10 +188,10 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
   }
 
   // Next: go through code and generalise app saving mechanism
-  updateAppsInView( viewHashes: Array<any> ) {
+  updateAppsInView( viewHash: string ) {
     // console.log('updateAppsInView');
     // console.log('get views from Backend');
-    this.viewService.getById( viewHashes[ 0 ] )
+    this.viewService.getById( viewHash )
       .subscribe(
         data => {
           this.view = data;
