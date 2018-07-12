@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import {Component, OnInit, Inject, AfterViewChecked, ChangeDetectorRef} from '@angular/core';
 import {Router} from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatFormField} from '@angular/material';
 import {DataChooserSettingsComponent} from "../data-chooser-settings/data-chooser-settings.component";
@@ -8,11 +8,12 @@ import {DataChooserSettingsComponent} from "../data-chooser-settings/data-choose
   templateUrl: './data-chooser.component.html',
   styleUrls: ['./data-chooser.component.scss']
 })
-export class DataChooserComponent implements OnInit {
+export class DataChooserComponent implements OnInit, AfterViewChecked {
   name: string;
   animal: string;
   constructor(
-    public dialogSettings: MatDialog
+    public dialogSettings: MatDialog,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -26,6 +27,9 @@ export class DataChooserComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
     });
+  }
+  ngAfterViewChecked() {
+    this.cdr.detectChanges();
   }
 
 }
