@@ -1,3 +1,11 @@
-<p>
-  data-chooser works!
-</p>
+<div style="height:100vh; margin-top: 40px; margin-left: 30px" >
+  <h3 style="display: inline;"> Data Chooser </h3> <button mat-button (click)="openDataChooserDialog()"><mat-icon>settings</mat-icon></button>
+  <br>
+  <mat-form-field style="width: 400px">
+    <mat-select placeholder="Resource Instance">
+      <mat-option>
+        Test
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
