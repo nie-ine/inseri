@@ -68,6 +68,10 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     createResourceForm: {
       type: 'createResourceForm',
       model: []
+    },
+    dataChooser: {
+      type: 'dataChooser',
+      model: []
     }
   };
 
@@ -109,6 +113,10 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
         createResourceForm: {
           type: 'createResourceForm',
           model: []
+        },
+        dataChooser: {
+          type: 'dataChooser',
+          model: []
         }
       };
       this.view = {};
@@ -135,6 +143,9 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     } else {
       this.checkIfViewExistsForThisAction( this.actionID );
     }
+  }
+  openDataChooser() {
+    console.log('Open Data Chooser');
   }
   instantiateView( viewHash: string ) {
     console.log( 'ViewHash: ' + viewHash );

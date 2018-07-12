@@ -16,6 +16,7 @@ import { SynopsisModule } from '../synopsis/synopsis.module';
 import {MyEditionModule} from './my-edition/my-edition.module';
 import {GenerateHashService} from "../shared/generateHash.service";
 import { CreateResourceModule } from '../create-resource/create-resource.module';
+import {DataManagementToolModule} from "./apps/data-management-tool/data-management-tool.module";
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { CreateResourceModule } from '../create-resource/create-resource.module'
     SynopsisModule,
     MyEditionModule,
     CreateResourceModule,
+    DataManagementToolModule,
     RouterModule.forChild([
       { path: 'arbeitsflaeche', component: NIEOSComponent },
       { path: 'grapesjs', component: GrapesjsComponent }

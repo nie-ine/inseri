@@ -12,10 +12,12 @@ export class UpdateEditionComponent {
   model: any = {};
   loading = false;
   chooseNewAction: string;
-  constructor(public dialogRef: MatDialogRef<UpdateEditionComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any,
-              private router: Router,
-              private actionService: ActionService) {
+  constructor(
+    public dialogRef: MatDialogRef<UpdateEditionComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private router: Router,
+    private actionService: ActionService
+  ) {
     this.model = data;
     console.log( data );
   }

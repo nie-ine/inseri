@@ -10,6 +10,8 @@ import {fakeBackendProvider} from "./shared/_helpers/fake-backend";
 import {AuthGuard} from "./shared/auth.guard";
 import {UserService} from "./shared/user.service";
 import {ViewService} from "./nie-OS/apps/view/view.service";
+import {environment} from '../environments/environment';
+import {KuiCoreModule} from "@knora/core";
 
 
 @NgModule({
@@ -19,7 +21,13 @@ import {ViewService} from "./nie-OS/apps/view/view.service";
   imports: [
     BrowserModule,
     CoreModule,
-    HttpClientModule
+    HttpClientModule,
+    KuiCoreModule.forRoot({
+      name: environment.name,
+      api: environment.api,
+      media: environment.media,
+      app: environment.app
+    }),
   ],
   providers: [
     AuthGuard,
