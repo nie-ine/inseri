@@ -1,8 +1,29 @@
 <h4> Data-Chooser Settings </h4>
-<mat-select placeholder="Please choose project">
-  <mat-option>
-    Test
+
+<mat-select placeholder="Please choose project" [(ngModel)]="selectedProject">
+  <mat-option
+    *ngFor="let project of allProjects; let i = index"
+    [value]="project.shortname"
+    (click)="getAllVocabuliares(project)">
+    {{ project.shortname }}
   </mat-option>
 </mat-select>
-<button mat-button [mat-dialog-close]="data" >Ok</button>
+
+<br>
+
+<mat-select
+  placeholder="Please choose the central ressource class for this view"
+  style="margin-top: 5px"
+  *ngIf="selectedProject"
+  [(ngModel)]="selectedResourceType">
+  <mat-option *ngFor="let resourceType of resourceTypes; let i = index" [value]="resourceType.label">
+    {{ resourceType.label }}
+  </mat-option>
+</mat-select>
+
+<div *ngIf="selectedResourceType">
+  <h5>Suchresultate dieses RessourcenTypes:</h5>
+</div>
+
+<button mat-button [mat-dialog-close]="data" style="margin-top: 5px">Ok</button>
 <button  type="button" mat-button (click)="onNoClick()">Abbrechen</button>

@@ -7,6 +7,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import { DataChooserSettingsComponent } from './data-chooser-settings/data-chooser-settings.component';
 import {MatDialogModule} from "@angular/material";
+import {BrowserModule} from "@angular/platform-browser";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   imports: [
@@ -15,6 +17,8 @@ import {MatDialogModule} from "@angular/material";
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
+    BrowserModule,
+    FormsModule,
     RouterModule.forChild([
       { path: 'data-chooser', component: DataChooserComponent }
     ])
