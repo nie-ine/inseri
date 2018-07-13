@@ -6,7 +6,6 @@ import {
   MAT_DIALOG_DATA,
   MatFormField
 } from '@angular/material';
-import {KuiCoreConfig, KuiCoreModule} from '@knora/core';
 
 @Component({
   selector: 'app-data-chooser-settings',
