@@ -6,7 +6,7 @@
 export const environment = {
   production: false,
   name: 'Salsah',
-  api: 'http://0.0.0.0:3333',
+  api: 'http://knora2.nie-ine.ch',
   app: 'http://localhost:4200',
   media: 'http://localhost:1024'
 };

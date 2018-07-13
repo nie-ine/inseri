@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 /**
  * This service deals with requests to the Knora V1 API and centralizes parameters for it.
@@ -7,8 +8,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable()
 export class KnoraV1RequestService {
 
-  instanceAddress = 'http://knora2.nie-ine.ch'; // TODO: move to centralized place
-  basicAuthentication = 'email=root%40example.com&password=test'; // TODO: integrate into login framewor
+  instanceAddress = environment.api;
+  basicAuthentication = 'email=root%40example.com&password=test'; // TODO: integrate into login framework
 
   // create authentication data for posting
   // TODO: use services
@@ -17,6 +18,15 @@ export class KnoraV1RequestService {
   };
 
   constructor(private httpClient: HttpClient) { }
+
+  /**
+   * Get all Projects of a running Knora instance
+   * @returns {Observable<Object>}
+   * */
+  getProjects() {
+    return this.httpClient.get(this.instanceAddress + '/admin/projects'
+      + '?' + this.basicAuthentication);
+  }
 
   /**
    * Get the vocabularies on a running Knora instance.
