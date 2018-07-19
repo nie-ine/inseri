@@ -4,7 +4,8 @@
   <mat-option
     *ngFor="let project of allProjects; let i = index"
     [value]="project.shortname"
-    (click)="getAllVocabuliares(project)">
+    (click)="getAllVocabuliares(project)"
+    (click)="generateGravsearchPrefixes(project)">
     {{ project.shortname }}
   </mat-option>
 </mat-select>
@@ -16,13 +17,37 @@
   style="margin-top: 5px"
   *ngIf="selectedProject"
   [(ngModel)]="selectedResourceType">
-  <mat-option *ngFor="let resourceType of resourceTypes; let i = index" [value]="resourceType.label">
+  <mat-option
+    *ngFor="let resourceType of resourceTypes;
+    let i = index"
+    [value]="resourceType.label"
+    (click)="getAllInstancesOfChosenResourceClass(resourceType)">
     {{ resourceType.label }}
   </mat-option>
 </mat-select>
 
-<div *ngIf="selectedResourceType">
-  <h5>Suchresultate dieses RessourcenTypes:</h5>
+<div *ngIf="selectedResourceType && selectedProject">
+  <h5>Gravsearch Query:</h5>
+  <span *ngFor=" let prefix of selectedPrefixes">
+    {{ prefix }} <br>
+  </span><br>
+  <span>CONSTRUCT &#123;</span><br>
+  <span>&#32;</span> <br>
+
+  <span>?myVariable knora-api:isMainResource true ; &#32;</span><br>
+
+  <span>&#32;</span> <br>
+  <span>&#32; &#125;</span> <br>
+  <span>&#32;</span> <br>
+
+  <span>WHERE &#123;</span><br>
+  <span>&#32;</span> <br>
+
+  <span> {{ '?myVariable a ' + returnWHERE( selectedProject) + ' .'}} &#32;</span><br>
+
+  <span>&#32;</span> <br>
+  <span>&#32; &#125;</span> <br>
+
 </div>
 
 <button mat-button [mat-dialog-close]="data" style="margin-top: 5px">Ok</button>

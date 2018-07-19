@@ -7,6 +7,7 @@ import {
   MatFormField
 } from '@angular/material';
 import { KnoraV1RequestService } from '../../../../shared/knora-v1-request.service';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-data-chooser-settings',
@@ -20,6 +21,7 @@ export class DataChooserSettingsComponent implements OnInit {
   selectedProject: any;
   resourceTypes: Array<any>;
   selectedResourceType: any;
+  selectedPrefixes
   constructor(
     public dialogRef: MatDialogRef<DataChooserSettingsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -61,4 +63,26 @@ export class DataChooserSettingsComponent implements OnInit {
           console.log(error);
         });
   }
+  getAllInstancesOfChosenResourceClass( resourceType: any ) {
+    console.log('Get all Instances for: ');
+    console.log(resourceType);
+  }
+
+  generateGravsearchPrefixes(project: any) {
+    this.selectedPrefixes = [];
+    this.selectedPrefixes[ 0 ] = 'PREFIX knora-api: <http://api.knora.org/ontology/knora-api/simple/v2#>';
+    this.selectedPrefixes[ 1 ] = 'PREFIX '
+      + project.shortname +
+      ': <http://0.0.0.0:3333/ontology/'
+      + project.shortcode
+      + '/'
+      + project.shortname
+      + '/knora-api/simple/v2#';
+  }
+
+  returnWHERE(project: string) {
+    console.log(this.selectedResourceType);
+    return project + ':' + this.selectedResourceType;
+  }
+
 }
