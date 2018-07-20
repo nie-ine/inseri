@@ -17,6 +17,7 @@ import {MyEditionModule} from './my-edition/my-edition.module';
 import {GenerateHashService} from "../shared/generateHash.service";
 import { CreateResourceModule } from '../create-resource/create-resource.module';
 import {DataManagementToolModule} from "./apps/data-management-tool/data-management-tool.module";
+import {SendGravSearchQueryService} from "../shared/gravsearch/sendGravSearchQuery.service";
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import {DataManagementToolModule} from "./apps/data-management-tool/data-managem
     ])
   ],
   providers: [
-    GenerateHashService
+    GenerateHashService,
+    SendGravSearchQueryService
   ],
   declarations: [
     NIEOSComponent,

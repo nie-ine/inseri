@@ -52,6 +52,19 @@
 
   <h5 *ngIf="requestSend" >Query Results:</h5>
 
+  <div style=" height: 100px; width: 700px; overflow: auto;">
+    <div *ngFor="let response of gravSearchResponse; let i = index" >
+      <table style="border-collapse: collapse;">
+        <tr>
+          <th style="padding: 8px;">{{ i }} &#32;&#32;</th>
+          <th style="padding: 8px;">{{ response[ '@id' ] }} &#32;&#32;</th>
+          <th style="padding: 8px;">{{ response[ 'rdfs:label' ] }} &#32;&#32;</th>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+
 </div>
 
 <button mat-button [mat-dialog-close]="data" style="margin-top: 5px">Ok</button>
