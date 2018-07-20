@@ -64,6 +64,17 @@
     </div>
   </div>
 
+  <div *ngIf="gravSearchResponse" style="margin-top: 15px">
+    <mat-select placeholder="Please choose properties that should be in the response" [(ngModel)]="selectedProperties" multiple>
+      <mat-option
+        *ngFor="let prooerty of resourceTypeProperties; let i = index"
+        [value]="prooerty.label">
+        {{ prooerty.label }}
+      </mat-option>
+    </mat-select>
+    <button mat-button style="margin-top: 5px" (click)="sendRequest()"> --> Send request again</button>
+  </div>
+
 
 </div>
 

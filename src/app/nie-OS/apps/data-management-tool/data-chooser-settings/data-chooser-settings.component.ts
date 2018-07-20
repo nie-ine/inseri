@@ -10,6 +10,7 @@ import { KnoraV1RequestService } from '../../../../shared/knora-v1-request.servi
 import { environment } from '../../../../../environments/environment';
 import { SendGravSearchQueryService } from '../../../../shared/gravsearch/sendGravSearchQuery.service';
 
+
 @Component({
   selector: 'app-data-chooser-settings',
   templateUrl: './data-chooser-settings.component.html',
@@ -27,6 +28,7 @@ export class DataChooserSettingsComponent implements OnInit {
   requestSend: boolean;
   gravSearchString = '';
   gravSearchResponse: any;
+  resourceTypeProperties: any;
   gravSearchSets =
     {
       'PREFIXES': new Set(),
@@ -82,6 +84,7 @@ export class DataChooserSettingsComponent implements OnInit {
   getAllInstancesOfChosenResourceClass( resourceType: any ) {
     console.log('Get all Instances for: ');
     console.log(resourceType);
+    this.resourceTypeProperties = resourceType.properties;
   }
 
   generateGravsearchPrefixes(project: any) {
