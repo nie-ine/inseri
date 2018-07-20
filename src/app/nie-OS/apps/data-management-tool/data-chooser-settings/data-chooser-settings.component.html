@@ -20,7 +20,7 @@
   <mat-option
     *ngFor="let resourceType of resourceTypes;
     let i = index"
-    [value]="resourceType.label"
+    [value]="resourceType.id"
     (click)="getAllInstancesOfChosenResourceClass(resourceType)">
     {{ resourceType.label }}
   </mat-option>
@@ -47,6 +47,10 @@
 
   <span>&#32;</span> <br>
   <span>&#32; &#125;</span> <br>
+
+  <button mat-button style="margin-top: 5px" (click)="sendRequest()"> --> Send request</button>
+
+  <h5 *ngIf="requestSend" >Query Results:</h5>
 
 </div>
 
