@@ -9,6 +9,7 @@ import { DataChooserSettingsComponent } from './data-chooser-settings/data-choos
 import {MatDialogModule} from "@angular/material";
 import {BrowserModule} from "@angular/platform-browser";
 import {FormsModule} from "@angular/forms";
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import {FormsModule} from "@angular/forms";
     MatDialogModule,
     BrowserModule,
     FormsModule,
+    MatCheckboxModule,
     RouterModule.forChild([
       { path: 'data-chooser', component: DataChooserComponent }
     ])
