@@ -21,7 +21,9 @@ export class DataChooserSettingsComponent implements OnInit {
   selectedProject: any;
   resourceTypes: Array<any>;
   selectedResourceType: any;
-  selectedPrefixes
+  selectedPrefixes: any;
+  queryResults: any;
+  requestSend: boolean;
   constructor(
     public dialogRef: MatDialogRef<DataChooserSettingsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -77,12 +79,20 @@ export class DataChooserSettingsComponent implements OnInit {
       + project.shortcode
       + '/'
       + project.shortname
-      + '/knora-api/simple/v2#';
+      + '/simple/v2#>';
   }
 
   returnWHERE(project: string) {
-    console.log(this.selectedResourceType);
-    return project + ':' + this.selectedResourceType;
+    return project + ':' + this.parseResourceTypeShortName();
+  }
+
+  parseResourceTypeShortName() {
+    return this.selectedResourceType.split('#', 2)[ 1 ];
+  }
+
+  sendRequest() {
+    this.requestSend = true;
+    console.log('send request');
   }
 
 }
