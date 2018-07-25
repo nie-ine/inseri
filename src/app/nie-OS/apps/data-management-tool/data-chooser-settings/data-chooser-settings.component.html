@@ -45,6 +45,10 @@
 
   <h5 *ngIf="requestSend" >Query Results:</h5>
 
+  <app-response-tree>
+
+  </app-response-tree>
+
   <div style=" height: 100px; width: 700px; overflow: auto;">
     <div *ngFor="let response of gravSearchResponse; let i = index" >
       <table style="border-collapse: collapse;">

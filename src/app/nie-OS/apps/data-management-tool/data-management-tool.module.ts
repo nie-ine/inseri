@@ -12,6 +12,7 @@ import {FormsModule} from "@angular/forms";
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTreeModule} from '@angular/material/tree';
+import {FileDatabase, ResponseTreeComponent} from './response-tree/response-tree.component';
 
 @NgModule({
   imports: [
@@ -31,13 +32,17 @@ import {MatTreeModule} from '@angular/material/tree';
   ],
   declarations: [
     DataChooserComponent,
-    DataChooserSettingsComponent
+    DataChooserSettingsComponent,
+    ResponseTreeComponent
   ],
   exports: [
     DataChooserComponent
   ],
   entryComponents: [
     DataChooserSettingsComponent
+  ],
+  providers: [
+    FileDatabase
   ]
 })
 export class DataManagementToolModule { }
