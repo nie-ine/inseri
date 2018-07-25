@@ -11,6 +11,7 @@ import {BrowserModule} from "@angular/platform-browser";
 import {FormsModule} from "@angular/forms";
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatTreeModule} from '@angular/material/tree';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
     FormsModule,
     MatCheckboxModule,
     MatExpansionModule,
+    MatTreeModule,
     RouterModule.forChild([
       { path: 'data-chooser', component: DataChooserComponent }
     ])
