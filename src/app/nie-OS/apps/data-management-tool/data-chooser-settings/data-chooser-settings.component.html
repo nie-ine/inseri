@@ -26,30 +26,20 @@
   </mat-option>
 </mat-select>
 
+<mat-select
+  placeholder="Please choose properties that should be in the response"
+  multiple
+  *ngIf="selectedResourceType">
+  <mat-option
+    *ngFor="let property of resourceTypeProperties;"
+    [value]="property.label" (click)="addPropertyToGravSearchQuery(property)">
+    {{ property.label }}
+  </mat-option>
+</mat-select>
+
+
 <div *ngIf="selectedResourceType && selectedProject">
-  <h5>Gravsearch Query:</h5>
-  <span *ngFor=" let prefix of selectedPrefixes">
-    {{ prefix }} <br>
-  </span><br>
-  <span>CONSTRUCT &#123;</span><br>
-  <span>&#32;</span> <br>
 
-  <span>?myVariable knora-api:isMainResource true ; &#32;</span><br>
-  <span *ngFor="let chosenProperty of selectedProperties">
-    {{ chosenProperty }} <br>
-  </span>
-
-  <span>&#32;</span> <br>
-  <span>&#32; &#125;</span> <br>
-  <span>&#32;</span> <br>
-
-  <span>WHERE &#123;</span><br>
-  <span>&#32;</span> <br>
-
-  <span> {{ '?myVariable a ' + returnWHERE( selectedProject) + ' .'}} &#32;</span><br>
-
-  <span>&#32;</span> <br>
-  <span>&#32; &#125;</span> <br>
 
   <button mat-button style="margin-top: 5px" (click)="sendRequest()"> --> Send request</button>
 
@@ -67,22 +57,45 @@
     </div>
   </div>
 
-  <div *ngIf="gravSearchResponse" style="margin-top: 15px">
-    <mat-select placeholder="Please choose properties that should be in the response" [(ngModel)]="selectedProperties" multiple>
-      <mat-option
-        *ngFor="let property of resourceTypeProperties;"
-        [value]="property.label">
-        <span (click)="addPropertyToGravSearchQuery(property)">
-          {{ property.label }}
-        </span>
-
-      </mat-option>
-    </mat-select>
-    <button mat-button style="margin-top: 5px" (click)="sendRequest()"> --> Send request again</button>
-  </div>
-
 
 </div>
 
 <button mat-button [mat-dialog-close]="data" style="margin-top: 5px">Ok</button>
 <button  type="button" mat-button (click)="onNoClick()">Abbrechen</button>
+
+<mat-expansion-panel *ngIf="selectedResourceType">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Gravsearch - Query
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <span *ngFor=" let prefix of selectedPrefixes">
+    {{ prefix }} <br>
+  </span><br>
+  <span>CONSTRUCT &#123;</span><br>
+  <span>&#32;</span> <br>
+
+  <span>?myVariable knora-api:isMainResource true . &#32;</span><br>
+  <span>&#32;</span> <br>
+  <span *ngFor="let chosenProperty of selectedProperties">
+    {{ generatePropertyPhrase( selectedProject, chosenProperty ) }} <br>
+  </span>
+
+  <span>&#32;</span> <br>
+  <span>&#32; &#125;</span> <br>
+  <span>&#32;</span> <br>
+
+  <span>WHERE &#123;</span><br>
+  <span>&#32;</span> <br>
+
+  <span> {{ '?myVariable a ' + returnWHERE( selectedProject ) + ' .'}} &#32;</span><br>
+
+  <span>&#32;</span> <br>
+  <span *ngFor="let chosenProperty of selectedProperties">
+    {{ generatePropertyPhrase( selectedProject, chosenProperty ) }} <br>
+  </span>
+
+  <span>&#32;</span> <br>
+  <span>&#32; &#125;</span> <br>
+
+</mat-expansion-panel>
