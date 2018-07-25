@@ -1,4 +1,4 @@
-<h4> Data-Chooser Settings </h4>
+<h4> Data-Chooser Settings</h4>
 
 <mat-select placeholder="Please choose project" [(ngModel)]="selectedProject">
   <mat-option
@@ -35,6 +35,9 @@
   <span>&#32;</span> <br>
 
   <span>?myVariable knora-api:isMainResource true ; &#32;</span><br>
+  <span *ngFor="let chosenProperty of selectedProperties">
+    {{ chosenProperty }} <br>
+  </span>
 
   <span>&#32;</span> <br>
   <span>&#32; &#125;</span> <br>
@@ -67,9 +70,12 @@
   <div *ngIf="gravSearchResponse" style="margin-top: 15px">
     <mat-select placeholder="Please choose properties that should be in the response" [(ngModel)]="selectedProperties" multiple>
       <mat-option
-        *ngFor="let prooerty of resourceTypeProperties; let i = index"
-        [value]="prooerty.label">
-        {{ prooerty.label }}
+        *ngFor="let property of resourceTypeProperties;"
+        [value]="property.label">
+        <span (click)="addPropertyToGravSearchQuery(property)">
+          {{ property.label }}
+        </span>
+
       </mat-option>
     </mat-select>
     <button mat-button style="margin-top: 5px" (click)="sendRequest()"> --> Send request again</button>
