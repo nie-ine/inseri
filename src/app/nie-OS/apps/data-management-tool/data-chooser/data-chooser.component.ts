@@ -21,7 +21,8 @@ export class DataChooserComponent implements OnInit, AfterViewChecked {
   openDataChooserDialog() {
     console.log('Open Data Chooser Dialog');
     const dialogRef = this.dialogSettings.open(DataChooserSettingsComponent, {
-      width: '700px',
+      width: '1000px',
+      height: '1000px',
       data: { name: this.name, animal: this.animal }
     });
     dialogRef.afterClosed().subscribe(result => {
