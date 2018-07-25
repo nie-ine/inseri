@@ -114,6 +114,9 @@ export class DataChooserSettingsComponent implements OnInit {
     this.generateGravSearchString();
     console.log('send request');
   }
+  generatePropertyPhrase( project: string, property: string) {
+    return '?myVariable ' + project + ':' + property + ' ?' + property + ' .';
+  }
 
   generateGravSearchString() {
     this.gravSearchString = '';
@@ -123,7 +126,20 @@ export class DataChooserSettingsComponent implements OnInit {
     console.log(this.selectedPrefixes);
     this.gravSearchSets.PREFIXES.add( this.selectedPrefixes[ 0 ] );
     this.gravSearchSets.PREFIXES.add( this.selectedPrefixes[ 1 ] );
-    this.gravSearchSets.CONSTRUCT.add('?myVariable knora-api:isMainResource true ;');
+    this.gravSearchSets.CONSTRUCT.add('?myVariable knora-api:isMainResource true .');
+    for ( const property of this.selectedProperties ) {
+      const phrase = this.generatePropertyPhrase(
+        this.selectedProject,
+        property
+      );
+      this.gravSearchSets.CONSTRUCT.add(
+        phrase
+      );
+      this.gravSearchSets.WHERE.add(
+        phrase
+      );
+    }
+
     this.gravSearchSets.WHERE.add(
       '?myVariable a '
       + this.returnWHERE( this.selectedProject )
