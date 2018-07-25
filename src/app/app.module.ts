@@ -11,6 +11,7 @@ import {AuthGuard} from "./shared/auth.guard";
 import {UserService} from "./shared/user.service";
 import {ViewService} from "./nie-OS/apps/view/view.service";
 import {environment} from '../environments/environment';
+import {KuiCoreConfig, KuiCoreModule} from '@knora/core';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,12 @@ import {environment} from '../environments/environment';
   ],
   imports: [
     BrowserModule,
+    KuiCoreModule.forRoot({
+      name: environment.name,
+      api: environment.api,
+      media: environment.media,
+      app: environment.app
+    }),
     CoreModule,
     HttpClientModule
   ],

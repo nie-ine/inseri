@@ -9,7 +9,7 @@ import {
 import { KnoraV1RequestService } from '../../../../shared/knora-v1-request.service';
 import { environment } from '../../../../../environments/environment';
 import { SendGravSearchQueryService } from '../../../../shared/gravsearch/sendGravSearchQuery.service';
-
+import {ApiServiceError, Project, ProjectsService, User} from '@knora/core';
 
 @Component({
   selector: 'app-data-chooser-settings',
@@ -24,11 +24,13 @@ export class DataChooserSettingsComponent implements OnInit {
   resourceTypes: Array<any>;
   selectedResourceType: any;
   selectedPrefixes: any;
+  selectedProperties: Array<any>;
   queryResults: any;
   requestSend: boolean;
   gravSearchString = '';
   gravSearchResponse: any;
   resourceTypeProperties: any;
+  propertySet = new Set();
   gravSearchSets =
     {
       'PREFIXES': new Set(),
@@ -160,6 +162,23 @@ export class DataChooserSettingsComponent implements OnInit {
         error => {
           console.log(error);
         });
+  }
+
+  addPropertyToGravSearchQuery(property: any) {
+    console.log(property);
+    const shortName = property.id.split('#', 2)[ 1 ];
+    if ( this.propertySet.has( shortName ) ) {
+      this.propertySet.delete( shortName );
+    } else {
+      this.propertySet.add( shortName );
+    }
+    this.selectedProperties = [];
+    console.log('Add Property to Gravsearch - Query');
+    console.log( this.propertySet );
+    this.propertySet.forEach((value: string, key: string) => {
+      this.selectedProperties[ this.selectedProperties.length ] = value;
+      console.log( this.selectedProperties[ this.selectedProperties.length - 1] );
+    });
   }
 
 }
