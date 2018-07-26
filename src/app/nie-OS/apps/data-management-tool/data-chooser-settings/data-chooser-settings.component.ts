@@ -29,8 +29,10 @@ export class DataChooserSettingsComponent implements OnInit {
   requestSend: boolean;
   gravSearchString = '';
   gravSearchResponse: any;
+  gravSearchJson: any;
   resourceTypeProperties: any;
   propertySet = new Set();
+  assignedInputData: boolean;
   gravSearchSets =
     {
       'PREFIXES': new Set(),
@@ -145,35 +147,35 @@ export class DataChooserSettingsComponent implements OnInit {
       + this.returnWHERE( this.selectedProject )
       + ' .'
     );
-    console.log(this.gravSearchSets);
-    console.log('Generate Gravsearch string');
-    console.log('Loop through PREFIXES');
+    // console.log(this.gravSearchSets);
+    // console.log('Generate Gravsearch string');
+    // console.log('Loop through PREFIXES');
     this.gravSearchSets.PREFIXES.forEach((value: string, key: string) => {
-      console.log(value);
+      // console.log(value);
       this.gravSearchString += value;
       this.gravSearchString += ' ';
     });
     this.gravSearchString += this.gravSearchSets.constructOpener + ' ';
     this.gravSearchSets.CONSTRUCT.forEach((value: string, key: string) => {
-      console.log(value);
+      // console.log(value);
       this.gravSearchString += value;
       this.gravSearchString += ' ';
     });
     this.gravSearchString += this.gravSearchSets.constructClosure + ' ';
     this.gravSearchString += this.gravSearchSets.whereOpener + ' ';
     this.gravSearchSets.WHERE.forEach((value: string, key: string) => {
-      console.log(value);
+      // console.log(value);
       this.gravSearchString += value;
       this.gravSearchString += ' ';
     });
     this.gravSearchString += this.gravSearchSets.whereClosure + ' ';
-    console.log( this.gravSearchString );
+    // console.log( this.gravSearchString );
     this.sendGravSearchQueryService.sendRequest( this.gravSearchString )
       .subscribe(
         data => {
           console.log(data);
+          this.gravSearchJson = data;
           this.gravSearchResponse = data['@graph'];
-          console.log(this.gravSearchResponse);
         },
         error => {
           console.log(error);
@@ -195,6 +197,14 @@ export class DataChooserSettingsComponent implements OnInit {
       this.selectedProperties[ this.selectedProperties.length ] = value;
       console.log( this.selectedProperties[ this.selectedProperties.length - 1] );
     });
+  }
+
+  returngravSearchJson() {
+    console.log('Check if data is assigned');
+    console.log(this.gravSearchJson)
+    if ( this.gravSearchJson ) {
+      return true;
+    }
   }
 
 }
