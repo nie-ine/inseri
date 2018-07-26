@@ -43,6 +43,30 @@ export class DataChooserSettingsComponent implements OnInit {
       'WHERE': new Set(),
       'whereClosure': '}'
     };
+  AppMockup = [
+    {
+      'name': 'App 1',
+      'inputs': [
+        {
+          'inputName': 'Textlist',
+          'set': new Set()
+        }
+      ]
+    },
+    {
+      'name': 'App 2',
+      'inputs': [
+        {
+          'inputName': 'Textlist',
+          'set': new Set()
+        }
+      ]
+    }
+  ];
+  dataChooserSettingOutput = {
+    'gravSearchQuery': new Set(),
+    'appModel': new Set()
+  }
   constructor(
     public dialogRef: MatDialogRef<DataChooserSettingsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -174,6 +198,7 @@ export class DataChooserSettingsComponent implements OnInit {
       .subscribe(
         data => {
           console.log(data);
+          this.gravSearchJson = [];
           this.gravSearchJson = data;
           this.gravSearchResponse = data['@graph'];
         },
@@ -200,11 +225,27 @@ export class DataChooserSettingsComponent implements OnInit {
   }
 
   returngravSearchJson() {
-    console.log('Check if data is assigned');
-    console.log(this.gravSearchJson)
+    // console.log('Check if data is assigned');
+    // console.log(this.gravSearchJson)
     if ( this.gravSearchJson ) {
       return true;
     }
+  }
+
+  assignPropertyToApp( property: string, inputSet: any ) {
+    inputSet = new Set();
+    console.log('Property und App:');
+    console.log(property);
+    inputSet.add(property);
+    console.log(inputSet);
+  }
+
+  createDialogOutputData() {
+    this.dataChooserSettingOutput.appModel = new Set();
+    this.dataChooserSettingOutput.appModel.add( this.AppMockup );
+    this.dataChooserSettingOutput.gravSearchQuery = new Set();
+    this.dataChooserSettingOutput.gravSearchQuery.add( this.gravSearchString );
+    return this.dataChooserSettingOutput;
   }
 
 }

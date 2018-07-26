@@ -55,10 +55,28 @@
 
   </div>
 
+  <div *ngIf="gravSearchResponse" >
+    <h5  >Assign the following inputs to your open apps:</h5>
+    <span *ngFor="let app of AppMockup; let i = index" >
+      {{ app.name }}  - Inputs<br>
+      <li *ngFor="let input of app.inputs">
+        {{ input.inputName }}:
+        <mat-select placeholder="Please choose input" >
+          <mat-option
+            *ngFor="let property of selectedProperties; let j = index"
+            [value]="property" (click)="assignPropertyToApp( property, input.set )">
+            {{ property }}
+          </mat-option>
+        </mat-select>
+      </li>
+    </span>
+  </div>
+
+
 
 </div>
 
-<button mat-button [mat-dialog-close]="data" style="margin-top: 5px">Ok</button>
+<button mat-button [mat-dialog-close]="createDialogOutputData()" style="margin-top: 5px">Ok</button>
 <button  type="button" mat-button (click)="onNoClick()">Abbrechen</button>
 
 <mat-expansion-panel *ngIf="selectedResourceType">
