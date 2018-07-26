@@ -1,4 +1,4 @@
-import { OnInit } from '@angular/core';
+import {Input, OnInit} from '@angular/core';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {Component, Injectable} from '@angular/core';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
@@ -333,19 +333,26 @@ const TREE_DATA = JSON.stringify({
 export class FileDatabase {
   dataChange = new BehaviorSubject<FileNode[]>([]);
 
-  get data(): FileNode[] { return this.dataChange.value; }
-
-  constructor() {
-    this.initialize();
+  get data(): FileNode[] {
+    return this.dataChange.value;
   }
 
-  initialize() {
+  constructor() {
+  }
+
+  initialize( inputData: any ) {
+    console.log('Initialisation of the database');
     // Parse the string to json object.
-    const dataObject = JSON.parse(TREE_DATA);
+    console.log(inputData);
+    console.log( JSON.stringify(inputData) );
+    const dataObject = JSON.parse( JSON.stringify(inputData) );
 
     // Build the tree nodes from Json object. The result is a list of `FileNode` with nested
     //     file node as children.
-    const data = this.buildFileTree(dataObject, 0);
+    const data = this.buildFileTree(
+      dataObject,
+      0
+    );
 
     // Notify the change.
     this.dataChange.next(data);
@@ -380,23 +387,45 @@ export class FileDatabase {
   templateUrl: './response-tree.component.html',
   styleUrls: ['./response-tree.component.scss']
 })
-export class ResponseTreeComponent {
+export class ResponseTreeComponent implements OnInit {
 
   treeControl: FlatTreeControl<FileFlatNode>;
   treeFlattener: MatTreeFlattener<FileNode, FileFlatNode>;
   dataSource: MatTreeFlatDataSource<FileNode, FileFlatNode>;
-
+  @Input() queryResponse: any;
+  database: any;
   constructor(database: FileDatabase) {
-    this.treeFlattener = new MatTreeFlattener(this.transformer, this._getLevel,
-      this._isExpandable, this._getChildren);
-    this.treeControl = new FlatTreeControl<FileFlatNode>(this._getLevel, this._isExpandable);
-    this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+    this.database = database;
+    this.treeFlattener = new MatTreeFlattener(
+      this.transformer,
+      this._getLevel,
+      this._isExpandable,
+      this._getChildren
+    );
+    this.treeControl = new FlatTreeControl<FileFlatNode>(
+      this._getLevel,
+      this._isExpandable
+    );
+    this.dataSource = new MatTreeFlatDataSource(
+      this.treeControl,
+      this.treeFlattener
+    );
 
     database.dataChange.subscribe(data => this.dataSource.data = data);
   }
+  ngOnInit() {
+    console.log('Query Response:');
+    console.log( this.queryResponse );
+    this.database.initialize( this.queryResponse );
+  }
 
   transformer = (node: FileNode, level: number) => {
-    return new FileFlatNode(!!node.children, node.filename, level, node.type);
+    return new FileFlatNode(
+      !!node.children,
+      node.filename,
+      level,
+      node.type
+    );
   }
 
   private _getLevel = (node: FileFlatNode) => node.level;
