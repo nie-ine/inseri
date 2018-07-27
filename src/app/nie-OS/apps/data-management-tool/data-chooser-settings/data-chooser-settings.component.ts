@@ -65,8 +65,9 @@ export class DataChooserSettingsComponent implements OnInit {
   ];
   dataChooserSettingOutput = {
     'gravSearchQuery': new Set(),
-    'appModel': new Set()
-  }
+    'appModel': new Set(),
+    'dataChooserLabel': new Set()
+  };
   constructor(
     public dialogRef: MatDialogRef<DataChooserSettingsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -236,7 +237,7 @@ export class DataChooserSettingsComponent implements OnInit {
     inputSet = new Set();
     console.log('Property und App:');
     console.log(property);
-    inputSet.add(property);
+    inputSet.add( this.selectedProject + ':' + property);
     console.log(inputSet);
   }
 
@@ -247,5 +248,7 @@ export class DataChooserSettingsComponent implements OnInit {
     this.dataChooserSettingOutput.gravSearchQuery.add( this.gravSearchString );
     return this.dataChooserSettingOutput;
   }
-
+  assignDataChooserLabel( property: string ) {
+    this.dataChooserSettingOutput.dataChooserLabel.add( property );
+  }
 }

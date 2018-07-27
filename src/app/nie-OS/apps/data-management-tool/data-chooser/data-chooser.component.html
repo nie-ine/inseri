@@ -1,10 +1,8 @@
-<div style="height:100vh; margin-top: 40px; margin-left: 30px" >
-  <mat-form-field style="margin-top: 10px; margin-bottom: 10px;">
-    <mat-select placeholder="Choose resource instance">
-      <mat-option>
-        Test
+<div style="height:100vh; margin-top: 40px; margin-left: 30px; " >
+    <mat-select placeholder="Choose resource instance" style="width: 400px">
+      <mat-option *ngFor="let resource of gravSearchResponse" [value] = "resource[ 'rdfs:label' ]" (click)="chooseResource(resource)">
+        {{ resource[ 'rdfs:label' ] }}
       </mat-option>
     </mat-select>
-  </mat-form-field>
   <button mat-button (click)="openDataChooserDialog()"><mat-icon>settings</mat-icon></button>
 </div>
