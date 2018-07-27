@@ -57,13 +57,20 @@
 
   <div *ngIf="gravSearchResponse" >
     <h5  >Assign the following inputs to your open apps:</h5>
+    <mat-select placeholder="Data Chooser label" >
+      <mat-option
+        *ngFor="let property of selectedProperties; let j = index"
+        [value]="property" (click)="assignDataChooserLabel( property )">
+        {{ property }}
+      </mat-option>
+    </mat-select>
     <span *ngFor="let app of AppMockup; let i = index" >
       {{ app.name }}  - Inputs<br>
       <li *ngFor="let input of app.inputs">
         {{ input.inputName }}:
         <mat-select placeholder="Please choose input" >
           <mat-option
-            *ngFor="let property of selectedProperties; let j = index"
+            *ngFor="let property of selectedProperties; let k = index"
             [value]="property" (click)="assignPropertyToApp( property, input.set )">
             {{ property }}
           </mat-option>
