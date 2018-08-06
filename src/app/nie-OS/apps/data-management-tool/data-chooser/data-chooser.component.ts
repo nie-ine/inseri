@@ -1,4 +1,4 @@
-import {Component, OnInit, Inject, AfterViewChecked, ChangeDetectorRef} from '@angular/core';
+import {Component, OnInit, Inject, AfterViewChecked, ChangeDetectorRef, Input} from '@angular/core';
 import {Router} from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatFormField} from '@angular/material';
 import {DataChooserSettingsComponent} from "../data-chooser-settings/data-chooser-settings.component";
@@ -10,6 +10,7 @@ import {SendGravSearchQueryService} from "../../../../shared/gravsearch/sendGrav
   styleUrls: ['./data-chooser.component.scss']
 })
 export class DataChooserComponent implements OnInit, AfterViewChecked {
+  @Input() viewModel = new Set();
   gravSearchString: string;
   dataChooserString: string;
   gravSearchResponse: Array<any>;
@@ -28,7 +29,7 @@ export class DataChooserComponent implements OnInit, AfterViewChecked {
     const dialogRef = this.dialogSettings.open(DataChooserSettingsComponent, {
       width: '1000px',
       height: '1000px',
-      data: {  }
+      data: this.viewModel
     });
     dialogRef.afterClosed().subscribe(result => {
       if ( !result ) {
@@ -72,6 +73,9 @@ export class DataChooserComponent implements OnInit, AfterViewChecked {
     console.log('Chosen Resource:');
     console.log(chosenResource);
     console.log('Assign which app gets which input data and parse input data for each app');
-    console.log(this.dataChooserSettingsOutput.appModel);
+    if ( this.dataChooserSettingsOutput ) {
+      console.log(this.dataChooserSettingsOutput.appModel);
+    }
+    console.log(this.viewModel);
   }
 }

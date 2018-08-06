@@ -72,6 +72,16 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     dataChooser: {
       type: 'dataChooser',
       model: []
+    },
+    textlistViewers: {
+      type: 'textlistViewers',
+      model: [],
+      inputs: [
+        {
+          'inputName': 'textlist',
+          'set': []
+        }
+      ]
     }
   };
 
@@ -117,7 +127,17 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
         dataChooser: {
           type: 'dataChooser',
           model: []
-        }
+        },
+        textlistViewers: {
+          type: 'textlistViewers',
+          model: [],
+          inputs: [
+            {
+              'inputName': 'textlist',
+              'set': []
+            }
+          ]
+      }
       };
       this.view = {};
       // console.log('Start der Arbeitsflaeche');
@@ -304,7 +324,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     const length = appModel.length;
     appModel[ length ] = {};
     console.log('Add type and Id here');
-    if( generateHash ) {
+    if ( generateHash ) {
       appModel[ length ].hash = this.generateHashService.generateHash();
     }
     return appModel;
