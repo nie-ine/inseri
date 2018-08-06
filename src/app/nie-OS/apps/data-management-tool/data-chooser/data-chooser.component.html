@@ -1,4 +1,4 @@
-<div style="height:100vh; margin-top: 40px; margin-left: 30px; " >
+<div style="height:100vh; margin-top: 40px; margin-left: 30px; display:inline; " >
     <mat-select placeholder="Choose resource instance" style="width: 400px">
       <mat-option *ngFor="let resource of gravSearchResponse" [value] = "resource[ 'rdfs:label' ]" (click)="chooseResource(resource)">
         {{ resource[ 'rdfs:label' ] }}

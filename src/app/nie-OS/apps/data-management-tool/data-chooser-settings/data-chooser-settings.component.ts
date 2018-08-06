@@ -17,7 +17,7 @@ import {ApiServiceError, Project, ProjectsService, User} from '@knora/core';
   styleUrls: ['./data-chooser-settings.component.scss']
 })
 export class DataChooserSettingsComponent implements OnInit {
-  model: any = {};
+  appsInView: Array<any>;
   loading = false;
   allProjects: Array<any>;
   selectedProject: any;
@@ -70,13 +70,21 @@ export class DataChooserSettingsComponent implements OnInit {
   };
   constructor(
     public dialogRef: MatDialogRef<DataChooserSettingsComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data,
     private router: Router,
     private knoraV1RequestService: KnoraV1RequestService,
     private sendGravSearchQueryService: SendGravSearchQueryService
   ) {
-    this.model = data;
-    console.log( data );
+    this.appsInView = [];
+    for ( const type in data ) {
+      if ( data[ type ].model.length && type !== 'dataChooser' ) {
+        console.log( data[ type ] );
+        for ( const openApp of data[ type ].model ) {
+          this.appsInView[ this.appsInView.length ] = openApp;
+        }
+      }
+    }
+    console.log( this.appsInView );
   }
   ngOnInit() {
     console.log('Load all projects');

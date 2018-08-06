@@ -18,6 +18,7 @@ import {GenerateHashService} from "../shared/generateHash.service";
 import { CreateResourceModule } from '../create-resource/create-resource.module';
 import {DataManagementToolModule} from "./apps/data-management-tool/data-management-tool.module";
 import {SendGravSearchQueryService} from "../shared/gravsearch/sendGravSearchQuery.service";
+import { TextlistViewerComponent } from './apps/textlist-viewer/textlist-viewer.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import {SendGravSearchQueryService} from "../shared/gravsearch/sendGravSearchQue
     DataManagementToolModule,
     RouterModule.forChild([
       { path: 'arbeitsflaeche', component: NIEOSComponent },
-      { path: 'grapesjs', component: GrapesjsComponent }
+      { path: 'grapesjs', component: GrapesjsComponent },
+      { path: 'textlist', component: TextlistViewerComponent }
     ])
   ],
   providers: [
@@ -47,7 +49,8 @@ import {SendGravSearchQueryService} from "../shared/gravsearch/sendGravSearchQue
   declarations: [
     NIEOSComponent,
     Popup,
-    GrapesjsComponent
+    GrapesjsComponent,
+    TextlistViewerComponent
   ],
   exports: [
     NIEOSComponent,
