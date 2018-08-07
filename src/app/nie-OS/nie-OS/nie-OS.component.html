@@ -167,7 +167,8 @@
              (sendAppCoordinatesBack)="updateAppCoordinates($event)">
         <div style="width: 300px; height: 200px;" >
           <app-textlist-viewer style="position: sticky;"
-                               (resourceIRI)="closeApp( appTypes[ 'textlistViewers' ].model, i )">
+                               (resourceIRI)="closeApp( appTypes[ 'textlistViewers' ].model, i )"
+                               [textToDisplay]="returnTextListArray(appTypes[ 'textlistViewers' ].model[i])">
           </app-textlist-viewer>
         </div>
       </popup>

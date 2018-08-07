@@ -344,8 +344,15 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     console.log(this.view);
     console.log(this.appTypes);
   }
-  updateAppTypesFromDataChooser( appTypes: any ) {
-    console.log( appTypes );
+  updateAppTypesFromDataChooser( appTypesFromDataChooser: any ) {
+    console.log( this.appTypes );
+    console.log( appTypesFromDataChooser );
+    this.appTypes = appTypesFromDataChooser;
     console.log('updateAppTypesFromDataChooser');
+  }
+  returnTextListArray( appInput: any ) {
+    if ( appInput.inputs ) {
+      return appInput.inputs[0].array;
+    }
   }
 }
