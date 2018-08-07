@@ -59,16 +59,16 @@
     <h5  >Assign the following inputs to your open apps:</h5>
     <span *ngFor="let app of appsInView; let i = index" >
       {{ app.type }}  - Inputs<br>
-      <!--<li *ngFor="let input of app.inputs">-->
-        <!--{{ input.inputName }}:-->
-        <!--<mat-select placeholder="Please choose input" >-->
-          <!--<mat-option-->
-            <!--*ngFor="let property of selectedProperties; let k = index"-->
-            <!--[value]="property" (click)="assignPropertyToApp( property, input.set )">-->
-            <!--{{ property }}-->
-          <!--</mat-option>-->
-        <!--</mat-select>-->
-      <!--</li>-->
+      <li *ngFor="let input of app.inputs">
+        {{ input.inputName }}:
+        <mat-select placeholder="Please choose input" >
+          <mat-option
+            *ngFor="let property of selectedProperties; let k = index"
+            [value]="property" (click)="assignPropertyToApp( property, input.inputName, app.hash )">
+            {{ property }}
+          </mat-option>
+        </mat-select>
+      </li>
     </span>
   </div>
 

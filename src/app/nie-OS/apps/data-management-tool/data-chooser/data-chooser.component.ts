@@ -1,4 +1,12 @@
-import {Component, OnInit, Inject, AfterViewChecked, ChangeDetectorRef, Input} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Inject,
+  AfterViewChecked,
+  ChangeDetectorRef,
+  Input,
+  Output,
+  EventEmitter} from '@angular/core';
 import {Router} from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatFormField} from '@angular/material';
 import {DataChooserSettingsComponent} from "../data-chooser-settings/data-chooser-settings.component";
@@ -11,6 +19,7 @@ import {SendGravSearchQueryService} from "../../../../shared/gravsearch/sendGrav
 })
 export class DataChooserComponent implements OnInit, AfterViewChecked {
   @Input() viewModel = new Set();
+  @Output() sendAppTypesBackToNIEOS: EventEmitter<any> = new EventEmitter<any>();
   gravSearchString: string;
   dataChooserString: string;
   gravSearchResponse: Array<any>;
@@ -32,27 +41,13 @@ export class DataChooserComponent implements OnInit, AfterViewChecked {
       data: this.viewModel
     });
     dialogRef.afterClosed().subscribe(result => {
-      if ( !result ) {
-        this.gravSearchString = 'PREFIX knora-api: <http://api.knora.org/ontology/knora-api/simple/v2#>' +
-          'PREFIX incunabula: <http://0.0.0.0:3333/ontology/0803/incunabula/simple/v2#>' +
-          'CONSTRUCT { ?myVariable knora-api:isMainResource true .' +
-          '?myVariable incunabula:title ?title .' +
-          '?myVariable incunabula:description ?description .' +
-          '?myVariable incunabula:hasAuthor ?hasAuthor . }' +
-          'WHERE { ?myVariable incunabula:title ?title .' +
-          '?myVariable incunabula:description ?description .' +
-          '?myVariable incunabula:hasAuthor ?hasAuthor .' +
-          '?myVariable a incunabula:book . } '
-        this.dataChooserString = 'title';
+      console.log(result);
+      this.dataChooserSettingsOutput = result;
+      console.log(result.gravSearchQuery);
+      result.gravSearchQuery.forEach((value: string, key: string) => {
+        this.gravSearchString = value;
         this.performGravSearchQuery( this.gravSearchString );
-      } else {
-        this.dataChooserSettingsOutput = result;
-        console.log(result.gravSearchQuery);
-        result.gravSearchQuery.forEach((value: string, key: string) => {
-          this.gravSearchString = value;
-          this.performGravSearchQuery( this.gravSearchString );
-        });
-      }
+      });
     });
   }
   ngAfterViewChecked() {
@@ -77,5 +72,6 @@ export class DataChooserComponent implements OnInit, AfterViewChecked {
       console.log(this.dataChooserSettingsOutput.appModel);
     }
     console.log(this.viewModel);
+    this.sendAppTypesBackToNIEOS.emit( this.dataChooserSettingsOutput.appModel );
   }
 }
