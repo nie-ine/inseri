@@ -33,6 +33,9 @@ export class DataChooserSettingsComponent implements OnInit {
   resourceTypeProperties: any;
   propertySet = new Set();
   assignedInputData: boolean;
+  appTypes = {};
+  i = 0;
+  j = 0;
   gravSearchSets =
     {
       'PREFIXES': new Set(),
@@ -43,29 +46,9 @@ export class DataChooserSettingsComponent implements OnInit {
       'WHERE': new Set(),
       'whereClosure': '}'
     };
-  AppMockup = [
-    {
-      'name': 'App 1',
-      'inputs': [
-        {
-          'inputName': 'Textlist',
-          'set': new Set()
-        }
-      ]
-    },
-    {
-      'name': 'App 2',
-      'inputs': [
-        {
-          'inputName': 'Textlist',
-          'set': new Set()
-        }
-      ]
-    }
-  ];
   dataChooserSettingOutput = {
     'gravSearchQuery': new Set(),
-    'appModel': new Set(),
+    'appModel': {},
     'dataChooserLabel': new Set()
   };
   constructor(
@@ -75,12 +58,15 @@ export class DataChooserSettingsComponent implements OnInit {
     private knoraV1RequestService: KnoraV1RequestService,
     private sendGravSearchQueryService: SendGravSearchQueryService
   ) {
+    this.appTypes = data;
     this.appsInView = [];
     for ( const type in data ) {
       if ( data[ type ].model.length && type !== 'dataChooser' ) {
         console.log( data[ type ] );
         for ( const openApp of data[ type ].model ) {
-          this.appsInView[ this.appsInView.length ] = openApp;
+          const length = this.appsInView.length;
+          this.appsInView[ length ] = openApp;
+          this.appsInView[ length ].inputs = data[ type ].inputs;
         }
       }
     }
@@ -241,17 +227,52 @@ export class DataChooserSettingsComponent implements OnInit {
     }
   }
 
-  assignPropertyToApp( property: string, inputSet: any ) {
-    inputSet = new Set();
+  assignPropertyToApp( property: string, inputName: string, appHash: string ) {
+    let inputSet = new Set();
     console.log('Property und App:');
     console.log(property);
     inputSet.add( this.selectedProject + ':' + property);
     console.log(inputSet);
+    console.log(this.appsInView);
+    this.i = 0;
+    this.j = 0;
+    for ( const app of this.appsInView ) {
+      if ( appHash === app.hash ) {
+        console.log( app );
+        for ( const input of app.inputs ) {
+          console.log( input );
+          console.log( inputName );
+          if ( inputName === input.inputName ) {
+            this.appsInView[ this.i ].inputs[ this.j ].set = inputSet;
+            console.log( this.appsInView[ this.i ].inputs[ this.j ] );
+          }
+          this.j += 1;
+        }
+      }
+      this.i += 1;
+    }
+    console.log( this.appsInView );
   }
 
   createDialogOutputData() {
-    this.dataChooserSettingOutput.appModel = new Set();
-    this.dataChooserSettingOutput.appModel.add( this.AppMockup );
+    // console.log('Next: update appTypes from chosen properties');
+    // console.log(this.appTypes);
+    // console.log(this.appsInView);
+    for ( const type in this.appTypes ) {
+      if ( this.appTypes[ type ].model.length && type !== 'dataChooser' ) {
+        // console.log( this.appTypes[ type ].model );
+        for ( const app of this.appTypes[ type ].model ) {
+          for ( const updatedApp of this.appsInView ) {
+            if ( app.hash === updatedApp.hash ) {
+              this.appTypes[ type ].model[ app ] = updatedApp;
+              // console.log('App updated:');
+              // console.log(this.appTypes[ type ].model[ app ]);
+            }
+          }
+        }
+      }
+    }
+    this.dataChooserSettingOutput.appModel = this.appTypes;
     this.dataChooserSettingOutput.gravSearchQuery = new Set();
     this.dataChooserSettingOutput.gravSearchQuery.add( this.gravSearchString );
     return this.dataChooserSettingOutput;

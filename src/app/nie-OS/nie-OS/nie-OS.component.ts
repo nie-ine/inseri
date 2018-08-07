@@ -79,7 +79,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
       inputs: [
         {
           'inputName': 'textlist',
-          'set': []
+          'set': new Set()
         }
       ]
     }
@@ -133,8 +133,8 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
           model: [],
           inputs: [
             {
-              'inputName': 'textlist',
-              'set': []
+              'inputName': 'textarray',
+              'set': new Set()
             }
           ]
       }
@@ -343,5 +343,9 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
       1);
     console.log(this.view);
     console.log(this.appTypes);
+  }
+  updateAppTypesFromDataChooser( appTypes: any ) {
+    console.log( appTypes );
+    console.log('updateAppTypesFromDataChooser');
   }
 }

@@ -189,7 +189,8 @@
              (sendAppCoordinatesBack)="updateAppCoordinates($event)">
         <div style="width: 600px; height: 50px;" >
           <app-data-chooser
-            [viewModel] = "appTypes"  >
+            [viewModel] = "appTypes"
+            (sendAppTypesBackToNIEOS)="updateAppTypesFromDataChooser($event)">>
           </app-data-chooser>
         </div>
       </popup>
