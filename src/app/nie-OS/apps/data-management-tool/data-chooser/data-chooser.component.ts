@@ -65,13 +65,32 @@ export class DataChooserComponent implements OnInit, AfterViewChecked {
         });
   }
   chooseResource(chosenResource: any) {
-    console.log('Chosen Resource:');
-    console.log(chosenResource);
-    console.log('Assign which app gets which input data and parse input data for each app');
     if ( this.dataChooserSettingsOutput ) {
-      console.log(this.dataChooserSettingsOutput.appModel);
+
+      for ( const type in this.dataChooserSettingsOutput.appModel ) {
+
+        if ( this.dataChooserSettingsOutput.appModel[ type ].model.length && type !== 'dataChooser' ) {
+
+          for ( const app of this.dataChooserSettingsOutput.appModel[ type ].model ) {
+
+            app.inputs[ 0 ].set.forEach((value: string, key: string) => {
+
+              console.log(chosenResource[ value ]);
+              app.inputs[ 0 ].array = [];
+              if ( chosenResource[ value ].length ) {
+                for ( const entry of chosenResource[ value ] ) {
+                  console.log(entry['knora-api:valueAsString']);
+                  app.inputs[ 0 ].array[ app.inputs[ 0 ].array.length ] = entry['knora-api:valueAsString'];
+                }
+              } else {
+                app.inputs[ 0 ].array[ app.inputs[ 0 ].array.length ] = chosenResource[ value ]['knora-api:valueAsString'];
+              }
+            });
+          }
+        }
+      }
+      console.log( this.dataChooserSettingsOutput );
+      this.sendAppTypesBackToNIEOS.emit( this.dataChooserSettingsOutput.appModel );
     }
-    console.log(this.viewModel);
-    this.sendAppTypesBackToNIEOS.emit( this.dataChooserSettingsOutput.appModel );
   }
 }

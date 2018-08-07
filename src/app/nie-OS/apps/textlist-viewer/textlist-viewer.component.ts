@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-textlist-viewer',
@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./textlist-viewer.component.scss']
 })
 export class TextlistViewerComponent {
-  textToDisplay = [ 'test1', 'test2' ];
+  @Input() textToDisplay;
   constructor() { }
 
 }
