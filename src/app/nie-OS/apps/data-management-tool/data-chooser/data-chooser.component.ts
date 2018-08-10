@@ -72,20 +72,21 @@ export class DataChooserComponent implements OnInit, AfterViewChecked {
         if ( this.dataChooserSettingsOutput.appModel[ type ].model.length && type !== 'dataChooser' ) {
 
           for ( const app of this.dataChooserSettingsOutput.appModel[ type ].model ) {
-
-            app.inputs[ 0 ].set.forEach((value: string, key: string) => {
-
-              console.log(chosenResource[ value ]);
-              app.inputs[ 0 ].array = [];
-              if ( chosenResource[ value ].length ) {
-                for ( const entry of chosenResource[ value ] ) {
+            console.log(app.propertyArray);
+            for ( const property in app.propertyArray ) {
+              const propertyName = app.propertyArray[ property ];
+              app[ property ] = [];
+              console.log( 'App after assigning array:' );
+              if ( chosenResource[ propertyName ].length ) {
+                for ( const entry of chosenResource[ propertyName ] ) {
                   console.log(entry['knora-api:valueAsString']);
-                  app.inputs[ 0 ].array[ app.inputs[ 0 ].array.length ] = entry['knora-api:valueAsString'];
+                  app[ property ][ app[ property ].length ] = entry['knora-api:valueAsString'];
                 }
               } else {
-                app.inputs[ 0 ].array[ app.inputs[ 0 ].array.length ] = chosenResource[ value ]['knora-api:valueAsString'];
+                app[ property ][ app[ property ].length ] = chosenResource[ propertyName ]['knora-api:valueAsString'];
               }
-            });
+            }
+            console.log(app);
           }
         }
       }

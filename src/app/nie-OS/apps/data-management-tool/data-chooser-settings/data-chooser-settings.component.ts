@@ -44,7 +44,7 @@ export class DataChooserSettingsComponent implements OnInit {
       'constructClosure': '}',
       'whereOpener': 'WHERE {',
       'WHERE': new Set(),
-      'whereClosure': '}'
+      'whereClosure': '} OFFSET 0'
     };
   dataChooserSettingOutput = {
     'gravSearchQuery': new Set(),
