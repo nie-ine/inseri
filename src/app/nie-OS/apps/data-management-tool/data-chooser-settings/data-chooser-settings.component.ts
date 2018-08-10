@@ -227,29 +227,16 @@ export class DataChooserSettingsComponent implements OnInit {
     }
   }
 
-  assignPropertyToApp( property: string, inputName: string, appHash: string ) {
-    let inputSet = new Set();
+  assignPropertyToApp( property: string, inputName: string, app: any ) {
     console.log('Property und App:');
     console.log(property);
-    inputSet.add( this.selectedProject + ':' + property);
-    console.log(inputSet);
+    console.log(app);
     console.log(this.appsInView);
-    this.i = 0;
-    this.j = 0;
-    for ( const app of this.appsInView ) {
-      if ( appHash === app.hash ) {
-        console.log( app );
-        for ( const input of app.inputs ) {
-          console.log( input );
-          console.log( inputName );
-          if ( inputName === input.inputName ) {
-            this.appsInView[ this.i ].inputs[ this.j ].set = inputSet;
-            console.log( this.appsInView[ this.i ].inputs[ this.j ] );
-          }
-          this.j += 1;
-        }
+    for ( const input of app.inputs ) {
+      if ( inputName === input.inputName ) {
+        app.propertyArray = [];
+        app.propertyArray[ inputName ] = this.selectedProject + ':' + property;
       }
-      this.i += 1;
     }
     console.log( this.appsInView );
   }

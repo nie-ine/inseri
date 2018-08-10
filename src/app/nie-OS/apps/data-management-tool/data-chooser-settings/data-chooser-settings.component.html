@@ -64,7 +64,7 @@
         <mat-select placeholder="Please choose input" >
           <mat-option
             *ngFor="let property of selectedProperties; let k = index"
-            [value]="property" (click)="assignPropertyToApp( property, input.inputName, app.hash )">
+            (click)="assignPropertyToApp( property, input.inputName, app )">
             {{ property }}
           </mat-option>
         </mat-select>
