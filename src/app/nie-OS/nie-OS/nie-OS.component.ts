@@ -68,6 +68,19 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     createResourceForm: {
       type: 'createResourceForm',
       model: []
+    },
+    dataChooser: {
+      type: 'dataChooser',
+      model: []
+    },
+    textlistViewers: {
+      type: 'textlistViewers',
+      model: [],
+      inputs: [
+        {
+          'inputName': 'textlist'
+        }
+      ]
     }
   };
 
@@ -109,7 +122,20 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
         createResourceForm: {
           type: 'createResourceForm',
           model: []
-        }
+        },
+        dataChooser: {
+          type: 'dataChooser',
+          model: []
+        },
+        textlistViewers: {
+          type: 'textlistViewers',
+          model: [],
+          inputs: [
+            {
+              'inputName': 'textarray'
+            }
+          ]
+      }
       };
       this.view = {};
       // console.log('Start der Arbeitsflaeche');
@@ -135,6 +161,9 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     } else {
       this.checkIfViewExistsForThisAction( this.actionID );
     }
+  }
+  openDataChooser() {
+    console.log('Open Data Chooser');
   }
   instantiateView( viewHash: string ) {
     console.log( 'ViewHash: ' + viewHash );
@@ -293,7 +322,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     const length = appModel.length;
     appModel[ length ] = {};
     console.log('Add type and Id here');
-    if( generateHash ) {
+    if ( generateHash ) {
       appModel[ length ].hash = this.generateHashService.generateHash();
     }
     return appModel;
@@ -306,11 +335,21 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     console.log(this.view);
     console.log(this.view[appModel[ i ].hash]);
     delete this.view[appModel[ i ].hash];
-    console.log('this.view muss upgedated werden von appModel');
     appModel.splice(
       i,
       1);
     console.log(this.view);
     console.log(this.appTypes);
+  }
+  updateAppTypesFromDataChooser( appTypesFromDataChooser: any ) {
+    console.log( this.appTypes );
+    console.log( appTypesFromDataChooser );
+    this.appTypes = appTypesFromDataChooser;
+    console.log('updateAppTypesFromDataChooser');
+  }
+  returnTextListArray( appInput: any ) {
+    if ( appInput.inputs ) {
+      return appInput.inputs[0].array;
+    }
   }
 }
