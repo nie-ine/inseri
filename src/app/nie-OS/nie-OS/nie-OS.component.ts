@@ -78,8 +78,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
       model: [],
       inputs: [
         {
-          'inputName': 'textlist',
-          'set': new Set()
+          'inputName': 'textlist'
         }
       ]
     }
@@ -133,8 +132,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
           model: [],
           inputs: [
             {
-              'inputName': 'textarray',
-              'set': new Set()
+              'inputName': 'textarray'
             }
           ]
       }
@@ -337,7 +335,6 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     console.log(this.view);
     console.log(this.view[appModel[ i ].hash]);
     delete this.view[appModel[ i ].hash];
-    console.log('this.view muss upgedated werden von appModel');
     appModel.splice(
       i,
       1);
