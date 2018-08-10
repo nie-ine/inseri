@@ -15,7 +15,7 @@ install:
   - npm install -g @angular/cli@1.6.3
 
 before_script:
-  - npm install
+  - yarn
   - git submodule update --remote
 
 script:
