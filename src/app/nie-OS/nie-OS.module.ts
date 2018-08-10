@@ -16,6 +16,9 @@ import { SynopsisModule } from '../synopsis/synopsis.module';
 import {MyEditionModule} from './my-edition/my-edition.module';
 import {GenerateHashService} from "../shared/generateHash.service";
 import { CreateResourceModule } from '../create-resource/create-resource.module';
+import {DataManagementToolModule} from "./apps/data-management-tool/data-management-tool.module";
+import {SendGravSearchQueryService} from "../shared/gravsearch/sendGravSearchQuery.service";
+import { TextlistViewerComponent } from './apps/textlist-viewer/textlist-viewer.component';
 
 
 @NgModule({
@@ -32,18 +35,22 @@ import { CreateResourceModule } from '../create-resource/create-resource.module'
     SynopsisModule,
     MyEditionModule,
     CreateResourceModule,
+    DataManagementToolModule,
     RouterModule.forChild([
       { path: 'arbeitsflaeche', component: NIEOSComponent },
-      { path: 'grapesjs', component: GrapesjsComponent }
+      { path: 'grapesjs', component: GrapesjsComponent },
+      { path: 'textlist', component: TextlistViewerComponent }
     ])
   ],
   providers: [
-    GenerateHashService
+    GenerateHashService,
+    SendGravSearchQueryService
   ],
   declarations: [
     NIEOSComponent,
     Popup,
-    GrapesjsComponent
+    GrapesjsComponent,
+    TextlistViewerComponent
   ],
   exports: [
     NIEOSComponent,

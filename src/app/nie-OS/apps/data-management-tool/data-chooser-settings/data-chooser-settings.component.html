@@ -1,0 +1,117 @@
+<h4> Data-Chooser Settings</h4>
+
+<mat-select placeholder="Please choose project" [(ngModel)]="selectedProject">
+  <mat-option
+    *ngFor="let project of allProjects; let i = index"
+    [value]="project.shortname"
+    (click)="getAllVocabuliares(project)"
+    (click)="generateGravsearchPrefixes(project)">
+    {{ project.shortname }}
+  </mat-option>
+</mat-select>
+
+<br>
+
+<mat-select
+  placeholder="Please choose the central ressource class for this view"
+  style="margin-top: 5px"
+  *ngIf="selectedProject"
+  [(ngModel)]="selectedResourceType">
+  <mat-option
+    *ngFor="let resourceType of resourceTypes;
+    let i = index"
+    [value]="resourceType.id"
+    (click)="getAllInstancesOfChosenResourceClass(resourceType)">
+    {{ resourceType.label }}
+  </mat-option>
+</mat-select>
+
+<mat-select
+  placeholder="Please choose properties that should be in the response"
+  multiple
+  *ngIf="selectedResourceType">
+  <mat-option
+    *ngFor="let property of resourceTypeProperties;"
+    [value]="property.label" (click)="addPropertyToGravSearchQuery(property)">
+    {{ property.label }}
+  </mat-option>
+</mat-select>
+
+
+<div *ngIf="selectedResourceType && selectedProject">
+
+
+  <button mat-button style="margin-top: 5px" (click)="sendRequest()"> --> Send request</button>
+
+  <h5 *ngIf="requestSend" >Query Results:</h5>
+
+  <div *ngIf="gravSearchResponse && gravSearchJson">
+
+  <app-response-tree
+    *ngIf="returngravSearchJson()"
+    [queryResponse]="gravSearchJson['@graph']" >
+
+  </app-response-tree>
+
+  </div>
+
+  <div *ngIf="gravSearchResponse" >
+    <h5  >Assign the following inputs to your open apps:</h5>
+    <span *ngFor="let app of appsInView; let i = index" >
+      {{ app.type }}  - Inputs<br>
+      <li *ngFor="let input of app.inputs">
+        {{ input.inputName }}:
+        <mat-select placeholder="Please choose input" >
+          <mat-option
+            *ngFor="let property of selectedProperties; let k = index"
+            (click)="assignPropertyToApp( property, input.inputName, app )">
+            {{ property }}
+          </mat-option>
+        </mat-select>
+      </li>
+    </span>
+  </div>
+
+
+
+</div>
+
+<button mat-button [mat-dialog-close]="createDialogOutputData()" style="margin-top: 5px">Ok</button>
+<button  type="button" mat-button (click)="onNoClick()">Abbrechen</button>
+
+<mat-expansion-panel *ngIf="selectedResourceType">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Gravsearch - Query
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <span *ngFor=" let prefix of selectedPrefixes">
+    {{ prefix }} <br>
+  </span><br>
+  <span>CONSTRUCT &#123;</span><br>
+  <span>&#32;</span> <br>
+
+  <span>?myVariable knora-api:isMainResource true . &#32;</span><br>
+  <span>&#32;</span> <br>
+  <span *ngFor="let chosenProperty of selectedProperties">
+    {{ generatePropertyPhrase( selectedProject, chosenProperty ) }} <br>
+  </span>
+
+  <span>&#32;</span> <br>
+  <span>&#32; &#125;</span> <br>
+  <span>&#32;</span> <br>
+
+  <span>WHERE &#123;</span><br>
+  <span>&#32;</span> <br>
+
+  <span> {{ '?myVariable a ' + returnWHERE( selectedProject ) + ' .'}} &#32;</span><br>
+
+  <span>&#32;</span> <br>
+  <span *ngFor="let chosenProperty of selectedProperties">
+    {{ generatePropertyPhrase( selectedProject, chosenProperty ) }} <br>
+  </span>
+
+  <span>&#32;</span> <br>
+  <span>&#32; &#125;</span> <br>
+
+</mat-expansion-panel>
