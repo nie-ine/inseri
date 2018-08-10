@@ -14,10 +14,10 @@ addons:
   chrome: stable
 
 before_script:
-  - rm ./node_modules
-  - apt-get install build-essential
-  - yarn global add @angular/cli
+  #- rm ./node_modules
+  #- apt-get install build-essential
+  #- yarn global add @angular/cli
 
 script:
-  - ng test --reporters=spec --browser=ChromeHeadless --single-run=true
-  - ng build --prod --build-optimizer
+  #- ng test --reporters=spec --browser=ChromeHeadless --single-run=true
+  #- ng build --prod --build-optimizer
