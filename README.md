@@ -5,13 +5,15 @@
 ![Docker automated build](https://img.shields.io/docker/automated/nie-frontend/nie-frontend.svg)
 ![Docker pulls](https://img.shields.io/docker/pulls/nieine/nie-frontend.svg)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.3.
+## Get it up and running
 
-## Note for NieFrontend
+ - ``git clone https://github.com/nie-ine/nieOS.git``
+ - ``cd nieOS``
+ - ``yarn``
+ - ``ng s``
+ 
 
-Don't forget `yarn` and `git submodule update` commands, if you build from source.
-
-## Run in Docker container
+## Run in Docker container ( does not work at the moment )
 
 1. Download and run Docker container: `docker run -p 5555:80 nieine/nie-frontend:latest`
 2. Open `localhost:5555` in browser
@@ -19,24 +21,9 @@ Don't forget `yarn` and `git submodule update` commands, if you build from sourc
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+Run `ng s` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
