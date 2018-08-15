@@ -19,6 +19,8 @@ import { CreateResourceModule } from '../create-resource/create-resource.module'
 import {DataManagementToolModule} from "./apps/data-management-tool/data-management-tool.module";
 import {SendGravSearchQueryService} from "../shared/gravsearch/sendGravSearchQuery.service";
 import { TextlistViewerComponent } from './apps/textlist-viewer/textlist-viewer.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatDividerModule} from '@angular/material/divider';
 
 
 @NgModule({
@@ -36,6 +38,8 @@ import { TextlistViewerComponent } from './apps/textlist-viewer/textlist-viewer.
     MyEditionModule,
     CreateResourceModule,
     DataManagementToolModule,
+    MatExpansionModule,
+    MatDividerModule,
     RouterModule.forChild([
       { path: 'arbeitsflaeche', component: NIEOSComponent },
       { path: 'grapesjs', component: GrapesjsComponent },

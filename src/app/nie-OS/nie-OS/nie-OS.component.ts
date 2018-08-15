@@ -43,6 +43,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
   length: number;
   view: any;
   action: any;
+  panelsOpen = false;
   viewHashFromURL: string;
   appTypes = {
     imageViewer: {
@@ -351,5 +352,9 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     if ( appInput.inputs ) {
       return appInput.inputs[0].array;
     }
+  }
+
+  expandPanels() {
+    this.panelsOpen = !this.panelsOpen;
   }
 }
