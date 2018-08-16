@@ -21,6 +21,7 @@ import {SendGravSearchQueryService} from "../shared/gravsearch/sendGravSearchQue
 import { TextlistViewerComponent } from './apps/textlist-viewer/textlist-viewer.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDividerModule} from '@angular/material/divider';
+import { D3jsModule } from './apps/d3js/d3js.module';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import {MatDividerModule} from '@angular/material/divider';
     DataManagementToolModule,
     MatExpansionModule,
     MatDividerModule,
+    D3jsModule,
     RouterModule.forChild([
       { path: 'arbeitsflaeche', component: NIEOSComponent },
       { path: 'grapesjs', component: GrapesjsComponent },
