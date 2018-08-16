@@ -259,7 +259,7 @@
       </popup>
       <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>short_text</mat-icon> {{ i }}</button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="textViewer.appear()" >Open Text Viewer {{ i }}</button><br>
+        <button mat-menu-item (click)="textViewer.appear()" >Open Text Viewer {{ i }}</button>
         <button mat-menu-item (click)=" closeApp( appTypes[ 'textViewer' ].model, i ) ">Close this app</button>
         <button mat-menu-item>Choose Text</button>
       </mat-menu>
@@ -331,7 +331,7 @@
       </popup>
       <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>view_headline</mat-icon> {{ i }}</button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="textlistViewers.appear()" >Open Textlist Viewer {{ i }}</button><br>
+        <button mat-menu-item (click)="textlistViewers.appear()" >Open Textlist Viewer {{ i }}</button>
         <button mat-menu-item (click)=" closeApp( appTypes[ 'textlistViewers' ].model, i ) ">Close this app</button>
       </mat-menu>
     </div>
