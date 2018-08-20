@@ -43,6 +43,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
   length: number;
   view: any;
   action: any;
+  panelsOpen = false;
   viewHashFromURL: string;
   appTypes = {
     imageViewer: {
@@ -81,6 +82,10 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
           'inputName': 'textlist'
         }
       ]
+    },
+    barCharts: {
+      type: 'barCharts',
+      model: []
     }
   };
 
@@ -135,7 +140,11 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
               'inputName': 'textarray'
             }
           ]
-      }
+        },
+        barCharts: {
+        type: 'barCharts',
+          model: []
+        }
       };
       this.view = {};
       // console.log('Start der Arbeitsflaeche');
@@ -351,5 +360,15 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     if ( appInput.inputs ) {
       return appInput.inputs[0].array;
     }
+  }
+
+  expandPanels() {
+    this.panelsOpen = !this.panelsOpen;
+  }
+
+
+  initialiseBarchart(initialised: boolean) {
+    console.log(initialised);
+    initialised = true;
   }
 }
