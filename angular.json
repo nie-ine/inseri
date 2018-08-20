@@ -27,7 +27,10 @@
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/grapesjs/dist/grapes.min.js",
-              "node_modules/openseadragon/build/openseadragon/openseadragon.min.js"
+              "node_modules/openseadragon/build/openseadragon/openseadragon.min.js",
+              "node_modules/ace-builds/src-min/ace.js",
+              "node_modules/ace-builds/src-min/theme-eclipse.js",
+              "node_modules/ace-builds/src-min/mode-typescript.js"
             ]
           },
           "configurations": {
