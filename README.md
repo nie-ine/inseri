@@ -1,4 +1,4 @@
-# NieFrontend
+# nieOS
 
 ![Travis build](https://api.travis-ci.org/nie-ine/nie-frontend.svg)
 ![Docker build](https://img.shields.io/docker/build/nieine/nie-frontend.svg)
@@ -26,4 +26,6 @@ Run `ng s` for a dev server. Navigate to `http://localhost:4200/`. The app will 
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+# nieOS Tour
 
