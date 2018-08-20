@@ -25,13 +25,13 @@ export class BarChartComponent implements AfterViewChecked {
   private y: any;
   private svg: any;
   private g: any;
+  alreadyInitialised = false;
 
   constructor() {}
 
   ngAfterViewChecked() {
-    console.log('after view checked');
-    console.log(this.initialised);
-    if( this.initialised ) {
+    if( this.initialised && !this.alreadyInitialised ) {
+      this.alreadyInitialised = true;
       this.initSvg();
       this.initAxis();
       this.drawAxis();
@@ -40,7 +40,6 @@ export class BarChartComponent implements AfterViewChecked {
   }
 
   private initSvg() {
-    console.log('init svg');
     this.svg = d3.select('svg');
     this.width = +this.svg.attr('width') - this.margin.left - this.margin.right;
     this.height = +this.svg.attr('height') - this.margin.top - this.margin.bottom;
