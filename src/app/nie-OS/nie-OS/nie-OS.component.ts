@@ -82,6 +82,10 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
           'inputName': 'textlist'
         }
       ]
+    },
+    barCharts: {
+      type: 'barCharts',
+      model: []
     }
   };
 
@@ -136,7 +140,11 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
               'inputName': 'textarray'
             }
           ]
-      }
+        },
+        barCharts: {
+        type: 'barCharts',
+          model: []
+        }
       };
       this.view = {};
       // console.log('Start der Arbeitsflaeche');
@@ -356,5 +364,11 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
 
   expandPanels() {
     this.panelsOpen = !this.panelsOpen;
+  }
+
+
+  initialiseBarchart(initialised: boolean) {
+    console.log(initialised);
+    initialised = true;
   }
 }
