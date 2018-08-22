@@ -90,6 +90,10 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     lineCharts: {
       type: 'lineCharts',
       model: []
+    },
+    brushZoomCharts: {
+      type: 'brushZoomCharts',
+      model: []
     }
   };
 
@@ -151,6 +155,10 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
         },
         lineCharts: {
           type: 'lineCharts',
+          model: []
+        },
+        brushZoomCharts: {
+          type: 'brushZoomCharts',
           model: []
         }
       };

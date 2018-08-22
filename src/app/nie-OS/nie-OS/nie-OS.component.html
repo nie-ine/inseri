@@ -188,6 +188,24 @@
 
       </mat-expansion-panel>
 
+      <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Brush Zoom
+          </mat-panel-title>
+          <mat-panel-description>
+            To define data with two dimensions
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        This app is under development
+
+        <mat-divider></mat-divider>
+
+        <button mat-button (click)="addAnotherApp(appTypes[ 'brushZoomCharts' ].model, true)"><mat-icon>insert_chart_outlined</mat-icon> Add Brush Zoom Chart</button><br>
+
+      </mat-expansion-panel>
+
 
         <h4 style="align-content: center">Data Insertion</h4>
 
@@ -213,7 +231,7 @@
 
     <div >
       <button type="button" mat-button (click)="drawer.toggle()" matTooltip='{{ createTooltip() }}'>
-        <mat-icon color="primary" >group_work</mat-icon>
+        <mat-icon color="primary" >chrome_reader_mode</mat-icon>
       </button>
     </div>
 
@@ -445,6 +463,31 @@
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="lineChart.appear()" (click)="appTypes[ 'lineCharts' ].model[i].initialized = true">Open Line Chart {{ i }}</button>
         <button mat-menu-item (click)=" closeApp( appTypes[ 'lineCharts' ].model, i ) ">Close this app</button>
+      </mat-menu>
+
+    </div>
+
+    <!-- Brush Zoom Charts -->
+    <div *ngFor="let brushZoomChart of appTypes[ 'brushZoomCharts' ].model; let i = index;" >
+      <popup #brushZoomChart
+             [hash]="appTypes[ 'brushZoomCharts' ].model[i].hash"
+             [title]="'Brush Zoom Chart ' + i"
+             [type]="appTypes[ 'brushZoomCharts' ].type"
+             [firstPopupX]="appTypes[ 'brushZoomCharts' ].model[i].x"
+             [firstPopupY]="appTypes[ 'brushZoomCharts' ].model[i].y"
+             (sendAppCoordinatesBack)="updateAppCoordinates($event)">
+        <div >
+          <app-brush-and-zoom
+            [initialised] = "appTypes[ 'brushZoomCharts' ].model[i].initialized"
+            [numberOfInitialisedComponent] = " i " >
+
+          </app-brush-and-zoom>
+        </div>
+      </popup>
+      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>insert_chart_outlined</mat-icon> {{ i }}</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="brushZoomChart.appear()" (click)="appTypes[ 'brushZoomCharts' ].model[i].initialized = true">Open Brush Zoom Chart {{ i }}</button>
+        <button mat-menu-item (click)=" closeApp( appTypes[ 'brushZoomCharts' ].model, i ) ">Close this app</button>
       </mat-menu>
 
     </div>
