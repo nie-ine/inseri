@@ -166,7 +166,25 @@
 
         <mat-divider></mat-divider>
 
-        <button mat-button (click)="addAnotherApp(appTypes[ 'barCharts' ].model, true)"><mat-icon>perm_data_setting</mat-icon> Add Bar Chart</button><br>
+        <button mat-button (click)="addAnotherApp(appTypes[ 'barCharts' ].model, true)"><mat-icon>bar_chart</mat-icon> Add Bar Chart</button><br>
+
+      </mat-expansion-panel>
+
+      <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Line Chart
+          </mat-panel-title>
+          <mat-panel-description>
+            To define data with two dimensions
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        This app is under development
+
+        <mat-divider></mat-divider>
+
+        <button mat-button (click)="addAnotherApp(appTypes[ 'lineCharts' ].model, true)"><mat-icon>show_chart</mat-icon> Add Line Chart</button><br>
 
       </mat-expansion-panel>
 
@@ -390,15 +408,43 @@
              [firstPopupY]="appTypes[ 'barCharts' ].model[i].y"
              (sendAppCoordinatesBack)="updateAppCoordinates($event)">
         <div >
-          <app-bar-chart [initialised] = "appTypes[ 'barCharts' ].model[i].initialized" >
+          <app-bar-chart
+            [initialised] = "appTypes[ 'barCharts' ].model[i].initialized"
+            [numberOfInitialisedComponent] = " i " >
 
           </app-bar-chart>
         </div>
       </popup>
-      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>perm_data_setting</mat-icon> {{ i }}</button>
+      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>bar_chart</mat-icon> {{ i }}</button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="barChart.appear()" (click)="appTypes[ 'barCharts' ].model[i].initialized = true">Open Bar Chart {{ i }}</button><
+        <button mat-menu-item (click)="barChart.appear()" (click)="appTypes[ 'barCharts' ].model[i].initialized = true">Open Bar Chart {{ i }}</button>
         <button mat-menu-item (click)=" closeApp( appTypes[ 'barCharts' ].model, i ) ">Close this app</button>
+      </mat-menu>
+
+    </div>
+
+
+    <!-- Line Charts -->
+    <div *ngFor="let lineChart of appTypes[ 'lineCharts' ].model; let i = index;" >
+      <popup #lineChart
+             [hash]="appTypes[ 'lineCharts' ].model[i].hash"
+             [title]="'Line Chart ' + i"
+             [type]="appTypes[ 'lineCharts' ].type"
+             [firstPopupX]="appTypes[ 'lineCharts' ].model[i].x"
+             [firstPopupY]="appTypes[ 'lineCharts' ].model[i].y"
+             (sendAppCoordinatesBack)="updateAppCoordinates($event)">
+        <div >
+          <app-multi-line-chart
+            [initialised] = "appTypes[ 'lineCharts' ].model[i].initialized"
+            [numberOfInitialisedComponent] = " i " >
+
+          </app-multi-line-chart>
+        </div>
+      </popup>
+      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>show_chart</mat-icon> {{ i }}</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="lineChart.appear()" (click)="appTypes[ 'lineCharts' ].model[i].initialized = true">Open Line Chart {{ i }}</button>
+        <button mat-menu-item (click)=" closeApp( appTypes[ 'lineCharts' ].model, i ) ">Close this app</button>
       </mat-menu>
 
     </div>
