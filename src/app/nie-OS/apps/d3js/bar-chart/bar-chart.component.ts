@@ -15,6 +15,7 @@ import { STATISTICS } from './statistics';
 export class BarChartComponent implements AfterViewChecked {
 
   @Input() initialised = false;
+  @Input() numberOfInitialisedComponent: number;
   title = 'Bar Chart';
 
   private width: number;
@@ -39,8 +40,15 @@ export class BarChartComponent implements AfterViewChecked {
     }
   }
 
+  generateComponentDivClass() {
+    return 'barChart' + this.numberOfInitialisedComponent;
+  }
+
   private initSvg() {
-    this.svg = d3.select('svg');
+    this.svg = d3.select('.' + this.generateComponentDivClass())
+      .append('svg')
+      .attr('width', 960)
+      .attr('height', 500);
     this.width = +this.svg.attr('width') - this.margin.left - this.margin.right;
     this.height = +this.svg.attr('height') - this.margin.top - this.margin.bottom;
     this.g = this.svg.append('g')

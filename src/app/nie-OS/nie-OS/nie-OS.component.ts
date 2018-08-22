@@ -86,6 +86,10 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     barCharts: {
       type: 'barCharts',
       model: []
+    },
+    lineCharts: {
+      type: 'lineCharts',
+      model: []
     }
   };
 
@@ -143,6 +147,10 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
         },
         barCharts: {
         type: 'barCharts',
+          model: []
+        },
+        lineCharts: {
+          type: 'lineCharts',
           model: []
         }
       };
