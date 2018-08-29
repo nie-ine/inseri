@@ -47,7 +47,7 @@ export class BarChartComponent implements AfterViewChecked {
   private initSvg() {
     this.svg = d3.select('.' + this.generateComponentDivClass())
       .append('svg')
-      .attr('width', 960)
+      .attr('width', 1000) // Change here for size of the bars
       .attr('height', 500);
     this.width = +this.svg.attr('width') - this.margin.left - this.margin.right;
     this.height = +this.svg.attr('height') - this.margin.top - this.margin.bottom;
@@ -69,7 +69,7 @@ export class BarChartComponent implements AfterViewChecked {
       .call(d3Axis.axisBottom(this.x));
     this.g.append('g')
       .attr('class', 'axis axis--y')
-      .call(d3Axis.axisLeft(this.y).ticks(10, '%'))
+      .call(d3Axis.axisLeft(this.y).ticks(10))
       .append('text')
       .attr('class', 'axis-title')
       .attr('transform', 'rotate(-90)')

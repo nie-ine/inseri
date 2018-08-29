@@ -425,7 +425,7 @@
              [firstPopupX]="appTypes[ 'barCharts' ].model[i].x"
              [firstPopupY]="appTypes[ 'barCharts' ].model[i].y"
              (sendAppCoordinatesBack)="updateAppCoordinates($event)">
-        <div >
+        <div style="width: 1200px; overflow: auto">
           <app-bar-chart
             [initialised] = "appTypes[ 'barCharts' ].model[i].initialized"
             [numberOfInitialisedComponent] = " i " >
