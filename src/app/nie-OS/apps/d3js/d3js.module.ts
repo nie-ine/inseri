@@ -6,6 +6,10 @@ import { D3tutorialComponent } from './d3tutorial/d3tutorial.component';
 import { AceEditorModule } from 'ng2-ace-editor';
 import { MultiLineChartComponent } from './multi-line-chart/multi-line-chart.component';
 import { BrushAndZoomComponent } from './brush-and-zoom/brush-and-zoom.component';
+import { RadialBarchartComponent } from './radial-barchart/radial-barchart.component';
+import { PieChartComponent } from './pie-chart/pie-chart.component';
+import { StackedBarChartComponent } from './stacked-bar-chart/stacked-bar-chart.component';
+import { SankeyComponent } from './sankey/sankey.component';
 
 @NgModule({
   imports: [
@@ -14,7 +18,11 @@ import { BrushAndZoomComponent } from './brush-and-zoom/brush-and-zoom.component
       { path: 'bar-chart', component: BarChartComponent },
       { path: 'd3-tutorial', component: D3tutorialComponent },
       { path: 'multi-line-chart', component: MultiLineChartComponent },
-      { path: 'brush-zoom', component: BrushAndZoomComponent }
+      { path: 'brush-zoom', component: BrushAndZoomComponent },
+      { path: 'radial-component', component: RadialBarchartComponent },
+      { path: 'pie-chart', component: PieChartComponent },
+      { path: 'stacked-bar-chart', component: StackedBarChartComponent },
+      { path: 'sankey', component: SankeyComponent }
     ]),
     AceEditorModule
   ],
@@ -22,13 +30,20 @@ import { BrushAndZoomComponent } from './brush-and-zoom/brush-and-zoom.component
     BarChartComponent,
     D3tutorialComponent,
     MultiLineChartComponent,
-    BrushAndZoomComponent
+    BrushAndZoomComponent,
+    RadialBarchartComponent,
+    PieChartComponent,
+    StackedBarChartComponent,
+    SankeyComponent
   ],
   exports: [
     BarChartComponent,
     D3tutorialComponent,
     MultiLineChartComponent,
-    BrushAndZoomComponent
+    BrushAndZoomComponent,
+    RadialBarchartComponent,
+    PieChartComponent,
+    StackedBarChartComponent
 ]
 })
 export class D3jsModule { }
