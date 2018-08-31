@@ -10,10 +10,13 @@ import { RadialBarchartComponent } from './radial-barchart/radial-barchart.compo
 import { PieChartComponent } from './pie-chart/pie-chart.component';
 import { StackedBarChartComponent } from './stacked-bar-chart/stacked-bar-chart.component';
 import { SankeyComponent } from './sankey/sankey.component';
+import { LeafletExampleComponent } from './leaflet-example/leaflet-example.component';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 @NgModule({
   imports: [
     CommonModule,
+    LeafletModule,
     RouterModule.forChild([
       { path: 'bar-chart', component: BarChartComponent },
       { path: 'd3-tutorial', component: D3tutorialComponent },
@@ -22,7 +25,8 @@ import { SankeyComponent } from './sankey/sankey.component';
       { path: 'radial-component', component: RadialBarchartComponent },
       { path: 'pie-chart', component: PieChartComponent },
       { path: 'stacked-bar-chart', component: StackedBarChartComponent },
-      { path: 'sankey', component: SankeyComponent }
+      { path: 'sankey', component: SankeyComponent },
+      { path: 'leaflet-example', component: LeafletExampleComponent }
     ]),
     AceEditorModule
   ],
@@ -34,7 +38,8 @@ import { SankeyComponent } from './sankey/sankey.component';
     RadialBarchartComponent,
     PieChartComponent,
     StackedBarChartComponent,
-    SankeyComponent
+    SankeyComponent,
+    LeafletExampleComponent
   ],
   exports: [
     BarChartComponent,
