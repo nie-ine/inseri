@@ -17,12 +17,18 @@
             "tsConfig": "src/tsconfig.app.json",
             "polyfills": "src/polyfills.ts",
             "assets": [
+              {
+                "glob": "**/*",
+                "input": "./node_modules/leaflet/dist/images",
+                "output": "leaflet/"
+              },
               "src/assets",
               "src/favicon.ico"
             ],
             "styles": [
               "src/styles.scss",
-              "node_modules/grapesjs/dist/css/grapes.min.css"
+              "node_modules/grapesjs/dist/css/grapes.min.css",
+              "node_modules/leaflet/dist/leaflet.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
