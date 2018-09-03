@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewChecked, Component, Input, OnInit} from '@angular/core';
 import * as d3 from 'd3-selection';
 import * as d3Sankey from 'd3-sankey';
 import * as d3Scale from 'd3-scale';
@@ -10,7 +10,10 @@ import * as d3ScaleChromatic from 'd3-scale-chromatic';
   templateUrl: './sankey.component.html',
   styleUrls: ['./sankey.component.scss']
 })
-export class SankeyComponent implements OnInit {
+export class SankeyComponent implements AfterViewChecked {
+  @Input() initialised = false;
+  @Input() numberOfInitialisedComponent: number;
+  alreadyInitialised = false;
 
   energy: DAG = {
     nodes: [{
@@ -69,8 +72,11 @@ export class SankeyComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-    this.DrawChart();
+  ngAfterViewChecked() {
+    if ( this.initialised && !this.alreadyInitialised ) {
+      this.alreadyInitialised = true;
+      this.DrawChart();
+    }
   }
 
   DrawChart() {

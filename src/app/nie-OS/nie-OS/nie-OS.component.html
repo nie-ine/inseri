@@ -260,8 +260,45 @@
 
       </mat-expansion-panel>
 
+      <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Sankey
+          </mat-panel-title>
+          <mat-panel-description>
+            To display dependend data
+          </mat-panel-description>
+        </mat-expansion-panel-header>
 
-        <h4 style="align-content: center">Data Insertion</h4>
+        This app is under development
+
+        <mat-divider></mat-divider>
+
+        <button mat-button (click)="addAnotherApp(appTypes[ 'sankeyCharts' ].model, true)"><mat-icon>linear_scale</mat-icon> Add Radial Bar Chart</button><br>
+
+      </mat-expansion-panel>
+
+      <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Stacked Bar Chart
+          </mat-panel-title>
+          <mat-panel-description>
+            To display grouped sets
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        This app is under development
+
+        <mat-divider></mat-divider>
+
+        <button mat-button (click)="addAnotherApp(appTypes[ 'stackedBarCharts' ].model, true)"><mat-icon>view_list</mat-icon> Add Radial Bar Chart</button><br>
+
+      </mat-expansion-panel>
+
+
+
+      <h4 style="align-content: center">Data Insertion</h4>
 
         <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
           <mat-expansion-panel-header>
@@ -615,6 +652,54 @@
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="radialBarChart.appear()" (click)="appTypes[ 'radialBarCharts' ].model[i].initialized = true">Open Radial Bar Chart {{ i }}</button>
         <button mat-menu-item (click)=" closeApp( appTypes[ 'radialBarCharts' ].model, i ) ">Close this app</button>
+      </mat-menu>
+
+    </div>
+
+    <!-- Sankey Chart -->
+    <div *ngFor="let sankeyChart of appTypes[ 'sankeyCharts' ].model; let i = index;" >
+      <popup #sankeyChart
+             [hash]="appTypes[ 'sankeyCharts' ].model[i].hash"
+             [title]="'Sankey Chart ' + i"
+             [type]="appTypes[ 'sankeyCharts' ].type"
+             [firstPopupX]="appTypes[ 'sankeyCharts' ].model[i].x"
+             [firstPopupY]="appTypes[ 'sankeyCharts' ].model[i].y"
+             (sendAppCoordinatesBack)="updateAppCoordinates($event)">
+        <div >
+          <app-sankey
+            [initialised] = "appTypes[ 'sankeyCharts' ].model[i].initialized"
+            [numberOfInitialisedComponent] = " i " >
+          </app-sankey>
+        </div>
+      </popup>
+      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>linear_scale</mat-icon> {{ i }}</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="sankeyChart.appear()" (click)="appTypes[ 'sankeyCharts' ].model[i].initialized = true">Sankey Chart {{ i }}</button>
+        <button mat-menu-item (click)=" closeApp( appTypes[ 'sankeyCharts' ].model, i ) ">Close this app</button>
+      </mat-menu>
+
+    </div>
+
+    <!-- Stacked Bar Chart -->
+    <div *ngFor="let stackedBarChart of appTypes[ 'stackedBarCharts' ].model; let i = index;" >
+      <popup #stackedBarChart
+             [hash]="appTypes[ 'stackedBarCharts' ].model[i].hash"
+             [title]="'Sankey Chart ' + i"
+             [type]="appTypes[ 'stackedBarCharts' ].type"
+             [firstPopupX]="appTypes[ 'stackedBarCharts' ].model[i].x"
+             [firstPopupY]="appTypes[ 'stackedBarCharts' ].model[i].y"
+             (sendAppCoordinatesBack)="updateAppCoordinates($event)">
+        <div >
+          <app-stacked-bar-chart
+            [initialised] = "appTypes[ 'stackedBarCharts' ].model[i].initialized"
+            [numberOfInitialisedComponent] = " i " >
+          </app-stacked-bar-chart>
+        </div>
+      </popup>
+      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>view_list</mat-icon> {{ i }}</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="stackedBarChart.appear()" (click)="appTypes[ 'stackedBarCharts' ].model[i].initialized = true">Stacked Bar Chart {{ i }}</button>
+        <button mat-menu-item (click)=" closeApp( appTypes[ 'stackedBarCharts' ].model, i ) ">Close this app</button>
       </mat-menu>
 
     </div>
