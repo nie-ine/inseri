@@ -224,6 +224,42 @@
 
       </mat-expansion-panel>
 
+      <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Pie Chart
+          </mat-panel-title>
+          <mat-panel-description>
+            To visualise subsets
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        This app is under development
+
+        <mat-divider></mat-divider>
+
+        <button mat-button (click)="addAnotherApp(appTypes[ 'pieCharts' ].model, true)"><mat-icon>pie_chart</mat-icon> Add Pie Chart</button><br>
+
+      </mat-expansion-panel>
+
+      <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Radial Bar Chart
+          </mat-panel-title>
+          <mat-panel-description>
+            To two dimensional data
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        This app is under development
+
+        <mat-divider></mat-divider>
+
+        <button mat-button (click)="addAnotherApp(appTypes[ 'radialBarCharts' ].model, true)"><mat-icon>multiline_chart</mat-icon> Add Radial Bar Chart</button><br>
+
+      </mat-expansion-panel>
+
 
         <h4 style="align-content: center">Data Insertion</h4>
 
@@ -531,6 +567,54 @@
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="leafletMap.appear()" (click)="appTypes[ 'leafletMaps' ].model[i].initialized = true">Open Leaflet Map {{ i }}</button>
         <button mat-menu-item (click)=" closeApp( appTypes[ 'leafletMaps' ].model, i ) ">Close this app</button>
+      </mat-menu>
+
+    </div>
+
+    <!-- Pie Chart -->
+    <div *ngFor="let pieChart of appTypes[ 'pieCharts' ].model; let i = index;" >
+      <popup #pieChart
+             [hash]="appTypes[ 'pieCharts' ].model[i].hash"
+             [title]="'Pie Chart ' + i"
+             [type]="appTypes[ 'pieCharts' ].type"
+             [firstPopupX]="appTypes[ 'pieCharts' ].model[i].x"
+             [firstPopupY]="appTypes[ 'pieCharts' ].model[i].y"
+             (sendAppCoordinatesBack)="updateAppCoordinates($event)">
+        <div >
+          <app-pie-chart
+            [initialised] = "appTypes[ 'pieCharts' ].model[i].initialized"
+            [numberOfInitialisedComponent] = " i " >
+          </app-pie-chart>
+        </div>
+      </popup>
+      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>pie_chart</mat-icon> {{ i }}</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="pieChart.appear()" (click)="appTypes[ 'pieCharts' ].model[i].initialized = true">Open Pie Chart {{ i }}</button>
+        <button mat-menu-item (click)=" closeApp( appTypes[ 'pieCharts' ].model, i ) ">Close this app</button>
+      </mat-menu>
+
+    </div>
+
+    <!-- Radial Bar Chart -->
+    <div *ngFor="let radialBarChart of appTypes[ 'radialBarCharts' ].model; let i = index;" >
+      <popup #radialBarChart
+             [hash]="appTypes[ 'radialBarCharts' ].model[i].hash"
+             [title]="'Radial Bar Chart ' + i"
+             [type]="appTypes[ 'radialBarCharts' ].type"
+             [firstPopupX]="appTypes[ 'radialBarCharts' ].model[i].x"
+             [firstPopupY]="appTypes[ 'radialBarCharts' ].model[i].y"
+             (sendAppCoordinatesBack)="updateAppCoordinates($event)">
+        <div >
+          <app-radial-barchart
+            [initialised] = "appTypes[ 'radialBarCharts' ].model[i].initialized"
+            [numberOfInitialisedComponent] = " i " >
+          </app-radial-barchart>
+        </div>
+      </popup>
+      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>multiline_chart</mat-icon> {{ i }}</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="radialBarChart.appear()" (click)="appTypes[ 'radialBarCharts' ].model[i].initialized = true">Open Radial Bar Chart {{ i }}</button>
+        <button mat-menu-item (click)=" closeApp( appTypes[ 'radialBarCharts' ].model, i ) ">Close this app</button>
       </mat-menu>
 
     </div>

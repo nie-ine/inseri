@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {AfterViewChecked, Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import * as d3 from 'd3-selection';
 import * as d3Scale from 'd3-scale';
 import * as d3Array from 'd3-array';
@@ -15,10 +15,14 @@ import { STATISTICS } from './STATISTICS';
   templateUrl: './radial-barchart.component.html',
   styleUrls: ['./radial-barchart.component.scss']
 })
-export class RadialBarchartComponent implements OnInit {
+export class RadialBarchartComponent implements AfterViewChecked {
 
-  width = 1500;
-  height = 1500;
+  @Input() initialised = false;
+  @Input() numberOfInitialisedComponent: number;
+  alreadyInitialised = false;
+
+  width = 500;
+  height = 500;
   barHeight = this.height / 2 - 40;
   formatNumber: any;
   color: any;
@@ -41,25 +45,28 @@ export class RadialBarchartComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-    // this.formatNumber = d3Format.format('s');
-    this.color = d3Scale.scaleOrdinal()
-      .range([
-        '#8dd3c7',
-        '#ffffb3',
-        '#bebada',
-        '#fb8072',
-        '#80b1d3',
-        '#fdb462',
-        '#b3de69',
-        '#fccde5',
-        '#d9d9d9',
-        '#bc80bd',
-        '#ccebc5',
-        '#ffed6f'
-      ]);
-    this.initSvg();
-    this.initAxis();
+  ngAfterViewChecked() {
+    if (this.initialised && !this.alreadyInitialised) {
+      this.alreadyInitialised = true;
+      // this.formatNumber = d3Format.format('s');
+      this.color = d3Scale.scaleOrdinal()
+        .range([
+          '#8dd3c7',
+          '#ffffb3',
+          '#bebada',
+          '#fb8072',
+          '#80b1d3',
+          '#fdb462',
+          '#b3de69',
+          '#fccde5',
+          '#d9d9d9',
+          '#bc80bd',
+          '#ccebc5',
+          '#ffed6f'
+        ]);
+      this.initSvg();
+      this.initAxis();
+    }
   }
 
   initSvg() {
@@ -100,7 +107,7 @@ export class RadialBarchartComponent implements OnInit {
     this.segments = this.svg.selectAll('path')
       .data(STATISTICS)
       .enter().append('path')
-      .each( (d) => d.outerRadius = 5000 * d.frequency)
+      .each( (d) => d.outerRadius = 2000 * d.frequency)
       .style('fill',  (d) =>  this.color(d.letter) )
       .attr('d', this.arc);
     // this.segments
