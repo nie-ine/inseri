@@ -10,6 +10,7 @@ export class D3tutorialComponent implements OnInit{
   @ViewChild('editor') editor;
   private canvas: any;
   private circle: any;
+  private rectangle: any;
   firstStep = 'this.svg = d3.select(\'svg\');';
   constructor() { }
 
@@ -22,6 +23,9 @@ export class D3tutorialComponent implements OnInit{
       .attr('cy', 50)
       .attr('r', 50)
       .attr('fill', 'blue');
+    this.rectangle = this.canvas.append('rect')
+      .attr('width', 100)
+      .attr('height', 100);
   }
 
 }

@@ -86,6 +86,34 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     barCharts: {
       type: 'barCharts',
       model: []
+    },
+    lineCharts: {
+      type: 'lineCharts',
+      model: []
+    },
+    brushZoomCharts: {
+      type: 'brushZoomCharts',
+      model: []
+    },
+    leafletMaps: {
+      type: 'leafletMaps',
+      model: []
+    },
+    pieCharts: {
+      type: 'pieCharts',
+      model: []
+    },
+    radialBarCharts: {
+      type: 'radialBarCharts',
+      model: []
+    },
+    sankeyCharts: {
+      type: 'sankeyCharts',
+      model: []
+    },
+    stackedBarCharts: {
+      type: 'stackedBarCharts',
+      model: []
     }
   };
 
@@ -143,6 +171,34 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
         },
         barCharts: {
         type: 'barCharts',
+          model: []
+        },
+        lineCharts: {
+          type: 'lineCharts',
+          model: []
+        },
+        brushZoomCharts: {
+          type: 'brushZoomCharts',
+          model: []
+        },
+        leafletMaps: {
+          type: 'leafletMaps',
+          model: []
+        },
+        pieCharts: {
+          type: 'pieCharts',
+          model: []
+        },
+        radialBarCharts: {
+          type: 'radialBarCharts',
+          model: []
+        },
+        sankeyCharts: {
+          type: 'sankeyCharts',
+          model: []
+        },
+        stackedBarCharts: {
+          type: 'stackedBarCharts',
           model: []
         }
       };
