@@ -49,7 +49,8 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     RadialBarchartComponent,
     PieChartComponent,
     StackedBarChartComponent,
-    LeafletExampleComponent
+    LeafletExampleComponent,
+    SankeyComponent
 ]
 })
 export class D3jsModule { }

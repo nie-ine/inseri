@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {AfterViewChecked, Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 
 import * as d3 from 'd3-selection';
 import * as d3Scale from 'd3-scale';
@@ -21,7 +21,10 @@ export interface Margin {
   templateUrl: './stacked-bar-chart.component.html',
   styleUrls: ['./stacked-bar-chart.component.scss']
 })
-export class StackedBarChartComponent implements OnInit {
+export class StackedBarChartComponent implements AfterViewChecked {
+  @Input() initialised = false;
+  @Input() numberOfInitialisedComponent: number;
+  alreadyInitialised = false;
 
   title = 'Stacked Bar Chart';
 
@@ -38,10 +41,13 @@ export class StackedBarChartComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {
-    this.initMargins();
-    this.initSvg();
-    this.drawChart(SAMPLE_DATA);
+  ngAfterViewChecked() {
+    if ( this.initialised && !this.alreadyInitialised ) {
+      this.alreadyInitialised = true;
+      this.initMargins();
+      this.initSvg();
+      this.drawChart(SAMPLE_DATA);
+    }
   }
 
   private initMargins() {
