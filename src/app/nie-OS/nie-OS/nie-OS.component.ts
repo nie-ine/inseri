@@ -94,6 +94,10 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     brushZoomCharts: {
       type: 'brushZoomCharts',
       model: []
+    },
+    leafletMaps: {
+      type: 'leafletMaps',
+      model: []
     }
   };
 
@@ -159,6 +163,10 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
         },
         brushZoomCharts: {
           type: 'brushZoomCharts',
+          model: []
+        },
+        leafletMaps: {
+          type: 'leafletMaps',
           model: []
         }
       };

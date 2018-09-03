@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { icon, latLng, marker, polyline, tileLayer } from 'leaflet';
 
 @Component({
@@ -7,7 +7,9 @@ import { icon, latLng, marker, polyline, tileLayer } from 'leaflet';
   styleUrls: ['./leaflet-example.component.scss']
 })
 export class LeafletExampleComponent {
-
+  @Input() initialised = false;
+  @Input() numberOfInitialisedComponent: number;
+  alreadyInitialised = false;
   // from https://asymmetrik.com/ngx-leaflet-tutorial-angular-cli/
   // Define our base layers so we can reference them multiple times
   streetMaps = tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

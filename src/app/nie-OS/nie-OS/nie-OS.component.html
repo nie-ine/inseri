@@ -206,6 +206,24 @@
 
       </mat-expansion-panel>
 
+      <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Leaflet map
+          </mat-panel-title>
+          <mat-panel-description>
+            Visualize data on maps
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        This app is under development
+
+        <mat-divider></mat-divider>
+
+        <button mat-button (click)="addAnotherApp(appTypes[ 'leafletMaps' ].model, true)"><mat-icon>add_location</mat-icon> Add Leaflet Map</button><br>
+
+      </mat-expansion-panel>
+
 
         <h4 style="align-content: center">Data Insertion</h4>
 
@@ -488,6 +506,31 @@
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="brushZoomChart.appear()" (click)="appTypes[ 'brushZoomCharts' ].model[i].initialized = true">Open Brush Zoom Chart {{ i }}</button>
         <button mat-menu-item (click)=" closeApp( appTypes[ 'brushZoomCharts' ].model, i ) ">Close this app</button>
+      </mat-menu>
+
+    </div>
+
+    <!-- Leaflet Map -->
+    <div *ngFor="let leafletMap of appTypes[ 'leafletMaps' ].model; let i = index;" >
+      <popup #leafletMap
+             [hash]="appTypes[ 'leafletMaps' ].model[i].hash"
+             [title]="'Leaflet Map ' + i"
+             [type]="appTypes[ 'leafletMaps' ].type"
+             [firstPopupX]="appTypes[ 'leafletMaps' ].model[i].x"
+             [firstPopupY]="appTypes[ 'leafletMaps' ].model[i].y"
+             (sendAppCoordinatesBack)="updateAppCoordinates($event)">
+        <div >
+          <app-leaflet-example
+            [initialised] = "appTypes[ 'leafletMaps' ].model[i].initialized"
+            [numberOfInitialisedComponent] = " i " >
+
+          </app-leaflet-example>
+        </div>
+      </popup>
+      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>add_location</mat-icon> {{ i }}</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="leafletMap.appear()" (click)="appTypes[ 'leafletMaps' ].model[i].initialized = true">Open Leaflet Map {{ i }}</button>
+        <button mat-menu-item (click)=" closeApp( appTypes[ 'leafletMaps' ].model, i ) ">Close this app</button>
       </mat-menu>
 
     </div>
