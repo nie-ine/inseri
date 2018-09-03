@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {AfterViewChecked, Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import * as d3 from 'd3-selection';
 import * as d3Scale from 'd3-scale';
 import * as d3Shape from 'd3-shape';
@@ -11,8 +11,10 @@ import { POPULATION } from './population';
   templateUrl: './pie-chart.component.html',
   styleUrls: ['./pie-chart.component.scss']
 })
-export class PieChartComponent implements OnInit {
-
+export class PieChartComponent implements AfterViewChecked {
+  @Input() initialised = false;
+  @Input() numberOfInitialisedComponent: number;
+  alreadyInitialised = false;
   title = 'Pie Chart';
 
   private margin = {top: 20, right: 20, bottom: 30, left: 50};
@@ -32,9 +34,12 @@ export class PieChartComponent implements OnInit {
     this.radius = Math.min(this.width, this.height) / 2;
   }
 
-  ngOnInit() {
-    this.initSvg();
-    this.drawPie();
+  ngAfterViewChecked() {
+    if ( this.initialised && !this.alreadyInitialised ) {
+      this.alreadyInitialised = true;
+      this.initSvg();
+      this.drawPie();
+    }
   }
 
   private initSvg() {

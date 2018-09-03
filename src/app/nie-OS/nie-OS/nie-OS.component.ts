@@ -98,6 +98,14 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     leafletMaps: {
       type: 'leafletMaps',
       model: []
+    },
+    pieCharts: {
+      type: 'pieCharts',
+      model: []
+    },
+    radialBarCharts: {
+      type: 'radialBarCharts',
+      model: []
     }
   };
 
@@ -167,6 +175,14 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
         },
         leafletMaps: {
           type: 'leafletMaps',
+          model: []
+        },
+        pieCharts: {
+          type: 'pieCharts',
+          model: []
+        },
+        radialBarCharts: {
+          type: 'radialBarCharts',
           model: []
         }
       };
