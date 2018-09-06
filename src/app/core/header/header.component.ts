@@ -154,7 +154,7 @@ export class HeaderComponent implements OnInit {
     return (
       this.routeMapping( 'dashboard', 'nieOS - Dashboard' ) ||
       this.routeMapping( 'home', 'nieOS' ) ||
-      this.routeMapping( 'arbeitsflaeche', 'nieOS - Arbeitsfläche' ) ||
+      this.routeMapping( 'arbeitsflaeche', 'nieOS - Page' ) ||
       this.routeMapping( '', 'nieOS' )
 
     );
