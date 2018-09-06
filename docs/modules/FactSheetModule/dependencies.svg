@@ -22,27 +22,31 @@
 <text text-anchor="start" x="429.7258" y="-15.4" font-family="sans-serif" font-size="14.00" fill="#000000"> &#160;Exports</text>
 <g id="clust1" class="cluster">
 <title>cluster_FactSheetModule</title>
-<polygon fill="none" stroke="#000000" stroke-dasharray="1,5" points="77,-70 77,-268 419,-268 419,-70 77,-70"/>
+<polygon fill="none" stroke="#000000" stroke-dasharray="1,5" points="76,-70 76,-268 420,-268 420,-70 76,-70"/>
 </g>
 <g id="clust2" class="cluster">
 <title>cluster_FactSheetModule_declarations</title>
-<polygon fill="none" stroke="#000000" points="85,-78 85,-130 411,-130 411,-78 85,-78"/>
+<polygon fill="none" stroke="#000000" points="260,-78 260,-130 412,-130 412,-78 260,-78"/>
 </g>
-<g id="clust6" class="cluster">
+<g id="clust4" class="cluster">
+<title>cluster_FactSheetModule_imports</title>
+<polygon fill="none" stroke="#000000" points="84,-78 84,-130 252,-130 252,-78 84,-78"/>
+</g>
+<g id="clust5" class="cluster">
 <title>cluster_FactSheetModule_exports</title>
-<polygon fill="none" stroke="#000000" points="174,-208 174,-260 330,-260 330,-208 174,-208"/>
+<polygon fill="none" stroke="#000000" points="173,-208 173,-260 329,-260 329,-208 173,-208"/>
 </g>
 <!-- FactSheetComponent -->
 <g id="node1" class="node">
 <title>FactSheetComponent</title>
-<polygon fill="#ffffb3" stroke="#000000" points="403.038,-122 266.962,-122 266.962,-86 403.038,-86 403.038,-122"/>
-<text text-anchor="middle" x="335" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">FactSheetComponent</text>
+<polygon fill="#ffffb3" stroke="#000000" points="404.038,-122 267.962,-122 267.962,-86 404.038,-86 404.038,-122"/>
+<text text-anchor="middle" x="336" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">FactSheetComponent</text>
 </g>
 <!-- FactSheetModule -->
-<g id="node3" class="node">
+<g id="node2" class="node">
 <title>FactSheetModule</title>
-<polygon fill="#8dd3c7" stroke="#000000" points="309.2549,-187 306.2549,-191 285.2549,-191 282.2549,-187 194.7451,-187 194.7451,-151 309.2549,-151 309.2549,-187"/>
-<text text-anchor="middle" x="252" y="-164.8" font-family="Times,serif" font-size="14.00" fill="#000000">FactSheetModule</text>
+<polygon fill="#8dd3c7" stroke="#000000" points="308.2549,-187 305.2549,-191 284.2549,-191 281.2549,-187 193.7451,-187 193.7451,-151 308.2549,-151 308.2549,-187"/>
+<text text-anchor="middle" x="251" y="-164.8" font-family="Times,serif" font-size="14.00" fill="#000000">FactSheetModule</text>
 </g>
 <!-- FactSheetComponent&#45;&gt;FactSheetModule -->
 <g id="edge1" class="edge">
@@ -50,29 +54,29 @@
 <path fill="none" stroke="#000000" d="M288.0544,-122.1061C288.0544,-122.1061 288.0544,-140.991 288.0544,-140.991"/>
 <polygon fill="#000000" stroke="#000000" points="284.5544,-140.9909 288.0544,-150.991 291.5544,-140.991 284.5544,-140.9909"/>
 </g>
-<!-- IndirectEntryComponent -->
-<g id="node2" class="node">
-<title>IndirectEntryComponent</title>
-<polygon fill="#ffffb3" stroke="#000000" points="248.9678,-122 93.0322,-122 93.0322,-86 248.9678,-86 248.9678,-122"/>
-<text text-anchor="middle" x="171" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">IndirectEntryComponent</text>
-</g>
-<!-- IndirectEntryComponent&#45;&gt;FactSheetModule -->
-<g id="edge2" class="edge">
-<title>IndirectEntryComponent&#45;&gt;FactSheetModule</title>
-<path fill="none" stroke="#000000" d="M221.8033,-122.1061C221.8033,-122.1061 221.8033,-140.991 221.8033,-140.991"/>
-<polygon fill="#000000" stroke="#000000" points="218.3034,-140.9909 221.8033,-150.991 225.3034,-140.991 218.3034,-140.9909"/>
-</g>
 <!-- FactSheetComponent  -->
 <g id="node4" class="node">
 <title>FactSheetComponent </title>
-<polygon fill="#fb8072" stroke="#000000" points="322.0372,-252 181.9628,-252 181.9628,-216 322.0372,-216 322.0372,-252"/>
-<text text-anchor="middle" x="252" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#000000">FactSheetComponent </text>
+<polygon fill="#fb8072" stroke="#000000" points="321.0372,-252 180.9628,-252 180.9628,-216 321.0372,-216 321.0372,-252"/>
+<text text-anchor="middle" x="251" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#000000">FactSheetComponent </text>
 </g>
 <!-- FactSheetModule&#45;&gt;FactSheetComponent  -->
 <g id="edge3" class="edge">
 <title>FactSheetModule&#45;&gt;FactSheetComponent </title>
-<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M252,-187.1061C252,-187.1061 252,-205.991 252,-205.991"/>
-<polygon fill="#000000" stroke="#000000" points="248.5001,-205.9909 252,-215.991 255.5001,-205.991 248.5001,-205.9909"/>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M251,-187.1061C251,-187.1061 251,-205.991 251,-205.991"/>
+<polygon fill="#000000" stroke="#000000" points="247.5001,-205.9909 251,-215.991 254.5001,-205.991 247.5001,-205.9909"/>
+</g>
+<!-- BaseTypeFormsModule -->
+<g id="node3" class="node">
+<title>BaseTypeFormsModule</title>
+<polygon fill="#8dd3c7" stroke="#000000" points="243.8061,-122 240.8061,-126 219.8061,-126 216.8061,-122 92.1939,-122 92.1939,-86 243.8061,-86 243.8061,-122"/>
+<text text-anchor="middle" x="168" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">BaseTypeFormsModule</text>
+</g>
+<!-- BaseTypeFormsModule&#45;&gt;FactSheetModule -->
+<g id="edge2" class="edge">
+<title>BaseTypeFormsModule&#45;&gt;FactSheetModule</title>
+<path fill="none" stroke="#000000" d="M218.6378,-122.1061C218.6378,-122.1061 218.6378,-140.991 218.6378,-140.991"/>
+<polygon fill="#000000" stroke="#000000" points="215.1379,-140.9909 218.6378,-150.991 222.1379,-140.991 215.1379,-140.9909"/>
 </g>
 </g>
 </svg>
