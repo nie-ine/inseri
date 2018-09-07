@@ -1,0 +1,128 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>nie-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+	      <link rel="stylesheet" href="./styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="./" class="navbar-brand">nie-frontend documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search">
+</div>
+            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content getting-started">
+                   <div class="content-data">
+
+<h1 id="nieos">nieOS</h1>
+<p><img src="https://api.travis-ci.org/nie-ine/nie-frontend.svg" alt="Travis build" class="img-responsive">
+<img src="https://img.shields.io/docker/build/nieine/nie-frontend.svg" alt="Docker build" class="img-responsive">
+<img src="https://img.shields.io/docker/automated/nie-frontend/nie-frontend.svg" alt="Docker automated build" class="img-responsive">
+<img src="https://img.shields.io/docker/pulls/nieine/nie-frontend.svg" alt="Docker pulls" class="img-responsive"></p>
+<h2 id="get-it-up-and-running">Get it up and running</h2>
+<ul>
+<li><code>git clone https://github.com/nie-ine/nieOS.git</code></li>
+<li><code>cd nieOS</code></li>
+<li><code>yarn</code></li>
+<li><code>ng s</code></li>
+</ul>
+<h2 id="run-in-docker-container-does-not-work-at-the-moment-">Run in Docker container ( does not work at the moment )</h2>
+<ol>
+<li>Download and run Docker container: <code>docker run -p 5555:80 nieine/nie-frontend:latest</code></li>
+<li>Open <code>localhost:5555</code> in browser</li>
+<li>Optional: Set <code>NGINX_HOST</code> and <code>NGINX_PORT</code> to customise the webserver. E.g. <code>docker run -e NGINX_HOST=http://example.com -e NGINX_PORT=1234 -p 1234:1234 nie/nie-frontend:latest</code>.</li>
+</ol>
+<h2 id="development-server">Development server</h2>
+<p>Run <code>ng s</code> for a dev server. Navigate to <code>http://localhost:4200/</code>. The app will automatically reload if you change any of the source files.</p>
+<h2 id="running-unit-tests">Running unit tests</h2>
+<p>Run <code>ng test</code> to execute the unit tests via <a href="https://karma-runner.github.io">Karma</a>.</p>
+<h1 id="nieos-tour">nieOS Tour</h1>
+<h3 id="nieos-functionalities">nieOS functionalities</h3>
+<ul>
+<li>nieOS is a database agnostic publication and work environment, focussed on historical critical editions</li>
+<li></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 0;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'getting-started';
+            var COMPODOC_CURRENT_PAGE_URL = 'index.html';
+       </script>
+
+       <script src="./js/libs/custom-elements.min.js"></script>
+       <script src="./js/libs/lit-html.js"></script>
+       <script src="./js/menu-wc.js"></script>
+
+       <script src="./js/libs/bootstrap-native.js"></script>
+
+       <script src="./js/libs/es6-shim.min.js"></script>
+       <script src="./js/libs/EventDispatcher.js"></script>
+       <script src="./js/libs/promise.min.js"></script>
+       <script src="./js/libs/zepto.min.js"></script>
+
+       <script src="./js/compodoc.js"></script>
+
+       <script src="./js/tabs.js"></script>
+       <script src="./js/menu.js"></script>
+       <script src="./js/libs/clipboard.min.js"></script>
+       <script src="./js/libs/prism.js"></script>
+       <script src="./js/sourceCode.js"></script>
+          <script src="./js/search/search.js"></script>
+          <script src="./js/search/lunr.min.js"></script>
+          <script src="./js/search/search-lunr.js"></script>
+          <script src="./js/search/search_index.js"></script>
+       <script src="./js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,1780 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>nie-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">nie-frontend documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search">
+</div>
+            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>Popup</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/nie-OS/nie-OS/popup.ts</code>
+</p>
+
+
+
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>popup</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>popup.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>popup.html</code></td>
+            </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#curX">curX</a>
+                            </li>
+                            <li>
+                                <a href="#curY">curY</a>
+                            </li>
+                            <li>
+                                <a href="#curZIndex">curZIndex</a>
+                            </li>
+                            <li>
+                                <a href="#dragging">dragging</a>
+                            </li>
+                            <li>
+                                <a href="#fatherPopup">fatherPopup</a>
+                            </li>
+                            <li>
+                                <a href="#firstPopupZ">firstPopupZ</a>
+                            </li>
+                            <li>
+                                <a href="#isMouseBtnOnPress">isMouseBtnOnPress</a>
+                            </li>
+                            <li>
+                                <a href="#mousemoveEvent">mousemoveEvent</a>
+                            </li>
+                            <li>
+                                <a href="#mouseup">mouseup</a>
+                            </li>
+                            <li>
+                                <a href="#mouseupEvent">mouseupEvent</a>
+                            </li>
+                            <li>
+                                <a href="#sendCoordinatesBack">sendCoordinatesBack</a>
+                            </li>
+                            <li>
+                                <a href="#show">show</a>
+                            </li>
+                            <li>
+                                <a href="#xStartElementPoint">xStartElementPoint</a>
+                            </li>
+                            <li>
+                                <a href="#xStartMousePoint">xStartMousePoint</a>
+                            </li>
+                            <li>
+                                <a href="#xStep">xStep</a>
+                            </li>
+                            <li>
+                                <a href="#yStartElementPoint">yStartElementPoint</a>
+                            </li>
+                            <li>
+                                <a href="#yStartMousePoint">yStartMousePoint</a>
+                            </li>
+                            <li>
+                                <a href="#yStep">yStep</a>
+                            </li>
+                            <li>
+                                <a href="#zStep">zStep</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#appear">appear</a>
+                            </li>
+                            <li>
+                                <a href="#disappear">disappear</a>
+                            </li>
+                            <li>
+                                <a href="#mousedown">mousedown</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#setPos">setPos</a>
+                            </li>
+                            <li>
+                                <a href="#unboundDragging">unboundDragging</a>
+                            </li>
+                            <li>
+                                <a href="#unboundMouseup">unboundMouseup</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#firstPopupX">firstPopupX</a>
+                            </li>
+                            <li>
+                                <a href="#firstPopupY">firstPopupY</a>
+                            </li>
+                            <li>
+                                <a href="#hash">hash</a>
+                            </li>
+                            <li>
+                                <a href="#id">id</a>
+                            </li>
+                            <li>
+                                <a href="#title">title</a>
+                            </li>
+                            <li>
+                                <a href="#type">type</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#sendAppCoordinatesBack">sendAppCoordinatesBack</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(elementRef: <a href="https://angular.io/api/core/ElementRef" target="_blank">ElementRef</a>, renderer: <a href="https://angular.io/api/core/Renderer2" target="_blank">Renderer2</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/nie-OS/nie-OS/popup.ts:48</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>elementRef</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="https://angular.io/api/core/ElementRef" target="_blank" >ElementRef</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>renderer</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="https://angular.io/api/core/Renderer2" target="_blank" >Renderer2</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="firstPopupX"></a>
+                        <code>firstPopupX</code>
+                    </td>
+                    <td class="col-md-10">
+                            <p>
+                            <em>Type :</em>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                            </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/nie-OS/nie-OS/popup.ts:27</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="firstPopupY"></a>
+                        <code>firstPopupY</code>
+                    </td>
+                    <td class="col-md-10">
+                            <p>
+                            <em>Type :</em>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                            </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/nie-OS/nie-OS/popup.ts:28</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="hash"></a>
+                        <code>hash</code>
+                    </td>
+                    <td class="col-md-10">
+                            <p>
+                            <em>Type :</em>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                            </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/nie-OS/nie-OS/popup.ts:29</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="id"></a>
+                        <code>id</code>
+                    </td>
+                    <td class="col-md-10">
+                            <p>
+                            <em>Type :</em>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                            </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/nie-OS/nie-OS/popup.ts:26</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="title"></a>
+                        <code>title</code>
+                    </td>
+                    <td class="col-md-10">
+                            <p>
+                            <em>Type :</em>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                            </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/nie-OS/nie-OS/popup.ts:24</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="type"></a>
+                        <code>type</code>
+                    </td>
+                    <td class="col-md-10">
+                            <p>
+                            <em>Type :</em>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                            </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/nie-OS/nie-OS/popup.ts:25</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+    <section>
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="sendAppCoordinatesBack"></a>
+                        <code>sendAppCoordinatesBack</code>
+                    </td>
+                    <td class="col-md-10">
+                        <em><code>$event</code> Type:</em>    <code>EventEmitter&lt;any&gt;</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/nie-OS/nie-OS/popup.ts:30</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section>
+    
+        <h3 id="methods">
+            Methods
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="appear"></a>
+                        <span class="name">
+                            <b>
+                            appear
+                            </b>
+                            <a href="#appear"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>appear()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="79" class="link-to-prism">src/app/nie-OS/nie-OS/popup.ts:79</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="disappear"></a>
+                        <span class="name">
+                            <b>
+                            disappear
+                            </b>
+                            <a href="#disappear"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>disappear()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="86" class="link-to-prism">src/app/nie-OS/nie-OS/popup.ts:86</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="mousedown"></a>
+                        <span class="name">
+                            <b>
+                            mousedown
+                            </b>
+                            <a href="#mousedown"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>mousedown(event: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="110" class="link-to-prism">src/app/nie-OS/nie-OS/popup.ts:110</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>event</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ngOnInit"></a>
+                        <span class="name">
+                            <b>
+                            ngOnInit
+                            </b>
+                            <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>ngOnInit()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/app/nie-OS/nie-OS/popup.ts:56</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="setPos"></a>
+                        <span class="name">
+                            <b>
+                            setPos
+                            </b>
+                            <a href="#setPos"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>setPos()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="90" class="link-to-prism">src/app/nie-OS/nie-OS/popup.ts:90</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="unboundDragging"></a>
+                        <span class="name">
+                            <b>
+                            unboundDragging
+                            </b>
+                            <a href="#unboundDragging"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>unboundDragging(event: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="128" class="link-to-prism">src/app/nie-OS/nie-OS/popup.ts:128</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>event</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="unboundMouseup"></a>
+                        <span class="name">
+                            <b>
+                            unboundMouseup
+                            </b>
+                            <a href="#unboundMouseup"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>unboundMouseup(event: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="104" class="link-to-prism">src/app/nie-OS/nie-OS/popup.ts:104</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>event</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="curX"></a>
+                        <span class="name">
+                            <b>
+                            curX
+                            </b>
+                            <a href="#curX"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>curX:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/nie-OS/nie-OS/popup.ts:38</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="curY"></a>
+                        <span class="name">
+                            <b>
+                            curY
+                            </b>
+                            <a href="#curY"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>curY:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/nie-OS/nie-OS/popup.ts:39</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="curZIndex"></a>
+                        <span class="name">
+                            <b>
+                            curZIndex
+                            </b>
+                            <a href="#curZIndex"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>curZIndex:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/nie-OS/nie-OS/popup.ts:40</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="dragging"></a>
+                        <span class="name">
+                            <b>
+                            dragging
+                            </b>
+                            <a href="#dragging"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>dragging:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="127" class="link-to-prism">src/app/nie-OS/nie-OS/popup.ts:127</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="fatherPopup"></a>
+                        <span class="name">
+                            <b>
+                            fatherPopup
+                            </b>
+                            <a href="#fatherPopup"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>fatherPopup:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/nie-OS/nie-OS/popup.ts:45</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="firstPopupZ"></a>
+                        <span class="name">
+                            <b>
+                            firstPopupZ
+                            </b>
+                            <a href="#firstPopupZ"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>firstPopupZ:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>3</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/nie-OS/nie-OS/popup.ts:34</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isMouseBtnOnPress"></a>
+                        <span class="name">
+                            <b>
+                            isMouseBtnOnPress
+                            </b>
+                            <a href="#isMouseBtnOnPress"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>isMouseBtnOnPress:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/nie-OS/nie-OS/popup.ts:48</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="mousemoveEvent"></a>
+                        <span class="name">
+                            <b>
+                            mousemoveEvent
+                            </b>
+                            <a href="#mousemoveEvent"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>mousemoveEvent:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/nie-OS/nie-OS/popup.ts:32</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="mouseup"></a>
+                        <span class="name">
+                            <b>
+                            mouseup
+                            </b>
+                            <a href="#mouseup"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>mouseup:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="103" class="link-to-prism">src/app/nie-OS/nie-OS/popup.ts:103</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="mouseupEvent"></a>
+                        <span class="name">
+                            <b>
+                            mouseupEvent
+                            </b>
+                            <a href="#mouseupEvent"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>mouseupEvent:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/nie-OS/nie-OS/popup.ts:33</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="sendCoordinatesBack"></a>
+                        <span class="name">
+                            <b>
+                            sendCoordinatesBack
+                            </b>
+                            <a href="#sendCoordinatesBack"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>sendCoordinatesBack:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/nie-OS/nie-OS/popup.ts:46</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="show"></a>
+                        <span class="name">
+                            <b>
+                            show
+                            </b>
+                            <a href="#show"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>show:     <code></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/nie-OS/nie-OS/popup.ts:22</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="xStartElementPoint"></a>
+                        <span class="name">
+                            <b>
+                            xStartElementPoint
+                            </b>
+                            <a href="#xStartElementPoint"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>xStartElementPoint:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/nie-OS/nie-OS/popup.ts:41</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="xStartMousePoint"></a>
+                        <span class="name">
+                            <b>
+                            xStartMousePoint
+                            </b>
+                            <a href="#xStartMousePoint"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>xStartMousePoint:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/nie-OS/nie-OS/popup.ts:43</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="xStep"></a>
+                        <span class="name">
+                            <b>
+                            xStep
+                            </b>
+                            <a href="#xStep"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>xStep:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>30</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/nie-OS/nie-OS/popup.ts:35</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="yStartElementPoint"></a>
+                        <span class="name">
+                            <b>
+                            yStartElementPoint
+                            </b>
+                            <a href="#yStartElementPoint"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>yStartElementPoint:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/nie-OS/nie-OS/popup.ts:42</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="yStartMousePoint"></a>
+                        <span class="name">
+                            <b>
+                            yStartMousePoint
+                            </b>
+                            <a href="#yStartMousePoint"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>yStartMousePoint:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/nie-OS/nie-OS/popup.ts:44</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="yStep"></a>
+                        <span class="name">
+                            <b>
+                            yStep
+                            </b>
+                            <a href="#yStep"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>yStep:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>30</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/nie-OS/nie-OS/popup.ts:36</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="zStep"></a>
+                        <span class="name">
+                            <b>
+                            zStep
+                            </b>
+                            <a href="#zStep"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>zStep:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>3</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/nie-OS/nie-OS/popup.ts:37</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  AfterContentInit,
+  ContentChildren,
+  QueryList,
+  ElementRef,
+  Renderer2 } from &#x27;@angular/core&#x27;;
+import &#x27;rxjs/add/operator/map&#x27;;
+
+declare var grapesjs: any; // Important!
+
+@Component({
+  selector: &#x27;popup&#x27;,
+  templateUrl: &#x27;popup.html&#x27;,
+  styleUrls: [&#x27;popup.css&#x27;]
+})
+export class Popup {
+
+  show &#x3D; false;
+
+  @Input() title: string;
+  @Input() type: string;
+  @Input() id: number;
+  @Input() firstPopupX: number;
+  @Input() firstPopupY: number;
+  @Input() hash: string;
+  @Output() sendAppCoordinatesBack: EventEmitter&lt;any&gt; &#x3D; new EventEmitter&lt;any&gt;();
+
+  mousemoveEvent: any;
+  mouseupEvent: any;
+  firstPopupZ &#x3D; 3;
+  xStep &#x3D; 30;
+  yStep &#x3D; 30;
+  zStep &#x3D; 3;
+  curX: any;
+  curY: any;
+  curZIndex: any;
+  xStartElementPoint: number;
+  yStartElementPoint: number;
+  xStartMousePoint: number;
+  yStartMousePoint: number;
+  fatherPopup: any;
+  sendCoordinatesBack: any;
+
+  isMouseBtnOnPress: boolean;
+
+  constructor(private elementRef: ElementRef,
+              private renderer: Renderer2) {
+    this.mouseup &#x3D; this.unboundMouseup.bind(this);
+    this.dragging &#x3D; this.unboundDragging.bind(this);
+  }
+
+  ngOnInit() {
+    // If coordinates of window are set through input, let it appear
+    if( this.firstPopupX &amp;&amp; this.firstPopupY ) {
+      this.appear();
+    } else {
+      this.firstPopupX &#x3D; 100;
+      this.firstPopupY &#x3D; 100;
+    }
+    const editor &#x3D; grapesjs.init({
+      container: &#x27;#grapesJSViewer&#x27;,
+      components: &#x27;&lt;div class&#x3D;&quot;txt-red&quot;&gt;Hello world!&lt;/div&gt;&#x27;,
+      style: &#x27;.txt-red{color: red}&#x27;,
+    });
+
+    const blockManager &#x3D; editor.BlockManager;
+
+    blockManager.add(&#x27;konvolut-titel&#x27;, {
+      label: &#x27;Vokabulare in Knora&#x27;,
+      attributes: { class:&#x27;fa fa-newspaper-o&#x27; },
+      content:  &#x27;&lt;div&gt;NIE-INE test&lt;/div&gt;&#x27;,
+    });
+  }
+
+  appear() {
+    //prevent drag event
+    document.getSelection().removeAllRanges();
+    this.setPos();
+    this.show &#x3D; true;
+  }
+
+  disappear() {
+    this.show &#x3D; false;
+  }
+
+  setPos() {
+    if (this.fatherPopup &#x3D;&#x3D; undefined) {
+      this.curX &#x3D; this.firstPopupX;
+      this.curY &#x3D; this.firstPopupY;
+      this.curZIndex &#x3D; this.firstPopupZ;
+    }
+    else {
+      this.curX &#x3D; this.fatherPopup.curX + this.xStep;
+      this.curY &#x3D; this.fatherPopup.curY + this.yStep;
+      this.curZIndex &#x3D; this.fatherPopup.curZIndex + this.zStep;
+    }
+  }
+
+  mouseup: (event: any) &#x3D;&gt; void;
+  unboundMouseup(event: any) {
+    // Remove listeners
+    this.mousemoveEvent();
+    this.mouseupEvent();
+  }
+
+  mousedown(event: any) {
+    if (event.button &#x3D;&#x3D;&#x3D; 0/*only left mouse click*/) {
+      this.xStartElementPoint &#x3D; this.curX;
+      this.yStartElementPoint &#x3D; this.curY;
+      this.xStartMousePoint &#x3D; event.pageX;
+      this.yStartMousePoint &#x3D; event.pageY;
+
+      // if listeners exist, first Remove listeners
+      if (this.mousemoveEvent)
+        this.mousemoveEvent();
+      if (this.mouseupEvent)
+        this.mouseupEvent();
+
+      this.mousemoveEvent &#x3D; this.renderer.listen(&quot;document&quot;, &quot;mousemove&quot;, this.dragging);
+      this.mouseupEvent &#x3D; this.renderer.listen(&quot;document&quot;, &quot;mouseup&quot;, this.mouseup);
+    }
+  }
+  dragging: (event: any) &#x3D;&gt; void;
+  unboundDragging(event: any) {
+    this.sendCoordinatesBack &#x3D; {};
+    this.sendCoordinatesBack.x &#x3D; this.curX;
+    this.sendCoordinatesBack.y &#x3D; this.curY;
+    this.sendCoordinatesBack.type &#x3D; this.type;
+    this.sendCoordinatesBack.hash &#x3D; this.hash;
+    console.log(this.sendCoordinatesBack);
+    this.sendAppCoordinatesBack.emit(
+      this.sendCoordinatesBack
+    );
+    this.curX &#x3D; this.xStartElementPoint + (event.pageX - this.xStartMousePoint);
+    this.curY &#x3D; this.yStartElementPoint + (event.pageY - this.yStartMousePoint);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;popup&quot; *ngIf&#x3D;&quot;show&quot;&gt;
+
+  &lt;div class&#x3D;&quot;popup-win&quot;
+       [ngStyle]&#x3D;&quot;{&#x27;top&#x27;: curY + &#x27;px&#x27;, &#x27;left&#x27;: curX + &#x27;px&#x27;,&#x27;z-index&#x27;: curZIndex}&quot;
+       &gt;
+    &lt;div class&#x3D;&quot;popup-title-bar popup-drag&quot; (mousedown)&#x3D;&quot;mousedown($event)&quot;&gt;
+      &lt;button mat-icon-button color&#x3D;&quot;primary&quot; style&#x3D;&quot;position: absolute; left: 0px; top: 0px;&quot; (click)&#x3D;&quot;disappear()&quot;&gt;-&lt;/button&gt;
+        {{title}}
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;popup-content&quot;&gt;
+      &lt;ng-content&gt;&lt;/ng-content&gt;
+    &lt;/div&gt;
+
+  &lt;/div&gt;
+&lt;!--  &lt;div class&#x3D;&quot;popup-overlay blur-in&quot; [ngStyle]&#x3D;&quot;{&#x27;z-index&#x27;: curZIndex - 1}&quot; (click)&#x3D;&quot;disappear()&quot;&gt;
+  &lt;/div&gt;--&gt;
+&lt;/div&gt;
+
+
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="popup" *ngIf="show">  <div class="popup-win"       [ngStyle]="{\'top\': curY + \'px\', \'left\': curX + \'px\',\'z-index\': curZIndex}"       >    <div class="popup-title-bar popup-drag" (mousedown)="mousedown($event)">      <button mat-icon-button color="primary" style="position: absolute; left: 0px; top: 0px;" (click)="disappear()">-</button>        {{title}}    </div>    <div class="popup-content">      <ng-content></ng-content>    </div>  </div><!--  <div class="popup-overlay blur-in" [ngStyle]="{\'z-index\': curZIndex - 1}" (click)="disappear()">  </div>--></div></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'BooleanValueEditorComponent', 'selector': 'app-boolean-value-editor'},{'name': 'BrushAndZoomComponent', 'selector': 'app-brush-and-zoom'},{'name': 'CreateResourceComponent', 'selector': 'app-create-resource'},{'name': 'CreateResourceViewComponent', 'selector': 'app-create-resource-view'},{'name': 'D3tutorialComponent', 'selector': 'app-d3tutorial'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataChooserComponent', 'selector': 'app-data-chooser'},{'name': 'DataChooserSettingsComponent', 'selector': 'app-data-chooser-settings'},{'name': 'DateValueEditorComponent', 'selector': 'app-date-value-editor'},{'name': 'DateValueViewerComponent', 'selector': 'app-date-value-viewer'},{'name': 'DecimalValueEditorComponent', 'selector': 'app-decimal-value-editor'},{'name': 'DialogCreateNewViewComponent', 'selector': 'dialog-create-new-view'},{'name': 'DialogOverviewExampleDialog', 'selector': 'dialog-overview-example-dialog'},{'name': 'EditResourceViewComponent', 'selector': 'app-edit-resource-view'},{'name': 'EditionLandingPageComponent', 'selector': 'app-edition-landing-page'},{'name': 'FactSheetComponent', 'selector': 'app-fact-sheet'},{'name': 'FloatLightTableComponent', 'selector': 'app-float-light-table'},{'name': 'FloatingImageObjectComponent', 'selector': 'app-floating-image-object'},{'name': 'FloatingTextObjectComponent', 'selector': 'app-floating-text-object'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'GrapesjsComponent', 'selector': 'app-grapesjs'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'ImageFrameComponent', 'selector': 'app-image-frame'},{'name': 'ImageFrameSizesComponent', 'selector': 'app-image-frame-sizes'},{'name': 'ImageViewComponent', 'selector': 'app-image-view'},{'name': 'ImageWithOverlayComponent', 'selector': 'app-image-with-overlay'},{'name': 'IntValueEditorComponent', 'selector': 'app-int-value-editor'},{'name': 'LeafletExampleComponent', 'selector': 'app-leaflet-example'},{'name': 'LightTableComponent', 'selector': 'app-light-table'},{'name': 'LightTableMenuComponent', 'selector': 'app-light-table-menu'},{'name': 'LinkValueEditorComponent', 'selector': 'app-link-value-editor'},{'name': 'LinkValueLabelViewerComponent', 'selector': 'app-link-value-label-viewer'},{'name': 'LoadLightTableComponent', 'selector': 'app-load-light-table'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MetadataViewComponent', 'selector': 'app-metadata-view'},{'name': 'MultiLineChartComponent', 'selector': 'app-multi-line-chart'},{'name': 'NIEOSComponent', 'selector': 'nie-os'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'PieChartComponent', 'selector': 'app-pie-chart'},{'name': 'Popup', 'selector': 'popup'},{'name': 'RadialBarchartComponent', 'selector': 'app-radial-barchart'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'RemoveObjectsByIdComponent', 'selector': 'app-remove-objects-by-id'},{'name': 'ResourceFormComponent', 'selector': 'app-resource-form'},{'name': 'ResourceValueHistoryComponent', 'selector': 'app-resource-value-history'},{'name': 'ResourceValueHistoryValueComponent', 'selector': 'app-resource-value-history-value'},{'name': 'ResponseTreeComponent', 'selector': 'app-response-tree'},{'name': 'SankeyComponent', 'selector': 'app-sankey'},{'name': 'SaveLightTableComponent', 'selector': 'app-save-light-table'},{'name': 'ShareLightTableComponent', 'selector': 'app-share-light-table'},{'name': 'StackedBarChartComponent', 'selector': 'app-stacked-bar-chart'},{'name': 'SynopsisComponent', 'selector': 'app-synopsis'},{'name': 'SynopsisObjectManagerComponent', 'selector': 'app-synopsis-object-manager'},{'name': 'SynopsisObjectToolboxComponent', 'selector': 'app-synopsis-object-toolbox'},{'name': 'TagChipsComponent', 'selector': 'app-tag-chips'},{'name': 'TextValueEditorComponent', 'selector': 'app-text-value-editor'},{'name': 'TextViewCanvasComponent', 'selector': 'app-text-view-canvas'},{'name': 'TextViewComponent', 'selector': 'app-text-view'},{'name': 'TextViewMetadataComponent', 'selector': 'app-text-view-metadata'},{'name': 'TextViewStructureComponent', 'selector': 'app-text-view-structure'},{'name': 'TextViewToolsComponent', 'selector': 'app-text-view-tools'},{'name': 'TextlistViewerComponent', 'selector': 'app-textlist-viewer'},{'name': 'ThumbnailbarComponent', 'selector': 'app-thumbnailbar'},{'name': 'TiledImageObjectComponent', 'selector': 'app-tiled-image-object'},{'name': 'TiledLightTableComponent', 'selector': 'app-tiled-light-table'},{'name': 'TiledTextObjectComponent', 'selector': 'app-tiled-text-object'},{'name': 'UpdateEditionComponent', 'selector': 'app-update-edition'}];
+    var DIRECTIVES = [{'name': 'DraggableDirective', 'selector': '[appDraggable]'},{'name': 'DraggableStubDirective', 'selector': '[appDraggable]'},{'name': 'FloatDropTargetDirective', 'selector': '[appDropTarget]'},{'name': 'ModifiableDirective', 'selector': '[appModifiable]'},{'name': 'ModifiableStubDirective', 'selector': '[appModifiable]'},{'name': 'SelectableDirective', 'selector': '[appSelectable]'},{'name': 'SelectableStubDirective', 'selector': '[appSelectable]'},{'name': 'SynopsisObjectAnchorDirective', 'selector': '[appSynopsisObjectAnchor]'},{'name': 'TileDropTargetDirective', 'selector': '[appTileDropTarget]'}];
+    var ACTUAL_COMPONENT = {'name': 'Popup'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'Popup.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <script src="../js/menu-wc.js"></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

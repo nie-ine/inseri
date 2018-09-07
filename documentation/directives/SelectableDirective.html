@@ -1,0 +1,731 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>nie-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">nie-frontend documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search">
+</div>
+            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content directive">
+                   <div class="content-data">
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Directives</li>
+  <li>SelectableDirective</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/synopsis/selectable.directive.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Implements</h3>
+            </p>
+            <p class="comment">
+                        <code><a href="../classes/View.html" target="_self" >AfterViewInit</a></code>
+            </p>
+
+
+        <section>
+            <h3>Metadata</h3>
+            <table class="table table-sm table-hover">
+                <tbody>
+
+                    <tr>
+                        <td class="col-md-3">Selector</td>
+                        <td class="col-md-9"><code>[appSelectable]</code></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </section>
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#selected">selected</a>
+                            </li>
+                            <li>
+                                <a href="#zindex">zindex</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#deselectObject">deselectObject</a>
+                            </li>
+                            <li>
+                                <a href="#ngAfterViewInit">ngAfterViewInit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#selectObject">selectObject</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#appSelectable">appSelectable</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#showMenu">showMenu</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>HostListeners</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#mousedown">mousedown</a>
+                            </li>
+                            <li>
+                                <a href="#mouseenter">mouseenter</a>
+                            </li>
+                            <li>
+                                <a href="#mouseleave">mouseleave</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(synopsisObjectSelectorService: <a href="../injectables/SynopsisObjectSelectorService.html">SynopsisObjectSelectorService</a>, el: <a href="https://angular.io/api/core/ElementRef" target="_blank">ElementRef</a>, renderer: <a href="https://angular.io/api/core/Renderer2" target="_blank">Renderer2</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/synopsis/selectable.directive.ts:12</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>synopsisObjectSelectorService</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../injectables/SynopsisObjectSelectorService.html" target="_self" >SynopsisObjectSelectorService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>el</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="https://angular.io/api/core/ElementRef" target="_blank" >ElementRef</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>renderer</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="https://angular.io/api/core/Renderer2" target="_blank" >Renderer2</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="appSelectable"></a>
+                        <code>appSelectable</code>
+                    </td>
+                    <td class="col-md-10">
+                            <p>
+                            <em>Type :</em>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                            </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/app/synopsis/selectable.directive.ts:9</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+            <section>
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="showMenu"></a>
+                        <code>showMenu</code>
+                    </td>
+                    <td class="col-md-10">
+                        <em><code>$event</code> Type:</em>    <code><a href="https://angular.io/api/core/EventEmitter" target="_blank" >EventEmitter</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/synopsis/selectable.directive.ts:10</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    <h3>HostListeners</h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="mousedown"></a>
+                        <span class="name">
+                            <b>
+                            mousedown
+                            </b>
+                            <a href="#mousedown"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>mousedown()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/synopsis/selectable.directive.ts:37</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="mouseenter"></a>
+                        <span class="name">
+                            <b>
+                            mouseenter
+                            </b>
+                            <a href="#mouseenter"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>mouseenter()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/synopsis/selectable.directive.ts:30</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="mouseleave"></a>
+                        <span class="name">
+                            <b>
+                            mouseleave
+                            </b>
+                            <a href="#mouseleave"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>mouseleave()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/synopsis/selectable.directive.ts:43</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+        <h3 id="methods">
+            Methods
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="deselectObject"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            deselectObject
+                            </b>
+                            <a href="#deselectObject"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>deselectObject()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/app/synopsis/selectable.directive.ts:56</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ngAfterViewInit"></a>
+                        <span class="name">
+                            <b>
+                            ngAfterViewInit
+                            </b>
+                            <a href="#ngAfterViewInit"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>ngAfterViewInit()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/synopsis/selectable.directive.ts:24</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="selectObject"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            selectObject
+                            </b>
+                            <a href="#selectObject"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>selectObject()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/synopsis/selectable.directive.ts:47</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="selected"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            selected
+                            </b>
+                            <a href="#selected"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>selected:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/synopsis/selectable.directive.ts:12</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="zindex"></a>
+                        <span class="name">
+                            <b>
+                            zindex
+                            </b>
+                            <a href="#zindex"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>zindex:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/synopsis/selectable.directive.ts:11</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { AfterViewInit, Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from &#x27;@angular/core&#x27;;
+import { SynopsisObjectSelectorService } from &#x27;./synopsis-object-selector.service&#x27;;
+
+@Directive({
+  selector: &#x27;[appSelectable]&#x27;
+})
+export class SelectableDirective implements AfterViewInit {
+
+  @Input() appSelectable: number;
+  @Output() showMenu &#x3D; new EventEmitter&lt;boolean&gt;();
+  zindex: number;
+  private selected: boolean;
+
+  constructor(private synopsisObjectSelectorService: SynopsisObjectSelectorService,
+              private el: ElementRef,
+              private renderer: Renderer2) {
+    this.synopsisObjectSelectorService.selectNewObject$.subscribe(uid &#x3D;&gt; {
+      if (uid !&#x3D;&#x3D; this.appSelectable) {
+        this.deselectObject();
+      }
+    });
+  }
+
+  ngAfterViewInit(): void {
+    this.zindex &#x3D; 999;
+    this.selectObject();
+  }
+
+  @HostListener(&#x27;mouseenter&#x27;)
+  onMouseEnter() {
+    if (this.selected) {
+      this.showMenu.emit(true);
+    }
+  }
+
+  @HostListener(&#x27;mousedown&#x27;)
+  onMouseDown() {
+    this.showMenu.emit(true);
+    this.selectObject();
+  }
+
+  @HostListener(&#x27;mouseleave&#x27;)
+  onMouseLeave() {
+    this.showMenu.emit(false);
+  }
+
+  private selectObject() {
+    this.zindex &#x3D; 999;
+    this.renderer.setStyle(this.el.nativeElement, &#x27;z-index&#x27;, 999);
+    this.renderer.setStyle(this.el.nativeElement, &#x27;border&#x27;, &#x27;1px #9ecaed solid&#x27;);
+    this.renderer.setStyle(this.el.nativeElement, &#x27;box-shadow&#x27;, &#x27;0 0 10px #9ecaed&#x27;);
+    this.synopsisObjectSelectorService.selectNewObject(this.appSelectable);
+    this.selected &#x3D; true;
+  }
+
+  private deselectObject() {
+    this.zindex--;
+    this.renderer.setStyle(this.el.nativeElement, &#x27;z-index&#x27;, this.zindex);
+    this.renderer.setStyle(this.el.nativeElement, &#x27;border&#x27;, &#x27;1px lightgray solid&#x27;);
+    this.renderer.setStyle(this.el.nativeElement, &#x27;box-shadow&#x27;, &#x27;none&#x27;);
+    this.selected &#x3D; false;
+  }
+
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'directive';
+            var COMPODOC_CURRENT_PAGE_URL = 'SelectableDirective.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <script src="../js/menu-wc.js"></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
