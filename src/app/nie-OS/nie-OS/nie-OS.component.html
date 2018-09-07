@@ -297,6 +297,25 @@
       </mat-expansion-panel>
 
 
+      <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Chord diagram
+          </mat-panel-title>
+          <mat-panel-description>
+            To display the intensity of connections between different objects
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        This app is under development
+
+        <mat-divider></mat-divider>
+
+        <button mat-button (click)="addAnotherApp(appTypes[ 'chordDiagrams' ].model, true)"><mat-icon>view_list</mat-icon> Add Chord Diagram</button><br>
+
+      </mat-expansion-panel>
+
+
 
       <h4 style="align-content: center">Data Insertion</h4>
 
@@ -703,6 +722,31 @@
       </mat-menu>
 
     </div>
+
+    <!-- Chord diagram -->
+    <div *ngFor="let chordDiagram of appTypes[ 'chordDiagrams' ].model; let i = index;" >
+      <popup #chordDiagram
+             [hash]="appTypes[ 'chordDiagrams' ].model[i].hash"
+             [title]="'Chord Diagram ' + i"
+             [type]="appTypes[ 'chordDiagrams' ].type"
+             [firstPopupX]="appTypes[ 'chordDiagrams' ].model[i].x"
+             [firstPopupY]="appTypes[ 'chordDiagrams' ].model[i].y"
+             (sendAppCoordinatesBack)="updateAppCoordinates($event)">
+        <div >
+          <app-chord-diagram
+            [initialised] = "appTypes[ 'chordDiagrams' ].model[i].initialized"
+            [numberOfInitialisedComponent] = " i " >
+          </app-chord-diagram>
+        </div>
+      </popup>
+      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>view_list</mat-icon> {{ i }}</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="chordDiagram.appear()" (click)="appTypes[ 'chordDiagrams' ].model[i].initialized = true">Chord Diagram {{ i }}</button>
+        <button mat-menu-item (click)=" closeApp( appTypes[ 'chordDiagrams' ].model, i ) ">Close this app</button>
+      </mat-menu>
+
+    </div>
+
 
 
   </mat-drawer-container>
