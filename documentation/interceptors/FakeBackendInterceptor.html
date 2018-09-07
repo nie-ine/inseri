@@ -1,0 +1,726 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>nie-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">nie-frontend documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search">
+</div>
+            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interceptor">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Interceptors</li>
+  <li>FakeBackendInterceptor</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/shared/_helpers/fake-backend.ts</code>
+        </p>
+
+
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#intercept">intercept</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(http: <a href="https://angular.io/api/common/http/HttpClient" target="_blank">HttpClient</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/shared/_helpers/fake-backend.ts:13</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>http</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="https://angular.io/api/common/http/HttpClient" target="_blank" >HttpClient</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+        <h3 id="methods">
+            Methods
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="intercept"></a>
+                        <span class="name">
+                            <b>
+                            intercept
+                            </b>
+                            <a href="#intercept"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>intercept(request: HttpRequest<any>, next: <a href="https://angular.io/api/common/http/HttpHandler" target="_blank">HttpHandler</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/shared/_helpers/fake-backend.ts:17</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>request</td>
+                                                        <td>
+                                                                    <code>HttpRequest&lt;any&gt;</code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>next</td>
+                                                        <td>
+                                                                    <code><a href="https://angular.io/api/common/http/HttpHandler" target="_blank" >HttpHandler</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code>Observable&lt;HttpEvent&lt;any&gt;&gt;</code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
+import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from &#x27;@angular/common/http&#x27;;
+import { Observable } from &#x27;rxjs/Observable&#x27;;
+import &#x27;rxjs/add/observable/of&#x27;;
+import &#x27;rxjs/add/observable/throw&#x27;;
+import &#x27;rxjs/add/operator/delay&#x27;;
+import &#x27;rxjs/add/operator/mergeMap&#x27;;
+import &#x27;rxjs/add/operator/materialize&#x27;;
+import &#x27;rxjs/add/operator/dematerialize&#x27;;
+import { HttpClient, HttpHeaders } from &#x27;@angular/common/http&#x27;;
+
+@Injectable()
+export class FakeBackendInterceptor implements HttpInterceptor {
+
+    constructor(private http: HttpClient) { }
+
+    intercept(request: HttpRequest&lt;any&gt;, next: HttpHandler): Observable&lt;HttpEvent&lt;any&gt;&gt; {
+        // array in local storage for registered users
+        const users: any[] &#x3D; JSON.parse(localStorage.getItem(&#x27;users&#x27;)) || [];
+        // console.log(users);
+        const actions: any[] &#x3D; JSON.parse(localStorage.getItem(&#x27;actions&#x27;)) || [];
+        // console.log(actions);
+        const views: any[] &#x3D; JSON.parse(localStorage.getItem(&#x27;views&#x27;)) || [];
+        console.log(views);
+        const editions: any[] &#x3D; JSON.parse(localStorage.getItem(&#x27;editions&#x27;)) || [];
+        console.log(editions);
+
+        // wrap in delayed observable to simulate server api call
+        return Observable.of(null).mergeMap(() &#x3D;&gt; {
+
+            // authenticate
+            if (request.url.endsWith(&#x27;/api/authenticate&#x27;) &amp;&amp; request.method &#x3D;&#x3D;&#x3D; &#x27;POST&#x27;) {
+              console.log( &#x27;Send request to knora&#x27; );
+              console.log(request);
+              const url &#x3D; &#x27;http://localhost:3333&#x27;;
+              request &#x3D; request.clone({
+                url: url + request.url
+              });
+              console.log( request );
+              console.log( &#x27;After we have dhlab request, we send it to Knora in the foloowing line: &#x27; );
+              // return next.handle( request );
+                // find if any user matches login credentials
+                const filteredUsers &#x3D; users.filter(user &#x3D;&gt; {
+                    return user.username &#x3D;&#x3D;&#x3D; request.body.username &amp;&amp; user.password &#x3D;&#x3D;&#x3D; request.body.password;
+                });
+
+                if (filteredUsers.length) {
+                    // if login details are valid return 200 OK with user details and fake jwt token
+                    let user &#x3D; filteredUsers[0];
+                    let body &#x3D; {
+                        id: user.id,
+                        username: user.username,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        token: &#x27;fake-jwt-token&#x27;
+                    };
+
+                    return Observable.of(new HttpResponse({ status: 200, body: body }));
+                } else {
+                    console.log(&#x27;wrong user&#x27;);
+                    // else return 400 bad request
+                    return Observable.throw(&#x27;Username or password is incorrect&#x27;);
+                }
+            }
+
+            // get users
+            if (request.url.endsWith(&#x27;/api/users&#x27;) &amp;&amp; request.method &#x3D;&#x3D;&#x3D; &#x27;GET&#x27;) {
+                // check for fake auth token in header and return users if valid,
+              // this security is implemented server side in a real application
+                if (request.headers.get(&#x27;Authorization&#x27;) &#x3D;&#x3D;&#x3D; &#x27;Bearer fake-jwt-token&#x27;) {
+                    return Observable.of(new HttpResponse({ status: 200, body: users }));
+                } else {
+                    // return 401 not authorised if token is null or invalid
+                    return Observable.throw(&#x27;Unauthorised&#x27;);
+                }
+            }
+
+          // get editions
+          if (request.url.endsWith(&#x27;/api/editions&#x27;) &amp;&amp; request.method &#x3D;&#x3D;&#x3D; &#x27;GET&#x27;) {
+            // check for fake auth token in header and return users if valid,
+            // this security is implemented server side in a real application
+            if (request.headers.get(&#x27;Authorization&#x27;) &#x3D;&#x3D;&#x3D; &#x27;Bearer fake-jwt-token&#x27;) {
+              return Observable.of(new HttpResponse({ status: 200, body: editions }));
+            } else {
+              // return 401 not authorised if token is null or invalid
+              return Observable.throw(&#x27;Unauthorised&#x27;);
+            }
+          }
+
+            // get user by id
+            if (request.url.match(/\/api\/users\/\d+$/) &amp;&amp; request.method &#x3D;&#x3D;&#x3D; &#x27;GET&#x27;) {
+                // check for fake auth token in header and return user if valid,
+              // this security is implemented server side in a real application
+                if (request.headers.get(&#x27;Authorization&#x27;) &#x3D;&#x3D;&#x3D; &#x27;Bearer fake-jwt-token&#x27;) {
+                    // find user by id in users array
+                    let urlParts &#x3D; request.url.split(&#x27;/&#x27;);
+                    let id &#x3D; parseInt(urlParts[urlParts.length - 1]);
+                    let matchedUsers &#x3D; users.filter(user &#x3D;&gt; { return user.id &#x3D;&#x3D;&#x3D; id; });
+                    let user &#x3D; matchedUsers.length ? matchedUsers[0] : null;
+
+                    return Observable.of(new HttpResponse({ status: 200, body: user }));
+                } else {
+                    // return 401 not authorised if token is null or invalid
+                    return Observable.throw(&#x27;Unauthorised&#x27;);
+                }
+            }
+
+          // get action by id
+          if (request.url.match(/\/api\/actions\/\d+$/) &amp;&amp; request.method &#x3D;&#x3D;&#x3D; &#x27;GET&#x27;) {
+            // check for fake auth token in header and return user if valid,
+            // this security is implemented server side in a real application
+            if (request.headers.get(&#x27;Authorization&#x27;) &#x3D;&#x3D;&#x3D; &#x27;Bearer fake-jwt-token&#x27;) {
+              // find user by id in users array
+              const urlParts &#x3D; request.url.split(&#x27;/&#x27;);
+              const id &#x3D; parseInt(urlParts[urlParts.length - 1]);
+              const matchedActions &#x3D; actions.filter(action &#x3D;&gt; { return action.id &#x3D;&#x3D;&#x3D; id; });
+              const action &#x3D; matchedActions.length ? matchedActions[0] : null;
+
+              return Observable.of(new HttpResponse({ status: 200, body: action }));
+            } else {
+              // return 401 not authorised if token is null or invalid
+              return Observable.throw(&#x27;Unauthorised&#x27;);
+            }
+          }
+
+          // get view by id
+          if (request.url.match(/\/api\/views\/\w+$/) &amp;&amp; request.method &#x3D;&#x3D;&#x3D; &#x27;GET&#x27;) {
+            // check for fake auth token in header and return user if valid,
+            // this security is implemented server side in a real application
+            if (request.headers.get(&#x27;Authorization&#x27;) &#x3D;&#x3D;&#x3D; &#x27;Bearer fake-jwt-token&#x27;) {
+              // find user by id in users array
+              const urlParts &#x3D; request.url.split(&#x27;/&#x27;);
+              console.log(urlParts);
+              const hash &#x3D; urlParts[urlParts.length - 1];
+              console.log(&#x27;Hash: &#x27; + hash);
+              const matchedActions &#x3D; views.filter(view &#x3D;&gt; { return view.hash &#x3D;&#x3D;&#x3D; hash; });
+              const view &#x3D; matchedActions.length ? matchedActions[0] : null;
+
+              return Observable.of(new HttpResponse({ status: 200, body: view }));
+            } else {
+              // return 401 not authorised if token is null or invalid
+              return Observable.throw(&#x27;Unauthorised&#x27;);
+            }
+          }
+
+          // get edition by hash
+          if (request.url.match(/\/api\/editions\/\w+$/) &amp;&amp; request.method &#x3D;&#x3D;&#x3D; &#x27;GET&#x27;) {
+            // check for fake auth token in header and return user if valid,
+            // this security is implemented server side in a real application
+            if (request.headers.get(&#x27;Authorization&#x27;) &#x3D;&#x3D;&#x3D; &#x27;Bearer fake-jwt-token&#x27;) {
+              // find user by id in users array
+              const urlParts &#x3D; request.url.split(&#x27;/&#x27;);
+              console.log(urlParts);
+              const hash &#x3D; urlParts[urlParts.length - 1];
+              console.log(&#x27;Hash: &#x27; + hash);
+              const matchedActions &#x3D; editions.filter(edition &#x3D;&gt; { return edition.hash &#x3D;&#x3D;&#x3D; hash; });
+              const edition &#x3D; matchedActions.length ? matchedActions[0] : null;
+
+              return Observable.of(new HttpResponse({ status: 200, body: edition }));
+            } else {
+              // return 401 not authorised if token is null or invalid
+              return Observable.throw(&#x27;Unauthorised&#x27;);
+            }
+          }
+
+          // update action
+          if (request.url.match(/\/api\/actions\/\d+$/) &amp;&amp; request.method &#x3D;&#x3D;&#x3D; &#x27;PUT&#x27;) {
+            // check for fake auth token in header and return user if valid,
+            // this security is implemented server side in a real application
+            if (request.headers.get(&#x27;Authorization&#x27;) &#x3D;&#x3D;&#x3D; &#x27;Bearer fake-jwt-token&#x27;) {
+              // find user by id in users array
+              const urlParts &#x3D; request.url.split(&#x27;/&#x27;);
+              const id &#x3D; parseInt(urlParts[urlParts.length - 1]);
+              console.log(&#x27;update action &#x27; + id);
+              console.log(request.body);
+              for (let i &#x3D; 0; i &lt; actions.length; i++) {
+                const action &#x3D; actions[i];
+                if ( action.id &#x3D;&#x3D;&#x3D; id) {
+                  // delete action to save it again afterwards
+                  actions.splice(i, 1);
+                  localStorage.setItem(&#x27;actions&#x27;, JSON.stringify(actions));
+                  // save existing action again in storage
+                  const newAction &#x3D; request.body;
+                  // save new action
+                  console.log(&#x27;Update action&#x27;);
+                  console.log(newAction);
+                  newAction.id &#x3D; actions.length + 1;
+                  newAction.isFinished &#x3D; false;
+                  actions.push(newAction);
+                  localStorage.setItem(&#x27;actions&#x27;, JSON.stringify(actions));
+                  return Observable.of(new HttpResponse({ status: 200, body: newAction }));
+                }
+              }
+            } else {
+              // return 401 not authorised if token is null or invalid
+              return Observable.throw(&#x27;Unauthorised&#x27;);
+            }
+          }
+
+          // update view
+          if (request.url.match(/\/api\/views\/\w+$/) &amp;&amp; request.method &#x3D;&#x3D;&#x3D; &#x27;PUT&#x27;) {
+            // check for fake auth token in header and return user if valid,
+            // this security is implemented server side in a real application
+            if (request.headers.get(&#x27;Authorization&#x27;) &#x3D;&#x3D;&#x3D; &#x27;Bearer fake-jwt-token&#x27;) {
+              // find user by id in users array
+              const urlParts &#x3D; request.url.split(&#x27;/&#x27;);
+              const hash &#x3D; urlParts[urlParts.length - 1];
+              console.log(&#x27;update view &#x27; + hash);
+              console.log(request.body);
+              console.log(views);
+              // save new action
+              console.log(&#x27;Update action&#x27;);
+              console.log(&#x27;Views before&#x27;);
+              console.log(views);
+              let index &#x3D; 0;
+              let finalIndex &#x3D; 0;
+              for ( const view of views ) {
+                if ( view.hash &#x3D;&#x3D;&#x3D; hash ) {
+                  finalIndex &#x3D; index;
+                }
+                index +&#x3D; 1;
+              }
+              views[ finalIndex ] &#x3D; request.body;
+              console.log(&#x27;Views after&#x27;);
+              console.log(views);
+              localStorage.setItem(&#x27;views&#x27;, JSON.stringify(views));
+                  return Observable.of(new HttpResponse({ status: 200, body: request.body }));
+            } else {
+              // return 401 not authorised if token is null or invalid
+              return Observable.throw(&#x27;Unauthorised&#x27;);
+            }
+          }
+
+          // update edition
+          if (request.url.match(/\/api\/editions\/\w+$/) &amp;&amp; request.method &#x3D;&#x3D;&#x3D; &#x27;PUT&#x27;) {
+            // check for fake auth token in header and return user if valid,
+            // this security is implemented server side in a real application
+            if (request.headers.get(&#x27;Authorization&#x27;) &#x3D;&#x3D;&#x3D; &#x27;Bearer fake-jwt-token&#x27;) {
+              // find user by id in editions array
+              const urlParts &#x3D; request.url.split(&#x27;/&#x27;);
+              const hash &#x3D; urlParts[urlParts.length - 1];
+              console.log(&#x27;update edition &#x27; + hash);
+              console.log(request.body);
+              console.log(editions);
+              // save new action
+              console.log(&#x27;Update action&#x27;);
+              console.log(&#x27;Views before&#x27;);
+              console.log(editions);
+              editions[ 0 ] &#x3D; request.body;
+              console.log(&#x27;Views after&#x27;);
+              console.log(editions);
+              localStorage.setItem(&#x27;editions&#x27;, JSON.stringify(editions));
+              return Observable.of(new HttpResponse({ status: 200, body: request.body }));
+            } else {
+              // return 401 not authorised if token is null or invalid
+              return Observable.throw(&#x27;Unauthorised&#x27;);
+            }
+          }
+
+            // create user
+            if (request.url.endsWith(&#x27;/api/users&#x27;) &amp;&amp; request.method &#x3D;&#x3D;&#x3D; &#x27;POST&#x27;) {
+                // get new user object from post body
+                let newUser &#x3D; request.body;
+
+                // validation
+                let duplicateUser &#x3D; users.filter(user &#x3D;&gt; { return user.username &#x3D;&#x3D;&#x3D; newUser.username; }).length;
+                if (duplicateUser) {
+                    return Observable.throw(&#x27;Username &quot;&#x27; + newUser.username + &#x27;&quot; is already taken&#x27;);
+                }
+
+                // save new user
+                newUser.id &#x3D; users.length + 1;
+                users.push(newUser);
+                localStorage.setItem(&#x27;users&#x27;, JSON.stringify(users));
+
+                // respond 200 OK
+                return Observable.of(new HttpResponse({ status: 200 }));
+            }
+
+          // create view
+          if (request.url.endsWith(&#x27;/api/views&#x27;) &amp;&amp; request.method &#x3D;&#x3D;&#x3D; &#x27;POST&#x27;) {
+            // get new user object from post body
+            let newView &#x3D; request.body;
+            // validation
+            let duplicateView &#x3D; views.filter(view &#x3D;&gt; { return view.hash &#x3D;&#x3D;&#x3D; newView.hash; }).length;
+            if ( duplicateView ) {
+              return Observable.throw(&#x27;View id &quot;&#x27; + newView.hash + &#x27;&quot; is already taken&#x27;);
+            }
+
+            // save new view
+            views.push( newView );
+            localStorage.setItem(&#x27;views&#x27;, JSON.stringify(views));
+            console.log(JSON.parse(localStorage.getItem(&#x27;views&#x27;)));
+
+            // respond 200 OK
+            return Observable.of(new HttpResponse({ status: 200 }));
+          }
+
+          // create edition
+          if (request.url.endsWith(&#x27;/api/editions&#x27;) &amp;&amp; request.method &#x3D;&#x3D;&#x3D; &#x27;POST&#x27;) {
+            // get new user object from post body
+            console.log(&#x27;Create edition&#x27;);
+            console.log(request.body);
+            let newEdition &#x3D; request.body;
+            // validation
+            let duplicateEdition &#x3D; views.filter(edition &#x3D;&gt; { return edition.hash &#x3D;&#x3D;&#x3D; newEdition.hash; }).length;
+            if ( duplicateEdition ) {
+              return Observable.throw(&#x27;Edition with hash &quot;&#x27; + newEdition.hash + &#x27;&quot; is already taken&#x27;);
+            }
+
+            // save new edition
+            console.log()
+            editions.push( newEdition );
+            localStorage.setItem(&#x27;editions&#x27;, JSON.stringify(editions));
+            console.log(JSON.parse(localStorage.getItem(&#x27;editions&#x27;)));
+
+            // respond 200 OK
+            return Observable.of(new HttpResponse({ status: 200 }));
+          }
+
+          // get views
+          if (request.url.endsWith(&#x27;/api/views&#x27;) &amp;&amp; request.method &#x3D;&#x3D;&#x3D; &#x27;GET&#x27;) {
+            // check for fake auth token in header and return users if valid,
+            // this security is implemented server side in a real application
+            if (request.headers.get(&#x27;Authorization&#x27;) &#x3D;&#x3D;&#x3D; &#x27;Bearer fake-jwt-token&#x27;) {
+              return Observable.of(new HttpResponse({ status: 200, body: views }));
+            } else {
+              // return 401 not authorised if token is null or invalid
+              return Observable.throw(&#x27;Unauthorised&#x27;);
+            }
+          }
+
+
+          // create action
+          if (request.url.endsWith(&#x27;/api/actions&#x27;) &amp;&amp; request.method &#x3D;&#x3D;&#x3D; &#x27;POST&#x27;) {
+            // get new user object from post body
+            const newAction &#x3D; request.body;
+
+            // validation
+            const duplicateAction &#x3D; users.filter(action &#x3D;&gt; { return action.title &#x3D;&#x3D;&#x3D; newAction.title; }).length;
+            if (duplicateAction) {
+              return Observable.throw(&#x27;Action &quot;&#x27; + newAction.title + &#x27;&quot; already exists&#x27;);
+            }
+
+            // save new action
+            console.log(&#x27;Create action&#x27;);
+            newAction.id &#x3D; actions.length + 1;
+            newAction.isFinished &#x3D; false;
+            newAction.hasViews &#x3D; [];
+            actions.push(newAction);
+            localStorage.setItem(&#x27;actions&#x27;, JSON.stringify(actions));
+
+            // respond 200 OK
+            return Observable.of(new HttpResponse({ status: 200 }));
+          }
+
+            // delete user
+            if (request.url.match(/\/api\/users\/\d+$/) &amp;&amp; request.method &#x3D;&#x3D;&#x3D; &#x27;DELETE&#x27;) {
+                // check for fake auth token in header and return user if valid,
+              // this security is implemented server side in a real application
+                if (request.headers.get(&#x27;Authorization&#x27;) &#x3D;&#x3D;&#x3D; &#x27;Bearer fake-jwt-token&#x27;) {
+                    // find user by id in users array
+                    let urlParts &#x3D; request.url.split(&#x27;/&#x27;);
+                    let id &#x3D; parseInt(urlParts[urlParts.length - 1]);
+                    for (let i &#x3D; 0; i &lt; users.length; i++) {
+                        let user &#x3D; users[i];
+                        if (user.id &#x3D;&#x3D;&#x3D; id) {
+                            // delete user
+                            users.splice(i, 1);
+                            localStorage.setItem(&#x27;users&#x27;, JSON.stringify(users));
+                            break;
+                        }
+                    }
+
+                    // respond 200 OK
+                    return Observable.of(new HttpResponse({ status: 200 }));
+                } else {
+                    // return 401 not authorised if token is null or invalid
+                    return Observable.throw(&#x27;Unauthorised&#x27;);
+                }
+            }
+
+          // delete action
+          if (request.url.match(/\/api\/actions\/\d+$/) &amp;&amp; request.method &#x3D;&#x3D;&#x3D; &#x27;DELETE&#x27;) {
+            // check for fake auth token in header and return user if valid,
+            // this security is implemented server side in a real application
+            if (request.headers.get(&#x27;Authorization&#x27;) &#x3D;&#x3D;&#x3D; &#x27;Bearer fake-jwt-token&#x27;) {
+              // find user by id in users array
+              const urlParts &#x3D; request.url.split(&#x27;/&#x27;);
+              const id &#x3D; parseInt(urlParts[urlParts.length - 1]);
+              for (let i &#x3D; 0; i &lt; actions.length; i++) {
+                const action &#x3D; actions[i];
+                if (action.id &#x3D;&#x3D;&#x3D; id) {
+                  // delete user
+                  actions.splice(i, 1);
+                  localStorage.setItem(&#x27;actions&#x27;, JSON.stringify(actions));
+                  break;
+                }
+              }
+
+              // respond 200 OK
+              return Observable.of(new HttpResponse({ status: 200 }));
+            } else {
+              // return 401 not authorised if token is null or invalid
+              return Observable.throw(&#x27;Unauthorised&#x27;);
+            }
+          }
+
+            // pass through any requests not handled above
+            console.log(&#x27;Pass on request&#x27;);
+            console.log(request);
+            return next.handle(request);
+
+        })
+
+        // call materialize and dematerialize to ensure delay even if an error is thrown
+        // (https://github.com/Reactive-Extensions/RxJS/issues/648)
+        .materialize()
+        .delay(500)
+        .dematerialize();
+    }
+}
+
+export let fakeBackendProvider &#x3D; {
+    // use fake backend in place of Http service for backend-less development
+    provide: HTTP_INTERCEPTORS,
+    useClass: FakeBackendInterceptor,
+    multi: true
+};
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interceptor';
+            var COMPODOC_CURRENT_PAGE_URL = 'FakeBackendInterceptor.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <script src="../js/menu-wc.js"></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
