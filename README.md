@@ -1,9 +1,9 @@
 # nieOS
 
 [![Build Status](https://travis-ci.org/nie-ine/nieOS.svg?branch=devel)](https://travis-ci.org/nie-ine/nieOS)
-![Docker build](https://img.shields.io/docker/build/nieine/nie-frontend.svg)
-![Docker automated build](https://img.shields.io/docker/automated/nie-frontend/nie-frontend.svg)
-![Docker pulls](https://img.shields.io/docker/pulls/nieine/nie-frontend.svg)
+![Docker build](https://img.shields.io/docker/build/nieine/nieos.svg)
+![Docker automated build](https://img.shields.io/docker/automated/nieos/nieos.svg)
+![Docker pulls](https://img.shields.io/docker/pulls/nieine/nieos.svg)
 
 ## Get it up and running
 
