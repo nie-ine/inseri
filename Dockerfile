@@ -1,6 +1,6 @@
 FROM node:9.2.0-alpine as builder
 
-WORKDIR /home/node/nie-frontend
+WORKDIR /home/node/nieos
 
 COPY . .
 
@@ -18,8 +18,8 @@ RUN ng build --prod --aot
 
 
 FROM nginx:1.13.7
-COPY --from=builder /home/node/nie-frontend/dist /var/www/dist
-COPY ./.docker/nginx.conf /etc/nginx/conf.d/nie-frontend.template
+COPY --from=builder /home/node/nieos/dist /var/www/dist
+COPY ./.docker/nginx.conf /etc/nginx/conf.d/nieos.template
 COPY ./.docker/nginx-envsubst.sh /usr/bin/nginx-envsubst
 RUN chmod +x /usr/bin/nginx-envsubst
 ENV NGINX_HOST localhost
