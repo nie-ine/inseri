@@ -60,7 +60,8 @@
           </mat-expansion-panel-header>
 
           This app displays the image of your choice with the OpenSea - Dragon - Plugin. You can zoom in and have
-          a look at it in fullscreen - mode. The link to the documentation follows soon.
+          a look at it in fullscreen - mode. The documentation of this App can be found
+          <a href="https://nie-ine.github.io/nieOS/components/ImageFrameComponent.html" target="_blank">here</a>.
 
           <mat-divider></mat-divider>
 
@@ -501,7 +502,7 @@
       </popup>
       <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>perm_data_setting</mat-icon> {{ i }}</button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="dataChooser.appear()" >Open Data Chooser {{ i }}</button><
+        <button mat-menu-item (click)="dataChooser.appear()" >Open Data Chooser {{ i }}</button>
         <button mat-menu-item (click)=" closeApp( appTypes[ 'dataChooser' ].model, i ) ">Close this app</button>
       </mat-menu>
 
