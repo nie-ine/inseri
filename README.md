@@ -1,3 +1,5 @@
+Contact and info about the organisation NIE-INE: [https://www.nie-ine.ch/](https://www.nie-ine.ch/)
+
 # nieOS
 
 [![Build Status](https://travis-ci.org/nie-ine/nieOS.svg?branch=devel)](https://travis-ci.org/nie-ine/nieOS)
