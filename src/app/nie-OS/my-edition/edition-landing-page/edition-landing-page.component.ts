@@ -89,9 +89,10 @@ export class EditionLandingPageComponent implements OnInit {
             this.edition = {};
             console.log('No edition for this action yet');
             this.edition.hash = this.generateHashService.generateHash();
-            this.edition.title = 'Edition Titel';
-            this.edition.linkToImage = 'https://www.zentralplus.ch/' +
-              'images/cache/750x420/crop_238_313_1055_771/images%7Ccms-image-007547962.jpg';
+            this.edition.title = 'Example pageSet';
+            this.edition.linkToImage = 'https://c8.alamy.com/' +
+              'comp/DX9AP3/' +
+              'open-book-vintage-accessories-old-letters-pages-photo-frames-glasses-DX9AP3.jpg';
             this.edition.description = 'Dies als Beispiel für eine Edition bei NIE-OS\n' +
               '    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy\n' +
               '    eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.\n' +

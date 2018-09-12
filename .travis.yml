@@ -3,7 +3,14 @@ dist: trusty
 
 language: node_js
 node_js:
-  - '9.3.0'
+  - '8'
+
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - g++-4.9
 
 install:
   - export DISPLAY=:99.0
@@ -15,7 +22,7 @@ install:
   - npm install -g @angular/cli@1.6.3
 
 before_script:
-  - npm install
+  - CC=gcc-4.9 CXX=g++-4.9 npm install
   - git submodule update --remote
 
 script:
