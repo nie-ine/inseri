@@ -1,4 +1,6 @@
 Contact and info about the organisation NIE-INE: [https://www.nie-ine.ch/](https://www.nie-ine.ch/)
+NIE-INE | NATIONAL INFRASTRUCTURE FOR EDITIONS | A swiss-wide organisation for the infrastructure of editions.
+Powered by [FEE](http://www.fee.unibas.ch/), Mandated by [swissuniversities](https://www.swissuniversities.ch/)
 
 # nieOS
 
