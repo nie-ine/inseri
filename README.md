@@ -15,9 +15,9 @@
 
 ## Run in Docker container ( does not work at the moment )
 
-1. Download and run Docker container: `docker run -p 5555:80 nieine/nie-frontend:latest`
+1. Download and run Docker container: `docker run -p 5555:80 nieine/nieos:latest`
 2. Open `localhost:5555` in browser
-3. Optional: Set `NGINX_HOST` and `NGINX_PORT` to customise the webserver. E.g. `docker run -e NGINX_HOST=http://example.com -e NGINX_PORT=1234 -p 1234:1234 nie/nie-frontend:latest`.
+3. Optional: Set `NGINX_HOST` and `NGINX_PORT` to customise the webserver. E.g. `docker run -e NGINX_HOST=http://example.com -e NGINX_PORT=1234 -p 1234:1234 nieine/nieos:latest`.
 
 ## Development server
 
