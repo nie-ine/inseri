@@ -87,7 +87,7 @@
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/grapesjs/dist/grapes.min.js",
               "node_modules/openseadragon/build/openseadragon/openseadragon.min.js",
-              "node_modules/svg-overlay/openseadragon-svg-overlay.js"
+              "src/app/shared/svg-overlay/openseadragon-svg-overlay.js"
             ],
             "styles": [
               "src/styles.scss",
