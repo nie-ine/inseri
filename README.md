@@ -5,7 +5,6 @@ Powered by [FEE](http://www.fee.unibas.ch/), mandated by [swissuniversities](htt
 # nieOS
 
 [![Build Status](https://travis-ci.org/nie-ine/nieOS.svg?branch=devel)](https://travis-ci.org/nie-ine/nieOS)
-![Docker build](https://img.shields.io/docker/build/nieine/nieos.svg)
 ![Docker pulls](https://img.shields.io/docker/pulls/nieine/nieos.svg)
 
 ## Get it up and running
