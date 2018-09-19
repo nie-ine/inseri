@@ -1,9 +1,11 @@
+Contact and info about the organisation NIE-INE | NATIONAL INFRASTRUCTURE FOR EDITIONS | A swiss-wide organisation for the infrastructure of editions: [https://www.nie-ine.ch/](https://www.nie-ine.ch/)
+
+Powered by [FEE](http://www.fee.unibas.ch/), mandated by [swissuniversities](https://www.swissuniversities.ch/)
+
 # nieOS
 
-![Travis build](https://api.travis-ci.org/nie-ine/nie-frontend.svg)
-![Docker build](https://img.shields.io/docker/build/nieine/nie-frontend.svg)
-![Docker automated build](https://img.shields.io/docker/automated/nie-frontend/nie-frontend.svg)
-![Docker pulls](https://img.shields.io/docker/pulls/nieine/nie-frontend.svg)
+[![Build Status](https://travis-ci.org/nie-ine/nieOS.svg?branch=devel)](https://travis-ci.org/nie-ine/nieOS)
+![Docker pulls](https://img.shields.io/docker/pulls/nieine/nieos.svg)
 
 ## Get it up and running
 
@@ -26,8 +28,3 @@ Run `ng s` for a dev server. Navigate to `http://localhost:4200/`. The app will 
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-# nieOS Tour
-
-### nieOS functionalities
- - nieOS is a database agnostic publication and work environment, focussed on historical critical editions
