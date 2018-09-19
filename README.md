@@ -7,7 +7,7 @@ Powered by [FEE](http://www.fee.unibas.ch/), mandated by [swissuniversities](htt
 [![Build Status](https://travis-ci.org/nie-ine/nieOS.svg?branch=devel)](https://travis-ci.org/nie-ine/nieOS)
 ![Docker pulls](https://img.shields.io/docker/pulls/nieine/nieos.svg)
 
-## Get it up and running
+## Get it up and running for development
 
  - ``git clone https://github.com/nie-ine/nieOS.git``
  - ``cd nieOS``
@@ -20,10 +20,6 @@ Powered by [FEE](http://www.fee.unibas.ch/), mandated by [swissuniversities](htt
 1. Download and run Docker container: `docker run -p 5555:80 nieine/nieos:latest`
 2. Open `localhost:5555` in browser
 3. Optional: Set `NGINX_HOST` and `NGINX_PORT` to customise the webserver. E.g. `docker run -e NGINX_HOST=http://example.com -e NGINX_PORT=1234 -p 1234:1234 nieine/nieos:latest`.
-
-## Development server
-
-Run `ng s` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Running unit tests
 
