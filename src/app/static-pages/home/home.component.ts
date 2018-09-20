@@ -26,7 +26,8 @@ export class HomeComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    public authService: AuthService
   ) {
   }
 
@@ -41,7 +42,11 @@ export class HomeComponent implements OnInit {
 
   startLoginProcess() {
     this.loginError = false;
-    this.authenticationService.login(this.username, this.password)
+    this.authService.login(
+      this.username,
+      this.password
+    );
+/*    this.authenticationService.login(this.username, this.password)
       .subscribe(
         data => {
           console.log(data);
@@ -52,7 +57,7 @@ export class HomeComponent implements OnInit {
           console.log(error);
           this.alertService.error(error);
           this.loading = false;
-        });
+        });*/
   }
 
 }
