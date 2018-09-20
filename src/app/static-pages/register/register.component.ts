@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { AlertService} from '../../shared/altert.service';
 import { UserService } from '../../shared/user.service';
+import { AuthService } from '../../shared/mongodb/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -16,11 +17,14 @@ export class RegisterComponent {
   constructor(
     private router: Router,
     private userService: UserService,
-    private alertService: AlertService) { }
+    private alertService: AlertService,
+    public authSerive: AuthService
+  ) { }
 
   register() {
     this.loading = true;
-    this.userService.create(this.model)
+    this.authSerive.createUser(this.model.username, this.model.password);
+/*    this.userService.create(this.model)
       .subscribe(
         data => {
           console.log(data);
@@ -31,7 +35,7 @@ export class RegisterComponent {
           console.log(error);
           this.alertService.error(error);
           this.loading = false;
-        });
+        });*/
   }
 
 

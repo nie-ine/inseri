@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../../shared/authentication.service';
 import { AlertService } from '../../shared/altert.service';
+import {AuthService} from '../../shared/mongodb/auth.service';
 
 declare let OpenSeadragon: any;
 
