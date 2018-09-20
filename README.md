@@ -9,6 +9,8 @@ Powered by [FEE](http://www.fee.unibas.ch/), mandated by [swissuniversities](htt
 
 ## Get it up and running for development
 
+ - Create a sandbox on Mongodb
+ - Create a folder .settings and store your password in ...
  - ``git clone https://github.com/nie-ine/nieOS.git``
  - ``cd nieOS``
  - ``yarn``
