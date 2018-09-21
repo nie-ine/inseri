@@ -8,11 +8,14 @@ import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/materialize';
 import 'rxjs/add/operator/dematerialize';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {AuthService} from '../mongodb/auth.service';
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
 
-    constructor(private http: HttpClient) { }
+    constructor(
+      private http: HttpClient,
+      private authService: AuthService) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         // array in local storage for registered users
@@ -405,12 +408,15 @@ export class FakeBackendInterceptor implements HttpInterceptor {
               return Observable.throw('Unauthorised');
             }
           }
-
-            // pass through any requests not handled above
-            console.log('Pass on request');
-            console.log(request);
-            return next.handle(request);
-
+          // pass through any requests not handled above
+          console.log('Pass on request');
+          console.log(request);
+          // attach Token from nodejs
+          const authToken = this.authService.getToken();
+          const authRequest = request.clone({
+              headers: request.headers.set('Authorization', 'Bearer ' + authToken)
+          });
+          return next.handle(authRequest);
         })
 
         // call materialize and dematerialize to ensure delay even if an error is thrown
