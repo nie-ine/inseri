@@ -25,8 +25,8 @@
         <li *ngIf="!userIsAuthenticated">
           <a href="{{ generateLoginOrSettingsLink() }}" (click)="logout()">{{ generateLoginOrSettingsButton() }}</a>
         </li>
-        <li *ngIf="userIsAuthenticated" >
-          <a style="color: #4cae4c !important">Logged in</a>
+        <li *ngIf="userIsAuthenticated" style="cursor: pointer;">
+          <a style="color: #4cae4c !important" (click)="openSettingsDialog()" >Einstellungen</a>
         </li>
       </ul>
     </div>
