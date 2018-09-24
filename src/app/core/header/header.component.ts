@@ -222,4 +222,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
+  openSettingsDialog() {
+    console.log('openSettingsDialog');
+  }
+
 }
