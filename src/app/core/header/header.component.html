@@ -22,8 +22,11 @@
         <li>
           <a >Sprache</a>
         </li>
-        <li>
+        <li *ngIf="!userIsAuthenticated">
           <a href="{{ generateLoginOrSettingsLink() }}" (click)="logout()">{{ generateLoginOrSettingsButton() }}</a>
+        </li>
+        <li *ngIf="userIsAuthenticated" >
+          <a style="color: #4cae4c !important">Logged in</a>
         </li>
       </ul>
     </div>

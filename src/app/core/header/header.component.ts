@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../../shared/authentication.service';
 import {ActionService} from '../../shared/action.service';
 import {ViewService} from '../../nie-OS/apps/view/view.service';
+import {AuthService} from '../../shared/mongodb/auth.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
 
   currentRoute: string;
   viewsOfThisActtion: Array<any>;
@@ -18,13 +20,16 @@ export class HeaderComponent implements OnInit {
   lastView: any;
   nextView: any;
   foundHashOfThisView: boolean;
+  private authListenerSubs: Subscription;
+  userIsAuthenticated = false;
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private actionService: ActionService,
     private viewService: ViewService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private authService: AuthService
   ) {
       router.events.subscribe(( route: any ) => {
         this.updateCurrentRoute( route );
@@ -38,8 +43,20 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    // console.log(this.activatedRoute);
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authListenerSubs = this.authService
+      .getAuthStatusListener()
+      .subscribe(
+        isAuthenticated => {
+          this.userIsAuthenticated = isAuthenticated;
+        }
+      );
   }
+
+  ngOnDestroy() {
+    this.authListenerSubs.unsubscribe();
+  }
+
   produceCurrentViewDescription() {
     if ( this.viewsOfThisActtion ) {
       for ( const view of this.viewsOfThisActtion ) {
@@ -163,9 +180,7 @@ export class HeaderComponent implements OnInit {
   generateLoginOrSettingsButton(): string {
     return(
       this.routeMapping( 'dashboard', 'Logout' ) ||
-      this.routeMapping( 'arbeitsflaeche', 'Einstellungen' ) ||
-      this.routeMapping( 'home', 'Login' ) ||
-      this.routeMapping( '', 'Login' )
+      this.routeMapping( 'arbeitsflaeche', 'Einstellungen' )
     );
   }
 
@@ -196,7 +211,6 @@ export class HeaderComponent implements OnInit {
     return(
       this.routeMapping( 'dashboard', 'home#top' ) ||
       this.routeMapping( 'arbeitsflaeche', '/settings' ) ||
-      this.routeMapping( 'home', 'home#login' ) ||
       this.routeMapping( '', 'home#top' )
     );
   }
