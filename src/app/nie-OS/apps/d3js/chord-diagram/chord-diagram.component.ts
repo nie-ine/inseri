@@ -2,7 +2,7 @@
   Chord diagram in angular. Original in javascript by Mike Bostock https://bl.ocks.org/mbostock/4062006
  */
 
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, Input } from '@angular/core';
 import * as d3 from 'd3-selection';
 import * as d3Array from 'd3-array';
 import * as d3Chord from 'd3-chord';
@@ -16,10 +16,12 @@ import * as d3Shape from 'd3-shape';
   templateUrl: './chord-diagram.component.html',
   styleUrls: ['./chord-diagram.component.scss']
 })
-export class ChordDiagramComponent implements OnInit {
+export class ChordDiagramComponent implements AfterViewChecked {
 
   @Input() initialised = false;
   @Input() numberOfInitialisedComponent: number;
+  alreadyInitialised = false;
+  title = 'Chord Diagram';
 
   // square matrix. Number has to bee matched in colors variable below
   private matrix = [
@@ -31,8 +33,11 @@ export class ChordDiagramComponent implements OnInit {
 
   private colors = [ 'green', 'blue', 'orange', 'red' ];
 
-  ngOnInit() {
-    this.drawSvg();
+  ngAfterViewChecked() {
+    if ( this.initialised && !this.alreadyInitialised ) {
+      this.alreadyInitialised = true;
+      this.drawSvg();
+    }
   }
 
   drawSvg() {
