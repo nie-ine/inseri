@@ -46,7 +46,7 @@ export class ChordDiagramComponent implements AfterViewChecked {
     const width = svg.attr('width');
     const height = svg.attr('height');
     const outerRadius = Math.min(width, height) * 0.5 - 40;
-    const innerRadius = outerRadius - 30;
+    const innerRadius = outerRadius - 20;
 
     const formatValue = d3Format.formatPrefix(',.0', 1e3);
 
