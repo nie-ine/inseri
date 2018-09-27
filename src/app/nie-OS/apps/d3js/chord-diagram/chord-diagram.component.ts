@@ -1,12 +1,15 @@
+/*
+  Chord diagram in angular. Original in javascript by Mike Bostock https://bl.ocks.org/mbostock/4062006
+ */
+
 import { Component, Input, OnInit } from '@angular/core';
 import * as d3 from 'd3-selection';
-import * as d3Scale from 'd3-scale';
-import * as d3ScaleChromatic from 'd3-scale-chromatic';
-import * as d3Shape from 'd3-shape';
+import * as d3Array from 'd3-array';
 import * as d3Chord from 'd3-chord';
-
-import { CONNECTIONS } from './connections';
-
+import * as d3Color from 'd3-color';
+import * as d3Format from 'd3-format';
+import * as d3Scale from 'd3-scale';
+import * as d3Shape from 'd3-shape';
 
 @Component({
   selector: 'app-chord-diagram',
@@ -18,150 +21,118 @@ export class ChordDiagramComponent implements OnInit {
   @Input() initialised = false;
   @Input() numberOfInitialisedComponent: number;
 
-  private dataMatrix;
+  // square matrix. Number has to bee matched in colors variable below
+  private matrix = [
+    [11975,  5871, 8916, 2868],
+    [ 1951, 10048, 2060, 6171],
+    [ 8010, 16145, 8090, 8045],
+    [ 1013,   990,  940, 6907]
+  ];
 
-  private nameByIndex = {};
-  private indexByName = {};
-
-  private outerRadius = 960 / 2;
-  private innerRadius = this.outerRadius - 130;
-
-  private fill;
-
-  private chord;
-  private arc_layout;
-  private svg;
-
-  constructor() { }
+  private colors = [ 'green', 'blue', 'orange', 'red' ];
 
   ngOnInit() {
-    this.prepareData();
-    this.initSvg();
-    this.drawChord();
+    this.drawSvg();
   }
 
-  prepareData() {
+  drawSvg() {
 
-    this.dataMatrix = [];
-    let n = 0;
+    const svg = d3.select('svg');
+    const width = svg.attr('width');
+    const height = svg.attr('height');
+    const outerRadius = Math.min(width, height) * 0.5 - 40;
+    const innerRadius = outerRadius - 30;
 
-    // Compute a unique index for each package name.
-    for (const d of CONNECTIONS) {
-      if (!this.indexByName[d.name]) {
-        this.nameByIndex[n] = d.name;
-        this.indexByName[d.name] = n;
-        n++;
-      }
-      for (const e of d.imports) {
-        if (!this.indexByName[e]) {
-          this.nameByIndex[n] = e;
-          this.indexByName[e] = n;
-          n++;
-        }
-      }
-    }
+    const formatValue = d3Format.formatPrefix(',.0', 1e3);
 
-    // make empty matrix
-    for (const xContent in this.indexByName) {
-      const xDim = [];
-      for (const yContent in this.indexByName) {
-        xDim.push(0);
-      }
-      this.dataMatrix.push(xDim);
-    }
+    const chord = d3Chord.chord()
+      .padAngle(0.05)
+      .sortSubgroups(d3Array.descending);
 
-    // Construct a square matrix counting package imports.
-    for (const subject of CONNECTIONS) {
-      const source = this.indexByName[subject.name];
-      let row = this.dataMatrix[source];
-      if (!row) {
-        let row = this.dataMatrix[source] = [];
-        for (let i = -1; ++i < n;) {
-          row[ i ] = 0;
-        }
-      }
-      for (const object of subject.imports) {
-        row[this.indexByName[object]]++;
-      }
-    }
-  }
+    const arc = d3Shape.arc()
+      .innerRadius(innerRadius)
+      .outerRadius(outerRadius);
 
-  initSvg() {
+    const ribbon = d3Chord.ribbon()
+      .radius(innerRadius);
 
-    // initialize svg to attach diagram
-    this.svg = d3.select('.myChord')
-      .append('svg')
-      .attr('width', this.outerRadius * 2)
-      .attr('height', this.outerRadius * 2)
-      .append('g')
-      .attr('transform', 'translate(' + this.outerRadius + ',' + this.outerRadius + ')');
+    const color = d3Scale.scaleOrdinal()
+      .domain(d3Array.range(4))
+      .range(this.colors);
 
-    // initialize chord
-    // this.chord.matrix(matrix);
-    this.chord = d3Chord.chord()
-      .padAngle(.04);
-     // .sortSubgroups(d3.descending)
-     // .sortChords(d3.descending);
+    const g = svg.append('g')
+      .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
+      .datum(chord(this.matrix));
 
-    // layout for segments
-    this.arc_layout = d3Shape.arc()
-      .innerRadius(this.innerRadius)
-      .outerRadius(this.innerRadius + 20);
+    const group = g.append('g')
+      .attr('class', 'groups')
+      .selectAll('g')
+      .data(chords => {
+        return chords.groups;
+      })
+      .enter().append('g');
 
-    // color for segments
-    this.fill = d3Scale.scaleOrdinal(d3ScaleChromatic.schemeCategory10);
-  }
+    group.append('path')
+      .style('fill', d => {
+        return color(d.index);
+      })
+      .style('stroke', d => {
+        return d3Color.color( color(d.index) ).darker();
+      })
+      .attr('d', arc);
 
-  drawChord() {
-
-    // TODO: selectAll...data...enter does not work
-
-    const g = this.svg.selectAll('.group')
-      .data(this.chord.groups)
+    const groupTick = group.selectAll('.group-tick')
+      .data(d => {
+        return this.groupTicks(d, 1e3);
+      })
       .enter().append('g')
-      .attr('class', 'group');
-
-    // subject segment
-    g.append('path')
-      .style('fill', (d) => {
-        return this.fill(d.index);
-      })
-      .style('stroke', (d) => {
-        return this.fill(d.index);
-      })
-      .attr('d', this.arc_layout);
-
-    // names on diagram
-    g.append('text')
-      .each((d) => { d.angle = (d.startAngle + d.endAngle) / 2; })
-      .attr('dy', '.35em')
-      .attr('transform', (d) => {
-        return 'rotate(' + (d.angle * 180 / Math.PI - 90) + ')'
-          + 'translate(' + (this.innerRadius + 26) + ')'
-          + (d.angle > Math.PI ? 'rotate(180)' : '');
-      })
-      .style('text-anchor', function(d) {
-        return d.angle > Math.PI ? 'end' : null;
-      })
-      .text((d) => {
-        return this.nameByIndex[d.index];
+      .attr('class', 'group-tick')
+      .attr('transform', d => {
+        return 'rotate(' + (d.angle * 180 / Math.PI - 90) + ') translate(' + outerRadius + ',0)';
       });
 
-    // connections
-    this.svg.selectAll('.chord')
-      .data(this.chord.chords)
+    groupTick.append('line')
+      .attr('x2', 6);
+
+    groupTick
+      .filter(d => {
+        return d.value % 5e3 === 0;
+      })
+      .append('text')
+      .attr('x', 8)
+      .attr('dy', '.35em')
+      .attr('transform', d => {
+        return d.angle > Math.PI ? 'rotate(180) translate(-16)' : null;
+      })
+      .style('text-anchor', d => {
+        return d.angle > Math.PI ? 'end' : null;
+      })
+      .text(d => {
+        return formatValue(d.value);
+      });
+
+    g.append('g')
+      .attr('class', 'ribbons')
+      .selectAll('path')
+      .data(chords => {
+        return chords;
+      })
       .enter().append('path')
-      .attr('class', 'chord')
-      .style('stroke', d => {
-        return 'ffffff';
-        // return d3.rgb(this.fill(d.source.index)).darker();
-      })
+      .attr('d', ribbon)
       .style('fill', d => {
-        return this.fill(d.source.index);
+        return color(d.target.index);
       })
-      .attr('d', d3Chord().radius(this.innerRadius));
-
-    d3.select(self.frameElement).style('height', this.outerRadius * 2 + 'px');
-
+      .style('stroke', d => {
+        return d3Color.color( color(d.target.index) ).darker();
+      });
   }
+
+  // Returns an array of tick angles and values for a given group and step.
+  groupTicks(d, step) {
+    const k = (d.endAngle - d.startAngle) / d.value;
+    return d3Array.range(0, d.value, step).map(value => {
+      return {value: value, angle: value * k + d.startAngle};
+    });
+  }
+
 }
