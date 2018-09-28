@@ -7,7 +7,6 @@ import * as d3 from 'd3-selection';
 import * as d3Array from 'd3-array';
 import * as d3Chord from 'd3-chord';
 import * as d3Color from 'd3-color';
-import * as d3Format from 'd3-format';
 import * as d3Scale from 'd3-scale';
 import * as d3Shape from 'd3-shape';
 
@@ -20,16 +19,21 @@ export class ChordDiagramComponent implements AfterViewChecked {
 
   @Input() initialised = false;
   @Input() numberOfInitialisedComponent: number;
+  @Input() fromLabel = 'von';
+  @Input() toLabel = 'an';
   alreadyInitialised = false;
   title = 'Chord Diagram';
 
-  // square matrix. Number has to bee matched in colors variable below
+  // square matrix. Number has to bee matched in labels and colors variable below
+  // matrix[i][j] means from i to j
   private matrix = [
-    [11975,  5871, 8916, 2868],
-    [ 1951, 10048, 2060, 6171],
-    [ 8010, 16145, 8090, 8045],
-    [ 1013,   990,  940, 6907]
+    [    0,  5871, 8916, 2868],
+    [ 1951,     0, 2060, 6171],
+    [ 8010, 16145,    0, 8045],
+    [ 1013,   990,  940,    0]
   ];
+
+  private labels = [ 'Anna', 'Bertha', 'Caspar', 'Dietrich' ];
 
   private colors = [ 'green', 'blue', 'orange', 'red' ];
 
@@ -47,8 +51,6 @@ export class ChordDiagramComponent implements AfterViewChecked {
     const height = svg.attr('height');
     const outerRadius = Math.min(width, height) * 0.5 - 40;
     const innerRadius = outerRadius - 20;
-
-    const formatValue = d3Format.formatPrefix(',.0', 1e3);
 
     const chord = d3Chord.chord()
       .padAngle(0.05)
@@ -84,11 +86,15 @@ export class ChordDiagramComponent implements AfterViewChecked {
       .style('stroke', d => {
         return d3Color.color( color(d.index) ).darker();
       })
-      .attr('d', arc);
+      .attr('d', arc)
+      .append('svg:title')
+      .text(d => {
+        return this.formatArcTitle(d);
+      });
 
     const groupTick = group.selectAll('.group-tick')
       .data(d => {
-        return this.groupTicks(d, 1e3);
+        return [ {angle: (d.endAngle + d.startAngle) / 2, index: d.index} ];
       })
       .enter().append('g')
       .attr('class', 'group-tick')
@@ -96,13 +102,7 @@ export class ChordDiagramComponent implements AfterViewChecked {
         return 'rotate(' + (d.angle * 180 / Math.PI - 90) + ') translate(' + outerRadius + ',0)';
       });
 
-    groupTick.append('line')
-      .attr('x2', 6);
-
     groupTick
-      .filter(d => {
-        return d.value % 5e3 === 0;
-      })
       .append('text')
       .attr('x', 8)
       .attr('dy', '.35em')
@@ -113,7 +113,7 @@ export class ChordDiagramComponent implements AfterViewChecked {
         return d.angle > Math.PI ? 'end' : null;
       })
       .text(d => {
-        return formatValue(d.value);
+        return this.labels[d.index];
       });
 
     g.append('g')
@@ -129,15 +129,19 @@ export class ChordDiagramComponent implements AfterViewChecked {
       })
       .style('stroke', d => {
         return d3Color.color( color(d.target.index) ).darker();
+      })
+      .append('svg:title')
+      .text(d => {
+        return this.formatRibbonTitle(d);
       });
   }
 
-  // Returns an array of tick angles and values for a given group and step.
-  groupTicks(d, step) {
-    const k = (d.endAngle - d.startAngle) / d.value;
-    return d3Array.range(0, d.value, step).map(value => {
-      return {value: value, angle: value * k + d.startAngle};
-    });
+  formatRibbonTitle(d) {
+    return this.labels[d.source.index] + ' ' + this.toLabel + ' ' + this.labels[d.source.subindex] + ': ' + d.source.value + '\n' +
+    this.labels[d.target.index] + ' ' + this.toLabel + ' ' + this.labels[d.target.subindex] + ': ' + d.target.value;
   }
 
+  formatArcTitle(d) {
+    return this.fromLabel + ' ' + this.labels[d.index] + ': ' + d.value;
+  }
 }
