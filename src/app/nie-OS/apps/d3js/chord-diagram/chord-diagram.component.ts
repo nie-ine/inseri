@@ -8,7 +8,9 @@ import * as d3Array from 'd3-array';
 import * as d3Chord from 'd3-chord';
 import * as d3Color from 'd3-color';
 import * as d3Scale from 'd3-scale';
+import * as d3ScaleChromatic from 'd3-scale-chromatic';
 import * as d3Shape from 'd3-shape';
+import { CONNECTIONS } from './connections';
 
 @Component({
   selector: 'app-chord-diagram',
@@ -24,52 +26,86 @@ export class ChordDiagramComponent implements AfterViewChecked {
   alreadyInitialised = false;
   title = 'Chord Diagram';
 
-  // square matrix. Number has to bee matched in labels and colors variable below
-  // matrix[i][j] means from i to j
-  private matrix = [
-    [    0,  5871, 8916, 2868],
-    [ 1951,     0, 2060, 6171],
-    [ 8010, 16145,    0, 8045],
-    [ 1013,   990,  940,    0]
-  ];
+  private dataMatrix;
+  private nameByIndex = {};
+  private indexByName = {};
 
-  private labels = [ 'Anna', 'Bertha', 'Caspar', 'Dietrich' ];
-
-  private colors = [ 'green', 'blue', 'orange', 'red' ];
+  private svg;
+  private width;
+  private height;
+  private outerRadius;
+  private innerRadius;
+  private chord;
+  private arc;
+  private ribbon;
+  private color;
 
   ngAfterViewChecked() {
     if ( this.initialised && !this.alreadyInitialised ) {
       this.alreadyInitialised = true;
-      this.drawSvg();
+      this.prepareData();
+      this.initSvg();
+      this.drawChord();
     }
   }
 
-  drawSvg() {
+  prepareData() {
+    this.dataMatrix = [];
+    let n = 0;
+    // Compute a unique index for each node.
+    for (const d of CONNECTIONS) {
+      if (this.indexByName[d.from] === undefined) {
+        this.nameByIndex[n] = d.from;
+        this.indexByName[d.from] = n;
+        n++;
+      }
+      if (this.indexByName[d.to] === undefined) {
+        this.nameByIndex[n] = d.to;
+        this.indexByName[d.to] = n;
+        n++;
+      }
+    }
 
-    const svg = d3.select('svg');
-    const width = svg.attr('width');
-    const height = svg.attr('height');
-    const outerRadius = Math.min(width, height) * 0.5 - 40;
-    const innerRadius = outerRadius - 20;
+    // make empty matrix
+    for (const xContent in this.indexByName) {
+      const xDim = [];
+      for (const yContent in this.indexByName) {
+        xDim.push(0);
+      }
+      this.dataMatrix.push(xDim);
+    }
 
-    const chord = d3Chord.chord()
+    // Fill matrix with numbers
+    for (const row of CONNECTIONS) {
+      this.dataMatrix[this.indexByName[row.from]][this.indexByName[row.to]] = row.value;
+    }
+  }
+
+  initSvg() {
+    this.svg = d3.select('svg');
+    this.width = this.svg.attr('width');
+    this.height = this.svg.attr('height');
+    this.outerRadius = Math.min(this.width, this.height) * 0.5 - 40;
+    this.innerRadius = this.outerRadius - 20;
+
+    this.chord = d3Chord.chord()
       .padAngle(0.05)
       .sortSubgroups(d3Array.descending);
 
-    const arc = d3Shape.arc()
-      .innerRadius(innerRadius)
-      .outerRadius(outerRadius);
+    this.arc = d3Shape.arc()
+      .innerRadius(this.innerRadius)
+      .outerRadius(this.outerRadius);
 
-    const ribbon = d3Chord.ribbon()
-      .radius(innerRadius);
+    this.ribbon = d3Chord.ribbon()
+      .radius(this.innerRadius);
 
-    const color = d3Scale.scaleOrdinal()
-      .domain(d3Array.range(4))
-      .range(this.colors);
+    this.color = d3Scale.scaleOrdinal(d3ScaleChromatic.schemeCategory10);
+  }
 
-    const g = svg.append('g')
-      .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
-      .datum(chord(this.matrix));
+  drawChord() {
+    const g = this.svg.append('g')
+      .attr('transform', 'translate(' + this.width / 2 + ',' + this.height / 2 + ')')
+      .datum(this.chord(this.dataMatrix));
 
     const group = g.append('g')
       .attr('class', 'groups')
@@ -81,12 +117,12 @@ export class ChordDiagramComponent implements AfterViewChecked {
 
     group.append('path')
       .style('fill', d => {
-        return color(d.index);
+        return this.color(d.index);
       })
       .style('stroke', d => {
-        return d3Color.color( color(d.index) ).darker();
+        return d3Color.color( this.color(d.index) ).darker();
       })
-      .attr('d', arc)
+      .attr('d', this.arc)
       .append('svg:title')
       .text(d => {
         return this.formatArcTitle(d);
@@ -99,7 +135,7 @@ export class ChordDiagramComponent implements AfterViewChecked {
       .enter().append('g')
       .attr('class', 'group-tick')
       .attr('transform', d => {
-        return 'rotate(' + (d.angle * 180 / Math.PI - 90) + ') translate(' + outerRadius + ',0)';
+        return 'rotate(' + (d.angle * 180 / Math.PI - 90) + ') translate(' + this.outerRadius + ',0)';
       });
 
     groupTick
@@ -113,7 +149,7 @@ export class ChordDiagramComponent implements AfterViewChecked {
         return d.angle > Math.PI ? 'end' : null;
       })
       .text(d => {
-        return this.labels[d.index];
+        return this.nameByIndex[d.index];
       });
 
     g.append('g')
@@ -123,12 +159,12 @@ export class ChordDiagramComponent implements AfterViewChecked {
         return chords;
       })
       .enter().append('path')
-      .attr('d', ribbon)
+      .attr('d', this.ribbon)
       .style('fill', d => {
-        return color(d.target.index);
+        return this.color(d.target.index);
       })
       .style('stroke', d => {
-        return d3Color.color( color(d.target.index) ).darker();
+        return d3Color.color( this.color(d.target.index) ).darker();
       })
       .append('svg:title')
       .text(d => {
@@ -137,11 +173,19 @@ export class ChordDiagramComponent implements AfterViewChecked {
   }
 
   formatRibbonTitle(d) {
-    return this.labels[d.source.index] + ' ' + this.toLabel + ' ' + this.labels[d.source.subindex] + ': ' + d.source.value + '\n' +
-    this.labels[d.target.index] + ' ' + this.toLabel + ' ' + this.labels[d.target.subindex] + ': ' + d.target.value;
+    return this.nameByIndex[d.source.index] + ' '
+      + this.toLabel + ' '
+      + this.nameByIndex[d.source.subindex] + ': '
+      + d.source.value.toLocaleString() + '\n'
+      + this.nameByIndex[d.target.index] + ' '
+      + this.toLabel + ' '
+      + this.nameByIndex[d.target.subindex] + ': '
+      + d.target.value.toLocaleString();
   }
 
   formatArcTitle(d) {
-    return this.fromLabel + ' ' + this.labels[d.index] + ': ' + d.value;
+    return this.fromLabel + ' '
+      + this.nameByIndex[d.index] + ': '
+      + d.value.toLocaleString();
   }
 }
