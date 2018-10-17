@@ -1,4 +1,4 @@
-FROM node:9.2.0-alpine as builder
+FROM teracy/angular-cli as builder
 
 WORKDIR /home/node/nieos
 

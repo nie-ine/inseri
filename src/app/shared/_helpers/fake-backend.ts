@@ -18,35 +18,21 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       private authService: AuthService) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
         // array in local storage for registered users
         const users: any[] = JSON.parse(localStorage.getItem('users')) || [];
-        // console.log(users);
         const actions: any[] = JSON.parse(localStorage.getItem('actions')) || [];
-        // console.log(actions);
         const views: any[] = JSON.parse(localStorage.getItem('views')) || [];
-        console.log(views);
         const editions: any[] = JSON.parse(localStorage.getItem('editions')) || [];
-        console.log(editions);
 
         // wrap in delayed observable to simulate server api call
         return Observable.of(null).mergeMap(() => {
 
             // authenticate
             if (request.url.endsWith('/api/authenticate') && request.method === 'POST') {
-              console.log( 'Send request to knora' );
-              console.log(request);
-              const url = 'http://localhost:3333';
-              request = request.clone({
-                url: url + request.url
-              });
-              console.log( request );
-              console.log( 'After we have dhlab request, we send it to Knora in the foloowing line: ' );
-              // return next.handle( request );
-                // find if any user matches login credentials
                 const filteredUsers = users.filter(user => {
                     return user.username === request.body.username && user.password === request.body.password;
                 });
-
                 if (filteredUsers.length) {
                     // if login details are valid return 200 OK with user details and fake jwt token
                     let user = filteredUsers[0];
@@ -96,10 +82,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
               // this security is implemented server side in a real application
                 if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
                     // find user by id in users array
-                    let urlParts = request.url.split('/');
-                    let id = parseInt(urlParts[urlParts.length - 1]);
-                    let matchedUsers = users.filter(user => { return user.id === id; });
-                    let user = matchedUsers.length ? matchedUsers[0] : null;
+                    const urlParts = request.url.split('/');
+                  const id = parseInt(urlParts[urlParts.length - 1]);
+                  const matchedUsers = users.filter(user => { return user.id === id; });
+                  const user = matchedUsers.length ? matchedUsers[0] : null;
 
                     return Observable.of(new HttpResponse({ status: 200, body: user }));
                 } else {
