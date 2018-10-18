@@ -1,10 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {Component, OnInit, OnDestroy, Inject} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../../shared/authentication.service';
 import {ActionService} from '../../shared/action.service';
 import {ViewService} from '../../nie-OS/apps/view/view.service';
 import {AuthService} from '../../shared/mongodb/auth.service';
 import {Subscription} from 'rxjs';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-header',
@@ -25,6 +26,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
+    private dialog: MatDialog,
     private activatedRoute: ActivatedRoute,
     private actionService: ActionService,
     private viewService: ViewService,
@@ -224,6 +226,59 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   openSettingsDialog() {
     console.log('openSettingsDialog');
+    const dialogRef = this.dialog.open(DialogUserSettingsDialog, {
+      width: '700px',
+        height: '500px',
+        data: {}
+    });
   }
 
+}
+
+@Component({
+    selector: 'dialog-user-settings-dialog',
+    templateUrl: './dialog-user-settings-dialog.html',
+})
+
+export class DialogUserSettingsDialog {
+    model: any = {};
+    loading = false;
+    chooseNewAction: string;
+    constructor(public dialogRef: MatDialogRef<DialogUserSettingsDialog>,
+                @Inject(MAT_DIALOG_DATA) public data: any,
+                private router: Router,
+                private actionService: ActionService) {
+    }
+    onNoClick(): void {
+        this.dialogRef.close();
+    }
+
+    /*
+    register() {
+
+        this.loading = true;
+        this.actionService.create(this.model)
+            .subscribe(
+                data => {
+                    console.log('Action created');
+                    const actions = JSON.parse(localStorage.getItem('actions')) || [];
+                    console.log(actions);
+                    this.onNoClick();
+                    console.log(this.model.type.search('salsah'));
+                    if ( this.model.type.search('salsah') !== -1 ) {
+                        console.log('Navigate to Salsah');
+                        window.open('http://salsah2.nie-ine.ch/', '_blank');
+                    } else {
+                        const params = new HttpParams().set('actionId', actions.lengt);
+                        params.append('actionId', actions.length);
+                        this.router.navigate( [ this.model.type ], { queryParams: { 'actionID': actions.length } } );
+                    }
+                },
+                error => {
+                    console.log(error);
+                    this.loading = false;
+                });
+
+    }
+    */
 }
