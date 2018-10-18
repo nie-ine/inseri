@@ -6,6 +6,7 @@ import {ViewService} from '../../nie-OS/apps/view/view.service';
 import {AuthService} from '../../shared/mongodb/auth.service';
 import {Subscription} from 'rxjs';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-header',
@@ -70,6 +71,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     }
   }
+
   produceCurrentViewTitle() {
     if ( this.viewsOfThisActtion ) {
       for (const view of this.viewsOfThisActtion) {
@@ -81,6 +83,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     }
   }
+
   generateNavigation( actionID: number ) {
     console.log('Get action by id, then iterate through views');
     console.log( actionID );
@@ -228,8 +231,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     console.log('openSettingsDialog');
     const dialogRef = this.dialog.open(DialogUserSettingsDialog, {
       width: '700px',
-        height: '500px',
-        data: {}
+      height: '500px',
+      //dummy data
+       data: {
+            firstName: 'Dominique',
+            lastName: 'Souvant',
+            email: 'dom@yahoo.de',
+            newsLetter: true
+        }
     });
   }
 
@@ -238,47 +247,36 @@ export class HeaderComponent implements OnInit, OnDestroy {
 @Component({
     selector: 'dialog-user-settings-dialog',
     templateUrl: './dialog-user-settings-dialog.html',
+    styleUrls: ['./dialog-user-settings-dialog.css']
 })
 
-export class DialogUserSettingsDialog {
-    model: any = {};
-    loading = false;
-    chooseNewAction: string;
+export class DialogUserSettingsDialog implements OnInit {
+    firstName: string;
+    lastName: string;
+    email: string;
+    newsLetter: boolean;
+
     constructor(public dialogRef: MatDialogRef<DialogUserSettingsDialog>,
-                @Inject(MAT_DIALOG_DATA) public data: any,
-                private router: Router,
-                private actionService: ActionService) {
+                @Inject(MAT_DIALOG_DATA) public data: any) {
     }
+
+    ngOnInit() {
+      this.firstName = this.data.firstName;
+      this.lastName = this.data.lastName;
+      this.email = this.data.email;
+      this.newsLetter = this.data.newsLetter;
+    }
+
     onNoClick(): void {
         this.dialogRef.close();
     }
 
-    /*
-    register() {
-
-        this.loading = true;
-        this.actionService.create(this.model)
-            .subscribe(
-                data => {
-                    console.log('Action created');
-                    const actions = JSON.parse(localStorage.getItem('actions')) || [];
-                    console.log(actions);
-                    this.onNoClick();
-                    console.log(this.model.type.search('salsah'));
-                    if ( this.model.type.search('salsah') !== -1 ) {
-                        console.log('Navigate to Salsah');
-                        window.open('http://salsah2.nie-ine.ch/', '_blank');
-                    } else {
-                        const params = new HttpParams().set('actionId', actions.lengt);
-                        params.append('actionId', actions.length);
-                        this.router.navigate( [ this.model.type ], { queryParams: { 'actionID': actions.length } } );
-                    }
-                },
-                error => {
-                    console.log(error);
-                    this.loading = false;
-                });
-
+    save(form: NgForm) {
+      console.log('Changes would be saved');
     }
-    */
+
+    changePwd() {
+      console.log('Change of password will be initialized');
+    }
+
 }

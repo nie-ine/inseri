@@ -25,6 +25,7 @@ import { ArithmeticModule } from 'nie-ine';
 import { AuthenticationService } from '../shared/authentication.service';
 import { ViewService } from '../nie-OS/apps/view/view.service';
 import { MatDialogModule } from '@angular/material';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -41,6 +42,7 @@ import { MatDialogModule } from '@angular/material';
     SynopsisModule,
     CreateResourceViewModule,
     EditResourceViewModule,
+    FormsModule,
     RouterModule.forRoot([
       { path: '**', component: PageNotFoundComponent }
       ])
