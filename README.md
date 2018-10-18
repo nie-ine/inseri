@@ -32,3 +32,6 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 ### Extend nieOS models
  - create an interface, like in shared/action.ts
  - in backend/models add action.js for mongoose
+ - in backend/routes add <route>.js to post / update etc
+ - add routes in app.js
+ - adjust service so that it links to the right url
