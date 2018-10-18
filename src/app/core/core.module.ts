@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { StaticPagesModule } from '../static-pages/static-pages.module';
 import { MaterialModule } from '../material.module';
 import { NIEOSModule } from '../nie-OS/nie-OS.module';
-import { HeaderComponent } from './header/header.component';
+import { DialogUserSettingsDialog, HeaderComponent} from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { MainComponent } from './main/main.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -22,8 +22,9 @@ import { SynopsisObjectStorageService } from '../synopsis/synopsis-object-storag
 import { CreateResourceViewModule } from '../development-views/create-resource-view/create-resource-view.module';
 import { EditResourceViewModule } from '../development-views/edit-resource-view/edit-resource-view.module';
 import { ArithmeticModule } from 'nie-ine';
-import { AuthenticationService } from "../shared/authentication.service";
-import {ViewService} from "../nie-OS/apps/view/view.service";
+import { AuthenticationService } from '../shared/authentication.service';
+import { ViewService } from '../nie-OS/apps/view/view.service';
+import { MatDialogModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -32,6 +33,7 @@ import {ViewService} from "../nie-OS/apps/view/view.service";
     ImageViewModule,
     TextViewModule,
     MaterialModule,
+    MatDialogModule,
     MetadataViewModule,
     ArithmeticModule,
     NIEOSModule,
@@ -43,7 +45,16 @@ import {ViewService} from "../nie-OS/apps/view/view.service";
       { path: '**', component: PageNotFoundComponent }
       ])
   ],
-  declarations: [HeaderComponent, FooterComponent, MainComponent, PageNotFoundComponent, NavigationComponent],
+  declarations: [
+    HeaderComponent,
+    FooterComponent,
+    MainComponent,
+    PageNotFoundComponent,
+    NavigationComponent,
+    DialogUserSettingsDialog],
+  entryComponents: [
+    DialogUserSettingsDialog
+  ],
   providers: [
     KnoraRequestService,
     SparqlRequestService,
@@ -51,7 +62,8 @@ import {ViewService} from "../nie-OS/apps/view/view.service";
     KnoraAuthService,
     SynopsisObjectStorageService,
     AuthenticationService,
-    ViewService
+    ViewService,
+    DialogUserSettingsDialog
   ],
   exports: [HeaderComponent, FooterComponent, MainComponent, RouterModule]
 })
