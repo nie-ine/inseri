@@ -344,9 +344,9 @@
       </popup>
       <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>image</mat-icon> {{ i }}</button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="imageViewer.appear()">Open Image Viewer {{ i }}</button>
+        <button mat-menu-item (click)="imageViewer.appear()">Show Image Viewer {{ i }}</button>
         <button mat-menu-item >Choose Image</button>
-        <button mat-menu-item (click)=" closeApp( appTypes[ 'imageViewer' ].model, i ) ">Close this app</button>
+        <button mat-menu-item (click)=" closeApp( appTypes[ 'imageViewer' ].model, i ) ">Remove this app</button>
       </mat-menu>
     </div>
 
@@ -366,8 +366,8 @@
       </popup>
       <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>search</mat-icon> {{ i }} </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="searchViewer.appear()" >Open Search Viewer {{ i }}</button>
-        <button mat-menu-item (click)=" closeApp( appTypes[ 'searchViewer' ].model, i ) ">Close this app</button>
+        <button mat-menu-item (click)="searchViewer.appear()" >Show Search Viewer {{ i }}</button>
+        <button mat-menu-item (click)=" closeApp( appTypes[ 'searchViewer' ].model, i ) ">Remove this app</button>
       </mat-menu>
     </div>
 
@@ -386,8 +386,8 @@
       </popup>
       <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>developer_board</mat-icon> {{ i }} </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="grapesJSViewer.appear()" >Open GrapesJS Viewer {{ i }}</button><br>
-        <button mat-menu-item (click)="closeApp( appTypes[ 'grapesJSViewer' ].model, i )">Close this app</button>
+        <button mat-menu-item (click)="grapesJSViewer.appear()" >Show GrapesJS Viewer {{ i }}</button><br>
+        <button mat-menu-item (click)="closeApp( appTypes[ 'grapesJSViewer' ].model, i )">Remove this app</button>
       </mat-menu>
     </div>
 
@@ -407,8 +407,8 @@
       </popup>
       <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>short_text</mat-icon> {{ i }}</button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="textViewer.appear()" >Open Text Viewer {{ i }}</button>
-        <button mat-menu-item (click)=" closeApp( appTypes[ 'textViewer' ].model, i ) ">Close this app</button>
+        <button mat-menu-item (click)="textViewer.appear()" >Show Text Viewer {{ i }}</button>
+        <button mat-menu-item (click)=" closeApp( appTypes[ 'textViewer' ].model, i ) ">Remove this app</button>
         <button mat-menu-item>Choose Text</button>
       </mat-menu>
 
@@ -431,8 +431,8 @@
       </popup>
       <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>art_track</mat-icon> {{ i }}</button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="synopsisViewer.appear()" >Open Synopsis Viewer {{ i }}</button><br>
-        <button mat-menu-item (click)=" closeApp( appTypes[ 'synopsisViewer' ].model, i ) ">Close this app</button>
+        <button mat-menu-item (click)="synopsisViewer.appear()" >Show Synopsis Viewer {{ i }}</button><br>
+        <button mat-menu-item (click)=" closeApp( appTypes[ 'synopsisViewer' ].model, i ) ">Remove this app</button>
       </mat-menu>
 
     </div>
@@ -455,8 +455,8 @@
       </popup>
       <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>add_to_queue</mat-icon> {{ i }}</button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="createResourceForm.appear()" >Open Create Resource Form {{ i }}</button>
-        <button mat-menu-item (click)=" closeApp( appTypes[ 'createResourceForm' ].model, i ) ">Close this app</button>
+        <button mat-menu-item (click)="createResourceForm.appear()" >Show Create Resource Form {{ i }}</button>
+        <button mat-menu-item (click)=" closeApp( appTypes[ 'createResourceForm' ].model, i ) ">Remove this app</button>
       </mat-menu>
 
     </div>
@@ -479,8 +479,8 @@
       </popup>
       <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>view_headline</mat-icon> {{ i }}</button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="textlistViewers.appear()" >Open Textlist Viewer {{ i }}</button>
-        <button mat-menu-item (click)=" closeApp( appTypes[ 'textlistViewers' ].model, i ) ">Close this app</button>
+        <button mat-menu-item (click)="textlistViewers.appear()" >Show Textlist Viewer {{ i }}</button>
+        <button mat-menu-item (click)=" closeApp( appTypes[ 'textlistViewers' ].model, i ) ">Remove this app</button>
       </mat-menu>
     </div>
 
@@ -502,8 +502,8 @@
       </popup>
       <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>perm_data_setting</mat-icon> {{ i }}</button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="dataChooser.appear()" >Open Data Chooser {{ i }}</button>
-        <button mat-menu-item (click)=" closeApp( appTypes[ 'dataChooser' ].model, i ) ">Close this app</button>
+        <button mat-menu-item (click)="dataChooser.appear()" >Show Data Chooser {{ i }}</button>
+        <button mat-menu-item (click)=" closeApp( appTypes[ 'dataChooser' ].model, i ) ">Remove this app</button>
       </mat-menu>
 
     </div>
@@ -527,8 +527,8 @@
       </popup>
       <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>bar_chart</mat-icon> {{ i }}</button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="barChart.appear()" (click)="appTypes[ 'barCharts' ].model[i].initialized = true">Open Bar Chart {{ i }}</button>
-        <button mat-menu-item (click)=" closeApp( appTypes[ 'barCharts' ].model, i ) ">Close this app</button>
+        <button mat-menu-item (click)="barChart.appear()" (click)="appTypes[ 'barCharts' ].model[i].initialized = true">Show Bar Chart {{ i }}</button>
+        <button mat-menu-item (click)=" closeApp( appTypes[ 'barCharts' ].model, i ) ">Remove this app</button>
       </mat-menu>
 
     </div>
@@ -553,8 +553,8 @@
       </popup>
       <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>show_chart</mat-icon> {{ i }}</button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="lineChart.appear()" (click)="appTypes[ 'lineCharts' ].model[i].initialized = true">Open Line Chart {{ i }}</button>
-        <button mat-menu-item (click)=" closeApp( appTypes[ 'lineCharts' ].model, i ) ">Close this app</button>
+        <button mat-menu-item (click)="lineChart.appear()" (click)="appTypes[ 'lineCharts' ].model[i].initialized = true">Show Line Chart {{ i }}</button>
+        <button mat-menu-item (click)=" closeApp( appTypes[ 'lineCharts' ].model, i ) ">Remove this app</button>
       </mat-menu>
 
     </div>
@@ -578,8 +578,8 @@
       </popup>
       <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>insert_chart_outlined</mat-icon> {{ i }}</button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="brushZoomChart.appear()" (click)="appTypes[ 'brushZoomCharts' ].model[i].initialized = true">Open Brush Zoom Chart {{ i }}</button>
-        <button mat-menu-item (click)=" closeApp( appTypes[ 'brushZoomCharts' ].model, i ) ">Close this app</button>
+        <button mat-menu-item (click)="brushZoomChart.appear()" (click)="appTypes[ 'brushZoomCharts' ].model[i].initialized = true">Show Brush Zoom Chart {{ i }}</button>
+        <button mat-menu-item (click)=" closeApp( appTypes[ 'brushZoomCharts' ].model, i ) ">Remove this app</button>
       </mat-menu>
 
     </div>
@@ -603,8 +603,8 @@
       </popup>
       <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>add_location</mat-icon> {{ i }}</button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="leafletMap.appear()" (click)="appTypes[ 'leafletMaps' ].model[i].initialized = true">Open Leaflet Map {{ i }}</button>
-        <button mat-menu-item (click)=" closeApp( appTypes[ 'leafletMaps' ].model, i ) ">Close this app</button>
+        <button mat-menu-item (click)="leafletMap.appear()" (click)="appTypes[ 'leafletMaps' ].model[i].initialized = true">Show Leaflet Map {{ i }}</button>
+        <button mat-menu-item (click)=" closeApp( appTypes[ 'leafletMaps' ].model, i ) ">Remove this app</button>
       </mat-menu>
 
     </div>
@@ -627,8 +627,8 @@
       </popup>
       <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>pie_chart</mat-icon> {{ i }}</button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="pieChart.appear()" (click)="appTypes[ 'pieCharts' ].model[i].initialized = true">Open Pie Chart {{ i }}</button>
-        <button mat-menu-item (click)=" closeApp( appTypes[ 'pieCharts' ].model, i ) ">Close this app</button>
+        <button mat-menu-item (click)="pieChart.appear()" (click)="appTypes[ 'pieCharts' ].model[i].initialized = true">Show Pie Chart {{ i }}</button>
+        <button mat-menu-item (click)=" closeApp( appTypes[ 'pieCharts' ].model, i ) ">Remove this app</button>
       </mat-menu>
 
     </div>
@@ -651,8 +651,8 @@
       </popup>
       <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>multiline_chart</mat-icon> {{ i }}</button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="radialBarChart.appear()" (click)="appTypes[ 'radialBarCharts' ].model[i].initialized = true">Open Radial Bar Chart {{ i }}</button>
-        <button mat-menu-item (click)=" closeApp( appTypes[ 'radialBarCharts' ].model, i ) ">Close this app</button>
+        <button mat-menu-item (click)="radialBarChart.appear()" (click)="appTypes[ 'radialBarCharts' ].model[i].initialized = true">Show Radial Bar Chart {{ i }}</button>
+        <button mat-menu-item (click)=" closeApp( appTypes[ 'radialBarCharts' ].model, i ) ">Remove this app</button>
       </mat-menu>
 
     </div>
@@ -676,7 +676,7 @@
       <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>linear_scale</mat-icon> {{ i }}</button>
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="sankeyChart.appear()" (click)="appTypes[ 'sankeyCharts' ].model[i].initialized = true">Sankey Chart {{ i }}</button>
-        <button mat-menu-item (click)=" closeApp( appTypes[ 'sankeyCharts' ].model, i ) ">Close this app</button>
+        <button mat-menu-item (click)=" closeApp( appTypes[ 'sankeyCharts' ].model, i ) ">Remove this app</button>
       </mat-menu>
 
     </div>
@@ -700,7 +700,7 @@
       <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>view_list</mat-icon> {{ i }}</button>
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="stackedBarChart.appear()" (click)="appTypes[ 'stackedBarCharts' ].model[i].initialized = true">Stacked Bar Chart {{ i }}</button>
-        <button mat-menu-item (click)=" closeApp( appTypes[ 'stackedBarCharts' ].model, i ) ">Close this app</button>
+        <button mat-menu-item (click)=" closeApp( appTypes[ 'stackedBarCharts' ].model, i ) ">Remove this app</button>
       </mat-menu>
 
     </div>
