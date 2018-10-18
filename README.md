@@ -26,3 +26,9 @@ Powered by [FEE](http://www.fee.unibas.ch/), mandated by [swissuniversities](htt
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+
+## Development advice
+### Extend nieOS models
+ - create an interface, like in shared/action.ts
+ - in backend/models add action.js for mongoose
