@@ -36,4 +36,6 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
  - add routes in app.js
  - adjust service so that it links to the right url
  - add mongoose Schema, instantiate it in backend/routes and assign req.body to mongoose object
- - 
+ - save data to the database (ref tutorial 53)
+ - check if it worked with mongo shell, again in 53
+ - Fetch data from database, 54
