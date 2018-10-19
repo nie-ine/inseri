@@ -3,19 +3,19 @@
 <form #f="ngForm" (ngSubmit)="save(f)" >
     <div class="setting-box">
         <div>
-            <mat-form-field style="width:100%">
+            <mat-form-field class="full-width">
                 <input matInput name="firstName" [(ngModel)]="firstName" placeholder="Vorname:">
             </mat-form-field>
         </div>
 
         <div>
-            <mat-form-field style="width:100%">
+            <mat-form-field class="full-width">
                 <input matInput name="lastName" [(ngModel)]="lastName" placeholder="Nachname:">
             </mat-form-field>
         </div>
 
         <div>
-            <mat-form-field style="width:100%">
+            <mat-form-field class="full-width">
                 <input matInput name="email" [(ngModel)]="email" placeholder="Email:">
             </mat-form-field>
         </div>
