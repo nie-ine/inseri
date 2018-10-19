@@ -220,7 +220,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     );
   }
 
-  logout(){
+  logout() {
     if ( this.routeMapping('dashboard', 'true') ) {
       this.authenticationService.logout();
       console.log('logout');
@@ -247,7 +247,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 @Component({
     selector: 'dialog-user-settings-dialog',
     templateUrl: './dialog-user-settings-dialog.html',
-    styleUrls: ['./dialog-user-settings-dialog.css']
+    styleUrls: ['./dialog-user-settings-dialog.scss']
 })
 
 export class DialogUserSettingsDialog implements OnInit {
