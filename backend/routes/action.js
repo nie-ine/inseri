@@ -13,6 +13,7 @@ router.post('', (req, res, next) => {
     description: req.body.description
   });
   console.log(action);
+  action.save();
   res.status(201).json({
     message: 'Action added successfully'
   });
