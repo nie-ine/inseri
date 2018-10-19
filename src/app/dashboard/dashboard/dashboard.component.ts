@@ -4,6 +4,8 @@ import { Router, NavigationEnd } from '@angular/router';
 import { ActionService } from '../../shared/nieOS/fake-backend/action/action.service';
 import { AlertService} from '../../shared/nieOS/fake-backend/auth/altert.service';
 import {HttpParams} from '@angular/common/http';
+import { MongoActionService } from '../../shared/nieOS/mongodb/action/action.service';
+import { Action } from '../../shared/nieOS/mongodb/action/action.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -83,39 +85,51 @@ export class DashboardComponent implements OnInit {
   templateUrl: './dialog-overview-example-dialog.html',
 })
 export class DialogOverviewExampleDialog {
-  model: any = {};
+  action: Action = {
+    title: '',
+    description: '',
+    isFinished: false,
+    deleted: false,
+    type: undefined,
+    hasEdition: undefined,
+    hasViews: undefined
+  };
   loading = false;
   chooseNewAction: string;
   constructor(public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private router: Router,
-              private actionService: ActionService) {
+              private actionService: ActionService,
+              private mongoActionService: MongoActionService ) {
   }
   onNoClick(): void {
     this.dialogRef.close();
   }
   register() {
     this.loading = true;
-    this.actionService.create(this.model)
-      .subscribe(
-        data => {
-          console.log('Action created');
-          const actions = JSON.parse(localStorage.getItem('actions')) || [];
-          console.log(actions);
-          this.onNoClick();
-          console.log(this.model.type.search('salsah'));
-          if ( this.model.type.search('salsah') !== -1 ) {
-            console.log('Navigate to Salsah');
-            window.open('http://salsah2.nie-ine.ch/', '_blank');
-          } else {
-            const params = new HttpParams().set('actionId', actions.lengt);
-            params.append('actionId', actions.length);
-            this.router.navigate( [ this.model.type ], { queryParams: { 'actionID': actions.length } } );
-          }
-        },
-        error => {
-          console.log(error);
-          this.loading = false;
-        });
+    this.mongoActionService.createAction(
+      this.action
+    );
+    // this.actionService.create(this.model)
+    //   .subscribe(
+    //     data => {
+    //       console.log('Action created');
+    //       const actions = JSON.parse(localStorage.getItem('actions')) || [];
+    //       console.log(actions);
+    //       this.onNoClick();
+    //       console.log(this.model.type.search('salsah'));
+    //       if ( this.model.type.search('salsah') !== -1 ) {
+    //         console.log('Navigate to Salsah');
+    //         window.open('http://salsah2.nie-ine.ch/', '_blank');
+    //       } else {
+    //         const params = new HttpParams().set('actionId', actions.lengt);
+    //         params.append('actionId', actions.length);
+    //         this.router.navigate( [ this.model.type ], { queryParams: { 'actionID': actions.length } } );
+    //       }
+    //     },
+    //     error => {
+    //       console.log(error);
+    //       this.loading = false;
+    //     });
   }
 }

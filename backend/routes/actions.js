@@ -7,6 +7,7 @@ const Action = require('../models/action');
 const router = express.Router();
 
 router.post('', (req, res, next) => {
+  console.log('start action service in backend');
   const action = req.body;
   console.log(action);
   res.status(201).json({
