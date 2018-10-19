@@ -7,11 +7,11 @@ import {Action} from './action.model';
 
 @Injectable({ providedIn: 'root' })
 export class MongoActionService {
+  actions: any;
   constructor(
     private http: HttpClient,
     private router: Router
   ) {}
-
 
   createAction( action: Action ) {
     console.log(action);
@@ -19,6 +19,10 @@ export class MongoActionService {
       .subscribe( response => {
         console.log(response);
       });
+  }
+
+  getAllActions(): any {
+    return this.http.get('http://localhost:3000/api/action');
   }
 
 

@@ -25,6 +25,7 @@ export class DashboardComponent implements OnInit {
     private router: Router,
     private actionService: ActionService,
     private alertService: AlertService,
+    private mongoActionService: MongoActionService
   ) {
 
     router.events.subscribe(s => {
@@ -50,7 +51,12 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.username = (this.user as any).firstName;
     console.log('Next: iterate through existing actions');
-    this.actions = JSON.parse(localStorage.getItem('actions')) || [];
+    // this.actions = JSON.parse(localStorage.getItem('actions')) || [];
+    this.mongoActionService.getAllActions()
+      .subscribe( response => {
+        console.log(response);
+        this.actions = (response as any).actions;
+    });
     console.log(this.actions);
   }
 
