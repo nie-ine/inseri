@@ -10,7 +10,7 @@ import {
 import {Router} from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatFormField} from '@angular/material';
 import {DataChooserSettingsComponent} from "../data-chooser-settings/data-chooser-settings.component";
-import {SendGravSearchQueryService} from "../../../../shared/gravsearch/sendGravSearchQuery.service";
+import {SendGravSearchQueryService} from "../../../../shared/knora/gravsearch/sendGravSearchQuery.service";
 
 @Component({
   selector: 'app-data-chooser',

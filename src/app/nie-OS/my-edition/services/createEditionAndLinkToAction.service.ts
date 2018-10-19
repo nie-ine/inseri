@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Edition } from '../model/edition.model';
 import { HttpClient } from '@angular/common/http';
-import {Action} from '../../../shared/models/action';
-import {ActionService} from '../../../shared/action.service';
+import {Action} from '../../../shared/nieOS/fake-backend/action/action';
+import {ActionService} from '../../../shared/nieOS/fake-backend/action/action.service';
 import {EditionService} from '../model/edition.service';
 
 @Injectable()

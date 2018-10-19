@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { KnoraV1RequestService } from '../../../shared/knora-v1-request.service';
+import { KnoraV1RequestService } from '../../../shared/knora/knora-v1-request.service';
 
 /**
  * This component shows the use of the module ResourceFormModule.

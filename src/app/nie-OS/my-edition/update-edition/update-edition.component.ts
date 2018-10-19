@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { ActionService } from '../../../shared/action.service';
+import { ActionService } from '../../../shared/nieOS/fake-backend/action/action.service';
 import {Router} from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatFormField} from '@angular/material';
 

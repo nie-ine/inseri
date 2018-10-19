@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Standoff} from './models/standoff';
+import {Standoff} from '../models/standoff';
 
 @Injectable()
 export class StandoffReconcilerService {

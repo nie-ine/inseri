@@ -8,7 +8,7 @@ import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/materialize';
 import 'rxjs/add/operator/dematerialize';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {AuthService} from '../mongodb/auth.service';
+import {AuthService} from '../mongodb/auth/auth.service';
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {

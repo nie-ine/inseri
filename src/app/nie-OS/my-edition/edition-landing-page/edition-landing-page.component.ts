@@ -1,11 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import {Router, NavigationEnd, ActivatedRoute} from '@angular/router';
-import { ActionService } from '../../../shared/action.service';
-import { AlertService} from '../../../shared/altert.service';
+import { ActionService } from '../../../shared/nieOS/fake-backend/action/action.service';
+import { AlertService} from '../../../shared/nieOS/fake-backend/auth/altert.service';
 import { HttpParams } from '@angular/common/http';
 import {EditionService} from "../model/edition.service";
-import {GenerateHashService} from "../../../shared/generateHash.service";
+import {GenerateHashService} from "../../../shared/nieOS/other/generateHash.service";
 import {UpdateEditionComponent} from '../update-edition/update-edition.component';
 import {CreateEditionAndLinkToActionService} from "../services/createEditionAndLinkToAction.service";
 import {CreateViewAndLinkToAction} from "../services/createViewAndLinkToAction.service";

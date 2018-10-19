@@ -1,9 +1,9 @@
 import {Component, OnInit, OnDestroy, Inject} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthenticationService } from '../../shared/authentication.service';
-import {ActionService} from '../../shared/action.service';
+import { AuthenticationService } from '../../shared/nieOS/fake-backend/auth/authentication.service';
+import {ActionService} from '../../shared/nieOS/fake-backend/action/action.service';
 import {ViewService} from '../../nie-OS/apps/view/view.service';
-import {AuthService} from '../../shared/mongodb/auth.service';
+import {AuthService} from '../../shared/nieOS/mongodb/auth/auth.service';
 import {Subscription} from 'rxjs';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {NgForm} from "@angular/forms";

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { KnoraV1RequestService } from '../../shared/knora-v1-request.service';
+import { KnoraV1RequestService } from '../../shared/knora/knora-v1-request.service';
 
 /**
  * A form to display the label and property values of a resource.

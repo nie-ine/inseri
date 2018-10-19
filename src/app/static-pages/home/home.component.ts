@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthenticationService } from '../../shared/authentication.service';
-import { AlertService } from '../../shared/altert.service';
-import {AuthService} from '../../shared/mongodb/auth.service';
+import { AuthenticationService } from '../../shared/nieOS/fake-backend/auth/authentication.service';
+import { AlertService } from '../../shared/nieOS/fake-backend/auth/altert.service';
+import {AuthService} from '../../shared/nieOS/mongodb/auth/auth.service';
 
 declare let OpenSeadragon: any;
 

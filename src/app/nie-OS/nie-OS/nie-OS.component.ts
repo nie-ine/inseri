@@ -13,9 +13,9 @@ import {BrowserModule} from '@angular/platform-browser';
 import {Popup} from './popup';
 import 'rxjs/add/operator/map';
 import { ActivatedRoute } from '@angular/router';
-import { ActionService } from '../../shared/action.service';
+import { ActionService } from '../../shared/nieOS/fake-backend/action/action.service';
 import { ViewService } from '../apps/view/view.service';
-import {GenerateHashService} from "../../shared/generateHash.service";
+import {GenerateHashService} from "../../shared/nieOS/other/generateHash.service";
 
 declare var grapesjs: any; // Important!
 
