@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 
 const actionSchema = mongoose.Schema({
-  title: String,
-  description: String,
-  isFinished: Boolean, // isInProgress, isFinished
-  deleted: Boolean,
-  type: String,
-  hasViews: [String], // hash des views
-  hasEdition: String
+  title: { type: String, required: true },
+  description: { type: String, required: true },
+  isFinished: { type: Boolean }, // isInProgress, isFinished
+  deleted: { type: Boolean },
+  type: { type: String },
+  hasViews: { type: [String] }, // hash des views
+  hasEdition: { type: String }
 });
 
-module.export = mongoose.model('Action', actionSchema);
+module.exports = mongoose.model('Action', actionSchema);
