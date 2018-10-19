@@ -12,8 +12,8 @@ import {
 import {FormsModule} from "@angular/forms";
 import {MatMenuModule} from '@angular/material/menu';
 import {EditionService} from "./model/edition.service";
-import {GenerateHashService} from "../../shared/generateHash.service";
-import {ActionService} from "../../shared/action.service";
+import {GenerateHashService} from "../../shared/nieOS/other/generateHash.service";
+import {ActionService} from "../../shared/nieOS/fake-backend/action/action.service";
 import { UpdateEditionComponent } from './update-edition/update-edition.component';
 import {CreateEditionAndLinkToActionService} from "./services/createEditionAndLinkToAction.service";
 import {CreateViewAndLinkToAction} from "./services/createViewAndLinkToAction.service";

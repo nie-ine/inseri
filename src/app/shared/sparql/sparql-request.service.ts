@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {RequestService} from './request.service';
-import {RequestTemplate} from './request-template';
+import {RequestService} from '../knora/request.service';
+import {RequestTemplate} from '../knora/request-template';
 import {Observable} from 'rxjs/Observable';
 
 @Injectable()

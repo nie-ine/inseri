@@ -6,7 +6,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from "@angular/material";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatRadioModule} from '@angular/material/radio';
-import { ActionService } from '../shared/action.service';
+import { ActionService } from '../shared/nieOS/fake-backend/action/action.service';
 import {MatMenuModule} from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 

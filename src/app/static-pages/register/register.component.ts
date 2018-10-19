@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AlertService} from '../../shared/altert.service';
-import { UserService } from '../../shared/user.service';
-import { AuthService } from '../../shared/mongodb/auth.service';
+import { AlertService} from '../../shared/nieOS/fake-backend/auth/altert.service';
+import { UserService } from '../../shared/nieOS/fake-backend/user/user.service';
+import { AuthService } from '../../shared/nieOS/mongodb/auth/auth.service';
 
 @Component({
   selector: 'app-register',

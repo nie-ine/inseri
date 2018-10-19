@@ -5,7 +5,7 @@ import { BaseTypeFormsModule } from '../../base-type-forms/base-type-forms.modul
 import { CreateResourceComponent } from './create-resource.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { KnoraV1RequestService } from '../../shared/knora-v1-request.service';
+import { KnoraV1RequestService } from '../../shared/knora/knora-v1-request.service';
 
 describe('CreateResourceComponent', () => {
   let component: CreateResourceComponent;

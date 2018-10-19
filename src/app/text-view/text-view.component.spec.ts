@@ -3,8 +3,8 @@ import {NO_ERRORS_SCHEMA} from '@angular/core';
 
 import {TextViewComponent} from './text-view.component';
 import {By} from '@angular/platform-browser';
-import {KnoraRequestService} from '../shared/knora-request.service';
-import {SparqlRequestService} from '../shared/sparql-request.service';
+import {KnoraRequestService} from '../shared/knora/knora-request.service';
+import {SparqlRequestService} from '../shared/sparql/sparql-request.service';
 import {ResultToTextMapperService} from './result-to-text-mapper.service';
 
 describe('TextViewComponent', () => {

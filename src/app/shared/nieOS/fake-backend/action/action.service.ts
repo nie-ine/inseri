@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Action } from './models/action';
+import { Action } from './action';
 
 import { HttpClient } from '@angular/common/http';
 

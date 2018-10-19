@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { KnoraV1RequestService } from '../../shared/knora-v1-request.service';
+import { KnoraV1RequestService } from '../../shared/knora/knora-v1-request.service';
 
 /**
  * A list of old property values for a recent value.
