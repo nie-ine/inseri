@@ -22,11 +22,11 @@
         <li class="navbar-list">
           <a>Sprache</a>
         </li>
-        <li class="navbar-list" *ngIf="!userIsAuthenticated">
-          <a href="{{ generateLoginOrSettingsLink() }}" (click)="logout()">{{ generateLoginOrSettingsButton() }}</a>
-        </li>
         <li class="navbar-list" *ngIf="userIsAuthenticated">
           <a style="color: #4cae4c !important" (click)="openSettingsDialog()">Einstellungen</a>
+        </li>
+        <li class="navbar-list">
+          <a (click)="loginOrLogout()">{{ loginOrLogoutButton() }}</a>
         </li>
       </ul>
     </div>
