@@ -1,4 +1,4 @@
-export class Edition {
+export class PageSetModel {
   title: string;
   description: string;
   linkToImage: string;

@@ -5,15 +5,16 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatFormField} from '@angular/m
 
 @Component({
   selector: 'app-update-edition',
-  templateUrl: './update-edition.component.html'
+  templateUrl: './update-page-set.component.html'
 })
-export class UpdateEditionComponent {
+export class UpdatePageSetComponent {
 
   model: any = {};
   loading = false;
   chooseNewAction: string;
+
   constructor(
-    public dialogRef: MatDialogRef<UpdateEditionComponent>,
+    public dialogRef: MatDialogRef<UpdatePageSetComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private router: Router,
     private actionService: ActionService

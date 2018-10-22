@@ -1,27 +1,27 @@
 import { Injectable } from '@angular/core';
-import { Edition } from '../model/edition.model';
+import {PageSetModel} from '../model/page-set.model';
 import { HttpClient } from '@angular/common/http';
 import {Action} from '../../../shared/nieOS/fake-backend/action/action';
 import {ActionService} from '../../../shared/nieOS/fake-backend/action/action.service';
-import {EditionService} from '../model/edition.service';
+import {PageSetService} from '../model/page-set.service';
 
 @Injectable()
-export class CreateEditionAndLinkToActionService {
+export class CreatePageSetAndLinkToActionService {
   constructor(
     private http: HttpClient,
     private actionService: ActionService,
-    private editionService: EditionService
+    private pageSetService: PageSetService
   ) {
   }
   createOrUpdate(
-    edition: Edition,
+    pageSet: PageSetModel,
     action: Action
   ) {
-    console.log('Create or update edition');
-    console.log('Update Action and link hash of edition');
+    console.log('Create or update pageSet');
+    console.log('Update Action and link hash of page set');
     console.log(action);
-    console.log(edition);
-    action.hasEdition = edition.hash;
+    console.log(pageSet);
+    action.hasPageSet = pageSet.hash;
     this.actionService.update(action)
       .subscribe(
         data => {
@@ -30,8 +30,8 @@ export class CreateEditionAndLinkToActionService {
         error => {
           console.log(error);
         });
-    console.log('Create Edition, afterwards comment in the check if action has edition');
-    this.editionService.create(edition)
+    console.log('Create PageSet, afterwards comment in the check if action has page set');
+    this.pageSetService.create(pageSet)
       .subscribe(
         data => {
           console.log(data);

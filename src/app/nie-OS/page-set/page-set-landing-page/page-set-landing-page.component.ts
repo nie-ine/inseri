@@ -4,43 +4,43 @@ import {Router, NavigationEnd, ActivatedRoute} from '@angular/router';
 import { ActionService } from '../../../shared/nieOS/fake-backend/action/action.service';
 import { AlertService} from '../../../shared/nieOS/fake-backend/auth/altert.service';
 import { HttpParams } from '@angular/common/http';
-import {EditionService} from "../model/edition.service";
-import {GenerateHashService} from "../../../shared/nieOS/other/generateHash.service";
-import {UpdateEditionComponent} from '../update-edition/update-edition.component';
-import {CreateEditionAndLinkToActionService} from "../services/createEditionAndLinkToAction.service";
-import {CreateViewAndLinkToAction} from "../services/createViewAndLinkToAction.service";
-import {ViewService} from "../../apps/view/view.service";
+import {PageSetService} from '../model/page-set.service';
+import {GenerateHashService} from '../../../shared/nieOS/other/generateHash.service';
+import {UpdatePageSetComponent} from '../update-page-set/update-page-set.component';
+import {CreatePageAndLinkToAction} from '../services/createPageAndLinkToAction.service';
+import {CreatePageSetAndLinkToActionService} from '../services/createPageSetAndLinkToAction.service';
+import {PageService} from '../../apps/page/page.service';
 
 @Component({
-  selector: 'app-edition-landing-page',
-  templateUrl: './edition-landing-page.component.html',
-  styleUrls: ['./edition-landing-page.component.scss']
+  selector: 'app-page-set-landing-page',
+  templateUrl: './page-set-landing-page.component.html',
+  styleUrls: ['./page-set-landing-page.component.scss']
 })
-export class EditionLandingPageComponent implements OnInit {
+export class PageSetLandingPageComponent implements OnInit {
 
   animal: string;
   name: string;
   actionID: number;
-  edition: any;
+  pageSet: any;
   action: any;
   model: any;
-  viewsOfThisEdition: any;
+  viewsOfThisPageSet: any;
 
   constructor(
     public dialog: MatDialog,
-    public dialogUpdateEdition: MatDialog,
+    public dialogUpdatePageSet: MatDialog,
     private route: ActivatedRoute,
     private generateHashService: GenerateHashService,
     private actionService: ActionService,
-    private createEditionAndLinkToActionService: CreateEditionAndLinkToActionService,
-    private editionService: EditionService,
-    private createViewAndLinkToAction: CreateViewAndLinkToAction,
-    private viewService: ViewService
+    private createPageSetAndLinkToActionService: CreatePageSetAndLinkToActionService,
+    private pageSetService: PageSetService,
+    private createViewAndLinkToAction: CreatePageAndLinkToAction,
+    private viewService: PageService
   ) { }
-  saveOrUpdateEdition() {
-    console.log('Update Edition');
-    this.editionService.update(
-      this.edition
+  saveOrUpdatePageSet() {
+    console.log('Update Page Set');
+    this.pageSetService.update(
+      this.pageSet
     )
       .subscribe(
         data => {
@@ -52,23 +52,23 @@ export class EditionLandingPageComponent implements OnInit {
   }
   ngOnInit() {
     this.actionID = this.route.snapshot.queryParams.actionID;
-    this.checkIfEditionExists( this.actionID );
+    this.checkIfPageSetExists( this.actionID );
   }
-  checkIfEditionExists( actionID: number ) {
+  checkIfPageSetExists(actionID: number ) {
     this.actionService.getById( actionID )
       .subscribe(
         data => {
           this.action = data;
-          if ( this.action && this.action.hasEdition ) {
-            console.log('Instatiate Edition');
+          if (this.action && this.action.hasPageSet ) {
+            console.log('Instatiate Page Set');
             console.log(this.action);
-            this.viewsOfThisEdition = [];
+            this.viewsOfThisPageSet = [];
             for ( const viewHash of this.action.hasViews ) {
               this.viewService.getById( viewHash )
                 .subscribe(
                   view => {
-                    this.viewsOfThisEdition[
-                      this.viewsOfThisEdition.length
+                    this.viewsOfThisPageSet[
+                      this.viewsOfThisPageSet.length
                       ] = view;
                     console.log( view );
                   },
@@ -77,23 +77,23 @@ export class EditionLandingPageComponent implements OnInit {
                   }
                 );
             }
-            this.editionService.getById( this.action.hasEdition )
+            this.pageSetService.getById( this.action.hasPageSet )
               .subscribe(
-                edition => {
-                  this.edition = edition;
+                pageSet => {
+                  this.pageSet = pageSet;
                 },
                 error => {
                   console.log(error);
                 });
           } else {
-            this.edition = {};
-            console.log('No edition for this action yet');
-            this.edition.hash = this.generateHashService.generateHash();
-            this.edition.title = 'Example pageSet';
-            this.edition.linkToImage = 'https://c8.alamy.com/' +
+            this.pageSet = {};
+            console.log('No page set for this action yet');
+            this.pageSet.hash = this.generateHashService.generateHash();
+            this.pageSet.title = 'Example pageSet';
+            this.pageSet.linkToImage = 'https://c8.alamy.com/' +
               'comp/DX9AP3/' +
               'open-book-vintage-accessories-old-letters-pages-photo-frames-glasses-DX9AP3.jpg';
-            this.edition.description = 'Dies als Beispiel für eine Edition bei NIE-OS\n' +
+            this.pageSet.description = 'Dies als Beispiel für eine PageSet bei NIE-OS\n' +
               '    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy\n' +
               '    eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.\n' +
               '    At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea\n' +
@@ -102,11 +102,11 @@ export class EditionLandingPageComponent implements OnInit {
               '    dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo\n' +
               '    dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem\n' +
               '    ipsum dolor sit amet.';
-            console.log(this.edition);
+            console.log(this.pageSet);
             console.log(this.action);
-            console.log('Save edition and then add edition - hash to action and update action.');
-            this.createEditionAndLinkToActionService.createOrUpdate(
-              this.edition,
+            console.log('Save page set and then add page set - hash to action and update action.');
+            this.createPageSetAndLinkToActionService.createOrUpdate(
+              this.pageSet,
               this.action
             );
           }
@@ -116,29 +116,29 @@ export class EditionLandingPageComponent implements OnInit {
         });
   }
   generateDescription() {
-    if ( this.edition && this.edition.description ) {
-      return this.edition.description;
+    if ( this.pageSet && this.pageSet.description ) {
+      return this.pageSet.description;
     } else {
       return 'Description not found';
     }
   }
   generateTitle() {
-    if ( this.edition && this.edition.title ) {
-      return this.edition.title;
+    if ( this.pageSet && this.pageSet.title ) {
+      return this.pageSet.title;
     } else {
       return 'Title not found';
     }
   }
   generateImage() {
-    if ( this.edition && this.edition.linkToImage ) {
-      return this.edition.linkToImage;
+    if ( this.pageSet && this.pageSet.linkToImage ) {
+      return this.pageSet.linkToImage;
     } else {
       return 'Image not found';
     }
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(DialogCreateNewViewComponent, {
+    const dialogRef = this.dialog.open(DialogCreateNewPageComponent, {
       width: '700px',
       data: { name: this.name, animal: this.animal }
     });
@@ -151,26 +151,26 @@ export class EditionLandingPageComponent implements OnInit {
         );
     });
   }
-  openUpdateEditionDialog() {
-    const dialogRef = this.dialogUpdateEdition.open(UpdateEditionComponent, {
+  openUpdatePageSetDialog() {
+    const dialogRef = this.dialogUpdatePageSet.open(UpdatePageSetComponent, {
       width: '700px',
       data: {
-        title: this.edition.title,
-        description: this.edition.description,
-        image: this.edition.linkToImage
+        title: this.pageSet.title,
+        description: this.pageSet.description,
+        image: this.pageSet.linkToImage
       }
     });
     dialogRef.afterClosed().subscribe(result => {
       if ( result !== undefined ) {
-        this.edition.title = result.title;
-        this.edition.description = result.description;
-        this.edition.linkToImage = result.image;
+        this.pageSet.title = result.title;
+        this.pageSet.description = result.description;
+        this.pageSet.linkToImage = result.image;
       }
     });
   }
   generateURL(view: any) {
-    if( view ) {
-      return 'arbeitsflaeche?actionID=' + this.actionID + '&view=' + view.hash;
+    if ( view ) {
+      return 'page?actionID=' + this.actionID + '&view=' + view.hash;
     }
   }
   generateViewTitle ( view: any) {
@@ -186,17 +186,18 @@ export class EditionLandingPageComponent implements OnInit {
 }
 
 @Component({
-  selector: 'dialog-create-new-view',
+  selector: 'dialog-create-new-page',
   templateUrl: './dialog-create-new-view.html',
 })
-export class DialogCreateNewViewComponent {
+export class DialogCreateNewPageComponent {
   model: any = {};
   loading = false;
   actionID: number;
-  edition: any;
+  pageSet: any;
   action: any;
   chooseNewAction: string;
-  constructor(public dialogRef: MatDialogRef<DialogCreateNewViewComponent>,
+
+  constructor(public dialogRef: MatDialogRef<DialogCreateNewPageComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private router: Router,
               private actionService: ActionService,
