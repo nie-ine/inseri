@@ -1,22 +1,22 @@
-import { Injectable } from '@angular/core';
-import { Edition } from '../model/edition.model';
-import { HttpClient } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {PageSetModel} from '../model/page-set.model';
+import {HttpClient} from '@angular/common/http';
 import {Action} from '../../../shared/nieOS/fake-backend/action/action';
 import {ActionService} from '../../../shared/nieOS/fake-backend/action/action.service';
-import {EditionService} from '../model/edition.service';
+import {PageSetService} from '../model/page-set.service';
 import {GenerateHashService} from '../../../shared/nieOS/other/generateHash.service';
-import {ViewService} from "../../apps/view/view.service";
+import {PageService} from '../../apps/page/page.service';
 
 @Injectable()
-export class CreateViewAndLinkToAction {
+export class CreatePageAndLinkToAction {
   action: any;
   view: any;
   constructor(
     private http: HttpClient,
     private actionService: ActionService,
-    private editionService: EditionService,
+    private pageSetService: PageSetService,
     private generateHashService: GenerateHashService,
-    private viewService: ViewService
+    private viewService: PageService
   ) {
   }
   createViewAndLinkToAction(

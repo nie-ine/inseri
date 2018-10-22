@@ -112,7 +112,7 @@ export class DialogOverviewExampleDialog {
     isFinished: false,
     deleted: false,
     type: undefined,
-    hasEdition: undefined,
+    hasPageSet: undefined,
     hasViews: undefined
   };
   loading = false;

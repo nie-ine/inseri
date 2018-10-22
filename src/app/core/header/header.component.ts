@@ -2,7 +2,7 @@ import {Component, OnInit, OnDestroy, Inject, AfterViewChecked, ChangeDetectorRe
 import {Router, ActivatedRoute} from '@angular/router';
 import {AuthenticationService} from '../../shared/nieOS/fake-backend/auth/authentication.service';
 import {ActionService} from '../../shared/nieOS/fake-backend/action/action.service';
-import {ViewService} from '../../nie-OS/apps/view/view.service';
+import {PageService} from '../../nie-OS/apps/page/page.service';
 import {AuthService} from '../../shared/nieOS/mongodb/auth/auth.service';
 import {Subscription} from 'rxjs';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
     private dialog2: MatDialog,
     private activatedRoute: ActivatedRoute,
     private actionService: ActionService,
-    private viewService: ViewService,
+    private viewService: PageService,
     private authenticationService: AuthenticationService,
     private authService: AuthService,
     private cdr: ChangeDetectorRef,
@@ -150,7 +150,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   navigateToOtherView( view: any) {
     console.log('Navigate to last View');
-    this.router.navigate( [ 'arbeitsflaeche' ], {
+    this.router.navigate( [ 'page' ], {
       queryParams: {
         'actionID': this.actionID,
         'view': view.hash
@@ -192,7 +192,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
     return (
       this.routeMapping( 'dashboard', 'nieOS - Dashboard' ) ||
       this.routeMapping( 'home', 'nieOS' ) ||
-      this.routeMapping( 'arbeitsflaeche', 'nieOS - Page' ) ||
+      this.routeMapping( 'page', 'nieOS - Page' ) ||
       this.routeMapping( '', 'nieOS' )
 
     );
@@ -201,7 +201,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
   generateLoginOrSettingsButton(): string {
     return(
       this.routeMapping( 'dashboard', 'Logout' ) ||
-      this.routeMapping( 'arbeitsflaeche', 'Einstellungen' )
+      this.routeMapping( 'page', 'Einstellungen' )
     );
   }
 
@@ -216,8 +216,8 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
     return(
       this.routeMapping( 'dashboard', 'dashboard#top' ) ||
       this.routeMapping( 'home', 'home#top' ) ||
-      this.routeMapping( 'arbeitsflaeche', 'dashboard#top' ) ||
-      this.routeMapping( 'my-edition', 'dashboard#top' ) ||
+      this.routeMapping( 'page', 'dashboard#top' ) ||
+      this.routeMapping( 'page-set', 'dashboard#top' ) ||
       this.routeMapping( '', 'home#top' )
     );
   }
