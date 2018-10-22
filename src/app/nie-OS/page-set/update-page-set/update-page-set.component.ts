@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatFormField} from '@angular/material';
 
 @Component({
-  selector: 'app-update-edition',
+  selector: 'app-update-page-set',
   templateUrl: './update-page-set.component.html'
 })
 export class UpdatePageSetComponent {
@@ -22,9 +22,11 @@ export class UpdatePageSetComponent {
     this.model = data;
     console.log( data );
   }
+
   onNoClick(): void {
     this.dialogRef.close();
   }
+
   register() {
     this.loading = true;
     console.log('register');

@@ -1,20 +1,20 @@
-<h1 mat-dialog-title>Erstelle einen neuen View</h1>
+<h1 mat-dialog-title>Erstelle einer neuen Page</h1>
 
 
 <div class="col-md-6 col-md-offset-3">
   <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
     <div class="form-group" >
-      <label >Titel des Views</label>
+      <label >Titel der Page</label>
       <input type="text" class="form-control" name="title" [(ngModel)]="model.title" required />
-      <div *ngIf="f.submitted && !model.title" class="help-block">Bitte geben Sie einen Titel für den View ein</div>
+      <div *ngIf="f.submitted && !model.title" class="help-block">Bitte geben Sie einen Titel für die Page ein</div>
     </div>
     <div class="form-group" >
-      <label >Beschreibung des Views</label>
+      <label >Beschreibung der Page</label>
       <input type="text" class="form-control" name="description" [(ngModel)]="model.description" required height="48"/>
-      <div *ngIf="f.submitted && !model.description" class="help-block">Bitte geben Sie eine Beschreibung des Views ein</div>
+      <div *ngIf="f.submitted && !model.description" class="help-block">Bitte geben Sie eine Beschreibung der Page ein</div>
     </div>
     <div >
-      <button mat-button [mat-dialog-close]="model">Create View</button>
+      <button mat-button [mat-dialog-close]="model">Create Page</button>
       <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
       <button  type="button" mat-button (click)="onNoClick()">Schliesse dieses Menü</button>
     </div>

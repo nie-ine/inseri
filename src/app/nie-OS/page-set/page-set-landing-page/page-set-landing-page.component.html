@@ -7,10 +7,10 @@
   <div style="float: left; width: 300px"> {{ generateDescription() }}
   </div>
 
-  <div style="margin-right: 30px; margin-left: 30px;" *ngFor="let view of viewsOfThisPageSet; let i = index; ">
+  <div style="margin-right: 30px; margin-left: 30px;" *ngFor="let page of pagesOfThisPageSet; let i = index; ">
     <div >
-      <a href="{{ generateURL( view ) }}" style="font-size: 30px">{{ generateViewTitle ( view ) }}</a><br>
-      {{ generateViewDescription( view )  }}
+      <a href="{{ generateURL( page ) }}" style="font-size: 30px">{{ generatePageTitle ( page ) }}</a><br>
+      {{ generatePageDescription( page ) }}
     </div>
   </div>
 
@@ -22,12 +22,12 @@
                      <i class="fa fa-circle fa-stack-2x text-primary" ></i>
                       <a (click)="openDialog()"><i class="fa fa-plus fa-stack-1x fa-inverse" ></i></a>
                     </span>
-    <h4 class="service-heading">Neuer View</h4>
+    <h4 class="service-heading">Neue Page </h4>
   </div>
 
   <div style="position: fixed; bottom: 0; right: 0;">
-    <button mat-button (click)="openUpdatePageSetDialog()">Update Edition</button><br>
-    <button mat-button (click)="saveOrUpdatePageSet()">Save Edition</button><br>
+    <button mat-button (click)="openUpdatePageSetDialog()">Update Page Set</button><br>
+    <button mat-button (click)="saveOrUpdatePageSet()">Save Page Set</button><br>
   </div>
 
 </div>
