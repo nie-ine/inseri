@@ -6,6 +6,7 @@ import { AlertService} from '../../shared/nieOS/fake-backend/auth/altert.service
 import {HttpParams} from '@angular/common/http';
 import { MongoActionService } from '../../shared/nieOS/mongodb/action/action.service';
 import { Action } from '../../shared/nieOS/mongodb/action/action.model';
+import { map } from'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -53,9 +54,20 @@ export class DashboardComponent implements OnInit {
     console.log('Next: iterate through existing actions');
     // this.actions = JSON.parse(localStorage.getItem('actions')) || [];
     this.mongoActionService.getAllActions()
-      .subscribe( response => {
-        console.log(response);
-        this.actions = (response as any).actions;
+      .pipe(
+        map((response) => {
+          return (response as any).actions.map(action => {
+            return {
+              title: action.title,
+              description: action.description,
+              type: action.type,
+              id: action._id
+            };
+          });
+        }))
+      .subscribe( transformedActions => {
+        console.log(transformedActions);
+        this.actions = transformedActions;
     });
     console.log(this.actions);
   }

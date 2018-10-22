@@ -22,7 +22,7 @@ export class MongoActionService {
   }
 
   getAllActions(): any {
-    return this.http.get('http://localhost:3000/api/action');
+    return this.http.get<{message: string, actions: any}>('http://localhost:3000/api/action');
   }
 
 

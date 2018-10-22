@@ -28,15 +28,17 @@ Powered by [FEE](http://www.fee.unibas.ch/), mandated by [swissuniversities](htt
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 
-## Development advice
-### Extend nieOS models
- - create an interface, like in shared/action.ts
+## Development advice/ helping notes
+### Extend nieOS models / move them from localstorage to mongodb
+ - create an interface, like in shared/nieOS/mongodb/action/action.ts
  - in backend/models add action.js for mongoose
  - in backend/routes add <route>.js to post / update etc
  - add routes in app.js
- - adjust service so that it links to the right url
+ - create new service for mongodb in frontend, like mongodbAction.service.ts
+ - test route in backend with console.log (without backend operations at first, bc it's easier.)
+ - in frontend, replace service (example for action in dashboard)
  - add mongoose Schema, instantiate it in backend/routes and assign req.body to mongoose object
  - save data to the database (ref tutorial 53)
  - check if it worked with mongo shell, again in 53
- - Fetch data from database, 54. Mongoose - docs tells more details on how to narrow fetching the data.
- - 
+ - Fetch data from database, 54. Mongoose - docs tells more details on how to narrow fetching the data. Example again in backend/routes/action.js
+ - Map _id from mongodb to id in frontent, like in dashboard.component.ts onInit()
