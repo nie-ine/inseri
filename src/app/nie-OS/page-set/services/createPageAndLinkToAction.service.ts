@@ -10,25 +10,26 @@ import {PageService} from '../../apps/page/page.service';
 @Injectable()
 export class CreatePageAndLinkToAction {
   action: any;
-  view: any;
+  page: any;
   constructor(
     private http: HttpClient,
     private actionService: ActionService,
     private pageSetService: PageSetService,
     private generateHashService: GenerateHashService,
-    private viewService: PageService
+    private pageService: PageService
   ) {
   }
-  createViewAndLinkToAction(
+
+  createPageAndLinkToAction(
     actionID: number,
-    viewFormEntries: any
+    pageFormEntries: any
   ) {
-    console.log(viewFormEntries);
-    this.view = {};
-    this.view.description = viewFormEntries.description;
-    this.view.title = viewFormEntries.title;
-    this.view.hash = this.generateHashService.generateHash();
-    this.viewService.create( this.view )
+    console.log(pageFormEntries);
+    this.page = {};
+    this.page.description = pageFormEntries.description;
+    this.page.title = pageFormEntries.title;
+    this.page.hash = this.generateHashService.generateHash();
+    this.pageService.create( this.page )
       .subscribe(
         data => {
           console.log(data);
@@ -42,7 +43,7 @@ export class CreatePageAndLinkToAction {
           this.action = action;
           this.action.hasViews[
             this.action.hasViews.length
-            ] = this.view.hash;
+            ] = this.page.hash;
           console.log(this.action);
           this.actionService.update( this.action )
             .subscribe( updatedAction => {

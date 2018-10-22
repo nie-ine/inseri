@@ -1,9 +1,7 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import {Router, NavigationEnd, ActivatedRoute} from '@angular/router';
-import { ActionService } from '../../../shared/nieOS/fake-backend/action/action.service';
-import { AlertService} from '../../../shared/nieOS/fake-backend/auth/altert.service';
-import { HttpParams } from '@angular/common/http';
+import {Component, OnInit, Inject } from '@angular/core';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import {Router, ActivatedRoute} from '@angular/router';
+import {ActionService } from '../../../shared/nieOS/fake-backend/action/action.service';
 import {PageSetService} from '../model/page-set.service';
 import {GenerateHashService} from '../../../shared/nieOS/other/generateHash.service';
 import {UpdatePageSetComponent} from '../update-page-set/update-page-set.component';
@@ -24,7 +22,7 @@ export class PageSetLandingPageComponent implements OnInit {
   pageSet: any;
   action: any;
   model: any;
-  viewsOfThisPageSet: any;
+  pagesOfThisPageSet: any;
 
   constructor(
     public dialog: MatDialog,
@@ -34,9 +32,10 @@ export class PageSetLandingPageComponent implements OnInit {
     private actionService: ActionService,
     private createPageSetAndLinkToActionService: CreatePageSetAndLinkToActionService,
     private pageSetService: PageSetService,
-    private createViewAndLinkToAction: CreatePageAndLinkToAction,
-    private viewService: PageService
+    private createPageAndLinkToAction: CreatePageAndLinkToAction,
+    private pageService: PageService
   ) { }
+
   saveOrUpdatePageSet() {
     console.log('Update Page Set');
     this.pageSetService.update(
@@ -50,10 +49,12 @@ export class PageSetLandingPageComponent implements OnInit {
           console.log(error);
         });
   }
+
   ngOnInit() {
     this.actionID = this.route.snapshot.queryParams.actionID;
     this.checkIfPageSetExists( this.actionID );
   }
+
   checkIfPageSetExists(actionID: number ) {
     this.actionService.getById( actionID )
       .subscribe(
@@ -62,13 +63,13 @@ export class PageSetLandingPageComponent implements OnInit {
           if (this.action && this.action.hasPageSet ) {
             console.log('Instatiate Page Set');
             console.log(this.action);
-            this.viewsOfThisPageSet = [];
+            this.pagesOfThisPageSet = [];
             for ( const viewHash of this.action.hasViews ) {
-              this.viewService.getById( viewHash )
+              this.pageService.getById( viewHash )
                 .subscribe(
                   view => {
-                    this.viewsOfThisPageSet[
-                      this.viewsOfThisPageSet.length
+                    this.pagesOfThisPageSet[
+                      this.pagesOfThisPageSet.length
                       ] = view;
                     console.log( view );
                   },
@@ -115,6 +116,7 @@ export class PageSetLandingPageComponent implements OnInit {
           console.log(error);
         });
   }
+
   generateDescription() {
     if ( this.pageSet && this.pageSet.description ) {
       return this.pageSet.description;
@@ -122,6 +124,7 @@ export class PageSetLandingPageComponent implements OnInit {
       return 'Description not found';
     }
   }
+
   generateTitle() {
     if ( this.pageSet && this.pageSet.title ) {
       return this.pageSet.title;
@@ -129,6 +132,7 @@ export class PageSetLandingPageComponent implements OnInit {
       return 'Title not found';
     }
   }
+
   generateImage() {
     if ( this.pageSet && this.pageSet.linkToImage ) {
       return this.pageSet.linkToImage;
@@ -144,13 +148,14 @@ export class PageSetLandingPageComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
-      this.createViewAndLinkToAction
-        .createViewAndLinkToAction(
+      this.createPageAndLinkToAction
+        .createPageAndLinkToAction(
           this.route.snapshot.queryParams.actionID,
           result
         );
     });
   }
+
   openUpdatePageSetDialog() {
     const dialogRef = this.dialogUpdatePageSet.open(UpdatePageSetComponent, {
       width: '700px',
@@ -168,26 +173,29 @@ export class PageSetLandingPageComponent implements OnInit {
       }
     });
   }
-  generateURL(view: any) {
-    if ( view ) {
-      return 'page?actionID=' + this.actionID + '&view=' + view.hash;
+
+  generateURL(page: any) {
+    if ( page ) {
+      return 'page?actionID=' + this.actionID + '&page=' + page.hash;
     }
   }
-  generateViewTitle ( view: any) {
-    if ( view ) {
-      return view.title;
+
+  generatePageTitle (page: any) {
+    if ( page ) {
+      return page.title;
     }
   }
-  generateViewDescription ( view: any ) {
-    if ( view ) {
-      return view.description;
+
+  generatePageDescription (page: any ) {
+    if ( page ) {
+      return page.description;
     }
   }
 }
 
 @Component({
   selector: 'dialog-create-new-page',
-  templateUrl: './dialog-create-new-view.html',
+  templateUrl: './dialog-create-new-page.html',
 })
 export class DialogCreateNewPageComponent {
   model: any = {};
@@ -203,9 +211,11 @@ export class DialogCreateNewPageComponent {
               private actionService: ActionService,
               private route: ActivatedRoute) {
   }
+
   onNoClick(): void {
     this.dialogRef.close();
   }
+
   register() {
     this.loading = true;
     console.log(this.model);
