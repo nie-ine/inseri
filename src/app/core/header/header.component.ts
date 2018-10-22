@@ -1,19 +1,21 @@
-import {Component, OnInit, OnDestroy, Inject} from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { AuthenticationService } from '../../shared/nieOS/fake-backend/auth/authentication.service';
+import {Component, OnInit, OnDestroy, Inject, AfterViewChecked, ChangeDetectorRef} from '@angular/core';
+import {Router, ActivatedRoute} from '@angular/router';
+import {AuthenticationService} from '../../shared/nieOS/fake-backend/auth/authentication.service';
 import {ActionService} from '../../shared/nieOS/fake-backend/action/action.service';
 import {ViewService} from '../../nie-OS/apps/view/view.service';
 import {AuthService} from '../../shared/nieOS/mongodb/auth/auth.service';
 import {Subscription} from 'rxjs';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
-import {NgForm} from "@angular/forms";
+import {NgForm} from '@angular/forms';
+import {InitService} from '../init-popup/service/init.service';
+import {InitPopupComponent} from '../init-popup/init-popup.component';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   currentRoute: string;
   viewsOfThisActtion: Array<any>;
@@ -26,13 +28,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
   userIsAuthenticated = false;
 
   constructor(
+    private initService: InitService,
     private router: Router,
     private dialog: MatDialog,
+    private dialog2: MatDialog,
     private activatedRoute: ActivatedRoute,
     private actionService: ActionService,
     private viewService: ViewService,
     private authenticationService: AuthenticationService,
-    private authService: AuthService
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef
   ) {
       router.events.subscribe(( route: any ) => {
         this.updateCurrentRoute( route );
@@ -46,6 +51,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    if (this.initService.isAppLaunchingFirstTime()) {
+        setTimeout(() => {
+            this.dialog2.open(InitPopupComponent, {
+                data: {}
+            });
+        }, 1000);
+    }
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authListenerSubs = this.authService
       .getAuthStatusListener()
@@ -55,6 +67,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
       );
   }
+
+    ngAfterViewChecked() {
+        this.cdr.detectChanges();
+    }
 
   ngOnDestroy() {
     this.authListenerSubs.unsubscribe();
@@ -229,7 +245,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   openSettingsDialog() {
     console.log('openSettingsDialog');
-    const dialogRef = this.dialog.open(DialogUserSettingsDialog, {
+    this.dialog.open(DialogUserSettingsDialog, {
       width: '700px',
       height: '500px',
       //dummy data
