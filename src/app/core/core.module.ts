@@ -23,7 +23,7 @@ import { CreateResourceViewModule } from '../development-views/create-resource-v
 import { EditResourceViewModule } from '../development-views/edit-resource-view/edit-resource-view.module';
 import { ArithmeticModule } from 'nie-ine';
 import { AuthenticationService } from '../shared/nieOS/fake-backend/auth/authentication.service';
-import { ViewService } from '../nie-OS/apps/view/view.service';
+import { PageService } from '../nie-OS/apps/page/page.service';
 import { MatDialogModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { InitPopupComponent } from './init-popup/init-popup.component';
@@ -67,7 +67,7 @@ import { InitPopupComponent } from './init-popup/init-popup.component';
     KnoraAuthService,
     SynopsisObjectStorageService,
     AuthenticationService,
-    ViewService,
+    PageService,
     DialogUserSettingsDialog
   ],
   exports: [HeaderComponent, FooterComponent, MainComponent, RouterModule]

@@ -6,5 +6,5 @@ export interface Action {
   deleted: boolean;
   type: string;
   hasViews: Array<string>; // hash des views
-  hasEdition: string;
+  hasPageSet: string;
 }

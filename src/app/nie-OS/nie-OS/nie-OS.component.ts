@@ -14,7 +14,7 @@ import {Popup} from './popup';
 import 'rxjs/add/operator/map';
 import { ActivatedRoute } from '@angular/router';
 import { ActionService } from '../../shared/nieOS/fake-backend/action/action.service';
-import { ViewService } from '../apps/view/view.service';
+import { PageService } from '../apps/page/page.service';
 import {GenerateHashService} from "../../shared/nieOS/other/generateHash.service";
 
 declare var grapesjs: any; // Important!
@@ -119,7 +119,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
   constructor(
     private route: ActivatedRoute,
     private actionService: ActionService,
-    private viewService: ViewService,
+    private viewService: PageService,
     private cdr: ChangeDetectorRef,
     private generateHashService: GenerateHashService
   ) {
