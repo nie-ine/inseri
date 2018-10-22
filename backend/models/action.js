@@ -7,7 +7,8 @@ const actionSchema = mongoose.Schema({
   deleted: { type: Boolean },
   type: { type: String },
   hasViews: { type: [String] }, // hash des views
-  hasEdition: { type: String }
+  hasEdition: { type: String },
+  creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User', require: true }
 });
 
 module.exports = mongoose.model('Action', actionSchema);

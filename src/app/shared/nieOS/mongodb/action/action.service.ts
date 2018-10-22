@@ -25,5 +25,13 @@ export class MongoActionService {
     return this.http.get<{message: string, actions: any}>('http://localhost:3000/api/action');
   }
 
+  deleteAction(actionId: string) {
+    console.log('delete action ' + actionId);
+    this.http.delete('http://localhost:3000/api/action/' + actionId)
+      .subscribe( () => {
+      console.log('Deleted!');
+    });
+  }
+
 
 }

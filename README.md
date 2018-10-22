@@ -42,3 +42,4 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
  - check if it worked with mongo shell, again in 53
  - Fetch data from database, 54. Mongoose - docs tells more details on how to narrow fetching the data. Example again in backend/routes/action.js
  - Map _id from mongodb to id in frontent, like in dashboard.component.ts onInit()
+ - integrate delete and update functions

@@ -3,15 +3,19 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const Action = require('../models/action');
+const checkAuth = require("../middleware/check-auth");
 
 const router = express.Router();
 
-router.post('', (req, res, next) => {
-  console.log('start action service in backend');
+router.post(
+  '',
+  checkAuth,
+  (req, res, next) => {
   const action = new Action({
     title: req.body.title,
     description: req.body.description,
-    type: req.body.type
+    type: req.body.type,
+    creator: req.userData.userId
   });
   console.log(action);
   action.save();
@@ -20,8 +24,13 @@ router.post('', (req, res, next) => {
   });
 });
 
-router.get('', (req, res, next) => {
-  Action.find()
+router.get(
+  '',
+  checkAuth,
+  (req, res, next) => {
+  Action.find({
+    creator: req.userData.userId
+  })
     .then(documents => {
       console.log(documents);
       res.status(200).json({
@@ -29,6 +38,19 @@ router.get('', (req, res, next) => {
         actions: documents
       });
     });
+});
+
+router.delete('/:id', (req, res, next) => {
+  Action.deleteOne({
+    _id: req.params.id
+  })
+    .then(result => {
+      console.log(result);
+      res.status(200).json({
+        message: 'Post deleted'
+      });
+    });
+
 });
 
 module.exports = router;

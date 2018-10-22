@@ -5,7 +5,7 @@ import { ActionService } from '../../shared/nieOS/fake-backend/action/action.ser
 import { AlertService} from '../../shared/nieOS/fake-backend/auth/altert.service';
 import {HttpParams} from '@angular/common/http';
 import { MongoActionService } from '../../shared/nieOS/mongodb/action/action.service';
-import { Action } from '../../shared/nieOS/mongodb/action/action.model';
+import { Action, ActionArray } from '../../shared/nieOS/mongodb/action/action.model';
 import { map } from'rxjs/operators';
 
 @Component({
@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit {
   name: string;
   user: any[] = JSON.parse(localStorage.getItem('currentUser')) || [];
   username: string;
-  actions: Array<any>;
+  actions: Action[] = [];
 
   constructor(
     public dialog: MatDialog,
@@ -61,7 +61,8 @@ export class DashboardComponent implements OnInit {
               title: action.title,
               description: action.description,
               type: action.type,
-              id: action._id
+              id: action._id,
+              creator: action.creator
             };
           });
         }))
@@ -75,17 +76,18 @@ export class DashboardComponent implements OnInit {
   deleteAction(action: any) {
     console.log('Delete Action ' + action.id);
     action.deleted = true;
-    this.actionService.delete(action.id)
-      .subscribe(
-        data => {
-          console.log(data);
-          this.alertService.success('Deletion successful', true);
-          // this.router.navigate(['/home']);
-        },
-        error => {
-          console.log(error);
-          this.alertService.error(error);
-        });
+    this.mongoActionService.deleteAction( action.id);
+    // this.actionService.delete(action.id)
+    //   .subscribe(
+    //     data => {
+    //       console.log(data);
+    //       this.alertService.success('Deletion successful', true);
+    //       // this.router.navigate(['/home']);
+    //     },
+    //     error => {
+    //       console.log(error);
+    //       this.alertService.error(error);
+    //     });
   }
 
   markAsDone( action: any ) {
@@ -104,6 +106,7 @@ export class DashboardComponent implements OnInit {
 })
 export class DialogOverviewExampleDialog {
   action: Action = {
+    id: undefined,
     title: '',
     description: '',
     isFinished: false,
