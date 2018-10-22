@@ -212,18 +212,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
-  generateLoginOrSettingsLink() {
-    return(
-      this.routeMapping( 'dashboard', 'home#top' ) ||
-      this.routeMapping( 'arbeitsflaeche', '/settings' ) ||
-      this.routeMapping( '', 'home#top' )
-    );
+  loginOrLogoutButton(): string {
+    return this.userIsAuthenticated ? 'Logout' : 'Login';
   }
 
-  logout(){
-    if ( this.routeMapping('dashboard', 'true') ) {
-      this.authenticationService.logout();
-      console.log('logout');
+  loginOrLogout() {
+    if (this.userIsAuthenticated) {
+        this.authenticationService.logout();
+        console.log('logout');
+        // if successful redirect to another page/component
+    } else {
+        this.router.navigate(['home'], { fragment: 'login' });
+        console.log('login');
     }
   }
 
