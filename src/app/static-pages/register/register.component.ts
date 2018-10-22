@@ -18,12 +18,17 @@ export class RegisterComponent {
     private router: Router,
     private userService: UserService,
     private alertService: AlertService,
-    public authSerive: AuthService
+    public authService: AuthService
   ) { }
 
   register() {
     this.loading = true;
-    this.authSerive.createUser(this.model.username, this.model.password);
+    this.authService.createUser(
+      this.model.username,
+      this.model.password,
+      this.model.firstName,
+      this.model.lastName
+    );
 /*    this.userService.create(this.model)
       .subscribe(
         data => {

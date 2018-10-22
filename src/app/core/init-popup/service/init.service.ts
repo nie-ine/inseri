@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class InitService {
-  private firstTimeLaunch = true;
+  private firstTimeLaunch = false;
 
   constructor() { }
 

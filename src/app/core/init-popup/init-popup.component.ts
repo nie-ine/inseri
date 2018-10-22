@@ -9,10 +9,11 @@ import {InitService} from './service/init.service';
 })
 export class InitPopupComponent  {
   public message = {
-    german: 'Here will be the German text',
+    german: 'Diese Seite ist derzeit im Beta - Stadium und ausschliesslich zu Testzwecken zu gebrauchen.',
     english: 'Here will be the English text',
     french: 'Here will be the French text',
-    italian: 'Here will be the Italian text'};
+    italian: 'Here will be the Italian text'
+  };
 
   constructor(public dialogRef: MatDialogRef<InitPopupComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
