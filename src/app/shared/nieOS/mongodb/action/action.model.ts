@@ -1,4 +1,5 @@
 export interface Action {
+  id: string;
   title: string;
   description: string;
   isFinished: boolean; // isInProgress, isFinished
@@ -7,3 +8,5 @@ export interface Action {
   hasViews: Array<string>; // hashes of the views
   hasEdition: string;
 }
+
+export interface ActionArray extends Array<Action> {}
