@@ -37,7 +37,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
     private viewService: ViewService,
     private authenticationService: AuthenticationService,
     private authService: AuthService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
   ) {
       router.events.subscribe(( route: any ) => {
         this.updateCurrentRoute( route );
@@ -234,9 +234,8 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   loginOrLogout() {
     if (this.userIsAuthenticated) {
-        this.authenticationService.logout();
-        console.log('logout');
-        // if successful redirect to another page/component
+      this.authService.logout();
+      this.router.navigate(["/"]);
     } else {
         this.router.navigate(['home'], { fragment: 'login' });
         console.log('login');
@@ -248,7 +247,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.dialog.open(DialogUserSettingsDialog, {
       width: '700px',
       height: '500px',
-      //dummy data
+      // dummy data
        data: {
             firstName: 'Dominique',
             lastName: 'Souvant',

@@ -19,8 +19,13 @@ export class AuthService {
     return this.token;
   }
 
-  createUser( email: string, password: string ) {
-    const authData: AuthData = { email: email, password: password };
+  createUser( email: string, password: string, firstName: string, lastName: string ) {
+    const authData: AuthData = {
+      email: email,
+      password: password,
+      firstName: firstName,
+      lastName: lastName
+    };
     this.http.post('http://localhost:3000/api/user/signup', authData)
       .subscribe( response => {
         console.log(response);
@@ -28,11 +33,12 @@ export class AuthService {
   }
 
   login(email: string, password: string) {
-    const authData: AuthData = { email: email, password: password };
+    const authData = { email: email, password: password };
     this.http.post<
       {
         token: string,
-        expiresIn: number
+        expiresIn: number,
+        firstName: string
       }
       >('http://localhost:3000/api/user/login', authData)
       .subscribe( response => {
@@ -47,7 +53,7 @@ export class AuthService {
         const now = new Date();
         const expirationDate = new Date (now.getTime() + expiresInDuration * 1000);
         console.log(expirationDate);
-        this.saveAuthData(token, expirationDate);
+        this.saveAuthData(token, expirationDate, response.firstName);
         this.router.navigate(['/dashboard' ], {fragment: 'top'});
       });
   }
@@ -92,7 +98,7 @@ export class AuthService {
     }, duration * 1000);
   }
 
-  private saveAuthData(token: string, expirationDate: Date) {
+  private saveAuthData(token: string, expirationDate: Date, firstName: string) {
     localStorage.setItem(
       'token',
       token
@@ -101,11 +107,17 @@ export class AuthService {
       'expiration',
       expirationDate.toISOString()
     );
+    localStorage.setItem(
+      'firstName',
+      firstName
+    );
+    console.log(localStorage);
   }
 
   private clearAuthData() {
     localStorage.removeItem('token');
     localStorage.removeItem('expiration');
+    localStorage.removeItem('userId');
   }
 
   private getAuthData() {
