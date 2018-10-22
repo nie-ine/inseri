@@ -7,7 +7,7 @@
   <div style="float: left; width: 300px"> {{ generateDescription() }}
   </div>
 
-  <div style="margin-right: 30px; margin-left: 30px;" *ngFor="let view of viewsOfThisEdition; let i = index; ">
+  <div style="margin-right: 30px; margin-left: 30px;" *ngFor="let view of viewsOfThisPageSet; let i = index; ">
     <div >
       <a href="{{ generateURL( view ) }}" style="font-size: 30px">{{ generateViewTitle ( view ) }}</a><br>
       {{ generateViewDescription( view )  }}
@@ -26,8 +26,8 @@
   </div>
 
   <div style="position: fixed; bottom: 0; right: 0;">
-    <button mat-button (click)="openUpdateEditionDialog()">Update Edition</button><br>
-    <button mat-button (click)="saveOrUpdateEdition()">Save Edition</button><br>
+    <button mat-button (click)="openUpdatePageSetDialog()">Update Edition</button><br>
+    <button mat-button (click)="saveOrUpdatePageSet()">Save Edition</button><br>
   </div>
 
 </div>
