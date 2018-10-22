@@ -26,6 +26,7 @@ import { AuthenticationService } from '../shared/nieOS/fake-backend/auth/authent
 import { ViewService } from '../nie-OS/apps/view/view.service';
 import { MatDialogModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
+import { InitPopupComponent } from './init-popup/init-popup.component';
 
 @NgModule({
   imports: [
@@ -53,9 +54,11 @@ import { FormsModule } from '@angular/forms';
     MainComponent,
     PageNotFoundComponent,
     NavigationComponent,
-    DialogUserSettingsDialog],
+    DialogUserSettingsDialog,
+    InitPopupComponent],
   entryComponents: [
-    DialogUserSettingsDialog
+    DialogUserSettingsDialog,
+    InitPopupComponent
   ],
   providers: [
     KnoraRequestService,
