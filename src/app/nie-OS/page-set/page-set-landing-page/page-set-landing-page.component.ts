@@ -61,7 +61,7 @@ export class PageSetLandingPageComponent implements OnInit {
         data => {
           this.action = data;
           if (this.action && this.action.hasPageSet ) {
-            console.log('Instatiate Page Set');
+            console.log('Instantiate Page Set');
             console.log(this.action);
             this.pagesOfThisPageSet = [];
             for ( const viewHash of this.action.hasViews ) {

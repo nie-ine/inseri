@@ -68,9 +68,9 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
       );
   }
 
-    ngAfterViewChecked() {
-        this.cdr.detectChanges();
-    }
+  ngAfterViewChecked() {
+    this.cdr.detectChanges();
+  }
 
   ngOnDestroy() {
     this.authListenerSubs.unsubscribe();
@@ -194,7 +194,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.routeMapping( 'home', 'nieOS' ) ||
       this.routeMapping( 'page', 'nieOS - Page' ) ||
       this.routeMapping( '', 'nieOS' )
-
     );
   }
 
@@ -220,6 +219,10 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.routeMapping( 'page-set', 'dashboard#top' ) ||
       this.routeMapping( '', 'home#top' )
     );
+  }
+
+  isUserOnDash(): boolean {
+      return (this.currentRoute && this.currentRoute.search( 'dash') === 1);
   }
 
   routeMapping( location: string, output: string ): string {
