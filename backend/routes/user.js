@@ -6,14 +6,22 @@ const User = require('../models/user');
 
 const router = express.Router();
 
-router.put(
-    '/:id',
-    (req, res, next) => {
-
-    console.log('Update user information');
-    res.status(200).json({
-        message: 'action returned in response'
-    });
+router.put('/:id', (req, res, next) => {
+  console.log(req);
+  User.findOneAndUpdate({_id: req.body.userId}, {
+    email: req.body.email,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName})
+    .then( (result) => {
+      console.log(result);
+      res.status(200).json({
+        message: 'User updated'
+      });
+    }).catch(err => {
+      res.status(500).json({
+        error:err
+      })
+  });
 });
 
 router.post('/signup', (req, res, next) => {
