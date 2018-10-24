@@ -1,0 +1,993 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>nie-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">nie-frontend documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search">
+</div>
+            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>DialogCreateNewPageComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/nie-OS/page-set/page-set-landing-page/page-set-landing-page.component.ts</code>
+</p>
+
+
+
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>dialog-create-new-page</code></td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./dialog-create-new-page.html</code></td>
+            </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#action">action</a>
+                            </li>
+                            <li>
+                                <a href="#actionID">actionID</a>
+                            </li>
+                            <li>
+                                <a href="#chooseNewAction">chooseNewAction</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#data">data</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#dialogRef">dialogRef</a>
+                            </li>
+                            <li>
+                                <a href="#loading">loading</a>
+                            </li>
+                            <li>
+                                <a href="#model">model</a>
+                            </li>
+                            <li>
+                                <a href="#pageSet">pageSet</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#onNoClick">onNoClick</a>
+                            </li>
+                            <li>
+                                <a href="#register">register</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(dialogRef: <a href="../classes/Page.html">MatDialogRef<DialogCreateNewPageComponent></a>, data: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>, actionService: <a href="../injectables/ActionService.html">ActionService</a>, route: <a href="https://angular.io/api/router/ActivatedRoute" target="_blank">ActivatedRoute</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="206" class="link-to-prism">src/app/nie-OS/page-set/page-set-landing-page/page-set-landing-page.component.ts:206</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>dialogRef</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../classes/Page.html" target="_self" >MatDialogRef&lt;DialogCreateNewPageComponent&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>data</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>actionService</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../injectables/ActionService.html" target="_self" >ActionService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>route</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="https://angular.io/api/router/ActivatedRoute" target="_blank" >ActivatedRoute</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section>
+    
+        <h3 id="methods">
+            Methods
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="onNoClick"></a>
+                        <span class="name">
+                            <b>
+                            onNoClick
+                            </b>
+                            <a href="#onNoClick"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>onNoClick()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="215" class="link-to-prism">src/app/nie-OS/page-set/page-set-landing-page/page-set-landing-page.component.ts:215</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="register"></a>
+                        <span class="name">
+                            <b>
+                            register
+                            </b>
+                            <a href="#register"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>register()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="219" class="link-to-prism">src/app/nie-OS/page-set/page-set-landing-page/page-set-landing-page.component.ts:219</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="action"></a>
+                        <span class="name">
+                            <b>
+                            action
+                            </b>
+                            <a href="#action"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>action:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="205" class="link-to-prism">src/app/nie-OS/page-set/page-set-landing-page/page-set-landing-page.component.ts:205</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="actionID"></a>
+                        <span class="name">
+                            <b>
+                            actionID
+                            </b>
+                            <a href="#actionID"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>actionID:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="203" class="link-to-prism">src/app/nie-OS/page-set/page-set-landing-page/page-set-landing-page.component.ts:203</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="chooseNewAction"></a>
+                        <span class="name">
+                            <b>
+                            chooseNewAction
+                            </b>
+                            <a href="#chooseNewAction"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>chooseNewAction:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="206" class="link-to-prism">src/app/nie-OS/page-set/page-set-landing-page/page-set-landing-page.component.ts:206</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="data"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            data
+                            </b>
+                            <a href="#data"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>data:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Decorators : </i><code>Inject</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="209" class="link-to-prism">src/app/nie-OS/page-set/page-set-landing-page/page-set-landing-page.component.ts:209</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="dialogRef"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            dialogRef
+                            </b>
+                            <a href="#dialogRef"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>dialogRef:     <code><a href="../classes/Page.html" target="_self" >MatDialogRef&lt;DialogCreateNewPageComponent&gt;</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="../classes/Page.html" target="_self" >MatDialogRef&lt;DialogCreateNewPageComponent&gt;</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="208" class="link-to-prism">src/app/nie-OS/page-set/page-set-landing-page/page-set-landing-page.component.ts:208</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="loading"></a>
+                        <span class="name">
+                            <b>
+                            loading
+                            </b>
+                            <a href="#loading"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>loading:     <code></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="202" class="link-to-prism">src/app/nie-OS/page-set/page-set-landing-page/page-set-landing-page.component.ts:202</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="model"></a>
+                        <span class="name">
+                            <b>
+                            model
+                            </b>
+                            <a href="#model"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>model:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>{}</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="201" class="link-to-prism">src/app/nie-OS/page-set/page-set-landing-page/page-set-landing-page.component.ts:201</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="pageSet"></a>
+                        <span class="name">
+                            <b>
+                            pageSet
+                            </b>
+                            <a href="#pageSet"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>pageSet:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="204" class="link-to-prism">src/app/nie-OS/page-set/page-set-landing-page/page-set-landing-page.component.ts:204</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {Component, OnInit, Inject } from &#x27;@angular/core&#x27;;
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA } from &#x27;@angular/material&#x27;;
+import {Router, ActivatedRoute} from &#x27;@angular/router&#x27;;
+import {ActionService } from &#x27;../../../shared/nieOS/fake-backend/action/action.service&#x27;;
+import {PageSetService} from &#x27;../model/page-set.service&#x27;;
+import {GenerateHashService} from &#x27;../../../shared/nieOS/other/generateHash.service&#x27;;
+import {UpdatePageSetComponent} from &#x27;../update-page-set/update-page-set.component&#x27;;
+import {CreatePageAndLinkToAction} from &#x27;../services/createPageAndLinkToAction.service&#x27;;
+import {CreatePageSetAndLinkToActionService} from &#x27;../services/createPageSetAndLinkToAction.service&#x27;;
+import {PageService} from &#x27;../../apps/page/page.service&#x27;;
+
+@Component({
+  selector: &#x27;app-page-set-landing-page&#x27;,
+  templateUrl: &#x27;./page-set-landing-page.component.html&#x27;,
+  styleUrls: [&#x27;./page-set-landing-page.component.scss&#x27;]
+})
+export class PageSetLandingPageComponent implements OnInit {
+
+  animal: string;
+  name: string;
+  actionID: number;
+  pageSet: any;
+  action: any;
+  model: any;
+  pagesOfThisPageSet: any;
+
+  constructor(
+    public dialog: MatDialog,
+    public dialogUpdatePageSet: MatDialog,
+    private route: ActivatedRoute,
+    private generateHashService: GenerateHashService,
+    private actionService: ActionService,
+    private createPageSetAndLinkToActionService: CreatePageSetAndLinkToActionService,
+    private pageSetService: PageSetService,
+    private createPageAndLinkToAction: CreatePageAndLinkToAction,
+    private pageService: PageService
+  ) { }
+
+  saveOrUpdatePageSet() {
+    console.log(&#x27;Update Page Set&#x27;);
+    this.pageSetService.update(
+      this.pageSet
+    )
+      .subscribe(
+        data &#x3D;&gt; {
+          console.log(data);
+        },
+        error &#x3D;&gt; {
+          console.log(error);
+        });
+  }
+
+  ngOnInit() {
+    this.actionID &#x3D; this.route.snapshot.queryParams.actionID;
+    this.checkIfPageSetExists( this.actionID );
+  }
+
+  checkIfPageSetExists(actionID: number ) {
+    this.actionService.getById( actionID )
+      .subscribe(
+        data &#x3D;&gt; {
+          this.action &#x3D; data;
+          if (this.action &amp;&amp; this.action.hasPageSet ) {
+            console.log(&#x27;Instantiate Page Set&#x27;);
+            console.log(this.action);
+            this.pagesOfThisPageSet &#x3D; [];
+            for ( const viewHash of this.action.hasViews ) {
+              this.pageService.getById( viewHash )
+                .subscribe(
+                  view &#x3D;&gt; {
+                    this.pagesOfThisPageSet[
+                      this.pagesOfThisPageSet.length
+                      ] &#x3D; view;
+                    console.log( view );
+                  },
+                  errorGetView &#x3D;&gt; {
+                    console.log(errorGetView);
+                  }
+                );
+            }
+            this.pageSetService.getById( this.action.hasPageSet )
+              .subscribe(
+                pageSet &#x3D;&gt; {
+                  this.pageSet &#x3D; pageSet;
+                },
+                error &#x3D;&gt; {
+                  console.log(error);
+                });
+          } else {
+            this.pageSet &#x3D; {};
+            console.log(&#x27;No page set for this action yet&#x27;);
+            this.pageSet.hash &#x3D; this.generateHashService.generateHash();
+            this.pageSet.title &#x3D; &#x27;Example pageSet&#x27;;
+            this.pageSet.linkToImage &#x3D; &#x27;https://c8.alamy.com/&#x27; +
+              &#x27;comp/DX9AP3/&#x27; +
+              &#x27;open-book-vintage-accessories-old-letters-pages-photo-frames-glasses-DX9AP3.jpg&#x27;;
+            this.pageSet.description &#x3D; &#x27;Dies als Beispiel für eine PageSet bei NIE-OS\n&#x27; +
+              &#x27;    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy\n&#x27; +
+              &#x27;    eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.\n&#x27; +
+              &#x27;    At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea\n&#x27; +
+              &#x27;    takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,\n&#x27; +
+              &#x27;    consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et\n&#x27; +
+              &#x27;    dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo\n&#x27; +
+              &#x27;    dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem\n&#x27; +
+              &#x27;    ipsum dolor sit amet.&#x27;;
+            console.log(this.pageSet);
+            console.log(this.action);
+            console.log(&#x27;Save page set and then add page set - hash to action and update action.&#x27;);
+            this.createPageSetAndLinkToActionService.createOrUpdate(
+              this.pageSet,
+              this.action
+            );
+          }
+        },
+        error &#x3D;&gt; {
+          console.log(error);
+        });
+  }
+
+  generateDescription() {
+    if ( this.pageSet &amp;&amp; this.pageSet.description ) {
+      return this.pageSet.description;
+    } else {
+      return &#x27;Description not found&#x27;;
+    }
+  }
+
+  generateTitle() {
+    if ( this.pageSet &amp;&amp; this.pageSet.title ) {
+      return this.pageSet.title;
+    } else {
+      return &#x27;Title not found&#x27;;
+    }
+  }
+
+  generateImage() {
+    if ( this.pageSet &amp;&amp; this.pageSet.linkToImage ) {
+      return this.pageSet.linkToImage;
+    } else {
+      return &#x27;Image not found&#x27;;
+    }
+  }
+
+  openDialog() {
+    const dialogRef &#x3D; this.dialog.open(DialogCreateNewPageComponent, {
+      width: &#x27;700px&#x27;,
+      data: { name: this.name, animal: this.animal }
+    });
+    dialogRef.afterClosed().subscribe(result &#x3D;&gt; {
+      console.log(result);
+      this.createPageAndLinkToAction
+        .createPageAndLinkToAction(
+          this.route.snapshot.queryParams.actionID,
+          result
+        );
+    });
+  }
+
+  openUpdatePageSetDialog() {
+    const dialogRef &#x3D; this.dialogUpdatePageSet.open(UpdatePageSetComponent, {
+      width: &#x27;700px&#x27;,
+      data: {
+        title: this.pageSet.title,
+        description: this.pageSet.description,
+        image: this.pageSet.linkToImage
+      }
+    });
+    dialogRef.afterClosed().subscribe(result &#x3D;&gt; {
+      if ( result !&#x3D;&#x3D; undefined ) {
+        this.pageSet.title &#x3D; result.title;
+        this.pageSet.description &#x3D; result.description;
+        this.pageSet.linkToImage &#x3D; result.image;
+      }
+    });
+  }
+
+  generateURL(page: any) {
+    if ( page ) {
+      return &#x27;page?actionID&#x3D;&#x27; + this.actionID + &#x27;&amp;page&#x3D;&#x27; + page.hash;
+    }
+  }
+
+  generatePageTitle (page: any) {
+    if ( page ) {
+      return page.title;
+    }
+  }
+
+  generatePageDescription (page: any ) {
+    if ( page ) {
+      return page.description;
+    }
+  }
+}
+
+@Component({
+  selector: &#x27;dialog-create-new-page&#x27;,
+  templateUrl: &#x27;./dialog-create-new-page.html&#x27;,
+})
+export class DialogCreateNewPageComponent {
+  model: any &#x3D; {};
+  loading &#x3D; false;
+  actionID: number;
+  pageSet: any;
+  action: any;
+  chooseNewAction: string;
+
+  constructor(public dialogRef: MatDialogRef&lt;DialogCreateNewPageComponent&gt;,
+              @Inject(MAT_DIALOG_DATA) public data: any,
+              private router: Router,
+              private actionService: ActionService,
+              private route: ActivatedRoute) {
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  register() {
+    this.loading &#x3D; true;
+    console.log(this.model);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;h1 mat-dialog-title&gt;Erstelle einer neuen Page&lt;/h1&gt;
+
+
+&lt;div class&#x3D;&quot;col-md-6 col-md-offset-3&quot;&gt;
+  &lt;form name&#x3D;&quot;form&quot; (ngSubmit)&#x3D;&quot;f.form.valid &amp;&amp; register()&quot; #f&#x3D;&quot;ngForm&quot; novalidate&gt;
+    &lt;div class&#x3D;&quot;form-group&quot; &gt;
+      &lt;label &gt;Titel der Page&lt;/label&gt;
+      &lt;input type&#x3D;&quot;text&quot; class&#x3D;&quot;form-control&quot; name&#x3D;&quot;title&quot; [(ngModel)]&#x3D;&quot;model.title&quot; required /&gt;
+      &lt;div *ngIf&#x3D;&quot;f.submitted &amp;&amp; !model.title&quot; class&#x3D;&quot;help-block&quot;&gt;Bitte geben Sie einen Titel für die Page ein&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;form-group&quot; &gt;
+      &lt;label &gt;Beschreibung der Page&lt;/label&gt;
+      &lt;input type&#x3D;&quot;text&quot; class&#x3D;&quot;form-control&quot; name&#x3D;&quot;description&quot; [(ngModel)]&#x3D;&quot;model.description&quot; required height&#x3D;&quot;48&quot;/&gt;
+      &lt;div *ngIf&#x3D;&quot;f.submitted &amp;&amp; !model.description&quot; class&#x3D;&quot;help-block&quot;&gt;Bitte geben Sie eine Beschreibung der Page ein&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div &gt;
+      &lt;button mat-button [mat-dialog-close]&#x3D;&quot;model&quot;&gt;Create Page&lt;/button&gt;
+      &lt;img *ngIf&#x3D;&quot;loading&quot; src&#x3D;&quot;data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA&#x3D;&#x3D;&quot; /&gt;
+      &lt;button  type&#x3D;&quot;button&quot; mat-button (click)&#x3D;&quot;onNoClick()&quot;&gt;Schliesse dieses Menü&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><h1 mat-dialog-title>Erstelle einer neuen Page</h1><div class="col-md-6 col-md-offset-3">  <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>    <div class="form-group" >      <label >Titel der Page</label>      <input type="text" class="form-control" name="title" [(ngModel)]="model.title" required />      <div *ngIf="f.submitted && !model.title" class="help-block">Bitte geben Sie einen Titel für die Page ein</div>    </div>    <div class="form-group" >      <label >Beschreibung der Page</label>      <input type="text" class="form-control" name="description" [(ngModel)]="model.description" required height="48"/>      <div *ngIf="f.submitted && !model.description" class="help-block">Bitte geben Sie eine Beschreibung der Page ein</div>    </div>    <div >      <button mat-button [mat-dialog-close]="model">Create Page</button>      <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />      <button  type="button" mat-button (click)="onNoClick()">Schliesse dieses Menü</button>    </div>  </form></div></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'BooleanValueEditorComponent', 'selector': 'app-boolean-value-editor'},{'name': 'BrushAndZoomComponent', 'selector': 'app-brush-and-zoom'},{'name': 'CreateResourceComponent', 'selector': 'app-create-resource'},{'name': 'CreateResourceViewComponent', 'selector': 'app-create-resource-view'},{'name': 'D3tutorialComponent', 'selector': 'app-d3tutorial'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataChooserComponent', 'selector': 'app-data-chooser'},{'name': 'DataChooserSettingsComponent', 'selector': 'app-data-chooser-settings'},{'name': 'DateValueEditorComponent', 'selector': 'app-date-value-editor'},{'name': 'DateValueViewerComponent', 'selector': 'app-date-value-viewer'},{'name': 'DecimalValueEditorComponent', 'selector': 'app-decimal-value-editor'},{'name': 'DialogCreateNewPageComponent', 'selector': 'dialog-create-new-page'},{'name': 'DialogOverviewExampleDialog', 'selector': 'dialog-overview-example-dialog'},{'name': 'DialogUserSettingsDialog', 'selector': 'dialog-user-settings-dialog'},{'name': 'EditResourceViewComponent', 'selector': 'app-edit-resource-view'},{'name': 'FactSheetComponent', 'selector': 'app-fact-sheet'},{'name': 'FloatLightTableComponent', 'selector': 'app-float-light-table'},{'name': 'FloatingImageObjectComponent', 'selector': 'app-floating-image-object'},{'name': 'FloatingTextObjectComponent', 'selector': 'app-floating-text-object'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'GrapesjsComponent', 'selector': 'app-grapesjs'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'ImageFrameComponent', 'selector': 'app-image-frame'},{'name': 'ImageFrameSizesComponent', 'selector': 'app-image-frame-sizes'},{'name': 'ImageViewComponent', 'selector': 'app-image-view'},{'name': 'ImageWithOverlayComponent', 'selector': 'app-image-with-overlay'},{'name': 'InitPopupComponent', 'selector': 'app-init-popup'},{'name': 'IntValueEditorComponent', 'selector': 'app-int-value-editor'},{'name': 'LeafletExampleComponent', 'selector': 'app-leaflet-example'},{'name': 'LightTableComponent', 'selector': 'app-light-table'},{'name': 'LightTableMenuComponent', 'selector': 'app-light-table-menu'},{'name': 'LinkValueEditorComponent', 'selector': 'app-link-value-editor'},{'name': 'LinkValueLabelViewerComponent', 'selector': 'app-link-value-label-viewer'},{'name': 'LoadLightTableComponent', 'selector': 'app-load-light-table'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MetadataViewComponent', 'selector': 'app-metadata-view'},{'name': 'MultiLineChartComponent', 'selector': 'app-multi-line-chart'},{'name': 'NIEOSComponent', 'selector': 'nie-os'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'PageSetLandingPageComponent', 'selector': 'app-page-set-landing-page'},{'name': 'PieChartComponent', 'selector': 'app-pie-chart'},{'name': 'Popup', 'selector': 'popup'},{'name': 'RadialBarchartComponent', 'selector': 'app-radial-barchart'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'RemoveObjectsByIdComponent', 'selector': 'app-remove-objects-by-id'},{'name': 'ResourceFormComponent', 'selector': 'app-resource-form'},{'name': 'ResourceValueHistoryComponent', 'selector': 'app-resource-value-history'},{'name': 'ResourceValueHistoryValueComponent', 'selector': 'app-resource-value-history-value'},{'name': 'ResponseTreeComponent', 'selector': 'app-response-tree'},{'name': 'SankeyComponent', 'selector': 'app-sankey'},{'name': 'SaveLightTableComponent', 'selector': 'app-save-light-table'},{'name': 'ShareLightTableComponent', 'selector': 'app-share-light-table'},{'name': 'StackedBarChartComponent', 'selector': 'app-stacked-bar-chart'},{'name': 'SynopsisComponent', 'selector': 'app-synopsis'},{'name': 'SynopsisObjectManagerComponent', 'selector': 'app-synopsis-object-manager'},{'name': 'SynopsisObjectToolboxComponent', 'selector': 'app-synopsis-object-toolbox'},{'name': 'TagChipsComponent', 'selector': 'app-tag-chips'},{'name': 'TextValueEditorComponent', 'selector': 'app-text-value-editor'},{'name': 'TextViewCanvasComponent', 'selector': 'app-text-view-canvas'},{'name': 'TextViewComponent', 'selector': 'app-text-view'},{'name': 'TextViewMetadataComponent', 'selector': 'app-text-view-metadata'},{'name': 'TextViewStructureComponent', 'selector': 'app-text-view-structure'},{'name': 'TextViewToolsComponent', 'selector': 'app-text-view-tools'},{'name': 'TextlistViewerComponent', 'selector': 'app-textlist-viewer'},{'name': 'ThumbnailbarComponent', 'selector': 'app-thumbnailbar'},{'name': 'TiledImageObjectComponent', 'selector': 'app-tiled-image-object'},{'name': 'TiledLightTableComponent', 'selector': 'app-tiled-light-table'},{'name': 'TiledTextObjectComponent', 'selector': 'app-tiled-text-object'},{'name': 'UpdatePageSetComponent', 'selector': 'app-update-page-set'}];
+    var DIRECTIVES = [{'name': 'DraggableDirective', 'selector': '[appDraggable]'},{'name': 'DraggableStubDirective', 'selector': '[appDraggable]'},{'name': 'FloatDropTargetDirective', 'selector': '[appDropTarget]'},{'name': 'ModifiableDirective', 'selector': '[appModifiable]'},{'name': 'ModifiableStubDirective', 'selector': '[appModifiable]'},{'name': 'SelectableDirective', 'selector': '[appSelectable]'},{'name': 'SelectableStubDirective', 'selector': '[appSelectable]'},{'name': 'SynopsisObjectAnchorDirective', 'selector': '[appSynopsisObjectAnchor]'},{'name': 'TileDropTargetDirective', 'selector': '[appTileDropTarget]'}];
+    var ACTUAL_COMPONENT = {'name': 'DialogCreateNewPageComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'DialogCreateNewPageComponent.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <script src="../js/menu-wc.js"></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

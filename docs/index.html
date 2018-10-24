@@ -33,33 +33,65 @@
                <div class="content getting-started">
                    <div class="content-data">
 
+<p>Contact and info about the organisation NIE-INE | NATIONAL INFRASTRUCTURE FOR EDITIONS | A swiss-wide organisation for the infrastructure of editions: <a href="https://www.nie-ine.ch/">https://www.nie-ine.ch/</a></p>
+<p>Powered by <a href="http://www.fee.unibas.ch/">FEE</a>, mandated by <a href="https://www.swissuniversities.ch/">swissuniversities</a></p>
 <h1 id="nieos">nieOS</h1>
-<p><img src="https://api.travis-ci.org/nie-ine/nie-frontend.svg" alt="Travis build" class="img-responsive">
-<img src="https://img.shields.io/docker/build/nieine/nie-frontend.svg" alt="Docker build" class="img-responsive">
-<img src="https://img.shields.io/docker/automated/nie-frontend/nie-frontend.svg" alt="Docker automated build" class="img-responsive">
-<img src="https://img.shields.io/docker/pulls/nieine/nie-frontend.svg" alt="Docker pulls" class="img-responsive"></p>
-<h2 id="get-it-up-and-running">Get it up and running</h2>
+<p><a href="https://travis-ci.org/nie-ine/nieOS"><img src="https://travis-ci.org/nie-ine/nieOS.svg?branch=devel" alt="Build Status" class="img-responsive"></a>
+<img src="https://img.shields.io/docker/pulls/nieine/nieos.svg" alt="Docker pulls" class="img-responsive"></p>
+<h2 id="get-it-up-and-running-for-development">Get it up and running for development</h2>
+<h3 id="clone-nieos">Clone nieOS</h3>
 <ul>
 <li><code>git clone https://github.com/nie-ine/nieOS.git</code></li>
 <li><code>cd nieOS</code></li>
+</ul>
+<h2 id="1-create-mongodb-instance-">1. Create MongoDB instance:</h2>
+<h3 id="alternative-1-create-your-own-mongodb-instance-">Alternative 1: Create your own MongoDB instance:</h3>
+<ul>
+<li>Create a sandbox on Mongodb, choose a free instance.</li>
+<li>In this sandbox, add your IP to the whitelist</li>
+<li>Get the server-connect string, similiar to this: <code>mongodb+srv://user:dfgsdbdtrgr@cluster567-7kilp.mongodb.net/node-angular</code> via klick on Connect, klick on connect your application, klick one nodejs</li>
+</ul>
+<h3 id="alternative-2-contact-jan-stoffregen-uzh-ch">Alternative 2: Contact <a href="mailto:jan.stoffregen@uzh.ch">jan.stoffregen@uzh.ch</a></h3>
+<h2 id="2-connect-nieos-to-mongodb-">2. Connect nieOS to MongoDB:</h2>
+<ul>
+<li>Create a folder .settings</li>
+<li>In the folder settings, create the file mongodbServer.js Your file should look similiar to the following:</li>
+</ul>
+<div><pre class="line-numbers"><code class="language-none">const mongodbServer = &#39;mongodb+srv://user:dfgsdbdtrgr&#64;cluster567-7kilp.mongodb.net/node-angular&#39;;
+
+module.exports = {
+  mongodbServer: mongodbServer
+};</code></pre></div><h2 id="3-start-angular-and-node-js">3. Start Angular and Node.js</h2>
+<ul>
 <li><code>yarn</code></li>
 <li><code>ng s</code></li>
 </ul>
+<h2 id="4-start-node-js">4. Start node.js</h2>
+<p><code>npm run start:server</code></p>
 <h2 id="run-in-docker-container-does-not-work-at-the-moment-">Run in Docker container ( does not work at the moment )</h2>
 <ol>
-<li>Download and run Docker container: <code>docker run -p 5555:80 nieine/nie-frontend:latest</code></li>
+<li>Download and run Docker container: <code>docker run -p 5555:80 nieine/nieos:latest</code></li>
 <li>Open <code>localhost:5555</code> in browser</li>
-<li>Optional: Set <code>NGINX_HOST</code> and <code>NGINX_PORT</code> to customise the webserver. E.g. <code>docker run -e NGINX_HOST=http://example.com -e NGINX_PORT=1234 -p 1234:1234 nie/nie-frontend:latest</code>.</li>
+<li>Optional: Set <code>NGINX_HOST</code> and <code>NGINX_PORT</code> to customise the webserver. E.g. <code>docker run -e NGINX_HOST=http://example.com -e NGINX_PORT=1234 -p 1234:1234 nieine/nieos:latest</code>.</li>
 </ol>
-<h2 id="development-server">Development server</h2>
-<p>Run <code>ng s</code> for a dev server. Navigate to <code>http://localhost:4200/</code>. The app will automatically reload if you change any of the source files.</p>
 <h2 id="running-unit-tests">Running unit tests</h2>
 <p>Run <code>ng test</code> to execute the unit tests via <a href="https://karma-runner.github.io">Karma</a>.</p>
-<h1 id="nieos-tour">nieOS Tour</h1>
-<h3 id="nieos-functionalities">nieOS functionalities</h3>
+<h2 id="development-advice-helping-notes">Development advice/ helping notes</h2>
+<h3 id="extend-nieos-models-move-them-from-localstorage-to-mongodb">Extend nieOS models / move them from localstorage to mongodb</h3>
 <ul>
-<li>nieOS is a database agnostic publication and work environment, focussed on historical critical editions</li>
-<li></li>
+<li>create an interface, like in shared/nieOS/mongodb/action/action.ts</li>
+<li>in backend/models add action.js for mongoose</li>
+<li>in backend/routes add <route>.js to post / update etc</li>
+<li>add routes in app.js</li>
+<li>create new service for mongodb in frontend, like mongodbAction.service.ts</li>
+<li>test route in backend with console.log (without backend operations at first, bc it&#39;s easier.)</li>
+<li>in frontend, replace service (example for action in dashboard)</li>
+<li>add mongoose Schema, instantiate it in backend/routes and assign req.body to mongoose object</li>
+<li>save data to the database (ref tutorial 53)</li>
+<li>check if it worked with mongo shell, again in 53</li>
+<li>Fetch data from database, 54. Mongoose - docs tells more details on how to narrow fetching the data. Example again in backend/routes/action.js</li>
+<li>Map _id from mongodb to id in frontent, like in dashboard.component.ts onInit()</li>
+<li>integrate delete and update functions</li>
 </ul>
 
 
