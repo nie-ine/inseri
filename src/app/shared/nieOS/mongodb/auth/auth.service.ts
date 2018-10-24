@@ -42,6 +42,10 @@ export class AuthService {
     return this.http.put(`${AuthService.BASE_API_URL}/user/${userId}}`, user);
   }
 
+  getUser(userId: string) {
+    console.log('Get User', userId);
+  }
+
   login(email: string, password: string) {
     const authData = { email: email, password: password };
     this.http.post<
