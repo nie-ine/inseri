@@ -8,10 +8,13 @@ const router = express.Router();
 
 router.put('/:id', (req, res, next) => {
   console.log(req);
-  User.findOneAndUpdate({_id: req.body.userId}, {
-    email: req.body.email,
-    firstName: req.body.firstName,
-    lastName: req.body.lastName})
+  User.findOneAndUpdate(
+    {_id: req.body.userId},
+    {
+      email: req.body.email,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName}
+      )
     .then( (result) => {
       console.log(result);
       res.status(200).json({
@@ -50,7 +53,10 @@ router.post('/signup', (req, res, next) => {
 
 router.post('/login', (req, res, next) => {
   let fetchedUser;
-  User.findOne({ email: req.body.email })
+  console.log(req.body);
+  User.findOne(
+    { email: req.body.email }
+    )
   .then( user => {
     if (!user) {
       return res.status(401).json({
@@ -66,6 +72,7 @@ router.post('/login', (req, res, next) => {
           message: 'Auth failed'
         });
       }
+      console.log(fetchedUser);
       const token = jwt.sign(
         {
           email: fetchedUser.email,
