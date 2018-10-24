@@ -10,6 +10,7 @@ export class AuthService {
   private token: string;
   private authStatusListener = new Subject<boolean>();
   private tokenTimer: NodeJS.Timer;
+
   constructor(
     private http: HttpClient,
     private router: Router
@@ -26,10 +27,7 @@ export class AuthService {
       firstName: firstName,
       lastName: lastName
     };
-    this.http.post('http://localhost:3000/api/user/signup', authData)
-      .subscribe( response => {
-        console.log(response);
-      });
+    return this.http.post('http://localhost:3000/api/user/signup', authData);
   }
 
   login(email: string, password: string) {

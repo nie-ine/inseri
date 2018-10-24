@@ -2,8 +2,8 @@
   <div  class="container">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header page-scroll">
-      <a class="navbar-brand page-scroll" href="dashboard#top" *ngIf="!isUserOnDash()">↥</a>
-      <a class="navbar-brand page-scroll" href="{{ generateLeftHeaderStringLink() }}" >{{ generateLeftHeaderString() }}</a>
+      <a class="navbar-brand page-scroll" href="dashboard#top" *ngIf="!isUserOnDash()" style="color: #4cae4c !important"><mat-icon>home</mat-icon></a>
+      <a class="navbar-brand page-scroll" >{{ generateLeftHeaderString() }}</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -24,7 +24,7 @@
           <a>Sprache</a>
         </li>
         <li class="navbar-list" *ngIf="userIsAuthenticated">
-          <a style="color: #4cae4c !important" (click)="openSettingsDialog()">Einstellungen</a>
+          <a (click)="openSettingsDialog()">Einstellungen</a>
         </li>
         <li class="navbar-list">
           <a (click)="loginOrLogout()">{{ loginOrLogoutButton() }}</a>

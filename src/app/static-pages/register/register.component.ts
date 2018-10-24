@@ -13,6 +13,8 @@ export class RegisterComponent {
 
   model: any = {};
   loading = false;
+  userCreated = false;
+  validEmail = false;
 
   constructor(
     private router: Router,
@@ -28,7 +30,11 @@ export class RegisterComponent {
       this.model.password,
       this.model.firstName,
       this.model.lastName
-    );
+    )
+      .subscribe( response => {
+      console.log(response);
+      this.userCreated = true;
+    });
 /*    this.userService.create(this.model)
       .subscribe(
         data => {
@@ -42,6 +48,5 @@ export class RegisterComponent {
           this.loading = false;
         });*/
   }
-
 
 }
