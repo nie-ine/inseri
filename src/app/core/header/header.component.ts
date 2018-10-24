@@ -250,20 +250,28 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   openSettingsDialog() {
-    console.log('openSettingsDialog');
-    this.dialog.open(DialogUserSettingsDialog, {
-      width: '700px',
-      height: '500px',
-      // dummy data
-       data: {
-            firstName: 'Dominique',
-            lastName: 'Souvant',
-            email: 'dom@yahoo.de',
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      this.authService.getUser(userId).subscribe((result) => {
+        console.log(result);
+        this.dialog.open(DialogUserSettingsDialog, {
+          width: '700px',
+          height: '500px',
+          data: {
+            userId: userId,
+            firstName: result.user.firstName,
+            lastName: result.user.lastName,
+            email: result.user.email,
             newsLetter: true
-        }
-    });
+          }
+        });
+      }, (error) => {
+        console.log(error);
+      });
+    } else {
+      console.log('Userid was not found in storage');
+    }
   }
-
 }
 
 @Component({
@@ -273,6 +281,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
 })
 
 export class DialogUserSettingsDialog implements OnInit {
+    userId: string;
     firstName: string;
     lastName: string;
     email: string;
@@ -284,6 +293,7 @@ export class DialogUserSettingsDialog implements OnInit {
     }
 
     ngOnInit() {
+      this.userId = this.data.userId;
       this.firstName = this.data.firstName;
       this.lastName = this.data.lastName;
       this.email = this.data.email;
@@ -295,16 +305,11 @@ export class DialogUserSettingsDialog implements OnInit {
     }
 
     save(form: NgForm) {
-      const userId = localStorage.getItem('userId');
-      if (userId) {
-          this.authService.updateUser(this.firstName, this.lastName, this.email, this.newsletter, userId)
-            .subscribe((result) => {
-              console.log(result);
-              this.dialogRef.close();
-            });
-      } else {
-          console.error('no userId found in localstorage');
-      }
+      this.authService.updateUser(this.firstName, this.lastName, this.email, this.newsletter, this.userId)
+        .subscribe((result) => {
+          console.log(result);
+          this.dialogRef.close();
+        });
     }
 
     changePwd() {
