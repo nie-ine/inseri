@@ -1,5 +1,5 @@
 import {AfterViewChecked, Component, Input, OnChanges} from '@angular/core';
-import {StandoffReconcilerService} from '../../shared/standoff-reconciler.service';
+import {StandoffReconcilerService} from '../../shared/standoff/standoff-reconciler.service';
 import {Standoff} from '../../shared/models/standoff';
 import {CanvasOptionsService} from '../canvas-options.service';
 import {DomSanitizer, SafeHtml} from '@angular/platform-browser';

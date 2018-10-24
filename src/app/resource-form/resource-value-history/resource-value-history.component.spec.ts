@@ -7,7 +7,7 @@ import { BaseTypeFormsModule } from '../../base-type-forms/base-type-forms.modul
 
 import { ResourceValueHistoryComponent } from './resource-value-history.component';
 import { ResourceValueHistoryValueComponent } from '../resource-value-history-value/resource-value-history-value.component';
-import { KnoraV1RequestService } from '../../shared/knora-v1-request.service';
+import { KnoraV1RequestService } from '../../shared/knora/knora-v1-request.service';
 
 describe('ResourceValueHistoryComponent', () => {
   let component: ResourceValueHistoryComponent;

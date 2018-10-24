@@ -1,8 +1,9 @@
 <nav id="mainNav" class="navbar navbar-default  navbar-fixed-top">
   <div  class="container">
     <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header page-scroll" >
-      <a class="navbar-brand page-scroll" href="{{ generateLeftHeaderStringLink() }}" >{{ generateLeftHeaderString() }}</a>
+    <div class="navbar-header page-scroll">
+      <a class="navbar-brand page-scroll" href="dashboard#top" *ngIf="isAuthenticated() && (!isOnDashboard())" style="color: #4cae4c !important"><mat-icon>home</mat-icon></a>
+      <a class="navbar-brand page-scroll" >{{ generateLeftHeaderString() }}</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -16,14 +17,17 @@
             <span matTooltip="{{ produceCurrentViewDescription() }}" >{{ produceCurrentViewTitle() }}</span> &nbsp;
             <span *ngIf="nextView" matTooltip="{{ produceRightArrowTooltip() }}" (click)="navigateToOtherView( nextView )" >&rarr;</span></a>
         </li>
-        <li>
-          <a href="home#funktionen" >{{ generateFunktionenHomeLink() }}</a>
+        <li class="navbar-list">
+          <a href="home#funktionen" >{{ generateFunctionsHomeLink() }}</a>
         </li>
-        <li>
-          <a >Sprache</a>
+        <li class="navbar-list">
+          <a>Sprache</a>
         </li>
-        <li>
-          <a href="{{ generateLoginOrSettingsLink() }}" (click)="logout()">{{ generateLoginOrSettingsButton() }}</a>
+        <li class="navbar-list" *ngIf="isAuthenticated() && isOnDashboard()">
+          <a (click)="openSettingsDialog()">Einstellungen</a>
+        </li>
+        <li class="navbar-list">
+          <a (click)="loginOrLogout()">{{ loginOrLogoutButton() }}</a>
         </li>
       </ul>
     </div>

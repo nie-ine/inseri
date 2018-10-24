@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { KnoraV1RequestService } from '../../shared/knora-v1-request.service';
+import { KnoraV1RequestService } from '../../shared/knora/knora-v1-request.service';
 
 /**
  * Component to show values of properties. The property type is handled inside.

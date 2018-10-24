@@ -1,7 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TextViewCanvasComponent} from './text-view-canvas.component';
-import {StandoffReconcilerService} from '../../shared/standoff-reconciler.service';
+import {StandoffReconcilerService} from '../../shared/standoff/standoff-reconciler.service';
 import {CanvasOptionsService} from '../canvas-options.service';
 import {Subject} from 'rxjs/Subject';
 
