@@ -36,7 +36,8 @@ export class AuthService {
       {
         token: string,
         expiresIn: number,
-        firstName: string
+        firstName: string,
+        userId: string
       }
       >('http://localhost:3000/api/user/login', authData)
       .subscribe( response => {
@@ -51,7 +52,7 @@ export class AuthService {
         const now = new Date();
         const expirationDate = new Date (now.getTime() + expiresInDuration * 1000);
         console.log(expirationDate);
-        this.saveAuthData(token, expirationDate, response.firstName);
+        this.saveAuthData(token, expirationDate, response.firstName, response.userId);
         this.router.navigate(['/dashboard' ], {fragment: 'top'});
       });
   }
@@ -96,7 +97,7 @@ export class AuthService {
     }, duration * 1000);
   }
 
-  private saveAuthData(token: string, expirationDate: Date, firstName: string) {
+  private saveAuthData(token: string, expirationDate: Date, firstName: string, userId: string) {
     localStorage.setItem(
       'token',
       token
@@ -108,6 +109,10 @@ export class AuthService {
     localStorage.setItem(
       'firstName',
       firstName
+    );
+    localStorage.setItem(
+      'userId',
+      userId
     );
     console.log(localStorage);
   }
