@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthData } from './auth-data.model';
-import {Subject} from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import {Router} from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
@@ -31,7 +31,7 @@ export class AuthService {
     return this.http.post(`${AuthService.BASE_API_URL}/user/signup`, authData);
   }
 
-  updateUser(firstName: string, lastName: string, email: string, newsletter: boolean, userId: string) {
+  updateUser(firstName: string, lastName: string, email: string, newsletter: boolean, userId: string): Observable<any> {
     const user: any = {
       firstName: firstName,
       lastName: lastName,
@@ -42,8 +42,9 @@ export class AuthService {
     return this.http.put(`${AuthService.BASE_API_URL}/user/${userId}}`, user);
   }
 
-  getUser(userId: string) {
+  getUser(userId: string): Observable<any> {
     console.log('Get User', userId);
+    return this.http.get(`${AuthService.BASE_API_URL}/user/${userId}`);
   }
 
   login(email: string, password: string) {

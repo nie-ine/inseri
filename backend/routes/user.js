@@ -6,6 +6,25 @@ const User = require('../models/user');
 
 const router = express.Router();
 
+router.get('/:id', (req, res, next) => {
+  User.findOne({_id: req.params.id}).then((user) => {
+    console.log(user);
+    res.status(200).json({
+      message: 'User found',
+      user: {
+        userId: user.userId,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email
+      }
+    });
+  }).catch(err => {
+    res.status(500).json({
+      error:err
+    })
+  });
+});
+
 router.put('/:id', (req, res, next) => {
   console.log(req);
   User.findOneAndUpdate({_id: req.body.userId}, {

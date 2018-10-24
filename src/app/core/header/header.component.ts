@@ -252,17 +252,21 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
   openSettingsDialog() {
     const userId = localStorage.getItem('userId');
     if (userId) {
-      this.authService.getUser(userId);
-      this.dialog.open(DialogUserSettingsDialog, {
-        width: '700px',
-        height: '500px',
-        data: {
-          userId: userId,
-          firstName: 'Jan',
-          lastName: 'Souvant',
-          email: 'jan@yahoo.de',
-          newsLetter: true
-        }
+      this.authService.getUser(userId).subscribe((result) => {
+        console.log(result);
+        this.dialog.open(DialogUserSettingsDialog, {
+          width: '700px',
+          height: '500px',
+          data: {
+            userId: userId,
+            firstName: result.user.firstName,
+            lastName: result.user.lastName,
+            email: result.user.email,
+            newsLetter: true
+          }
+        });
+      }, (error) => {
+        console.log(error);
       });
     } else {
       console.log('Userid was not found in storage');
