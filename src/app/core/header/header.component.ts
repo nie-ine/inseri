@@ -204,7 +204,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
     );
   }
 
-  generateFunktionenHomeLink(): string {
+  generateFunctionsHomeLink(): string {
     return(
       this.routeMapping( 'dashboard', '' ) ||
       this.routeMapping( 'home', 'Funktionen' )
@@ -221,7 +221,11 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
     );
   }
 
-  isUserOnDash(): boolean {
+  isAuthenticated(): boolean {
+      return this.userIsAuthenticated;
+  }
+
+  isOnDashboard(): boolean {
       return (this.currentRoute && this.currentRoute.search( 'dash') === 1);
   }
 
