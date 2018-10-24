@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+  private static BASE_API_URL = 'http://localhost:3000/api';
   private isAuthenticated = false;
   private token: string;
   private authStatusListener = new Subject<boolean>();
@@ -27,7 +28,12 @@ export class AuthService {
       firstName: firstName,
       lastName: lastName
     };
-    return this.http.post('http://localhost:3000/api/user/signup', authData);
+    return this.http.post(`${AuthService.BASE_API_URL}/user/signup`, authData);
+  }
+
+  updateUser(firstName: string, lastName: string, email: string, newsletter: boolean, userId: string) {
+    // this.http.put(`${AuthService.BASE_API_URL}/user/${userId}`);
+      console.log('put request');
   }
 
   login(email: string, password: string) {
@@ -38,7 +44,7 @@ export class AuthService {
         expiresIn: number,
         firstName: string
       }
-      >('http://localhost:3000/api/user/login', authData)
+      >(`${AuthService.BASE_API_URL}/user/login`, authData)
       .subscribe( response => {
         console.log('Loged in');
         console.log(response);
@@ -121,7 +127,7 @@ export class AuthService {
   private getAuthData() {
     const token = localStorage.getItem('token');
     const expirationDate = localStorage.getItem('expiration');
-    if(!token || !expirationDate) {
+    if (!token || !expirationDate) {
       return;
     }
     return {

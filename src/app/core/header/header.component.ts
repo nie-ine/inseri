@@ -276,17 +276,18 @@ export class DialogUserSettingsDialog implements OnInit {
     firstName: string;
     lastName: string;
     email: string;
-    newsLetter: boolean;
+    newsletter: boolean;
 
     constructor(public dialogRef: MatDialogRef<DialogUserSettingsDialog>,
-                @Inject(MAT_DIALOG_DATA) public data: any) {
+                @Inject(MAT_DIALOG_DATA) public data: any,
+                private authService: AuthService) {
     }
 
     ngOnInit() {
       this.firstName = this.data.firstName;
       this.lastName = this.data.lastName;
       this.email = this.data.email;
-      this.newsLetter = this.data.newsLetter;
+      this.newsletter = this.data.newsletter;
     }
 
     onNoClick(): void {
@@ -294,7 +295,13 @@ export class DialogUserSettingsDialog implements OnInit {
     }
 
     save(form: NgForm) {
-      console.log('Changes would be saved');
+      const userId = localStorage.getItem('userId');
+      console.log(userId);
+      if (userId) {
+          this.authService.updateUser(this.firstName, this.lastName, this.email, this.newsletter, userId);
+      } else {
+          console.error('no userId found in localstorage');
+      }
     }
 
     changePwd() {
