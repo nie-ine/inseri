@@ -20,10 +20,10 @@
       <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
     </div>
 
-    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
       <label for="email">Email</label>
-      <input type="email" class="form-control" name="email" [(ngModel)]="model.email" #username="ngModel" required pattern="^\S*[@]\S*[.]\S*$" email/>
-      <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
+      <input type="email" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" required pattern="^\S*[@]\S*[.]\S*$" email/>
+      <div *ngIf="f.submitted && !email.valid" class="help-block">Email is required / Does not have the right format.</div>
     </div>
 
     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
@@ -40,4 +40,4 @@
   </form>
 </div>
 
-<div *ngIf="userCreated" style="margin-top: 40px"> Greetings {{ model.firstName }} <br> Your user has been created! <a href="home#login" class="btn btn-link">Go to Login</a></div>
+<div *ngIf="userCreated" style="margin-top: 40px"> Greetings {{ model.firstName }} <br> Your user has been created in nieOS! Have fun! <a href="home#login" class="btn btn-link">Go to Login</a></div>
