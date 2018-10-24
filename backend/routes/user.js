@@ -6,6 +6,16 @@ const User = require('../models/user');
 
 const router = express.Router();
 
+router.put(
+    '/:id',
+    (req, res, next) => {
+
+    console.log('Update user information');
+    res.status(200).json({
+        message: 'action returned in response'
+    });
+});
+
 router.post('/signup', (req, res, next) => {
   bcrypt.hash(req.body.password, 10)
     .then( hash => {
