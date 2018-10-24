@@ -32,18 +32,14 @@ export class AuthService {
   }
 
   updateUser(firstName: string, lastName: string, email: string, newsletter: boolean, userId: string) {
-    console.log('put request');
-
     const user: any = {
       firstName: firstName,
       lastName: lastName,
-      email: email
+      email: email,
+      userId: userId
     };
 
-    this.http.put(`${AuthService.BASE_API_URL}/user/${userId}}`, user)
-        .subscribe( response => {
-          console.log(response);
-        });
+    return this.http.put(`${AuthService.BASE_API_URL}/user/${userId}}`, user);
   }
 
   login(email: string, password: string) {

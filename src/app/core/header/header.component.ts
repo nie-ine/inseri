@@ -296,9 +296,12 @@ export class DialogUserSettingsDialog implements OnInit {
 
     save(form: NgForm) {
       const userId = localStorage.getItem('userId');
-      console.log(userId);
       if (userId) {
-          this.authService.updateUser(this.firstName, this.lastName, this.email, this.newsletter, userId);
+          this.authService.updateUser(this.firstName, this.lastName, this.email, this.newsletter, userId)
+            .subscribe((result) => {
+              console.log(result);
+              this.dialogRef.close();
+            });
       } else {
           console.error('no userId found in localstorage');
       }
