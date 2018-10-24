@@ -1762,13 +1762,13 @@
 <path fill="none" stroke="#000000" d="M13805,-342.0109C13805,-342.0109 13805,-371.855 13805,-371.855"/>
 <polygon fill="#000000" stroke="#000000" points="13801.5001,-371.8549 13805,-381.855 13808.5001,-371.855 13801.5001,-371.8549"/>
 </g>
-<!-- EditionService -->
+<!-- PageSetService -->
 <g id="node108" class="node">
 <title>EditionService</title>
 <ellipse fill="#fdb462" stroke="#000000" cx="13590" cy="-324" rx="68.3555" ry="18"/>
 <text text-anchor="middle" x="13590" y="-319.8" font-family="Times,serif" font-size="14.00" fill="#000000">EditionService</text>
 </g>
-<!-- EditionService&#45;&gt;MyEditionModule -->
+<!-- PageSetService&#45;&gt;MyEditionModule -->
 <g id="edge109" class="edge">
 <title>EditionService&#45;&gt;MyEditionModule</title>
 <path fill="none" stroke="#000000" d="M13590,-342.0348C13590,-361.5762 13590,-390 13590,-390 13590,-390 13734.8246,-390 13734.8246,-390"/>

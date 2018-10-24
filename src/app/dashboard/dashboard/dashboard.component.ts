@@ -1,9 +1,12 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Router, NavigationEnd } from '@angular/router';
-import { ActionService } from '../../shared/action.service';
-import { AlertService} from '../../shared/altert.service';
+import { ActionService } from '../../shared/nieOS/fake-backend/action/action.service';
+import { AlertService} from '../../shared/nieOS/fake-backend/auth/altert.service';
 import {HttpParams} from '@angular/common/http';
+import { MongoActionService } from '../../shared/nieOS/mongodb/action/action.service';
+import { Action, ActionArray } from '../../shared/nieOS/mongodb/action/action.model';
+import { map } from'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,13 +19,14 @@ export class DashboardComponent implements OnInit {
   name: string;
   user: any[] = JSON.parse(localStorage.getItem('currentUser')) || [];
   username: string;
-  actions: Array<any>;
+  actions: Action[] = [];
 
   constructor(
     public dialog: MatDialog,
     private router: Router,
     private actionService: ActionService,
     private alertService: AlertService,
+    private mongoActionService: MongoActionService
   ) {
 
     router.events.subscribe(s => {
@@ -46,26 +50,44 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.username = (this.user as any).firstName;
+    this.username = localStorage.getItem('firstName');
     console.log('Next: iterate through existing actions');
-    this.actions = JSON.parse(localStorage.getItem('actions')) || [];
+    // this.actions = JSON.parse(localStorage.getItem('actions')) || [];
+    this.mongoActionService.getAllActions()
+      .pipe(
+        map((response) => {
+          return (response as any).actions.map(action => {
+            return {
+              title: action.title,
+              description: action.description,
+              type: action.type,
+              id: action._id,
+              creator: action.creator
+            };
+          });
+        }))
+      .subscribe( transformedActions => {
+        console.log(transformedActions);
+        this.actions = transformedActions;
+    });
     console.log(this.actions);
   }
 
   deleteAction(action: any) {
     console.log('Delete Action ' + action.id);
     action.deleted = true;
-    this.actionService.delete(action.id)
-      .subscribe(
-        data => {
-          console.log(data);
-          this.alertService.success('Deletion successful', true);
-          // this.router.navigate(['/home']);
-        },
-        error => {
-          console.log(error);
-          this.alertService.error(error);
-        });
+    this.mongoActionService.deleteAction( action.id);
+    // this.actionService.delete(action.id)
+    //   .subscribe(
+    //     data => {
+    //       console.log(data);
+    //       this.alertService.success('Deletion successful', true);
+    //       // this.router.navigate(['/home']);
+    //     },
+    //     error => {
+    //       console.log(error);
+    //       this.alertService.error(error);
+    //     });
   }
 
   markAsDone( action: any ) {
@@ -83,39 +105,52 @@ export class DashboardComponent implements OnInit {
   templateUrl: './dialog-overview-example-dialog.html',
 })
 export class DialogOverviewExampleDialog {
-  model: any = {};
+  action: Action = {
+    id: undefined,
+    title: '',
+    description: '',
+    isFinished: false,
+    deleted: false,
+    type: undefined,
+    hasPageSet: undefined,
+    hasViews: undefined
+  };
   loading = false;
   chooseNewAction: string;
   constructor(public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private router: Router,
-              private actionService: ActionService) {
+              private actionService: ActionService,
+              private mongoActionService: MongoActionService ) {
   }
   onNoClick(): void {
     this.dialogRef.close();
   }
   register() {
     this.loading = true;
-    this.actionService.create(this.model)
-      .subscribe(
-        data => {
-          console.log('Action created');
-          const actions = JSON.parse(localStorage.getItem('actions')) || [];
-          console.log(actions);
-          this.onNoClick();
-          console.log(this.model.type.search('salsah'));
-          if ( this.model.type.search('salsah') !== -1 ) {
-            console.log('Navigate to Salsah');
-            window.open('http://salsah2.nie-ine.ch/', '_blank');
-          } else {
-            const params = new HttpParams().set('actionId', actions.lengt);
-            params.append('actionId', actions.length);
-            this.router.navigate( [ this.model.type ], { queryParams: { 'actionID': actions.length } } );
-          }
-        },
-        error => {
-          console.log(error);
-          this.loading = false;
-        });
+    this.mongoActionService.createAction(
+      this.action
+    );
+    // this.actionService.create(this.model)
+    //   .subscribe(
+    //     data => {
+    //       console.log('Action created');
+    //       const actions = JSON.parse(localStorage.getItem('actions')) || [];
+    //       console.log(actions);
+    //       this.onNoClick();
+    //       console.log(this.model.type.search('salsah'));
+    //       if ( this.model.type.search('salsah') !== -1 ) {
+    //         console.log('Navigate to Salsah');
+    //         window.open('http://salsah2.nie-ine.ch/', '_blank');
+    //       } else {
+    //         const params = new HttpParams().set('actionId', actions.lengt);
+    //         params.append('actionId', actions.length);
+    //         this.router.navigate( [ this.model.type ], { queryParams: { 'actionID': actions.length } } );
+    //       }
+    //     },
+    //     error => {
+    //       console.log(error);
+    //       this.loading = false;
+    //     });
   }
 }

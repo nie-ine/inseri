@@ -4,7 +4,7 @@ import { CreateResourceModule } from '../../../create-resource/create-resource.m
 import { CreateResourceViewComponent } from './create-resource-view.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { KnoraV1RequestService } from '../../../shared/knora-v1-request.service';
+import { KnoraV1RequestService } from '../../../shared/knora/knora-v1-request.service';
 
 describe('CreateResourceViewComponent', () => {
   let component: CreateResourceViewComponent;

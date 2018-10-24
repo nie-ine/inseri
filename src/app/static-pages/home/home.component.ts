@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthenticationService } from '../../shared/authentication.service';
-import { AlertService } from '../../shared/altert.service';
+import { AuthenticationService } from '../../shared/nieOS/fake-backend/auth/authentication.service';
+import { AlertService } from '../../shared/nieOS/fake-backend/auth/altert.service';
+import {AuthService} from '../../shared/nieOS/mongodb/auth/auth.service';
 
 declare let OpenSeadragon: any;
 
@@ -25,7 +26,8 @@ export class HomeComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    public authService: AuthService
   ) {
   }
 
@@ -40,7 +42,11 @@ export class HomeComponent implements OnInit {
 
   startLoginProcess() {
     this.loginError = false;
-    this.authenticationService.login(this.username, this.password)
+    this.authService.login(
+      this.username,
+      this.password
+    );
+/*    this.authenticationService.login(this.username, this.password)
       .subscribe(
         data => {
           console.log(data);
@@ -51,7 +57,7 @@ export class HomeComponent implements OnInit {
           console.log(error);
           this.alertService.error(error);
           this.loading = false;
-        });
+        });*/
   }
 
 }
