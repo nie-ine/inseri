@@ -9,12 +9,41 @@ Powered by [FEE](http://www.fee.unibas.ch/), mandated by [swissuniversities](htt
 
 ## Get it up and running for development
 
- - Create a sandbox on Mongodb
- - Create a folder .settings and store your password in ...
+### Clone nieOS
  - ``git clone https://github.com/nie-ine/nieOS.git``
  - ``cd nieOS``
+
+## 1. Create MongoDB instance:
+
+### Alternative 1: Create your own MongoDB instance:
+ - Create a sandbox on Mongodb, choose a free instance.
+ - In this sandbox, add your IP to the whitelist
+ - Get the server-connect string, similiar to this: ```mongodb+srv://user:dfgsdbdtrgr@cluster567-7kilp.mongodb.net/node-angular``` via klick on Connect, klick on connect your application, klick one nodejs
+
+### Alternative 2: Contact jan.stoffregen@uzh.ch
+
+## 2. Connect nieOS to MongoDB: 
+ - Create a folder .settings
+ - In the folder settings, create the file mongodbServer.js Your file should look similiar to the following:
+
+ 
+```
+const mongodbServer = 'mongodb+srv://user:dfgsdbdtrgr@cluster567-7kilp.mongodb.net/node-angular';
+
+module.exports = {
+  mongodbServer: mongodbServer
+};
+```
+
+## 3. Start Angular and Node.js
+
+  
+
  - ``yarn``
  - ``ng s``
+
+## 4. Start node.js
+```npm run start:server```
  
 
 ## Run in Docker container ( does not work at the moment )
