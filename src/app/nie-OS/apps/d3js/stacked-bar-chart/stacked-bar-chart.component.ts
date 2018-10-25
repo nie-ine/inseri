@@ -50,12 +50,19 @@ export class StackedBarChartComponent implements AfterViewChecked {
     }
   }
 
+  generateComponentDivClass() {
+    return 'stackedBarChart' + this.numberOfInitialisedComponent;
+  }
+
   private initMargins() {
     this.margin = {top: 20, right: 20, bottom: 30, left: 40};
   }
 
   private initSvg() {
-    this.svg = d3.select('svg');
+    this.svg = d3.select('.' + this.generateComponentDivClass())
+      .append('svg')
+      .attr('width', 960) // Change here for size of the bars
+      .attr('height', 500);
 
     this.width = +this.svg.attr('width') - this.margin.left - this.margin.right;
     this.height = +this.svg.attr('height') - this.margin.top - this.margin.bottom;
