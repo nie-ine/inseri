@@ -28,6 +28,7 @@ import { MatDialogModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { InitPopupComponent } from './init-popup/init-popup.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { TempDevModule } from '../development-views/temp-dev.module';
 
 @NgModule({
   imports: [
@@ -45,6 +46,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     CreateResourceViewModule,
     EditResourceViewModule,
     FormsModule,
+    TempDevModule,
     MatTooltipModule,
     RouterModule.forRoot([
       { path: '**', component: PageNotFoundComponent }

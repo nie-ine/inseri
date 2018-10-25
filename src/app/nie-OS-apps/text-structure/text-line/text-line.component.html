@@ -1,0 +1,31 @@
+<div class="text-line-columns">
+
+  <div class="text-line-column" [ngStyle]="{'width': widths.farfarleft}">
+    <ng-content select="app-text-line-margin.farfarleft"></ng-content>
+  </div>
+
+  <div class="text-line-column" [ngStyle]="{'width': widths.farleft}">
+    <ng-content select="app-text-line-margin.farleft"></ng-content>
+  </div>
+
+  <div class="text-line-column" [ngStyle]="{'width': widths.left}">
+    <ng-content select="app-text-line-margin.left"></ng-content>
+  </div>
+
+  <div class="text-line-column" [ngStyle]="{'white-space': whitespaceBehavior, 'width': widths.middle}">
+    <ng-content></ng-content>
+  </div>
+
+  <div class="text-line-column" [ngStyle]="{'width': widths.right}">
+    <ng-content select="app-text-line-margin.right"></ng-content>
+  </div>
+
+  <div class="text-line-column" [ngStyle]="{'width': widths.farright}">
+    <ng-content select="app-text-line-margin.farright"></ng-content>
+  </div>
+
+  <div class="text-line-column" [ngStyle]="{'width': widths.farfarright}">
+    <ng-content select="app-text-line-margin.farfarright"></ng-content>
+  </div>
+
+</div>
