@@ -15,7 +15,8 @@ router.get('/:id', (req, res, next) => {
         userId: user.userId,
         firstName: user.firstName,
         lastName: user.lastName,
-        email: user.email
+        email: user.email,
+        newsletter: user.newsletter
       }
     });
   }).catch(err => {
@@ -27,13 +28,13 @@ router.get('/:id', (req, res, next) => {
 
 router.put('/:id', (req, res, next) => {
   console.log(req);
-  User.findOneAndUpdate(
-    {_id: req.body.userId},
+  User.findOneAndUpdate({_id: req.body.userId},
     {
       email: req.body.email,
       firstName: req.body.firstName,
-      lastName: req.body.lastName}
-      )
+      lastName: req.body.lastName,
+      newsletter: req.body.newsletter
+    })
     .then( (result) => {
       console.log(result);
       res.status(200).json({
@@ -53,7 +54,8 @@ router.post('/signup', (req, res, next) => {
         email: req.body.email,
         password: hash,
         lastName: req.body.lastName,
-        firstName: req.body.firstName
+        firstName: req.body.firstName,
+        newsletter: true
       });
       user
         .save()
