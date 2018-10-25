@@ -255,8 +255,8 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.authService.getUser(userId).subscribe((result) => {
         console.log(result);
         this.dialog.open(DialogUserSettingsDialog, {
-          width: '700px',
-          height: '500px',
+          width: '600px',
+          height: '450px',
           data: {
             userId: userId,
             firstName: result.user.firstName,
@@ -286,6 +286,9 @@ export class DialogUserSettingsDialog implements OnInit {
     lastName: string;
     email: string;
     newsletter: boolean;
+    oldPwd: string;
+    newPwd1: string;
+    newPwd2: string;
 
     constructor(public dialogRef: MatDialogRef<DialogUserSettingsDialog>,
                 @Inject(MAT_DIALOG_DATA) public data: any,
@@ -313,7 +316,7 @@ export class DialogUserSettingsDialog implements OnInit {
     }
 
     changePwd() {
-      console.log('Change of password will be initialized');
+      console.log(`Old password: ${this.oldPwd} | New password: ${this.newPwd1} | Repeat new password: ${this.newPwd2}`);
     }
 
 }
