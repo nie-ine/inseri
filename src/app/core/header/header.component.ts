@@ -262,7 +262,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
             firstName: result.user.firstName,
             lastName: result.user.lastName,
             email: result.user.email,
-            newsLetter: true
+            newsletter: result.user.newsletter
           }
         });
       }, (error) => {
@@ -297,7 +297,7 @@ export class DialogUserSettingsDialog implements OnInit {
       this.firstName = this.data.firstName;
       this.lastName = this.data.lastName;
       this.email = this.data.email;
-      this.newsletter = this.data.newsletter;
+      this.newsletter = (this.data.newsletter == null) ? true : this.data.newsletter;
     }
 
     onNoClick(): void {

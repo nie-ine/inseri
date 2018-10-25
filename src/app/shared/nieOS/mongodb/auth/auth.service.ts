@@ -36,7 +36,8 @@ export class AuthService {
       firstName: firstName,
       lastName: lastName,
       email: email,
-      userId: userId
+      userId: userId,
+      newsletter: newsletter
     };
 
     return this.http.put(`${AuthService.BASE_API_URL}/user/${userId}}`, user);
