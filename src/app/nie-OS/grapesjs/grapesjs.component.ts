@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewChecked, Component, OnInit} from '@angular/core';
 import 'rxjs/add/operator/map'
 
 declare var grapesjs: any; // Important!
@@ -9,11 +9,11 @@ declare var grapesjs: any; // Important!
   template: '<div id="grapesJSViewer"></div>',
   styleUrls: ['./grapesjs.component.scss']
 })
-export class GrapesjsComponent implements OnInit {
+export class GrapesjsComponent implements AfterViewChecked {
 
   constructor() { }
 
-  ngOnInit() {
+  ngAfterViewChecked() {
     const editor = grapesjs.init({
       container: '#grapesJSViewer',
       components: '<div class="txt-red">Hello world!</div>',
