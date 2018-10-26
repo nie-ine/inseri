@@ -805,16 +805,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                         <a href="modules/TextStructureModule.html" data-type="entity-link">TextStructureModule</a>
                             <li class="chapter inner">
                                 <div class="simple menu-toggler" data-toggle="collapse"
-                                    ${ isNormalMode ? 'data-target="#components-links-module-TextStructureModule-74eb87171982e91a63f212920a5dd868"' : 'data-target="#xs-components-links-module-TextStructureModule-74eb87171982e91a63f212920a5dd868"' }>
+                                    ${ isNormalMode ? 'data-target="#components-links-module-TextStructureModule-4912d7d3ca8d163647ad609eced2efea"' : 'data-target="#xs-components-links-module-TextStructureModule-4912d7d3ca8d163647ad609eced2efea"' }>
                                     <span class="icon ion-md-cog"></span>
                                     <span>Components</span>
                                     <span class="icon ion-ios-arrow-down"></span>
                                 </div>
                                 <ul class="links collapse"
-                                    ${ isNormalMode ? 'id="components-links-module-TextStructureModule-74eb87171982e91a63f212920a5dd868"' : 'id="xs-components-links-module-TextStructureModule-74eb87171982e91a63f212920a5dd868"' }>
-                                        <li class="link">
-                                            <a href="components/TextLeftMarginComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">TextLeftMarginComponent</a>
-                                        </li>
+                                    ${ isNormalMode ? 'id="components-links-module-TextStructureModule-4912d7d3ca8d163647ad609eced2efea"' : 'id="xs-components-links-module-TextStructureModule-4912d7d3ca8d163647ad609eced2efea"' }>
                                         <li class="link">
                                             <a href="components/TextLineComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">TextLineComponent</a>
                                         </li>
@@ -822,7 +819,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                             <a href="components/TextLineGroupComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">TextLineGroupComponent</a>
                                         </li>
                                         <li class="link">
-                                            <a href="components/TextRightMarginComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">TextRightMarginComponent</a>
+                                            <a href="components/TextLineMarginComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules">TextLineMarginComponent</a>
                                         </li>
                                 </ul>
                             </li>

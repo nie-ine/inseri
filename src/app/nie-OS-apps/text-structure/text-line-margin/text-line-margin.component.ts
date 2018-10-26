@@ -33,6 +33,11 @@ export class TextLineMarginComponent implements OnInit {
    */
   @Input() overflowY = 'visible';
 
+  /**
+   * This corresponds to the CSS style background-color and makes it possible to use a background color behind for example line numbers.
+   */
+  @Input() backgroundColor = 'white';
+
   constructor() { }
 
   /**
