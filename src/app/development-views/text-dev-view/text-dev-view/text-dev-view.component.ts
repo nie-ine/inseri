@@ -35,6 +35,116 @@ export class TextDevViewComponent implements OnInit {
     ]
   };
 
+  testDataForPage = {
+    pageId: '56v',
+    pageIri: 'algadsadf',
+    lines: [
+      {
+        lineId: '1',
+        lineIri: 'adfsgca',
+        words: [
+          {
+            wordIri: 'sdfbsdf',
+            textIri: 'Lorem346'
+          },
+          {
+            wordIri: 'dafsd',
+            textIri: 'ipsum869'
+          },
+          {
+            wordIri: 'dfhsfh',
+            textIri: 'dolor453425'
+          },
+          {
+            wordIri: 'hkjbhj',
+            textIri: 'sit78'
+          },
+          {
+            wordIri: 'kjönö',
+            textIri: 'amet654'
+          }
+        ]
+      },
+      {
+        lineId: '2',
+        lineIri: 'hjkbjhbj',
+        words: [
+          {
+            wordIri: 'xcybk',
+            textIri: 'consectetur343'
+          },
+          {
+            wordIri: 'dafybxffsdk',
+            textIri: 'apipisici463'
+          },
+          {
+            wordIri: 'xcvb',
+            textIri: 'elit765'
+          },
+          {
+            wordIri: 'nx-cvbxc',
+            textIri: 'sed89'
+          }
+        ]
+      },
+      {
+        lineId: '3',
+        lineIri: '6dfgvxdg',
+        words: [
+          {
+            wordIri: 'xcyb',
+            textIri: 'eisumod78'
+          },
+          {
+            wordIri: 'dafybxffsd',
+            textIri: 'tempor75'
+          },
+          {
+            wordIri: '76899',
+            textIri: 'incidunt98'
+          },
+          {
+            wordIri: 'bhjguz',
+            textIri: 'ut89'
+          },
+          {
+            wordIri: 'njguouoz',
+            textIri: 'labore789'
+          }
+        ]
+      },
+      {
+        lineId: '4',
+        lineIri: 'sdgasdf',
+        words: [
+          {
+            wordIri: 'mnnm.nm',
+            textIri: 'et3567'
+          },
+          {
+            wordIri: 'jnbjn',
+            textIri: 'dolore658465'
+          },
+          {
+            wordIri: 'bhjkjjk',
+            textIri: 'magna890890'
+          },
+          {
+            wordIri: 'bljbljb',
+            textIri: 'aliqua.6878'
+          },
+          {
+            wordIri: 'nmmnbjklnmbj',
+            textIri: 'Ut678'
+          }
+        ]
+      }
+    ]
+  };
+
+  hoveredWord: string;
+  clickedWord: string;
+
   constructor() { }
 
   ngOnInit() {
