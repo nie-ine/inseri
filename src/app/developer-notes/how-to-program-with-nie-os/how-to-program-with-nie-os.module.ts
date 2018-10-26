@@ -1,10 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MyPractiseComponentComponent } from './my-practise-component/my-practise-component.component';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule.forRoot([
+      {path: 'my-practise-component', component: MyPractiseComponentComponent}
+    ])
   ],
-  declarations: []
+  declarations: [MyPractiseComponentComponent]
 })
 export class HowToProgramWithNieOSModule { }
