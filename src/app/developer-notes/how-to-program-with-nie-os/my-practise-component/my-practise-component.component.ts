@@ -55,9 +55,18 @@ export class MyPractiseComponentComponent implements OnInit {
     }
   };
 
+  chosenText: any;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  updateChosenText( chosenText: string ) {
+    console.log('Chosen Text in parent component');
+    console.log(chosenText);
+    console.log(this.mockupTexts[ chosenText ]);
+    this.chosenText = this.mockupTexts[ chosenText ];
   }
 
 }

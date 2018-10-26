@@ -4,6 +4,7 @@ import { MyPractiseComponentComponent } from './my-practise-component/my-practis
 import {RouterModule} from '@angular/router';
 import { NavigationComponent } from './navigation/navigation.component';
 import {MatButtonModule} from '@angular/material/button';
+import { TextDisplayComponent } from './text-display/text-display.component';
 
 @NgModule({
   imports: [
@@ -13,6 +14,6 @@ import {MatButtonModule} from '@angular/material/button';
       {path: 'my-practise-component', component: MyPractiseComponentComponent}
     ])
   ],
-  declarations: [MyPractiseComponentComponent, NavigationComponent]
+  declarations: [MyPractiseComponentComponent, NavigationComponent, TextDisplayComponent]
 })
 export class HowToProgramWithNieOSModule { }
