@@ -1,10 +1,10 @@
 <app-text-line *ngFor="let l of textTree?.lines" [whitespaceBehavior]="'normal'" [columnRatio]="[10, 10, 30, 50]">
 
-  <app-text-line-margin class="farfarleft">
+  <app-text-line-margin class="farfarleft" [backgroundColor]="'skyblue'">
     <span>{{l.lineId}}</span>
   </app-text-line-margin>
 
-  <app-text-line-margin class="farleft">
+  <app-text-line-margin class="farleft" [backgroundColor]="'skyblue'">
     <span>{{l.lineId}}</span>
   </app-text-line-margin>
 
