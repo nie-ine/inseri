@@ -1,3 +1,8 @@
-<p>
-  dictionary works!
-</p>
+
+<h3 style="margin-top: 100px" >Dictionary</h3>
+<div >
+  <div *ngFor="let entry of dictionaryArray; let i = index" >
+    Eintrag: {{ entry.name }}, <br> Beschreibung: {{ entry.description }}
+    <button mat-button>click to search for {{ entry.name }}</button>
+  </div>
+</div>
