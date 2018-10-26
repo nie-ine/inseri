@@ -13,3 +13,36 @@
   </app-text-line-margin>
   this is a line.
 </app-text-line>
+
+<h3>Test indetation of a line</h3>
+
+
+<app-text-line [columnRatio]="[0,1,0,9,0,0,0]">
+  <app-text-line-margin class="farleft" [backgroundColor]="'lightgray'">
+    <app-text-line-number [lineNumber]="1"
+                          [forceLabelAt]="[1]"
+                          [repeatAfter]="4">
+    </app-text-line-number>
+  </app-text-line-margin>
+  this is a line.
+</app-text-line>
+
+<app-text-line [columnRatio]="[0,1,0,9,0,0,0]">
+  <app-text-line-margin class="farleft" [backgroundColor]="'lightgray'">
+    <app-text-line-number [lineNumber]="2"
+                          [forceLabelAt]="[1]"
+                          [repeatAfter]="4">
+    </app-text-line-number>
+  </app-text-line-margin>
+  <div style="text-indent: 1em;">zis is a lein</div>
+</app-text-line>
+
+<h3>Text for page transcriptions with words</h3>
+
+<app-text-page-of-words [textTree]="testDataForPage"
+                        (clickedWordChange)="clickedWord = $event"
+                        (hoveredWordChange)="hoveredWord = $event">
+</app-text-page-of-words>
+
+<p>clicked word: {{clickedWord}}</p>
+<p>hovered word: {{hoveredWord}}</p>
