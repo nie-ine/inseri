@@ -2,4 +2,10 @@
   my-practise-component works!
 </p>
 
-<app-navigation [texts]="mockupTexts" ></app-navigation>
+<app-navigation
+  [texts]="mockupTexts"
+  (sendChosenTextIndexBack)="updateChosenText($event)">
+
+</app-navigation>
+
+<app-text-display [chosenText]="chosenText" style="margin-top: 200px"></app-text-display>

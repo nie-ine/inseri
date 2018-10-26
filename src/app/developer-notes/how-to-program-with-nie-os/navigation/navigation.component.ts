@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, EventEmitter, Output} from '@angular/core';
 
 @Component({
   selector: 'app-navigation',
@@ -8,6 +8,7 @@ import {Component, Input, OnInit} from '@angular/core';
 export class NavigationComponent implements OnInit {
 
   @Input() texts: any;
+  @Output() sendChosenTextIndexBack: EventEmitter<any> = new EventEmitter<any>();
   textArray: Array<any> = [];
   chosenTextIndex = 0;
   chosenText: string;
@@ -29,6 +30,9 @@ export class NavigationComponent implements OnInit {
       this.chosenTextIndex = 0;
     }
     this.chosenText = this.textArray[ this.chosenTextIndex ];
+    this.sendChosenTextIndexBack.emit(
+      this.textArray[ this.chosenTextIndex ]
+    );
   }
 
 }
