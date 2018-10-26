@@ -38,12 +38,19 @@ export class TextLineNumberComponent implements OnInit {
    * On creation of the component, the line number will be created as label to be shown.
    */
   ngOnInit() {
+    this.updateLineLabel();
+  }
+
+  /**
+   * Set the label like the line number if the label is forced.
+   * Otherwise set the label like the line number if it is in one of the repeatedly labelled lines.
+   */
+  updateLineLabel() {
     if (this.forceLabelAt.indexOf(this.lineNumber) >= 0 ) {
       this.label = String(this.lineNumber);
     } else if ((this.lineNumber - this.startRepeatingAt) % this.repeatAfter === 0) {
       this.label = String(this.lineNumber);
     }
-
   }
 
 }

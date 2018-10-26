@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TextLineMarginComponent } from './text-left-margin.component';
+import { TextLineMarginComponent } from './text-line-margin.component';
 
-describe('TextLeftMarginComponent', () => {
+describe('TextLineMarginComponent', () => {
   let component: TextLineMarginComponent;
   let fixture: ComponentFixture<TextLineMarginComponent>;
 
