@@ -38,6 +38,8 @@ export class TextDevViewComponent implements OnInit {
   testDataForPage = {
     pageId: '56v',
     pageIri: 'algadsadf',
+    pageHeight: 180,
+    pageWidth: 200,
     lines: [
       {
         lineId: '1',
@@ -45,23 +47,43 @@ export class TextDevViewComponent implements OnInit {
         words: [
           {
             wordIri: 'sdfbsdf',
-            textIri: 'Lorem346'
+            textIri: 'Lorem346',
+            ulx: 20,
+            uly: 20,
+            lrx: 50,
+            lry: 40
           },
           {
             wordIri: 'dafsd',
-            textIri: 'ipsum869'
+            textIri: 'ipsum869',
+            ulx: 55,
+            uly: 20,
+            lrx: 75,
+            lry: 40
           },
           {
             wordIri: 'dfhsfh',
-            textIri: 'dolor453425'
+            textIri: 'dolor453425',
+            ulx: 80,
+            uly: 20,
+            lrx: 120,
+            lry: 40
           },
           {
             wordIri: 'hkjbhj',
-            textIri: 'sit78'
+            textIri: 'sit78',
+            ulx: 125,
+            uly: 20,
+            lrx: 160,
+            lry: 40
           },
           {
             wordIri: 'kjönö',
-            textIri: 'amet654'
+            textIri: 'amet654',
+            ulx: 180,
+            uly: 20,
+            lrx: 240,
+            lry: 40
           }
         ]
       },
@@ -71,19 +93,35 @@ export class TextDevViewComponent implements OnInit {
         words: [
           {
             wordIri: 'xcybk',
-            textIri: 'consectetur343'
+            textIri: 'consectetur343',
+            ulx: 20,
+            uly: 48,
+            lrx: 50,
+            lry: 80
           },
           {
             wordIri: 'dafybxffsdk',
-            textIri: 'apipisici463'
+            textIri: 'apipisici463',
+            ulx: 60,
+            uly: 50,
+            lrx: 90,
+            lry: 80
           },
           {
             wordIri: 'xcvb',
-            textIri: 'elit765'
+            textIri: 'elit765',
+            ulx: 100,
+            uly: 50,
+            lrx: 110,
+            lry: 80
           },
           {
             wordIri: 'nx-cvbxc',
-            textIri: 'sed89'
+            textIri: 'sed89',
+            ulx: 120,
+            uly: 50,
+            lrx: 150,
+            lry: 85
           }
         ]
       },
@@ -93,23 +131,43 @@ export class TextDevViewComponent implements OnInit {
         words: [
           {
             wordIri: 'xcyb',
-            textIri: 'eisumod78'
+            textIri: 'eisumod78',
+            ulx: 20,
+            uly: 100,
+            lrx: 50,
+            lry: 120
           },
           {
             wordIri: 'dafybxffsd',
-            textIri: 'tempor75'
+            textIri: 'tempor75',
+            ulx: 60,
+            uly: 100,
+            lrx: 75,
+            lry: 120
           },
           {
             wordIri: '76899',
-            textIri: 'incidunt98'
+            textIri: 'incidunt98',
+            ulx: 80,
+            uly: 100,
+            lrx: 100,
+            lry: 120
           },
           {
             wordIri: 'bhjguz',
-            textIri: 'ut89'
+            textIri: 'ut89',
+            ulx: 120,
+            uly: 100,
+            lrx: 150,
+            lry: 120
           },
           {
             wordIri: 'njguouoz',
-            textIri: 'labore789'
+            textIri: 'labore789',
+            ulx: 160,
+            uly: 100,
+            lrx: 180,
+            lry: 120
           }
         ]
       },
@@ -119,23 +177,43 @@ export class TextDevViewComponent implements OnInit {
         words: [
           {
             wordIri: 'mnnm.nm',
-            textIri: 'et3567'
+            textIri: 'et3567',
+            ulx: 30,
+            uly: 130,
+            lrx: 50,
+            lry: 150
           },
           {
             wordIri: 'jnbjn',
-            textIri: 'dolore658465'
+            textIri: 'dolore658465',
+            ulx: 60,
+            uly: 130,
+            lrx: 85,
+            lry: 150
           },
           {
             wordIri: 'bhjkjjk',
-            textIri: 'magna890890'
+            textIri: 'magna890890',
+            ulx: 95,
+            uly: 130,
+            lrx: 110,
+            lry: 150
           },
           {
             wordIri: 'bljbljb',
-            textIri: 'aliqua.6878'
+            textIri: 'aliqua.6878',
+            ulx: 120,
+            uly: 130,
+            lrx: 140,
+            lry: 150
           },
           {
             wordIri: 'nmmnbjklnmbj',
-            textIri: 'Ut678'
+            textIri: 'Ut678',
+            ulx: 150,
+            uly: 130,
+            lrx: 170,
+            lry: 150
           }
         ]
       }

@@ -17,25 +17,24 @@ export class TextPageOfWordsComponent implements OnInit {
   @Input() textTree;
 
   /**
+   * The unique id of the word that was last clicked and counts as activated. Only one word can be counted as activated at a time.
+   */
+  @Input() clickedWord: string;
+
+  /**
    * Give an event containing the unique word id if a word on the page description is clicked
    */
   @Output() clickedWordChange: EventEmitter<string> = new EventEmitter<string>();
 
   /**
+   * The unique id of the word the mouse is hovering on.
+   */
+  @Input() hoveredWord: string;
+
+  /**
    * Give an event containing the unique word id if the mouse hovers on a word in the page description
    */
   @Output() hoveredWordChange: EventEmitter<string> = new EventEmitter<string>();
-
-  /**
-   * The unique id of the word that was last clicked and counts as activated. Only one word can be counted as activated at a time.
-   */
-  clickedWord: string;
-
-  /**
-   * The unique id of the word the mouse is hovering on.
-   */
-  hoveredWord: string;
-
 
   constructor() { }
 
