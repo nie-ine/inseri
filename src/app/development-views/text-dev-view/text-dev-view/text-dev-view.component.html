@@ -14,7 +14,7 @@
   this is a line.
 </app-text-line>
 
-<h3>Test indetation of a line</h3>
+<h3>Test intendation of a line</h3>
 
 
 <app-text-line [columnRatio]="[0,1,0,9,0,0,0]">
@@ -40,9 +40,24 @@
 <h3>Text for page transcriptions with words</h3>
 
 <app-text-page-of-words [textTree]="testDataForPage"
-                        (clickedWordChange)="clickedWord = $event"
-                        (hoveredWordChange)="hoveredWord = $event">
+                        [(clickedWord)]="clickedWord"
+                        [(hoveredWord)]="hoveredWord">
 </app-text-page-of-words>
 
 <p>clicked word: {{clickedWord}}</p>
 <p>hovered word: {{hoveredWord}}</p>
+
+<app-text-svg-view [pageTree]="testDataForPage"
+                   [(clickedWord)]="clickedWord"
+                   [(hoveredWord)]="hoveredWord"
+[image]="{
+    '@id': 'http://rdfh.ch/kuno-raeber/Uzo2YDhzTr-8CUSg1pQL4Q/values/gJVf-AQjSbSTAo8EsU8ErQ',
+    '@type': 'knora-api:StillImageFileValue',
+    'knora-api:fileValueAsUrl': 'https://tools.wmflabs.org/zoomviewer/proxy.php?iiif=Lions_Family_Portrait_Masai_Mara.jpg/pct:65,81,35,15/full/0/default.jpg',
+    'knora-api:fileValueHasFilename': 'proxy.php?iiif=Lions_Family_Portrait_Masai_Mara.jpg',
+    'knora-api:fileValueIsPreview': false,
+    'knora-api:stillImageFileValueHasDimX': 5184,
+    'knora-api:stillImageFileValueHasDimY': 3456,
+    'knora-api:stillImageFileValueHasIIIFBaseUrl': 'https://tools.wmflabs.org/zoomviewer'
+  }">
+</app-text-svg-view>
