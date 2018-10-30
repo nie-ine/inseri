@@ -31,16 +31,41 @@ export class AuthService {
     return this.http.post(`${AuthService.BASE_API_URL}/user/signup`, authData);
   }
 
-  updateUser(firstName: string, lastName: string, email: string, newsletter: boolean, userId: string): Observable<any> {
+  updateUser(userId: string, email: string, firstName: string, lastName: string, newsletter: boolean): Observable<any> {
     const user: any = {
+      userId: userId,
+      email: email,
       firstName: firstName,
       lastName: lastName,
-      email: email,
-      userId: userId,
       newsletter: newsletter
     };
 
-    return this.http.put(`${AuthService.BASE_API_URL}/user/${userId}}`, user);
+    return this.http.put<
+      {
+        token: string,
+        expiresIn: number,
+        firstName: string,
+        userId: string
+      }
+      >(`${AuthService.BASE_API_URL}/user/${userId}}`, user)
+      .map(response => {
+        const token = response.token;
+        this.token = token;
+        const expiresInDuration = response.expiresIn;
+        const now = new Date();
+        const expirationDate = new Date (now.getTime() + expiresInDuration * 1000);
+        this.saveAuthData(token, expirationDate, response.firstName, response.userId);
+        return response;
+      });
+  }
+
+  updatePwd(userId: string, oldPwd: string, newPwd: string) {
+    const pwd: any = {
+      userId: userId,
+      oldPwd: oldPwd,
+      newPwd: newPwd
+    };
+    return this.http.put(`${AuthService.BASE_API_URL}/user/${userId}/pwd`, pwd);
   }
 
   getUser(userId: string): Observable<any> {
@@ -59,7 +84,7 @@ export class AuthService {
       }
       >(`${AuthService.BASE_API_URL}/user/login`, authData)
       .subscribe( response => {
-        console.log('Loged in');
+        console.log('Logged in');
         console.log(response);
         const token = response.token;
         this.token = token;
@@ -150,7 +175,7 @@ export class AuthService {
     return {
       token: token,
       expirationDate: new Date(expirationDate)
-    }
+    };
   }
 
 }

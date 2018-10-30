@@ -10,7 +10,6 @@ import { AuthService } from '../../shared/nieOS/mongodb/auth/auth.service';
   templateUrl: './register.component.html'
 })
 export class RegisterComponent {
-
   model: any = {};
   loading = false;
   userCreated = false;
@@ -21,20 +20,15 @@ export class RegisterComponent {
     private userService: UserService,
     private alertService: AlertService,
     public authService: AuthService
-  ) { }
+  ) {}
 
   register() {
     this.loading = true;
-    this.authService.createUser(
-      this.model.username,
-      this.model.password,
-      this.model.firstName,
-      this.model.lastName
-    )
+    this.authService.createUser(this.model.email, this.model.password, this.model.firstName, this.model.lastName)
       .subscribe( response => {
-      console.log(response);
-      this.userCreated = true;
-    });
+        console.log(response);
+        this.userCreated = true;
+      });
 /*    this.userService.create(this.model)
       .subscribe(
         data => {

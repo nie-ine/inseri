@@ -259,9 +259,9 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
           height: '450px',
           data: {
             userId: userId,
+            email: result.user.email,
             firstName: result.user.firstName,
             lastName: result.user.lastName,
-            email: result.user.email,
             newsletter: result.user.newsletter
           }
         });
@@ -269,7 +269,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
         console.log(error);
       });
     } else {
-      console.log('Userid was not found in storage');
+      console.log('UserId was not found in storage');
     }
   }
 }
@@ -282,33 +282,34 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
 
 export class DialogUserSettingsDialog implements OnInit {
     userId: string;
+    email: string;
     firstName: string;
     lastName: string;
-    email: string;
     newsletter: boolean;
     oldPwd: string;
     newPwd1: string;
     newPwd2: string;
 
-    constructor(public dialogRef: MatDialogRef<DialogUserSettingsDialog>,
-                @Inject(MAT_DIALOG_DATA) public data: any,
-                private authService: AuthService) {
-    }
+    constructor(
+      public dialogRef: MatDialogRef<DialogUserSettingsDialog>,
+      @Inject(MAT_DIALOG_DATA) public data: any,
+      private authService: AuthService
+    ) {}
 
     ngOnInit() {
       this.userId = this.data.userId;
+      this.email = this.data.email;
       this.firstName = this.data.firstName;
       this.lastName = this.data.lastName;
-      this.email = this.data.email;
       this.newsletter = (this.data.newsletter == null) ? true : this.data.newsletter;
     }
 
-    onNoClick(): void {
+    onNoClick() {
         this.dialogRef.close();
     }
 
     save(form: NgForm) {
-      this.authService.updateUser(this.firstName, this.lastName, this.email, this.newsletter, this.userId)
+      this.authService.updateUser(this.userId, this.email, this.firstName, this.lastName, this.newsletter)
         .subscribe((result) => {
           console.log(result);
           this.dialogRef.close();
@@ -317,6 +318,8 @@ export class DialogUserSettingsDialog implements OnInit {
 
     changePwd() {
       console.log(`Old password: ${this.oldPwd} | New password: ${this.newPwd1} | Repeat new password: ${this.newPwd2}`);
+      this.authService.updatePwd(this.userId, this.oldPwd, this.newPwd1)
+        .subscribe(result => console.log(result));
     }
 
 }
