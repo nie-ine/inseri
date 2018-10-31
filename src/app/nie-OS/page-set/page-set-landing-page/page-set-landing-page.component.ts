@@ -52,14 +52,20 @@ export class PageSetLandingPageComponent implements OnInit {
 
   ngOnInit() {
     this.actionID = this.route.snapshot.queryParams.actionID;
-    this.checkIfPageSetExists( this.actionID );
+    console.log(this.actionID);
+    if ( this.actionID ) {
+      this.checkIfPageSetExists( this.actionID );
+    }
+
   }
 
   checkIfPageSetExists(actionID: number ) {
+    // next step: this service should send request to MongoDB instead of fake backend.
     this.actionService.getById( actionID )
       .subscribe(
         data => {
           this.action = data;
+          console.log(this.action);
           if (this.action && this.action.hasPageSet ) {
             console.log('Instantiate Page Set');
             console.log(this.action);
@@ -87,34 +93,53 @@ export class PageSetLandingPageComponent implements OnInit {
                   console.log(error);
                 });
           } else {
-            this.pageSet = {};
-            console.log('No page set for this action yet');
-            this.pageSet.hash = this.generateHashService.generateHash();
-            this.pageSet.title = 'Example pageSet';
-            this.pageSet.linkToImage = 'https://c8.alamy.com/' +
-              'comp/DX9AP3/' +
-              'open-book-vintage-accessories-old-letters-pages-photo-frames-glasses-DX9AP3.jpg';
-            this.pageSet.description = 'Dies als Beispiel für eine PageSet bei NIE-OS\n' +
-              '    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy\n' +
-              '    eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.\n' +
-              '    At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea\n' +
-              '    takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,\n' +
-              '    consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et\n' +
-              '    dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo\n' +
-              '    dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem\n' +
-              '    ipsum dolor sit amet.';
-            console.log(this.pageSet);
-            console.log(this.action);
-            console.log('Save page set and then add page set - hash to action and update action.');
-            this.createPageSetAndLinkToActionService.createOrUpdate(
-              this.pageSet,
-              this.action
-            );
+            this.initializeTemplatePageSet();
           }
         },
         error => {
           console.log(error);
+          this.pageSet = {};
+          console.log('No page set for this action yet');
+          this.pageSet.hash = this.generateHashService.generateHash();
+          this.pageSet.title = 'Action not found --> replace action service';
+          this.pageSet.linkToImage = 'https://c8.alamy.com/' +
+            'comp/DX9AP3/' +
+            'open-book-vintage-accessories-old-letters-pages-photo-frames-glasses-DX9AP3.jpg';
+          this.pageSet.description = 'Dies als Beispiel für eine PageSet bei NIE-OS\n' +
+            '    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy\n' +
+            '    eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.\n' +
+            '    At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea\n' +
+            '    takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,\n' +
+            '    consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et\n' +
+            '    dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo\n' +
+            '    dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem\n' +
+            '    ipsum dolor sit amet.';
         });
+  }
+  initializeTemplatePageSet() {
+    this.pageSet = {};
+    console.log('No page set for this action yet');
+    this.pageSet.hash = this.generateHashService.generateHash();
+    this.pageSet.title = 'Example pageSet';
+    this.pageSet.linkToImage = 'https://c8.alamy.com/' +
+      'comp/DX9AP3/' +
+      'open-book-vintage-accessories-old-letters-pages-photo-frames-glasses-DX9AP3.jpg';
+    this.pageSet.description = 'Dies als Beispiel für eine PageSet bei NIE-OS\n' +
+      '    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy\n' +
+      '    eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.\n' +
+      '    At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea\n' +
+      '    takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,\n' +
+      '    consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et\n' +
+      '    dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo\n' +
+      '    dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem\n' +
+      '    ipsum dolor sit amet.';
+    console.log(this.pageSet);
+    console.log(this.action);
+    console.log('Save page set and then add page set - hash to action and update action.');
+    this.createPageSetAndLinkToActionService.createOrUpdate(
+      this.pageSet,
+      this.action
+    );
   }
 
   generateDescription() {
