@@ -1,11 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 
+import { PAGETRANSCRIPTION } from './page-transcription';
+
 @Component({
   selector: 'app-text-dev-view',
   templateUrl: './text-dev-view.component.html',
   styleUrls: ['./text-dev-view.component.scss']
 })
 export class TextDevViewComponent implements OnInit {
+
+  pageTranscription;
+  imageOpacity = 1;
+  showWords = true;
 
   testData = {
     lineGroupId: '1.1',
@@ -226,6 +232,7 @@ export class TextDevViewComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.pageTranscription = PAGETRANSCRIPTION;
   }
 
 }

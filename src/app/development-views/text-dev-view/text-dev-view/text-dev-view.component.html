@@ -39,17 +39,20 @@
 
 <h3>Text for page transcriptions with words</h3>
 
-<app-text-page-of-words [textTree]="testDataForPage"
+<app-text-page-of-words [textTree]="pageTranscription"
                         [(clickedWord)]="clickedWord"
                         [(hoveredWord)]="hoveredWord">
 </app-text-page-of-words>
 
-<p>clicked word: {{clickedWord}}</p>
-<p>hovered word: {{hoveredWord}}</p>
+<p>clicked word: {{clickedWord}} – hovered word: {{hoveredWord}}</p>
+Image opacity <input [(ngModel)]="imageOpacity" type="number" min="0" max="1" step="0.01">
+Show Words <input [(ngModel)]="showWords" type="checkbox">
 
-<app-text-svg-view [pageTree]="testDataForPage"
+<app-text-svg-view [pageTree]="pageTranscription"
                    [(clickedWord)]="clickedWord"
                    [(hoveredWord)]="hoveredWord"
+                   [showWords]="showWords"
+                   [imageOpacity]="imageOpacity"
 [image]="{
     '@id': 'http://rdfh.ch/kuno-raeber/Uzo2YDhzTr-8CUSg1pQL4Q/values/gJVf-AQjSbSTAo8EsU8ErQ',
     '@type': 'knora-api:StillImageFileValue',
