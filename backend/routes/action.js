@@ -40,6 +40,22 @@ router.get(
     });
 });
 
+router.get('/:id', checkAuth, (req, res, next) => {
+  Action.findById(req.params.id)
+    .then(result => {
+      console.log(result);
+      res.status(200).json({
+        message: 'Action was found',
+        action: result
+      })
+    })
+    .catch(error => {
+      res.status(404).json({
+        message: 'Action was not found'
+      })
+    })
+});
+
 router.delete('/:id', (req, res, next) => {
   Action.deleteOne({
     _id: req.params.id

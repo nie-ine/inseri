@@ -11,8 +11,8 @@ export class CreatePageSetAndLinkToActionService {
     private http: HttpClient,
     private actionService: ActionService,
     private pageSetService: PageSetService
-  ) {
-  }
+  ) {}
+
   createOrUpdate(
     pageSet: PageSetModel,
     action: Action
