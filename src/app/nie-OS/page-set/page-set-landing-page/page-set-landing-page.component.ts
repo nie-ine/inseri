@@ -64,17 +64,17 @@ export class PageSetLandingPageComponent implements OnInit {
             console.log('Instantiate Page Set');
             console.log(this.action);
             this.pagesOfThisPageSet = [];
-            for ( const viewHash of this.action.hasViews ) {
-              this.pageService.getById( viewHash )
+            for ( const pageHash of this.action.hasPages ) {
+              this.pageService.getById( pageHash )
                 .subscribe(
-                  view => {
+                  page => {
                     this.pagesOfThisPageSet[
                       this.pagesOfThisPageSet.length
-                      ] = view;
-                    console.log( view );
+                      ] = page;
+                    console.log( page );
                   },
-                  errorGetView => {
-                    console.log(errorGetView);
+                  errorGetPage => {
+                    console.log(errorGetPage);
                   }
                 );
             }
