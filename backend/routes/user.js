@@ -200,47 +200,6 @@ router.put('/:id/pwd', (req, res, next) => {
   //   })
   // }
 
-
-  // User.findById(req.body.userId)
-  //   .then((user) => {
-  //     return bcrypt.compare(req.body.oldPwd, user.password);
-  //   })
-  //   .then((result) => {
-  //     // In case pwd is wrong
-  //     if (!result) {
-  //       return res.status(401).json({
-  //         message: 'Auth failed'
-  //       });
-  //     }
-  //
-  //     // Create hash of new pwd
-  //     bcrypt.hash(req.body.newPwd, 10)
-  //       .then((hash => {
-  //         console.log('new Hash', hash);
-  //         // Find User in database and update pwd
-  //         User.findOneAndUpdate({_id: req.body.userId},
-  //           {
-  //             password: hash
-  //           })
-  //           .then(result => {
-  //             // Create response
-  //             res.status(201).json({
-  //               message: 'Pwd updated',
-  //             });
-  //           });
-  //       }))
-  //       .catch(err => {
-  //         res.status(500).json({
-  //           error: err
-  //         })
-  //       });
-  //   })
-  //   .catch(err => {
-  //     console.log(err);
-  //     return res.status(401).json({
-  //       message: 'Auth failed'
-  //     });
-  //   });
 });
 
 router.post('/signup', (req, res, next) => {
