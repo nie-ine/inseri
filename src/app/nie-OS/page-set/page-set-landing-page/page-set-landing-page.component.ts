@@ -110,61 +110,6 @@ export class PageSetLandingPageComponent implements OnInit {
           '    dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem\n' +
           '    ipsum dolor sit amet.';
       });
-
-    // this.actionService.getById( actionID )
-    //   .subscribe(
-    //     data => {
-    //       this.action = data;
-    //       console.log(this.action);
-    //       if (this.action && this.action.hasPageSet ) {
-    //         console.log('Instantiate Page Set');
-    //         console.log(this.action);
-    //         this.pagesOfThisPageSet = [];
-    //         for ( const pageHash of this.action.hasPages ) {
-    //           this.pageService.getById( pageHash )
-    //             .subscribe(
-    //               page => {
-    //                 this.pagesOfThisPageSet[
-    //                   this.pagesOfThisPageSet.length
-    //                   ] = page;
-    //                 console.log( page );
-    //               },
-    //               errorGetPage => {
-    //                 console.log(errorGetPage);
-    //               }
-    //             );
-    //         }
-    //         this.pageSetService.getById( this.action.hasPageSet )
-    //           .subscribe(
-    //             pageSet => {
-    //               this.pageSet = pageSet;
-    //             },
-    //             error => {
-    //               console.log(error);
-    //             });
-    //       } else {
-    //         this.initializeTemplatePageSet();
-    //       }
-    //     },
-    //     error => {
-    //       console.log(error);
-    //       this.pageSet = {};
-    //       console.log('No page set for this action yet');
-    //       this.pageSet.hash = this.generateHashService.generateHash();
-    //       this.pageSet.title = 'Action not found --> replace action service';
-    //       this.pageSet.linkToImage = 'https://c8.alamy.com/' +
-    //         'comp/DX9AP3/' +
-    //         'open-book-vintage-accessories-old-letters-pages-photo-frames-glasses-DX9AP3.jpg';
-    //       this.pageSet.description = 'Dies als Beispiel für eine PageSet bei NIE-OS\n' +
-    //         '    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy\n' +
-    //         '    eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.\n' +
-    //         '    At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea\n' +
-    //         '    takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,\n' +
-    //         '    consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et\n' +
-    //         '    dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo\n' +
-    //         '    dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem\n' +
-    //         '    ipsum dolor sit amet.';
-    //     });
   }
 
   initializeTemplatePageSet() {
