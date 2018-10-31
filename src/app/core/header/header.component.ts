@@ -43,7 +43,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
         this.updateCurrentRoute( route );
       } );
     this.activatedRoute.queryParams.subscribe(params => {
-      console.log(params, "mowgli", params.view, this.hashOfThisView);
       this.hashOfThisView = params.view;
       this.actionID = params.actionID;
       this.generateNavigation(params.actionID);
