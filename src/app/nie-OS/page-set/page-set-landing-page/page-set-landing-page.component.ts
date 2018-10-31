@@ -8,6 +8,7 @@ import {UpdatePageSetComponent} from '../update-page-set/update-page-set.compone
 import {CreatePageAndLinkToAction} from '../services/createPageAndLinkToAction.service';
 import {CreatePageSetAndLinkToActionService} from '../services/createPageSetAndLinkToAction.service';
 import {PageService} from '../../apps/page/page.service';
+import {MongoActionService} from '../../../shared/nieOS/mongodb/action/action.service';
 
 @Component({
   selector: 'app-page-set-landing-page',
@@ -30,6 +31,7 @@ export class PageSetLandingPageComponent implements OnInit {
     private route: ActivatedRoute,
     private generateHashService: GenerateHashService,
     private actionService: ActionService,
+    private mongoActionService: MongoActionService,
     private createPageSetAndLinkToActionService: CreatePageSetAndLinkToActionService,
     private pageSetService: PageSetService,
     private createPageAndLinkToAction: CreatePageAndLinkToAction,
@@ -52,70 +54,119 @@ export class PageSetLandingPageComponent implements OnInit {
 
   ngOnInit() {
     this.actionID = this.route.snapshot.queryParams.actionID;
-    console.log(this.actionID);
     if ( this.actionID ) {
       this.checkIfPageSetExists( this.actionID );
     }
-
   }
 
   checkIfPageSetExists(actionID: number ) {
-    // next step: this service should send request to MongoDB instead of fake backend.
-    this.actionService.getById( actionID )
-      .subscribe(
-        data => {
-          this.action = data;
-          console.log(this.action);
-          if (this.action && this.action.hasPageSet ) {
-            console.log('Instantiate Page Set');
-            console.log(this.action);
-            this.pagesOfThisPageSet = [];
-            for ( const pageHash of this.action.hasPages ) {
-              this.pageService.getById( pageHash )
-                .subscribe(
-                  page => {
-                    this.pagesOfThisPageSet[
-                      this.pagesOfThisPageSet.length
-                      ] = page;
-                    console.log( page );
-                  },
-                  errorGetPage => {
-                    console.log(errorGetPage);
-                  }
-                );
-            }
-            this.pageSetService.getById( this.action.hasPageSet )
+    this.mongoActionService.getAction(actionID)
+      .subscribe(data => {
+        console.log(data);
+        this.action = data;
+        if (this.action && this.action.hasPageSet ) {
+          console.log('Instantiate Page Set');
+          this.pagesOfThisPageSet = [];
+          for ( const pageHash of this.action.hasPages ) {
+            this.pageService.getById( pageHash )
               .subscribe(
-                pageSet => {
-                  this.pageSet = pageSet;
+                page => {
+                  this.pagesOfThisPageSet[
+                    this.pagesOfThisPageSet.length
+                    ] = page;
                 },
-                error => {
-                  console.log(error);
-                });
-          } else {
-            this.initializeTemplatePageSet();
+                errorGetPage => {
+                  console.log(errorGetPage);
+                }
+              );
           }
-        },
-        error => {
-          console.log(error);
-          this.pageSet = {};
-          console.log('No page set for this action yet');
-          this.pageSet.hash = this.generateHashService.generateHash();
-          this.pageSet.title = 'Action not found --> replace action service';
-          this.pageSet.linkToImage = 'https://c8.alamy.com/' +
-            'comp/DX9AP3/' +
-            'open-book-vintage-accessories-old-letters-pages-photo-frames-glasses-DX9AP3.jpg';
-          this.pageSet.description = 'Dies als Beispiel für eine PageSet bei NIE-OS\n' +
-            '    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy\n' +
-            '    eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.\n' +
-            '    At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea\n' +
-            '    takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,\n' +
-            '    consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et\n' +
-            '    dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo\n' +
-            '    dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem\n' +
-            '    ipsum dolor sit amet.';
-        });
+          this.pageSetService.getById( this.action.hasPageSet )
+            .subscribe(
+              pageSet => {
+                this.pageSet = pageSet;
+              },
+              error => {
+                console.log(error);
+              });
+        } else {
+          this.initializeTemplatePageSet();
+        }
+      }, error => {
+        console.log(error);
+        this.pageSet = {};
+        console.log('No page set for this action yet');
+        this.pageSet.hash = this.generateHashService.generateHash();
+        this.pageSet.title = 'Action not found --> replace action service';
+        this.pageSet.linkToImage = 'https://c8.alamy.com/' +
+          'comp/DX9AP3/' +
+          'open-book-vintage-accessories-old-letters-pages-photo-frames-glasses-DX9AP3.jpg';
+        this.pageSet.description = 'Dies als Beispiel für eine PageSet bei NIE-OS\n' +
+          '    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy\n' +
+          '    eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.\n' +
+          '    At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea\n' +
+          '    takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,\n' +
+          '    consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et\n' +
+          '    dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo\n' +
+          '    dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem\n' +
+          '    ipsum dolor sit amet.';
+      });
+
+    // this.actionService.getById( actionID )
+    //   .subscribe(
+    //     data => {
+    //       this.action = data;
+    //       console.log(this.action);
+    //       if (this.action && this.action.hasPageSet ) {
+    //         console.log('Instantiate Page Set');
+    //         console.log(this.action);
+    //         this.pagesOfThisPageSet = [];
+    //         for ( const pageHash of this.action.hasPages ) {
+    //           this.pageService.getById( pageHash )
+    //             .subscribe(
+    //               page => {
+    //                 this.pagesOfThisPageSet[
+    //                   this.pagesOfThisPageSet.length
+    //                   ] = page;
+    //                 console.log( page );
+    //               },
+    //               errorGetPage => {
+    //                 console.log(errorGetPage);
+    //               }
+    //             );
+    //         }
+    //         this.pageSetService.getById( this.action.hasPageSet )
+    //           .subscribe(
+    //             pageSet => {
+    //               this.pageSet = pageSet;
+    //             },
+    //             error => {
+    //               console.log(error);
+    //             });
+    //       } else {
+    //         this.initializeTemplatePageSet();
+    //       }
+    //     },
+    //     error => {
+    //       console.log(error);
+    //       this.pageSet = {};
+    //       console.log('No page set for this action yet');
+    //       this.pageSet.hash = this.generateHashService.generateHash();
+    //       this.pageSet.title = 'Action not found --> replace action service';
+    //       this.pageSet.linkToImage = 'https://c8.alamy.com/' +
+    //         'comp/DX9AP3/' +
+    //         'open-book-vintage-accessories-old-letters-pages-photo-frames-glasses-DX9AP3.jpg';
+    //       this.pageSet.description = 'Dies als Beispiel für eine PageSet bei NIE-OS\n' +
+    //         '    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy\n' +
+    //         '    eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.\n' +
+    //         '    At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea\n' +
+    //         '    takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,\n' +
+    //         '    consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et\n' +
+    //         '    dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo\n' +
+    //         '    dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem\n' +
+    //         '    ipsum dolor sit amet.';
+    //     });
   }
+
   initializeTemplatePageSet() {
     this.pageSet = {};
     console.log('No page set for this action yet');

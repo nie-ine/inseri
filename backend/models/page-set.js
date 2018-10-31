@@ -8,4 +8,4 @@ const pageSetSchema = mongoose.Schema({
   hash: { type: String }
 });
 
-module.exports = mongoose.model('PageSet', actionSchema);
+module.exports = mongoose.model('PageSet', pageSetSchema);
