@@ -248,8 +248,8 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
           this.action = data;
           console.log('This action: ');
           console.log(this.action);
-          if ( this.action && this.action.hasViews[ 0 ] ) {
-            this.updateAppsInView( this.action.hasViews[ 0 ] );
+          if ( this.action && this.action.hasPages[ 0 ] ) {
+            this.updateAppsInView( this.action.hasPages[ 0 ] );
           } else {
             console.log('No pages for this action yet');
             this.page.hash = this.generateHashService.generateHash();
@@ -342,7 +342,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
   savePage() {
     console.log('Save Page');
     console.log('Action ID: ' + this.actionID);
-    if ( this.action.hasViews[0] ) {
+    if ( this.action.hasPages[0] ) {
       console.log('update page for this action');
       console.log(this.action);
       console.log(this.page);
@@ -357,7 +357,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     } else {
       console.log('Save new Page');
       console.log('1. Attach hash of this view to action model ' + this.page.hash);
-      this.action.hasViews[ 0 ] = this.page.hash;
+      this.action.hasPages[ 0 ] = this.page.hash;
       console.log(this.page);
       console.log(this.action);
       // Update ActionService so that it contains hash of new view

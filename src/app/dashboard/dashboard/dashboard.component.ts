@@ -38,7 +38,6 @@ export class DashboardComponent implements OnInit {
         }
       }
     });
-
   }
 
   openDialog(): void {

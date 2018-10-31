@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
     private dialog2: MatDialog,
     private activatedRoute: ActivatedRoute,
     private actionService: ActionService,
-    private viewService: PageService,
+    private pageService: PageService,
     private authenticationService: AuthenticationService,
     private authService: AuthService,
     private cdr: ChangeDetectorRef,
@@ -43,7 +43,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
         this.updateCurrentRoute( route );
       } );
     this.activatedRoute.queryParams.subscribe(params => {
-      console.log(params);
+      console.log(params, "mowgli", params.view, this.hashOfThisView);
       this.hashOfThisView = params.view;
       this.actionID = params.actionID;
       this.generateNavigation(params.actionID);
@@ -107,23 +107,23 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
       .subscribe(
         data => {
           console.log(data);
-          for ( const viewHash of ( data as any ).hasViews as any ) {
-            console.log( viewHash );
+          for ( const pageHash of ( data as any ).hasPages as any ) {
+            console.log( pageHash );
             this.viewsOfThisActtion = [];
-            this.viewService.getById( viewHash )
+            this.pageService.getById( pageHash )
               .subscribe(
-                view => {
+                page => {
                   this.viewsOfThisActtion[
                     this.viewsOfThisActtion.length
-                    ] = view;
+                    ] = page;
                   if ( this.hashOfThisView ) {
                     this.produceHashOfLastView();
                     this.produceHashOfNextView();
                   }
-                  console.log( view );
+                  console.log( page );
                 },
-                errorGetView => {
-                  console.log(errorGetView);
+                errorGetPage => {
+                  console.log(errorGetPage);
                 }
               );
           }

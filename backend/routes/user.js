@@ -190,7 +190,6 @@ router.put('/:id/pwd', (req, res, next) => {
       });
     });
 
-
   // Test if new password has white spaces
   // const nonWhitespace = /^\S*$/;
   // if (!nonWhitespace.test(req.body.newPwd)) {
