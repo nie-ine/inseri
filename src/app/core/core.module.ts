@@ -28,6 +28,7 @@ import { MatDialogModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { InitPopupComponent } from './init-popup/init-popup.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import {HowToProgramWithNieOSModule} from '../developer-notes/how-to-program-with-nie-os/how-to-program-with-nie-os.module';
 
 @NgModule({
   imports: [
@@ -46,6 +47,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     EditResourceViewModule,
     FormsModule,
     MatTooltipModule,
+    HowToProgramWithNieOSModule,
     RouterModule.forRoot([
       { path: '**', component: PageNotFoundComponent }
       ])
