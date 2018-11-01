@@ -101,7 +101,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   generateNavigation( actionID: number ) {
     console.log('Get action by id, then iterate through views');
-    console.log( actionID );
     this.actionService.getById( actionID )
       .subscribe(
         data => {
@@ -244,7 +243,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.router.navigate(["/"]);
     } else {
         this.router.navigate(['home'], { fragment: 'login' });
-        console.log('login');
     }
   }
 
@@ -316,9 +314,11 @@ export class DialogUserSettingsDialog implements OnInit {
     }
 
     changePwd() {
-      console.log(`Old password: ${this.oldPwd} | New password: ${this.newPwd1} | Repeat new password: ${this.newPwd2}`);
       this.authService.updatePwd(this.userId, this.oldPwd, this.newPwd1)
-        .subscribe(result => console.log(result));
+        .subscribe(result => {
+          console.log(result);
+          this.dialogRef.close();
+        });
     }
 
 }

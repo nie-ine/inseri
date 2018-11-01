@@ -21,7 +21,7 @@ export class AuthService {
     return this.token;
   }
 
-  createUser( email: string, password: string, firstName: string, lastName: string ) {
+  createUser(email: string, password: string, firstName: string, lastName: string): Observable<any> {
     const authData: AuthData = {
       email: email,
       password: password,
@@ -59,7 +59,7 @@ export class AuthService {
       });
   }
 
-  updatePwd(userId: string, oldPwd: string, newPwd: string) {
+  updatePwd(userId: string, oldPwd: string, newPwd: string): Observable<any> {
     const pwd: any = {
       userId: userId,
       oldPwd: oldPwd,
@@ -69,7 +69,6 @@ export class AuthService {
   }
 
   getUser(userId: string): Observable<any> {
-    console.log('Get User', userId);
     return this.http.get(`${AuthService.API_BASE_URL}/${userId}`);
   }
 
@@ -84,8 +83,6 @@ export class AuthService {
       }
       >(`${AuthService.API_BASE_URL}/login`, authData)
       .subscribe( response => {
-        console.log('Logged in');
-        console.log(response);
         const token = response.token;
         this.token = token;
         const expiresInDuration = response.expiresIn;
@@ -94,7 +91,6 @@ export class AuthService {
         this.authStatusListener.next(true);
         const now = new Date();
         const expirationDate = new Date (now.getTime() + expiresInDuration * 1000);
-        console.log(expirationDate);
         this.saveAuthData(token, expirationDate, response.firstName, response.userId);
         this.router.navigate(['/dashboard' ], {fragment: 'top'});
       });

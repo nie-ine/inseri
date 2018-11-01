@@ -163,7 +163,6 @@ router.put('/:id/pwd', checkAuth, (req, res, next) => {
           // Create hash of new pwd
           bcrypt.hash(req.body.newPwd, 10)
             .then((hash => {
-              console.log('new Hash', hash);
               // Find User in database and update pwd
               User.findOneAndUpdate({_id: req.body.userId},
                 {
@@ -214,7 +213,6 @@ router.post('/signup', (req, res, next) => {
   // Searches after users that have the same email addresses
   User.find({email: req.body.email})
     .then((result) => {
-      console.log(result);
 
       // Checks if other users with same email address were found
       if (result.length > 0) {
@@ -272,7 +270,6 @@ router.post('/login', (req, res, next) => {
           message: 'Auth failed'
         });
       }
-      console.log(fetchedUser);
       const token = jwt.sign(
         {
           email: fetchedUser.email,
