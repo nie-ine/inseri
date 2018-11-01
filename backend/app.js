@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 
 const userRoutes = require("./routes/user");
 const actionRoutes = require("./routes/action");
+const pageSetRoutes = require("./routes/page-set");
 
 const app = express();
 
@@ -40,5 +41,6 @@ app.use((req, res, next) => {
 
 app.use("/api/user", userRoutes);
 app.use("/api/action", actionRoutes);
+app.use("/api/pages", pageSetRoutes);
 
 module.exports = app;
