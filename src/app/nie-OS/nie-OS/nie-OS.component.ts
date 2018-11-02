@@ -17,6 +17,8 @@ import { ActionService } from '../../shared/nieOS/fake-backend/action/action.ser
 import { PageService } from '../apps/page/page.service';
 import {GenerateHashService} from "../../shared/nieOS/other/generateHash.service";
 import {OpenAppsModel} from '../../shared/nieOS/mongodb/page/open-apps.model';
+import {MongoPageService} from '../../shared/nieOS/mongodb/page/page.service';
+import {MongoActionService} from '../../shared/nieOS/mongodb/action/action.service';
 
 declare var grapesjs: any; // Important!
 
@@ -52,7 +54,9 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     private pageService: PageService,
     private cdr: ChangeDetectorRef,
     private generateHashService: GenerateHashService,
-    private openApps: OpenAppsModel
+    private openApps: OpenAppsModel,
+    private mongoPageService: MongoPageService,
+    private mongoActionService: MongoActionService
   ) {
     this.route.params.subscribe(params => console.log(params));
   }
@@ -97,16 +101,15 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
         });
   }
   checkIfPageExistsForThisAction(actionID: number ) {
-    this.actionService.getById( actionID )
+    this.mongoActionService.getAction( actionID )
       .subscribe(
         data => {
-          this.action = data;
+          this.action = ( data as any ).action;
           console.log('This action: ');
           console.log(this.action);
           if ( this.action && this.action.hasPages[ 0 ] ) {
             this.updateAppsInView( this.action.hasPages[ 0 ] );
           } else {
-            this.page.hash = this.generateHashService.generateHash();
             this.createEmptyPageInMongoDB();
             return undefined;
           }
@@ -118,6 +121,24 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
   }
   createEmptyPageInMongoDB() {
     console.log('Hier weiter');
+    this.mongoPageService.createPage()
+      .subscribe( response => {
+        console.log(response);
+        this.page.hash = (response as any).page._id;
+        this.action.hasPages.push(
+          (response as any)
+            .page
+            ._id
+        );
+        console.log('Current action:');
+        console.log(this.action);
+        console.log('Next: Implement Update action in mongodb');
+      },
+      error => {
+        console.log('Page could not be saved;');
+        console.log(error);
+      });
+    console.log( this.page );
   }
   deletePage() {
     console.log('Delete page');
@@ -209,7 +230,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
   }
 
   savePage() {
-    if ( this.action.hasPages[0] ) {
+    if ( this.action && this.action.hasPages[0] ) {
       this.updatePage();
     } else {
       this.createNewPage();
