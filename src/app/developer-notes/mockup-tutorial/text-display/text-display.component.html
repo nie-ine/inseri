@@ -1,0 +1,11 @@
+<h4>Text Display</h4>
+
+<div *ngFor="let text of textArray; let i index" style="margin-left: 50px;">
+  <span
+    style="font-weight: bold; font-size: x-small;">
+    {{ text.zeile }}
+  </span>
+  {{ text.text }}
+  <div *ngIf="text.footnote"  > {{ text.footnote }} </div>
+  {{ text?.footnote }}
+</div>
