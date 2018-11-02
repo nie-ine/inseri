@@ -15,7 +15,12 @@ export class TextSvgViewComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * True if the words in the transcription should be shown.
    */
-  @Input() showWords = true;
+  @Input() showWords = false;
+
+  /**
+   * Show the transcription of a word if it is hovered or clicked.
+   */
+  @Input() showHighlightedWord = true;
 
   /**
    * The image can be whited out. 1 means that the image is fully visible. 0 means that it's hidden.
@@ -39,14 +44,14 @@ export class TextSvgViewComponent implements OnInit, OnChanges, OnDestroy {
   @Input() clickedWord: string;
 
   /**
-   * The unique id of the word that was previously clicked and counts as activated. This makes change handling easier.
-   */
-  oldClickedWord: string;
-
-  /**
    * Give an event containing the unique word id if a word on the page description is clicked
    */
   @Output() clickedWordChange: EventEmitter<string> = new EventEmitter<string>();
+
+  /**
+   * The unique id of the word that was previously clicked and counts as activated. This makes change handling easier.
+   */
+  oldClickedWord: string;
 
   /**
    * The unique id of the word the mouse is hovering on.
@@ -54,14 +59,14 @@ export class TextSvgViewComponent implements OnInit, OnChanges, OnDestroy {
   @Input() hoveredWord: string;
 
   /**
-   * The unique id of the word the mouse is hovering on. This makes change handling easier.
-   */
-  oldhoveredWord: string;
-
-  /**
    * Give an event containing the unique word id if the mouse hovers on a word in the page description
    */
   @Output() hoveredWordChange: EventEmitter<string> = new EventEmitter<string>();
+
+  /**
+   * The unique id of the word the mouse is hovering on. This makes change handling easier.
+   */
+  oldhoveredWord: string;
 
   /**
    * The OpenSeaDragon viewer
@@ -69,9 +74,9 @@ export class TextSvgViewComponent implements OnInit, OnChanges, OnDestroy {
   private viewer;
 
   /**
-   * The bigger side of the page rectangle to divide the ratio.
+   * Factor to normalize the coordinates to the overlay. Determined by the picture length.
    */
-  private maxSide;
+  private normalizeCoordinates: number;
 
   /**
    * The style of words with highlighting by hovering.
@@ -125,12 +130,13 @@ export class TextSvgViewComponent implements OnInit, OnChanges, OnDestroy {
     // redraw the tree if it changes
     if (changes['pageTree']) {
       if (this.pageTree.pageWidth > this.pageTree.pageHeight) {
-        this.maxSide = this.pageTree.pageWidth;
+        this.normalizeCoordinates = 1 / this.pageTree.pageWidth;
       } else {
-        this.maxSide = this.pageTree.pageHeight;
+        this.normalizeCoordinates = 1 / this.pageTree.pageHeight;
       }
 
-      this.maxSide = this.pageTree.pageWidth;
+      // normalize to width due to input data
+      this.normalizeCoordinates = 1 / this.pageTree.pageWidth;
 
       this.drawWords();
     }
@@ -142,6 +148,11 @@ export class TextSvgViewComponent implements OnInit, OnChanges, OnDestroy {
 
     // change the opacity of the image
     if (changes['imageOpacity']) {
+      this.changeOpacity();
+    }
+
+    // change the opacity of the image
+    if (changes['showHighlightedWord']) {
       this.changeOpacity();
     }
 
@@ -185,11 +196,25 @@ export class TextSvgViewComponent implements OnInit, OnChanges, OnDestroy {
       word.setAttribute('style', this.clickedStyle);
     }
 
+    if (this.showHighlightedWord && !this.showWords) {
+      const wordTranscription = document.getElementById('word-text--' + wordIri);
+      if (wordTranscription) {
+        wordTranscription.setAttribute('visibility', 'visible');
+      }
+    }
+
     // remove highighting from old focused word
     if (this.oldClickedWord) {
       const oldWord = document.getElementById('word-rect--' + this.oldClickedWord);
       if (oldWord) {
         oldWord.setAttribute('style', this.neutralStyle);
+      }
+
+      if (this.showHighlightedWord && !this.showWords) {
+        const oldWordTranscription = document.getElementById('word-text--' + this.oldClickedWord);
+        if (oldWordTranscription) {
+          oldWordTranscription.setAttribute('visibility', 'hidden');
+        }
       }
     }
     // keep the id for the removal of the hightlighting later
@@ -214,6 +239,13 @@ export class TextSvgViewComponent implements OnInit, OnChanges, OnDestroy {
         word.setAttribute('style', this.hoverStyle);
       }
     }
+
+    if (this.showHighlightedWord && !this.showWords) {
+      const wordTranscription = document.getElementById('word-text--' + wordIri);
+      if (wordTranscription) {
+        wordTranscription.setAttribute('visibility', 'visible');
+      }
+    }
   }
 
   /**
@@ -229,6 +261,14 @@ export class TextSvgViewComponent implements OnInit, OnChanges, OnDestroy {
       if (word) {
         word.setAttribute('style', this.neutralStyle);
       }
+
+      if (this.showHighlightedWord && !this.showWords) {
+        const wordTranscription = document.getElementById('word-text--' + this.oldhoveredWord);
+        if (wordTranscription) {
+          wordTranscription.setAttribute('visibility', 'hidden');
+        }
+      }
+
       this.oldhoveredWord = null;
     }
   }
@@ -268,6 +308,9 @@ export class TextSvgViewComponent implements OnInit, OnChanges, OnDestroy {
 
     const svgGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
 
+    svgGroup.setAttribute('transform', 'scale(' + (1 / this.pageTree.pageWidth).toString() + ')');
+
+
     const wordElements = [];
     const rectElements = [];
 
@@ -276,8 +319,8 @@ export class TextSvgViewComponent implements OnInit, OnChanges, OnDestroy {
     imageRect.id = 'text-page--' + this.pageTree.pageId;
 
     // Place and shape of the image blur box
-    imageRect.setAttribute('width', '1');
-    imageRect.setAttribute('height', '1');
+    imageRect.setAttribute('width', (this.pageTree.pageWidth).toString());
+    imageRect.setAttribute('height', (this.pageTree.pageHeight).toString());
     imageRect.setAttribute('x', '0');
     imageRect.setAttribute('y', '0');
 
@@ -325,17 +368,14 @@ export class TextSvgViewComponent implements OnInit, OnChanges, OnDestroy {
     const wordTextNode = document.createTextNode(wordTextContent);
 
     // Position of Words
-    wordText.setAttribute('x', (((word.ulx + word.lrx) / 2) / this.maxSide).toString());
-    wordText.setAttribute('y', (((word.uly + word.lry) / 2) / this.maxSide).toString());
+    wordText.setAttribute('x', ((word.ulx + word.lrx) / 2).toString());
+    wordText.setAttribute('y', ((word.uly + word.lry) / 2).toString());
     wordText.setAttribute('text-anchor', 'middle');
     // wordText.setAttribute('dominant-baseline', 'middle'); // does not work in firefox
     wordText.setAttribute('visibility', 'visible');
 
     // Text style
-
-    // Fonts seem to be at least 0.0128 vor SVG in Chrome, 0.1 in Firefox
-    let fontSize = (2.20 * (word.lry - word.uly) / ( wordTextContent.length * this.maxSide) );
-    if (fontSize < 0.0128) { fontSize = 0.0128; }
+    const fontSize = (1.8 * (( word.lrx - word.ulx) / wordTextContent.length ) );
     wordText.setAttribute('font-size', fontSize.toString());
 
     // wordText.setAttribute('font-size', (1 * (word.lry - word.uly) / this.maxSide).toString());
@@ -358,10 +398,10 @@ export class TextSvgViewComponent implements OnInit, OnChanges, OnDestroy {
     wordRect.id = 'word-rect--' + word.wordIri;
 
     // Place and shape of the word boxes
-    wordRect.setAttribute('width', ((word.lrx - word.ulx) / this.maxSide).toString());
-    wordRect.setAttribute('height', ((word.lry - word.uly) / this.maxSide).toString());
-    wordRect.setAttribute('x', (word.ulx / this.maxSide).toString());
-    wordRect.setAttribute('y', (word.uly / this.maxSide).toString());
+    wordRect.setAttribute('width', (word.lrx - word.ulx).toString());
+    wordRect.setAttribute('height', (word.lry - word.uly).toString());
+    wordRect.setAttribute('x', (word.ulx).toString());
+    wordRect.setAttribute('y', (word.uly).toString());
 
     // Color of the word boxes
     wordRect.setAttribute('style', this.neutralStyle);
@@ -372,6 +412,11 @@ export class TextSvgViewComponent implements OnInit, OnChanges, OnDestroy {
     });
     wordRect.addEventListener('mouseleave', (e) => {
       this.hoverOutOfWord();
+    });
+    wordRect.addEventListener('onclick', (e) => {
+      this.clickWord(word.wordIri);
+      e.preventDefault();
+      e.stopPropagation();
     });
     // overlay.onClick(wordRect, this.clickWord(word.wordIri));
 

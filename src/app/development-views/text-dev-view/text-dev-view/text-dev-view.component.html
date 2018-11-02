@@ -47,12 +47,14 @@
 <p>clicked word: {{clickedWord}} – hovered word: {{hoveredWord}}</p>
 Image opacity <input [(ngModel)]="imageOpacity" type="number" min="0" max="1" step="0.01">
 Show Words <input [(ngModel)]="showWords" type="checkbox">
+Show highlighted Words <input [(ngModel)]="showHighlightedWord" type="checkbox">
 
 <app-text-svg-view [pageTree]="pageTranscription"
                    [(clickedWord)]="clickedWord"
                    [(hoveredWord)]="hoveredWord"
                    [showWords]="showWords"
                    [imageOpacity]="imageOpacity"
+                   [showHighlightedWord]="showHighlightedWord"
 [image]="{
     '@id': 'http://rdfh.ch/kuno-raeber/Uzo2YDhzTr-8CUSg1pQL4Q/values/gJVf-AQjSbSTAo8EsU8ErQ',
     '@type': 'knora-api:StillImageFileValue',

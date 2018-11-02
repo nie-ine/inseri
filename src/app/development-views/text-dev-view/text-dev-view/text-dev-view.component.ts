@@ -11,7 +11,8 @@ export class TextDevViewComponent implements OnInit {
 
   pageTranscription;
   imageOpacity = 1;
-  showWords = true;
+  showWords = false;
+  showHighlightedWord = true;
 
   testData = {
     lineGroupId: '1.1',
