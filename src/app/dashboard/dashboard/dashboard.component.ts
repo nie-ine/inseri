@@ -3,9 +3,8 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Router, NavigationEnd } from '@angular/router';
 import { ActionService } from '../../shared/nieOS/fake-backend/action/action.service';
 import { AlertService} from '../../shared/nieOS/fake-backend/auth/altert.service';
-import {HttpParams} from '@angular/common/http';
 import { MongoActionService } from '../../shared/nieOS/mongodb/action/action.service';
-import { Action, ActionArray } from '../../shared/nieOS/mongodb/action/action.model';
+import { Action } from '../../shared/nieOS/mongodb/action/action.model';
 import { map } from'rxjs/operators';
 
 @Component({
@@ -15,10 +14,8 @@ import { map } from'rxjs/operators';
 })
 export class DashboardComponent implements OnInit {
 
-  animal: string;
-  name: string;
   user: any[] = JSON.parse(localStorage.getItem('currentUser')) || [];
-  username: string;
+  userFirstName: string;
   actions: Action[] = [];
 
   constructor(
@@ -40,16 +37,12 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-      width: '700px',
-      data: { name: this.name, animal: this.animal }
-    });
-
+  ngOnInit() {
+    this.userFirstName = localStorage.getItem('firstName');
+    this.updateActions();
   }
 
-  ngOnInit() {
-    this.username = localStorage.getItem('firstName');
+  private updateActions() {
     console.log('Next: iterate through existing actions');
     // this.actions = JSON.parse(localStorage.getItem('actions')) || [];
     this.mongoActionService.getAllActions()
@@ -68,14 +61,22 @@ export class DashboardComponent implements OnInit {
       .subscribe( transformedActions => {
         console.log(transformedActions);
         this.actions = transformedActions;
-    });
+      });
     console.log(this.actions);
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+      width: '700px',
+      data: {}
+    });
+    dialogRef.afterClosed().subscribe(() => this.updateActions());
   }
 
   deleteAction(action: any) {
     console.log('Delete Action ' + action.id);
     action.deleted = true;
-    this.mongoActionService.deleteAction( action.id);
+    this.mongoActionService.deleteAction( action.id).subscribe(() => this.updateActions());
     // this.actionService.delete(action.id)
     //   .subscribe(
     //     data => {
@@ -116,20 +117,24 @@ export class DialogOverviewExampleDialog {
   };
   loading = false;
   chooseNewAction: string;
+
   constructor(public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private router: Router,
               private actionService: ActionService,
               private mongoActionService: MongoActionService ) {
   }
-  onNoClick(): void {
+
+  close() {
     this.dialogRef.close();
   }
+
   register() {
     this.loading = true;
-    this.mongoActionService.createAction(
-      this.action
-    );
+    this.mongoActionService.createAction(this.action)
+      .subscribe((result) => {
+        this.dialogRef.close(result);
+      });
     // this.actionService.create(this.model)
     //   .subscribe(
     //     data => {

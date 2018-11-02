@@ -1,9 +1,7 @@
 import {Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {Subject} from 'rxjs';
-import {Router} from '@angular/router';
-import {AuthData} from '../auth/auth-data.model';
 import {Action} from './action.model';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class MongoActionService {
@@ -12,32 +10,22 @@ export class MongoActionService {
 
   constructor(
     private http: HttpClient,
-    private router: Router
   ) {}
 
-  createAction( action: Action ) {
-    console.log(action);
-    this.http.post(`${MongoActionService.API_BASE_URL}`, action)
-      .subscribe( response => {
-        console.log(response);
-      });
+  createAction( action: Action ): Observable<any> {
+    return this.http.post(`${MongoActionService.API_BASE_URL}`, action);
   }
 
-  getAction(actionId: number) {
+  getAction(actionId: number): Observable<any> {
     return this.http.get(`${MongoActionService.API_BASE_URL}/${actionId}`);
   }
 
-  getAllActions(): any {
+  getAllActions(): Observable<any> {
     return this.http.get<{message: string, actions: any}>(`${MongoActionService.API_BASE_URL}`);
   }
 
-  deleteAction(actionId: string) {
-    console.log('delete action ' + actionId);
-    this.http.delete(`${MongoActionService.API_BASE_URL}/${actionId}`)
-      .subscribe( () => {
-      console.log('Deleted!');
-    });
+  deleteAction(actionId: string): Observable<any> {
+    return this.http.delete(`${MongoActionService.API_BASE_URL}/${actionId}`);
   }
-
 
 }
