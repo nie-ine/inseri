@@ -29,6 +29,8 @@ import { FormsModule } from '@angular/forms';
 import { InitPopupComponent } from './init-popup/init-popup.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {HowToProgramWithNieOSModule} from '../developer-notes/how-to-program-with-nie-os/how-to-program-with-nie-os.module';
+import {MyMainComponentComponent} from '../developer-notes/mockup-tutorial/my-main-component/my-main-component.component';
+import {MockupTutorialModule} from '../developer-notes/mockup-tutorial/mockup-tutorial.module';
 
 @NgModule({
   imports: [
@@ -48,6 +50,7 @@ import {HowToProgramWithNieOSModule} from '../developer-notes/how-to-program-wit
     FormsModule,
     MatTooltipModule,
     HowToProgramWithNieOSModule,
+    MockupTutorialModule,
     RouterModule.forRoot([
       { path: '**', component: PageNotFoundComponent }
       ])
