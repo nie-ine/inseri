@@ -301,14 +301,13 @@ export class DialogUserSettingsDialog implements OnInit {
       this.newsletter = (this.data.newsletter == null) ? true : this.data.newsletter;
     }
 
-    onNoClick() {
+    close() {
         this.dialogRef.close();
     }
 
     save(form: NgForm) {
       this.authService.updateUser(this.userId, this.email, this.firstName, this.lastName, this.newsletter)
         .subscribe((result) => {
-          console.log(result);
           this.dialogRef.close();
         });
     }
@@ -316,7 +315,6 @@ export class DialogUserSettingsDialog implements OnInit {
     changePwd() {
       this.authService.updatePwd(this.userId, this.oldPwd, this.newPwd1)
         .subscribe(result => {
-          console.log(result);
           this.dialogRef.close();
         });
     }

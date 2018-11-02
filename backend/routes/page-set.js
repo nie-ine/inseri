@@ -8,11 +8,19 @@ const checkAuth = require("../middleware/check-auth");
 const router = express.Router();
 
 router.post('', (req, res, next) => {
-    console.log('Method: POST, Url: /pages');
-    res.status(200).json({
-      message: 'PageSet POST',
-    });
+  const pageSet = new PageSet({
+    title: req.body.title,
+    description: req.body.description,
+    linkToImage: req.body.linkToImage,
+    hasPages: req.body.hash,
+    hash: req.body.hash
   });
+  pageSet.save();
+
+  res.status(201).json({
+    message: 'PageSet added successfully',
+  });
+});
 
 router.get('', (req, res, next) => {
   res.status(200).json({
