@@ -3,7 +3,7 @@
 /**
  * Manual: How to add an app:
  * 1. Import the Component or Module in nie-OS.module.ts
- * 2. Add the app to the Model "appTypes" in this file
+ * 2. Add the app to the Model "openAppsInThisPage" in this file
  * 3. Add this app to the "Menu to open Apps" - div in nie-OS.component.html
  * 4. Add an app div by copying and pasting one of the existing divs and adjusting the input variables and the selector
  * */
@@ -16,6 +16,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ActionService } from '../../shared/nieOS/fake-backend/action/action.service';
 import { PageService } from '../apps/page/page.service';
 import {GenerateHashService} from "../../shared/nieOS/other/generateHash.service";
+import {OpenAppsModel} from '../../shared/nieOS/mongodb/page/open-apps.model';
 
 declare var grapesjs: any; // Important!
 
@@ -25,7 +26,6 @@ declare var grapesjs: any; // Important!
   templateUrl: `nie-OS.component.html`,
 })
 export class NIEOSComponent implements OnInit, AfterViewChecked {
-  showFiller = false;
   image = {
     '@id' : 'https://www.e-manuscripta.ch/zuz/i3f/v20/1510612/canvas/1510618',
     '@type' : 'knora-api:StillImageFileValue',
@@ -44,84 +44,15 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
   action: any;
   panelsOpen = false;
   viewHashFromURL: string;
-  appTypes = {
-    imageViewer: {
-      type: 'imageViewers',
-      model: []
-    },
-    textViewer: {
-      type: 'textViewers',
-      model: []
-    },
-    searchViewer: {
-      type: 'searchViewers',
-      model: []
-    },
-    grapesJSViewer: {
-      type: 'grapesJSViewers',
-      model: []
-    },
-    synopsisViewer: {
-      type: 'synopsisViewers',
-      model: []
-    },
-    createResourceForm: {
-      type: 'createResourceForm',
-      model: []
-    },
-    dataChooser: {
-      type: 'dataChooser',
-      model: []
-    },
-    textlistViewers: {
-      type: 'textlistViewers',
-      model: [],
-      inputs: [
-        {
-          'inputName': 'textlist'
-        }
-      ]
-    },
-    barCharts: {
-      type: 'barCharts',
-      model: []
-    },
-    lineCharts: {
-      type: 'lineCharts',
-      model: []
-    },
-    brushZoomCharts: {
-      type: 'brushZoomCharts',
-      model: []
-    },
-    leafletMaps: {
-      type: 'leafletMaps',
-      model: []
-    },
-    pieCharts: {
-      type: 'pieCharts',
-      model: []
-    },
-    radialBarCharts: {
-      type: 'radialBarCharts',
-      model: []
-    },
-    sankeyCharts: {
-      type: 'sankeyCharts',
-      model: []
-    },
-    stackedBarCharts: {
-      type: 'stackedBarCharts',
-      model: []
-    }
-  };
+  openAppsInThisPage: any;
 
   constructor(
     private route: ActivatedRoute,
     private actionService: ActionService,
     private pageService: PageService,
     private cdr: ChangeDetectorRef,
-    private generateHashService: GenerateHashService
+    private generateHashService: GenerateHashService,
+    private openApps: OpenAppsModel
   ) {
     this.route.params.subscribe(params => console.log(params));
   }
@@ -129,80 +60,8 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
   ngAfterViewChecked() {
     this.cdr.detectChanges();
     if ( this.viewHashFromURL !==  this.route.snapshot.queryParams.view ) {
-      this.appTypes = {
-        imageViewer: {
-          type: 'imageViewers',
-          model: []
-        },
-        textViewer: {
-          type: 'textViewers',
-          model: []
-        },
-        searchViewer: {
-          type: 'searchViewers',
-          model: []
-        },
-        grapesJSViewer: {
-          type: 'grapesJSViewers',
-          model: []
-        },
-        synopsisViewer: {
-          type: 'synopsisViewers',
-          model: []
-        },
-        createResourceForm: {
-          type: 'createResourceForm',
-          model: []
-        },
-        dataChooser: {
-          type: 'dataChooser',
-          model: []
-        },
-        textlistViewers: {
-          type: 'textlistViewers',
-          model: [],
-          inputs: [
-            {
-              'inputName': 'textarray'
-            }
-          ]
-        },
-        barCharts: {
-        type: 'barCharts',
-          model: []
-        },
-        lineCharts: {
-          type: 'lineCharts',
-          model: []
-        },
-        brushZoomCharts: {
-          type: 'brushZoomCharts',
-          model: []
-        },
-        leafletMaps: {
-          type: 'leafletMaps',
-          model: []
-        },
-        pieCharts: {
-          type: 'pieCharts',
-          model: []
-        },
-        radialBarCharts: {
-          type: 'radialBarCharts',
-          model: []
-        },
-        sankeyCharts: {
-          type: 'sankeyCharts',
-          model: []
-        },
-        stackedBarCharts: {
-          type: 'stackedBarCharts',
-          model: []
-        }
-      };
+      this.openAppsInThisPage = this.openApps.openApps;
       this.page = {};
-      // console.log('Start der Arbeitsflaeche');
-      // Construct fake image Viewer:
       this.actionID = this.route.snapshot.queryParams.actionID;
       this.viewHashFromURL = this.route.snapshot.queryParams.view;
       if ( this.viewHashFromURL ) {
@@ -214,9 +73,8 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     this.cdr.detectChanges();
   }
   ngOnInit() {
+    this.openAppsInThisPage = this.openApps.openApps;
     this.page = {};
-    // console.log('Start der Arbeitsflaeche');
-    // Construct fake image Viewer:
     this.actionID = this.route.snapshot.queryParams.actionID;
     this.viewHashFromURL = this.route.snapshot.queryParams.view;
     if ( this.viewHashFromURL ) {
@@ -224,9 +82,6 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     } else {
       this.checkIfPageExistsForThisAction( this.actionID );
     }
-  }
-  openDataChooser() {
-    console.log('Open Data Chooser');
   }
   instantiateView( viewHash: string ) {
     console.log( 'ViewHash: ' + viewHash );
@@ -251,9 +106,8 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
           if ( this.action && this.action.hasPages[ 0 ] ) {
             this.updateAppsInView( this.action.hasPages[ 0 ] );
           } else {
-            console.log('No pages for this action yet');
             this.page.hash = this.generateHashService.generateHash();
-            console.log(this.page);
+            this.createEmptyPageInMongoDB();
             return undefined;
           }
         },
@@ -262,7 +116,9 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
           return undefined;
         });
   }
-
+  createEmptyPageInMongoDB() {
+    console.log('Hier weiter');
+  }
   deletePage() {
     console.log('Delete page');
   }
@@ -289,11 +145,11 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
           this.page = data;
           console.log(this.page);
           for ( const app in this.page ) {
-            for ( const appType in this.appTypes ) {
+            for ( const appType in this.openAppsInThisPage ) {
               this.initiateUpdateApp(
                 data[ app ],
-                this.appTypes[ appType ].type,
-                this.appTypes[ appType ].model
+                this.openAppsInThisPage[ appType ].type,
+                this.openAppsInThisPage[ appType ].model
               );
             }
           }
@@ -338,49 +194,48 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
       return null;
     }
   }
-
-  savePage() {
-    console.log('Save Page');
-    console.log('Action ID: ' + this.actionID);
-    if ( this.action.hasPages[0] ) {
-      console.log('update page for this action');
-      console.log(this.action);
-      console.log(this.page);
-      this.pageService.update( this.page )
-        .subscribe(
-          data => {
-            console.log(data);
-          },
-          error => {
-            console.log(error);
-          });
-    } else {
-      console.log('Save new Page');
-      console.log('1. Attach hash of this view to action model ' + this.page.hash);
-      this.action.hasPages[ 0 ] = this.page.hash;
-      console.log(this.page);
-      console.log(this.action);
-      // Update ActionService so that it contains hash of new view
-      this.actionService.update(this.action)
-        .subscribe(
+  updatePage() {
+    console.log('update page for this action');
+    console.log(this.action);
+    console.log(this.page);
+    this.pageService.update( this.page )
+      .subscribe(
         data => {
           console.log(data);
         },
         error => {
           console.log(error);
         });
-      // Save new view
-      this.pageService.create( this.page )
-        .subscribe(
-          data => {
-            console.log(data);
-          },
-          error => {
-            console.log(error);
-          });
+  }
+
+  savePage() {
+    if ( this.action.hasPages[0] ) {
+      this.updatePage();
+    } else {
+      this.createNewPage();
     }
   }
 
+  createNewPage() {
+    this.action.hasPages[ 0 ] = this.page.hash;
+    this.actionService.update(this.action)
+      .subscribe(
+        data => {
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+        });
+    // Save new view
+    this.pageService.create( this.page )
+      .subscribe(
+        data => {
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+        });
+  }
   addAnotherApp (
     appModel: any,
     generateHash: boolean
@@ -407,13 +262,13 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
       i,
       1);
     console.log(this.page);
-    console.log(this.appTypes);
+    console.log(this.openAppsInThisPage);
   }
 
-  updateAppTypesFromDataChooser( appTypesFromDataChooser: any ) {
-    console.log( this.appTypes );
-    console.log( appTypesFromDataChooser );
-    this.appTypes = appTypesFromDataChooser;
+  updateAppTypesFromDataChooser( openAppsInThisPageFromDataChooser: any ) {
+    console.log( this.openAppsInThisPage );
+    console.log( openAppsInThisPageFromDataChooser );
+    this.openAppsInThisPage = openAppsInThisPageFromDataChooser;
     console.log('updateAppTypesFromDataChooser');
   }
 
