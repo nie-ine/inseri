@@ -149,14 +149,14 @@ router.put('/:id/pwd', checkAuth, (req, res, next) => {
 
       Promise.all([p1, p2]).then((result) => {
         // Tests if new password is the same as the old one
-        if (result[0]) {
-          return res.status(401).json({
-            message: "Your new password is the same as the old one!"
+        if (!result[1]) {
+          return res.status(400).json({
+            message: "Your old password input is wrong!"
           })
           // Tests if the password input is wrong
-        } else if (!result[1]) {
-            return res.status(401).json({
-            message: "Your old password input is wrong!"
+        } else if (result[0]) {
+            return res.status(420).json({
+              message: "Your new password is the same as the old one!"
           })
           // In case new password is different and the password input is the same
         } else {

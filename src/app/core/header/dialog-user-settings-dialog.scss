@@ -1,7 +1,15 @@
-.setting-box {
-   padding: 25px; margin:10px;
+.setting {
+  padding: 25px; margin:10px;
 
-    .full-width {
-        width:100%;
-    }
+  .error {
+    margin: 10px 0 15px;
+    border: 1px solid darkred;
+    color: darkred;
+    background: rgb(255, 230, 230);
+    padding: 10px;
+  }
+
+  .full-width {
+    width:100%;
+  }
 }

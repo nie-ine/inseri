@@ -253,7 +253,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
         console.log(result);
         this.dialog.open(DialogUserSettingsDialog, {
           width: '600px',
-          height: '450px',
           data: {
             userId: userId,
             email: result.user.email,
@@ -286,6 +285,10 @@ export class DialogUserSettingsDialog implements OnInit {
     oldPwd: string;
     newPwd1: string;
     newPwd2: string;
+    errorPwd: boolean;
+    errorPwdMessage: string;
+    errorProfile: boolean;
+    errorProfileMessage: string;
 
     constructor(
       public dialogRef: MatDialogRef<DialogUserSettingsDialog>,
@@ -299,6 +302,16 @@ export class DialogUserSettingsDialog implements OnInit {
       this.firstName = this.data.firstName;
       this.lastName = this.data.lastName;
       this.newsletter = (this.data.newsletter == null) ? true : this.data.newsletter;
+      this.resetErrorPwd();
+      this.resetErrorProfile();
+    }
+
+    resetErrorPwd() {
+      this.errorPwd = false;
+    }
+
+    resetErrorProfile() {
+      this.errorProfile = false;
     }
 
     close() {
@@ -309,6 +322,14 @@ export class DialogUserSettingsDialog implements OnInit {
       this.authService.updateUser(this.userId, this.email, this.firstName, this.lastName, this.newsletter)
         .subscribe((result) => {
           this.dialogRef.close();
+        }, error => {
+          if (error.status === 409) {
+            this.errorProfile = true;
+            this.errorProfileMessage = 'Email ist schon vergeben!';
+          } else {
+            this.errorProfile = true;
+            this.errorProfileMessage = 'Fehler mit dem Server!';
+          }
         });
     }
 
@@ -316,6 +337,17 @@ export class DialogUserSettingsDialog implements OnInit {
       this.authService.updatePwd(this.userId, this.oldPwd, this.newPwd1)
         .subscribe(result => {
           this.dialogRef.close();
+        }, (error) => {
+          if (error.status === 400) {
+            this.errorPwd = true;
+            this.errorPwdMessage = 'Ungültiges Passwort!';
+          } else if (error.status === 420) {
+            this.errorPwd = true;
+            this.errorPwdMessage = 'Neues und altes Passwort sind identisch!';
+          } else {
+            this.errorPwd = true;
+            this.errorPwdMessage = 'Fehler mit dem Server!';
+          }
         });
     }
 
