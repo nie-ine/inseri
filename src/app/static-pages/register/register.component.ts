@@ -26,7 +26,7 @@ export class RegisterComponent {
     this.loading = true;
     this.authService.createUser(this.model.email, this.model.password, this.model.firstName, this.model.lastName)
       .subscribe( response => {
-        console.log(response);
+        // console.log(response);
         this.userCreated = true;
       });
 /*    this.userService.create(this.model)

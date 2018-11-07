@@ -47,6 +47,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
   panelsOpen = false;
   viewHashFromURL: string;
   openAppsInThisPage: any;
+  pageAsDemo = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -80,6 +81,9 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     this.openAppsInThisPage = this.openApps.openApps;
     this.page = {};
     this.actionID = this.route.snapshot.queryParams.actionID;
+    if( !this.actionID ) {
+      this.pageAsDemo = true;
+    }
     this.viewHashFromURL = this.route.snapshot.queryParams.view;
     if ( this.viewHashFromURL ) {
       this.instantiateView( this.viewHashFromURL );
@@ -222,7 +226,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     appModel[ length ].y = appFromViewModel.y;
     appModel[ length ].hash = appFromViewModel.hash;
     appModel[ length ].type = appType;
-    console.log(appModel);
+    appModel[ length ].initialized = true;
   }
 
   createTooltip() {
