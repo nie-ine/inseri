@@ -16,7 +16,23 @@ export class MongoPageService {
   ) {}
 
   createPage(): any {
-    console.log('Create page');
     return this.http.post(`${MongoPageService.API_BASE_URL}`, undefined);
   }
+
+  getPage( pageId: string ): any {
+    return this.http.get(`${MongoPageService.API_BASE_URL}/${pageId}`);
+  }
+
+  updatePage( page: any ): any {
+    console.log(page);
+    const openAppAsStringArray = [];
+    for ( const openApp in page.openApps) {
+      console.log( JSON.stringify(page.openApps[openApp]) );
+      openAppAsStringArray[ openAppAsStringArray.length ] = JSON.stringify(page.openApps[openApp]);
+    }
+    console.log( openAppAsStringArray );
+    page.openApps = openAppAsStringArray;
+    return this.http.put(`${MongoPageService.API_BASE_URL}`, page);
+  }
+
 }

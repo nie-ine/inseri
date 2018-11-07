@@ -133,6 +133,12 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
         console.log('Current action:');
         console.log(this.action);
         console.log('Next: Implement Update action in mongodb');
+        this.mongoActionService.updateAction( this.action )
+          .subscribe(response1 => {
+            console.log(response1);
+          }, error1 => {
+            console.log(error1);
+          });
       },
       error => {
         console.log('Page could not be saved;');
@@ -149,31 +155,42 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     console.log('y: ' + app.y);
     console.log('type: ' + app.type);
     console.log('hash: ' + app.hash );
-    if ( this.page[ app.hash ] === null ) {
-      this.page[ app.hash ] = [];
+    if ( this.page.openApps[ app.hash ] === null ) {
+      this.page.openApps[ app.hash ] = [];
     }
-    this.page[ app.hash ] = app;
+    this.page.openApps[ app.hash ] = app;
     console.log( this.page );
   }
 
-  // Next: go through code and generalise app saving mechanism
   updateAppsInView( viewHash: string ) {
-    // console.log('updateAppsInView');
-    // console.log('get views from Backend');
-    this.pageService.getById( viewHash )
+    console.log( '07112018 Hier weiter update apps in View' );
+    console.log(viewHash);
+    this.mongoPageService.getPage( viewHash )
       .subscribe(
         data => {
-          this.page = data;
+          this.page = ( data as any).page;
           console.log(this.page);
-          for ( const app in this.page ) {
-            for ( const appType in this.openAppsInThisPage ) {
-              this.initiateUpdateApp(
-                data[ app ],
-                this.openAppsInThisPage[ appType ].type,
-                this.openAppsInThisPage[ appType ].model
-              );
-            }
+          console.log(this.page.openApps);
+          const appHelperArray = [];
+          for ( let app of this.page.openApps ) {
+            console.log(JSON.parse(app));
+            appHelperArray[JSON.parse(app).hash] = JSON.parse(app);
           }
+          this.page.openApps = appHelperArray;
+          console.log(appHelperArray);
+          console.log(this.page);
+            console.log('Start updating page');
+            console.log(this.page);
+            for ( const app in this.page.openApps ) {
+              console.log(app);
+              for ( const appType in this.openAppsInThisPage ) {
+                this.initiateUpdateApp(
+                  this.page.openApps[ app ],
+                  this.openAppsInThisPage[ appType ].type,
+                  this.openAppsInThisPage[ appType ].model
+                );
+              }
+            }
         },
         error => {
           console.log(error);
@@ -217,38 +234,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
   }
   updatePage() {
     console.log('update page for this action');
-    console.log(this.action);
-    console.log(this.page);
-    this.pageService.update( this.page )
-      .subscribe(
-        data => {
-          console.log(data);
-        },
-        error => {
-          console.log(error);
-        });
-  }
-
-  savePage() {
-    if ( this.action && this.action.hasPages[0] ) {
-      this.updatePage();
-    } else {
-      this.createNewPage();
-    }
-  }
-
-  createNewPage() {
-    this.action.hasPages[ 0 ] = this.page.hash;
-    this.actionService.update(this.action)
-      .subscribe(
-        data => {
-          console.log(data);
-        },
-        error => {
-          console.log(error);
-        });
-    // Save new view
-    this.pageService.create( this.page )
+    this.mongoPageService.updatePage( this.page )
       .subscribe(
         data => {
           console.log(data);
@@ -277,8 +263,8 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
   ) {
     console.log(appModel);
     console.log(this.page);
-    console.log(this.page[appModel[ i ].hash]);
-    delete this.page[appModel[ i ].hash];
+    console.log(this.page.openApps[appModel[ i ].hash]);
+    delete this.page.openApps[appModel[ i ].hash];
     appModel.splice(
       i,
       1);
@@ -293,18 +279,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     console.log('updateAppTypesFromDataChooser');
   }
 
-  returnTextListArray( appInput: any ) {
-    if ( appInput.inputs ) {
-      return appInput.inputs[0].array;
-    }
-  }
-
   expandPanels() {
     this.panelsOpen = !this.panelsOpen;
-  }
-
-  initialiseBarchart(initialised: boolean) {
-    console.log(initialised);
-    initialised = true;
   }
 }
