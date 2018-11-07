@@ -31,6 +31,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import {HowToProgramWithNieOSModule} from '../developer-notes/how-to-program-with-nie-os/how-to-program-with-nie-os.module';
 import {MyMainComponentComponent} from '../developer-notes/mockup-tutorial/my-main-component/my-main-component.component';
 import {MockupTutorialModule} from '../developer-notes/mockup-tutorial/mockup-tutorial.module';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { PizzaPartyComponent } from './header/header.component';
 
 @NgModule({
   imports: [
@@ -51,6 +53,7 @@ import {MockupTutorialModule} from '../developer-notes/mockup-tutorial/mockup-tu
     MatTooltipModule,
     HowToProgramWithNieOSModule,
     MockupTutorialModule,
+    MatSnackBarModule,
     RouterModule.forRoot([
       { path: '**', component: PageNotFoundComponent }
       ])
@@ -62,10 +65,12 @@ import {MockupTutorialModule} from '../developer-notes/mockup-tutorial/mockup-tu
     PageNotFoundComponent,
     NavigationComponent,
     DialogUserSettingsDialog,
-    InitPopupComponent],
+    InitPopupComponent,
+    PizzaPartyComponent],
   entryComponents: [
     DialogUserSettingsDialog,
-    InitPopupComponent
+    InitPopupComponent,
+    PizzaPartyComponent
   ],
   providers: [
     KnoraRequestService,
