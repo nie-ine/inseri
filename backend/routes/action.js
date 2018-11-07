@@ -7,6 +7,24 @@ const checkAuth = require("../middleware/check-auth");
 
 const router = express.Router();
 
+router.put(
+  '',
+  checkAuth,
+  (req, res, next) => {
+    console.log( 'Action to be updated:' );
+    console.log(req.body);
+  Action.findOneAndUpdate({_id: req.body._id},
+      {
+        hasPages: req.body.hasPages
+      })
+      .then((result) => {
+        console.log( result );
+        res.status(201).json({
+          message: 'Action changed successfully'
+        });
+      });
+  });
+
 router.post(
   '',
   checkAuth,

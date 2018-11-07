@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {Action} from './action.model';
+import { Action } from './action.model';
 import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
@@ -26,6 +26,10 @@ export class MongoActionService {
 
   deleteAction(actionId: string): Observable<any> {
     return this.http.delete(`${MongoActionService.API_BASE_URL}/${actionId}`);
+  }
+
+  updateAction( action: Action ): Observable<any> {
+    return this.http.put(`${MongoActionService.API_BASE_URL}`, action);
   }
 
 }
