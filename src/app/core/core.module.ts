@@ -25,7 +25,7 @@ import { ArithmeticModule } from 'nie-ine';
 import { AuthenticationService } from '../shared/nieOS/fake-backend/auth/authentication.service';
 import { PageService } from '../nie-OS/apps/page/page.service';
 import { MatDialogModule } from '@angular/material';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InitPopupComponent } from './init-popup/init-popup.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {HowToProgramWithNieOSModule} from '../developer-notes/how-to-program-with-nie-os/how-to-program-with-nie-os.module';
@@ -33,6 +33,7 @@ import {MyMainComponentComponent} from '../developer-notes/mockup-tutorial/my-ma
 import {MockupTutorialModule} from '../developer-notes/mockup-tutorial/mockup-tutorial.module';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { PizzaPartyComponent } from './header/header.component';
+import { BrowserModule } from "@angular/platform-browser";
 
 @NgModule({
   imports: [
@@ -50,6 +51,8 @@ import { PizzaPartyComponent } from './header/header.component';
     CreateResourceViewModule,
     EditResourceViewModule,
     FormsModule,
+    ReactiveFormsModule,
+    BrowserModule,
     MatTooltipModule,
     HowToProgramWithNieOSModule,
     MockupTutorialModule,
