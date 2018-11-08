@@ -5,7 +5,7 @@ import { ActionService } from '../../shared/nieOS/fake-backend/action/action.ser
 import { AlertService} from '../../shared/nieOS/fake-backend/auth/altert.service';
 import { MongoActionService } from '../../shared/nieOS/mongodb/action/action.service';
 import { Action } from '../../shared/nieOS/mongodb/action/action.model';
-import { map } from'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +13,6 @@ import { map } from'rxjs/operators';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
   user: any[] = JSON.parse(localStorage.getItem('currentUser')) || [];
   userFirstName: string;
   actions: Action[] = [];
@@ -113,7 +112,7 @@ export class DialogOverviewExampleDialog {
     deleted: false,
     type: undefined,
     hasPageSet: undefined,
-    hasViews: undefined
+    hasPages: undefined
   };
   loading = false;
   chooseNewAction: string;
