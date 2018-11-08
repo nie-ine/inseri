@@ -6,7 +6,7 @@ import {PageService} from '../../nie-OS/apps/page/page.service';
 import {AuthService} from '../../shared/nieOS/mongodb/auth/auth.service';
 import {Subscription} from 'rxjs';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
-import {NgForm} from '@angular/forms';
+import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
 import {InitService} from '../init-popup/service/init.service';
 import {InitPopupComponent} from '../init-popup/init-popup.component';
 
@@ -296,6 +296,8 @@ export class DialogUserSettingsDialog implements OnInit {
     errorPwdMessage: string;
     errorProfile: boolean;
     errorProfileMessage: string;
+    profileForm: FormGroup;
+    pwdForm: FormGroup;
 
     constructor(
       public dialogRef: MatDialogRef<DialogUserSettingsDialog>,
@@ -305,6 +307,18 @@ export class DialogUserSettingsDialog implements OnInit {
     ) {}
 
     ngOnInit() {
+      this.profileForm = new FormGroup({
+        firstname: new FormControl('', [Validators.required, Validators.maxLength(25)]),
+        lastname: new FormControl('', [Validators.required, Validators.maxLength(25)]),
+        email: new FormControl('', [Validators.required, Validators.pattern(/^.+@.+\.\w+$/)])
+      });
+
+      this.pwdForm = new FormGroup( {
+        oldpwd: new FormControl('', [Validators.required]),
+        newpwd1: new FormControl('', [Validators.required, Validators.minLength(4)]),
+        newpwd2: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      });
+
       this.userId = this.data.userId;
       this.email = this.data.email;
       this.firstName = this.data.firstName;
@@ -319,6 +333,7 @@ export class DialogUserSettingsDialog implements OnInit {
     }
 
     resetErrorProfile() {
+      console.log("key pressed");
       this.errorProfile = false;
     }
 
