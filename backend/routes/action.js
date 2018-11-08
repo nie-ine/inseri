@@ -13,16 +13,22 @@ router.put(
   (req, res, next) => {
     console.log( 'Action to be updated:' );
     console.log(req.body);
-  Action.findOneAndUpdate({_id: req.body._id},
-      {
-        hasPages: req.body.hasPages
+    Action.findOneAndUpdate({_id: req.body._id}, {
+        hasPages: req.body.hasPages,
+        hasPageSet: req.body.hasPageSet
       })
       .then((result) => {
         console.log( result );
         res.status(201).json({
-          message: 'Action changed successfully'
+          message: 'Action changed successfully',
+          action: result
         });
-      });
+      })
+    .catch(error => {
+      res.status(404).json({
+        message: 'Action could not be changed'
+      })
+    })
   });
 
 router.post(

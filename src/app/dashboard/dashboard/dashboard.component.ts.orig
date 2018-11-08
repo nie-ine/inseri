@@ -5,8 +5,12 @@ import { ActionService } from '../../shared/nieOS/fake-backend/action/action.ser
 import { AlertService} from '../../shared/nieOS/fake-backend/auth/altert.service';
 import { MongoActionService } from '../../shared/nieOS/mongodb/action/action.service';
 import { Action } from '../../shared/nieOS/mongodb/action/action.model';
-import { map } from 'rxjs/operators';
+<<<<<<< HEAD
+import { map } from'rxjs/operators';
 import {MongoContactService} from '../../shared/nieOS/mongodb/contact/contact.service';
+=======
+import { map } from 'rxjs/operators';
+>>>>>>> 59d9dd354efc360de28076320968e160de7c3028
 
 @Component({
   selector: 'app-dashboard',

@@ -40,7 +40,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     'knora-api:stillImageFileValueHasIIIFBaseUrl' : 'https://www.e-manuscripta.ch/zuz/i3f/v20'
   };
   projectIRI: string = 'http://rdfh.ch/projects/0001';
-  actionID: number;
+  actionID: string;
   length: number;
   page: any;
   action: any;
@@ -77,6 +77,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     }
     this.cdr.detectChanges();
   }
+
   ngOnInit() {
     this.openAppsInThisPage = this.openApps.openApps;
     this.page = {};
@@ -91,10 +92,11 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
       this.checkIfPageExistsForThisAction( this.actionID );
     }
   }
+
   instantiateView( viewHash: string ) {
     console.log( 'ViewHash: ' + viewHash );
     this.updateAppsInView( viewHash );
-    this.actionService.getById( this.actionID )
+    this.mongoActionService.getAction(this.actionID)
       .subscribe(
         data => {
           this.action = data;
@@ -104,7 +106,8 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
           return undefined;
         });
   }
-  checkIfPageExistsForThisAction(actionID: number ) {
+
+  checkIfPageExistsForThisAction(actionID: string) {
     this.mongoActionService.getAction( actionID )
       .subscribe(
         data => {
