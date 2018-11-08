@@ -21,7 +21,7 @@ router.put(
         console.log( result );
         res.status(201).json({
           message: 'Action changed successfully',
-          action: result
+          action: req.body
         });
       })
     .catch(error => {

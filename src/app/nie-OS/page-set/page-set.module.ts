@@ -17,6 +17,7 @@ import {ActionService} from '../../shared/nieOS/fake-backend/action/action.servi
 import {UpdatePageSetComponent} from './update-page-set/update-page-set.component';
 import {CreatePageSetAndLinkToActionService} from './services/createPageSetAndLinkToAction.service';
 import {CreatePageAndLinkToAction} from './services/createPageAndLinkToAction.service';
+import {MatDividerModule} from '@angular/material/divider';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import {CreatePageAndLinkToAction} from './services/createPageAndLinkToAction.se
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
+    MatDividerModule,
     RouterModule.forRoot([
       {path: 'page-set', component: PageSetLandingPageComponent}
     ])

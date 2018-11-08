@@ -11,13 +11,26 @@ router.post(
   '',
   checkAuth,
   (req, res, next) => {
-    const page = new Page({
-    });
-    page.save();
-    res.status(201).json({
-      message: 'Page added successfully',
-      page: page
-    });
+    if( req.body === undefined ) {
+      const page = new Page({
+      });
+      page.save();
+      res.status(201).json({
+        message: 'Page added successfully',
+        page: page
+      });
+    } else {
+      console.log( req.body );
+      const page = new Page({
+        title: req.body.title,
+        description: req.body.description
+      });
+      page.save();
+      res.status(201).json({
+        message: 'Page added successfully',
+        page: page
+      });
+    }
   });
 
 router.get(

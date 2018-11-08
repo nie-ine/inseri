@@ -11,6 +11,8 @@ import {MongoActionService} from '../../../shared/nieOS/mongodb/action/action.se
 import { PageSetModel } from '../model/page-set.model';
 import { PageSetService } from '../model/page-set.service';
 import { Action } from '../../../shared/nieOS/mongodb/action/action.model';
+import {MongoPageService} from '../../../shared/nieOS/mongodb/page/page.service';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-page-set-landing-page',
@@ -18,6 +20,7 @@ import { Action } from '../../../shared/nieOS/mongodb/action/action.model';
   styleUrls: ['./page-set-landing-page.component.scss']
 })
 export class PageSetLandingPageComponent implements OnInit {
+  private static API_BASE_URL = 'http://localhost:3000/api/page';
   animal: string;
   name: string;
   actionID: string;
@@ -35,7 +38,9 @@ export class PageSetLandingPageComponent implements OnInit {
     private pageSetService: PageSetService,
     private createPageSetAndLinkToActionService: CreatePageSetAndLinkToActionService,
     private pageService: PageService,
-    private mongoActionService: MongoActionService
+    private mongoActionService: MongoActionService,
+    private mongoPageService: MongoPageService,
+    private http: HttpClient
   ) { }
 
   ngOnInit() {
@@ -54,19 +59,8 @@ export class PageSetLandingPageComponent implements OnInit {
         if (this.action && this.action.hasPageSet ) {
           console.log('Instantiate Page Set');
           this.pagesOfThisPageSet = [];
-          // for ( const pageHash of this.action.hasPages ) {
-          //   this.pageService.getById( pageHash )
-          //     .subscribe(
-          //       page => {
-          //         this.pagesOfThisPageSet[
-          //           this.pagesOfThisPageSet.length
-          //           ] = page;
-          //       },
-          //       errorGetPage => {
-          //         console.log(errorGetPage);
-          //       }
-          //     );
-          // }
+          console.log(this.action);
+          this.updatePagesOfThisPageSet( this.action );
           this.pageSetService.getPageSet(this.action.hasPageSet)
             .subscribe(
               pageSet => {
@@ -84,6 +78,26 @@ export class PageSetLandingPageComponent implements OnInit {
         console.log(error);
         this.templatePageSet();
       });
+  }
+
+  updatePagesOfThisPageSet(action: any) {
+    const help = []
+    for ( const id of action.hasPages ) {
+      this.mongoPageService.getPage( id )
+        .subscribe(
+          response => {
+            // console.log(response);
+            help[
+              help.length
+              ] = (response as any).page;
+          },
+          errorGetPage => {
+            console.log(errorGetPage);
+          }
+        );
+    }
+    this.pagesOfThisPageSet = help;
+    console.log( this.pagesOfThisPageSet );
   }
 
   initializeTemplatePageSet() {
@@ -147,12 +161,37 @@ export class PageSetLandingPageComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
-      // this.createPageAndLinkToAction
-      //   .createPageAndLinkToAction(
-      //     this.route.snapshot.queryParams.actionID,
-      //     result
-      //   );
+      this.createPageAndUpdateAction( result, this.route.snapshot.queryParams.actionID );
     });
+  }
+
+  createPageAndUpdateAction( page: any, actionId: string ) {
+    let action: any = {};
+    let pageInResponse: any = {};
+    console.log('Create Page and Link to Action');
+    console.log( 'Page:', page, 'ActionId:', actionId );
+    this.mongoActionService.getAction(actionId)
+      .subscribe(response => {
+        console.log(response);
+        action = (response as any).action;
+        this.http.post(`${PageSetLandingPageComponent.API_BASE_URL}`, page)
+          .subscribe(response1 => {
+            console.log(response1);
+            pageInResponse = (response1 as any).page;
+            action.hasPages.push( pageInResponse._id );
+            this.mongoActionService.updateAction( action )
+              .subscribe(response3 => {
+                console.log(response3);
+                this.updatePagesOfThisPageSet(response3.action);
+              }, error3 => {
+                console.log(error3);
+              });
+          }, error => {
+            console.log(error);
+          });
+      }, error => {
+        console.log( error );
+      });
   }
 
   openUpdatePageSetDialog() {
@@ -178,7 +217,7 @@ export class PageSetLandingPageComponent implements OnInit {
 
   generateURL(page: any) {
     if ( page ) {
-      return 'page?actionID=' + this.actionID + '&page=' + page.hash;
+      return 'page?actionID=' + this.actionID + '&page=' + page._id;
     }
   }
 
