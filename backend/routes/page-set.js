@@ -8,36 +8,65 @@ const checkAuth = require("../middleware/check-auth");
 const router = express.Router();
 
 router.post('', (req, res, next) => {
-  const pageSet = new PageSet({
+  const newPageSet = new PageSet({
     title: req.body.title,
     description: req.body.description,
     linkToImage: req.body.linkToImage,
-    hasPages: req.body.hash,
+    hasPages: req.body.hasPages,
     hash: req.body.hash
   });
-  pageSet.save();
-
-  res.status(201).json({
-    message: 'PageSet added successfully',
+  newPageSet.save(function(err,pageSet){
+    const pageSetID = pageSet._id;
+    PageSet.findById(pageSetID)
+      .then(result => {
+        res.status(201).json({
+          message: 'PageSet added successfully',
+          pageset: result
+        });
+      })
+      .catch(error => {
+        console.log(error);
+        res.status(500).json({
+          message: 'PageSet couldn\'t be saved'
+        });
+      });
   });
 });
 
-router.get('', (req, res, next) => {
-  res.status(200).json({
-      message: 'PageSet GET',
-  });
-});
-
-router.get('/:hash', (req, res, next) => {
-  res.status(200).json({
-    message: 'PageSet GET ' + req.params.hash,
-  });
+router.get('/:id', (req, res, next) => {
+  PageSet.findById(req.params.id)
+    .then(pageSet => {
+      console.log(pageSet);
+      res.status(200).json({
+        message: 'pageset returned in response',
+        pageset: pageSet
+      });
+    });
 });
 
 router.put('/:id', (req, res, next) => {
-  res.status(200).json({
-    message: 'PageSet PUT ' + req.params.id,
-  });
+  console.log(req.params.id);
+  console.log(req.body);
+  PageSet.findOneAndUpdate({_id: req.params.id},
+    {
+      title: req.body.title,
+      description: req.body.description,
+      linkToImage: req.body.linkToImage,
+      hasPages: req.body.hasPages
+    })
+    .then(editedPageSet => {
+      console.log(editedPageSet);
+      res.status(200).json({
+        message: 'PageSet PUT',
+        pageset: req.body
+      });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'PageSet couldn\'t be changed'
+      });
+    });
+
 });
 
 router.delete('/:id', (req, res, next) => {
