@@ -6,6 +6,7 @@ import { AlertService} from '../../shared/nieOS/fake-backend/auth/altert.service
 import { MongoActionService } from '../../shared/nieOS/mongodb/action/action.service';
 import { Action } from '../../shared/nieOS/mongodb/action/action.model';
 import { map } from'rxjs/operators';
+import {MongoContactService} from '../../shared/nieOS/mongodb/contact/contact.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,13 +18,16 @@ export class DashboardComponent implements OnInit {
   user: any[] = JSON.parse(localStorage.getItem('currentUser')) || [];
   userFirstName: string;
   actions: Action[] = [];
+  message: string;
+  successfullySendMessage = false;
 
   constructor(
     public dialog: MatDialog,
     private router: Router,
     private actionService: ActionService,
     private alertService: AlertService,
-    private mongoActionService: MongoActionService
+    private mongoActionService: MongoActionService,
+    private mongoContactService: MongoContactService
   ) {
 
     router.events.subscribe(s => {
@@ -77,17 +81,6 @@ export class DashboardComponent implements OnInit {
     console.log('Delete Action ' + action.id);
     action.deleted = true;
     this.mongoActionService.deleteAction( action.id).subscribe(() => this.updateActions());
-    // this.actionService.delete(action.id)
-    //   .subscribe(
-    //     data => {
-    //       console.log(data);
-    //       this.alertService.success('Deletion successful', true);
-    //       // this.router.navigate(['/home']);
-    //     },
-    //     error => {
-    //       console.log(error);
-    //       this.alertService.error(error);
-    //     });
   }
 
   markAsDone( action: any ) {
@@ -96,6 +89,17 @@ export class DashboardComponent implements OnInit {
 
   continueAction( action: any ) {
     this.router.navigate( [ action.type ], { queryParams: { 'actionID': action.id } } );
+  }
+  sendMessage() {
+    console.log('Send Message');
+    console.log(this.message);
+    this.mongoContactService.sendMessage( this.message )
+      .subscribe( response => {
+        console.log(response);
+        this.successfullySendMessage = true;
+      }, error1 => {
+        console.log(error1);
+      });
   }
 
 }
@@ -135,26 +139,5 @@ export class DialogOverviewExampleDialog {
       .subscribe((result) => {
         this.dialogRef.close(result);
       });
-    // this.actionService.create(this.model)
-    //   .subscribe(
-    //     data => {
-    //       console.log('Action created');
-    //       const actions = JSON.parse(localStorage.getItem('actions')) || [];
-    //       console.log(actions);
-    //       this.onNoClick();
-    //       console.log(this.model.type.search('salsah'));
-    //       if ( this.model.type.search('salsah') !== -1 ) {
-    //         console.log('Navigate to Salsah');
-    //         window.open('http://salsah2.nie-ine.ch/', '_blank');
-    //       } else {
-    //         const params = new HttpParams().set('actionId', actions.lengt);
-    //         params.append('actionId', actions.length);
-    //         this.router.navigate( [ this.model.type ], { queryParams: { 'actionID': actions.length } } );
-    //       }
-    //     },
-    //     error => {
-    //       console.log(error);
-    //       this.loading = false;
-    //     });
   }
 }
