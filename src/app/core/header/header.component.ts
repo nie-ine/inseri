@@ -5,7 +5,7 @@ import {ActionService} from '../../shared/nieOS/fake-backend/action/action.servi
 import {PageService} from '../../nie-OS/apps/page/page.service';
 import {AuthService} from '../../shared/nieOS/mongodb/auth/auth.service';
 import {Subscription} from 'rxjs';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
 import {NgForm} from '@angular/forms';
 import {InitService} from '../init-popup/service/init.service';
 import {InitPopupComponent} from '../init-popup/init-popup.component';
@@ -38,6 +38,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
     private authenticationService: AuthenticationService,
     private authService: AuthService,
     private cdr: ChangeDetectorRef,
+    public snackBar: MatSnackBar
   ) {
       router.events.subscribe(( route: any ) => {
         this.updateCurrentRoute( route );
@@ -46,6 +47,12 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.hashOfThisView = params.view;
       this.actionID = params.actionID;
       this.generateNavigation(params.actionID);
+    });
+  }
+
+  openSnackBar() {
+    this.snackBar.openFromComponent(PizzaPartyComponent, {
+      duration: 3000,
     });
   }
 
@@ -242,7 +249,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.authService.logout();
       this.router.navigate(["/"]);
     } else {
-        this.router.navigate(['home'], { fragment: 'login' });
+        this.router.navigate(['/home'], { fragment: 'login' });
     }
   }
 
@@ -293,7 +300,8 @@ export class DialogUserSettingsDialog implements OnInit {
     constructor(
       public dialogRef: MatDialogRef<DialogUserSettingsDialog>,
       @Inject(MAT_DIALOG_DATA) public data: any,
-      private authService: AuthService
+      private authService: AuthService,
+      public snackBar: MatSnackBar
     ) {}
 
     ngOnInit() {
@@ -352,3 +360,14 @@ export class DialogUserSettingsDialog implements OnInit {
     }
 
 }
+
+@Component({
+  selector: 'snack-bar-component-example-snack',
+  templateUrl: 'snack-bar-component-example-snack.html',
+  styles: [`
+    .example-pizza-party {
+      color: hotpink;
+    }
+  `],
+})
+export class PizzaPartyComponent {}
