@@ -21,13 +21,16 @@
           <a href="home#funktionen" >{{ generateFunctionsHomeLink() }}</a>
         </li>
         <li class="navbar-list">
-          <a>Sprache</a>
+          <a (click)="openSnackBar()" >Sprache</a>
         </li>
         <li class="navbar-list" *ngIf="isAuthenticated() && isOnDashboard()">
           <a (click)="openSettingsDialog()">Einstellungen</a>
         </li>
-        <li class="navbar-list">
+        <li class="navbar-list" *ngIf="isAuthenticated()">
           <a (click)="loginOrLogout()">{{ loginOrLogoutButton() }}</a>
+        </li>
+        <li class="navbar-list" *ngIf="!isAuthenticated()">
+          <a href="home#login">Login</a>
         </li>
       </ul>
     </div>
