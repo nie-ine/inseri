@@ -6,9 +6,9 @@ import {
   MAT_DIALOG_DATA,
   MatFormField
 } from '@angular/material';
-import { KnoraV1RequestService } from '../../../../shared/knora-v1-request.service';
+import { KnoraV1RequestService } from '../../../../shared/knora/knora-v1-request.service';
 import { environment } from '../../../../../environments/environment';
-import { SendGravSearchQueryService } from '../../../../shared/gravsearch/sendGravSearchQuery.service';
+import { SendGravSearchQueryService } from '../../../../shared/knora/gravsearch/sendGravSearchQuery.service';
 import {ApiServiceError, Project, ProjectsService, User} from '@knora/core';
 
 @Component({

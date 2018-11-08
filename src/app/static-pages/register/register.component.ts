@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AlertService} from '../../shared/altert.service';
-import { UserService } from '../../shared/user.service';
+import { AlertService} from '../../shared/nieOS/fake-backend/auth/altert.service';
+import { UserService } from '../../shared/nieOS/fake-backend/user/user.service';
+import { AuthService } from '../../shared/nieOS/mongodb/auth/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -12,15 +13,29 @@ export class RegisterComponent {
 
   model: any = {};
   loading = false;
+  userCreated = false;
+  validEmail = false;
 
   constructor(
     private router: Router,
     private userService: UserService,
-    private alertService: AlertService) { }
+    private alertService: AlertService,
+    public authService: AuthService
+  ) { }
 
   register() {
     this.loading = true;
-    this.userService.create(this.model)
+    this.authService.createUser(
+      this.model.username,
+      this.model.password,
+      this.model.firstName,
+      this.model.lastName
+    )
+      .subscribe( response => {
+      console.log(response);
+      this.userCreated = true;
+    });
+/*    this.userService.create(this.model)
       .subscribe(
         data => {
           console.log(data);
@@ -31,8 +46,7 @@ export class RegisterComponent {
           console.log(error);
           this.alertService.error(error);
           this.loading = false;
-        });
+        });*/
   }
-
 
 }

@@ -1,6 +1,6 @@
-import { View } from '../view/view';
+import { Page } from '../page/page';
 
-export class ImageViewer extends View {
+export class ImageViewer extends Page {
   style: any; // example: "height: 100%;"
   image: any; // exmample: [image]="image"
   width: number;

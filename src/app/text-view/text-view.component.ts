@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {KnoraRequestService} from '../shared/knora-request.service';
-import {SparqlRequestService} from '../shared/sparql-request.service';
+import {KnoraRequestService} from '../shared/knora/knora-request.service';
+import {SparqlRequestService} from '../shared/sparql/sparql-request.service';
 import {ResultToTextMapperService} from './result-to-text-mapper.service';
 import {text} from './test-data';
 
