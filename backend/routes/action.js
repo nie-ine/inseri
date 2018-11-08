@@ -42,10 +42,12 @@ router.post(
     creator: req.userData.userId
   });
   console.log(action);
-  action.save();
-  res.status(201).json({
-    message: 'Action added successfully'
-  });
+  action.save().then((result) => {
+    res.status(201).json({
+      message: 'Action added successfully',
+      action: result
+    });
+  })
 });
 
 router.get(
