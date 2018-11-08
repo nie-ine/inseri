@@ -73,7 +73,13 @@ export class DashboardComponent implements OnInit {
       width: '700px',
       data: {}
     });
-    dialogRef.afterClosed().subscribe(() => this.updateActions());
+    dialogRef.afterClosed().subscribe((result) => {
+      this.updateActions();
+      console.log(result, result[0]);
+      if (result[0] === 'pageSet') {
+        this.router.navigate(['/page-set'], { queryParams: { actionID: result[1]}});
+      }
+    });
   }
 
   deleteAction(action: any) {
@@ -133,10 +139,14 @@ export class DialogOverviewExampleDialog {
   }
 
   register() {
+    let pageSet: [string, string];
     this.loading = true;
     this.mongoActionService.createAction(this.action)
       .subscribe((result) => {
-        this.dialogRef.close(result);
+        if (this.action.type === 'page-set') {
+          pageSet = ['pageSet', result.action._id];
+        }
+        this.dialogRef.close(pageSet);
       });
   }
 }
