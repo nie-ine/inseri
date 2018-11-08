@@ -6,7 +6,7 @@ import { MaterialModule } from '../../../material.module';
 import { TagChipsModule } from '../../../tag-chips/tag-chips.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
-import { KnoraV1RequestService } from '../../../shared/knora-v1-request.service';
+import { KnoraV1RequestService } from '../../../shared/knora/knora-v1-request.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('MetadataViewComponent', () => {

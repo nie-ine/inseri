@@ -1,14 +1,14 @@
 <ul>
-  <li *ngIf="editors">Editore: <ul>
+  <li *ngIf="editors">Editor: <ul>
     <li *ngFor="let editor of editors">{{editor.name}}, {{editor.firstname}}</li>
-    </ul>
+  </ul>
   </li>
-  <li *ngIf="title">Titolo: {{title}}</li>
-  <li *ngIf="authors">Autore: <ul>
+  <li *ngIf="title">Title: {{title}}</li>
+  <li *ngIf="authors">Author: <ul>
     <li *ngFor="let author of authors">
       {{author.name}}, {{author.firstname}}
     </li>
   </ul>
-  <li *ngIf="place">Luogo: {{place.label}}</li>
-  <li *ngIf="date">Data: {{date}}</li>
+  <li *ngIf="place">Place: {{place.label}}</li>
+  <li *ngIf="date">Date: {{date}}</li>
 </ul>

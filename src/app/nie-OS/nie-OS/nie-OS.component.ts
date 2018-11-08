@@ -13,9 +13,9 @@ import {BrowserModule} from '@angular/platform-browser';
 import {Popup} from './popup';
 import 'rxjs/add/operator/map';
 import { ActivatedRoute } from '@angular/router';
-import { ActionService } from '../../shared/action.service';
-import { ViewService } from '../apps/view/view.service';
-import {GenerateHashService} from "../../shared/generateHash.service";
+import { ActionService } from '../../shared/nieOS/fake-backend/action/action.service';
+import { PageService } from '../apps/page/page.service';
+import {GenerateHashService} from "../../shared/nieOS/other/generateHash.service";
 
 declare var grapesjs: any; // Important!
 
@@ -40,7 +40,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
   projectIRI: string = 'http://rdfh.ch/projects/0001';
   actionID: number;
   length: number;
-  view: any;
+  page: any;
   action: any;
   panelsOpen = false;
   viewHashFromURL: string;
@@ -123,13 +123,12 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
   constructor(
     private route: ActivatedRoute,
     private actionService: ActionService,
-    private viewService: ViewService,
+    private pageService: PageService,
     private cdr: ChangeDetectorRef,
     private generateHashService: GenerateHashService
   ) {
     this.route.params.subscribe(params => console.log(params));
   }
-
 
   ngAfterViewChecked() {
     this.cdr.detectChanges();
@@ -209,7 +208,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
           model: []
         }
       };
-      this.view = {};
+      this.page = {};
       // console.log('Start der Arbeitsflaeche');
       // Construct fake image Viewer:
       this.actionID = this.route.snapshot.queryParams.actionID;
@@ -217,13 +216,13 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
       if ( this.viewHashFromURL ) {
         this.instantiateView( this.viewHashFromURL );
       } else {
-        this.checkIfViewExistsForThisAction( this.actionID );
+        this.checkIfPageExistsForThisAction( this.actionID );
       }
     }
     this.cdr.detectChanges();
   }
   ngOnInit() {
-    this.view = {};
+    this.page = {};
     // console.log('Start der Arbeitsflaeche');
     // Construct fake image Viewer:
     this.actionID = this.route.snapshot.queryParams.actionID;
@@ -231,7 +230,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     if ( this.viewHashFromURL ) {
       this.instantiateView( this.viewHashFromURL );
     } else {
-      this.checkIfViewExistsForThisAction( this.actionID );
+      this.checkIfPageExistsForThisAction( this.actionID );
     }
   }
   openDataChooser() {
@@ -250,7 +249,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
           return undefined;
         });
   }
-  checkIfViewExistsForThisAction( actionID: number ) {
+  checkIfPageExistsForThisAction(actionID: number ) {
     this.actionService.getById( actionID )
       .subscribe(
         data => {
@@ -260,9 +259,9 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
           if ( this.action && this.action.hasViews[ 0 ] ) {
             this.updateAppsInView( this.action.hasViews[ 0 ] );
           } else {
-            console.log('No views for this action yet');
-            this.view.hash = this.generateHashService.generateHash();
-            console.log(this.view);
+            console.log('No pages for this action yet');
+            this.page.hash = this.generateHashService.generateHash();
+            console.log(this.page);
             return undefined;
           }
         },
@@ -272,8 +271,8 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
         });
   }
 
-  deleteView() {
-    console.log('Delete View');
+  deletePage() {
+    console.log('Delete page');
   }
 
   updateAppCoordinates(app: any) {
@@ -281,24 +280,24 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     console.log('y: ' + app.y);
     console.log('type: ' + app.type);
     console.log('hash: ' + app.hash );
-    if( this.view[ app.hash ] === null ) {
-      this.view[ app.hash ] = [];
+    if ( this.page[ app.hash ] === null ) {
+      this.page[ app.hash ] = [];
     }
-    this.view[ app.hash ] = app;
-    console.log( this.view );
+    this.page[ app.hash ] = app;
+    console.log( this.page );
   }
 
   // Next: go through code and generalise app saving mechanism
   updateAppsInView( viewHash: string ) {
     // console.log('updateAppsInView');
     // console.log('get views from Backend');
-    this.viewService.getById( viewHash )
+    this.pageService.getById( viewHash )
       .subscribe(
         data => {
-          this.view = data;
-          console.log(this.view);
-          for ( const app in this.view ) {
-            for( const appType in this.appTypes ) {
+          this.page = data;
+          console.log(this.page);
+          for ( const app in this.page ) {
+            for ( const appType in this.appTypes ) {
               this.initiateUpdateApp(
                 data[ app ],
                 this.appTypes[ appType ].type,
@@ -311,6 +310,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
           console.log(error);
         });
   }
+
   initiateUpdateApp(
     appFromViewModel: any,
     appType: string,
@@ -324,6 +324,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
       );
     }
   }
+
   updateApp(
     appType: string,
     appModel: any,
@@ -337,6 +338,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     appModel[ length ].type = appType;
     console.log(appModel);
   }
+
   createTooltip() {
     if ( this.action ) {
       return 'Aktion: ' + this.action.title + ', Beschreibung: ' + this.action.description;
@@ -345,14 +347,14 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  saveView() {
-    console.log('Save View');
+  savePage() {
+    console.log('Save Page');
     console.log('Action ID: ' + this.actionID);
     if ( this.action.hasViews[0] ) {
-      console.log('update view for this action');
+      console.log('update page for this action');
       console.log(this.action);
-      console.log(this.view);
-      this.viewService.update( this.view )
+      console.log(this.page);
+      this.pageService.update( this.page )
         .subscribe(
           data => {
             console.log(data);
@@ -361,10 +363,10 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
             console.log(error);
           });
     } else {
-      console.log('Save new View');
-      console.log('1. Attach hash of this view to action model ' + this.view.hash);
-      this.action.hasViews[ 0 ] = this.view.hash;
-      console.log(this.view);
+      console.log('Save new Page');
+      console.log('1. Attach hash of this view to action model ' + this.page.hash);
+      this.action.hasViews[ 0 ] = this.page.hash;
+      console.log(this.page);
       console.log(this.action);
       // Update ActionService so that it contains hash of new view
       this.actionService.update(this.action)
@@ -376,7 +378,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
           console.log(error);
         });
       // Save new view
-      this.viewService.create( this.view )
+      this.pageService.create( this.page )
         .subscribe(
           data => {
             console.log(data);
@@ -386,6 +388,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
           });
     }
   }
+
   addAnotherApp (
     appModel: any,
     generateHash: boolean
@@ -399,26 +402,29 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     }
     return appModel;
   }
+
   closeApp(
     appModel: Array<any>,
     i: number
   ) {
     console.log(appModel);
-    console.log(this.view);
-    console.log(this.view[appModel[ i ].hash]);
-    delete this.view[appModel[ i ].hash];
+    console.log(this.page);
+    console.log(this.page[appModel[ i ].hash]);
+    delete this.page[appModel[ i ].hash];
     appModel.splice(
       i,
       1);
-    console.log(this.view);
+    console.log(this.page);
     console.log(this.appTypes);
   }
+
   updateAppTypesFromDataChooser( appTypesFromDataChooser: any ) {
     console.log( this.appTypes );
     console.log( appTypesFromDataChooser );
     this.appTypes = appTypesFromDataChooser;
     console.log('updateAppTypesFromDataChooser');
   }
+
   returnTextListArray( appInput: any ) {
     if ( appInput.inputs ) {
       return appInput.inputs[0].array;
@@ -428,7 +434,6 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
   expandPanels() {
     this.panelsOpen = !this.panelsOpen;
   }
-
 
   initialiseBarchart(initialised: boolean) {
     console.log(initialised);

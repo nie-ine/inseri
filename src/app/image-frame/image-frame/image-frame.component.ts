@@ -10,7 +10,6 @@ import {
 // we still need to declare the namespace to make TypeScript compiler happy.
 declare let OpenSeadragon: any;
 
-
 @Component({
   selector: 'app-image-frame',
   templateUrl: './image-frame.component.html',
