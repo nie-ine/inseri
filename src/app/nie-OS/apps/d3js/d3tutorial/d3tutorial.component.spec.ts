@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { AceEditorModule } from 'ng2-ace-editor';
 
 import { D3tutorialComponent } from './d3tutorial.component';
 
@@ -8,6 +9,7 @@ describe('D3tutorialComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ AceEditorModule ],
       declarations: [ D3tutorialComponent ]
     })
     .compileComponents();
