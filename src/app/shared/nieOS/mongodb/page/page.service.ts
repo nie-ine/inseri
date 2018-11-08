@@ -4,6 +4,7 @@ import {Subject} from 'rxjs';
 import {Router} from '@angular/router';
 import {AuthData} from '../auth/auth-data.model';
 import {Page} from './page.model';
+import {MongoActionService} from '../action/action.service';
 
 @Injectable({ providedIn: 'root' })
 export class MongoPageService {
@@ -12,7 +13,8 @@ export class MongoPageService {
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private mongoActionService: MongoActionService
   ) {}
 
   createPage(): any {
@@ -34,5 +36,4 @@ export class MongoPageService {
     page.openApps = openAppAsStringArray;
     return this.http.put(`${MongoPageService.API_BASE_URL}`, page);
   }
-
 }
