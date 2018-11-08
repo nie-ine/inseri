@@ -34,22 +34,9 @@ export class PageSetLandingPageComponent implements OnInit {
     private actionService: ActionService,
     private pageSetService: PageSetService,
     private createPageSetAndLinkToActionService: CreatePageSetAndLinkToActionService,
-    private createPageAndLinkToAction: CreatePageAndLinkToAction,
     private pageService: PageService,
     private mongoActionService: MongoActionService
   ) { }
-
-  // saveOrUpdatePageSet() {
-  //   console.log('Update Page Set');
-  //   this.pageSetService.updatePageSet(this.pageSet.hash, this.pageSet)
-  //     .subscribe(
-  //       data => {
-  //         console.log(data);
-  //       },
-  //       error => {
-  //         console.log(error);
-  //       });
-  // }
 
   ngOnInit() {
     this.actionID = this.route.snapshot.queryParams.actionID;
@@ -116,17 +103,6 @@ export class PageSetLandingPageComponent implements OnInit {
             });
           });
       });
-
-    // this.pageSetService.createPageSet(this.pageSet)
-    //   .subscribe(result => {
-    //     this.action.hasPageSet = result.id;
-    //     this.mongoActionService.updateAction(this.action)
-    //       .subscribe(() => {},
-    //           error => console.log(error));
-    //   });
-
-    // Zum Verwerfen
-    // this.createPageSetAndLinkToActionService.create(this.pageSet, this.action);
   }
 
   templatePageSet() {
@@ -167,15 +143,15 @@ export class PageSetLandingPageComponent implements OnInit {
   openDialog() {
     const dialogRef = this.dialog.open(DialogCreateNewPageComponent, {
       width: '700px',
-      data: { name: this.name, animal: this.animal }
+      data: { }
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
-      this.createPageAndLinkToAction
-        .createPageAndLinkToAction(
-          this.route.snapshot.queryParams.actionID,
-          result
-        );
+      // this.createPageAndLinkToAction
+      //   .createPageAndLinkToAction(
+      //     this.route.snapshot.queryParams.actionID,
+      //     result
+      //   );
     });
   }
 

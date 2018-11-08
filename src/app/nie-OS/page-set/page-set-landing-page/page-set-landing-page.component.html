@@ -1,16 +1,18 @@
 <div style="margin-top: 40px; width: 900px;">
-  <h2 style="margin-left: 30px">{{ generateTitle() }}</h2>
-  <img src="{{ generateImage() }}"
-       alt="Kuno Raeber"
-       style="float: left; margin-right: 30px; margin-left: 30px;"
-       height="300">
-  <div style="float: left; width: 300px"> {{ generateDescription() }}
-  </div>
+  <div>
+    <h2 style="margin-left: 30px">{{ generateTitle() }}</h2>
+    <img src="{{ generateImage() }}"
+         alt="Kuno Raeber"
+         style="float: left; margin-right: 30px; margin-left: 30px;"
+         height="300">
+    <div style="float: left; width: 300px"> {{ generateDescription() }}
+    </div>
 
-  <div style="margin-right: 30px; margin-left: 30px;" *ngFor="let page of pagesOfThisPageSet; let i = index; ">
-    <div >
-      <a href="{{ generateURL( page ) }}" style="font-size: 30px">{{ generatePageTitle ( page ) }}</a><br>
-      {{ generatePageDescription( page ) }}
+    <div style="margin-right: 30px; margin-left: 30px;" *ngFor="let page of pagesOfThisPageSet; let i = index; ">
+      <div >
+        <a href="{{ generateURL( page ) }}" style="font-size: 30px">{{ generatePageTitle ( page ) }}</a><br>
+        {{ generatePageDescription( page ) }}
+      </div>
     </div>
   </div>
 
@@ -29,4 +31,3 @@
   </div>
 
 </div>
-
