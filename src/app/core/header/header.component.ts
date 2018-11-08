@@ -5,7 +5,7 @@ import {ActionService} from '../../shared/nieOS/fake-backend/action/action.servi
 import {PageService} from '../../nie-OS/apps/page/page.service';
 import {AuthService} from '../../shared/nieOS/mongodb/auth/auth.service';
 import {Subscription} from 'rxjs';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
 import {NgForm} from '@angular/forms';
 import {InitService} from '../init-popup/service/init.service';
 import {InitPopupComponent} from '../init-popup/init-popup.component';
@@ -34,19 +34,25 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
     private dialog2: MatDialog,
     private activatedRoute: ActivatedRoute,
     private actionService: ActionService,
-    private viewService: PageService,
+    private pageService: PageService,
     private authenticationService: AuthenticationService,
     private authService: AuthService,
     private cdr: ChangeDetectorRef,
+    public snackBar: MatSnackBar
   ) {
       router.events.subscribe(( route: any ) => {
         this.updateCurrentRoute( route );
       } );
     this.activatedRoute.queryParams.subscribe(params => {
-      console.log(params);
       this.hashOfThisView = params.view;
       this.actionID = params.actionID;
       this.generateNavigation(params.actionID);
+    });
+  }
+
+  openSnackBar() {
+    this.snackBar.openFromComponent(PizzaPartyComponent, {
+      duration: 3000,
     });
   }
 
@@ -102,28 +108,27 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   generateNavigation( actionID: number ) {
     console.log('Get action by id, then iterate through views');
-    console.log( actionID );
     this.actionService.getById( actionID )
       .subscribe(
         data => {
           console.log(data);
-          for ( const viewHash of ( data as any ).hasViews as any ) {
-            console.log( viewHash );
+          for ( const pageHash of ( data as any ).hasPages as any ) {
+            console.log( pageHash );
             this.viewsOfThisActtion = [];
-            this.viewService.getById( viewHash )
+            this.pageService.getById( pageHash )
               .subscribe(
-                view => {
+                page => {
                   this.viewsOfThisActtion[
                     this.viewsOfThisActtion.length
-                    ] = view;
+                    ] = page;
                   if ( this.hashOfThisView ) {
                     this.produceHashOfLastView();
                     this.produceHashOfNextView();
                   }
-                  console.log( view );
+                  console.log( page );
                 },
-                errorGetView => {
-                  console.log(errorGetView);
+                errorGetPage => {
+                  console.log(errorGetPage);
                 }
               );
           }
@@ -244,26 +249,32 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.authService.logout();
       this.router.navigate(["/"]);
     } else {
-        this.router.navigate(['home'], { fragment: 'login' });
-        console.log('login');
+        this.router.navigate(['/home'], { fragment: 'login' });
     }
   }
 
   openSettingsDialog() {
-    console.log('openSettingsDialog');
-    this.dialog.open(DialogUserSettingsDialog, {
-      width: '700px',
-      height: '500px',
-      // dummy data
-       data: {
-            firstName: 'Dominique',
-            lastName: 'Souvant',
-            email: 'dom@yahoo.de',
-            newsLetter: true
-        }
-    });
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      this.authService.getUser(userId).subscribe((result) => {
+        console.log(result);
+        this.dialog.open(DialogUserSettingsDialog, {
+          width: '600px',
+          data: {
+            userId: userId,
+            email: result.user.email,
+            firstName: result.user.firstName,
+            lastName: result.user.lastName,
+            newsletter: result.user.newsletter
+          }
+        });
+      }, (error) => {
+        console.log(error);
+      });
+    } else {
+      console.log('UserId was not found in storage');
+    }
   }
-
 }
 
 @Component({
@@ -273,32 +284,90 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
 })
 
 export class DialogUserSettingsDialog implements OnInit {
+    userId: string;
+    email: string;
     firstName: string;
     lastName: string;
-    email: string;
-    newsLetter: boolean;
+    newsletter: boolean;
+    oldPwd: string;
+    newPwd1: string;
+    newPwd2: string;
+    errorPwd: boolean;
+    errorPwdMessage: string;
+    errorProfile: boolean;
+    errorProfileMessage: string;
 
-    constructor(public dialogRef: MatDialogRef<DialogUserSettingsDialog>,
-                @Inject(MAT_DIALOG_DATA) public data: any) {
-    }
+    constructor(
+      public dialogRef: MatDialogRef<DialogUserSettingsDialog>,
+      @Inject(MAT_DIALOG_DATA) public data: any,
+      private authService: AuthService,
+      public snackBar: MatSnackBar
+    ) {}
 
     ngOnInit() {
+      this.userId = this.data.userId;
+      this.email = this.data.email;
       this.firstName = this.data.firstName;
       this.lastName = this.data.lastName;
-      this.email = this.data.email;
-      this.newsLetter = this.data.newsLetter;
+      this.newsletter = (this.data.newsletter == null) ? true : this.data.newsletter;
+      this.resetErrorPwd();
+      this.resetErrorProfile();
     }
 
-    onNoClick(): void {
+    resetErrorPwd() {
+      this.errorPwd = false;
+    }
+
+    resetErrorProfile() {
+      this.errorProfile = false;
+    }
+
+    close() {
         this.dialogRef.close();
     }
 
     save(form: NgForm) {
-      console.log('Changes would be saved');
+      this.authService.updateUser(this.userId, this.email, this.firstName, this.lastName, this.newsletter)
+        .subscribe((result) => {
+          this.dialogRef.close();
+        }, error => {
+          if (error.status === 409) {
+            this.errorProfile = true;
+            this.errorProfileMessage = 'Email ist schon vergeben!';
+          } else {
+            this.errorProfile = true;
+            this.errorProfileMessage = 'Fehler mit dem Server!';
+          }
+        });
     }
 
     changePwd() {
-      console.log('Change of password will be initialized');
+      this.authService.updatePwd(this.userId, this.oldPwd, this.newPwd1)
+        .subscribe(result => {
+          this.dialogRef.close();
+        }, (error) => {
+          if (error.status === 400) {
+            this.errorPwd = true;
+            this.errorPwdMessage = 'Ungültiges Passwort!';
+          } else if (error.status === 420) {
+            this.errorPwd = true;
+            this.errorPwdMessage = 'Neues und altes Passwort sind identisch!';
+          } else {
+            this.errorPwd = true;
+            this.errorPwdMessage = 'Fehler mit dem Server!';
+          }
+        });
     }
 
 }
+
+@Component({
+  selector: 'snack-bar-component-example-snack',
+  templateUrl: 'snack-bar-component-example-snack.html',
+  styles: [`
+    .example-pizza-party {
+      color: hotpink;
+    }
+  `],
+})
+export class PizzaPartyComponent {}

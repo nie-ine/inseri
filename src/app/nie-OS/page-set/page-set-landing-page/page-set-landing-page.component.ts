@@ -2,12 +2,15 @@ import {Component, OnInit, Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import {Router, ActivatedRoute} from '@angular/router';
 import {ActionService } from '../../../shared/nieOS/fake-backend/action/action.service';
-import {PageSetService} from '../model/page-set.service';
 import {GenerateHashService} from '../../../shared/nieOS/other/generateHash.service';
 import {UpdatePageSetComponent} from '../update-page-set/update-page-set.component';
 import {CreatePageAndLinkToAction} from '../services/createPageAndLinkToAction.service';
 import {CreatePageSetAndLinkToActionService} from '../services/createPageSetAndLinkToAction.service';
 import {PageService} from '../../apps/page/page.service';
+import {MongoActionService} from '../../../shared/nieOS/mongodb/action/action.service';
+import { PageSetModel } from '../model/page-set.model';
+import { PageSetService } from '../model/page-set.service';
+import { Action } from '../../../shared/nieOS/mongodb/action/action.model';
 
 @Component({
   selector: 'app-page-set-landing-page',
@@ -15,12 +18,11 @@ import {PageService} from '../../apps/page/page.service';
   styleUrls: ['./page-set-landing-page.component.scss']
 })
 export class PageSetLandingPageComponent implements OnInit {
-
   animal: string;
   name: string;
-  actionID: number;
-  pageSet: any;
-  action: any;
+  actionID: string;
+  pageSet: PageSetModel;
+  action: Action;
   model: any;
   pagesOfThisPageSet: any;
 
@@ -30,95 +32,116 @@ export class PageSetLandingPageComponent implements OnInit {
     private route: ActivatedRoute,
     private generateHashService: GenerateHashService,
     private actionService: ActionService,
-    private createPageSetAndLinkToActionService: CreatePageSetAndLinkToActionService,
     private pageSetService: PageSetService,
+    private createPageSetAndLinkToActionService: CreatePageSetAndLinkToActionService,
     private createPageAndLinkToAction: CreatePageAndLinkToAction,
-    private pageService: PageService
+    private pageService: PageService,
+    private mongoActionService: MongoActionService
   ) { }
 
-  saveOrUpdatePageSet() {
-    console.log('Update Page Set');
-    this.pageSetService.update(
-      this.pageSet
-    )
-      .subscribe(
-        data => {
-          console.log(data);
-        },
-        error => {
-          console.log(error);
-        });
-  }
+  // saveOrUpdatePageSet() {
+  //   console.log('Update Page Set');
+  //   this.pageSetService.updatePageSet(this.pageSet.hash, this.pageSet)
+  //     .subscribe(
+  //       data => {
+  //         console.log(data);
+  //       },
+  //       error => {
+  //         console.log(error);
+  //       });
+  // }
 
   ngOnInit() {
     this.actionID = this.route.snapshot.queryParams.actionID;
-    this.checkIfPageSetExists( this.actionID );
+    if (this.actionID) {
+      this.checkIfPageSetExists(this.actionID);
+    }
   }
 
-  checkIfPageSetExists(actionID: number ) {
-    this.actionService.getById( actionID )
-      .subscribe(
-        data => {
-          this.action = data;
-          if (this.action && this.action.hasPageSet ) {
-            console.log('Instantiate Page Set');
-            console.log(this.action);
-            this.pagesOfThisPageSet = [];
-            for ( const viewHash of this.action.hasViews ) {
-              this.pageService.getById( viewHash )
-                .subscribe(
-                  view => {
-                    this.pagesOfThisPageSet[
-                      this.pagesOfThisPageSet.length
-                      ] = view;
-                    console.log( view );
-                  },
-                  errorGetView => {
-                    console.log(errorGetView);
-                  }
-                );
-            }
-            this.pageSetService.getById( this.action.hasPageSet )
-              .subscribe(
-                pageSet => {
-                  this.pageSet = pageSet;
-                },
-                error => {
-                  console.log(error);
-                });
-          } else {
-            this.pageSet = {};
-            console.log('No page set for this action yet');
-            this.pageSet.hash = this.generateHashService.generateHash();
-            this.pageSet.title = 'Example pageSet';
-            this.pageSet.linkToImage = 'https://c8.alamy.com/' +
-              'comp/DX9AP3/' +
-              'open-book-vintage-accessories-old-letters-pages-photo-frames-glasses-DX9AP3.jpg';
-            this.pageSet.description = 'Dies als Beispiel für eine PageSet bei NIE-OS\n' +
-              '    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy\n' +
-              '    eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.\n' +
-              '    At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea\n' +
-              '    takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,\n' +
-              '    consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et\n' +
-              '    dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo\n' +
-              '    dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem\n' +
-              '    ipsum dolor sit amet.';
-            console.log(this.pageSet);
-            console.log(this.action);
-            console.log('Save page set and then add page set - hash to action and update action.');
-            this.createPageSetAndLinkToActionService.createOrUpdate(
-              this.pageSet,
-              this.action
-            );
-          }
-        },
-        error => {
-          console.log(error);
-        });
+  checkIfPageSetExists(actionID: string ) {
+    this.mongoActionService.getAction(actionID)
+      .subscribe(data => {
+        console.log(data);
+        this.action = data.action;
+        console.log('point b', this.action);
+        if (this.action && this.action.hasPageSet ) {
+          console.log('Instantiate Page Set');
+          this.pagesOfThisPageSet = [];
+          // for ( const pageHash of this.action.hasPages ) {
+          //   this.pageService.getById( pageHash )
+          //     .subscribe(
+          //       page => {
+          //         this.pagesOfThisPageSet[
+          //           this.pagesOfThisPageSet.length
+          //           ] = page;
+          //       },
+          //       errorGetPage => {
+          //         console.log(errorGetPage);
+          //       }
+          //     );
+          // }
+          this.pageSetService.getPageSet(this.action.hasPageSet)
+            .subscribe(
+              pageSet => {
+                console.log('c', pageSet);
+                this.pageSet = pageSet.pageset;
+              },
+              error => {
+                console.log(error);
+              });
+        } else {
+          console.log('bart');
+          this.initializeTemplatePageSet();
+        }
+      }, error => {
+        console.log(error);
+        this.templatePageSet();
+      });
+  }
+
+  initializeTemplatePageSet() {
+    this.templatePageSet();
+    console.log(this.pageSet, this.action);
+    console.log('Save page set and then add page set - hash to action and update action.');
+
+    this.pageSetService.createPageSet(this.pageSet)
+      .subscribe(dbPageSet => {
+        this.mongoActionService.getAction(this.actionID)
+          .subscribe(dbAction => {
+            console.log('b', dbPageSet);
+            dbAction.action.hasPageSet = dbPageSet.pageset._id;
+            this.mongoActionService.updateAction(dbAction.action).subscribe(result => {
+              this.action = result.action;
+              console.log("here", result);
+            });
+          });
+      });
+
+    // this.pageSetService.createPageSet(this.pageSet)
+    //   .subscribe(result => {
+    //     this.action.hasPageSet = result.id;
+    //     this.mongoActionService.updateAction(this.action)
+    //       .subscribe(() => {},
+    //           error => console.log(error));
+    //   });
+
+    // Zum Verwerfen
+    // this.createPageSetAndLinkToActionService.create(this.pageSet, this.action);
+  }
+
+  templatePageSet() {
+    this.pageSet = new PageSetModel();
+    console.log('No page set for this action yet');
+    this.pageSet.id = this.generateHashService.generateHash();
+    this.pageSet.title = 'Example pageSet';
+    this.pageSet.linkToImage = 'https://c8.alamy.com/' +
+      'comp/DX9AP3/' +
+      'open-book-vintage-accessories-old-letters-pages-photo-frames-glasses-DX9AP3.jpg';
+    this.pageSet.description = 'Dies als Beispiel für eine PageSet bei NIE-OS';
   }
 
   generateDescription() {
-    if ( this.pageSet && this.pageSet.description ) {
+    if (this.pageSet && this.pageSet.description) {
       return this.pageSet.description;
     } else {
       return 'Description not found';
@@ -126,7 +149,7 @@ export class PageSetLandingPageComponent implements OnInit {
   }
 
   generateTitle() {
-    if ( this.pageSet && this.pageSet.title ) {
+    if (this.pageSet && this.pageSet.title) {
       return this.pageSet.title;
     } else {
       return 'Title not found';
@@ -134,7 +157,7 @@ export class PageSetLandingPageComponent implements OnInit {
   }
 
   generateImage() {
-    if ( this.pageSet && this.pageSet.linkToImage ) {
+    if (this.pageSet && this.pageSet.linkToImage) {
       return this.pageSet.linkToImage;
     } else {
       return 'Image not found';
@@ -157,19 +180,22 @@ export class PageSetLandingPageComponent implements OnInit {
   }
 
   openUpdatePageSetDialog() {
+    console.log('e', this.action);
     const dialogRef = this.dialogUpdatePageSet.open(UpdatePageSetComponent, {
       width: '700px',
       data: {
+        id: this.action.hasPageSet,
         title: this.pageSet.title,
         description: this.pageSet.description,
-        image: this.pageSet.linkToImage
+        linkToImage: this.pageSet.linkToImage
       }
     });
     dialogRef.afterClosed().subscribe(result => {
+      console.log('d', result);
       if ( result !== undefined ) {
         this.pageSet.title = result.title;
         this.pageSet.description = result.description;
-        this.pageSet.linkToImage = result.image;
+        this.pageSet.linkToImage = result.linkToImage;
       }
     });
   }

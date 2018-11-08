@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthData } from './auth-data.model';
-import {Subject} from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import {Router} from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+  private static API_BASE_URL = 'http://localhost:3000/api/user';
   private isAuthenticated = false;
   private token: string;
   private authStatusListener = new Subject<boolean>();
@@ -20,14 +21,55 @@ export class AuthService {
     return this.token;
   }
 
-  createUser( email: string, password: string, firstName: string, lastName: string ) {
+  createUser(email: string, password: string, firstName: string, lastName: string): Observable<any> {
     const authData: AuthData = {
       email: email,
       password: password,
       firstName: firstName,
       lastName: lastName
     };
-    return this.http.post('http://localhost:3000/api/user/signup', authData);
+    return this.http.post(`${AuthService.API_BASE_URL}/signup`, authData);
+  }
+
+  updateUser(userId: string, email: string, firstName: string, lastName: string, newsletter: boolean): Observable<any> {
+    const user: any = {
+      userId: userId,
+      email: email,
+      firstName: firstName,
+      lastName: lastName,
+      newsletter: newsletter
+    };
+
+    return this.http.put<
+      {
+        token: string,
+        expiresIn: number,
+        firstName: string,
+        userId: string
+      }
+      >(`${AuthService.API_BASE_URL}/${userId}`, user)
+      .map(response => {
+        const token = response.token;
+        this.token = token;
+        const expiresInDuration = response.expiresIn;
+        const now = new Date();
+        const expirationDate = new Date (now.getTime() + expiresInDuration * 1000);
+        this.saveAuthData(token, expirationDate, response.firstName, response.userId);
+        return response;
+      });
+  }
+
+  updatePwd(userId: string, oldPwd: string, newPwd: string): Observable<any> {
+    const pwd: any = {
+      userId: userId,
+      oldPwd: oldPwd,
+      newPwd: newPwd
+    };
+    return this.http.put(`${AuthService.API_BASE_URL}/${userId}/pwd`, pwd);
+  }
+
+  getUser(userId: string): Observable<any> {
+    return this.http.get(`${AuthService.API_BASE_URL}/${userId}`);
   }
 
   login(email: string, password: string) {
@@ -36,12 +78,11 @@ export class AuthService {
       {
         token: string,
         expiresIn: number,
-        firstName: string
+        firstName: string,
+        userId: string
       }
-      >('http://localhost:3000/api/user/login', authData)
+      >(`${AuthService.API_BASE_URL}/login`, authData)
       .subscribe( response => {
-        console.log('Loged in');
-        console.log(response);
         const token = response.token;
         this.token = token;
         const expiresInDuration = response.expiresIn;
@@ -50,8 +91,7 @@ export class AuthService {
         this.authStatusListener.next(true);
         const now = new Date();
         const expirationDate = new Date (now.getTime() + expiresInDuration * 1000);
-        console.log(expirationDate);
-        this.saveAuthData(token, expirationDate, response.firstName);
+        this.saveAuthData(token, expirationDate, response.firstName, response.userId);
         this.router.navigate(['/dashboard' ], {fragment: 'top'});
       });
   }
@@ -96,7 +136,7 @@ export class AuthService {
     }, duration * 1000);
   }
 
-  private saveAuthData(token: string, expirationDate: Date, firstName: string) {
+  private saveAuthData(token: string, expirationDate: Date, firstName: string, userId: string) {
     localStorage.setItem(
       'token',
       token
@@ -108,6 +148,10 @@ export class AuthService {
     localStorage.setItem(
       'firstName',
       firstName
+    );
+    localStorage.setItem(
+      'userId',
+      userId
     );
     console.log(localStorage);
   }
@@ -121,13 +165,13 @@ export class AuthService {
   private getAuthData() {
     const token = localStorage.getItem('token');
     const expirationDate = localStorage.getItem('expiration');
-    if(!token || !expirationDate) {
+    if (!token || !expirationDate) {
       return;
     }
     return {
       token: token,
       expirationDate: new Date(expirationDate)
-    }
+    };
   }
 
 }
