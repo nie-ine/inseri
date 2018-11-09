@@ -1,0 +1,6 @@
+<div [ngStyle]="{'background-color': backgroundColor, 'height': '100%'}">
+  <div [ngStyle]="{'white-space': whitespaceBehavior, 'overflow-x': overflowX, 'overflow-y': overflowY}"
+       [ngClass]="{'text-margin-with-fix-height': true}">
+    <ng-content></ng-content>
+  </div>
+</div>

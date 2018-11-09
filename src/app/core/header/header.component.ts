@@ -117,7 +117,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
         data => {
           console.log(data);
           for ( const pageHash of ( data as any ).action.hasPages as any ) {
-            console.log( pageHash );
+            // console.log( pageHash );
             this.viewsOfThisActtion = [];
             this.mongoPageService.getPage( pageHash )
               .subscribe(
@@ -129,7 +129,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
                     this.produceHashOfLastView();
                     this.produceHashOfNextView();
                   }
-                  console.log( (result as any).page );
+                  // console.log( (result as any).page );
                 },
                 errorGetPage => {
                   console.log(errorGetPage);

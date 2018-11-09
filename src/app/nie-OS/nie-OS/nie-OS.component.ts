@@ -56,6 +56,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     private cdr: ChangeDetectorRef,
     private generateHashService: GenerateHashService,
     private openApps: OpenAppsModel,
+    private resetOpenApps: OpenAppsModel,
     private mongoPageService: MongoPageService,
     private mongoActionService: MongoActionService
   ) {
@@ -64,30 +65,26 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
 
   ngAfterViewChecked() {
     this.cdr.detectChanges();
-    if ( this.viewHashFromURL !==  this.route.snapshot.queryParams.view ) {
-      this.openAppsInThisPage = this.openApps.openApps;
-      this.page = {};
-      this.actionID = this.route.snapshot.queryParams.actionID;
-      this.viewHashFromURL = this.route.snapshot.queryParams.view;
-      if ( this.viewHashFromURL ) {
-        this.instantiateView( this.viewHashFromURL );
-      } else {
-        this.checkIfPageExistsForThisAction( this.actionID );
-      }
+    if ( this.viewHashFromURL !==  this.route.snapshot.queryParams.page ) {
+      this.updatePageFromUrl();
     }
     this.cdr.detectChanges();
   }
 
   ngOnInit() {
-    this.openAppsInThisPage = this.openApps.openApps;
-    this.page = {};
-    this.actionID = this.route.snapshot.queryParams.actionID;
-    if( !this.actionID ) {
+    this.updatePageFromUrl();
+    if ( !this.actionID ) {
       this.pageAsDemo = true;
     }
-    this.viewHashFromURL = this.route.snapshot.queryParams.view;
+  }
+  updatePageFromUrl() {
+    this.openAppsInThisPage = {};
+    this.page = {};
+    this.openAppsInThisPage = this.openApps.openApps;
+    this.actionID = this.route.snapshot.queryParams.actionID;
+    this.viewHashFromURL = this.route.snapshot.queryParams.page;
     if ( this.viewHashFromURL ) {
-      this.instantiateView( this.viewHashFromURL );
+      this.updateAppsInView( this.viewHashFromURL );
     } else {
       this.checkIfPageExistsForThisAction( this.actionID );
     }
@@ -162,6 +159,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     console.log('y: ' + app.y);
     console.log('type: ' + app.type);
     console.log('hash: ' + app.hash );
+    console.log( this.page );
     if ( this.page.openApps[ app.hash ] === null ) {
       this.page.openApps[ app.hash ] = [];
     }
@@ -170,14 +168,10 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
   }
 
   updateAppsInView( viewHash: string ) {
-    console.log( '07112018 Hier weiter update apps in View' );
-    console.log(viewHash);
     this.mongoPageService.getPage( viewHash )
       .subscribe(
         data => {
           this.page = ( data as any).page;
-          console.log(this.page);
-          console.log(this.page.openApps);
           const appHelperArray = [];
           for ( let app of this.page.openApps ) {
             console.log(JSON.parse(app));
