@@ -9,6 +9,8 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/ma
 import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
 import {InitService} from '../init-popup/service/init.service';
 import {InitPopupComponent} from '../init-popup/init-popup.component';
+import {MongoActionService} from '../../shared/nieOS/mongodb/action/action.service';
+import {MongoPageService} from '../../shared/nieOS/mongodb/page/page.service';
 
 @Component({
   selector: 'app-header',
@@ -38,13 +40,15 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
     private authenticationService: AuthenticationService,
     private authService: AuthService,
     private cdr: ChangeDetectorRef,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    private mongoActionService: MongoActionService,
+    private mongoPageService: MongoPageService
   ) {
       router.events.subscribe(( route: any ) => {
         this.updateCurrentRoute( route );
       } );
     this.activatedRoute.queryParams.subscribe(params => {
-      this.hashOfThisView = params.view;
+      this.hashOfThisView = params.page;
       this.actionID = params.actionID;
       this.generateNavigation(params.actionID);
     });
@@ -98,7 +102,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
     if ( this.viewsOfThisActtion ) {
       for (const view of this.viewsOfThisActtion) {
         if ( view ) {
-          if (view.hash === this.hashOfThisView) {
+          if (view._id === this.hashOfThisView) {
             return view.title;
           }
         }
@@ -106,26 +110,26 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
     }
   }
 
-  generateNavigation( actionID: number ) {
+  generateNavigation( actionID: string ) {
     console.log('Get action by id, then iterate through views');
-    this.actionService.getById( actionID )
+    this.mongoActionService.getAction( actionID )
       .subscribe(
         data => {
           console.log(data);
-          for ( const pageHash of ( data as any ).hasPages as any ) {
+          for ( const pageHash of ( data as any ).action.hasPages as any ) {
             console.log( pageHash );
             this.viewsOfThisActtion = [];
-            this.pageService.getById( pageHash )
+            this.mongoPageService.getPage( pageHash )
               .subscribe(
-                page => {
+                result => {
                   this.viewsOfThisActtion[
                     this.viewsOfThisActtion.length
-                    ] = page;
+                    ] = (result as any).page;
                   if ( this.hashOfThisView ) {
                     this.produceHashOfLastView();
                     this.produceHashOfNextView();
                   }
-                  console.log( page );
+                  console.log( (result as any).page );
                 },
                 errorGetPage => {
                   console.log(errorGetPage);
@@ -146,7 +150,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
           this.nextView = view;
           this.foundHashOfThisView = false;
         }
-        if ( view.hash === this.hashOfThisView ) {
+        if ( view._id === this.hashOfThisView ) {
           this.foundHashOfThisView = true;
         }
       }
@@ -158,7 +162,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.router.navigate( [ 'page' ], {
       queryParams: {
         'actionID': this.actionID,
-        'view': view.hash
+        'page': view._id
       }
     } );
     return 'test';
@@ -168,7 +172,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.lastView = undefined;
     for ( const view of this.viewsOfThisActtion ) {
       if ( view ) {
-        if ( view.hash === this.hashOfThisView ) {
+        if ( view._id === this.hashOfThisView ) {
           return null;
         } else {
           this.lastView = view;
