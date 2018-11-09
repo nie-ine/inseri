@@ -6,8 +6,8 @@ const actionSchema = mongoose.Schema({
   isFinished: { type: Boolean }, // isInProgress, isFinished
   deleted: { type: Boolean },
   type: { type: String },
-  hasViews: { type: [String] }, // hash des views
-  hasEdition: { type: String },
+  hasPages: { type: [String] }, // hash des pages
+  hasPageSet: { type: String },
   creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User', require: true }
 });
 

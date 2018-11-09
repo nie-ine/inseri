@@ -1,0 +1,25 @@
+<app-text-line *ngFor="let l of textTree?.lines" [whitespaceBehavior]="'normal'" [columnRatio]="[10, 10, 30, 50]">
+
+  <app-text-line-margin class="farfarleft" [backgroundColor]="'skyblue'">
+    <span>{{l.lineId}}</span>
+  </app-text-line-margin>
+
+  <app-text-line-margin class="farleft" [backgroundColor]="'skyblue'">
+    <span>{{l.lineId}}</span>
+  </app-text-line-margin>
+
+  <app-text-line-margin class="left">
+    <ng-container *ngIf="l.iriOfMargin">
+      <app-spa-text [spaTextIri]="l.iriOfMargin"></app-spa-text>
+    </ng-container>
+  </app-text-line-margin>
+
+  <app-spa-text [spaTextIri]="l.textIri"></app-spa-text>
+
+  <app-text-line-margin class="right">
+    <ng-container *ngIf="l.iriOfMargin">
+      <app-spa-text [spaTextIri]="l.iriOfMargin"></app-spa-text>
+    </ng-container>
+  </app-text-line-margin>
+
+</app-text-line>

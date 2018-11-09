@@ -22,6 +22,7 @@ import {TextlistViewerComponent} from './apps/textlist-viewer/textlist-viewer.co
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDividerModule} from '@angular/material/divider';
 import {D3jsModule} from './apps/d3js/d3js.module';
+import {OpenAppsModel} from '../shared/nieOS/mongodb/page/open-apps.model';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import {D3jsModule} from './apps/d3js/d3js.module';
   ],
   providers: [
     GenerateHashService,
-    SendGravSearchQueryService
+    SendGravSearchQueryService,
+    OpenAppsModel
   ],
   declarations: [
     NIEOSComponent,

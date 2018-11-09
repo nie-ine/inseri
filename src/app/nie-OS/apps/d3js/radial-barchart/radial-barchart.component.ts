@@ -69,8 +69,13 @@ export class RadialBarchartComponent implements AfterViewChecked {
     }
   }
 
+  generateComponentDivClass() {
+    return 'radialBarchart' + this.numberOfInitialisedComponent;
+  }
+
   initSvg() {
-    this.svg = d3.select('svg')
+    this.svg = d3.select('.' + this.generateComponentDivClass())
+      .append('svg')
       .attr('width', this.width)
       .attr('height', this.height)
       .append('g')

@@ -81,8 +81,15 @@ export class ChordDiagramComponent implements AfterViewChecked {
     }
   }
 
+  generateComponentDivClass() {
+    return 'chordDiagram' + this.numberOfInitialisedComponent;
+  }
+
   initSvg() {
-    this.svg = d3.select('svg');
+    this.svg = d3.select('.' + this.generateComponentDivClass())
+      .append('svg')
+      .attr('width', 600) // Change here for size of the bars
+      .attr('height', 500);
     this.width = this.svg.attr('width');
     this.height = this.svg.attr('height');
     this.outerRadius = Math.min(this.width, this.height) * 0.5 - 40;

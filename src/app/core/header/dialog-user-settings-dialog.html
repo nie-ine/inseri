@@ -1,35 +1,67 @@
-<h1 mat-dialog-title>Benutzereinstellungen</h1>
+<h1 mat-dialog-title>Einstellungen</h1>
 
-<form #f="ngForm" (ngSubmit)="save(f)" >
-    <div class="setting-box">
-        <div>
-            <mat-form-field class="full-width">
-                <input matInput name="firstName" [(ngModel)]="firstName" placeholder="Vorname:">
-            </mat-form-field>
+<mat-tab-group>
+  <mat-tab label="Profil">
+    <form #f="ngForm" (ngSubmit)="save(f)" (keypress)="resetErrorProfile()">
+      <div class="setting">
+        <div class="error" *ngIf="errorProfile">
+          {{errorProfileMessage}}
         </div>
 
         <div>
-            <mat-form-field class="full-width">
-                <input matInput name="lastName" [(ngModel)]="lastName" placeholder="Nachname:">
-            </mat-form-field>
+          <mat-form-field class="full-width">
+            <input matInput name="email" [(ngModel)]="email" placeholder="Email">
+          </mat-form-field>
         </div>
 
         <div>
-            <mat-form-field class="full-width">
-                <input matInput name="email" [(ngModel)]="email" placeholder="Email:">
-            </mat-form-field>
+          <mat-form-field class="full-width">
+            <input matInput name="firstName" [(ngModel)]="firstName" placeholder="Vorname">
+          </mat-form-field>
         </div>
 
-        <mat-slide-toggle>Newsletter</mat-slide-toggle>
-
-    </div>
-
-    <div class="setting-box">
         <div>
-            <label>Passwort</label><button class="password-btn" type="button" mat-stroked-button (click)="changePwd()">Ändern</button>
+          <mat-form-field class="full-width">
+            <input matInput name="lastName" [(ngModel)]="lastName" placeholder="Nachname">
+          </mat-form-field>
         </div>
-    </div>
 
-    <button mat-button type="button" (click)="onNoClick()">Schliessen</button>
-    <button type="submit" mat-button>Abspeichern</button>
-</form>
+        <mat-slide-toggle name="newsletter" [(ngModel)]="newsletter">Newsletter</mat-slide-toggle>
+      </div>
+
+      <button mat-button type="button" (click)="close()">Schliessen</button>
+      <button type="submit" mat-button>Abspeichern</button>
+    </form>
+  </mat-tab>
+
+  <mat-tab label="Passwort">
+    <form (ngSubmit)="changePwd()" (keypress)="resetErrorPwd()">
+      <div class="setting">
+        <div class="error" *ngIf="errorPwd">
+          {{errorPwdMessage}}
+        </div>
+
+        <div>
+          <mat-form-field class="full-width">
+            <input [(ngModel)]="oldPwd" matInput name="oldPwd" placeholder="Altes Passwort" type="password">
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field class="full-width">
+            <input [(ngModel)]="newPwd1" matInput name="newPwd1" placeholder="Neues Passwort" type="password">
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field class="full-width">
+            <input [(ngModel)]="newPwd2" matInput name="newPwd2" placeholder="Wiederholung neues Passwort" type="password">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <button mat-button type="button" (click)="close()">Schliessen</button>
+      <button type="submit" mat-button>Abspeichern</button>
+    </form>
+  </mat-tab>
+</mat-tab-group>
