@@ -68,6 +68,10 @@ export class OpenAppsModel {
     stackedBarCharts: {
       type: 'stackedBarCharts',
       model: []
+    },
+    chordDiagrams: {
+      type: 'chordDiagrams',
+      model: []
     }
   };
 }

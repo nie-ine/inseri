@@ -6,6 +6,7 @@ import { FactSheetModule } from '../../fact-sheet/fact-sheet.module';
 import { MaterialModule } from '../../material.module';
 import { TagChipsModule } from '../../tag-chips/tag-chips.module';
 import { ArithmeticModule } from 'nie-ine';
+import { D3jsModule } from '../../nie-OS/apps/d3js/d3js.module';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { ArithmeticModule } from 'nie-ine';
     MaterialModule,
     ArithmeticModule,
     TagChipsModule,
+    D3jsModule,
     RouterModule.forChild([
       { path: 'dev/metadata', component: MetadataViewComponent }
     ])

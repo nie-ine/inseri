@@ -1,0 +1,15 @@
+<app-text-line *ngFor="let l of textTree?.lines" [whitespaceBehavior]="'normal'" [columnRatio]="[10, 0, 0, 50]">
+
+  <app-text-line-margin class="farfarleft" [backgroundColor]="'lightgray'">
+    <span>{{l.lineId}}</span>
+  </app-text-line-margin>
+
+  <ng-container *ngFor="let w of l.words">
+    <span (click)="clickWord(w.wordIri)"
+          (mouseenter)="hoverOntoWord(w.wordIri)"
+          (mouseleave)="hoverOutOfWord()"
+          [ngClass]="{'hovered-word': (w.wordIri === hoveredWord), 'clicked-word': (w.wordIri === clickedWord) }"
+    ><app-spa-text [spaTextIri]="w.textIri"></app-spa-text></span>
+  </ng-container>
+
+</app-text-line>
