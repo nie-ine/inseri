@@ -34,9 +34,11 @@
 
     <div *ngFor="let action of actions; let i = index" >
       <div class="col-md-4" href="#portfolioModal1" *ngIf="!action.deleted" [ngStyle]="{'color': action.isFinished ? 'green' : 'black'}">
-                    <span class="fa-stack fa-4x" [matMenuTriggerFor]="appMenu">
-                     <i class="fa fa-circle fa-stack-2x text-primary" ></i>
-                      <a><i class="fa fa-play fa-stack-1x fa-inverse" ></i></a>
+                    <span class="fa-stack fa-4x" [matMenuTriggerFor]="appMenu" [ngSwitch]="action.type">
+                      <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                      <i *ngSwitchCase="'page-set'" class="fa fa-files-o fa-stack-1x fa-inverse" ></i>
+                      <i *ngSwitchCase="'page'" class="fa fa-file-o fa-stack-1x fa-inverse" ></i>
+                      <i *ngSwitchDefault class="fa fa-question fa-stack-1x fa-inverse" ></i>
                     </span>
                     <mat-menu #appMenu="matMenu">
                       <button mat-menu-item (click)="continueAction( action )" >Aktion fortführen</button>
