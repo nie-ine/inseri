@@ -12,6 +12,7 @@ import { StackedBarChartComponent } from './stacked-bar-chart/stacked-bar-chart.
 import { SankeyComponent } from './sankey/sankey.component';
 import { LeafletExampleComponent } from './leaflet-example/leaflet-example.component';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { ChordDiagramComponent } from './chord-diagram/chord-diagram.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
       { path: 'pie-chart', component: PieChartComponent },
       { path: 'stacked-bar-chart', component: StackedBarChartComponent },
       { path: 'sankey', component: SankeyComponent },
-      { path: 'leaflet-example', component: LeafletExampleComponent }
+      { path: 'leaflet-example', component: LeafletExampleComponent },
+      { path: 'chord', component: ChordDiagramComponent }
     ]),
     AceEditorModule
   ],
@@ -39,7 +41,8 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     PieChartComponent,
     StackedBarChartComponent,
     SankeyComponent,
-    LeafletExampleComponent
+    LeafletExampleComponent,
+    ChordDiagramComponent
   ],
   exports: [
     BarChartComponent,
@@ -50,7 +53,8 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     PieChartComponent,
     StackedBarChartComponent,
     LeafletExampleComponent,
-    SankeyComponent
+    SankeyComponent,
+    ChordDiagramComponent
 ]
 })
 export class D3jsModule { }
