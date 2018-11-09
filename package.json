@@ -55,6 +55,7 @@
     "mongoose-unique-validator": "^2.0.2",
     "ng2-ace-editor": "^0.3.8",
     "nie-ine": "0.0.19",
+    "nodemailer": "^4.6.8",
     "nodemon": "^1.18.4",
     "openseadragon": "^2.3.1",
     "primeng": "^6.0.1",

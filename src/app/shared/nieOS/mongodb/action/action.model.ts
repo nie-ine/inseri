@@ -5,7 +5,7 @@ export interface Action {
   isFinished: boolean; // isInProgress, isFinished
   deleted: boolean;
   type: string;
-  hasViews: Array<string>; // hashes of the views
+  hasPages: Array<string>; // hashes of the pages
   hasPageSet: string;
 }
 

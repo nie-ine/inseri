@@ -6,7 +6,7 @@ import {Router} from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private static BASE_API_URL = 'http://localhost:3000/api';
+  private static API_BASE_URL = 'http://localhost:3000/api/user';
   private isAuthenticated = false;
   private token: string;
   private authStatusListener = new Subject<boolean>();
@@ -21,31 +21,55 @@ export class AuthService {
     return this.token;
   }
 
-  createUser( email: string, password: string, firstName: string, lastName: string ) {
+  createUser(email: string, password: string, firstName: string, lastName: string): Observable<any> {
     const authData: AuthData = {
       email: email,
       password: password,
       firstName: firstName,
       lastName: lastName
     };
-    return this.http.post(`${AuthService.BASE_API_URL}/user/signup`, authData);
+    return this.http.post(`${AuthService.API_BASE_URL}/signup`, authData);
   }
 
-  updateUser(firstName: string, lastName: string, email: string, newsletter: boolean, userId: string): Observable<any> {
+  updateUser(userId: string, email: string, firstName: string, lastName: string, newsletter: boolean): Observable<any> {
     const user: any = {
+      userId: userId,
+      email: email,
       firstName: firstName,
       lastName: lastName,
-      email: email,
-      userId: userId,
       newsletter: newsletter
     };
 
-    return this.http.put(`${AuthService.BASE_API_URL}/user/${userId}}`, user);
+    return this.http.put<
+      {
+        token: string,
+        expiresIn: number,
+        firstName: string,
+        userId: string
+      }
+      >(`${AuthService.API_BASE_URL}/${userId}`, user)
+      .map(response => {
+        const token = response.token;
+        this.token = token;
+        const expiresInDuration = response.expiresIn;
+        const now = new Date();
+        const expirationDate = new Date (now.getTime() + expiresInDuration * 1000);
+        this.saveAuthData(token, expirationDate, response.firstName, response.userId);
+        return response;
+      });
+  }
+
+  updatePwd(userId: string, oldPwd: string, newPwd: string): Observable<any> {
+    const pwd: any = {
+      userId: userId,
+      oldPwd: oldPwd,
+      newPwd: newPwd
+    };
+    return this.http.put(`${AuthService.API_BASE_URL}/${userId}/pwd`, pwd);
   }
 
   getUser(userId: string): Observable<any> {
-    console.log('Get User', userId);
-    return this.http.get(`${AuthService.BASE_API_URL}/user/${userId}`);
+    return this.http.get(`${AuthService.API_BASE_URL}/${userId}`);
   }
 
   login(email: string, password: string) {
@@ -57,10 +81,8 @@ export class AuthService {
         firstName: string,
         userId: string
       }
-      >(`${AuthService.BASE_API_URL}/user/login`, authData)
+      >(`${AuthService.API_BASE_URL}/login`, authData)
       .subscribe( response => {
-        console.log('Loged in');
-        console.log(response);
         const token = response.token;
         this.token = token;
         const expiresInDuration = response.expiresIn;
@@ -69,7 +91,6 @@ export class AuthService {
         this.authStatusListener.next(true);
         const now = new Date();
         const expirationDate = new Date (now.getTime() + expiresInDuration * 1000);
-        console.log(expirationDate);
         this.saveAuthData(token, expirationDate, response.firstName, response.userId);
         this.router.navigate(['/dashboard' ], {fragment: 'top'});
       });
@@ -150,7 +171,7 @@ export class AuthService {
     return {
       token: token,
       expirationDate: new Date(expirationDate)
-    }
+    };
   }
 
 }

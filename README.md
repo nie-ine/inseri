@@ -65,7 +65,6 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
  - add routes in app.js
  - create new service for mongodb in frontend, like mongodbAction.service.ts
  - test route in backend with console.log (without backend operations at first, bc it's easier.)
- - in frontend, replace service (example for action in dashboard)
  - add mongoose Schema, instantiate it in backend/routes and assign req.body to mongoose object
  - save data to the database (ref tutorial 53)
  - check if it worked with mongo shell, again in 53
