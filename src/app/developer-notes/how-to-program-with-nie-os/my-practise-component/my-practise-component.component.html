@@ -1,0 +1,17 @@
+<app-navigation
+  style="margin-top: 30px"
+  [texts]="mockupTexts"
+  (sendChosenTextIndexBack)="updateChosenText($event)">
+
+</app-navigation>
+
+<app-text-display
+  [chosenText]="chosenText"
+  style="margin-top: 200px">
+
+</app-text-display>
+
+<app-dictionary
+  [dictionary]="dictionary" >
+
+</app-dictionary>

@@ -42,6 +42,10 @@ export class PieChartComponent implements AfterViewChecked {
     }
   }
 
+  generateComponentDivClass() {
+    return 'pieChart' + this.numberOfInitialisedComponent;
+  }
+
   private initSvg() {
     this.color = d3Scale.scaleOrdinal()
       .range(['#98abc5', '#8a89a6', '#7b6888', '#6b486b', '#a05d56', '#d0743c', '#ff8c00']);
@@ -54,7 +58,10 @@ export class PieChartComponent implements AfterViewChecked {
     this.pie = d3Shape.pie()
       .sort(null)
       .value((d: any) => d.population);
-    this.svg = d3.select('svg')
+    this.svg = d3.select('.' + this.generateComponentDivClass())
+      .append('svg')
+      .attr('width', 1000) // Change here for size of the bars
+      .attr('height', 500)
       .append('g')
       .attr('transform', 'translate(' + this.width / 2 + ',' + this.height / 2 + ')');
   }
