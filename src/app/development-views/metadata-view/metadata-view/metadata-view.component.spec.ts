@@ -8,6 +8,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
 import { KnoraV1RequestService } from '../../../shared/knora/knora-v1-request.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { D3jsModule } from '../../../nie-OS/apps/d3js/d3js.module';
 
 describe('MetadataViewComponent', () => {
   let component: MetadataViewComponent;
@@ -23,7 +24,8 @@ describe('MetadataViewComponent', () => {
         MaterialModule,
         RouterTestingModule,
         TagChipsModule,
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        D3jsModule
       ],
       providers: [ KnoraV1RequestService ]
     })

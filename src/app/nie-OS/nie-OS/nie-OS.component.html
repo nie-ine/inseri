@@ -306,6 +306,25 @@
       </mat-expansion-panel>
 
 
+      <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Chord diagram
+          </mat-panel-title>
+          <mat-panel-description>
+            To compare intensity of connections
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        This app is under development
+
+        <mat-divider></mat-divider>
+
+        <button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'chordDiagrams' ].model, true)"><mat-icon>all_out</mat-icon> Add Chord Diagram</button><br>
+
+      </mat-expansion-panel>
+
+
 
       <h4 style="align-content: center">Data Insertion</h4>
 
@@ -712,6 +731,31 @@
       </mat-menu>
 
     </div>
+
+    <!-- Chord diagram -->
+    <div *ngFor="let chordDiagram of openAppsInThisPage[ 'chordDiagrams' ].model; let i = index;" >
+      <popup #chordDiagram
+             [hash]="openAppsInThisPage[ 'chordDiagrams' ].model[i].hash"
+             [title]="'Chord Diagram ' + i"
+             [type]="openAppsInThisPage[ 'chordDiagrams' ].type"
+             [firstPopupX]="openAppsInThisPage[ 'chordDiagrams' ].model[i].x"
+             [firstPopupY]="openAppsInThisPage[ 'chordDiagrams' ].model[i].y"
+             (sendAppCoordinatesBack)="updateAppCoordinates($event)">
+        <div >
+          <app-chord-diagram
+            [initialised] = "openAppsInThisPage[ 'chordDiagrams' ].model[i].initialized"
+            [numberOfInitialisedComponent] = " i " >
+          </app-chord-diagram>
+        </div>
+      </popup>
+      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>all_out</mat-icon> {{ i }}</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="chordDiagram.appear()" (click)="openAppsInThisPage[ 'chordDiagrams' ].model[i].initialized = true">Chord Diagram {{ i }}</button>
+        <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'chordDiagrams' ].model, i ) ">Close this app</button>
+      </mat-menu>
+
+    </div>
+
 
 
   </mat-drawer-container>

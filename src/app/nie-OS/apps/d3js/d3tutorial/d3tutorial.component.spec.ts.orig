@@ -10,8 +10,13 @@ describe('D3tutorialComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+<<<<<<< HEAD
+      imports: [ AceEditorModule ],
+      declarations: [ D3tutorialComponent ]
+=======
       declarations: [ D3tutorialComponent ],
       imports: [ AceEditorModule ]
+>>>>>>> devel
     })
     .compileComponents();
   }));
