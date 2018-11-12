@@ -10,7 +10,7 @@
 
         <div>
           <mat-form-field class="full-width">
-            <input formControlName="email" matInput name="email" [(ngModel)]="email" placeholder="Email">
+            <input formControlName="email" matInput name="email" placeholder="Email">
           </mat-form-field>
         </div>
         <div class="error-validation" *ngIf="profileForm.get('email').hasError('required') && profileForm.get('email').touched">
@@ -20,10 +20,9 @@
           Ihre Email ist ungültig!
         </div>
 
-
         <div>
           <mat-form-field class="full-width">
-            <input formControlName="firstname" matInput name="firstName" [(ngModel)]="firstName" placeholder="Vorname">
+            <input formControlName="firstname" matInput name="firstName" placeholder="Vorname">
           </mat-form-field>
         </div>
         <div class="error-validation" *ngIf="profileForm.get('firstname').hasError('required') && profileForm.get('firstname').touched">
@@ -32,14 +31,14 @@
 
         <div>
           <mat-form-field class="full-width">
-            <input formControlName="lastname" matInput name="lastName" [(ngModel)]="lastName" placeholder="Nachname">
+            <input formControlName="lastname" matInput name="lastName" placeholder="Nachname">
           </mat-form-field>
         </div>
         <div class="error-validation" *ngIf="profileForm.get('lastname').hasError('required') && profileForm.get('lastname').touched">
           Bitte geben Sie ihren Nachnamen ein!
         </div>
 
-        <mat-slide-toggle name="newsletter" [(ngModel)]="newsletter" [ngModelOptions]="{standalone: true}">Newsletter</mat-slide-toggle>
+        <mat-slide-toggle [formControl]="profileForm.get('newsletter')" name="newsletter">Newsletter</mat-slide-toggle>
       </div>
 
       <button mat-button type="button" (click)="close()">Schliessen</button>
@@ -56,7 +55,7 @@
 
         <div>
           <mat-form-field class="full-width">
-            <input formControlName="oldpwd" [(ngModel)]="oldPwd" matInput name="oldPwd" placeholder="Altes Passwort" type="password">
+            <input formControlName="oldpwd" matInput name="oldPwd" placeholder="Altes Passwort" type="password">
           </mat-form-field>
         </div>
         <div class="error-validation" *ngIf="pwdForm.get('oldpwd').hasError('required') && pwdForm.get('oldpwd').touched">
@@ -65,7 +64,7 @@
 
         <div>
           <mat-form-field class="full-width">
-            <input formControlName="newpwd1" [(ngModel)]="newPwd1" matInput name="newPwd1" placeholder="Neues Passwort" type="password">
+            <input formControlName="newpwd1" matInput name="newPwd1" placeholder="Neues Passwort" type="password">
           </mat-form-field>
         </div>
         <div class="error-validation" *ngIf="pwdForm.get('newpwd1').hasError('required') && pwdForm.get('newpwd1').touched">
@@ -77,7 +76,7 @@
 
         <div>
           <mat-form-field class="full-width">
-            <input formControlName="newpwd2" [(ngModel)]="newPwd2" matInput name="newPwd2" placeholder="Wiederholung neues Passwort" type="password">
+            <input formControlName="newpwd2" matInput name="newPwd2" placeholder="Wiederholung neues Passwort" type="password">
           </mat-form-field>
         </div>
         <div class="error-validation" *ngIf="pwdForm.get('newpwd2').hasError('required') && pwdForm.get('newpwd2').touched">
