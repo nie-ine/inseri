@@ -6,7 +6,7 @@ import {PageService} from '../../nie-OS/apps/page/page.service';
 import {AuthService} from '../../shared/nieOS/mongodb/auth/auth.service';
 import {Subscription} from 'rxjs';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
-import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {InitService} from '../init-popup/service/init.service';
 import {InitPopupComponent} from '../init-popup/init-popup.component';
 import {MongoActionService} from '../../shared/nieOS/mongodb/action/action.service';
@@ -251,13 +251,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
 
 export class DialogUserSettingsDialog implements OnInit {
     userId: string;
-    email: string;
-    firstName: string;
-    lastName: string;
-    newsletter: boolean;
-    oldPwd: string;
-    newPwd1: string;
-    newPwd2: string;
     errorPwd: boolean;
     errorPwdMessage: string;
     errorProfile: boolean;
@@ -273,10 +266,13 @@ export class DialogUserSettingsDialog implements OnInit {
     ) {}
 
     ngOnInit() {
+      this.userId = this.data.userId;
+
       this.profileForm = new FormGroup({
-        firstname: new FormControl('', [Validators.required, Validators.maxLength(25)]),
-        lastname: new FormControl('', [Validators.required, Validators.maxLength(25)]),
-        email: new FormControl('', [Validators.required, Validators.pattern(/^.+@.+\.\w+$/)])
+        firstname: new FormControl(this.data.firstName, [Validators.required, Validators.maxLength(25)]),
+        lastname: new FormControl(this.data.lastName, [Validators.required, Validators.maxLength(25)]),
+        email: new FormControl(this.data.email, [Validators.required, Validators.pattern(/^.+@.+\.\w+$/)]),
+        newsletter: new FormControl((this.data.newsletter == null) ? true : this.data.newsletter,[])
       });
 
       this.pwdForm = new FormGroup( {
@@ -285,11 +281,6 @@ export class DialogUserSettingsDialog implements OnInit {
         newpwd2: new FormControl('', [Validators.required, Validators.minLength(4)]),
       });
 
-      this.userId = this.data.userId;
-      this.email = this.data.email;
-      this.firstName = this.data.firstName;
-      this.lastName = this.data.lastName;
-      this.newsletter = (this.data.newsletter == null) ? true : this.data.newsletter;
       this.resetErrorPwd();
       this.resetErrorProfile();
     }
@@ -299,7 +290,6 @@ export class DialogUserSettingsDialog implements OnInit {
     }
 
     resetErrorProfile() {
-      console.log("key pressed");
       this.errorProfile = false;
     }
 
@@ -307,37 +297,45 @@ export class DialogUserSettingsDialog implements OnInit {
         this.dialogRef.close();
     }
 
-    save(form: NgForm) {
-      this.authService.updateUser(this.userId, this.email, this.firstName, this.lastName, this.newsletter)
-        .subscribe((result) => {
-          this.dialogRef.close();
-        }, error => {
-          if (error.status === 409) {
-            this.errorProfile = true;
-            this.errorProfileMessage = 'Email ist schon vergeben!';
-          } else {
-            this.errorProfile = true;
-            this.errorProfileMessage = 'Fehler mit dem Server!';
-          }
-        });
+    save() {
+      this.authService.updateUser(
+        this.userId,
+        this.profileForm.get('email').value,
+        this.profileForm.get('firstname').value,
+        this.profileForm.get('lastname').value,
+        this.profileForm.get('newsletter').value)
+          .subscribe((result) => {
+            this.dialogRef.close();
+          }, error => {
+            if (error.status === 409) {
+              this.errorProfile = true;
+              this.errorProfileMessage = 'Email ist schon vergeben!';
+            } else {
+              this.errorProfile = true;
+              this.errorProfileMessage = 'Fehler mit dem Server!';
+            }
+          });
     }
 
     changePwd() {
-      this.authService.updatePwd(this.userId, this.oldPwd, this.newPwd1)
-        .subscribe(result => {
-          this.dialogRef.close();
-        }, (error) => {
-          if (error.status === 400) {
-            this.errorPwd = true;
-            this.errorPwdMessage = 'Ungültiges Passwort!';
-          } else if (error.status === 420) {
-            this.errorPwd = true;
-            this.errorPwdMessage = 'Neues und altes Passwort sind identisch!';
-          } else {
-            this.errorPwd = true;
-            this.errorPwdMessage = 'Fehler mit dem Server!';
-          }
-        });
+      this.authService.updatePwd(
+        this.userId,
+        this.pwdForm.get('oldpwd').value,
+        this.pwdForm.get('newpwd1').value)
+          .subscribe(result => {
+            this.dialogRef.close();
+          }, (error) => {
+            if (error.status === 400) {
+              this.errorPwd = true;
+              this.errorPwdMessage = 'Ungültiges Passwort!';
+            } else if (error.status === 420) {
+              this.errorPwd = true;
+              this.errorPwdMessage = 'Neues und altes Passwort sind identisch!';
+            } else {
+              this.errorPwd = true;
+              this.errorPwdMessage = 'Fehler mit dem Server!';
+            }
+          });
     }
 
 }

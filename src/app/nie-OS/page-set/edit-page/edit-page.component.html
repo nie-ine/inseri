@@ -12,10 +12,6 @@
       <mat-error>Beschreibung muss eingegeben werden</mat-error>
     </mat-form-field>
 
-    <mat-form-field class="full-width">
-      <textarea formControlName="linkToImage" matInput></textarea>
-    </mat-form-field>
-
     <div>
       <button type="button" mat-button (click)="cancel()">Abbrechen</button>
       <button type="submit" mat-button [disabled]="form.invalid">Ok</button>

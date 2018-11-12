@@ -19,7 +19,7 @@
     <div style="margin-right: 30px; margin-left: 30px; margin-top: 20px;" *ngFor="let page of pagesOfThisPageSet; let i = index; ">
       <mat-divider></mat-divider>
         <span>
-          <a href="{{ generateURL( page ) }}" style="font-size: 25px" > {{ generatePageTitle ( page ) }} </a> <button mat-button><mat-icon >settings</mat-icon></button><br>
+          <a href="{{ generateURL( page ) }}" style="font-size: 25px" > {{ generatePageTitle ( page ) }} </a> <button mat-button (click)="editPage(page)"><mat-icon>settings</mat-icon></button><br>
           <span style="font-size: 15px" > {{ generatePageDescription( page ) }}   </span>
         </span>
     </div>
