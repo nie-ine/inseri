@@ -1,25 +1,24 @@
-<h1 mat-dialog-title>Bearbeiten der Page Set</h1>
-<form [formGroup]="form" (ngSubmit)="save()">
-  <div class="col-md-6 col-md-offset-3">
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<form [formGroup]="form" (ngSubmit)="save()" *ngIf="!isLoading">
 
-    <mat-form-field class="full-width">
-      <input formControlName="title" matInput>
-      <mat-error>Titel muss eingegeben werden</mat-error>
-    </mat-form-field>
+  <h1 mat-dialog-title>Bearbeiten der Page Set</h1>
+  <mat-form-field class="full-width">
+    <input formControlName="title" matInput>
+    <mat-error>Titel muss eingegeben werden</mat-error>
+  </mat-form-field>
 
-    <mat-form-field class="full-width">
-      <textarea formControlName="description" matInput></textarea>
-      <mat-error>Beschreibung muss eingegeben werden</mat-error>
-    </mat-form-field>
+  <mat-form-field class="full-width">
+    <textarea formControlName="description" matInput></textarea>
+    <mat-error>Beschreibung muss eingegeben werden</mat-error>
+  </mat-form-field>
 
-    <mat-form-field class="full-width">
-      <textarea formControlName="linkToImage" matInput></textarea>
-    </mat-form-field>
+  <mat-form-field class="full-width">
+    <textarea formControlName="linkToImage" matInput></textarea>
+  </mat-form-field>
 
-    <div>
-      <button type="button" mat-button (click)="cancel()">Abbrechen</button>
-      <button type="submit" mat-button [disabled]="form.invalid">Ok</button>
-    </div>
-
+  <div>
+    <button type="button" mat-button (click)="cancel()">Abbrechen</button>
+    <button type="submit" mat-button [disabled]="form.invalid">Ok</button>
   </div>
+
 </form>

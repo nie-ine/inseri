@@ -1,7 +1,7 @@
-<h1 mat-dialog-title>Bearbeiten der Page Set</h1>
-<form [formGroup]="form" (ngSubmit)="save()">
-  <div class="col-md-6 col-md-offset-3">
-
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<form [formGroup]="form" (ngSubmit)="save()" *ngIf="!isLoading">
+  <h1 mat-dialog-title>Bearbeiten der Page</h1>
+  <div>
     <mat-form-field class="full-width">
       <input formControlName="title" matInput>
       <mat-error>Titel muss eingegeben werden</mat-error>

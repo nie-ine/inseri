@@ -1,7 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { Page } from "../../../shared/nieOS/mongodb/page/page.model";
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Page } from '../../../shared/nieOS/mongodb/page/page.model';
+import { MongoPageService } from "../../../shared/nieOS/mongodb/page/page.service";
 
 @Component({
   selector: 'app-edit-page',
@@ -10,11 +11,14 @@ import { Page } from "../../../shared/nieOS/mongodb/page/page.model";
 })
 export class EditPageComponent implements OnInit {
   form: FormGroup;
+  isLoading: boolean;
   newPage: Page;
 
   constructor(public dialogRef: MatDialogRef<EditPageComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any) {
+              @Inject(MAT_DIALOG_DATA) public data: any,
+              private mongoPageService: MongoPageService) {
     this.newPage = this.data;
+    this.isLoading = false;
   }
 
   ngOnInit() {
@@ -25,8 +29,15 @@ export class EditPageComponent implements OnInit {
   }
 
   save() {
+    this.isLoading = true;
     this.newPage.title = this.form.get('title').value;
     this.newPage.description = this.form.get('description').value;
+
+    // Reqest to edit page Todo
+    setTimeout(() => {
+      this.isLoading = false;
+      this.dialogRef.close();
+      }, 500);
   }
 
   cancel() {
