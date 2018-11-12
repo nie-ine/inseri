@@ -10,10 +10,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./update-page-set.component.scss']
 })
 export class UpdatePageSetComponent implements OnInit {
+  isLoading: boolean;
   form: FormGroup;
 
   constructor(public dialogRef: MatDialogRef<UpdatePageSetComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
               private pageSetService: PageSetService) {
+    this.isLoading = false;
   }
 
   ngOnInit() {
@@ -25,6 +27,7 @@ export class UpdatePageSetComponent implements OnInit {
   }
 
   save() {
+    this.isLoading = true;
     const pageSet = new PageSetModel();
     pageSet.id = this.data.id;
     pageSet.title = this.form.get('title').value;
@@ -33,6 +36,7 @@ export class UpdatePageSetComponent implements OnInit {
 
     this.pageSetService.updatePageSet(pageSet)
       .subscribe((result) => {
+        this.isLoading = false;
         this.dialogRef.close(result.pageset);
       }, (error) => {
         console.log('ERROR in editing a pageSet');

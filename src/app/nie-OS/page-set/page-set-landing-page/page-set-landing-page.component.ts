@@ -238,7 +238,7 @@ export class PageSetLandingPageComponent implements OnInit {
 
   editPage(page: Page) {
     const dialogRef = this.dialogEditPage.open(EditPageComponent, {
-      width: '1700px',
+      width: '600px',
       data: page,
       hasBackdrop: false
     });

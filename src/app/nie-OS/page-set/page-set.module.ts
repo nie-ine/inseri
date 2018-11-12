@@ -7,7 +7,7 @@ import {
 import {RouterModule} from '@angular/router';
 import {
   MatButtonModule, MatDialogModule, MatIconModule, MatRadioModule, MatFormFieldModule,
-  MatInputModule
+  MatInputModule, MatProgressSpinnerModule
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatMenuModule} from '@angular/material/menu';
@@ -33,6 +33,7 @@ import {EditPageComponent } from './edit-page/edit-page.component';
     MatFormFieldModule,
     MatInputModule,
     MatDividerModule,
+    MatProgressSpinnerModule,
     RouterModule.forRoot([
       {path: 'page-set', component: PageSetLandingPageComponent}
     ])

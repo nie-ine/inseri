@@ -298,6 +298,7 @@ export class DialogUserSettingsDialog implements OnInit {
     }
 
     save() {
+      this.resetErrorProfile();
       this.authService.updateUser(
         this.userId,
         this.profileForm.get('email').value,
@@ -305,7 +306,7 @@ export class DialogUserSettingsDialog implements OnInit {
         this.profileForm.get('lastname').value,
         this.profileForm.get('newsletter').value)
           .subscribe((result) => {
-            this.dialogRef.close();
+            this.close();
           }, error => {
             if (error.status === 409) {
               this.errorProfile = true;
@@ -318,12 +319,13 @@ export class DialogUserSettingsDialog implements OnInit {
     }
 
     changePwd() {
+      this.resetErrorPwd();
       this.authService.updatePwd(
         this.userId,
         this.pwdForm.get('oldpwd').value,
         this.pwdForm.get('newpwd1').value)
           .subscribe(result => {
-            this.dialogRef.close();
+            this.close();
           }, (error) => {
             if (error.status === 400) {
               this.errorPwd = true;
