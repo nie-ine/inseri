@@ -48,6 +48,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
   viewHashFromURL: string;
   openAppsInThisPage: any;
   pageAsDemo = false;
+  pageUpdated = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -66,6 +67,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
   ngAfterViewChecked() {
     this.cdr.detectChanges();
     if ( this.viewHashFromURL !==  this.route.snapshot.queryParams.page ) {
+      this.clearAppsInThisPage();
       this.updatePageFromUrl();
     }
     this.cdr.detectChanges();
@@ -88,20 +90,6 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     } else {
       this.checkIfPageExistsForThisAction( this.actionID );
     }
-  }
-
-  instantiateView( viewHash: string ) {
-    console.log( 'ViewHash: ' + viewHash );
-    this.updateAppsInView( viewHash );
-    this.mongoActionService.getAction(this.actionID)
-      .subscribe(
-        data => {
-          this.action = data;
-        },
-        error => {
-          console.log(error);
-          return undefined;
-        });
   }
 
   checkIfPageExistsForThisAction(actionID: string) {
@@ -178,24 +166,30 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
             appHelperArray[JSON.parse(app).hash] = JSON.parse(app);
           }
           this.page.openApps = appHelperArray;
-          console.log(appHelperArray);
-          console.log(this.page);
-            console.log('Start updating page');
-            console.log(this.page);
-            for ( const app in this.page.openApps ) {
-              console.log(app);
-              for ( const appType in this.openAppsInThisPage ) {
-                this.initiateUpdateApp(
-                  this.page.openApps[ app ],
-                  this.openAppsInThisPage[ appType ].type,
-                  this.openAppsInThisPage[ appType ].model
-                );
-              }
+          console.log(this.page.openApps);
+          for ( const app in this.page.openApps ) {
+            for ( const appType in this.openAppsInThisPage ) {
+              this.initiateUpdateApp(
+                this.page.openApps[ app ],
+                this.openAppsInThisPage[ appType ].type,
+                this.openAppsInThisPage[ appType ].model
+              );
             }
+          }
         },
         error => {
           console.log(error);
         });
+  }
+
+  clearAppsInThisPage() {
+    console.log('Clear apps in this page');
+    console.log(this.openApps.openApps);
+    for ( const app in this.openApps.openApps ) {
+      this.openApps.openApps[ app ].model = [];
+      // console.log( this.openApps.openApps[ app ].model );
+    }
+    console.log(this.openApps.openApps);
   }
 
   initiateUpdateApp(
