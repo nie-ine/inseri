@@ -35,6 +35,7 @@ import {MockupTutorialModule} from '../developer-notes/mockup-tutorial/mockup-tu
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { PizzaPartyComponent } from './header/header.component';
 import { BrowserModule } from "@angular/platform-browser";
+import {MatChipsModule} from '@angular/material/chips';
 
 @NgModule({
   imports: [
@@ -59,6 +60,7 @@ import { BrowserModule } from "@angular/platform-browser";
     HowToProgramWithNieOSModule,
     MockupTutorialModule,
     MatSnackBarModule,
+    MatChipsModule,
     RouterModule.forRoot([
       { path: '**', component: PageNotFoundComponent }
       ])
