@@ -9,7 +9,7 @@ import {
   MatButtonModule, MatDialogModule, MatIconModule, MatRadioModule, MatFormFieldModule,
   MatInputModule
 } from '@angular/material';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatMenuModule} from '@angular/material/menu';
 import {PageSetService} from './model/page-set.service';
 import {GenerateHashService} from '../../shared/nieOS/other/generateHash.service';
@@ -18,6 +18,7 @@ import {UpdatePageSetComponent} from './update-page-set/update-page-set.componen
 import {CreatePageSetAndLinkToActionService} from './services/createPageSetAndLinkToAction.service';
 import {CreatePageAndLinkToAction} from './services/createPageAndLinkToAction.service';
 import {MatDividerModule} from '@angular/material/divider';
+import {EditPageComponent } from './edit-page/edit-page.component';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import {MatDividerModule} from '@angular/material/divider';
     MatButtonModule,
     MatDialogModule,
     FormsModule,
+    ReactiveFormsModule,
     MatRadioModule,
     MatMenuModule,
     MatIconModule,
@@ -38,11 +40,13 @@ import {MatDividerModule} from '@angular/material/divider';
   declarations: [
     PageSetLandingPageComponent,
     DialogCreateNewPageComponent,
-    UpdatePageSetComponent
+    UpdatePageSetComponent,
+    EditPageComponent
   ],
   entryComponents: [
     DialogCreateNewPageComponent,
-    UpdatePageSetComponent
+    UpdatePageSetComponent,
+    EditPageComponent
   ],
   providers: [
     PageSetService,
