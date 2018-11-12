@@ -23,6 +23,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDividerModule} from '@angular/material/divider';
 import {D3jsModule} from './apps/d3js/d3js.module';
 import {OpenAppsModel} from '../shared/nieOS/mongodb/page/open-apps.model';
+import {MatChipsModule} from '@angular/material/chips';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import {OpenAppsModel} from '../shared/nieOS/mongodb/page/open-apps.model';
     MatExpansionModule,
     MatDividerModule,
     D3jsModule,
+    MatChipsModule,
     RouterModule.forChild([
       { path: 'page', component: NIEOSComponent },
       { path: 'grapesjs', component: GrapesjsComponent },

@@ -11,6 +11,13 @@ import {InitService} from '../init-popup/service/init.service';
 import {InitPopupComponent} from '../init-popup/init-popup.component';
 import {MongoActionService} from '../../shared/nieOS/mongodb/action/action.service';
 import {MongoPageService} from '../../shared/nieOS/mongodb/page/page.service';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {ThemePalette} from '@angular/material/core';
+
+export interface ChipColor {
+  name: string;
+  color: ThemePalette;
+}
 
 @Component({
   selector: 'app-header',
@@ -28,6 +35,15 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
   foundHashOfThisView: boolean;
   private authListenerSubs: Subscription;
   userIsAuthenticated = false;
+  action: any;
+  pagesOfThisAction: any;
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  selectedPage = 0;
+  alreadyLoaded = false;
 
   constructor(
     private initService: InitService,
@@ -52,6 +68,20 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.actionID = params.actionID;
       this.generateNavigation(params.actionID);
     });
+  }
+
+  selectPage( i: number, page: any ) {
+    this.selectedPage = i;
+    console.log( page );
+    this.navigateToOtherView( page );
+  }
+
+  checkIfSelected( index: number ) {
+    if ( index === this.selectedPage ) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   openSnackBar() {
@@ -86,111 +116,43 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.authListenerSubs.unsubscribe();
   }
 
-  produceCurrentViewDescription() {
-    if ( this.viewsOfThisActtion ) {
-      for ( const view of this.viewsOfThisActtion ) {
-        if ( view ) {
-          if ( view.hash === this.hashOfThisView ) {
-            return view.description;
-          }
-        }
-      }
-    }
-  }
-
-  produceCurrentViewTitle() {
-    if ( this.viewsOfThisActtion ) {
-      for (const view of this.viewsOfThisActtion) {
-        if ( view ) {
-          if (view._id === this.hashOfThisView) {
-            return view.title;
-          }
-        }
-      }
-    }
-  }
-
   generateNavigation( actionID: string ) {
-    console.log('Get action by id, then iterate through views');
-    this.mongoActionService.getAction( actionID )
-      .subscribe(
-        data => {
-          console.log(data);
-          for ( const pageHash of ( data as any ).action.hasPages as any ) {
-            // console.log( pageHash );
-            this.viewsOfThisActtion = [];
-            this.mongoPageService.getPage( pageHash )
-              .subscribe(
-                result => {
-                  this.viewsOfThisActtion[
-                    this.viewsOfThisActtion.length
-                    ] = (result as any).page;
-                  if ( this.hashOfThisView ) {
-                    this.produceHashOfLastView();
-                    this.produceHashOfNextView();
+    if( !this.alreadyLoaded ) {
+      this.mongoActionService.getAction( actionID )
+        .subscribe(
+          data => {
+            console.log(data);
+            for ( const pageHash of ( data as any ).action.hasPages as any ) {
+              this.viewsOfThisActtion = [];
+              this.mongoPageService.getPage( pageHash )
+                .subscribe(
+                  result => {
+                    this.viewsOfThisActtion[
+                      this.viewsOfThisActtion.length
+                      ] = (result as any).page;
+                    this.alreadyLoaded = true;
+                  },
+                  errorGetPage => {
+                    console.log(errorGetPage);
                   }
-                  // console.log( (result as any).page );
-                },
-                errorGetPage => {
-                  console.log(errorGetPage);
-                }
-              );
-          }
-        },
-        error => {
-          console.log(error);
-        });
-  }
-
-  produceHashOfNextView() {
-    this.nextView = undefined;
-    for ( const view of this.viewsOfThisActtion ) {
-      if ( view ) {
-        if ( this.foundHashOfThisView ) {
-          this.nextView = view;
-          this.foundHashOfThisView = false;
-        }
-        if ( view._id === this.hashOfThisView ) {
-          this.foundHashOfThisView = true;
-        }
-      }
+                );
+            }
+          },
+          error => {
+            console.log(error);
+          });
     }
   }
 
-  navigateToOtherView( view: any) {
+  navigateToOtherView( page: any) {
     console.log('Navigate to last View');
     this.router.navigate( [ 'page' ], {
       queryParams: {
         'actionID': this.actionID,
-        'page': view._id
+        'page': page._id
       }
     } );
     return 'test';
-  }
-
-  produceHashOfLastView() {
-    this.lastView = undefined;
-    for ( const view of this.viewsOfThisActtion ) {
-      if ( view ) {
-        if ( view._id === this.hashOfThisView ) {
-          return null;
-        } else {
-          this.lastView = view;
-        }
-      }
-    }
-  }
-
-  produceRightArrowTooltip() {
-    if ( this.nextView ) {
-      return 'go to ' + this.nextView.title;
-    }
-  }
-
-  produceLeftArrowTooltip() {
-    if ( this.lastView ) {
-      return 'go to ' + this.lastView.title;
-    }
   }
 
   updateCurrentRoute( route: any ) {

@@ -7,15 +7,30 @@
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-right">
+    <div  >
+      <ul class="nav navbar-nav navbar-right" >
         <li class="hidden">
           <a href="#page-top"></a>
         </li>
-        <li *ngIf="hashOfThisView" >
-          <a> <span *ngIf="lastView" (click)="navigateToOtherView( lastView )" matTooltip="{{ produceLeftArrowTooltip() }}" > &larr; </span> &nbsp;
-            <span matTooltip="{{ produceCurrentViewDescription() }}" >{{ produceCurrentViewTitle() }}</span> &nbsp;
-            <span *ngIf="nextView" matTooltip="{{ produceRightArrowTooltip() }}" (click)="navigateToOtherView( nextView )" >&rarr;</span></a>
+
+        <li  *ngIf="hashOfThisView" style=" overflow-x:auto; width: 500px; height: 40px;">
+
+          <mat-chip-list *ngFor="let page of viewsOfThisActtion; let i = index;" style="margin-top: 8px; margin-left: 2px; display: inline-block;">
+
+              <mat-chip matTooltip="{{ page.description }}" selected [color]="'primary'"  *ngIf="checkIfSelected( i )">
+
+                {{ page.title }}
+
+              </mat-chip>
+
+            <mat-chip matTooltip="{{ page.description }}" *ngIf="!checkIfSelected( i )" (click)="selectPage( i, page )">
+
+              {{ page.title }}
+
+            </mat-chip>
+
+          </mat-chip-list>
+
         </li>
         <li class="navbar-list">
           <a href="home#funktionen" >{{ generateFunctionsHomeLink() }}</a>
