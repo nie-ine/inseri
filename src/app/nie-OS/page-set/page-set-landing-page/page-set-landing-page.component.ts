@@ -13,6 +13,8 @@ import { PageSetService } from '../model/page-set.service';
 import { Action } from '../../../shared/nieOS/mongodb/action/action.model';
 import {MongoPageService} from '../../../shared/nieOS/mongodb/page/page.service';
 import {HttpClient} from '@angular/common/http';
+import { EditPageComponent } from "../edit-page/edit-page.component";
+import { Page } from "../../../shared/nieOS/mongodb/page/page.model";
 
 @Component({
   selector: 'app-page-set-landing-page',
@@ -32,6 +34,7 @@ export class PageSetLandingPageComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     public dialogUpdatePageSet: MatDialog,
+    public dialogEditPage: MatDialog,
     private route: ActivatedRoute,
     private generateHashService: GenerateHashService,
     private actionService: ActionService,
@@ -81,7 +84,7 @@ export class PageSetLandingPageComponent implements OnInit {
   }
 
   updatePagesOfThisPageSet(action: any) {
-    const help = []
+    const help = [];
     for ( const id of action.hasPages ) {
       this.mongoPageService.getPage( id )
         .subscribe(
@@ -231,6 +234,14 @@ export class PageSetLandingPageComponent implements OnInit {
     if ( page ) {
       return page.description;
     }
+  }
+
+  editPage(page: Page) {
+    const dialogRef = this.dialogEditPage.open(EditPageComponent, {
+      width: '1700px',
+      data: page,
+      hasBackdrop: false
+    });
   }
 }
 
