@@ -7,6 +7,7 @@ import { MongoActionService } from '../../shared/nieOS/mongodb/action/action.ser
 import { Action } from '../../shared/nieOS/mongodb/action/action.model';
 import { map } from 'rxjs/operators';
 import {MongoContactService} from '../../shared/nieOS/mongodb/contact/contact.service';
+import {EditActionComponent} from "./edit-action/edit-action.component";
 
 @Component({
   selector: 'app-dashboard',
@@ -79,6 +80,13 @@ export class DashboardComponent implements OnInit {
       if (result[0] === 'pageSet') {
         this.router.navigate(['/page-set'], { queryParams: { actionID: result[1]}});
       }
+    });
+  }
+
+  editAction(action: any) {
+    const dialogRef = this.dialog.open(EditActionComponent, {
+      width: '700px',
+      data: action
     });
   }
 
