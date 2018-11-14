@@ -161,10 +161,10 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   generateLeftHeaderString(): string {
     return (
-      this.routeMapping( 'dashboard', 'nieOS - Dashboard' ) ||
-      this.routeMapping( 'home', 'nieOS' ) ||
-      this.routeMapping( 'page', 'nieOS - Page' ) ||
-      this.routeMapping( '', 'nieOS' )
+      this.routeMapping( 'dashboard', 'NIE-OS - Dashboard' ) ||
+      this.routeMapping( 'home', 'NIE-OS' ) ||
+      this.routeMapping( 'page', 'NIE-OS - Page' ) ||
+      this.routeMapping( '', 'NIE-OS' )
     );
   }
 
