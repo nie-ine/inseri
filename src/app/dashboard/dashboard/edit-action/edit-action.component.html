@@ -1,0 +1,21 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<form [formGroup]="form" (ngSubmit)="save()" *ngIf="!isLoading">
+  <h1 mat-dialog-title>Bearbeiten der Action</h1>
+  <div>
+    <mat-form-field class="full-width">
+      <input formControlName="title" matInput>
+      <mat-error>Titel muss eingegeben werden</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <textarea formControlName="description" matInput></textarea>
+      <mat-error>Beschreibung muss eingegeben werden</mat-error>
+    </mat-form-field>
+
+    <div>
+      <button type="button" mat-button (click)="cancel()">Abbrechen</button>
+      <button type="submit" mat-button [disabled]="form.invalid">Ok</button>
+    </div>
+
+  </div>
+</form>
