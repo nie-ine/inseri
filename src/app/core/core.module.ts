@@ -29,12 +29,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InitPopupComponent } from './init-popup/init-popup.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {HowToProgramWithNieOSModule} from '../developer-notes/how-to-program-with-nie-os/how-to-program-with-nie-os.module';
-import {MyMainComponentComponent} from '../developer-notes/mockup-tutorial/my-main-component/my-main-component.component';
 import { TempDevModule } from '../development-views/temp-dev.module';
 import {MockupTutorialModule} from '../developer-notes/mockup-tutorial/mockup-tutorial.module';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { PizzaPartyComponent } from './header/header.component';
-import { BrowserModule } from "@angular/platform-browser";
+import { BrowserModule } from '@angular/platform-browser';
 import {MatChipsModule} from '@angular/material/chips';
 
 @NgModule({
