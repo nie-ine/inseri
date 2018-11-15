@@ -12,6 +12,8 @@ import { MatIconModule } from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { EditActionComponent } from './dashboard/edit-action/edit-action.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   imports: [
@@ -26,6 +28,8 @@ import { EditActionComponent } from './dashboard/edit-action/edit-action.compone
     MatInputModule,
     MatFormFieldModule,
     MatProgressSpinnerModule,
+    MatExpansionModule,
+    MatCardModule,
     RouterModule.forRoot([
       {path: 'dashboard', component: DashboardComponent}
     ])
