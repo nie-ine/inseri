@@ -24,7 +24,15 @@ import {MatDividerModule} from '@angular/material/divider';
 import {D3jsModule} from './apps/d3js/d3js.module';
 import {OpenAppsModel} from '../shared/nieOS/mongodb/page/open-apps.model';
 import {MatChipsModule} from '@angular/material/chips';
-
+import { DataManagementComponent } from './data-management/data-management.component';
+import {MatTableModule} from '@angular/material/table';
+import {MatInputModule} from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+import {MatSelectModule} from '@angular/material/select';
+import { QueryEntryComponent } from './query-entry/query-entry.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import { AceEditorModule } from 'ng2-ace-editor';
+import {AbstractJsonService} from './data-management/abstract-json.service';
 
 @NgModule({
   imports: [
@@ -45,6 +53,12 @@ import {MatChipsModule} from '@angular/material/chips';
     MatDividerModule,
     D3jsModule,
     MatChipsModule,
+    MatTableModule,
+    MatInputModule,
+    FormsModule,
+    MatSelectModule,
+    MatTabsModule,
+    AceEditorModule,
     RouterModule.forChild([
       { path: 'page', component: NIEOSComponent },
       { path: 'grapesjs', component: GrapesjsComponent },
@@ -54,20 +68,25 @@ import {MatChipsModule} from '@angular/material/chips';
   providers: [
     GenerateHashService,
     SendGravSearchQueryService,
-    OpenAppsModel
+    OpenAppsModel,
+    AbstractJsonService
   ],
   declarations: [
     NIEOSComponent,
     Popup,
     GrapesjsComponent,
-    TextlistViewerComponent
+    TextlistViewerComponent,
+    DataManagementComponent,
+    QueryEntryComponent
   ],
   exports: [
     NIEOSComponent,
     MatSidenavModule
   ],
   entryComponents: [
-    ImageFrameComponent
+    ImageFrameComponent,
+    DataManagementComponent,
+    QueryEntryComponent
   ]
 })
 export class NIEOSModule { }

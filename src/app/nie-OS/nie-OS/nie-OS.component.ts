@@ -19,6 +19,8 @@ import {GenerateHashService} from "../../shared/nieOS/other/generateHash.service
 import {OpenAppsModel} from '../../shared/nieOS/mongodb/page/open-apps.model';
 import {MongoPageService} from '../../shared/nieOS/mongodb/page/page.service';
 import {MongoActionService} from '../../shared/nieOS/mongodb/action/action.service';
+import { DataManagementComponent } from '../data-management/data-management.component';
+import {MatDialog} from '@angular/material';
 
 declare var grapesjs: any; // Important!
 
@@ -59,9 +61,21 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     private openApps: OpenAppsModel,
     private resetOpenApps: OpenAppsModel,
     private mongoPageService: MongoPageService,
-    private mongoActionService: MongoActionService
+    private mongoActionService: MongoActionService,
+    public dialog: MatDialog
   ) {
     this.route.params.subscribe(params => console.log(params));
+  }
+
+  openDataManagement() {
+    const dialogRef = this.dialog.open(DataManagementComponent, {
+      width: '100%',
+      height: '100%',
+      data: {}
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
+    });
   }
 
   ngAfterViewChecked() {
@@ -78,6 +92,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     if ( !this.actionID ) {
       this.pageAsDemo = true;
     }
+    this.openDataManagement();
   }
   updatePageFromUrl() {
     this.openAppsInThisPage = {};
