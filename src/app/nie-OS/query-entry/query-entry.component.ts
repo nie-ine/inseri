@@ -14,6 +14,7 @@ export class QueryEntryComponent {
   server = 'http://0.0.0.0:3333/';
   firstStep = 'admin/projects?email=root%40example.com&password=test';
   response: any;
+  abstractJson: any;
   constructor(
     public dialogRef: MatDialogRef<QueryEntryComponent>,
     @Inject(MAT_DIALOG_DATA) public data1: any,
@@ -34,7 +35,8 @@ export class QueryEntryComponent {
         data => {
           console.log( data );
           this.response = data;
-          this.abstractJsonService.json2abstract( data );
+          this.abstractJson = this.abstractJsonService.json2abstract( data );
+          console.log( this.abstractJson );
         }, error => {
           console.log( error );
         }
