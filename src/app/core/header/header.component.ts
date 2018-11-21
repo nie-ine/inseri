@@ -177,8 +177,8 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   generateFunctionsHomeLink(): string {
     return(
-      this.routeMapping( 'dashboard', '' ) ||
-      this.routeMapping( 'home', 'Funktionen' )
+      this.routeMapping( 'dashboard', '' ) // ||
+      // this.routeMapping( 'home', 'Funktionen' )
     );
   }
 
