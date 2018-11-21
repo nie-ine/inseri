@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-var settings = require('../../.settings/mailDetails');
+var settings = require('../.settings/mailDetails');
 
 
 const checkAuth = require("../middleware/check-auth");

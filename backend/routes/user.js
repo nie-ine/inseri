@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
 const checkAuth = require("../middleware/check-auth");
+const salt = require('../.settings/salt');
 
 const router = express.Router();
 
@@ -89,7 +90,7 @@ router.put('/:id', checkAuth, (req, res, next) => {
               email: req.body.email,
               userId: req.body.userId
             },
-            'secret_that_should_be_longer',
+            salt.salt,
             {
               expiresIn: '1h'
             });
@@ -275,7 +276,7 @@ router.post('/login', (req, res, next) => {
           email: fetchedUser.email,
           userId: fetchedUser._id
         },
-        'secret_that_should_be_longer',
+        salt.salt,
         {
           expiresIn: '1h'
         });

@@ -11,7 +11,7 @@ const messageRoutes = require('./routes/message');
 
 const app = express();
 
-const mongodbServer = require('../.settings/mongodbServer');
+const mongodbServer = require('./.settings/mongodbServer');
 
 mongoose
   .connect(
