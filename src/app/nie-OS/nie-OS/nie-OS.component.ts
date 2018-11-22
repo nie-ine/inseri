@@ -232,6 +232,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     if ( generateHash ) {
       appModel[ length ].hash = this.generateHashService.generateHash();
     }
+    console.log( appModel, this.openAppsInThisPage );
     return appModel;
   }
 
