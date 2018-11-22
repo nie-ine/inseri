@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Page } from '../../../shared/nieOS/mongodb/page/page.model';
 import { MongoPageService } from "../../../shared/nieOS/mongodb/page/page.service";
+import { PageSetService } from "../model/page-set.service";
 
 @Component({
   selector: 'app-edit-page',
@@ -12,19 +13,28 @@ import { MongoPageService } from "../../../shared/nieOS/mongodb/page/page.servic
 export class EditPageComponent implements OnInit {
   form: FormGroup;
   isLoading: boolean;
-  newPage: Page;
+  newPage: Page = {
+    id: undefined,
+    title : '',
+    description: '',
+    hash: ''
+  };
+  pageSetID: string;
 
   constructor(public dialogRef: MatDialogRef<EditPageComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
-              private mongoPageService: MongoPageService) {
-    this.newPage = this.data;
+              private pageSetService: PageSetService) {
+    this.newPage.id = this.data.page._id;
+    this.newPage.title = this.data.page.title;
+    this.newPage.description = this.data.page.description;
+    this.pageSetID = this.data.pageSetID;
     this.isLoading = false;
   }
 
   ngOnInit() {
     this.form = new FormGroup({
-      title: new FormControl(this.data.title, [Validators.required]),
-      description: new FormControl(this.data.description, [Validators.required]),
+      title: new FormControl(this.newPage.title, [Validators.required]),
+      description: new FormControl(this.newPage.description, [Validators.required]),
     });
   }
 
@@ -32,12 +42,22 @@ export class EditPageComponent implements OnInit {
     this.isLoading = true;
     this.newPage.title = this.form.get('title').value;
     this.newPage.description = this.form.get('description').value;
+    console.log(this.newPage);
 
-    // Reqest to edit page Todo
-    setTimeout(() => {
-      this.isLoading = false;
-      this.dialogRef.close();
-      }, 500);
+    this.pageSetService.updatePage(this.pageSetID, this.newPage)
+      .subscribe(result => {
+        if (result.status === 200) {
+          console.log(result.body);
+          this.isLoading = false;
+          this.dialogRef.close();
+        } else {
+          this.isLoading = false;
+          this.dialogRef.close();
+        }
+      }, error1 => {
+        this.isLoading = false;
+        this.dialogRef.close();
+      });
   }
 
   cancel() {

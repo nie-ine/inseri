@@ -1,0 +1,10 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<div *ngIf="!isLoading">
+  <div>
+    Sind Sie sicher, dass Sie die Page löschen wollen? Dies kann NICHT rückgängig gemacht werden!
+  </div>
+  <div>
+    <button type="button" mat-button color="basic"(click)="cancel()">Abbrechen</button>
+    <button type="button" mat-flat-button color="warn" (click)="delete()">Löschen</button>
+  </div>
+</div>
