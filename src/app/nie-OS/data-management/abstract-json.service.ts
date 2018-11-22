@@ -28,17 +28,28 @@ export class AbstractJsonService {
         }
       }
     }
+    console.log( this.abstractTree );
     const help = this.abstractTree;
     this.abstractTree = {};
     for ( const parent in help) {
       if ( help[ parent ].layerIndex === 1 ) {
         this.abstractTree[ parent ] = {};
-        for ( const children in help[ parent ] ) {
-          this.abstractTree[ parent ][ children ] = help[ parent ][ children ];
-        }
+        this.goThroughChildren( help, parent, this.abstractTree[ parent ] );
       }
     }
     return this.abstractTree;
+  }
+
+  goThroughChildren( help: any, parent: any, tree: any ) {
+    console.log( 'help', help, 'parent', parent, 'tree', tree );
+    for ( const children in help[ parent ] ) {
+      console.log( children, parent );
+      tree[ children ] = help[ parent ][ children ];
+      if ( help[ parent ][ children ].length !== undefined ) {
+        console.log( '\n\n\n\nNext: convert to object from array\n\n\n' );
+        this.goThroughChildren( help, children, tree[ children ] );
+      }
+    }
   }
 
   leafLoop ( leafLayer: any, parent: string ) {
