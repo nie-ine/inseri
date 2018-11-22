@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import {DashboardComponent, DialogOverviewExampleDialog} from './dashboard/dashboard.component';
 import {RouterModule} from '@angular/router';
 import {MatButtonModule} from '@angular/material/button';
-import {MatDialogModule, MatProgressSpinnerModule} from '@angular/material';
+import { MatDialogModule, MatProgressSpinnerModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatRadioModule} from '@angular/material/radio';
 import { ActionService } from '../shared/nieOS/fake-backend/action/action.service';
@@ -14,6 +14,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { EditActionComponent } from './dashboard/edit-action/edit-action.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCardModule} from '@angular/material/card';
+import { DeleteActionComponent } from './dashboard/delete-action/delete-action.component';
 
 @NgModule({
   imports: [
@@ -37,11 +38,13 @@ import {MatCardModule} from '@angular/material/card';
   declarations: [
     DashboardComponent,
     DialogOverviewExampleDialog,
-    EditActionComponent
+    EditActionComponent,
+    DeleteActionComponent
   ],
   entryComponents: [
     DialogOverviewExampleDialog,
-    EditActionComponent
+    EditActionComponent,
+    DeleteActionComponent
   ],
   providers: [
     ActionService

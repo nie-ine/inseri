@@ -1,6 +1,6 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 <form [formGroup]="form" (ngSubmit)="save()" *ngIf="!isLoading">
-  <h1 mat-dialog-title>Bearbeiten der Action</h1>
+  <h1 mat-dialog-title>Aktion bearbeiten</h1>
   <div>
     <mat-form-field class="full-width">
       <input formControlName="title" matInput>

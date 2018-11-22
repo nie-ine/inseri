@@ -4,7 +4,7 @@
     <div class="navbar-header page-scroll">
       <a class="navbar-brand page-scroll" href="dashboard#top" *ngIf="isAuthenticated() && (!isOnDashboard())" style="color: #4cae4c !important"><mat-icon matTooltip="back to dashboard">home</mat-icon></a>
       <a class="navbar-brand page-scroll" >{{ generateLeftHeaderString() }}</a>
-      <a class="navbar-brand page-scroll" href="{{'page-set?actionID=' + actionID}}" *ngIf="hashOfThisView" style="color: #4cae4c !important"><mat-icon matTooltip="back to pageSet">filter_none</mat-icon></a>
+      <a class="navbar-brand page-scroll" href="{{'page-set?actionID=' + actionID}}" *ngIf="hashOfThisPage" style="color: #4cae4c !important"><mat-icon matTooltip="back to pageSet">filter_none</mat-icon></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -14,24 +14,15 @@
           <a href="#page-top"></a>
         </li>
 
-        <li  *ngIf="hashOfThisView" style=" overflow-x:auto; width: 500px; height: 40px;">
-
-
+        <li *ngIf="hashOfThisPage" style=" overflow-x:auto; width: 500px; height: 40px;">
 
           <mat-chip-list *ngFor="let page of viewsOfThisActtion; let i = index;" style="margin-top: 8px; margin-left: 2px; display: inline-block;">
-
-              <mat-chip matTooltip="{{ page.description }}" selected [color]="'primary'"  *ngIf="checkIfSelected( i )">
-
-                {{ page.title }}
-
-              </mat-chip>
-
-            <mat-chip matTooltip="{{ page.description }}" *ngIf="!checkIfSelected( i )" (click)="selectPage( i, page )">
-
+            <mat-chip matTooltip="{{ page.description }}" selected [color]="'primary'"  *ngIf="checkIfSelected( i )">
               {{ page.title }}
-
             </mat-chip>
-
+            <mat-chip matTooltip="{{ page.description }}" *ngIf="!checkIfSelected( i )" (click)="selectPage( i, page )">
+              {{ page.title }}
+            </mat-chip>
           </mat-chip-list>
 
         </li>
