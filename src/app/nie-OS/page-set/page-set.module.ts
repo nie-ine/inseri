@@ -14,11 +14,12 @@ import {MatMenuModule} from '@angular/material/menu';
 import {PageSetService} from './model/page-set.service';
 import {GenerateHashService} from '../../shared/nieOS/other/generateHash.service';
 import {ActionService} from '../../shared/nieOS/fake-backend/action/action.service';
-import {UpdatePageSetComponent} from './update-page-set/update-page-set.component';
+import {EditPageSetComponent} from './edit-page-set/edit-page-set.component';
 import {CreatePageSetAndLinkToActionService} from './services/createPageSetAndLinkToAction.service';
 import {CreatePageAndLinkToAction} from './services/createPageAndLinkToAction.service';
 import {MatDividerModule} from '@angular/material/divider';
 import {EditPageComponent } from './edit-page/edit-page.component';
+import { DeletePageComponent } from './delete-page/delete-page.component';
 
 @NgModule({
   imports: [
@@ -41,13 +42,15 @@ import {EditPageComponent } from './edit-page/edit-page.component';
   declarations: [
     PageSetLandingPageComponent,
     DialogCreateNewPageComponent,
-    UpdatePageSetComponent,
-    EditPageComponent
+    EditPageSetComponent,
+    EditPageComponent,
+    DeletePageComponent
   ],
   entryComponents: [
     DialogCreateNewPageComponent,
-    UpdatePageSetComponent,
-    EditPageComponent
+    EditPageSetComponent,
+    EditPageComponent,
+    DeletePageComponent
   ],
   providers: [
     PageSetService,

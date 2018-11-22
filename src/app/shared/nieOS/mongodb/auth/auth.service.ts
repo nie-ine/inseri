@@ -6,7 +6,7 @@ import {Router} from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private static API_BASE_URL = 'http://localhost:3000/api/user';
+  private static API_BASE_URL = 'http://localhost:3000/api/users';
   private isAuthenticated = false;
   private token: string;
   private authStatusListener = new Subject<boolean>();

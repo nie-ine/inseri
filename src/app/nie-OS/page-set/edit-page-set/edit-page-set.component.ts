@@ -6,16 +6,17 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-update-page-set',
-  templateUrl: './update-page-set.component.html',
-  styleUrls: ['./update-page-set.component.scss']
+  templateUrl: './edit-page-set.component.html',
+  styleUrls: ['./edit-page-set.component.scss']
 })
-export class UpdatePageSetComponent implements OnInit {
+export class EditPageSetComponent implements OnInit {
   isLoading: boolean;
   form: FormGroup;
 
-  constructor(public dialogRef: MatDialogRef<UpdatePageSetComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
+  constructor(public dialogRef: MatDialogRef<EditPageSetComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
               private pageSetService: PageSetService) {
     this.isLoading = false;
+    console.log(data);
   }
 
   ngOnInit() {
@@ -36,6 +37,7 @@ export class UpdatePageSetComponent implements OnInit {
 
     this.pageSetService.updatePageSet(pageSet)
       .subscribe((result) => {
+        console.log(result);
         this.isLoading = false;
         this.dialogRef.close(result.pageset);
       }, (error) => {
