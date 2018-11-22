@@ -147,7 +147,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
             appHelperArray[JSON.parse(app).hash] = JSON.parse(app);
           }
           this.page.openApps = appHelperArray;
-          console.log(this.page.openApps);
+          // console.log(this.page.openApps);
           for ( const app in this.page.openApps ) {
             for ( const appType in this.openAppsInThisPage ) {
               this.initiateUpdateApp(
