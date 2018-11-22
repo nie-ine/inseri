@@ -38,10 +38,10 @@
   <mat-tab-group *ngIf="response">
 
     <mat-tab label="Response with data" >
-        <!--<app-response-tree-->
-          <!--[showInputChooser]="false"-->
-          <!--[queryResponse]="response" >-->
-        <!--</app-response-tree>-->
+        <app-response-tree
+          [showInputChooser]="false"
+          [queryResponse]="response" >
+        </app-response-tree>
     </mat-tab>
 
     <mat-tab label="Abstract response structure" >
