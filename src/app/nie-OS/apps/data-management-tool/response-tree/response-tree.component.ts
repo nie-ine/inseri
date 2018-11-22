@@ -39,20 +39,15 @@ export class FileDatabase {
   }
 
   initialize( inputData: any ) {
-    console.log('Initialisation of the database');
-    // Parse the string to json object.
-    // console.log(inputData);
-    // console.log( JSON.stringify(inputData) );
+    // console.log('Initialisation of the database');
     const dataObject = JSON.parse( JSON.stringify(inputData) );
-
-    // Build the tree nodes from Json object. The result is a list of `FileNode` with nested
-    //     file node as children.
     const data = this.buildFileTree(
       dataObject,
       0
     );
 
     // Notify the change.
+    // console.log( 'Notify the change', data );
     this.dataChange.next(data);
   }
 
@@ -119,7 +114,10 @@ export class ResponseTreeComponent implements OnChanges {
       this.treeFlattener
     );
 
-    database.dataChange.subscribe(data => this.dataSource.data = data);
+    database.dataChange.subscribe(data => {
+      // console.log( data );
+      this.dataSource.data = data;
+    });
   }
   ngOnChanges() {
     console.log('Query Response:');
@@ -134,7 +132,7 @@ export class ResponseTreeComponent implements OnChanges {
       level,
       node.type
     );
-  }
+  };
 
   private _getLevel = (node: FileFlatNode) => node.level;
 

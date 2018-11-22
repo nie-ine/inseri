@@ -24,20 +24,20 @@ export class AbstractJsonService {
         for( let childrenToTest in this.abstractTree[ parent ] ) {
           if( this.abstractTree[childrenToTest] ) {
             this.abstractTree[ parent ][childrenToTest] = this.abstractTree[childrenToTest];
-            // console.log( this.abstractTree[ parent ][childrenToTest] );
           }
         }
       }
     }
     const help = this.abstractTree;
     this.abstractTree = {};
-    for( const parent in help) {
-      if( help[ parent ].layerIndex === 1 ) {
-        this.abstractTree[ parent ] = [];
-        this.abstractTree[ parent ] = help[ parent ];
+    for ( const parent in help) {
+      if ( help[ parent ].layerIndex === 1 ) {
+        this.abstractTree[ parent ] = {};
+        for ( const children in help[ parent ] ) {
+          this.abstractTree[ parent ][ children ] = help[ parent ][ children ];
+        }
       }
     }
-    console.log(  this.abstractTree );
     return this.abstractTree;
   }
 

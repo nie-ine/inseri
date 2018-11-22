@@ -15,19 +15,6 @@ export interface Food {
   viewValue: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, query: 'Hydrogen', weight: 1.0079, symbol: 'H'}
-  // {position: 2, query: 'Helium', weight: 4.0026, symbol: 'He'},
-  // {position: 3, query: 'Lithium', weight: 6.941, symbol: 'Li'},
-  // {position: 4, query: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  // {position: 5, query: 'Boron', weight: 10.811, symbol: 'B'},
-  // {position: 6, query: 'Carbon', weight: 12.0107, symbol: 'C'},
-  // {position: 7, query: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  // {position: 8, query: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  // {position: 9, query: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  // {position: 10, query: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
-
 @Component({
   selector: 'app-data-management',
   templateUrl: './data-management.component.html',
@@ -37,7 +24,6 @@ export class DataManagementComponent {
   @ViewChild(MatTable) table: MatTable<any>;
   displayedColumns = [ 'query', 'color', 'delete' ];
   columnsToDisplay: string[] = this.displayedColumns.slice();
-  data: PeriodicElement[] = ELEMENT_DATA;
   value: string;
   foods: Food[] = [
     {value: 'steak-0', viewValue: 'Input 1'},
@@ -96,7 +82,7 @@ export class DataManagementComponent {
   }
 
   openQueryEntry( query: any ) {
-    console.log( query );
+    // console.log( query );
     const dialogRef = this.dialog.open(QueryEntryComponent, {
       width: '100%',
       height: '100%',
