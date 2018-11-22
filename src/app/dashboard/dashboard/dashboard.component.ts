@@ -7,6 +7,8 @@ import { MongoActionService } from '../../shared/nieOS/mongodb/action/action.ser
 import { Action } from '../../shared/nieOS/mongodb/action/action.model';
 import { map } from 'rxjs/operators';
 import {MongoContactService} from '../../shared/nieOS/mongodb/contact/contact.service';
+import {EditActionComponent} from './edit-action/edit-action.component';
+import { DeleteActionComponent } from "./delete-action/delete-action.component";
 
 @Component({
   selector: 'app-dashboard',
@@ -16,6 +18,7 @@ import {MongoContactService} from '../../shared/nieOS/mongodb/contact/contact.se
 export class DashboardComponent implements OnInit {
   user: any[] = JSON.parse(localStorage.getItem('currentUser')) || [];
   userFirstName: string;
+  userID: string;
   actions: Action[] = [];
   message: string;
   successfullySendMessage = false;
@@ -33,7 +36,7 @@ export class DashboardComponent implements OnInit {
       if (s instanceof NavigationEnd) {
         const tree = router.parseUrl(router.url);
         if (tree.fragment) {
-          const element = document.querySelector("#" + tree.fragment);
+          const element = document.querySelector('#' + tree.fragment);
           if (element) { element.scrollIntoView(true); }
         }
       }
@@ -42,13 +45,13 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.userFirstName = localStorage.getItem('firstName');
+    this.userID = localStorage.getItem('userId');
     this.updateActions();
   }
 
   private updateActions() {
     console.log('Next: iterate through existing actions');
-    // this.actions = JSON.parse(localStorage.getItem('actions')) || [];
-    this.mongoActionService.getAllActions()
+    this.mongoActionService.getAllActions(this.userID)
       .pipe(
         map((response) => {
           return (response as any).actions.map(action => {
@@ -57,7 +60,9 @@ export class DashboardComponent implements OnInit {
               description: action.description,
               type: action.type,
               id: action._id,
-              creator: action.creator
+              creator: action.creator,
+              hasPage: (action.hasPage) ? action.hasPage : null,
+              hasPageSet: (action.hasPageSet) ? action.hasPageSet : null,
             };
           });
         }))
@@ -65,7 +70,6 @@ export class DashboardComponent implements OnInit {
         console.log(transformedActions);
         this.actions = transformedActions;
       });
-    console.log(this.actions);
   }
 
   openDialog(): void {
@@ -73,13 +77,36 @@ export class DashboardComponent implements OnInit {
       width: '700px',
       data: {}
     });
-    dialogRef.afterClosed().subscribe(() => this.updateActions());
+    dialogRef.afterClosed().subscribe((result) => {
+      this.updateActions();
+      if (result) {
+        if (result[0] === 'pageSet') {
+          this.router.navigate(['/page-set'], { queryParams: { actionID: result[1]}});
+        }
+      }
+    });
+  }
+
+  editAction(action: any) {
+    const dialogRef = this.dialog.open(EditActionComponent, {
+      width: '700px',
+      data: action
+    });
+    dialogRef.afterClosed()
+      .subscribe(result => {
+        this.updateActions();
+      });
   }
 
   deleteAction(action: any) {
-    console.log('Delete Action ' + action.id);
-    action.deleted = true;
-    this.mongoActionService.deleteAction( action.id).subscribe(() => this.updateActions());
+    const dialogRef = this.dialog.open(DeleteActionComponent, {
+      width: '700px',
+      data: action
+    });
+    dialogRef.afterClosed()
+      .subscribe(result => {
+        this.updateActions();
+      });
   }
 
   markAsDone( action: any ) {
@@ -89,6 +116,7 @@ export class DashboardComponent implements OnInit {
   continueAction( action: any ) {
     this.router.navigate( [ action.type ], { queryParams: { 'actionID': action.id } } );
   }
+
   sendMessage() {
     console.log('Send Message');
     console.log(this.message);
@@ -116,10 +144,12 @@ export class DialogOverviewExampleDialog {
     deleted: false,
     type: undefined,
     hasPageSet: undefined,
-    hasPages: undefined
+    hasPage: undefined,
+    creator: undefined
   };
   loading = false;
   chooseNewAction: string;
+  pageSet: [string, string];
 
   constructor(public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
               @Inject(MAT_DIALOG_DATA) public data: any,
@@ -129,14 +159,17 @@ export class DialogOverviewExampleDialog {
   }
 
   close() {
-    this.dialogRef.close();
+    this.dialogRef.close(this.pageSet);
   }
 
   register() {
     this.loading = true;
     this.mongoActionService.createAction(this.action)
       .subscribe((result) => {
-        this.dialogRef.close(result);
+        if (this.action.type === 'page-set') {
+          this.pageSet = ['pageSet', result.action._id];
+        }
+        this.dialogRef.close(this.pageSet);
       });
   }
 }

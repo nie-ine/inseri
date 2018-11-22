@@ -13,6 +13,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTreeModule} from '@angular/material/tree';
 import {FileDatabase, ResponseTreeComponent} from './response-tree/response-tree.component';
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import {FileDatabase, ResponseTreeComponent} from './response-tree/response-tree
     MatCheckboxModule,
     MatExpansionModule,
     MatTreeModule,
+    MatInputModule,
     RouterModule.forChild([
       { path: 'data-chooser', component: DataChooserComponent }
     ])
@@ -36,7 +38,8 @@ import {FileDatabase, ResponseTreeComponent} from './response-tree/response-tree
     ResponseTreeComponent
   ],
   exports: [
-    DataChooserComponent
+    DataChooserComponent,
+    ResponseTreeComponent
   ],
   entryComponents: [
     DataChooserSettingsComponent

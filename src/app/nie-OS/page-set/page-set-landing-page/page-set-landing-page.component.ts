@@ -3,14 +3,17 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import {Router, ActivatedRoute} from '@angular/router';
 import {ActionService } from '../../../shared/nieOS/fake-backend/action/action.service';
 import {GenerateHashService} from '../../../shared/nieOS/other/generateHash.service';
-import {UpdatePageSetComponent} from '../update-page-set/update-page-set.component';
-import {CreatePageAndLinkToAction} from '../services/createPageAndLinkToAction.service';
+import {EditPageSetComponent} from '../edit-page-set/edit-page-set.component';
 import {CreatePageSetAndLinkToActionService} from '../services/createPageSetAndLinkToAction.service';
 import {PageService} from '../../apps/page/page.service';
 import {MongoActionService} from '../../../shared/nieOS/mongodb/action/action.service';
 import { PageSetModel } from '../model/page-set.model';
 import { PageSetService } from '../model/page-set.service';
 import { Action } from '../../../shared/nieOS/mongodb/action/action.model';
+import { EditPageComponent } from '../edit-page/edit-page.component';
+import { Page } from '../../../shared/nieOS/mongodb/page/page.model';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { DeletePageComponent } from '../delete-page/delete-page.component';
 
 @Component({
   selector: 'app-page-set-landing-page',
@@ -18,10 +21,9 @@ import { Action } from '../../../shared/nieOS/mongodb/action/action.model';
   styleUrls: ['./page-set-landing-page.component.scss']
 })
 export class PageSetLandingPageComponent implements OnInit {
-  animal: string;
   name: string;
   actionID: string;
-  pageSet: PageSetModel;
+  pageSet: any;
   action: Action;
   model: any;
   pagesOfThisPageSet: any;
@@ -29,27 +31,15 @@ export class PageSetLandingPageComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     public dialogUpdatePageSet: MatDialog,
+    public dialogEditPage: MatDialog,
     private route: ActivatedRoute,
     private generateHashService: GenerateHashService,
     private actionService: ActionService,
     private pageSetService: PageSetService,
     private createPageSetAndLinkToActionService: CreatePageSetAndLinkToActionService,
-    private createPageAndLinkToAction: CreatePageAndLinkToAction,
     private pageService: PageService,
-    private mongoActionService: MongoActionService
+    private mongoActionService: MongoActionService,
   ) { }
-
-  // saveOrUpdatePageSet() {
-  //   console.log('Update Page Set');
-  //   this.pageSetService.updatePageSet(this.pageSet.hash, this.pageSet)
-  //     .subscribe(
-  //       data => {
-  //         console.log(data);
-  //       },
-  //       error => {
-  //         console.log(error);
-  //       });
-  // }
 
   ngOnInit() {
     this.actionID = this.route.snapshot.queryParams.actionID;
@@ -58,87 +48,63 @@ export class PageSetLandingPageComponent implements OnInit {
     }
   }
 
-  checkIfPageSetExists(actionID: string ) {
+  checkIfPageSetExists(actionID: string) {
     this.mongoActionService.getAction(actionID)
       .subscribe(data => {
-        console.log(data);
-        this.action = data.action;
-        console.log('point b', this.action);
-        if (this.action && this.action.hasPageSet ) {
-          console.log('Instantiate Page Set');
-          this.pagesOfThisPageSet = [];
-          // for ( const pageHash of this.action.hasPages ) {
-          //   this.pageService.getById( pageHash )
-          //     .subscribe(
-          //       page => {
-          //         this.pagesOfThisPageSet[
-          //           this.pagesOfThisPageSet.length
-          //           ] = page;
-          //       },
-          //       errorGetPage => {
-          //         console.log(errorGetPage);
-          //       }
-          //     );
-          // }
-          this.pageSetService.getPageSet(this.action.hasPageSet)
-            .subscribe(
-              pageSet => {
-                console.log('c', pageSet);
-                this.pageSet = pageSet.pageset;
-              },
-              error => {
-                console.log(error);
-              });
+        if (data.status === 200) {
+          this.action = data.body.action;
+          if (this.action.type === 'page-set') {
+            this.pagesOfThisPageSet = [];
+            this.pageSet = this.action.hasPageSet;
+            this.updatePagesOfThisPageSet(this.action);
+          }
+        } else if (data.status === 404) {
+          // Fehlermeldung
+          // this.initializeTemplatePageSet();
         } else {
-          console.log('bart');
-          this.initializeTemplatePageSet();
+          // Fehlermeldung
         }
       }, error => {
         console.log(error);
-        this.templatePageSet();
+        // Fehlermeldung
+        // this.templatePageSet();
       });
   }
 
-  initializeTemplatePageSet() {
-    this.templatePageSet();
-    console.log(this.pageSet, this.action);
-    console.log('Save page set and then add page set - hash to action and update action.');
-
-    this.pageSetService.createPageSet(this.pageSet)
-      .subscribe(dbPageSet => {
-        this.mongoActionService.getAction(this.actionID)
-          .subscribe(dbAction => {
-            console.log('b', dbPageSet);
-            dbAction.action.hasPageSet = dbPageSet.pageset._id;
-            this.mongoActionService.updateAction(dbAction.action).subscribe(result => {
-              this.action = result.action;
-              console.log("here", result);
-            });
-          });
-      });
-
-    // this.pageSetService.createPageSet(this.pageSet)
-    //   .subscribe(result => {
-    //     this.action.hasPageSet = result.id;
-    //     this.mongoActionService.updateAction(this.action)
-    //       .subscribe(() => {},
-    //           error => console.log(error));
-    //   });
-
-    // Zum Verwerfen
-    // this.createPageSetAndLinkToActionService.create(this.pageSet, this.action);
+  updatePagesOfThisPageSet(action: any) {
+    const help = [];
+    for (const page of action.hasPageSet.hasPages) {
+      help[help.length] = page;
+    }
+    this.pagesOfThisPageSet = help;
   }
 
-  templatePageSet() {
-    this.pageSet = new PageSetModel();
-    console.log('No page set for this action yet');
-    this.pageSet.id = this.generateHashService.generateHash();
-    this.pageSet.title = 'Example pageSet';
-    this.pageSet.linkToImage = 'https://c8.alamy.com/' +
-      'comp/DX9AP3/' +
-      'open-book-vintage-accessories-old-letters-pages-photo-frames-glasses-DX9AP3.jpg';
-    this.pageSet.description = 'Dies als Beispiel für eine PageSet bei NIE-OS';
-  }
+  // initializeTemplatePageSet() {
+  //   this.templatePageSet();
+  //   console.log('Save page set and then add page set - hash to action and update action.');
+  //
+  //   this.pageSetService.createPageSet(this.pageSet)
+  //     .subscribe(dbPageSet => {
+  //       this.mongoActionService.getAction(this.actionID)
+  //         .subscribe(dbAction => {
+  //           dbAction.action.hasPageSet = dbPageSet.pageset._id;
+  //           this.mongoActionService.updateAction(dbAction.action).subscribe(result => {
+  //             this.action = result.action;
+  //           });
+  //         });
+  //     });
+  // }
+
+  // templatePageSet() {
+  //   this.pageSet = new PageSetModel();
+  //   console.log('No page set for this action yet');
+  //   this.pageSet.id = this.generateHashService.generateHash();
+  //   this.pageSet.title = 'Example pageSet';
+  //   this.pageSet.linkToImage = 'https://c8.alamy.com/' +
+  //     'comp/DX9AP3/' +
+  //     'open-book-vintage-accessories-old-letters-pages-photo-frames-glasses-DX9AP3.jpg';
+  //   this.pageSet.description = 'Dies als Beispiel für eine PageSet bei NIE-OS';
+  // }
 
   generateDescription() {
     if (this.pageSet && this.pageSet.description) {
@@ -164,34 +130,28 @@ export class PageSetLandingPageComponent implements OnInit {
     }
   }
 
-  openDialog() {
+  addPage() {
     const dialogRef = this.dialog.open(DialogCreateNewPageComponent, {
       width: '700px',
-      data: { name: this.name, animal: this.animal }
+      data: { pageset: this.pageSet }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-      this.createPageAndLinkToAction
-        .createPageAndLinkToAction(
-          this.route.snapshot.queryParams.actionID,
-          result
-        );
+      this.checkIfPageSetExists(this.actionID);
+      // this.createPageAndUpdateAction(result, this.route.snapshot.queryParams.actionID );
     });
   }
 
-  openUpdatePageSetDialog() {
-    console.log('e', this.action);
-    const dialogRef = this.dialogUpdatePageSet.open(UpdatePageSetComponent, {
+  editPageSet() {
+    const dialogRef = this.dialogUpdatePageSet.open(EditPageSetComponent, {
       width: '700px',
       data: {
-        id: this.action.hasPageSet,
+        id: this.action.hasPageSet['_id'],
         title: this.pageSet.title,
         description: this.pageSet.description,
         linkToImage: this.pageSet.linkToImage
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('d', result);
       if ( result !== undefined ) {
         this.pageSet.title = result.title;
         this.pageSet.description = result.description;
@@ -202,7 +162,7 @@ export class PageSetLandingPageComponent implements OnInit {
 
   generateURL(page: any) {
     if ( page ) {
-      return 'page?actionID=' + this.actionID + '&page=' + page.hash;
+      return 'page?actionID=' + this.actionID + '&page=' + page._id;
     }
   }
 
@@ -217,33 +177,90 @@ export class PageSetLandingPageComponent implements OnInit {
       return page.description;
     }
   }
+
+  editPage(page: Page) {
+    const dialogRef = this.dialogEditPage.open(EditPageComponent, {
+      width: '600px',
+      data: {
+        page: page,
+        pageSetID: this.pageSet['_id']
+      },
+      hasBackdrop: false
+    });
+    dialogRef.afterClosed()
+      .subscribe(result => {
+        this.checkIfPageSetExists(this.actionID);
+      });
+  }
+
+  deletePage(page: Page) {
+    const dialogRef = this.dialogEditPage.open(DeletePageComponent, {
+      width: '600px',
+      data: {
+        page: page,
+        pageSetID: this.pageSet['_id']
+      },
+      hasBackdrop: false
+    });
+    dialogRef.afterClosed()
+      .subscribe(result => {
+        this.checkIfPageSetExists(this.actionID);
+      });
+  }
 }
 
 @Component({
   selector: 'dialog-create-new-page',
   templateUrl: './dialog-create-new-page.html',
+  styleUrls: ['./dialog-create-new-page.scss']
 })
-export class DialogCreateNewPageComponent {
-  model: any = {};
-  loading = false;
-  actionID: number;
-  pageSet: any;
-  action: any;
-  chooseNewAction: string;
+export class DialogCreateNewPageComponent implements OnInit {
+  form: FormGroup;
+  isLoading: boolean;
+  pageSetID: any;
+  newPage: Page = {
+    id: undefined,
+    title: '',
+    description: '',
+    hash: ''
+  };
 
   constructor(public dialogRef: MatDialogRef<DialogCreateNewPageComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private router: Router,
               private actionService: ActionService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private pageService: PageSetService) {
+    this.pageSetID = data.pageset._id;
   }
 
-  onNoClick(): void {
+  ngOnInit() {
+    this.isLoading = false;
+    this.form = new FormGroup({
+      title: new FormControl('', [Validators.required]),
+      description: new FormControl('', [Validators.required]),
+    });
+  }
+
+  cancel() {
     this.dialogRef.close();
   }
 
-  register() {
-    this.loading = true;
-    console.log(this.model);
+  save() {
+    this.isLoading = true;
+    this.newPage.title = this.form.get('title').value;
+    this.newPage.description = this.form.get('description').value;
+
+    this.pageService.createPage(this.pageSetID, this.newPage)
+      .subscribe((result) => {
+        this.isLoading = false;
+        if (result.status === 201) {
+          this.dialogRef.close();
+        } else {
+          this.dialogRef.close();
+        }
+      }, error => {
+        this.isLoading = false;
+      });
   }
 }

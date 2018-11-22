@@ -1,32 +1,35 @@
 <div style="margin-top: 40px; width: 900px;">
-  <h2 style="margin-left: 30px">{{ generateTitle() }}</h2>
-  <img src="{{ generateImage() }}"
-       alt="Kuno Raeber"
-       style="float: left; margin-right: 30px; margin-left: 30px;"
-       height="300">
-  <div style="float: left; width: 300px"> {{ generateDescription() }}
-  </div>
 
-  <div style="margin-right: 30px; margin-left: 30px;" *ngFor="let page of pagesOfThisPageSet; let i = index; ">
-    <div >
-      <a href="{{ generateURL( page ) }}" style="font-size: 30px">{{ generatePageTitle ( page ) }}</a><br>
-      {{ generatePageDescription( page ) }}
+  <div style="float:left; width: 100%;">
+
+    <img src="{{ generateImage() }}"
+         style="float: left; margin-right: 30px; margin-left: 30px;"
+         height="300">
+
+    <div style="float: left; ">
+      <h2>
+        {{ generateTitle() }}
+      </h2>
+      {{ generateDescription() }}
     </div>
   </div>
 
-  <br>
-
-  <div class="col-md-4" style="margin-top: 20px; margin-left: 30px;">
-                    <span class="fa-stack fa-2x" >
-                     <i class="fa fa-circle fa-stack-2x text-primary" ></i>
-                      <a (click)="openDialog()"><i class="fa fa-plus fa-stack-1x fa-inverse" ></i></a>
-                    </span>
-    <h4 class="service-heading">Neue Page </h4>
+  <div style="float:left; clear: left; width: 100%;">
+    <div style="margin-right: 30px; margin-left: 30px; margin-top: 20px;" *ngFor="let page of pagesOfThisPageSet; let i = index; ">
+      <mat-divider></mat-divider>
+        <span>
+          <a href="{{ generateURL( page ) }}" style="font-size: 25px" > {{ generatePageTitle ( page ) }} </a>
+          <button mat-button (click)="editPage(page)"><mat-icon>settings</mat-icon></button><br>
+          <button mat-button (click)="deletePage(page)"><mat-icon>delete</mat-icon></button>
+          <span style="font-size: 15px" > {{ generatePageDescription( page ) }}   </span>
+        </span>
+    </div>
   </div>
 
   <div style="position: fixed; bottom: 0; right: 0;">
-    <button mat-button (click)="openUpdatePageSetDialog()">Update Page Set</button><br>
+    <button mat-button (click)="addPage()">Füge Page hinzu</button>
+    <br>
+    <button mat-button (click)="editPageSet()">Editiere PageSet</button><br>
   </div>
 
 </div>
-
