@@ -1,0 +1,58 @@
+<div style="margin-top: 30px">
+  <button mat-button (click)="close()">
+    Close the Query Entry Component
+  </button>
+
+  <button mat-button >
+    <mat-icon>save</mat-icon> Save this query
+  </button>
+
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Server URL" value="{{ server }}">
+    </mat-form-field>
+  </form>
+
+  <mat-tab-group>
+    <mat-tab label="General Query Editor">
+      <ace-editor
+        [text]="firstStep"
+        #editor
+        style="min-height: 250px; width:100%; overflow: auto;"
+        [mode]="'typescript'">
+
+      </ace-editor>
+
+      <button mat-button (click)="sendQuery()">
+        <mat-icon>label</mat-icon> Try Query
+      </button>
+    </mat-tab>
+    <mat-tab label="Knora Query Editor" disabled>
+
+    </mat-tab>
+    <mat-tab label="Sparql Query Editor" disabled>  </mat-tab>
+    <mat-tab label="MySQL Query Editor" disabled>  </mat-tab>
+    <mat-tab label="existDB Query Editor" disabled>  </mat-tab>
+  </mat-tab-group>
+
+  <mat-tab-group *ngIf="response">
+
+    <mat-tab label="Response with data" >
+        <!--<app-response-tree-->
+          <!--[showInputChooser]="false"-->
+          <!--[queryResponse]="response" >-->
+        <!--</app-response-tree>-->
+    </mat-tab>
+
+    <mat-tab label="Abstract response structure" >
+      <app-response-tree
+        [showInputChooser]="false"
+        [queryResponse]="abstractJson" >
+      </app-response-tree>
+    </mat-tab>
+  </mat-tab-group>
+
+
+
+
+</div>

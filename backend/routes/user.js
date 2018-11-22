@@ -3,9 +3,30 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
+const Action = require('../models/action');
 const checkAuth = require("../middleware/check-auth");
+const salt = require('../.settings/salt');
 
 const router = express.Router();
+
+// Nur zum TESTEN --> UNBEDINGT WEGMACHEN, DA PASSWORT MITGESCHICKT WIRD!!!!!!!!!!
+router.get('', (req, res, next) => {
+  User.find()
+    .then(user => {
+      let message;
+      if (user.length === 0) {
+        message = 'No pages were found'
+      } else if (user.length === 1) {
+        message = 'One pages was found'
+      } else {
+        message = 'All pages were found'
+      }
+      res.status(200).json({
+        message: message,
+        user: user
+      });
+    });
+});
 
 router.get('/:id', (req, res, next) => {
   User.findById(req.params.id)
@@ -89,7 +110,7 @@ router.put('/:id', checkAuth, (req, res, next) => {
               email: req.body.email,
               userId: req.body.userId
             },
-            'secret_that_should_be_longer',
+            salt.salt,
             {
               expiresIn: '1h'
             });
@@ -201,6 +222,32 @@ router.put('/:id/pwd', checkAuth, (req, res, next) => {
 
 });
 
+router.get('/:id/actions', checkAuth, (req, res, next) => {
+  Action.find({
+    creator: req.params.id
+  })
+    .then(actions => {
+      let message;
+      if (actions.length === 0) {
+        message = 'No actions were found'
+      } else if (actions.length === 1) {
+        message = 'One action was found'
+      } else {
+        message = 'All actions were found'
+      }
+      res.status(200).json({
+        message: message,
+        actions: actions
+      });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Fetching all actions failed',
+        error: error
+      })
+    })
+});
+
 router.post('/signup', (req, res, next) => {
   // Tests if email address is invalid
   const emailPattern = /^\S+[@]\S+[.]\S+$/;
@@ -275,7 +322,7 @@ router.post('/login', (req, res, next) => {
           email: fetchedUser.email,
           userId: fetchedUser._id
         },
-        'secret_that_should_be_longer',
+        salt.salt,
         {
           expiresIn: '1h'
         });

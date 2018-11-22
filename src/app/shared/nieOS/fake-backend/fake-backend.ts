@@ -46,7 +46,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
                     return Observable.of(new HttpResponse({ status: 200, body: body }));
                 } else {
-                    console.log('wrong user');
+                    // console.log('wrong user');
                     // else return 400 bad request
                     return Observable.throw('Username or password is incorrect');
                 }
@@ -119,9 +119,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
               // find user by id in users array
               const urlParts = request.url.split('/');
-              console.log(urlParts);
+              // console.log(urlParts);
               const hash = urlParts[urlParts.length - 1];
-              console.log('Hash: ' + hash);
+              // console.log('Hash: ' + hash);
               const matchedActions = views.filter(view => { return view.hash === hash; });
               const view = matchedActions.length ? matchedActions[0] : null;
 
@@ -395,8 +395,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             }
           }
           // pass through any requests not handled above
-          console.log('Pass on request');
-          console.log(request);
+          // console.log('Pass on request');
+          // console.log(request);
           // attach Token from nodejs
           const authToken = this.authService.getToken();
           const authRequest = request.clone({
