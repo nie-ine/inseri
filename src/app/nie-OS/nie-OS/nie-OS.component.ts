@@ -47,7 +47,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
   page: any;
   action: any;
   panelsOpen = false;
-  viewHashFromURL: string;
+  pageIDFromURL: string;
   openAppsInThisPage: any;
   pageAsDemo = false;
   pageUpdated = false;
@@ -80,7 +80,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
 
   ngAfterViewChecked() {
     this.cdr.detectChanges();
-    if ( this.viewHashFromURL !==  this.route.snapshot.queryParams.page ) {
+    if ( this.pageIDFromURL !==  this.route.snapshot.queryParams.page ) {
       this.clearAppsInThisPage();
       this.updatePageFromUrl();
     }
@@ -94,67 +94,33 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     }
     this.openDataManagement();
   }
+
   updatePageFromUrl() {
     this.openAppsInThisPage = {};
     this.page = {};
     this.openAppsInThisPage = this.openApps.openApps;
     this.actionID = this.route.snapshot.queryParams.actionID;
-    this.viewHashFromURL = this.route.snapshot.queryParams.page;
-    if ( this.viewHashFromURL ) {
-      this.updateAppsInView( this.viewHashFromURL );
+    this.pageIDFromURL = this.route.snapshot.queryParams.page;
+    if ( this.pageIDFromURL ) {
+      this.updateAppsInView( this.pageIDFromURL );
     } else {
       this.checkIfPageExistsForThisAction( this.actionID );
     }
   }
 
   checkIfPageExistsForThisAction(actionID: string) {
-    this.mongoActionService.getAction( actionID )
+    this.mongoActionService.getAction(actionID)
       .subscribe(
         data => {
-          this.action = ( data as any ).action;
-          console.log('This action: ');
-          console.log(this.action);
-          if ( this.action && this.action.hasPages[ 0 ] ) {
-            this.updateAppsInView( this.action.hasPages[ 0 ] );
-          } else {
-            this.createEmptyPageInMongoDB();
-            return undefined;
+          this.action = ( data as any ).body.action;
+          console.log('This action: ', this.action);
+          if (this.action.type === 'page') {
+              this.updateAppsInView(this.action.hasPage._id);
           }
         },
         error => {
           console.log(error);
-          return undefined;
         });
-  }
-  createEmptyPageInMongoDB() {
-    console.log('Hier weiter');
-    this.mongoPageService.createPage()
-      .subscribe( response => {
-        console.log(response);
-        this.page.hash = (response as any).page._id;
-        this.action.hasPages.push(
-          (response as any)
-            .page
-            ._id
-        );
-        console.log('Current action:');
-        console.log(this.action);
-        console.log('Next: Implement Update action in mongodb');
-        this.mongoActionService.updateAction( this.action )
-          .subscribe(response1 => {
-            console.log(response1);
-          }, error1 => {
-            console.log(error1);
-          });
-      },
-      error => {
-        console.log('Page could not be saved;');
-        console.log(error);
-      });
-    console.log( this.page );
-  }
-  deletePage() {
-    console.log('Delete page');
   }
 
   updateAppCoordinates(app: any) {
@@ -163,20 +129,20 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     console.log('type: ' + app.type);
     console.log('hash: ' + app.hash );
     console.log( this.page );
-    if ( this.page.openApps[ app.hash ] === null ) {
+    if (this.page.openApps[ app.hash ] === null) {
       this.page.openApps[ app.hash ] = [];
     }
     this.page.openApps[ app.hash ] = app;
-    console.log( this.page );
+    console.log(this.page);
   }
 
-  updateAppsInView( viewHash: string ) {
-    this.mongoPageService.getPage( viewHash )
+  updateAppsInView(viewHash: string ) {
+    this.mongoPageService.getPage(viewHash)
       .subscribe(
         data => {
           this.page = ( data as any).page;
           const appHelperArray = [];
-          for ( let app of this.page.openApps ) {
+          for ( const app of this.page.openApps ) {
             console.log(JSON.parse(app));
             appHelperArray[JSON.parse(app).hash] = JSON.parse(app);
           }
@@ -242,9 +208,10 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
       return null;
     }
   }
+
   updatePage() {
     console.log('update page for this action');
-    this.mongoPageService.updatePage( this.page )
+    this.mongoPageService.updatePage(this.page)
       .subscribe(
         data => {
           console.log(data);
@@ -253,6 +220,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
           console.log(error);
         });
   }
+
   addAnotherApp (
     appModel: any,
     generateHash: boolean

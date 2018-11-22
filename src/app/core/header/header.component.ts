@@ -25,10 +25,9 @@ export interface ChipColor {
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
-
   currentRoute: string;
   viewsOfThisActtion: Array<any>;
-  hashOfThisView: string;
+  hashOfThisPage: string;
   actionID: string;
   lastView: any;
   nextView: any;
@@ -63,25 +62,21 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
       router.events.subscribe(( route: any ) => {
         this.updateCurrentRoute( route );
       } );
-    this.activatedRoute.queryParams.subscribe(params => {
-      this.hashOfThisView = params.page;
-      this.actionID = params.actionID;
-      this.generateNavigation(params.actionID);
-    });
+
+      this.activatedRoute.queryParams.subscribe(params => {
+        this.hashOfThisPage = params.page;
+        this.actionID = params.actionID;
+        this.generateNavigation(params.actionID);
+      });
   }
 
-  selectPage( i: number, page: any ) {
+  selectPage(i: number, page: any) {
     this.selectedPage = i;
-    console.log( page );
-    this.navigateToOtherView( page );
+    this.navigateToOtherView(page);
   }
 
   checkIfSelected( index: number ) {
-    if ( index === this.selectedPage ) {
-      return true;
-    } else {
-      return false;
-    }
+    return (index === this.selectedPage);
   }
 
   openSnackBar() {
@@ -116,26 +111,16 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.authListenerSubs.unsubscribe();
   }
 
-  generateNavigation( actionID: string ) {
-    if( !this.alreadyLoaded ) {
-      this.mongoActionService.getAction( actionID )
-        .subscribe(
-          data => {
-            console.log(data);
-            for ( const pageHash of ( data as any ).action.hasPages as any ) {
+  generateNavigation(actionID: string) {
+    if (!this.alreadyLoaded) {
+      this.mongoActionService.getAction(actionID)
+        .subscribe(data => {
+            if (data.body.action.type === 'page-set') {
               this.viewsOfThisActtion = [];
-              this.mongoPageService.getPage( pageHash )
-                .subscribe(
-                  result => {
-                    this.viewsOfThisActtion[
-                      this.viewsOfThisActtion.length
-                      ] = (result as any).page;
-                    this.alreadyLoaded = true;
-                  },
-                  errorGetPage => {
-                    console.log(errorGetPage);
-                  }
-                );
+              for (const pageHash of ( data.body as any ).action.hasPageSet.hasPages as any ) {
+                this.viewsOfThisActtion[this.viewsOfThisActtion.length] = pageHash;
+                this.alreadyLoaded = true;
+              }
             }
           },
           error => {
@@ -144,7 +129,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
     }
   }
 
-  navigateToOtherView( page: any) {
+  navigateToOtherView(page: any) {
     console.log('Navigate to last View');
     this.router.navigate( [ 'page' ], {
       queryParams: {
@@ -152,7 +137,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
         'page': page._id
       }
     } );
-    return 'test';
   }
 
   updateCurrentRoute( route: any ) {
@@ -213,7 +197,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
   loginOrLogout() {
     if (this.userIsAuthenticated) {
       this.authService.logout();
-      this.router.navigate(["/"]);
+      this.router.navigate(['/']);
     } else {
         this.router.navigate(['/home'], { fragment: 'login' });
     }
@@ -223,7 +207,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
     const userId = localStorage.getItem('userId');
     if (userId) {
       this.authService.getUser(userId).subscribe((result) => {
-        console.log(result);
         this.dialog.open(DialogUserSettingsDialog, {
           width: '600px',
           data: {

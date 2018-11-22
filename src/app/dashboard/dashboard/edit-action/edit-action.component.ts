@@ -1,6 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { MongoActionService } from '../../../shared/nieOS/mongodb/action/action.service';
+import { Action } from '../../../shared/nieOS/mongodb/action/action.model';
 
 @Component({
   selector: 'app-edit-action',
@@ -10,11 +12,24 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 export class EditActionComponent implements OnInit {
     form: FormGroup;
     isLoading: boolean;
-    newAction: any;
+    newAction: Action = {
+      id: undefined,
+      title: '',
+      description: '',
+      isFinished: false,
+      deleted: false,
+      type: '',
+      hasPage: null,
+      hasPageSet: null,
+      creator: ''
+    };
 
     constructor(public dialogRef: MatDialogRef<EditActionComponent>,
-                @Inject(MAT_DIALOG_DATA) public data: any) {
-        this.newAction = this.data;
+                @Inject(MAT_DIALOG_DATA) public data: any,
+                private mongoActionService: MongoActionService) {
+        this.newAction.id = this.data.id;
+        this.newAction.title = this.data.title;
+        this.newAction.description = this.data.description;
         this.isLoading = false;
     }
 
@@ -30,13 +45,11 @@ export class EditActionComponent implements OnInit {
         this.newAction.title = this.form.get('title').value;
         this.newAction.description = this.form.get('description').value;
 
-        console.log(this.newAction);
-
-        // Reqest to edit action Todo
-        setTimeout(() => {
+        this.mongoActionService.updateAction(this.newAction)
+          .subscribe((action) => {
             this.isLoading = false;
-            this.dialogRef.close();
-        }, 500);
+            this.dialogRef.close(action);
+          });
     }
 
     cancel() {
