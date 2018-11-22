@@ -5411,6 +5411,11 @@ nodemailer@^2.5.0:
     nodemailer-smtp-transport "2.7.2"
     socks "1.1.9"
 
+nodemailer@^4.6.8:
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-4.7.0.tgz#4420e06abfffd77d0618f184ea49047db84f4ad8"
+  integrity sha512-IludxDypFpYw4xpzKdMAozBSkzKHmNBvGanUREjJItgJ2NYcK/s8+PggVhj7c2yGFQykKsnnmv1+Aqo0ZfjHmw==
+
 nodemon@^1.18.4:
   version "1.18.4"
   resolved "https://registry.yarnpkg.com/nodemon/-/nodemon-1.18.4.tgz#873f65fdb53220eb166180cf106b1354ac5d714d"
