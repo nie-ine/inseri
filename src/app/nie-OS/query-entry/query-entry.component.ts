@@ -34,7 +34,7 @@ export class QueryEntryComponent {
       .subscribe(
         data => {
           console.log( data );
-          this.response = data;
+          // this.response = data;
           this.abstractJson = this.abstractJsonService.json2abstract( data );
           console.log( this.abstractJson );
         }, error => {
