@@ -120,8 +120,8 @@ export class ResponseTreeComponent implements OnChanges {
     });
   }
   ngOnChanges() {
-    console.log('Query Response:');
-    console.log( this.queryResponse );
+    // console.log('Query Response:');
+    // console.log( this.queryResponse );
     this.database.initialize( this.queryResponse );
   }
 
