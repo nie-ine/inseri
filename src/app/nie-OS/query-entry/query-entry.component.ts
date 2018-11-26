@@ -39,13 +39,13 @@ export class QueryEntryComponent {
   }
 
   sendQuery() {
-    console.log( 'Send query' );
+    // console.log( 'Send query' );
     const queryToBeSend = this.server + this.firstStep;
     // console.log( queryToBeSend );
     this.http.get( queryToBeSend )
       .subscribe(
         data => {
-          console.log( data );
+          // console.log( data );
           this.response = data;
           this.tree = data;
           this.abstractJson = this.abstractJsonService.json2abstract( data );
