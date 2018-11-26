@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { LinkValueEditorComponent } from './link-value-editor.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HttpClientModule } from '@angular/common/http';
-import { KnoraV1RequestService } from '../../shared/knora/knora-v1-request.service';
+import { KnoraV1RequestService } from '../../../../shared/knora/knora-v1-request.service';
 
 describe('CreateLinkValueComponent', () => {
   let component: LinkValueEditorComponent;

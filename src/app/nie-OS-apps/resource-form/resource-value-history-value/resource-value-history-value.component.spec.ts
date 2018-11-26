@@ -2,10 +2,10 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HttpClientModule } from '@angular/common/http';
 
-import { BaseTypeFormsModule } from '../../base-type-forms/base-type-forms.module';
+import { BaseTypeFormsModule } from '../../shared/base-type-forms/base-type-forms.module';
 
 import { ResourceValueHistoryValueComponent } from './resource-value-history-value.component';
-import { KnoraV1RequestService } from '../../shared/knora/knora-v1-request.service';
+import { KnoraV1RequestService } from '../../../shared/knora/knora-v1-request.service';
 
 describe('ResourceValueHistoryValueComponent', () => {
   let component: ResourceValueHistoryValueComponent;

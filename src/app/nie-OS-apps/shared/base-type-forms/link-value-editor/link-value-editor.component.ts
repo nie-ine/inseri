@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { KnoraV1RequestService } from '../../shared/knora/knora-v1-request.service';
+import { KnoraV1RequestService } from '../../../../shared/knora/knora-v1-request.service';
 
 /**
  * This component can be used to link to existing Knora resources.
