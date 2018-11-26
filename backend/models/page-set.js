@@ -4,7 +4,7 @@ const pageSetSchema = mongoose.Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
   linkToImage: { type: String },
-  hasPages: { type: [String] },
+  hasPages: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Page' }],
   hash: { type: String }
 });
 

@@ -2,66 +2,93 @@
 
 <mat-tab-group>
   <mat-tab label="Profil">
-    <form #f="ngForm" (ngSubmit)="save(f)" (keypress)="resetErrorProfile()">
-      <div class="setting">
+    <form [formGroup]="profileForm" (ngSubmit)="save()">
+      <div class="setting" (keydown)="resetErrorProfile()">
         <div class="error" *ngIf="errorProfile">
           {{errorProfileMessage}}
         </div>
 
         <div>
           <mat-form-field class="full-width">
-            <input matInput name="email" [(ngModel)]="email" placeholder="Email">
+            <input formControlName="email" matInput name="email" placeholder="Email">
           </mat-form-field>
+        </div>
+        <div class="error-validation" *ngIf="profileForm.get('email').hasError('required') && profileForm.get('email').touched">
+          Bitte geben Sie ihre Email ein!
+        </div>
+        <div class="error-validation" *ngIf="profileForm.get('email').hasError('pattern') && profileForm.get('email').touched">
+          Ihre Email ist ungültig!
         </div>
 
         <div>
           <mat-form-field class="full-width">
-            <input matInput name="firstName" [(ngModel)]="firstName" placeholder="Vorname">
+            <input formControlName="firstname" matInput name="firstName" placeholder="Vorname">
           </mat-form-field>
+        </div>
+        <div class="error-validation" *ngIf="profileForm.get('firstname').hasError('required') && profileForm.get('firstname').touched">
+          Bitte geben Sie ihren Vornamen ein!
         </div>
 
         <div>
           <mat-form-field class="full-width">
-            <input matInput name="lastName" [(ngModel)]="lastName" placeholder="Nachname">
+            <input formControlName="lastname" matInput name="lastName" placeholder="Nachname">
           </mat-form-field>
         </div>
+        <div class="error-validation" *ngIf="profileForm.get('lastname').hasError('required') && profileForm.get('lastname').touched">
+          Bitte geben Sie ihren Nachnamen ein!
+        </div>
 
-        <mat-slide-toggle name="newsletter" [(ngModel)]="newsletter">Newsletter</mat-slide-toggle>
+        <mat-slide-toggle [formControl]="profileForm.get('newsletter')" name="newsletter">Newsletter</mat-slide-toggle>
       </div>
 
       <button mat-button type="button" (click)="close()">Schliessen</button>
-      <button type="submit" mat-button>Abspeichern</button>
+      <button type="submit" [disabled]="profileForm.invalid" mat-button>Abspeichern</button>
     </form>
   </mat-tab>
 
   <mat-tab label="Passwort">
-    <form (ngSubmit)="changePwd()" (keypress)="resetErrorPwd()">
-      <div class="setting">
+    <form [formGroup]="pwdForm" (ngSubmit)="changePwd()">
+      <div class="setting" (keydown)="resetErrorPwd()">
         <div class="error" *ngIf="errorPwd">
           {{errorPwdMessage}}
         </div>
 
         <div>
           <mat-form-field class="full-width">
-            <input [(ngModel)]="oldPwd" matInput name="oldPwd" placeholder="Altes Passwort" type="password">
+            <input formControlName="oldpwd" matInput name="oldPwd" placeholder="Altes Passwort" type="password">
           </mat-form-field>
+        </div>
+        <div class="error-validation" *ngIf="pwdForm.get('oldpwd').hasError('required') && pwdForm.get('oldpwd').touched">
+          Bitte geben Sie ihr Passwort ein!
         </div>
 
         <div>
           <mat-form-field class="full-width">
-            <input [(ngModel)]="newPwd1" matInput name="newPwd1" placeholder="Neues Passwort" type="password">
+            <input formControlName="newpwd1" matInput name="newPwd1" placeholder="Neues Passwort" type="password">
           </mat-form-field>
+        </div>
+        <div class="error-validation" *ngIf="pwdForm.get('newpwd1').hasError('required') && pwdForm.get('newpwd1').touched">
+          Bitte geben Sie ein neues Passwort ein!
+        </div>
+        <div class="error-validation" *ngIf="pwdForm.get('newpwd1').hasError('minlength') && pwdForm.get('newpwd1').touched">
+          Minimum 4 Zeichen!
         </div>
 
         <div>
           <mat-form-field class="full-width">
-            <input [(ngModel)]="newPwd2" matInput name="newPwd2" placeholder="Wiederholung neues Passwort" type="password">
+            <input formControlName="newpwd2" matInput name="newPwd2" placeholder="Wiederholung neues Passwort" type="password">
           </mat-form-field>
+        </div>
+        <div class="error-validation" *ngIf="pwdForm.get('newpwd2').hasError('required') && pwdForm.get('newpwd2').touched">
+          Wiederholen Sie Ihr neues Passwort!
+        </div>
+        <div class="error-validation" *ngIf="pwdForm.get('newpwd2').hasError('minlength') && pwdForm.get('newpwd2').touched">
+          Minimum 4 Zeichen!
         </div>
       </div>
 
       <button mat-button type="button" (click)="close()">Schliessen</button>
-      <button type="submit" mat-button>Abspeichern</button>
+      <button type="submit" mat-button [disabled]="pwdForm.invalid">Abspeichern</button>
     </form>
   </mat-tab>
 </mat-tab-group>

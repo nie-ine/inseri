@@ -5,8 +5,9 @@ export interface Action {
   isFinished: boolean; // isInProgress, isFinished
   deleted: boolean;
   type: string;
-  hasPages: Array<string>; // hashes of the pages
+  hasPage: Array<string>; // hashes of the pages
   hasPageSet: string;
+  creator: string;
 }
 
 export interface ActionArray extends Array<Action> {}

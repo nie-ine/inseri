@@ -306,10 +306,18 @@ export class SankeyComponent implements AfterViewChecked {
     }
   }
 
+  generateComponentDivClass() {
+    return &#x27;sankey&#x27; + this.numberOfInitialisedComponent;
+  }
+
   DrawChart() {
     console.log(&#x27;draw chart&#x27;);
-    let svg &#x3D; d3.select(&quot;#sankey&quot;),
-      width &#x3D; +svg.attr(&quot;width&quot;),
+    let svg &#x3D; d3.select(&#x27;.&#x27; + this.generateComponentDivClass())
+      .append(&#x27;svg&#x27;)
+      .attr(&#x27;width&#x27;, 960) // Change here for size of the bars
+      .attr(&#x27;height&#x27;, 500);
+
+    let width &#x3D; +svg.attr(&quot;width&quot;),
       height &#x3D; +svg.attr(&quot;height&quot;);
 
     let formatNumber &#x3D; d3Format.format(&quot;,.0f&quot;),
