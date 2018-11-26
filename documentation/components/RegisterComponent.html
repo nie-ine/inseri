@@ -167,7 +167,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/static-pages/register/register.component.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/static-pages/register/register.component.ts:16</a></div>
                             </td>
                         </tr>
 
@@ -272,7 +272,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/static-pages/register/register.component.ts:26</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/static-pages/register/register.component.ts:25</a></div>
                             </td>
                         </tr>
 
@@ -323,7 +323,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/static-pages/register/register.component.ts:23</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/static-pages/register/register.component.ts:22</a></div>
                             </td>
                         </tr>
 
@@ -356,7 +356,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/static-pages/register/register.component.ts:15</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/static-pages/register/register.component.ts:14</a></div>
                             </td>
                         </tr>
 
@@ -395,7 +395,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/static-pages/register/register.component.ts:14</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/static-pages/register/register.component.ts:13</a></div>
                             </td>
                         </tr>
 
@@ -428,7 +428,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/static-pages/register/register.component.ts:16</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/static-pages/register/register.component.ts:15</a></div>
                             </td>
                         </tr>
 
@@ -461,7 +461,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/static-pages/register/register.component.ts:17</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/static-pages/register/register.component.ts:16</a></div>
                             </td>
                         </tr>
 
@@ -486,7 +486,6 @@ import { AuthService } from &#x27;../../shared/nieOS/mongodb/auth/auth.service&#
   templateUrl: &#x27;./register.component.html&#x27;
 })
 export class RegisterComponent {
-
   model: any &#x3D; {};
   loading &#x3D; false;
   userCreated &#x3D; false;
@@ -497,20 +496,15 @@ export class RegisterComponent {
     private userService: UserService,
     private alertService: AlertService,
     public authService: AuthService
-  ) { }
+  ) {}
 
   register() {
     this.loading &#x3D; true;
-    this.authService.createUser(
-      this.model.username,
-      this.model.password,
-      this.model.firstName,
-      this.model.lastName
-    )
+    this.authService.createUser(this.model.email, this.model.password, this.model.firstName, this.model.lastName)
       .subscribe( response &#x3D;&gt; {
-      console.log(response);
-      this.userCreated &#x3D; true;
-    });
+        // console.log(response);
+        this.userCreated &#x3D; true;
+      });
 /*    this.userService.create(this.model)
       .subscribe(
         data &#x3D;&gt; {
@@ -534,27 +528,21 @@ export class RegisterComponent {
   &lt;h2&gt;Register&lt;/h2&gt;
   &lt;form name&#x3D;&quot;form&quot; (ngSubmit)&#x3D;&quot;f.form.valid &amp;&amp; register()&quot; #f&#x3D;&quot;ngForm&quot; novalidate&gt;
 
-    &lt;div class&#x3D;&quot;form-group&quot; [ngClass]&#x3D;&quot;{ &#x27;has-error&#x27;: f.submitted &amp;&amp; !username.valid }&quot;&gt;
+    &lt;div class&#x3D;&quot;form-group&quot; [ngClass]&#x3D;&quot;{ &#x27;has-error&#x27;: f.submitted &amp;&amp; !firstName.valid }&quot;&gt;
       &lt;label for&#x3D;&quot;firstName&quot;&gt;First Name&lt;/label&gt;
       &lt;input type&#x3D;&quot;text&quot; class&#x3D;&quot;form-control&quot; name&#x3D;&quot;firstName&quot; [(ngModel)]&#x3D;&quot;model.firstName&quot; #firstName&#x3D;&quot;ngModel&quot; required /&gt;
       &lt;div *ngIf&#x3D;&quot;f.submitted &amp;&amp; !firstName.valid&quot; class&#x3D;&quot;help-block&quot;&gt;First Name is required&lt;/div&gt;
     &lt;/div&gt;
 
-    &lt;div class&#x3D;&quot;form-group&quot; [ngClass]&#x3D;&quot;{ &#x27;has-error&#x27;: f.submitted &amp;&amp; !username.valid }&quot;&gt;
+    &lt;div class&#x3D;&quot;form-group&quot; [ngClass]&#x3D;&quot;{ &#x27;has-error&#x27;: f.submitted &amp;&amp; !lastName.valid }&quot;&gt;
       &lt;label for&#x3D;&quot;lastName&quot;&gt;Last Name&lt;/label&gt;
       &lt;input type&#x3D;&quot;text&quot; class&#x3D;&quot;form-control&quot; name&#x3D;&quot;lastName&quot; [(ngModel)]&#x3D;&quot;model.lastName&quot; #lastName&#x3D;&quot;ngModel&quot; required /&gt;
       &lt;div *ngIf&#x3D;&quot;f.submitted &amp;&amp; !lastName.valid&quot; class&#x3D;&quot;help-block&quot;&gt;Last Name is required&lt;/div&gt;
     &lt;/div&gt;
 
-    &lt;div class&#x3D;&quot;form-group&quot; [ngClass]&#x3D;&quot;{ &#x27;has-error&#x27;: f.submitted &amp;&amp; !username.valid }&quot;&gt;
-      &lt;label for&#x3D;&quot;username&quot;&gt;Username&lt;/label&gt;
-      &lt;input type&#x3D;&quot;text&quot; class&#x3D;&quot;form-control&quot; name&#x3D;&quot;username&quot; [(ngModel)]&#x3D;&quot;model.username&quot; #username&#x3D;&quot;ngModel&quot; required /&gt;
-      &lt;div *ngIf&#x3D;&quot;f.submitted &amp;&amp; !username.valid&quot; class&#x3D;&quot;help-block&quot;&gt;Username is required&lt;/div&gt;
-    &lt;/div&gt;
-
     &lt;div class&#x3D;&quot;form-group&quot; [ngClass]&#x3D;&quot;{ &#x27;has-error&#x27;: f.submitted &amp;&amp; !email.valid }&quot;&gt;
       &lt;label for&#x3D;&quot;email&quot;&gt;Email&lt;/label&gt;
-      &lt;input type&#x3D;&quot;email&quot; class&#x3D;&quot;form-control&quot; name&#x3D;&quot;email&quot; [(ngModel)]&#x3D;&quot;model.email&quot; #email&#x3D;&quot;ngModel&quot; required pattern&#x3D;&quot;^\S*[@]\S*[.]\S*$&quot; email/&gt;
+      &lt;input type&#x3D;&quot;email&quot; class&#x3D;&quot;form-control&quot; name&#x3D;&quot;email&quot; [(ngModel)]&#x3D;&quot;model.email&quot; #email&#x3D;&quot;ngModel&quot; required pattern&#x3D;&quot;^\S+[@]\S+[.]\S+$&quot; email/&gt;
       &lt;div *ngIf&#x3D;&quot;f.submitted &amp;&amp; !email.valid&quot; class&#x3D;&quot;help-block&quot;&gt;Email is required / Does not have the right format.&lt;/div&gt;
     &lt;/div&gt;
 
@@ -601,8 +589,8 @@ export class RegisterComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="col-md-6 col-md-offset-3" style="margin-top: 30px" *ngIf="!userCreated">  <h2>Register</h2>  <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>    <div class="form-group" [ngClass]="{ \'has-error\': f.submitted && !username.valid }">      <label for="firstName">First Name</label>      <input type="text" class="form-control" name="firstName" [(ngModel)]="model.firstName" #firstName="ngModel" required />      <div *ngIf="f.submitted && !firstName.valid" class="help-block">First Name is required</div>    </div>    <div class="form-group" [ngClass]="{ \'has-error\': f.submitted && !username.valid }">      <label for="lastName">Last Name</label>      <input type="text" class="form-control" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" required />      <div *ngIf="f.submitted && !lastName.valid" class="help-block">Last Name is required</div>    </div>    <div class="form-group" [ngClass]="{ \'has-error\': f.submitted && !username.valid }">      <label for="username">Username</label>      <input type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel" required />      <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>    </div>    <div class="form-group" [ngClass]="{ \'has-error\': f.submitted && !email.valid }">      <label for="email">Email</label>      <input type="email" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" required pattern="^\S*[@]\S*[.]\S*$" email/>      <div *ngIf="f.submitted && !email.valid" class="help-block">Email is required / Does not have the right format.</div>    </div>    <div class="form-group" [ngClass]="{ \'has-error\': f.submitted && !password.valid }">      <label for="password">Password</label>      <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />      <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>    </div>    <div class="form-group">      <button [disabled]="loading" class="btn btn-primary">Register</button>      <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />      <a [routerLink]="[\'/home\']" class="btn btn-link" >Cancel</a>    </div>  </form></div><div *ngIf="userCreated" style="margin-top: 40px"> Greetings {{ model.firstName }} <br> Your user has been created in nieOS! Have fun! <a href="home#login" class="btn btn-link">Go to Login</a></div></div>'
-    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'BooleanValueEditorComponent', 'selector': 'app-boolean-value-editor'},{'name': 'BrushAndZoomComponent', 'selector': 'app-brush-and-zoom'},{'name': 'CreateResourceComponent', 'selector': 'app-create-resource'},{'name': 'CreateResourceViewComponent', 'selector': 'app-create-resource-view'},{'name': 'D3tutorialComponent', 'selector': 'app-d3tutorial'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataChooserComponent', 'selector': 'app-data-chooser'},{'name': 'DataChooserSettingsComponent', 'selector': 'app-data-chooser-settings'},{'name': 'DateValueEditorComponent', 'selector': 'app-date-value-editor'},{'name': 'DateValueViewerComponent', 'selector': 'app-date-value-viewer'},{'name': 'DecimalValueEditorComponent', 'selector': 'app-decimal-value-editor'},{'name': 'DialogCreateNewPageComponent', 'selector': 'dialog-create-new-page'},{'name': 'DialogOverviewExampleDialog', 'selector': 'dialog-overview-example-dialog'},{'name': 'DialogUserSettingsDialog', 'selector': 'dialog-user-settings-dialog'},{'name': 'EditResourceViewComponent', 'selector': 'app-edit-resource-view'},{'name': 'FactSheetComponent', 'selector': 'app-fact-sheet'},{'name': 'FloatLightTableComponent', 'selector': 'app-float-light-table'},{'name': 'FloatingImageObjectComponent', 'selector': 'app-floating-image-object'},{'name': 'FloatingTextObjectComponent', 'selector': 'app-floating-text-object'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'GrapesjsComponent', 'selector': 'app-grapesjs'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'ImageFrameComponent', 'selector': 'app-image-frame'},{'name': 'ImageFrameSizesComponent', 'selector': 'app-image-frame-sizes'},{'name': 'ImageViewComponent', 'selector': 'app-image-view'},{'name': 'ImageWithOverlayComponent', 'selector': 'app-image-with-overlay'},{'name': 'InitPopupComponent', 'selector': 'app-init-popup'},{'name': 'IntValueEditorComponent', 'selector': 'app-int-value-editor'},{'name': 'LeafletExampleComponent', 'selector': 'app-leaflet-example'},{'name': 'LightTableComponent', 'selector': 'app-light-table'},{'name': 'LightTableMenuComponent', 'selector': 'app-light-table-menu'},{'name': 'LinkValueEditorComponent', 'selector': 'app-link-value-editor'},{'name': 'LinkValueLabelViewerComponent', 'selector': 'app-link-value-label-viewer'},{'name': 'LoadLightTableComponent', 'selector': 'app-load-light-table'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MetadataViewComponent', 'selector': 'app-metadata-view'},{'name': 'MultiLineChartComponent', 'selector': 'app-multi-line-chart'},{'name': 'NIEOSComponent', 'selector': 'nie-os'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'PageSetLandingPageComponent', 'selector': 'app-page-set-landing-page'},{'name': 'PieChartComponent', 'selector': 'app-pie-chart'},{'name': 'Popup', 'selector': 'popup'},{'name': 'RadialBarchartComponent', 'selector': 'app-radial-barchart'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'RemoveObjectsByIdComponent', 'selector': 'app-remove-objects-by-id'},{'name': 'ResourceFormComponent', 'selector': 'app-resource-form'},{'name': 'ResourceValueHistoryComponent', 'selector': 'app-resource-value-history'},{'name': 'ResourceValueHistoryValueComponent', 'selector': 'app-resource-value-history-value'},{'name': 'ResponseTreeComponent', 'selector': 'app-response-tree'},{'name': 'SankeyComponent', 'selector': 'app-sankey'},{'name': 'SaveLightTableComponent', 'selector': 'app-save-light-table'},{'name': 'ShareLightTableComponent', 'selector': 'app-share-light-table'},{'name': 'SpaTextComponent', 'selector': 'app-spa-text'},{'name': 'StackedBarChartComponent', 'selector': 'app-stacked-bar-chart'},{'name': 'SynopsisComponent', 'selector': 'app-synopsis'},{'name': 'SynopsisObjectManagerComponent', 'selector': 'app-synopsis-object-manager'},{'name': 'SynopsisObjectToolboxComponent', 'selector': 'app-synopsis-object-toolbox'},{'name': 'TagChipsComponent', 'selector': 'app-tag-chips'},{'name': 'TextDevViewComponent', 'selector': 'app-text-dev-view'},{'name': 'TextLineComponent', 'selector': 'app-text-line'},{'name': 'TextLineGroupComponent', 'selector': 'app-text-line-group'},{'name': 'TextLineMarginComponent', 'selector': 'app-text-line-margin'},{'name': 'TextValueEditorComponent', 'selector': 'app-text-value-editor'},{'name': 'TextViewCanvasComponent', 'selector': 'app-text-view-canvas'},{'name': 'TextViewComponent', 'selector': 'app-text-view'},{'name': 'TextViewMetadataComponent', 'selector': 'app-text-view-metadata'},{'name': 'TextViewStructureComponent', 'selector': 'app-text-view-structure'},{'name': 'TextViewToolsComponent', 'selector': 'app-text-view-tools'},{'name': 'TextlistViewerComponent', 'selector': 'app-textlist-viewer'},{'name': 'ThumbnailbarComponent', 'selector': 'app-thumbnailbar'},{'name': 'TiledImageObjectComponent', 'selector': 'app-tiled-image-object'},{'name': 'TiledLightTableComponent', 'selector': 'app-tiled-light-table'},{'name': 'TiledTextObjectComponent', 'selector': 'app-tiled-text-object'},{'name': 'UpdatePageSetComponent', 'selector': 'app-update-page-set'}];
+        var COMPONENT_TEMPLATE = '<div><div class="col-md-6 col-md-offset-3" style="margin-top: 30px" *ngIf="!userCreated">  <h2>Register</h2>  <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>    <div class="form-group" [ngClass]="{ \'has-error\': f.submitted && !firstName.valid }">      <label for="firstName">First Name</label>      <input type="text" class="form-control" name="firstName" [(ngModel)]="model.firstName" #firstName="ngModel" required />      <div *ngIf="f.submitted && !firstName.valid" class="help-block">First Name is required</div>    </div>    <div class="form-group" [ngClass]="{ \'has-error\': f.submitted && !lastName.valid }">      <label for="lastName">Last Name</label>      <input type="text" class="form-control" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" required />      <div *ngIf="f.submitted && !lastName.valid" class="help-block">Last Name is required</div>    </div>    <div class="form-group" [ngClass]="{ \'has-error\': f.submitted && !email.valid }">      <label for="email">Email</label>      <input type="email" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" required pattern="^\S+[@]\S+[.]\S+$" email/>      <div *ngIf="f.submitted && !email.valid" class="help-block">Email is required / Does not have the right format.</div>    </div>    <div class="form-group" [ngClass]="{ \'has-error\': f.submitted && !password.valid }">      <label for="password">Password</label>      <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />      <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>    </div>    <div class="form-group">      <button [disabled]="loading" class="btn btn-primary">Register</button>      <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />      <a [routerLink]="[\'/home\']" class="btn btn-link" >Cancel</a>    </div>  </form></div><div *ngIf="userCreated" style="margin-top: 40px"> Greetings {{ model.firstName }} <br> Your user has been created in nieOS! Have fun! <a href="home#login" class="btn btn-link">Go to Login</a></div></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'BooleanValueEditorComponent', 'selector': 'app-boolean-value-editor'},{'name': 'BrushAndZoomComponent', 'selector': 'app-brush-and-zoom'},{'name': 'ChordDiagramComponent', 'selector': 'app-chord-diagram'},{'name': 'CreateResourceComponent', 'selector': 'app-create-resource'},{'name': 'CreateResourceViewComponent', 'selector': 'app-create-resource-view'},{'name': 'D3tutorialComponent', 'selector': 'app-d3tutorial'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataChooserComponent', 'selector': 'app-data-chooser'},{'name': 'DataChooserSettingsComponent', 'selector': 'app-data-chooser-settings'},{'name': 'DateValueEditorComponent', 'selector': 'app-date-value-editor'},{'name': 'DateValueViewerComponent', 'selector': 'app-date-value-viewer'},{'name': 'DecimalValueEditorComponent', 'selector': 'app-decimal-value-editor'},{'name': 'DialogCreateNewPageComponent', 'selector': 'dialog-create-new-page'},{'name': 'DialogOverviewExampleDialog', 'selector': 'dialog-overview-example-dialog'},{'name': 'DialogUserSettingsDialog', 'selector': 'dialog-user-settings-dialog'},{'name': 'DictionaryComponent', 'selector': 'app-dictionary'},{'name': 'EditResourceViewComponent', 'selector': 'app-edit-resource-view'},{'name': 'FactSheetComponent', 'selector': 'app-fact-sheet'},{'name': 'FloatLightTableComponent', 'selector': 'app-float-light-table'},{'name': 'FloatingImageObjectComponent', 'selector': 'app-floating-image-object'},{'name': 'FloatingTextObjectComponent', 'selector': 'app-floating-text-object'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'GrapesjsComponent', 'selector': 'app-grapesjs'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'ImageFrameComponent', 'selector': 'app-image-frame'},{'name': 'ImageFrameSizesComponent', 'selector': 'app-image-frame-sizes'},{'name': 'ImageViewComponent', 'selector': 'app-image-view'},{'name': 'ImageWithOverlayComponent', 'selector': 'app-image-with-overlay'},{'name': 'InitPopupComponent', 'selector': 'app-init-popup'},{'name': 'IntValueEditorComponent', 'selector': 'app-int-value-editor'},{'name': 'LeafletExampleComponent', 'selector': 'app-leaflet-example'},{'name': 'LightTableComponent', 'selector': 'app-light-table'},{'name': 'LightTableMenuComponent', 'selector': 'app-light-table-menu'},{'name': 'LinkValueEditorComponent', 'selector': 'app-link-value-editor'},{'name': 'LinkValueLabelViewerComponent', 'selector': 'app-link-value-label-viewer'},{'name': 'LoadLightTableComponent', 'selector': 'app-load-light-table'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MetadataViewComponent', 'selector': 'app-metadata-view'},{'name': 'MultiLineChartComponent', 'selector': 'app-multi-line-chart'},{'name': 'MyMainComponentComponent', 'selector': 'app-my-main-component'},{'name': 'MyPractiseComponentComponent', 'selector': 'app-my-practise-component'},{'name': 'NIEOSComponent', 'selector': 'nie-os'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'PageSetLandingPageComponent', 'selector': 'app-page-set-landing-page'},{'name': 'PieChartComponent', 'selector': 'app-pie-chart'},{'name': 'PizzaPartyComponent', 'selector': 'snack-bar-component-example-snack'},{'name': 'Popup', 'selector': 'popup'},{'name': 'RadialBarchartComponent', 'selector': 'app-radial-barchart'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'RemoveObjectsByIdComponent', 'selector': 'app-remove-objects-by-id'},{'name': 'ResourceFormComponent', 'selector': 'app-resource-form'},{'name': 'ResourceValueHistoryComponent', 'selector': 'app-resource-value-history'},{'name': 'ResourceValueHistoryValueComponent', 'selector': 'app-resource-value-history-value'},{'name': 'ResponseTreeComponent', 'selector': 'app-response-tree'},{'name': 'SankeyComponent', 'selector': 'app-sankey'},{'name': 'SaveLightTableComponent', 'selector': 'app-save-light-table'},{'name': 'ShareLightTableComponent', 'selector': 'app-share-light-table'},{'name': 'SpaTextComponent', 'selector': 'app-spa-text'},{'name': 'StackedBarChartComponent', 'selector': 'app-stacked-bar-chart'},{'name': 'SynopsisComponent', 'selector': 'app-synopsis'},{'name': 'SynopsisObjectManagerComponent', 'selector': 'app-synopsis-object-manager'},{'name': 'SynopsisObjectToolboxComponent', 'selector': 'app-synopsis-object-toolbox'},{'name': 'TagChipsComponent', 'selector': 'app-tag-chips'},{'name': 'TextDevViewComponent', 'selector': 'app-text-dev-view'},{'name': 'TextDisplayComponent', 'selector': 'app-text-display'},{'name': 'TextDisplayComponent', 'selector': 'app-text-display'},{'name': 'TextLineComponent', 'selector': 'app-text-line'},{'name': 'TextLineGroupComponent', 'selector': 'app-text-line-group'},{'name': 'TextLineMarginComponent', 'selector': 'app-text-line-margin'},{'name': 'TextLineNumberComponent', 'selector': 'app-text-line-number'},{'name': 'TextPageOfWordsComponent', 'selector': 'app-text-page-of-words'},{'name': 'TextSvgViewComponent', 'selector': 'app-text-svg-view'},{'name': 'TextValueEditorComponent', 'selector': 'app-text-value-editor'},{'name': 'TextViewCanvasComponent', 'selector': 'app-text-view-canvas'},{'name': 'TextViewComponent', 'selector': 'app-text-view'},{'name': 'TextViewMetadataComponent', 'selector': 'app-text-view-metadata'},{'name': 'TextViewStructureComponent', 'selector': 'app-text-view-structure'},{'name': 'TextViewToolsComponent', 'selector': 'app-text-view-tools'},{'name': 'TextlistViewerComponent', 'selector': 'app-textlist-viewer'},{'name': 'ThumbnailbarComponent', 'selector': 'app-thumbnailbar'},{'name': 'TiledImageObjectComponent', 'selector': 'app-tiled-image-object'},{'name': 'TiledLightTableComponent', 'selector': 'app-tiled-light-table'},{'name': 'TiledTextObjectComponent', 'selector': 'app-tiled-text-object'},{'name': 'UpdatePageSetComponent', 'selector': 'app-update-page-set'}];
     var DIRECTIVES = [{'name': 'DraggableDirective', 'selector': '[appDraggable]'},{'name': 'DraggableStubDirective', 'selector': '[appDraggable]'},{'name': 'FloatDropTargetDirective', 'selector': '[appDropTarget]'},{'name': 'ModifiableDirective', 'selector': '[appModifiable]'},{'name': 'ModifiableStubDirective', 'selector': '[appModifiable]'},{'name': 'SelectableDirective', 'selector': '[appSelectable]'},{'name': 'SelectableStubDirective', 'selector': '[appSelectable]'},{'name': 'SynopsisObjectAnchorDirective', 'selector': '[appSynopsisObjectAnchor]'},{'name': 'TileDropTargetDirective', 'selector': '[appTileDropTarget]'}];
     var ACTUAL_COMPONENT = {'name': 'RegisterComponent'};
 </script>

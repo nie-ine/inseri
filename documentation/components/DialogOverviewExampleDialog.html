@@ -143,7 +143,7 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#onNoClick">onNoClick</a>
+                                <a href="#close">close</a>
                             </li>
                             <li>
                                 <a href="#register">register</a>
@@ -171,7 +171,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="119" class="link-to-prism">src/app/dashboard/dashboard/dashboard.component.ts:119</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="122" class="link-to-prism">src/app/dashboard/dashboard/dashboard.component.ts:122</a></div>
                             </td>
                         </tr>
 
@@ -270,25 +270,25 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="onNoClick"></a>
+                        <a name="close"></a>
                         <span class="name">
                             <b>
-                            onNoClick
+                            close
                             </b>
-                            <a href="#onNoClick"><span class="icon ion-ios-link"></span></a>
+                            <a href="#close"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
                 <tr>
                     <td class="col-md-4">
-<code>onNoClick()</code>
+<code>close()</code>
                     </td>
                 </tr>
 
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="126" class="link-to-prism">src/app/dashboard/dashboard/dashboard.component.ts:126</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="131" class="link-to-prism">src/app/dashboard/dashboard/dashboard.component.ts:131</a></div>
                             </td>
                         </tr>
 
@@ -326,7 +326,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="129" class="link-to-prism">src/app/dashboard/dashboard/dashboard.component.ts:129</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="135" class="link-to-prism">src/app/dashboard/dashboard/dashboard.component.ts:135</a></div>
                             </td>
                         </tr>
 
@@ -384,13 +384,13 @@
     deleted: false,
     type: undefined,
     hasPageSet: undefined,
-    hasViews: undefined
+    hasPages: undefined
   }</code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="108" class="link-to-prism">src/app/dashboard/dashboard/dashboard.component.ts:108</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="111" class="link-to-prism">src/app/dashboard/dashboard/dashboard.component.ts:111</a></div>
                             </td>
                         </tr>
 
@@ -424,7 +424,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="119" class="link-to-prism">src/app/dashboard/dashboard/dashboard.component.ts:119</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="122" class="link-to-prism">src/app/dashboard/dashboard/dashboard.component.ts:122</a></div>
                             </td>
                         </tr>
 
@@ -464,7 +464,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="121" class="link-to-prism">src/app/dashboard/dashboard/dashboard.component.ts:121</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="125" class="link-to-prism">src/app/dashboard/dashboard/dashboard.component.ts:125</a></div>
                             </td>
                         </tr>
 
@@ -499,7 +499,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="120" class="link-to-prism">src/app/dashboard/dashboard/dashboard.component.ts:120</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="124" class="link-to-prism">src/app/dashboard/dashboard/dashboard.component.ts:124</a></div>
                             </td>
                         </tr>
 
@@ -532,7 +532,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="118" class="link-to-prism">src/app/dashboard/dashboard/dashboard.component.ts:118</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="121" class="link-to-prism">src/app/dashboard/dashboard/dashboard.component.ts:121</a></div>
                             </td>
                         </tr>
 
@@ -550,10 +550,10 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from &#x27;@angular/material
 import { Router, NavigationEnd } from &#x27;@angular/router&#x27;;
 import { ActionService } from &#x27;../../shared/nieOS/fake-backend/action/action.service&#x27;;
 import { AlertService} from &#x27;../../shared/nieOS/fake-backend/auth/altert.service&#x27;;
-import {HttpParams} from &#x27;@angular/common/http&#x27;;
 import { MongoActionService } from &#x27;../../shared/nieOS/mongodb/action/action.service&#x27;;
-import { Action, ActionArray } from &#x27;../../shared/nieOS/mongodb/action/action.model&#x27;;
-import { map } from&#x27;rxjs/operators&#x27;;
+import { Action } from &#x27;../../shared/nieOS/mongodb/action/action.model&#x27;;
+import { map } from &#x27;rxjs/operators&#x27;;
+import {MongoContactService} from &#x27;../../shared/nieOS/mongodb/contact/contact.service&#x27;;
 
 @Component({
   selector: &#x27;app-dashboard&#x27;,
@@ -561,19 +561,19 @@ import { map } from&#x27;rxjs/operators&#x27;;
   styleUrls: [&#x27;./dashboard.component.scss&#x27;]
 })
 export class DashboardComponent implements OnInit {
-
-  animal: string;
-  name: string;
   user: any[] &#x3D; JSON.parse(localStorage.getItem(&#x27;currentUser&#x27;)) || [];
-  username: string;
+  userFirstName: string;
   actions: Action[] &#x3D; [];
+  message: string;
+  successfullySendMessage &#x3D; false;
 
   constructor(
     public dialog: MatDialog,
     private router: Router,
     private actionService: ActionService,
     private alertService: AlertService,
-    private mongoActionService: MongoActionService
+    private mongoActionService: MongoActionService,
+    private mongoContactService: MongoContactService
   ) {
 
     router.events.subscribe(s &#x3D;&gt; {
@@ -585,19 +585,14 @@ export class DashboardComponent implements OnInit {
         }
       }
     });
-
-  }
-
-  openDialog(): void {
-    const dialogRef &#x3D; this.dialog.open(DialogOverviewExampleDialog, {
-      width: &#x27;700px&#x27;,
-      data: { name: this.name, animal: this.animal }
-    });
-
   }
 
   ngOnInit() {
-    this.username &#x3D; localStorage.getItem(&#x27;firstName&#x27;);
+    this.userFirstName &#x3D; localStorage.getItem(&#x27;firstName&#x27;);
+    this.updateActions();
+  }
+
+  private updateActions() {
     console.log(&#x27;Next: iterate through existing actions&#x27;);
     // this.actions &#x3D; JSON.parse(localStorage.getItem(&#x27;actions&#x27;)) || [];
     this.mongoActionService.getAllActions()
@@ -616,25 +611,22 @@ export class DashboardComponent implements OnInit {
       .subscribe( transformedActions &#x3D;&gt; {
         console.log(transformedActions);
         this.actions &#x3D; transformedActions;
-    });
+      });
     console.log(this.actions);
+  }
+
+  openDialog(): void {
+    const dialogRef &#x3D; this.dialog.open(DialogOverviewExampleDialog, {
+      width: &#x27;700px&#x27;,
+      data: {}
+    });
+    dialogRef.afterClosed().subscribe(() &#x3D;&gt; this.updateActions());
   }
 
   deleteAction(action: any) {
     console.log(&#x27;Delete Action &#x27; + action.id);
     action.deleted &#x3D; true;
-    this.mongoActionService.deleteAction( action.id);
-    // this.actionService.delete(action.id)
-    //   .subscribe(
-    //     data &#x3D;&gt; {
-    //       console.log(data);
-    //       this.alertService.success(&#x27;Deletion successful&#x27;, true);
-    //       // this.router.navigate([&#x27;/home&#x27;]);
-    //     },
-    //     error &#x3D;&gt; {
-    //       console.log(error);
-    //       this.alertService.error(error);
-    //     });
+    this.mongoActionService.deleteAction( action.id).subscribe(() &#x3D;&gt; this.updateActions());
   }
 
   markAsDone( action: any ) {
@@ -643,6 +635,17 @@ export class DashboardComponent implements OnInit {
 
   continueAction( action: any ) {
     this.router.navigate( [ action.type ], { queryParams: { &#x27;actionID&#x27;: action.id } } );
+  }
+  sendMessage() {
+    console.log(&#x27;Send Message&#x27;);
+    console.log(this.message);
+    this.mongoContactService.sendMessage( this.message )
+      .subscribe( response &#x3D;&gt; {
+        console.log(response);
+        this.successfullySendMessage &#x3D; true;
+      }, error1 &#x3D;&gt; {
+        console.log(error1);
+      });
   }
 
 }
@@ -660,45 +663,28 @@ export class DialogOverviewExampleDialog {
     deleted: false,
     type: undefined,
     hasPageSet: undefined,
-    hasViews: undefined
+    hasPages: undefined
   };
   loading &#x3D; false;
   chooseNewAction: string;
+
   constructor(public dialogRef: MatDialogRef&lt;DialogOverviewExampleDialog&gt;,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private router: Router,
               private actionService: ActionService,
               private mongoActionService: MongoActionService ) {
   }
-  onNoClick(): void {
+
+  close() {
     this.dialogRef.close();
   }
+
   register() {
     this.loading &#x3D; true;
-    this.mongoActionService.createAction(
-      this.action
-    );
-    // this.actionService.create(this.model)
-    //   .subscribe(
-    //     data &#x3D;&gt; {
-    //       console.log(&#x27;Action created&#x27;);
-    //       const actions &#x3D; JSON.parse(localStorage.getItem(&#x27;actions&#x27;)) || [];
-    //       console.log(actions);
-    //       this.onNoClick();
-    //       console.log(this.model.type.search(&#x27;salsah&#x27;));
-    //       if ( this.model.type.search(&#x27;salsah&#x27;) !&#x3D;&#x3D; -1 ) {
-    //         console.log(&#x27;Navigate to Salsah&#x27;);
-    //         window.open(&#x27;http://salsah2.nie-ine.ch/&#x27;, &#x27;_blank&#x27;);
-    //       } else {
-    //         const params &#x3D; new HttpParams().set(&#x27;actionId&#x27;, actions.lengt);
-    //         params.append(&#x27;actionId&#x27;, actions.length);
-    //         this.router.navigate( [ this.model.type ], { queryParams: { &#x27;actionID&#x27;: actions.length } } );
-    //       }
-    //     },
-    //     error &#x3D;&gt; {
-    //       console.log(error);
-    //       this.loading &#x3D; false;
-    //     });
+    this.mongoActionService.createAction(this.action)
+      .subscribe((result) &#x3D;&gt; {
+        this.dialogRef.close(result);
+      });
   }
 }
 </code></pre>
@@ -706,7 +692,6 @@ export class DialogOverviewExampleDialog {
 
     <div class="tab-pane fade " id="c-templateData">
         <pre class="line-numbers"><code class="language-html">&lt;h1 mat-dialog-title&gt;Welche neue Aktion möchtest Du starten?&lt;/h1&gt;
-
 
 &lt;div class&#x3D;&quot;col-md-6 col-md-offset-3&quot;&gt;
   &lt;form name&#x3D;&quot;form&quot; (ngSubmit)&#x3D;&quot;f.form.valid &amp;&amp; register()&quot; #f&#x3D;&quot;ngForm&quot; novalidate&gt;
@@ -723,21 +708,17 @@ export class DialogOverviewExampleDialog {
     &lt;label &gt;Art der Aktion&lt;/label&gt;
     &lt;mat-radio-group [(ngModel)]&#x3D;&quot;action.type&quot; name&#x3D;&quot;type&quot;&gt;&lt;br&gt;
       &lt;mat-radio-button value&#x3D;&quot;page&quot;&gt;Neue leere Page&lt;/mat-radio-button&gt;&lt;br&gt;
-      &lt;mat-radio-button value&#x3D;&quot;page-set&quot;&gt;Neues pageSet&lt;/mat-radio-button&gt;&lt;br&gt;
+      &lt;mat-radio-button value&#x3D;&quot;page-set&quot;&gt;Neues PageSet&lt;/mat-radio-button&gt;&lt;br&gt;
       &lt;mat-radio-button value&#x3D;&quot;dummy&quot;&gt;Neuer Workflow (dummy)&lt;/mat-radio-button&gt;&lt;br&gt;
       &lt;mat-radio-button value&#x3D;&quot;salsah&quot;&gt;Gelange zu Salsah 2&lt;/mat-radio-button&gt;&lt;br&gt;
     &lt;/mat-radio-group&gt;
-    &lt;div &gt;
+    &lt;div&gt;
       &lt;button [disabled]&#x3D;&quot;loading&quot; class&#x3D;&quot;btn btn-primary&quot;&gt;Starte Aktion&lt;/button&gt;
-      &lt;img *ngIf&#x3D;&quot;loading&quot; src&#x3D;&quot;data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA&#x3D;&#x3D;&quot; /&gt;
-
-        &lt;button  type&#x3D;&quot;button&quot; mat-button (click)&#x3D;&quot;onNoClick()&quot;&gt;Schliesse dieses Menü&lt;/button&gt;
-
+      &lt;img *ngIf&#x3D;&quot;loading&quot; src&#x3D;&quot;data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA&#x3D;&#x3D;&quot;/&gt;
+      &lt;button  type&#x3D;&quot;button&quot; mat-button (click)&#x3D;&quot;close()&quot;&gt;Schliesse dieses Menü&lt;/button&gt;
     &lt;/div&gt;
   &lt;/form&gt;
 &lt;/div&gt;
-
-
 </code></pre>
     </div>
 
@@ -766,8 +747,8 @@ export class DialogOverviewExampleDialog {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><h1 mat-dialog-title>Welche neue Aktion möchtest Du starten?</h1><div class="col-md-6 col-md-offset-3">  <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>    <div class="form-group" >      <label for="firstName">Titel der Aktion</label>      <input type="text" class="form-control" name="firstName" [(ngModel)]="action.title" #firstName="ngModel" required />      <div *ngIf="f.submitted && !firstName.valid" class="help-block">Bitte geben Sie einen Titel ein</div>    </div>    <div class="form-group" >      <label for="lastName">Beschreibung der Aktion</label>      <input type="text" class="form-control" name="lastName" [(ngModel)]="action.description" #lastName="ngModel" required />      <div *ngIf="f.submitted && !lastName.valid" class="help-block">Bitte geben Sie eine Beschreibung der Aktion ein</div>    </div>    <label >Art der Aktion</label>    <mat-radio-group [(ngModel)]="action.type" name="type"><br>      <mat-radio-button value="page">Neue leere Page</mat-radio-button><br>      <mat-radio-button value="page-set">Neues pageSet</mat-radio-button><br>      <mat-radio-button value="dummy">Neuer Workflow (dummy)</mat-radio-button><br>      <mat-radio-button value="salsah">Gelange zu Salsah 2</mat-radio-button><br>    </mat-radio-group>    <div >      <button [disabled]="loading" class="btn btn-primary">Starte Aktion</button>      <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />        <button  type="button" mat-button (click)="onNoClick()">Schliesse dieses Menü</button>    </div>  </form></div></div>'
-    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'BooleanValueEditorComponent', 'selector': 'app-boolean-value-editor'},{'name': 'BrushAndZoomComponent', 'selector': 'app-brush-and-zoom'},{'name': 'CreateResourceComponent', 'selector': 'app-create-resource'},{'name': 'CreateResourceViewComponent', 'selector': 'app-create-resource-view'},{'name': 'D3tutorialComponent', 'selector': 'app-d3tutorial'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataChooserComponent', 'selector': 'app-data-chooser'},{'name': 'DataChooserSettingsComponent', 'selector': 'app-data-chooser-settings'},{'name': 'DateValueEditorComponent', 'selector': 'app-date-value-editor'},{'name': 'DateValueViewerComponent', 'selector': 'app-date-value-viewer'},{'name': 'DecimalValueEditorComponent', 'selector': 'app-decimal-value-editor'},{'name': 'DialogCreateNewPageComponent', 'selector': 'dialog-create-new-page'},{'name': 'DialogOverviewExampleDialog', 'selector': 'dialog-overview-example-dialog'},{'name': 'DialogUserSettingsDialog', 'selector': 'dialog-user-settings-dialog'},{'name': 'EditResourceViewComponent', 'selector': 'app-edit-resource-view'},{'name': 'FactSheetComponent', 'selector': 'app-fact-sheet'},{'name': 'FloatLightTableComponent', 'selector': 'app-float-light-table'},{'name': 'FloatingImageObjectComponent', 'selector': 'app-floating-image-object'},{'name': 'FloatingTextObjectComponent', 'selector': 'app-floating-text-object'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'GrapesjsComponent', 'selector': 'app-grapesjs'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'ImageFrameComponent', 'selector': 'app-image-frame'},{'name': 'ImageFrameSizesComponent', 'selector': 'app-image-frame-sizes'},{'name': 'ImageViewComponent', 'selector': 'app-image-view'},{'name': 'ImageWithOverlayComponent', 'selector': 'app-image-with-overlay'},{'name': 'InitPopupComponent', 'selector': 'app-init-popup'},{'name': 'IntValueEditorComponent', 'selector': 'app-int-value-editor'},{'name': 'LeafletExampleComponent', 'selector': 'app-leaflet-example'},{'name': 'LightTableComponent', 'selector': 'app-light-table'},{'name': 'LightTableMenuComponent', 'selector': 'app-light-table-menu'},{'name': 'LinkValueEditorComponent', 'selector': 'app-link-value-editor'},{'name': 'LinkValueLabelViewerComponent', 'selector': 'app-link-value-label-viewer'},{'name': 'LoadLightTableComponent', 'selector': 'app-load-light-table'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MetadataViewComponent', 'selector': 'app-metadata-view'},{'name': 'MultiLineChartComponent', 'selector': 'app-multi-line-chart'},{'name': 'NIEOSComponent', 'selector': 'nie-os'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'PageSetLandingPageComponent', 'selector': 'app-page-set-landing-page'},{'name': 'PieChartComponent', 'selector': 'app-pie-chart'},{'name': 'Popup', 'selector': 'popup'},{'name': 'RadialBarchartComponent', 'selector': 'app-radial-barchart'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'RemoveObjectsByIdComponent', 'selector': 'app-remove-objects-by-id'},{'name': 'ResourceFormComponent', 'selector': 'app-resource-form'},{'name': 'ResourceValueHistoryComponent', 'selector': 'app-resource-value-history'},{'name': 'ResourceValueHistoryValueComponent', 'selector': 'app-resource-value-history-value'},{'name': 'ResponseTreeComponent', 'selector': 'app-response-tree'},{'name': 'SankeyComponent', 'selector': 'app-sankey'},{'name': 'SaveLightTableComponent', 'selector': 'app-save-light-table'},{'name': 'ShareLightTableComponent', 'selector': 'app-share-light-table'},{'name': 'SpaTextComponent', 'selector': 'app-spa-text'},{'name': 'StackedBarChartComponent', 'selector': 'app-stacked-bar-chart'},{'name': 'SynopsisComponent', 'selector': 'app-synopsis'},{'name': 'SynopsisObjectManagerComponent', 'selector': 'app-synopsis-object-manager'},{'name': 'SynopsisObjectToolboxComponent', 'selector': 'app-synopsis-object-toolbox'},{'name': 'TagChipsComponent', 'selector': 'app-tag-chips'},{'name': 'TextDevViewComponent', 'selector': 'app-text-dev-view'},{'name': 'TextLineComponent', 'selector': 'app-text-line'},{'name': 'TextLineGroupComponent', 'selector': 'app-text-line-group'},{'name': 'TextLineMarginComponent', 'selector': 'app-text-line-margin'},{'name': 'TextValueEditorComponent', 'selector': 'app-text-value-editor'},{'name': 'TextViewCanvasComponent', 'selector': 'app-text-view-canvas'},{'name': 'TextViewComponent', 'selector': 'app-text-view'},{'name': 'TextViewMetadataComponent', 'selector': 'app-text-view-metadata'},{'name': 'TextViewStructureComponent', 'selector': 'app-text-view-structure'},{'name': 'TextViewToolsComponent', 'selector': 'app-text-view-tools'},{'name': 'TextlistViewerComponent', 'selector': 'app-textlist-viewer'},{'name': 'ThumbnailbarComponent', 'selector': 'app-thumbnailbar'},{'name': 'TiledImageObjectComponent', 'selector': 'app-tiled-image-object'},{'name': 'TiledLightTableComponent', 'selector': 'app-tiled-light-table'},{'name': 'TiledTextObjectComponent', 'selector': 'app-tiled-text-object'},{'name': 'UpdatePageSetComponent', 'selector': 'app-update-page-set'}];
+        var COMPONENT_TEMPLATE = '<div><h1 mat-dialog-title>Welche neue Aktion möchtest Du starten?</h1><div class="col-md-6 col-md-offset-3">  <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>    <div class="form-group" >      <label for="firstName">Titel der Aktion</label>      <input type="text" class="form-control" name="firstName" [(ngModel)]="action.title" #firstName="ngModel" required />      <div *ngIf="f.submitted && !firstName.valid" class="help-block">Bitte geben Sie einen Titel ein</div>    </div>    <div class="form-group" >      <label for="lastName">Beschreibung der Aktion</label>      <input type="text" class="form-control" name="lastName" [(ngModel)]="action.description" #lastName="ngModel" required />      <div *ngIf="f.submitted && !lastName.valid" class="help-block">Bitte geben Sie eine Beschreibung der Aktion ein</div>    </div>    <label >Art der Aktion</label>    <mat-radio-group [(ngModel)]="action.type" name="type"><br>      <mat-radio-button value="page">Neue leere Page</mat-radio-button><br>      <mat-radio-button value="page-set">Neues PageSet</mat-radio-button><br>      <mat-radio-button value="dummy">Neuer Workflow (dummy)</mat-radio-button><br>      <mat-radio-button value="salsah">Gelange zu Salsah 2</mat-radio-button><br>    </mat-radio-group>    <div>      <button [disabled]="loading" class="btn btn-primary">Starte Aktion</button>      <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>      <button  type="button" mat-button (click)="close()">Schliesse dieses Menü</button>    </div>  </form></div></div>'
+    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'BooleanValueEditorComponent', 'selector': 'app-boolean-value-editor'},{'name': 'BrushAndZoomComponent', 'selector': 'app-brush-and-zoom'},{'name': 'ChordDiagramComponent', 'selector': 'app-chord-diagram'},{'name': 'CreateResourceComponent', 'selector': 'app-create-resource'},{'name': 'CreateResourceViewComponent', 'selector': 'app-create-resource-view'},{'name': 'D3tutorialComponent', 'selector': 'app-d3tutorial'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataChooserComponent', 'selector': 'app-data-chooser'},{'name': 'DataChooserSettingsComponent', 'selector': 'app-data-chooser-settings'},{'name': 'DateValueEditorComponent', 'selector': 'app-date-value-editor'},{'name': 'DateValueViewerComponent', 'selector': 'app-date-value-viewer'},{'name': 'DecimalValueEditorComponent', 'selector': 'app-decimal-value-editor'},{'name': 'DialogCreateNewPageComponent', 'selector': 'dialog-create-new-page'},{'name': 'DialogOverviewExampleDialog', 'selector': 'dialog-overview-example-dialog'},{'name': 'DialogUserSettingsDialog', 'selector': 'dialog-user-settings-dialog'},{'name': 'DictionaryComponent', 'selector': 'app-dictionary'},{'name': 'EditResourceViewComponent', 'selector': 'app-edit-resource-view'},{'name': 'FactSheetComponent', 'selector': 'app-fact-sheet'},{'name': 'FloatLightTableComponent', 'selector': 'app-float-light-table'},{'name': 'FloatingImageObjectComponent', 'selector': 'app-floating-image-object'},{'name': 'FloatingTextObjectComponent', 'selector': 'app-floating-text-object'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'GrapesjsComponent', 'selector': 'app-grapesjs'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'ImageFrameComponent', 'selector': 'app-image-frame'},{'name': 'ImageFrameSizesComponent', 'selector': 'app-image-frame-sizes'},{'name': 'ImageViewComponent', 'selector': 'app-image-view'},{'name': 'ImageWithOverlayComponent', 'selector': 'app-image-with-overlay'},{'name': 'InitPopupComponent', 'selector': 'app-init-popup'},{'name': 'IntValueEditorComponent', 'selector': 'app-int-value-editor'},{'name': 'LeafletExampleComponent', 'selector': 'app-leaflet-example'},{'name': 'LightTableComponent', 'selector': 'app-light-table'},{'name': 'LightTableMenuComponent', 'selector': 'app-light-table-menu'},{'name': 'LinkValueEditorComponent', 'selector': 'app-link-value-editor'},{'name': 'LinkValueLabelViewerComponent', 'selector': 'app-link-value-label-viewer'},{'name': 'LoadLightTableComponent', 'selector': 'app-load-light-table'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MetadataViewComponent', 'selector': 'app-metadata-view'},{'name': 'MultiLineChartComponent', 'selector': 'app-multi-line-chart'},{'name': 'MyMainComponentComponent', 'selector': 'app-my-main-component'},{'name': 'MyPractiseComponentComponent', 'selector': 'app-my-practise-component'},{'name': 'NIEOSComponent', 'selector': 'nie-os'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'PageSetLandingPageComponent', 'selector': 'app-page-set-landing-page'},{'name': 'PieChartComponent', 'selector': 'app-pie-chart'},{'name': 'PizzaPartyComponent', 'selector': 'snack-bar-component-example-snack'},{'name': 'Popup', 'selector': 'popup'},{'name': 'RadialBarchartComponent', 'selector': 'app-radial-barchart'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'RemoveObjectsByIdComponent', 'selector': 'app-remove-objects-by-id'},{'name': 'ResourceFormComponent', 'selector': 'app-resource-form'},{'name': 'ResourceValueHistoryComponent', 'selector': 'app-resource-value-history'},{'name': 'ResourceValueHistoryValueComponent', 'selector': 'app-resource-value-history-value'},{'name': 'ResponseTreeComponent', 'selector': 'app-response-tree'},{'name': 'SankeyComponent', 'selector': 'app-sankey'},{'name': 'SaveLightTableComponent', 'selector': 'app-save-light-table'},{'name': 'ShareLightTableComponent', 'selector': 'app-share-light-table'},{'name': 'SpaTextComponent', 'selector': 'app-spa-text'},{'name': 'StackedBarChartComponent', 'selector': 'app-stacked-bar-chart'},{'name': 'SynopsisComponent', 'selector': 'app-synopsis'},{'name': 'SynopsisObjectManagerComponent', 'selector': 'app-synopsis-object-manager'},{'name': 'SynopsisObjectToolboxComponent', 'selector': 'app-synopsis-object-toolbox'},{'name': 'TagChipsComponent', 'selector': 'app-tag-chips'},{'name': 'TextDevViewComponent', 'selector': 'app-text-dev-view'},{'name': 'TextDisplayComponent', 'selector': 'app-text-display'},{'name': 'TextDisplayComponent', 'selector': 'app-text-display'},{'name': 'TextLineComponent', 'selector': 'app-text-line'},{'name': 'TextLineGroupComponent', 'selector': 'app-text-line-group'},{'name': 'TextLineMarginComponent', 'selector': 'app-text-line-margin'},{'name': 'TextLineNumberComponent', 'selector': 'app-text-line-number'},{'name': 'TextPageOfWordsComponent', 'selector': 'app-text-page-of-words'},{'name': 'TextSvgViewComponent', 'selector': 'app-text-svg-view'},{'name': 'TextValueEditorComponent', 'selector': 'app-text-value-editor'},{'name': 'TextViewCanvasComponent', 'selector': 'app-text-view-canvas'},{'name': 'TextViewComponent', 'selector': 'app-text-view'},{'name': 'TextViewMetadataComponent', 'selector': 'app-text-view-metadata'},{'name': 'TextViewStructureComponent', 'selector': 'app-text-view-structure'},{'name': 'TextViewToolsComponent', 'selector': 'app-text-view-tools'},{'name': 'TextlistViewerComponent', 'selector': 'app-textlist-viewer'},{'name': 'ThumbnailbarComponent', 'selector': 'app-thumbnailbar'},{'name': 'TiledImageObjectComponent', 'selector': 'app-tiled-image-object'},{'name': 'TiledLightTableComponent', 'selector': 'app-tiled-light-table'},{'name': 'TiledTextObjectComponent', 'selector': 'app-tiled-text-object'},{'name': 'UpdatePageSetComponent', 'selector': 'app-update-page-set'}];
     var DIRECTIVES = [{'name': 'DraggableDirective', 'selector': '[appDraggable]'},{'name': 'DraggableStubDirective', 'selector': '[appDraggable]'},{'name': 'FloatDropTargetDirective', 'selector': '[appDropTarget]'},{'name': 'ModifiableDirective', 'selector': '[appModifiable]'},{'name': 'ModifiableStubDirective', 'selector': '[appModifiable]'},{'name': 'SelectableDirective', 'selector': '[appSelectable]'},{'name': 'SelectableStubDirective', 'selector': '[appSelectable]'},{'name': 'SynopsisObjectAnchorDirective', 'selector': '[appSynopsisObjectAnchor]'},{'name': 'TileDropTargetDirective', 'selector': '[appTileDropTarget]'}];
     var ACTUAL_COMPONENT = {'name': 'DialogOverviewExampleDialog'};
 </script>
