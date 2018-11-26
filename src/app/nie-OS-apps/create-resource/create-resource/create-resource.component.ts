@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { KnoraV1RequestService } from '../../shared/knora/knora-v1-request.service';
+import { KnoraV1RequestService } from '../../../shared/knora/knora-v1-request.service';
 
 /**
  * Form to fill in the data of a resource and then create it on a running instance of Knora

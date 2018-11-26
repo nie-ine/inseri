@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { KnoraV1RequestService } from '../../shared/knora/knora-v1-request.service';
+import { KnoraV1RequestService } from '../../../../shared/knora/knora-v1-request.service';
 
 /**
  * This components purpose is to make link values more readable.
