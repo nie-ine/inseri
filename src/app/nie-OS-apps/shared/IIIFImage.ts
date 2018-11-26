@@ -26,7 +26,6 @@ export class IIIFImage {
 
   tileSource() {
 
-    console.log(this.scheme + '//' + this.server + this.prefix + '/' + this.identifier);
     return {
       'tileSource': {
         '@context': 'http://iiif.io/api/image/2/context.json',
