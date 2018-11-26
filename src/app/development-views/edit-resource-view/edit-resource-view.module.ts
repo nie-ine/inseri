@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule} from '@angular/router';
-import { ResourceFormModule } from '../../resource-form/resource-form.module';
+import { ResourceFormModule } from '../../nie-OS-apps/resource-form/resource-form.module';
 import { EditResourceViewComponent } from './edit-resource-view/edit-resource-view.component';
 
 @NgModule({
