@@ -33,6 +33,7 @@ import { QueryEntryComponent } from './query-entry/query-entry.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { AceEditorModule } from 'ng2-ace-editor';
 import {AbstractJsonService} from './data-management/abstract-json.service';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 @NgModule({
   imports: [
@@ -59,6 +60,7 @@ import {AbstractJsonService} from './data-management/abstract-json.service';
     MatSelectModule,
     MatTabsModule,
     AceEditorModule,
+    MatButtonToggleModule,
     RouterModule.forChild([
       { path: 'page', component: NIEOSComponent },
       { path: 'grapesjs', component: GrapesjsComponent },

@@ -64,14 +64,14 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     private mongoActionService: MongoActionService,
     public dialog: MatDialog
   ) {
-    this.route.params.subscribe(params => console.log(params));
+    // this.route.params.subscribe(params => console.log(params));
   }
 
   openDataManagement() {
     const dialogRef = this.dialog.open(DataManagementComponent, {
       width: '100%',
       height: '100%',
-      data: {}
+      data: this.openAppsInThisPage
     });
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
@@ -92,7 +92,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     if ( !this.actionID ) {
       this.pageAsDemo = true;
     }
-    this.openDataManagement();
+    // this.openDataManagement();
   }
 
   updatePageFromUrl() {
@@ -113,7 +113,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
       .subscribe(
         data => {
           this.action = ( data as any ).body.action;
-          console.log('This action: ', this.action);
+          // console.log('This action: ', this.action);
           if (this.action.type === 'page') {
               this.updateAppsInView(this.action.hasPage._id);
           }
@@ -143,11 +143,11 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
           this.page = ( data as any).page;
           const appHelperArray = [];
           for ( const app of this.page.openApps ) {
-            console.log(JSON.parse(app));
+            // console.log(JSON.parse(app));
             appHelperArray[JSON.parse(app).hash] = JSON.parse(app);
           }
           this.page.openApps = appHelperArray;
-          console.log(this.page.openApps);
+          // console.log(this.page.openApps);
           for ( const app in this.page.openApps ) {
             for ( const appType in this.openAppsInThisPage ) {
               this.initiateUpdateApp(

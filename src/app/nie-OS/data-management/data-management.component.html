@@ -4,7 +4,7 @@
     Close this Menu
   </button>
 
-  <table mat-table [dataSource]="dataSource">
+  <table mat-table [dataSource]="queries">
 
     <ng-container matColumnDef="query">
       <th mat-header-cell *matHeaderCellDef> Query </th>
@@ -17,10 +17,12 @@
     <ng-container matColumnDef="color">
       <th mat-header-cell *matHeaderCellDef> App 1 </th>
       <td mat-cell *matCellDef="let item">
-        <app-response-tree
-          [showInputChooser]="true"
-          [queryResponse]="exampleJson" >
-        </app-response-tree>
+        <div *ngIf="item.abstractResponse">
+          <button mat-button >Define App Query Mapping</button>
+        </div>
+        <div *ngIf="!item.abstractResponse">
+          <button mat-button color="warn">No query defined</button>
+        </div>
       </td>
     </ng-container>
 

@@ -10,18 +10,6 @@
 
     {{node.filename}} : {{node.type}}
 
-    <mat-form-field style="margin-left: 30px" *ngIf="showInputChooser">
-      <mat-select placeholder="Assigned Input">
-
-        <mat-option *ngFor="let food of foods" [value]="food.value">
-
-          {{food.viewValue}}
-
-        </mat-option>
-
-      </mat-select>
-    </mat-form-field>
-
   </mat-tree-node>
 
   <mat-tree-node
@@ -41,6 +29,18 @@
     </button>
 
     {{node.filename}} : {{node.type}}
+
+    <mat-form-field style="margin-left: 30px" *ngIf="showInputChooser">
+      <mat-select placeholder="Assigned Input">
+
+        <mat-option *ngFor="let food of foods" [value]="food.value">
+
+          {{food.viewValue}}
+
+        </mat-option>
+
+      </mat-select>
+    </mat-form-field>
 
 
   </mat-tree-node>
