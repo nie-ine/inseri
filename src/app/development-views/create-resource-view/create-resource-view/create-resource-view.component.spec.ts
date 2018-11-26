@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateResourceModule } from '../../../create-resource/create-resource.module';
+import { CreateResourceModule } from '../../../nie-OS-apps/create-resource/create-resource.module';
 import { CreateResourceViewComponent } from './create-resource-view.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';

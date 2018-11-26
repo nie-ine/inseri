@@ -1,9 +1,9 @@
 <h2>Component in this project, V1-like input</h2>
 
 <app-image-frame-sizes (viewerWidthChange)="viewerWidth = $event">
-  <app-image-frame [image]="picData"
+  <app-image-frame [image]="picData1"
                    [width]="viewerWidth"
-                   [height]="viewerWidth * picData.ny / picData.nx">
+                   [height]="viewerWidth * picData1.height / picData1.width">
   </app-image-frame>
 </app-image-frame-sizes>
 
@@ -14,7 +14,7 @@
                           [regions]="regions"
                           (hoveredRegion)="hoveredRegion = $event"
                    [width]="viewerWidth"
-                   [height]="viewerWidth * picData2['knora-api:stillImageFileValueHasDimY'] / picData2['knora-api:stillImageFileValueHasDimX']">
+                   [height]="viewerWidth * picData2.height / picData2.width">
   </app-image-with-overlay>
 </app-image-frame-sizes>
 

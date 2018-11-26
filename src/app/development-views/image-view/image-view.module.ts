@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule} from '@angular/router';
-import { ImageFrameModule } from '../../image-frame/image-frame.module';
+import { ImageFrameModule } from '../../nie-OS-apps/image-frame/image-frame.module';
 import { ImageViewComponent } from './image-view/image-view.component';
 // import { ArithmeticModule } from 'nie-ine';
 
