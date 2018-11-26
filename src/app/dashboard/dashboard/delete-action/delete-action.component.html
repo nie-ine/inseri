@@ -1,0 +1,30 @@
+<mat-spinner *ngIf="isLoading || !pages"></mat-spinner>
+<div *ngIf="pages && !isLoading">
+  <h1 mat-dialog-title>Aktion löschen</h1>
+  <div>ALLE Pages dieser Aktion werden ebenfalls gelöscht! Dieser Vorgang kann NICHT rückgängig gemacht werden!</div>
+
+  <div style="margin: 3rem 0 3rem 0; padding: 0 2rem">
+    <mat-accordion *ngFor="let page of pages; let i = index">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{page.title}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div>
+          Beschreibung: {{page.description}}
+        </div>
+        <div>
+          Geöffnete Apps:
+          <div *ngFor="let app of page.openApps">{{app}}</div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+  <div>
+    <button type="button" mat-button color="basic"(click)="cancel()">Abbrechen</button>
+    <button type="button" mat-flat-button color="warn" (click)="delete()">Löschen</button>
+  </div>
+</div>

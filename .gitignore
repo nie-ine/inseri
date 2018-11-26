@@ -14,7 +14,7 @@
 .classpath
 .c9/
 *.launch
-.settings/
+backend/.settings/
 *.sublime-workspace
 
 # IDE - VSCode

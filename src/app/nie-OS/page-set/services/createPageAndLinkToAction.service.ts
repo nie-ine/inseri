@@ -41,8 +41,8 @@ export class CreatePageAndLinkToAction {
       .subscribe(
         action => {
           this.action = action;
-          this.action.hasPages[
-            this.action.hasPages.length
+          this.action.hasPage[
+            this.action.hasPage.length
             ] = this.page.hash;
           console.log(this.action);
           this.actionService.update( this.action )

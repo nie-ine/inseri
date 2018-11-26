@@ -79,6 +79,10 @@ export class FileDatabase {
   }
 }
 
+export interface Food {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-response-tree',
@@ -91,7 +95,13 @@ export class ResponseTreeComponent implements OnChanges {
   treeFlattener: MatTreeFlattener<FileNode, FileFlatNode>;
   dataSource: MatTreeFlatDataSource<FileNode, FileFlatNode>;
   @Input() queryResponse: any;
+  @Input() showInputChooser: true;
   database: any;
+  foods: Food[] = [
+    {value: 'steak-0', viewValue: 'Input One'},
+    {value: 'pizza-1', viewValue: 'Input Two'},
+    {value: 'tacos-2', viewValue: 'Input Three'}
+  ];
   constructor(database: FileDatabase) {
     this.database = database;
     this.treeFlattener = new MatTreeFlattener(
