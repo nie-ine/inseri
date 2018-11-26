@@ -1,6 +1,7 @@
 import {
   Component, Input, OnInit, OnChanges, SimpleChange, ElementRef, OnDestroy
 } from '@angular/core';
+import { IIIFImage } from '../../shared/IIIFImage';
 
 // This component needs the openseadragon library itself, as well as the openseadragon plugin openseadragon-svg-overlay
 // Both libraries are installed via package.json, and loaded globally via the script tag in .angular-cli.json
@@ -17,7 +18,7 @@ declare let OpenSeadragon: any;
 })
 export class ImageFrameComponent implements OnInit, OnChanges, OnDestroy {
 
-  @Input() image: any;
+  @Input() image: IIIFImage;
   @Input() width: number;
   @Input() height: number;
 
@@ -145,29 +146,7 @@ export class ImageFrameComponent implements OnInit, OnChanges, OnDestroy {
 
   private openImage(): void {
 
-    const domain = this.image.path.split('/')[2];
-    const pathToDB = this.image.path.split('/')[3];
-    const filename = this.image.path.split('/')[4];
-
-    const sipiBasePath = 'http://' + domain + '/' + pathToDB + '/' + filename;
-
-    const tileSource = {
-      'tileSource': {
-        '@context': 'http://iiif.io/api/image/2/context.json',
-        '@id': sipiBasePath,
-        'height': this.image.ny,
-        'width': this.image.nx,
-        'profile': ['http://iiif.io/api/image/2/level2.json'],
-        'protocol': 'http://iiif.io/api/image',
-        'tiles': [{
-          'scaleFactors': [1, 2, 4, 8, 16, 32],
-          'width': 1024
-        }]
-      },
-      'x': 0,
-      'y': 0
-    };
-
+    const tileSource = this.image.tileSource();
     this.viewer.open([tileSource]);
   }
 
