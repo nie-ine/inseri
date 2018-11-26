@@ -1,10 +1,6 @@
 <div style="margin-top: 30px">
-  <button mat-button (click)="close()">
-    Close the Query Entry Component
-  </button>
-
-  <button mat-button >
-    <mat-icon>save</mat-icon> Save this query
+  <button mat-button (click)="close()" >
+    <mat-icon>save</mat-icon> Save and close query
   </button>
 
   <form class="example-form">
@@ -24,7 +20,7 @@
       </ace-editor>
 
       <button mat-button (click)="sendQuery()">
-        <mat-icon>label</mat-icon> Try Query
+        <mat-icon>label</mat-icon> Fixate Query
       </button>
     </mat-tab>
     <mat-tab label="Knora Query Editor" disabled>
@@ -35,23 +31,18 @@
     <mat-tab label="existDB Query Editor" disabled>  </mat-tab>
   </mat-tab-group>
 
-  <mat-tab-group *ngIf="response">
+  <div *ngIf="response">
+    <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+      <mat-button-toggle (click)="changeTreeInput( response )" [checked]="true" >Show tree with data</mat-button-toggle>
+      <mat-button-toggle (click)="changeTreeInput( abstractJson )">Show abstract tree structure</mat-button-toggle>
+    </mat-button-toggle-group>
 
-    <mat-tab label="Response with data" >
-        <app-response-tree
-          [showInputChooser]="false"
-          [queryResponse]="response" >
-        </app-response-tree>
-    </mat-tab>
+    <app-response-tree
+      [showInputChooser]="false"
+      [queryResponse]="tree" >
+    </app-response-tree>
 
-    <mat-tab label="Abstract response structure" >
-      <app-response-tree
-        [showInputChooser]="false"
-        [queryResponse]="abstractJson" >
-      </app-response-tree>
-    </mat-tab>
-  </mat-tab-group>
-
+  </div>
 
 
 
