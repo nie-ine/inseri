@@ -1,5 +1,6 @@
 import {Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChange} from "@angular/core";
 import { RegionToSvgService } from '../region-to-svg.service';
+import { IIIFImage } from '../../shared/IIIFImage';
 
 
 // This component needs the openseadragon library itself, as well as the openseadragon plugin openseadragon-svg-overlay
@@ -17,7 +18,7 @@ declare let OpenSeadragon: any;
 })
 export class ImageWithOverlayComponent implements OnInit, OnChanges, OnDestroy {
 
-  @Input() image: any;
+  @Input() image: IIIFImage;
   @Input() regions: any;
   @Input() width: number;
   @Input() height: number;
@@ -91,24 +92,7 @@ export class ImageWithOverlayComponent implements OnInit, OnChanges, OnDestroy {
 
   private openImage(): void {
 
-    const tileSource = {
-      'tileSource': {
-        '@context': 'http://iiif.io/api/image/2/context.json',
-        '@id': this.image['knora-api:stillImageFileValueHasIIIFBaseUrl'] + '/'
-        + this.image['knora-api:fileValueHasFilename'],
-        'height': this.image['knora-api:stillImageFileValueHasDimY'],
-        'width': this.image['knora-api:stillImageFileValueHasDimX'],
-        'profile': ['http://iiif.io/api/image/2/level2.json'],
-        'protocol': 'http://iiif.io/api/image',
-        'tiles': [{
-          'scaleFactors': [1, 2, 4, 8, 16, 32],
-          'width': 1024
-        }]
-      },
-      'x': 0,
-      'y': 0
-    };
-
+    const tileSource = this.image.tileSource();
     this.viewer.open([tileSource]);
   }
 
