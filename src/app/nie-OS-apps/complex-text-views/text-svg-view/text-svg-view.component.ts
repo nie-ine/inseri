@@ -1,4 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChange } from '@angular/core';
+import { IIIFImage } from '../../shared/IIIFImage';
 
 declare let OpenSeadragon: any;
 
@@ -28,9 +29,9 @@ export class TextSvgViewComponent implements OnInit, OnChanges, OnDestroy {
   @Input() imageOpacity = 0.4;
 
   /**
-   * TODO the input for the image
+   * IIIFImage object for the background image.
    */
-  @Input() image;
+  @Input() image: IIIFImage;
 
   /**
    * The data of a page as a tree of lines and words, each element with an unique identifier.
@@ -444,22 +445,7 @@ export class TextSvgViewComponent implements OnInit, OnChanges, OnDestroy {
    */
   private openImage(): void {
 
-    const tileSource = {
-      'tileSource': {
-        '@context': 'http://iiif.io/api/image/2/context.json',
-        '@id': 'https://www.e-manuscripta.ch/zuz/i3f/v20' + '/' + '1510618',
-        'height': 4034,
-        'width': 3062,
-        'profile': ['http://iiif.io/api/image/2/level2.json'],
-        'protocol': 'http://iiif.io/api/image',
-        'tiles': [{
-          'scaleFactors': [1, 2, 4, 8, 16, 32],
-          'width': 1024
-        }]
-      },
-      'x': 0,
-      'y': 0
-    };
+    const tileSource = this.image.tileSource();
 
     this.viewer.open([tileSource]);
   }

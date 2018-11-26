@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { PAGETRANSCRIPTION } from './page-transcription';
+import { IIIFImage } from '../../../nie-OS-apps/shared/IIIFImage';
 
 @Component({
   selector: 'app-text-dev-view',
@@ -229,6 +230,8 @@ export class TextDevViewComponent implements OnInit {
 
   hoveredWord: string;
   clickedWord: string;
+
+  imageSource = new IIIFImage('https://www.e-manuscripta.ch/zuz/i3f/v20/1510618/full/full/0/default.jpg', 4034, 3062);
 
   constructor() { }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SubjectTag } from '../../../tag-chips/tag-chips/tag';
+import { SubjectTag } from '../../../nie-OS-apps/tag-chips/tag-chips/tag';
 
 /**
  * This component shows the use of the modules FactSheetModule and TagChipsModule.
