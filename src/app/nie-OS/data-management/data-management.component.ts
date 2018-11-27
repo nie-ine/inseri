@@ -14,6 +14,7 @@ export class DataManagementComponent {
   columnsToDisplay: string[] = this.displayedColumns.slice();
   value: string;
   openApps: Array<any> = [];
+  appInputQueryMapping = [];
   queries = [
     {
       query: "eggs",
@@ -29,6 +30,17 @@ export class DataManagementComponent {
       query: "broccoli",
       color: "green",
       abstractResponse: undefined
+    }
+  ];
+  inputs = [
+    {
+      'inputName': 'textlist'
+    },
+    {
+      'inputName': 'title'
+    },
+    {
+      'inputName': 'description'
     }
   ];
   constructor(
@@ -115,6 +127,23 @@ export class DataManagementComponent {
       index += 1;
     }
     console.log( this.queries );
+  }
+
+  assignInputToQuery( input: string, app: string, query: string ) {
+    if( !this.appInputQueryMapping[ app ] ) {
+      this.appInputQueryMapping[ app ] = {};
+    }
+    this.appInputQueryMapping[ app ][ input ] = query;
+    console.log( this.appInputQueryMapping );
+  }
+
+  checkIfChosen( input: string, app: string, query: string ) {
+    console.log( '\nhier weiter\n' );
+    if ( this.appInputQueryMapping[ app ] && this.appInputQueryMapping[ app ][ input ] === query ) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
 

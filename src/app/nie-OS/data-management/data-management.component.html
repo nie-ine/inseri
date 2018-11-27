@@ -4,10 +4,6 @@
     Close this Menu
   </button>
 
-  <button mat-button (click)="addColumn()">
-    Add Column
-  </button>
-
   <table mat-table [dataSource]="queries">
 
     <ng-container matColumnDef="query">
@@ -22,10 +18,26 @@
         <th mat-header-cell *matHeaderCellDef> {{ app.type + ' ' + i }} </th>
         <td mat-cell *matCellDef="let item">
           <div *ngIf="item.abstractResponse">
-            <button mat-button >Define App Query Mapping</button>
+            <mat-chip-list>
+              <mat-chip>Papadum</mat-chip>
+              <mat-chip>Naan</mat-chip>
+              <mat-chip>Dal</mat-chip>
+            </mat-chip-list>
           </div>
           <div *ngIf="!item.abstractResponse">
-            <button mat-button color="warn">No query defined</button>
+            <!--<button mat-button color="warn">No query defined</button>-->
+            <mat-chip-list *ngFor="let input of inputs" style="margin-left: 2px; display: inline-block;">
+              <mat-chip
+                (click)="assignInputToQuery( input.inputName, app.hash, item.query )"
+                *ngIf="!checkIfChosen( input.inputName, app.hash, item.query )">
+                {{input.inputName}}
+              </mat-chip>
+              <mat-chip
+                [color]="'primary'"
+                *ngIf="checkIfChosen( input.inputName, app.hash, item.query )" >
+                {{input.inputName}}
+              </mat-chip>
+            </mat-chip-list>
           </div>
         </td>
     </ng-container>
