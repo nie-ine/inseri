@@ -4,6 +4,10 @@
     Close this Menu
   </button>
 
+  <button mat-button (click)="addColumn()">
+    Add Column
+  </button>
+
   <table mat-table [dataSource]="queries">
 
     <ng-container matColumnDef="query">
@@ -14,16 +18,16 @@
 
     </ng-container>
 
-    <ng-container matColumnDef="color">
-      <th mat-header-cell *matHeaderCellDef> App 1 </th>
-      <td mat-cell *matCellDef="let item">
-        <div *ngIf="item.abstractResponse">
-          <button mat-button >Define App Query Mapping</button>
-        </div>
-        <div *ngIf="!item.abstractResponse">
-          <button mat-button color="warn">No query defined</button>
-        </div>
-      </td>
+    <ng-container matColumnDef="{{app.hash}}" *ngFor="let app of openApps; let i = index">
+        <th mat-header-cell *matHeaderCellDef> {{ app.type + ' ' + i }} </th>
+        <td mat-cell *matCellDef="let item">
+          <div *ngIf="item.abstractResponse">
+            <button mat-button >Define App Query Mapping</button>
+          </div>
+          <div *ngIf="!item.abstractResponse">
+            <button mat-button color="warn">No query defined</button>
+          </div>
+        </td>
     </ng-container>
 
     <ng-container matColumnDef="delete">
@@ -33,8 +37,8 @@
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
 
   </table>
 

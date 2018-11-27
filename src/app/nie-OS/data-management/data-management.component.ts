@@ -9,11 +9,11 @@ import { QueryEntryComponent } from '../query-entry/query-entry.component';
   styleUrls: ['./data-management.component.scss']
 })
 export class DataManagementComponent {
-  @Input() openApps: any;
   @ViewChild(MatTable) table: MatTable<any>;
-  displayedColumns = [ 'query', 'color', 'delete' ];
+  displayedColumns = [ 'query', 'delete' ];
   columnsToDisplay: string[] = this.displayedColumns.slice();
   value: string;
+  openApps: Array<any> = [];
   queries = [
     {
       query: "eggs",
@@ -36,15 +36,34 @@ export class DataManagementComponent {
     @Inject(MAT_DIALOG_DATA) public openAppsInThisPage: any,
     public dialog: MatDialog
   ) {
-    console.log( this.openAppsInThisPage );
+    // console.log( this.openAppsInThisPage );
     for( const appType in this.openAppsInThisPage ) {
       if ( this.openAppsInThisPage[ appType ].model.length !== 0 ) {
-        console.log( this.openAppsInThisPage[ appType ] );
+        // console.log( this.openAppsInThisPage[ appType ] );
         for( const appOfSameType of this.openAppsInThisPage[ appType ].model ) {
-          console.log( appOfSameType );
+          this.openApps.push( appOfSameType );
+          // console.log( appOfSameType );
+          for( const query in this.queries ) {
+            // console.log( this.queries[ query ] );
+            this.queries[ query ][ appOfSameType.hash ] = appOfSameType.hash;
+          }
+          this.columnsToDisplay.push(appOfSameType.hash);
+          console.log( this.queries );
+        }
+        if ( this.table ) {
+          this.table.renderRows();
         }
       }
+      if ( this.table ) {
+        this.table.renderRows();
+      }
     }
+  }
+
+  // Abstract Response muss bei displayed Columns und im html stehen
+  addColumn() {
+    const randomColumn = Math.floor(Math.random() * this.displayedColumns.length);
+    this.columnsToDisplay.push('abstractResponse');
   }
 
 
