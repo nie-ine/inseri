@@ -34,6 +34,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { AceEditorModule } from 'ng2-ace-editor';
 import {AbstractJsonService} from './data-management/abstract-json.service';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { QueryAppInputMapComponent } from './query-app-input-map/query-app-input-map.component';
 
 @NgModule({
   imports: [
@@ -79,7 +80,8 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     GrapesjsComponent,
     TextlistViewerComponent,
     DataManagementComponent,
-    QueryEntryComponent
+    QueryEntryComponent,
+    QueryAppInputMapComponent
   ],
   exports: [
     NIEOSComponent,
@@ -88,7 +90,8 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
   entryComponents: [
     ImageFrameComponent,
     DataManagementComponent,
-    QueryEntryComponent
+    QueryEntryComponent,
+    QueryAppInputMapComponent
   ]
 })
 export class NIEOSModule { }
