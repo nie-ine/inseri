@@ -92,7 +92,6 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     if ( !this.actionID ) {
       this.pageAsDemo = true;
     }
-    // this.openDataManagement();
   }
 
   updatePageFromUrl() {
