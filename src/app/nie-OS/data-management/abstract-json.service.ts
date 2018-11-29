@@ -1,3 +1,5 @@
+import {GenerateHashService} from '../../shared/nieOS/other/generateHash.service';
+
 export class AbstractJsonService {
   leafIndices: any = {};
   abstractTree: any = {};
@@ -61,7 +63,7 @@ export class AbstractJsonService {
   convertArrayToObject( array: any ): any {
     const help = array;
     array = {};
-    for( const entry in help ) {
+    for ( const entry in help ) {
       array[ entry ] = help[ entry ];
     }
     const object = array;
@@ -86,6 +88,7 @@ export class AbstractJsonService {
     this.leafIndices[ leaf ].type = type;
     this.leafIndices[ leaf ].layerIndex = this.layerIndex;
     this.leafIndices[ leaf ].parent = parent;
+    this.leafIndices[ leaf ].hash = this.generateHash();
   }
 
   arrayLoop ( arrayLayer: any, parent: string ) {
@@ -96,4 +99,18 @@ export class AbstractJsonService {
     }
   }
 
+  generateHash(): string {
+    // console.log('generate Hash');
+    let text = '';
+    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+    for (let i = 0; i < 5; i++) {
+      text += possible.charAt(
+        Math.floor(Math.random() * possible.length )
+      );
+    }
+    return text;
+  }
+
 }
+
