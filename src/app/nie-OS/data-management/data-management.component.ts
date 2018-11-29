@@ -74,13 +74,6 @@ export class DataManagementComponent {
     }
   }
 
-  // Abstract Response muss bei displayed Columns und im html stehen
-  addColumn() {
-    const randomColumn = Math.floor(Math.random() * this.displayedColumns.length);
-    this.columnsToDisplay.push('abstractResponse');
-  }
-
-
   delete(row: any): void {
     const index = this.queries.indexOf(row, 0);
     if (index > -1) {
@@ -175,7 +168,7 @@ export class DataManagementComponent {
       }
     });
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('Abstract tree from query entry');
+      console.log('\n\nHier weiter: update appInputQueryMapping\n\n');
       console.log(result);
     });
   }

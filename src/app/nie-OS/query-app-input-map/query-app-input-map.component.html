@@ -3,3 +3,23 @@
   <button mat-button (click)="close()" >close component</button>
   <button mat-button (click)="loadAbstractResponse()" >Load abstract response</button>
 </div>
+
+<h5>App:</h5>
+{{ input.app.type + ' ' + input.app.hash }}
+
+<h5>Chosen inputs:</h5>
+<span *ngFor="let input of chosenInputs" >
+  {{ input }}
+</span>
+
+<h5>Query Name:</h5>
+{{ input.query.query }}
+
+
+<div *ngIf="abstractResponse">
+  <app-response-tree
+    (sendMappingBackToQueryAppInputMap)="updateQueryAppInputMaping($event)"
+    [chosenInputs]="chosenInputs"
+    [queryResponse]="abstractResponse" >
+  </app-response-tree>
+</div>

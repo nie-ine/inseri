@@ -14,6 +14,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTreeModule} from '@angular/material/tree';
 import {FileDatabase, ResponseTreeComponent} from './response-tree/response-tree.component';
 import {MatInputModule} from '@angular/material/input';
+import {MatChipsModule} from '@angular/material/chips';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import {MatInputModule} from '@angular/material/input';
     MatExpansionModule,
     MatTreeModule,
     MatInputModule,
+    MatChipsModule,
     RouterModule.forChild([
       { path: 'data-chooser', component: DataChooserComponent }
     ])

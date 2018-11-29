@@ -2,13 +2,26 @@
 
 
   <mat-tree-node
-    *matTreeNodeDef="let node"
+    *matTreeNodeDef="let node;"
     matTreeNodeToggle
     matTreeNodePadding>
 
     <button mat-icon-button disabled></button>
 
     {{node.filename}} : {{node.type}}
+
+    <div *ngIf="node.filename === 'hash'">
+      <mat-chip-list *ngFor="let input of chosenInputs; let i = index;" style="margin-left: 2px; display: inline-block;">
+        <mat-chip (click)="chooseChip( node.type, input )" *ngIf="mapping[ input ] != node.type">
+          {{input}}
+        </mat-chip>
+        <mat-chip
+          [color]="'primary'" selected
+          *ngIf="mapping[ input ] === node.type">
+          {{input}}
+        </mat-chip>
+      </mat-chip-list>
+    </div>
 
   </mat-tree-node>
 
@@ -29,19 +42,6 @@
     </button>
 
     {{node.filename}} : {{node.type}}
-
-    <mat-form-field style="margin-left: 30px" *ngIf="showInputChooser">
-      <mat-select placeholder="Assigned Input">
-
-        <mat-option *ngFor="let food of foods" [value]="food.value">
-
-          {{food.viewValue}}
-
-        </mat-option>
-
-      </mat-select>
-    </mat-form-field>
-
 
   </mat-tree-node>
 
