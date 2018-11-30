@@ -1,4 +1,4 @@
-import {Input, OnInit, OnChanges} from '@angular/core';
+import {Input, OnInit, OnChanges, EventEmitter, Output} from '@angular/core';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {Component, Injectable} from '@angular/core';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
@@ -39,7 +39,7 @@ export class FileDatabase {
   }
 
   initialize( inputData: any ) {
-    console.log('Initialisation of the database');
+    // console.log('Initialisation of the database');
     // Parse the string to json object.
     // console.log(inputData);
     // console.log( JSON.stringify(inputData) );
@@ -94,14 +94,11 @@ export class ResponseTreeComponent implements OnChanges {
   treeControl: FlatTreeControl<FileFlatNode>;
   treeFlattener: MatTreeFlattener<FileNode, FileFlatNode>;
   dataSource: MatTreeFlatDataSource<FileNode, FileFlatNode>;
+  mapping: any = {};
   @Input() queryResponse: any;
-  @Input() showInputChooser: true;
+  @Input() chosenInputs: Array<any>;
+  @Output() sendMappingBackToQueryAppInputMap: EventEmitter<any> = new EventEmitter<any>();
   database: any;
-  foods: Food[] = [
-    {value: 'steak-0', viewValue: 'Input One'},
-    {value: 'pizza-1', viewValue: 'Input Two'},
-    {value: 'tacos-2', viewValue: 'Input Three'}
-  ];
   constructor(database: FileDatabase) {
     this.database = database;
     this.treeFlattener = new MatTreeFlattener(
@@ -134,6 +131,11 @@ export class ResponseTreeComponent implements OnChanges {
       level,
       node.type
     );
+  };
+
+  chooseChip( hash: string, input: string ) {
+      this.mapping[ input ] = hash;
+    this.sendMappingBackToQueryAppInputMap.emit( this.mapping );
   }
 
   private _getLevel = (node: FileFlatNode) => node.level;
