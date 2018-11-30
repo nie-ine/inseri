@@ -1,52 +1,59 @@
-<div style="margin-top: 30px">
-  <button mat-button (click)="close()">
-    Close the Query Entry Component
-  </button>
-
-  <button mat-button >
-    <mat-icon>save</mat-icon> Save this query
-  </button>
-
-  <form class="example-form">
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="Server URL" value="{{ server }}">
-    </mat-form-field>
-  </form>
-
-  <mat-tab-group>
-    <mat-tab label="General Query Editor">
-      <ace-editor
-        [text]="firstStep"
-        #editor
-        style="min-height: 250px; width:100%; overflow: auto;"
-        [mode]="'typescript'">
-
-      </ace-editor>
-
-      <button mat-button (click)="sendQuery()">
-        <mat-icon>label</mat-icon> Try Query
+<mat-tab-group style="margin-top: 60px">
+  <mat-tab label="General Query Editor" disabled>
+    <div style="margin-top: 30px">
+      <button mat-button (click)="close()">
+        Close the Query Entry Component
       </button>
-    </mat-tab>
-    <mat-tab label="Knora Query Editor" disabled>
 
-    </mat-tab>
-    <mat-tab label="Sparql Query Editor" disabled>  </mat-tab>
-    <mat-tab label="MySQL Query Editor" disabled>  </mat-tab>
-    <mat-tab label="existDB Query Editor" disabled>  </mat-tab>
-  </mat-tab-group>
+      <button mat-button >
+        <mat-icon>save</mat-icon> Save this query
+      </button>
 
-  <div *ngIf="response">
-    <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-      <mat-button-toggle (click)="changeTreeInput( response )" [checked]="true" >Show tree with data</mat-button-toggle>
-      <mat-button-toggle (click)="changeTreeInput( abstractJson )">Show abstract tree structure</mat-button-toggle>
-    </mat-button-toggle-group>
+      <form class="example-form">
+        <mat-form-field>
+          <input matInput placeholder="Server URL" value="{{ server }}">
+        </mat-form-field>
+      </form>
 
-    <app-response-tree
-      [showInputChooser]="false"
-      [queryResponse]="tree" >
-    </app-response-tree>
+      <mat-tab-group>
+        <mat-tab label="URL Params">
+          <app-key-value-form></app-key-value-form>
+        </mat-tab>
 
-  </div>
+        <mat-tab label="Header">
+          <app-key-value-form></app-key-value-form>
+        </mat-tab>
 
+        <mat-tab label="Body">
+          <ace-editor class="url-extension" [text]="'Hier kommt der Body'"
+                      #editor
+                      style="min-height: 20rem; width:100%; overflow: auto;"
+                      [mode]="'typescript'">
+          </ace-editor>
+        </mat-tab>
+      </mat-tab-group>
 
-</div>
+      <div *ngIf="response">
+        <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+          <mat-button-toggle (click)="changeTreeInput( response )" [checked]="true" >Show tree with data</mat-button-toggle>
+          <mat-button-toggle (click)="changeTreeInput( abstractJson )">Show abstract tree structure</mat-button-toggle>
+        </mat-button-toggle-group>
+
+        <app-response-tree
+                [showInputChooser]="false"
+                [queryResponse]="tree" >
+        </app-response-tree>
+
+      </div>
+    </div>
+
+    <button mat-button (click)="sendQuery()">
+      <mat-icon>label</mat-icon> Try Query
+    </button>
+  </mat-tab>
+
+  <mat-tab label="Knora Query Editor" disabled></mat-tab>
+  <mat-tab label="Sparql Query Editor" disabled></mat-tab>
+  <mat-tab label="MySQL Query Editor" disabled></mat-tab>
+  <mat-tab label="existDB Query Editor" disabled></mat-tab>
+</mat-tab-group>

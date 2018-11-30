@@ -27,13 +27,14 @@ import {MatChipsModule} from '@angular/material/chips';
 import { DataManagementComponent } from './data-management/data-management.component';
 import {MatTableModule} from '@angular/material/table';
 import {MatInputModule} from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
 import { QueryEntryComponent } from './query-entry/query-entry.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { AceEditorModule } from 'ng2-ace-editor';
 import {AbstractJsonService} from './data-management/abstract-json.service';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { KeyValueFormComponent } from './query-entry/key-value-form/key-value-form.component';
 
 @NgModule({
   imports: [
@@ -57,6 +58,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     MatTableModule,
     MatInputModule,
     FormsModule,
+    ReactiveFormsModule,
     MatSelectModule,
     MatTabsModule,
     AceEditorModule,
@@ -79,7 +81,8 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     GrapesjsComponent,
     TextlistViewerComponent,
     DataManagementComponent,
-    QueryEntryComponent
+    QueryEntryComponent,
+    KeyValueFormComponent
   ],
   exports: [
     NIEOSComponent,

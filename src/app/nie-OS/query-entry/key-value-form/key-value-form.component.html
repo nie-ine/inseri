@@ -1,0 +1,23 @@
+<form [formGroup]="form">
+  <div class="url-params-row" formArrayName="param">
+    <div *ngFor="let row of form.get('param').controls; let i = index">
+      <div [formGroupName]="i">
+        <input class="url-params key" formControlName="key" style="display: inline-block;"
+               name="Key"
+               class="form-control"
+               placeholder="Name">
+        <input class="url-params value" formControlName="val" style="display: inline-block;"
+               name="Value"
+               class="form-control"
+               placeholder="Wert">
+        <button *ngIf="i !== 0" mat-button mat-icon-button (click)="deleteRow(i)">
+          <mat-icon class="clear-row">clear</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <button mat-button (click)="addRow()">
+    <mat-icon class="add-row">add</mat-icon>Add row
+  </button>
+</form>
