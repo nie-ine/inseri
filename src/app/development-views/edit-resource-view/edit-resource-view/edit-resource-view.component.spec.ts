@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HttpClientModule } from '@angular/common/http';
 
-import { ResourceFormModule } from '../../../resource-form/resource-form.module';
+import { ResourceFormModule } from '../../../nie-OS-apps/resource-form/resource-form.module';
 
 import { EditResourceViewComponent } from './edit-resource-view.component';
 import { KnoraV1RequestService } from '../../../shared/knora/knora-v1-request.service';

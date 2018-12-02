@@ -200,6 +200,8 @@ import {MatRadioModule} from &#x27;@angular/material/radio&#x27;;
 import { ActionService } from &#x27;../shared/nieOS/fake-backend/action/action.service&#x27;;
 import {MatMenuModule} from &#x27;@angular/material/menu&#x27;;
 import { MatIconModule } from &#x27;@angular/material/icon&#x27;;
+import {MatInputModule} from &#x27;@angular/material/input&#x27;;
+import {MatFormFieldModule} from &#x27;@angular/material/form-field&#x27;;
 
 @NgModule({
   imports: [
@@ -210,6 +212,8 @@ import { MatIconModule } from &#x27;@angular/material/icon&#x27;;
     MatRadioModule,
     MatMenuModule,
     MatIconModule,
+    MatInputModule,
+    MatFormFieldModule,
     RouterModule.forRoot([
       {path: &#x27;dashboard&#x27;, component: DashboardComponent}
     ])

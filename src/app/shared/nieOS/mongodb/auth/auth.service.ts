@@ -111,7 +111,7 @@ export class AuthService {
     }
     const now = new Date();
     const expiresIn = authInformation.expirationDate.getTime() - now.getTime();
-    console.log(authInformation, expiresIn);
+    // console.log(authInformation, expiresIn);
     if (expiresIn > 0) {
       this.isAuthenticated = true;
       this.token = authInformation.token;
@@ -130,7 +130,7 @@ export class AuthService {
   }
 
   private setAuthTimer(duration: number) {
-    console.log('Setting timer:' + duration);
+    // console.log('Setting timer:' + duration);
     this.tokenTimer = setTimeout(() => {
       this.logout();
     }, duration * 1000);

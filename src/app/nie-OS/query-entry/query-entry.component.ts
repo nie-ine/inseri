@@ -1,5 +1,6 @@
 import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {query} from '@angular/animations';
 import {HttpClient} from '@angular/common/http';
 import { AbstractJsonService } from '../data-management/abstract-json.service';
 
@@ -11,9 +12,10 @@ import { AbstractJsonService } from '../data-management/abstract-json.service';
 export class QueryEntryComponent implements OnInit{
   @ViewChild('editor') editor;
   server = 'http://0.0.0.0:3333/admin/projects?email=root%40example.com&password=test';
+ firstStep = 'admin/projects?email=root%40example.com&password=test';
   response: any;
-  abstractJson: any;
   tree: any;
+  abstractJson: any;
   dummy = {'menu': {
       'id': 'file',
       'value': 'File',
@@ -28,7 +30,7 @@ export class QueryEntryComponent implements OnInit{
 
   constructor(
     public dialogRef: MatDialogRef<QueryEntryComponent>,
-    @Inject(MAT_DIALOG_DATA) public data1: any,
+    @Inject(MAT_DIALOG_DATA) public inputQuery: any,
     private http: HttpClient,
     private abstractJsonService: AbstractJsonService
   ) { }
@@ -37,7 +39,13 @@ export class QueryEntryComponent implements OnInit{
   }
 
   close() {
-    this.dialogRef.close();
+    const output = [
+      this.abstractJson,
+      this.inputQuery
+    ]
+    this.dialogRef.close(
+      output
+    );
   }
 
   sendQuery() {
