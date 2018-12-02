@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IIIFImage } from '../../../nie-OS-apps/shared/IIIFImage';
 
 /**
  * This component shows the use of the module ImageFrameModule.
@@ -19,7 +20,7 @@ export class ImageViewComponent implements OnInit {
   viewerWidth = 300;
 
   // picture data like received from Knora
-  picData = {
+  picData1Raw = {
     duration: 0,
     format_name: 'JPEG2000',
     fps: 0,
@@ -30,7 +31,13 @@ export class ImageViewComponent implements OnInit {
     protocol: 'file'
   };
 
-  picData2 = {
+  picData1 = new IIIFImage(
+    this.picData1Raw.path,
+    this.picData1Raw.ny,
+    this.picData1Raw.nx
+  );
+
+  picData2Raw = {
     '@id': 'http://rdfh.ch/kuno-raeber/Uzo2YDhzTr-8CUSg1pQL4Q/values/gJVf-AQjSbSTAo8EsU8ErQ',
     '@type': 'knora-api:StillImageFileValue',
     'knora-api:fileValueAsUrl': 'https://tools.wmflabs.org/zoomviewer/proxy.php?iiif=Lions_Family_Portrait_Masai_Mara.jpg/pct:65,81,35,15/full/0/default.jpg',
@@ -40,6 +47,12 @@ export class ImageViewComponent implements OnInit {
     'knora-api:stillImageFileValueHasDimY': 3456,
     'knora-api:stillImageFileValueHasIIIFBaseUrl': 'https://tools.wmflabs.org/zoomviewer'
   };
+
+  picData2 = new IIIFImage(
+    this.picData2Raw['knora-api:fileValueAsUrl'],
+    this.picData2Raw['knora-api:stillImageFileValueHasDimY'],
+    this.picData2Raw['knora-api:stillImageFileValueHasDimX'],
+  );
 
   regions = [{
     'status': 'active',

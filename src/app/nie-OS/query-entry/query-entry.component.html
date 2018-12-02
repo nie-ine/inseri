@@ -1,19 +1,19 @@
-<mat-tab-group style="margin-top: 60px">
-  <mat-tab label="General Query Editor" disabled>
+<div style="margin-top: 30px">
+  <button mat-button (click)="close()">
+    <mat-icon>save</mat-icon> Save and close this query
+  </button>
+</div>
+
+<form class="example-form" style="margin-top: 40px">
+  <mat-form-field>
+    <input matInput placeholder="Server URL" value="{{ server }}">
+  </mat-form-field>
+</form>
+
+<mat-tab-group style="margin-top: 50px">
+  <mat-tab label="General Query Editor" >
+
     <div style="margin-top: 30px">
-      <button mat-button (click)="close()">
-        Close the Query Entry Component
-      </button>
-
-      <button mat-button >
-        <mat-icon>save</mat-icon> Save this query
-      </button>
-
-      <form class="example-form">
-        <mat-form-field>
-          <input matInput placeholder="Server URL" value="{{ server }}">
-        </mat-form-field>
-      </form>
 
       <mat-tab-group>
         <mat-tab label="URL Params">
@@ -33,6 +33,10 @@
         </mat-tab>
       </mat-tab-group>
 
+      <button mat-button (click)="sendQuery()">
+        <mat-icon>label</mat-icon> Try Query
+      </button>
+
       <div *ngIf="response">
         <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
           <mat-button-toggle (click)="changeTreeInput( response )" [checked]="true" >Show tree with data</mat-button-toggle>
@@ -40,16 +44,12 @@
         </mat-button-toggle-group>
 
         <app-response-tree
-                [showInputChooser]="false"
+                [chosenInputs]=undefined
                 [queryResponse]="tree" >
         </app-response-tree>
 
       </div>
     </div>
-
-    <button mat-button (click)="sendQuery()">
-      <mat-icon>label</mat-icon> Try Query
-    </button>
   </mat-tab>
 
   <mat-tab label="Knora Query Editor" disabled></mat-tab>

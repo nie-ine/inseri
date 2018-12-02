@@ -374,13 +374,14 @@ import {MatTooltipModule} from &#x27;@angular/material/tooltip&#x27;;
 import {SynopsisModule} from &#x27;../synopsis/synopsis.module&#x27;;
 import {MyPageSetModule} from &#x27;./page-set/page-set.module&#x27;;
 import {GenerateHashService} from &#x27;../shared/nieOS/other/generateHash.service&#x27;;
-import {CreateResourceModule} from &#x27;../create-resource/create-resource.module&#x27;;
+import {CreateResourceModule} from &#x27;../nie-OS-apps/create-resource/create-resource.module&#x27;;
 import {DataManagementToolModule} from &#x27;./apps/data-management-tool/data-management-tool.module&#x27;;
 import {SendGravSearchQueryService} from &#x27;../shared/knora/gravsearch/sendGravSearchQuery.service&#x27;;
 import {TextlistViewerComponent} from &#x27;./apps/textlist-viewer/textlist-viewer.component&#x27;;
 import {MatExpansionModule} from &#x27;@angular/material/expansion&#x27;;
 import {MatDividerModule} from &#x27;@angular/material/divider&#x27;;
 import {D3jsModule} from &#x27;./apps/d3js/d3js.module&#x27;;
+import {OpenAppsModel} from &#x27;../shared/nieOS/mongodb/page/open-apps.model&#x27;;
 
 
 @NgModule({
@@ -409,7 +410,8 @@ import {D3jsModule} from &#x27;./apps/d3js/d3js.module&#x27;;
   ],
   providers: [
     GenerateHashService,
-    SendGravSearchQueryService
+    SendGravSearchQueryService,
+    OpenAppsModel
   ],
   declarations: [
     NIEOSComponent,

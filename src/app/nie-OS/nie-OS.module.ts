@@ -15,7 +15,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {SynopsisModule} from '../synopsis/synopsis.module';
 import {MyPageSetModule} from './page-set/page-set.module';
 import {GenerateHashService} from '../shared/nieOS/other/generateHash.service';
-import {CreateResourceModule} from '../create-resource/create-resource.module';
+import {CreateResourceModule} from '../nie-OS-apps/create-resource/create-resource.module';
 import {DataManagementToolModule} from './apps/data-management-tool/data-management-tool.module';
 import {SendGravSearchQueryService} from '../shared/knora/gravsearch/sendGravSearchQuery.service';
 import {TextlistViewerComponent} from './apps/textlist-viewer/textlist-viewer.component';
@@ -35,6 +35,7 @@ import { AceEditorModule } from 'ng2-ace-editor';
 import {AbstractJsonService} from './data-management/abstract-json.service';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { KeyValueFormComponent } from './query-entry/key-value-form/key-value-form.component';
+import { QueryAppInputMapComponent } from './query-app-input-map/query-app-input-map.component';
 
 @NgModule({
   imports: [
@@ -82,7 +83,8 @@ import { KeyValueFormComponent } from './query-entry/key-value-form/key-value-fo
     TextlistViewerComponent,
     DataManagementComponent,
     QueryEntryComponent,
-    KeyValueFormComponent
+    KeyValueFormComponent,
+QueryAppInputMapComponent
   ],
   exports: [
     NIEOSComponent,
@@ -91,7 +93,8 @@ import { KeyValueFormComponent } from './query-entry/key-value-form/key-value-fo
   entryComponents: [
     ImageFrameComponent,
     DataManagementComponent,
-    QueryEntryComponent
+    QueryEntryComponent,
+    QueryAppInputMapComponent
   ]
 })
 export class NIEOSModule { }

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule} from '@angular/router';
-import { CreateResourceModule } from '../../create-resource/create-resource.module';
+import { CreateResourceModule } from '../../nie-OS-apps/create-resource/create-resource.module';
 import { CreateResourceViewComponent } from './create-resource-view/create-resource-view.component';
 
 
