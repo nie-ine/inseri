@@ -21,6 +21,7 @@ import {MongoPageService} from '../../shared/nieOS/mongodb/page/page.service';
 import {MongoActionService} from '../../shared/nieOS/mongodb/action/action.service';
 import { DataManagementComponent } from '../data-management/data-management.component';
 import {MatDialog} from '@angular/material';
+import {GenerateDataChoosersService} from '../data-management/generate-data-choosers.service';
 
 declare var grapesjs: any; // Important!
 
@@ -62,6 +63,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     private resetOpenApps: OpenAppsModel,
     private mongoPageService: MongoPageService,
     private mongoActionService: MongoActionService,
+    private generateDataChoosers: GenerateDataChoosersService,
     public dialog: MatDialog
   ) {
     // this.route.params.subscribe(params => console.log(params));
@@ -92,11 +94,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
     if ( !this.actionID ) {
       this.pageAsDemo = true;
     }
-    this.generateDataChoosers();
-  }
-
-  generateDataChoosers() {
-    console.log( 'Generate data choosers' );
   }
 
   updatePageFromUrl() {
@@ -161,6 +158,10 @@ export class PageComponent implements OnInit, AfterViewChecked {
               );
             }
           }
+          this.generateDataChoosers.generateDataChoosers(
+            this.page,
+            this.openAppsInThisPage
+          );
         },
         error => {
           console.log(error);
