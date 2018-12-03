@@ -1,9 +1,9 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {NIEOSComponent} from './nie-OS/nie-OS.component';
+import {PageComponent} from './page/page.component';
 import {RouterModule} from '@angular/router';
 import {ImageFrameComponent} from 'nie-ine';
-import {Popup} from './nie-OS/popup';
+import {Frame} from './page/frame';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatButtonModule} from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
@@ -65,7 +65,7 @@ import { QueryAppInputMapComponent } from './query-app-input-map/query-app-input
     AceEditorModule,
     MatButtonToggleModule,
     RouterModule.forChild([
-      { path: 'page', component: NIEOSComponent },
+      { path: 'page', component: PageComponent },
       { path: 'grapesjs', component: GrapesjsComponent },
       { path: 'textlist', component: TextlistViewerComponent }
     ])
@@ -77,8 +77,8 @@ import { QueryAppInputMapComponent } from './query-app-input-map/query-app-input
     AbstractJsonService
   ],
   declarations: [
-    NIEOSComponent,
-    Popup,
+    PageComponent,
+    Frame,
     GrapesjsComponent,
     TextlistViewerComponent,
     DataManagementComponent,
@@ -86,7 +86,7 @@ import { QueryAppInputMapComponent } from './query-app-input-map/query-app-input
     QueryAppInputMapComponent
   ],
   exports: [
-    NIEOSComponent,
+    PageComponent,
     MatSidenavModule
   ],
   entryComponents: [
