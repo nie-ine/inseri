@@ -10,7 +10,7 @@
 
 import {AfterViewChecked, ChangeDetectorRef, Component, NgModule, OnInit, VERSION} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import {Popup} from './popup';
+import {Frame} from './frame';
 import 'rxjs/add/operator/map';
 import { ActivatedRoute } from '@angular/router';
 import { ActionService } from '../../shared/nieOS/fake-backend/action/action.service';
@@ -27,9 +27,9 @@ declare var grapesjs: any; // Important!
 
 @Component({
   selector: 'nie-os',
-  templateUrl: `nie-OS.component.html`,
+  templateUrl: `page.component.html`,
 })
-export class NIEOSComponent implements OnInit, AfterViewChecked {
+export class PageComponent implements OnInit, AfterViewChecked {
   image = {
     '@id' : 'https://www.e-manuscripta.ch/zuz/i3f/v20/1510612/canvas/1510618',
     '@type' : 'knora-api:StillImageFileValue',
@@ -92,6 +92,11 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     if ( !this.actionID ) {
       this.pageAsDemo = true;
     }
+    this.generateDataChoosers();
+  }
+
+  generateDataChoosers() {
+    console.log( 'Generate data choosers' );
   }
 
   updatePageFromUrl() {

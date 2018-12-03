@@ -14,10 +14,10 @@ declare var grapesjs: any; // Important!
 
 @Component({
   selector: 'popup',
-  templateUrl: 'popup.html',
-  styleUrls: ['popup.css']
+  templateUrl: 'frame.html',
+  styleUrls: ['frame.css']
 })
-export class Popup {
+export class Frame {
 
   show = false;
 
