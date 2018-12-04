@@ -267,7 +267,7 @@ router.post('/signup', (req, res, next) => {
                         password: hashPwd,
                         firstName: req.body.firstName,
                         lastName: req.body.lastName,
-                        newsletter: true
+                        newsletter: req.body.newsLetter
                     });
                     user.save()
                         .then(result => {
