@@ -9,7 +9,7 @@ import { AuthService } from '../../shared/nieOS/mongodb/auth/auth.service';
   selector: 'app-register',
   templateUrl: './register.component.html'
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit{
   model: any = {};
   loading = false;
   userCreated = false;
@@ -22,11 +22,14 @@ export class RegisterComponent {
     public authService: AuthService
   ) {}
 
+  ngOnInit() {
+    this.model.newsletter = true;
+  }
+
   register() {
     this.loading = true;
-    this.authService.createUser(this.model.email, this.model.password, this.model.firstName, this.model.lastName)
+    this.authService.createUser(this.model.email, this.model.password, this.model.firstName, this.model.lastName, this.model.newsletter)
       .subscribe( response => {
-        // console.log(response);
         this.userCreated = true;
       });
 /*    this.userService.create(this.model)
@@ -42,5 +45,9 @@ export class RegisterComponent {
           this.loading = false;
         });*/
   }
+
+    changeNewsletter(e: any) {
+      this.model.newsletter = e.checked;
+    }
 
 }

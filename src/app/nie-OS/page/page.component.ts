@@ -3,8 +3,8 @@
 /**
  * Manual: How to add an app:
  * 1. Import the Component or Module in nie-OS.module.ts
- * 2. Add the app to the Model "openAppsInThisPage" in this file
- * 3. Add this app to the "Menu to open Apps" - div in nie-OS.component.html
+ * 2. Add the app to the Model 'openAppsInThisPage' in this file
+ * 3. Add this app to the 'Menu to open Apps' - div in nie-OS.component.html
  * 4. Add an app div by copying and pasting one of the existing divs and adjusting the input variables and the selector
  * */
 
@@ -15,7 +15,7 @@ import 'rxjs/add/operator/map';
 import { ActivatedRoute } from '@angular/router';
 import { ActionService } from '../../shared/nieOS/fake-backend/action/action.service';
 import { PageService } from '../apps/page/page.service';
-import {GenerateHashService} from "../../shared/nieOS/other/generateHash.service";
+import {GenerateHashService} from '../../shared/nieOS/other/generateHash.service';
 import {OpenAppsModel} from '../../shared/nieOS/mongodb/page/open-apps.model';
 import {MongoPageService} from '../../shared/nieOS/mongodb/page/page.service';
 import {MongoActionService} from '../../shared/nieOS/mongodb/action/action.service';
