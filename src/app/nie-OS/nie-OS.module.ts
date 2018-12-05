@@ -36,6 +36,7 @@ import {AbstractJsonService} from './data-management/abstract-json.service';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { KeyValueFormComponent } from './query-entry/key-value-form/key-value-form.component';
 import { QueryAppInputMapComponent } from './query-app-input-map/query-app-input-map.component';
+import {MatProgressSpinnerModule} from '@angular/material';
 
 @NgModule({
   imports: [
@@ -52,6 +53,7 @@ import { QueryAppInputMapComponent } from './query-app-input-map/query-app-input
     MyPageSetModule,
     CreateResourceModule,
     DataManagementToolModule,
+    MatProgressSpinnerModule,
     MatExpansionModule,
     MatDividerModule,
     D3jsModule,
