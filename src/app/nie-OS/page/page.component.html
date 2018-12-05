@@ -523,6 +523,7 @@
         <div style="width: 600px; height: 50px;" >
           <app-data-chooser
             [viewModel] = "openAppsInThisPage"
+            [dataChooserEntries]="openAppsInThisPage[ 'dataChooser' ].model[i].dataChooserEntries"
             (sendAppTypesBackToNIEOS)="updateAppTypesFromDataChooser($event)">>
           </app-data-chooser>
         </div>

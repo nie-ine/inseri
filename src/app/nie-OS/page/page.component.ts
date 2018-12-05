@@ -22,6 +22,7 @@ import {MongoActionService} from '../../shared/nieOS/mongodb/action/action.servi
 import { DataManagementComponent } from '../data-management/data-management.component';
 import {MatDialog} from '@angular/material';
 import {GenerateDataChoosersService} from '../data-management/generate-data-choosers.service';
+import {HttpClient} from '@angular/common/http';
 
 declare var grapesjs: any; // Important!
 

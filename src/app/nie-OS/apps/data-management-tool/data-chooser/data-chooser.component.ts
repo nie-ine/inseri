@@ -19,6 +19,7 @@ import {SendGravSearchQueryService} from "../../../../shared/knora/gravsearch/se
 })
 export class DataChooserComponent implements OnInit, AfterViewChecked {
   @Input() viewModel = new Set();
+  @Input() dataChooserEntries = [];
   @Output() sendAppTypesBackToNIEOS: EventEmitter<any> = new EventEmitter<any>();
   gravSearchString: string;
   dataChooserString: string;
