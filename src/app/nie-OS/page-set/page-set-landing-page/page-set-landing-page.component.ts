@@ -2,12 +2,9 @@ import {Component, OnInit, Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import {Router, ActivatedRoute} from '@angular/router';
 import {ActionService } from '../../../shared/nieOS/fake-backend/action/action.service';
-import {GenerateHashService} from '../../../shared/nieOS/other/generateHash.service';
 import {EditPageSetComponent} from '../edit-page-set/edit-page-set.component';
 import {CreatePageSetAndLinkToActionService} from '../services/createPageSetAndLinkToAction.service';
-import {PageService} from '../../apps/page/page.service';
 import {MongoActionService} from '../../../shared/nieOS/mongodb/action/action.service';
-import { PageSetModel } from '../model/page-set.model';
 import { PageSetService } from '../model/page-set.service';
 import { Action } from '../../../shared/nieOS/mongodb/action/action.model';
 import { EditPageComponent } from '../edit-page/edit-page.component';
@@ -33,11 +30,6 @@ export class PageSetLandingPageComponent implements OnInit {
     public dialogUpdatePageSet: MatDialog,
     public dialogEditPage: MatDialog,
     private route: ActivatedRoute,
-    private generateHashService: GenerateHashService,
-    private actionService: ActionService,
-    private pageSetService: PageSetService,
-    private createPageSetAndLinkToActionService: CreatePageSetAndLinkToActionService,
-    private pageService: PageService,
     private mongoActionService: MongoActionService,
   ) { }
 
@@ -78,33 +70,6 @@ export class PageSetLandingPageComponent implements OnInit {
     }
     this.pagesOfThisPageSet = help;
   }
-
-  // initializeTemplatePageSet() {
-  //   this.templatePageSet();
-  //   console.log('Save page set and then add page set - hash to action and update action.');
-  //
-  //   this.pageSetService.createPageSet(this.pageSet)
-  //     .subscribe(dbPageSet => {
-  //       this.mongoActionService.getAction(this.actionID)
-  //         .subscribe(dbAction => {
-  //           dbAction.action.hasPageSet = dbPageSet.pageset._id;
-  //           this.mongoActionService.updateAction(dbAction.action).subscribe(result => {
-  //             this.action = result.action;
-  //           });
-  //         });
-  //     });
-  // }
-
-  // templatePageSet() {
-  //   this.pageSet = new PageSetModel();
-  //   console.log('No page set for this action yet');
-  //   this.pageSet.id = this.generateHashService.generateHash();
-  //   this.pageSet.title = 'Example pageSet';
-  //   this.pageSet.linkToImage = 'https://c8.alamy.com/' +
-  //     'comp/DX9AP3/' +
-  //     'open-book-vintage-accessories-old-letters-pages-photo-frames-glasses-DX9AP3.jpg';
-  //   this.pageSet.description = 'Dies als Beispiel für eine PageSet bei NIE-OS';
-  // }
 
   generateDescription() {
     if (this.pageSet && this.pageSet.description) {

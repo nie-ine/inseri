@@ -87,10 +87,7 @@ router.post('/:id/queries', checkAuth, (req, res, next) => {
     if (!Boolean(req.body.title)) messages.push('Your title is invalid!');
 
     // Tests if server url is undefined, null or is empty string
-    if (!Boolean(req.body.serverUrl)) messages.push('Your server URL is invalid!');
-
-    // Tests if url extension is undefined, null or is empty string
-    if (!Boolean(req.body.urlExtension)) messages.push('Your URL extension is invalid!');
+    // if (!Boolean(req.body.serverUrl)) messages.push('Your server URL is invalid!');
 
     // Attaches error messages to the response
     if (messages.length > 0) return res.status(400).json({messages: messages});
@@ -107,8 +104,6 @@ router.post('/:id/queries', checkAuth, (req, res, next) => {
 
             const newQuery = new Query({
                 title: req.body.title,
-                serverUrl: req.body.serverUrl,
-                urlExtension: req.body.urlExtension,
                 isBoundToPage: true,
                 creator: req.userData.userId
             });
@@ -150,10 +145,7 @@ router.put('/:pageID/queries/:queryID', checkAuth, (req, res, next) => {
     if (!Boolean(req.body.title)) messages.push('Your title is invalid!');
 
     // Tests if server url is undefined, null or is empty string
-    if (!Boolean(req.body.serverUrl)) messages.push('Your server URL is invalid!');
-
-    // Tests if url extension is undefined, null or is empty string
-    if (!Boolean(req.body.urlExtension)) messages.push('Your URL extension is invalid!');
+    // if (!Boolean(req.body.serverUrl)) messages.push('Your server URL is invalid!');
 
     // Attaches error messages to the response
     if (messages.length > 0) return res.status(400).json({messages: messages});
@@ -173,7 +165,8 @@ router.put('/:pageID/queries/:queryID', checkAuth, (req, res, next) => {
                 Query.findByIdAndUpdate({_id: req.params.queryID}, {
                     title: req.body.title,
                     serverUrl: req.body.serverUrl,
-                    urlExtension: req.body.urlExtension
+                    params: req.body.params,
+                    header: req.body.header
                 }, {new:true})
                     .then(updatedPage => {
                         res.status(200).json({
@@ -221,7 +214,7 @@ router.delete('/:pageID/queries/:queryID', checkAuth, (req, res, next) => {
                         Page.update({_id: req.params.pageID}, {$pull: {queries:req.params.queryID}})
                             .then(() => {
                                 res.status(200).json({
-                                    message: 'Page updated successfully'
+                                    message: 'Query deleted successfully'
                                 });
                             })
                             .catch(error => {
