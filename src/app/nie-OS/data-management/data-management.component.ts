@@ -121,7 +121,10 @@ export class DataManagementComponent implements OnInit {
     const dialogRef = this.dialog.open(QueryEntryComponent, {
       width: '100%',
       height: '100%',
-      data: {query}
+      data: {
+        query: query,
+        pageID: this.pageID
+      }
     });
     dialogRef.afterClosed().subscribe((result) => {
       console.log('Abstract tree from query entry');

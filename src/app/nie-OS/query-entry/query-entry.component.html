@@ -1,12 +1,24 @@
 <div style="margin-top: 30px">
+  <button mat-button (click)="save()">
+    <mat-icon>save</mat-icon> Save and close
+  </button>
   <button mat-button (click)="close()">
-    <mat-icon>save</mat-icon> Save and close this query
+    <mat-icon>clear</mat-icon> Close (without saving)
   </button>
 </div>
 
-<form class="example-form" style="margin-top: 40px">
-  <mat-form-field>
-    <input matInput placeholder="Server URL" value="{{ server }}">
+<form [formGroup]="form" class="example-form" style="margin-top: 40px" >
+  <!--<mat-form-field>-->
+    <!--<mat-select>-->
+      <!--<mat-option [value]="GET">GET</mat-option>-->
+      <!--<mat-option [value]="POST" disabled>POST</mat-option>-->
+      <!--<mat-option [value]="PUT" disabled>PUT</mat-option>-->
+      <!--<mat-option [value]="DELETE" disabled>DELETE</mat-option>-->
+      <!--<mat-option [value]="OPTION" disabled>OPTION</mat-option>-->
+    <!--</mat-select>-->
+  <!--</mat-form-field>-->
+  <mat-form-field >
+    <input formControlName="serverURL" matInput placeholder="Server URL">
   </mat-form-field>
 </form>
 

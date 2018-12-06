@@ -2,6 +2,8 @@ import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {HttpClient} from '@angular/common/http';
 import { AbstractJsonService } from '../data-management/abstract-json.service';
+import {FormControl, FormGroup} from '@angular/forms';
+import {MongoPageService} from '../../shared/nieOS/mongodb/page/page.service';
 
 @Component({
   selector: 'app-query-entry',
@@ -10,12 +12,10 @@ import { AbstractJsonService } from '../data-management/abstract-json.service';
 })
 export class QueryEntryComponent implements OnInit {
   @ViewChild('editor') editor;
-  server = 'http://knora2.nie-ine.ch/v2/ontologies/' +
-    'allentities/http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F004D%2Fkuno-raeber%2Fv2' +
-    '?email=root%40example.com&password=test';
   response: any;
   tree: any;
   abstractJson: any;
+  form: FormGroup;
   dummy = {'menu': {
       'id': 'file',
       'value': 'File',
@@ -30,18 +30,35 @@ export class QueryEntryComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<QueryEntryComponent>,
-    @Inject(MAT_DIALOG_DATA) public inputQuery: any,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private http: HttpClient,
-    private abstractJsonService: AbstractJsonService
+    private abstractJsonService: AbstractJsonService,
+    private pageService: MongoPageService
   ) { }
 
   ngOnInit() {
+      this.form = new FormGroup({
+          serverURL: new FormControl(this.data.query.serverUrl, [])
+      });
+  }
+
+  save() {
+      this.data.query.serverUrl = this.form.get('serverURL').value;
+      this.pageService.updateQuery(this.data.pageID, this.data.query._id, this.data.query)
+          .subscribe((data) => {
+            if (data.status === 200) {
+                this.close();
+            } else {
+                console.log('Updating query failed');
+                this.close();
+            }
+          });
   }
 
   close() {
     const output = [
       this.abstractJson,
-      this.inputQuery
+      this.data.query
     ];
     this.dialogRef.close(
       output
@@ -50,7 +67,7 @@ export class QueryEntryComponent implements OnInit {
 
   sendQuery() {
     // console.log( 'Send query' );
-    const queryToBeSend = this.server;
+    const queryToBeSend = this.form.get('serverURL').value;
     // console.log( queryToBeSend );
     this.http.get( queryToBeSend )
       .subscribe(

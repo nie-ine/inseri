@@ -105,7 +105,8 @@ router.post('/:id/queries', checkAuth, (req, res, next) => {
             const newQuery = new Query({
                 title: req.body.title,
                 isBoundToPage: true,
-                creator: req.userData.userId
+                creator: req.userData.userId,
+                serverUrl: 'http://knora2.nie-ine.ch/v2/ontologies/allentities/http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F004D%2Fkuno-raeber%2Fv2?email=root%40example.com&password=test'
             });
 
             newQuery.save()
@@ -163,7 +164,7 @@ router.put('/:pageID/queries/:queryID', checkAuth, (req, res, next) => {
             // Checks if query ID is valid and updates query
             if (result.queries.filter(a => {return a._id == req.params.queryID}).length === 1) {
                 Query.findByIdAndUpdate({_id: req.params.queryID}, {
-                    title: req.body.title,
+                    // title: req.body.title,
                     serverUrl: req.body.serverUrl,
                     params: req.body.params,
                     header: req.body.header
