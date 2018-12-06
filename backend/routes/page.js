@@ -247,7 +247,8 @@ router.delete('/:pageID/queries/:queryID', checkAuth, (req, res, next) => {
 
 router.put('/:id', checkAuth, (req, res, next) => {
     Page.findByIdAndUpdate({_id: req.params.id}, {
-        openApps: req.body.openApps
+        openApps: req.body.openApps,
+        appInputQueryMapping: req.body.appInputQueryMapping
     }, {new:true})
         .then(resultPage => {
             res.status(200).json({

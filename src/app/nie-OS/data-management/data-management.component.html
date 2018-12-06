@@ -2,8 +2,11 @@
 
 <div style="margin-top: 30px" *ngIf="!isLoading">
 
+  <button mat-button (click)="save()">
+    <mat-icon>save</mat-icon> Save and close
+  </button>
   <button mat-button (click)="close()">
-    Close this Menu
+    <mat-icon>clear</mat-icon> Close (without saving)
   </button>
 
   <table mat-table [dataSource]="queries">
@@ -19,46 +22,28 @@
     <ng-container matColumnDef="{{app.hash}}" *ngFor="let app of openApps; let i = index">
         <th mat-header-cell *matHeaderCellDef> {{ app.type + ' ' + i }} </th>
         <td mat-cell *matCellDef="let item">
-          <div *ngIf="item.abstractResponse">
+          <div *ngIf="item.serverUrl">
             <mat-chip-list *ngFor="let input of inputs; let i = index;" style="margin-left: 2px; display: inline-block;">
               <mat-chip
-                (click)="assignInputToQuery( input.inputName, app.hash, item.query )"
-                *ngIf="!checkIfChosen( input.inputName, app.hash, item.query )">
+                (click)="assignInputToQuery( input.inputName, app.hash, item._id )"
+                *ngIf="!checkIfChosen( input.inputName, app.hash, item._id )">
                 {{input.inputName}}
               </mat-chip>
               <mat-chip
                 [color]="'primary'" selected
-                *ngIf="checkIfChosen( input.inputName, app.hash, item.query )" (click)="unSelectChip( input.inputName, app.hash, item.query )">
+                *ngIf="checkIfChosen( input.inputName, app.hash, item._id )" (click)="unSelectChip( input.inputName, app.hash, item._id )">
                 {{input.inputName}}
               </mat-chip>
             </mat-chip-list>
             <mat-chip
-              *ngIf="checkIfRowIsChosen( app.hash, item.query )"
+              *ngIf="checkIfRowIsChosen( app.hash, item._id )"
               selected
               [color]="'accent'" (click)="openQueryAppInputMapDialog( app, item )">
               map
             </mat-chip>
           </div>
-          <div *ngIf="!item.abstractResponse">
+          <div *ngIf="!item.serverUrl">
             <button mat-button color="warn">No query defined</button>
-            <!--<mat-chip-list *ngFor="let input of inputs; let i = index;" style="margin-left: 2px; display: inline-block;">-->
-              <!--<mat-chip-->
-                <!--(click)="assignInputToQuery( input.inputName, app.hash, item.query )"-->
-                <!--*ngIf="!checkIfChosen( input.inputName, app.hash, item.query )">-->
-                <!--{{input.inputName}}-->
-              <!--</mat-chip>-->
-              <!--<mat-chip-->
-                <!--[color]="'primary'" selected-->
-                <!--*ngIf="checkIfChosen( input.inputName, app.hash, item.query )" (click)="unSelectChip( input.inputName, app.hash, item.query )">-->
-                <!--{{input.inputName}}-->
-              <!--</mat-chip>-->
-            <!--</mat-chip-list>-->
-            <!--<mat-chip-->
-              <!--*ngIf="checkIfRowIsChosen( app.hash, item.query )"-->
-              <!--selected-->
-              <!--[color]="'accent'" (click)="openQueryAppInputMapDialog( app, item )">-->
-              <!--map-->
-            <!--</mat-chip>-->
           </div>
         </td>
     </ng-container>

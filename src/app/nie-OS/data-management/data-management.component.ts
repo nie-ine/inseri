@@ -23,6 +23,9 @@ export class DataManagementComponent implements OnInit {
   openApps: Array<any> = [];
   appInputQueryMapping = [];
   queries = [];
+  openAppsInThisPage: any;
+  private mongoPageService: MongoPageService;
+  page: any;
   inputs = [
     {
       'inputName': 'textlist'
@@ -37,12 +40,14 @@ export class DataManagementComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<DataManagementComponent>,
-    @Inject(MAT_DIALOG_DATA) public openAppsInThisPage: any,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     public dialog: MatDialog,
     private actionService: MongoActionService,
     private pageService: MongoPageService,
     private route: ActivatedRoute
   ) {
+    this.openAppsInThisPage = data[ 0 ];
+    this.page = data[ 1 ];
     // console.log( this.openAppsInThisPage );
     for (const appType in this.openAppsInThisPage) {
       if (this.openAppsInThisPage[appType].model.length !== 0) {
@@ -79,6 +84,7 @@ export class DataManagementComponent implements OnInit {
                     this.pageService.getAllQueries(this.pageID)
                         .subscribe((data) => {
                           this.queries = data.queries;
+                          console.log( this.queries );
                           this.isLoading = false;
                     });
                   }
@@ -195,5 +201,17 @@ export class DataManagementComponent implements OnInit {
       console.log(result);
     });
   }
+  save() {
+    this.page['appInputQueryMapping'] = this.appInputQueryMapping;
+    console.log( this.page );
+    this.pageService.updatePage(this.page)
+      .subscribe(
+        data => {
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+        });
+    }
 }
 
