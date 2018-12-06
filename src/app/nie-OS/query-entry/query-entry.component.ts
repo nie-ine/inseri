@@ -10,7 +10,9 @@ import { AbstractJsonService } from '../data-management/abstract-json.service';
 })
 export class QueryEntryComponent implements OnInit {
   @ViewChild('editor') editor;
-  server = 'http://0.0.0.0:3333/admin/projects?email=root%40example.com&password=test';
+  server = 'http://knora2.nie-ine.ch/v2/ontologies/' +
+    'allentities/http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F004D%2Fkuno-raeber%2Fv2' +
+    '?email=root%40example.com&password=test';
   response: any;
   tree: any;
   abstractJson: any;
