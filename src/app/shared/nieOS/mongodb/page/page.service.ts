@@ -36,6 +36,10 @@ export class MongoPageService {
     return this.http.get(`${MongoPageService.API_BASE_URL}/${pageId}/queries`);
   }
 
+  updateQuery(pageId: string, queryId: string, query: any): Observable<any> {
+    return this.http.put(`${MongoPageService.API_BASE_URL}/${pageId}/queries/${queryId}`, query, {observe: 'response'});
+  }
+
   deleteQuery(pageId: string, queryId: string): Observable<any> {
     return this.http.delete(`${MongoPageService.API_BASE_URL}/${pageId}/queries/${queryId}`, {observe: 'response'});
   }

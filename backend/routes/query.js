@@ -36,7 +36,7 @@ router.get('/:id', checkAuth, (req, res, next) => {
             if (result) {
                 res.status(200).json({
                     message: 'Query was found',
-                    page: result
+                    query: result
                 });
             } else {
                 res.status(404).json({
