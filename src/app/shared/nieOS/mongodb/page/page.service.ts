@@ -19,11 +19,15 @@ export class MongoPageService {
     console.log(page);
     const openAppAsStringArray = [];
     for (const openApp in page.openApps) {
-      console.log( JSON.stringify(page.openApps[openApp]) );
       openAppAsStringArray[ openAppAsStringArray.length ] = JSON.stringify(page.openApps[openApp]);
     }
-    console.log( openAppAsStringArray );
+    const mappingsAsStringArray = [];
+    for (const mapping in page.appInputQueryMapping) {
+      mappingsAsStringArray[ mappingsAsStringArray.length ] = JSON.stringify(page.appInputQueryMapping[mapping]);
+    }
+    page.appInputQueryMapping = mappingsAsStringArray;
     page.openApps = openAppAsStringArray;
+    console.log( page );
     return this.http.put(`${MongoPageService.API_BASE_URL}/${page._id}`, page);
   }
 

@@ -74,7 +74,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     const dialogRef = this.dialog.open(DataManagementComponent, {
       width: '100%',
       height: '100%',
-      data: this.openAppsInThisPage
+      data: [ this.openAppsInThisPage, this.page ]
     });
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
@@ -217,6 +217,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   updatePage() {
     console.log('update page for this action');
+    console.log( this.page );
     this.mongoPageService.updatePage(this.page)
       .subscribe(
         data => {

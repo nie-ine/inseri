@@ -23,7 +23,7 @@ export class QueryAppInputMapComponent {
     private http: HttpClient,
     private abstractJsonService: AbstractJsonService
   ) {
-    if( !this.input ) {
+    if ( !this.input ) {
       this.input = JSON.parse(localStorage.getItem('mapInputs'));
       console.log( this.input );
     }
@@ -44,7 +44,9 @@ export class QueryAppInputMapComponent {
 
   loadAbstractResponse() {
     // console.log( 'Load tree input' );
-    this.http.get( 'http://0.0.0.0:3333/admin/projects?email=root%40example.com&password=test' )
+    this.http.get( 'http://knora2.nie-ine.ch/v2/ontologies/' +
+      'allentities/http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F004D%2Fkuno-raeber%2Fv2' +
+      '?email=root%40example.com&password=test' )
       .subscribe(
         data => {
           // console.log( data );
