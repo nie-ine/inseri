@@ -6,7 +6,7 @@
                name="Key"
                class="form-control"
                placeholder="Name">
-        <input class="url-params value" formControlName="val" style="display: inline-block;"
+        <input class="url-params value" formControlName="value" style="display: inline-block;"
                name="Value"
                class="form-control"
                placeholder="Wert">
@@ -17,7 +17,7 @@
     </div>
   </div>
 
-  <button mat-button (click)="addRow()">
+  <button mat-button (click)="addRow('', '')">
     <mat-icon class="add-row">add</mat-icon>Add row
   </button>
   <button (click)="test()"> Test</button>

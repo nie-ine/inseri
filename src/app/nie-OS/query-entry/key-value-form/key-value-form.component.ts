@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
@@ -8,7 +8,7 @@ import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class KeyValueFormComponent implements OnInit {
   form: FormGroup;
-  param: any = [];
+  @Input() param: {key: string, value: string}[];
 
   constructor() { }
 
@@ -17,16 +17,28 @@ export class KeyValueFormComponent implements OnInit {
           param: new FormArray([
               new FormGroup({
                   'key': new FormControl('', [Validators.required]),
-                  'val': new FormControl('', [])
+                  'value': new FormControl('', [])
               })
           ])
       });
+
+      this.fillParams();
   }
 
-  addRow() {
+  fillParams() {
+      for (let i = 0; i < this.param.length; i++) {
+          if (i === 0) {
+              (this.form.get('param') as FormArray).controls[i].setValue({key: this.param[i].key, value: this.param[i].value});
+          } else {
+              this.addRow(this.param[i].key, this.param[i].value);
+          }
+      }
+  }
+
+  addRow(key: string, value: string) {
     (this.form.get('param') as FormArray).push(new FormGroup({
-        'key': new FormControl('', [Validators.required]),
-        'val': new FormControl('')
+        'key': new FormControl(key, [Validators.required]),
+        'value': new FormControl(value)
     }));
   }
 
@@ -44,7 +56,7 @@ export class KeyValueFormComponent implements OnInit {
           // console.log(b, b['controls']);
           return {
               key: b['controls'].key.value,
-              value: b['controls'].val.value
+              value: b['controls'].value.value
           };
       });
       console.log(a);
