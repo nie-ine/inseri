@@ -23,6 +23,7 @@ export class MongoPageService {
     }
     const mappingsAsStringArray = [];
     for (const mapping in page.appInputQueryMapping) {
+      page.appInputQueryMapping[mapping][ 'app' ] = mapping;
       mappingsAsStringArray[ mappingsAsStringArray.length ] = JSON.stringify(page.appInputQueryMapping[mapping]);
     }
     page.appInputQueryMapping = mappingsAsStringArray;

@@ -143,9 +143,10 @@ export class PageComponent implements OnInit, AfterViewChecked {
       .subscribe(
         data => {
           this.page = ( data as any).page;
+          console.log( this.page );
+          this.convertMappingsBackFromJson( this.page );
           const appHelperArray = [];
           for ( const app of this.page.openApps ) {
-            // console.log(JSON.parse(app));
             appHelperArray[JSON.parse(app).hash] = JSON.parse(app);
           }
           this.page.openApps = appHelperArray;
@@ -167,6 +168,22 @@ export class PageComponent implements OnInit, AfterViewChecked {
         error => {
           console.log(error);
         });
+  }
+
+  convertMappingsBackFromJson( page: any ) {
+    console.log( 'convertMappingsBackFromJson', page.appInputQueryMapping );
+    for ( const app of page.appInputQueryMapping ) {
+      const appHash = JSON.parse(app)['app'];
+      console.log( appHash );
+      console.log( JSON.parse(app) );
+      const appMapping = JSON.parse(app);
+      for ( const input in appMapping ) {
+        if ( input !== 'app' ) {
+          console.log( input );
+          console.log( appMapping[ input ] );
+        }
+      }
+    }
   }
 
   clearAppsInThisPage() {
