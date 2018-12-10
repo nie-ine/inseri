@@ -3,6 +3,7 @@ import {FlatTreeControl} from '@angular/cdk/tree';
 import {Component, Injectable} from '@angular/core';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {BehaviorSubject, Observable, of as observableOf} from 'rxjs';
+import {GeneratePathService} from './generate-path.service';
 
 /**
  * File node data with nested structure.
@@ -100,7 +101,9 @@ export class ResponseTreeComponent implements OnChanges {
   @Input() chosenInputs: Array<any>;
   @Output() sendMappingBackToQueryAppInputMap: EventEmitter<any> = new EventEmitter<any>();
   database: any;
-  constructor(database: FileDatabase) {
+  constructor(
+    database: FileDatabase,
+    private generatePathService: GeneratePathService) {
     this.database = database;
     this.treeFlattener = new MatTreeFlattener(
       this.transformer,
@@ -135,7 +138,8 @@ export class ResponseTreeComponent implements OnChanges {
   };
 
   chooseChip( hash: string, input: string ) {
-      this.mapping[ input ] = hash;
+    console.log( this.mapping );
+      this.mapping[ input ] = this.generatePathService.generatePath( hash , this.queryResponse );
     this.sendMappingBackToQueryAppInputMap.emit( this.mapping );
   }
 
