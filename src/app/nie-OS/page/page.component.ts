@@ -172,18 +172,27 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   convertMappingsBackFromJson( page: any ) {
     console.log( 'convertMappingsBackFromJson', page.appInputQueryMapping );
-    for ( const app of page.appInputQueryMapping ) {
-      const appHash = JSON.parse(app)['app'];
+    for ( const mappingInstance of page.appInputQueryMapping ) {
+      const appHash = JSON.parse(mappingInstance)['app'];
       console.log( appHash );
-      console.log( JSON.parse(app) );
-      const appMapping = JSON.parse(app);
-      for ( const input in appMapping ) {
-        if ( input !== 'app' ) {
-          console.log( input );
-          console.log( appMapping[ input ] );
+      console.log( JSON.parse(mappingInstance) );
+      const appMapping = JSON.parse(mappingInstance);
+      for ( const key in appMapping ) {
+        if ( key !== 'app' ) {
+          console.log( key, appHash, appMapping[ key ] );
+          if ( !this.page[ 'appInputQueryMapping' ][ appHash ] ) {
+            this.page[ 'appInputQueryMapping' ][ appHash ] = {};
+          }
+          this.page[ 'appInputQueryMapping' ][ appHash ][ key ] = appMapping[ key ];
         }
       }
     }
+    let index = 0;
+    for ( const mapping of this.page.appInputQueryMapping ) {
+      this.page.appInputQueryMapping.splice( index );
+      index += 1;
+    }
+    console.log( this.page.appInputQueryMapping );
   }
 
   clearAppsInThisPage() {

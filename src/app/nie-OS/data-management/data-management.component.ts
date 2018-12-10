@@ -48,6 +48,8 @@ export class DataManagementComponent implements OnInit {
   ) {
     this.openAppsInThisPage = data[ 0 ];
     this.page = data[ 1 ];
+    console.log( this.page );
+    this.appInputQueryMapping = this.page.appInputQueryMapping;
     // console.log( this.openAppsInThisPage );
     for (const appType in this.openAppsInThisPage) {
       if (this.openAppsInThisPage[appType].model.length !== 0) {
