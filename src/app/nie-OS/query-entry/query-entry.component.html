@@ -29,11 +29,11 @@
 
       <mat-tab-group>
         <mat-tab label="URL Params">
-          <app-key-value-form></app-key-value-form>
+          <app-key-value-form [param]="data.query.params"></app-key-value-form>
         </mat-tab>
 
         <mat-tab label="Header">
-          <app-key-value-form></app-key-value-form>
+          <app-key-value-form [param]="data.query.header"></app-key-value-form>
         </mat-tab>
 
         <mat-tab label="Body">
