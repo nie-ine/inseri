@@ -69,7 +69,8 @@ import {MatProgressSpinnerModule} from '@angular/material';
     RouterModule.forChild([
       { path: 'page', component: PageComponent },
       { path: 'grapesjs', component: GrapesjsComponent },
-      { path: 'textlist', component: TextlistViewerComponent }
+      { path: 'textlist', component: TextlistViewerComponent },
+      { path: 'tree-map', component: QueryAppInputMapComponent }
     ])
   ],
   providers: [
@@ -86,7 +87,7 @@ import {MatProgressSpinnerModule} from '@angular/material';
     DataManagementComponent,
     QueryEntryComponent,
     KeyValueFormComponent,
-QueryAppInputMapComponent
+    QueryAppInputMapComponent
   ],
   exports: [
     PageComponent,

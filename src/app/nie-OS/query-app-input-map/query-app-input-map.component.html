@@ -1,22 +1,27 @@
-<div style="margin-top: 30px">
-    <button mat-button (click)="saveInputToLocalstorage()" *ngIf="input" style="position: fixed; bottom: 0; right: 0;">devel - save input to localstorage</button><br>
-  <button mat-button (click)="close()" >close component</button>
-  <button mat-button (click)="loadAbstractResponse()" >Load abstract response</button>
-</div>
+<!--<div style="margin-top: 30px">-->
+  <!--<button mat-button (click)="saveInputToLocalstorage()" *ngIf="input" style="position: fixed; bottom: 0; right: 0;">-->
+    <!--devel - save input to localstorage-->
+  <!--</button><br>-->
+  <!--<button mat-button (click)="close()" >close component</button>-->
+  <!--<button mat-button (click)="loadAbstractResponse()" >Load abstract response</button>-->
+<!--</div>-->
 
-<h5>App:</h5>
-{{ input.app.type + ' ' + input.app.hash }}
+<!--<h5>App:</h5>-->
+<!--{{ input.app.type + ' ' + input.app.hash }}-->
+
+<!--<h5>Query Name:</h5>-->
+<!--{{ input.query.query }}-->
+
+<div style="margin-top: 30px">
+  <h5>Page: "5c0a5dfe887a9979b567be60"</h5>
+</div>
 
 <h5>Chosen inputs:</h5>
 <span *ngFor="let input of chosenInputs" >
-  {{ input }}
+{{ input }}
 </span>
 
-<h5>Query Name:</h5>
-{{ input.query.query }}
-
-
-<div *ngIf="abstractResponse">
+<div *ngIf="abstractResponse" style="margin-top: 30px">
   <app-response-tree
     (sendMappingBackToQueryAppInputMap)="updateQueryAppInputMaping($event)"
     [chosenInputs]="chosenInputs"

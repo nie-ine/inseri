@@ -10,27 +10,33 @@ import {AbstractJsonService} from '../data-management/abstract-json.service';
   templateUrl: './query-app-input-map.component.html',
   styleUrls: ['./query-app-input-map.component.scss']
 })
-export class QueryAppInputMapComponent {
+export class QueryAppInputMapComponent implements OnInit {
   response: any;
   tree: any;
   abstractResponse: any;
-  chosenInputs: Array<any> = [];
+  // chosenInputs: Array<any> = [];
   mapping: any;
   mappingUsedByPage: any = {};
+  input: any;
+  chosenInputs = [ 'description', 'title' ];
   constructor(
-    public dialogRef: MatDialogRef<QueryAppInputMapComponent>,
-    @Inject(MAT_DIALOG_DATA) public input: any,
+    // public dialogRef: MatDialogRef<QueryAppInputMapComponent>,
+    // @Inject(MAT_DIALOG_DATA) public input: any,
     private http: HttpClient,
     private abstractJsonService: AbstractJsonService
   ) {
-    if ( !this.input ) {
-      this.input = JSON.parse(localStorage.getItem('mapInputs'));
-      console.log( this.input );
-    }
-    for ( const appInput in input.mapping[ input.app.hash ] ) {
-      this.chosenInputs.push( appInput );
-    }
-    console.log( this.input );
+    // if ( !this.input ) {
+    //   this.input = JSON.parse(localStorage.getItem('mapInputs'));
+    //   console.log( this.input );
+    // }
+    // for ( const appInput in input.mapping[ input.app.hash ] ) {
+    //   this.chosenInputs.push( appInput );
+    // }
+    // console.log( this.input );
+  }
+
+  ngOnInit() {
+    this.loadAbstractResponse();
   }
 
   saveInputToLocalstorage() {
@@ -38,9 +44,9 @@ export class QueryAppInputMapComponent {
     localStorage.setItem( 'mapInputs', JSON.stringify(this.input) );
   }
 
-  close() {
-    this.dialogRef.close( this.mapping );
-  }
+  // close() {
+  //   this.dialogRef.close( this.mapping );
+  // }
 
   loadAbstractResponse() {
     // console.log( 'Load tree input' );
@@ -61,14 +67,6 @@ export class QueryAppInputMapComponent {
   }
 
   updateQueryAppInputMaping( mapping: any ) {
-    console.log(this.input);
-    console.log('inputVariables:', this.input.mapping[this.input.app.hash]);
-    console.log(mapping);
-    this.mapping = mapping;
-    if ( !this.mappingUsedByPage[ this.input ] ) {
-      this.mappingUsedByPage[ this.input.query.query ] = {};
-    }
-    this.mappingUsedByPage[ this.input.query.query ].abstractResponse = this.input.abstractReponse;
-    console.log( this.mappingUsedByPage );
+    console.log( mapping );
   }
 }
