@@ -14,14 +14,13 @@ export class QueryAppInputMapComponent implements OnInit {
   response: any;
   tree: any;
   abstractResponse: any;
-  // chosenInputs: Array<any> = [];
+  chosenInputs: Array<any> = [];
   mapping: any;
+  paths: Array<any>;
   mappingUsedByPage: any = {};
-  input: any;
-  chosenInputs = [ 'description', 'title' ];
   constructor(
-    // public dialogRef: MatDialogRef<QueryAppInputMapComponent>,
-    // @Inject(MAT_DIALOG_DATA) public input: any,
+    public dialogRef: MatDialogRef<QueryAppInputMapComponent>,
+    @Inject(MAT_DIALOG_DATA) public input: any,
     private http: HttpClient,
     private abstractJsonService: AbstractJsonService
   ) {
@@ -29,10 +28,10 @@ export class QueryAppInputMapComponent implements OnInit {
     //   this.input = JSON.parse(localStorage.getItem('mapInputs'));
     //   console.log( this.input );
     // }
-    // for ( const appInput in input.mapping[ input.app.hash ] ) {
-    //   this.chosenInputs.push( appInput );
-    // }
-    // console.log( this.input );
+    for ( const appInput in input.mapping[ input.app.hash ] ) {
+      this.chosenInputs.push( appInput );
+    }
+    console.log( this.input );
   }
 
   ngOnInit() {
@@ -44,9 +43,9 @@ export class QueryAppInputMapComponent implements OnInit {
     localStorage.setItem( 'mapInputs', JSON.stringify(this.input) );
   }
 
-  // close() {
-  //   this.dialogRef.close( this.mapping );
-  // }
+  close() {
+    this.dialogRef.close( this.mapping );
+  }
 
   loadAbstractResponse() {
     // console.log( 'Load tree input' );
@@ -66,7 +65,22 @@ export class QueryAppInputMapComponent implements OnInit {
       );
   }
 
-  updateQueryAppInputMaping( mapping: any ) {
-    console.log( mapping );
+  updateQueryAppInputMaping( paths: any ) {
+    console.log( paths );
+    this.paths = paths;
+  }
+
+  save() {
+    console.log(
+      'save paths to appInputQueryMapping',
+      this.input.mapping[ this.input.app.hash ],
+      this.paths );
+    for ( const path in this.paths ) {
+      const queryID = this.input.mapping[ this.input.app.hash ][ path ];
+      this.input.mapping[ this.input.app.hash ][ path ] = {};
+      this.input.mapping[ this.input.app.hash ][ path ][ 'path' ] = this.paths[ path ];
+      this.input.mapping[ this.input.app.hash ][ path ][ 'query' ] = queryID;
+    }
+    console.log( this.input.mapping[ this.input.app.hash ] );
   }
 }
