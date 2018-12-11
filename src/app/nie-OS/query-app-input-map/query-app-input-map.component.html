@@ -1,20 +1,17 @@
-<!--<div style="margin-top: 30px">-->
-  <!--<button mat-button (click)="saveInputToLocalstorage()" *ngIf="input" style="position: fixed; bottom: 0; right: 0;">-->
-    <!--devel - save input to localstorage-->
-  <!--</button><br>-->
-  <!--<button mat-button (click)="close()" >close component</button>-->
-  <!--<button mat-button (click)="loadAbstractResponse()" >Load abstract response</button>-->
-<!--</div>-->
-
-<!--<h5>App:</h5>-->
-<!--{{ input.app.type + ' ' + input.app.hash }}-->
-
-<!--<h5>Query Name:</h5>-->
-<!--{{ input.query.query }}-->
-
 <div style="margin-top: 30px">
-  <h5>Page: "5c0a5dfe887a9979b567be60"</h5>
+  <button mat-button (click)="save()">
+    <mat-icon>save</mat-icon> Save and close
+  </button>
+  <button mat-button (click)="close()">
+    <mat-icon>clear</mat-icon> Close (without saving again)
+  </button>
 </div>
+
+<h5>App:</h5>
+{{ input.app.type + ' ' + input.app.hash }}
+
+<h5>Query Name:</h5>
+{{ input.query.title }}
 
 <h5>Chosen inputs:</h5>
 <span *ngFor="let input of chosenInputs" >
