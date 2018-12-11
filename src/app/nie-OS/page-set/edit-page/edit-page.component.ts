@@ -2,8 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Page } from '../../../shared/nieOS/mongodb/page/page.model';
-import { MongoPageService } from "../../../shared/nieOS/mongodb/page/page.service";
-import { PageSetService } from "../model/page-set.service";
+import { PageSetService } from '../model/page-set.service';
 
 @Component({
   selector: 'app-edit-page',
