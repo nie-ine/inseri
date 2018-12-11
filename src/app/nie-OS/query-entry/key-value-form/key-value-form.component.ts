@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-key-value-form',
@@ -42,24 +42,23 @@ export class KeyValueFormComponent implements OnInit {
     }));
   }
 
-  deleteRow(row: number) {
-      (this.form.get('param') as FormArray).removeAt(row);
+  deleteControl(control: number) {
+      (this.form.get('param') as FormArray).removeAt(control);
   }
 
-  test() {
-      console.log('test');
-      const bla = (this.form.get('param') as FormArray).controls.filter(param => param.get('key').valid);
-      // for (let co of (this.form.get('param') as FormArray).controls) {
-      //     console.log(co, typeof(co));
-      // }
-      const a = bla.map(b => {
-          // console.log(b, b['controls']);
+  getAllControls(): FormArray {
+    return (this.form.get('param') as FormArray);
+  }
+
+  getValidParams(): {key: string, value: string}[] {
+      const validControls = (this.form.get('param') as FormArray).controls.filter(param => param.get('key').valid);
+
+      return validControls.map(b => {
           return {
-              key: b['controls'].key.value,
-              value: b['controls'].value.value
+              'key': b['controls'].key.value,
+              'value': b['controls'].value.value
           };
       });
-      console.log(a);
   }
 
 }

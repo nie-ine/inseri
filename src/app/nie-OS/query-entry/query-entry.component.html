@@ -29,15 +29,15 @@
 
       <mat-tab-group>
         <mat-tab label="URL Params">
-          <app-key-value-form [param]="data.query.params"></app-key-value-form>
+          <app-key-value-form #paramForm [param]="data.query.params"></app-key-value-form>
         </mat-tab>
 
         <mat-tab label="Header">
-          <app-key-value-form [param]="data.query.header"></app-key-value-form>
+          <app-key-value-form #headerForm [param]="data.query.header"></app-key-value-form>
         </mat-tab>
 
         <mat-tab label="Body">
-          <ace-editor class="url-extension" [text]="'Hier kommt der Body'"
+          <ace-editor class="url-extension"
                       #editor
                       style="min-height: 20rem; width:100%; overflow: auto;"
                       [mode]="'typescript'">

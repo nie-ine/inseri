@@ -1,9 +1,10 @@
-import {Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {Component, Inject, OnInit, ViewChild } from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {HttpClient} from '@angular/common/http';
 import { AbstractJsonService } from '../data-management/abstract-json.service';
 import {FormControl, FormGroup} from '@angular/forms';
 import {MongoPageService} from '../../shared/nieOS/mongodb/page/page.service';
+import { KeyValueFormComponent } from './key-value-form/key-value-form.component';
 
 @Component({
   selector: 'app-query-entry',
@@ -12,21 +13,17 @@ import {MongoPageService} from '../../shared/nieOS/mongodb/page/page.service';
 })
 export class QueryEntryComponent implements OnInit {
   @ViewChild('editor') editor;
+
+  @ViewChild('paramForm')
+  private param: KeyValueFormComponent;
+
+  @ViewChild('headerForm')
+  private header: KeyValueFormComponent;
+
   response: any;
   tree: any;
   abstractJson: any;
   form: FormGroup;
-  dummy = {'menu': {
-      'id': 'file',
-      'value': 'File',
-      'popup': {
-        'menuitem': [
-          {'value': 'New', 'onclick': 'CreateNewDoc()'},
-          {'value': 'Open', 'onclick': 'OpenDoc()'},
-          {'value': 'Close', 'onclick': 'CloseDoc()'}
-        ]
-      }
-    }};
 
   constructor(
     public dialogRef: MatDialogRef<QueryEntryComponent>,
@@ -40,10 +37,14 @@ export class QueryEntryComponent implements OnInit {
       this.form = new FormGroup({
           serverURL: new FormControl(this.data.query.serverUrl, [])
       });
+      this.editor.text = this.data.query.body;
   }
 
   save() {
       this.data.query.serverUrl = this.form.get('serverURL').value;
+      this.data.query.params = this.param.getValidParams();
+      this.data.query.header = this.header.getValidParams();
+      this.data.query.body = this.editor.text;
       this.pageService.updateQuery(this.data.pageID, this.data.query._id, this.data.query)
           .subscribe((data) => {
             if (data.status === 200) {
