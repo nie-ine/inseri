@@ -89,6 +89,14 @@ export class DataManagementComponent implements OnInit {
                           console.log( this.queries );
                           this.isLoading = false;
                     });
+                  } else {
+                    this.pageID = this.route.snapshot.queryParams.page;
+                    this.pageService.getAllQueries(this.pageID)
+                      .subscribe((data) => {
+                        this.queries = data.queries;
+                        console.log( this.queries );
+                        this.isLoading = false;
+                      });
                   }
               } else {
                 this.isLoading = false;
