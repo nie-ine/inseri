@@ -1,4 +1,5 @@
-<div style="margin-top: 40px; width: 900px;">
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<div style="margin-top: 40px; width: 900px;" *ngIf="!isLoading">
 
   <div style="float:left; width: 100%;">
 
@@ -18,10 +19,10 @@
     <div style="margin-right: 30px; margin-left: 30px; margin-top: 20px;" *ngFor="let page of pagesOfThisPageSet; let i = index; ">
       <mat-divider></mat-divider>
         <span>
-          <a href="{{ generateURL( page ) }}" style="font-size: 25px" > {{ generatePageTitle ( page ) }} </a>
+          <a href="{{ generateURL( page ) }}" style="font-size: 25px" > {{ page.title }} </a>
           <button mat-button (click)="editPage(page)"><mat-icon>settings</mat-icon></button><br>
           <button mat-button (click)="deletePage(page)"><mat-icon>delete</mat-icon></button>
-          <span style="font-size: 15px" > {{ generatePageDescription( page ) }}   </span>
+          <span style="font-size: 15px" > {{ page.description }}   </span>
         </span>
     </div>
   </div>

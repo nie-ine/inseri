@@ -20,8 +20,8 @@ export class PageSetLandingPageComponent implements OnInit {
   actionID: string;
   pageSet: any;
   action: Action;
-  model: any;
   pagesOfThisPageSet: any;
+  isLoading: boolean;
 
   constructor(
     public dialog: MatDialog,
@@ -32,6 +32,7 @@ export class PageSetLandingPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.isLoading = true;
     this.actionID = this.route.snapshot.queryParams.actionID;
     if (this.actionID) {
       this.checkIfPageSetExists(this.actionID);
@@ -41,55 +42,37 @@ export class PageSetLandingPageComponent implements OnInit {
   checkIfPageSetExists(actionID: string) {
     this.mongoActionService.getAction(actionID)
       .subscribe(data => {
-        if (data.status === 200) {
+        if ((data.status === 200) && (data.body.action.type === 'page-set')) {
           this.action = data.body.action;
-          if (this.action.type === 'page-set') {
-            this.pagesOfThisPageSet = [];
-            this.pageSet = this.action.hasPageSet;
-            this.updatePagesOfThisPageSet(this.action);
-          }
-        } else if (data.status === 404) {
-          // Fehlermeldung
-          // this.initializeTemplatePageSet();
+          this.pageSet = this.action.hasPageSet;
+          this.pagesOfThisPageSet = this.action.hasPageSet.hasPages;
+          this.isLoading = false;
         } else {
-          // Fehlermeldung
+          this.isLoading = false;
+          // Fehlermeldung: Action not found
         }
       }, error => {
         console.log(error);
+        this.isLoading = false;
         // Fehlermeldung
-        // this.templatePageSet();
       });
-  }
-
-  updatePagesOfThisPageSet(action: any) {
-    const help = [];
-    for (const page of action.hasPageSet.hasPages) {
-      help[help.length] = page;
-    }
-    this.pagesOfThisPageSet = help;
   }
 
   generateDescription() {
     if (this.pageSet && this.pageSet.description) {
       return this.pageSet.description;
-    } else {
-      return 'Description not found';
     }
   }
 
   generateTitle() {
     if (this.pageSet && this.pageSet.title) {
       return this.pageSet.title;
-    } else {
-      return 'Title not found';
     }
   }
 
   generateImage() {
     if (this.pageSet && this.pageSet.linkToImage) {
       return this.pageSet.linkToImage;
-    } else {
-      return 'Image not found';
     }
   }
 
@@ -100,7 +83,6 @@ export class PageSetLandingPageComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       this.checkIfPageSetExists(this.actionID);
-      // this.createPageAndUpdateAction(result, this.route.snapshot.queryParams.actionID );
     });
   }
 
@@ -126,18 +108,6 @@ export class PageSetLandingPageComponent implements OnInit {
   generateURL(page: any) {
     if ( page ) {
       return 'page?actionID=' + this.actionID + '&page=' + page._id;
-    }
-  }
-
-  generatePageTitle (page: any) {
-    if ( page ) {
-      return page.title;
-    }
-  }
-
-  generatePageDescription (page: any ) {
-    if ( page ) {
-      return page.description;
     }
   }
 

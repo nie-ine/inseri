@@ -6,7 +6,7 @@ export interface Action {
   deleted: boolean;
   type: string;
   hasPage: Array<string>; // hashes of the pages
-  hasPageSet: string;
+  hasPageSet: string  | any;
   creator: string;
 }
 
