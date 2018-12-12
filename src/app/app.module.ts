@@ -7,7 +7,6 @@ import {AuthenticationService} from './shared/nieOS/fake-backend/auth/authentica
 import {HttpClientModule} from '@angular/common/http';
 import {fakeBackendProvider} from './shared/nieOS/fake-backend/fake-backend';
 import {AuthGuard} from './shared/nieOS/fake-backend/auth/auth.guard';
-import {PageService} from './nie-OS/apps/page/page.service';
 import {environment} from '../environments/environment';
 import {KuiCoreModule} from '@knora/core';
 
@@ -32,8 +31,7 @@ import {KuiCoreModule} from '@knora/core';
     AuthenticationService,
 
     // provider used to create fake backend
-    fakeBackendProvider,
-    PageService
+    fakeBackendProvider
   ],
   bootstrap: [AppComponent]
 })
