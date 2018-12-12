@@ -3,7 +3,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import {Router, ActivatedRoute} from '@angular/router';
 import {EditPageSetComponent} from '../edit-page-set/edit-page-set.component';
 import {MongoActionService} from '../../../shared/nieOS/mongodb/action/action.service';
-import { PageSetService } from '../model/page-set.service';
+import { PageSetService } from '../../../shared/nieOS/mongodb/pageset/page-set.service';
 import { Action } from '../../../shared/nieOS/mongodb/action/action.model';
 import { EditPageComponent } from '../edit-page/edit-page.component';
 import { Page } from '../../../shared/nieOS/mongodb/page/page.model';

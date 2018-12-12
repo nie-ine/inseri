@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { MongoActionService } from '../../../shared/nieOS/mongodb/action/action.service';
-import { PageSetService } from '../../../nie-OS/page-set/model/page-set.service';
+import { PageSetService } from '../../../shared/nieOS/mongodb/pageset/page-set.service';
 import { MongoPageService } from '../../../shared/nieOS/mongodb/page/page.service';
 
 @Component({
