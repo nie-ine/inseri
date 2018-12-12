@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const querySchema = mongoose.Schema({
     title: { type: String, required: true },
     serverUrl: { type: String },
+    method: { type: String},
     params: [
         {
             _id: false,
