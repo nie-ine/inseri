@@ -159,12 +159,18 @@ export class DataManagementComponent implements OnInit {
     if (!this.appInputQueryMapping[app]) {
       this.appInputQueryMapping[app] = {};
     }
-    this.appInputQueryMapping[app][input] = query;
+    if (!this.appInputQueryMapping[app][input]) {
+      this.appInputQueryMapping[app][input] = {};
+    }
+    this.appInputQueryMapping[app][input][ 'query' ] = query;
     console.log(this.appInputQueryMapping);
   }
 
   checkIfChosen(input: string, app: string, query: string) {
-    if (this.appInputQueryMapping[app] && this.appInputQueryMapping[app][input] === query) {
+    if (
+      this.appInputQueryMapping[app] &&
+      this.appInputQueryMapping[app][input] &&
+      this.appInputQueryMapping[app][input][ 'query' ] === query) {
       // console.log( 'true' );
       return true;
     } else {
@@ -175,14 +181,14 @@ export class DataManagementComponent implements OnInit {
 
   checkIfRowIsChosen(app: string, query: string) {
     for (const input in this.appInputQueryMapping[app]) {
-      if (this.appInputQueryMapping[app][input] === query) {
+      if (this.appInputQueryMapping[app][input][ 'query' ] === query) {
         return true;
       }
     }
   }
 
   unSelectChip( input: string, app: string, query: string ) {
-    this.appInputQueryMapping[app][input] = undefined;
+    this.appInputQueryMapping[app][input][ 'query' ] = undefined;
   }
 
   openQueryAppInputMapDialog( app: string, query: any ) {
@@ -195,7 +201,8 @@ export class DataManagementComponent implements OnInit {
         app: app,
         query: query,
         openApps: this.openAppsInThisPage,
-        abstractResponse: query.abstractResponse
+        abstractResponse: query.abstractResponse,
+        page: this.page
       }
     });
     dialogRef.afterClosed().subscribe((result) => {
@@ -203,6 +210,7 @@ export class DataManagementComponent implements OnInit {
       console.log(result);
     });
   }
+
   save() {
     this.page['appInputQueryMapping'] = this.appInputQueryMapping;
     console.log( this.page );
@@ -216,4 +224,3 @@ export class DataManagementComponent implements OnInit {
         });
     }
 }
-

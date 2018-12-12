@@ -139,6 +139,8 @@ export class ResponseTreeComponent implements OnChanges {
 
   chooseChip( hash: string, input: string ) {
     this.mapping[ input ] = this.generatePathService.generatePath( hash , this.queryResponse );
+    this.mapping[ input ].hash = hash;
+    console.log( this.mapping, input );
     this.sendMappingBackToQueryAppInputMap.emit( this.mapping );
   }
 
@@ -149,5 +151,10 @@ export class ResponseTreeComponent implements OnChanges {
   private _getChildren = (node: FileNode): Observable<FileNode[]> => observableOf(node.children);
 
   hasChild = (_: number, _nodeData: FileFlatNode) => _nodeData.expandable;
+
+  checkIfNotTrue(mapping: any, input: string, nodeType: string) {
+    console.log( 'checkIfNottrue', mapping, input, nodeType );
+    return true;
+  }
 
 }

@@ -12,12 +12,12 @@
 
     <div *ngIf="node.filename === 'hash'">
       <mat-chip-list *ngFor="let input of chosenInputs; let i = index;" style="margin-left: 2px; display: inline-block;">
-        <mat-chip (click)="chooseChip( node.type, input )" *ngIf="mapping[ input ] != node.type">
+        <mat-chip (click)="chooseChip( node.type, input )" *ngIf="!mapping[ input ] || (mapping[ input ].hash != node.type)">
           {{input}}
         </mat-chip>
         <mat-chip
           [color]="'primary'" selected
-          *ngIf="mapping[ input ] === node.type">
+          *ngIf="mapping[ input ] && mapping[ input ].hash === node.type">
           {{input}}
         </mat-chip>
       </mat-chip-list>
