@@ -165,6 +165,7 @@ router.put('/:pageID/queries/:queryID', checkAuth, (req, res, next) => {
                 Query.findByIdAndUpdate({_id: req.params.queryID}, {
                     // title: req.body.title,
                     serverUrl: req.body.serverUrl,
+                    method: req.body.method,
                     params: req.body.params,
                     header: req.body.header,
                     body: req.body.body
