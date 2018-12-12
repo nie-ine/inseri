@@ -13,10 +13,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatMenuModule} from '@angular/material/menu';
 import {PageSetService} from './model/page-set.service';
 import {GenerateHashService} from '../../shared/nieOS/other/generateHash.service';
-import {ActionService} from '../../shared/nieOS/fake-backend/action/action.service';
 import {EditPageSetComponent} from './edit-page-set/edit-page-set.component';
-import {CreatePageSetAndLinkToActionService} from './services/createPageSetAndLinkToAction.service';
-import {CreatePageAndLinkToAction} from './services/createPageAndLinkToAction.service';
 import {MatDividerModule} from '@angular/material/divider';
 import {EditPageComponent } from './edit-page/edit-page.component';
 import { DeletePageComponent } from './delete-page/delete-page.component';
@@ -54,10 +51,7 @@ import { DeletePageComponent } from './delete-page/delete-page.component';
   ],
   providers: [
     PageSetService,
-    GenerateHashService,
-    ActionService,
-    CreatePageSetAndLinkToActionService,
-    CreatePageAndLinkToAction
+    GenerateHashService
   ]
 })
 export class MyPageSetModule { }
