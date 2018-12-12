@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Page } from '../../../shared/nieOS/mongodb/page/page.model';
-import { PageSetService } from '../../../shared/nieOS/mongodb/pageset/page-set.service';
+import { MongoPageService } from '../../../shared/nieOS/mongodb/page/page.service';
 
 @Component({
   selector: 'app-edit-page',
@@ -22,7 +22,7 @@ export class EditPageComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<EditPageComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
-              private pageSetService: PageSetService) {
+              private pageService: MongoPageService) {
     this.newPage.id = this.data.page._id;
     this.newPage.title = this.data.page.title;
     this.newPage.description = this.data.page.description;
@@ -43,7 +43,7 @@ export class EditPageComponent implements OnInit {
     this.newPage.description = this.form.get('description').value;
     console.log(this.newPage);
 
-    this.pageSetService.updatePage(this.pageSetID, this.newPage)
+    this.pageService.updatePageOfPageSet(this.pageSetID, this.newPage)
       .subscribe(result => {
         if (result.status === 200) {
           console.log(result.body);
