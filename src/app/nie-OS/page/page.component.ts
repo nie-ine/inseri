@@ -13,7 +13,6 @@ import {BrowserModule} from '@angular/platform-browser';
 import {Frame} from './frame';
 import 'rxjs/add/operator/map';
 import { ActivatedRoute } from '@angular/router';
-import { ActionService } from '../../shared/nieOS/fake-backend/action/action.service';
 import { PageService } from '../apps/page/page.service';
 import {GenerateHashService} from '../../shared/nieOS/other/generateHash.service';
 import {OpenAppsModel} from '../../shared/nieOS/mongodb/page/open-apps.model';
@@ -56,7 +55,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   constructor(
     private route: ActivatedRoute,
-    private actionService: ActionService,
     private pageService: PageService,
     private cdr: ChangeDetectorRef,
     private generateHashService: GenerateHashService,

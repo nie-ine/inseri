@@ -1,9 +1,7 @@
 import {Component, OnInit, Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import {Router, ActivatedRoute} from '@angular/router';
-import {ActionService } from '../../../shared/nieOS/fake-backend/action/action.service';
 import {EditPageSetComponent} from '../edit-page-set/edit-page-set.component';
-import {CreatePageSetAndLinkToActionService} from '../services/createPageSetAndLinkToAction.service';
 import {MongoActionService} from '../../../shared/nieOS/mongodb/action/action.service';
 import { PageSetService } from '../model/page-set.service';
 import { Action } from '../../../shared/nieOS/mongodb/action/action.model';
@@ -193,7 +191,6 @@ export class DialogCreateNewPageComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<DialogCreateNewPageComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private router: Router,
-              private actionService: ActionService,
               private route: ActivatedRoute,
               private pageService: PageSetService) {
     this.pageSetID = data.pageset._id;

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AlertService} from '../../shared/nieOS/fake-backend/auth/altert.service';
-import { UserService } from '../../shared/nieOS/fake-backend/user/user.service';
 import { AuthService } from '../../shared/nieOS/mongodb/auth/auth.service';
 
 @Component({
@@ -17,7 +16,6 @@ export class RegisterComponent implements OnInit{
 
   constructor(
     private router: Router,
-    private userService: UserService,
     private alertService: AlertService,
     public authService: AuthService
   ) {}
