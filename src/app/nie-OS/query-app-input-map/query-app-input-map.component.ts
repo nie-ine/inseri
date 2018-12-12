@@ -31,7 +31,7 @@ export class QueryAppInputMapComponent implements OnInit {
     for ( const appInput in input.mapping[ input.app.hash ] ) {
       this.chosenInputs.push( appInput );
     }
-    console.log( this.input );
+    console.log( this.input, 'chosenInputs:', this.chosenInputs );
   }
 
   ngOnInit() {
@@ -73,14 +73,11 @@ export class QueryAppInputMapComponent implements OnInit {
   save() {
     console.log(
       'save paths to appInputQueryMapping',
-      this.input.mapping[ this.input.app.hash ],
-      this.paths );
-    for ( const path in this.paths ) {
-      const queryID = this.input.mapping[ this.input.app.hash ][ path ];
-      this.input.mapping[ this.input.app.hash ][ path ] = {};
-      this.input.mapping[ this.input.app.hash ][ path ][ 'path' ] = this.paths[ path ];
-      this.input.mapping[ this.input.app.hash ][ path ][ 'query' ] = queryID;
+      this.input,
+      this.paths
+    );
+    for ( const appInput in this.paths ) {
+      console.log( appInput, this.paths[ appInput ], this.input.page.appInputQueryMapping );
     }
-    console.log( this.input.mapping[ this.input.app.hash ] );
   }
 }
