@@ -3,12 +3,12 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import {Router, ActivatedRoute} from '@angular/router';
 import {EditPageSetComponent} from '../edit-page-set/edit-page-set.component';
 import {MongoActionService} from '../../../shared/nieOS/mongodb/action/action.service';
-import { PageSetService } from '../../../shared/nieOS/mongodb/pageset/page-set.service';
 import { Action } from '../../../shared/nieOS/mongodb/action/action.model';
 import { EditPageComponent } from '../edit-page/edit-page.component';
 import { Page } from '../../../shared/nieOS/mongodb/page/page.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DeletePageComponent } from '../delete-page/delete-page.component';
+import { MongoPageService } from '../../../shared/nieOS/mongodb/page/page.service';
 
 @Component({
   selector: 'app-page-set-landing-page',
@@ -192,7 +192,7 @@ export class DialogCreateNewPageComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: any,
               private router: Router,
               private route: ActivatedRoute,
-              private pageService: PageSetService) {
+              private pageService: MongoPageService) {
     this.pageSetID = data.pageset._id;
   }
 

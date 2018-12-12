@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { MongoActionService } from '../../../shared/nieOS/mongodb/action/action.service';
-import { PageSetService } from '../../../shared/nieOS/mongodb/pageset/page-set.service';
+import { MongoPageSetService } from '../../../shared/nieOS/mongodb/pageset/page-set.service';
 import { MongoPageService } from '../../../shared/nieOS/mongodb/page/page.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class DeleteActionComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: any,
               private mongoActionService: MongoActionService,
               private pageService: MongoPageService,
-              private pageSetService: PageSetService) {
+              private pageSetService: MongoPageSetService) {
   }
 
   ngOnInit() {
