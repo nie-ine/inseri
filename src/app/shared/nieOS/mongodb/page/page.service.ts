@@ -33,7 +33,6 @@ export class MongoPageService {
   }
 
   createQuery(pageId: string, query: any): Observable<any> {
-    console.log(`${MongoPageService.API_BASE_URL}/${pageId}/queries`);
     return this.http.post(`${MongoPageService.API_BASE_URL}/${pageId}/queries`, query, {observe: 'response'});
   }
 
