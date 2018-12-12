@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { PageSetService } from '../model/page-set.service';
+import { PageSetService } from '../../../shared/nieOS/mongodb/pageset/page-set.service';
 
 @Component({
   selector: 'app-delete-page',

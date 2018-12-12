@@ -9,7 +9,6 @@ export class PageSetService {
 
   constructor(private http: HttpClient) { }
 
-  // Requests concerning page sets
   createPageSet(pageSet: PageSetModel): Observable<any> {
     return this.http.post(`${PageSetService.API_BASE_URL_PAGE_SET}`, pageSet);
   }
@@ -31,7 +30,6 @@ export class PageSetService {
   }
 
   createPage(pageSetID: string, page: any): Observable<any> {
-    console.log('createPage function');
     return this.http.post(`${PageSetService.API_BASE_URL_PAGE_SET}/${pageSetID}/pages`, page);
   }
 
