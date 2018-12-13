@@ -6,10 +6,15 @@ import { Observable } from 'rxjs';
 export class MongoPageService {
   private static API_BASE_URL_PAGE = 'http://localhost:3000/api/pages';
   private static API_BASE_URL_PAGE_SET = 'http://localhost:3000/api/pagesets';
+  private static API_BASE_URL_QUERY = 'http://localhost:3000/api/queries';
 
   constructor(
     private http: HttpClient
   ) {}
+
+  createPage(pageSetID: string, page: any): Observable<any> {
+    return this.http.post(`${MongoPageService.API_BASE_URL_PAGE_SET}/${pageSetID}/pages`, page);
+  }
 
   getPage(pageId: string): Observable<any> {
     return this.http.get(`${MongoPageService.API_BASE_URL_PAGE}/${pageId}`);
@@ -32,10 +37,6 @@ export class MongoPageService {
     return this.http.put(`${MongoPageService.API_BASE_URL_PAGE}/${page._id}`, page);
   }
 
-  createPage(pageSetID: string, page: any): Observable<any> {
-    return this.http.post(`${MongoPageService.API_BASE_URL_PAGE_SET}/${pageSetID}/pages`, page);
-  }
-
   updatePageOfPageSet(pageSetID: string, page: any): Observable<any> {
     return this.http.put(`${MongoPageService.API_BASE_URL_PAGE_SET}/${pageSetID}/pages/${page.id}`, page, {observe: 'response'});
   }
@@ -46,6 +47,10 @@ export class MongoPageService {
 
   createQuery(pageId: string, query: any): Observable<any> {
     return this.http.post(`${MongoPageService.API_BASE_URL_PAGE}/${pageId}/queries`, query, {observe: 'response'});
+  }
+
+  getQuery(queryId: string): Observable<any> {
+    return this.http.get(`${MongoPageService.API_BASE_URL_QUERY}/${queryId}`);
   }
 
   getAllQueries(pageId: string): Observable<any> {
