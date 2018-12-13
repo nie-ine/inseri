@@ -10,26 +10,21 @@ export class GeneralRequestService {
 
   constructor(private http: HttpClient, private pageService: MongoPageService) { }
 
-  ////////////////////////////////////
-  //                                //
-  //   Hier funktioniert es nicht   //
-  //                                //
-  ////////////////////////////////////
-  request(queryID): Observable<any> {
-    this.pageService.getQuery(queryID)
-      .subscribe(data => {
-        const query = data.query;
-        switch (query.method) {
-          case 'GET':
-            return this.http.get(query.url, {params : query.parameter, headers: query.header, observe: 'response'});
-          case 'POST':
-            return this.post(query.url, query.parameter, query.header, query.body);
-          case 'PUT':
-            return this.put(query.url, query.parameter, query.header, query.body);
-          case 'DELETE':
-            return this.delete(query.url, query.parameter, query.header);
-        }
-      }, (error) => error );
+  request(queryID) {
+    return this.pageService.getQuery(queryID)
+      .flatMap(data => {
+          const query = data.query;
+          switch (query.method) {
+            case 'GET':
+              return this.get(query.serverUrl, query.parameter, query.header);
+            case 'POST':
+              return this.post(query.serverUrl, query.parameter, query.header, query.body);
+            case 'PUT':
+              return this.put(query.serverUrl, query.parameter, query.header, query.body);
+            case 'DELETE':
+              return this.delete(query.serverUrl, query.parameter, query.header);
+          }
+      });
   }
 
   get(url: string, parameter?: any, header?: any): Observable<any> {
