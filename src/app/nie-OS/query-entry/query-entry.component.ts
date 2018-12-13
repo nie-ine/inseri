@@ -1,17 +1,18 @@
-import {AfterViewInit, Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatTabChangeEvent } from '@angular/material';
 import {HttpClient} from '@angular/common/http';
 import { AbstractJsonService } from '../data-management/abstract-json.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {MongoPageService} from '../../shared/nieOS/mongodb/page/page.service';
 import { KeyValueFormComponent } from './key-value-form/key-value-form.component';
+import { GeneralRequestService } from "../../shared/general/general-request.service";
 
 @Component({
   selector: 'app-query-entry',
   templateUrl: './query-entry.component.html',
   styleUrls: ['./query-entry.component.scss']
 })
-export class QueryEntryComponent implements OnInit, AfterViewInit {
+export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('editor') editor;
 
   @ViewChild('paramForm')
@@ -30,7 +31,8 @@ export class QueryEntryComponent implements OnInit, AfterViewInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private http: HttpClient,
     private abstractJsonService: AbstractJsonService,
-    private pageService: MongoPageService
+    private pageService: MongoPageService,
+    private requestService: GeneralRequestService
   ) { }
 
   ngOnInit() {
@@ -38,6 +40,10 @@ export class QueryEntryComponent implements OnInit, AfterViewInit {
           serverURL: new FormControl(this.data.query.serverUrl, []),
           method: new FormControl(this.data.query.method ? this.data.query.method : 'GET', [Validators.required])
       });
+  }
+
+  ngOnDestroy() {
+
   }
 
   ngAfterViewInit() {
@@ -84,7 +90,16 @@ export class QueryEntryComponent implements OnInit, AfterViewInit {
     }
   }
 
-  sendQuery() {
+  ////////////////////////////////////////////////
+  //                                            //
+  //   Auf den Button "Test" im GUI klicken     //
+  //                                            //
+  ////////////////////////////////////////////////
+  test() {
+    this.requestService.request('5c12359fb393460ad4d9abf9').subscribe((data) => console.log(data));
+  }
+
+  initiateQuery() {
     const url = this.form.get('serverURL').value;
     const method = this.form.get('method').value;
     const parameter = this.param.getValidParams().length > 0 ? this.param.getValidParams().reduce(((acc, param) => ({...acc, [param.key]:  param.value})), {}) : null;
@@ -107,14 +122,13 @@ export class QueryEntryComponent implements OnInit, AfterViewInit {
   }
 
   getRequest(url: string, parameter: any, header: any) {
-    console.log('GET Request', url, parameter, header);
-    this.http.get(url, {params : parameter, headers: header})
+    this.requestService.get(url, parameter, header)
       .subscribe(data => {
           console.log(data);
-          this.response = data;
-          this.tree = data;
-          this.abstractJson = this.abstractJsonService.json2abstract( data );
-          console.log( this.abstractJson );
+          this.response = data.body;
+          this.tree = data.body;
+          this.abstractJson = this.abstractJsonService.json2abstract(data.body);
+          console.log(this.abstractJson);
         }, error => {
           console.log( error );
         }
@@ -122,8 +136,7 @@ export class QueryEntryComponent implements OnInit, AfterViewInit {
   }
 
   postRequest(url: string, parameter: any, header: any, body: string) {
-    console.log('POST Request', url, parameter, header, body);
-    this.http.post(url, body, {params: parameter, headers: header})
+    this.requestService.post(url, parameter, header, this.editor.text)
       .subscribe(data => {
           console.log(data);
           // TODO: Mapping from Jan
@@ -131,8 +144,7 @@ export class QueryEntryComponent implements OnInit, AfterViewInit {
   }
 
   putRequest(url: string, parameter: any, header: any, body: string) {
-    console.log('PUT Request', url, parameter, header, body);
-    this.http.put(url, body, {params: parameter, headers: header})
+    this.requestService.put(url, parameter, header, this.editor.text)
       .subscribe(data => {
           console.log(data);
         // TODO: Mapping from Jan
@@ -141,8 +153,7 @@ export class QueryEntryComponent implements OnInit, AfterViewInit {
   }
 
   deleteRequest(url: string, parameter: any, header: any) {
-    console.log('DELETE Request', url, parameter, header);
-    this.http.delete(url, {params: parameter, headers: header})
+    this.requestService.delete(url, parameter, header)
       .subscribe(data => {
           console.log(data);
         // TODO: Mapping from Jan

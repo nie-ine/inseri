@@ -44,9 +44,11 @@
         </mat-tab>
       </mat-tab-group>
 
-      <button mat-button (click)="sendQuery()">
+      <button mat-button (click)="initiateQuery()">
         <mat-icon>label</mat-icon> Try Query
       </button>
+
+      <button (click)="test()">Test</button>
 
       <div *ngIf="response">
         <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
