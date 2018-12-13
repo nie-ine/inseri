@@ -60,10 +60,10 @@ export class QueryEntryComponent implements OnInit, AfterViewInit {
       this.pageService.updateQuery(this.data.pageID, this.data.query._id, this.data.query)
           .subscribe((data) => {
             if (data.status === 200) {
-                this.close();
+                // this.close();
             } else {
                 console.log('Updating query failed');
-                this.close();
+                // this.close();
             }
           });
   }

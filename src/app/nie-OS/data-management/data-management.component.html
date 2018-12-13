@@ -14,7 +14,8 @@
     <ng-container matColumnDef="query">
       <th mat-header-cell *matHeaderCellDef> Query </th>
       <td mat-cell *matCellDef="let item">
-        <button mat-button (click)="openQueryEntry(item)"> {{item.title}} <mat-icon>settings</mat-icon>  </button>
+        <button mat-button (click)="delete(item)" mat-icon-button><mat-icon>close</mat-icon></button>
+        <button mat-button (click)="openQueryEntry(item)"> {{item.title}} </button>
       </td>
 
     </ng-container>
@@ -23,7 +24,7 @@
         <th mat-header-cell *matHeaderCellDef> {{ app.type + ' ' + i }} </th>
         <td mat-cell *matCellDef="let item">
           <div *ngIf="item.serverUrl">
-            <mat-chip-list *ngFor="let input of inputs; let i = index;" style="margin-left: 2px; display: inline-block;">
+            <mat-chip-list *ngFor="let input of app.inputs; let i = index;" style="margin-left: 2px; display: inline-block;">
               <mat-chip
                 (click)="assignInputToQuery( input.inputName, app.hash, item._id )"
                 *ngIf="!checkIfChosen( input.inputName, app.hash, item._id )">
@@ -46,13 +47,6 @@
             <button mat-button color="warn">No query defined</button>
           </div>
         </td>
-    </ng-container>
-
-    <ng-container matColumnDef="delete">
-      <th mat-header-cell *matHeaderCellDef> </th>
-      <td mat-cell *matCellDef="let item">
-        <button mat-button (click)="delete(item)" mat-icon-button><mat-icon>close</mat-icon></button>
-      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
