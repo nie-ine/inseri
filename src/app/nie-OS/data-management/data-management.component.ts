@@ -6,6 +6,7 @@ import { QueryAppInputMapComponent } from '../query-app-input-map/query-app-inpu
 import {MongoPageService} from '../../shared/nieOS/mongodb/page/page.service';
 import {ActivatedRoute} from '@angular/router';
 import {MongoActionService} from '../../shared/nieOS/mongodb/action/action.service';
+import {OpenAppsModel} from '../../shared/nieOS/mongodb/page/open-apps.model';
 
 @Component({
   selector: 'app-data-management',
@@ -17,7 +18,7 @@ export class DataManagementComponent implements OnInit {
   actionID: string;
   pageID: string;
   isLoading: boolean;
-  displayedColumns = ['query', 'delete'];
+  displayedColumns = ['query'];
   columnsToDisplay: string[] = this.displayedColumns.slice();
   value: string;
   openApps: Array<any> = [];
@@ -44,7 +45,8 @@ export class DataManagementComponent implements OnInit {
     public dialog: MatDialog,
     private actionService: MongoActionService,
     private pageService: MongoPageService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private appModel: OpenAppsModel
   ) {
     this.openAppsInThisPage = data[ 0 ];
     this.page = data[ 1 ];
@@ -53,16 +55,20 @@ export class DataManagementComponent implements OnInit {
     // console.log( this.openAppsInThisPage );
     for (const appType in this.openAppsInThisPage) {
       if (this.openAppsInThisPage[appType].model.length !== 0) {
-        // console.log( this.openAppsInThisPage[ appType ] );
+        console.log( this.openAppsInThisPage[ appType ],  );
         for (const appOfSameType of this.openAppsInThisPage[appType].model) {
-          this.openApps.push(appOfSameType);
-          // console.log( appOfSameType );
-          for (const query in this.queries) {
-            // console.log( this.queries[ query ] );
-            this.queries[query][appOfSameType.hash] = appOfSameType.hash;
+          console.log( this.appModel.openApps, appOfSameType );
+          if( this.appModel.openApps[ appOfSameType.type ].inputs ) {
+            appOfSameType.inputs = this.appModel.openApps[ appOfSameType.type ].inputs;
+            this.openApps.push(appOfSameType);
+            console.log( 'Get inputs for ', appOfSameType, ' from ', this.appModel.openApps[ appOfSameType.type ].inputs );
+            for (const query in this.queries) {
+              // console.log( this.queries[ query ] );
+              this.queries[query][appOfSameType.hash] = appOfSameType.hash;
+            }
+            this.columnsToDisplay.push(appOfSameType.hash);
+            console.log(this.queries);
           }
-          this.columnsToDisplay.push(appOfSameType.hash);
-          console.log(this.queries);
         }
         if (this.table) {
           this.table.renderRows();

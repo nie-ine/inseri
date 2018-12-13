@@ -51,6 +51,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   openAppsInThisPage: any;
   pageAsDemo = false;
   pageUpdated = false;
+  isLoading = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -90,6 +91,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.updatePageFromUrl();
     if ( !this.actionID ) {
       this.pageAsDemo = true;
+      this.isLoading = false;
     }
   }
 
@@ -117,6 +119,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
           }
         },
         error => {
+          this.isLoading = false;
           console.log(error);
         });
   }
@@ -160,8 +163,10 @@ export class PageComponent implements OnInit, AfterViewChecked {
             this.page,
             this.openAppsInThisPage
           );
+          this.isLoading = false;
         },
         error => {
+          this.isLoading = false;
           console.log(error);
         });
   }

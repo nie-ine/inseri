@@ -1,7 +1,7 @@
 export class OpenAppsModel {
   openApps = {
     imageViewer: {
-      type: 'imageViewers',
+      type: 'imageViewer',
       model: []
     },
     textViewer: {

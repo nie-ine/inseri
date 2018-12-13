@@ -54,8 +54,5 @@ export class GenerateDataChoosersService {
           console.log( error );
         }
       );
-
-
-
   }
 }
