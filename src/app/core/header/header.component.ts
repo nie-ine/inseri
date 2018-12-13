@@ -1,8 +1,6 @@
 import {Component, OnInit, OnDestroy, Inject, AfterViewChecked, ChangeDetectorRef} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {AuthenticationService} from '../../shared/nieOS/fake-backend/auth/authentication.service';
-import {ActionService} from '../../shared/nieOS/fake-backend/action/action.service';
-import {PageService} from '../../nie-OS/apps/page/page.service';
 import {AuthService} from '../../shared/nieOS/mongodb/auth/auth.service';
 import {Subscription} from 'rxjs';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
@@ -50,8 +48,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
     private dialog: MatDialog,
     private dialog2: MatDialog,
     private activatedRoute: ActivatedRoute,
-    private actionService: ActionService,
-    private pageService: PageService,
     private authenticationService: AuthenticationService,
     private authService: AuthService,
     private cdr: ChangeDetectorRef,

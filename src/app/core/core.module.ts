@@ -19,7 +19,6 @@ import { SynopsisModule } from '../synopsis/synopsis.module';
 import { SynopsisObjectStorageService } from '../synopsis/synopsis-object-storage.service';
 import { ArithmeticModule } from 'nie-ine';
 import { AuthenticationService } from '../shared/nieOS/fake-backend/auth/authentication.service';
-import { PageService } from '../nie-OS/apps/page/page.service';
 import { MatDialogModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InitPopupComponent } from './init-popup/init-popup.component';
@@ -78,7 +77,6 @@ import { DevelopmentViewsModule } from '../development-views/development-views.m
     KnoraAuthService,
     SynopsisObjectStorageService,
     AuthenticationService,
-    PageService,
     DialogUserSettingsDialog
   ],
   exports: [HeaderComponent, FooterComponent, MainComponent, RouterModule]
