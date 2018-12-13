@@ -6,7 +6,6 @@ import {MatButtonModule} from '@angular/material/button';
 import { MatDialogModule, MatProgressSpinnerModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatRadioModule} from '@angular/material/radio';
-import { ActionService } from '../shared/nieOS/fake-backend/action/action.service';
 import {MatMenuModule} from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
@@ -46,8 +45,6 @@ import { DeleteActionComponent } from './dashboard/delete-action/delete-action.c
     EditActionComponent,
     DeleteActionComponent
   ],
-  providers: [
-    ActionService
-  ]
+  providers: []
 })
 export class DashboardModule { }
