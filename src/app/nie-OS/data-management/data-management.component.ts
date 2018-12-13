@@ -214,8 +214,7 @@ export class DataManagementComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('\n\nHier weiter: update appInputQueryMapping\n\n');
-      console.log(result);
+      console.log( result );
     });
   }
 
