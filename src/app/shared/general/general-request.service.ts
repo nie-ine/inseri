@@ -7,22 +7,28 @@ import { MongoPageService } from '../nieOS/mongodb/page/page.service';
   providedIn: 'root'
 })
 export class GeneralRequestService {
-
+  params: any;
   constructor(private http: HttpClient, private pageService: MongoPageService) { }
 
   request(queryID) {
     return this.pageService.getQuery(queryID)
       .flatMap(data => {
           const query = data.query;
+          console.log( data );
+          this.params = {};
+          for ( const param of data.query.params ) {
+            this.params[ param[ 'key' ] ] = param[ 'value' ];
+          }
+          console.log( this.params );
           switch (query.method) {
             case 'GET':
-              return this.get(query.serverUrl, query.parameter, query.header);
+              return this.get(query.serverUrl, this.params, query.header);
             case 'POST':
-              return this.post(query.serverUrl, query.parameter, query.header, query.body);
+              return this.post(query.serverUrl, this.params, query.header, query.body);
             case 'PUT':
-              return this.put(query.serverUrl, query.parameter, query.header, query.body);
+              return this.put(query.serverUrl, this.params, query.header, query.body);
             case 'DELETE':
-              return this.delete(query.serverUrl, query.parameter, query.header);
+              return this.delete(query.serverUrl, this.params, query.header);
           }
       });
   }

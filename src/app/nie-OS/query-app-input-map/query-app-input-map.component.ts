@@ -4,6 +4,7 @@ import {query} from '@angular/animations';
 import {HttpClient} from '@angular/common/http';
 import {AbstractJsonService} from '../data-management/abstract-json.service';
 import {MongoPageService} from '../../shared/nieOS/mongodb/page/page.service';
+import {GeneralRequestService} from '../../shared/general/general-request.service';
 
 
 @Component({
@@ -24,12 +25,9 @@ export class QueryAppInputMapComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public input: any,
     private http: HttpClient,
     private abstractJsonService: AbstractJsonService,
-    private pageService: MongoPageService
+    private pageService: MongoPageService,
+    private requestService: GeneralRequestService
   ) {
-    // if ( !this.input ) {
-    //   this.input = JSON.parse(localStorage.getItem('mapInputs'));
-    //   console.log( this.input );
-    // }
     for ( const appInput in input.mapping[ input.app.hash ] ) {
       console.log( this.input.mapping[ input.app.hash ][appInput] );
       if ( this.input.mapping[ input.app.hash ][appInput][ 'query' ] === this.input.query._id ) {
@@ -54,21 +52,15 @@ export class QueryAppInputMapComponent implements OnInit {
   }
 
   loadAbstractResponse() {
-    // console.log( 'Load tree input' );
-    this.http.get( 'http://knora2.nie-ine.ch/v2/ontologies/' +
-      'allentities/http%3A%2F%2F0.0.0.0%3A3333%2Fontology%2F004D%2Fkuno-raeber%2Fv2' +
-      '?email=root%40example.com&password=test' )
-      .subscribe(
-        data => {
-          // console.log( data );
-          this.response = data;
-          this.tree = data;
-          this.abstractResponse = this.abstractJsonService.json2abstract( data );
-          // console.log( this.abstractResponse );
-        }, error => {
-          console.log( error );
+    this.requestService.request(this.input.query._id)
+      .subscribe((data) => {
+        if (data.status === 200) {
+          console.log(data.body);
+          this.response = data.body;
+          this.tree = data.body;
+          this.abstractResponse = this.abstractJsonService.json2abstract( data.body );
         }
-      );
+      });
   }
 
   updateQueryAppInputMaping( paths: any ) {
@@ -89,5 +81,14 @@ export class QueryAppInputMapComponent implements OnInit {
         error => {
           console.log(error);
         });
+  }
+
+  test() {
+    this.requestService.request('5c12873ab393460ad4d9abfa')
+      .subscribe((data) => {
+        if (data.status === 200) {
+          console.log(data.body);
+        }
+      });
   }
 }
