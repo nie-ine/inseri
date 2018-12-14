@@ -238,6 +238,7 @@ export class DataManagementComponent implements OnInit {
     }
 
   assignInputToLabel( input: any, query: any ) {
+    console.log('hier weiter');
     console.log( input, query );
   }
 }
