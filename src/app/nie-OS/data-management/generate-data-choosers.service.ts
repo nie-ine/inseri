@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {AbstractJsonService} from './abstract-json.service';
 import {GenerateArrayFromLeafsService} from './generate-array-from-leafs.service';
 import {GeneralRequestService} from '../../shared/general/general-request.service';
+import {MongoPageService} from '../../shared/nieOS/mongodb/page/page.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +17,18 @@ export class GenerateDataChoosersService {
     private http: HttpClient,
     private abstractJsonService: AbstractJsonService,
     private generateArrayFromLeafs: GenerateArrayFromLeafsService,
-    private requestService: GeneralRequestService
+    private requestService: GeneralRequestService,
+    private pageService: MongoPageService
   ) { }
 
   generateDataChoosers( page: any, openAppsInThisPage: any ) {
     for ( const queryId of  page.queries ) {
+      let queryTitle = '';
+      this.pageService.getQuery(queryId)
+        .subscribe((data) => {
+          console.log( data );
+          queryTitle = data.query.title;
+        });
       this.requestService.request(queryId)
         .subscribe((data) => {
           if (data.status === 200) {
@@ -37,7 +45,8 @@ export class GenerateDataChoosersService {
             openAppsInThisPage.dataChooser.model.push( {
               x: 150,
               y: this.y,
-              dataChooserEntries: this.dataChooserEntries
+              dataChooserEntries: this.dataChooserEntries,
+              title: queryTitle
             } );
             return openAppsInThisPage;
           }

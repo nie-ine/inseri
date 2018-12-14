@@ -236,4 +236,8 @@ export class DataManagementComponent implements OnInit {
           console.log(error);
         });
     }
+
+  assignInputToLabel( input: any, query: any ) {
+    console.log( input, query );
+  }
 }

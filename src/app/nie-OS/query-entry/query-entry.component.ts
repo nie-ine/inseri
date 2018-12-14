@@ -25,6 +25,8 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
   tree: any;
   abstractJson: any;
   form: FormGroup;
+  paths = [];
+  chosenInputs = ['label'];
 
   constructor(
     public dialogRef: MatDialogRef<QueryEntryComponent>,
@@ -166,6 +168,11 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
   changeTreeInput( tree: any ) {
     console.log( 'Change tree', tree );
     this.tree = tree;
+  }
+
+  updateQueryAppInputMaping( paths: any ) {
+    console.log( paths );
+    this.paths = paths;
   }
 
 }
