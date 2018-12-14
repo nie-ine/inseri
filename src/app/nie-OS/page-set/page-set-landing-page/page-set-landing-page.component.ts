@@ -1,19 +1,14 @@
 import {Component, OnInit, Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import {Router, ActivatedRoute} from '@angular/router';
-import {ActionService } from '../../../shared/nieOS/fake-backend/action/action.service';
-import {GenerateHashService} from '../../../shared/nieOS/other/generateHash.service';
 import {EditPageSetComponent} from '../edit-page-set/edit-page-set.component';
-import {CreatePageSetAndLinkToActionService} from '../services/createPageSetAndLinkToAction.service';
-import {PageService} from '../../apps/page/page.service';
 import {MongoActionService} from '../../../shared/nieOS/mongodb/action/action.service';
-import { PageSetModel } from '../model/page-set.model';
-import { PageSetService } from '../model/page-set.service';
 import { Action } from '../../../shared/nieOS/mongodb/action/action.model';
 import { EditPageComponent } from '../edit-page/edit-page.component';
 import { Page } from '../../../shared/nieOS/mongodb/page/page.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DeletePageComponent } from '../delete-page/delete-page.component';
+import { MongoPageService } from '../../../shared/nieOS/mongodb/page/page.service';
 
 @Component({
   selector: 'app-page-set-landing-page',
@@ -25,23 +20,19 @@ export class PageSetLandingPageComponent implements OnInit {
   actionID: string;
   pageSet: any;
   action: Action;
-  model: any;
   pagesOfThisPageSet: any;
+  isLoading: boolean;
 
   constructor(
     public dialog: MatDialog,
     public dialogUpdatePageSet: MatDialog,
     public dialogEditPage: MatDialog,
     private route: ActivatedRoute,
-    private generateHashService: GenerateHashService,
-    private actionService: ActionService,
-    private pageSetService: PageSetService,
-    private createPageSetAndLinkToActionService: CreatePageSetAndLinkToActionService,
-    private pageService: PageService,
     private mongoActionService: MongoActionService,
   ) { }
 
   ngOnInit() {
+    this.isLoading = true;
     this.actionID = this.route.snapshot.queryParams.actionID;
     if (this.actionID) {
       this.checkIfPageSetExists(this.actionID);
@@ -51,82 +42,37 @@ export class PageSetLandingPageComponent implements OnInit {
   checkIfPageSetExists(actionID: string) {
     this.mongoActionService.getAction(actionID)
       .subscribe(data => {
-        if (data.status === 200) {
+        if ((data.status === 200) && (data.body.action.type === 'page-set')) {
           this.action = data.body.action;
-          if (this.action.type === 'page-set') {
-            this.pagesOfThisPageSet = [];
-            this.pageSet = this.action.hasPageSet;
-            this.updatePagesOfThisPageSet(this.action);
-          }
-        } else if (data.status === 404) {
-          // Fehlermeldung
-          // this.initializeTemplatePageSet();
+          this.pageSet = this.action.hasPageSet;
+          this.pagesOfThisPageSet = this.action.hasPageSet.hasPages;
+          this.isLoading = false;
         } else {
-          // Fehlermeldung
+          this.isLoading = false;
+          // Fehlermeldung: Action not found
         }
       }, error => {
         console.log(error);
+        this.isLoading = false;
         // Fehlermeldung
-        // this.templatePageSet();
       });
   }
-
-  updatePagesOfThisPageSet(action: any) {
-    const help = [];
-    for (const page of action.hasPageSet.hasPages) {
-      help[help.length] = page;
-    }
-    this.pagesOfThisPageSet = help;
-  }
-
-  // initializeTemplatePageSet() {
-  //   this.templatePageSet();
-  //   console.log('Save page set and then add page set - hash to action and update action.');
-  //
-  //   this.pageSetService.createPageSet(this.pageSet)
-  //     .subscribe(dbPageSet => {
-  //       this.mongoActionService.getAction(this.actionID)
-  //         .subscribe(dbAction => {
-  //           dbAction.action.hasPageSet = dbPageSet.pageset._id;
-  //           this.mongoActionService.updateAction(dbAction.action).subscribe(result => {
-  //             this.action = result.action;
-  //           });
-  //         });
-  //     });
-  // }
-
-  // templatePageSet() {
-  //   this.pageSet = new PageSetModel();
-  //   console.log('No page set for this action yet');
-  //   this.pageSet.id = this.generateHashService.generateHash();
-  //   this.pageSet.title = 'Example pageSet';
-  //   this.pageSet.linkToImage = 'https://c8.alamy.com/' +
-  //     'comp/DX9AP3/' +
-  //     'open-book-vintage-accessories-old-letters-pages-photo-frames-glasses-DX9AP3.jpg';
-  //   this.pageSet.description = 'Dies als Beispiel für eine PageSet bei NIE-OS';
-  // }
 
   generateDescription() {
     if (this.pageSet && this.pageSet.description) {
       return this.pageSet.description;
-    } else {
-      return 'Description not found';
     }
   }
 
   generateTitle() {
     if (this.pageSet && this.pageSet.title) {
       return this.pageSet.title;
-    } else {
-      return 'Title not found';
     }
   }
 
   generateImage() {
     if (this.pageSet && this.pageSet.linkToImage) {
       return this.pageSet.linkToImage;
-    } else {
-      return 'Image not found';
     }
   }
 
@@ -137,7 +83,6 @@ export class PageSetLandingPageComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       this.checkIfPageSetExists(this.actionID);
-      // this.createPageAndUpdateAction(result, this.route.snapshot.queryParams.actionID );
     });
   }
 
@@ -163,18 +108,6 @@ export class PageSetLandingPageComponent implements OnInit {
   generateURL(page: any) {
     if ( page ) {
       return 'page?actionID=' + this.actionID + '&page=' + page._id;
-    }
-  }
-
-  generatePageTitle (page: any) {
-    if ( page ) {
-      return page.title;
-    }
-  }
-
-  generatePageDescription (page: any ) {
-    if ( page ) {
-      return page.description;
     }
   }
 
@@ -228,9 +161,8 @@ export class DialogCreateNewPageComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<DialogCreateNewPageComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private router: Router,
-              private actionService: ActionService,
               private route: ActivatedRoute,
-              private pageService: PageSetService) {
+              private pageService: MongoPageService) {
     this.pageSetID = data.pageset._id;
   }
 
