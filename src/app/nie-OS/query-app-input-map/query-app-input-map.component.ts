@@ -63,6 +63,11 @@ export class QueryAppInputMapComponent implements OnInit {
       });
   }
 
+  changeTreeInput( tree: any ) {
+    console.log( 'Change tree', tree );
+    this.tree = tree;
+  }
+
   updateQueryAppInputMaping( paths: any ) {
     console.log( paths );
     this.paths = paths;

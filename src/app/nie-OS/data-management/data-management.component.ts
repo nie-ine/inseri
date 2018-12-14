@@ -58,7 +58,7 @@ export class DataManagementComponent implements OnInit {
         console.log( this.openAppsInThisPage[ appType ],  );
         for (const appOfSameType of this.openAppsInThisPage[appType].model) {
           console.log( this.appModel.openApps, appOfSameType );
-          if( this.appModel.openApps[ appOfSameType.type ].inputs ) {
+          if( this.appModel.openApps[ appOfSameType.type ] && this.appModel.openApps[ appOfSameType.type ].inputs ) {
             appOfSameType.inputs = this.appModel.openApps[ appOfSameType.type ].inputs;
             this.openApps.push(appOfSameType);
             console.log( 'Get inputs for ', appOfSameType, ' from ', this.appModel.openApps[ appOfSameType.type ].inputs );

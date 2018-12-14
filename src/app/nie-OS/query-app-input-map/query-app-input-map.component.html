@@ -25,10 +25,16 @@
   </span>
 </mat-chip-list>
 
-<div *ngIf="abstractResponse" style="margin-top: 30px">
+<div *ngIf="abstractResponse" style="margin-top: 10px">
+  <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+    <mat-button-toggle (click)="changeTreeInput( response )" [checked]="true" >Show tree with data</mat-button-toggle>
+    <mat-button-toggle (click)="changeTreeInput( abstractResponse )">Show abstract tree structure</mat-button-toggle>
+  </mat-button-toggle-group>
+
   <app-response-tree
     (sendMappingBackToQueryAppInputMap)="updateQueryAppInputMaping($event)"
-    [chosenInputs]="chosenInputs"
-    [queryResponse]="abstractResponse" >
+    [chosenInputs]=chosenInputs
+    [queryResponse]="tree" >
   </app-response-tree>
+
 </div>
