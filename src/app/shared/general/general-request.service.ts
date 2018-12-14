@@ -14,12 +14,12 @@ export class GeneralRequestService {
     return this.pageService.getQuery(queryID)
       .flatMap(data => {
           const query = data.query;
-          console.log( data );
+          // console.log( data );
           this.params = {};
           for ( const param of data.query.params ) {
             this.params[ param[ 'key' ] ] = param[ 'value' ];
           }
-          console.log( this.params );
+          // console.log( this.params );
           switch (query.method) {
             case 'GET':
               return this.get(query.serverUrl, this.params, query.header);
@@ -34,7 +34,7 @@ export class GeneralRequestService {
   }
 
   get(url: string, parameter?: any, header?: any): Observable<any> {
-    console.log('GET Request', url, parameter, header);
+    // console.log('GET Request', url, parameter, header);
     return this.http.get(url, {params : parameter, headers: header, observe: 'response'});
   }
 

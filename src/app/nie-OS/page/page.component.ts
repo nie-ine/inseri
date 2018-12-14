@@ -142,7 +142,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
       .subscribe(
         data => {
           this.page = ( data as any).page;
-          console.log( this.page );
+          // console.log( this.page );
           this.convertMappingsBackFromJson( this.page );
           const appHelperArray = [];
           for ( const app of this.page.openApps ) {
@@ -172,15 +172,15 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   convertMappingsBackFromJson( page: any ) {
-    console.log( 'convertMappingsBackFromJson', page.appInputQueryMapping );
+    // console.log( 'convertMappingsBackFromJson', page.appInputQueryMapping );
     for ( const mappingInstance of page.appInputQueryMapping ) {
       const appHash = JSON.parse(mappingInstance)['app'];
-      console.log( appHash );
-      console.log( JSON.parse(mappingInstance) );
+      // console.log( appHash );
+      // console.log( JSON.parse(mappingInstance) );
       const appMapping = JSON.parse(mappingInstance);
       for ( const key in appMapping ) {
         if ( key !== 'app' ) {
-          console.log( key, appHash, appMapping[ key ] );
+          // console.log( key, appHash, appMapping[ key ] );
           if ( !this.page[ 'appInputQueryMapping' ][ appHash ] ) {
             this.page[ 'appInputQueryMapping' ][ appHash ] = {};
           }
@@ -193,7 +193,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
       this.page.appInputQueryMapping.splice( index );
       index += 1;
     }
-    console.log( this.page.appInputQueryMapping );
+    // console.log( this.page.appInputQueryMapping );
   }
 
   clearAppsInThisPage() {
