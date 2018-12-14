@@ -90,13 +90,13 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  ////////////////////////////////////////////////
-  //                                            //
-  //   Auf den Button "Test" im GUI klicken     //
-  //                                            //
-  ////////////////////////////////////////////////
   test() {
-    this.requestService.request('5c12359fb393460ad4d9abf9').subscribe((data) => console.log(data));
+    this.requestService.request('5c12873ab393460ad4d9abfa')
+      .subscribe((data) => {
+        if (data.status === 200) {
+          console.log(data.body);
+        }
+      });
   }
 
   initiateQuery() {
