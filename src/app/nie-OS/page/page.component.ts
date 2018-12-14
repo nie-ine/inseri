@@ -3,33 +3,33 @@
 /**
  * Manual: How to add an app:
  * 1. Import the Component or Module in nie-OS.module.ts
- * 2. Add the app to the Model "openAppsInThisPage" in this file
- * 3. Add this app to the "Menu to open Apps" - div in nie-OS.component.html
+ * 2. Add the app to the Model 'openAppsInThisPage' in this file
+ * 3. Add this app to the 'Menu to open Apps' - div in nie-OS.component.html
  * 4. Add an app div by copying and pasting one of the existing divs and adjusting the input variables and the selector
  * */
 
 import {AfterViewChecked, ChangeDetectorRef, Component, NgModule, OnInit, VERSION} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import {Popup} from './popup';
+import {Frame} from './frame';
 import 'rxjs/add/operator/map';
 import { ActivatedRoute } from '@angular/router';
-import { ActionService } from '../../shared/nieOS/fake-backend/action/action.service';
-import { PageService } from '../apps/page/page.service';
-import {GenerateHashService} from "../../shared/nieOS/other/generateHash.service";
+import {GenerateHashService} from '../../shared/nieOS/other/generateHash.service';
 import {OpenAppsModel} from '../../shared/nieOS/mongodb/page/open-apps.model';
 import {MongoPageService} from '../../shared/nieOS/mongodb/page/page.service';
 import {MongoActionService} from '../../shared/nieOS/mongodb/action/action.service';
 import { DataManagementComponent } from '../data-management/data-management.component';
 import {MatDialog} from '@angular/material';
+import {GenerateDataChoosersService} from '../data-management/generate-data-choosers.service';
+import {HttpClient} from '@angular/common/http';
 
 declare var grapesjs: any; // Important!
 
 
 @Component({
   selector: 'nie-os',
-  templateUrl: `nie-OS.component.html`,
+  templateUrl: `page.component.html`,
 })
-export class NIEOSComponent implements OnInit, AfterViewChecked {
+export class PageComponent implements OnInit, AfterViewChecked {
   image = {
     '@id' : 'https://www.e-manuscripta.ch/zuz/i3f/v20/1510612/canvas/1510618',
     '@type' : 'knora-api:StillImageFileValue',
@@ -51,17 +51,17 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
   openAppsInThisPage: any;
   pageAsDemo = false;
   pageUpdated = false;
+  isLoading = true;
 
   constructor(
     private route: ActivatedRoute,
-    private actionService: ActionService,
-    private pageService: PageService,
     private cdr: ChangeDetectorRef,
     private generateHashService: GenerateHashService,
     private openApps: OpenAppsModel,
     private resetOpenApps: OpenAppsModel,
     private mongoPageService: MongoPageService,
     private mongoActionService: MongoActionService,
+    private generateDataChoosers: GenerateDataChoosersService,
     public dialog: MatDialog
   ) {
     // this.route.params.subscribe(params => console.log(params));
@@ -71,7 +71,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     const dialogRef = this.dialog.open(DataManagementComponent, {
       width: '100%',
       height: '100%',
-      data: this.openAppsInThisPage
+      data: [ this.openAppsInThisPage, this.page ]
     });
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
@@ -91,6 +91,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
     this.updatePageFromUrl();
     if ( !this.actionID ) {
       this.pageAsDemo = true;
+      this.isLoading = false;
     }
   }
 
@@ -118,6 +119,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
           }
         },
         error => {
+          this.isLoading = false;
           console.log(error);
         });
   }
@@ -140,9 +142,10 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
       .subscribe(
         data => {
           this.page = ( data as any).page;
+          // console.log( this.page );
+          this.convertMappingsBackFromJson( this.page );
           const appHelperArray = [];
           for ( const app of this.page.openApps ) {
-            // console.log(JSON.parse(app));
             appHelperArray[JSON.parse(app).hash] = JSON.parse(app);
           }
           this.page.openApps = appHelperArray;
@@ -156,10 +159,41 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
               );
             }
           }
+          this.generateDataChoosers.generateDataChoosers(
+            this.page,
+            this.openAppsInThisPage
+          );
+          this.isLoading = false;
         },
         error => {
+          this.isLoading = false;
           console.log(error);
         });
+  }
+
+  convertMappingsBackFromJson( page: any ) {
+    // console.log( 'convertMappingsBackFromJson', page.appInputQueryMapping );
+    for ( const mappingInstance of page.appInputQueryMapping ) {
+      const appHash = JSON.parse(mappingInstance)['app'];
+      // console.log( appHash );
+      // console.log( JSON.parse(mappingInstance) );
+      const appMapping = JSON.parse(mappingInstance);
+      for ( const key in appMapping ) {
+        if ( key !== 'app' ) {
+          // console.log( key, appHash, appMapping[ key ] );
+          if ( !this.page[ 'appInputQueryMapping' ][ appHash ] ) {
+            this.page[ 'appInputQueryMapping' ][ appHash ] = {};
+          }
+          this.page[ 'appInputQueryMapping' ][ appHash ][ key ] = appMapping[ key ];
+        }
+      }
+    }
+    let index = 0;
+    for ( const mapping of this.page.appInputQueryMapping ) {
+      this.page.appInputQueryMapping.splice( index );
+      index += 1;
+    }
+    // console.log( this.page.appInputQueryMapping );
   }
 
   clearAppsInThisPage() {
@@ -210,6 +244,7 @@ export class NIEOSComponent implements OnInit, AfterViewChecked {
 
   updatePage() {
     console.log('update page for this action');
+    console.log( this.page );
     this.mongoPageService.updatePage(this.page)
       .subscribe(
         data => {

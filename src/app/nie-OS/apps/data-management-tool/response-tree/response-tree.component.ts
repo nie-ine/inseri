@@ -3,6 +3,7 @@ import {FlatTreeControl} from '@angular/cdk/tree';
 import {Component, Injectable} from '@angular/core';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {BehaviorSubject, Observable, of as observableOf} from 'rxjs';
+import {GeneratePathService} from './generate-path.service';
 
 /**
  * File node data with nested structure.
@@ -53,6 +54,7 @@ export class FileDatabase {
     );
 
     // Notify the change.
+    // console.log( 'Notify the change', data );
     this.dataChange.next(data);
   }
 
@@ -99,7 +101,9 @@ export class ResponseTreeComponent implements OnChanges {
   @Input() chosenInputs: Array<any>;
   @Output() sendMappingBackToQueryAppInputMap: EventEmitter<any> = new EventEmitter<any>();
   database: any;
-  constructor(database: FileDatabase) {
+  constructor(
+    database: FileDatabase,
+    private generatePathService: GeneratePathService) {
     this.database = database;
     this.treeFlattener = new MatTreeFlattener(
       this.transformer,
@@ -119,8 +123,8 @@ export class ResponseTreeComponent implements OnChanges {
     database.dataChange.subscribe(data => this.dataSource.data = data);
   }
   ngOnChanges() {
-    console.log('Query Response:');
-    console.log( this.queryResponse );
+    // console.log('Query Response:');
+    // console.log( this.queryResponse );
     this.database.initialize( this.queryResponse );
   }
 
@@ -134,7 +138,9 @@ export class ResponseTreeComponent implements OnChanges {
   };
 
   chooseChip( hash: string, input: string ) {
-      this.mapping[ input ] = hash;
+    this.mapping[ input ] = this.generatePathService.generatePath( hash , this.queryResponse );
+    this.mapping[ input ].hash = hash;
+    console.log( this.mapping, input );
     this.sendMappingBackToQueryAppInputMap.emit( this.mapping );
   }
 
@@ -145,5 +151,10 @@ export class ResponseTreeComponent implements OnChanges {
   private _getChildren = (node: FileNode): Observable<FileNode[]> => observableOf(node.children);
 
   hasChild = (_: number, _nodeData: FileFlatNode) => _nodeData.expandable;
+
+  checkIfNotTrue(mapping: any, input: string, nodeType: string) {
+    console.log( 'checkIfNottrue', mapping, input, nodeType );
+    return true;
+  }
 
 }

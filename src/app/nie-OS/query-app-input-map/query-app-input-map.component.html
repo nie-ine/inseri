@@ -1,25 +1,40 @@
 <div style="margin-top: 30px">
-    <button mat-button (click)="saveInputToLocalstorage()" *ngIf="input" style="position: fixed; bottom: 0; right: 0;">devel - save input to localstorage</button><br>
-  <button mat-button (click)="close()" >close component</button>
-  <button mat-button (click)="loadAbstractResponse()" >Load abstract response</button>
+  <button mat-button (click)="save()">
+    <mat-icon>save</mat-icon> Save
+  </button>
+  <button mat-button (click)="close()">
+    <mat-icon>clear</mat-icon> Close
+  </button>
 </div>
 
 <h5>App:</h5>
 {{ input.app.type + ' ' + input.app.hash }}
 
-<h5>Chosen inputs:</h5>
-<span *ngFor="let input of chosenInputs" >
-  {{ input }}
-</span>
-
 <h5>Query Name:</h5>
-{{ input.query.query }}
+{{ input.query.title }}
 
+<h5>Chosen inputs:</h5>
+<mat-chip-list *ngFor="let input of chosenInputs">
+  <mat-chip >
+  {{ input }}
+  </mat-chip>
+  <span *ngIf="paths">
+      <mat-chip [color]="'primary'" selected *ngFor="let segment of paths[ input ]">
+        <mat-icon>arrow_right_alt</mat-icon> {{segment}}
+      </mat-chip>
+  </span>
+</mat-chip-list>
 
-<div *ngIf="abstractResponse">
+<div *ngIf="abstractResponse" style="margin-top: 10px">
+  <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+    <mat-button-toggle (click)="changeTreeInput( response )" [checked]="true" >Show tree with data</mat-button-toggle>
+    <mat-button-toggle (click)="changeTreeInput( abstractResponse )">Show abstract tree structure</mat-button-toggle>
+  </mat-button-toggle-group>
+
   <app-response-tree
     (sendMappingBackToQueryAppInputMap)="updateQueryAppInputMaping($event)"
-    [chosenInputs]="chosenInputs"
-    [queryResponse]="abstractResponse" >
+    [chosenInputs]=chosenInputs
+    [queryResponse]="tree" >
   </app-response-tree>
+
 </div>

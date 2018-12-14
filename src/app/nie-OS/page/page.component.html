@@ -1,6 +1,8 @@
+<mat-spinner *ngIf="isLoading" style="position: relative; margin-left: 50%; margin-right: 50%; margin-top: 300px"></mat-spinner>
 
+<div>
   <!-- Menu to open Apps-->
-  <mat-drawer-container  style="height:100vh; margin-top: 30px;">
+  <mat-drawer-container  style="height:100vh; margin-top: 30px;" *ngIf="!isLoading" >
     <mat-drawer #drawer mode="side" [opened]="true">
 
       <div *ngIf="!pageAsDemo">
@@ -16,130 +18,130 @@
       </div>
 
 
-        <h4 style="align-content: center">Texts</h4>
+      <h4 style="align-content: center">Texts</h4>
 
-        <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Text Viewer
-            </mat-panel-title>
-            <mat-panel-description>
-              Displays searchable Text
-            </mat-panel-description>
-          </mat-expansion-panel-header>
+      <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Text Viewer
+          </mat-panel-title>
+          <mat-panel-description>
+            Displays searchable Text
+          </mat-panel-description>
+        </mat-expansion-panel-header>
 
-          This app is under development. It displays searchable text which can be changed regarding the font size, the design.
+        This app is under development. It displays searchable text which can be changed regarding the font size, the design.
 
-          <mat-divider></mat-divider>
+        <mat-divider></mat-divider>
 
-          <button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'textViewer' ].model, true)"><mat-icon>view_headline</mat-icon> Add Text Viewer</button><br>
+        <button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'textViewer' ].model, true)"><mat-icon>view_headline</mat-icon> Add Text Viewer</button><br>
 
-        </mat-expansion-panel>
+      </mat-expansion-panel>
 
-        <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Textlist Viewer
-            </mat-panel-title>
-            <mat-panel-description>
-              Displays searchable Text
-            </mat-panel-description>
-          </mat-expansion-panel-header>
+      <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Textlist Viewer
+          </mat-panel-title>
+          <mat-panel-description>
+            Displays searchable Text
+          </mat-panel-description>
+        </mat-expansion-panel-header>
 
-          This app can be combined with the data - chooser. A tutorial on how to use the data - chooser will follow.
+        This app can be combined with the data - chooser. A tutorial on how to use the data - chooser will follow.
 
-          <mat-divider></mat-divider>
+        <mat-divider></mat-divider>
 
-          <button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'textlistViewers' ].model, true)"><mat-icon>short_text</mat-icon>Add Textlist - Viewer</button><br>
+        <button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'textlistViewers' ].model, true)"><mat-icon>short_text</mat-icon>Add Textlist - Viewer</button><br>
 
-        </mat-expansion-panel>
+      </mat-expansion-panel>
 
-          <h4 style="align-content: center">Images</h4>
+      <h4 style="align-content: center">Images</h4>
 
-        <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
+      <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
 
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Image Viewer
-            </mat-panel-title>
-            <mat-panel-description>
-              Display and zoom in images
-            </mat-panel-description>
-          </mat-expansion-panel-header>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Image Viewer
+          </mat-panel-title>
+          <mat-panel-description>
+            Display and zoom in images
+          </mat-panel-description>
+        </mat-expansion-panel-header>
 
-          This app displays the image of your choice with the OpenSea - Dragon - Plugin. You can zoom in and have
-          a look at it in fullscreen - mode. The documentation of this App can be found
-          <a href="https://nie-ine.github.io/nieOS/components/ImageFrameComponent.html" target="_blank">here</a>.
+        This app displays the image of your choice with the OpenSea - Dragon - Plugin. You can zoom in and have
+        a look at it in fullscreen - mode. The documentation of this App can be found
+        <a href="https://nie-ine.github.io/nieOS/components/ImageFrameComponent.html" target="_blank">here</a>.
 
-          <mat-divider></mat-divider>
+        <mat-divider></mat-divider>
 
-          <button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'imageViewer' ].model, true)" >
-            <mat-icon >image</mat-icon>
-            Add Image Viewer</button><br>
+        <button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'imageViewer' ].model, true)" >
+          <mat-icon >image</mat-icon>
+          Add Image Viewer</button><br>
 
-        </mat-expansion-panel>
+      </mat-expansion-panel>
 
-        <h4 style="align-content: center">Searches</h4>
+      <h4 style="align-content: center">Searches</h4>
 
-        <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Simple Full Text Search
-            </mat-panel-title>
-            <mat-panel-description>
-              Search in all resources
-            </mat-panel-description>
-          </mat-expansion-panel-header>
+      <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Simple Full Text Search
+          </mat-panel-title>
+          <mat-panel-description>
+            Search in all resources
+          </mat-panel-description>
+        </mat-expansion-panel-header>
 
-          This app searches in all resources of your project and provides a simple output. It is still under development.
+        This app searches in all resources of your project and provides a simple output. It is still under development.
 
-          <mat-divider></mat-divider>
+        <mat-divider></mat-divider>
 
-          <button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'searchViewer' ].model, true)">
-            <mat-icon >search</mat-icon>
-            Add search Viewer
-          </button><br>
+        <button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'searchViewer' ].model, true)">
+          <mat-icon >search</mat-icon>
+          Add search Viewer
+        </button><br>
 
-        </mat-expansion-panel>
+      </mat-expansion-panel>
 
-        <h4 style="align-content: center">Multimedia</h4>
+      <h4 style="align-content: center">Multimedia</h4>
 
-        <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Synopsis Viewer
-            </mat-panel-title>
-            <mat-panel-description>
-              Compare images and texts
-            </mat-panel-description>
-          </mat-expansion-panel-header>
+      <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Synopsis Viewer
+          </mat-panel-title>
+          <mat-panel-description>
+            Compare images and texts
+          </mat-panel-description>
+        </mat-expansion-panel-header>
 
-          This app is under development. It has the functionality of a light - table and can compare image and text objects.
-          It is currently working much better as an own window and can be opened as an own window <a href="/synopsis" target="_blank">here</a>.
+        This app is under development. It has the functionality of a light - table and can compare image and text objects.
+        It is currently working much better as an own window and can be opened as an own window <a href="/synopsis" target="_blank">here</a>.
 
-          <mat-divider></mat-divider>
+        <mat-divider></mat-divider>
 
-          <button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'synopsisViewer' ].model, true)"><mat-icon>art_track</mat-icon> Add Synopsis Viewer</button><br>
-        </mat-expansion-panel>
+        <button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'synopsisViewer' ].model, true)"><mat-icon>art_track</mat-icon> Add Synopsis Viewer</button><br>
+      </mat-expansion-panel>
 
-        <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              GrapesJS
-            </mat-panel-title>
-            <mat-panel-description>
-              Website building app
-            </mat-panel-description>
-          </mat-expansion-panel-header>
+      <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            GrapesJS
+          </mat-panel-title>
+          <mat-panel-description>
+            Website building app
+          </mat-panel-description>
+        </mat-expansion-panel-header>
 
-          This app is under development. It is a Website builder documented <a href="https://grapesjs.com/" target="_blank">here</a>. It is intended
-          to create static parts of your niePage, with images, texts, etc.
+        This app is under development. It is a Website builder documented <a href="https://grapesjs.com/" target="_blank">here</a>. It is intended
+        to create static parts of your niePage, with images, texts, etc.
 
-          <mat-divider></mat-divider>
+        <mat-divider></mat-divider>
 
-          <button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'grapesJSViewer' ].model, true)"><mat-icon>developer_board</mat-icon> Add GrapesJS </button>
+        <button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'grapesJSViewer' ].model, true)"><mat-icon>developer_board</mat-icon> Add GrapesJS </button>
 
-        </mat-expansion-panel>
+      </mat-expansion-panel>
 
       <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
         <mat-expansion-panel-header>
@@ -328,23 +330,23 @@
 
       <h4 style="align-content: center">Data Insertion</h4>
 
-        <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Resource Creation
-            </mat-panel-title>
-            <mat-panel-description>
-              For Knora
-            </mat-panel-description>
-          </mat-expansion-panel-header>
+      <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Resource Creation
+          </mat-panel-title>
+          <mat-panel-description>
+            For Knora
+          </mat-panel-description>
+        </mat-expansion-panel-header>
 
-          With this app you can create and change data in Knora and see the history of given properties.
+        With this app you can create and change data in Knora and see the history of given properties.
 
-          <mat-divider></mat-divider>
+        <mat-divider></mat-divider>
 
-          <button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'createResourceForm' ].model, true)"><mat-icon>add_to_queue</mat-icon> Add Creation Form</button>
+        <button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'createResourceForm' ].model, true)"><mat-icon>add_to_queue</mat-icon> Add Creation Form</button>
 
-        </mat-expansion-panel>
+      </mat-expansion-panel>
 
     </mat-drawer>
 
@@ -387,7 +389,7 @@
              [firstPopupY]="openAppsInThisPage[ 'searchViewer' ].model[i].y"
              (sendAppCoordinatesBack)="updateAppCoordinates($event)">
         <nie-search
-        style="height: 100%;">
+          style="height: 100%;">
 
         </nie-search>
       </popup>
@@ -409,7 +411,7 @@
              (sendAppCoordinatesBack)="updateAppCoordinates($event)">
         <div id="grapesJSViewer">Please drag this window to desired size and open other app. <br>
           ( Click for example on image view, this will cause the instantiation of  grapesjs as well. )<br>
-        This is necessary because of a current bug.</div>
+          This is necessary because of a current bug.</div>
       </popup>
       <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>developer_board</mat-icon> {{ i }} </button>
       <mat-menu #menu="matMenu">
@@ -515,7 +517,7 @@
     <div *ngFor="let dataChooser of openAppsInThisPage[ 'dataChooser' ].model; let i = index;" >
       <popup #dataChooser
              [hash]="openAppsInThisPage[ 'dataChooser' ].model[i].hash"
-             [title]="'Data Chooser ' + i"
+             [title]="openAppsInThisPage[ 'dataChooser' ].model[i].title"
              [type]="openAppsInThisPage[ 'dataChooser' ].type"
              [firstPopupX]="openAppsInThisPage[ 'dataChooser' ].model[i].x"
              [firstPopupY]="openAppsInThisPage[ 'dataChooser' ].model[i].y"
@@ -523,6 +525,7 @@
         <div style="width: 600px; height: 50px;" >
           <app-data-chooser
             [viewModel] = "openAppsInThisPage"
+            [dataChooserEntries]="openAppsInThisPage[ 'dataChooser' ].model[i].dataChooserEntries"
             (sendAppTypesBackToNIEOS)="updateAppTypesFromDataChooser($event)">>
           </app-data-chooser>
         </div>
@@ -759,3 +762,4 @@
 
 
   </mat-drawer-container>
+</div>

@@ -3,6 +3,8 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {query} from '@angular/animations';
 import {HttpClient} from '@angular/common/http';
 import {AbstractJsonService} from '../data-management/abstract-json.service';
+import {MongoPageService} from '../../shared/nieOS/mongodb/page/page.service';
+import {GeneralRequestService} from '../../shared/general/general-request.service';
 
 
 @Component({
@@ -10,27 +12,34 @@ import {AbstractJsonService} from '../data-management/abstract-json.service';
   templateUrl: './query-app-input-map.component.html',
   styleUrls: ['./query-app-input-map.component.scss']
 })
-export class QueryAppInputMapComponent {
+export class QueryAppInputMapComponent implements OnInit {
   response: any;
   tree: any;
   abstractResponse: any;
   chosenInputs: Array<any> = [];
   mapping: any;
+  paths: Array<any> = [];
   mappingUsedByPage: any = {};
   constructor(
     public dialogRef: MatDialogRef<QueryAppInputMapComponent>,
     @Inject(MAT_DIALOG_DATA) public input: any,
     private http: HttpClient,
-    private abstractJsonService: AbstractJsonService
+    private abstractJsonService: AbstractJsonService,
+    private pageService: MongoPageService,
+    private requestService: GeneralRequestService
   ) {
-    if( !this.input ) {
-      this.input = JSON.parse(localStorage.getItem('mapInputs'));
-      console.log( this.input );
-    }
     for ( const appInput in input.mapping[ input.app.hash ] ) {
-      this.chosenInputs.push( appInput );
+      console.log( this.input.mapping[ input.app.hash ][appInput] );
+      if ( this.input.mapping[ input.app.hash ][appInput][ 'query' ] === this.input.query._id ) {
+        this.chosenInputs.push( appInput );
+        this.paths[ appInput ] = this.input.mapping[ input.app.hash ][appInput][ 'path' ];
+      }
     }
-    console.log( this.input );
+    console.log( this.paths );
+  }
+
+  ngOnInit() {
+    this.loadAbstractResponse();
   }
 
   saveInputToLocalstorage() {
@@ -43,30 +52,48 @@ export class QueryAppInputMapComponent {
   }
 
   loadAbstractResponse() {
-    // console.log( 'Load tree input' );
-    this.http.get( 'http://0.0.0.0:3333/admin/projects?email=root%40example.com&password=test' )
-      .subscribe(
-        data => {
-          // console.log( data );
-          this.response = data;
-          this.tree = data;
-          this.abstractResponse = this.abstractJsonService.json2abstract( data );
-          // console.log( this.abstractResponse );
-        }, error => {
-          console.log( error );
+    this.requestService.request(this.input.query._id)
+      .subscribe((data) => {
+        if (data.status === 200) {
+          console.log(data.body);
+          this.response = data.body;
+          this.tree = data.body;
+          this.abstractResponse = this.abstractJsonService.json2abstract( data.body );
         }
-      );
+      });
   }
 
-  updateQueryAppInputMaping( mapping: any ) {
-    console.log(this.input);
-    console.log('inputVariables:', this.input.mapping[this.input.app.hash]);
-    console.log(mapping);
-    this.mapping = mapping;
-    if ( !this.mappingUsedByPage[ this.input ] ) {
-      this.mappingUsedByPage[ this.input.query.query ] = {};
+  changeTreeInput( tree: any ) {
+    console.log( 'Change tree', tree );
+    this.tree = tree;
+  }
+
+  updateQueryAppInputMaping( paths: any ) {
+    console.log( paths );
+    this.paths = paths;
+  }
+
+  save() {
+    for ( const appInput in this.paths ) {
+      this.input.page.appInputQueryMapping[ this.input.app.hash ][ appInput ][ 'path' ] = this.paths[ appInput ];
     }
-    this.mappingUsedByPage[ this.input.query.query ].abstractResponse = this.input.abstractReponse;
-    console.log( this.mappingUsedByPage );
+    console.log(this.input.page);
+    this.pageService.updatePage(this.input.page)
+      .subscribe(
+        data => {
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+        });
+  }
+
+  test() {
+    this.requestService.request('5c12873ab393460ad4d9abfa')
+      .subscribe((data) => {
+        if (data.status === 200) {
+          console.log(data.body);
+        }
+      });
   }
 }

@@ -1,14 +1,13 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Router, NavigationEnd } from '@angular/router';
-import { ActionService } from '../../shared/nieOS/fake-backend/action/action.service';
 import { AlertService} from '../../shared/nieOS/fake-backend/auth/altert.service';
 import { MongoActionService } from '../../shared/nieOS/mongodb/action/action.service';
 import { Action } from '../../shared/nieOS/mongodb/action/action.model';
 import { map } from 'rxjs/operators';
 import {MongoContactService} from '../../shared/nieOS/mongodb/contact/contact.service';
 import {EditActionComponent} from './edit-action/edit-action.component';
-import { DeleteActionComponent } from "./delete-action/delete-action.component";
+import { DeleteActionComponent } from './delete-action/delete-action.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,7 +25,6 @@ export class DashboardComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private router: Router,
-    private actionService: ActionService,
     private alertService: AlertService,
     private mongoActionService: MongoActionService,
     private mongoContactService: MongoContactService
@@ -154,7 +152,6 @@ export class DialogOverviewExampleDialog {
   constructor(public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private router: Router,
-              private actionService: ActionService,
               private mongoActionService: MongoActionService ) {
   }
 

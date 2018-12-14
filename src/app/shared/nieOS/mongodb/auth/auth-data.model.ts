@@ -3,4 +3,5 @@ export interface AuthData {
   password: string;
   firstName: string;
   lastName: string;
+  newsLetter: boolean;
 }

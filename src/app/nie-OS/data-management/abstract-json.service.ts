@@ -1,5 +1,3 @@
-import {GenerateHashService} from '../../shared/nieOS/other/generateHash.service';
-
 export class AbstractJsonService {
   leafIndices: any = {};
   abstractTree: any = {};

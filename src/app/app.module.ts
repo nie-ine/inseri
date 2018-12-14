@@ -4,14 +4,11 @@ import {CoreModule} from './core/core.module';
 import {AppComponent} from './app.component';
 import {AlertService} from './shared/nieOS/fake-backend/auth/altert.service';
 import {AuthenticationService} from './shared/nieOS/fake-backend/auth/authentication.service';
-import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
-import {JwtInterceptor} from './shared/nieOS/fake-backend/auth/jwt.interceptor';
+import {HttpClientModule} from '@angular/common/http';
 import {fakeBackendProvider} from './shared/nieOS/fake-backend/fake-backend';
 import {AuthGuard} from './shared/nieOS/fake-backend/auth/auth.guard';
-import {UserService} from './shared/nieOS/fake-backend/user/user.service';
-import {PageService} from './nie-OS/apps/page/page.service';
 import {environment} from '../environments/environment';
-import {KuiCoreConfig, KuiCoreModule} from '@knora/core';
+import {KuiCoreModule} from '@knora/core';
 
 @NgModule({
   declarations: [
@@ -32,16 +29,9 @@ import {KuiCoreConfig, KuiCoreModule} from '@knora/core';
     AuthGuard,
     AlertService,
     AuthenticationService,
-    UserService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: JwtInterceptor,
-      multi: true
-    },
 
     // provider used to create fake backend
-    fakeBackendProvider,
-    PageService
+    fakeBackendProvider
   ],
   bootstrap: [AppComponent]
 })
