@@ -517,7 +517,7 @@
     <div *ngFor="let dataChooser of openAppsInThisPage[ 'dataChooser' ].model; let i = index;" >
       <popup #dataChooser
              [hash]="openAppsInThisPage[ 'dataChooser' ].model[i].hash"
-             [title]="'Data Chooser ' + i"
+             [title]="openAppsInThisPage[ 'dataChooser' ].model[i].title"
              [type]="openAppsInThisPage[ 'dataChooser' ].type"
              [firstPopupX]="openAppsInThisPage[ 'dataChooser' ].model[i].x"
              [firstPopupY]="openAppsInThisPage[ 'dataChooser' ].model[i].y"

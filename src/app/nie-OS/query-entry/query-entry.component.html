@@ -21,6 +21,17 @@
   </mat-form-field>
 </form>
 
+<mat-chip-list *ngFor="let input of chosenInputs">
+  <mat-chip >
+    {{ input }}
+  </mat-chip>
+  <span *ngIf="paths">
+      <mat-chip [color]="'primary'" selected *ngFor="let segment of paths[ input ]">
+        <mat-icon>arrow_right_alt</mat-icon> {{segment}}
+      </mat-chip>
+  </span>
+</mat-chip-list>
+
 <mat-tab-group style="margin-top: 50px">
   <mat-tab label="General Query Editor" >
 
@@ -57,8 +68,9 @@
         </mat-button-toggle-group>
 
         <app-response-tree
-                [chosenInputs]=undefined
-                [queryResponse]="tree" >
+          (sendMappingBackToQueryAppInputMap)="updateQueryAppInputMaping($event)"
+          [chosenInputs]="chosenInputs"
+          [queryResponse]="tree" >
         </app-response-tree>
 
       </div>

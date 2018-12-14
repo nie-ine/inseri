@@ -18,6 +18,7 @@
         <button mat-button (click)="openQueryEntry(item)"> {{item.title}} </button>
       </td>
 
+
     </ng-container>
 
     <ng-container matColumnDef="{{app.hash}}" *ngFor="let app of openApps; let i = index">
@@ -30,6 +31,9 @@
                 *ngIf="!checkIfChosen( input.inputName, app.hash, item._id )">
                 {{input.inputName}}
               </mat-chip>
+              <button mat-icon-button *ngIf="checkIfChosen( input.inputName, app.hash, item._id )" (click)="assignInputToLabel( input, item )">
+                <mat-icon aria-label="Example icon-button with a heart icon">label</mat-icon>
+              </button>
               <mat-chip
                 [color]="'primary'" selected
                 *ngIf="checkIfChosen( input.inputName, app.hash, item._id )" (click)="unSelectChip( input.inputName, app.hash, item._id )">
