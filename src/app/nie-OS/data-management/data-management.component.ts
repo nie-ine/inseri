@@ -50,24 +50,17 @@ export class DataManagementComponent implements OnInit {
   ) {
     this.openAppsInThisPage = data[ 0 ];
     this.page = data[ 1 ];
-    console.log( this.page );
     this.appInputQueryMapping = this.page.appInputQueryMapping;
-    // console.log( this.openAppsInThisPage );
     for (const appType in this.openAppsInThisPage) {
       if (this.openAppsInThisPage[appType].model.length !== 0) {
-        console.log( this.openAppsInThisPage[ appType ],  );
         for (const appOfSameType of this.openAppsInThisPage[appType].model) {
-          console.log( this.appModel.openApps, appOfSameType );
           if( this.appModel.openApps[ appOfSameType.type ] && this.appModel.openApps[ appOfSameType.type ].inputs ) {
-            appOfSameType.inputs = this.appModel.openApps[ appOfSameType.type ].inputs;
+            appOfSameType.inputs =  this.appModel.openApps[ appOfSameType.type ].inputs;
             this.openApps.push(appOfSameType);
-            console.log( 'Get inputs for ', appOfSameType, ' from ', this.appModel.openApps[ appOfSameType.type ].inputs );
             for (const query in this.queries) {
-              // console.log( this.queries[ query ] );
               this.queries[query][appOfSameType.hash] = appOfSameType.hash;
             }
             this.columnsToDisplay.push(appOfSameType.hash);
-            console.log(this.queries);
           }
         }
         if (this.table) {
@@ -93,6 +86,24 @@ export class DataManagementComponent implements OnInit {
                         .subscribe((data) => {
                           this.queries = data.queries;
                           console.log( this.queries );
+                          console.log('assignPathsToQuery', this.appInputQueryMapping);
+                          for ( const app in this.appInputQueryMapping ) {
+                            console.log(this.appInputQueryMapping[app]);
+                            for ( const input in this.appInputQueryMapping[app] ) {
+                              for ( const query of this.queries ) {
+                                if (
+                                  query._id === this.appInputQueryMapping[app][input][ 'query' ] &&
+                                  this.appInputQueryMapping[app][input][ 'path' ] ) {
+                                  console.log( query );
+                                  if ( !query.paths ) {
+                                    query.paths = [];
+                                  }
+                                  query.paths.push( this.appInputQueryMapping[app][input][ 'path' ] );
+                                }
+                              }
+                              console.log(this.queries);
+                            }
+                          }
                           this.isLoading = false;
                     });
                   } else {
@@ -108,6 +119,14 @@ export class DataManagementComponent implements OnInit {
                 this.isLoading = false;
               }
           });
+  }
+
+  checkIfPathIsDefined( appHash: string ) {
+      for ( const input in this.appInputQueryMapping[appHash] ) {
+        if ( this.appInputQueryMapping[appHash][ input ][ 'path' ] ) {
+          return true;
+        }
+      }
   }
 
   delete(row: any): void {
@@ -169,15 +188,19 @@ export class DataManagementComponent implements OnInit {
     console.log(this.queries);
   }
 
-  assignInputToQuery(input: string, app: string, query: string) {
+  assignInputToQuery(input: string, app: string, queryId: string, query: any) {
     if (!this.appInputQueryMapping[app]) {
       this.appInputQueryMapping[app] = {};
     }
     if (!this.appInputQueryMapping[app][input]) {
       this.appInputQueryMapping[app][input] = {};
     }
-    this.appInputQueryMapping[app][input][ 'query' ] = query;
+    this.appInputQueryMapping[app][input][ 'query' ] = queryId;
     console.log(this.appInputQueryMapping);
+    if( !query.paths ) {
+      query.paths = [];
+    }
+    query.paths.push( this.appInputQueryMapping[app][input][ 'path' ] );
   }
 
   checkIfChosen(input: string, app: string, query: string) {
@@ -191,6 +214,16 @@ export class DataManagementComponent implements OnInit {
       // console.log( 'false' );
       return false;
     }
+  }
+
+  checkIfQueryIsChosen( query: any ) {
+    // console.log( query );
+    return true;
+  }
+
+  choosePathForQueryLabel( query: any ) {
+    console.log( 'Open dialog for choosing the path for this query!' );
+    console.log( query );
   }
 
   checkIfRowIsChosen(app: string, query: string) {
@@ -235,10 +268,37 @@ export class DataManagementComponent implements OnInit {
         error => {
           console.log(error);
         });
+    for ( const query of this.queries ) {
+      console.log( query );
+      this.pageService.updateQuery(this.page._id, query._id, query)
+        .subscribe((data) => {
+          if (data.status === 200) {
+            console.log( data );
+          } else {
+            console.log('Updating query failed');
+            // this.close();
+          }
+        });
+    }
     }
 
   assignInputToLabel( input: any, query: any ) {
     console.log('hier weiter');
     console.log( input, query );
+  }
+
+  assignQueryToPath( path: any, query: any ) {
+    query.chosenPath = path;
+    console.log( this.queries );
+  }
+
+  generateCurrentPath( item ) {
+    if( item.path ) {
+      let concatenatedPath = '';
+      for ( const segment of item.path ) {
+        concatenatedPath += ' ' + segment;
+      }
+      return concatenatedPath;
+    }
   }
 }
