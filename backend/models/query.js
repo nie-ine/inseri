@@ -20,6 +20,7 @@ const querySchema = mongoose.Schema({
     ],
     body: { type: String},
     isBoundToPage: { type: String },
+    path: [ { type: String } ],
     creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User', require: true }
 });
 
