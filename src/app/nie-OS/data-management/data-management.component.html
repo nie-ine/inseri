@@ -16,9 +16,12 @@
       <td mat-cell *matCellDef="let item">
         <button mat-button (click)="delete(item)" mat-icon-button><mat-icon>close</mat-icon></button>
         <button mat-button (click)="openQueryEntry(item)"> {{item.title}} </button>
+        <mat-select [(value)]="item.selected" style="width: 200px" *ngIf="item.paths" placeholder="{{generateCurrentPath( item )}}">
+          <mat-option value="i" *ngFor="let path of item.paths; let i = index" (click)="assignQueryToPath( path, item )" >
+            <span *ngFor="let segment of path"> {{ segment }}</span>
+          </mat-option>
+        </mat-select>
       </td>
-
-
     </ng-container>
 
     <ng-container matColumnDef="{{app.hash}}" *ngFor="let app of openApps; let i = index">
@@ -27,13 +30,13 @@
           <div *ngIf="item.serverUrl">
             <mat-chip-list *ngFor="let input of app.inputs; let i = index;" style="margin-left: 2px; display: inline-block;">
               <mat-chip
-                (click)="assignInputToQuery( input.inputName, app.hash, item._id )"
+                (click)="assignInputToQuery( input.inputName, app.hash, item._id, item )"
                 *ngIf="!checkIfChosen( input.inputName, app.hash, item._id )">
                 {{input.inputName}}
               </mat-chip>
-              <button mat-icon-button *ngIf="checkIfChosen( input.inputName, app.hash, item._id )" (click)="assignInputToLabel( input, item )">
-                <mat-icon aria-label="Example icon-button with a heart icon">label</mat-icon>
-              </button>
+              <!--<button mat-icon-button *ngIf="checkIfChosen( input.inputName, app.hash, item._id )" (click)="assignInputToLabel( input, item )">-->
+                <!--<mat-icon aria-label="Example icon-button with a heart icon">label</mat-icon>-->
+              <!--</button>-->
               <mat-chip
                 [color]="'primary'" selected
                 *ngIf="checkIfChosen( input.inputName, app.hash, item._id )" (click)="unSelectChip( input.inputName, app.hash, item._id )">
@@ -41,9 +44,16 @@
               </mat-chip>
             </mat-chip-list>
             <mat-chip
-              *ngIf="checkIfRowIsChosen( app.hash, item._id )"
+              *ngIf="checkIfRowIsChosen( app.hash, item._id ) && !checkIfPathIsDefined( app.hash )"
               selected
               [color]="'accent'" (click)="openQueryAppInputMapDialog( app, item )">
+              map
+            </mat-chip>
+            <mat-chip
+              style="color: #81e482 !important"
+              *ngIf="checkIfRowIsChosen( app.hash, item._id ) && checkIfPathIsDefined( app.hash )"
+              selected
+              [color]="'primary'" (click)="openQueryAppInputMapDialog( app, item )">
               map
             </mat-chip>
           </div>
