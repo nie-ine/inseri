@@ -71,7 +71,7 @@ export class AbstractJsonService {
   leafLoop ( leafLayer: any, parent: string ) {
     this.layerIndex += 1;
     for ( const leaf in leafLayer ) {
-      console.log( leaf );
+      // console.log( leaf );
       if( typeof leafLayer[ leaf ] === 'object' && leafLayer[ leaf ] !== null ) {
         this.addEntryToLeafIndices( leaf, parent, 'array' );
         this.arrayLoop( leafLayer[ leaf ], leaf);
