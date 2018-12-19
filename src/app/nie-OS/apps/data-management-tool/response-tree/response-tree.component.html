@@ -20,6 +20,9 @@
           *ngIf="mapping[ input ] && mapping[ input ].hash === node.type">
           {{input}}
         </mat-chip>
+        <mat-form-field *ngIf="mapping[ input ] && mapping[ input ].hash === node.type">
+          <input matInput placeholder="If array optional index:">
+        </mat-form-field>
       </mat-chip-list>
     </div>
 
