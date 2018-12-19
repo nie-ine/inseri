@@ -17,7 +17,7 @@ export class GenerateArrayFromLeafsService {
     this.path = path;
     this.depth = 0;
     this.output = [];
-    console.log( this.path, dataTree, abstractTree );
+    // console.log( this.path, dataTree, abstractTree );
     for ( const knot of path ) {
       if ( dataTree[ knot ] && dataTree[ knot ].length !== undefined) {
         return this.goThroughArray( dataTree[ knot ] );

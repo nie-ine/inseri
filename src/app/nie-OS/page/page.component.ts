@@ -286,10 +286,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   updateAppTypesFromDataChooser( openAppsInThisPageFromDataChooser: any ) {
-    console.log( this.openAppsInThisPage );
-    console.log( openAppsInThisPageFromDataChooser );
     this.openAppsInThisPage = openAppsInThisPageFromDataChooser;
-    console.log('updateAppTypesFromDataChooser');
   }
 
   expandPanels() {
