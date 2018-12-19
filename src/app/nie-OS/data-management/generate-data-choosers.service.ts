@@ -27,14 +27,14 @@ export class GenerateDataChoosersService {
       let pathArray = [];
       this.pageService.getQuery(queryId)
         .subscribe((data) => {
-          console.log( data );
+          // console.log( data );
           queryTitle = data.query.title;
           pathArray = data.query.path;
         });
       this.requestService.request(queryId)
         .subscribe((data) => {
           if (data.status === 200) {
-            console.log(data.body);
+            // console.log(data.body);
             this.response = data.body;
             this.abstractJson = this.abstractJsonService.json2abstract( data.body );
             this.y += 100;
@@ -46,7 +46,9 @@ export class GenerateDataChoosersService {
                 this.abstractJson,
                 pathArray
               ),
-              title: queryTitle
+              title: queryTitle,
+              response: data.body,
+              queryId: queryId
             } );
             return openAppsInThisPage;
           }

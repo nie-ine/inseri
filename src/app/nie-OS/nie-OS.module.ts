@@ -37,6 +37,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { KeyValueFormComponent } from './query-entry/key-value-form/key-value-form.component';
 import { QueryAppInputMapComponent } from './query-app-input-map/query-app-input-map.component';
 import {MatProgressSpinnerModule} from '@angular/material';
+import {MatListModule} from '@angular/material/list';
 
 @NgModule({
   imports: [
@@ -66,6 +67,7 @@ import {MatProgressSpinnerModule} from '@angular/material';
     MatTabsModule,
     AceEditorModule,
     MatButtonToggleModule,
+    MatListModule,
     RouterModule.forChild([
       { path: 'page', component: PageComponent },
       { path: 'grapesjs', component: GrapesjsComponent },
