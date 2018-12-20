@@ -138,4 +138,8 @@ export class Frame {
     this.curX = this.xStartElementPoint + (event.pageX - this.xStartMousePoint);
     this.curY = this.yStartElementPoint + (event.pageY - this.yStartMousePoint);
   }
+
+  openSettings() {
+    console.log( 'Open Settings' );
+  }
 }
