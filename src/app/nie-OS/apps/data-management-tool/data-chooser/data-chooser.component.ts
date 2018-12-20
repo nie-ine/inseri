@@ -66,16 +66,18 @@ export class DataChooserComponent implements AfterViewChecked {
   }
   generateAppinput( response: any, path: any, index: number, depth: number) {
     // console.log(
-    //   response,
-    //   path,
-    //   index
+    //   // response,
+    //   depth,
+    //   path.length,
+    //   path[ depth ],
+    //   Number( path[ depth ] )
     // );
     if ( response.length ) {
       // console.log( 'Use index' );
       return this.generateAppinput(
         response[ index ], path, index, depth + 1
       );
-    } else if ( depth !== path.length ) {
+    } else if ( depth !== path.length && response[ path[ depth ] ] ) {
       // console.log( 'One depth more', path, depth );
       return this.generateAppinput(
         response[ path[ depth ] ], path, index, depth + 1
@@ -84,6 +86,9 @@ export class DataChooserComponent implements AfterViewChecked {
       // console.log( path, depth, response );
       // console.log( 'Return', response[ path[ depth - 1 ] ] );
       return response[ path[ depth - 1 ] ];
+    } else if ( path.length - 1 === depth &&  Number( path[ depth ] ) ) {
+      // console.log( 'Return index from array:', response[ path[ depth - 1 ] ][ Number( path[ depth ] ) ] );
+      return response[ path[ depth - 1 ] ][ Number( path[ depth ] ) ];
     }
   }
 }

@@ -499,7 +499,7 @@
              [firstPopupX]="openAppsInThisPage[ 'textlistViewers' ].model[i].x"
              [firstPopupY]="openAppsInThisPage[ 'textlistViewers' ].model[i].y"
              (sendAppCoordinatesBack)="updateAppCoordinates($event)">
-        <div style="width: 500px; height: 300px;" >
+        <div style="width: 250px; height: 150px;" >
           <app-textlist-viewer style="position: sticky;"
                                (resourceIRI)="closeApp( openAppsInThisPage[ 'textlistViewers' ].model, i )"
                                [textToDisplay]="openAppsInThisPage[ 'textlistViewers' ].model[i]['textlist']">
