@@ -19,9 +19,9 @@
   {{ input }}
   </mat-chip>
   <span *ngIf="paths">
-      <mat-chip [color]="'primary'" selected *ngFor="let segment of paths[ input ]">
-        <mat-icon>arrow_right_alt</mat-icon> {{segment}}
-      </mat-chip>
+    <mat-chip [color]="'primary'" selected *ngFor="let segment of paths[ input ]">
+      <mat-icon>arrow_right_alt</mat-icon> {{segment}}
+    </mat-chip>
   </span>
 </mat-chip-list>
 

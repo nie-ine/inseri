@@ -168,7 +168,8 @@ router.put('/:pageID/queries/:queryID', checkAuth, (req, res, next) => {
                     method: req.body.method,
                     params: req.body.params,
                     header: req.body.header,
-                    body: req.body.body
+                    body: req.body.body,
+                    path: req.body.chosenPath
                 }, {new:true})
                     .then(updatedPage => {
                         res.status(200).json({

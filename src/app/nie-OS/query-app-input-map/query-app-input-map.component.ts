@@ -74,6 +74,7 @@ export class QueryAppInputMapComponent implements OnInit {
   }
 
   save() {
+    console.log( this.paths, this.input.page.appInputQueryMapping[ this.input.app.hash ] );
     for ( const appInput in this.paths ) {
       this.input.page.appInputQueryMapping[ this.input.app.hash ][ appInput ][ 'path' ] = this.paths[ appInput ];
     }
