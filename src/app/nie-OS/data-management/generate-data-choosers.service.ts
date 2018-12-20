@@ -24,29 +24,30 @@ export class GenerateDataChoosersService {
   generateDataChoosers( page: any, openAppsInThisPage: any ) {
     for ( const queryId of  page.queries ) {
       let queryTitle = '';
+      let pathArray = [];
       this.pageService.getQuery(queryId)
         .subscribe((data) => {
-          console.log( data );
+          // console.log( data );
           queryTitle = data.query.title;
+          pathArray = data.query.path;
         });
       this.requestService.request(queryId)
         .subscribe((data) => {
           if (data.status === 200) {
-            console.log(data.body);
+            // console.log(data.body);
             this.response = data.body;
             this.abstractJson = this.abstractJsonService.json2abstract( data.body );
-            this.dataChooserEntries = this.generateArrayFromLeafs.generateArrayFromLeafs(
-              this.response,
-              this.abstractJson,
-              ['@graph', '@id']
-            );
-            // console.log(this.dataChooserEntries);
             this.y += 100;
             openAppsInThisPage.dataChooser.model.push( {
               x: 150,
               y: this.y,
-              dataChooserEntries: this.dataChooserEntries,
-              title: queryTitle
+              dataChooserEntries: this.generateArrayFromLeafs.generateArrayFromLeafs(
+                this.response,
+                pathArray
+              ),
+              title: queryTitle,
+              response: data.body,
+              queryId: queryId
             } );
             return openAppsInThisPage;
           }
