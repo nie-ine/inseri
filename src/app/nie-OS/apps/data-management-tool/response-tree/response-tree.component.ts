@@ -101,6 +101,8 @@ export class ResponseTreeComponent implements OnChanges {
   @Input() chosenInputs: Array<any>;
   @Output() sendMappingBackToQueryAppInputMap: EventEmitter<any> = new EventEmitter<any>();
   database: any;
+  index: number;
+  indiceEntered = false;
   constructor(
     database: FileDatabase,
     private generatePathService: GeneratePathService) {
@@ -155,6 +157,17 @@ export class ResponseTreeComponent implements OnChanges {
   checkIfNotTrue(mapping: any, input: string, nodeType: string) {
     console.log( 'checkIfNottrue', mapping, input, nodeType );
     return true;
+  }
+
+  addIndexToMappin( index: number , input: string ) {
+    if( !this.indiceEntered ) {
+      this.mapping[ input ].push( index );
+      this.indiceEntered = true;
+    } else {
+      this.mapping[ input ][ this.mapping[ input ].length - 1 ] = index;
+    }
+    console.log(this.mapping[ input ]);
+    this.sendMappingBackToQueryAppInputMap.emit( this.mapping );
   }
 
 }

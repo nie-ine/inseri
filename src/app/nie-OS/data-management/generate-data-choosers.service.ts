@@ -43,7 +43,6 @@ export class GenerateDataChoosersService {
               y: this.y,
               dataChooserEntries: this.generateArrayFromLeafs.generateArrayFromLeafs(
                 this.response,
-                this.abstractJson,
                 pathArray
               ),
               title: queryTitle,
