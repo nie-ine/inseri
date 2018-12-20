@@ -46,8 +46,8 @@
                       <button mat-menu-item (click)="deleteAction( action )" >Lösche diese Aktion</button>
                       <button mat-menu-item (click)="markAsDone( action )" >Als fertig markieren</button>
                     </mat-menu>
-        <h4 class="service-heading">{{ action.type }}: {{ action.title }}</h4>
-        <p class="text-muted">Beschreibung: {{ action.description }}</p>
+        <h4 class="service-heading">{{ action.title }}</h4>
+        <p class="text-muted">{{ action.description }}</p>
       </div>
     </div>
 
