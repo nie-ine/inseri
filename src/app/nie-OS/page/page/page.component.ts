@@ -10,16 +10,16 @@
 
 import {AfterViewChecked, ChangeDetectorRef, Component, NgModule, OnInit, VERSION} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import {Frame} from './frame';
+import {Frame} from '../frame/frame';
 import 'rxjs/add/operator/map';
 import { ActivatedRoute } from '@angular/router';
-import {GenerateHashService} from '../../shared/nieOS/other/generateHash.service';
-import {OpenAppsModel} from '../../shared/nieOS/mongodb/page/open-apps.model';
-import {MongoPageService} from '../../shared/nieOS/mongodb/page/page.service';
-import {MongoActionService} from '../../shared/nieOS/mongodb/action/action.service';
-import { DataManagementComponent } from '../data-management/data-management.component';
+import {GenerateHashService} from '../../../shared/nieOS/other/generateHash.service';
+import {OpenAppsModel} from '../../../shared/nieOS/mongodb/page/open-apps.model';
+import {MongoPageService} from '../../../shared/nieOS/mongodb/page/page.service';
+import {MongoActionService} from '../../../shared/nieOS/mongodb/action/action.service';
+import { DataManagementComponent } from '../../data-management/data-management.component';
 import {MatDialog} from '@angular/material';
-import {GenerateDataChoosersService} from '../data-management/generate-data-choosers.service';
+import {GenerateDataChoosersService} from '../../data-management/generate-data-choosers.service';
 import {HttpClient} from '@angular/common/http';
 
 declare var grapesjs: any; // Important!
@@ -230,6 +230,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
     appModel[ length ].x = appFromViewModel.x;
     appModel[ length ].y = appFromViewModel.y;
     appModel[ length ].hash = appFromViewModel.hash;
+    appModel[ length ].title = appFromViewModel.title;
+    appModel[ length ].width = appFromViewModel.width;
+    appModel[ length ].height = appFromViewModel.height;
     appModel[ length ].type = appType;
     appModel[ length ].initialized = true;
   }
@@ -291,5 +294,29 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   expandPanels() {
     this.panelsOpen = !this.panelsOpen;
+  }
+
+  updateAppSettings( settings: any ) {
+    console.log( settings );
+    console.log( this.openAppsInThisPage );
+    console.log( this.page );
+    for ( const app of this.openAppsInThisPage[ settings.type ].model ) {
+      if ( settings.hash === app.hash ) {
+        app.title = settings.title;
+        app.width = settings.width;
+        app.height = settings.height;
+      }
+    }
+    this.page.openApps[ settings.hash ].title = settings.title;
+    this.page.openApps[ settings.hash ].width = settings.width;
+    this.page.openApps[ settings.hash ].height = settings.height;
+  }
+
+  produceHeightAndWidth( appValue: string, defaultHeight: string ) {
+    if ( appValue ) {
+      return appValue ;
+    } else {
+      return defaultHeight;
+    }
   }
 }

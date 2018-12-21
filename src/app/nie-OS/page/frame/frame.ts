@@ -9,6 +9,8 @@ import {
   ElementRef,
   Renderer2 } from '@angular/core';
 import 'rxjs/add/operator/map';
+import {MatDialog} from '@angular/material';
+import { FrameSettingsComponent } from '../frame-settings/frame-settings.component';
 
 declare var grapesjs: any; // Important!
 
@@ -27,7 +29,10 @@ export class Frame {
   @Input() firstPopupX: number;
   @Input() firstPopupY: number;
   @Input() hash: string;
+  @Input() width: number;
+  @Input() height: number;
   @Output() sendAppCoordinatesBack: EventEmitter<any> = new EventEmitter<any>();
+  @Output() sendAppSettingsBack: EventEmitter<any> = new EventEmitter<any>();
 
   mousemoveEvent: any;
   mouseupEvent: any;
@@ -47,8 +52,11 @@ export class Frame {
 
   isMouseBtnOnPress: boolean;
 
-  constructor(private elementRef: ElementRef,
-              private renderer: Renderer2) {
+  constructor(
+    private elementRef: ElementRef,
+    private renderer: Renderer2,
+    public dialog: MatDialog
+  ) {
     this.mouseup = this.unboundMouseup.bind(this);
     this.dragging = this.unboundDragging.bind(this);
   }
@@ -137,5 +145,33 @@ export class Frame {
     );
     this.curX = this.xStartElementPoint + (event.pageX - this.xStartMousePoint);
     this.curY = this.yStartElementPoint + (event.pageY - this.yStartMousePoint);
+  }
+
+  openSettings() {
+    console.log( 'Open Settings' );
+    const dialogRef = this.dialog.open(FrameSettingsComponent, {
+      width: '50%',
+      height: '50%',
+      data: [
+        this.title,
+        this.width,
+        this.height
+      ]
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
+      if ( result ) {
+        this.sendAppSettingsBack.emit(
+          {
+            title: result[ 0 ],
+            width: result[ 1 ],
+            height: result[ 2 ],
+            hash: this.hash,
+            type: this.type
+          }
+        );
+        // this.title = result.title;
+      }
+    });
   }
 }
