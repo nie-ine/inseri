@@ -44,6 +44,7 @@ export class DataChooserComponent implements AfterViewChecked {
     //   this.queryId,
     //   this.appInputQueryMapping
     // );
+    this.index = index;
       for ( const type in this.openAppsInThisPage ) {
         if(  this.openAppsInThisPage[ type ].model.length && type !== 'dataChooser' ) {
           for ( const app of this.openAppsInThisPage[ type ].model ) {
@@ -111,5 +112,9 @@ export class DataChooserComponent implements AfterViewChecked {
       return entry;
     }
     return this.dataChooserEntries[this.index];
+  }
+
+  resetDataChooserEntries() {
+    this.index = undefined;
   }
 }

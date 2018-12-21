@@ -1,9 +1,9 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {PageComponent} from './page/page.component';
+import {PageComponent} from './page/page/page.component';
 import {RouterModule} from '@angular/router';
 import {ImageFrameComponent} from 'nie-ine';
-import {Frame} from './page/frame';
+import {Frame} from './page/frame/frame';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatButtonModule} from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
@@ -38,6 +38,8 @@ import { KeyValueFormComponent } from './query-entry/key-value-form/key-value-fo
 import { QueryAppInputMapComponent } from './query-app-input-map/query-app-input-map.component';
 import {MatProgressSpinnerModule} from '@angular/material';
 import {MatListModule} from '@angular/material/list';
+import { FrameSettingsComponent } from './page/frame-settings/frame-settings.component';
+import {MatSliderModule} from '@angular/material/slider';
 
 @NgModule({
   imports: [
@@ -68,6 +70,7 @@ import {MatListModule} from '@angular/material/list';
     AceEditorModule,
     MatButtonToggleModule,
     MatListModule,
+    MatSliderModule,
     RouterModule.forChild([
       { path: 'page', component: PageComponent },
       { path: 'grapesjs', component: GrapesjsComponent },
@@ -89,7 +92,8 @@ import {MatListModule} from '@angular/material/list';
     DataManagementComponent,
     QueryEntryComponent,
     KeyValueFormComponent,
-    QueryAppInputMapComponent
+    QueryAppInputMapComponent,
+    FrameSettingsComponent
   ],
   exports: [
     PageComponent,
@@ -99,7 +103,8 @@ import {MatListModule} from '@angular/material/list';
     ImageFrameComponent,
     DataManagementComponent,
     QueryEntryComponent,
-    QueryAppInputMapComponent
+    QueryAppInputMapComponent,
+    FrameSettingsComponent
   ]
 })
 export class NIEOSModule { }
