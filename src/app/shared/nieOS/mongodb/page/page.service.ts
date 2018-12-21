@@ -23,8 +23,10 @@ export class MongoPageService {
   updatePage(page: any): Observable<any> {
     console.log(page);
     const openAppAsStringArray = [];
-    for (const openApp in page.openApps) {
-      openAppAsStringArray[ openAppAsStringArray.length ] = JSON.stringify(page.openApps[openApp]);
+    for ( const openApp in page.openApps) {
+      if( page.openApps[openApp].type !== 'dataChooser' ) {
+        openAppAsStringArray[ openAppAsStringArray.length ] = JSON.stringify(page.openApps[openApp]);
+      }
     }
     const mappingsAsStringArray = [];
     for (const mapping in page.appInputQueryMapping) {

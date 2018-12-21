@@ -494,12 +494,16 @@
     <div *ngFor="let createResourceForm of openAppsInThisPage[ 'textlistViewers' ].model; let i = index;" >
       <popup #textlistViewers
              [hash]="openAppsInThisPage[ 'textlistViewers' ].model[i].hash"
-             [title]="'Textlist - Viewer ' + i"
+             [title]="openAppsInThisPage[ 'textlistViewers' ].model[i].title || 'Textlist - Viewer ' + i"
              [type]="openAppsInThisPage[ 'textlistViewers' ].type"
              [firstPopupX]="openAppsInThisPage[ 'textlistViewers' ].model[i].x"
              [firstPopupY]="openAppsInThisPage[ 'textlistViewers' ].model[i].y"
-             (sendAppCoordinatesBack)="updateAppCoordinates($event)">
-        <div style="width: 250px; height: 150px;" >
+             [width]="produceHeightAndWidth( openAppsInThisPage[ 'textlistViewers' ].model[i].width, '250' )"
+             [height]="produceHeightAndWidth( openAppsInThisPage[ 'textlistViewers' ].model[i].height, '150')"
+             (sendAppCoordinatesBack)="updateAppCoordinates($event)"
+             (sendAppSettingsBack)="updateAppSettings($event)">
+        <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'textlistViewers' ].model[i].height, '150' ) + 'px',
+        'width': produceHeightAndWidth( openAppsInThisPage[ 'textlistViewers' ].model[i].width, '250' ) + 'px'}">
           <app-textlist-viewer style="position: sticky;"
                                (resourceIRI)="closeApp( openAppsInThisPage[ 'textlistViewers' ].model, i )"
                                [textToDisplay]="openAppsInThisPage[ 'textlistViewers' ].model[i]['textlist']">
