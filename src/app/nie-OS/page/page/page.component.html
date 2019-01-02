@@ -366,7 +366,16 @@
              [firstPopupY]="openAppsInThisPage[ 'imageViewer' ].model[i].y"
              (sendAppCoordinatesBack)="updateAppCoordinates($event)">
         <nie-image-frame style="height: 100%;"
-                         [image]="image"
+                         [image]="{
+    '@id' : openAppsInThisPage[ 'imageViewer' ].model[i]['@id'],
+    '@type' : openAppsInThisPage[ 'imageViewer' ].model[i]['@type'],
+    'knora-api:fileValueAsUrl' : openAppsInThisPage[ 'imageViewer' ].model[i]['fileValueAsUrl'],
+    'knora-api:fileValueHasFilename' : openAppsInThisPage[ 'imageViewer' ].model[i]['fileValueHasFilename'],
+    'knora-api:fileValueIsPreview' : false,
+    'knora-api:stillImageFileValueHasDimX' : openAppsInThisPage[ 'imageViewer' ].model[i]['stillImageFileValueHasDimX'],
+    'knora-api:stillImageFileValueHasDimY' : openAppsInThisPage[ 'imageViewer' ].model[i]['stillImageFileValueHasDimY'],
+    'knora-api:stillImageFileValueHasIIIFBaseUrl' : openAppsInThisPage[ 'imageViewer' ].model[i]['stillImageFileValueHasIIIFBaseUrl']
+  }"
                          width="500"
                          height="500">
         </nie-image-frame>

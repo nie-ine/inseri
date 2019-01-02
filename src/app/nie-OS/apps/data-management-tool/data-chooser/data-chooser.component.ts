@@ -58,6 +58,7 @@ export class DataChooserComponent implements AfterViewChecked {
                     index,
                     0
                   );
+                  console.log( app );
                 }
               }
             }
@@ -72,7 +73,8 @@ export class DataChooserComponent implements AfterViewChecked {
     //   depth,
     //   path.length,
     //   path[ depth ],
-    //   Number( path[ depth ] )
+    //   Number( path[ depth ] ),
+    //   index
     // );
     if ( response.length ) {
       // console.log( 'Use index' );
