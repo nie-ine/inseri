@@ -5,7 +5,28 @@ export class OpenAppsModel {
       model: [],
       inputs: [
         {
-          'inputName': 'imageUrl'
+          'inputName': '@id',
+        },
+        {
+          'inputName': '@type',
+        },
+        {
+          'inputName': 'fileValueAsUrl',
+        },
+        {
+          'inputName': 'fileValueHasFilename',
+        },
+        {
+          'inputName': 'fileValueIsPreview',
+        },
+        {
+          'inputName': 'stillImageFileValueHasDimX',
+        },
+        {
+          'inputName': 'stillImageFileValueHasDimY',
+        },
+        {
+          'inputName': 'stillImageFileValueHasIIIFBaseUrl',
         }
       ]
     },
