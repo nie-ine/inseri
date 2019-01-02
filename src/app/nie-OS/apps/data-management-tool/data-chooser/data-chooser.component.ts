@@ -29,6 +29,7 @@ export class DataChooserComponent implements AfterViewChecked {
   gravSearchResponse: Array<any>;
   chosenPropertyArray: Array<any>;
   dataChooserSettingsOutput: any;
+  responseTest: any;
   index: number;
   constructor(
     public dialogSettings: MatDialog,
@@ -58,7 +59,7 @@ export class DataChooserComponent implements AfterViewChecked {
                     index,
                     0
                   );
-                  console.log( app );
+                  // console.log( app );
                 }
               }
             }
@@ -97,13 +98,13 @@ export class DataChooserComponent implements AfterViewChecked {
   }
 
   moveBack() {
-    console.log('move back');
+    // console.log('move back');
     this.index -= 1;
     this.chooseResource( this.index );
   }
 
   moveForward() {
-    console.log('move forward');
+    // console.log('move forward');
     this.index += 1;
     this.chooseResource( this.index );
   }
