@@ -1,9 +1,9 @@
 <div style="height:100vh; margin-top: 40px; margin-left: 30px; display:inline; " >
-  <button mat-button (click)="moveBack()" > <mat-icon>keyboard_arrow_left</mat-icon> </button>
+  <button *ngIf="index > 0" mat-button (click)="moveBack()" > <mat-icon>keyboard_arrow_left</mat-icon> </button>
     <mat-select placeholder="Choose resource instance" style="width: 350px" (click)="resetDataChooserEntries()" >
       <mat-option *ngFor="let entry of dataChooserEntries; let i = index;" [value] = "i" (click)="chooseResource(i)">
         {{ showChosenEnrty( entry ) }}
       </mat-option>
     </mat-select>
-  <button mat-button (click)="moveForward()"> <mat-icon>keyboard_arrow_right</mat-icon> </button>
+  <button *ngIf="index < dataChooserEntries.length - 1" mat-button (click)="moveForward()"> <mat-icon>keyboard_arrow_right</mat-icon> </button>
 </div>
