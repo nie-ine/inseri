@@ -322,4 +322,21 @@ export class PageComponent implements OnInit, AfterViewChecked {
       return defaultHeight;
     }
   }
+
+  returnImage( imageUrl: string ) {
+    if ( imageUrl ) {
+      const image = {
+        '@id' : 'https://www.e-manuscripta.ch/zuz/i3f/v20/1510612/canvas/1510618',
+        '@type' : 'knora-api:StillImageFileValue',
+        'knora-api:fileValueAsUrl' : imageUrl,
+          'knora-api:fileValueHasFilename' : '1510618',
+        'knora-api:fileValueIsPreview' : false,
+        'knora-api:stillImageFileValueHasDimX' : 3062,
+        'knora-api:stillImageFileValueHasDimY' : 4034,
+        'knora-api:stillImageFileValueHasIIIFBaseUrl' : 'https://www.e-manuscripta.ch/zuz/i3f/v20'
+      };
+      console.log( this.image );
+      return image;
+    }
+  }
 }
