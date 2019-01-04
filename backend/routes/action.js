@@ -13,6 +13,7 @@ const router = express.Router();
 // Nur zum TESTEN
 router.get('', checkAuth, (req, res, next) => {
     Action.find()
+      .populate('creator')
         .then(actions => {
             let message;
             if (actions.length === 0) {
@@ -36,7 +37,9 @@ router.get('', checkAuth, (req, res, next) => {
 });
 
 router.get('/:id', checkAuth, (req, res, next) => {
-    Action.findById({_id:req.params.id})
+    console.log(req.userData.userId);
+    // Authorisation (only if user is also the creator of the action)
+    Action.find({_id:req.params.id, creator: req.userData.userId})
         .populate('hasPage')
         .populate({
             path: 'hasPageSet',
@@ -45,10 +48,10 @@ router.get('/:id', checkAuth, (req, res, next) => {
             }
         })
         .then(result => {
-            if (result) {
+            if (result.length === 1) {
                 res.status(200).json({
                     message: 'Action was found',
-                    action: result
+                    action: result[0]
                 })
             } else {
                 res.status(404).json({message: 'Action was not found'})
