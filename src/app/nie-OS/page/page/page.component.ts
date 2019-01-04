@@ -130,10 +130,13 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.mongoActionService.getAction(actionID)
       .subscribe(
         data => {
-          this.action = ( data as any ).body.action;
-          // console.log('This action: ', this.action);
-          if (this.action.type === 'page') {
+          if (data.status === 200) {
+            this.action = ( data as any ).body.action;
+            if (this.action.type === 'page') {
               this.updateAppsInView(this.action.hasPage._id);
+            }
+          } else {
+            console.log('none');
           }
         },
         error => {
