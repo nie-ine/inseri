@@ -48,6 +48,11 @@
         <mat-icon>label</mat-icon> Try Query
       </button>
 
+      <app-response-tree
+        (sendMappingBackToQueryAppInputMap)="updateQueryAppInputMaping($event)"
+        [chosenInputs]="chosenInputs"
+        [queryResponse]="tree" >
+      </app-response-tree>
 
       <div *ngIf="response">
         <mat-button-toggle-group name="fontStyle" aria-label="Font Style">

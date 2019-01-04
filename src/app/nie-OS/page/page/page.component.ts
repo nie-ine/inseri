@@ -68,6 +68,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   openDataManagement() {
+    console.log( this.openAppsInThisPage );
+    this.updateOpenAppsInThisPage();
     const dialogRef = this.dialog.open(DataManagementComponent, {
       width: '100%',
       height: '100%',
@@ -76,6 +78,22 @@ export class PageComponent implements OnInit, AfterViewChecked {
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
     });
+  }
+
+  updateOpenAppsInThisPage() {
+    for( const app in this.page.openApps ) {
+      if( app && this.openAppsInThisPage[ this.page.openApps[ app ].type ] ) {
+        console.log( this.openAppsInThisPage[ this.page.openApps[ app ].type ] );
+        for( let openApp of this.openAppsInThisPage[ this.page.openApps[ app ].type ].model ) {
+          if ( openApp['hash'] === app ) {
+            openApp.type = this.page.openApps[ app ].type;
+            console.log( openApp );
+            console.log( this.page.openApps[ app ] );
+          }
+        }
+      }
+    }
+    console.log( this.openAppsInThisPage );
   }
 
   ngAfterViewChecked() {
@@ -129,7 +147,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     console.log('y: ' + app.y);
     console.log('type: ' + app.type);
     console.log('hash: ' + app.hash );
-    console.log( this.page );
+    // console.log( this.page );
     if (this.page.openApps[ app.hash ] === null) {
       this.page.openApps[ app.hash ] = [];
     }
