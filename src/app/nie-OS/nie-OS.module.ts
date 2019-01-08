@@ -41,6 +41,7 @@ import {MatListModule} from '@angular/material/list';
 import { FrameSettingsComponent } from './page/frame-settings/frame-settings.component';
 import {MatSliderModule} from '@angular/material/slider';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import {LoadVariablesComponent} from './load-variables/load-variables.component';
 
 
 @NgModule({
@@ -96,7 +97,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     QueryEntryComponent,
     KeyValueFormComponent,
     QueryAppInputMapComponent,
-    FrameSettingsComponent
+    FrameSettingsComponent,
+    LoadVariablesComponent
   ],
   exports: [
     PageComponent,

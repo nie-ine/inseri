@@ -1,45 +1,45 @@
-import { Injectable } from '@angular/core';
-import {MongoPageService} from '../../shared/nieOS/mongodb/page/page.service';
-import {MongoActionService} from '../../shared/nieOS/mongodb/action/action.service';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 import {OpenAppsModel} from '../../shared/nieOS/mongodb/page/open-apps.model';
+import {MongoPageService} from '../../shared/nieOS/mongodb/page/page.service';
+import {GenerateDataChoosersService} from '../data-management/generate-data-choosers.service';
+import {MongoActionService} from '../../shared/nieOS/mongodb/action/action.service';
 
-@Injectable({
-  providedIn: 'root'
+@Component({
+  selector: 'app-load-variables',
+  templateUrl: './load-variables.component.html'
 })
-export class GetPageAndMappingAndOpenAppFromUrlService {
-  action: any;
+export class LoadVariablesComponent implements OnInit {
+  @Output() sendPageBack = new EventEmitter();
+  @Output() sendMappingBack = new EventEmitter();
+  pageId: string;
+  actionId: string;
   page: any;
   openAppsInThisPage: any;
-  appInputQueryMapping: any;
-
+  resetPage = false;
+  action: any;
   constructor(
+    private route: ActivatedRoute,
     private mongoPageService: MongoPageService,
-    private mongoActionService: MongoActionService,
-    private appModel: OpenAppsModel
+    private generateDataChoosers: GenerateDataChoosersService,
+    private mongoActionService: MongoActionService
   ) { }
-  getVariablesFromUrl( actionID: string ) {
-    console.log( actionID );
-    this.mongoActionService.getAction(actionID)
-      .subscribe(
-        data => {
-          if (data.status === 200) {
-            this.action = ( data as any ).body.action;
-            if (this.action.type === 'page') {
-              if( this.updateAppsInView(this.action.hasPage._id) ) {
-                console.log( this.updateAppsInView(this.action.hasPage._id) );
-              }
-            }
-          } else {
-            console.log('none');
-          }
-        },
-        error => {
-          console.log(error);
-        });
-  }
-  updateAppsInView(viewHash: string ) {
+
+  ngOnInit() {
+    this.pageId = this.route.snapshot.queryParams.page;
+    this.actionId = this.route.snapshot.queryParams.actionID;
+    this.page = {};
     const reset = new OpenAppsModel;
     this.openAppsInThisPage = reset.openApps;
+    console.log( 'Load Variables', this.pageId, this.actionId );
+    if ( this.pageId ) {
+      this.updateAppsInView( this.pageId );
+    } else {
+      this.checkIfPageExistsForThisAction( this.actionId );
+    }
+  }
+
+  updateAppsInView(viewHash: string ) {
     this.mongoPageService.getPage(viewHash)
       .subscribe(
         data => {
@@ -61,21 +61,17 @@ export class GetPageAndMappingAndOpenAppFromUrlService {
               );
             }
           }
-          this.appInputQueryMapping = this.page.appInputQueryMapping;
-          for (const appType in this.openAppsInThisPage) {
-            if (this.openAppsInThisPage[appType].model.length !== 0) {
-              for (const appOfSameType of this.openAppsInThisPage[appType].model) {
-                if( this.appModel.openApps[ appOfSameType.type ] && this.appModel.openApps[ appOfSameType.type ].inputs ) {
-                  appOfSameType.inputs =  this.appModel.openApps[ appOfSameType.type ].inputs;
-                }
-              }
-            }
-          }
-          return {
-            page: this.page,
-            openApp: this.openAppsInThisPage,
-            mapping: this.appInputQueryMapping
-          };
+          this.generateDataChoosers.generateDataChoosers(
+            this.page,
+            this.openAppsInThisPage,
+            this.resetPage
+          );
+          console.log(
+            this.page,
+            this.openAppsInThisPage
+          );
+          this.sendPageBack.emit( this.page );
+          this.sendMappingBack.emit( this.openAppsInThisPage );
         },
         error => {
           console.log(error);
@@ -105,6 +101,24 @@ export class GetPageAndMappingAndOpenAppFromUrlService {
       index += 1;
     }
     // console.log( this.page.appInputQueryMapping );
+  }
+
+  checkIfPageExistsForThisAction(actionID: string) {
+    this.mongoActionService.getAction(actionID)
+      .subscribe(
+        data => {
+          if (data.status === 200) {
+            this.action = ( data as any ).body.action;
+            if (this.action.type === 'page') {
+              this.updateAppsInView(this.action.hasPage._id);
+            }
+          } else {
+            console.log('none');
+          }
+        },
+        error => {
+          console.log(error);
+        });
   }
 
   initiateUpdateApp(
@@ -137,4 +151,5 @@ export class GetPageAndMappingAndOpenAppFromUrlService {
     appModel[ length ].type = appType;
     appModel[ length ].initialized = true;
   }
+
 }

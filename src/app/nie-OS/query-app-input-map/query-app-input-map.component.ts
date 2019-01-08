@@ -5,7 +5,6 @@ import {HttpClient} from '@angular/common/http';
 import {AbstractJsonService} from '../data-management/abstract-json.service';
 import {MongoPageService} from '../../shared/nieOS/mongodb/page/page.service';
 import {GeneralRequestService} from '../../shared/general/general-request.service';
-import {GetPageAndMappingAndOpenAppFromUrlService} from './get-page-and-mapping-and-open-app-from-url.service';
 import {ActivatedRoute} from '@angular/router';
 import {OpenAppsModel} from '../../shared/nieOS/mongodb/page/open-apps.model';
 import {MongoActionService} from '../../shared/nieOS/mongodb/action/action.service';
