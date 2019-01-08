@@ -21,7 +21,10 @@ export class GenerateDataChoosersService {
     private pageService: MongoPageService
   ) { }
 
-  generateDataChoosers( page: any, openAppsInThisPage: any ) {
+  generateDataChoosers( page: any, openAppsInThisPage: any, reset: boolean ) {
+    if ( reset ) {
+      this.y = -50;
+    }
     for ( const queryId of  page.queries ) {
       let queryTitle = '';
       let pathArray = [];

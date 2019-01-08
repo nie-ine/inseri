@@ -5,6 +5,10 @@ import {HttpClient} from '@angular/common/http';
 import {AbstractJsonService} from '../data-management/abstract-json.service';
 import {MongoPageService} from '../../shared/nieOS/mongodb/page/page.service';
 import {GeneralRequestService} from '../../shared/general/general-request.service';
+import {GetPageAndMappingAndOpenAppFromUrlService} from './get-page-and-mapping-and-open-app-from-url.service';
+import {ActivatedRoute} from '@angular/router';
+import {OpenAppsModel} from '../../shared/nieOS/mongodb/page/open-apps.model';
+import {MongoActionService} from '../../shared/nieOS/mongodb/action/action.service';
 
 
 @Component({
@@ -19,14 +23,21 @@ export class QueryAppInputMapComponent implements OnInit {
   chosenInputs: Array<any> = [];
   mapping: any;
   paths: Array<any> = [];
-  mappingUsedByPage: any = {};
+  page: any;
+  appInputQueryMapping: any;
+  openAppsInThisPage: any;
+  action: any;
   constructor(
     public dialogRef: MatDialogRef<QueryAppInputMapComponent>,
     @Inject(MAT_DIALOG_DATA) public input: any,
     private http: HttpClient,
     private abstractJsonService: AbstractJsonService,
     private pageService: MongoPageService,
-    private requestService: GeneralRequestService
+    private requestService: GeneralRequestService,
+    private route: ActivatedRoute,
+    private mongoPageService: MongoPageService,
+    private mongoActionService: MongoActionService,
+    private appModel: OpenAppsModel
   ) {
     for ( const appInput in input.mapping[ input.app.hash ] ) {
       console.log( this.input.mapping[ input.app.hash ][appInput] );
@@ -35,16 +46,11 @@ export class QueryAppInputMapComponent implements OnInit {
         this.paths[ appInput ] = this.input.mapping[ input.app.hash ][appInput][ 'path' ];
       }
     }
-    console.log( this.paths );
   }
 
   ngOnInit() {
+    console.log( 'oninint' );
     this.loadAbstractResponse();
-  }
-
-  saveInputToLocalstorage() {
-    console.log( 'Save input to localstorage' );
-    localStorage.setItem( 'mapInputs', JSON.stringify(this.input) );
   }
 
   close() {
@@ -74,8 +80,9 @@ export class QueryAppInputMapComponent implements OnInit {
   }
 
   save() {
-    console.log( this.paths, this.input.page.appInputQueryMapping[ this.input.app.hash ] );
+    console.log( this.paths, this.input.page.appInputQueryMapping[ this.input.app.hash ], this.input );
     for ( const appInput in this.paths ) {
+      console.log( this.input.page.appInputQueryMapping, this.input.app.hash );
       this.input.page.appInputQueryMapping[ this.input.app.hash ][ appInput ][ 'path' ] = this.paths[ appInput ];
     }
     console.log(this.input.page);
