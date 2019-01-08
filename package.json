@@ -55,6 +55,7 @@
     "mongoose": "^5.2.15",
     "mongoose-unique-validator": "^2.0.2",
     "ng2-ace-editor": "^0.3.8",
+    "ngx-spinner": "^6.1.2",
     "nie-ine": "0.0.19",
     "nodemailer": "^4.6.8",
     "nodemon": "^1.18.4",

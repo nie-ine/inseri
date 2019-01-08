@@ -21,6 +21,7 @@ import { DataManagementComponent } from '../../data-management/data-management.c
 import {MatDialog} from '@angular/material';
 import {GenerateDataChoosersService} from '../../data-management/generate-data-choosers.service';
 import {HttpClient} from '@angular/common/http';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 declare var grapesjs: any; // Important!
 
@@ -30,17 +31,6 @@ declare var grapesjs: any; // Important!
   templateUrl: `page.component.html`,
 })
 export class PageComponent implements OnInit, AfterViewChecked {
-  image = {
-    '@id' : 'https://www.e-manuscripta.ch/zuz/i3f/v20/1510612/canvas/1510618',
-    '@type' : 'knora-api:StillImageFileValue',
-    'knora-api:fileValueAsUrl' :
-      'https://www.e-manuscripta.ch/zuz/i3f/v21/1510618/full/1304/0/default.jpg',
-    'knora-api:fileValueHasFilename' : '1510618',
-    'knora-api:fileValueIsPreview' : false,
-    'knora-api:stillImageFileValueHasDimX' : 3062,
-    'knora-api:stillImageFileValueHasDimY' : 4034,
-    'knora-api:stillImageFileValueHasIIIFBaseUrl' : 'https://www.e-manuscripta.ch/zuz/i3f/v20'
-  };
   projectIRI: string = 'http://rdfh.ch/projects/0001';
   actionID: string;
   length: number;
@@ -52,7 +42,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   pageAsDemo = false;
   pageUpdated = false;
   isLoading = true;
-
+  resetPage = false;
   constructor(
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
@@ -62,22 +52,35 @@ export class PageComponent implements OnInit, AfterViewChecked {
     private mongoPageService: MongoPageService,
     private mongoActionService: MongoActionService,
     private generateDataChoosers: GenerateDataChoosersService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private spinner: NgxSpinnerService
   ) {
     // this.route.params.subscribe(params => console.log(params));
   }
 
   openDataManagement() {
-    console.log( this.openAppsInThisPage );
-    this.updateOpenAppsInThisPage();
-    const dialogRef = this.dialog.open(DataManagementComponent, {
-      width: '100%',
-      height: '100%',
-      data: [ this.openAppsInThisPage, this.page ]
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
-    });
+    this.spinner.show();
+    this.mongoPageService.updatePage(this.page)
+      .subscribe(
+        data => {
+          console.log(data);
+          this.spinner.hide();
+          console.log( this.openAppsInThisPage );
+          this.updateOpenAppsInThisPage();
+          const dialogRef = this.dialog.open(DataManagementComponent, {
+            width: '100%',
+            height: '100%',
+            data: [ this.openAppsInThisPage, this.page ]
+          });
+          dialogRef.afterClosed().subscribe((result) => {
+            this.resetPage = true;
+            this.onInit();
+            console.log(result);
+          });
+        },
+        error => {
+          console.log(error);
+        });
   }
 
   updateOpenAppsInThisPage() {
@@ -105,18 +108,28 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.cdr.detectChanges();
   }
 
-  ngOnInit() {
+  onInit() {
     this.updatePageFromUrl();
     if ( !this.actionID ) {
       this.pageAsDemo = true;
       this.isLoading = false;
     }
+    this.spinner.show();
+
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 5000);
+  }
+
+  ngOnInit() {
+    this.onInit();
   }
 
   updatePageFromUrl() {
     this.openAppsInThisPage = {};
     this.page = {};
-    this.openAppsInThisPage = this.openApps.openApps;
+    const reset = new OpenAppsModel;
+    this.openAppsInThisPage = reset.openApps;
     this.actionID = this.route.snapshot.queryParams.actionID;
     this.pageIDFromURL = this.route.snapshot.queryParams.page;
     if ( this.pageIDFromURL ) {
@@ -182,9 +195,12 @@ export class PageComponent implements OnInit, AfterViewChecked {
           }
           this.generateDataChoosers.generateDataChoosers(
             this.page,
-            this.openAppsInThisPage
+            this.openAppsInThisPage,
+            this.resetPage
           );
-          this.isLoading = false;
+          setTimeout(() => {
+            this.isLoading = false;
+          }, 5000);
         },
         error => {
           this.isLoading = false;
@@ -338,23 +354,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
       return appValue ;
     } else {
       return defaultHeight;
-    }
-  }
-
-  returnImage( imageUrl: string ) {
-    if ( imageUrl ) {
-      const image = {
-        '@id' : 'https://www.e-manuscripta.ch/zuz/i3f/v20/1510612/canvas/1510618',
-        '@type' : 'knora-api:StillImageFileValue',
-        'knora-api:fileValueAsUrl' : imageUrl,
-          'knora-api:fileValueHasFilename' : '1510618',
-        'knora-api:fileValueIsPreview' : false,
-        'knora-api:stillImageFileValueHasDimX' : 3062,
-        'knora-api:stillImageFileValueHasDimY' : 4034,
-        'knora-api:stillImageFileValueHasIIIFBaseUrl' : 'https://www.e-manuscripta.ch/zuz/i3f/v20'
-      };
-      console.log( this.image );
-      return image;
     }
   }
 }

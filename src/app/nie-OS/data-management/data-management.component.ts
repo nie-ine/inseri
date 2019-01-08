@@ -7,6 +7,7 @@ import {MongoPageService} from '../../shared/nieOS/mongodb/page/page.service';
 import {ActivatedRoute} from '@angular/router';
 import {MongoActionService} from '../../shared/nieOS/mongodb/action/action.service';
 import {OpenAppsModel} from '../../shared/nieOS/mongodb/page/open-apps.model';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-data-management',
@@ -25,8 +26,10 @@ export class DataManagementComponent implements OnInit {
   appInputQueryMapping = [];
   queries = [];
   openAppsInThisPage: any;
-  private mongoPageService: MongoPageService;
   page: any;
+  pageIDFromURL: string;
+  action: any;
+
   inputs = [
     {
       'inputName': 'textlist'
@@ -45,37 +48,159 @@ export class DataManagementComponent implements OnInit {
     public dialog: MatDialog,
     private actionService: MongoActionService,
     private pageService: MongoPageService,
+    private mongoPageService: MongoPageService,
     private route: ActivatedRoute,
-    private appModel: OpenAppsModel
+    private appModel: OpenAppsModel,
+    private spinner1: NgxSpinnerService,
+    private mongoActionService: MongoActionService
   ) {
-    this.openAppsInThisPage = data[ 0 ];
-    this.page = data[ 1 ];
-    this.appInputQueryMapping = this.page.appInputQueryMapping;
-    for (const appType in this.openAppsInThisPage) {
-      if (this.openAppsInThisPage[appType].model.length !== 0) {
-        for (const appOfSameType of this.openAppsInThisPage[appType].model) {
-          if( this.appModel.openApps[ appOfSameType.type ] && this.appModel.openApps[ appOfSameType.type ].inputs ) {
-            appOfSameType.inputs =  this.appModel.openApps[ appOfSameType.type ].inputs;
-            this.openApps.push(appOfSameType);
-            for (const query in this.queries) {
-              this.queries[query][appOfSameType.hash] = appOfSameType.hash;
-            }
-            this.columnsToDisplay.push(appOfSameType.hash);
-          }
-        }
-        if (this.table) {
-          this.table.renderRows();
-        }
-      }
-      if (this.table) {
-        this.table.renderRows();
-      }
-    }
-    this.isLoading = false;
+    // this.openAppsInThisPage = data[ 0 ];
+    // this.page = data[ 1 ];
+    this.updatePageFromUrl();
   }
 
+  updatePageFromUrl() {
+    this.openAppsInThisPage = {};
+    this.page = {};
+    const reset = new OpenAppsModel;
+    this.openAppsInThisPage = reset.openApps;
+    this.actionID = this.route.snapshot.queryParams.actionID;
+    this.pageIDFromURL = this.route.snapshot.queryParams.page;
+    if ( this.pageIDFromURL ) {
+      this.updateAppsInView( this.pageIDFromURL );
+    } else {
+      this.checkIfPageExistsForThisAction( this.actionID );
+    }
+  }
+
+  checkIfPageExistsForThisAction(actionID: string) {
+    this.mongoActionService.getAction(actionID)
+      .subscribe(
+        data => {
+          if (data.status === 200) {
+            this.action = ( data as any ).body.action;
+            if (this.action.type === 'page') {
+              this.updateAppsInView(this.action.hasPage._id);
+            }
+          } else {
+            console.log('none');
+          }
+        },
+        error => {
+          this.isLoading = false;
+          console.log(error);
+        });
+  }
+
+  updateAppsInView(viewHash: string ) {
+    this.mongoPageService.getPage(viewHash)
+      .subscribe(
+        data => {
+          this.page = ( data as any).page;
+          // console.log( this.page );
+          this.convertMappingsBackFromJson( this.page );
+          const appHelperArray = [];
+          for ( const app of this.page.openApps ) {
+            appHelperArray[JSON.parse(app).hash] = JSON.parse(app);
+          }
+          this.page.openApps = appHelperArray;
+          // console.log(this.page.openApps);
+          for ( const app in this.page.openApps ) {
+            for ( const appType in this.openAppsInThisPage ) {
+              this.initiateUpdateApp(
+                this.page.openApps[ app ],
+                this.openAppsInThisPage[ appType ].type,
+                this.openAppsInThisPage[ appType ].model
+              );
+            }
+          }
+          this.appInputQueryMapping = this.page.appInputQueryMapping;
+          for (const appType in this.openAppsInThisPage) {
+            if (this.openAppsInThisPage[appType].model.length !== 0) {
+              for (const appOfSameType of this.openAppsInThisPage[appType].model) {
+                if( this.appModel.openApps[ appOfSameType.type ] && this.appModel.openApps[ appOfSameType.type ].inputs ) {
+                  appOfSameType.inputs =  this.appModel.openApps[ appOfSameType.type ].inputs;
+                  this.openApps.push(appOfSameType);
+                  for (const query in this.queries) {
+                    this.queries[query][appOfSameType.hash] = appOfSameType.hash;
+                  }
+                  this.columnsToDisplay.push(appOfSameType.hash);
+                }
+              }
+              if (this.table) {
+                this.table.renderRows();
+              }
+            }
+            if (this.table) {
+              this.table.renderRows();
+            }
+          }
+        },
+        error => {
+          this.isLoading = false;
+          console.log(error);
+        });
+  }
+
+  initiateUpdateApp(
+    appFromViewModel: any,
+    appType: string,
+    appModel: any
+  ) {
+    if ( appFromViewModel.type === appType ) {
+      this.updateApp(
+        appType,
+        appModel,
+        appFromViewModel
+      );
+    }
+  }
+
+  updateApp(
+    appType: string,
+    appModel: any,
+    appFromViewModel: any
+  ) {
+    const length = appModel.length;
+    appModel[ length ] = {};
+    appModel[ length ].x = appFromViewModel.x;
+    appModel[ length ].y = appFromViewModel.y;
+    appModel[ length ].hash = appFromViewModel.hash;
+    appModel[ length ].title = appFromViewModel.title;
+    appModel[ length ].width = appFromViewModel.width;
+    appModel[ length ].height = appFromViewModel.height;
+    appModel[ length ].type = appType;
+    appModel[ length ].initialized = true;
+  }
+
+  convertMappingsBackFromJson( page: any ) {
+    // console.log( 'convertMappingsBackFromJson', page.appInputQueryMapping );
+    for ( const mappingInstance of page.appInputQueryMapping ) {
+      const appHash = JSON.parse(mappingInstance)['app'];
+      // console.log( appHash );
+      // console.log( JSON.parse(mappingInstance) );
+      const appMapping = JSON.parse(mappingInstance);
+      for ( const key in appMapping ) {
+        if ( key !== 'app' ) {
+          // console.log( key, appHash, appMapping[ key ] );
+          if ( !this.page[ 'appInputQueryMapping' ][ appHash ] ) {
+            this.page[ 'appInputQueryMapping' ][ appHash ] = {};
+          }
+          this.page[ 'appInputQueryMapping' ][ appHash ][ key ] = appMapping[ key ];
+        }
+      }
+    }
+    let index = 0;
+    for ( const mapping of this.page.appInputQueryMapping ) {
+      this.page.appInputQueryMapping.splice( index );
+      index += 1;
+    }
+    // console.log( this.page.appInputQueryMapping );
+  }
+
+
   ngOnInit() {
-    this.isLoading = true;
+    this.spinner1.show();
     this.actionID = this.route.snapshot.queryParams.actionID;
       this.actionService.getAction(this.actionID)
           .subscribe(actionData => {
@@ -104,7 +229,7 @@ export class DataManagementComponent implements OnInit {
                               console.log(this.queries);
                             }
                           }
-                          this.isLoading = false;
+                          this.spinner1.hide();
                     });
                   } else {
                     this.pageID = this.route.snapshot.queryParams.page;
@@ -112,11 +237,11 @@ export class DataManagementComponent implements OnInit {
                       .subscribe((data) => {
                         this.queries = data.queries;
                         console.log( this.queries );
-                        this.isLoading = false;
+                        this.spinner1.hide();
                       });
                   }
               } else {
-                this.isLoading = false;
+                this.spinner1.hide();
               }
           });
   }
@@ -170,7 +295,7 @@ export class DataManagementComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log('Abstract tree from query entry');
       console.log(result);
-      this.updateQueryWithAbstractResponseStructure(result[1], result[0]);
+      // this.updateQueryWithAbstractResponseStructure(result[1], result[0]);
     });
   }
 

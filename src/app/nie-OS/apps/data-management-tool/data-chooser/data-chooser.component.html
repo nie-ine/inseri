@@ -5,5 +5,5 @@
         {{ showChosenEnrty( entry ) }}
       </mat-option>
     </mat-select>
-  <button *ngIf="index < dataChooserEntries.length - 1" mat-button (click)="moveForward()"> <mat-icon>keyboard_arrow_right</mat-icon> </button>
+  <button *ngIf="dataChooserEntries && index < dataChooserEntries.length - 1" mat-button (click)="moveForward()"> <mat-icon>keyboard_arrow_right</mat-icon> </button>
 </div>
