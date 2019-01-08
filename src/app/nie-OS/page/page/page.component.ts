@@ -38,7 +38,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   action: any;
   panelsOpen = false;
   pageIDFromURL: string;
-  openAppsInThisPage: any;
+  openAppsInThisPage: any = {};
   pageAsDemo = false;
   pageUpdated = false;
   isLoading = true;
@@ -74,7 +74,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
           });
           dialogRef.afterClosed().subscribe((result) => {
             this.resetPage = true;
-            this.onInit();
             console.log(result);
           });
         },
@@ -103,13 +102,17 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.cdr.detectChanges();
     if ( this.pageIDFromURL !==  this.route.snapshot.queryParams.page ) {
       this.clearAppsInThisPage();
-      this.updatePageFromUrl();
     }
     this.cdr.detectChanges();
   }
 
-  onInit() {
-    this.updatePageFromUrl();
+  ngOnInit() {
+    this.openAppsInThisPage = {};
+    this.page = {};
+    const reset = new OpenAppsModel;
+    this.openAppsInThisPage = reset.openApps;
+    this.actionID = this.route.snapshot.queryParams.actionID;
+    this.pageIDFromURL = this.route.snapshot.queryParams.page;
     if ( !this.actionID ) {
       this.pageAsDemo = true;
       this.isLoading = false;
@@ -119,43 +122,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
     setTimeout(() => {
       this.spinner.hide();
     }, 5000);
-  }
-
-  ngOnInit() {
-    this.onInit();
-  }
-
-  updatePageFromUrl() {
-    this.openAppsInThisPage = {};
-    this.page = {};
-    const reset = new OpenAppsModel;
-    this.openAppsInThisPage = reset.openApps;
-    this.actionID = this.route.snapshot.queryParams.actionID;
-    this.pageIDFromURL = this.route.snapshot.queryParams.page;
-    if ( this.pageIDFromURL ) {
-      this.updateAppsInView( this.pageIDFromURL );
-    } else {
-      this.checkIfPageExistsForThisAction( this.actionID );
-    }
-  }
-
-  checkIfPageExistsForThisAction(actionID: string) {
-    this.mongoActionService.getAction(actionID)
-      .subscribe(
-        data => {
-          if (data.status === 200) {
-            this.action = ( data as any ).body.action;
-            if (this.action.type === 'page') {
-              this.updateAppsInView(this.action.hasPage._id);
-            }
-          } else {
-            console.log('none');
-          }
-        },
-        error => {
-          this.isLoading = false;
-          console.log(error);
-        });
   }
 
   updateAppCoordinates(app: any) {
@@ -171,68 +137,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
     console.log(this.page);
   }
 
-  updateAppsInView(viewHash: string ) {
-    this.mongoPageService.getPage(viewHash)
-      .subscribe(
-        data => {
-          this.page = ( data as any).page;
-          // console.log( this.page );
-          this.convertMappingsBackFromJson( this.page );
-          const appHelperArray = [];
-          for ( const app of this.page.openApps ) {
-            appHelperArray[JSON.parse(app).hash] = JSON.parse(app);
-          }
-          this.page.openApps = appHelperArray;
-          // console.log(this.page.openApps);
-          for ( const app in this.page.openApps ) {
-            for ( const appType in this.openAppsInThisPage ) {
-              this.initiateUpdateApp(
-                this.page.openApps[ app ],
-                this.openAppsInThisPage[ appType ].type,
-                this.openAppsInThisPage[ appType ].model
-              );
-            }
-          }
-          this.generateDataChoosers.generateDataChoosers(
-            this.page,
-            this.openAppsInThisPage,
-            this.resetPage
-          );
-          setTimeout(() => {
-            this.isLoading = false;
-          }, 5000);
-        },
-        error => {
-          this.isLoading = false;
-          console.log(error);
-        });
-  }
-
-  convertMappingsBackFromJson( page: any ) {
-    // console.log( 'convertMappingsBackFromJson', page.appInputQueryMapping );
-    for ( const mappingInstance of page.appInputQueryMapping ) {
-      const appHash = JSON.parse(mappingInstance)['app'];
-      // console.log( appHash );
-      // console.log( JSON.parse(mappingInstance) );
-      const appMapping = JSON.parse(mappingInstance);
-      for ( const key in appMapping ) {
-        if ( key !== 'app' ) {
-          // console.log( key, appHash, appMapping[ key ] );
-          if ( !this.page[ 'appInputQueryMapping' ][ appHash ] ) {
-            this.page[ 'appInputQueryMapping' ][ appHash ] = {};
-          }
-          this.page[ 'appInputQueryMapping' ][ appHash ][ key ] = appMapping[ key ];
-        }
-      }
-    }
-    let index = 0;
-    for ( const mapping of this.page.appInputQueryMapping ) {
-      this.page.appInputQueryMapping.splice( index );
-      index += 1;
-    }
-    // console.log( this.page.appInputQueryMapping );
-  }
-
   clearAppsInThisPage() {
     console.log('Clear apps in this page');
     console.log(this.openApps.openApps);
@@ -241,37 +145,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
       // console.log( this.openApps.openApps[ app ].model );
     }
     console.log(this.openApps.openApps);
-  }
-
-  initiateUpdateApp(
-    appFromViewModel: any,
-    appType: string,
-    appModel: any
-  ) {
-    if ( appFromViewModel.type === appType ) {
-      this.updateApp(
-        appType,
-        appModel,
-        appFromViewModel
-      );
-    }
-  }
-
-  updateApp(
-    appType: string,
-    appModel: any,
-    appFromViewModel: any
-  ) {
-    const length = appModel.length;
-    appModel[ length ] = {};
-    appModel[ length ].x = appFromViewModel.x;
-    appModel[ length ].y = appFromViewModel.y;
-    appModel[ length ].hash = appFromViewModel.hash;
-    appModel[ length ].title = appFromViewModel.title;
-    appModel[ length ].width = appFromViewModel.width;
-    appModel[ length ].height = appFromViewModel.height;
-    appModel[ length ].type = appType;
-    appModel[ length ].initialized = true;
   }
 
   createTooltip() {
@@ -325,10 +198,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
     console.log(this.openAppsInThisPage);
   }
 
-  updateAppTypesFromDataChooser( openAppsInThisPageFromDataChooser: any ) {
-    this.openAppsInThisPage = openAppsInThisPageFromDataChooser;
-  }
-
   expandPanels() {
     this.panelsOpen = !this.panelsOpen;
   }
@@ -355,5 +224,14 @@ export class PageComponent implements OnInit, AfterViewChecked {
     } else {
       return defaultHeight;
     }
+  }
+
+  receivePage( pageFromLoadComponent: any ) {
+    console.log( pageFromLoadComponent );
+    this.page = pageFromLoadComponent;
+  }
+
+  receiveMapping( mappingFromLoadComponent: any ) {
+    this.openAppsInThisPage = mappingFromLoadComponent;
   }
 }
