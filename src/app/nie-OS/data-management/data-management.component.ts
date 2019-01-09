@@ -279,6 +279,10 @@ export class DataManagementComponent implements OnInit {
         });
   }
 
+  openExistingQueryDialog() {
+    console.log('openExistingQueryDialog');
+  }
+
   close() {
     this.dialogRef.close();
   }
