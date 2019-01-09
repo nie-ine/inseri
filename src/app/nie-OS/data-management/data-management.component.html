@@ -1,13 +1,23 @@
 <!--<mat-spinner *ngIf="isLoading"></mat-spinner>-->
 
+<app-load-variables
+  (sendPageBack)="receivePage( $event )"
+  (sendOpenAppsInThisPageBack)="receiveOpenAppsInThisPage( $event )">
+
+</app-load-variables>
+
+  <div style="margin-top: 30px">
+    <button mat-button (click)="save()">
+      <mat-icon>save</mat-icon> Save
+    </button>
+    <button mat-button (click)="close()">
+      <mat-icon>clear</mat-icon> Close
+    </button>
+  </div>
+
 <div style="margin-top: 30px" *ngIf="!isLoading">
 
-  <button mat-button (click)="save()">
-    <mat-icon>save</mat-icon> Save
-  </button>
-  <button mat-button (click)="close()">
-    <mat-icon>clear</mat-icon> Close
-  </button>
+
 
   <table mat-table [dataSource]="queries">
 

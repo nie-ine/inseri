@@ -63,9 +63,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.mongoPageService.updatePage(this.page)
       .subscribe(
         data => {
-          console.log(data);
-          this.spinner.hide();
-          console.log( this.openAppsInThisPage );
+          // console.log(data);
+          // console.log( this.openAppsInThisPage );
           this.updateOpenAppsInThisPage();
           const dialogRef = this.dialog.open(DataManagementComponent, {
             width: '100%',
@@ -231,7 +230,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.page = pageFromLoadComponent;
   }
 
-  receiveMapping( mappingFromLoadComponent: any ) {
-    this.openAppsInThisPage = mappingFromLoadComponent;
+  receiveOpenAppsInThisPage( openAppsInThisPage: any ) {
+    this.openAppsInThisPage = openAppsInThisPage;
   }
 }

@@ -11,7 +11,7 @@ import {MongoActionService} from '../../shared/nieOS/mongodb/action/action.servi
 })
 export class LoadVariablesComponent implements OnInit {
   @Output() sendPageBack = new EventEmitter();
-  @Output() sendMappingBack = new EventEmitter();
+  @Output() sendOpenAppsInThisPageBack = new EventEmitter();
   pageId: string;
   actionId: string;
   page: any;
@@ -71,7 +71,7 @@ export class LoadVariablesComponent implements OnInit {
             this.openAppsInThisPage
           );
           this.sendPageBack.emit( this.page );
-          this.sendMappingBack.emit( this.openAppsInThisPage );
+          this.sendOpenAppsInThisPageBack.emit( this.openAppsInThisPage );
         },
         error => {
           console.log(error);
