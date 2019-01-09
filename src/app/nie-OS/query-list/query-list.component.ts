@@ -14,15 +14,28 @@ export class QueryListComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<QueryListComponent>, private queryService: QueryService) { }
 
   ngOnInit() {
+    this.getAllQuery();
+    // this.queryService.getQuery('5c07dbfdff37d7344e1e1479').subscribe(query => console.log(query));
+  }
+
+  getAllQuery() {
     this.queryService.getAllQueriesOfUser(localStorage.getItem('userId')).subscribe(data => {
       this.queries = data.queries;
       console.log(data.queries);
     });
-    // this.queryService.getQuery('5c07dbfdff37d7344e1e1479').subscribe(query => console.log(query));
   }
 
-  add(item: any) {
-    console.log(item);
+  addQuery(query: any) {
+    console.log(query);
+  }
+
+  deleteQuery(query: any) {
+    this.queryService.deleteQuery(query._id)
+      .subscribe((result) => {
+        if (result.status === 200) {
+          this.getAllQuery();
+        }
+    });
   }
 
   openQueryEntry(item: any) {

@@ -9,7 +9,7 @@
     <ng-container matColumnDef="add">
       <th mat-header-cell *matHeaderCellDef>Add</th>
       <td mat-cell *matCellDef="let item">
-        <button mat-button (click)="add(item)" mat-icon-button><mat-icon>add</mat-icon></button>
+        <button mat-button (click)="addQuery(item)" mat-icon-button><mat-icon>add</mat-icon></button>
       </td>
     </ng-container>
 
@@ -28,7 +28,7 @@
     <ng-container matColumnDef="delete">
       <th mat-header-cell *matHeaderCellDef>Delete</th>
       <td mat-cell *matCellDef="let item">
-        <button *ngIf="item.isBoundToPage === 'false'" mat-button (click)="add(item)" mat-icon-button><mat-icon>delete</mat-icon></button>
+        <button *ngIf="item.isBoundToPage === 'false'" mat-button (click)="deleteQuery(item)" mat-icon-button><mat-icon>delete</mat-icon></button>
       </td>
     </ng-container>
 
