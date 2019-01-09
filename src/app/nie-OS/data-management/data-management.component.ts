@@ -19,7 +19,6 @@ import { QueryService } from '../../shared/nieOS/mongodb/query/query.service';
 export class DataManagementComponent implements OnInit {
   @ViewChild(MatTable) table: MatTable<any>;
   actionID: string;
-  pageID: string;
   isLoading: boolean;
   displayedColumns = ['query'];
   columnsToDisplay: string[] = this.displayedColumns.slice();
@@ -123,7 +122,7 @@ export class DataManagementComponent implements OnInit {
   delete(row: any): void {
     const index = this.queries.indexOf(row, 0);
     if (index > -1) {
-      this.queryService.deleteQueryOfPage(this.pageID, row._id)
+      this.queryService.deleteQueryOfPage(this.page._id, row._id)
           .subscribe((data) => {
               if (data.status === 200) {
                 this.queries.splice(index, 1);
@@ -136,7 +135,7 @@ export class DataManagementComponent implements OnInit {
   }
 
   addQuery(name: string) {
-    this.queryService.createQueryOfPage(this.pageID, {title: name})
+    this.queryService.createQueryOfPage(this.page._id, {title: name})
         .subscribe(data => {
           if (data.status === 201) {
               this.queries.push(data.body.query);
