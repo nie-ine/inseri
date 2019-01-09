@@ -51,10 +51,6 @@ export class MongoPageService {
     return this.http.post(`${MongoPageService.API_BASE_URL_PAGE}/${pageId}/queries`, query, {observe: 'response'});
   }
 
-  getQuery(queryId: string): Observable<any> {
-    return this.http.get(`${MongoPageService.API_BASE_URL_QUERY}/${queryId}`);
-  }
-
   getAllQueries(pageId: string): Observable<any> {
     return this.http.get(`${MongoPageService.API_BASE_URL_PAGE}/${pageId}/queries`);
   }
