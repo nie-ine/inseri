@@ -43,6 +43,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   pageUpdated = false;
   isLoading = true;
   resetPage = false;
+  reloadVariables = false;
   constructor(
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
@@ -74,6 +75,11 @@ export class PageComponent implements OnInit, AfterViewChecked {
           dialogRef.afterClosed().subscribe((result) => {
             this.resetPage = true;
             console.log(result);
+            this.reloadVariables = true;
+            this.spinner.show();
+            setTimeout(() => {
+              this.spinner.hide();
+            }, 5000);
           });
         },
         error => {
@@ -228,9 +234,11 @@ export class PageComponent implements OnInit, AfterViewChecked {
   receivePage( pageFromLoadComponent: any ) {
     console.log( pageFromLoadComponent );
     this.page = pageFromLoadComponent;
+    this.reloadVariables = false;
   }
 
   receiveOpenAppsInThisPage( openAppsInThisPage: any ) {
     this.openAppsInThisPage = openAppsInThisPage;
+    this.reloadVariables = false;
   }
 }

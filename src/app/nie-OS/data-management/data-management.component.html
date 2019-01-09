@@ -2,7 +2,7 @@
 
 <app-load-variables
   (sendPageBack)="receivePage( $event )"
-  (sendOpenAppsInThisPageBack)="receiveOpenAppsInThisPage( $event )">
+  (sendOpenAppsInThisPageBack)="receiveOpenAppsInThisPage( $event )" [reload]="reloadVariables">
 
 </app-load-variables>
 
@@ -15,7 +15,7 @@
     </button>
   </div>
 
-<div style="margin-top: 30px" *ngIf="!isLoading">
+<div style="margin-top: 30px">
 
 
 
