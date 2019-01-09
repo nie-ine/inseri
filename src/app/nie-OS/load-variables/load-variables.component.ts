@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {OpenAppsModel} from '../../shared/nieOS/mongodb/page/open-apps.model';
 import {MongoPageService} from '../../shared/nieOS/mongodb/page/page.service';
@@ -9,7 +9,8 @@ import {MongoActionService} from '../../shared/nieOS/mongodb/action/action.servi
   selector: 'app-load-variables',
   templateUrl: './load-variables.component.html'
 })
-export class LoadVariablesComponent implements OnInit {
+export class LoadVariablesComponent implements OnInit, OnChanges {
+  @Input() reload = false;
   @Output() sendPageBack = new EventEmitter();
   @Output() sendOpenAppsInThisPageBack = new EventEmitter();
   pageId: string;
@@ -25,7 +26,14 @@ export class LoadVariablesComponent implements OnInit {
     private mongoActionService: MongoActionService
   ) { }
 
-  ngOnInit() {
+  ngOnChanges() {
+    console.log('on changes', this.reload);
+    if( this.reload ) {
+      this.reloadVariables();
+    }
+  }
+
+  reloadVariables() {
     this.pageId = this.route.snapshot.queryParams.page;
     this.actionId = this.route.snapshot.queryParams.actionID;
     this.page = {};
@@ -37,6 +45,10 @@ export class LoadVariablesComponent implements OnInit {
     } else {
       this.checkIfPageExistsForThisAction( this.actionId );
     }
+  }
+
+  ngOnInit() {
+    this.reloadVariables();
   }
 
   updateAppsInView(viewHash: string ) {
@@ -64,7 +76,7 @@ export class LoadVariablesComponent implements OnInit {
           this.generateDataChoosers.generateDataChoosers(
             this.page,
             this.openAppsInThisPage,
-            this.resetPage
+            this.reload
           );
           console.log(
             this.page,

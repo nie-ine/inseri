@@ -28,6 +28,7 @@ export class DataManagementComponent implements OnInit {
   openAppsInThisPage: any;
   page: any;
   action: any;
+  reloadVariables = false;
 
   constructor(
     public dialogRef: MatDialogRef<DataManagementComponent>,
@@ -42,9 +43,15 @@ export class DataManagementComponent implements OnInit {
   ) {
   }
 
+  resetTable() {
+    this.columnsToDisplay = this.displayedColumns.slice();
+    this.displayedColumns = ['query'];
+    this.openApps = [];
+    this.table.renderRows();
+  }
+
   receivePage( pageFromLoadComponent: any ) {
-    console.log( pageFromLoadComponent );
-    this.isLoading = false;
+    this.reloadVariables = false;
     this.page = pageFromLoadComponent;
     this.appInputQueryMapping = this.page.appInputQueryMapping;
     this.pageService.getAllQueries(this.page._id)
@@ -74,8 +81,9 @@ export class DataManagementComponent implements OnInit {
   }
 
   receiveOpenAppsInThisPage( openAppsInThisPage: any ) {
-    this.isLoading = false;
     this.openAppsInThisPage = openAppsInThisPage;
+    this.resetTable();
+    this.reloadVariables = false;
     for (const appType in this.openAppsInThisPage) {
       if (this.openAppsInThisPage[appType].model.length !== 0) {
         for (const appOfSameType of this.openAppsInThisPage[appType].model) {
@@ -113,7 +121,7 @@ export class DataManagementComponent implements OnInit {
   delete(row: any): void {
     const index = this.queries.indexOf(row, 0);
     if (index > -1) {
-      this.pageService.deleteQuery(this.pageID, row._id)
+      this.pageService.deleteQuery(this.page._id, row._id)
           .subscribe((data) => {
               if (data.status === 200) {
                 this.queries.splice(index, 1);
@@ -126,7 +134,7 @@ export class DataManagementComponent implements OnInit {
   }
 
   addQuery(name: string) {
-    this.pageService.createQuery(this.pageID, {title: name})
+    this.pageService.createQuery(this.page._id, {title: name})
         .subscribe(data => {
           if (data.status === 201) {
               this.queries.push(data.body.query);
@@ -145,7 +153,7 @@ export class DataManagementComponent implements OnInit {
       height: '100%',
       data: {
         query: query,
-        pageID: this.pageID
+        pageID: this.page._id
       }
     });
     dialogRef.afterClosed().subscribe((result) => {
@@ -210,6 +218,7 @@ export class DataManagementComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe((result) => {
+      this.reloadVariables = true;
       console.log( result );
     });
   }
