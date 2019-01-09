@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { MongoActionService } from '../../../shared/nieOS/mongodb/action/action.service';
-import { MongoPageSetService } from '../../../shared/nieOS/mongodb/pageset/page-set.service';
-import { MongoPageService } from '../../../shared/nieOS/mongodb/page/page.service';
+import { ActionService } from '../../../shared/nieOS/mongodb/action/action.service';
+import { PageSetService } from '../../../shared/nieOS/mongodb/pageset/page-set.service';
+import { PageService } from '../../../shared/nieOS/mongodb/page/page.service';
 
 @Component({
   selector: 'app-delete-action',
@@ -15,9 +15,9 @@ export class DeleteActionComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<DeleteActionComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
-              private mongoActionService: MongoActionService,
-              private pageService: MongoPageService,
-              private pageSetService: MongoPageSetService) {
+              private actionService: ActionService,
+              private pageService: PageService,
+              private pageSetService: PageSetService) {
   }
 
   ngOnInit() {
@@ -45,7 +45,7 @@ export class DeleteActionComponent implements OnInit {
 
   delete() {
     this.isLoading = true;
-    this.mongoActionService.deleteAction(this.data.id)
+    this.actionService.deleteAction(this.data.id)
       .subscribe((result) => {
         if (result.status === 200) {
           this.dialogRef.close();

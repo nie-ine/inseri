@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import { MongoPageSetService } from '../../../shared/nieOS/mongodb/pageset/page-set.service';
+import { PageSetService } from '../../../shared/nieOS/mongodb/pageset/page-set.service';
 import { PageSetModel } from '../../../shared/nieOS/mongodb/pageset/page-set.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -14,7 +14,7 @@ export class EditPageSetComponent implements OnInit {
   form: FormGroup;
 
   constructor(public dialogRef: MatDialogRef<EditPageSetComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
-              private pageSetService: MongoPageSetService) {
+              private pageSetService: PageSetService) {
     this.isLoading = false;
     console.log(data);
   }

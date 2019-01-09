@@ -15,8 +15,7 @@ import 'rxjs/add/operator/map';
 import { ActivatedRoute } from '@angular/router';
 import {GenerateHashService} from '../../../shared/nieOS/other/generateHash.service';
 import {OpenAppsModel} from '../../../shared/nieOS/mongodb/page/open-apps.model';
-import {MongoPageService} from '../../../shared/nieOS/mongodb/page/page.service';
-import {MongoActionService} from '../../../shared/nieOS/mongodb/action/action.service';
+import {PageService} from '../../../shared/nieOS/mongodb/page/page.service';
 import { DataManagementComponent } from '../../data-management/data-management.component';
 import {MatDialog} from '@angular/material';
 import {GenerateDataChoosersService} from '../../data-management/generate-data-choosers.service';
@@ -50,8 +49,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     private generateHashService: GenerateHashService,
     private openApps: OpenAppsModel,
     private resetOpenApps: OpenAppsModel,
-    private mongoPageService: MongoPageService,
-    private mongoActionService: MongoActionService,
+    private pageService: PageService,
     private generateDataChoosers: GenerateDataChoosersService,
     public dialog: MatDialog,
     private spinner: NgxSpinnerService
@@ -61,7 +59,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   openDataManagement() {
     this.spinner.show();
-    this.mongoPageService.updatePage(this.page)
+    this.pageService.updatePage(this.page)
       .subscribe(
         data => {
           // console.log(data);
@@ -163,7 +161,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   updatePage() {
     console.log('update page for this action');
     console.log( this.page );
-    this.mongoPageService.updatePage(this.page)
+    this.pageService.updatePage(this.page)
       .subscribe(
         data => {
           console.log(data);

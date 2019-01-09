@@ -2,10 +2,10 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Router, NavigationEnd } from '@angular/router';
 import { AlertService} from '../../shared/nieOS/fake-backend/auth/altert.service';
-import { MongoActionService } from '../../shared/nieOS/mongodb/action/action.service';
+import { ActionService } from '../../shared/nieOS/mongodb/action/action.service';
 import { Action } from '../../shared/nieOS/mongodb/action/action.model';
 import { map } from 'rxjs/operators';
-import {MongoContactService} from '../../shared/nieOS/mongodb/contact/contact.service';
+import {ContactService} from '../../shared/nieOS/mongodb/contact/contact.service';
 import {EditActionComponent} from './edit-action/edit-action.component';
 import { DeleteActionComponent } from './delete-action/delete-action.component';
 
@@ -26,8 +26,8 @@ export class DashboardComponent implements OnInit {
     public dialog: MatDialog,
     private router: Router,
     private alertService: AlertService,
-    private mongoActionService: MongoActionService,
-    private mongoContactService: MongoContactService
+    private actionService: ActionService,
+    private contactService: ContactService
   ) {
 
     router.events.subscribe(s => {
@@ -49,7 +49,7 @@ export class DashboardComponent implements OnInit {
 
   private updateActions() {
     console.log('Next: iterate through existing actions');
-    this.mongoActionService.getAllActions(this.userID)
+    this.actionService.getAllActionsOfUser(this.userID)
       .pipe(
         map((response) => {
           return (response as any).actions.map(action => {
@@ -118,7 +118,7 @@ export class DashboardComponent implements OnInit {
   sendMessage() {
     console.log('Send Message');
     console.log(this.message);
-    this.mongoContactService.sendMessage( this.message )
+    this.contactService.sendMessage( this.message )
       .subscribe( response => {
         console.log(response);
         this.successfullySendMessage = true;
@@ -152,7 +152,7 @@ export class DialogOverviewExampleDialog {
   constructor(public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private router: Router,
-              private mongoActionService: MongoActionService ) {
+              private actionService: ActionService ) {
   }
 
   close() {
@@ -161,7 +161,7 @@ export class DialogOverviewExampleDialog {
 
   register() {
     this.loading = true;
-    this.mongoActionService.createAction(this.action)
+    this.actionService.createAction(this.action)
       .subscribe((result) => {
         if (this.action.type === 'page-set') {
           this.pageSet = ['pageSet', result.action._id];

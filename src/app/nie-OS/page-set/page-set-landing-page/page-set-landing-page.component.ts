@@ -2,13 +2,13 @@ import {Component, OnInit, Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import {Router, ActivatedRoute} from '@angular/router';
 import {EditPageSetComponent} from '../edit-page-set/edit-page-set.component';
-import {MongoActionService} from '../../../shared/nieOS/mongodb/action/action.service';
+import {ActionService} from '../../../shared/nieOS/mongodb/action/action.service';
 import { Action } from '../../../shared/nieOS/mongodb/action/action.model';
 import { EditPageComponent } from '../edit-page/edit-page.component';
 import { Page } from '../../../shared/nieOS/mongodb/page/page.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DeletePageComponent } from '../delete-page/delete-page.component';
-import { MongoPageService } from '../../../shared/nieOS/mongodb/page/page.service';
+import { PageService } from '../../../shared/nieOS/mongodb/page/page.service';
 
 @Component({
   selector: 'app-page-set-landing-page',
@@ -28,7 +28,7 @@ export class PageSetLandingPageComponent implements OnInit {
     public dialogUpdatePageSet: MatDialog,
     public dialogEditPage: MatDialog,
     private route: ActivatedRoute,
-    private mongoActionService: MongoActionService,
+    private actionService: ActionService,
   ) { }
 
   ngOnInit() {
@@ -40,7 +40,7 @@ export class PageSetLandingPageComponent implements OnInit {
   }
 
   checkIfPageSetExists(actionID: string) {
-    this.mongoActionService.getAction(actionID)
+    this.actionService.getAction(actionID)
       .subscribe(data => {
         if ((data.status === 200) && (data.body.action.type === 'page-set')) {
           this.action = data.body.action;
@@ -162,7 +162,7 @@ export class DialogCreateNewPageComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: any,
               private router: Router,
               private route: ActivatedRoute,
-              private pageService: MongoPageService) {
+              private pageService: PageService) {
     this.pageSetID = data.pageset._id;
   }
 
