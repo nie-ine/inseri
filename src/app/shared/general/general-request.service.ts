@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { MongoQueryService } from '../nieOS/mongodb/query/query.service';
+import { QueryService } from '../nieOS/mongodb/query/query.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GeneralRequestService {
   params: any;
-  constructor(private http: HttpClient, private queryService: MongoQueryService) { }
+  constructor(private http: HttpClient, private queryService: QueryService) { }
 
   request(queryID) {
     return this.queryService.getQuery(queryID)

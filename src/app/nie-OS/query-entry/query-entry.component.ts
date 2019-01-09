@@ -3,9 +3,9 @@ import { MAT_DIALOG_DATA, MatDialogRef, MatTabChangeEvent } from '@angular/mater
 import {HttpClient} from '@angular/common/http';
 import { AbstractJsonService } from '../data-management/abstract-json.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import {MongoPageService} from '../../shared/nieOS/mongodb/page/page.service';
 import { KeyValueFormComponent } from './key-value-form/key-value-form.component';
 import { GeneralRequestService } from '../../shared/general/general-request.service';
+import { QueryService } from '../../shared/nieOS/mongodb/query/query.service';
 
 @Component({
   selector: 'app-query-entry',
@@ -33,7 +33,7 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private http: HttpClient,
     private abstractJsonService: AbstractJsonService,
-    private pageService: MongoPageService,
+    private queryService: QueryService,
     private requestService: GeneralRequestService
   ) { }
 
@@ -65,7 +65,7 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
       this.data.query.header = this.header.getValidParams();
       this.data.query.body = (this.editor) ? this.editor.text : '';
 
-      this.pageService.updateQuery(this.data.pageID, this.data.query._id, this.data.query)
+      this.queryService.updateQueryOfPage(this.data.pageID, this.data.query._id, this.data.query)
           .subscribe((data) => {
             if (data.status === 200) {
                 // this.close();

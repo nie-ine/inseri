@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
 const Action = require('../models/action');
+const Query = require('../models/query');
 
 const checkAuth = require("../middleware/check-auth");
 const salt = require('../.settings/salt');
@@ -237,6 +238,32 @@ router.get('/:id/actions', checkAuth, (req, res, next) => {
                 error: error
             })
         })
+});
+
+router.get('/:id/queries', checkAuth, (req, res, next) => {
+  Query.find({
+    creator: req.params.id
+  })
+    .then(queries => {
+      let message;
+      if (queries.length === 0) {
+        message = 'No queries were found'
+      } else if (queries.length === 1) {
+        message = 'One query was found'
+      } else {
+        message = 'All queries were found'
+      }
+      res.status(200).json({
+        message: message,
+        queries: queries
+      })
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Fetching all queries failed',
+        error: error
+      })
+    })
 });
 
 router.post('/signup', (req, res, next) => {

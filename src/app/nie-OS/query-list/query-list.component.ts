@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
-import { MongoQueryService } from '../../shared/nieOS/mongodb/query/query.service';
+import { QueryService } from '../../shared/nieOS/mongodb/query/query.service';
 
 @Component({
   selector: 'app-query-list',
@@ -9,11 +9,12 @@ import { MongoQueryService } from '../../shared/nieOS/mongodb/query/query.servic
 })
 export class QueryListComponent implements OnInit {
 
-  constructor(public dialogRef: MatDialogRef<QueryListComponent>, private queryService: MongoQueryService) { }
+  constructor(public dialogRef: MatDialogRef<QueryListComponent>, private queryService: QueryService) { }
 
   ngOnInit() {
-    this.queryService.getAllQueries().subscribe(data => console.log(data));
+    this.queryService.getAllQueriesOfUser(localStorage.getItem('userId')).subscribe(data => console.log(data));
     this.queryService.getQuery('5c07dbfdff37d7344e1e1479').subscribe(query => console.log(query));
+    this.queryService.getAllQueries().subscribe(data => console.log(data));
   }
 
   close() {

@@ -3,21 +3,24 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
-export class MongoPageService {
+export class PageService {
   private static API_BASE_URL_PAGE = 'http://localhost:3000/api/pages';
   private static API_BASE_URL_PAGE_SET = 'http://localhost:3000/api/pagesets';
-  private static API_BASE_URL_QUERY = 'http://localhost:3000/api/queries';
 
   constructor(
     private http: HttpClient
   ) {}
 
   createPage(pageSetID: string, page: any): Observable<any> {
-    return this.http.post(`${MongoPageService.API_BASE_URL_PAGE_SET}/${pageSetID}/pages`, page);
+    return this.http.post(`${PageService.API_BASE_URL_PAGE_SET}/${pageSetID}/pages`, page);
   }
 
   getPage(pageId: string): Observable<any> {
-    return this.http.get(`${MongoPageService.API_BASE_URL_PAGE}/${pageId}`);
+    return this.http.get(`${PageService.API_BASE_URL_PAGE}/${pageId}`);
+  }
+
+  getAllPages(): Observable<any> {
+    return this.http.get(`${PageService.API_BASE_URL_PAGE}`);
   }
 
   updatePage(page: any): Observable<any> {
@@ -36,30 +39,15 @@ export class MongoPageService {
     page.appInputQueryMapping = mappingsAsStringArray;
     page.openApps = openAppAsStringArray;
     console.log( page );
-    return this.http.put(`${MongoPageService.API_BASE_URL_PAGE}/${page._id}`, page);
+    return this.http.put(`${PageService.API_BASE_URL_PAGE}/${page._id}`, page);
   }
 
   updatePageOfPageSet(pageSetID: string, page: any): Observable<any> {
-    return this.http.put(`${MongoPageService.API_BASE_URL_PAGE_SET}/${pageSetID}/pages/${page.id}`, page, {observe: 'response'});
+    return this.http.put(`${PageService.API_BASE_URL_PAGE_SET}/${pageSetID}/pages/${page.id}`, page, {observe: 'response'});
   }
 
-  deletePage(pageSetID: string, pageID: string): Observable<any> {
-    return this.http.delete(`${MongoPageService.API_BASE_URL_PAGE_SET}/${pageSetID}/pages/${pageID}`, {observe: 'response'});
+  deletePageOfPageSet(pageSetID: string, pageID: string): Observable<any> {
+    return this.http.delete(`${PageService.API_BASE_URL_PAGE_SET}/${pageSetID}/pages/${pageID}`, {observe: 'response'});
   }
 
-  createQuery(pageId: string, query: any): Observable<any> {
-    return this.http.post(`${MongoPageService.API_BASE_URL_PAGE}/${pageId}/queries`, query, {observe: 'response'});
-  }
-
-  getAllQueries(pageId: string): Observable<any> {
-    return this.http.get(`${MongoPageService.API_BASE_URL_PAGE}/${pageId}/queries`);
-  }
-
-  updateQuery(pageId: string, queryId: string, query: any): Observable<any> {
-    return this.http.put(`${MongoPageService.API_BASE_URL_PAGE}/${pageId}/queries/${queryId}`, query, {observe: 'response'});
-  }
-
-  deleteQuery(pageId: string, queryId: string): Observable<any> {
-    return this.http.delete(`${MongoPageService.API_BASE_URL_PAGE}/${pageId}/queries/${queryId}`, {observe: 'response'});
-  }
 }

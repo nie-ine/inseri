@@ -3,12 +3,13 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import { MatTable } from '@angular/material';
 import { QueryEntryComponent } from '../query-entry/query-entry.component';
 import { QueryAppInputMapComponent } from '../query-app-input-map/query-app-input-map.component';
-import {MongoPageService} from '../../shared/nieOS/mongodb/page/page.service';
+import {PageService} from '../../shared/nieOS/mongodb/page/page.service';
 import {ActivatedRoute} from '@angular/router';
-import {MongoActionService} from '../../shared/nieOS/mongodb/action/action.service';
+import {ActionService} from '../../shared/nieOS/mongodb/action/action.service';
 import {OpenAppsModel} from '../../shared/nieOS/mongodb/page/open-apps.model';
 import {NgxSpinnerService} from 'ngx-spinner';
-import { QueryListComponent } from "../query-list/query-list.component";
+import { QueryListComponent } from '../query-list/query-list.component';
+import { QueryService } from '../../shared/nieOS/mongodb/query/query.service';
 
 @Component({
   selector: 'app-data-management',
@@ -47,13 +48,12 @@ export class DataManagementComponent implements OnInit {
     public dialogRef: MatDialogRef<DataManagementComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialog: MatDialog,
-    private actionService: MongoActionService,
-    private pageService: MongoPageService,
-    private mongoPageService: MongoPageService,
+    private actionService: ActionService,
+    private pageService: PageService,
+    private queryService: QueryService,
     private route: ActivatedRoute,
     private appModel: OpenAppsModel,
     private spinner1: NgxSpinnerService,
-    private mongoActionService: MongoActionService
   ) {
     // this.openAppsInThisPage = data[ 0 ];
     // this.page = data[ 1 ];
@@ -75,7 +75,7 @@ export class DataManagementComponent implements OnInit {
   }
 
   checkIfPageExistsForThisAction(actionID: string) {
-    this.mongoActionService.getAction(actionID)
+    this.actionService.getAction(actionID)
       .subscribe(
         data => {
           if (data.status === 200) {
@@ -94,7 +94,7 @@ export class DataManagementComponent implements OnInit {
   }
 
   updateAppsInView(viewHash: string ) {
-    this.mongoPageService.getPage(viewHash)
+    this.pageService.getPage(viewHash)
       .subscribe(
         data => {
           this.page = ( data as any).page;
@@ -208,7 +208,7 @@ export class DataManagementComponent implements OnInit {
               if (actionData.status === 200) {
                   if (actionData.body.action.type === 'page') {
                     this.pageID = actionData.body.action.hasPage._id;
-                    this.pageService.getAllQueries(this.pageID)
+                    this.queryService.getAllQueriesOfPage(this.pageID)
                         .subscribe((data) => {
                           this.queries = data.queries;
                           console.log( this.queries );
@@ -234,7 +234,7 @@ export class DataManagementComponent implements OnInit {
                     });
                   } else {
                     this.pageID = this.route.snapshot.queryParams.page;
-                    this.pageService.getAllQueries(this.pageID)
+                    this.queryService.getAllQueriesOfPage(this.pageID)
                       .subscribe((data) => {
                         this.queries = data.queries;
                         console.log( this.queries );
@@ -258,7 +258,7 @@ export class DataManagementComponent implements OnInit {
   delete(row: any): void {
     const index = this.queries.indexOf(row, 0);
     if (index > -1) {
-      this.pageService.deleteQuery(this.pageID, row._id)
+      this.queryService.deleteQueryOfPage(this.pageID, row._id)
           .subscribe((data) => {
               if (data.status === 200) {
                 this.queries.splice(index, 1);
@@ -271,7 +271,7 @@ export class DataManagementComponent implements OnInit {
   }
 
   addQuery(name: string) {
-    this.pageService.createQuery(this.pageID, {title: name})
+    this.queryService.createQueryOfPage(this.pageID, {title: name})
         .subscribe(data => {
           if (data.status === 201) {
               this.queries.push(data.body.query);
@@ -403,7 +403,7 @@ export class DataManagementComponent implements OnInit {
         });
     for ( const query of this.queries ) {
       console.log( query );
-      this.pageService.updateQuery(this.page._id, query._id, query)
+      this.queryService.updateQueryOfPage(this.page._id, query._id, query)
         .subscribe((data) => {
           if (data.status === 200) {
             console.log( data );
