@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {OpenAppsModel} from '../../shared/nieOS/mongodb/page/open-apps.model';
-import {MongoPageService} from '../../shared/nieOS/mongodb/page/page.service';
+import {PageService} from '../../shared/nieOS/mongodb/page/page.service';
 import {GenerateDataChoosersService} from '../data-management/generate-data-choosers.service';
-import {MongoActionService} from '../../shared/nieOS/mongodb/action/action.service';
+import {ActionService} from '../../shared/nieOS/mongodb/action/action.service';
 
 @Component({
   selector: 'app-load-variables',
@@ -21,9 +21,9 @@ export class LoadVariablesComponent implements OnInit, OnChanges {
   action: any;
   constructor(
     private route: ActivatedRoute,
-    private mongoPageService: MongoPageService,
+    private pageService: PageService,
     private generateDataChoosers: GenerateDataChoosersService,
-    private mongoActionService: MongoActionService
+    private actionService: ActionService
   ) { }
 
   ngOnChanges() {
@@ -52,7 +52,7 @@ export class LoadVariablesComponent implements OnInit, OnChanges {
   }
 
   updateAppsInView(viewHash: string ) {
-    this.mongoPageService.getPage(viewHash)
+    this.pageService.getPage(viewHash)
       .subscribe(
         data => {
           this.page = ( data as any).page;
@@ -116,7 +116,7 @@ export class LoadVariablesComponent implements OnInit, OnChanges {
   }
 
   checkIfPageExistsForThisAction(actionID: string) {
-    this.mongoActionService.getAction(actionID)
+    this.actionService.getAction(actionID)
       .subscribe(
         data => {
           if (data.status === 200) {

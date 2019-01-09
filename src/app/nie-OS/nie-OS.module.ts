@@ -42,6 +42,7 @@ import { FrameSettingsComponent } from './page/frame-settings/frame-settings.com
 import {MatSliderModule} from '@angular/material/slider';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import {LoadVariablesComponent} from './load-variables/load-variables.component';
+import { QueryListComponent } from './query-list/query-list.component';
 
 
 @NgModule({
@@ -98,7 +99,8 @@ import {LoadVariablesComponent} from './load-variables/load-variables.component'
     KeyValueFormComponent,
     QueryAppInputMapComponent,
     FrameSettingsComponent,
-    LoadVariablesComponent
+    LoadVariablesComponent,
+    QueryListComponent
   ],
   exports: [
     PageComponent,
@@ -109,7 +111,8 @@ import {LoadVariablesComponent} from './load-variables/load-variables.component'
     DataManagementComponent,
     QueryEntryComponent,
     QueryAppInputMapComponent,
-    FrameSettingsComponent
+    FrameSettingsComponent,
+    QueryListComponent
   ]
 })
 export class NIEOSModule { }

@@ -3,11 +3,11 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {query} from '@angular/animations';
 import {HttpClient} from '@angular/common/http';
 import {AbstractJsonService} from '../data-management/abstract-json.service';
-import {MongoPageService} from '../../shared/nieOS/mongodb/page/page.service';
+import {PageService} from '../../shared/nieOS/mongodb/page/page.service';
 import {GeneralRequestService} from '../../shared/general/general-request.service';
 import {ActivatedRoute} from '@angular/router';
 import {OpenAppsModel} from '../../shared/nieOS/mongodb/page/open-apps.model';
-import {MongoActionService} from '../../shared/nieOS/mongodb/action/action.service';
+import {ActionService} from '../../shared/nieOS/mongodb/action/action.service';
 
 
 @Component({
@@ -31,11 +31,11 @@ export class QueryAppInputMapComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public input: any,
     private http: HttpClient,
     private abstractJsonService: AbstractJsonService,
-    private pageService: MongoPageService,
+    private pageService: PageService,
     private requestService: GeneralRequestService,
     private route: ActivatedRoute,
-    private mongoPageService: MongoPageService,
-    private mongoActionService: MongoActionService,
+    private mongoPageService: PageService,
+    private mongoActionService: ActionService,
     private appModel: OpenAppsModel
   ) {
     for ( const appInput in input.mapping[ input.app.hash ] ) {
