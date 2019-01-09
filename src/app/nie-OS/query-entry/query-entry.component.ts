@@ -5,7 +5,7 @@ import { AbstractJsonService } from '../data-management/abstract-json.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {MongoPageService} from '../../shared/nieOS/mongodb/page/page.service';
 import { KeyValueFormComponent } from './key-value-form/key-value-form.component';
-import { GeneralRequestService } from "../../shared/general/general-request.service";
+import { GeneralRequestService } from '../../shared/general/general-request.service';
 
 @Component({
   selector: 'app-query-entry',
@@ -92,15 +92,6 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  test() {
-    this.requestService.request('5c12873ab393460ad4d9abfa')
-      .subscribe((data) => {
-        if (data.status === 200) {
-          console.log(data.body);
-        }
-      });
-  }
-
   initiateQuery() {
     const url = this.form.get('serverURL').value;
     const method = this.form.get('method').value;
@@ -140,7 +131,7 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   postRequest(url: string, parameter: any, header: any, body: string) {
-    this.requestService.post(url, parameter, header, this.editor.text)
+    this.requestService.post(url, parameter, header, body)
       .subscribe(data => {
           console.log(data);
           // TODO: Mapping from Jan
@@ -148,7 +139,7 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   putRequest(url: string, parameter: any, header: any, body: string) {
-    this.requestService.put(url, parameter, header, this.editor.text)
+    this.requestService.put(url, parameter, header, body)
       .subscribe(data => {
           console.log(data);
         // TODO: Mapping from Jan
