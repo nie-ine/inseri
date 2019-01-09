@@ -7,8 +7,8 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/ma
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {InitService} from '../init-popup/service/init.service';
 import {InitPopupComponent} from '../init-popup/init-popup.component';
-import {MongoActionService} from '../../shared/nieOS/mongodb/action/action.service';
-import {MongoPageService} from '../../shared/nieOS/mongodb/page/page.service';
+import {ActionService} from '../../shared/nieOS/mongodb/action/action.service';
+import {PageService} from '../../shared/nieOS/mongodb/page/page.service';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {ThemePalette} from '@angular/material/core';
 
@@ -52,8 +52,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
     private authService: AuthService,
     private cdr: ChangeDetectorRef,
     public snackBar: MatSnackBar,
-    private mongoActionService: MongoActionService,
-    private mongoPageService: MongoPageService
+    private actionService: ActionService,
   ) {
       router.events.subscribe(( route: any ) => {
         this.updateCurrentRoute( route );
@@ -109,7 +108,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   generateNavigation(actionID: string) {
     if (!this.alreadyLoaded) {
-      this.mongoActionService.getAction(actionID)
+      this.actionService.getAction(actionID)
         .subscribe(data => {
             if (data.body.action.type === 'page-set') {
               this.viewsOfThisActtion = [];

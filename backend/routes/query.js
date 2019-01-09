@@ -7,7 +7,7 @@ const checkAuth = require("../middleware/check-auth");
 const router = express.Router();
 
 router.get('',  checkAuth, (req, res, next) => {
-    Query.find({creator: req.userData.userId})
+    Query.find()
         .then(queries => {
             let message;
             if (queries.length === 0) {

@@ -6,7 +6,7 @@ import {Router} from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private static API_BASE_URL = 'http://localhost:3000/api/users';
+  private static API_BASE_URL_USER = 'http://localhost:3000/api/users';
   private isAuthenticated = false;
   private token: string;
   private authStatusListener = new Subject<boolean>();
@@ -29,7 +29,7 @@ export class AuthService {
       lastName: lastName,
       newsLetter: newsletter
     };
-    return this.http.post(`${AuthService.API_BASE_URL}/signup`, authData);
+    return this.http.post(`${AuthService.API_BASE_URL_USER}/signup`, authData);
   }
 
   updateUser(userId: string, email: string, firstName: string, lastName: string, newsletter: boolean): Observable<any> {
@@ -48,7 +48,7 @@ export class AuthService {
         firstName: string,
         userId: string
       }
-      >(`${AuthService.API_BASE_URL}/${userId}`, user)
+      >(`${AuthService.API_BASE_URL_USER}/${userId}`, user)
       .map(response => {
         const token = response.token;
         this.token = token;
@@ -66,11 +66,11 @@ export class AuthService {
       oldPwd: oldPwd,
       newPwd: newPwd
     };
-    return this.http.put(`${AuthService.API_BASE_URL}/${userId}/pwd`, pwd);
+    return this.http.put(`${AuthService.API_BASE_URL_USER}/${userId}/pwd`, pwd);
   }
 
   getUser(userId: string): Observable<any> {
-    return this.http.get(`${AuthService.API_BASE_URL}/${userId}`);
+    return this.http.get(`${AuthService.API_BASE_URL_USER}/${userId}`);
   }
 
   login(email: string, password: string) {
@@ -82,7 +82,7 @@ export class AuthService {
         firstName: string,
         userId: string
       }
-      >(`${AuthService.API_BASE_URL}/login`, authData)
+      >(`${AuthService.API_BASE_URL_USER}/login`, authData)
       .subscribe( response => {
         const token = response.token;
         this.token = token;

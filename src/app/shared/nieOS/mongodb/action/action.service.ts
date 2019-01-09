@@ -4,31 +4,36 @@ import { Action } from './action.model';
 import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
-export class MongoActionService {
-  private static API_BASE_URL = 'http://localhost:3000/api/actions';
+export class ActionService {
+  private static API_BASE_URL_ACTION = 'http://localhost:3000/api/actions';
+  private static API_BASE_URL_USER = 'http://localhost:3000/api/users';
 
   constructor(
     private http: HttpClient,
   ) {}
 
   createAction(action: Action): Observable<any> {
-    return this.http.post(`${MongoActionService.API_BASE_URL}/`, action);
+    return this.http.post(`${ActionService.API_BASE_URL_ACTION}/`, action);
   }
 
   getAction(id: string): Observable<any> {
-    return this.http.get(`${MongoActionService.API_BASE_URL}/${id}`, {observe: 'response'});
+    return this.http.get(`${ActionService.API_BASE_URL_ACTION}/${id}`, {observe: 'response'});
   }
 
-  getAllActions(userID: string): Observable<any> {
-    return this.http.get<Observable<any>>(`http://localhost:3000/api/users/${userID}/actions`);
+  getAllActions(): Observable<any> {
+    return this.http.get(`${ActionService.API_BASE_URL_ACTION}`);
+  }
+
+  getAllActionsOfUser(userID: string): Observable<any> {
+    return this.http.get<Observable<any>>(`${ActionService.API_BASE_URL_USER}/${userID}/actions`);
   }
 
   updateAction(action: Action): Observable<any> {
-    return this.http.put(`${MongoActionService.API_BASE_URL}/${action.id}`, action);
+    return this.http.put(`${ActionService.API_BASE_URL_ACTION}/${action.id}`, action);
   }
 
   deleteAction(id: string): Observable<any> {
-    return this.http.delete(`${MongoActionService.API_BASE_URL}/${id}`, {observe: 'response'});
+    return this.http.delete(`${ActionService.API_BASE_URL_ACTION}/${id}`, {observe: 'response'});
   }
 
 }
