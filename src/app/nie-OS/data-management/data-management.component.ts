@@ -8,6 +8,7 @@ import {ActivatedRoute} from '@angular/router';
 import {MongoActionService} from '../../shared/nieOS/mongodb/action/action.service';
 import {OpenAppsModel} from '../../shared/nieOS/mongodb/page/open-apps.model';
 import {NgxSpinnerService} from 'ngx-spinner';
+import { QueryListComponent } from "../query-list/query-list.component";
 
 @Component({
   selector: 'app-data-management',
@@ -280,7 +281,10 @@ export class DataManagementComponent implements OnInit {
   }
 
   openExistingQueryDialog() {
-    console.log('openExistingQueryDialog');
+    const dialogRef = this.dialog.open(QueryListComponent, {
+      width: '100%',
+      height: '100%'
+    });
   }
 
   close() {
