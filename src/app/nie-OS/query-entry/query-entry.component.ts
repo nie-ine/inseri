@@ -39,6 +39,8 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
       this.form = new FormGroup({
+          title: new FormControl(this.data.query.title, [Validators.required]),
+          description: new FormControl(this.data.query.description, []),
           serverURL: new FormControl(this.data.query.serverUrl, []),
           method: new FormControl(this.data.query.method ? this.data.query.method : 'GET', [Validators.required])
       });
@@ -59,6 +61,8 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   save() {
+      this.data.query.title = this.form.get('title').value;
+      this.data.query.description = this.form.get('description').value;
       this.data.query.serverUrl = this.form.get('serverURL').value;
       this.data.query.method = this.form.get('method').value;
       this.data.query.params = this.param.getValidParams();

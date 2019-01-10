@@ -9,6 +9,12 @@
 
 <form [formGroup]="form" class="example-form" style="margin-top: 40px" >
   <mat-form-field>
+    <input formControlName="title" matInput placeholder="Title">
+  </mat-form-field>
+  <mat-form-field>
+    <textarea formControlName="description" matInput placeholder="Beschreibung"></textarea>
+  </mat-form-field>
+  <mat-form-field>
     <mat-select formControlName="method">
       <mat-option [value]="'GET'">GET</mat-option>
       <mat-option [value]="'POST'">POST</mat-option>
