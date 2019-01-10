@@ -31,13 +31,11 @@ export class QueryListComponent implements OnInit {
       .subscribe((result) => {
         if (result.status === 200) {
           this.queryService.getAllQueriesOfUser(localStorage.getItem('userId')).subscribe(data => {
-            this.deletingQueries.filter(element => element !== query._id);
+            this.deletingQueries = this.deletingQueries.filter(element => element !== query._id);
             this.queries = data.queries;
           });
         } else {
-          console.log('before', this.deletingQueries);
-          this.deletingQueries.filter(element => element !== query._id);
-          console.log('after', this.deletingQueries);
+          this.deletingQueries = this.deletingQueries.filter(element => element !== query._id);
         }
     });
   }
