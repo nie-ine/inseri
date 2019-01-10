@@ -28,7 +28,10 @@
     <ng-container matColumnDef="delete">
       <th mat-header-cell *matHeaderCellDef>Delete</th>
       <td mat-cell *matCellDef="let item">
-        <button *ngIf="item.isBoundToPage === 'false'" mat-button (click)="deleteQuery(item)" mat-icon-button><mat-icon>delete</mat-icon></button>
+        <div *ngIf="!deletingQueries.includes(item._id)">
+          <button *ngIf="item.isBoundToPage === 'false'" mat-button (click)="deleteQuery(item)" mat-icon-button><mat-icon>delete</mat-icon></button>
+        </div>
+        <mat-spinner [diameter]="20" *ngIf="deletingQueries.includes(item._id)"></mat-spinner>
       </td>
     </ng-container>
 
