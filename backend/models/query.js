@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const querySchema = mongoose.Schema({
     title: { type: String, required: true },
+    description: { type: String },
     serverUrl: { type: String },
     method: { type: String},
     params: [
