@@ -5,6 +5,9 @@
   <button mat-button (click)="close()">
     <mat-icon>clear</mat-icon> Close
   </button>
+  <button mat-button (click)="initiateQuery()">
+    <mat-icon>label</mat-icon> Try Query
+  </button>
 </div>
 
 <form [formGroup]="form" class="example-form" style="margin-top: 40px" >
@@ -27,6 +30,15 @@
     <div style="margin-top: 30px">
 
       <mat-tab-group (selectedTabChange)="onTabChange($event)">
+
+        <mat-tab label="Body" *ngIf="form.get('method').value === 'POST' || form.get('method').value === 'PUT'">
+          <ace-editor class="url-extension"
+                      #editor
+                      style="min-height: 40rem; width:100%; overflow: auto;"
+                      [mode]="'typescript'">
+          </ace-editor>
+        </mat-tab>
+
         <mat-tab label="URL Params">
           <app-key-value-form #paramForm [param]="data.query.params"></app-key-value-form>
         </mat-tab>
@@ -35,20 +47,9 @@
           <app-key-value-form #headerForm [param]="data.query.header"></app-key-value-form>
         </mat-tab>
 
-        <mat-tab label="Body" *ngIf="form.get('method').value === 'POST' || form.get('method').value === 'PUT'">
-          <ace-editor class="url-extension"
-                      #editor
-                      style="min-height: 20rem; width:100%; overflow: auto;"
-                      [mode]="'typescript'">
-          </ace-editor>
-        </mat-tab>
       </mat-tab-group>
 
-      <button mat-button (click)="initiateQuery()">
-        <mat-icon>label</mat-icon> Try Query
-      </button>
-
-      <div *ngIf="response">
+      <div *ngIf="response" style="margin-top: 40px">
         <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
           <mat-button-toggle (click)="changeTreeInput( response )" [checked]="true" >Show tree with data</mat-button-toggle>
           <mat-button-toggle (click)="changeTreeInput( abstractJson )">Show abstract tree structure</mat-button-toggle>
