@@ -9,7 +9,7 @@ import { QueryService } from '../../shared/nieOS/mongodb/query/query.service';
 })
 export class QueryListComponent implements OnInit {
   queries: any;
-  displayedColumns = ['add', 'title', 'description', 'delete'];
+  displayedColumns = ['add', 'edit', 'title', 'description', 'delete'];
   deletingQueries: any[] = [];
 
   constructor(public dialogRef: MatDialogRef<QueryListComponent>, private queryService: QueryService) { }
@@ -22,7 +22,11 @@ export class QueryListComponent implements OnInit {
   }
 
   slice(description: string): string {
-    return description.length > 120 ? (description.slice(0, 120)).concat('...') : description;
+    if (description) {
+      return description.length > 120 ? (description.slice(0, 120)).concat('...') : description;
+    } else {
+      return '[no description]';
+    }
   }
 
   addQuery(query: any) {
@@ -44,7 +48,7 @@ export class QueryListComponent implements OnInit {
     });
   }
 
-  openQueryEntry(item: any) {
+  editQuery(item: any) {
 
   }
 
