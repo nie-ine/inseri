@@ -6,12 +6,12 @@ export class AbstractJsonService {
   ) {}
 
   json2abstract( json: any ) {
-
     this.leafLoop( json, undefined );
 
     for ( const leaf in this.leafIndices ) {
       this.copyleafIndicesToAbstractTree( leaf );
     }
+
     for ( const parent in this.abstractTree ) {
       if ( this.abstractTree[ parent ].layerIndex === 1 ) { // TODO Make recursive for arbitrary depth for children of Children
         this.populateChildrenOfChildren( parent );
@@ -30,14 +30,20 @@ export class AbstractJsonService {
   }
 
   copyleafIndicesToAbstractTree(leaf: string) {
-    if( this.abstractTree[ this.leafIndices[ leaf ].parent ] === undefined ) {
-      this.abstractTree[ this.leafIndices[ leaf ].parent ] = [];
+    if ( this.leafIndices[ leaf ].parent ) {
+      if ( this.abstractTree[ this.leafIndices[ leaf ].parent ] === undefined ) {
+        this.abstractTree[ this.leafIndices[ leaf ].parent ] = [];
+      }
+      this.abstractTree[ this.leafIndices[ leaf ].parent ][ leaf ] = this.leafIndices[ leaf ] ;
+      this.abstractTree[ this.leafIndices[ leaf ].parent ].layerIndex = this.leafIndices[ leaf ].layerIndex;
+    } else {
+      this.abstractTree[ leaf ] = this.leafIndices[ leaf ];
     }
-    this.abstractTree[ this.leafIndices[ leaf ].parent ][ leaf ] = this.leafIndices[ leaf ] ;
-    this.abstractTree[ this.leafIndices[ leaf ].parent ].layerIndex = this.leafIndices[ leaf ].layerIndex;
+
   }
 
   convertArrayEntriesToObjects() {
+    // console.log( this.abstractTree );
     const help = this.abstractTree;
     this.abstractTree = {};
     for ( const parent in help) {
@@ -45,13 +51,17 @@ export class AbstractJsonService {
         this.abstractTree[ parent ] = {};
         this.goThroughChildrenOfFirstLayerParents( help, parent, this.abstractTree[ parent ] );
       }
+      if ( help[ parent ].layerIndex === 0 ) { // TODO Make recursive for arbitrary depth for children of Children
+        this.abstractTree[ parent ] = {};
+        this.abstractTree[ parent ] = help[ parent ];
+      }
     }
   }
 
   goThroughChildrenOfFirstLayerParents( help: any, parent: any, tree: any ) {
     for ( const children in help[ parent ] ) {
       tree[ children ] = help[ parent ][ children ];
-      if ( help[ parent ][ children ].length !== undefined ) {
+      if ( help[ parent ][ children ] && help[ parent ][ children ].length !== undefined ) {
         tree[ children ] = this.convertArrayToObject( tree[ children ] );
         this.goThroughChildrenOfFirstLayerParents( help, children, tree[ children ] );
       }
@@ -59,13 +69,19 @@ export class AbstractJsonService {
   }
 
   convertArrayToObject( array: any ): any {
-    const help = array;
-    array = {};
-    for ( const entry in help ) {
-      array[ entry ] = help[ entry ];
+    console.log( array, typeof array );
+    if ( typeof array !== 'string' ) {
+      const help = array;
+      array = {};
+      for ( const entry in help ) {
+        array[ entry ] = help[ entry ];
+      }
+      const object = array;
+      return object;
     }
-    const object = array;
-    return object;
+    else {
+      return array;
+    }
   }
 
   leafLoop ( leafLayer: any, parent: string ) {
@@ -83,11 +99,11 @@ export class AbstractJsonService {
   }
 
   addEntryToLeafIndices( leaf: string, parent: string, type: string ) {
-    this.leafIndices[ leaf ] = {};
-    this.leafIndices[ leaf ].type = type;
-    this.leafIndices[ leaf ].layerIndex = this.layerIndex;
-    this.leafIndices[ leaf ].parent = parent;
-    this.leafIndices[ leaf ].hash = this.generateHash();
+      this.leafIndices[ leaf ] = {};
+      this.leafIndices[ leaf ].type = type;
+      this.leafIndices[ leaf ].layerIndex = this.layerIndex;
+      this.leafIndices[ leaf ].parent = parent;
+      this.leafIndices[ leaf ].hash = this.generateHash();
   }
 
   arrayLoop ( arrayLayer: any, parent: string ) {

@@ -17,6 +17,7 @@ export class QueryListComponent implements OnInit {
   ngOnInit() {
     this.queryService.getAllQueriesOfUser(localStorage.getItem('userId')).subscribe(data => {
       this.queries = data.queries;
+      console.log( this.queries );
     });
     // this.queryService.getQuery('5c07dbfdff37d7344e1e1479').subscribe(query => console.log(query));
   }

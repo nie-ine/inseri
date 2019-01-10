@@ -134,7 +134,9 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
     this.requestService.post(url, parameter, header, body)
       .subscribe(data => {
           console.log(data);
-          // TODO: Mapping from Jan
+        this.response = data.body;
+        this.tree = data.body;
+        this.abstractJson = this.abstractJsonService.json2abstract(data.body);
         }, error => console.log(error));
   }
 
