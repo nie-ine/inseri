@@ -13,7 +13,7 @@ export class GenerateArrayFromLeafsService {
     dataTree: any,
     path: any
   ) {
-    console.log( dataTree, path );
+    // console.log( dataTree, path );
     this.path = path;
     this.depth = 0;
     this.output = [];
