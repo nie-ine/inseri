@@ -27,7 +27,7 @@ export class LoadVariablesComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnChanges() {
-    console.log('on changes', this.reload);
+    // console.log('on changes', this.reload);
     if( this.reload ) {
       this.reloadVariables();
     }
@@ -39,7 +39,7 @@ export class LoadVariablesComponent implements OnInit, OnChanges {
     this.page = {};
     const reset = new OpenAppsModel;
     this.openAppsInThisPage = reset.openApps;
-    console.log( 'Load Variables', this.pageId, this.actionId );
+    // console.log( 'Load Variables', this.pageId, this.actionId );
     if ( this.pageId ) {
       this.updateAppsInView( this.pageId );
     } else {
@@ -78,10 +78,10 @@ export class LoadVariablesComponent implements OnInit, OnChanges {
             this.openAppsInThisPage,
             this.reload
           );
-          console.log(
-            this.page,
-            this.openAppsInThisPage
-          );
+          // console.log(
+          //   this.page,
+          //   this.openAppsInThisPage
+          // );
           this.sendPageBack.emit( this.page );
           this.sendOpenAppsInThisPageBack.emit( this.openAppsInThisPage );
         },

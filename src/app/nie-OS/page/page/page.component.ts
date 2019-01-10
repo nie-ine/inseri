@@ -21,6 +21,7 @@ import {MatDialog} from '@angular/material';
 import {GenerateDataChoosersService} from '../../data-management/generate-data-choosers.service';
 import {HttpClient} from '@angular/common/http';
 import { NgxSpinnerService } from 'ngx-spinner';
+import {GeneralRequestService} from '../../../shared/general/general-request.service';
 
 declare var grapesjs: any; // Important!
 
@@ -52,7 +53,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
     private pageService: PageService,
     private generateDataChoosers: GenerateDataChoosersService,
     public dialog: MatDialog,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private requestService: GeneralRequestService
   ) {
     // this.route.params.subscribe(params => console.log(params));
   }
@@ -110,6 +112,37 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnInit() {
+    this.requestService.post(
+      'http://knora2.nie-ine.ch/v2/searchextended',
+      {},
+      {
+        email: 'root@example.com',
+        password: 'test'
+      },
+      'PREFIX knora-api: <http://api.knora.org/ontology/knora-api/simple/v2#>' +
+      'PREFIX kuno-raeber: <http://0.0.0.0:3333/ontology/004D/kuno-raeber/simple/v2#>' +
+      'PREFIX language: <http://0.0.0.0:3333/ontology/004F/language/simple/v2#>' +
+      'PREFIX text-editing: <http://0.0.0.0:3333/ontology/005A/text-editing/simple/v2#>' +
+      '        ' +
+      '        CONSTRUCT {' +
+      '        ' +
+      '        ?transcription knora-api:isMainResource true .' +
+      '        ?transcription language:hasContent ?content .' +
+      '        ?transcription text-editing:isDiplomaticTranscriptionOfTextOnPage ?page .' +
+      '        ?page knora-api:hasStillImageFileValue ?image' +
+      '        ' +
+      '        } WHERE {' +
+      '        ' +
+      '        BIND(<http://rdfh.ch/004D/--9JRHpRTJCz7DwXz6Xqpg> AS ?transcription)' +
+      '        ?transcription language:hasContent ?content .' +
+      '        ?transcription text-editing:isDiplomaticTranscriptionOfTextOnPage ?page .' +
+      '        ?page knora-api:hasStillImageFileValue ?image' +
+      '            ' +
+      '        } OFFSET 0')
+      .subscribe(data => {
+        console.log( 'test' );
+        console.log(data);
+      }, error => console.log(error));
     this.openAppsInThisPage = {};
     this.page = {};
     const reset = new OpenAppsModel;
@@ -230,7 +263,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   receivePage( pageFromLoadComponent: any ) {
-    console.log( pageFromLoadComponent );
+    // console.log( pageFromLoadComponent );
     this.page = pageFromLoadComponent;
     this.reloadVariables = false;
   }

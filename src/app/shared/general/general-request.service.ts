@@ -39,7 +39,7 @@ export class GeneralRequestService {
   }
 
   post(url: string, parameter?: any, header?: any, body?: string): Observable<any> {
-    console.log('POST Request', url, parameter, header, body);
+    // console.log('POST Request', url, parameter, header, body);
     return this.http.post(url, body, {params: parameter, headers: header, observe: 'response'});
   }
 
