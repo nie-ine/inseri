@@ -1,6 +1,7 @@
 
 
 /**
+ * Deprecated!
  * Manual: How to add an app:
  * 1. Import the Component or Module in nie-OS.module.ts
  * 2. Add the app to the Model 'openAppsInThisPage' in this file
