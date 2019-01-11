@@ -31,7 +31,7 @@ export class QueryListComponent implements OnInit {
   }
 
   addQuery(query: any) {
-    console.log(query);
+    this.dialogRef.close(query);
   }
 
   deleteQuery(query: any) {

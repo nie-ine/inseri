@@ -52,6 +52,31 @@ router.get('/:id', checkAuth, (req, res, next) => {
         })
 });
 
+router.put('/:id', (req, res, next) => {
+    Query.update({ _id: req.params.id}, {
+      title: req.body.title,
+      description: req.body.description,
+      serverUrl: req.body.serverUrl,
+      method: req.body.method,
+      params: req.body.params,
+      header: req.body.header,
+      body: req.body.body,
+      path: req.body.chosenPath
+    }, {new:true})
+      .then(updatedQuery => {
+        res.status(200).json({
+          message: 'Query was updated successfully',
+          query: updatedQuery
+        });
+      })
+      .catch(error => {
+        res.status(500).json({
+          message: 'Query cannot be updated',
+          error: error
+        });
+      })
+});
+
 router.delete('/:id', checkAuth, (req, res, next) => {
     // Only deletes the query if it is not bound to a page
     Query.deleteOne({

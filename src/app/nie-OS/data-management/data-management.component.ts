@@ -149,6 +149,28 @@ export class DataManagementComponent implements OnInit {
       width: '100%',
       height: '100%'
     });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      if (result) {
+        this.queryService.createQueryOfPage(this.page._id, {
+          title: `${result.title}_Copy`,
+          description: result.description,
+          serverUrl: result.serverUrl,
+          method: result.method,
+          params: result.params,
+          header: result.header,
+          body: result.body,
+          path: result.path
+        })
+          .subscribe(data => {
+            if (data.status === 201) {
+              this.queries.push(data.body.query);
+              this.table.renderRows();
+            }
+          });
+      }
+    });
   }
 
   close() {
