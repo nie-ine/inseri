@@ -1,13 +1,23 @@
-<mat-spinner *ngIf="isLoading"></mat-spinner>
+<!--<mat-spinner *ngIf="isLoading"></mat-spinner>-->
 
-<div style="margin-top: 30px" *ngIf="!isLoading">
+<app-load-variables
+  (sendPageBack)="receivePage( $event )"
+  (sendOpenAppsInThisPageBack)="receiveOpenAppsInThisPage( $event )" [reload]="reloadVariables">
 
-  <button mat-button (click)="save()">
-    <mat-icon>save</mat-icon> Save
-  </button>
-  <button mat-button (click)="close()">
-    <mat-icon>clear</mat-icon> Close
-  </button>
+</app-load-variables>
+
+  <div style="margin-top: 30px">
+    <button mat-button (click)="save()">
+      <mat-icon>save</mat-icon> Save
+    </button>
+    <button mat-button (click)="close()">
+      <mat-icon>clear</mat-icon> Close
+    </button>
+  </div>
+
+<div style="margin-top: 30px">
+
+
 
   <table mat-table [dataSource]="queries">
 
@@ -77,6 +87,9 @@
 </mat-form-field>
 <button mat-button *ngIf="value" mat-icon-button (click)="addQuery(value)">
   <mat-icon>arrow_downwards</mat-icon>
+</button>
+<button mat-button (click)="openExistingQueryDialog()">
+  Add existing Query
 </button>
 
 

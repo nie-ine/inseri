@@ -2,7 +2,33 @@ export class OpenAppsModel {
   openApps = {
     imageViewer: {
       type: 'imageViewer',
-      model: []
+      model: [],
+      inputs: [
+        {
+          'inputName': '@id',
+        },
+        {
+          'inputName': '@type',
+        },
+        {
+          'inputName': 'fileValueAsUrl',
+        },
+        {
+          'inputName': 'fileValueHasFilename',
+        },
+        {
+          'inputName': 'fileValueIsPreview',
+        },
+        {
+          'inputName': 'stillImageFileValueHasDimX',
+        },
+        {
+          'inputName': 'stillImageFileValueHasDimY',
+        },
+        {
+          'inputName': 'stillImageFileValueHasIIIFBaseUrl',
+        }
+      ]
     },
     textViewer: {
       type: 'textViewers',

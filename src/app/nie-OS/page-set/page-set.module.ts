@@ -11,7 +11,7 @@ import {
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatMenuModule} from '@angular/material/menu';
-import {MongoPageSetService} from '../../shared/nieOS/mongodb/pageset/page-set.service';
+import {PageSetService} from '../../shared/nieOS/mongodb/pageset/page-set.service';
 import {GenerateHashService} from '../../shared/nieOS/other/generateHash.service';
 import {EditPageSetComponent} from './edit-page-set/edit-page-set.component';
 import {MatDividerModule} from '@angular/material/divider';
@@ -50,7 +50,7 @@ import { DeletePageComponent } from './delete-page/delete-page.component';
     DeletePageComponent
   ],
   providers: [
-    MongoPageSetService,
+    PageSetService,
     GenerateHashService
   ]
 })

@@ -104,6 +104,13 @@ router.post('/:id/queries', checkAuth, (req, res, next) => {
 
             const newQuery = new Query({
                 title: req.body.title,
+                description: req.body.description,
+                serverUrl: req.body.serverUrl,
+                method: req.body.method,
+                params: req.body.params,
+                header: req.body.header,
+                body: req.body.body,
+                path: req.body.chosenPath,
                 isBoundToPage: true,
                 creator: req.userData.userId
             });
@@ -163,7 +170,8 @@ router.put('/:pageID/queries/:queryID', checkAuth, (req, res, next) => {
             // Checks if query ID is valid and updates query
             if (result.queries.filter(a => {return a._id == req.params.queryID}).length === 1) {
                 Query.findByIdAndUpdate({_id: req.params.queryID}, {
-                    // title: req.body.title,
+                    title: req.body.title,
+                    description: req.body.description,
                     serverUrl: req.body.serverUrl,
                     method: req.body.method,
                     params: req.body.params,

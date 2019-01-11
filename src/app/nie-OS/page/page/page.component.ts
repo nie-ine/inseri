@@ -15,12 +15,13 @@ import 'rxjs/add/operator/map';
 import { ActivatedRoute } from '@angular/router';
 import {GenerateHashService} from '../../../shared/nieOS/other/generateHash.service';
 import {OpenAppsModel} from '../../../shared/nieOS/mongodb/page/open-apps.model';
-import {MongoPageService} from '../../../shared/nieOS/mongodb/page/page.service';
-import {MongoActionService} from '../../../shared/nieOS/mongodb/action/action.service';
+import {PageService} from '../../../shared/nieOS/mongodb/page/page.service';
 import { DataManagementComponent } from '../../data-management/data-management.component';
 import {MatDialog} from '@angular/material';
 import {GenerateDataChoosersService} from '../../data-management/generate-data-choosers.service';
 import {HttpClient} from '@angular/common/http';
+import { NgxSpinnerService } from 'ngx-spinner';
+import {GeneralRequestService} from '../../../shared/general/general-request.service';
 
 declare var grapesjs: any; // Important!
 
@@ -30,17 +31,6 @@ declare var grapesjs: any; // Important!
   templateUrl: `page.component.html`,
 })
 export class PageComponent implements OnInit, AfterViewChecked {
-  image = {
-    '@id' : 'https://www.e-manuscripta.ch/zuz/i3f/v20/1510612/canvas/1510618',
-    '@type' : 'knora-api:StillImageFileValue',
-    'knora-api:fileValueAsUrl' :
-      'https://www.e-manuscripta.ch/zuz/i3f/v21/1510618/full/1304/0/default.jpg',
-    'knora-api:fileValueHasFilename' : '1510618',
-    'knora-api:fileValueIsPreview' : false,
-    'knora-api:stillImageFileValueHasDimX' : 3062,
-    'knora-api:stillImageFileValueHasDimY' : 4034,
-    'knora-api:stillImageFileValueHasIIIFBaseUrl' : 'https://www.e-manuscripta.ch/zuz/i3f/v20'
-  };
   projectIRI: string = 'http://rdfh.ch/projects/0001';
   actionID: string;
   length: number;
@@ -48,80 +38,95 @@ export class PageComponent implements OnInit, AfterViewChecked {
   action: any;
   panelsOpen = false;
   pageIDFromURL: string;
-  openAppsInThisPage: any;
+  openAppsInThisPage: any = {};
   pageAsDemo = false;
   pageUpdated = false;
   isLoading = true;
-
+  resetPage = false;
+  reloadVariables = false;
   constructor(
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
     private generateHashService: GenerateHashService,
     private openApps: OpenAppsModel,
     private resetOpenApps: OpenAppsModel,
-    private mongoPageService: MongoPageService,
-    private mongoActionService: MongoActionService,
+    private pageService: PageService,
     private generateDataChoosers: GenerateDataChoosersService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private spinner: NgxSpinnerService,
+    private requestService: GeneralRequestService
   ) {
     // this.route.params.subscribe(params => console.log(params));
   }
 
   openDataManagement() {
-    const dialogRef = this.dialog.open(DataManagementComponent, {
-      width: '100%',
-      height: '100%',
-      data: [ this.openAppsInThisPage, this.page ]
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
-    });
+    this.spinner.show();
+    this.pageService.updatePage(this.page)
+      .subscribe(
+        data => {
+          // console.log(data);
+          // console.log( this.openAppsInThisPage );
+          this.updateOpenAppsInThisPage();
+          const dialogRef = this.dialog.open(DataManagementComponent, {
+            width: '100%',
+            height: '100%',
+            data: [ this.openAppsInThisPage, this.page ]
+          });
+          dialogRef.afterClosed().subscribe((result) => {
+            this.resetPage = true;
+            console.log(result);
+            this.reloadVariables = true;
+            this.spinner.show();
+            setTimeout(() => {
+              this.spinner.hide();
+            }, 5000);
+          });
+        },
+        error => {
+          console.log(error);
+        });
+  }
+
+  updateOpenAppsInThisPage() {
+    for( const app in this.page.openApps ) {
+      if( app && this.openAppsInThisPage[ this.page.openApps[ app ].type ] ) {
+        console.log( this.openAppsInThisPage[ this.page.openApps[ app ].type ] );
+        for( let openApp of this.openAppsInThisPage[ this.page.openApps[ app ].type ].model ) {
+          if ( openApp['hash'] === app ) {
+            openApp.type = this.page.openApps[ app ].type;
+            console.log( openApp );
+            console.log( this.page.openApps[ app ] );
+          }
+        }
+      }
+    }
+    console.log( this.openAppsInThisPage );
   }
 
   ngAfterViewChecked() {
     this.cdr.detectChanges();
     if ( this.pageIDFromURL !==  this.route.snapshot.queryParams.page ) {
       this.clearAppsInThisPage();
-      this.updatePageFromUrl();
     }
     this.cdr.detectChanges();
   }
 
   ngOnInit() {
-    this.updatePageFromUrl();
+    this.openAppsInThisPage = {};
+    this.page = {};
+    const reset = new OpenAppsModel;
+    this.openAppsInThisPage = reset.openApps;
+    this.actionID = this.route.snapshot.queryParams.actionID;
+    this.pageIDFromURL = this.route.snapshot.queryParams.page;
     if ( !this.actionID ) {
       this.pageAsDemo = true;
       this.isLoading = false;
     }
-  }
+    this.spinner.show();
 
-  updatePageFromUrl() {
-    this.openAppsInThisPage = {};
-    this.page = {};
-    this.openAppsInThisPage = this.openApps.openApps;
-    this.actionID = this.route.snapshot.queryParams.actionID;
-    this.pageIDFromURL = this.route.snapshot.queryParams.page;
-    if ( this.pageIDFromURL ) {
-      this.updateAppsInView( this.pageIDFromURL );
-    } else {
-      this.checkIfPageExistsForThisAction( this.actionID );
-    }
-  }
-
-  checkIfPageExistsForThisAction(actionID: string) {
-    this.mongoActionService.getAction(actionID)
-      .subscribe(
-        data => {
-          this.action = ( data as any ).body.action;
-          // console.log('This action: ', this.action);
-          if (this.action.type === 'page') {
-              this.updateAppsInView(this.action.hasPage._id);
-          }
-        },
-        error => {
-          this.isLoading = false;
-          console.log(error);
-        });
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 5000);
   }
 
   updateAppCoordinates(app: any) {
@@ -129,71 +134,12 @@ export class PageComponent implements OnInit, AfterViewChecked {
     console.log('y: ' + app.y);
     console.log('type: ' + app.type);
     console.log('hash: ' + app.hash );
-    console.log( this.page );
+    // console.log( this.page );
     if (this.page.openApps[ app.hash ] === null) {
       this.page.openApps[ app.hash ] = [];
     }
     this.page.openApps[ app.hash ] = app;
     console.log(this.page);
-  }
-
-  updateAppsInView(viewHash: string ) {
-    this.mongoPageService.getPage(viewHash)
-      .subscribe(
-        data => {
-          this.page = ( data as any).page;
-          // console.log( this.page );
-          this.convertMappingsBackFromJson( this.page );
-          const appHelperArray = [];
-          for ( const app of this.page.openApps ) {
-            appHelperArray[JSON.parse(app).hash] = JSON.parse(app);
-          }
-          this.page.openApps = appHelperArray;
-          // console.log(this.page.openApps);
-          for ( const app in this.page.openApps ) {
-            for ( const appType in this.openAppsInThisPage ) {
-              this.initiateUpdateApp(
-                this.page.openApps[ app ],
-                this.openAppsInThisPage[ appType ].type,
-                this.openAppsInThisPage[ appType ].model
-              );
-            }
-          }
-          this.generateDataChoosers.generateDataChoosers(
-            this.page,
-            this.openAppsInThisPage
-          );
-          this.isLoading = false;
-        },
-        error => {
-          this.isLoading = false;
-          console.log(error);
-        });
-  }
-
-  convertMappingsBackFromJson( page: any ) {
-    // console.log( 'convertMappingsBackFromJson', page.appInputQueryMapping );
-    for ( const mappingInstance of page.appInputQueryMapping ) {
-      const appHash = JSON.parse(mappingInstance)['app'];
-      // console.log( appHash );
-      // console.log( JSON.parse(mappingInstance) );
-      const appMapping = JSON.parse(mappingInstance);
-      for ( const key in appMapping ) {
-        if ( key !== 'app' ) {
-          // console.log( key, appHash, appMapping[ key ] );
-          if ( !this.page[ 'appInputQueryMapping' ][ appHash ] ) {
-            this.page[ 'appInputQueryMapping' ][ appHash ] = {};
-          }
-          this.page[ 'appInputQueryMapping' ][ appHash ][ key ] = appMapping[ key ];
-        }
-      }
-    }
-    let index = 0;
-    for ( const mapping of this.page.appInputQueryMapping ) {
-      this.page.appInputQueryMapping.splice( index );
-      index += 1;
-    }
-    // console.log( this.page.appInputQueryMapping );
   }
 
   clearAppsInThisPage() {
@@ -204,37 +150,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
       // console.log( this.openApps.openApps[ app ].model );
     }
     console.log(this.openApps.openApps);
-  }
-
-  initiateUpdateApp(
-    appFromViewModel: any,
-    appType: string,
-    appModel: any
-  ) {
-    if ( appFromViewModel.type === appType ) {
-      this.updateApp(
-        appType,
-        appModel,
-        appFromViewModel
-      );
-    }
-  }
-
-  updateApp(
-    appType: string,
-    appModel: any,
-    appFromViewModel: any
-  ) {
-    const length = appModel.length;
-    appModel[ length ] = {};
-    appModel[ length ].x = appFromViewModel.x;
-    appModel[ length ].y = appFromViewModel.y;
-    appModel[ length ].hash = appFromViewModel.hash;
-    appModel[ length ].title = appFromViewModel.title;
-    appModel[ length ].width = appFromViewModel.width;
-    appModel[ length ].height = appFromViewModel.height;
-    appModel[ length ].type = appType;
-    appModel[ length ].initialized = true;
   }
 
   createTooltip() {
@@ -248,7 +163,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   updatePage() {
     console.log('update page for this action');
     console.log( this.page );
-    this.mongoPageService.updatePage(this.page)
+    this.pageService.updatePage(this.page)
       .subscribe(
         data => {
           console.log(data);
@@ -288,10 +203,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
     console.log(this.openAppsInThisPage);
   }
 
-  updateAppTypesFromDataChooser( openAppsInThisPageFromDataChooser: any ) {
-    this.openAppsInThisPage = openAppsInThisPageFromDataChooser;
-  }
-
   expandPanels() {
     this.panelsOpen = !this.panelsOpen;
   }
@@ -318,5 +229,17 @@ export class PageComponent implements OnInit, AfterViewChecked {
     } else {
       return defaultHeight;
     }
+  }
+
+  receivePage( pageFromLoadComponent: any ) {
+    // console.log( pageFromLoadComponent );
+    this.page = pageFromLoadComponent;
+    this.reloadVariables = false;
+  }
+
+  receiveOpenAppsInThisPage( openAppsInThisPage: any ) {
+    // console.log( openAppsInThisPage );
+    this.openAppsInThisPage = openAppsInThisPage;
+    this.reloadVariables = false;
   }
 }

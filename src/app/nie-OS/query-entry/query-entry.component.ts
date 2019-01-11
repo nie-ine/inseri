@@ -3,9 +3,9 @@ import { MAT_DIALOG_DATA, MatDialogRef, MatTabChangeEvent } from '@angular/mater
 import {HttpClient} from '@angular/common/http';
 import { AbstractJsonService } from '../data-management/abstract-json.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import {MongoPageService} from '../../shared/nieOS/mongodb/page/page.service';
 import { KeyValueFormComponent } from './key-value-form/key-value-form.component';
-import { GeneralRequestService } from "../../shared/general/general-request.service";
+import { GeneralRequestService } from '../../shared/general/general-request.service';
+import { QueryService } from '../../shared/nieOS/mongodb/query/query.service';
 
 @Component({
   selector: 'app-query-entry',
@@ -33,12 +33,14 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private http: HttpClient,
     private abstractJsonService: AbstractJsonService,
-    private pageService: MongoPageService,
+    private queryService: QueryService,
     private requestService: GeneralRequestService
   ) { }
 
   ngOnInit() {
       this.form = new FormGroup({
+          title: new FormControl(this.data.query.title, [Validators.required]),
+          description: new FormControl(this.data.query.description, []),
           serverURL: new FormControl(this.data.query.serverUrl, []),
           method: new FormControl(this.data.query.method ? this.data.query.method : 'GET', [Validators.required])
       });
@@ -59,13 +61,15 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   save() {
+      this.data.query.title = this.form.get('title').value;
+      this.data.query.description = this.form.get('description').value;
       this.data.query.serverUrl = this.form.get('serverURL').value;
       this.data.query.method = this.form.get('method').value;
       this.data.query.params = this.param.getValidParams();
       this.data.query.header = this.header.getValidParams();
       this.data.query.body = (this.editor) ? this.editor.text : '';
 
-      this.pageService.updateQuery(this.data.pageID, this.data.query._id, this.data.query)
+      this.queryService.updateQueryOfPage(this.data.pageID, this.data.query._id, this.data.query)
           .subscribe((data) => {
             if (data.status === 200) {
                 // this.close();
@@ -90,15 +94,6 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
     if (e.index === 2) {
       this.setBodyInEditor();
     }
-  }
-
-  test() {
-    this.requestService.request('5c12873ab393460ad4d9abfa')
-      .subscribe((data) => {
-        if (data.status === 200) {
-          console.log(data.body);
-        }
-      });
   }
 
   initiateQuery() {
@@ -140,15 +135,17 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   postRequest(url: string, parameter: any, header: any, body: string) {
-    this.requestService.post(url, parameter, header, this.editor.text)
+    this.requestService.post(url, parameter, header, body)
       .subscribe(data => {
           console.log(data);
-          // TODO: Mapping from Jan
+        this.response = data.body;
+        this.tree = data.body;
+        this.abstractJson = this.abstractJsonService.json2abstract(data.body);
         }, error => console.log(error));
   }
 
   putRequest(url: string, parameter: any, header: any, body: string) {
-    this.requestService.put(url, parameter, header, this.editor.text)
+    this.requestService.put(url, parameter, header, body)
       .subscribe(data => {
           console.log(data);
         // TODO: Mapping from Jan
