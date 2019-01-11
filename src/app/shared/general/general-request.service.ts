@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { MongoPageService } from '../nieOS/mongodb/page/page.service';
+import { QueryService } from '../nieOS/mongodb/query/query.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GeneralRequestService {
   params: any;
-  constructor(private http: HttpClient, private pageService: MongoPageService) { }
+  constructor(private http: HttpClient, private queryService: QueryService) { }
 
   request(queryID) {
-    return this.pageService.getQuery(queryID)
+    return this.queryService.getQuery(queryID)
       .flatMap(data => {
           const query = data.query;
           // console.log( data );
@@ -39,7 +39,7 @@ export class GeneralRequestService {
   }
 
   post(url: string, parameter?: any, header?: any, body?: string): Observable<any> {
-    console.log('POST Request', url, parameter, header, body);
+    // console.log('POST Request', url, parameter, header, body);
     return this.http.post(url, body, {params: parameter, headers: header, observe: 'response'});
   }
 

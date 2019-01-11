@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import { MongoActionService } from '../../../shared/nieOS/mongodb/action/action.service';
+import { ActionService } from '../../../shared/nieOS/mongodb/action/action.service';
 import { Action } from '../../../shared/nieOS/mongodb/action/action.model';
 
 @Component({
@@ -26,7 +26,7 @@ export class EditActionComponent implements OnInit {
 
     constructor(public dialogRef: MatDialogRef<EditActionComponent>,
                 @Inject(MAT_DIALOG_DATA) public data: any,
-                private mongoActionService: MongoActionService) {
+                private actionService: ActionService) {
         this.newAction.id = this.data.id;
         this.newAction.title = this.data.title;
         this.newAction.description = this.data.description;
@@ -45,7 +45,7 @@ export class EditActionComponent implements OnInit {
         this.newAction.title = this.form.get('title').value;
         this.newAction.description = this.form.get('description').value;
 
-        this.mongoActionService.updateAction(this.newAction)
+        this.actionService.updateAction(this.newAction)
           .subscribe((action) => {
             this.isLoading = false;
             this.dialogRef.close(action);

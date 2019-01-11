@@ -1,8 +1,21 @@
-<mat-spinner *ngIf="isLoading" style="position: relative; margin-left: 50%; margin-right: 50%; margin-top: 300px"></mat-spinner>
+<app-load-variables
+  (sendPageBack)="receivePage( $event )"
+  (sendOpenAppsInThisPageBack)="receiveOpenAppsInThisPage( $event )"
+  [reload]="reloadVariables">
+
+</app-load-variables>
+
+<ngx-spinner
+  bdColor = "rgba(51, 51, 51, 0.8)"
+  size = "large"
+  color = "#fff"
+  type = "cube-transition"
+></ngx-spinner>
+
 
 <div>
   <!-- Menu to open Apps-->
-  <mat-drawer-container  style="height:100vh; margin-top: 30px;" *ngIf="!isLoading" >
+  <mat-drawer-container  style="height:100vh; margin-top: 30px;" >
     <mat-drawer #drawer mode="side" [opened]="true">
 
       <div *ngIf="!pageAsDemo">
@@ -15,6 +28,21 @@
       <div *ngIf="pageAsDemo">
         <h4 style="align-content: center">Demo - Page</h4>
         You can not save anything you do on this <br> demo - page. If you would like to save <br> pages and pageSets, please <a href="/register">register</a>.
+      </div>
+
+      <!-- Data Chooser -->
+      <h4 style="align-content: center" *ngIf="openAppsInThisPage[ 'dataChooser' ].model.length > 0">Queries</h4>
+      <div *ngFor="let dataChooser of openAppsInThisPage[ 'dataChooser' ].model; let i = index;" >
+        <div style="width: 300px; height: 50px;" >
+          <app-data-chooser
+            [appInputQueryMapping]=" page.appInputQueryMapping"
+            [response]="openAppsInThisPage[ 'dataChooser' ].model[i].response"
+            [queryId] = "openAppsInThisPage[ 'dataChooser' ].model[i].queryId"
+            [openAppsInThisPage] = "openAppsInThisPage"
+            [dataChooserEntries]="openAppsInThisPage[ 'dataChooser' ].model[i].dataChooserEntries"
+            [description]="openAppsInThisPage[ 'dataChooser' ].model[i].title">
+          </app-data-chooser>
+        </div>
       </div>
 
 
@@ -366,7 +394,16 @@
              [firstPopupY]="openAppsInThisPage[ 'imageViewer' ].model[i].y"
              (sendAppCoordinatesBack)="updateAppCoordinates($event)">
         <nie-image-frame style="height: 100%;"
-                         [image]="image"
+                         [image]="{
+    '@id' : openAppsInThisPage[ 'imageViewer' ].model[i]['@id'],
+    '@type' : openAppsInThisPage[ 'imageViewer' ].model[i]['@type'],
+    'knora-api:fileValueAsUrl' : openAppsInThisPage[ 'imageViewer' ].model[i]['fileValueAsUrl'],
+    'knora-api:fileValueHasFilename' : openAppsInThisPage[ 'imageViewer' ].model[i]['fileValueHasFilename'],
+    'knora-api:fileValueIsPreview' : false,
+    'knora-api:stillImageFileValueHasDimX' : openAppsInThisPage[ 'imageViewer' ].model[i]['stillImageFileValueHasDimX'],
+    'knora-api:stillImageFileValueHasDimY' : openAppsInThisPage[ 'imageViewer' ].model[i]['stillImageFileValueHasDimY'],
+    'knora-api:stillImageFileValueHasIIIFBaseUrl' : openAppsInThisPage[ 'imageViewer' ].model[i]['stillImageFileValueHasIIIFBaseUrl']
+  }"
                          width="500"
                          height="500">
         </nie-image-frame>
@@ -515,34 +552,6 @@
         <button mat-menu-item (click)="textlistViewers.appear()" >Show Textlist Viewer {{ i }}</button>
         <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'textlistViewers' ].model, i ) ">Remove this app</button>
       </mat-menu>
-    </div>
-
-    <!-- Data Chooser -->
-    <div *ngFor="let dataChooser of openAppsInThisPage[ 'dataChooser' ].model; let i = index;" >
-      <popup #dataChooser
-             [hash]="openAppsInThisPage[ 'dataChooser' ].model[i].hash"
-             [title]="openAppsInThisPage[ 'dataChooser' ].model[i].title"
-             [type]="openAppsInThisPage[ 'dataChooser' ].type"
-             [firstPopupX]="openAppsInThisPage[ 'dataChooser' ].model[i].x"
-             [firstPopupY]="openAppsInThisPage[ 'dataChooser' ].model[i].y"
-             (sendAppCoordinatesBack)="updateAppCoordinates($event)">
-        <div style="width: 600px; height: 50px;" >
-          <app-data-chooser
-            [appInputQueryMapping]=" page.appInputQueryMapping"
-            [response]="openAppsInThisPage[ 'dataChooser' ].model[i].response"
-            [queryId] = "openAppsInThisPage[ 'dataChooser' ].model[i].queryId"
-            [openAppsInThisPage] = "openAppsInThisPage"
-            [dataChooserEntries]="openAppsInThisPage[ 'dataChooser' ].model[i].dataChooserEntries"
-            (sendAppTypesBackToNIEOS)="updateAppTypesFromDataChooser($event)">>
-          </app-data-chooser>
-        </div>
-      </popup>
-      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>perm_data_setting</mat-icon> {{ i }}</button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="dataChooser.appear()" >Show Data Chooser {{ i }}</button>
-        <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'dataChooser' ].model, i ) ">Remove this app</button>
-      </mat-menu>
-
     </div>
 
     <!-- Bar Charts -->

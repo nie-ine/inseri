@@ -4,28 +4,28 @@ import { PageSetModel } from './page-set.model';
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class MongoPageSetService {
+export class PageSetService {
   private static API_BASE_URL_PAGE_SET = 'http://localhost:3000/api/pagesets';
 
   constructor(private http: HttpClient) { }
 
   createPageSet(pageSet: PageSetModel): Observable<any> {
-    return this.http.post(`${MongoPageSetService.API_BASE_URL_PAGE_SET}`, pageSet);
+    return this.http.post(`${PageSetService.API_BASE_URL_PAGE_SET}`, pageSet);
   }
 
   getPageSet(id: string): Observable<any> {
-    return this.http.get(`${MongoPageSetService.API_BASE_URL_PAGE_SET}/${id}`);
+    return this.http.get(`${PageSetService.API_BASE_URL_PAGE_SET}/${id}`);
   }
 
   getAllPageSet(): Observable<any> {
-    return this.http.get(`${MongoPageSetService.API_BASE_URL_PAGE_SET}`);
+    return this.http.get(`${PageSetService.API_BASE_URL_PAGE_SET}`);
   }
 
   updatePageSet(pageSet: PageSetModel): Observable<any> {
-    return this.http.put(`${MongoPageSetService.API_BASE_URL_PAGE_SET}/${pageSet.id}`, pageSet);
+    return this.http.put(`${PageSetService.API_BASE_URL_PAGE_SET}/${pageSet.id}`, pageSet);
   }
 
   deletePageSet(id: string): Observable<any> {
-    return this.http.delete(`${MongoPageSetService.API_BASE_URL_PAGE_SET}/${id}`);
+    return this.http.delete(`${PageSetService.API_BASE_URL_PAGE_SET}/${id}`);
   }
 }

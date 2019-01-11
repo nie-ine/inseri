@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Page } from '../../../shared/nieOS/mongodb/page/page.model';
-import { MongoPageService } from '../../../shared/nieOS/mongodb/page/page.service';
+import { PageService } from '../../../shared/nieOS/mongodb/page/page.service';
 
 @Component({
   selector: 'app-edit-page',
@@ -22,7 +22,7 @@ export class EditPageComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<EditPageComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
-              private pageService: MongoPageService) {
+              private pageService: PageService) {
     this.newPage.id = this.data.page._id;
     this.newPage.title = this.data.page.title;
     this.newPage.description = this.data.page.description;

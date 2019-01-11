@@ -40,6 +40,10 @@ import {MatProgressSpinnerModule} from '@angular/material';
 import {MatListModule} from '@angular/material/list';
 import { FrameSettingsComponent } from './page/frame-settings/frame-settings.component';
 import {MatSliderModule} from '@angular/material/slider';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import {LoadVariablesComponent} from './load-variables/load-variables.component';
+import { QueryListComponent } from './query-list/query-list.component';
+
 
 @NgModule({
   imports: [
@@ -71,6 +75,7 @@ import {MatSliderModule} from '@angular/material/slider';
     MatButtonToggleModule,
     MatListModule,
     MatSliderModule,
+    NgxSpinnerModule,
     RouterModule.forChild([
       { path: 'page', component: PageComponent },
       { path: 'grapesjs', component: GrapesjsComponent },
@@ -93,7 +98,9 @@ import {MatSliderModule} from '@angular/material/slider';
     QueryEntryComponent,
     KeyValueFormComponent,
     QueryAppInputMapComponent,
-    FrameSettingsComponent
+    FrameSettingsComponent,
+    LoadVariablesComponent,
+    QueryListComponent
   ],
   exports: [
     PageComponent,
@@ -104,7 +111,8 @@ import {MatSliderModule} from '@angular/material/slider';
     DataManagementComponent,
     QueryEntryComponent,
     QueryAppInputMapComponent,
-    FrameSettingsComponent
+    FrameSettingsComponent,
+    QueryListComponent
   ]
 })
 export class NIEOSModule { }

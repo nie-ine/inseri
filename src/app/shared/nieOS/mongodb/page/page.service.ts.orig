@@ -38,8 +38,13 @@ export class PageService {
     }
     page.appInputQueryMapping = mappingsAsStringArray;
     page.openApps = openAppAsStringArray;
+<<<<<<< HEAD
+    // console.log( page );
+    return this.http.put(`${MongoPageService.API_BASE_URL_PAGE}/${page._id}`, page);
+=======
     console.log( page );
     return this.http.put(`${PageService.API_BASE_URL_PAGE}/${page._id}`, page);
+>>>>>>> 172707d611542976067777e52533761b528b7874
   }
 
   updatePageOfPageSet(pageSetID: string, page: any): Observable<any> {

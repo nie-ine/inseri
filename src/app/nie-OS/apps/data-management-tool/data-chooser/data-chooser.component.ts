@@ -22,6 +22,7 @@ export class DataChooserComponent implements AfterViewChecked {
   @Input() dataChooserEntries = [];
   @Input() response;
   @Input() queryId;
+  @Input() description = '';
   @Output() sendAppTypesBackToNIEOS: EventEmitter<any> = new EventEmitter<any>();
   @Input() appInputQueryMapping;
   gravSearchString: string;
@@ -29,6 +30,7 @@ export class DataChooserComponent implements AfterViewChecked {
   gravSearchResponse: Array<any>;
   chosenPropertyArray: Array<any>;
   dataChooserSettingsOutput: any;
+  responseTest: any;
   index: number;
   constructor(
     public dialogSettings: MatDialog,
@@ -52,34 +54,49 @@ export class DataChooserComponent implements AfterViewChecked {
               for ( const input in this.appInputQueryMapping[ app.hash ] ) {
                 if( this.appInputQueryMapping[ app.hash ][ input ][ 'query' ] === this.queryId ) {
                   // console.log( this.appInputQueryMapping[ app.hash ], app );
+                  let increment = 0;
+                  for ( const segment of this.appInputQueryMapping[ app.hash ][ input ][ 'path' ] ) {
+                    if ( segment === null ) {
+                      this.appInputQueryMapping[ app.hash ][ input ][ 'path' ].splice( increment, 1 );
+                    }
+                    increment += 1;
+                  }
                   app[ input ] = this.generateAppinput(
                     this.response,
                     this.appInputQueryMapping[ app.hash ][ input ][ 'path' ],
                     index,
                     0
                   );
+                  // console.log( app );
                 }
               }
             }
           }
         }
     }
+    console.log( this.openAppsInThisPage );
     this.sendAppTypesBackToNIEOS.emit(this.openAppsInThisPage );
   }
   generateAppinput( response: any, path: any, index: number, depth: number) {
     // console.log(
-    //   // response,
-    //   depth,
-    //   path.length,
-    //   path[ depth ],
-    //   Number( path[ depth ] )
+    // response,
+    // // depth,
+    // path,
+    // // path.length,
+    // // path[ depth ],
+    // // Number( path[ depth ] ),
+    // // index
     // );
-    if ( response.length ) {
+    if ( path.length === 1 ) {
+      // console.log( response[ path[ 0 ] ] );
+      return response[ path[ 0 ] ];
+    }
+    if ( response.length && path.length !== 1 ) {
       // console.log( 'Use index' );
       return this.generateAppinput(
         response[ index ], path, index, depth + 1
       );
-    } else if ( depth !== path.length && response[ path[ depth ] ] ) {
+    } else if ( depth !== path.length && response[ path[ depth ] ] && path.length !== 1 ) {
       // console.log( 'One depth more', path, depth );
       return this.generateAppinput(
         response[ path[ depth ] ], path, index, depth + 1
@@ -91,17 +108,19 @@ export class DataChooserComponent implements AfterViewChecked {
     } else if ( path.length - 1 === depth &&  Number( path[ depth ] ) ) {
       // console.log( 'Return index from array:', response[ path[ depth - 1 ] ][ Number( path[ depth ] ) ] );
       return response[ path[ depth - 1 ] ][ Number( path[ depth ] ) ];
+    } else {
+      console.log( path, depth, response );
     }
   }
 
   moveBack() {
-    console.log('move back');
+    // console.log('move back');
     this.index -= 1;
     this.chooseResource( this.index );
   }
 
   moveForward() {
-    console.log('move forward');
+    // console.log('move forward');
     this.index += 1;
     this.chooseResource( this.index );
   }
