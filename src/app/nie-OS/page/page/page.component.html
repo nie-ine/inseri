@@ -30,6 +30,21 @@
         You can not save anything you do on this <br> demo - page. If you would like to save <br> pages and pageSets, please <a href="/register">register</a>.
       </div>
 
+      <!-- Data Chooser -->
+      <h4 style="align-content: center" *ngIf="openAppsInThisPage[ 'dataChooser' ].model.length > 0">Queries</h4>
+      <div *ngFor="let dataChooser of openAppsInThisPage[ 'dataChooser' ].model; let i = index;" >
+        <div style="width: 300px; height: 50px;" >
+          <app-data-chooser
+            [appInputQueryMapping]=" page.appInputQueryMapping"
+            [response]="openAppsInThisPage[ 'dataChooser' ].model[i].response"
+            [queryId] = "openAppsInThisPage[ 'dataChooser' ].model[i].queryId"
+            [openAppsInThisPage] = "openAppsInThisPage"
+            [dataChooserEntries]="openAppsInThisPage[ 'dataChooser' ].model[i].dataChooserEntries"
+            [description]="openAppsInThisPage[ 'dataChooser' ].model[i].title">
+          </app-data-chooser>
+        </div>
+      </div>
+
 
       <h4 style="align-content: center">Texts</h4>
 
@@ -537,33 +552,6 @@
         <button mat-menu-item (click)="textlistViewers.appear()" >Show Textlist Viewer {{ i }}</button>
         <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'textlistViewers' ].model, i ) ">Remove this app</button>
       </mat-menu>
-    </div>
-
-    <!-- Data Chooser -->
-    <div *ngFor="let dataChooser of openAppsInThisPage[ 'dataChooser' ].model; let i = index;" >
-      <popup #dataChooser
-             [hash]="openAppsInThisPage[ 'dataChooser' ].model[i].hash"
-             [title]="openAppsInThisPage[ 'dataChooser' ].model[i].title"
-             [type]="openAppsInThisPage[ 'dataChooser' ].type"
-             [firstPopupX]="openAppsInThisPage[ 'dataChooser' ].model[i].x"
-             [firstPopupY]="openAppsInThisPage[ 'dataChooser' ].model[i].y"
-             (sendAppCoordinatesBack)="updateAppCoordinates($event)">
-        <div style="width: 600px; height: 50px;" >
-          <app-data-chooser
-            [appInputQueryMapping]=" page.appInputQueryMapping"
-            [response]="openAppsInThisPage[ 'dataChooser' ].model[i].response"
-            [queryId] = "openAppsInThisPage[ 'dataChooser' ].model[i].queryId"
-            [openAppsInThisPage] = "openAppsInThisPage"
-            [dataChooserEntries]="openAppsInThisPage[ 'dataChooser' ].model[i].dataChooserEntries">
-          </app-data-chooser>
-        </div>
-      </popup>
-      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>perm_data_setting</mat-icon> {{ i }}</button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="dataChooser.appear()" >Show Data Chooser {{ i }}</button>
-        <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'dataChooser' ].model, i ) ">Remove this app</button>
-      </mat-menu>
-
     </div>
 
     <!-- Bar Charts -->

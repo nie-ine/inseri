@@ -10,7 +10,6 @@ import { QueryService } from '../../shared/nieOS/mongodb/query/query.service';
 })
 export class GenerateDataChoosersService {
   response: any;
-  abstractJson: any;
   dataChooserEntries = [];
   y = -50;
   constructor(
@@ -37,9 +36,8 @@ export class GenerateDataChoosersService {
       this.requestService.request(queryId)
         .subscribe((data) => {
           if (data.status === 200) {
-            // console.log(data.body);
+            console.log(data.body);
             this.response = data.body;
-            this.abstractJson = this.abstractJsonService.json2abstract( data.body );
             this.y += 100;
             openAppsInThisPage.dataChooser.model.push( {
               x: 150,

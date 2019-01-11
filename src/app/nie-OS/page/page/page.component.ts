@@ -112,37 +112,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnInit() {
-    this.requestService.post(
-      'http://knora2.nie-ine.ch/v2/searchextended',
-      {},
-      {
-        email: 'root@example.com',
-        password: 'test'
-      },
-      'PREFIX knora-api: <http://api.knora.org/ontology/knora-api/simple/v2#>' +
-      'PREFIX kuno-raeber: <http://0.0.0.0:3333/ontology/004D/kuno-raeber/simple/v2#>' +
-      'PREFIX language: <http://0.0.0.0:3333/ontology/004F/language/simple/v2#>' +
-      'PREFIX text-editing: <http://0.0.0.0:3333/ontology/005A/text-editing/simple/v2#>' +
-      '        ' +
-      '        CONSTRUCT {' +
-      '        ' +
-      '        ?transcription knora-api:isMainResource true .' +
-      '        ?transcription language:hasContent ?content .' +
-      '        ?transcription text-editing:isDiplomaticTranscriptionOfTextOnPage ?page .' +
-      '        ?page knora-api:hasStillImageFileValue ?image' +
-      '        ' +
-      '        } WHERE {' +
-      '        ' +
-      '        BIND(<http://rdfh.ch/004D/--9JRHpRTJCz7DwXz6Xqpg> AS ?transcription)' +
-      '        ?transcription language:hasContent ?content .' +
-      '        ?transcription text-editing:isDiplomaticTranscriptionOfTextOnPage ?page .' +
-      '        ?page knora-api:hasStillImageFileValue ?image' +
-      '            ' +
-      '        } OFFSET 0')
-      .subscribe(data => {
-        console.log( 'test' );
-        console.log(data);
-      }, error => console.log(error));
     this.openAppsInThisPage = {};
     this.page = {};
     const reset = new OpenAppsModel;
@@ -269,6 +238,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   receiveOpenAppsInThisPage( openAppsInThisPage: any ) {
+    // console.log( openAppsInThisPage );
     this.openAppsInThisPage = openAppsInThisPage;
     this.reloadVariables = false;
   }

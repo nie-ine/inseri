@@ -5,7 +5,12 @@ export class AbstractJsonService {
   constructor(
   ) {}
 
+  /**
+   * Input is an arbitrary json, for example from an http response.
+   * Its type, so all the possible leafs, in an arbitrary depth are abstracted.
+   * */
   json2abstract( json: any ) {
+
     this.leafLoop( json, undefined );
 
     for ( const leaf in this.leafIndices ) {
@@ -13,6 +18,7 @@ export class AbstractJsonService {
     }
 
     for ( const parent in this.abstractTree ) {
+      // console.log( this.abstractTree[ parent ], parent );
       if ( this.abstractTree[ parent ].layerIndex === 1 ) { // TODO Make recursive for arbitrary depth for children of Children
         this.populateChildrenOfChildren( parent );
       }
@@ -21,14 +27,55 @@ export class AbstractJsonService {
     return this.abstractTree;
   }
 
-  populateChildrenOfChildren(parent: string) {
-    for( const childrenToTest in this.abstractTree[ parent ] ) {
-      if( this.abstractTree[childrenToTest] ) {
-        this.abstractTree[ parent ][childrenToTest] = this.abstractTree[childrenToTest];
+  /**
+   * The leafloop iterates through the json input, checks if the leaf is an object or a string,
+   * and starts the next phase of the algorithm.
+   * */
+  leafLoop ( leafLayer: any, parent: string ) {
+    this.layerIndex += 1;
+    for ( const leaf in leafLayer ) {
+      if( typeof leafLayer[ leaf ] === 'object' && leafLayer[ leaf ] !== null ) {
+        this.addEntryToLeafIndices( leaf, parent, 'array' );
+        this.arrayLoop( leafLayer[ leaf ], leaf);
+      } else {
+        this.addEntryToLeafIndices( leaf, parent, 'string' );
+      }
+    }
+    this.layerIndex -= 1;
+  }
+
+  /**
+   * the leafIndices object has a depth of 0, contains all leafs and
+   * information about their type, their depth and their parent.
+   * */
+  addEntryToLeafIndices( leaf: string, parent: string, type: string ) {
+    this.leafIndices[ leaf ] = {};
+    this.leafIndices[ leaf ].type = type;
+    this.leafIndices[ leaf ].layerIndex = this.layerIndex;
+    this.leafIndices[ leaf ].parent = parent;
+    this.leafIndices[ leaf ].hash = this.generateHash();
+  }
+
+  /**
+   * The arrayLoop function starts the leafLoop function for
+   * object inputs which are non scalar arrays
+   * */
+  arrayLoop ( arrayLayer: any, parent: string ) {
+    for ( const entry of arrayLayer ) {
+      if ( entry[ 0 ] === undefined ) {
+        this.leafLoop( entry, parent );
+      }
+    }
+    for ( const leaf in arrayLayer ) {
+      if ( arrayLayer[ 0 ] === undefined ) {
+        this.leafLoop( arrayLayer[ leaf ], parent );
       }
     }
   }
 
+  /**
+   * This method writes each leafIndex to the abstractTree variable
+   * */
   copyleafIndicesToAbstractTree(leaf: string) {
     if ( this.leafIndices[ leaf ].parent ) {
       if ( this.abstractTree[ this.leafIndices[ leaf ].parent ] === undefined ) {
@@ -39,7 +86,17 @@ export class AbstractJsonService {
     } else {
       this.abstractTree[ leaf ] = this.leafIndices[ leaf ];
     }
+  }
 
+  /**
+   * This method rewrites children as the second dimension of the parent array.
+   * */
+  populateChildrenOfChildren(parent: string) {
+    for ( const childrenToTest in this.abstractTree[ parent ] ) {
+      if ( this.abstractTree[ childrenToTest ] ) {
+        this.abstractTree[ parent ][ childrenToTest ] = this.abstractTree[ childrenToTest ];
+      }
+    }
   }
 
   convertArrayEntriesToObjects() {
@@ -78,41 +135,12 @@ export class AbstractJsonService {
       }
       const object = array;
       return object;
-    }
-    else {
+    } else {
       return array;
     }
   }
 
-  leafLoop ( leafLayer: any, parent: string ) {
-    this.layerIndex += 1;
-    for ( const leaf in leafLayer ) {
-      // console.log( leaf );
-      if( typeof leafLayer[ leaf ] === 'object' && leafLayer[ leaf ] !== null ) {
-        this.addEntryToLeafIndices( leaf, parent, 'array' );
-        this.arrayLoop( leafLayer[ leaf ], leaf);
-      } else {
-        this.addEntryToLeafIndices( leaf, parent, 'string' );
-      }
-    }
-    this.layerIndex -= 1;
-  }
 
-  addEntryToLeafIndices( leaf: string, parent: string, type: string ) {
-      this.leafIndices[ leaf ] = {};
-      this.leafIndices[ leaf ].type = type;
-      this.leafIndices[ leaf ].layerIndex = this.layerIndex;
-      this.leafIndices[ leaf ].parent = parent;
-      this.leafIndices[ leaf ].hash = this.generateHash();
-  }
-
-  arrayLoop ( arrayLayer: any, parent: string ) {
-    for ( const entry of arrayLayer ) {
-      if( entry[ 0 ] === undefined ) {
-        this.leafLoop( entry, parent );
-      }
-    }
-  }
 
   generateHash(): string {
     // console.log('generate Hash');
