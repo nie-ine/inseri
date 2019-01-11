@@ -105,6 +105,12 @@ router.post('/:id/queries', checkAuth, (req, res, next) => {
             const newQuery = new Query({
                 title: req.body.title,
                 description: req.body.description,
+                serverUrl: req.body.serverUrl,
+                method: req.body.method,
+                params: req.body.params,
+                header: req.body.header,
+                body: req.body.body,
+                path: req.body.chosenPath,
                 isBoundToPage: true,
                 creator: req.userData.userId
             });
