@@ -27,76 +27,42 @@ export class QueryAppInputMapComponent implements OnInit {
   openAppsInThisPage: any;
   action: any;
   constructor(
-/*    public dialogRef: MatDialogRef<QueryAppInputMapComponent>,
-    @Inject(MAT_DIALOG_DATA) public input: any,*/
+    public dialogRef: MatDialogRef<QueryAppInputMapComponent>,
+    @Inject(MAT_DIALOG_DATA) public input: any,
     private http: HttpClient,
     private abstractJsonService: AbstractJsonService,
     private pageService: PageService,
     private requestService: GeneralRequestService,
   ) {
-    // for ( const appInput in input.mapping[ input.app.hash ] ) {
-    //   console.log( this.input.mapping[ input.app.hash ][appInput] );
-    //   if ( this.input.mapping[ input.app.hash ][appInput][ 'query' ] === this.input.query._id ) {
-    //     this.chosenInputs.push( appInput );
-    //     this.paths[ appInput ] = this.input.mapping[ input.app.hash ][appInput][ 'path' ];
-    //   }
-    // }
+    for ( const appInput in input.mapping[ input.app.hash ] ) {
+      console.log( this.input.mapping[ input.app.hash ][appInput] );
+      if ( this.input.mapping[ input.app.hash ][appInput][ 'query' ] === this.input.query._id ) {
+        this.chosenInputs.push( appInput );
+        this.paths[ appInput ] = this.input.mapping[ input.app.hash ][appInput][ 'path' ];
+      }
+    }
   }
 
   ngOnInit() {
-    console.log( 'oninint' );
-    const testJson = {
-      leafWithStringKey: 'test',
-      leafTwo: [
-        {
-          leafOne: 'test'
-        }
-      ],
-      leafThree: [
-        {
-          leafFour: [
-            {
-              leafFive: 'test',
-              leafSix: 'test'
-            },
-            {
-              leafSeven: 'test',
-              leafEight: 'test'
-            },
-            {
-              leafNine: [
-                {
-                  leafTen: 'test',
-                  leafEleven: 'test',
-                  leafTwelve: 'test'
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    };
-    this.response = testJson;
-    this.tree = testJson;
-    this.abstractResponse = this.abstractJsonService.json2abstract( testJson );
+    this.loadAbstractResponse();
   }
 
-  // close() {
-  //   this.dialogRef.close( this.mapping );
-  // }
+  close() {
+    this.dialogRef.close( this.mapping );
+  }
 
-  // loadAbstractResponse() {
-  //   console.log( this.input.query._id );
-  //   this.requestService.request(this.input.query._id)
-  //     .subscribe((data) => {
-  //       if (data.status === 200) {
-  //         console.log(data.body);
-  //         this.response = data.body;
-  //         this.tree = data.body;
-  //         this.abstractResponse = this.abstractJsonService.json2abstract( data.body );
-  //       }
-  //     });
-  // }
+  loadAbstractResponse() {
+    console.log( this.input.query._id );
+    this.requestService.request(this.input.query._id)
+      .subscribe((data) => {
+        if (data.status === 200) {
+          console.log(data.body);
+          this.response = data.body;
+          this.tree = data.body;
+          this.abstractResponse = this.abstractJsonService.json2abstract( data.body );
+        }
+      });
+  }
 
   changeTreeInput( tree: any ) {
     // console.log( 'Change tree', tree );
@@ -108,22 +74,22 @@ export class QueryAppInputMapComponent implements OnInit {
     this.paths = paths;
   }
 
-  // save() {
-  //   console.log( this.paths, this.input.page.appInputQueryMapping[ this.input.app.hash ], this.input );
-  //   for ( const appInput in this.paths ) {
-  //     console.log( this.input.page.appInputQueryMapping, this.input.app.hash );
-  //     this.input.page.appInputQueryMapping[ this.input.app.hash ][ appInput ][ 'path' ] = this.paths[ appInput ];
-  //   }
-  //   console.log(this.input.page);
-  //   this.pageService.updatePage(this.input.page)
-  //     .subscribe(
-  //       data => {
-  //         console.log(data);
-  //       },
-  //       error => {
-  //         console.log(error);
-  //       });
-  // }
+  save() {
+    console.log( this.paths, this.input.page.appInputQueryMapping[ this.input.app.hash ], this.input );
+    for ( const appInput in this.paths ) {
+      console.log( this.input.page.appInputQueryMapping, this.input.app.hash );
+      this.input.page.appInputQueryMapping[ this.input.app.hash ][ appInput ][ 'path' ] = this.paths[ appInput ];
+    }
+    console.log(this.input.page);
+    this.pageService.updatePage(this.input.page)
+      .subscribe(
+        data => {
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+        });
+  }
 
   test() {
     this.requestService.request('5c12873ab393460ad4d9abfa')
