@@ -69,15 +69,27 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
       this.data.query.header = this.header.getValidParams();
       this.data.query.body = (this.editor) ? this.editor.text : '';
 
-      this.queryService.updateQueryOfPage(this.data.pageID, this.data.query._id, this.data.query)
+      if (this.data.pageID) {
+        console.log('pageID is there');
+        this.queryService.updateQueryOfPage(this.data.pageID, this.data.query._id, this.data.query)
           .subscribe((data) => {
             if (data.status === 200) {
-                // this.close();
+              this.close();
             } else {
-                console.log('Updating query failed');
-                // this.close();
+              console.log('Updating query failed');
             }
-          });
+          }, error1 => console.log(error1));
+      } else {
+        console.log('pageID is not there', this.data.query._id);
+        this.queryService.updateQuery(this.data.query._id, this.data.query)
+          .subscribe((data) => {
+            if (data.status === 200) {
+              this.close();
+            } else {
+              console.log('Updating query failed');
+            }
+          }, error1 => console.log(error1));
+      }
   }
 
   close() {
