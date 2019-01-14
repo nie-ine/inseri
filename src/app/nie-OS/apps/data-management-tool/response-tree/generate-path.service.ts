@@ -9,8 +9,10 @@ export class GeneratePathService {
   constructor() { }
 
   generatePath( hash: string, tree: any ) {
+    console.log( hash, tree );
     this.tree = tree;
     this.iterateThroughTree( tree, hash );
+    console.log( this.path );
     return this.path;
   }
 
