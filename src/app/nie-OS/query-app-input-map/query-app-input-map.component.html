@@ -1,29 +1,29 @@
-<div style="margin-top: 30px">
-  <button mat-button (click)="save()">
-    <mat-icon>save</mat-icon> Save
-  </button>
-  <button mat-button (click)="close()">
-    <mat-icon>clear</mat-icon> Close
-  </button>
-</div>
+<!--<div style="margin-top: 30px">-->
+  <!--<button mat-button (click)="save()">-->
+    <!--<mat-icon>save</mat-icon> Save-->
+  <!--</button>-->
+  <!--<button mat-button (click)="close()">-->
+    <!--<mat-icon>clear</mat-icon> Close-->
+  <!--</button>-->
+<!--</div>-->
 
-<h5>App:</h5>
-{{ input.app.type + ' ' + input.app.hash }}
+<!--<h5>App:</h5>-->
+<!--{{ input.app.type + ' ' + input.app.hash }}-->
 
-<h5>Query Name:</h5>
-{{ input.query.title }}
+<!--<h5>Query Name:</h5>-->
+<!--{{ input.query.title }}-->
 
-<h5>Chosen inputs:</h5>
-<mat-chip-list *ngFor="let input of chosenInputs">
-  <mat-chip >
-  {{ input }}
-  </mat-chip>
-  <span *ngIf="paths">
-    <mat-chip [color]="'primary'" selected *ngFor="let segment of paths[ input ]">
-      <mat-icon>arrow_right_alt</mat-icon> {{segment}}
-    </mat-chip>
-  </span>
-</mat-chip-list>
+<!--<h5>Chosen inputs:</h5>-->
+<!--<mat-chip-list *ngFor="let input of chosenInputs">-->
+  <!--<mat-chip >-->
+  <!--{{ input }}-->
+  <!--</mat-chip>-->
+  <!--<span *ngIf="paths">-->
+    <!--<mat-chip [color]="'primary'" selected *ngFor="let segment of paths[ input ]">-->
+      <!--<mat-icon>arrow_right_alt</mat-icon> {{segment}}-->
+    <!--</mat-chip>-->
+  <!--</span>-->
+<!--</mat-chip-list>-->
 
 <div *ngIf="abstractResponse" style="margin-top: 30px">
   <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
