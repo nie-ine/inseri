@@ -1,7 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material';
 import { QueryService } from '../../shared/nieOS/mongodb/query/query.service';
-import { QueryEntryComponent } from "../query-entry/query-entry.component";
+import { QueryEntryComponent } from '../query-entry/query-entry.component';
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-query-list',
@@ -20,7 +21,7 @@ export class QueryListComponent implements OnInit {
 
   ngOnInit() {
     this.queryService.getAllQueriesOfUser(localStorage.getItem('userId')).subscribe(data => {
-      this.queries = data.queries;
+      this.queries = new MatTableDataSource(data.queries);
       console.log( this.queries );
     });
     // this.queryService.getQuery('5c07dbfdff37d7344e1e1479').subscribe(query => console.log(query));
@@ -45,7 +46,7 @@ export class QueryListComponent implements OnInit {
         if (result.status === 200) {
           this.queryService.getAllQueriesOfUser(localStorage.getItem('userId')).subscribe(data => {
             this.deletingQueries = this.deletingQueries.filter(element => element !== query._id);
-            this.queries = data.queries;
+            this.queries = new MatTableDataSource(data.queries);
           });
         } else {
           this.deletingQueries = this.deletingQueries.filter(element => element !== query._id);
@@ -62,6 +63,10 @@ export class QueryListComponent implements OnInit {
         pageID: null
       }
     });
+  }
+
+  applyFilter(filterValue: string) {
+    this.queries.filter = filterValue.trim().toLowerCase();
   }
 
   close() {
