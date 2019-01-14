@@ -83,13 +83,13 @@
 
 
 <mat-form-field class="example-form-field" *ngIf="!isLoading">
-  <input matInput type="text" placeholder="Add Query" [(ngModel)]="value">
+  <input matInput type="text" placeholder="Add New Query" [(ngModel)]="value">
 </mat-form-field>
 <button mat-button *ngIf="value" mat-icon-button (click)="addQuery(value)">
   <mat-icon>arrow_downwards</mat-icon>
 </button>
 <button mat-button (click)="openExistingQueryDialog()">
-  Add existing Query
+  Duplicate existing Query
 </button>
 
 
