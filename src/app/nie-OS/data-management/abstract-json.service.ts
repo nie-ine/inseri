@@ -10,7 +10,6 @@ export class AbstractJsonService {
    * Its type, so all the possible leafs, in an arbitrary depth are abstracted.
    * */
   json2abstract( json: any ) {
-
     this.leafLoop( json, undefined );
 
     for ( const leaf in this.leafIndices ) {
@@ -32,16 +31,19 @@ export class AbstractJsonService {
    * and starts the next phase of the algorithm.
    * */
   leafLoop ( leafLayer: any, parent: string ) {
-    this.layerIndex += 1;
-    for ( const leaf in leafLayer ) {
-      if( typeof leafLayer[ leaf ] === 'object' && leafLayer[ leaf ] !== null ) {
-        this.addEntryToLeafIndices( leaf, parent, 'array' );
-        this.arrayLoop( leafLayer[ leaf ], leaf);
-      } else {
-        this.addEntryToLeafIndices( leaf, parent, 'string' );
+    if ( typeof leafLayer !== 'string') {
+      this.layerIndex += 1;
+      for ( const leaf in leafLayer ) {
+        if ( typeof leafLayer[ leaf ] === 'object' && leafLayer[ leaf ] !== null ) {
+          console.log( leaf, leafLayer );
+          this.addEntryToLeafIndices( leaf, parent, 'array' );
+          this.arrayLoop( leafLayer[ leaf ], leaf);
+        } else {
+          this.addEntryToLeafIndices( leaf, parent, 'string' );
+        }
       }
+      this.layerIndex -= 1;
     }
-    this.layerIndex -= 1;
   }
 
   /**
@@ -61,6 +63,7 @@ export class AbstractJsonService {
    * object inputs which are non scalar arrays
    * */
   arrayLoop ( arrayLayer: any, parent: string ) {
+    console.log( parent );
     for ( const entry of arrayLayer ) {
       if ( entry[ 0 ] === undefined ) {
         this.leafLoop( entry, parent );
@@ -68,6 +71,7 @@ export class AbstractJsonService {
     }
     for ( const leaf in arrayLayer ) {
       if ( arrayLayer[ 0 ] === undefined ) {
+        console.log( leaf, arrayLayer );
         this.leafLoop( arrayLayer[ leaf ], parent );
       }
     }
