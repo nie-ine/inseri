@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
 import { QueryService } from '../../shared/nieOS/mongodb/query/query.service';
+import { QueryEntryComponent } from "../query-entry/query-entry.component";
 
 @Component({
   selector: 'app-query-list',
@@ -12,7 +13,10 @@ export class QueryListComponent implements OnInit {
   displayedColumns = ['add', 'edit', 'title', 'description', 'delete'];
   deletingQueries: any[] = [];
 
-  constructor(public dialogRef: MatDialogRef<QueryListComponent>, private queryService: QueryService) { }
+  constructor(
+    public dialogRef: MatDialogRef<QueryListComponent>,
+    private queryService: QueryService,
+    public dialog: MatDialog) { }
 
   ngOnInit() {
     this.queryService.getAllQueriesOfUser(localStorage.getItem('userId')).subscribe(data => {
@@ -49,8 +53,15 @@ export class QueryListComponent implements OnInit {
     });
   }
 
-  editQuery(item: any) {
-
+  editQuery(query: any) {
+    const dialogRef = this.dialog.open(QueryEntryComponent, {
+      width: '100%',
+      height: '100%',
+      data: {
+        query: query,
+        pageID: null
+      }
+    });
   }
 
   close() {
