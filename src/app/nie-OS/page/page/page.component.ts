@@ -45,6 +45,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
   isLoading = true;
   resetPage = false;
   reloadVariables = false;
+  response: any;
+  queryId: string;
+  index: number;
   constructor(
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
@@ -249,5 +252,11 @@ export class PageComponent implements OnInit, AfterViewChecked {
     console.log( openAppsInThisPage );
     this.openAppsInThisPage = openAppsInThisPage;
     this.reloadVariables = false;
+  }
+
+  updateMainResourceIndex( input: any ) {
+    this.index = input.index;
+    this.response = input.response;
+    this.queryId = input.queryId;
   }
 }

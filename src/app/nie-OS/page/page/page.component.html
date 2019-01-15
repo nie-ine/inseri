@@ -5,6 +5,15 @@
 
 </app-load-variables>
 
+<app-data-assignment
+  [index]="index"
+  [openAppsInThisPage]="openAppsInThisPage"
+  [appInputQueryMapping]="page.appInputQueryMapping"
+  [response]="response"
+  [queryId] = "queryId">
+
+</app-data-assignment>
+
 <ngx-spinner
   bdColor = "rgba(51, 51, 51, 0.8)"
   size = "large"
@@ -40,7 +49,8 @@
             [queryId] = "openAppsInThisPage[ 'dataChooser' ].model[i].queryId"
             [openAppsInThisPage] = "openAppsInThisPage"
             [dataChooserEntries]="openAppsInThisPage[ 'dataChooser' ].model[i].dataChooserEntries"
-            [description]="openAppsInThisPage[ 'dataChooser' ].model[i].title">
+            [description]="openAppsInThisPage[ 'dataChooser' ].model[i].title"
+            (sendIndexBack)="updateMainResourceIndex( $event )">
           </app-data-chooser>
         </div>
       </div>
