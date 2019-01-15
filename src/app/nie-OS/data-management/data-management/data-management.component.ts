@@ -1,15 +1,15 @@
 import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import { MatTable } from '@angular/material';
-import { QueryEntryComponent } from '../query-entry/query-entry.component';
-import { QueryAppInputMapComponent } from '../query-app-input-map/query-app-input-map.component';
-import {PageService} from '../../shared/nieOS/mongodb/page/page.service';
+import { QueryEntryComponent } from '../../query-entry/query-entry.component';
+import { QueryAppInputMapComponent } from '../../query-app-input-map/query-app-input-map.component';
+import {PageService} from '../../../shared/nieOS/mongodb/page/page.service';
 import {ActivatedRoute} from '@angular/router';
-import {ActionService} from '../../shared/nieOS/mongodb/action/action.service';
-import {OpenAppsModel} from '../../shared/nieOS/mongodb/page/open-apps.model';
+import {ActionService} from '../../../shared/nieOS/mongodb/action/action.service';
+import {OpenAppsModel} from '../../../shared/nieOS/mongodb/page/open-apps.model';
 import {NgxSpinnerService} from 'ngx-spinner';
-import { QueryListComponent } from '../query-list/query-list.component';
-import { QueryService } from '../../shared/nieOS/mongodb/query/query.service';
+import { QueryListComponent } from '../../query-list/query-list.component';
+import { QueryService } from '../../../shared/nieOS/mongodb/query/query.service';
 
 @Component({
   selector: 'app-data-management',
@@ -279,8 +279,15 @@ export class DataManagementComponent implements OnInit {
     }
 
   assignQueryToPath( path: any, query: any ) {
+    console.log( path );
+    let increment = 0;
+    for ( const segment of path ) {
+      if ( segment === null ) {
+        path.splice( increment, 1 );
+      }
+      increment += 1;
+    }
     query.chosenPath = path;
-    console.log( this.queries );
   }
 
   generateCurrentPath( item ) {

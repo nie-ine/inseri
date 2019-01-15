@@ -34,8 +34,10 @@ export class AbstractJsonService {
               const subLeafValue = leafLayer[leaf][subLeaf];
               // console.log( leaf, subLeafValue );
               if (typeof subLeafValue === 'string') {
-                abstractTree[leaf][subLeaf] = {};
-                abstractTree[leaf][subLeaf].type = typeof subLeafValue;
+                abstractTree[ leaf ][ subLeaf ] = {};
+                abstractTree[ leaf ][ subLeaf ].type = typeof subLeafValue;
+                abstractTree[ leaf ][ subLeaf ].hash = this.generateHash();
+                abstractTree[ leaf ][ subLeaf ].parent = leaf;
               } else {
                 this.leafLoop(
                   leafLayer[leaf],

@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatTabChangeEvent } from '@angular/material';
 import {HttpClient} from '@angular/common/http';
-import { AbstractJsonService } from '../data-management/abstract-json.service';
+import { AbstractJsonService } from '../data-management/services/abstract-json.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { KeyValueFormComponent } from './key-value-form/key-value-form.component';
 import { GeneralRequestService } from '../../shared/general/general-request.service';

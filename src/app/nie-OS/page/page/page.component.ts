@@ -17,9 +17,9 @@ import { ActivatedRoute } from '@angular/router';
 import {GenerateHashService} from '../../../shared/nieOS/other/generateHash.service';
 import {OpenAppsModel} from '../../../shared/nieOS/mongodb/page/open-apps.model';
 import {PageService} from '../../../shared/nieOS/mongodb/page/page.service';
-import { DataManagementComponent } from '../../data-management/data-management.component';
+import { DataManagementComponent } from '../../data-management/data-management/data-management.component';
 import {MatDialog} from '@angular/material';
-import {GenerateDataChoosersService} from '../../data-management/generate-data-choosers.service';
+import {GenerateDataChoosersService} from '../../data-management/services/generate-data-choosers.service';
 import {HttpClient} from '@angular/common/http';
 import { NgxSpinnerService } from 'ngx-spinner';
 import {GeneralRequestService} from '../../../shared/general/general-request.service';
@@ -107,7 +107,14 @@ export class PageComponent implements OnInit, AfterViewChecked {
   ngAfterViewChecked() {
     this.cdr.detectChanges();
     if ( this.pageIDFromURL !==  this.route.snapshot.queryParams.page ) {
-      this.clearAppsInThisPage();
+      console.log( 'Update Page' );
+      this.pageIDFromURL = this.route.snapshot.queryParams.page;
+      console.log( this.pageIDFromURL, this.route.snapshot.queryParams.page );
+      this.reloadVariables = true;
+      this.spinner.show();
+      setTimeout(() => {
+        this.spinner.hide();
+      }, 5000);
     }
     this.cdr.detectChanges();
   }
@@ -239,7 +246,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   receiveOpenAppsInThisPage( openAppsInThisPage: any ) {
-    // console.log( openAppsInThisPage );
+    console.log( openAppsInThisPage );
     this.openAppsInThisPage = openAppsInThisPage;
     this.reloadVariables = false;
   }

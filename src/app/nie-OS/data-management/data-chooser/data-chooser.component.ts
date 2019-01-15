@@ -9,8 +9,8 @@ import {
   EventEmitter} from '@angular/core';
 import {Router} from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatFormField} from '@angular/material';
-import {DataChooserSettingsComponent} from "../data-chooser-settings/data-chooser-settings.component";
-import {SendGravSearchQueryService} from "../../../../shared/knora/gravsearch/sendGravSearchQuery.service";
+import {DataChooserSettingsComponent} from "../../apps/data-management-tool/data-chooser-settings/data-chooser-settings.component";
+import {SendGravSearchQueryService} from "../../../shared/knora/gravsearch/sendGravSearchQuery.service";
 
 @Component({
   selector: 'app-data-chooser',
@@ -35,7 +35,9 @@ export class DataChooserComponent implements AfterViewChecked {
   constructor(
     public dialogSettings: MatDialog,
     private cdr: ChangeDetectorRef,
-  ) { }
+  ) {
+    // console.log( this.dataChooserEntries );
+  }
 
   ngAfterViewChecked() {
     this.cdr.detectChanges();
@@ -74,7 +76,7 @@ export class DataChooserComponent implements AfterViewChecked {
           }
         }
     }
-    console.log( this.openAppsInThisPage );
+    // console.log( this.openAppsInThisPage );
     this.sendAppTypesBackToNIEOS.emit(this.openAppsInThisPage );
   }
   generateAppinput( response: any, path: any, index: number, depth: number) {
@@ -93,9 +95,14 @@ export class DataChooserComponent implements AfterViewChecked {
     }
     if ( response.length && path.length !== 1 ) {
       // console.log( 'Use index' );
-      return this.generateAppinput(
-        response[ index ], path, index, depth + 1
-      );
+      // console.log( response, index, path, depth );
+      if ( typeof response === 'string' ) {
+        return response;
+      } else {
+        return this.generateAppinput(
+          response[ index ], path, index, depth + 1
+        );
+      }
     } else if ( depth !== path.length && response[ path[ depth ] ] && path.length !== 1 ) {
       // console.log( 'One depth more', path, depth );
       return this.generateAppinput(

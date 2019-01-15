@@ -2,7 +2,7 @@ import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {query} from '@angular/animations';
 import {HttpClient} from '@angular/common/http';
-import {AbstractJsonService} from '../data-management/abstract-json.service';
+import {AbstractJsonService} from '../data-management/services/abstract-json.service';
 import {PageService} from '../../shared/nieOS/mongodb/page/page.service';
 import {GeneralRequestService} from '../../shared/general/general-request.service';
 import {ActivatedRoute} from '@angular/router';
