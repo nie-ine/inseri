@@ -11,8 +11,7 @@ export class TextlistViewerComponent implements OnChanges{
   constructor() {
   }
   ngOnChanges() {
-    // console.log( typeof this.textToDisplay );
-    if( typeof this.textToDisplay !== 'string' ) {
+    if ( typeof this.textToDisplay !== 'string' ) {
       this.displayArray = true;
     } else {
       this.displayArray = false;

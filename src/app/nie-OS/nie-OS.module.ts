@@ -43,6 +43,7 @@ import {MatSliderModule} from '@angular/material/slider';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import {LoadVariablesComponent} from './load-variables/load-variables.component';
 import { QueryListComponent } from './query-list/query-list.component';
+import { DataAssignmentComponent } from './data-management/data-assignment/data-assignment.component';
 
 
 @NgModule({
@@ -100,7 +101,8 @@ import { QueryListComponent } from './query-list/query-list.component';
     QueryAppInputMapComponent,
     FrameSettingsComponent,
     LoadVariablesComponent,
-    QueryListComponent
+    QueryListComponent,
+    DataAssignmentComponent
   ],
   exports: [
     PageComponent,
