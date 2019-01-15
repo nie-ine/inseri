@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angula
 import {ActivatedRoute} from '@angular/router';
 import {OpenAppsModel} from '../../shared/nieOS/mongodb/page/open-apps.model';
 import {PageService} from '../../shared/nieOS/mongodb/page/page.service';
-import {GenerateDataChoosersService} from '../data-management/generate-data-choosers.service';
+import {GenerateDataChoosersService} from '../data-management/services/generate-data-choosers.service';
 import {ActionService} from '../../shared/nieOS/mongodb/action/action.service';
 
 @Component({
