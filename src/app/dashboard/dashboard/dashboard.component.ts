@@ -159,6 +159,10 @@ export class DialogOverviewExampleDialog {
     this.dialogRef.close(this.pageSet);
   }
 
+  openQueryList() {
+    console.log('open query list');
+  }
+
   register() {
     this.loading = true;
     this.actionService.createAction(this.action)
