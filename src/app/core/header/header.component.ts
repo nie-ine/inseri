@@ -107,7 +107,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   generateNavigation(actionID: string) {
-    if (!this.alreadyLoaded) {
+    if (!this.alreadyLoaded && actionID) {
       this.actionService.getAction(actionID)
         .subscribe(data => {
             if (data.body.action.type === 'page-set') {
