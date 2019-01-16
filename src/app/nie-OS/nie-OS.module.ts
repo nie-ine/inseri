@@ -44,6 +44,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import {LoadVariablesComponent} from './load-variables/load-variables.component';
 import { QueryListComponent } from './query-list/query-list.component';
 import { DataAssignmentComponent } from './data-management/data-assignment/data-assignment.component';
+import { UpdateLinkedAppsComponent } from './data-management/update-linked-apps/update-linked-apps.component';
 
 
 @NgModule({
@@ -102,7 +103,8 @@ import { DataAssignmentComponent } from './data-management/data-assignment/data-
     FrameSettingsComponent,
     LoadVariablesComponent,
     QueryListComponent,
-    DataAssignmentComponent
+    DataAssignmentComponent,
+    UpdateLinkedAppsComponent
   ],
   exports: [
     PageComponent,
