@@ -36,7 +36,8 @@ export class DataAssignmentComponent implements OnChanges {
                   this.appInputQueryMapping[ app.hash ][ input ][ 'path' ],
                   this.index,
                   0,
-                  true
+                  true,
+                  app
                 );
               }
             }
@@ -52,8 +53,10 @@ export class DataAssignmentComponent implements OnChanges {
     path: any,
     index: number,
     depth: number,
-    firstArray: boolean
+    firstArray: boolean,
+    app: any
   ) {
+    // console.log( depth, path.length );
     if ( response ) {
         if ( path.length === 1 ) {
           return response[ path[ 0 ] ];
@@ -61,30 +64,70 @@ export class DataAssignmentComponent implements OnChanges {
           if ( typeof response === 'string' ) {
             return response;
           } else {
-            console.log( 'Array', response, firstArray );
             if ( firstArray ) {
               return this.generateAppinput(
-                response[ index ], path, index, depth + 1, false
+                response[ index ],
+                path,
+                index,
+                depth + 1,
+                false,
+                app
               );
             } else {
-              return this.generateArrayInput();
+              return this.generateArrayInput(
+                response,
+                path,
+                index,
+                depth,
+                false,
+                app
+              );
             }
           }
         } else if ( depth !== path.length && response[ path[ depth ] ] ) {        // Response is not an array
           return this.generateAppinput(
-            response[ path[ depth ] ], path, index, depth + 1, true
+            response[ path[ depth ] ],
+            path,
+            index,
+            depth + 1,
+            firstArray,
+            app
           );
         } else if ( depth === path.length ) {
+          // console.log( response );
           return response[ path[ depth - 1 ] ];
         } else if ( path.length - 1 === depth &&  Number( path[ depth ] ) ) {
           return response[ path[ depth - 1 ] ][ Number( path[ depth ] ) ];
         } else {
-          return this.generateAppinput( response[ path[ depth - 1 ] ], path, index, depth + 1, true );
+          return this.generateAppinput(
+            response[ path[ depth - 1 ] ],
+            path, index,
+            depth + 1,
+            firstArray,
+            app
+          );
       }
     }
   }
 
-  generateArrayInput() {
-    console.log( 'Generate Array Input' );
+  generateArrayInput(
+    response: any,
+    path: any,
+    index: number,
+    depth: number,
+    firstArray: boolean,
+    app: any
+  ) {
+    app.index = 0;
+    app.arrayLength = response.length;
+    // console.log( 'Generate Array Input', response );
+    return this.generateAppinput(
+      response[ app.index ],
+      path,
+      app.index,
+      depth,
+      true,
+      app
+    );
   }
 }

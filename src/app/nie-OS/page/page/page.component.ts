@@ -48,6 +48,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
   response: any;
   queryId: string;
   index: number;
+  updateLinkedApps = false;
+  indexAppMapping: any = {};
   constructor(
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
@@ -258,5 +260,11 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.index = input.index;
     this.response = input.response;
     this.queryId = input.queryId;
+  }
+
+  updateIndices( indexAppMapping: any ) {
+    this.indexAppMapping[ indexAppMapping.hash ] = indexAppMapping.index;
+    console.log( this.indexAppMapping );
+    this.updateLinkedApps = true;
   }
 }

@@ -1,7 +1,8 @@
 <app-load-variables
   (sendPageBack)="receivePage( $event )"
   (sendOpenAppsInThisPageBack)="receiveOpenAppsInThisPage( $event )"
-  [reload]="reloadVariables">
+  [reload]="reloadVariables"
+  [updateLinkedApps]="updateLinkedApps">
 
 </app-load-variables>
 
@@ -398,11 +399,14 @@
     <div *ngFor="let imageViewer of openAppsInThisPage[ 'imageViewer' ].model; let i = index;" >
       <popup #imageViewer
              [hash]="openAppsInThisPage[ 'imageViewer' ].model[i].hash"
-             [title]="'Image Viewer ' + i"
+             [title]="'Image Viewer ' + i "
              [type]="openAppsInThisPage[ 'imageViewer' ].type"
              [firstPopupX]="openAppsInThisPage[ 'imageViewer' ].model[i].x"
              [firstPopupY]="openAppsInThisPage[ 'imageViewer' ].model[i].y"
-             (sendAppCoordinatesBack)="updateAppCoordinates($event)">
+             [index] = "openAppsInThisPage[ 'imageViewer' ].model[i].index"
+             [arrayLength] = "openAppsInThisPage[ 'imageViewer' ].model[i].arrayLength"
+             (sendAppCoordinatesBack)="updateAppCoordinates($event)"
+             (sendIndexBack)="updateIndices( $event )">
         <nie-image-frame style="height: 100%;"
                          [image]="{
     '@id' : openAppsInThisPage[ 'imageViewer' ].model[i]['@id'],
