@@ -8,6 +8,15 @@
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
   </mat-form-field>
 
+  <div>
+    <mat-form-field class="example-form-field" *ngIf="!isLoading">
+      <input matInput type="text" placeholder="Add New Query" [(ngModel)]="value">
+    </mat-form-field>
+    <button *ngIf="value" mat-button mat-icon-button (click)="createNewQuery(value)">
+      <mat-icon>arrow_downwards</mat-icon>
+    </button>
+  </div>
+
   <table mat-table [dataSource]="queries">
 
     <ng-container matColumnDef="add">
