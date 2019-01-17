@@ -37,7 +37,6 @@ router.get('', checkAuth, (req, res, next) => {
 });
 
 router.get('/:id', checkAuth, (req, res, next) => {
-    console.log(req.userData.userId);
     // Authorisation (only if user is also the creator of the action)
     Action.find({_id:req.params.id, creator: req.userData.userId})
         .populate('hasPage')
@@ -200,7 +199,7 @@ router.put('/:id', checkAuth, (req, res, next) => {
     if (messages.length > 0) return res.status(400).json({messages: messages});
 
     // Updates action and returns the updated action
-    Action.findByIdAndUpdate({_id: req.params.id}, {
+    Action.findOneAndUpdate({_id: req.params.id, creator: req.userData.userId}, {
         title: req.body.title,
         description: req.body.description
     },{new:true})
@@ -212,18 +211,24 @@ router.put('/:id', checkAuth, (req, res, next) => {
             }
         })
         .then(resultAction => {
+          if (resultAction) {
             res.status(200).json({
-                message: 'Action was updated successfully',
-                action: resultAction
+              message: 'Action was updated successfully',
+              action: resultAction
             });
+          } else {
+            res.status(200).json({
+              message: 'Action cannot be updated'
+            });
+          }
         })
         .catch(error =>
-            res.status(404).json({message: 'Action cannot be updated'})
+            res.status(404).json({message: 'Update action failed'})
         );
 });
 
 router.delete('/:id', checkAuth, (req, res, next) => {
-    Action.findById({_id: req.params.id})
+    Action.findOne({_id: req.params.id, creator: req.userData.userId})
         .populate({
             path: 'hasPage',
             populate: {
