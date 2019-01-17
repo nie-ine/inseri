@@ -13,6 +13,7 @@ export class QueryListComponent implements OnInit {
   queries: any;
   displayedColumns = ['add', 'edit', 'title', 'description', 'delete'];
   deletingQueries: any[] = [];
+  value: any;
 
   constructor(
     public dialogRef: MatDialogRef<QueryListComponent>,
@@ -21,11 +22,7 @@ export class QueryListComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
-    this.queryService.getAllQueriesOfUser(localStorage.getItem('userId')).subscribe(data => {
-      this.queries = new MatTableDataSource(data.queries);
-      console.log( this.queries );
-    });
-    console.log('Feuerstein', this.data.enableAdd);
+    this.updateQueryList();
   }
 
   slice(description: string): string {
@@ -34,6 +31,22 @@ export class QueryListComponent implements OnInit {
     } else {
       return '[no description]';
     }
+  }
+
+  createNewQuery(value: any) {
+    this.queryService.createQuery({title: value})
+      .subscribe(data => {
+        console.log(data);
+        if (data.status === 201) {
+          this.updateQueryList();
+        }
+      });
+  }
+
+  updateQueryList() {
+    this.queryService.getAllQueriesOfUser(localStorage.getItem('userId')).subscribe(data => {
+      this.queries = new MatTableDataSource(data.queries);
+    });
   }
 
   addQuery(query: any) {
