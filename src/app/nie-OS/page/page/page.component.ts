@@ -254,6 +254,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     console.log( openAppsInThisPage );
     this.openAppsInThisPage = openAppsInThisPage;
     this.reloadVariables = false;
+    this.updateLinkedApps = false;
   }
 
   updateMainResourceIndex( input: any ) {
@@ -263,7 +264,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   updateIndices( indexAppMapping: any ) {
-    this.indexAppMapping[ indexAppMapping.hash ] = indexAppMapping.index;
+    this.indexAppMapping[ indexAppMapping.hash ] = indexAppMapping;
     console.log( this.indexAppMapping );
     this.updateLinkedApps = true;
   }

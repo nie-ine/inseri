@@ -10,13 +10,24 @@ export class DataAssignmentComponent implements OnChanges {
   @Input() appInputQueryMapping: any;
   @Input() response: any;
   @Input() queryId;
+  @Input() updateLinkedApps = false;
+  @Input() indexAppMapping: any;
   @Output() sendAppTypesBackToNIEOS: EventEmitter<any> = new EventEmitter<any>();
+  arrayIndicator: Array<any> = [];
   constructor() { }
 
   ngOnChanges() {
+    if ( this.updateLinkedApps ) {
+      this.updateLinkedAppsMethod();
+    }
     this.goThroughAppInputs();
   }
 
+  /**
+   * This method assigns data chosen by the data chooser. If parts of the json are arrays,
+   * this method assigns the depth = 0 to array coming after the first array where the depth is chosen by the
+   * data chooser
+   * */
   goThroughAppInputs() {
     for ( const type in this.openAppsInThisPage ) {
       if (  this.openAppsInThisPage[ type ].model.length && type !== 'dataChooser' ) {
@@ -120,7 +131,8 @@ export class DataAssignmentComponent implements OnChanges {
   ) {
     app.index = 0;
     app.arrayLength = response.length;
-    // console.log( 'Generate Array Input', response );
+    app.queryId  = this.queryId;
+    // console.log( 'Generate Array Input', app );
     return this.generateAppinput(
       response[ app.index ],
       path,
@@ -129,5 +141,92 @@ export class DataAssignmentComponent implements OnChanges {
       true,
       app
     );
+  }
+
+  updateLinkedAppsMethod() {
+    console.log(
+      'Update Linked Apps Method',
+      this.indexAppMapping,
+      this.openAppsInThisPage
+    );
+    for (const appHash in this.indexAppMapping) {
+      for (const type in this.openAppsInThisPage) {
+        if (this.openAppsInThisPage[type].model.length && type !== 'dataChooser') {
+          for (const app of this.openAppsInThisPage[type].model) {
+            if (this.appInputQueryMapping[app.hash] && appHash === app.hash) {
+              for (const input in this.appInputQueryMapping[app.hash]) {
+                this.arrayIndicator[this.appInputQueryMapping[app.hash][input]['query']] = [];
+                if (this.appInputQueryMapping[app.hash][input]['query'] === this.indexAppMapping[appHash].queryId) {
+                  this.updatePath(
+                    this.appInputQueryMapping[app.hash][input]['path'],
+                    this.indexAppMapping[appHash].index,
+                    this.response,
+                    this.appInputQueryMapping[app.hash][input]['query']
+                  );
+                }
+                this.findLastArrayIndexAndreplaceItWithIndex(
+                  this.indexAppMapping[ appHash ].index,
+                  this.appInputQueryMapping[app.hash][input]['query']
+                );
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  findLastArrayIndexAndreplaceItWithIndex(index: number, query: string) {
+    for ( let i = this.arrayIndicator[query].length - 1; i >= 0; i-- ) {
+      if ( !isNaN ( Number( this.arrayIndicator[query][ i ] ) ) ) {
+        this.arrayIndicator[query][ i ] = index;
+        i = -1;
+      }
+    }
+    this.updateAppInputWithNewPath();
+  }
+
+  updateAppInputWithNewPath() {
+    console.log( 'Hier weiter' );
+    console.log( this.arrayIndicator );
+  }
+
+  updatePath(
+    path: Array<any>,
+    index: number,
+    response,
+    queryId: string
+  ) {
+    // console.log(
+    //   'Update Path',
+    //   path,
+    //   index,
+    //   // response,
+    //   this.arrayIndicator
+    // );
+    /**
+     * Find last array in this path and update it with index!
+     * */
+    if( response && typeof response !== 'string') {
+      if ( response[ path[ 0 ] ] ) {
+        const segment = path[ 0 ];
+        path.splice( 0, 1 );
+        this.arrayIndicator[ queryId ].push(segment);
+        this.updatePath(
+          path,
+          index,
+          response[ segment ],
+          queryId
+        );
+      } else {
+        this.arrayIndicator[ queryId ].push(0);
+        this.updatePath(
+          path,
+          index,
+          response[ 0 ],
+          queryId
+        );
+      }
+    }
   }
 }

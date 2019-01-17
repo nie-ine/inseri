@@ -11,7 +11,6 @@ import {ActionService} from '../../shared/nieOS/mongodb/action/action.service';
 })
 export class LoadVariablesComponent implements OnInit, OnChanges {
   @Input() reload = false;
-  @Input() updateLinkedApps = false;
   @Output() sendPageBack = new EventEmitter();
   @Output() sendOpenAppsInThisPageBack = new EventEmitter();
   pageId: string;
@@ -28,9 +27,7 @@ export class LoadVariablesComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnChanges() {
-    if ( this.updateLinkedApps ) {
-      console.log( 'Update Linked Apps' );
-    }
+
     if( this.reload ) {
       this.reloadVariables();
     }
