@@ -128,7 +128,7 @@ export class DataManagementComponent implements OnInit {
                 this.queries.splice(index, 1);
                 this.table.renderRows();
               } else {
-                // Fehler dass query nicht gelöscht werden konnte
+                // Fehlermeldung dass query nicht gelöscht werden konnte
               }
           });
     }
@@ -147,7 +147,10 @@ export class DataManagementComponent implements OnInit {
   openExistingQueryDialog() {
     const dialogRef = this.dialog.open(QueryListComponent, {
       width: '100%',
-      height: '100%'
+      height: '100%',
+      data: {
+        enableAdd: true
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
