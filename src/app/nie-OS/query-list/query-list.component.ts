@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
 import { QueryService } from '../../shared/nieOS/mongodb/query/query.service';
 import { QueryEntryComponent } from '../query-entry/query-entry.component';
 import { MatTableDataSource } from '@angular/material';
@@ -17,14 +17,15 @@ export class QueryListComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<QueryListComponent>,
     private queryService: QueryService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
     this.queryService.getAllQueriesOfUser(localStorage.getItem('userId')).subscribe(data => {
       this.queries = new MatTableDataSource(data.queries);
       console.log( this.queries );
     });
-    // this.queryService.getQuery('5c07dbfdff37d7344e1e1479').subscribe(query => console.log(query));
+    console.log('Feuerstein', this.data.enableAdd);
   }
 
   slice(description: string): string {

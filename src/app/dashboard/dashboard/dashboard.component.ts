@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 import {ContactService} from '../../shared/nieOS/mongodb/contact/contact.service';
 import {EditActionComponent} from './edit-action/edit-action.component';
 import { DeleteActionComponent } from './delete-action/delete-action.component';
+import { QueryListComponent } from '../../nie-OS/query-list/query-list.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -151,6 +152,7 @@ export class DialogOverviewExampleDialog {
 
   constructor(public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
               @Inject(MAT_DIALOG_DATA) public data: any,
+              public dialog: MatDialog,
               private router: Router,
               private actionService: ActionService ) {
   }
@@ -160,7 +162,13 @@ export class DialogOverviewExampleDialog {
   }
 
   openQueryList() {
-    console.log('open query list');
+    const dialogRef = this.dialog.open(QueryListComponent, {
+      width: '100%',
+      height: '100%',
+      data: {
+        enableAdd: false
+      }
+    });
   }
 
   register() {
