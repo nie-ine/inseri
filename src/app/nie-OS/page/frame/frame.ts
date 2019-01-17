@@ -34,6 +34,7 @@ export class Frame implements OnInit, OnChanges {
   @Input() height: number;
   @Input() index: number = undefined;
   @Input() arrayLength: number = undefined;
+  @Input() queryId: string;
   @Output() sendAppCoordinatesBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendAppSettingsBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendIndexBack: EventEmitter<any> = new EventEmitter<any>();
@@ -200,7 +201,8 @@ export class Frame implements OnInit, OnChanges {
     this.sendIndexBack.emit(
       {
         index: this.index,
-        hash: this.hash
+        hash: this.hash,
+        queryId: this.queryId
       }
     );
   }
