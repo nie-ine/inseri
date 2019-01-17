@@ -2,7 +2,7 @@ const express = require('express');
 
 const Query = require('../models/query');
 
-const checkAuth = require("../middleware/check-auth");
+const checkAuth = require('../middleware/check-auth');
 
 const router = express.Router();
 

@@ -4,7 +4,7 @@ const PageSet = require('../models/page-set');
 const Page = require('../models/page');
 const Query = require('../models/query');
 
-const checkAuth = require("../middleware/check-auth");
+const checkAuth = require('../middleware/check-auth');
 
 const router = express.Router();
 

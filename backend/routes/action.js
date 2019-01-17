@@ -5,8 +5,8 @@ const Page = require('../models/page');
 const PageSet = require('../models/page-set');
 const Query = require('../models/query');
 
-const checkAuth = require("../middleware/check-auth");
-const generatedHash = require("../middleware/hash-generator");
+const checkAuth = require('../middleware/check-auth');
+const generatedHash = require('../middleware/hash-generator');
 
 const router = express.Router();
 
@@ -143,8 +143,8 @@ router.post('', checkAuth, (req, res, next) => {
     // Case 2: action has a page
     } else if (req.body.type === 'page') {
         // Default values for the page
-        const defaultTitle = "Title for the new Page";
-        const defaultDescription ="Description for the new Page";
+        const defaultTitle = 'Title for the new Page';
+        const defaultDescription ='Description for the new Page';
 
         const newPage = new Page({
             title: defaultTitle,
@@ -253,7 +253,7 @@ router.delete('/:id', checkAuth, (req, res, next) => {
             }
 
             // Case 1: action has a page
-            if (resultAction.type === "page") {
+            if (resultAction.type === 'page') {
 
                 // Updates the query so it will not be bound to a page
                 if (resultAction.hasPage.queries.length > 0) {
@@ -299,7 +299,7 @@ router.delete('/:id', checkAuth, (req, res, next) => {
                     });
 
             // Case 2: action has a page set
-            } else if (resultAction.type === "page-set") {
+            } else if (resultAction.type === 'page-set') {
                 // Checks if pageset has any pages
                 const amountPages = resultAction.hasPageSet.hasPages.length;
                 if (amountPages !== 0) {
