@@ -111,23 +111,20 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
   initiateQuery() {
     const url = this.form.get('serverURL').value;
     const method = this.form.get('method').value;
-    const parameter = this.param.getValidParams().length > 0 ? this.param.getValidParams()
-      .reduce(((acc, param) => ({...acc, [param.key]:  param.value})), {}) : null;
     const header = this.header.getValidParams().length > 0 ? this.header.getValidParams()
       .reduce(((acc, param) => ({...acc, [param.key]:  param.value})), {}) : null;
-    console.log( parameter );
     switch (method) {
       case 'GET':
-        this.getRequest(url, parameter, header);
+        this.getRequest(url, this.param.getValidParams(), header);
         break;
       case 'POST':
-        this.postRequest(url, parameter, header, this.editor.text);
+        this.postRequest(url, this.param.getValidParams(), header, this.editor.text);
         break;
       case 'PUT':
-        this.putRequest(url, parameter, header, this.editor.text);
+        this.putRequest(url, this.param.getValidParams(), header, this.editor.text);
         break;
       case 'DELETE':
-        this.deleteRequest(url, parameter, header);
+        this.deleteRequest(url, this.param.getValidParams(), header);
         break;
     }
   }
