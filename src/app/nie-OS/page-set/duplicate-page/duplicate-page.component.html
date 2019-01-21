@@ -1,0 +1,17 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<div *ngIf="!isLoading">
+  <h1 mat-dialog-title>Page duplizieren</h1>
+
+  <div>Wählen Sie die dazugehörigen Queries aus, die Sie ebenfalls duplizieren wollen:</div>
+
+  <form [formGroup]="form">
+    <div formArrayName="queries" *ngFor="let control of getAllControls().controls; let i = index">
+      <div [formGroupName]="i">
+        <mat-checkbox formControlName="selected" (change)="changeCheckbox($event)">{{control.value.query.title}}</mat-checkbox>
+      </div>
+    </div>
+  </form>
+
+  <button type="button" mat-button (click)="cancel()">Abbrechen</button>
+  <button type="button" mat-button (click)="duplicate()">Duplizieren</button>
+</div>

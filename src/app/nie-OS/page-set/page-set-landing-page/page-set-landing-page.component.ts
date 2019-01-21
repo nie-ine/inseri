@@ -9,6 +9,7 @@ import { Page } from '../../../shared/nieOS/mongodb/page/page.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DeletePageComponent } from '../delete-page/delete-page.component';
 import { PageService } from '../../../shared/nieOS/mongodb/page/page.service';
+import { DuplicatePageComponent } from "../duplicate-page/duplicate-page.component";
 
 @Component({
   selector: 'app-page-set-landing-page',
@@ -27,6 +28,7 @@ export class PageSetLandingPageComponent implements OnInit {
     public dialog: MatDialog,
     public dialogUpdatePageSet: MatDialog,
     public dialogEditPage: MatDialog,
+    public dialogDuplicatePage: MatDialog,
     private route: ActivatedRoute,
     private actionService: ActionService,
   ) { }
@@ -83,6 +85,16 @@ export class PageSetLandingPageComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       this.checkIfPageSetExists(this.actionID);
+    });
+  }
+
+  duplicatePage(selectedPage: Page) {
+    console.log(selectedPage);
+    const dialogRef = this.dialogDuplicatePage.open(DuplicatePageComponent, {
+      width: '700px',
+      data: {
+        page: selectedPage
+      }
     });
   }
 
