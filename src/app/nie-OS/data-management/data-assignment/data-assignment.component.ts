@@ -28,7 +28,7 @@ export class DataAssignmentComponent implements OnChanges {
    * this method assigns the depth = 0 to array coming after the first array where the depth is chosen by the
    * data chooser
    * */
-  goThroughAppInputs() {
+  goThroughAppInputs(  ) {
     for ( const type in this.openAppsInThisPage ) {
       if (  this.openAppsInThisPage[ type ].model.length && type !== 'dataChooser' ) {
         for ( const app of this.openAppsInThisPage[ type ].model ) {
@@ -42,14 +42,14 @@ export class DataAssignmentComponent implements OnChanges {
                   }
                   increment += 1;
                 }
-                app[ input ] = this.generateAppinput(
-                  this.response,
-                  this.appInputQueryMapping[ app.hash ][ input ][ 'path' ],
-                  this.index,
-                  0,
-                  true,
-                  app
-                );
+                  app[ input ] = this.generateAppinput(
+                    this.response,
+                    this.appInputQueryMapping[ app.hash ][ input ][ 'path' ],
+                    this.index,
+                    0,
+                    true,
+                    app
+                  );
               }
             }
           }
@@ -187,8 +187,66 @@ export class DataAssignmentComponent implements OnChanges {
   }
 
   updateAppInputWithNewPath() {
-    console.log( 'Hier weiter' );
-    console.log( this.arrayIndicator );
+    for ( const queryId in this.arrayIndicator ) {
+      for ( const type in this.openAppsInThisPage ) {
+        if (this.openAppsInThisPage[type].model.length && type !== 'dataChooser') {
+          for (const app of this.openAppsInThisPage[type].model) {
+            if (this.appInputQueryMapping[app.hash]) {
+              for (const input in this.appInputQueryMapping[app.hash]) {
+                if (this.appInputQueryMapping[app.hash][input]['query'] === queryId) {
+                  if( this.appInputQueryMapping[app.hash][input][ 'path' ].length > 0 ) {
+                    this.appInputQueryMapping[app.hash][input][ 'path' ] = this.rewritePath(
+                      this.appInputQueryMapping[app.hash][input][ 'path' ],
+                      this.arrayIndicator[queryId]
+                    );
+                    app[ input ] = this.updateAppInput(
+                      this.response,
+                      this.appInputQueryMapping[ app.hash ][ input ][ 'path' ],
+                      0
+                    );
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    this.sendAppTypesBackToNIEOS.emit( this.openAppsInThisPage );
+  }
+  updateAppInput(
+    response,
+    path,
+    depth
+  ) {
+    // console.log('Update App Input', response, path[ depth ]);
+    if ( response ) {
+      if ( response[ path[ depth ] ] && typeof response !== 'string' ) {
+        this.updateAppInput(
+          response[ path[ depth ] ],
+          path,
+          depth + 1
+        );
+      } else {
+        console.log( response );
+        return response;
+      }
+    }
+  }
+
+  rewritePath( oldPath: any, newPath: any ) {
+    console.log( oldPath );
+    let i = 0;
+    if ( oldPath.length > 0 ) {
+      for ( const newSegment of newPath ) {
+        if ( newPath[ i ] !== oldPath[ i ] && oldPath[ i - 1 ] === newPath[ i - 1 ] && oldPath[ i ] ) {
+          oldPath.splice( i, 0, newPath[ i ] );
+        }
+        i += 1;
+      }
+      console.log( 'rewrite Oldpath', oldPath );
+      return oldPath;
+    }
   }
 
   updatePath(
