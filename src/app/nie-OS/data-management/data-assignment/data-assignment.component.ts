@@ -19,8 +19,9 @@ export class DataAssignmentComponent implements OnChanges {
   ngOnChanges() {
     if ( this.updateLinkedApps ) {
       this.updateLinkedAppsMethod();
+    } else {
+      this.goThroughAppInputs();
     }
-    this.goThroughAppInputs();
   }
 
   /**
@@ -144,11 +145,11 @@ export class DataAssignmentComponent implements OnChanges {
   }
 
   updateLinkedAppsMethod() {
-    console.log(
-      'Update Linked Apps Method',
-      this.indexAppMapping,
-      this.openAppsInThisPage
-    );
+    // console.log(
+    //   'Update Linked Apps Method',
+    //   this.indexAppMapping,
+    //   this.openAppsInThisPage
+    // );
     for (const appHash in this.indexAppMapping) {
       for (const type in this.openAppsInThisPage) {
         if (this.openAppsInThisPage[type].model.length && type !== 'dataChooser') {
@@ -195,15 +196,17 @@ export class DataAssignmentComponent implements OnChanges {
               for (const input in this.appInputQueryMapping[app.hash]) {
                 if (this.appInputQueryMapping[app.hash][input]['query'] === queryId) {
                   if( this.appInputQueryMapping[app.hash][input][ 'path' ].length > 0 ) {
-                    this.appInputQueryMapping[app.hash][input][ 'path' ] = this.rewritePath(
-                      this.appInputQueryMapping[app.hash][input][ 'path' ],
-                      this.arrayIndicator[queryId]
-                    );
-                    app[ input ] = this.updateAppInput(
+                    this.updateAppInput(
                       this.response,
-                      this.appInputQueryMapping[ app.hash ][ input ][ 'path' ],
-                      0
+                      this.rewritePath(
+                        this.appInputQueryMapping[app.hash][input][ 'path' ],
+                        this.arrayIndicator[queryId]
+                      ),
+                      0,
+                      app,
+                      input
                     );
+                    // console.log( input, app[ input ] );
                   }
                 }
               }
@@ -212,12 +215,14 @@ export class DataAssignmentComponent implements OnChanges {
         }
       }
     }
-    this.sendAppTypesBackToNIEOS.emit( this.openAppsInThisPage );
+    // this.sendAppTypesBackToNIEOS.emit( this.openAppsInThisPage );
   }
   updateAppInput(
-    response,
-    path,
-    depth
+    response: any,
+    path: any,
+    depth: number,
+    app: any,
+    input: string
   ) {
     // console.log('Update App Input', response, path[ depth ]);
     if ( response ) {
@@ -225,26 +230,30 @@ export class DataAssignmentComponent implements OnChanges {
         this.updateAppInput(
           response[ path[ depth ] ],
           path,
-          depth + 1
+          depth + 1,
+          app,
+          input
         );
       } else {
-        console.log( response );
-        return response;
+        // console.log( response );
+        app[ input ] = response;
       }
     }
   }
 
   rewritePath( oldPath: any, newPath: any ) {
-    console.log( oldPath );
+    // console.log( oldPath );
     let i = 0;
     if ( oldPath.length > 0 ) {
       for ( const newSegment of newPath ) {
         if ( newPath[ i ] !== oldPath[ i ] && oldPath[ i - 1 ] === newPath[ i - 1 ] && oldPath[ i ] ) {
-          oldPath.splice( i, 0, newPath[ i ] );
+          if ( !isNaN( newPath[ i ]  ) ) {
+            oldPath.splice( i, 0, newPath[ i ] );
+          }
         }
         i += 1;
       }
-      console.log( 'rewrite Oldpath', oldPath );
+      // console.log( 'rewrite Oldpath', oldPath );
       return oldPath;
     }
   }
