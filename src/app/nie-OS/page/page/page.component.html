@@ -12,7 +12,8 @@
   [response]="response"
   [queryId] = "queryId"
   [updateLinkedApps]="updateLinkedApps"
-  [indexAppMapping]="indexAppMapping">
+  [indexAppMapping]="indexAppMapping"
+  (sendAppTypesBackToNIEOS)="receiveOpenAppsInThisPage( $event )">
 
 </app-data-assignment>
 
