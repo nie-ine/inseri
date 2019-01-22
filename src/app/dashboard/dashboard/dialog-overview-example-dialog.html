@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>Welche neue Aktion möchtest Du starten?</h1>
 
-<div >
+<div>
   <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
     <mat-accordion>
       <mat-expansion-panel [expanded]="true">
@@ -42,29 +42,33 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
 
-        <mat-card >
+        <mat-card>
           <mat-card-header>
             <mat-card-title><a class="btn btn-primary" href="http://salsah2.nie-ine.ch/" target="_blank">Gehe zu Salsah 2</a></mat-card-title>
             <mat-card-subtitle>Recherchieren Sie im Projektübergreifenden Archiv des DHLab Basel.</mat-card-subtitle>
           </mat-card-header>
         </mat-card>
 
-        <mat-card >
+        <mat-card>
           <mat-card-header>
             <mat-card-title><a class="btn btn-primary" href="https://nie-ine.github.io/nieOS/" target="_blank">Gehe zur NIE-OS Dokumentation</a></mat-card-title>
             <mat-card-subtitle>Erfahren Sie, wie Sie ales Entwickler die Apps von NIE-OS in die eigene Website integrieren können.</mat-card-subtitle>
           </mat-card-header>
         </mat-card>
 
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title><a class="btn btn-primary" (click)="openQueryList()">Gehe zur Query-Liste</a></mat-card-title>
+            <mat-card-subtitle>Bearbeiten Sie die Queries, welche Sie erstellt haben</mat-card-subtitle>
+          </mat-card-header>
+        </mat-card>
+
       </mat-expansion-panel>
     </mat-accordion>
-
 
     <div>
       <button  type="button" mat-button (click)="close()">Schliesse dieses Menü</button>
     </div>
   </form>
-
-
 
 </div>

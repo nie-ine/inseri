@@ -5,8 +5,8 @@ const Page = require('../models/page');
 const PageSet = require('../models/page-set');
 const Query = require('../models/query');
 
-const checkAuth = require("../middleware/check-auth");
-const generatedHash = require("../middleware/hash-generator");
+const checkAuth = require('../middleware/check-auth');
+const generatedHash = require('../middleware/hash-generator');
 
 const router = express.Router();
 
@@ -37,7 +37,6 @@ router.get('', checkAuth, (req, res, next) => {
 });
 
 router.get('/:id', checkAuth, (req, res, next) => {
-    console.log(req.userData.userId);
     // Authorisation (only if user is also the creator of the action)
     Action.find({_id:req.params.id, creator: req.userData.userId})
         .populate('hasPage')
@@ -144,8 +143,8 @@ router.post('', checkAuth, (req, res, next) => {
     // Case 2: action has a page
     } else if (req.body.type === 'page') {
         // Default values for the page
-        const defaultTitle = "Title for the new Page";
-        const defaultDescription ="Description for the new Page";
+        const defaultTitle = 'Title for the new Page';
+        const defaultDescription ='Description for the new Page';
 
         const newPage = new Page({
             title: defaultTitle,
@@ -200,7 +199,7 @@ router.put('/:id', checkAuth, (req, res, next) => {
     if (messages.length > 0) return res.status(400).json({messages: messages});
 
     // Updates action and returns the updated action
-    Action.findByIdAndUpdate({_id: req.params.id}, {
+    Action.findOneAndUpdate({_id: req.params.id, creator: req.userData.userId}, {
         title: req.body.title,
         description: req.body.description
     },{new:true})
@@ -212,18 +211,24 @@ router.put('/:id', checkAuth, (req, res, next) => {
             }
         })
         .then(resultAction => {
+          if (resultAction) {
             res.status(200).json({
-                message: 'Action was updated successfully',
-                action: resultAction
+              message: 'Action was updated successfully',
+              action: resultAction
             });
+          } else {
+            res.status(200).json({
+              message: 'Action cannot be updated'
+            });
+          }
         })
         .catch(error =>
-            res.status(404).json({message: 'Action cannot be updated'})
+            res.status(404).json({message: 'Update action failed'})
         );
 });
 
 router.delete('/:id', checkAuth, (req, res, next) => {
-    Action.findById({_id: req.params.id})
+    Action.findOne({_id: req.params.id, creator: req.userData.userId})
         .populate({
             path: 'hasPage',
             populate: {
@@ -248,7 +253,7 @@ router.delete('/:id', checkAuth, (req, res, next) => {
             }
 
             // Case 1: action has a page
-            if (resultAction.type === "page") {
+            if (resultAction.type === 'page') {
 
                 // Updates the query so it will not be bound to a page
                 if (resultAction.hasPage.queries.length > 0) {
@@ -294,7 +299,7 @@ router.delete('/:id', checkAuth, (req, res, next) => {
                     });
 
             // Case 2: action has a page set
-            } else if (resultAction.type === "page-set") {
+            } else if (resultAction.type === 'page-set') {
                 // Checks if pageset has any pages
                 const amountPages = resultAction.hasPageSet.hasPages.length;
                 if (amountPages !== 0) {

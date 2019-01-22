@@ -1,6 +1,7 @@
 
 
 /**
+ * Deprecated!
  * Manual: How to add an app:
  * 1. Import the Component or Module in nie-OS.module.ts
  * 2. Add the app to the Model 'openAppsInThisPage' in this file
@@ -16,9 +17,9 @@ import { ActivatedRoute } from '@angular/router';
 import {GenerateHashService} from '../../../shared/nieOS/other/generateHash.service';
 import {OpenAppsModel} from '../../../shared/nieOS/mongodb/page/open-apps.model';
 import {PageService} from '../../../shared/nieOS/mongodb/page/page.service';
-import { DataManagementComponent } from '../../data-management/data-management.component';
+import { DataManagementComponent } from '../../data-management/data-management/data-management.component';
 import {MatDialog} from '@angular/material';
-import {GenerateDataChoosersService} from '../../data-management/generate-data-choosers.service';
+import {GenerateDataChoosersService} from '../../data-management/services/generate-data-choosers.service';
 import {HttpClient} from '@angular/common/http';
 import { NgxSpinnerService } from 'ngx-spinner';
 import {GeneralRequestService} from '../../../shared/general/general-request.service';
@@ -44,6 +45,11 @@ export class PageComponent implements OnInit, AfterViewChecked {
   isLoading = true;
   resetPage = false;
   reloadVariables = false;
+  response: any;
+  queryId: string;
+  index: number;
+  updateLinkedApps = false;
+  indexAppMapping: any = {};
   constructor(
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
@@ -106,7 +112,14 @@ export class PageComponent implements OnInit, AfterViewChecked {
   ngAfterViewChecked() {
     this.cdr.detectChanges();
     if ( this.pageIDFromURL !==  this.route.snapshot.queryParams.page ) {
-      this.clearAppsInThisPage();
+      console.log( 'Update Page' );
+      this.pageIDFromURL = this.route.snapshot.queryParams.page;
+      console.log( this.pageIDFromURL, this.route.snapshot.queryParams.page );
+      this.reloadVariables = true;
+      this.spinner.show();
+      setTimeout(() => {
+        this.spinner.hide();
+      }, 5000);
     }
     this.cdr.detectChanges();
   }
@@ -238,8 +251,21 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   receiveOpenAppsInThisPage( openAppsInThisPage: any ) {
-    // console.log( openAppsInThisPage );
+    console.log( openAppsInThisPage );
     this.openAppsInThisPage = openAppsInThisPage;
     this.reloadVariables = false;
+    this.updateLinkedApps = false;
+  }
+
+  updateMainResourceIndex( input: any ) {
+    this.index = input.index;
+    this.response = input.response;
+    this.queryId = input.queryId;
+  }
+
+  updateIndices( indexAppMapping: any ) {
+    this.indexAppMapping[ indexAppMapping.hash ] = indexAppMapping;
+    console.log( this.indexAppMapping );
+    this.updateLinkedApps = true;
   }
 }

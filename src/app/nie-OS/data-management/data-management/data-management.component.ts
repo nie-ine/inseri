@@ -1,15 +1,15 @@
 import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import { MatTable } from '@angular/material';
-import { QueryEntryComponent } from '../query-entry/query-entry.component';
-import { QueryAppInputMapComponent } from '../query-app-input-map/query-app-input-map.component';
-import {PageService} from '../../shared/nieOS/mongodb/page/page.service';
+import { QueryEntryComponent } from '../../query-entry/query-entry.component';
+import { QueryAppInputMapComponent } from '../../query-app-input-map/query-app-input-map.component';
+import {PageService} from '../../../shared/nieOS/mongodb/page/page.service';
 import {ActivatedRoute} from '@angular/router';
-import {ActionService} from '../../shared/nieOS/mongodb/action/action.service';
-import {OpenAppsModel} from '../../shared/nieOS/mongodb/page/open-apps.model';
+import {ActionService} from '../../../shared/nieOS/mongodb/action/action.service';
+import {OpenAppsModel} from '../../../shared/nieOS/mongodb/page/open-apps.model';
 import {NgxSpinnerService} from 'ngx-spinner';
-import { QueryListComponent } from '../query-list/query-list.component';
-import { QueryService } from '../../shared/nieOS/mongodb/query/query.service';
+import { QueryListComponent } from '../../query-list/query-list.component';
+import { QueryService } from '../../../shared/nieOS/mongodb/query/query.service';
 
 @Component({
   selector: 'app-data-management',
@@ -19,7 +19,6 @@ import { QueryService } from '../../shared/nieOS/mongodb/query/query.service';
 export class DataManagementComponent implements OnInit {
   @ViewChild(MatTable) table: MatTable<any>;
   actionID: string;
-  pageID: string;
   isLoading: boolean;
   displayedColumns = ['query'];
   columnsToDisplay: string[] = this.displayedColumns.slice();
@@ -41,11 +40,7 @@ export class DataManagementComponent implements OnInit {
     private queryService: QueryService,
     private route: ActivatedRoute,
     private appModel: OpenAppsModel,
-<<<<<<< HEAD
     private spinner1: NgxSpinnerService
-=======
-    private spinner1: NgxSpinnerService,
->>>>>>> 172707d611542976067777e52533761b528b7874
   ) {
   }
 
@@ -56,12 +51,11 @@ export class DataManagementComponent implements OnInit {
     this.table.renderRows();
   }
 
-<<<<<<< HEAD
   receivePage( pageFromLoadComponent: any ) {
     this.reloadVariables = false;
     this.page = pageFromLoadComponent;
     this.appInputQueryMapping = this.page.appInputQueryMapping;
-    this.pageService.getAllQueries(this.page._id)
+    this.queryService.getAllQueriesOfPage(this.page._id)
       .subscribe((data) => {
         this.queries = data.queries;
         console.log( this.queries );
@@ -76,60 +70,6 @@ export class DataManagementComponent implements OnInit {
                 console.log( query );
                 if ( !query.paths ) {
                   query.paths = [];
-=======
-  checkIfPageExistsForThisAction(actionID: string) {
-    this.actionService.getAction(actionID)
-      .subscribe(
-        data => {
-          if (data.status === 200) {
-            this.action = ( data as any ).body.action;
-            if (this.action.type === 'page') {
-              this.updateAppsInView(this.action.hasPage._id);
-            }
-          } else {
-            console.log('none');
-          }
-        },
-        error => {
-          this.isLoading = false;
-          console.log(error);
-        });
-  }
-
-  updateAppsInView(viewHash: string ) {
-    this.pageService.getPage(viewHash)
-      .subscribe(
-        data => {
-          this.page = ( data as any).page;
-          // console.log( this.page );
-          this.convertMappingsBackFromJson( this.page );
-          const appHelperArray = [];
-          for ( const app of this.page.openApps ) {
-            appHelperArray[JSON.parse(app).hash] = JSON.parse(app);
-          }
-          this.page.openApps = appHelperArray;
-          // console.log(this.page.openApps);
-          for ( const app in this.page.openApps ) {
-            for ( const appType in this.openAppsInThisPage ) {
-              this.initiateUpdateApp(
-                this.page.openApps[ app ],
-                this.openAppsInThisPage[ appType ].type,
-                this.openAppsInThisPage[ appType ].model
-              );
-            }
-          }
-          this.appInputQueryMapping = this.page.appInputQueryMapping;
-          for (const appType in this.openAppsInThisPage) {
-            if (this.openAppsInThisPage[appType].model.length !== 0) {
-              for (const appOfSameType of this.openAppsInThisPage[appType].model) {
-                if( this.appModel.openApps[ appOfSameType.type ] && this.appModel.openApps[ appOfSameType.type ].inputs ) {
-                  appOfSameType.inputs =  this.appModel.openApps[ appOfSameType.type ].inputs;
-                  this.openApps.push(appOfSameType);
-                  for (const query in this.queries) {
-                    this.queries[query][appOfSameType.hash] = appOfSameType.hash;
-                  }
-                  this.columnsToDisplay.push(appOfSameType.hash);
->>>>>>> 172707d611542976067777e52533761b528b7874
                 }
                 query.paths.push( this.appInputQueryMapping[app][input][ 'path' ] );
               }
@@ -169,52 +109,6 @@ export class DataManagementComponent implements OnInit {
 
   ngOnInit() {
     this.spinner1.show();
-<<<<<<< HEAD
-=======
-    this.actionID = this.route.snapshot.queryParams.actionID;
-      this.actionService.getAction(this.actionID)
-          .subscribe(actionData => {
-              if (actionData.status === 200) {
-                  if (actionData.body.action.type === 'page') {
-                    this.pageID = actionData.body.action.hasPage._id;
-                    this.queryService.getAllQueriesOfPage(this.pageID)
-                        .subscribe((data) => {
-                          this.queries = data.queries;
-                          console.log( this.queries );
-                          console.log('assignPathsToQuery', this.appInputQueryMapping);
-                          for ( const app in this.appInputQueryMapping ) {
-                            console.log(this.appInputQueryMapping[app]);
-                            for ( const input in this.appInputQueryMapping[app] ) {
-                              for ( const query of this.queries ) {
-                                if (
-                                  query._id === this.appInputQueryMapping[app][input][ 'query' ] &&
-                                  this.appInputQueryMapping[app][input][ 'path' ] ) {
-                                  console.log( query );
-                                  if ( !query.paths ) {
-                                    query.paths = [];
-                                  }
-                                  query.paths.push( this.appInputQueryMapping[app][input][ 'path' ] );
-                                }
-                              }
-                              console.log(this.queries);
-                            }
-                          }
-                          this.spinner1.hide();
-                    });
-                  } else {
-                    this.pageID = this.route.snapshot.queryParams.page;
-                    this.queryService.getAllQueriesOfPage(this.pageID)
-                      .subscribe((data) => {
-                        this.queries = data.queries;
-                        console.log( this.queries );
-                        this.spinner1.hide();
-                      });
-                  }
-              } else {
-                this.spinner1.hide();
-              }
-          });
->>>>>>> 172707d611542976067777e52533761b528b7874
   }
 
   checkIfPathIsDefined( appHash: string ) {
@@ -228,28 +122,20 @@ export class DataManagementComponent implements OnInit {
   delete(row: any): void {
     const index = this.queries.indexOf(row, 0);
     if (index > -1) {
-<<<<<<< HEAD
-      this.pageService.deleteQuery(this.page._id, row._id)
-=======
-      this.queryService.deleteQueryOfPage(this.pageID, row._id)
->>>>>>> 172707d611542976067777e52533761b528b7874
+      this.queryService.deleteQueryOfPage(this.page._id, row._id)
           .subscribe((data) => {
               if (data.status === 200) {
                 this.queries.splice(index, 1);
                 this.table.renderRows();
               } else {
-                // Fehler dass query nicht gelöscht werden konnte
+                // Fehlermeldung dass query nicht gelöscht werden konnte
               }
           });
     }
   }
 
   addQuery(name: string) {
-<<<<<<< HEAD
-    this.pageService.createQuery(this.page._id, {title: name})
-=======
-    this.queryService.createQueryOfPage(this.pageID, {title: name})
->>>>>>> 172707d611542976067777e52533761b528b7874
+    this.queryService.createQueryOfPage(this.page._id, {title: name})
         .subscribe(data => {
           if (data.status === 201) {
               this.queries.push(data.body.query);
@@ -261,7 +147,32 @@ export class DataManagementComponent implements OnInit {
   openExistingQueryDialog() {
     const dialogRef = this.dialog.open(QueryListComponent, {
       width: '100%',
-      height: '100%'
+      height: '100%',
+      data: {
+        enableAdd: true
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      if (result) {
+        this.queryService.createQueryOfPage(this.page._id, {
+          title: `${result.title}_Copy`,
+          description: result.description,
+          serverUrl: result.serverUrl,
+          method: result.method,
+          params: result.params,
+          header: result.header,
+          body: result.body,
+          path: result.path
+        })
+          .subscribe(data => {
+            if (data.status === 201) {
+              this.queries.push(data.body.query);
+              this.table.renderRows();
+            }
+          });
+      }
     });
   }
 
@@ -371,8 +282,15 @@ export class DataManagementComponent implements OnInit {
     }
 
   assignQueryToPath( path: any, query: any ) {
+    console.log( path );
+    let increment = 0;
+    for ( const segment of path ) {
+      if ( segment === null ) {
+        path.splice( increment, 1 );
+      }
+      increment += 1;
+    }
     query.chosenPath = path;
-    console.log( this.queries );
   }
 
   generateCurrentPath( item ) {

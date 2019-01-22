@@ -1,7 +1,7 @@
 const express = require('express');
 let settings = require('../.settings/mailDetails');
 
-const checkAuth = require("../middleware/check-auth");
+const checkAuth = require('../middleware/check-auth');
 let nodemailer = require('nodemailer');
 const router = express.Router();
 
