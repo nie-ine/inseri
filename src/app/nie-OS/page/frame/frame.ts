@@ -7,7 +7,8 @@ import {
   ContentChildren,
   QueryList,
   ElementRef,
-  Renderer2 } from '@angular/core';
+  Renderer2, OnInit, OnChanges
+} from '@angular/core';
 import 'rxjs/add/operator/map';
 import {MatDialog} from '@angular/material';
 import { FrameSettingsComponent } from '../frame-settings/frame-settings.component';
@@ -19,7 +20,7 @@ declare var grapesjs: any; // Important!
   templateUrl: 'frame.html',
   styleUrls: ['frame.css']
 })
-export class Frame {
+export class Frame implements OnInit, OnChanges {
 
   show = false;
 
@@ -31,8 +32,12 @@ export class Frame {
   @Input() hash: string;
   @Input() width: number;
   @Input() height: number;
+  @Input() index: number = undefined;
+  @Input() arrayLength: number = undefined;
+  @Input() queryId: string;
   @Output() sendAppCoordinatesBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendAppSettingsBack: EventEmitter<any> = new EventEmitter<any>();
+  @Output() sendIndexBack: EventEmitter<any> = new EventEmitter<any>();
 
   mousemoveEvent: any;
   mouseupEvent: any;
@@ -61,6 +66,10 @@ export class Frame {
     this.dragging = this.unboundDragging.bind(this);
   }
 
+  ngOnChanges() {
+    console.log('changes');
+  }
+
   ngOnInit() {
     // If coordinates of window are set through input, let it appear
     if( this.firstPopupX && this.firstPopupY ) {
@@ -85,7 +94,7 @@ export class Frame {
   }
 
   appear() {
-    //prevent drag event
+    // prevent drag event
     document.getSelection().removeAllRanges();
     this.setPos();
     this.show = true;
@@ -173,5 +182,28 @@ export class Frame {
         // this.title = result.title;
       }
     });
+  }
+
+  moveBack() {
+    // console.log('move back');
+    this.index -= 1;
+    this.emitIndex();
+  }
+
+  moveForward() {
+    // console.log('move forward');
+    this.index += 1;
+    this.emitIndex();
+  }
+
+  emitIndex() {
+    console.log( this.index, this.hash );
+    this.sendIndexBack.emit(
+      {
+        index: this.index,
+        hash: this.hash,
+        queryId: this.queryId
+      }
+    );
   }
 }

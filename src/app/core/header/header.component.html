@@ -16,7 +16,7 @@
 
         <li *ngIf="hashOfThisPage" style=" overflow-x:auto; width: 500px; height: 40px;">
 
-          <mat-chip-list *ngFor="let page of viewsOfThisActtion; let i = index;" style="margin-top: 8px; margin-left: 2px; display: inline-block;">
+          <mat-chip-list *ngFor="let page of pagesOfThisActtion; let i = index;" style="margin-top: 8px; margin-left: 2px; display: inline-block;">
             <mat-chip matTooltip="{{ page.description }}" selected [color]="'primary'"  *ngIf="checkIfSelected( i )">
               {{ page.title }}
             </mat-chip>

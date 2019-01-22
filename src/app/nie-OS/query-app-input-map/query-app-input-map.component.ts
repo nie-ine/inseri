@@ -2,7 +2,7 @@ import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {query} from '@angular/animations';
 import {HttpClient} from '@angular/common/http';
-import {AbstractJsonService} from '../data-management/abstract-json.service';
+import {AbstractJsonService} from '../data-management/services/abstract-json.service';
 import {PageService} from '../../shared/nieOS/mongodb/page/page.service';
 import {GeneralRequestService} from '../../shared/general/general-request.service';
 import {ActivatedRoute} from '@angular/router';
@@ -44,17 +44,7 @@ export class QueryAppInputMapComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log( 'oninint' );
-    // this.loadAbstractResponse();
-    this.requestService.request('5c3704ef11c68f44ac056d4f') // "5c2f3e356ee3af1431a0885b" 5c3704ef11c68f44ac056d4f
-      .subscribe((data) => {
-        if (data.status === 200) {
-          // console.log(data.body);
-          this.response = data.body;
-          this.tree = data.body;
-          this.abstractResponse = this.abstractJsonService.json2abstract( data.body );
-        }
-      });
+    this.loadAbstractResponse();
   }
 
   close() {

@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatTabChangeEvent } from '@angular/material';
 import {HttpClient} from '@angular/common/http';
-import { AbstractJsonService } from '../data-management/abstract-json.service';
+import { AbstractJsonService } from '../data-management/services/abstract-json.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { KeyValueFormComponent } from './key-value-form/key-value-form.component';
 import { GeneralRequestService } from '../../shared/general/general-request.service';
@@ -69,15 +69,27 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
       this.data.query.header = this.header.getValidParams();
       this.data.query.body = (this.editor) ? this.editor.text : '';
 
-      this.queryService.updateQueryOfPage(this.data.pageID, this.data.query._id, this.data.query)
+      if (this.data.pageID) {
+        console.log('pageID is there');
+        this.queryService.updateQueryOfPage(this.data.pageID, this.data.query._id, this.data.query)
           .subscribe((data) => {
             if (data.status === 200) {
-                // this.close();
+              this.close();
             } else {
-                console.log('Updating query failed');
-                // this.close();
+              console.log('Updating query failed');
             }
-          });
+          }, error1 => console.log(error1));
+      } else {
+        console.log('pageID is not there', this.data.query._id);
+        this.queryService.updateQuery(this.data.query._id, this.data.query)
+          .subscribe((data) => {
+            if (data.status === 200) {
+              this.close();
+            } else {
+              console.log('Updating query failed');
+            }
+          }, error1 => console.log(error1));
+      }
   }
 
   close() {
@@ -99,23 +111,20 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
   initiateQuery() {
     const url = this.form.get('serverURL').value;
     const method = this.form.get('method').value;
-    const parameter = this.param.getValidParams().length > 0 ? this.param.getValidParams()
-      .reduce(((acc, param) => ({...acc, [param.key]:  param.value})), {}) : null;
     const header = this.header.getValidParams().length > 0 ? this.header.getValidParams()
       .reduce(((acc, param) => ({...acc, [param.key]:  param.value})), {}) : null;
-    console.log( parameter );
     switch (method) {
       case 'GET':
-        this.getRequest(url, parameter, header);
+        this.getRequest(url, this.param.getValidParams(), header);
         break;
       case 'POST':
-        this.postRequest(url, parameter, header, this.editor.text);
+        this.postRequest(url, this.param.getValidParams(), header, this.editor.text);
         break;
       case 'PUT':
-        this.putRequest(url, parameter, header, this.editor.text);
+        this.putRequest(url, this.param.getValidParams(), header, this.editor.text);
         break;
       case 'DELETE':
-        this.deleteRequest(url, parameter, header);
+        this.deleteRequest(url, this.param.getValidParams(), header);
         break;
     }
   }

@@ -9,8 +9,10 @@ export class GeneratePathService {
   constructor() { }
 
   generatePath( hash: string, tree: any ) {
+    console.log( hash, tree );
     this.tree = tree;
     this.iterateThroughTree( tree, hash );
+    console.log( this.path );
     return this.path;
   }
 
@@ -21,7 +23,7 @@ export class GeneratePathService {
           // console.log( 'found hash', tree[ leaf ] );
           this.path = [];
           this.path.push( tree[ leaf ].parent, leaf );
-           return this.iterateBack( this.tree );
+           return this.iterateBack( this.tree, hash );
         } else {
           this.iterateThroughTree( tree[ leaf ], hash );
         }
@@ -29,20 +31,27 @@ export class GeneratePathService {
     }
   }
 
-  iterateBack( tree: any ) {
+  iterateBack( tree: any, hash: string ) {
     // console.log( 'path:', this.path );
-    if ( tree[ this.path[ 0 ] ] ) {
+    if (
+      tree[ this.path[ 0 ] ] &&
+      ( !(this.path.length > 1) || tree[ this.path[ 0 ] ][ this.path[ 1 ] ] )
+    ) {
       // console.log( 'path complete', this.path );
       return this.path;
     } else {
       for ( const leaf in tree ) {
         if ( typeof tree[ leaf ] === 'object' && leaf !== 'path' ) {
-          if ( tree[ leaf ][ this.path[ 0 ] ] ) {
+          if (
+            ( tree[ leaf ][ this.path[ 0 ] ] ) &&
+            ( !(this.path.length > 1) ||  tree[ leaf ][ this.path[ 0 ] ][ this.path[ 1 ] ] ) &&
+            ( !(this.path.length > 2) ||  tree[ leaf ][ this.path[ 0 ] ][ this.path[ 1 ] ][ this.path[ 2 ] ] )
+          ) {
             this.path.splice(0, 0, leaf );
-            this.iterateBack( this.tree );
+            this.iterateBack( this.tree, hash );
             // console.log( this.path );
           } else {
-            this.iterateBack( tree[ leaf ] );
+            this.iterateBack( tree[ leaf ], hash );
           }
         }
       }

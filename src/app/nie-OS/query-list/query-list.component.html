@@ -4,12 +4,25 @@
     </button>
   </div>
 
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+
+  <div>
+    <mat-form-field class="example-form-field" *ngIf="!isLoading">
+      <input matInput type="text" placeholder="Add New Query" [(ngModel)]="value">
+    </mat-form-field>
+    <button *ngIf="value" mat-button mat-icon-button (click)="createNewQuery(value)">
+      <mat-icon>arrow_downwards</mat-icon>
+    </button>
+  </div>
+
   <table mat-table [dataSource]="queries">
 
     <ng-container matColumnDef="add">
       <th mat-header-cell *matHeaderCellDef>Add</th>
       <td mat-cell *matCellDef="let item">
-        <button [disabled]="deletingQueries.includes(item._id)" mat-button (click)="addQuery(item)" mat-icon-button><mat-icon>add</mat-icon></button>
+        <button [disabled]="deletingQueries.includes(item._id) || !data.enableAdd" mat-button (click)="addQuery(item)" mat-icon-button><mat-icon>add</mat-icon></button>
       </td>
     </ng-container>
 

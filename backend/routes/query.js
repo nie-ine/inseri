@@ -2,7 +2,7 @@ const express = require('express');
 
 const Query = require('../models/query');
 
-const checkAuth = require("../middleware/check-auth");
+const checkAuth = require('../middleware/check-auth');
 
 const router = express.Router();
 
@@ -75,6 +75,35 @@ router.put('/:id', (req, res, next) => {
           error: error
         });
       })
+});
+
+router.post('', checkAuth, (req, res, next) => {
+  const newQuery = new Query({
+    title: req.body.title,
+    description: req.body.description,
+    serverUrl: req.body.serverUrl,
+    method: req.body.method,
+    params: req.body.params,
+    header: req.body.header,
+    body: req.body.body,
+    path: req.body.chosenPath,
+    isBoundToPage: false,
+    creator: req.userData.userId
+  });
+
+  newQuery.save()
+    .then (resultQuery => {
+      res.status(201).json({
+        message: 'Query was created successfully',
+        query: resultQuery
+      });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Creating query failed',
+        error: error
+      })
+    });
 });
 
 router.delete('/:id', checkAuth, (req, res, next) => {

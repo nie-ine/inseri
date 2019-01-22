@@ -5,6 +5,18 @@
 
 </app-load-variables>
 
+<app-data-assignment
+  [index]="index"
+  [openAppsInThisPage]="openAppsInThisPage"
+  [appInputQueryMapping]="page.appInputQueryMapping"
+  [response]="response"
+  [queryId] = "queryId"
+  [updateLinkedApps]="updateLinkedApps"
+  [indexAppMapping]="indexAppMapping"
+  (sendAppTypesBackToNIEOS)="receiveOpenAppsInThisPage( $event )">
+
+</app-data-assignment>
+
 <ngx-spinner
   bdColor = "rgba(51, 51, 51, 0.8)"
   size = "large"
@@ -40,7 +52,8 @@
             [queryId] = "openAppsInThisPage[ 'dataChooser' ].model[i].queryId"
             [openAppsInThisPage] = "openAppsInThisPage"
             [dataChooserEntries]="openAppsInThisPage[ 'dataChooser' ].model[i].dataChooserEntries"
-            [description]="openAppsInThisPage[ 'dataChooser' ].model[i].title">
+            [description]="openAppsInThisPage[ 'dataChooser' ].model[i].title"
+            (sendIndexBack)="updateMainResourceIndex( $event )">
           </app-data-chooser>
         </div>
       </div>
@@ -388,11 +401,15 @@
     <div *ngFor="let imageViewer of openAppsInThisPage[ 'imageViewer' ].model; let i = index;" >
       <popup #imageViewer
              [hash]="openAppsInThisPage[ 'imageViewer' ].model[i].hash"
-             [title]="'Image Viewer ' + i"
+             [title]="'Image Viewer ' + i "
              [type]="openAppsInThisPage[ 'imageViewer' ].type"
              [firstPopupX]="openAppsInThisPage[ 'imageViewer' ].model[i].x"
              [firstPopupY]="openAppsInThisPage[ 'imageViewer' ].model[i].y"
-             (sendAppCoordinatesBack)="updateAppCoordinates($event)">
+             [index] = "openAppsInThisPage[ 'imageViewer' ].model[i].index"
+             [arrayLength] = "openAppsInThisPage[ 'imageViewer' ].model[i].arrayLength"
+             (sendAppCoordinatesBack)="updateAppCoordinates($event)"
+             [queryId] = "openAppsInThisPage[ 'imageViewer' ].model[i].queryId"
+             (sendIndexBack)="updateIndices( $event )">
         <nie-image-frame style="height: 100%;"
                          [image]="{
     '@id' : openAppsInThisPage[ 'imageViewer' ].model[i]['@id'],
@@ -405,7 +422,7 @@
     'knora-api:stillImageFileValueHasIIIFBaseUrl' : openAppsInThisPage[ 'imageViewer' ].model[i]['stillImageFileValueHasIIIFBaseUrl']
   }"
                          width="500"
-                         height="500">
+                         height="700">
         </nie-image-frame>
       </popup>
       <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>image</mat-icon> {{ i }}</button>

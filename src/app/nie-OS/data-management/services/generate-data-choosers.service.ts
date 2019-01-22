@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {AbstractJsonService} from './abstract-json.service';
 import {GenerateArrayFromLeafsService} from './generate-array-from-leafs.service';
-import {GeneralRequestService} from '../../shared/general/general-request.service';
-import { QueryService } from '../../shared/nieOS/mongodb/query/query.service';
+import {GeneralRequestService} from '../../../shared/general/general-request.service';
+import { QueryService } from '../../../shared/nieOS/mongodb/query/query.service';
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +36,7 @@ export class GenerateDataChoosersService {
       this.requestService.request(queryId)
         .subscribe((data) => {
           if (data.status === 200) {
-            console.log(data.body);
+            // console.log(data.body);
             this.response = data.body;
             this.y += 100;
             openAppsInThisPage.dataChooser.model.push( {

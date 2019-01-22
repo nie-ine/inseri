@@ -24,7 +24,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import {D3jsModule} from './apps/d3js/d3js.module';
 import {OpenAppsModel} from '../shared/nieOS/mongodb/page/open-apps.model';
 import {MatChipsModule} from '@angular/material/chips';
-import { DataManagementComponent } from './data-management/data-management.component';
+import { DataManagementComponent } from './data-management/data-management/data-management.component';
 import {MatTableModule} from '@angular/material/table';
 import {MatInputModule} from '@angular/material/input';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -32,7 +32,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { QueryEntryComponent } from './query-entry/query-entry.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { AceEditorModule } from 'ng2-ace-editor';
-import {AbstractJsonService} from './data-management/abstract-json.service';
+import {AbstractJsonService} from './data-management/services/abstract-json.service';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { KeyValueFormComponent } from './query-entry/key-value-form/key-value-form.component';
 import { QueryAppInputMapComponent } from './query-app-input-map/query-app-input-map.component';
@@ -43,6 +43,8 @@ import {MatSliderModule} from '@angular/material/slider';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import {LoadVariablesComponent} from './load-variables/load-variables.component';
 import { QueryListComponent } from './query-list/query-list.component';
+import { DataAssignmentComponent } from './data-management/data-assignment/data-assignment.component';
+import { UpdateLinkedAppsComponent } from './data-management/update-linked-apps/update-linked-apps.component';
 
 
 @NgModule({
@@ -100,7 +102,9 @@ import { QueryListComponent } from './query-list/query-list.component';
     QueryAppInputMapComponent,
     FrameSettingsComponent,
     LoadVariablesComponent,
-    QueryListComponent
+    QueryListComponent,
+    DataAssignmentComponent,
+    UpdateLinkedAppsComponent
   ],
   exports: [
     PageComponent,

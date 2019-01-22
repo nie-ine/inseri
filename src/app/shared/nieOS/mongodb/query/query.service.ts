@@ -13,6 +13,10 @@ export class QueryService {
 
   constructor(private http: HttpClient) { }
 
+  createQuery(query: any): Observable<any> {
+    return this.http.post(`${QueryService.API_BASE_URL_QUERY}`, query, {observe: 'response'});
+  }
+
   createQueryOfPage(pageId: string, query: any): Observable<any> {
     return this.http.post(`${QueryService.API_BASE_URL_PAGE}/${pageId}/queries`, query, {observe: 'response'});
   }

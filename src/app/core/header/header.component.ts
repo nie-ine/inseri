@@ -24,7 +24,7 @@ export interface ChipColor {
 })
 export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
   currentRoute: string;
-  viewsOfThisActtion: Array<any>;
+  pagesOfThisActtion: Array<any>;
   hashOfThisPage: string;
   actionID: string;
   lastView: any;
@@ -107,13 +107,13 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   generateNavigation(actionID: string) {
-    if (!this.alreadyLoaded) {
+    if (!this.alreadyLoaded && actionID) {
       this.actionService.getAction(actionID)
         .subscribe(data => {
             if (data.body.action.type === 'page-set') {
-              this.viewsOfThisActtion = [];
+              this.pagesOfThisActtion = [];
               for (const pageHash of ( data.body as any ).action.hasPageSet.hasPages as any ) {
-                this.viewsOfThisActtion[this.viewsOfThisActtion.length] = pageHash;
+                this.pagesOfThisActtion[this.pagesOfThisActtion.length] = pageHash;
                 this.alreadyLoaded = true;
               }
             }
