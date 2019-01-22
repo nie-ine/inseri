@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 
 @Component({
   selector: 'app-data-assignment',
@@ -14,13 +14,19 @@ export class DataAssignmentComponent implements OnChanges {
   @Input() indexAppMapping: any;
   @Output() sendAppTypesBackToNIEOS: EventEmitter<any> = new EventEmitter<any>();
   arrayIndicator: Array<any> = [];
+  currentIndex = undefined;
   constructor() { }
 
-  ngOnChanges() {
-    if ( this.updateLinkedApps ) {
+  ngOnChanges( changes: SimpleChanges) {
+
+    console.log( changes );
+    if ( this.updateLinkedApps === true ) {
       this.updateLinkedAppsMethod();
-    } else {
+      console.log( 'update linked apps' );
+    } else if ( this.currentIndex !== this.index ) {
+      this.currentIndex = this.index;
       this.goThroughAppInputs();
+      console.log( 'Go Through App Inputs' );
     }
   }
 
@@ -57,7 +63,6 @@ export class DataAssignmentComponent implements OnChanges {
         }
       }
     }
-    this.sendAppTypesBackToNIEOS.emit( this.openAppsInThisPage );
   }
 
   generateAppinput(
@@ -215,7 +220,7 @@ export class DataAssignmentComponent implements OnChanges {
         }
       }
     }
-    // this.sendAppTypesBackToNIEOS.emit( this.openAppsInThisPage );
+    this.sendAppTypesBackToNIEOS.emit( this.openAppsInThisPage );
   }
   updateAppInput(
     response: any,
@@ -242,7 +247,6 @@ export class DataAssignmentComponent implements OnChanges {
   }
 
   rewritePath( oldPath: any, newPath: any ) {
-    // console.log( oldPath );
     let i = 0;
     if ( oldPath.length > 0 ) {
       for ( const newSegment of newPath ) {
@@ -253,7 +257,12 @@ export class DataAssignmentComponent implements OnChanges {
         }
         i += 1;
       }
-      // console.log( 'rewrite Oldpath', oldPath );
+      for ( let j = 0; j < oldPath.length; j++ ) {
+        if ( !isNaN( oldPath[ j ]  ) ) {
+          oldPath[ j ] = this.index;
+          j = oldPath.length;
+        }
+      }
       return oldPath;
     }
   }
