@@ -48,7 +48,8 @@ export class HomeComponent implements OnInit {
     this.loginError = false;
     this.authService.login(
       this.username,
-      this.password
+      this.password,
+      true
     );
     setTimeout(() => {
       this.loginError = true;

@@ -74,7 +74,7 @@ export class AuthService {
     return this.http.get(`${AuthService.API_BASE_URL_USER}/${userId}`);
   }
 
-  login(email: string, password: string) {
+  login(email: string, password: string, navigateToDashboard: boolean) {
     const authData = { email: email, password: password };
     this.http.post<
       {
@@ -94,7 +94,9 @@ export class AuthService {
         const now = new Date();
         const expirationDate = new Date (now.getTime() + expiresInDuration * 1000);
         this.saveAuthData(token, expirationDate, response.firstName, response.userId);
-        this.router.navigate(['/dashboard' ], {fragment: 'top'});
+        if ( navigateToDashboard ) {
+          this.router.navigate(['/dashboard' ], {fragment: 'top'});
+        }
       }, error1 => {
         console.log('error');
       });
