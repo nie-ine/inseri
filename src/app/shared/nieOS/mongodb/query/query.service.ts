@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QueryService {
 
-  private static API_BASE_URL_QUERY = 'http://localhost:3000/api/queries';
-  private static API_BASE_URL_USER = 'http://localhost:3000/api/users';
-  private static API_BASE_URL_PAGE = 'http://localhost:3000/api/pages';
+  private static API_BASE_URL_QUERY = environment.node + '/api/queries';
+  private static API_BASE_URL_USER = environment.node +  '/api/users';
+  private static API_BASE_URL_PAGE = environment.node + '/api/pages';
 
   constructor(private http: HttpClient) { }
 
