@@ -89,10 +89,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
   openExtendSessionBar() {
     this.snackBar.openFromComponent(ExtendSessionComponent, {
       duration: 100000,
-    })
-      .afterDismissed().subscribe(() => {
-      console.log('The snack-bar was dismissed');
-      this.snackBarOpen = false;
     });
   }
 
@@ -107,8 +103,8 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
       if ( minutes < 5 && !this.snackBarOpen) {
         this.snackBarOpen = true;
         this.openExtendSessionBar();
-      } else {
-         this.snackBar.dismiss();
+      } else if ( minutes > 5 ) {
+        this.snackBar.dismiss();
       }
     }
   }
@@ -385,7 +381,8 @@ export class ExtendSessionComponent {
     console.log( 'Extend Session - get request with user ID', this.email, this.password );
     this.authService.login(
       this.email,
-      this.password
+      this.password,
+      false
     );
     setTimeout(() => {
       console.log( 'Indicate that sth is wrong' );

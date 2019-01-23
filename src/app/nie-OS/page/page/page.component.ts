@@ -147,12 +147,10 @@ export class PageComponent implements OnInit, AfterViewChecked {
     console.log('y: ' + app.y);
     console.log('type: ' + app.type);
     console.log('hash: ' + app.hash );
-    // console.log( this.page );
     if (this.page.openApps[ app.hash ] === null) {
       this.page.openApps[ app.hash ] = [];
     }
     this.page.openApps[ app.hash ] = app;
-    console.log(this.page);
   }
 
   clearAppsInThisPage() {
@@ -174,8 +172,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   updatePage() {
-    console.log('update page for this action');
-    console.log( this.page );
     this.pageService.updatePage(this.page)
       .subscribe(
         data => {
