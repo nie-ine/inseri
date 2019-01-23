@@ -20,7 +20,6 @@ export class HomeComponent implements OnInit {
   loading = false;
   returnUrl: string;
   loginError = false;
-  user: any[] = JSON.parse(localStorage.getItem('currentUser')) || [];
 
   constructor(
     private route: ActivatedRoute,
@@ -34,7 +33,12 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     // reset login status
     this.authenticationService.logout();
-    console.log( this.user );
+    const expirationDate = localStorage.getItem('expiration');
+    const token = localStorage.getItem('token');
+    const user = localStorage.getItem('userId');
+    if ( expirationDate && user && token ) {
+      this.router.navigate(['/dashboard' ], {fragment: 'top'});
+    }
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || encodeURI('/dashboard#top');
@@ -46,6 +50,9 @@ export class HomeComponent implements OnInit {
       this.username,
       this.password
     );
+    setTimeout(() => {
+      this.loginError = true;
+    }, 4000);
 /*    this.authenticationService.login(this.username, this.password)
       .subscribe(
         data => {

@@ -1,0 +1,12 @@
+<div style="width: 400px">
+  Your Session expires in less than 5 Minutes. Type in your user credentials to stay logged in. <br>
+  <mat-form-field >
+    <input matInput value="Email" [(ngModel)]="email">
+  </mat-form-field>
+    <mat-form-field>
+    <input matInput value="Password" type="password" [(ngModel)]="password">
+  </mat-form-field>
+  <br>
+  <button mat-button color="accent" (click)="extendSession()">Extend Your Session</button>
+  <h6 *ngIf="loginError" style="color: #b05f56!important;" >Username oder Passwort ist falsch!</h6>
+</div>

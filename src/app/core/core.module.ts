@@ -27,6 +27,7 @@ import {HowToProgramWithNieOSModule} from '../developer-notes/how-to-program-wit
 import {MockupTutorialModule} from '../developer-notes/mockup-tutorial/mockup-tutorial.module';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { PizzaPartyComponent } from './header/header.component';
+import { ExtendSessionComponent } from './header/header.component';
 import { BrowserModule } from '@angular/platform-browser';
 import {MatChipsModule} from '@angular/material/chips';
 import { DevelopmentViewsModule } from '../development-views/development-views.module';
@@ -64,11 +65,13 @@ import { DevelopmentViewsModule } from '../development-views/development-views.m
     NavigationComponent,
     DialogUserSettingsDialog,
     InitPopupComponent,
-    PizzaPartyComponent],
+    PizzaPartyComponent,
+    ExtendSessionComponent],
   entryComponents: [
     DialogUserSettingsDialog,
     InitPopupComponent,
-    PizzaPartyComponent
+    PizzaPartyComponent,
+    ExtendSessionComponent
   ],
   providers: [
     KnoraRequestService,
