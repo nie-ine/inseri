@@ -35,7 +35,7 @@
         <li class="navbar-list" *ngIf="isAuthenticated() && isOnDashboard()">
           <a (click)="openSettingsDialog()">Einstellungen</a>
         </li>
-        <li class="navbar-list" *ngIf="isAuthenticated()">
+        <li class="navbar-list" *ngIf="isAuthenticated()" matTooltip='{{ userInfo }}'>
           <a (click)="loginOrLogout()">{{ loginOrLogoutButton() }}</a>
         </li>
         <li class="navbar-list" *ngIf="!isAuthenticated()">
