@@ -3,10 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { AuthData } from './auth-data.model';
 import { Observable, Subject } from 'rxjs';
 import {Router} from '@angular/router';
+import { environment } from '../../../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private static API_BASE_URL_USER = 'http://localhost:3000/api/users';
+  private static API_BASE_URL_USER = environment.node + '/api/users';
   private isAuthenticated = false;
   private token: string;
   private authStatusListener = new Subject<boolean>();
