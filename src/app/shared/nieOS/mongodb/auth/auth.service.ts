@@ -82,6 +82,15 @@ export class AuthService {
     return this.http.put(`${AuthService.API_BASE_URL_USER}/${userId}/delete`, pwd);
   }
 
+  reactivateAccount( userId: string, oldPwd: string ) {
+    const pwd: any = {
+      userId: userId,
+      oldPwd: oldPwd
+    };
+    console.log( 'reactivate Account' );
+    return this.http.put(`${AuthService.API_BASE_URL_USER}/${userId}/reactivate`, pwd);
+  }
+
   login(email: string, password: string, navigateToDashboard: boolean) {
     const authData = { email: email, password: password };
     this.http.post<

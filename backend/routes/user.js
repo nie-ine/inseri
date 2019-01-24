@@ -264,6 +264,56 @@ router.put('/:id/delete', checkAuth, (req, res, next) => {
     });
 });
 
+router.put('/:id/reactivate', (req, res, next) => {
+  let messages = [];
+  // Tests if old password input is undefined, null or is empty string
+  if (!Boolean(req.body.oldPwd)) {
+    messages.push('Your old password input is invalid!');
+  }
+
+  // Attaches error messages to the response
+  if (messages.length > 0) {
+    return res.status(400).json({
+      messages: messages
+    });
+  }
+
+  User.findById(req.body.userId)
+    .then((user) => {
+
+      const p1 = bcrypt.compare(req.body.oldPwd, user.password);
+
+      Promise.all([p1]).then((result) => {
+        // Tests if new password is the same as the old one
+        if (!result[ 0 ]) {
+          return res.status(400).json({
+            message: 'Your old password input is wrong!'
+          })
+          // Tests if the password input is wrong
+        } else if (result[ 0 ]) {
+          let date = new Date();
+          console.log( date );
+          User.findOneAndUpdate({_id: req.body.userId},
+            {
+              delete: undefined
+            })
+            .then(result => {
+              // Create response
+              res.status(201).json({
+                message: 'User account has been reactivated',
+              });
+            });
+        }
+      })
+    })
+    .catch(err => {
+      console.log(err);
+      return res.status(401).json({
+        message: 'Auth failed'
+      });
+    });
+});
+
 router.get('/:id/actions', checkAuth, (req, res, next) => {
     Action.find({
         creator: req.params.id
@@ -375,6 +425,12 @@ router.post('/login', (req, res, next) => {
                 return res.status(401).json({
                     message: 'Auth failed'
                 })
+            }
+            console.log( user.delete );
+            if ( user.delete ) {
+              return res.status(405).json({
+                message: 'User has been deactivated'
+              })
             }
             fetchedUser = user;
             return bcrypt.compare(req.body.password, user.password);
