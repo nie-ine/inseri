@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class PageService {
-  private static API_BASE_URL_PAGE = 'http://localhost:3000/api/pages';
-  private static API_BASE_URL_PAGE_SET = 'http://localhost:3000/api/pagesets';
+  private static API_BASE_URL_PAGE =  environment.node +  '/api/pages';
+  private static API_BASE_URL_PAGE_SET = environment.node + '/api/pagesets';
 
   constructor(
     private http: HttpClient

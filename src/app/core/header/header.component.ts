@@ -11,6 +11,10 @@ import {ActionService} from '../../shared/nieOS/mongodb/action/action.service';
 import {PageService} from '../../shared/nieOS/mongodb/page/page.service';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {ThemePalette} from '@angular/material/core';
+import {Observable} from 'rxjs';
+import 'rxjs/add/observable/interval';
+import {ContactService} from '../../shared/nieOS/mongodb/contact/contact.service';
+import { environment } from '../../../environments/environment';
 
 export interface ChipColor {
   name: string;
@@ -41,6 +45,9 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   selectedPage = 0;
   alreadyLoaded = false;
+  userInfo: string;
+  sub: any;
+  snackBarOpen = false;
 
   constructor(
     private initService: InitService,
@@ -50,7 +57,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
     private activatedRoute: ActivatedRoute,
     private authenticationService: AuthenticationService,
     private authService: AuthService,
-    private cdr: ChangeDetectorRef,
+    public cdr: ChangeDetectorRef,
     public snackBar: MatSnackBar,
     private actionService: ActionService,
   ) {
@@ -80,7 +87,34 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
     });
   }
 
+  openExtendSessionBar() {
+    this.snackBar.openFromComponent(ExtendSessionComponent, {
+      duration: 100000,
+    });
+  }
+
+  checkTimeUntilLogout() {
+    const now = new Date();
+    const expirationDate = localStorage.getItem('expiration');
+    const secondsTotal = ( new Date(expirationDate).getTime() - now.getTime() ) / 1000;
+    const minutes = Math.floor(secondsTotal / 60);
+    const seconds = Math.floor(secondsTotal - minutes * 60);
+    this.userInfo = 'Session expires in ' + minutes + ' min and ' + seconds + ' sec';
+    if ( expirationDate && new Date(expirationDate).getTime() - now.getTime() > 0) {
+      if ( minutes < 5 && !this.snackBarOpen) {
+        this.snackBarOpen = true;
+        this.openExtendSessionBar();
+      } else if ( minutes > 5 ) {
+        this.snackBar.dismiss();
+      }
+    }
+  }
+
   ngOnInit() {
+    this.sub = Observable.interval(1000)
+      .subscribe((val) => {
+        this.checkTimeUntilLogout();
+      });
     if (this.initService.isAppLaunchingFirstTime()) {
         setTimeout(() => {
             this.dialog2.open(InitPopupComponent, {
@@ -186,7 +220,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   loginOrLogoutButton(): string {
-    return this.userIsAuthenticated ? 'Logout' : 'Login';
+    return this.userIsAuthenticated ? 'Logout ' : 'Login';
   }
 
   loginOrLogout() {
@@ -235,12 +269,15 @@ export class DialogUserSettingsDialog implements OnInit {
     errorProfileMessage: string;
     profileForm: FormGroup;
     pwdForm: FormGroup;
+    deleteAccount: FormGroup;
 
     constructor(
       public dialogRef: MatDialogRef<DialogUserSettingsDialog>,
       @Inject(MAT_DIALOG_DATA) public data: any,
       private authService: AuthService,
-      public snackBar: MatSnackBar
+      public snackBar: MatSnackBar,
+      private router: Router,
+      private contactService: ContactService
     ) {}
 
     ngOnInit() {
@@ -257,6 +294,11 @@ export class DialogUserSettingsDialog implements OnInit {
         oldpwd: new FormControl('', [Validators.required]),
         newpwd1: new FormControl('', [Validators.required, Validators.minLength(4)]),
         newpwd2: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      });
+
+      this.deleteAccount = new FormGroup( {
+        email: new FormControl(this.data.email, [Validators.required, Validators.pattern(/^.+@.+\.\w+$/)]),
+        oldpwd: new FormControl('', [Validators.required]),
       });
 
       this.resetErrorPwd();
@@ -318,6 +360,30 @@ export class DialogUserSettingsDialog implements OnInit {
           });
     }
 
+  delete() {
+      console.log('Delete Account');
+      this.authService.deleteAccount( this.userId, this.deleteAccount.get('oldpwd').value )
+      .subscribe(result => {
+        console.log( result );
+        this.contactService.sendMessage(
+          'Lieber ' + this.data.firstName + ',\n' +
+          'Schade, dass Du Deinen Account bei NIE-OS deaktiviert hast, wir werden Dich vermissen!\n\n\n' +
+          'Innerhalb der nächsten 30 Tage kannst Du Deinen Account wiederherstellen, wenn Du hier klickst:\n\n' +
+          environment.app + '/reactivate?user=' + this.userId +
+          '\n\n\nViele schöne Grüsse und alles Gute von Deinem NIE-OS Team!'
+        )
+          .subscribe( response => {
+            console.log(response);
+          }, error1 => {
+            console.log(error1);
+          });
+        this.authService.logout();
+        this.router.navigate(['/home'], { queryParams: {deletedAccount: true} });
+        this.dialogRef.close();
+      }, error1 => {
+        console.log( error1 );
+      });
+  }
 }
 
 @Component({
@@ -330,3 +396,34 @@ export class DialogUserSettingsDialog implements OnInit {
   `],
 })
 export class PizzaPartyComponent {}
+
+@Component({
+  selector: 'session-component',
+  templateUrl: 'extend-session.html'
+})
+export class ExtendSessionComponent {
+  password = 'password';
+  email = 'Email';
+  loginError = false;
+  constructor(
+    public authService: AuthService,
+    public cdr: ChangeDetectorRef
+  ) {
+  }
+  extendSession() {
+    this.loginError = false;
+    console.log( 'Extend Session - get request with user ID', this.email, this.password );
+    this.authService.login(
+      this.email,
+      this.password,
+      false
+    );
+    setTimeout(() => {
+      console.log( 'Indicate that sth is wrong' );
+      this.loginError = true;
+      this.cdr.detectChanges();
+    }, 4000);
+  }
+
+}
+

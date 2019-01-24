@@ -3,10 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { AuthData } from './auth-data.model';
 import { Observable, Subject } from 'rxjs';
 import {Router} from '@angular/router';
+import { environment } from '../../../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private static API_BASE_URL_USER = 'http://localhost:3000/api/users';
+  private static API_BASE_URL_USER = environment.node + '/api/users';
   private isAuthenticated = false;
   private token: string;
   private authStatusListener = new Subject<boolean>();
@@ -73,7 +74,24 @@ export class AuthService {
     return this.http.get(`${AuthService.API_BASE_URL_USER}/${userId}`);
   }
 
-  login(email: string, password: string) {
+  deleteAccount( userId: string, oldPwd: string ) {
+    const pwd: any = {
+      userId: userId,
+      oldPwd: oldPwd
+    };
+    return this.http.put(`${AuthService.API_BASE_URL_USER}/${userId}/delete`, pwd);
+  }
+
+  reactivateAccount( userId: string, oldPwd: string ) {
+    const pwd: any = {
+      userId: userId,
+      oldPwd: oldPwd
+    };
+    console.log( 'reactivate Account' );
+    return this.http.put(`${AuthService.API_BASE_URL_USER}/${userId}/reactivate`, pwd);
+  }
+
+  login(email: string, password: string, navigateToDashboard: boolean) {
     const authData = { email: email, password: password };
     this.http.post<
       {
@@ -84,6 +102,7 @@ export class AuthService {
       }
       >(`${AuthService.API_BASE_URL_USER}/login`, authData)
       .subscribe( response => {
+        console.log( response );
         const token = response.token;
         this.token = token;
         const expiresInDuration = response.expiresIn;
@@ -93,7 +112,11 @@ export class AuthService {
         const now = new Date();
         const expirationDate = new Date (now.getTime() + expiresInDuration * 1000);
         this.saveAuthData(token, expirationDate, response.firstName, response.userId);
-        this.router.navigate(['/dashboard' ], {fragment: 'top'});
+        if ( navigateToDashboard ) {
+          this.router.navigate(['/dashboard' ], {fragment: 'top'});
+        }
+      }, error1 => {
+        console.log('error');
       });
   }
 
