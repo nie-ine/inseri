@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
   loading = false;
   returnUrl: string;
   loginError = false;
-  user: any[] = JSON.parse(localStorage.getItem('currentUser')) || [];
+  deletedAccount = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,30 +34,31 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     // reset login status
     this.authenticationService.logout();
-    console.log( this.user );
+    const expirationDate = localStorage.getItem('expiration');
+    const now = new Date();
+    if ( new Date(expirationDate).getTime() - now.getTime() > 0 ) {
+      this.router.navigate(['/dashboard' ], {fragment: 'top'});
+    }
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || encodeURI('/dashboard#top');
+    console.log( this.route.snapshot );
+    if ( this.route.snapshot.queryParams['deletedAccount'] ) {
+      console.log( 'deletedAccount' );
+      this.deletedAccount = true;
+    }
   }
 
   startLoginProcess() {
     this.loginError = false;
     this.authService.login(
       this.username,
-      this.password
+      this.password,
+      true
     );
-/*    this.authenticationService.login(this.username, this.password)
-      .subscribe(
-        data => {
-          console.log(data);
-          this.router.navigate(['/dashboard' ], {fragment: 'top'});
-        },
-        error => {
-          this.loginError = true;
-          console.log(error);
-          this.alertService.error(error);
-          this.loading = false;
-        });*/
+    setTimeout(() => {
+      this.loginError = true;
+    }, 4000);
   }
 
 }
