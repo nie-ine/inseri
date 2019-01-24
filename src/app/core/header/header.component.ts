@@ -377,9 +377,9 @@ export class DialogUserSettingsDialog implements OnInit {
           }, error1 => {
             console.log(error1);
           });
-        // this.authService.logout();
-        // this.router.navigate(['/home'], { queryParams: {deletedAccount: true} });
-        // this.dialogRef.close();
+        this.authService.logout();
+        this.router.navigate(['/home'], { queryParams: {deletedAccount: true} });
+        this.dialogRef.close();
       }, error1 => {
         console.log( error1 );
       });
