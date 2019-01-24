@@ -74,6 +74,14 @@ export class AuthService {
     return this.http.get(`${AuthService.API_BASE_URL_USER}/${userId}`);
   }
 
+  deleteAccount( userId: string, oldPwd: string ) {
+    const pwd: any = {
+      userId: userId,
+      oldPwd: oldPwd
+    };
+    return this.http.put(`${AuthService.API_BASE_URL_USER}/${userId}/delete`, pwd);
+  }
+
   login(email: string, password: string, navigateToDashboard: boolean) {
     const authData = { email: email, password: password };
     this.http.post<
@@ -85,6 +93,7 @@ export class AuthService {
       }
       >(`${AuthService.API_BASE_URL_USER}/login`, authData)
       .subscribe( response => {
+        console.log( response );
         const token = response.token;
         this.token = token;
         const expiresInDuration = response.expiresIn;

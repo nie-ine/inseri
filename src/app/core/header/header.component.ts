@@ -13,7 +13,8 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {ThemePalette} from '@angular/material/core';
 import {Observable} from 'rxjs';
 import 'rxjs/add/observable/interval';
-
+import {ContactService} from '../../shared/nieOS/mongodb/contact/contact.service';
+import { environment } from '../../../environments/environment';
 
 export interface ChipColor {
   name: string;
@@ -99,7 +100,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
     const minutes = Math.floor(secondsTotal / 60);
     const seconds = Math.floor(secondsTotal - minutes * 60);
     this.userInfo = 'Session expires in ' + minutes + ' min and ' + seconds + ' sec';
-    if ( expirationDate ) {
+    if ( expirationDate && new Date(expirationDate).getTime() - now.getTime() > 0) {
       if ( minutes < 5 && !this.snackBarOpen) {
         this.snackBarOpen = true;
         this.openExtendSessionBar();
@@ -268,12 +269,15 @@ export class DialogUserSettingsDialog implements OnInit {
     errorProfileMessage: string;
     profileForm: FormGroup;
     pwdForm: FormGroup;
+    deleteAccount: FormGroup;
 
     constructor(
       public dialogRef: MatDialogRef<DialogUserSettingsDialog>,
       @Inject(MAT_DIALOG_DATA) public data: any,
       private authService: AuthService,
-      public snackBar: MatSnackBar
+      public snackBar: MatSnackBar,
+      private router: Router,
+      private contactService: ContactService
     ) {}
 
     ngOnInit() {
@@ -290,6 +294,11 @@ export class DialogUserSettingsDialog implements OnInit {
         oldpwd: new FormControl('', [Validators.required]),
         newpwd1: new FormControl('', [Validators.required, Validators.minLength(4)]),
         newpwd2: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      });
+
+      this.deleteAccount = new FormGroup( {
+        email: new FormControl(this.data.email, [Validators.required, Validators.pattern(/^.+@.+\.\w+$/)]),
+        oldpwd: new FormControl('', [Validators.required]),
       });
 
       this.resetErrorPwd();
@@ -350,6 +359,31 @@ export class DialogUserSettingsDialog implements OnInit {
             }
           });
     }
+
+  delete() {
+      console.log('Delete Account');
+      this.authService.deleteAccount( this.userId, this.deleteAccount.get('oldpwd').value )
+      .subscribe(result => {
+        console.log( result );
+        this.contactService.sendMessage(
+          'Lieber ' + this.data.firstName + ',\n' +
+          'Schade, dass Du Deinen Account bei NIE-OS deaktiviert hast, wir werden Dich vermissen!\n\n\n' +
+          'Innerhalb der nächsten 30 Tage kannst Du Deinen Account wiederherstellen, wenn Du hier klickst:\n\n' +
+          environment.app + '/reactivate?user=' + this.userId +
+          '\n\n\nViele schöne Grüsse und alles Gute von Deinem NIE-OS Team!'
+        )
+          .subscribe( response => {
+            console.log(response);
+          }, error1 => {
+            console.log(error1);
+          });
+        // this.authService.logout();
+        // this.router.navigate(['/home'], { queryParams: {deletedAccount: true} });
+        // this.dialogRef.close();
+      }, error1 => {
+        console.log( error1 );
+      });
+  }
 }
 
 @Component({

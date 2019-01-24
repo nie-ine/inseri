@@ -29,19 +29,10 @@ export class RegisterComponent implements OnInit{
     this.authService.createUser(this.model.email, this.model.password, this.model.firstName, this.model.lastName, this.model.newsletter)
       .subscribe( response => {
         this.userCreated = true;
+        console.log( 'user created --> go to dashboard' );
+      }, error1 => {
+        console.log( 'Error' );
       });
-/*    this.userService.create(this.model)
-      .subscribe(
-        data => {
-          console.log(data);
-          this.alertService.success('Registration successful', true);
-          this.router.navigate(['/home']);
-        },
-        error => {
-          console.log(error);
-          this.alertService.error(error);
-          this.loading = false;
-        });*/
   }
 
     changeNewsletter(e: any) {
