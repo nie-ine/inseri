@@ -9,6 +9,7 @@ import { ExampleComponent } from 'nie-ine';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import { ReactivateAccountComponent } from './reactivate-account/reactivate-account.component';
+import { DeactivateNewsletterComponent } from './deactivate-newsletter/deactivate-newsletter.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { ReactivateAccountComponent } from './reactivate-account/reactivate-acco
       { path: 'example', component: ExampleComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'reactivate', component: ReactivateAccountComponent },
+      { path: 'deactivate-newsletter', component: DeactivateNewsletterComponent },
       { path: '', redirectTo: '/home', pathMatch: 'full'}
       ])
   ],
@@ -30,7 +32,8 @@ import { ReactivateAccountComponent } from './reactivate-account/reactivate-acco
     AboutComponent,
     HomeComponent,
     RegisterComponent,
-    ReactivateAccountComponent],
+    ReactivateAccountComponent,
+    DeactivateNewsletterComponent],
   exports: [
     AboutComponent,
     HomeComponent]

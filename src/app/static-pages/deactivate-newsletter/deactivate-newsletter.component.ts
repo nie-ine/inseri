@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {AuthService} from '../../shared/nieOS/mongodb/auth/auth.service';
 
 @Component({
-  selector: 'app-reactivate-account',
-  templateUrl: './reactivate-account.component.html'
+  selector: 'app-deactivate-newsletter',
+  templateUrl: './deactivate-newsletter.component.html'
 })
-export class ReactivateAccountComponent {
+export class DeactivateNewsletterComponent implements OnInit {
   password: string;
   loginError = false;
   reactivated = false;
@@ -15,10 +15,10 @@ export class ReactivateAccountComponent {
     private authService: AuthService
   ) { }
 
-  reactivate() {
-    this.authService.reactivateAccount(
-      this.route.snapshot.queryParams['user'],
-      this.password
+  ngOnInit() {
+    console.log( this.route.snapshot.queryParams['user'] );
+    this.authService.deactivateNewsletter(
+      this.route.snapshot.queryParams['user']
     )
       .subscribe( result => {
         this.reactivated = true;
@@ -29,5 +29,4 @@ export class ReactivateAccountComponent {
         this.loginError = true;
       } );
   }
-
 }
