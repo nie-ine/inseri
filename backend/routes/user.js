@@ -264,6 +264,26 @@ router.put('/:id/delete', checkAuth, (req, res, next) => {
     });
 });
 
+router.get('/:id/deactivate-newsletter', (req, res, next) => {
+    User.findOneAndUpdate({_id: req.params.id},
+      {
+        newsletter: false
+      })
+      .then(result => {
+        // Create response
+        res.status(201).json({
+          message: 'User does not receive newsletter anymore',
+        });
+      })
+      .catch(err => {
+      console.log(err);
+      return res.status(401).json({
+        message: 'Did not find user'
+      });
+    });
+});
+
+
 router.put('/:id/reactivate', (req, res, next) => {
   let messages = [];
   // Tests if old password input is undefined, null or is empty string

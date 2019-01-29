@@ -96,7 +96,7 @@ router.post('', checkAuth, (req, res, next) => {
         // Default values for the pageset
         const defaultTitle = 'Example pageSet 00';
         const defaultDescription = 'Dies als Beispiel für eine PageSet bei NIE-OS';
-        const defaultLinkToImage = 'https://c8.alamy.com/comp/DX9AP3/open-book-vintage-accessories-old-letters-pages-photo-frames-glasses-DX9AP3.jpg';
+        const defaultLinkToImage = '../../../../assets/img/pageset.png';
 
         const newPageSet = new PageSet({
             title: defaultTitle,
