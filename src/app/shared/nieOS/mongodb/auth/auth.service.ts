@@ -74,6 +74,10 @@ export class AuthService {
     return this.http.get(`${AuthService.API_BASE_URL_USER}/${userId}`);
   }
 
+  deactivateNewsletter( userId: string ): Observable<any> {
+    return this.http.get(`${AuthService.API_BASE_URL_USER}/${userId}/deactivate-newsletter`);
+  }
+
   deleteAccount( userId: string, oldPwd: string ) {
     const pwd: any = {
       userId: userId,
