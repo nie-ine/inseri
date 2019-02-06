@@ -9,7 +9,7 @@
   </mat-form-field>
 
   <div>
-    <mat-form-field class="example-form-field" *ngIf="!isLoading">
+    <mat-form-field class="example-form-field" >
       <input matInput type="text" placeholder="Add New Query" [(ngModel)]="value">
     </mat-form-field>
     <button *ngIf="value" mat-button mat-icon-button (click)="createNewQuery(value)">
