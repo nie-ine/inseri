@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import { ReactivateAccountComponent } from './reactivate-account/reactivate-account.component';
 import { DeactivateNewsletterComponent } from './deactivate-newsletter/deactivate-newsletter.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { DeactivateNewsletterComponent } from './deactivate-newsletter/deactivat
       { path: 'register', component: RegisterComponent },
       { path: 'reactivate', component: ReactivateAccountComponent },
       { path: 'deactivate-newsletter', component: DeactivateNewsletterComponent },
+      { path: 'reset-password', component: ResetPasswordComponent },
       { path: '', redirectTo: '/home', pathMatch: 'full'}
       ])
   ],
@@ -33,7 +35,8 @@ import { DeactivateNewsletterComponent } from './deactivate-newsletter/deactivat
     HomeComponent,
     RegisterComponent,
     ReactivateAccountComponent,
-    DeactivateNewsletterComponent],
+    DeactivateNewsletterComponent,
+    ResetPasswordComponent],
   exports: [
     AboutComponent,
     HomeComponent]

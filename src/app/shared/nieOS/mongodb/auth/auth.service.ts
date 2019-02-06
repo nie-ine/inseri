@@ -78,6 +78,19 @@ export class AuthService {
     return this.http.get(`${AuthService.API_BASE_URL_USER}/${userId}/deactivate-newsletter`);
   }
 
+  resetPassword( email: string ): Observable<any> {
+    return this.http.get(`${AuthService.API_BASE_URL_USER}/${email}/reset-password`);
+  }
+
+  resetPasswordSetNewPassword( email: string, temp: string, newPwd: string ): Observable<any> {
+    const pwd: any = {
+      email: email,
+      newPwd: newPwd,
+      temp: temp
+    };
+    return this.http.post(`${AuthService.API_BASE_URL_USER}/${email}/reset-password-set-new-password`, pwd);
+  }
+
   deleteAccount( userId: string, oldPwd: string ) {
     const pwd: any = {
       userId: userId,

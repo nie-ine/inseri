@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
   returnUrl: string;
   loginError = false;
   deletedAccount = false;
+  forgotPassword: false;
 
   constructor(
     private route: ActivatedRoute,
@@ -59,6 +60,18 @@ export class HomeComponent implements OnInit {
     setTimeout(() => {
       this.loginError = true;
     }, 4000);
+  }
+
+  restorePassword() {
+    console.log( 'Restore Password' );
+    this.authService.resetPassword(this.username)
+      .subscribe(
+        data => {
+          console.log( data );
+        }, error1 => {
+          console.log( error1 );
+        }
+      );
   }
 
 }
