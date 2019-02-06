@@ -1,10 +1,12 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
+let settings = require('../.settings/mailDetails');
 const User = require('../models/user');
 const Action = require('../models/action');
 const Query = require('../models/query');
+let nodemailer = require('nodemailer');
+const nieOsServer = require('../.settings/nieOsServer');
 
 const checkAuth = require('../middleware/check-auth');
 const salt = require('../.settings/salt');
@@ -276,6 +278,84 @@ router.get('/:id/deactivate-newsletter', (req, res, next) => {
         });
       })
       .catch(err => {
+      console.log(err);
+      return res.status(401).json({
+        message: 'Did not find user'
+      });
+    });
+});
+
+router.get('/:email/reset-password', (req, res, next) => {
+  User.findOne({email: req.params.email})
+    .then(result => {
+
+      const transporter = nodemailer.createTransport({
+        service: settings.type,
+        auth: {
+          user: settings.emailAdress, // Your email id
+          pass: settings.pw // Your password
+        }
+      });
+
+      const mailOptions = {
+        from: result.email, // sender address
+        to: result.email, // list of receivers
+        subject: 'Reset Password', // Subject line
+        text: 'Please klick on the following link to restore your password: \n\n' +
+          nieOsServer.nieOSServer +
+          '/reset-password?email=' +
+          encodeURIComponent(result.email) +
+          '&temp=' +
+          encodeURIComponent(result.password).substring(0,result.email.length)
+      };
+
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+          res.json({yo: 'error'});
+        } else {
+          console.log('Message sent: ' + info.response);
+          res.json({yo: info.response});
+        }
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      return res.status(401).json({
+        message: 'Did not find user'
+      });
+    });
+});
+
+router.post('/:email/reset-password-set-new-password', (req, res, next) => {
+  User.findOne({email: req.params.email})
+    .then(result => {
+      if ( decodeURIComponent(
+        encodeURIComponent(result.password)
+          .substring(0,result.email.length)) == req.body.temp ) {
+
+        bcrypt.hash(req.body.newPwd, 10)
+          .then((hash => {
+            // Find User in database and update pwd
+            User.findOneAndUpdate({email: req.params.email},
+              {
+                password: hash
+              })
+              .then(result => {
+                // Create response
+                res.status(201).json({
+                  message: 'Pwd updated',
+                });
+              });
+          }))
+          .catch(err => {
+            res.status(500).json({
+              error: err
+            })
+          });
+      }
+    })
+    .catch(err => {
       console.log(err);
       return res.status(401).json({
         message: 'Did not find user'

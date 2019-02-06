@@ -130,7 +130,7 @@
       <div class="col-lg-12 text-center">
         <h2 class="section-heading">NIE-OS Login</h2>
         <h3 class="section-subheading text-muted">Sie haben keinen Useraccount?
-          Zögern Sie nicht, uns zu <a href="http://www.nie-ine.ch" target="_blank">kontaktieren!</a> <!--Oder <a  href="register">registrieren</a> Sie sich!--></h3>
+          Zögern Sie nicht, uns zu <a href="http://www.nie-ine.ch" target="_blank">kontaktieren!</a> Oder <a  href="register">registrieren</a> Sie sich!</h3>
         <h6 *ngIf="loginError" style="color: #b05f56" class="section-subheading text-muted">Username oder Passwort ist falsch!</h6>
         <h5 *ngIf="deletedAccount" style="color: #b05f56" class="section-subheading text-muted">Your account has been deleted.
           You can restore it for the next 30 days with the help of the email that you have received.</h5>
@@ -154,18 +154,40 @@
             <div class="col-md-6">
               <div class="form-group">
                 <input
+                  *ngIf="!forgotPassword"
                   [(ngModel)]="password"
                   name="password"
                   type="password"
                   class="form-control"
                   placeholder="Password" >
                 <p class="help-block text-danger"></p>
+                <span
+                  *ngIf="forgotPassword"
+                  class="section-subheading text-muted "> You will get an Email with a Link to restore your password</span>
               </div>
             </div>
             <div class="clearfix"></div>
             <div class="col-lg-12 text-center">
               <div id="success"></div>
-              <button (click)="startLoginProcess()"  type="button" class="btn btn-xl">Login</button>
+              <button
+                *ngIf="!forgotPassword"
+                (click)="startLoginProcess()"
+                type="button"
+                class="btn btn-xl">Login</button>
+              <button
+                *ngIf="forgotPassword"
+                (click)="restorePassword()"
+                type="button"
+                class="btn btn-xl">Send Email</button>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-lg-12 text-center">
+              <div id="forgotPassword"></div>
+              <h2 class="section-heading"></h2>
+              <mat-checkbox
+                class="section-subheading text-muted "
+                style="margin-top: 20px"
+                (click)="forgotPassword = !forgotPassword">Passwort vergessen?</mat-checkbox>
             </div>
           </div>
         </form>
