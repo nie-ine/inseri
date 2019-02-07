@@ -51,11 +51,14 @@ export class GenerateArrayFromLeafsService {
   }
 
   generateEntry( subtree: any, depth: number ) {
-    if ( this.path.length - 1 === depth ) {
-      // console.log( subtree, this.path[ this.path.length - 1 ] );
+    if ( this.path.length - 1 === depth && subtree ) {
       this.output.push( subtree[ this.path[ this.path.length - 1 ] ] );
-    } else {
+    } else if ( subtree && !subtree[ 0 ] ) {
       this.generateEntry( subtree[ this.path[ depth ] ], depth + 1 );
+    } else if ( subtree && subtree[ 0 ] ) {
+      for ( let i = 0; i < subtree.length; i++ ) {
+        this.generateEntry( subtree[ i ], depth );
+      }
     }
   }
 }
