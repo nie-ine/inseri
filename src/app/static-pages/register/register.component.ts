@@ -39,7 +39,7 @@ export class RegisterComponent implements OnInit{
             const message = 'Guten Tag, ' + this.model.firstName + ', Du hast Dich zu unserem Newsletter angemeldet.' +
               '\n\nBitte klicke auf den folgenden Link, wenn Du Dich abmelden möchtest: \n\n'
               + environment.app + '/deactivate-newsletter?user=' + response.result._id;
-            this.contactService.sendMessage( message )
+            this.contactService.sendMessage( message, this.model.email )
               .subscribe( response1 => {
                 console.log(response1);
               }, error1 => {

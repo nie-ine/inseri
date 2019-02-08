@@ -330,7 +330,7 @@ export class DialogUserSettingsDialog implements OnInit {
               const message = 'Guten Tag, ' + this.profileForm.get('firstname').value + ', Du hast Dich zu unserem Newsletter angemeldet.' +
                 '\n\nBitte klicke auf den folgenden Link, wenn Du Dich abmelden möchtest: \n\n'
                 + environment.app + '/deactivate-newsletter?user=' + this.userId;
-              this.contactService.sendMessage( message )
+              this.contactService.sendMessage( message, this.profileForm.get('email').value )
                 .subscribe( response1 => {
                   console.log(response1);
                 }, error1 => {
@@ -381,7 +381,7 @@ export class DialogUserSettingsDialog implements OnInit {
           'schade, dass Du Deinen Account bei NIE-OS deaktiviert hast, wir werden Dich vermissen!\n\n\n' +
           'Innerhalb der nächsten 30 Tage kannst Du Deinen Account wiederherstellen, wenn Du hier klickst:\n\n' +
           environment.app + '/reactivate?user=' + this.userId +
-          '\n\n\nViele schöne Grüsse und alles Gute von Deinem NIE-OS Team!'
+          '\n\n\nViele schöne Grüsse und alles Gute von Deinem NIE-OS Team!', this.profileForm.get('email').value
         )
           .subscribe( response => {
             console.log(response);

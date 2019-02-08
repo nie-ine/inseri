@@ -11,10 +11,12 @@ export class ContactService {
     private http: HttpClient,
   ) {}
 
-  sendMessage( message: string ): Observable<any> {
+  sendMessage( message: string, recipient?: string ): Observable<any> {
+    console.log( recipient );
     return this.http.post(`${ContactService.API_BASE_URL_MESSAGE}`,
       {
-        message: message
+        message: message,
+        recipient: recipient
       });
   }
 }
