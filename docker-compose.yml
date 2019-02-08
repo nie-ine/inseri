@@ -1,0 +1,28 @@
+version: "2"
+
+services:
+
+  nieos:
+    image: nieine/mean:20190208
+    ports:
+    - 4200:4200
+    entrypoint: ng s --host 0.0.0.0 --disable-host-check
+    environment:
+    - VIRTUAL_HOST=nie-ine.localhost
+
+  node:
+    image: nieine/mean:20190208
+    ports:
+    - 3000:3000
+    entrypoint: npm run start:server
+    environment:
+    - VIRTUAL_HOST=node.localhost
+    volumes:
+      - ./backend/.settings:/nieOS/backend/.settings
+
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    ports:
+    - "80:80"
+    volumes:
+    - /var/run/docker.sock:/tmp/docker.sock:ro
