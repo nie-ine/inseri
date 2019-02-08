@@ -74,7 +74,6 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
         this.queryService.updateQueryOfPage(this.data.pageID, this.data.query._id, this.data.query)
           .subscribe((data) => {
             if (data.status === 200) {
-              this.close();
             } else {
               console.log('Updating query failed');
             }
@@ -84,7 +83,6 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
         this.queryService.updateQuery(this.data.query._id, this.data.query)
           .subscribe((data) => {
             if (data.status === 200) {
-              this.close();
             } else {
               console.log('Updating query failed');
             }
