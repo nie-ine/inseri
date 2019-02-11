@@ -252,6 +252,7 @@ export class DataManagementComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       this.reloadVariables = true;
+      this.spinner1.show();
       console.log( result );
     });
   }
