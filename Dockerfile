@@ -4,7 +4,7 @@ COPY . ./nieOS
 
 WORKDIR ./nieOS
 
-RUN rm -R ./backend/.settings
+RUN rm -R ./backend/.settings || true
 
 RUN npm install --global yarn
 

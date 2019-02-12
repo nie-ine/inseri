@@ -3,7 +3,7 @@ version: "2"
 services:
 
   nieos:
-    image: nieine/mean:latest
+    image: nieine/mean:20190212
     ports:
     - 4200:4200
     entrypoint: ng s --host 0.0.0.0 --disable-host-check
@@ -11,7 +11,7 @@ services:
     - VIRTUAL_HOST=nie-ine.localhost
 
   node:
-    image: nieine/mean:latest
+    image: nieine/mean:20190212
     ports:
     - 3000:3000
     entrypoint: npm run start:server
