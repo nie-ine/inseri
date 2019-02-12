@@ -526,7 +526,6 @@ router.post('/login', (req, res, next) => {
                     message: 'Auth failed'
                 })
             }
-            console.log( user.delete );
             if ( user.delete ) {
               return res.status(405).json({
                 message: 'User has been deactivated'
