@@ -35,6 +35,47 @@ module.exports = {
 };
 ```
 
+- another file in this folder should be mailDetails, where you can put the information for your email - server, it should look like the following:
+
+```
+const emailAdress = '<your Email Address>';
+const pw = '<your password>';
+const recipient = '<default recipient if there is no other one defined>';
+const type = '<type of your mail server>';
+
+module.exports = {
+  emailAdress: emailAdress,
+  pw: pw,
+  recipient: recipient,
+  type: type
+};
+```
+
+- another file is nieOsServer.js:
+
+```
+const nieOSServer = 'http://localhost:4200';
+
+module.exports = {
+  nieOSServer: nieOSServer
+};
+
+```
+
+- another file is salt.js
+
+
+```
+const salt = 'your_secret_that_should_be_very_long';
+
+
+module.exports = {
+  salt: salt
+};
+
+```
+
+
 ## 3. Start Angular and Node.js
 
   
