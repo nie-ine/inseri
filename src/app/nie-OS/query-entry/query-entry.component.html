@@ -57,8 +57,18 @@
 
       <div *ngIf="response" style="margin-top: 40px">
         <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-          <mat-button-toggle (click)="changeTreeInput( response )" [checked]="true" >Show tree with data</mat-button-toggle>
-          <mat-button-toggle (click)="changeTreeInput( abstractJson )">Show abstract tree structure</mat-button-toggle>
+          <mat-button-toggle
+            style="color: red !important"
+            [ngStyle]="{'color': error ? 'red' : 'grey'}"
+            (click)="changeTreeInput( response )"
+            [checked]="true" >
+            Show tree with data
+          </mat-button-toggle>
+          <mat-button-toggle
+            *ngIf="abstractJson"
+            (click)="changeTreeInput( abstractJson )">
+            Show abstract tree structure
+          </mat-button-toggle>
         </mat-button-toggle-group>
 
         <app-response-tree

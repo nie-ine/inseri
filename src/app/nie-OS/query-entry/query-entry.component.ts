@@ -27,6 +27,7 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
   form: FormGroup;
   paths = [];
   chosenInputs = ['label'];
+  error = false;
 
   constructor(
     public dialogRef: MatDialogRef<QueryEntryComponent>,
@@ -134,9 +135,13 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
           this.response = data.body;
           this.tree = data.body;
           this.abstractJson = this.abstractJsonService.json2abstract(data.body);
+        this.error = false;
           console.log(this.abstractJson);
         }, error => {
           console.log( error );
+        this.response = error;
+        this.tree = error;
+        this.error = true;
         }
       );
   }
@@ -148,7 +153,12 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
         this.response = data.body;
         this.tree = data.body;
         this.abstractJson = this.abstractJsonService.json2abstract(data.body);
-        }, error => console.log(error));
+        this.error = false;
+        }, error => {
+        this.response = error;
+        this.tree = error;
+        this.error = true;
+      });
   }
 
   putRequest(url: string, parameter: any, header: any, body: string) {
