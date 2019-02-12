@@ -1,30 +1,9 @@
 sudo: required
 dist: trusty
 
-language: node_js
-node_js:
-  - '8'
-
-addons:
-  apt:
-    sources:
-    - ubuntu-toolchain-r-test
-    packages:
-    - g++-4.9
-
-install:
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-  - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-  - sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-  - sudo apt-get update -q
-  - sudo apt-get install -q google-chrome-stable
-  - npm install -g @angular/cli@1.6.3
-
-before_script:
-  - CC=gcc-4.9 CXX=g++-4.9 npm install
-  - git submodule update --remote
+services:
+- docker
 
 script:
-  - ng test --single-run
+  - docker build -t mean .
 

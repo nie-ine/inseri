@@ -93,6 +93,13 @@ module.exports = {
 2. Open `localhost:5555` in browser
 3. Optional: Set `NGINX_HOST` and `NGINX_PORT` to customise the webserver. E.g. `docker run -e NGINX_HOST=http://example.com -e NGINX_PORT=1234 -p 1234:1234 nieine/nieos:latest`.
 
+## Deployment procedure
+
+- locally run ```docker built -t mean .```
+- locally try ```docker-compose up```
+
+If everything works as expected, push the mean - image to dockerhub and pull it on your server.
+
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
