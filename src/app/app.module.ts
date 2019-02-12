@@ -1,12 +1,12 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {CoreModule} from './core/core.module';
+import {CoreModule} from './user-action-engine/core.module';
 import {AppComponent} from './app.component';
-import {AlertService} from './shared/nieOS/fake-backend/auth/altert.service';
-import {AuthenticationService} from './shared/nieOS/fake-backend/auth/authentication.service';
+import {AlertService} from './query-engine/fake-backend/auth/altert.service';
+import {AuthenticationService} from './query-engine/fake-backend/auth/authentication.service';
 import {HttpClientModule} from '@angular/common/http';
-import {fakeBackendProvider} from './shared/nieOS/fake-backend/fake-backend';
-import {AuthGuard} from './shared/nieOS/fake-backend/auth/auth.guard';
+import {fakeBackendProvider} from './query-engine/fake-backend/fake-backend';
+import {AuthGuard} from './query-engine/fake-backend/auth/auth.guard';
 import {environment} from '../environments/environment';
 import {KuiCoreModule} from '@knora/core';
 
