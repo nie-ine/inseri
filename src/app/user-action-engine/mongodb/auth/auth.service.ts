@@ -161,11 +161,13 @@ export class AuthService {
     }
   }
 
-  logout() {
+  logout( navigateToHome?: boolean ) {
     this.token = null;
     this.isAuthenticated = false;
     this.authStatusListener.next(false);
-    this.router.navigate(['/home']);
+    if ( navigateToHome === undefined ) {
+      this.router.navigate(['/home']);
+    };
     clearTimeout(this.tokenTimer);
     this.clearAuthData();
   }

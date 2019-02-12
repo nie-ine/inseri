@@ -424,6 +424,7 @@ export class ExtendSessionComponent {
   extendSession() {
     this.loginError = false;
     console.log( 'Extend Session - get request with user ID', this.email, this.password );
+    this.authService.logout( false );
     this.authService.login(
       this.email,
       this.password,
