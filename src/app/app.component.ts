@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from './shared/nieOS/mongodb/auth/auth.service';
+import {AuthService} from './user-action-engine/mongodb/auth/auth.service';
 
 @Component({
   selector: 'app-root',
