@@ -87,18 +87,15 @@ module.exports = {
 ```npm run start:server```
  
 
-## Run in Docker container ( does not work at the moment )
-
-1. Download and run Docker container: `docker run -p 5555:80 nieine/nieos:latest`
-2. Open `localhost:5555` in browser
-3. Optional: Set `NGINX_HOST` and `NGINX_PORT` to customise the webserver. E.g. `docker run -e NGINX_HOST=http://example.com -e NGINX_PORT=1234 -p 1234:1234 nieine/nieos:latest`.
+## Run in Docker container 
+run ```docker-compose up```
 
 ## Deployment procedure
 
 - locally run ```docker built -t mean .```
 - locally try ```docker-compose up```
 
-If everything works as expected, push the mean - image to dockerhub and pull it on your server.
+If everything works as expected, push the mean - image to dockerhub (once tag it as with a version, once tag it with latest) and pull it on your server.
 
 ## Running unit tests
 

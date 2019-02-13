@@ -3,20 +3,22 @@ version: "2"
 services:
 
   nieos:
-    image: nieine/mean:20190212
+    image: nieine/mean:latest
     ports:
     - 4200:4200
     entrypoint: ng s --host 0.0.0.0 --disable-host-check
     environment:
     - VIRTUAL_HOST=nie-ine.localhost
+    - LETSENCRYPT_HOST=nie-ine.localhost
 
   node:
-    image: nieine/mean:20190212
+    image: nieine/mean:latest
     ports:
     - 3000:3000
     entrypoint: npm run start:server
     environment:
     - VIRTUAL_HOST=node.localhost
+    - LETSENCRYPT_HOST=node.localhost
     volumes:
       - ./backend/.settings:/nieOS/backend/.settings
 
@@ -24,5 +26,17 @@ services:
     image: jwilder/nginx-proxy
     ports:
     - "80:80"
+    - "443:443"
     volumes:
     - /var/run/docker.sock:/tmp/docker.sock:ro
+    - /usr/share/nginx/html
+    - /etc/nginx/vhost.d
+    - /etc/nginx/certs
+
+  nginx-proxy-letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    volumes_from:
+      - nginx-proxy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
