@@ -15,6 +15,7 @@ import {Observable} from 'rxjs';
 import 'rxjs/add/observable/interval';
 import {ContactService} from '../mongodb/contact/contact.service';
 import { environment } from '../../../environments/environment';
+import { PasswordFormatCheckService } from '../shared/password-format-check.service';
 
 export interface ChipColor {
   name: string;
@@ -270,7 +271,7 @@ export class DialogUserSettingsDialog implements OnInit {
     profileForm: FormGroup;
     pwdForm: FormGroup;
     deleteAccount: FormGroup;
-    neededSpecialCharacters = ' !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
+    neededSpecialCharacters;
     wrongFormatAlert = false;
 
     constructor(
@@ -279,10 +280,12 @@ export class DialogUserSettingsDialog implements OnInit {
       private authService: AuthService,
       public snackBar: MatSnackBar,
       private router: Router,
-      private contactService: ContactService
+      private contactService: ContactService,
+      private passwortFormatCheckService: PasswordFormatCheckService
     ) {}
 
     ngOnInit() {
+      this.neededSpecialCharacters = this.passwortFormatCheckService.neededSpecialCharacters;
       this.userId = this.data.userId;
 
       this.profileForm = new FormGroup({
@@ -306,38 +309,6 @@ export class DialogUserSettingsDialog implements OnInit {
       this.resetErrorPwd();
       this.resetErrorProfile();
     }
-
-  checkProposedPassword(password): boolean {
-    let isValidPassword = true;
-
-    // Reject passwords without upper-case letters.
-    if (/[A-Z]/.test(password) === false) {
-      isValidPassword = false;
-    }
-
-    // Reject passwords without lower-case letters.
-    if (/[a-z]/.test(password) === false) {
-      isValidPassword = false;
-    }
-
-    // Reject passwords without numbers.
-    if (/[0-9]/.test(password) === false) {
-      isValidPassword = false;
-    }
-
-    // Reject passwords without special characters.
-    const setOfSpecials = new RegExp('[' + this.neededSpecialCharacters + ']');
-    if (setOfSpecials.test(password) === false) {
-      isValidPassword = false;
-    }
-
-    // Reject passwords that are shorter than 9 characters.
-    if (password.length < 9) {
-      isValidPassword = false;
-    }
-
-    return isValidPassword;
-  }
 
     resetErrorPwd() {
       this.errorPwd = false;
@@ -384,7 +355,7 @@ export class DialogUserSettingsDialog implements OnInit {
     }
 
     changePwd() {
-  if (this.checkProposedPassword(this.pwdForm.get('newpwd1').value)) {
+  if (this.passwortFormatCheckService.checkProposedPassword(this.pwdForm.get('newpwd1').value)) {
     this.resetErrorPwd();
     this.authService.updatePwd(
       this.userId,

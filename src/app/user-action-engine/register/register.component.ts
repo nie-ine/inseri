@@ -5,6 +5,7 @@ import { AlertService} from '../../query-engine/fake-backend/auth/altert.service
 import { AuthService } from '../mongodb/auth/auth.service';
 import {ContactService} from '../mongodb/contact/contact.service';
 import {environment} from '../../../environments/environment';
+import { PasswordFormatCheckService } from '../shared/password-format-check.service';
 
 @Component({
   selector: 'app-register',
@@ -16,59 +17,24 @@ export class RegisterComponent implements OnInit{
   userCreated = false;
   validEmail = false;
   acceptTermsBoolean = false;
-  neededSpecialCharacters = ' !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
+  neededSpecialCharacters;
   wrongFormatAlert = false;
 
   constructor(
     private router: Router,
     private alertService: AlertService,
     public authService: AuthService,
-    private contactService: ContactService
+    private contactService: ContactService,
+    private passwordFormatCheckService: PasswordFormatCheckService
   ) {}
 
   ngOnInit() {
     this.model.newsletter = false;
-  }
-
-  /**
-   * Check if a candidate for a new password fulfils some typical password-specific requirements.
-   * True if the password is valid, false if the password is invalid.
-   * @param password: the candidate for the new password
-   */
-  checkProposedPassword(password): boolean {
-    let isValidPassword = true;
-
-    // Reject passwords without upper-case letters.
-    if (/[A-Z]/.test(password) === false) {
-      isValidPassword = false;
-    }
-
-    // Reject passwords without lower-case letters.
-    if (/[a-z]/.test(password) === false) {
-      isValidPassword = false;
-    }
-
-    // Reject passwords without numbers.
-    if (/[0-9]/.test(password) === false) {
-      isValidPassword = false;
-    }
-
-    // Reject passwords without special characters.
-    const setOfSpecials = new RegExp('[' + this.neededSpecialCharacters + ']');
-    if (setOfSpecials.test(password) === false) {
-      isValidPassword = false;
-    }
-
-    // Reject passwords that are shorter than 9 characters.
-    if (password.length < 9) {
-      isValidPassword = false;
-    }
-
-    return isValidPassword;
+    this.neededSpecialCharacters = this.passwordFormatCheckService.neededSpecialCharacters;
   }
 
   register() {
-    if (this.checkProposedPassword(this.model.password)) {
+    if (this.passwordFormatCheckService.checkProposedPassword(this.model.password)) {
       this.wrongFormatAlert = false;
       this.loading = true;
       this.authService.createUser(this.model.email, this.model.password, this.model.firstName, this.model.lastName, this.model.newsletter)
