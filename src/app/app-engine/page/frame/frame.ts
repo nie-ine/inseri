@@ -13,8 +13,6 @@ import 'rxjs/add/operator/map';
 import {MatDialog} from '@angular/material';
 import { FrameSettingsComponent } from '../frame-settings/frame-settings.component';
 
-declare var grapesjs: any; // Important!
-
 @Component({
   selector: 'popup',
   templateUrl: 'frame.html',
@@ -72,25 +70,12 @@ export class Frame implements OnInit, OnChanges {
 
   ngOnInit() {
     // If coordinates of window are set through input, let it appear
-    if( this.firstPopupX && this.firstPopupY ) {
+    if ( this.firstPopupX && this.firstPopupY ) {
       this.appear();
     } else {
       this.firstPopupX = 100;
       this.firstPopupY = 100;
     }
-    const editor = grapesjs.init({
-      container: '#grapesJSViewer',
-      components: '<div class="txt-red">Hello world!</div>',
-      style: '.txt-red{color: red}',
-    });
-
-    const blockManager = editor.BlockManager;
-
-    blockManager.add('konvolut-titel', {
-      label: 'Vokabulare in Knora',
-      attributes: { class:'fa fa-newspaper-o' },
-      content:  '<div>NIE-INE test</div>',
-    });
   }
 
   appear() {

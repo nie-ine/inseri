@@ -1,13 +1,13 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
-<div style="margin-top: 40px; width: 900px;" *ngIf="!isLoading">
+<div style="margin-top: 40px; width: 900px; margin-left: auto ; margin-right: auto ;" *ngIf="!isLoading">
 
-  <div style="float:left; width: 100%;">
+  <div style=" margin-left: auto ; margin-right: auto ; width: 100%;">
 
     <img src="{{ generateImage() }}"
-         style="float: left; margin-right: 30px; margin-left: 30px;"
+         style="float: left; margin-right: 30px;"
          height="300">
 
-    <div style="float: left; ">
+    <div style="margin-left: auto ; margin-right: auto ; ">
       <h2>
         {{ generateTitle() }}
       </h2>
@@ -16,7 +16,7 @@
   </div>
 
   <div style="float:left; clear: left; width: 100%;">
-    <div style="margin-right: 30px; margin-left: 30px; margin-top: 20px;" *ngFor="let page of pagesOfThisPageSet; let i = index; ">
+    <div style="margin-right: 30px; margin-top: 20px;" *ngFor="let page of pagesOfThisPageSet; let i = index; ">
       <mat-divider></mat-divider>
         <span>
           <a href="{{ generateURL( page ) }}" style="font-size: 25px" > {{ page.title }} </a>

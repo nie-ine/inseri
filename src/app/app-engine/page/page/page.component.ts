@@ -26,7 +26,6 @@ import {GeneralRequestService} from '../../../query-engine/general/general-reque
 
 declare var grapesjs: any; // Important!
 
-
 @Component({
   selector: 'nie-os',
   templateUrl: `page.component.html`,
@@ -50,6 +49,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   index: number;
   updateLinkedApps = false;
   indexAppMapping: any = {};
+  grapesJSActivated = false;
   constructor(
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
@@ -63,6 +63,44 @@ export class PageComponent implements OnInit, AfterViewChecked {
     private requestService: GeneralRequestService
   ) {
     // this.route.params.subscribe(params => console.log(params));
+  }
+
+  activateGrapesJS() {
+    this.grapesJSActivated = true;
+    console.log( 'Activate GrapesJS' );
+    const editor = grapesjs.init({
+      container: '#grapesJSViewer'
+    });
+
+    const blockManager = editor.BlockManager;
+
+    blockManager.add('block', {
+      label: 'Text Block',
+      content:  '<div>Your changeable text</div>',
+    });
+
+    blockManager.add('image', {
+      label: 'Image',
+      content: {
+        type: 'image', // Built-in 'map' component
+      }
+    });
+
+    blockManager.add('my-map-block', {
+      label: 'Simple map block',
+      attributes: { class:'fa fa-map-o' },
+      content: {
+        type: 'map', // Built-in 'map' component
+        style: {
+          height: '350px',
+          width: '350px'
+        }
+      }
+    });
+  }
+
+  deactivateGrapesJS() {
+    this.grapesJSActivated = false;
   }
 
   openDataManagement() {
