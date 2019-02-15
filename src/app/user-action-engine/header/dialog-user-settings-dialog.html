@@ -61,6 +61,24 @@
         <div class="error-validation" *ngIf="pwdForm.get('oldpwd').hasError('required') && pwdForm.get('oldpwd').touched">
           Bitte geben Sie ihr Passwort ein!
         </div>
+        <p>The password should include at least</p>
+        <ul>
+          <li>
+            an upper-case letter (A-Z)
+          </li>
+          <li>
+            a lower-case letter (a-z)
+          </li>
+          <li>
+            a number (0-9)
+          </li>
+          <li>
+            one character of the following group: {{ neededSpecialCharacters }}
+          </li>
+          <li>
+            and has to be at least 9 characters long
+          </li>
+        </ul>
 
         <div>
           <mat-form-field class="full-width">
@@ -85,6 +103,9 @@
         <div class="error-validation" *ngIf="pwdForm.get('newpwd2').hasError('minlength') && pwdForm.get('newpwd2').touched">
           Minimum 4 Zeichen!
         </div>
+
+        <p *ngIf="wrongFormatAlert" style="color: darkred" >The chosen password does not follow the requirements.</p>
+
       </div>
 
       <button mat-button type="button" (click)="close()">Schliessen</button>

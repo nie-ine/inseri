@@ -20,11 +20,32 @@
       <div *ngIf="f.submitted && !email.valid" class="help-block">Email is required / Does not have the right format.</div>
     </div>
 
+    <p>The password should include at least</p>
+    <ul>
+      <li>
+        an upper-case letter (A-Z)
+      </li>
+      <li>
+        a lower-case letter (a-z)
+      </li>
+      <li>
+        a number (0-9)
+      </li>
+      <li>
+        one character of the following group: {{ neededSpecialCharacters }}
+      </li>
+      <li>
+        and has to be at least 9 characters long
+      </li>
+    </ul>
+
     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
       <label for="password">Password</label>
       <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
       <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
     </div>
+
+    <p *ngIf="wrongFormatAlert" style="color: darkred" >The chosen password does not follow the requirements.</p>
 
     <div class="form-group">
       <mat-slide-toggle [checked]="model.newsletter" (change)="changeNewsletter($event)">

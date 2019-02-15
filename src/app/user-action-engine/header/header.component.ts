@@ -270,6 +270,8 @@ export class DialogUserSettingsDialog implements OnInit {
     profileForm: FormGroup;
     pwdForm: FormGroup;
     deleteAccount: FormGroup;
+    neededSpecialCharacters = ' !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
+    wrongFormatAlert = false;
 
     constructor(
       public dialogRef: MatDialogRef<DialogUserSettingsDialog>,
@@ -305,6 +307,38 @@ export class DialogUserSettingsDialog implements OnInit {
       this.resetErrorProfile();
     }
 
+  checkProposedPassword(password): boolean {
+    let isValidPassword = true;
+
+    // Reject passwords without upper-case letters.
+    if (/[A-Z]/.test(password) === false) {
+      isValidPassword = false;
+    }
+
+    // Reject passwords without lower-case letters.
+    if (/[a-z]/.test(password) === false) {
+      isValidPassword = false;
+    }
+
+    // Reject passwords without numbers.
+    if (/[0-9]/.test(password) === false) {
+      isValidPassword = false;
+    }
+
+    // Reject passwords without special characters.
+    const setOfSpecials = new RegExp('[' + this.neededSpecialCharacters + ']');
+    if (setOfSpecials.test(password) === false) {
+      isValidPassword = false;
+    }
+
+    // Reject passwords that are shorter than 9 characters.
+    if (password.length < 9) {
+      isValidPassword = false;
+    }
+
+    return isValidPassword;
+  }
+
     resetErrorPwd() {
       this.errorPwd = false;
     }
@@ -318,20 +352,20 @@ export class DialogUserSettingsDialog implements OnInit {
     }
 
     save() {
-      this.resetErrorProfile();
-      this.authService.updateUser(
-        this.userId,
-        this.profileForm.get('email').value,
-        this.profileForm.get('firstname').value,
-        this.profileForm.get('lastname').value,
-        this.profileForm.get('newsletter').value)
+        this.resetErrorProfile();
+        this.authService.updateUser(
+          this.userId,
+          this.profileForm.get('email').value,
+          this.profileForm.get('firstname').value,
+          this.profileForm.get('lastname').value,
+          this.profileForm.get('newsletter').value)
           .subscribe((result) => {
-            if ( this.profileForm.get('newsletter').value ) {
+            if (this.profileForm.get('newsletter').value) {
               const message = 'Guten Tag, ' + this.profileForm.get('firstname').value + ', Du hast Dich zu unserem Newsletter angemeldet.' +
                 '\n\nBitte klicke auf den folgenden Link, wenn Du Dich abmelden möchtest: \n\n'
                 + environment.app + '/deactivate-newsletter?user=' + this.userId;
-              this.contactService.sendMessage( message, this.profileForm.get('email').value )
-                .subscribe( response1 => {
+              this.contactService.sendMessage(message, this.profileForm.get('email').value)
+                .subscribe(response1 => {
                   console.log(response1);
                 }, error1 => {
                   console.log(error1);
@@ -350,26 +384,30 @@ export class DialogUserSettingsDialog implements OnInit {
     }
 
     changePwd() {
-      this.resetErrorPwd();
-      this.authService.updatePwd(
-        this.userId,
-        this.pwdForm.get('oldpwd').value,
-        this.pwdForm.get('newpwd1').value)
-          .subscribe(result => {
-            this.close();
-          }, (error) => {
-            if (error.status === 400) {
-              this.errorPwd = true;
-              this.errorPwdMessage = 'Ungültiges Passwort!';
-            } else if (error.status === 420) {
-              this.errorPwd = true;
-              this.errorPwdMessage = 'Neues und altes Passwort sind identisch!';
-            } else {
-              this.errorPwd = true;
-              this.errorPwdMessage = 'Fehler mit dem Server!';
-            }
-          });
+  if (this.checkProposedPassword(this.pwdForm.get('newpwd1').value)) {
+    this.resetErrorPwd();
+    this.authService.updatePwd(
+      this.userId,
+      this.pwdForm.get('oldpwd').value,
+      this.pwdForm.get('newpwd1').value)
+      .subscribe(result => {
+        this.close();
+      }, (error) => {
+        if (error.status === 400) {
+          this.errorPwd = true;
+          this.errorPwdMessage = 'Ungültiges Passwort!';
+        } else if (error.status === 420) {
+          this.errorPwd = true;
+          this.errorPwdMessage = 'Neues und altes Passwort sind identisch!';
+        } else {
+          this.errorPwd = true;
+          this.errorPwdMessage = 'Fehler mit dem Server!';
+        }
+      });
+    } else {
+      this.wrongFormatAlert = true;
     }
+  }
 
   delete() {
       console.log('Delete Account');
