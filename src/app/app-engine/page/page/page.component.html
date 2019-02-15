@@ -34,12 +34,18 @@
         <h4 style="align-content: center">Your Page</h4>
         <button mat-button (click)="updatePage()">Save Page</button>
         <button mat-button (click)="expandPanels()"> Un/fold description</button><br>
-        <button mat-button (click)="openDataManagement()">Page Data Management</button>
+        <button mat-button (click)="openDataManagement()">Page Data Management</button><br>
+        <button mat-button (click)="activateGrapesJS()">GrapesJS </button>
+        <button mat-button (click)="deactivateGrapesJS()">Deactivate GrapesJS</button>
       </div>
 
       <div *ngIf="pageAsDemo">
         <h4 style="align-content: center">Demo - Page</h4>
         You can not save anything you do on this <br> demo - page. If you would like to save <br> pages and pageSets, please <a href="/register">register</a>.
+      </div>
+
+      <div *ngFor="let createResourceForm of openAppsInThisPage[ 'textlistViewers' ].model; let i = index;" >
+
       </div>
 
       <!-- Data Chooser -->
@@ -165,24 +171,24 @@
         <button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'synopsisViewer' ].model, true)"><mat-icon>art_track</mat-icon> Add Synopsis Viewer</button><br>
       </mat-expansion-panel>
 
-      <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            GrapesJS
-          </mat-panel-title>
-          <mat-panel-description>
-            Website building app
-          </mat-panel-description>
-        </mat-expansion-panel-header>
+      <!--<mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >-->
+        <!--<mat-expansion-panel-header>-->
+          <!--<mat-panel-title>-->
+            <!--GrapesJS-->
+          <!--</mat-panel-title>-->
+          <!--<mat-panel-description>-->
+            <!--Website building app-->
+          <!--</mat-panel-description>-->
+        <!--</mat-expansion-panel-header>-->
 
-        This app is under development. It is a Website builder documented <a href="https://grapesjs.com/" target="_blank">here</a>. It is intended
-        to create static parts of your niePage, with images, texts, etc.
+        <!--This app is under development. It is a Website builder documented <a href="https://grapesjs.com/" target="_blank">here</a>. It is intended-->
+        <!--to create static parts of your niePage, with images, texts, etc.-->
 
-        <mat-divider></mat-divider>
+        <!--<mat-divider></mat-divider>-->
 
-        <button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'grapesJSViewer' ].model, true)"><mat-icon>developer_board</mat-icon> Add GrapesJS </button>
+        <!--<button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'grapesJSViewer' ].model, true)"><mat-icon>developer_board</mat-icon> Add GrapesJS </button>-->
 
-      </mat-expansion-panel>
+      <!--</mat-expansion-panel>-->
 
       <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
         <mat-expansion-panel-header>
@@ -391,7 +397,9 @@
 
     </mat-drawer>
 
-    <div style="margin-top: 30px">
+    <div *ngIf="grapesJSActivated" id="grapesJSViewer" style="z-index: -1; position: absolute;"></div>
+
+    <div style="margin-top: 30px; vertical-align: bottom;">
       <button type="button" mat-button (click)="drawer.toggle()" matTooltip='{{ createTooltip() }}'>
         <mat-icon color="primary" >chrome_reader_mode</mat-icon> <h4 style="align-content: center" *ngIf="pageAsDemo">Demo</h4>
       </button>
@@ -454,25 +462,25 @@
       </mat-menu>
     </div>
 
-    <!-- GrapesJS -->
-    <div *ngFor="let grapesJS of openAppsInThisPage[ 'grapesJSViewer' ].model; let i = index;" >
-      <popup #grapesJSViewer
-             [hash]="openAppsInThisPage[ 'grapesJSViewer' ].model[i].hash"
-             [title]="'GrapesJS ' + i"
-             [type]="openAppsInThisPage[ 'grapesJSViewer' ].type"
-             [firstPopupX]="openAppsInThisPage[ 'grapesJSViewer' ].model[i].x"
-             [firstPopupY]="openAppsInThisPage[ 'grapesJSViewer' ].model[i].y"
-             (sendAppCoordinatesBack)="updateAppCoordinates($event)">
-        <div id="grapesJSViewer">Please drag this window to desired size and open other app. <br>
-          ( Click for example on image view, this will cause the instantiation of  grapesjs as well. )<br>
-          This is necessary because of a current bug.</div>
-      </popup>
-      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>developer_board</mat-icon> {{ i }} </button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="grapesJSViewer.appear()" >Show GrapesJS Viewer {{ i }}</button><br>
-        <button mat-menu-item (click)="closeApp( openAppsInThisPage[ 'grapesJSViewer' ].model, i )">Remove this app</button>
-      </mat-menu>
-    </div>
+    <!--&lt;!&ndash; GrapesJS &ndash;&gt;-->
+    <!--<div *ngFor="let grapesJS of openAppsInThisPage[ 'grapesJSViewer' ].model; let i = index;" >-->
+      <!--<popup #grapesJSViewer-->
+             <!--[hash]="openAppsInThisPage[ 'grapesJSViewer' ].model[i].hash"-->
+             <!--[title]="'GrapesJS ' + i"-->
+             <!--[type]="openAppsInThisPage[ 'grapesJSViewer' ].type"-->
+             <!--[firstPopupX]="openAppsInThisPage[ 'grapesJSViewer' ].model[i].x"-->
+             <!--[firstPopupY]="openAppsInThisPage[ 'grapesJSViewer' ].model[i].y"-->
+             <!--(sendAppCoordinatesBack)="updateAppCoordinates($event)">-->
+        <!--<div >Please drag this window to desired size and open other app. <br>-->
+          <!--( Click for example on image view, this will cause the instantiation of  grapesjs as well. )<br>-->
+          <!--This is necessary because of a current bug.</div>-->
+      <!--</popup>-->
+      <!--<button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>developer_board</mat-icon> {{ i }} </button>-->
+      <!--<mat-menu #menu="matMenu">-->
+        <!--<button mat-menu-item (click)="grapesJSViewer.appear()" >Show GrapesJS Viewer {{ i }}</button><br>-->
+        <!--<button mat-menu-item (click)="closeApp( openAppsInThisPage[ 'grapesJSViewer' ].model, i )">Remove this app</button>-->
+      <!--</mat-menu>-->
+    <!--</div>-->
 
     <!-- TextViewer -->
     <div *ngFor="let textViewer of openAppsInThisPage[ 'textViewer' ].model; let i = index;" >

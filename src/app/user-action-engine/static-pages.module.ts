@@ -21,7 +21,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     RouterModule.forChild([
       { path: 'home', component: HomeComponent },
       { path: 'example', component: ExampleComponent },
-      // { path: 'register', component: RegisterComponent },
+      { path: 'register', component: RegisterComponent },
       { path: 'reactivate', component: ReactivateAccountComponent },
       { path: 'deactivate-newsletter', component: DeactivateNewsletterComponent },
       { path: 'reset-password', component: ResetPasswordComponent },
