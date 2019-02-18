@@ -69,11 +69,11 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.grapesJSActivated = true;
     console.log( 'Activate GrapesJS' );
     const editor = grapesjs.init({
-      container: '#grapesJSViewer'
+      container: '#grapesJSViewer',
+      height: '100%'
     });
 
     const blockManager = editor.BlockManager;
-
     blockManager.add('block', {
       label: 'Text Block',
       content:  '<div>Your changeable text</div>',
@@ -210,6 +210,15 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   updatePage() {
+    console.log( this.page );
+    this.page.openApps[ 'grapesJS' ] = {};
+    this.page.openApps[ 'grapesJS' ].gjsAssets = localStorage.getItem('gjs-assets');
+    this.page.openApps[ 'grapesJS' ].gjsComponents = localStorage.getItem('gjs-components');
+    this.page.openApps[ 'grapesJS' ].gjsCss = localStorage.getItem('gjs-css');
+    this.page.openApps[ 'grapesJS' ].gjsHtml = localStorage.getItem('gjs-html');
+    this.page.openApps[ 'grapesJS' ].gjsStyles = localStorage.getItem('gjs-styles');
+    this.page.openApps[ 'grapesJS' ].hash = 'grapesJS';
+    // console.log( this.page );
     this.pageService.updatePage(this.page)
       .subscribe(
         data => {
