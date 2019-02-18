@@ -51,12 +51,37 @@ export class LoadVariablesComponent implements OnInit, OnChanges {
     this.reloadVariables();
   }
 
+  setGrapesJSLocalStorage( key: string, value: string ) {
+    if ( value ) {
+      localStorage.setItem( key, value );
+    } else {
+      localStorage.removeItem(key);
+    }
+  }
+
+  setGrapesJSMetaData(grapesJS: any) {
+    console.log( grapesJS );
+    if ( grapesJS ) {
+      this.setGrapesJSLocalStorage( 'gjs-assets', grapesJS.gjsAssets );
+      this.setGrapesJSLocalStorage( 'gjs-components', grapesJS.gjsComponents );
+      this.setGrapesJSLocalStorage( 'gjs-css', grapesJS.gjsCss );
+      this.setGrapesJSLocalStorage( 'gjs-html', grapesJS.gjsHtml );
+      this.setGrapesJSLocalStorage( 'gjs-styles', grapesJS.gjsStyles );
+    } else {
+      this.setGrapesJSLocalStorage( 'gjs-assets', undefined );
+      this.setGrapesJSLocalStorage( 'gjs-components', undefined );
+      this.setGrapesJSLocalStorage( 'gjs-css', undefined );
+      this.setGrapesJSLocalStorage( 'gjs-html', undefined );
+      this.setGrapesJSLocalStorage( 'gjs-styles', undefined );
+    }
+  }
+
   updateAppsInView(viewHash: string ) {
     this.pageService.getPage(viewHash)
       .subscribe(
         data => {
           this.page = ( data as any).page;
-          // console.log( this.page );
+          console.log( this.page );
           this.convertMappingsBackFromJson( this.page );
           const appHelperArray = [];
           for ( const app of this.page.openApps ) {
@@ -84,6 +109,7 @@ export class LoadVariablesComponent implements OnInit, OnChanges {
           // );
           this.sendPageBack.emit( this.page );
           this.sendOpenAppsInThisPageBack.emit( this.openAppsInThisPage );
+          this.setGrapesJSMetaData( this.page.openApps.grapesJS );
         },
         error => {
           console.log(error);

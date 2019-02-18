@@ -27,403 +27,78 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         //
         // // wrap in delayed observable to simulate server api call
         return Observable.of(null).mergeMap(() => {
-        //
-            // authenticate
-            if (request.url.endsWith('/tests/test1') && request.method === 'GET') {
-              const body = {
-                "head": {
-                  "vars": [
-                    "my_person",
-                    "label",
-                    "authorsname",
-                    "description"
-                  ]
+          if (request.url.endsWith('/tutorialOne') && request.method === 'GET') {
+            const body = {
+              poems: [
+                {
+                  season: 'Spring',
+                  title: 'Daffodils',
+                  author: 'William Wordsworth',
+                  text: 'I wandered lonely as a cloud\n' +
+                    'That floats on high o\'er vales and hills,\n' +
+                    'When all at once I saw a crowd,\n' +
+                    'A host, of golden daffodils;\n' +
+                    'Beside the lake, beneath the trees,\n' +
+                    'Fluttering and dancing in the breeze.'
                 },
-                "results": {
-                  "bindings": [
-                    {
-                      "description": {
-                        "type": "literal",
-                        "value": "Novariensis; natus c. 1100; venit in Galliam c. 1136; breviter Remis moratus est, ubi docebat magister Lotulfus Novariensis; c. 1139 venit Parisios et commendatus a s. Bernardo morabatur in monasterio sancti Victoris; c. 1140–1159 docuit in scholis cathedralis Parisiensis; 1152 Romam profectus est; 1159 electus est episcopus Parisiensis, sed iam 1260 e vita migravit. Sent. I composuit probabiliter ante 1148; Sent. II–V probabiliter finivit hieme 1151/2.\nGregorianum 2 (1921) 387–392 et 15 (1934) 262–266 [F. Pelster; de tempore compositionis]; Scholastik 5 (1930) 569–573 [F. Pelster; de codice originali]; Rev. Hist. Eccl. 14 (1913) 511–536; 705–719 [J. de Ghellinck; de notis marginalibus]; 27 (1931) 792–830 et 30 (1934) [J. de Ghellinck; de vita]; Rech. Théol. anç. méd. 2 (1930) 80–99 [A. Landgraf; de critica textus]; Dict. Théol. Cath. XII,2 (1935) 1941–2019 [J. de Ghellinck]."
-                      },
-                      "authorsname": {
-                        "type": "literal",
-                        "value": "Petrus Lombardus"
-                      },
-                      "label": {
-                        "type": "literal",
-                        "value": "AID_1_PetrusLombardus"
-                      },
-                      "my_person": {
-                        "type": "uri",
-                        "value": "http://rdfh.ch/0046/zS7E7xyEQxKQG30LZQSZbQ"
-                      }
-                    },
-                    {
-                      "description": {
-                        "type": "literal",
-                        "value": "Vide Antonius; Arnoldus Vesaliensis; Bandinus; Conradus OP; Dionysius Carthusiensis; Ps.Hugo de s. Caro; Jacobus de Lausanne; Dionysius Carthusianus; Ps. Hugo de s. Caro ; Jacobus de Lausanne; Odalricus Verdunensis; Simon Tornacensis; nr. 1070; 1190; 1342,1.\nA. Landgraf, Bearbeitungen von Werken des Petr. Lomb. Coll. Franc. 10, 321–337."
-                      },
-                      "authorsname": {
-                        "type": "literal",
-                        "value": "Abbreviationes Sententiarum Petri Lombardi"
-                      },
-                      "label": {
-                        "type": "literal",
-                        "value": "AID_2_AbbreviationesSententiarumPetriLombardi"
-                      },
-                      "my_person": {
-                        "type": "uri",
-                        "value": "http://rdfh.ch/0046/2Kx5KiOET9OS1yVbk6DOVg"
-                      }
-                    },
-                    {
-                      "description": {
-                        "type": "literal",
-                        "value": "Vide ARNOLDUS; FRANCISCUS TOTI DE PERUSIO; MATTHAEUS DE AQUASPARTA; MICHAEL AIGNANI DE BONONIA; ROBERTUS KILWARDBY; SIMON de TOURNAY; nr. 966."
-                      },
-                      "authorsname": {
-                        "type": "literal",
-                        "value": "Tabulae in Sententias Petri Lombardi"
-                      },
-                      "label": {
-                        "type": "literal",
-                        "value": "AID_3_TabulaeinSententiasPetriLombardi"
-                      },
-                      "my_person": {
-                        "type": "uri",
-                        "value": "http://rdfh.ch/0046/Xe845xy9RgK1WZR_2kCjlw"
-                      }
-                    },
-                    {
-                      "description": {
-                        "type": "literal",
-                        "value": "Vide Arnoldus Vesaliensis; Fridericus Werdinensis OCist; Helwicus."
-                      },
-                      "authorsname": {
-                        "type": "literal",
-                        "value": "Petri Lombardi Sententiae Metrice Redactae"
-                      },
-                      "label": {
-                        "type": "literal",
-                        "value": "AID_4_PetriLombardiSententiaeMetriceRedactae"
-                      },
-                      "my_person": {
-                        "type": "uri",
-                        "value": "http://rdfh.ch/0046/BJ06D4gURMiNEJDyrMpmsQ"
-                      }
-                    },
-                    {
-                      "description": {
-                        "type": "literal",
-                        "value": "Vide Odo Parisiensis; Petrus Comestor; Ps. Petrus Pictaviensis; Stefanus Langton; Udo. Anon. nr. 1111; 1273; 1274; 1286.\nA. Landgraf, Sentenzenglossen des beginnenden 13. Jahrhunderts. Rech. Théol. anç. méd. 10 (1938) 36–55. A.\nLandgraf, The first Sentence Commentary of early Scholasticism New Scholasticism 13 (1939) 101–132 (Napoli, Naz. VII C 14 = Stefan Langton) A. LANDGRAF, Z.f.k.Th. 58 (1934) 397."
-                      },
-                      "authorsname": {
-                        "type": "literal",
-                        "value": "Glossae in Sententias Petri Lombardi"
-                      },
-                      "label": {
-                        "type": "literal",
-                        "value": "AID_6_GlossaeinSententiasPetriLombardi"
-                      },
-                      "my_person": {
-                        "type": "uri",
-                        "value": "http://rdfh.ch/0046/ShnZhWqlQ3qkTMWfdg-u6A"
-                      }
-                    },
-                    {
-                      "description": {
-                        "type": "literal",
-                        "value": "Composuit commentarium in Sententias c. 1240–1250, dependentem ab Odone Rigaldi.\nM. D. Chénu, Maîtres et bacheliers de l’Université de Paris v. 1240. Etudes d’histoire littéraire et doctrinale du XIII siècle, I. série, 1938, 11–39. G. Engelhardt, Rech. Theol. anç. méd. 8 (1936) 61–78."
-                      },
-                      "authorsname": {
-                        "type": "literal",
-                        "value": "Adamus de Puteorum Villa"
-                      },
-                      "label": {
-                        "type": "literal",
-                        "value": "AID_9_AdamusdePuteorumVilla"
-                      },
-                      "my_person": {
-                        "type": "uri",
-                        "value": "http://rdfh.ch/0046/QS8RMni6TN-mzz28InQSJw"
-                      }
-                    },
-                    {
-                      "description": {
-                        "type": "literal",
-                        "value": "Discipulus Guilelmi Occam, docuit Oxoniae, obiit 1338.\nG. Little, Grey friars (1892) 172. C. Michalski, Les courants philosophiques (1922) 71."
-                      },
-                      "authorsname": {
-                        "type": "literal",
-                        "value": "Adam Wodeham [goddam] OM"
-                      },
-                      "label": {
-                        "type": "literal",
-                        "value": "AID_10_AdamWodehamgoddamOM"
-                      },
-                      "my_person": {
-                        "type": "uri",
-                        "value": "http://rdfh.ch/0046/D6jtgrFtTbGd4x6rLph3hg"
-                      }
-                    },
-                    {
-                      "description": {
-                        "type": "literal",
-                        "value": "I–IV Sent. Abhreviatus ab Henrico de Oyta Pragae 1373–1378."
-                      },
-                      "authorsname": {
-                        "type": "literal",
-                        "value": "Adam Wodeham Abbreviatus"
-                      },
-                      "label": {
-                        "type": "literal",
-                        "value": "AID_11_AdamWodehamAbbreviatus"
-                      },
-                      "my_person": {
-                        "type": "uri",
-                        "value": "http://rdfh.ch/0046/_X1bra40T9u5yd2kxfYLfw"
-                      }
-                    },
-                    {
-                      "description": {
-                        "type": "literal",
-                        "value": "Discipulus Johannis Gerson; legit super Sententias 1413/14; obiit 1472. V. Doucet, Antonianum 5 (1930) 405–442."
-                      },
-                      "authorsname": {
-                        "type": "literal",
-                        "value": "Aegidius Carlerii"
-                      },
-                      "label": {
-                        "type": "literal",
-                        "value": "AID_12_AegidiusCarlerii"
-                      },
-                      "my_person": {
-                        "type": "uri",
-                        "value": "http://rdfh.ch/0046/D5Ih0J8NSWmMD-zWDKgQrA"
-                      }
-                    },
-                    {
-                      "description": {
-                        "type": "literal",
-                        "value": "1285–1291 docuit theologiam in universitate Parisiensi, 1292 generalis ordinis, 1295 archiep. Bourges, obiit 1316.\nG. Bertini, Catalogo critico delle opere di Egidio Romano, La Bibliofilia 36 (1934) 78–109; 37 (1935) 251–254; G. Bruni, Analect. Augustiniana 18, 95–124; 238–268 [edit Anon. Thomistae, Impugnationes contra Aegidium Romanum].\nI script. 1276/77; II script. 1308/09; III script. 1311/12; inter 1277 et 1279 Stefanus Tempier plures propositiones Aegidii Romani praesertim ex I Sent. extractas convocatis magistris examinandas proposuit; Aegidius vero non revocavit sed Parisiis secessit; 1285 Honorius IV mandat convocationi magistrorum Parisiensium, ut recipiant retractationem Aegidii. Hic indiculus habebat ut minimum 19 articulos, quorum unus: Persona, quae a se mittitur, a se procedit. Verum est de processione temporali; Art. 18: Quod non est malitia in voluntate, nisi sit error vel aliqua nescientia in ratione.\nE. Hocedez SJ, La condamnation de Gilles de Rome. Rech. Théol. anç. méd. 4 (1932) 34–38. F. Richeldi, Il commento di Egidio romano al libro III delle Sentenze di Pietro Lombardo. Modena 1942."
-                      },
-                      "authorsname": {
-                        "type": "literal",
-                        "value": "Aegidius Romanus Oesa"
-                      },
-                      "label": {
-                        "type": "literal",
-                        "value": "AID_13_AegidiusRomanusOesa"
-                      },
-                      "my_person": {
-                        "type": "uri",
-                        "value": "http://rdfh.ch/0046/mdFG1OY3So-2CRaPUBX68w"
-                      }
-                    },
-                    {
-                      "description": {
-                        "type": "literal",
-                        "value": "v. nr. [oid ###]1157[/oid]."
-                      },
-                      "authorsname": {
-                        "type": "literal",
-                        "value": "Ahacius N. Ex Landau"
-                      },
-                      "label": {
-                        "type": "literal",
-                        "value": "AID_14_AhaciusNExLandau"
-                      },
-                      "my_person": {
-                        "type": "uri",
-                        "value": "http://rdfh.ch/0046/A8M5e32ITmiIYf9mstvhLA"
-                      }
-                    },
-                    {
-                      "description": {
-                        "type": "literal",
-                        "value": "Doctor universalis; obiit 1202. Dict. Hist. Géogr. I, 1299–1304. J. Huyzinga, Über die Verknüpfung des Poetischen mit dem Theologischen bei Alanus de Insulis. [Mededeelingen d. b. Akademie van Wetensch. Afd. Letterkunde, Deel 74 ser. B. n. 6.] Amsterdam 1932. Cl. Baeumker, Philos. Jahrb. 6 (1893); 7 (1894)."
-                      },
-                      "authorsname": {
-                        "type": "literal",
-                        "value": "Alanus Ab Insulis [de Ryssel]"
-                      },
-                      "label": {
-                        "type": "literal",
-                        "value": "AID_15_AlanusAbInsulisdeRyssel"
-                      },
-                      "my_person": {
-                        "type": "uri",
-                        "value": "http://rdfh.ch/0046/zCWVBLc1RE-3SoOcbLr8mw"
-                      }
-                    },
-                    {
-                      "description": {
-                        "type": "literal",
-                        "value": "Theologus Parisiensis c. 1407. Fabricius I (1754) 43."
-                      },
-                      "authorsname": {
-                        "type": "literal",
-                        "value": "Albertus Engelschalk"
-                      },
-                      "label": {
-                        "type": "literal",
-                        "value": "AID_16_AlbertusEngelschalk"
-                      },
-                      "my_person": {
-                        "type": "uri",
-                        "value": "http://rdfh.ch/0046/fGPPBHQ6TJC4L4Q8iycWJg"
-                      }
-                    },
-                    {
-                      "description": {
-                        "type": "literal",
-                        "value": "Vide: Johannes Findling, Commentarius in Guilelmi de Vorillon lecturam in Sententias."
-                      },
-                      "authorsname": {
-                        "type": "literal",
-                        "value": "Guilelmus de Vorillon"
-                      },
-                      "label": {
-                        "type": "literal",
-                        "value": "AID_170_GuilelmusdeVorillon"
-                      },
-                      "my_person": {
-                        "type": "uri",
-                        "value": "http://rdfh.ch/0046/TxqyWHc6QxiLct7KZT8hsg"
-                      }
-                    },
-                    {
-                      "description": {
-                        "type": "literal",
-                        "value": "1292 decanus; 1299/1300 mag. theol. Oxoniae.ŦFr. Ehrle, Festschrift Hertling 1913, 426–450. Fr. Pelster, Zeitschr. f. kath. Theol. 1922, 212–253; 361–401; 1923,483–494. Scholastik 1928, 411–413. B. Sharp, Revue Néoscol. 36 (1934) 332–354; 37 (1935) 88–104; 219–233. Grabmann, LThK. 9 (1937) 916; Dict. Théol. Cath. XIV, 2 (1941) 2867–2873 [Glorieux]."
-                      },
-                      "authorsname": {
-                        "type": "literal",
-                        "value": "Thomas de Sutton OP"
-                      },
-                      "label": {
-                        "type": "literal",
-                        "value": "AID_502_ThomasdeSuttonOP"
-                      },
-                      "my_person": {
-                        "type": "uri",
-                        "value": "http://rdfh.ch/0046/3Nf9-xU_RzGhYf2HcF_vuQ"
-                      }
-                    },
-                    {
-                      "description": {
-                        "type": "literal",
-                        "value": "Novariensis; natus c. 1100; venit in Galliam c. 1136; breviter Remis moratus est, ubi docebat magister Lotulfus Novariensis; c. 1139 venit Parisios et commendatus a s. Bernardo morabatur in monasterio sancti Victoris; c. 1140–1159 docuit in scholis cathedralis Parisiensis; 1152 Romam profectus est; 1159 electus est episcopus Parisiensis, sed iam 1260 e vita migravit. Sent. I composuit probabiliter ante 1148; Sent. II–V probabiliter finivit hieme 1151/2.\nGregorianum 2 (1921) 387–392 et 15 (1934) 262–266 [F. Pelster; de tempore compositionis]; Scholastik 5 (1930) 569–573 [F. Pelster; de codice originali]; Rev. Hist. Eccl. 14 (1913) 511–536; 705–719 [J. de Ghellinck; de notis marginalibus]; 27 (1931) 792–830 et 30 (1934) [J. de Ghellinck; de vita]; Rech. Théol. anç. méd. 2 (1930) 80–99 [A. Landgraf; de critica textus]; Dict. Théol. Cath. XII,2 (1935) 1941–2019 [J. de Ghellinck]."
-                      },
-                      "authorsname": {
-                        "type": "literal",
-                        "value": "Petrus Lombardus"
-                      },
-                      "label": {
-                        "type": "literal",
-                        "value": "AID_671_PetrusLombardus"
-                      },
-                      "my_person": {
-                        "type": "uri",
-                        "value": "http://rdfh.ch/0046/rfbG-wYFSwi8A6xNXvwjOg"
-                      }
-                    },
-                    {
-                      "description": {
-                        "type": "literal",
-                        "value": "Vide Antonius; Arnoldus Vesaliensis; Bandinus; Conradus OP; Dionysius Carthusiensis; Ps.Hugo de s. Caro; Jacobus de Lausanne; Dionysius Carthusianus; Ps. Hugo de s. Caro ; Jacobus de Lausanne; Odalricus Verdunensis; Simon Tornacensis; nr. 1070; 1190; 1342,1.\nA. Landgraf, Bearbeitungen von Werken des Petr. Lomb. Coll. Franc. 10, 321–337."
-                      },
-                      "authorsname": {
-                        "type": "literal",
-                        "value": "Abbreviationes Sententiarum Petri Lombardi"
-                      },
-                      "label": {
-                        "type": "literal",
-                        "value": "AID_672_AbbreviationesSententiarumPetriLombardi"
-                      },
-                      "my_person": {
-                        "type": "uri",
-                        "value": "http://rdfh.ch/0046/nY5furB5T5aitY1UOsSKBw"
-                      }
-                    },
-                    {
-                      "description": {
-                        "type": "literal",
-                        "value": "Vide Odo Parisiensis; Petrus Comestor; Ps. Petrus Pictaviensis; Stefanus Langton; Udo. Anon. nr. 1111; 1273; 1274; 1286.\nA. Landgraf, Sentenzenglossen des beginnenden 13. Jahrhunderts. Rech. Théol. anç. méd. 10 (1938) 36–55. A.\nLandgraf, The first Sentence Commentary of early Scholasticism New Scholasticism 13 (1939) 101–132 (Napoli, Naz. VII C 14 = Stefan Langton) A. LANDGRAF, Z.f.k.Th. 58 (1934) 397."
-                      },
-                      "authorsname": {
-                        "type": "literal",
-                        "value": "Glossae in Sententias Petri Lombardi"
-                      },
-                      "label": {
-                        "type": "literal",
-                        "value": "AID_676_GlossaeinSententiasPetriLombardi"
-                      },
-                      "my_person": {
-                        "type": "uri",
-                        "value": "http://rdfh.ch/0046/ejwBdQGEQcuX3GC9Nf09Ew"
-                      }
-                    },
-                    {
-                      "description": {
-                        "type": "literal",
-                        "value": "1285–1291 docuit theologiam in universitate Parisiensi, 1292 generalis ordinis, 1295 archiep. Bourges, obiit 1316.\nG. Bertini, Catalogo critico delle opere di Egidio Romano, La Bibliofilia 36 (1934) 78–109; 37 (1935) 251–254; G. Bruni, Analect. Augustiniana 18, 95–124; 238–268 [edit Anon. Thomistae, Impugnationes contra Aegidium Romanum].\nI script. 1276/77; II script. 1308/09; III script. 1311/12; inter 1277 et 1279 Stefanus Tempier plures propositiones Aegidii Romani praesertim ex I Sent. extractas convocatis magistris examinandas proposuit; Aegidius vero non revocavit sed Parisiis secessit; 1285 Honorius IV mandat convocationi magistrorum Parisiensium, ut recipiant retractationem Aegidii. Hic indiculus habebat ut minimum 19 articulos, quorum unus: Persona, quae a se mittitur, a se procedit. Verum est de processione temporali; Art. 18: Quod non est malitia in voluntate, nisi sit error vel aliqua nescientia in ratione.\nE. Hocedez SJ, La condamnation de Gilles de Rome. Rech. Théol. anç. méd. 4 (1932) 34–38. F. Richeldi, Il commento di Egidio romano al libro III delle Sentenze di Pietro Lombardo. Modena 1942."
-                      },
-                      "authorsname": {
-                        "type": "literal",
-                        "value": "Aegidius Romanus"
-                      },
-                      "label": {
-                        "type": "literal",
-                        "value": "AID_683_AegidiusRomanus"
-                      },
-                      "my_person": {
-                        "type": "uri",
-                        "value": "http://rdfh.ch/0046/L4-P2CFqS2Gkg2OA0wqcXA"
-                      }
-                    },
-                    {
-                      "description": {
-                        "type": "literal",
-                        "value": "c. 1245–1250 scripsit In Sententias et Summam de creaturis; post 1270 composuit Summam theologiae; decessit 1280; 1249 scripsit in IV. librum Sententiarum.\nA. Ohlmeyer, Rech. Théol. anç. méd. 6 (1934) 42–54; 424–427. H. Kühle, Geisteswelt des MA I, 591–610. F. M. Henquinet, Une pièce inédite du Commentaire d’Albert le Grand sur le IV. livre des Sentences. Rech. Théol. anç. méd. 7 (1935) 263–293r de sensibus corporis gloriosi]. M. Henquinet, New Scholasticism 9 (1935) 283–328 [quaestiones vat. lat. 781 f. 9–31]. A. Fries, Angelicum 13 (1936) 60–92 [quaestiones vat lat. 781 f. 9–31; Karlsruhe, Landesbibl. Aug. 32; vat. lat. 4245 f. 22–24: Principia in f. 73–74; 76–79]. O. Lottin, Rech. Théol. anç. méd. 8 (1936) 117–153. H. Pouillou, Rech. Théol. anç. méd. 8 (1936) 203–206. Franzisk. Studien 27 (1940) 22–56; 65-87 (H. Neufeld). J. Hinz, Das Verhältnis des Sent. commentars von Thomas v. Aquino zu dem Alberts d. Gr. Diss. Würzburg 1936; L. Hausberger, Diss. Würzburg 1936."
-                      },
-                      "authorsname": {
-                        "type": "literal",
-                        "value": "Albertus Magnus"
-                      },
-                      "label": {
-                        "type": "literal",
-                        "value": "AID_687_AlbertusMagnus"
-                      },
-                      "my_person": {
-                        "type": "uri",
-                        "value": "http://rdfh.ch/0046/PxFFVykURHym4891nVQE3w"
-                      }
-                    },
-                    {
-                      "description": {
-                        "type": "literal",
-                        "value": "Dioecesis Eboracensis; memoratur Vaticana, vat. lat. 986 f. 11; 30; 52; 56."
-                      },
-                      "authorsname": {
-                        "type": "literal",
-                        "value": "Richardus de Chillington"
-                      },
-                      "label": {
-                        "type": "literal",
-                        "value": "AID_1097_RichardusdeChillington"
-                      },
-                      "my_person": {
-                        "type": "uri",
-                        "value": "http://rdfh.ch/0046/4AJ_b4XERhyPfWyUNuPdHg"
-                      }
-                    }
-                  ]
+                {
+                  season: 'Summer',
+                  title: 'At the Seaside',
+                  author: 'Robert Louis Stevenson',
+                  text: 'When I was down beside the sea \n' +
+                    'A wooden spade they gave to me \n' +
+                    'To dig the sandy shore.\n' +
+                    'My holes were empty like a cup, \n' +
+                    'In every hole the sea came up, \n' +
+                    'Till it could come no more.'
+                },
+                {
+                  season: 'Autumn',
+                  title: 'Leaves',
+                  author: 'Elsie N. Brady',
+                  text: 'How silently they tumble down\n' +
+                    'And come to rest upon the ground\n' +
+                    'To lay a carpet, rich and rare,\n' +
+                    'Beneath the trees without a care,\n' +
+                    'Content to sleep, their work well done,\n' +
+                    'Colors gleaming in the sun.'
+                },
+                {
+                  season: 'Winter',
+                  title: 'Winter',
+                  author: 'Mother Goose poem',
+                  text: 'Cold and raw the north wind doth blow,\n' +
+                    'Bleak in the morning early;\n' +
+                    'All the hills are covered with snow,\n' +
+                    'And winter\'s now come fairly.'
                 }
-              };
-              return Observable.of(new HttpResponse({ status: 200, body: body }));
-            }
+              ]
+            };
+            return Observable.of(new HttpResponse({ status: 200, body: body }));
+          }
+
+          if (request.url.endsWith('/tutorialTwo') && request.method === 'GET') {
+            const body = {
+              people: [
+                {
+                  name: 'Maximilane Mustermann',
+                  hometown: 'Zuerich',
+                  image: '../../../../assets/img/team/1.jpg'
+                },
+                {
+                  name: 'John Johnson',
+                  hometown: 'New York',
+                  image: '../../../../assets/img/team/2.jpg'
+                },
+                {
+                  name: 'Jane Janeson',
+                  hometown: 'London',
+                  image: '../../../../assets/img/team/3.jpg'
+                }
+              ]
+            };
+            return Observable.of(new HttpResponse({ status: 200, body: body }));
+          }
         //
         //     // get users
         //     if (request.url.endsWith('/api/users') && request.method === 'GET') {
