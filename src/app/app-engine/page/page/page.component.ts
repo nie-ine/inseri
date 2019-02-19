@@ -73,30 +73,111 @@ export class PageComponent implements OnInit, AfterViewChecked {
       height: '100%'
     });
 
-    const blockManager = editor.BlockManager;
-    blockManager.add('block', {
+    const bm = editor.BlockManager;
+
+    bm.add('block', {
       label: 'Text Block',
       content:  '<div>Your changeable text</div>',
     });
 
-    blockManager.add('image', {
+    bm.add('image', {
       label: 'Image',
       content: {
-        type: 'image', // Built-in 'map' component
+        type: 'image',
       }
     });
 
-    blockManager.add('my-map-block', {
+    bm.add('my-map-block', {
       label: 'Simple map block',
       attributes: { class:'fa fa-map-o' },
       content: {
-        type: 'map', // Built-in 'map' component
+        type: 'map',
         style: {
           height: '350px',
           width: '350px'
         }
       }
     });
+
+    bm.add('table', {
+      category: 'Basic',
+      label: 'Link Block',
+      attributes: { class: 'fa fa-link' },
+      content: {
+        type: 'link',
+        droppable: true,
+        style: {
+          display: 'inline-block',
+          padding: '5px',
+          'min-height': '50px',
+          'min-width': '50px'
+        }
+      },
+    });
+
+    bm.add('mj-1-column', {
+      label: '1 Column',
+      content: `<mj-section>
+        <mj-column><mj-text>Content 1</mj-text></mj-column>
+      </mj-section>`,
+      attributes: { class: 'gjs-fonts gjs-f-b1' }
+    });
+
+    bm.add('mj-2-columns', {
+      label: '2 Columns',
+      content: `<mj-section>
+        <mj-column><mj-text>Content 1</mj-text></mj-column>
+        <mj-column><mj-text>Content 2</mj-text></mj-column>
+      </mj-section>`,
+      attributes: { class: 'gjs-fonts gjs-f-b2' }
+    });
+
+    bm.add('mj-3-columns', {
+      label: '3 Columns',
+      content: `<mj-section>
+        <mj-column><mj-text>Content 1</mj-text></mj-column>
+        <mj-column><mj-text>Content 2</mj-text></mj-column>
+        <mj-column><mj-text>Content 3</mj-text></mj-column>
+      </mj-section>`,
+      attributes: { class: 'gjs-fonts gjs-f-b3' }
+    });
+
+    bm.add('mj-text', {
+      label: 'Text',
+      content: '<mj-text>Insert text here</mj-text>',
+      attributes: { class: 'gjs-fonts gjs-f-text' }
+    });
+
+    bm.add('mj-button', {
+      label: 'Button',
+      content: '<mj-button>Button</mj-button>',
+      attributes: { class: 'gjs-fonts gjs-f-button' }
+    });
+
+    bm.add('mj-image', {
+      label: 'Image',
+      content: '<mj-image src="http://placehold.it/350x250/78c5d6/fff">',
+      attributes: { class: 'fa fa-image' }
+    });
+
+    bm.add('mj-divider', {
+      label: 'Divider',
+      content: '<mj-divider/>',
+      attributes: { class: 'gjs-fonts gjs-f-divider'}
+    });
+
+    bm.add('mj-social', {
+      label: 'Social',
+      content: '<mj-social/>',
+      attributes: { class: 'fa fa-share-alt' }
+    });
+
+    bm.add('mj-spacer', {
+      label: 'Spacer',
+      content: '<mj-spacer/>',
+      attributes: { class: 'fa fa-arrows-v' }
+    });
+
   }
 
   deactivateGrapesJS() {
@@ -287,14 +368,38 @@ export class PageComponent implements OnInit, AfterViewChecked {
     }
   }
 
+  setGrapesJSLocalStorage( key: string, value: string ) {
+    if ( value ) {
+      localStorage.setItem( key, value );
+    } else {
+      localStorage.removeItem(key);
+    }
+  }
+
+  deleteGrapesJSData() {
+    this.grapesJSActivated = false;
+    this.setGrapesJSLocalStorage( 'gjs-assets', undefined );
+    this.setGrapesJSLocalStorage( 'gjs-components', undefined );
+    this.setGrapesJSLocalStorage( 'gjs-css', undefined );
+    this.setGrapesJSLocalStorage( 'gjs-html', undefined );
+    this.setGrapesJSLocalStorage( 'gjs-styles', undefined );
+  }
+
   receivePage( pageFromLoadComponent: any ) {
-    // console.log( pageFromLoadComponent );
+    console.log( pageFromLoadComponent );
+    if ( pageFromLoadComponent.openApps[ 'grapesJS' ]  ) {
+      console.log( 'activate GrapesJS' );
+      this.activateGrapesJS();
+      setTimeout(() => {
+        this.activateGrapesJS();
+      }, 3000);
+    }
     this.page = pageFromLoadComponent;
     this.reloadVariables = false;
   }
 
   receiveOpenAppsInThisPage( openAppsInThisPage: any ) {
-    console.log( openAppsInThisPage );
+    // console.log( openAppsInThisPage );
     this.openAppsInThisPage = openAppsInThisPage;
     this.reloadVariables = false;
     this.updateLinkedApps = false;
