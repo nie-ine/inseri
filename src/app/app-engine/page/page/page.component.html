@@ -33,8 +33,10 @@
         <button mat-button (click)="updatePage()">Save Page</button>
         <button mat-button (click)="expandPanels()"> Un/fold description</button><br>
         <button mat-button (click)="openDataManagement()">Page Data Management</button><br>
-        <button mat-button (click)="activateGrapesJS()">GrapesJS </button>
-        <button mat-button (click)="deactivateGrapesJS()">Deactivate GrapesJS</button>
+        <h4 style="align-content: center">GrapesJS</h4>
+        <button mat-button (click)="activateGrapesJS()">Add GrapesJS</button>
+        <button mat-button (click)="deactivateGrapesJS()">Remove GrapesJS</button><br>
+        <button mat-button (click)="deleteGrapesJSData()">Delete GrapesJS Data</button>
       </div>
 
       <div *ngIf="pageAsDemo">

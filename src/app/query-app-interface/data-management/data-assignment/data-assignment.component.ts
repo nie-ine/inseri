@@ -19,7 +19,7 @@ export class DataAssignmentComponent implements OnChanges {
 
   ngOnChanges( changes: SimpleChanges) {
 
-    console.log( changes );
+    // console.log( changes );
     if ( this.updateLinkedApps === true ) {
       this.updateLinkedAppsMethod();
       console.log( 'update linked apps' );

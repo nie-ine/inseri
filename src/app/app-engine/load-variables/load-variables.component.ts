@@ -60,7 +60,7 @@ export class LoadVariablesComponent implements OnInit, OnChanges {
   }
 
   setGrapesJSMetaData(grapesJS: any) {
-    console.log( grapesJS );
+    // console.log( grapesJS );
     if ( grapesJS ) {
       this.setGrapesJSLocalStorage( 'gjs-assets', grapesJS.gjsAssets );
       this.setGrapesJSLocalStorage( 'gjs-components', grapesJS.gjsComponents );
@@ -81,7 +81,7 @@ export class LoadVariablesComponent implements OnInit, OnChanges {
       .subscribe(
         data => {
           this.page = ( data as any).page;
-          console.log( this.page );
+          // console.log( this.page );
           this.convertMappingsBackFromJson( this.page );
           const appHelperArray = [];
           for ( const app of this.page.openApps ) {
