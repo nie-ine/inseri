@@ -9,7 +9,6 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
 import {ArithmeticModule} from 'nie-ine';
-import {GrapesjsComponent} from './apps/grapesjs/grapesjs.component';
 import {TextViewModule} from './apps/text-view/text-view.module';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {SynopsisModule} from './apps/synopsis/synopsis.module';
@@ -45,7 +44,9 @@ import {LoadVariablesComponent} from './load-variables/load-variables.component'
 import { QueryListComponent } from '../query-engine/query-list/query-list.component';
 import { DataAssignmentComponent } from '../query-app-interface/data-management/data-assignment/data-assignment.component';
 import { UpdateLinkedAppsComponent } from '../query-app-interface/data-management/update-linked-apps/update-linked-apps.component';
-
+import { NewGjsBoxDialogComponent } from './apps/grapesjs/new-gjs-box-dialog/new-gjs-box-dialog.component';
+import { NgxEditorModule } from 'ngx-editor';
+import {MatDialogModule} from '@angular/material';
 
 @NgModule({
   imports: [
@@ -78,9 +79,10 @@ import { UpdateLinkedAppsComponent } from '../query-app-interface/data-managemen
     MatListModule,
     MatSliderModule,
     NgxSpinnerModule,
+    NgxEditorModule,
+    MatDialogModule,
     RouterModule.forChild([
       { path: 'page', component: PageComponent },
-      { path: 'grapesjs', component: GrapesjsComponent },
       { path: 'textlist', component: TextlistViewerComponent },
       { path: 'tree-map', component: QueryAppInputMapComponent }
     ])
@@ -94,7 +96,6 @@ import { UpdateLinkedAppsComponent } from '../query-app-interface/data-managemen
   declarations: [
     PageComponent,
     Frame,
-    GrapesjsComponent,
     TextlistViewerComponent,
     DataManagementComponent,
     QueryEntryComponent,
@@ -104,7 +105,8 @@ import { UpdateLinkedAppsComponent } from '../query-app-interface/data-managemen
     LoadVariablesComponent,
     QueryListComponent,
     DataAssignmentComponent,
-    UpdateLinkedAppsComponent
+    UpdateLinkedAppsComponent,
+    NewGjsBoxDialogComponent
   ],
   exports: [
     PageComponent,
@@ -116,7 +118,8 @@ import { UpdateLinkedAppsComponent } from '../query-app-interface/data-managemen
     QueryEntryComponent,
     QueryAppInputMapComponent,
     FrameSettingsComponent,
-    QueryListComponent
+    QueryListComponent,
+    NewGjsBoxDialogComponent
   ]
 })
 export class NIEOSModule { }
