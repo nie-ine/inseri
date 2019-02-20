@@ -36,7 +36,8 @@
         <h4 style="align-content: center">GrapesJS</h4>
         <button mat-button (click)="activateGrapesJS()">Add GrapesJS</button>
         <button mat-button (click)="deactivateGrapesJS()">Remove GrapesJS</button><br>
-        <button mat-button (click)="deleteGrapesJSData()">Delete GrapesJS Data</button>
+        <button mat-button (click)="deleteGrapesJSData()">Delete GrapesJS Data</button><br>
+        <button mat-button (click)="addBlock()">Add Block</button>
       </div>
 
       <div *ngIf="pageAsDemo">
@@ -397,9 +398,7 @@
 
     </mat-drawer>
 
-    <mat-drawer-content>
-
-      <div *ngIf="grapesJSActivated" id="grapesJSViewer" style="z-index: -1; position: absolute; height: 100%!important;"></div>
+      <div *ngIf="grapesJSActivated" id="grapesJSViewer" style="z-index: -1; position: absolute; "></div>
 
       <div style="margin-top: 30px; vertical-align: bottom;">
         <button type="button" mat-button (click)="drawer.toggle()" matTooltip='{{ createTooltip() }}'>
@@ -801,7 +800,5 @@
         </mat-menu>
 
       </div>
-
-    </mat-drawer-content>
 
   </mat-drawer-container>

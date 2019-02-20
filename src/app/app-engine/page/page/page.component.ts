@@ -50,6 +50,46 @@ export class PageComponent implements OnInit, AfterViewChecked {
   updateLinkedApps = false;
   indexAppMapping: any = {};
   grapesJSActivated = false;
+  blockManager: any;
+
+  blockManagerModel = [
+    {
+      id: 'image',
+      label: 'Image',
+      class: 'fa fa-image',
+      content: {
+        type: 'image'
+      }
+    },
+    {
+      id: 'block',
+      label: 'Text Block',
+      class: 'gjs-fonts gjs-f-text',
+      content: '<div>Your changeable text</div>'
+    },
+    {
+      id: 'my-map-block',
+      label: 'map',
+      class: 'fa fa-map-o',
+      content: {
+        type: 'map',
+        style: {
+          height: '350px',
+          width: '350px'
+        }
+      }
+    },
+    {
+      id: 'link',
+      label: 'Link',
+      class: 'fa fa-link',
+      content: {
+        type: 'link',
+        content:  'Your link here',
+      }
+    }
+  ];
+
   constructor(
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
@@ -70,114 +110,33 @@ export class PageComponent implements OnInit, AfterViewChecked {
     console.log( 'Activate GrapesJS' );
     const editor = grapesjs.init({
       container: '#grapesJSViewer',
-      height: '100%'
+      height: '100vh'
     });
 
-    const bm = editor.BlockManager;
+    this.blockManager = editor.BlockManager;
 
-    bm.add('block', {
-      label: 'Text Block',
-      content:  '<div>Your changeable text</div>',
-    });
+    for ( const block of this.blockManagerModel ) {
+      this.blockManager.add( block.id, {
+        label: block.label,
+        attributes: { class: block.class },
+        content: block.content
+      });
+    }
+  }
 
-    bm.add('image', {
-      label: 'Image',
-      content: {
-        type: 'image',
-      }
-    });
-
-    bm.add('my-map-block', {
-      label: 'Simple map block',
-      attributes: { class:'fa fa-map-o' },
-      content: {
-        type: 'map',
-        style: {
-          height: '350px',
-          width: '350px'
-        }
-      }
-    });
-
-    bm.add('table', {
-      category: 'Basic',
-      label: 'Link Block',
-      attributes: { class: 'fa fa-link' },
-      content: {
+  addBlock() {
+    this.blockManagerModel.push(
+      {
+        id: 'link2',
+          label: 'Link',
+        class: 'fa fa-link',
+        content: {
         type: 'link',
-        droppable: true,
-        style: {
-          display: 'inline-block',
-          padding: '5px',
-          'min-height': '50px',
-          'min-width': '50px'
+          content:  'Your link here',
         }
-      },
-    });
-
-    bm.add('mj-1-column', {
-      label: '1 Column',
-      content: `<mj-section>
-        <mj-column><mj-text>Content 1</mj-text></mj-column>
-      </mj-section>`,
-      attributes: { class: 'gjs-fonts gjs-f-b1' }
-    });
-
-    bm.add('mj-2-columns', {
-      label: '2 Columns',
-      content: `<mj-section>
-        <mj-column><mj-text>Content 1</mj-text></mj-column>
-        <mj-column><mj-text>Content 2</mj-text></mj-column>
-      </mj-section>`,
-      attributes: { class: 'gjs-fonts gjs-f-b2' }
-    });
-
-    bm.add('mj-3-columns', {
-      label: '3 Columns',
-      content: `<mj-section>
-        <mj-column><mj-text>Content 1</mj-text></mj-column>
-        <mj-column><mj-text>Content 2</mj-text></mj-column>
-        <mj-column><mj-text>Content 3</mj-text></mj-column>
-      </mj-section>`,
-      attributes: { class: 'gjs-fonts gjs-f-b3' }
-    });
-
-    bm.add('mj-text', {
-      label: 'Text',
-      content: '<mj-text>Insert text here</mj-text>',
-      attributes: { class: 'gjs-fonts gjs-f-text' }
-    });
-
-    bm.add('mj-button', {
-      label: 'Button',
-      content: '<mj-button>Button</mj-button>',
-      attributes: { class: 'gjs-fonts gjs-f-button' }
-    });
-
-    bm.add('mj-image', {
-      label: 'Image',
-      content: '<mj-image src="http://placehold.it/350x250/78c5d6/fff">',
-      attributes: { class: 'fa fa-image' }
-    });
-
-    bm.add('mj-divider', {
-      label: 'Divider',
-      content: '<mj-divider/>',
-      attributes: { class: 'gjs-fonts gjs-f-divider'}
-    });
-
-    bm.add('mj-social', {
-      label: 'Social',
-      content: '<mj-social/>',
-      attributes: { class: 'fa fa-share-alt' }
-    });
-
-    bm.add('mj-spacer', {
-      label: 'Spacer',
-      content: '<mj-spacer/>',
-      attributes: { class: 'fa fa-arrows-v' }
-    });
-
+      }
+    );
+    this.activateGrapesJS();
   }
 
   deactivateGrapesJS() {
@@ -232,6 +191,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.cdr.detectChanges();
     if ( this.pageIDFromURL !==  this.route.snapshot.queryParams.page ) {
       console.log( 'Update Page' );
+      this.grapesJSActivated = false;
       this.pageIDFromURL = this.route.snapshot.queryParams.page;
       console.log( this.pageIDFromURL, this.route.snapshot.queryParams.page );
       this.reloadVariables = true;
