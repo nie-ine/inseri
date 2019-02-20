@@ -58,6 +58,8 @@
     "mongoose": "^5.2.15",
     "mongoose-unique-validator": "^2.0.2",
     "ng2-ace-editor": "^0.3.8",
+    "ngx-bootstrap": "^3.2.0",
+    "ngx-editor": "^4.1.0",
     "ngx-spinner": "^6.1.2",
     "nie-ine": "0.0.19",
     "nodemailer": "^4.6.8",

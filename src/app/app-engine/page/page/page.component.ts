@@ -23,6 +23,7 @@ import {GenerateDataChoosersService} from '../../../query-app-interface/data-man
 import {HttpClient} from '@angular/common/http';
 import { NgxSpinnerService } from 'ngx-spinner';
 import {GeneralRequestService} from '../../../query-engine/general/general-request.service';
+import {NewGjsBoxDialogComponent} from '../../apps/grapesjs/new-gjs-box-dialog/new-gjs-box-dialog.component';
 
 declare var grapesjs: any; // Important!
 
@@ -125,18 +126,18 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   addBlock() {
-    this.blockManagerModel.push(
-      {
-        id: 'link2',
-          label: 'Link',
-        class: 'fa fa-link',
-        content: {
-        type: 'link',
-          content:  'Your link here',
-        }
-      }
-    );
-    this.activateGrapesJS();
+    const dialogRef = this.dialog.open(NewGjsBoxDialogComponent, {
+      width: '700px',
+      data: 'test'
+    });
+
+    dialogRef.afterClosed().subscribe(box => {
+      console.log(box);
+      box.content = '<div>' + box.content + '</div>';
+      this.blockManagerModel.push( box );
+      this.activateGrapesJS();
+    });
+
   }
 
   deactivateGrapesJS() {
