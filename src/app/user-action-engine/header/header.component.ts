@@ -62,10 +62,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
     public snackBar: MatSnackBar,
     private actionService: ActionService,
   ) {
-      router.events.subscribe(( route: any ) => {
-        this.updateCurrentRoute( route );
-      } );
-
       this.activatedRoute.queryParams.subscribe(params => {
         this.hashOfThisPage = params.page;
         this.actionID = params.actionID;
@@ -169,10 +165,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
     } );
   }
 
-  updateCurrentRoute( route: any ) {
-    this.currentRoute = route.url;
-  }
-
   generateLeftHeaderString(): string {
     return (
       this.routeMapping( 'dashboard', 'NIE-OS - Dashboard' ) ||
@@ -211,11 +203,11 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   isOnDashboard(): boolean {
-      return (this.currentRoute && this.currentRoute.search( 'dash') === 1);
+      return (this.router.url && this.router.url.search( 'dash') === 1);
   }
 
   routeMapping( location: string, output: string ): string {
-    if ( this.currentRoute && this.currentRoute.search( location ) !== -1 ) {
+    if ( this.router.url && this.router.url.search( location ) !== -1 ) {
       return output;
     }
   }
