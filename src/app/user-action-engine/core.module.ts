@@ -5,7 +5,6 @@ import { StaticPagesModule } from './static-pages.module';
 import { MaterialModule } from '../material.module';
 import { NIEOSModule } from '../app-engine/nie-OS.module';
 import { DialogUserSettingsDialog, HeaderComponent} from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
 import { MainComponent } from './main/main.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { NavigationComponent } from './navigation/navigation.component';
@@ -59,7 +58,6 @@ import { DevelopmentViewsModule } from '../app-engine/apps/development-views/dev
   ],
   declarations: [
     HeaderComponent,
-    FooterComponent,
     MainComponent,
     PageNotFoundComponent,
     NavigationComponent,
@@ -82,7 +80,7 @@ import { DevelopmentViewsModule } from '../app-engine/apps/development-views/dev
     AuthenticationService,
     DialogUserSettingsDialog
   ],
-  exports: [HeaderComponent, FooterComponent, MainComponent, RouterModule]
+  exports: [HeaderComponent, MainComponent, RouterModule]
 })
 export class CoreModule {
 }
