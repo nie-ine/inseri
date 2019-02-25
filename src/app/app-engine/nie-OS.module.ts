@@ -47,6 +47,7 @@ import { UpdateLinkedAppsComponent } from '../query-app-interface/data-managemen
 import { NewGjsBoxDialogComponent } from './apps/grapesjs/new-gjs-box-dialog/new-gjs-box-dialog.component';
 import { NgxEditorModule } from 'ngx-editor';
 import {MatDialogModule} from '@angular/material';
+import { SimpleImageAppComponent } from './apps/simple-image-app/simple-image-app.component';
 
 @NgModule({
   imports: [
@@ -84,7 +85,8 @@ import {MatDialogModule} from '@angular/material';
     RouterModule.forChild([
       { path: 'page', component: PageComponent },
       { path: 'textlist', component: TextlistViewerComponent },
-      { path: 'tree-map', component: QueryAppInputMapComponent }
+      { path: 'tree-map', component: QueryAppInputMapComponent },
+      { path: 'simple-image-app', component: SimpleImageAppComponent },
     ])
   ],
   providers: [
@@ -106,7 +108,8 @@ import {MatDialogModule} from '@angular/material';
     QueryListComponent,
     DataAssignmentComponent,
     UpdateLinkedAppsComponent,
-    NewGjsBoxDialogComponent
+    NewGjsBoxDialogComponent,
+    SimpleImageAppComponent
   ],
   exports: [
     PageComponent,

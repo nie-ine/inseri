@@ -98,6 +98,15 @@ export class OpenAppsModel {
     chordDiagrams: {
       type: 'chordDiagrams',
       model: []
+    },
+    simpleImageApp: {
+      type: 'simpleImageApp',
+      model: [],
+      inputs: [
+          {
+            'inputName': 'imageURL'
+          }
+        ]
     }
   };
 }
