@@ -51,9 +51,9 @@ export class DataManagementComponent implements OnInit {
     this.table.renderRows();
   }
 
-  receivePage( pageFromLoadComponent: any ) {
+  receivePage( pageAndAction: any ) {
     this.reloadVariables = false;
-    this.page = pageFromLoadComponent;
+    this.page = pageAndAction[ 0 ];
     this.appInputQueryMapping = this.page.appInputQueryMapping;
     this.queryService.getAllQueriesOfPage(this.page._id)
       .subscribe((data) => {

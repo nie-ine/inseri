@@ -107,7 +107,11 @@ export class LoadVariablesComponent implements OnInit, OnChanges {
           //   this.page,
           //   this.openAppsInThisPage
           // );
-          this.sendPageBack.emit( this.page );
+          this.sendPageBack.emit(
+            [
+              this.page,
+              this.action
+            ] );
           this.sendOpenAppsInThisPageBack.emit( this.openAppsInThisPage );
           this.setGrapesJSMetaData( this.page.openApps.grapesJS );
         },

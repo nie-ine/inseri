@@ -245,14 +245,13 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   createTooltip() {
     if ( this.action ) {
-      return 'Aktion: ' + this.action.title + ', Beschreibung: ' + this.action.description;
+      return 'Page: ' + this.action.title + ', Description: ' + this.action.description;
     } else {
       return null;
     }
   }
 
   updatePage() {
-    console.log( this.page );
     this.page.openApps[ 'grapesJS' ] = {};
     this.page.openApps[ 'grapesJS' ].gjsAssets = localStorage.getItem('gjs-assets');
     this.page.openApps[ 'grapesJS' ].gjsComponents = localStorage.getItem('gjs-components');
@@ -261,7 +260,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.page.openApps[ 'grapesJS' ].gjsStyles = localStorage.getItem('gjs-styles');
     this.page.openApps[ 'grapesJS' ].hash = 'grapesJS';
     // console.log( this.page );
-    this.pageService.updatePage(this.page)
+    this.pageService.updatePage(
+      { ...this.page }
+      )
       .subscribe(
         data => {
           console.log(data);
@@ -275,14 +276,11 @@ export class PageComponent implements OnInit, AfterViewChecked {
     appModel: any,
     generateHash: boolean
   ): Array<any> {
-    console.log('add another app');
     const length = appModel.length;
     appModel[ length ] = {};
-    console.log('Add type and Id here');
     if ( generateHash ) {
       appModel[ length ].hash = this.generateHashService.generateHash();
     }
-    console.log( appModel, this.openAppsInThisPage );
     return appModel;
   }
 
@@ -346,10 +344,10 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.setGrapesJSLocalStorage( 'gjs-styles', undefined );
   }
 
-  receivePage( pageFromLoadComponent: any ) {
+  receivePage( pageAndAction: any ) {
     setTimeout(() => {
       if (
-        pageFromLoadComponent.openApps['grapesJS'] &&
+        pageAndAction[ 0 ].openApps['grapesJS'] &&
         (
           localStorage.getItem('gjs-assets') !== null
           || localStorage.getItem('gjs-components') !== null
@@ -364,7 +362,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
         }, 3000);
       }
     }, 1000);
-    this.page = pageFromLoadComponent;
+    this.page = pageAndAction[ 0 ];
+    this.action = pageAndAction[ 1 ];
     this.reloadVariables = false;
   }
 
