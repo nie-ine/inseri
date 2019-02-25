@@ -347,14 +347,23 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   receivePage( pageFromLoadComponent: any ) {
-    console.log( pageFromLoadComponent );
-    if ( pageFromLoadComponent.openApps[ 'grapesJS' ]  ) {
-      console.log( 'activate GrapesJS' );
-      this.activateGrapesJS();
-      setTimeout(() => {
+    setTimeout(() => {
+      if (
+        pageFromLoadComponent.openApps['grapesJS'] &&
+        (
+          localStorage.getItem('gjs-assets') !== null
+          || localStorage.getItem('gjs-components') !== null
+          || localStorage.getItem('gjs-css') !== null
+          || localStorage.getItem('gjs-html') !== null
+          || localStorage.getItem('gjs-styles') !== null
+        )
+      ) {
         this.activateGrapesJS();
-      }, 3000);
-    }
+        setTimeout(() => {
+          this.activateGrapesJS();
+        }, 3000);
+      }
+    }, 1000);
     this.page = pageFromLoadComponent;
     this.reloadVariables = false;
   }
