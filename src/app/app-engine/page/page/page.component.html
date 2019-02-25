@@ -104,6 +104,23 @@
 
       </mat-expansion-panel>
 
+      <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Simple Image APp
+          </mat-panel-title>
+          <mat-panel-description>
+            Displays simple image
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        Description
+        <mat-divider></mat-divider>
+
+        <button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'simpleImageApp' ].model, true)"><mat-icon>short_text</mat-icon>Add Image - Viewer</button><br>
+
+      </mat-expansion-panel>
+
+
       <h4 style="align-content: center">Images</h4>
 
       <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
@@ -462,6 +479,27 @@
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'searchViewer' ].model, i ) ">Remove this app</button>
         </mat-menu>
       </div>
+
+    <!-- Simple Image App -->
+    <div *ngFor="let image of openAppsInThisPage[ 'simpleImageApp' ].model; let i = index;" >
+      <popup #simpleImageApp
+             [hash]="openAppsInThisPage[ 'simpleImageApp' ].model[i].hash"
+             [title]="'Image' + i"
+             [type]="openAppsInThisPage[ 'simpleImageApp' ].type"
+             [firstPopupX]="openAppsInThisPage[ 'simpleImageApp' ].model[i].x"
+             [firstPopupY]="openAppsInThisPage[ 'simpleImageApp' ].model[i].y"
+             (sendAppCoordinatesBack)="updateAppCoordinates($event)">
+        <app-simple-image-app
+          style="height: 100%;" [imageURL]="openAppsInThisPage[ 'simpleImageApp' ].model[i]['imageURL']">
+
+        </app-simple-image-app>
+      </popup>
+      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>search</mat-icon> {{ i }} </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="simpleImageApp.appear()" >Show Image Viewer {{ i }}</button>
+        <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'simpleImageApp' ].model, i ) ">Remove this app</button>
+      </mat-menu>
+    </div>
 
       <!--&lt;!&ndash; GrapesJS &ndash;&gt;-->
       <!--<div *ngFor="let grapesJS of openAppsInThisPage[ 'grapesJSViewer' ].model; let i = index;" >-->
