@@ -82,7 +82,7 @@
 
         <mat-divider></mat-divider>
 
-        <button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'textViewer' ].model, true)"><mat-icon>view_headline</mat-icon> Add Text Viewer</button><br>
+        <button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'textViewer' ].model, true, 'textViewers')"><mat-icon>view_headline</mat-icon> Add Text Viewer</button><br>
 
       </mat-expansion-panel>
 
@@ -100,7 +100,8 @@
 
         <mat-divider></mat-divider>
 
-        <button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'textlistViewers' ].model, true)"><mat-icon>short_text</mat-icon>Add Textlist - Viewer</button><br>
+        <button mat-button (click)="addAnotherApp( openAppsInThisPage[ 'textlistViewers' ].model, true, 'textlistViewers')">
+          <mat-icon>short_text</mat-icon>Add Textlist - Viewer</button><br>
 
       </mat-expansion-panel>
 
