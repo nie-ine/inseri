@@ -404,16 +404,21 @@
       <div *ngFor="let imageViewer of openAppsInThisPage[ 'imageViewer' ].model; let i = index;" >
         <popup #imageViewer
                [hash]="openAppsInThisPage[ 'imageViewer' ].model[i].hash"
-               [title]="'Image Viewer ' + i "
+               [title]="openAppsInThisPage[ 'imageViewer' ].model[i].title || 'Image Viewer ' + i "
                [type]="openAppsInThisPage[ 'imageViewer' ].type"
                [firstPopupX]="openAppsInThisPage[ 'imageViewer' ].model[i].x"
                [firstPopupY]="openAppsInThisPage[ 'imageViewer' ].model[i].y"
+               [width]="produceHeightAndWidth( openAppsInThisPage[ 'imageViewer' ].model[i].width, '250' )"
+               [height]="produceHeightAndWidth( openAppsInThisPage[ 'imageViewer' ].model[i].height, '150')"
                [index] = "openAppsInThisPage[ 'imageViewer' ].model[i].index"
                [arrayLength] = "openAppsInThisPage[ 'imageViewer' ].model[i].arrayLength"
                (sendAppCoordinatesBack)="updateAppCoordinates($event)"
                [queryId] = "openAppsInThisPage[ 'imageViewer' ].model[i].queryId"
-               (sendIndexBack)="updateIndices( $event )">
-          <nie-image-frame style="height: 100%;"
+               (sendIndexBack)="updateIndices( $event )"
+               (sendAppSettingsBack)="updateAppSettings($event)">
+          <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'imageViewer' ].model[i].height, '150' ) + 'px',
+  'width': produceHeightAndWidth( openAppsInThisPage[ 'imageViewer' ].model[i].width, '250' ) + 'px'}">
+          <nie-image-frame style="position: sticky;"
                            [image]="{
     '@id' : openAppsInThisPage[ 'imageViewer' ].model[i]['@id'],
     '@type' : openAppsInThisPage[ 'imageViewer' ].model[i]['@type'],
@@ -427,6 +432,7 @@
                            width="500"
                            height="700">
           </nie-image-frame>
+          </div>
         </popup>
         <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>image</mat-icon> {{ i }}</button>
         <mat-menu #menu="matMenu">
@@ -440,15 +446,21 @@
       <div *ngFor="let search of openAppsInThisPage[ 'searchViewer' ].model; let i = index;" >
         <popup #searchViewer
                [hash]="openAppsInThisPage[ 'searchViewer' ].model[i].hash"
-               [title]="'Search ' + i"
+               [title]="openAppsInThisPage[ 'searchViewer' ].model[i].title || 'Search ' + i"
                [type]="openAppsInThisPage[ 'searchViewer' ].type"
                [firstPopupX]="openAppsInThisPage[ 'searchViewer' ].model[i].x"
                [firstPopupY]="openAppsInThisPage[ 'searchViewer' ].model[i].y"
-               (sendAppCoordinatesBack)="updateAppCoordinates($event)">
+               [width]="produceHeightAndWidth( openAppsInThisPage[ 'searchViewer' ].model[i].width, '250' )"
+               [height]="produceHeightAndWidth( openAppsInThisPage[ 'searchViewer' ].model[i].height, '150')"
+               (sendAppCoordinatesBack)="updateAppCoordinates($event)"
+               (sendAppSettingsBack)="updateAppSettings($event)">
+          <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'searchViewer' ].model[i].height, '150' ) + 'px',
+  'width': produceHeightAndWidth( openAppsInThisPage[ 'searchViewer' ].model[i].width, '250' ) + 'px'}">
           <nie-search
-            style="height: 100%;">
+            style="position: sticky;">
 
           </nie-search>
+          </div>
         </popup>
         <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>search</mat-icon> {{ i }} </button>
         <mat-menu #menu="matMenu">
@@ -461,15 +473,22 @@
     <div *ngFor="let image of openAppsInThisPage[ 'simpleImageApp' ].model; let i = index;" >
       <popup #simpleImageApp
              [hash]="openAppsInThisPage[ 'simpleImageApp' ].model[i].hash"
-             [title]="'Image' + i"
+             [title]="openAppsInThisPage[ 'simpleImageApp' ].model[i].title || 'Image' + i"
              [type]="openAppsInThisPage[ 'simpleImageApp' ].type"
              [firstPopupX]="openAppsInThisPage[ 'simpleImageApp' ].model[i].x"
              [firstPopupY]="openAppsInThisPage[ 'simpleImageApp' ].model[i].y"
-             (sendAppCoordinatesBack)="updateAppCoordinates($event)">
+             [width]="produceHeightAndWidth( openAppsInThisPage[ 'simpleImageApp' ].model[i].width, '250' )"
+             [height]="produceHeightAndWidth( openAppsInThisPage[ 'simpleImageApp' ].model[i].height, '150')"
+             (sendAppCoordinatesBack)="updateAppCoordinates($event)"
+             (sendAppSettingsBack)="updateAppSettings($event)">
+        <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'simpleImageApp' ].model[i].height, '150' ) + 'px',
+  'width': produceHeightAndWidth( openAppsInThisPage[ 'simpleImageApp' ].model[i].width, '250' ) + 'px'}">
         <app-simple-image-app
-          style="height: 100%;" [imageURL]="openAppsInThisPage[ 'simpleImageApp' ].model[i]['imageURL']">
+          style="position: sticky;"
+          [imageURL]="openAppsInThisPage[ 'simpleImageApp' ].model[i]['imageURL']">
 
         </app-simple-image-app>
+        </div>
       </popup>
       <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>search</mat-icon> {{ i }} </button>
       <mat-menu #menu="matMenu">
@@ -482,13 +501,17 @@
       <div *ngFor="let textViewer of openAppsInThisPage[ 'textViewer' ].model; let i = index;" >
         <popup #textViewer
                [hash]="openAppsInThisPage[ 'textViewer' ].model[i].hash"
-               [title]="'Text Viewer ' + i"
+               [title]="openAppsInThisPage[ 'textViewer' ].model[i].title || 'Text Viewer ' + i"
                [type]="openAppsInThisPage[ 'textViewer' ].type"
                [firstPopupX]="openAppsInThisPage[ 'textViewer' ].model[i].x"
                [firstPopupY]="openAppsInThisPage[ 'textViewer' ].model[i].y"
-               (sendAppCoordinatesBack)="updateAppCoordinates($event)">
-          <div style="max-width: 500px;">
-            <app-text-view class="draggable">
+               [width]="produceHeightAndWidth( openAppsInThisPage[ 'textViewer' ].model[i].width, '250' )"
+               [height]="produceHeightAndWidth( openAppsInThisPage[ 'textViewer' ].model[i].height, '150')"
+               (sendAppCoordinatesBack)="updateAppCoordinates($event)"
+               (sendAppSettingsBack)="updateAppSettings($event)">
+          <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'textViewer' ].model[i].height, '150' ) + 'px',
+  'width': produceHeightAndWidth( openAppsInThisPage[ 'textViewer' ].model[i].width, '250' ) + 'px'}">
+            <app-text-view class="draggable" style="position: sticky;">
             </app-text-view>
           </div>
         </popup>
@@ -505,12 +528,16 @@
       <div *ngFor="let synopsisViewer of openAppsInThisPage[ 'synopsisViewer' ].model; let i = index;" >
         <popup #synopsisViewer
                [hash]="openAppsInThisPage[ 'synopsisViewer' ].model[i].hash"
-               [title]="'Synopsis Viewer ' + i"
+               [title]="openAppsInThisPage[ 'synopsisViewer' ].model[i].title || 'Synopsis Viewer ' + i"
                [type]="openAppsInThisPage[ 'synopsisViewer' ].type"
                [firstPopupX]="openAppsInThisPage[ 'synopsisViewer' ].model[i].x"
                [firstPopupY]="openAppsInThisPage[ 'synopsisViewer' ].model[i].y"
-               (sendAppCoordinatesBack)="updateAppCoordinates($event)">
-          <div style="width: 900px; height: 400px;" >
+               [width]="produceHeightAndWidth( openAppsInThisPage[ 'synopsisViewer' ].model[i].width, '900' )"
+               [height]="produceHeightAndWidth( openAppsInThisPage[ 'synopsisViewer' ].model[i].height, '400')"
+               (sendAppCoordinatesBack)="updateAppCoordinates($event)"
+               (sendAppSettingsBack)="updateAppSettings($event)">
+          <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'synopsisViewer' ].model[i].height, '150' ) + 'px',
+  'width': produceHeightAndWidth( openAppsInThisPage[ 'synopsisViewer' ].model[i].width, '250' ) + 'px'}">
             <app-synopsis style="position: sticky;">
 
             </app-synopsis>
@@ -521,7 +548,6 @@
           <button mat-menu-item (click)="synopsisViewer.appear()" >Show Synopsis Viewer {{ i }}</button><br>
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'synopsisViewer' ].model, i ) ">Remove this app</button>
         </mat-menu>
-
       </div>
 
       <!-- Resource Creation Form -->
