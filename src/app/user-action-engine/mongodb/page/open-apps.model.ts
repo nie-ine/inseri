@@ -31,19 +31,19 @@ export class OpenAppsModel {
       ]
     },
     textViewer: {
-      type: 'textViewers',
+      type: 'textViewer',
       model: []
     },
     searchViewer: {
-      type: 'searchViewers',
+      type: 'searchViewer',
       model: []
     },
     grapesJSViewer: {
-      type: 'grapesJSViewers',
+      type: 'grapesJSViewer',
       model: []
     },
     synopsisViewer: {
-      type: 'synopsisViewers',
+      type: 'synopsisViewer',
       model: []
     },
     createResourceForm: {

@@ -45,10 +45,6 @@
         You can not save anything you do on this <br> demo - page. If you would like to save <br> pages and pageSets, please <a href="/register">register</a>.
       </div>
 
-      <div *ngFor="let createResourceForm of openAppsInThisPage[ 'textlistViewers' ].model; let i = index;" >
-
-      </div>
-
       <!-- Data Chooser -->
       <h4 style="align-content: center" *ngIf="openAppsInThisPage[ 'dataChooser' ].model.length > 0">Queries</h4>
       <div *ngFor="let dataChooser of openAppsInThisPage[ 'dataChooser' ].model; let i = index;" >
@@ -82,7 +78,7 @@
 
         <mat-divider></mat-divider>
 
-        <button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'textViewer' ].model, true, 'textViewers')"><mat-icon>view_headline</mat-icon> Add Text Viewer</button><br>
+        <button mat-button (click)="addAnotherApp('textViewer', true)"><mat-icon>view_headline</mat-icon> Add Text Viewer</button><br>
 
       </mat-expansion-panel>
 
@@ -100,8 +96,7 @@
 
         <mat-divider></mat-divider>
 
-        <button mat-button (click)="addAnotherApp( openAppsInThisPage[ 'textlistViewers' ].model, true, 'textlistViewers')">
-          <mat-icon>short_text</mat-icon>Add Textlist - Viewer</button><br>
+        <button mat-button (click)="addAnotherApp('textlistViewers', true)"><mat-icon>short_text</mat-icon>Add Textlist - Viewer</button><br>
 
       </mat-expansion-panel>
 
@@ -117,7 +112,7 @@
         Description
         <mat-divider></mat-divider>
 
-        <button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'simpleImageApp' ].model, true)"><mat-icon>short_text</mat-icon>Add Image - Viewer</button><br>
+        <button mat-button (click)="addAnotherApp('simpleImageApp', true)"><mat-icon>short_text</mat-icon>Add Image - Viewer</button><br>
 
       </mat-expansion-panel>
 
@@ -141,7 +136,7 @@
 
         <mat-divider></mat-divider>
 
-        <button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'imageViewer' ].model, true)" >
+        <button mat-button (click)="addAnotherApp('imageViewer', true)" >
           <mat-icon >image</mat-icon>
           Add Image Viewer</button><br>
 
@@ -163,7 +158,7 @@
 
         <mat-divider></mat-divider>
 
-        <button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'searchViewer' ].model, true)">
+        <button mat-button (click)="addAnotherApp('searchViewer', true)">
           <mat-icon >search</mat-icon>
           Add search Viewer
         </button><br>
@@ -187,7 +182,7 @@
 
         <mat-divider></mat-divider>
 
-        <button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'synopsisViewer' ].model, true)"><mat-icon>art_track</mat-icon> Add Synopsis Viewer</button><br>
+        <button mat-button (click)="addAnotherApp('synopsisViewer', true)"><mat-icon>art_track</mat-icon> Add Synopsis Viewer</button><br>
       </mat-expansion-panel>
 
       <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
@@ -204,7 +199,7 @@
 
         <mat-divider></mat-divider>
 
-        <button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'dataChooser' ].model, true)"><mat-icon>perm_data_setting</mat-icon> Add Data Chooser</button><br>
+        <button mat-button (click)="addAnotherApp('dataChooser', true)"><mat-icon>perm_data_setting</mat-icon> Add Data Chooser</button><br>
 
       </mat-expansion-panel>
 
@@ -224,7 +219,7 @@
 
         <mat-divider></mat-divider>
 
-        <button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'barCharts' ].model, true)"><mat-icon>bar_chart</mat-icon> Add Bar Chart</button><br>
+        <button mat-button (click)="addAnotherApp('barCharts', true)"><mat-icon>bar_chart</mat-icon> Add Bar Chart</button><br>
 
       </mat-expansion-panel>
 
@@ -242,7 +237,7 @@
 
         <mat-divider></mat-divider>
 
-        <button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'lineCharts' ].model, true)"><mat-icon>show_chart</mat-icon> Add Line Chart</button><br>
+        <button mat-button (click)="addAnotherApp('lineCharts', true)"><mat-icon>show_chart</mat-icon> Add Line Chart</button><br>
 
       </mat-expansion-panel>
 
@@ -260,7 +255,7 @@
 
         <mat-divider></mat-divider>
 
-        <button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'brushZoomCharts' ].model, true)"><mat-icon>insert_chart_outlined</mat-icon> Add Brush Zoom Chart</button><br>
+        <button mat-button (click)="addAnotherApp('brushZoomCharts' , true)"><mat-icon>insert_chart_outlined</mat-icon> Add Brush Zoom Chart</button><br>
 
       </mat-expansion-panel>
 
@@ -278,7 +273,7 @@
 
         <mat-divider></mat-divider>
 
-        <button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'leafletMaps' ].model, true)"><mat-icon>add_location</mat-icon> Add Leaflet Map</button><br>
+        <button mat-button (click)="addAnotherApp('leafletMaps', true)"><mat-icon>add_location</mat-icon> Add Leaflet Map</button><br>
 
       </mat-expansion-panel>
 
@@ -296,7 +291,7 @@
 
         <mat-divider></mat-divider>
 
-        <button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'pieCharts' ].model, true)"><mat-icon>pie_chart</mat-icon> Add Pie Chart</button><br>
+        <button mat-button (click)="addAnotherApp('pieCharts', true)"><mat-icon>pie_chart</mat-icon> Add Pie Chart</button><br>
 
       </mat-expansion-panel>
 
@@ -314,7 +309,7 @@
 
         <mat-divider></mat-divider>
 
-        <button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'radialBarCharts' ].model, true)"><mat-icon>multiline_chart</mat-icon> Add Radial Bar Chart</button><br>
+        <button mat-button (click)="addAnotherApp('radialBarCharts', true)"><mat-icon>multiline_chart</mat-icon> Add Radial Bar Chart</button><br>
 
       </mat-expansion-panel>
 
@@ -332,7 +327,7 @@
 
         <mat-divider></mat-divider>
 
-        <button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'sankeyCharts' ].model, true)"><mat-icon>linear_scale</mat-icon> Add Sankey Chart</button><br>
+        <button mat-button (click)="addAnotherApp('sankeyCharts', true)"><mat-icon>linear_scale</mat-icon> Add Sankey Chart</button><br>
 
       </mat-expansion-panel>
 
@@ -350,7 +345,7 @@
 
         <mat-divider></mat-divider>
 
-        <button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'stackedBarCharts' ].model, true)"><mat-icon>view_list</mat-icon> Add Stacked Bar Chart</button><br>
+        <button mat-button (click)="addAnotherApp('stackedBarCharts', true)"><mat-icon>view_list</mat-icon> Add Stacked Bar Chart</button><br>
 
       </mat-expansion-panel>
 
@@ -369,7 +364,7 @@
 
         <mat-divider></mat-divider>
 
-        <button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'chordDiagrams' ].model, true)"><mat-icon>all_out</mat-icon> Add Chord Diagram</button><br>
+        <button mat-button (click)="addAnotherApp('chordDiagrams', true)"><mat-icon>all_out</mat-icon> Add Chord Diagram</button><br>
 
       </mat-expansion-panel>
 
