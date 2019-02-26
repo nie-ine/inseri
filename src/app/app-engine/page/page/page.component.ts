@@ -274,12 +274,20 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   addAnotherApp (
     appModel: any,
-    generateHash: boolean
+    generateHash: boolean,
+    type: string
   ): Array<any> {
     const length = appModel.length;
     appModel[ length ] = {};
     if ( generateHash ) {
       appModel[ length ].hash = this.generateHashService.generateHash();
+      appModel[ length ].type = type;
+      appModel[ length ].title = type + ' ' + length;
+      console.log( appModel[ length ] );
+      if (this.page.openApps[ appModel[ length ].hash ] === null) {
+        this.page.openApps[ appModel[ length ].hash ] = [];
+      }
+      this.page.openApps[ appModel[ length ].hash ] = appModel[ length ];
     }
     return appModel;
   }
