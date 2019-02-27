@@ -408,16 +408,16 @@
                [type]="openAppsInThisPage[ 'imageViewer' ].type"
                [firstPopupX]="openAppsInThisPage[ 'imageViewer' ].model[i].x"
                [firstPopupY]="openAppsInThisPage[ 'imageViewer' ].model[i].y"
-               [width]="produceHeightAndWidth( openAppsInThisPage[ 'imageViewer' ].model[i].width, '250' )"
-               [height]="produceHeightAndWidth( openAppsInThisPage[ 'imageViewer' ].model[i].height, '150')"
+               [width]="produceHeightAndWidth( openAppsInThisPage[ 'imageViewer' ].model[i].width, '500' )"
+               [height]="produceHeightAndWidth( openAppsInThisPage[ 'imageViewer' ].model[i].height, '700')"
                [index] = "openAppsInThisPage[ 'imageViewer' ].model[i].index"
                [arrayLength] = "openAppsInThisPage[ 'imageViewer' ].model[i].arrayLength"
                (sendAppCoordinatesBack)="updateAppCoordinates($event)"
                [queryId] = "openAppsInThisPage[ 'imageViewer' ].model[i].queryId"
                (sendIndexBack)="updateIndices( $event )"
                (sendAppSettingsBack)="updateAppSettings($event)">
-          <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'imageViewer' ].model[i].height, '150' ) + 'px',
-  'width': produceHeightAndWidth( openAppsInThisPage[ 'imageViewer' ].model[i].width, '250' ) + 'px'}">
+          <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'imageViewer' ].model[i].height, '700' ) + 'px',
+  'width': produceHeightAndWidth( openAppsInThisPage[ 'imageViewer' ].model[i].width, '500' ) + 'px'}">
           <nie-image-frame style="position: sticky;"
                            [image]="{
     '@id' : openAppsInThisPage[ 'imageViewer' ].model[i]['@id'],
@@ -451,10 +451,10 @@
                [firstPopupX]="openAppsInThisPage[ 'searchViewer' ].model[i].x"
                [firstPopupY]="openAppsInThisPage[ 'searchViewer' ].model[i].y"
                [width]="produceHeightAndWidth( openAppsInThisPage[ 'searchViewer' ].model[i].width, '250' )"
-               [height]="produceHeightAndWidth( openAppsInThisPage[ 'searchViewer' ].model[i].height, '150')"
+               [height]="produceHeightAndWidth( openAppsInThisPage[ 'searchViewer' ].model[i].height, '400')"
                (sendAppCoordinatesBack)="updateAppCoordinates($event)"
                (sendAppSettingsBack)="updateAppSettings($event)">
-          <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'searchViewer' ].model[i].height, '150' ) + 'px',
+          <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'searchViewer' ].model[i].height, '400' ) + 'px',
   'width': produceHeightAndWidth( openAppsInThisPage[ 'searchViewer' ].model[i].width, '250' ) + 'px'}">
           <nie-search
             style="position: sticky;">
@@ -477,12 +477,12 @@
              [type]="openAppsInThisPage[ 'simpleImageApp' ].type"
              [firstPopupX]="openAppsInThisPage[ 'simpleImageApp' ].model[i].x"
              [firstPopupY]="openAppsInThisPage[ 'simpleImageApp' ].model[i].y"
-             [width]="produceHeightAndWidth( openAppsInThisPage[ 'simpleImageApp' ].model[i].width, '250' )"
-             [height]="produceHeightAndWidth( openAppsInThisPage[ 'simpleImageApp' ].model[i].height, '150')"
+             [width]="produceHeightAndWidth( openAppsInThisPage[ 'simpleImageApp' ].model[i].width, '500' )"
+             [height]="produceHeightAndWidth( openAppsInThisPage[ 'simpleImageApp' ].model[i].height, '500')"
              (sendAppCoordinatesBack)="updateAppCoordinates($event)"
              (sendAppSettingsBack)="updateAppSettings($event)">
-        <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'simpleImageApp' ].model[i].height, '150' ) + 'px',
-  'width': produceHeightAndWidth( openAppsInThisPage[ 'simpleImageApp' ].model[i].width, '250' ) + 'px'}">
+        <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'simpleImageApp' ].model[i].height, '500' ) + 'px',
+  'width': produceHeightAndWidth( openAppsInThisPage[ 'simpleImageApp' ].model[i].width, '500' ) + 'px'}">
         <app-simple-image-app
           style="position: sticky;"
           [imageURL]="openAppsInThisPage[ 'simpleImageApp' ].model[i]['imageURL']">
@@ -505,12 +505,12 @@
                [type]="openAppsInThisPage[ 'textViewer' ].type"
                [firstPopupX]="openAppsInThisPage[ 'textViewer' ].model[i].x"
                [firstPopupY]="openAppsInThisPage[ 'textViewer' ].model[i].y"
-               [width]="produceHeightAndWidth( openAppsInThisPage[ 'textViewer' ].model[i].width, '250' )"
-               [height]="produceHeightAndWidth( openAppsInThisPage[ 'textViewer' ].model[i].height, '150')"
+               [width]="produceHeightAndWidth( openAppsInThisPage[ 'textViewer' ].model[i].width, '500' )"
+               [height]="produceHeightAndWidth( openAppsInThisPage[ 'textViewer' ].model[i].height, '500')"
                (sendAppCoordinatesBack)="updateAppCoordinates($event)"
                (sendAppSettingsBack)="updateAppSettings($event)">
-          <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'textViewer' ].model[i].height, '150' ) + 'px',
-  'width': produceHeightAndWidth( openAppsInThisPage[ 'textViewer' ].model[i].width, '250' ) + 'px'}">
+          <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'textViewer' ].model[i].height, '500' ) + 'px',
+  'width': produceHeightAndWidth( openAppsInThisPage[ 'textViewer' ].model[i].width, '500' ) + 'px'}">
             <app-text-view class="draggable" style="position: sticky;">
             </app-text-view>
           </div>
