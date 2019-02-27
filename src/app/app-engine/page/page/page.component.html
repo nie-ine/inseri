@@ -386,7 +386,7 @@
 
         <mat-divider></mat-divider>
 
-        <button mat-button (click)="addAnotherApp(openAppsInThisPage[ 'createResourceForm' ].model, true)"><mat-icon>add_to_queue</mat-icon> Add Creation Form</button>
+        <button mat-button (click)="addAnotherApp('createResourceForm', true)"><mat-icon>add_to_queue</mat-icon> Add Creation Form</button>
 
       </mat-expansion-panel>
 
@@ -554,12 +554,16 @@
       <div *ngFor="let createResourceForm of openAppsInThisPage[ 'createResourceForm' ].model; let i = index;" >
         <popup #createResourceForm
                [hash]="openAppsInThisPage[ 'createResourceForm' ].model[i].hash"
-               [title]="'Resource Creation ' + i"
+               [title]="openAppsInThisPage[ 'createResourceForm' ].model[i].title ||  'Resource Creation ' + i"
                [type]="openAppsInThisPage[ 'createResourceForm' ].type"
                [firstPopupX]="openAppsInThisPage[ 'createResourceForm' ].model[i].x"
                [firstPopupY]="openAppsInThisPage[ 'createResourceForm' ].model[i].y"
-               (sendAppCoordinatesBack)="updateAppCoordinates($event)">
-          <div style="width: 900px; height: 400px;" >
+               [width]="produceHeightAndWidth( openAppsInThisPage[ 'createResourceForm' ].model[i].width, '900' )"
+               [height]="produceHeightAndWidth( openAppsInThisPage[ 'createResourceForm' ].model[i].height, '400')"
+               (sendAppCoordinatesBack)="updateAppCoordinates($event)"
+               (sendAppSettingsBack)="updateAppSettings($event)">
+          <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'createResourceForm' ].model[i].height, '400' ) + 'px',
+  'width': produceHeightAndWidth( openAppsInThisPage[ 'createResourceForm' ].model[i].width, '900' ) + 'px'}" >
             <app-create-resource style="position: sticky;"
                                  [projectIRI]="projectIRI"
                                  (resourceIRI)="closeApp( openAppsInThisPage[ 'createResourceForm' ].model, i )">
@@ -605,12 +609,16 @@
       <div *ngFor="let barChart of openAppsInThisPage[ 'barCharts' ].model; let i = index;" >
         <popup #barChart
                [hash]="openAppsInThisPage[ 'barCharts' ].model[i].hash"
-               [title]="'Bar Chart ' + i"
+               [title]="openAppsInThisPage[ 'barCharts' ].model[i].title || 'Bar Chart ' + i"
                [type]="openAppsInThisPage[ 'barCharts' ].type"
                [firstPopupX]="openAppsInThisPage[ 'barCharts' ].model[i].x"
                [firstPopupY]="openAppsInThisPage[ 'barCharts' ].model[i].y"
-               (sendAppCoordinatesBack)="updateAppCoordinates($event)">
-          <div style="width: 1200px; overflow: auto">
+               [width]="produceHeightAndWidth( openAppsInThisPage[ 'barCharts' ].model[i].width, '1200' )"
+               [height]="produceHeightAndWidth( openAppsInThisPage[ 'barCharts' ].model[i].height, '500')"
+               (sendAppCoordinatesBack)="updateAppCoordinates($event)"
+               (sendAppSettingsBack)="updateAppSettings($event)">
+          <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'barCharts' ].model[i].height, '500' ) + 'px',
+  'width': produceHeightAndWidth( openAppsInThisPage[ 'barCharts' ].model[i].width, '1200' ) + 'px'}">
             <app-bar-chart
               [initialised] = "openAppsInThisPage[ 'barCharts' ].model[i].initialized"
               [numberOfInitialisedComponent] = " i " >
@@ -631,12 +639,16 @@
       <div *ngFor="let lineChart of openAppsInThisPage[ 'lineCharts' ].model; let i = index;" >
         <popup #lineChart
                [hash]="openAppsInThisPage[ 'lineCharts' ].model[i].hash"
-               [title]="'Line Chart ' + i"
+               [title]="openAppsInThisPage[ 'lineCharts' ].model[i].title || 'Line Chart ' + i"
                [type]="openAppsInThisPage[ 'lineCharts' ].type"
                [firstPopupX]="openAppsInThisPage[ 'lineCharts' ].model[i].x"
                [firstPopupY]="openAppsInThisPage[ 'lineCharts' ].model[i].y"
-               (sendAppCoordinatesBack)="updateAppCoordinates($event)">
-          <div >
+               [width]="produceHeightAndWidth( openAppsInThisPage[ 'lineCharts' ].model[i].width, '600' )"
+               [height]="produceHeightAndWidth( openAppsInThisPage[ 'lineCharts' ].model[i].height, '400')"
+               (sendAppCoordinatesBack)="updateAppCoordinates($event)"
+               (sendAppSettingsBack)="updateAppSettings($event)">
+          <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'lineCharts' ].model[i].height, '400' ) + 'px',
+  'width': produceHeightAndWidth( openAppsInThisPage[ 'lineCharts' ].model[i].width, '600' ) + 'px'}">
             <app-multi-line-chart
               [initialised] = "openAppsInThisPage[ 'lineCharts' ].model[i].initialized"
               [numberOfInitialisedComponent] = " i " >
@@ -649,7 +661,6 @@
           <button mat-menu-item (click)="lineChart.appear()" (click)="openAppsInThisPage[ 'lineCharts' ].model[i].initialized = true">Show Line Chart {{ i }}</button>
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'lineCharts' ].model, i ) ">Remove this app</button>
         </mat-menu>
-
       </div>
 
       <!-- Brush Zoom Charts -->
