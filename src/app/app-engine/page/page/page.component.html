@@ -667,12 +667,16 @@
       <div *ngFor="let brushZoomChart of openAppsInThisPage[ 'brushZoomCharts' ].model; let i = index;" >
         <popup #brushZoomChart
                [hash]="openAppsInThisPage[ 'brushZoomCharts' ].model[i].hash"
-               [title]="'Brush Zoom Chart ' + i"
+               [title]="openAppsInThisPage[ 'brushZoomCharts' ].model[i].title || 'Brush Zoom Chart ' + i"
                [type]="openAppsInThisPage[ 'brushZoomCharts' ].type"
                [firstPopupX]="openAppsInThisPage[ 'brushZoomCharts' ].model[i].x"
                [firstPopupY]="openAppsInThisPage[ 'brushZoomCharts' ].model[i].y"
-               (sendAppCoordinatesBack)="updateAppCoordinates($event)">
-          <div >
+               [width]="produceHeightAndWidth( openAppsInThisPage[ 'brushZoomCharts' ].model[i].width, '900' )"
+               [height]="produceHeightAndWidth( openAppsInThisPage[ 'brushZoomCharts' ].model[i].height, '500')"
+               (sendAppCoordinatesBack)="updateAppCoordinates($event)"
+               (sendAppSettingsBack)="updateAppSettings($event)">
+          <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'brushZoomCharts' ].model[i].height, '500' ) + 'px',
+  'width': produceHeightAndWidth( openAppsInThisPage[ 'brushZoomCharts' ].model[i].width, '900' ) + 'px'}">
             <app-brush-and-zoom
               [initialised] = "openAppsInThisPage[ 'brushZoomCharts' ].model[i].initialized"
               [numberOfInitialisedComponent] = " i " >
@@ -692,12 +696,16 @@
       <div *ngFor="let leafletMap of openAppsInThisPage[ 'leafletMaps' ].model; let i = index;" >
         <popup #leafletMap
                [hash]="openAppsInThisPage[ 'leafletMaps' ].model[i].hash"
-               [title]="'Leaflet Map ' + i"
+               [title]="openAppsInThisPage[ 'leafletMaps' ].model[i].title ||  'Leaflet Map ' + i"
                [type]="openAppsInThisPage[ 'leafletMaps' ].type"
                [firstPopupX]="openAppsInThisPage[ 'leafletMaps' ].model[i].x"
                [firstPopupY]="openAppsInThisPage[ 'leafletMaps' ].model[i].y"
-               (sendAppCoordinatesBack)="updateAppCoordinates($event)">
-          <div >
+               [width]="produceHeightAndWidth( openAppsInThisPage[ 'leafletMaps' ].model[i].width, '500' )"
+               [height]="produceHeightAndWidth( openAppsInThisPage[ 'leafletMaps' ].model[i].height, '500')"
+               (sendAppCoordinatesBack)="updateAppCoordinates($event)"
+               (sendAppSettingsBack)="updateAppSettings($event)">
+          <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'leafletMaps' ].model[i].height, '500' ) + 'px',
+  'width': produceHeightAndWidth( openAppsInThisPage[ 'leafletMaps' ].model[i].width, '500' ) + 'px'}">
             <app-leaflet-example
               [initialised] = "openAppsInThisPage[ 'leafletMaps' ].model[i].initialized"
               [numberOfInitialisedComponent] = " i " >
@@ -717,12 +725,16 @@
       <div *ngFor="let pieChart of openAppsInThisPage[ 'pieCharts' ].model; let i = index;" >
         <popup #pieChart
                [hash]="openAppsInThisPage[ 'pieCharts' ].model[i].hash"
-               [title]="'Pie Chart ' + i"
+               [title]="openAppsInThisPage[ 'pieCharts' ].model[i].title || 'Pie Chart ' + i"
                [type]="openAppsInThisPage[ 'pieCharts' ].type"
                [firstPopupX]="openAppsInThisPage[ 'pieCharts' ].model[i].x"
                [firstPopupY]="openAppsInThisPage[ 'pieCharts' ].model[i].y"
-               (sendAppCoordinatesBack)="updateAppCoordinates($event)">
-          <div >
+               [width]="produceHeightAndWidth( openAppsInThisPage[ 'pieCharts' ].model[i].width, '700' )"
+               [height]="produceHeightAndWidth( openAppsInThisPage[ 'pieCharts' ].model[i].height, '500')"
+               (sendAppCoordinatesBack)="updateAppCoordinates($event)"
+               (sendAppSettingsBack)="updateAppSettings($event)">
+          <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'pieCharts' ].model[i].height, '500' ) + 'px',
+  'width': produceHeightAndWidth( openAppsInThisPage[ 'pieCharts' ].model[i].width, '700' ) + 'px'}">
             <app-pie-chart
               [initialised] = "openAppsInThisPage[ 'pieCharts' ].model[i].initialized"
               [numberOfInitialisedComponent] = " i " >
@@ -741,12 +753,16 @@
       <div *ngFor="let radialBarChart of openAppsInThisPage[ 'radialBarCharts' ].model; let i = index;" >
         <popup #radialBarChart
                [hash]="openAppsInThisPage[ 'radialBarCharts' ].model[i].hash"
-               [title]="'Radial Bar Chart ' + i"
+               [title]="openAppsInThisPage[ 'radialBarCharts' ].model[i].title || 'Radial Bar Chart ' + i"
                [type]="openAppsInThisPage[ 'radialBarCharts' ].type"
                [firstPopupX]="openAppsInThisPage[ 'radialBarCharts' ].model[i].x"
                [firstPopupY]="openAppsInThisPage[ 'radialBarCharts' ].model[i].y"
-               (sendAppCoordinatesBack)="updateAppCoordinates($event)">
-          <div >
+               [width]="produceHeightAndWidth( openAppsInThisPage[ 'radialBarCharts' ].model[i].width, '500' )"
+               [height]="produceHeightAndWidth( openAppsInThisPage[ 'radialBarCharts' ].model[i].height, '500')"
+               (sendAppCoordinatesBack)="updateAppCoordinates($event)"
+               (sendAppSettingsBack)="updateAppSettings($event)">
+          <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'radialBarCharts' ].model[i].height, '500' ) + 'px',
+  'width': produceHeightAndWidth( openAppsInThisPage[ 'radialBarCharts' ].model[i].width, '500' ) + 'px'}">
             <app-radial-barchart
               [initialised] = "openAppsInThisPage[ 'radialBarCharts' ].model[i].initialized"
               [numberOfInitialisedComponent] = " i " >
@@ -764,13 +780,17 @@
       <!-- Sankey Chart -->
       <div *ngFor="let sankeyChart of openAppsInThisPage[ 'sankeyCharts' ].model; let i = index;" >
         <popup #sankeyChart
-               [hash]="openAppsInThisPage[ 'sankeyCharts' ].model[i].hash"
+               [hash]="openAppsInThisPage[ 'sankeyCharts' ].model[i].title || openAppsInThisPage[ 'sankeyCharts' ].model[i].hash"
                [title]="'Sankey Chart ' + i"
                [type]="openAppsInThisPage[ 'sankeyCharts' ].type"
                [firstPopupX]="openAppsInThisPage[ 'sankeyCharts' ].model[i].x"
                [firstPopupY]="openAppsInThisPage[ 'sankeyCharts' ].model[i].y"
-               (sendAppCoordinatesBack)="updateAppCoordinates($event)">
-          <div >
+               [width]="produceHeightAndWidth( openAppsInThisPage[ 'sankeyCharts' ].model[i].width, '900' )"
+               [height]="produceHeightAndWidth( openAppsInThisPage[ 'sankeyCharts' ].model[i].height, '150')"
+               (sendAppCoordinatesBack)="updateAppCoordinates($event)"
+               (sendAppSettingsBack)="updateAppSettings($event)">
+          <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'sankeyCharts' ].model[i].height, '500' ) + 'px',
+  'width': produceHeightAndWidth( openAppsInThisPage[ 'sankeyCharts' ].model[i].width, '900' ) + 'px'}">
             <app-sankey
               [initialised] = "openAppsInThisPage[ 'sankeyCharts' ].model[i].initialized"
               [numberOfInitialisedComponent] = " i " >
@@ -789,12 +809,16 @@
       <div *ngFor="let stackedBarChart of openAppsInThisPage[ 'stackedBarCharts' ].model; let i = index;" >
         <popup #stackedBarChart
                [hash]="openAppsInThisPage[ 'stackedBarCharts' ].model[i].hash"
-               [title]="'Sankey Chart ' + i"
+               [title]="openAppsInThisPage[ 'stackedBarCharts' ].model[i].title ||  'Sankey Chart ' + i"
                [type]="openAppsInThisPage[ 'stackedBarCharts' ].type"
                [firstPopupX]="openAppsInThisPage[ 'stackedBarCharts' ].model[i].x"
                [firstPopupY]="openAppsInThisPage[ 'stackedBarCharts' ].model[i].y"
-               (sendAppCoordinatesBack)="updateAppCoordinates($event)">
-          <div >
+               [width]="produceHeightAndWidth( openAppsInThisPage[ 'stackedBarCharts' ].model[i].width, '800' )"
+               [height]="produceHeightAndWidth( openAppsInThisPage[ 'stackedBarCharts' ].model[i].height, '500')"
+               (sendAppCoordinatesBack)="updateAppCoordinates($event)"
+               (sendAppSettingsBack)="updateAppSettings($event)">
+          <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'stackedBarCharts' ].model[i].height, '500' ) + 'px',
+  'width': produceHeightAndWidth( openAppsInThisPage[ 'stackedBarCharts' ].model[i].width, '800' ) + 'px'}">
             <app-stacked-bar-chart
               [initialised] = "openAppsInThisPage[ 'stackedBarCharts' ].model[i].initialized"
               [numberOfInitialisedComponent] = " i " >
@@ -813,12 +837,16 @@
       <div *ngFor="let chordDiagram of openAppsInThisPage[ 'chordDiagrams' ].model; let i = index;" >
         <popup #chordDiagram
                [hash]="openAppsInThisPage[ 'chordDiagrams' ].model[i].hash"
-               [title]="'Chord Diagram ' + i"
+               [title]="openAppsInThisPage[ 'chordDiagrams' ].model[i].title || 'Chord Diagram ' + i"
                [type]="openAppsInThisPage[ 'chordDiagrams' ].type"
                [firstPopupX]="openAppsInThisPage[ 'chordDiagrams' ].model[i].x"
                [firstPopupY]="openAppsInThisPage[ 'chordDiagrams' ].model[i].y"
-               (sendAppCoordinatesBack)="updateAppCoordinates($event)">
-          <div >
+               [width]="produceHeightAndWidth( openAppsInThisPage[ 'chordDiagrams' ].model[i].width, '600' )"
+               [height]="produceHeightAndWidth( openAppsInThisPage[ 'chordDiagrams' ].model[i].height, '500')"
+               (sendAppCoordinatesBack)="updateAppCoordinates($event)"
+               (sendAppSettingsBack)="updateAppSettings($event)">
+          <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'chordDiagrams' ].model[i].height, '500' ) + 'px',
+  'width': produceHeightAndWidth( openAppsInThisPage[ 'chordDiagrams' ].model[i].width, '600' ) + 'px'}">
             <app-chord-diagram
               [initialised] = "openAppsInThisPage[ 'chordDiagrams' ].model[i].initialized"
               [numberOfInitialisedComponent] = " i " >
