@@ -1,0 +1,1740 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>nie-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">nie-frontend documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search">
+</div>
+            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>DataAssignmentComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/query-app-interface/data-management/data-assignment/data-assignment.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code><a href="https://angular.io/api/core/OnChanges" target="_blank" >OnChanges</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-data-assignment</code></td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./data-assignment.component.html</code></td>
+            </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#arrayIndicator">arrayIndicator</a>
+                            </li>
+                            <li>
+                                <a href="#currentIndex">currentIndex</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#findLastArrayIndexAndreplaceItWithIndex">findLastArrayIndexAndreplaceItWithIndex</a>
+                            </li>
+                            <li>
+                                <a href="#generateAppinput">generateAppinput</a>
+                            </li>
+                            <li>
+                                <a href="#generateArrayInput">generateArrayInput</a>
+                            </li>
+                            <li>
+                                <a href="#goThroughAppInputs">goThroughAppInputs</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnChanges">ngOnChanges</a>
+                            </li>
+                            <li>
+                                <a href="#rewritePath">rewritePath</a>
+                            </li>
+                            <li>
+                                <a href="#updateAppInput">updateAppInput</a>
+                            </li>
+                            <li>
+                                <a href="#updateAppInputWithNewPath">updateAppInputWithNewPath</a>
+                            </li>
+                            <li>
+                                <a href="#updateLinkedAppsMethod">updateLinkedAppsMethod</a>
+                            </li>
+                            <li>
+                                <a href="#updatePath">updatePath</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#appInputQueryMapping">appInputQueryMapping</a>
+                            </li>
+                            <li>
+                                <a href="#index">index</a>
+                            </li>
+                            <li>
+                                <a href="#indexAppMapping">indexAppMapping</a>
+                            </li>
+                            <li>
+                                <a href="#openAppsInThisPage">openAppsInThisPage</a>
+                            </li>
+                            <li>
+                                <a href="#queryId">queryId</a>
+                            </li>
+                            <li>
+                                <a href="#response">response</a>
+                            </li>
+                            <li>
+                                <a href="#updateLinkedApps">updateLinkedApps</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#sendAppTypesBackToNIEOS">sendAppTypesBackToNIEOS</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/query-app-interface/data-management/data-assignment/data-assignment.component.ts:17</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="appInputQueryMapping"></a>
+                        <code>appInputQueryMapping</code>
+                    </td>
+                    <td class="col-md-10">
+                            <p>
+                            <em>Type :</em>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                            </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/query-app-interface/data-management/data-assignment/data-assignment.component.ts:10</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="index"></a>
+                        <code>index</code>
+                    </td>
+                    <td class="col-md-10">
+                            <p>
+                            <em>Type :</em>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                            </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/app/query-app-interface/data-management/data-assignment/data-assignment.component.ts:8</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="indexAppMapping"></a>
+                        <code>indexAppMapping</code>
+                    </td>
+                    <td class="col-md-10">
+                            <p>
+                            <em>Type :</em>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                            </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/query-app-interface/data-management/data-assignment/data-assignment.component.ts:14</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="openAppsInThisPage"></a>
+                        <code>openAppsInThisPage</code>
+                    </td>
+                    <td class="col-md-10">
+                            <p>
+                            <em>Type :</em>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                            </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/app/query-app-interface/data-management/data-assignment/data-assignment.component.ts:9</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="queryId"></a>
+                        <code>queryId</code>
+                    </td>
+                    <td class="col-md-10">
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/query-app-interface/data-management/data-assignment/data-assignment.component.ts:12</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="response"></a>
+                        <code>response</code>
+                    </td>
+                    <td class="col-md-10">
+                            <p>
+                            <em>Type :</em>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                            </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/query-app-interface/data-management/data-assignment/data-assignment.component.ts:11</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="updateLinkedApps"></a>
+                        <code>updateLinkedApps</code>
+                    </td>
+                    <td class="col-md-10">
+                        <p>
+                            <em>Default value : </em><code>false</code>
+                        </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/query-app-interface/data-management/data-assignment/data-assignment.component.ts:13</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+    <section>
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="sendAppTypesBackToNIEOS"></a>
+                        <code>sendAppTypesBackToNIEOS</code>
+                    </td>
+                    <td class="col-md-10">
+                        <em><code>$event</code> Type:</em>    <code>EventEmitter&lt;any&gt;</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/query-app-interface/data-management/data-assignment/data-assignment.component.ts:15</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section>
+    
+        <h3 id="methods">
+            Methods
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="findLastArrayIndexAndreplaceItWithIndex"></a>
+                        <span class="name">
+                            <b>
+                            findLastArrayIndexAndreplaceItWithIndex
+                            </b>
+                            <a href="#findLastArrayIndexAndreplaceItWithIndex"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>findLastArrayIndexAndreplaceItWithIndex(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, query: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="185" class="link-to-prism">src/app/query-app-interface/data-management/data-assignment/data-assignment.component.ts:185</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>index</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>query</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="generateAppinput"></a>
+                        <span class="name">
+                            <b>
+                            generateAppinput
+                            </b>
+                            <a href="#generateAppinput"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>generateAppinput(response: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, path: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, depth: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, firstArray: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>, app: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">src/app/query-app-interface/data-management/data-assignment/data-assignment.component.ts:68</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>response</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>path</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>index</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>depth</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>firstArray</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>app</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="generateArrayInput"></a>
+                        <span class="name">
+                            <b>
+                            generateArrayInput
+                            </b>
+                            <a href="#generateArrayInput"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>generateArrayInput(response: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, path: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, depth: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, firstArray: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>, app: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="130" class="link-to-prism">src/app/query-app-interface/data-management/data-assignment/data-assignment.component.ts:130</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>response</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>path</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>index</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>depth</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>firstArray</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>app</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="goThroughAppInputs"></a>
+                        <span class="name">
+                            <b>
+                            goThroughAppInputs
+                            </b>
+                            <a href="#goThroughAppInputs"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>goThroughAppInputs()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/query-app-interface/data-management/data-assignment/data-assignment.component.ts:38</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>This method assigns data chosen by the data chooser. If parts of the json are arrays,
+this method assigns the depth = 0 to array coming after the first array where the depth is chosen by the
+data chooser</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ngOnChanges"></a>
+                        <span class="name">
+                            <b>
+                            ngOnChanges
+                            </b>
+                            <a href="#ngOnChanges"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>ngOnChanges(changes: <a href="https://angular.io/api/core/SimpleChanges" target="_blank">SimpleChanges</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/query-app-interface/data-management/data-assignment/data-assignment.component.ts:20</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>changes</td>
+                                                        <td>
+                                                                    <code><a href="https://angular.io/api/core/SimpleChanges" target="_blank" >SimpleChanges</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="rewritePath"></a>
+                        <span class="name">
+                            <b>
+                            rewritePath
+                            </b>
+                            <a href="#rewritePath"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>rewritePath(oldPath: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, newPath: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="249" class="link-to-prism">src/app/query-app-interface/data-management/data-assignment/data-assignment.component.ts:249</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>oldPath</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>newPath</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="updateAppInput"></a>
+                        <span class="name">
+                            <b>
+                            updateAppInput
+                            </b>
+                            <a href="#updateAppInput"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>updateAppInput(response: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, path: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, depth: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, app: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, input: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="225" class="link-to-prism">src/app/query-app-interface/data-management/data-assignment/data-assignment.component.ts:225</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>response</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>path</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>depth</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>app</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>input</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="updateAppInputWithNewPath"></a>
+                        <span class="name">
+                            <b>
+                            updateAppInputWithNewPath
+                            </b>
+                            <a href="#updateAppInputWithNewPath"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>updateAppInputWithNewPath()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="195" class="link-to-prism">src/app/query-app-interface/data-management/data-assignment/data-assignment.component.ts:195</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="updateLinkedAppsMethod"></a>
+                        <span class="name">
+                            <b>
+                            updateLinkedAppsMethod
+                            </b>
+                            <a href="#updateLinkedAppsMethod"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>updateLinkedAppsMethod()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="152" class="link-to-prism">src/app/query-app-interface/data-management/data-assignment/data-assignment.component.ts:152</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="updatePath"></a>
+                        <span class="name">
+                            <b>
+                            updatePath
+                            </b>
+                            <a href="#updatePath"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>updatePath(path: Array<any>, index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, response: , queryId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="270" class="link-to-prism">src/app/query-app-interface/data-management/data-assignment/data-assignment.component.ts:270</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>path</td>
+                                                        <td>
+                                                                    <code>Array&lt;any&gt;</code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>index</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>response</td>
+                                                        <td>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>queryId</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="arrayIndicator"></a>
+                        <span class="name">
+                            <b>
+                            arrayIndicator
+                            </b>
+                            <a href="#arrayIndicator"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>arrayIndicator:     <code>Array&lt;any&gt;</code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Array&lt;any&gt;</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/query-app-interface/data-management/data-assignment/data-assignment.component.ts:16</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="currentIndex"></a>
+                        <span class="name">
+                            <b>
+                            currentIndex
+                            </b>
+                            <a href="#currentIndex"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>currentIndex:     <code></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>undefined</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/query-app-interface/data-management/data-assignment/data-assignment.component.ts:17</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from &#x27;@angular/core&#x27;;
+
+@Component({
+  selector: &#x27;app-data-assignment&#x27;,
+  templateUrl: &#x27;./data-assignment.component.html&#x27;
+})
+export class DataAssignmentComponent implements OnChanges {
+  @Input() index: number;
+  @Input() openAppsInThisPage: any;
+  @Input() appInputQueryMapping: any;
+  @Input() response: any;
+  @Input() queryId;
+  @Input() updateLinkedApps &#x3D; false;
+  @Input() indexAppMapping: any;
+  @Output() sendAppTypesBackToNIEOS: EventEmitter&lt;any&gt; &#x3D; new EventEmitter&lt;any&gt;();
+  arrayIndicator: Array&lt;any&gt; &#x3D; [];
+  currentIndex &#x3D; undefined;
+  constructor() { }
+
+  ngOnChanges( changes: SimpleChanges) {
+
+    // console.log( changes );
+    if ( this.updateLinkedApps &#x3D;&#x3D;&#x3D; true ) {
+      this.updateLinkedAppsMethod();
+      console.log( &#x27;update linked apps&#x27; );
+    } else if ( this.currentIndex !&#x3D;&#x3D; this.index ) {
+      this.currentIndex &#x3D; this.index;
+      this.goThroughAppInputs();
+      console.log( &#x27;Go Through App Inputs&#x27; );
+    }
+  }
+
+  /**
+   * This method assigns data chosen by the data chooser. If parts of the json are arrays,
+   * this method assigns the depth &#x3D; 0 to array coming after the first array where the depth is chosen by the
+   * data chooser
+   * */
+  goThroughAppInputs(  ) {
+    for ( const type in this.openAppsInThisPage ) {
+      if (  this.openAppsInThisPage[ type ].model.length &amp;&amp; type !&#x3D;&#x3D; &#x27;dataChooser&#x27; ) {
+        for ( const app of this.openAppsInThisPage[ type ].model ) {
+          if ( this.appInputQueryMapping[ app.hash ] ) {
+            for ( const input in this.appInputQueryMapping[ app.hash ] ) {
+              if ( this.appInputQueryMapping[ app.hash ][ input ][ &#x27;query&#x27; ] &#x3D;&#x3D;&#x3D; this.queryId ) {
+                let increment &#x3D; 0;
+                for ( const segment of this.appInputQueryMapping[ app.hash ][ input ][ &#x27;path&#x27; ] ) {
+                  if ( segment &#x3D;&#x3D;&#x3D; null ) {
+                    this.appInputQueryMapping[ app.hash ][ input ][ &#x27;path&#x27; ].splice( increment, 1 );
+                  }
+                  increment +&#x3D; 1;
+                }
+                  app[ input ] &#x3D; this.generateAppinput(
+                    this.response,
+                    this.appInputQueryMapping[ app.hash ][ input ][ &#x27;path&#x27; ],
+                    this.index,
+                    0,
+                    true,
+                    app
+                  );
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  generateAppinput(
+    response: any,
+    path: any,
+    index: number,
+    depth: number,
+    firstArray: boolean,
+    app: any
+  ) {
+    // console.log( depth, path.length );
+    if ( response ) {
+        if ( path.length &#x3D;&#x3D;&#x3D; 1 ) {
+          return response[ path[ 0 ] ];
+        } else if ( response.length  ) {                                          // Response is an array
+          if ( typeof response &#x3D;&#x3D;&#x3D; &#x27;string&#x27; ) {
+            return response;
+          } else {
+            if ( firstArray ) {
+              return this.generateAppinput(
+                response[ index ],
+                path,
+                index,
+                depth + 1,
+                false,
+                app
+              );
+            } else {
+              return this.generateArrayInput(
+                response,
+                path,
+                index,
+                depth,
+                false,
+                app
+              );
+            }
+          }
+        } else if ( depth !&#x3D;&#x3D; path.length &amp;&amp; response[ path[ depth ] ] ) {        // Response is not an array
+          return this.generateAppinput(
+            response[ path[ depth ] ],
+            path,
+            index,
+            depth + 1,
+            firstArray,
+            app
+          );
+        } else if ( depth &#x3D;&#x3D;&#x3D; path.length ) {
+          // console.log( response );
+          return response[ path[ depth - 1 ] ];
+        } else if ( path.length - 1 &#x3D;&#x3D;&#x3D; depth &amp;&amp;  Number( path[ depth ] ) ) {
+          return response[ path[ depth - 1 ] ][ Number( path[ depth ] ) ];
+        } else {
+          return this.generateAppinput(
+            response[ path[ depth - 1 ] ],
+            path, index,
+            depth + 1,
+            firstArray,
+            app
+          );
+      }
+    }
+  }
+
+  generateArrayInput(
+    response: any,
+    path: any,
+    index: number,
+    depth: number,
+    firstArray: boolean,
+    app: any
+  ) {
+    app.index &#x3D; 0;
+    app.arrayLength &#x3D; response.length;
+    app.queryId  &#x3D; this.queryId;
+    // console.log( &#x27;Generate Array Input&#x27;, app );
+    return this.generateAppinput(
+      response[ app.index ],
+      path,
+      app.index,
+      depth,
+      true,
+      app
+    );
+  }
+
+  updateLinkedAppsMethod() {
+    // console.log(
+    //   &#x27;Update Linked Apps Method&#x27;,
+    //   this.indexAppMapping,
+    //   this.openAppsInThisPage
+    // );
+    for (const appHash in this.indexAppMapping) {
+      for (const type in this.openAppsInThisPage) {
+        if (this.openAppsInThisPage[type].model.length &amp;&amp; type !&#x3D;&#x3D; &#x27;dataChooser&#x27;) {
+          for (const app of this.openAppsInThisPage[type].model) {
+            if (this.appInputQueryMapping[app.hash] &amp;&amp; appHash &#x3D;&#x3D;&#x3D; app.hash) {
+              for (const input in this.appInputQueryMapping[app.hash]) {
+                this.arrayIndicator[this.appInputQueryMapping[app.hash][input][&#x27;query&#x27;]] &#x3D; [];
+                if (this.appInputQueryMapping[app.hash][input][&#x27;query&#x27;] &#x3D;&#x3D;&#x3D; this.indexAppMapping[appHash].queryId) {
+                  this.updatePath(
+                    this.appInputQueryMapping[app.hash][input][&#x27;path&#x27;],
+                    this.indexAppMapping[appHash].index,
+                    this.response,
+                    this.appInputQueryMapping[app.hash][input][&#x27;query&#x27;]
+                  );
+                }
+                this.findLastArrayIndexAndreplaceItWithIndex(
+                  this.indexAppMapping[ appHash ].index,
+                  this.appInputQueryMapping[app.hash][input][&#x27;query&#x27;]
+                );
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  findLastArrayIndexAndreplaceItWithIndex(index: number, query: string) {
+    for ( let i &#x3D; this.arrayIndicator[query].length - 1; i &gt;&#x3D; 0; i-- ) {
+      if ( !isNaN ( Number( this.arrayIndicator[query][ i ] ) ) ) {
+        this.arrayIndicator[query][ i ] &#x3D; index;
+        i &#x3D; -1;
+      }
+    }
+    this.updateAppInputWithNewPath();
+  }
+
+  updateAppInputWithNewPath() {
+    for ( const queryId in this.arrayIndicator ) {
+      for ( const type in this.openAppsInThisPage ) {
+        if (this.openAppsInThisPage[type].model.length &amp;&amp; type !&#x3D;&#x3D; &#x27;dataChooser&#x27;) {
+          for (const app of this.openAppsInThisPage[type].model) {
+            if (this.appInputQueryMapping[app.hash]) {
+              for (const input in this.appInputQueryMapping[app.hash]) {
+                if (this.appInputQueryMapping[app.hash][input][&#x27;query&#x27;] &#x3D;&#x3D;&#x3D; queryId) {
+                  if( this.appInputQueryMapping[app.hash][input][ &#x27;path&#x27; ].length &gt; 0 ) {
+                    this.updateAppInput(
+                      this.response,
+                      this.rewritePath(
+                        this.appInputQueryMapping[app.hash][input][ &#x27;path&#x27; ],
+                        this.arrayIndicator[queryId]
+                      ),
+                      0,
+                      app,
+                      input
+                    );
+                    // console.log( input, app[ input ] );
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    this.sendAppTypesBackToNIEOS.emit( this.openAppsInThisPage );
+  }
+  updateAppInput(
+    response: any,
+    path: any,
+    depth: number,
+    app: any,
+    input: string
+  ) {
+    // console.log(&#x27;Update App Input&#x27;, response, path[ depth ]);
+    if ( response ) {
+      if ( response[ path[ depth ] ] &amp;&amp; typeof response !&#x3D;&#x3D; &#x27;string&#x27; ) {
+        this.updateAppInput(
+          response[ path[ depth ] ],
+          path,
+          depth + 1,
+          app,
+          input
+        );
+      } else {
+        // console.log( response );
+        app[ input ] &#x3D; response;
+      }
+    }
+  }
+
+  rewritePath( oldPath: any, newPath: any ) {
+    let i &#x3D; 0;
+    if ( oldPath.length &gt; 0 ) {
+      for ( const newSegment of newPath ) {
+        if ( newPath[ i ] !&#x3D;&#x3D; oldPath[ i ] &amp;&amp; oldPath[ i - 1 ] &#x3D;&#x3D;&#x3D; newPath[ i - 1 ] &amp;&amp; oldPath[ i ] ) {
+          if ( !isNaN( newPath[ i ]  ) ) {
+            oldPath.splice( i, 0, newPath[ i ] );
+          }
+        }
+        i +&#x3D; 1;
+      }
+      for ( let j &#x3D; 0; j &lt; oldPath.length; j++ ) {
+        if ( !isNaN( oldPath[ j ]  ) ) {
+          oldPath[ j ] &#x3D; this.index;
+          j &#x3D; oldPath.length;
+        }
+      }
+      return oldPath;
+    }
+  }
+
+  updatePath(
+    path: Array&lt;any&gt;,
+    index: number,
+    response,
+    queryId: string
+  ) {
+    // console.log(
+    //   &#x27;Update Path&#x27;,
+    //   path,
+    //   index,
+    //   // response,
+    //   this.arrayIndicator
+    // );
+    /**
+     * Find last array in this path and update it with index!
+     * */
+    if( response &amp;&amp; typeof response !&#x3D;&#x3D; &#x27;string&#x27;) {
+      if ( response[ path[ 0 ] ] ) {
+        const segment &#x3D; path[ 0 ];
+        path.splice( 0, 1 );
+        this.arrayIndicator[ queryId ].push(segment);
+        this.updatePath(
+          path,
+          index,
+          response[ segment ],
+          queryId
+        );
+      } else {
+        this.arrayIndicator[ queryId ].push(0);
+        this.updatePath(
+          path,
+          index,
+          response[ 0 ],
+          queryId
+        );
+      }
+    }
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html"></code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'BooleanValueEditorComponent', 'selector': 'app-boolean-value-editor'},{'name': 'BrushAndZoomComponent', 'selector': 'app-brush-and-zoom'},{'name': 'ChordDiagramComponent', 'selector': 'app-chord-diagram'},{'name': 'CreateResourceComponent', 'selector': 'app-create-resource'},{'name': 'CreateResourceViewComponent', 'selector': 'app-create-resource-view'},{'name': 'D3tutorialComponent', 'selector': 'app-d3tutorial'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataAssignmentComponent', 'selector': 'app-data-assignment'},{'name': 'DataChooserComponent', 'selector': 'app-data-chooser'},{'name': 'DataChooserSettingsComponent', 'selector': 'app-data-chooser-settings'},{'name': 'DataManagementComponent', 'selector': 'app-data-management'},{'name': 'DateValueEditorComponent', 'selector': 'app-date-value-editor'},{'name': 'DateValueViewerComponent', 'selector': 'app-date-value-viewer'},{'name': 'DeactivateNewsletterComponent', 'selector': 'app-deactivate-newsletter'},{'name': 'DecimalValueEditorComponent', 'selector': 'app-decimal-value-editor'},{'name': 'DeleteActionComponent', 'selector': 'app-delete-action'},{'name': 'DeletePageComponent', 'selector': 'app-delete-page'},{'name': 'DialogCreateNewPageComponent', 'selector': 'dialog-create-new-page'},{'name': 'DialogOverviewExampleDialog', 'selector': 'dialog-overview-example-dialog'},{'name': 'DialogUserSettingsDialog', 'selector': 'dialog-user-settings-dialog'},{'name': 'DictionaryComponent', 'selector': 'app-dictionary'},{'name': 'DuplicatePageComponent', 'selector': 'app-duplicate-page'},{'name': 'EditActionComponent', 'selector': 'app-edit-action'},{'name': 'EditPageComponent', 'selector': 'app-edit-page'},{'name': 'EditPageSetComponent', 'selector': 'app-update-page-set'},{'name': 'EditResourceViewComponent', 'selector': 'app-edit-resource-view'},{'name': 'ExtendSessionComponent', 'selector': 'session-component'},{'name': 'FactSheetComponent', 'selector': 'app-fact-sheet'},{'name': 'FloatLightTableComponent', 'selector': 'app-float-light-table'},{'name': 'FloatingImageObjectComponent', 'selector': 'app-floating-image-object'},{'name': 'FloatingTextObjectComponent', 'selector': 'app-floating-text-object'},{'name': 'Frame', 'selector': 'popup'},{'name': 'FrameSettingsComponent', 'selector': 'app-frame-settings'},{'name': 'GrapesjsComponent', 'selector': 'app-grapesjs'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'ImageFrameComponent', 'selector': 'app-image-frame'},{'name': 'ImageFrameSizesComponent', 'selector': 'app-image-frame-sizes'},{'name': 'ImageViewComponent', 'selector': 'app-image-view'},{'name': 'ImageWithOverlayComponent', 'selector': 'app-image-with-overlay'},{'name': 'InitPopupComponent', 'selector': 'app-init-popup'},{'name': 'IntValueEditorComponent', 'selector': 'app-int-value-editor'},{'name': 'KeyValueFormComponent', 'selector': 'app-key-value-form'},{'name': 'LeafletExampleComponent', 'selector': 'app-leaflet-example'},{'name': 'LightTableComponent', 'selector': 'app-light-table'},{'name': 'LightTableMenuComponent', 'selector': 'app-light-table-menu'},{'name': 'LinkValueEditorComponent', 'selector': 'app-link-value-editor'},{'name': 'LinkValueLabelViewerComponent', 'selector': 'app-link-value-label-viewer'},{'name': 'LoadLightTableComponent', 'selector': 'app-load-light-table'},{'name': 'LoadVariablesComponent', 'selector': 'app-load-variables'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MetadataViewComponent', 'selector': 'app-metadata-view'},{'name': 'MultiLineChartComponent', 'selector': 'app-multi-line-chart'},{'name': 'MyMainComponentComponent', 'selector': 'app-my-main-component'},{'name': 'MyPractiseComponentComponent', 'selector': 'app-my-practise-component'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewGjsBoxDialogComponent', 'selector': 'app-new-gjs-box-dialog'},{'name': 'PageComponent', 'selector': 'nie-os'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'PageSetLandingPageComponent', 'selector': 'app-page-set-landing-page'},{'name': 'PieChartComponent', 'selector': 'app-pie-chart'},{'name': 'PizzaPartyComponent', 'selector': 'snack-bar-component-example-snack'},{'name': 'QueryAppInputMapComponent', 'selector': 'app-query-app-input-map'},{'name': 'QueryEntryComponent', 'selector': 'app-query-entry'},{'name': 'QueryListComponent', 'selector': 'app-query-list'},{'name': 'RadialBarchartComponent', 'selector': 'app-radial-barchart'},{'name': 'ReactivateAccountComponent', 'selector': 'app-reactivate-account'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'RemoveObjectsByIdComponent', 'selector': 'app-remove-objects-by-id'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'ResourceFormComponent', 'selector': 'app-resource-form'},{'name': 'ResourceValueHistoryComponent', 'selector': 'app-resource-value-history'},{'name': 'ResourceValueHistoryValueComponent', 'selector': 'app-resource-value-history-value'},{'name': 'ResponseTreeComponent', 'selector': 'app-response-tree'},{'name': 'SankeyComponent', 'selector': 'app-sankey'},{'name': 'SaveLightTableComponent', 'selector': 'app-save-light-table'},{'name': 'ShareLightTableComponent', 'selector': 'app-share-light-table'},{'name': 'SimpleImageAppComponent', 'selector': 'app-simple-image-app'},{'name': 'SpaTextComponent', 'selector': 'app-spa-text'},{'name': 'StackedBarChartComponent', 'selector': 'app-stacked-bar-chart'},{'name': 'SynopsisComponent', 'selector': 'app-synopsis'},{'name': 'SynopsisObjectManagerComponent', 'selector': 'app-synopsis-object-manager'},{'name': 'SynopsisObjectToolboxComponent', 'selector': 'app-synopsis-object-toolbox'},{'name': 'TagChipsComponent', 'selector': 'app-tag-chips'},{'name': 'TextDevViewComponent', 'selector': 'app-text-dev-view'},{'name': 'TextDisplayComponent', 'selector': 'app-text-display'},{'name': 'TextDisplayComponent', 'selector': 'app-text-display'},{'name': 'TextLineComponent', 'selector': 'app-text-line'},{'name': 'TextLineGroupComponent', 'selector': 'app-text-line-group'},{'name': 'TextLineMarginComponent', 'selector': 'app-text-line-margin'},{'name': 'TextLineNumberComponent', 'selector': 'app-text-line-number'},{'name': 'TextPageOfWordsComponent', 'selector': 'app-text-page-of-words'},{'name': 'TextSvgViewComponent', 'selector': 'app-text-svg-view'},{'name': 'TextValueEditorComponent', 'selector': 'app-text-value-editor'},{'name': 'TextViewCanvasComponent', 'selector': 'app-text-view-canvas'},{'name': 'TextViewComponent', 'selector': 'app-text-view'},{'name': 'TextViewMetadataComponent', 'selector': 'app-text-view-metadata'},{'name': 'TextViewStructureComponent', 'selector': 'app-text-view-structure'},{'name': 'TextViewToolsComponent', 'selector': 'app-text-view-tools'},{'name': 'TextlistViewerComponent', 'selector': 'app-textlist-viewer'},{'name': 'ThumbnailbarComponent', 'selector': 'app-thumbnailbar'},{'name': 'TiledImageObjectComponent', 'selector': 'app-tiled-image-object'},{'name': 'TiledLightTableComponent', 'selector': 'app-tiled-light-table'},{'name': 'TiledTextObjectComponent', 'selector': 'app-tiled-text-object'},{'name': 'UpdateLinkedAppsComponent', 'selector': 'app-update-linked-apps'}];
+    var DIRECTIVES = [{'name': 'DraggableDirective', 'selector': '[appDraggable]'},{'name': 'DraggableStubDirective', 'selector': '[appDraggable]'},{'name': 'FloatDropTargetDirective', 'selector': '[appDropTarget]'},{'name': 'ModifiableDirective', 'selector': '[appModifiable]'},{'name': 'ModifiableStubDirective', 'selector': '[appModifiable]'},{'name': 'SelectableDirective', 'selector': '[appSelectable]'},{'name': 'SelectableStubDirective', 'selector': '[appSelectable]'},{'name': 'SynopsisObjectAnchorDirective', 'selector': '[appSynopsisObjectAnchor]'},{'name': 'TileDropTargetDirective', 'selector': '[appTileDropTarget]'}];
+    var ACTUAL_COMPONENT = {'name': 'DataAssignmentComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'DataAssignmentComponent.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <script src="../js/menu-wc.js"></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
