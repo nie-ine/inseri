@@ -15,9 +15,15 @@ router.post('', checkAuth, (req, res, next) => {
         }
     });
 
+    let recipient = settings.recipient;
+
+    if ( req.body.recipient ) {
+      recipient = req.body.recipient;
+    }
+
     const mailOptions = {
         from: req.userData.email, // sender address
-        to: settings.recipient, // list of receivers
+        to: recipient, // list of receivers
         subject: 'NIEOS Feedback / Question from ' + req.userData.email, // Subject line
         text: req.body.message
     };
