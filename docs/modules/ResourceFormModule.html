@@ -192,7 +192,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/resource-form/resource-form.module.ts</code>
+            <code>src/app/app-engine/apps/resource-form/resource-form.module.ts</code>
         </p>
 
 
@@ -247,11 +247,11 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { NgModule } from &#x27;@angular/core&#x27;;
 import { CommonModule } from &#x27;@angular/common&#x27;;
 import { FormsModule } from &#x27;@angular/forms&#x27;;
-import { BaseTypeFormsModule } from &#x27;../base-type-forms/base-type-forms.module&#x27;;
+import { BaseTypeFormsModule } from &#x27;../shared/base-type-forms/base-type-forms.module&#x27;;
 import { ResourceFormComponent } from &#x27;./resource-form/resource-form.component&#x27;;
 import { ResourceValueHistoryComponent } from &#x27;./resource-value-history/resource-value-history.component&#x27;;
 import { ResourceValueHistoryValueComponent } from &#x27;./resource-value-history-value/resource-value-history-value.component&#x27;;
-import { KnoraV1RequestService } from &#x27;../shared/knora/knora-v1-request.service&#x27;;
+import { KnoraV1RequestService } from &#x27;../../../query-engine/knora/knora-v1-request.service&#x27;;
 
 @NgModule({
   imports: [
