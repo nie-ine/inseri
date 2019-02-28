@@ -61,19 +61,51 @@
 
 module.exports = {
   mongodbServer: mongodbServer
-};</code></pre></div><h2 id="3-start-angular-and-node-js">3. Start Angular and Node.js</h2>
+};</code></pre></div><ul>
+<li>another file in this folder should be mailDetails, where you can put the information for your email - server, it should look like the following:</li>
+</ul>
+<div><pre class="line-numbers"><code class="language-none">const emailAdress = &#39;&lt;your Email Address&gt;&#39;;
+const pw = &#39;&lt;your password&gt;&#39;;
+const recipient = &#39;&lt;default recipient if there is no other one defined&gt;&#39;;
+const type = &#39;&lt;type of your mail server&gt;&#39;;
+
+module.exports = {
+  emailAdress: emailAdress,
+  pw: pw,
+  recipient: recipient,
+  type: type
+};</code></pre></div><ul>
+<li>another file is nieOsServer.js:</li>
+</ul>
+<div><pre class="line-numbers"><code class="language-none">const nieOSServer = &#39;http://localhost:4200&#39;;
+
+module.exports = {
+  nieOSServer: nieOSServer
+};
+</code></pre></div><ul>
+<li>another file is salt.js</li>
+</ul>
+<div><pre class="line-numbers"><code class="language-none">const salt = &#39;your_secret_that_should_be_very_long&#39;;
+
+
+module.exports = {
+  salt: salt
+};
+</code></pre></div><h2 id="3-start-angular-and-node-js">3. Start Angular and Node.js</h2>
 <ul>
 <li><code>yarn</code></li>
 <li><code>ng s</code></li>
 </ul>
 <h2 id="4-start-node-js">4. Start node.js</h2>
 <p><code>npm run start:server</code></p>
-<h2 id="run-in-docker-container-does-not-work-at-the-moment-">Run in Docker container ( does not work at the moment )</h2>
-<ol>
-<li>Download and run Docker container: <code>docker run -p 5555:80 nieine/nieos:latest</code></li>
-<li>Open <code>localhost:5555</code> in browser</li>
-<li>Optional: Set <code>NGINX_HOST</code> and <code>NGINX_PORT</code> to customise the webserver. E.g. <code>docker run -e NGINX_HOST=http://example.com -e NGINX_PORT=1234 -p 1234:1234 nieine/nieos:latest</code>.</li>
-</ol>
+<h2 id="run-in-docker-container">Run in Docker container</h2>
+<p>run <code>docker-compose up</code></p>
+<h2 id="deployment-procedure">Deployment procedure</h2>
+<ul>
+<li>locally run <code>docker built -t mean .</code></li>
+<li>locally try <code>docker-compose up</code></li>
+</ul>
+<p>If everything works as expected, push the mean - image to dockerhub (once tag it as with a version, once tag it with latest) and pull it on your server.</p>
 <h2 id="running-unit-tests">Running unit tests</h2>
 <p>Run <code>ng test</code> to execute the unit tests via <a href="https://karma-runner.github.io">Karma</a>.</p>
 <h2 id="development-advice-helping-notes">Development advice/ helping notes</h2>

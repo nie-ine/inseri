@@ -35,7 +35,7 @@ import {AbstractJsonService} from '../query-app-interface/data-management/servic
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { KeyValueFormComponent } from '../query-engine/query-entry/key-value-form/key-value-form.component';
 import { QueryAppInputMapComponent } from '../query-app-interface/query-app-input-map/query-app-input-map.component';
-import {MatProgressSpinnerModule} from '@angular/material';
+import {MatProgressSpinnerModule, MatTreeModule} from '@angular/material';
 import {MatListModule} from '@angular/material/list';
 import { FrameSettingsComponent } from './page/frame-settings/frame-settings.component';
 import {MatSliderModule} from '@angular/material/slider';
@@ -48,6 +48,7 @@ import { NewGjsBoxDialogComponent } from './apps/grapesjs/new-gjs-box-dialog/new
 import { NgxEditorModule } from 'ngx-editor';
 import {MatDialogModule} from '@angular/material';
 import { SimpleImageAppComponent } from './apps/simple-image-app/simple-image-app.component';
+import {FileDatabase, ResponseTreeComponent} from './apps/response-tree/response-tree.component';
 
 @NgModule({
   imports: [
@@ -82,18 +83,18 @@ import { SimpleImageAppComponent } from './apps/simple-image-app/simple-image-ap
     NgxSpinnerModule,
     NgxEditorModule,
     MatDialogModule,
+    MatTreeModule,
     RouterModule.forChild([
       { path: 'page', component: PageComponent },
-      { path: 'textlist', component: TextlistViewerComponent },
-      { path: 'tree-map', component: QueryAppInputMapComponent },
-      { path: 'simple-image-app', component: SimpleImageAppComponent },
+      { path: 'response-tree', component: ResponseTreeComponent }
     ])
   ],
   providers: [
     GenerateHashService,
     SendGravSearchQueryService,
     OpenAppsModel,
-    AbstractJsonService
+    AbstractJsonService,
+    FileDatabase
   ],
   declarations: [
     PageComponent,
@@ -109,7 +110,8 @@ import { SimpleImageAppComponent } from './apps/simple-image-app/simple-image-ap
     DataAssignmentComponent,
     UpdateLinkedAppsComponent,
     NewGjsBoxDialogComponent,
-    SimpleImageAppComponent
+    SimpleImageAppComponent,
+    ResponseTreeComponent
   ],
   exports: [
     PageComponent,

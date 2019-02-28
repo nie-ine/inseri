@@ -100,22 +100,6 @@
 
       </mat-expansion-panel>
 
-      <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Simple Image APp
-          </mat-panel-title>
-          <mat-panel-description>
-            Displays simple image
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        Description
-        <mat-divider></mat-divider>
-
-        <button mat-button (click)="addAnotherApp('simpleImageApp', true)"><mat-icon>short_text</mat-icon>Add Image - Viewer</button><br>
-
-      </mat-expansion-panel>
-
 
       <h4 style="align-content: center">Images</h4>
 
@@ -139,6 +123,22 @@
         <button mat-button (click)="addAnotherApp('imageViewer', true)" >
           <mat-icon >image</mat-icon>
           Add Image Viewer</button><br>
+
+      </mat-expansion-panel>
+
+      <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Simple Image App
+          </mat-panel-title>
+          <mat-panel-description>
+            Displays simple image
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        Description
+        <mat-divider></mat-divider>
+
+        <button mat-button (click)="addAnotherApp('simpleImageApp', true)"><mat-icon>short_text</mat-icon>Add Image - Viewer</button><br>
 
       </mat-expansion-panel>
 
@@ -188,18 +188,18 @@
       <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
         <mat-expansion-panel-header>
           <mat-panel-title>
-            Data Chooser
+            Json Viewer
           </mat-panel-title>
           <mat-panel-description>
-            Define input Data for Apps
+            Visualise Json Data
           </mat-panel-description>
         </mat-expansion-panel-header>
 
-        This app works with the Textlist - Viewer. A tutorial on how to use it will follow.
+        This app visualizes json objects as a tree.
 
         <mat-divider></mat-divider>
 
-        <button mat-button (click)="addAnotherApp('dataChooser', true)"><mat-icon>perm_data_setting</mat-icon> Add Data Chooser</button><br>
+        <button mat-button (click)="addAnotherApp('jsonViewer', true)"><mat-icon>spa</mat-icon> Add Data Chooser</button><br>
 
       </mat-expansion-panel>
 
@@ -604,6 +604,33 @@
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'textlistViewers' ].model, i ) ">Remove this app</button>
         </mat-menu>
       </div>
+
+    <!-- jsonViewer -->
+    <div *ngFor="let jsonViewer of openAppsInThisPage[ 'jsonViewer' ].model; let i = index;" >
+      <popup #jsonViewer
+             [hash]="openAppsInThisPage[ 'jsonViewer' ].model[i].hash"
+             [title]="openAppsInThisPage[ 'jsonViewer' ].model[i].title || 'Textlist - Viewer ' + i"
+             [type]="openAppsInThisPage[ 'jsonViewer' ].type"
+             [firstPopupX]="openAppsInThisPage[ 'jsonViewer' ].model[i].x"
+             [firstPopupY]="openAppsInThisPage[ 'jsonViewer' ].model[i].y"
+             [width]="produceHeightAndWidth( openAppsInThisPage[ 'jsonViewer' ].model[i].width, '500' )"
+             [height]="produceHeightAndWidth( openAppsInThisPage[ 'jsonViewer' ].model[i].height, '500')"
+             (sendAppCoordinatesBack)="updateAppCoordinates($event)"
+             (sendAppSettingsBack)="updateAppSettings($event)">
+        <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'jsonViewer' ].model[i].height, '500' ) + 'px',
+        'width': produceHeightAndWidth( openAppsInThisPage[ 'jsonViewer' ].model[i].width, '500' ) + 'px'}">
+          <response-tree style="position: sticky;"
+                               (resourceIRI)="closeApp( openAppsInThisPage[ 'jsonViewer' ].model, i )"
+                               [queryResponse]="openAppsInThisPage[ 'jsonViewer' ].model[i]['json']">
+          </response-tree>
+        </div>
+      </popup>
+      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>view_headline</mat-icon> {{ i }}</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="jsonViewer.appear()" >Show Json Viewer {{ i }}</button>
+        <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'jsonViewer' ].model, i ) ">Remove this app</button>
+      </mat-menu>
+    </div>
 
       <!-- Bar Charts -->
       <div *ngFor="let barChart of openAppsInThisPage[ 'barCharts' ].model; let i = index;" >

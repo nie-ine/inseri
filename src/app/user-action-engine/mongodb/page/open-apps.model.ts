@@ -107,6 +107,15 @@ export class OpenAppsModel {
             'inputName': 'imageURL'
           }
         ]
+    },
+    jsonViewer: {
+      type: 'jsonViewer',
+      model: [],
+      inputs: [
+        {
+          'inputName': 'json'
+        }
+      ]
     }
   };
 }

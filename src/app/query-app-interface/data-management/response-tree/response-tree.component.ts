@@ -88,8 +88,7 @@ export interface Food {
 
 @Component({
   selector: 'app-response-tree',
-  templateUrl: './response-tree.component.html',
-  styleUrls: ['./response-tree.component.scss']
+  templateUrl: './response-tree.component.html'
 })
 export class ResponseTreeComponent implements OnChanges {
 
