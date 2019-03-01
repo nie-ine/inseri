@@ -98,7 +98,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
     private openApps: OpenAppsModel,
     private resetOpenApps: OpenAppsModel,
     private pageService: PageService,
-    private generateDataChoosers: GenerateDataChoosersService,
     public dialog: MatDialog,
     private spinner: NgxSpinnerService,
     private requestService: GeneralRequestService
