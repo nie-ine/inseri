@@ -12,8 +12,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatFormField} from '@angular/m
 
 @Component({
   selector: 'app-data-chooser',
-  templateUrl: './data-chooser.component.html',
-  styleUrls: ['./data-chooser.component.scss']
+  templateUrl: './data-chooser.component.html'
 })
 export class DataChooserComponent implements AfterViewChecked {
   @Input() openAppsInThisPage;

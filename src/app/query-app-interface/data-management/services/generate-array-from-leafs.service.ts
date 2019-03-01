@@ -14,6 +14,10 @@ export class GenerateArrayFromLeafsService {
     path: any
   ) {
     console.log( dataTree, path );
+    if ( !isNaN( Number( path[ path.length - 1 ] ) ) ) {
+      console.log( 'Its a number, dont return anything' );
+      return [ 'Single Object: ' + String( path ) ];
+    }
     let increment = 0;
     for ( const segment of path ) {
       if ( segment === null ) {
