@@ -18,18 +18,7 @@ export class DataAssignmentComponent implements OnChanges {
   constructor() { }
 
   ngOnChanges( changes: SimpleChanges) {
-
-    if ( this.openAppsInThisPage[ 'dataChooser' ].model.length ) {
-      console.log( this.openAppsInThisPage[ 'dataChooser' ] );
-      if (  this.openAppsInThisPage[ 'dataChooser' ].model[ 0 ].dataChooserEntries[ 0 ].search( 'Single Object' ) !== -1 ) {
-        console.log( 'Return Object' );
-        const pathString = this.openAppsInThisPage[ 'dataChooser' ].model[ 0 ].dataChooserEntries[ 0 ]
-          .replace('Single Object: ', '');
-        const path = pathString.split(',');
-        console.log( path );
-      }
-    }
-    console.log( changes );
+    // console.log( changes );
     if ( this.updateLinkedApps === true ) {
       this.updateLinkedAppsMethod();
       console.log( 'update linked apps' );

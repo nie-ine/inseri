@@ -8,7 +8,6 @@ import {HttpClientModule} from '@angular/common/http';
 import {fakeBackendProvider} from './query-engine/fake-backend/fake-backend';
 import {AuthGuard} from './query-engine/fake-backend/auth/auth.guard';
 import {environment} from '../environments/environment';
-import {KuiCoreModule} from '@knora/core';
 
 @NgModule({
   declarations: [
@@ -16,12 +15,6 @@ import {KuiCoreModule} from '@knora/core';
   ],
   imports: [
     BrowserModule,
-    KuiCoreModule.forRoot({
-      name: environment.name,
-      api: environment.api,
-      media: environment.media,
-      app: environment.app
-    }),
     CoreModule,
     HttpClientModule
   ],

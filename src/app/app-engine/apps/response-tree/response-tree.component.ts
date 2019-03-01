@@ -119,8 +119,8 @@ export class ResponseTreeComponent implements OnChanges {
     database.dataChange.subscribe(data => this.dataSource.data = data);
   }
   ngOnChanges() {
-    console.log('Query Response:');
-    console.log( this.queryResponse );
+    // console.log('Query Response:');
+    // console.log( this.queryResponse );
     if ( this.queryResponse ) {
       this.database.initialize( this.queryResponse );
     }
