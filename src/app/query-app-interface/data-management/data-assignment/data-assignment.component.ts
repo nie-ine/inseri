@@ -39,16 +39,12 @@ export class DataAssignmentComponent implements OnChanges {
         for ( const appHash in this.appInputQueryMapping ) {
           for ( const inputName in this.appInputQueryMapping[ appHash ] ) {
             const path = this.appInputQueryMapping[ appHash ][ inputName ].path;
-            console.log( path );
             if ( !isNaN( Number ( path[ path.length - 1 ] ) ) ) {
-              console.log( 'Its a number' );
-              console.log( this.openAppsInThisPage[ 'dataChooser' ].model[ 0 ].response );
-              this.assignJsonToAppInput(
-                appHash,
-                inputName,
-                path,
-                this.openAppsInThisPage[ 'dataChooser' ].model[ 0 ].response
-              );
+              for ( const dataChooser of this.openAppsInThisPage[ 'dataChooser' ].model ) {
+                this.response = dataChooser.response;
+                this.queryId = dataChooser.queryId;
+                this.goThroughAppInputs();
+              }
             }
           }
         }
@@ -58,25 +54,12 @@ export class DataAssignmentComponent implements OnChanges {
     }, 2000);
   }
 
-  assignJsonToAppInput(
-    appHash: string,
-    input: string,
-    path: Array<any>,
-    response: any ) {
-    console.log(
-      appHash,
-      input,
-      path,
-      response
-    );
-  }
-
   /**
    * This method assigns data chosen by the data chooser. If parts of the json are arrays,
    * this method assigns the depth = 0 to array coming after the first array where the depth is chosen by the
    * data chooser
    * */
-  goThroughAppInputs(  ) {
+  goThroughAppInputs() {
     for ( const type in this.openAppsInThisPage ) {
       if (  this.openAppsInThisPage[ type ].model.length && type !== 'dataChooser' ) {
         for ( const app of this.openAppsInThisPage[ type ].model ) {
@@ -114,11 +97,19 @@ export class DataAssignmentComponent implements OnChanges {
     firstArray: boolean,
     app: any
   ) {
-    // console.log( depth, path.length );
+    console.log( depth, path.length, path );
     if ( response ) {
         if ( path.length === 1 ) {
           return response[ path[ 0 ] ];
         } else if ( response.length  ) {                                          // Response is an array
+          console.log( 'Reponse is an array,' +
+            'check if there is only one more' +
+            'entry in path array and if its a number,' +
+            ' then return response' );
+          if ( depth === path.length - 1 ) {
+            console.log( depth, path, response );
+            return response[ path[ depth ] ];
+          }
           if ( typeof response === 'string' ) {
             return response;
           } else {
@@ -155,7 +146,7 @@ export class DataAssignmentComponent implements OnChanges {
         } else if ( depth === path.length ) {
           // console.log( response );
           return response[ path[ depth - 1 ] ];
-        } else if ( path.length - 1 === depth &&  Number( path[ depth ] ) ) {
+        } else if ( path.length - 1 === depth && Number( path[ depth ] ) ) {
           return response[ path[ depth - 1 ] ][ Number( path[ depth ] ) ];
         } else {
           return this.generateAppinput(
