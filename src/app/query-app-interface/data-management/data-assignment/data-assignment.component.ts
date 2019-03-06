@@ -15,10 +15,13 @@ export class DataAssignmentComponent implements OnChanges {
   @Output() sendAppTypesBackToNIEOS: EventEmitter<any> = new EventEmitter<any>();
   arrayIndicator: Array<any> = [];
   currentIndex = undefined;
+  firstChange = true;
+  changes: any;
   constructor() { }
 
   ngOnChanges( changes: SimpleChanges) {
-    // console.log( changes );
+    console.log( changes );
+    this.checkIfPathContainsScalarAsLastEntry();
     if ( this.updateLinkedApps === true ) {
       this.updateLinkedAppsMethod();
       console.log( 'update linked apps' );
@@ -27,6 +30,45 @@ export class DataAssignmentComponent implements OnChanges {
       this.goThroughAppInputs();
       console.log( 'Go Through App Inputs' );
     }
+  }
+
+  checkIfPathContainsScalarAsLastEntry() {
+    setTimeout(() => {
+      if ( this.openAppsInThisPage[ 'dataChooser' ].model.length > 0 && this.firstChange ) {
+        this.firstChange = false;
+        for ( const appHash in this.appInputQueryMapping ) {
+          for ( const inputName in this.appInputQueryMapping[ appHash ] ) {
+            const path = this.appInputQueryMapping[ appHash ][ inputName ].path;
+            console.log( path );
+            if ( !isNaN( Number ( path[ path.length - 1 ] ) ) ) {
+              console.log( 'Its a number' );
+              console.log( this.openAppsInThisPage[ 'dataChooser' ].model[ 0 ].response );
+              this.assignJsonToAppInput(
+                appHash,
+                inputName,
+                path,
+                this.openAppsInThisPage[ 'dataChooser' ].model[ 0 ].response
+              );
+            }
+          }
+        }
+      } else {
+        this.checkIfPathContainsScalarAsLastEntry();
+      }
+    }, 2000);
+  }
+
+  assignJsonToAppInput(
+    appHash: string,
+    input: string,
+    path: Array<any>,
+    response: any ) {
+    console.log(
+      appHash,
+      input,
+      path,
+      response
+    );
   }
 
   /**
