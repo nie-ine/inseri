@@ -20,6 +20,7 @@ export class DataAssignmentComponent implements OnChanges {
   constructor() { }
 
   ngOnChanges( changes: SimpleChanges) {
+    this.firstChange = true;
     console.log( changes );
     this.checkIfPathContainsScalarAsLastEntry();
     if ( this.updateLinkedApps === true ) {
@@ -41,9 +42,10 @@ export class DataAssignmentComponent implements OnChanges {
             const path = this.appInputQueryMapping[ appHash ][ inputName ].path;
             if ( !isNaN( Number ( path[ path.length - 1 ] ) ) ) {
               for ( const dataChooser of this.openAppsInThisPage[ 'dataChooser' ].model ) {
-                this.response = dataChooser.response;
-                this.queryId = dataChooser.queryId;
-                this.goThroughAppInputs();
+                this.goThroughAppInputs(
+                  dataChooser.response,
+                  dataChooser.queryId
+                );
               }
             }
           }
@@ -51,7 +53,7 @@ export class DataAssignmentComponent implements OnChanges {
       } else {
         this.checkIfPathContainsScalarAsLastEntry();
       }
-    }, 2000);
+    }, 1000);
   }
 
   /**
@@ -59,13 +61,13 @@ export class DataAssignmentComponent implements OnChanges {
    * this method assigns the depth = 0 to array coming after the first array where the depth is chosen by the
    * data chooser
    * */
-  goThroughAppInputs() {
+  goThroughAppInputs( response?: any, queryId?: string ) {
     for ( const type in this.openAppsInThisPage ) {
       if (  this.openAppsInThisPage[ type ].model.length && type !== 'dataChooser' ) {
         for ( const app of this.openAppsInThisPage[ type ].model ) {
           if ( this.appInputQueryMapping[ app.hash ] ) {
             for ( const input in this.appInputQueryMapping[ app.hash ] ) {
-              if ( this.appInputQueryMapping[ app.hash ][ input ][ 'query' ] === this.queryId ) {
+              if ( this.appInputQueryMapping[ app.hash ][ input ][ 'query' ] === (this.queryId || queryId ) ) {
                 let increment = 0;
                 for ( const segment of this.appInputQueryMapping[ app.hash ][ input ][ 'path' ] ) {
                   if ( segment === null ) {
@@ -74,7 +76,7 @@ export class DataAssignmentComponent implements OnChanges {
                   increment += 1;
                 }
                   app[ input ] = this.generateAppinput(
-                    this.response,
+                    this.response || response,
                     this.appInputQueryMapping[ app.hash ][ input ][ 'path' ],
                     this.index,
                     0,
@@ -97,18 +99,14 @@ export class DataAssignmentComponent implements OnChanges {
     firstArray: boolean,
     app: any
   ) {
-    console.log( depth, path.length, path );
+    // console.log( app, path );
     if ( response ) {
         if ( path.length === 1 ) {
           return response[ path[ 0 ] ];
         } else if ( response.length  ) {                                          // Response is an array
-          console.log( 'Reponse is an array,' +
-            'check if there is only one more' +
-            'entry in path array and if its a number,' +
-            ' then return response' );
           if ( depth === path.length - 1 ) {
-            console.log( depth, path, response );
-            return response[ path[ depth ] ];
+            // console.log( response[ Number ( path[ depth ] ) ], app );
+            return response[ Number ( path[ depth ] ) ];
           }
           if ( typeof response === 'string' ) {
             return response;
