@@ -35,12 +35,15 @@ export class DataAssignmentComponent implements OnChanges {
 
   checkIfPathContainsScalarAsLastEntry() {
     setTimeout(() => {
-      if ( this.openAppsInThisPage[ 'dataChooser' ].model.length > 0 && this.firstChange ) {
+      if (
+        this.openAppsInThisPage[ 'dataChooser' ].model &&
+        this.openAppsInThisPage[ 'dataChooser' ].model.length > 0 && this.firstChange
+      ) {
         this.firstChange = false;
         for ( const appHash in this.appInputQueryMapping ) {
           for ( const inputName in this.appInputQueryMapping[ appHash ] ) {
             const path = this.appInputQueryMapping[ appHash ][ inputName ].path;
-            if ( !isNaN( Number ( path[ path.length - 1 ] ) ) ) {
+            if ( path && !isNaN( Number ( path[ path.length - 1 ] ) ) ) {
               for ( const dataChooser of this.openAppsInThisPage[ 'dataChooser' ].model ) {
                 this.goThroughAppInputs(
                   dataChooser.response,
@@ -101,10 +104,16 @@ export class DataAssignmentComponent implements OnChanges {
   ) {
     // console.log( app, path );
     if ( response ) {
+        if ( path[ 0 ] === 'wholeJsonResponseAssignedToThisAppInput' ) {
+          return response;
+        }
         if ( path.length === 1 ) {
           return response[ path[ 0 ] ];
         } else if ( response.length  ) {                                          // Response is an array
-          if ( depth === path.length - 1 ) {
+          if (
+            depth === path.length - 1  &&
+            !isNaN( Number ( path[ path.length - 1 ] ) )
+          ) {
             // console.log( response[ Number ( path[ depth ] ) ], app );
             return response[ Number ( path[ depth ] ) ];
           }
@@ -112,7 +121,7 @@ export class DataAssignmentComponent implements OnChanges {
             return response;
           } else {
             if ( firstArray ) {
-              console.log( 'First Array' );
+              // console.log( 'First Array' );
               return this.generateAppinput(
                 response[ index ],
                 path,
