@@ -67,6 +67,10 @@ export class OpenAppsModel {
       type: 'barCharts',
       model: []
     },
+    spiralBarCharts: {
+      type: 'spiralBarCharts',
+      model: []
+    },
     lineCharts: {
       type: 'lineCharts',
       model: []
