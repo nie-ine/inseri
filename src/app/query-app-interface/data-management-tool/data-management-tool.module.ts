@@ -15,6 +15,8 @@ import {MatTreeModule} from '@angular/material/tree';
 import {FileDatabase, ResponseTreeComponent} from '../data-management/response-tree/response-tree.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatChipsModule} from '@angular/material/chips';
+import {MatTooltipModule} from '@angular/material/tooltip';
+
 
 @NgModule({
   imports: [
@@ -30,6 +32,7 @@ import {MatChipsModule} from '@angular/material/chips';
     MatTreeModule,
     MatInputModule,
     MatChipsModule,
+    MatTooltipModule,
     RouterModule.forChild([
       { path: 'data-chooser', component: DataChooserComponent }
     ])

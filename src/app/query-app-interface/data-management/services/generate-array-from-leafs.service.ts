@@ -13,22 +13,22 @@ export class GenerateArrayFromLeafsService {
     dataTree: any,
     path: any
   ) {
-    // console.log( dataTree, path );
-    if ( !isNaN( Number( path[ path.length - 1 ] ) ) ) {
-      // console.log( 'Its a number, dont return anything' );
-      return undefined;
-    }
-    let increment = 0;
-    for ( const segment of path ) {
-      if ( segment === null ) {
-        path.splice( increment, 1 );
-      }
-      increment += 1;
-    }
-    this.path = path;
-    this.depth = 0;
-    this.output = [];
+    console.log( dataTree, path );
     if ( path ) {
+      if ( path && !isNaN( Number( path[ path.length - 1 ] ) ) ) {
+        // console.log( 'Its a number, dont return anything' );
+        return undefined;
+      }
+      let increment = 0;
+      for ( const segment of path ) {
+        if ( segment === null ) {
+          path.splice( increment, 1 );
+        }
+        increment += 1;
+      }
+      this.path = path;
+      this.depth = 0;
+      this.output = [];
       for ( const knot of path ) {
         // console.log( knot, dataTree[ knot ].length );
         if ( dataTree[ knot ] && dataTree[ knot ].length !== undefined && path.length > 1 ) {
@@ -42,6 +42,14 @@ export class GenerateArrayFromLeafsService {
           return this.output;
         }
       }
+    } else {
+      let increment = 0;
+      this.output = [];
+      for ( const entry of dataTree ) {
+        this.output.push( increment );
+        increment += 1;
+      }
+      return this.output;
     }
   }
 

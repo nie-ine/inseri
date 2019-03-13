@@ -99,6 +99,155 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             };
             return Observable.of(new HttpResponse({ status: 200, body: body }));
           }
+
+          if (request.url.endsWith('/enhancement208') && request.method === 'GET') {
+            const body = {
+              firstDepth: [
+                {
+                  firstDepth: '1',
+                  secondDepthArray: [
+                    {
+                      secondDepth: '11',
+                      thirdDepthArray: [
+                        {
+                          thirdDepth: '111'
+                        },
+                        {
+                          thirdDepth: '112'
+                        },
+                        {
+                          thirdDepth: '113'
+                        }
+                      ]
+                    },
+                    {
+                      secondDepth: '12',
+                      thirdDepthArray: [
+                        {
+                          thirdDepth: '121'
+                        },
+                        {
+                          thirdDepth: '122'
+                        },
+                        {
+                          thirdDepth: '123'
+                        }
+                      ]
+                    },
+                    {
+                      secondDepth: '13',
+                      thirdDepthArray: [
+                        {
+                          thirdDepth: '131'
+                        },
+                        {
+                          thirdDepth: '132'
+                        },
+                        {
+                          thirdDepth: '133'
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  firstDepth: '2',
+                  secondDepthArray: [
+                    {
+                      secondDepth: '21',
+                      thirdDepthArray: [
+                        {
+                          thirdDepth: '211'
+                        },
+                        {
+                          thirdDepth: '212'
+                        },
+                        {
+                          thirdDepth: '213'
+                        }
+                      ]
+                    },
+                    {
+                      secondDepth: '22',
+                      thirdDepthArray: [
+                        {
+                          thirdDepth: '221'
+                        },
+                        {
+                          thirdDepth: '222'
+                        },
+                        {
+                          thirdDepth: '223'
+                        }
+                      ]
+                    },
+                    {
+                      secondDepth: '23',
+                      thirdDepthArray: [
+                        {
+                          thirdDepth: '231'
+                        },
+                        {
+                          thirdDepth: '232'
+                        },
+                        {
+                          thirdDepth: '233'
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  firstDepth: '3',
+                  secondDepthArray: [
+                    {
+                      secondDepth: '31',
+                      thirdDepthArray: [
+                        {
+                          thirdDepth: '311'
+                        },
+                        {
+                          thirdDepth: '312'
+                        },
+                        {
+                          thirdDepth: '313'
+                        }
+                      ]
+                    },
+                    {
+                      secondDepth: '32',
+                      thirdDepthArray: [
+                        {
+                          thirdDepth: '321'
+                        },
+                        {
+                          thirdDepth: '322'
+                        },
+                        {
+                          thirdDepth: '323'
+                        }
+                      ]
+                    },
+                    {
+                      secondDepth: '33',
+                      thirdDepthArray: [
+                        {
+                          thirdDepth: '331'
+                        },
+                        {
+                          thirdDepth: '332'
+                        },
+                        {
+                          thirdDepth: '333'
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            };
+            return Observable.of(new HttpResponse({ status: 200, body: body }));
+          }
         //
         //     // get users
         //     if (request.url.endsWith('/api/users') && request.method === 'GET') {
