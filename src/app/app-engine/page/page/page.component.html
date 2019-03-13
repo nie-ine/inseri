@@ -226,6 +226,24 @@
       <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
         <mat-expansion-panel-header>
           <mat-panel-title>
+            Spiral Bar Chart
+          </mat-panel-title>
+          <mat-panel-description>
+            To define data large bar charts
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        This app is under development
+
+        <mat-divider></mat-divider>
+
+        <button mat-button (click)="addAnotherApp('spiralBarCharts', true)"><mat-icon>bar_chart</mat-icon> Add Bar Chart</button><br>
+
+      </mat-expansion-panel>
+
+      <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
             Line Chart
           </mat-panel-title>
           <mat-panel-description>
@@ -658,8 +676,35 @@
           <button mat-menu-item (click)="barChart.appear()" (click)="openAppsInThisPage[ 'barCharts' ].model[i].initialized = true">Show Bar Chart {{ i }}</button>
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'barCharts' ].model, i ) ">Remove this app</button>
         </mat-menu>
-
       </div>
+
+    <!-- Spiral Bar Charts -->
+    <div *ngFor="let barChart of openAppsInThisPage[ 'spiralBarCharts' ].model; let i = index;" >
+      <popup #spiralBarCharts
+             [hash]="openAppsInThisPage[ 'spiralBarCharts' ].model[i].hash"
+             [title]="openAppsInThisPage[ 'spiralBarCharts' ].model[i].title || 'Spiral Bar Chart ' + i"
+             [type]="openAppsInThisPage[ 'spiralBarCharts' ].type"
+             [firstPopupX]="openAppsInThisPage[ 'spiralBarCharts' ].model[i].x"
+             [firstPopupY]="openAppsInThisPage[ 'spiralBarCharts' ].model[i].y"
+             [width]="produceHeightAndWidth( openAppsInThisPage[ 'spiralBarCharts' ].model[i].width, '500' )"
+             [height]="produceHeightAndWidth( openAppsInThisPage[ 'spiralBarCharts' ].model[i].height, '500')"
+             (sendAppCoordinatesBack)="updateAppCoordinates($event)"
+             (sendAppSettingsBack)="updateAppSettings($event)">
+        <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'spiralBarCharts' ].model[i].height, '500' ) + 'px',
+  'width': produceHeightAndWidth( openAppsInThisPage[ 'spiralBarCharts' ].model[i].width, '500' ) + 'px'}">
+          <app-spiral-bar-chart
+            [initialised] = "openAppsInThisPage[ 'spiralBarCharts' ].model[i].initialized"
+            [numberOfInitialisedComponent] = " i " >
+
+          </app-spiral-bar-chart>
+        </div>
+      </popup>
+      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>bar_chart</mat-icon> {{ i }}</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="spiralBarCharts.appear()" (click)="openAppsInThisPage[ 'spiralBarCharts' ].model[i].initialized = true">Show Spiral Bar Chart {{ i }}</button>
+        <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'spiralBarCharts' ].model, i ) ">Remove this app</button>
+      </mat-menu>
+    </div>
 
 
       <!-- Line Charts -->
