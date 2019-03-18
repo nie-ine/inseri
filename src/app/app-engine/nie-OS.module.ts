@@ -46,9 +46,13 @@ import { DataAssignmentComponent } from '../query-app-interface/data-management/
 import { UpdateLinkedAppsComponent } from '../query-app-interface/data-management/update-linked-apps/update-linked-apps.component';
 import { NewGjsBoxDialogComponent } from './apps/grapesjs/new-gjs-box-dialog/new-gjs-box-dialog.component';
 import { NgxEditorModule } from 'ngx-editor';
-import {MatDialogModule} from '@angular/material';
+import { MatDialogModule } from '@angular/material';
 import { SimpleImageAppComponent } from './apps/simple-image-app/simple-image-app.component';
-import {FileDatabase, ResponseTreeComponent} from './apps/response-tree/response-tree.component';
+import { FileDatabase, ResponseTreeComponent } from './apps/response-tree/response-tree.component';
+import { DataListView } from './apps/data-list-view/data-list-view.component';
+import { CdkTableModule } from '@angular/cdk/table';
+import { MatPaginatorModule } from '@angular/material';
+
 
 @NgModule({
   imports: [
@@ -84,6 +88,8 @@ import {FileDatabase, ResponseTreeComponent} from './apps/response-tree/response
     NgxEditorModule,
     MatDialogModule,
     MatTreeModule,
+    CdkTableModule,
+    MatPaginatorModule,
     RouterModule.forChild([
       { path: 'page', component: PageComponent },
       { path: 'response-tree', component: ResponseTreeComponent }
@@ -111,7 +117,8 @@ import {FileDatabase, ResponseTreeComponent} from './apps/response-tree/response
     UpdateLinkedAppsComponent,
     NewGjsBoxDialogComponent,
     SimpleImageAppComponent,
-    ResponseTreeComponent
+    ResponseTreeComponent,
+    DataListView
   ],
   exports: [
     PageComponent,
