@@ -21,15 +21,15 @@ export class DataAssignmentComponent implements OnChanges {
 
   ngOnChanges( changes: SimpleChanges) {
     this.firstChange = true;
-    console.log( changes );
+    // console.log( changes );
     this.checkIfPathContainsScalarAsLastEntry();
     if ( this.updateLinkedApps === true ) {
       this.updateLinkedAppsMethod();
-      console.log( 'update linked apps' );
+      // console.log( 'update linked apps' );
     } else if ( this.currentIndex !== this.index ) {
       this.currentIndex = this.index;
       this.goThroughAppInputs();
-      console.log( 'Go Through App Inputs' );
+      // console.log( 'Go Through App Inputs' );
     }
   }
 

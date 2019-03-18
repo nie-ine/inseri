@@ -370,6 +370,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
       }
     }, 1000);
     this.page = pageAndAction[ 0 ];
+    console.log( this.page );
     this.action = pageAndAction[ 1 ];
     this.reloadVariables = false;
   }

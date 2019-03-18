@@ -13,7 +13,7 @@ export class GenerateArrayFromLeafsService {
     dataTree: any,
     path: any
   ) {
-    console.log( dataTree, path );
+    // console.log( dataTree, path );
     if ( path ) {
       if ( path && !isNaN( Number( path[ path.length - 1 ] ) ) ) {
         // console.log( 'Its a number, dont return anything' );
@@ -37,7 +37,7 @@ export class GenerateArrayFromLeafsService {
           // console.log( dataTree, path );
           return [ dataTree[ path[ 0 ] ] ];
         } else if ( dataTree[ knot ] &&  !dataTree[ knot ].length ) {
-          console.log( dataTree[ knot ], dataTree[ knot ].length );
+          // console.log( dataTree[ knot ], dataTree[ knot ].length );
           this.generateEntry( dataTree[ knot ], 1 );
           return this.output;
         }
