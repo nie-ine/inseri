@@ -142,7 +142,7 @@
 
       </mat-expansion-panel>
 
-      <h4 style="align-content: center">Searches</h4>
+      <h4 style="align-content: center">Search & Retrieve</h4>
 
       <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
         <mat-expansion-panel-header>
@@ -163,6 +163,23 @@
           Add search Viewer
         </button><br>
 
+      </mat-expansion-panel>
+
+      <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Data list viewer
+          </mat-panel-title>
+          <mat-panel-description>
+            Displays query results in a table format.
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        This app can be combined with the data - chooser. A tutorial on how to use the data - chooser will follow.
+
+        <mat-divider></mat-divider>
+
+        <button mat-button (click)="addAnotherApp('dataListView', true)"><mat-icon>short_text</mat-icon>Add a data list / data table</button><br>
       </mat-expansion-panel>
 
       <h4 style="align-content: center">Multimedia</h4>
@@ -649,7 +666,32 @@
         <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'jsonViewer' ].model, i ) ">Remove this app</button>
       </mat-menu>
     </div>
-
+    <!-- Result list -->
+    <div *ngFor="let dataListView of openAppsInThisPage[ 'dataListView' ].model; let i = index;" >
+      <popup #dataListView
+             [hash]="openAppsInThisPage[ 'dataListView' ].model[i].hash"
+             [title]="openAppsInThisPage[ 'dataListView' ].model[i].title || 'Data list viewer' + i"
+             [type]="openAppsInThisPage[ 'dataListView' ].type"
+             [firstPopupX]="openAppsInThisPage[ 'dataListView' ].model[i].x"
+             [firstPopupY]="openAppsInThisPage[ 'dataListView' ].model[i].y"
+             [width]="produceHeightAndWidth( openAppsInThisPage[ 'dataListView' ].model[i].width, '500' )"
+             [height]="produceHeightAndWidth( openAppsInThisPage[ 'dataListView' ].model[i].height, '500')"
+             (sendAppCoordinatesBack)="updateAppCoordinates($event)"
+             (sendAppSettingsBack)="updateAppSettings($event)">
+        <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'dataListView' ].model[i].height, '500' ) + 'px',
+        'width': produceHeightAndWidth( openAppsInThisPage[ 'dataListView' ].model[i].width, '500' ) + 'px'}">
+          <data-list-view style="position: sticky;"
+                         (resourceIRI)="closeApp( openAppsInThisPage[ 'dataListView' ].model, i )"
+                         [queryResponse]="openAppsInThisPage[ 'dataListView' ].model[i]['json']">
+          </data-list-view>
+        </div>
+      </popup>
+      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>spa</mat-icon> {{ i }}</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="dataListView.appear()" >Show Data list Viewer {{ i }}</button>
+        <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'dataListView' ].model, i ) ">Remove this app</button>
+      </mat-menu>
+    </div>
       <!-- Bar Charts -->
       <div *ngFor="let barChart of openAppsInThisPage[ 'barCharts' ].model; let i = index;" >
         <popup #barChart
