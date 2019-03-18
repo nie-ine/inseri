@@ -120,6 +120,15 @@ export class OpenAppsModel {
           'inputName': 'json'
         }
       ]
+    },
+    dataListView: {
+      type: 'dataListView',
+      model: [],
+      inputs: [
+        {
+          'inputName': 'json'
+        }
+      ]
     }
   };
 }
