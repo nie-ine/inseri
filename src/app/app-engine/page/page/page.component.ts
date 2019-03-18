@@ -375,7 +375,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   receiveOpenAppsInThisPage( openAppsInThisPage: any ) {
-    // console.log( openAppsInThisPage );
+    console.log( openAppsInThisPage );
     this.openAppsInThisPage = openAppsInThisPage;
     this.reloadVariables = false;
     this.updateLinkedApps = false;
