@@ -40,7 +40,7 @@ export class GenerateDataChoosersService {
       this.requestService.request(queryId)
         .subscribe((data) => {
           if (data.status === 200) {
-            console.log(data.body);
+            // console.log(data.body);
             this.response = data.body;
             openAppsInThisPage.dataChooser.model.push( {
               x: 150,
