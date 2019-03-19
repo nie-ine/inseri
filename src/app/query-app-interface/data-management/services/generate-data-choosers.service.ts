@@ -49,7 +49,7 @@ export class GenerateDataChoosersService {
                 this.response,
                 pathArray
               ),
-              title: String(this.depth) + ' ' + queryTitle,
+              title: 'Query: ' + queryTitle,
               response: data.body,
               queryId: queryId
             } );
@@ -91,7 +91,7 @@ export class GenerateDataChoosersService {
             response[ key ],
             undefined
           ),
-          title: String(depth) + ' ' + queryTitle,
+          title: 'Query: ' + queryTitle + ' Depth: ' + String(depth),
           response: response,
           queryId: queryId
         } );

@@ -48,6 +48,11 @@
       <!-- Data Chooser -->
       <h4 style="align-content: center" *ngIf="openAppsInThisPage[ 'dataChooser' ].model.length > 0">Queries</h4>
       <div *ngFor="let dataChooser of openAppsInThisPage[ 'dataChooser' ].model; let i = index;" >
+        <button
+          *ngIf="openAppsInThisPage[ 'dataChooser' ].model[i].title.search( 'Depth: ' ) === -1"
+          mat-button>
+          {{ openAppsInThisPage[ 'dataChooser' ].model[i].title }}
+        </button>
         <div style="width: 300px; height: 50px;" >
           <app-data-chooser
             [appInputQueryMapping]=" page.appInputQueryMapping"
@@ -55,7 +60,7 @@
             [queryId] = "openAppsInThisPage[ 'dataChooser' ].model[i].queryId"
             [openAppsInThisPage] = "openAppsInThisPage"
             [dataChooserEntries]="openAppsInThisPage[ 'dataChooser' ].model[i].dataChooserEntries"
-            [description]="openAppsInThisPage[ 'dataChooser' ].model[i].title"
+            [description]=" 'Depth: ' + i "
             (sendIndexBack)="updateMainResourceIndex( $event )">
           </app-data-chooser>
         </div>
