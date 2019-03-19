@@ -51,7 +51,7 @@ import { SimpleImageAppComponent } from './apps/simple-image-app/simple-image-ap
 import { FileDatabase, ResponseTreeComponent } from './apps/response-tree/response-tree.component';
 import { DataListView } from './apps/data-list-view/data-list-view.component';
 import { CdkTableModule } from '@angular/cdk/table';
-import { MatPaginatorModule } from '@angular/material';
+import { MatPaginatorModule, MatSortModule } from '@angular/material';
 
 
 @NgModule({
@@ -90,6 +90,7 @@ import { MatPaginatorModule } from '@angular/material';
     MatTreeModule,
     CdkTableModule,
     MatPaginatorModule,
+    MatSortModule,
     RouterModule.forChild([
       { path: 'page', component: PageComponent },
       { path: 'response-tree', component: ResponseTreeComponent }
