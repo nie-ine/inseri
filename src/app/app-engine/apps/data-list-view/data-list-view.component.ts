@@ -11,22 +11,28 @@ export class DataListView implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   dataSource: MatTableDataSource<any>;
-  displayedColumns = DISPLAYED_COLUMNS; // ['id', 'name'];
+  displayedColumns = DISPLAYED_COLUMNS;
 
   ngOnInit() {
     this.dataSource = new MatTableDataSource(EXAMPLE_DATA);
+
   }
 
   ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
+
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   public doFilter = (value: string) => {
     this.dataSource.filter = value.trim().toLocaleLowerCase();
   }
-}
 
+  dosomething(row_col) {
+    console.log(row_col + ' --> Something should happen now like opening some othe app.');
+  }
+
+}
 
 // TODO: Replace this with generic data model type
 interface DataListView2Item {
