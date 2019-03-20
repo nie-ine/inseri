@@ -19,6 +19,7 @@ export class DataChooserComponent implements AfterViewChecked {
   @Input() dataChooserEntries = [];
   @Input() response;
   @Input() queryId;
+  @Input() depth;
   @Input() description = '';
   @Output() sendAppTypesBackToNIEOS: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendIndexBack: EventEmitter<any> = new EventEmitter<any>();
@@ -42,10 +43,12 @@ export class DataChooserComponent implements AfterViewChecked {
   }
   chooseResource(index: number) {
     this.index = index;
+    console.log( this.depth, index );
     this.sendIndexBack.emit( {
       index: index,
       response: this.response,
-      queryId: this.queryId
+      queryId: this.queryId,
+      depth: this.depth
     } );
   }
 
