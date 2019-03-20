@@ -51,7 +51,8 @@ export class GenerateDataChoosersService {
               ),
               title: 'Query: ' + queryTitle,
               response: data.body,
-              queryId: queryId
+              queryId: queryId,
+              depth: 0
             } );
             this.pathSet.add( pathArray[ 0 ] );
             this.generateArrayKeyValueForEachArrayInResponse(
@@ -93,7 +94,8 @@ export class GenerateDataChoosersService {
           ),
           title: 'Query: ' + queryTitle + ' Depth: ' + String(depth),
           response: response,
-          queryId: queryId
+          queryId: queryId,
+          depth: depth
         } );
       }
       // console.log( typeof response[ key ] );

@@ -62,6 +62,7 @@
             [openAppsInThisPage] = "openAppsInThisPage"
             [dataChooserEntries]="openAppsInThisPage[ 'dataChooser' ].model[i].dataChooserEntries"
             [description]=" 'Depth: ' + i "
+            [depth]="openAppsInThisPage[ 'dataChooser' ].model[i].depth"
             (sendIndexBack)="updateMainResourceIndex( $event )">
           </app-data-chooser>
         </div>
