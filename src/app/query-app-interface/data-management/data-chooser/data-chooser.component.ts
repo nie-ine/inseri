@@ -43,7 +43,6 @@ export class DataChooserComponent implements AfterViewChecked {
   }
   chooseResource(index: number) {
     this.index = index;
-    console.log( this.depth, index );
     this.sendIndexBack.emit( {
       index: index,
       response: this.response,

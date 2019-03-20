@@ -12,6 +12,7 @@ export class DataAssignmentComponent implements OnChanges {
   @Input() queryId;
   @Input() updateLinkedApps = false;
   @Input() indexAppMapping: any;
+  @Input() depth: number;
   @Output() sendAppTypesBackToNIEOS: EventEmitter<any> = new EventEmitter<any>();
   arrayIndicator: Array<any> = [];
   currentIndex = undefined;
@@ -21,7 +22,7 @@ export class DataAssignmentComponent implements OnChanges {
 
   ngOnChanges( changes: SimpleChanges) {
     this.firstChange = true;
-    // console.log( changes );
+    console.log( changes );
     this.checkIfPathContainsScalarAsLastEntry();
     if ( this.updateLinkedApps === true ) {
       this.updateLinkedAppsMethod();
