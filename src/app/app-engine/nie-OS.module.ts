@@ -52,7 +52,8 @@ import { FileDatabase, ResponseTreeComponent } from './apps/response-tree/respon
 import { DataListView } from './apps/data-list-view/data-list-view.component';
 import { CdkTableModule } from '@angular/cdk/table';
 import { MatPaginatorModule, MatSortModule } from '@angular/material';
-
+import { QueryInformationDialogComponent } from './page/query-information-dialog/query-information-dialog.component';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   imports: [
@@ -91,6 +92,8 @@ import { MatPaginatorModule, MatSortModule } from '@angular/material';
     CdkTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatChipsModule,
+    MatCardModule,
     RouterModule.forChild([
       { path: 'page', component: PageComponent },
       { path: 'response-tree', component: ResponseTreeComponent }
@@ -119,7 +122,8 @@ import { MatPaginatorModule, MatSortModule } from '@angular/material';
     NewGjsBoxDialogComponent,
     SimpleImageAppComponent,
     ResponseTreeComponent,
-    DataListView
+    DataListView,
+    QueryInformationDialogComponent
   ],
   exports: [
     PageComponent,
@@ -132,7 +136,8 @@ import { MatPaginatorModule, MatSortModule } from '@angular/material';
     QueryAppInputMapComponent,
     FrameSettingsComponent,
     QueryListComponent,
-    NewGjsBoxDialogComponent
+    NewGjsBoxDialogComponent,
+    QueryInformationDialogComponent
   ]
 })
 export class NIEOSModule { }

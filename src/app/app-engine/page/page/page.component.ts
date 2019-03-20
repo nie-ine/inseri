@@ -24,6 +24,7 @@ import {HttpClient} from '@angular/common/http';
 import { NgxSpinnerService } from 'ngx-spinner';
 import {GeneralRequestService} from '../../../query-engine/general/general-request.service';
 import {NewGjsBoxDialogComponent} from '../../apps/grapesjs/new-gjs-box-dialog/new-gjs-box-dialog.component';
+import {QueryInformationDialogComponent} from '../query-information-dialog/query-information-dialog.component';
 
 declare var grapesjs: any; // Important!
 
@@ -395,22 +396,38 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.updateLinkedApps = true;
   }
 
-  openQueryInformationDialog( queryId: any ) {
+  openQueryInformationDialog( queryId: string, title: string ) {
+    let queryAppPathInformation = [];
     for ( const appHash in this.page.appInputQueryMapping ) {
       for ( const appType in this.openAppsInThisPage ) {
-        if ( this.openAppsInThisPage[ appType ].model.length > 0 && appType !== 'dataChooser') {
+        if (
+          this.openAppsInThisPage[ appType ].model.length > 0 &&
+          appType !== 'dataChooser'
+        ) {
           for ( const appEntry of this.openAppsInThisPage[ appType ].model ) {
             if ( appEntry.hash === appHash ) {
-              this.page.appInputQueryMapping[ appHash ].title = appEntry.title;
+              for ( const input in this.page.appInputQueryMapping[ appHash ] ) {
+                if ( this.page.appInputQueryMapping[ appHash ][ input ].query === queryId ) {
+                  queryAppPathInformation.push(
+                    {
+                      appHash: appHash,
+                      appTitle: appEntry.title,
+                      path: this.page.appInputQueryMapping[ appHash ][ input ].path,
+                      input: input,
+                      type: appType
+                    }
+                  );
+                }
+              }
             }
           }
         }
       }
     }
-    console.log( this.page.appInputQueryMapping, queryId );
-    const dialogRef = this.queryInfoDialog.open(NewGjsBoxDialogComponent, {
-      width: '700px',
-      data: 'test'
+    const dialogRef = this.queryInfoDialog.open(QueryInformationDialogComponent, {
+      width: '800px',
+      height: '400px',
+      data: queryAppPathInformation
     });
   }
 
