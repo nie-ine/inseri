@@ -53,6 +53,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   indexAppMapping: any = {};
   grapesJSActivated = false;
   blockManager: any;
+  depth: number;
 
   blockManagerModel = [
     {
@@ -388,6 +389,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.index = input.index;
     this.response = input.response;
     this.queryId = input.queryId;
+    this.depth = input.depth;
   }
 
   updateIndices( indexAppMapping: any ) {
