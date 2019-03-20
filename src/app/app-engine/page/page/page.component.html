@@ -50,6 +50,7 @@
       <div *ngFor="let dataChooser of openAppsInThisPage[ 'dataChooser' ].model; let i = index;" >
         <button
           *ngIf="openAppsInThisPage[ 'dataChooser' ].model[i].title.search( 'Depth: ' ) === -1"
+          (click)="openQueryInformationDialog( openAppsInThisPage[ 'dataChooser' ].model[i].queryId )"
           mat-button>
           {{ openAppsInThisPage[ 'dataChooser' ].model[i].title }}
         </button>
