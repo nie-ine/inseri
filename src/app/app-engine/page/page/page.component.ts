@@ -99,6 +99,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     private resetOpenApps: OpenAppsModel,
     private pageService: PageService,
     public dialog: MatDialog,
+    public queryInfoDialog: MatDialog,
     private spinner: NgxSpinnerService,
     private requestService: GeneralRequestService
   ) {
@@ -370,13 +371,13 @@ export class PageComponent implements OnInit, AfterViewChecked {
       }
     }, 1000);
     this.page = pageAndAction[ 0 ];
-    console.log( this.page );
+    // console.log( this.page );
     this.action = pageAndAction[ 1 ];
     this.reloadVariables = false;
   }
 
   receiveOpenAppsInThisPage( openAppsInThisPage: any ) {
-    console.log( openAppsInThisPage );
+    // console.log( openAppsInThisPage );
     this.openAppsInThisPage = openAppsInThisPage;
     this.reloadVariables = false;
     this.updateLinkedApps = false;
@@ -393,4 +394,24 @@ export class PageComponent implements OnInit, AfterViewChecked {
     console.log( this.indexAppMapping );
     this.updateLinkedApps = true;
   }
+
+  openQueryInformationDialog( queryId: any ) {
+    for ( const appHash in this.page.appInputQueryMapping ) {
+      for ( const appType in this.openAppsInThisPage ) {
+        if ( this.openAppsInThisPage[ appType ].model.length > 0 && appType !== 'dataChooser') {
+          for ( const appEntry of this.openAppsInThisPage[ appType ].model ) {
+            if ( appEntry.hash === appHash ) {
+              this.page.appInputQueryMapping[ appHash ].title = appEntry.title;
+            }
+          }
+        }
+      }
+    }
+    console.log( this.page.appInputQueryMapping, queryId );
+    const dialogRef = this.queryInfoDialog.open(NewGjsBoxDialogComponent, {
+      width: '700px',
+      data: 'test'
+    });
+  }
+
 }
