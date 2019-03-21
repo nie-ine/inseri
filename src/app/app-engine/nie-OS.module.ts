@@ -53,7 +53,8 @@ import { DataListView } from './apps/data-list-view/data-list-view.component';
 import { CdkTableModule } from '@angular/cdk/table';
 import { MatPaginatorModule, MatSortModule } from '@angular/material';
 import { QueryInformationDialogComponent } from './page/query-information-dialog/query-information-dialog.component';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
+import { DataListViewSettings} from './apps/data-list-view/data-list-view-settings/data-list-view-settings';
 
 @NgModule({
   imports: [
@@ -123,6 +124,7 @@ import {MatCardModule} from '@angular/material/card';
     SimpleImageAppComponent,
     ResponseTreeComponent,
     DataListView,
+    DataListViewSettings,
     QueryInformationDialogComponent
   ],
   exports: [
