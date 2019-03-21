@@ -1,21 +1,30 @@
 <!--<h4>This is the json</h4>
   <div><li *ngFor="let obj of queryResponse">{{obj | json}}</li></div>
   <div><h4>This is the table</h4></div> -->
-<div>
+
+  <pre>{{dataModel | json}}</pre>
+  <pre>{{TableFilling | json}}</pre>
   <mat-form-field>
     <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
   </mat-form-field>
-  <mat-table #table [dataSource]="dataSource" matSort>
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <data-list-view-settings [displayedColumns] = "displayedColumns"></data-list-view-settings>
+  </mat-menu>
+<div>
+  <mat-table #table [dataSource]="dataSource" matSort [multiTemplateDataRows]="true">
     <ng-container *ngFor="let col of displayedColumns" [cdkColumnDef]="col">
       <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{col}}</mat-header-cell>
-      <mat-cell *cdkCellDef="let row" style="cursor: pointer"  (click)="dosomething(row[col])"> {{row[col]}} </mat-cell>
+      <mat-cell *cdkCellDef="let row; let i = $implicit;" style="cursor: pointer" (click)="dosomething(row[col], i)"> {{row[col]}} </mat-cell>
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
-
     <mat-row
       matRipple
-      *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      *matRowDef="let row; columns: displayedColumns;">
 
+    </mat-row>
   </mat-table>
   <mat-paginator #paginator
                  [length]="dataSource.data.length"
