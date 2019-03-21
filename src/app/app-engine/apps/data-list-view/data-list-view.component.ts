@@ -104,44 +104,27 @@ export class DataListView implements OnInit {
 
   ngOnInit() {
     // FIRST we get the header variables used as columns
-    this.displayedColumns = this.resData.head.vars; // WILL be given to
-
+    this.displayedColumns = this.resData.head.vars;
     // GET the inner results/bindings, i.e. the actual values to be displayed
     this.TableFilling = this.resData.results.bindings;
-    // TODO: reduce the nested Tablefilling
-
-    this.dataSource = new MatTableDataSource(EXAMPLE_DATA);
+    // INSTANTIATE the datasource of the table
+    this.dataSource = new MatTableDataSource(this.TableFilling);
   }
 
   ngAfterViewInit(): void {
 
+    // MAT Pagination and sorting
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
+  // FILTERING
   public doFilter = (value: string) => {
     this.dataSource.filter = value.trim().toLocaleLowerCase();
   }
 
+  // METHOD for doing sth with the clicked cell.
   public dosomething(row_col, indexed_data) {
-    console.log(row_col + ' ' + indexed_data.name + ' / ' + indexed_data.my_person + ' --> Something should happen now with this.');
+    console.log(row_col + ' ' + indexed_data.authorsname + ' / ' + indexed_data.my_person + ' --> Something should happen now with this.');
   }
 }
-
-// TODO: replace this with real data
-const EXAMPLE_DATA = [
-  {my_person:'12A1hhh', description: 'Blatt A1', authorsname: 'Augustus'},
-  {my_person:'32gchjuzd', description: 'Blatt A3', authorsname: 'Caligula'},
-  {my_person:'5443xfjhz', description: 'Blatt B4', authorsname: 'Caracalla'},
-  {my_person:'z345hujdztj', description: 'Blatt A6, Blatt D5', authorsname: 'Claudius'},
-  {my_person:'f4365dhg', description: 'Blatt C8, Blatt B4', authorsname: 'Domitian'},
-  {my_person:'f436534gjn', description: 'Blatt G5, Blatt B4', authorsname: 'Hadrian'},
-  {my_person:'487435gd', description: 'Blatt D32, Blatt S4', authorsname: 'Marc Aurel'},
-  {my_person:'hgkcjmuzr', description: 'Blatt A66, Blatt A4', authorsname: 'Nero'},
-  {my_person:'duz43534t', description: 'Blatt A66, Blatt A4', authorsname: 'Nerva'},
-  {my_person:'ztd433iuz', description: 'Blatt B44, Blatt G34', authorsname: 'Otho'},
-  {my_person:'fcj45hgkujhc', description: 'Blatt C88, Blatt BC4', authorsname: 'Titus'},
-  {my_person:'k345zgcmh', description: 'Blatt A66, Blatt A4', authorsname: 'Vespasian'},
-  {my_person:'ztu34543d7', description: 'Blatt C88, Blatt BC4', authorsname: 'Vitllius'}
-
-];
