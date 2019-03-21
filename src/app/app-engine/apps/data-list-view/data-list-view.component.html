@@ -2,7 +2,7 @@
   <div><li *ngFor="let obj of queryResponse">{{obj | json}}</li></div>
   <div><h4>This is the table</h4></div> -->
 
-  <pre>{{dataModel | json}}</pre>
+  <pre>{{ displayedColumns | json}}</pre>
   <pre>{{TableFilling | json}}</pre>
   <mat-form-field>
     <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
@@ -17,7 +17,7 @@
   <mat-table #table [dataSource]="dataSource" matSort [multiTemplateDataRows]="true">
     <ng-container *ngFor="let col of displayedColumns" [cdkColumnDef]="col">
       <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{col}}</mat-header-cell>
-      <mat-cell *cdkCellDef="let row; let i = $implicit;" style="cursor: pointer" (click)="dosomething(row[col], i)"> {{row[col]}} </mat-cell>
+      <mat-cell *cdkCellDef="let row; let i = $implicit;" style="cursor: pointer" (click)="dosomething(row[col], i)"> {{row[col].value}} </mat-cell>
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
     <mat-row
