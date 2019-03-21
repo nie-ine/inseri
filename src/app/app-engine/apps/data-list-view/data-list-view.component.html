@@ -1,9 +1,4 @@
-<!--<h4>This is the json</h4>
-  <div><li *ngFor="let obj of queryResponse">{{obj | json}}</li></div>
-  <div><h4>This is the table</h4></div> -->
-
-  <pre>{{ displayedColumns | json}}</pre>
-  <pre>{{TableFilling | json}}</pre>
+<div>
   <mat-form-field>
     <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
   </mat-form-field>
@@ -13,6 +8,7 @@
   <mat-menu #menu="matMenu">
     <data-list-view-settings [displayedColumns] = "displayedColumns"></data-list-view-settings>
   </mat-menu>
+</div>
 <div>
   <mat-table #table [dataSource]="dataSource" matSort [multiTemplateDataRows]="true">
     <ng-container *ngFor="let col of displayedColumns" [cdkColumnDef]="col">
