@@ -13,7 +13,7 @@
   <mat-table #table [dataSource]="dataSource" matSort [multiTemplateDataRows]="true">
     <ng-container *ngFor="let col of displayedColumns" [cdkColumnDef]="col">
       <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{col}}</mat-header-cell>
-      <mat-cell *cdkCellDef="let row; let i = $implicit;" style="cursor: pointer" (click)="dosomething(row[col], i)"> {{row[col].value}} </mat-cell>
+      <mat-cell *cdkCellDef="let row; let i = $implicit;" style="cursor: pointer" (click)="dosomething(row[col].value, i)"> {{row[col].value}} </mat-cell>
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
     <mat-row
@@ -25,7 +25,7 @@
   <mat-paginator #paginator
                  [length]="dataSource.data.length"
                  [pageIndex]="0"
-                 [pageSize]="5"
+                 [pageSize]="4"
                  [pageSizeOptions]="[5, 10, 25, 50, 100, 250]">
   </mat-paginator>
 </div>
