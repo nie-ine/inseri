@@ -11,6 +11,7 @@ export class DataListView implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   dataSource: MatTableDataSource<any>;
+
   displayedColumns = {}
   TableFilling = [];
 
@@ -28,7 +29,7 @@ export class DataListView implements OnInit {
         "bindings": [{
           "description": {
             "type": "literal",
-            "value": "Novariensis; natus c. 1100; venit in Galliam c. 1136; breviter Remis moratus est, ubi docebat magister Lotulfus Novariensis; c. 1139 venit Parisios et commendatus a s. Bernardo morabatur in monasterio sancti Victoris; c. 1140–1159 docuit in scholis cathedralis Parisiensis; 1152 Romam profectus est; 1159 electus est episcopus Parisiensis, sed iam 1260 e vita migravit. Sent. I composuit probabiliter ante 1148; Sent. II–V probabiliter finivit hieme 1151/2.\nGregorianum 2 (1921) 387–392 et 15 (1934) 262–266 [F. Pelster; de tempore compositionis]; Scholastik 5 (1930) 569–573 [F. Pelster; de codice originali]; Rev. Hist. Eccl. 14 (1913) 511–536; 705–719 [J. de Ghellinck; de notis marginalibus]; 27 (1931) 792–830 et 30 (1934) [J. de Ghellinck; de vita]; Rech. Théol. anç. méd. 2 (1930) 80–99 [A. Landgraf; de critica textus]; Dict. Théol. Cath. XII,2 (1935) 1941–2019 [J. de Ghellinck]."
+            "value": "Novariensis; natus c. 1100; venit in Galliam c. 1136; breviter Remis moratus est."
           },
           "authorsname": {
             "type": "literal",
@@ -46,7 +47,7 @@ export class DataListView implements OnInit {
           {
             "description": {
               "type": "literal",
-              "value": "Vide Antonius; Arnoldus Vesaliensis; Bandinus; Conradus OP; Dionysius Carthusiensis; Ps.Hugo de s. Caro; Jacobus de Lausanne; Dionysius Carthusianus; Ps. Hugo de s. Caro ; Jacobus de Lausanne; Odalricus Verdunensis; Simon Tornacensis; nr. 1070; 1190; 1342,1.\nA. Landgraf, Bearbeitungen von Werken des Petr. Lomb. Coll. Franc. 10, 321–337."
+              "value": "Vide Antonius; Arnoldus Vesaliensis; Bandinus ..."
             },
             "authorsname": {
               "type": "literal",
@@ -64,7 +65,7 @@ export class DataListView implements OnInit {
           {
             "description": {
               "type": "literal",
-              "value": "Vide ARNOLDUS; FRANCISCUS TOTI DE PERUSIO; MATTHAEUS DE AQUASPARTA; MICHAEL AIGNANI DE BONONIA; ROBERTUS KILWARDBY; SIMON de TOURNAY; nr. 966."
+              "value": "Vide ARNOLDUS; FRANCISCUS TOTI DE PERUSIO ..."
             },
             "authorsname": {
               "type": "literal",
@@ -96,6 +97,24 @@ export class DataListView implements OnInit {
               "type": "uri",
               "value": "http://rdfh.ch/0046/BJ06D4gURMiNEJDyrMpmsQ"
             }
+          },
+          {
+            "description": {
+              "type": "literal",
+              "value": "Vide someone else."
+            },
+            "authorsname": {
+              "type": "literal",
+              "value": "Petri Lombardi whatever"
+            },
+            "label": {
+              "type": "literal",
+              "value": "AID_somthing_PetriLombardiSententiae"
+            },
+            "my_person": {
+              "type": "uri",
+              "value": "http://rdfh.ch/0046/BJssD4gURMiNEJDyrMpmsQ"
+            }
           }
 
         ]
@@ -113,12 +132,19 @@ export class DataListView implements OnInit {
 
   ngAfterViewInit(): void {
 
-    // MAT Pagination and sorting
+    // Pagination of table data
     this.dataSource.paginator = this.paginator;
+
+    // AS the dataSource is nested MATSORT must sort the Table for subproperties (item.poperty.value) and not for properties (standard sort).
+    this.dataSource.sortingDataAccessor = (item, property) => {
+      switch(property) {
+        default: return item[property].value;
+      }
+    };
     this.dataSource.sort = this.sort;
   }
 
-  // FILTERING
+  // TODO: AS the dataSource is nested the FILTER must filter the dataSource by the subproperties ".value" (item.poperty.value) and not by properties
   public doFilter = (value: string) => {
     this.dataSource.filter = value.trim().toLocaleLowerCase();
   }
