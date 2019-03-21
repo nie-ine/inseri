@@ -15,22 +15,81 @@ export class DataAssignmentComponent implements OnChanges {
   @Input() depth: number;
   @Output() sendAppTypesBackToNIEOS: EventEmitter<any> = new EventEmitter<any>();
   arrayIndicator: Array<any> = [];
-  currentIndex = undefined;
+  currentIndex: any = {};
   firstChange = true;
   changes: any;
   constructor() { }
 
   ngOnChanges( changes: SimpleChanges) {
+    console.log( this.response );
     this.firstChange = true;
-    console.log( changes );
+    this.startPathUpdateProcess();
     this.checkIfPathContainsScalarAsLastEntry();
     if ( this.updateLinkedApps === true ) {
       this.updateLinkedAppsMethod();
       // console.log( 'update linked apps' );
     } else if ( this.currentIndex !== this.index ) {
-      this.currentIndex = this.index;
-      this.goThroughAppInputs();
       // console.log( 'Go Through App Inputs' );
+      this.goThroughAppInputs();
+    }
+  }
+
+  startPathUpdateProcess() {
+    if ( !this.currentIndex ) {
+      this.currentIndex = {};
+    }
+    if ( !this.currentIndex[ this.queryId ] ) {
+      this.currentIndex[ this.queryId ] = {};
+    }
+    this.currentIndex[ this.queryId ][ this.depth ] = this.index;
+    // console.log( this.appInputQueryMapping );
+    for ( const appHash in this.appInputQueryMapping ) {
+      for ( const inputName in this.appInputQueryMapping[ appHash ] ) {
+        if ( this.appInputQueryMapping[ appHash ][ inputName ].query === this.queryId ) {
+          // console.log( this.appInputQueryMapping[ appHash ][ inputName ].path, this.response );
+          this.updatePathWithIndices(
+            this.appInputQueryMapping[ appHash ][ inputName ].path,
+            this.response,
+            this.currentIndex[ this.queryId ],
+            0,
+            0
+          );
+        }
+      }
+    }
+  }
+
+  updatePathWithIndices(
+    path: Array<string>,
+    response: any,
+    currentIndex: any,
+    indexDepth: number,
+    pathDepth: number
+  ) {
+    let deleteCount = 0;
+    console.log( indexDepth, this.depth, path[ pathDepth ], response );
+    if (
+      response &&
+      response[ path[ pathDepth ] ] &&
+      response[ path[ pathDepth ] ].length > 0
+    ) {
+        if ( indexDepth === this.depth ) {
+          if ( !isNaN( Number( path[ pathDepth + 1 ] ) ) ) {
+            deleteCount = 1;
+          }
+          path.splice(pathDepth + 1, deleteCount, currentIndex[ indexDepth ]);
+        }
+        indexDepth += 1;
+        console.log( path );
+      }
+    if ( path.length > pathDepth + 1 && response ) {
+      this.updatePathWithIndices(
+        path,
+        response[ path[ pathDepth ] ],
+        currentIndex,
+        indexDepth,
+        pathDepth + 1
+      );
     }
   }
 
@@ -46,6 +105,7 @@ export class DataAssignmentComponent implements OnChanges {
             const path = this.appInputQueryMapping[ appHash ][ inputName ].path;
             if ( path && !isNaN( Number ( path[ path.length - 1 ] ) ) ) {
               for ( const dataChooser of this.openAppsInThisPage[ 'dataChooser' ].model ) {
+                // console.log('Go through app input');
                 this.goThroughAppInputs(
                   dataChooser.response,
                   dataChooser.queryId

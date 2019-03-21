@@ -93,7 +93,7 @@ export class GenerateDataChoosersService {
             undefined
           ),
           title: 'Query: ' + queryTitle + ' Depth: ' + String(depth),
-          response: response,
+          response: this.response,
           queryId: queryId,
           depth: depth
         } );
