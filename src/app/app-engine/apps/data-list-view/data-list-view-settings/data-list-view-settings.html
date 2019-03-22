@@ -1,0 +1,6 @@
+<h3>Displayed Columns</h3>
+<mat-selection-list #list [(ngModel)]="displayedColumns" (ngModelChange)="onNgModelChange($event)">
+  <mat-list-option *ngFor="let col of displayedColumns" [value]="col">
+    {{col}}
+  </mat-list-option>
+</mat-selection-list>
