@@ -21,16 +21,11 @@ export class DataAssignmentComponent implements OnChanges {
   constructor() { }
 
   ngOnChanges( changes: SimpleChanges) {
-    console.log( this.response );
     this.firstChange = true;
     this.startPathUpdateProcess();
     this.checkIfPathContainsScalarAsLastEntry();
     if ( this.updateLinkedApps === true ) {
       this.updateLinkedAppsMethod();
-      // console.log( 'update linked apps' );
-    } else if ( this.currentIndex !== this.index ) {
-      // console.log( 'Go Through App Inputs' );
-      this.goThroughAppInputs();
     }
   }
 
@@ -46,7 +41,7 @@ export class DataAssignmentComponent implements OnChanges {
     for ( const appHash in this.appInputQueryMapping ) {
       for ( const inputName in this.appInputQueryMapping[ appHash ] ) {
         if ( this.appInputQueryMapping[ appHash ][ inputName ].query === this.queryId ) {
-          // console.log( this.appInputQueryMapping[ appHash ][ inputName ].path, this.response );
+          // console.log( this.appInputQueryMapping[ appHash ][ inputName ].path );
           this.updatePathWithIndices(
             this.appInputQueryMapping[ appHash ][ inputName ].path,
             this.response,
@@ -57,6 +52,7 @@ export class DataAssignmentComponent implements OnChanges {
         }
       }
     }
+    this.goThroughAppInputs();
   }
 
   updatePathWithIndices(
@@ -67,20 +63,27 @@ export class DataAssignmentComponent implements OnChanges {
     pathDepth: number
   ) {
     let deleteCount = 0;
-    console.log( indexDepth, this.depth, path[ pathDepth ], response );
+    // console.log( path[ pathDepth ] );
+    // if ( ( path[ pathDepth ] === 'text-editing:hasDiplomaticTranscriptionValue' ) ) {
+    //   console.log( indexDepth, this.depth, path[ pathDepth ], response );
+    // }
     if (
       response &&
       response[ path[ pathDepth ] ] &&
       response[ path[ pathDepth ] ].length > 0
     ) {
+      // console.log( path[ pathDepth ] );
         if ( indexDepth === this.depth ) {
           if ( !isNaN( Number( path[ pathDepth + 1 ] ) ) ) {
             deleteCount = 1;
           }
-          path.splice(pathDepth + 1, deleteCount, currentIndex[ indexDepth ]);
+          // console.log( pathDepth, path.length );
+          if ( pathDepth + 1 !== path.length ) {
+            path.splice(pathDepth + 1, deleteCount, currentIndex[ indexDepth ]);
+          }
         }
         indexDepth += 1;
-        console.log( path );
+        // console.log( path );
       }
     if ( path.length > pathDepth + 1 && response ) {
       this.updatePathWithIndices(
@@ -171,11 +174,22 @@ export class DataAssignmentComponent implements OnChanges {
         if ( path.length === 1 ) {
           return response[ path[ 0 ] ];
         } else if ( response.length  ) {                                          // Response is an array
+          // console.log( path, depth, path[ depth ] );
+          if ( !isNaN( path[ depth ] ) ) {
+            return this.generateAppinput(
+              response[ path[ depth ] ],
+              path,
+              index,
+              depth + 1,
+              false,
+              app
+            );
+          }
           if (
             depth === path.length - 1  &&
             !isNaN( Number ( path[ path.length - 1 ] ) )
           ) {
-            // console.log( response[ Number ( path[ depth ] ) ], app );
+            console.log( response[ Number ( path[ depth ] ) ], app );
             return response[ Number ( path[ depth ] ) ];
           }
           if ( typeof response === 'string' ) {
