@@ -3,7 +3,7 @@ version: "2"
 services:
 
   nieos:
-    image: nieine/mean:latest
+    image: mean:latest
     ports:
     - 4200:4200
     entrypoint: ng s --host 0.0.0.0 --disable-host-check
@@ -12,7 +12,7 @@ services:
     - LETSENCRYPT_HOST=nie-ine.localhost
 
   node:
-    image: nieine/mean:latest
+    image: mean:latest
     ports:
     - 3000:3000
     entrypoint: npm run start:server
@@ -33,10 +33,22 @@ services:
     - /etc/nginx/vhost.d
     - /etc/nginx/certs
 
-  nginx-proxy-letsencrypt:
-    image: jrcs/letsencrypt-nginx-proxy-companion
-    volumes_from:
-      - nginx-proxy
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+#  nginx-proxy-letsencrypt:
+#    image: jrcs/letsencrypt-nginx-proxy-companion
+#    volumes_from:
+#      - nginx-proxy
+#    volumes:
+#      - /var/run/docker.sock:/var/run/docker.sock:ro
 
+
+  mongodb:
+    image: mongo
+    ports:
+      - 27017:27017
+
+  mondoGUI:
+    image: mongo-express
+    ports:
+      - 8081:8081
+    links:
+      - mongodb:mongo
