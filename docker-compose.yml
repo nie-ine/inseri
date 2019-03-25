@@ -52,3 +52,8 @@ services:
       - 8081:8081
     links:
       - mongodb:mongo
+
+  nieos_production:
+    build: ./.dockerProduction
+    ports:
+    - "90:80"

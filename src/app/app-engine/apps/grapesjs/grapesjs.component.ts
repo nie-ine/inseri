@@ -6,8 +6,7 @@ declare var grapesjs: any; // Important!
 
 @Component({
   selector: 'app-grapesjs',
-  template: '<div id="grapesJSViewer"></div>',
-  styleUrls: ['./grapesjs.component.scss']
+  template: '<div id="grapesJSViewer"></div>'
 })
 export class GrapesjsComponent implements AfterViewChecked {
 

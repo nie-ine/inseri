@@ -55,6 +55,7 @@ import { MatPaginatorModule, MatSortModule } from '@angular/material';
 import { QueryInformationDialogComponent } from './page/query-information-dialog/query-information-dialog.component';
 import { MatCardModule } from '@angular/material/card';
 import { DataListViewSettings} from './apps/data-list-view/data-list-view-settings/data-list-view-settings';
+import {GrapesjsComponent} from './apps/grapesjs/grapesjs.component';
 
 @NgModule({
   imports: [
@@ -125,11 +126,13 @@ import { DataListViewSettings} from './apps/data-list-view/data-list-view-settin
     ResponseTreeComponent,
     DataListView,
     DataListViewSettings,
-    QueryInformationDialogComponent
+    QueryInformationDialogComponent,
+    GrapesjsComponent
   ],
   exports: [
     PageComponent,
-    MatSidenavModule
+    MatSidenavModule,
+    GrapesjsComponent
   ],
   entryComponents: [
     ImageFrameComponent,
