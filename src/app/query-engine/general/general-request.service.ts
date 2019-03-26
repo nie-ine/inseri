@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { QueryService } from '../../user-action-engine/mongodb/query/query.service';
+import 'rxjs/add/operator/mergeMap';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class GeneralRequestService {
 
   request(queryID) {
     return this.queryService.getQuery(queryID)
-      .flatMap(data => {
+      .mergeMap(data => {
           const query = data.query;
 
           switch (query.method) {

@@ -5,7 +5,6 @@ import { RouterModule } from '@angular/router';
 import { FactSheetModule } from '../../fact-sheet/fact-sheet.module';
 import { MaterialModule } from '../../../../material.module';
 import { TagChipsModule } from '../../tag-chips/tag-chips.module';
-import { ArithmeticModule } from 'nie-ine';
 import { D3jsModule } from '../../d3js/d3js.module';
 
 @NgModule({
@@ -13,7 +12,6 @@ import { D3jsModule } from '../../d3js/d3js.module';
     CommonModule,
     FactSheetModule,
     MaterialModule,
-    ArithmeticModule,
     TagChipsModule,
     D3jsModule,
     RouterModule.forChild([

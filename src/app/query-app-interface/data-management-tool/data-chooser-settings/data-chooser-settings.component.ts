@@ -9,7 +9,6 @@ import {
 import { KnoraV1RequestService } from '../../../query-engine/knora/knora-v1-request.service';
 import { environment } from '../../../../environments/environment';
 import { SendGravSearchQueryService } from '../../../query-engine/knora/gravsearch/sendGravSearchQuery.service';
-import {ApiServiceError, Project, ProjectsService, User} from '@knora/core';
 
 @Component({
   selector: 'app-data-chooser-settings',
