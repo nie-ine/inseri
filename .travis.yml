@@ -5,5 +5,5 @@ services:
 - docker
 
 script:
-  - cd moreDocker/Node && docker build -t mean .
+  - docker build -t mean .
 
