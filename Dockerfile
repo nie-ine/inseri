@@ -1,6 +1,6 @@
 FROM teracy/angular-cli as builder
 
-COPY moreDocker/Node ./nieOS
+COPY . ./nieOS
 
 WORKDIR ./nieOS
 
