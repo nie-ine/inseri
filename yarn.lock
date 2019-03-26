@@ -107,13 +107,6 @@
   dependencies:
     tslib "^1.9.0"
 
-"@angular/cdk@^5.2.4":
-  version "5.2.5"
-  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-5.2.5.tgz#cae2b12e1990a692dd267a73fdb1d49db37f9604"
-  integrity sha512-GN8m1d+VcCE9+Bgwv06Y8YJKyZ0i9ZIq2ZPBcJYt+KVgnVVRg4JkyUNxud07LNsvzOX22DquHqmIZiC4hAG7Ag==
-  dependencies:
-    tslib "^1.7.1"
-
 "@angular/cdk@^7.3.3":
   version "7.3.3"
   resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-7.3.3.tgz#02a2ad248141cd9968a5950ce0602da3fcf5445b"
@@ -186,13 +179,6 @@
   integrity sha512-At72AJNGe+Zzmryb7DDIG+iws7zKdgZx/eEVjZ/Obu/yREefbZY4R7q83U90Vljtn97BwJPx9ur9ttxE9WpnlA==
   dependencies:
     tslib "^1.9.0"
-
-"@angular/forms@^5.2.8":
-  version "5.2.11"
-  resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-5.2.11.tgz#712534fa317e194caa452d0c1a8efc72f5e040d6"
-  integrity sha512-wBllFlIubPclAFRXUc84Kc7TMeKOftzrQraVZ7ooTNeFLLa/FZLN2K8HGyRde8X/XDsMu1XAmjNfkz++spwTzA==
-  dependencies:
-    tslib "^1.7.1"
 
 "@angular/http@7.2.6":
   version "7.2.6"
@@ -326,13 +312,6 @@
     esutils "^2.0.2"
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
-
-"@knora/core@^6.5.0":
-  version "6.5.0"
-  resolved "https://registry.yarnpkg.com/@knora/core/-/core-6.5.0.tgz#6b9c3fb8a7ae2d1c6231877acf6ef514883f44f6"
-  integrity sha512-VpaiE8kZKhkcDa5gAPsRSGv3tGBCIqVg+00jdHGPG3FUPmPbatakOwbgnC0gNOO9C3RRrrhuhtWIkASaqTPuTg==
-  dependencies:
-    tslib "^1.9.0"
 
 "@ngtools/webpack@7.3.3":
   version "7.3.3"
@@ -6026,13 +6005,6 @@ ngx-bootstrap@^3.3.0:
   resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-3.3.0.tgz#91f1644a6fff8a493bc58a16bd9d02db7320bd6a"
   integrity sha512-eGKjMPM4XhYVCr/NdGnQ3SCOSUGMe00lytOmuDAgHf2JwMGfMD3EE7hX9KAONfNbUEuHzRfsjDAuQhWbCvZ8xg==
 
-ngx-editor@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/ngx-editor/-/ngx-editor-4.1.0.tgz#3ec5820627f25a2239094747cccf88a7ca02f79f"
-  integrity sha512-TdbFoHYJjWjyrYEw6fiYrP50s7mLcRErvSYfQ+Nz47Hse44klogi7FDl+hUjVZPBQVc5xXtTwcGSzId3ptxf8w==
-  dependencies:
-    tslib "^1.9.0"
-
 ngx-spinner@^7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/ngx-spinner/-/ngx-spinner-7.0.0.tgz#44762ef684361a928ae58e73569c543e20ac0bd1"
@@ -6044,15 +6016,6 @@ nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
   integrity sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==
-
-nie-ine@0.0.19:
-  version "0.0.19"
-  resolved "https://registry.yarnpkg.com/nie-ine/-/nie-ine-0.0.19.tgz#a3272fbf5da922bb10ded8d0da24c28cc8391715"
-  integrity sha512-3IYVchwpPoN5tJzrvgG0UKNc6is46pP1siDIXc1rPM6i3SBLCz0Lkih3DZQtVTRyF7HU/2Exq73FXNgMOAtlGA==
-  dependencies:
-    "@angular/cdk" "^5.2.4"
-    "@angular/forms" "^5.2.8"
-    tslib "^1.9.0"
 
 no-case@^2.2.0:
   version "2.3.2"

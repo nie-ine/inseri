@@ -2,13 +2,11 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {PageComponent} from './page/page/page.component';
 import {RouterModule} from '@angular/router';
-import {ImageFrameComponent} from 'nie-ine';
 import {Frame} from './page/frame/frame';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatButtonModule} from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
-import {ArithmeticModule} from 'nie-ine';
 import {TextViewModule} from './apps/text-view/text-view.module';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {SynopsisModule} from './apps/synopsis/synopsis.module';
@@ -45,7 +43,6 @@ import { QueryListComponent } from '../query-engine/query-list/query-list.compon
 import { DataAssignmentComponent } from '../query-app-interface/data-management/data-assignment/data-assignment.component';
 import { UpdateLinkedAppsComponent } from '../query-app-interface/data-management/update-linked-apps/update-linked-apps.component';
 import { NewGjsBoxDialogComponent } from './apps/grapesjs/new-gjs-box-dialog/new-gjs-box-dialog.component';
-import { NgxEditorModule } from 'ngx-editor';
 import { MatDialogModule } from '@angular/material';
 import { SimpleImageAppComponent } from './apps/simple-image-app/simple-image-app.component';
 import { FileDatabase, ResponseTreeComponent } from './apps/response-tree/response-tree.component';
@@ -60,12 +57,10 @@ import {GrapesjsComponent} from './apps/grapesjs/grapesjs.component';
 @NgModule({
   imports: [
     CommonModule,
-    ArithmeticModule,
     MatSidenavModule,
     MatButtonModule,
     MatMenuModule,
     MatIconModule,
-    ArithmeticModule,
     TextViewModule,
     MatTooltipModule,
     SynopsisModule,
@@ -88,7 +83,6 @@ import {GrapesjsComponent} from './apps/grapesjs/grapesjs.component';
     MatListModule,
     MatSliderModule,
     NgxSpinnerModule,
-    NgxEditorModule,
     MatDialogModule,
     MatTreeModule,
     CdkTableModule,
@@ -135,7 +129,6 @@ import {GrapesjsComponent} from './apps/grapesjs/grapesjs.component';
     GrapesjsComponent
   ],
   entryComponents: [
-    ImageFrameComponent,
     DataManagementComponent,
     QueryEntryComponent,
     QueryAppInputMapComponent,

@@ -2,14 +2,14 @@ version: "2"
 
 services:
 
-  nieos:
-    image: mean:latest
-    ports:
-    - 4200:4200
-    entrypoint: ng s --host 0.0.0.0 --disable-host-check
-    environment:
-    - VIRTUAL_HOST=nie-ine.localhost
-    - LETSENCRYPT_HOST=nie-ine.localhost
+#  nieos:
+#    image: mean:latest
+#    ports:
+#    - 4200:4200
+#    entrypoint: ng s --host 0.0.0.0 --disable-host-check
+#    environment:
+#    - VIRTUAL_HOST=nie-ine.localhost
+#    - LETSENCRYPT_HOST=nie-ine.localhost
 
   node:
     image: mean:latest
@@ -54,6 +54,8 @@ services:
       - mongodb:mongo
 
   nieos_production:
-    build: ./.dockerProduction
+    build: .
     ports:
     - "90:80"
+    volumes:
+    - ./nginx:/etc/nginx/conf.d
