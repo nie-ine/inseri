@@ -7,7 +7,7 @@ import { TermsAndConditions } from '../../register/termsAndConditions/termsAndCo
 })
 export class ImpressumComponent {
   constructor(
-    private termsAndConditions: TermsAndConditions
+    public termsAndConditions: TermsAndConditions
   ) {
   }
 
