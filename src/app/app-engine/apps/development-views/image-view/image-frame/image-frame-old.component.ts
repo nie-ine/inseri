@@ -1,7 +1,9 @@
 import {
   Component, Input, OnInit, OnChanges, SimpleChange, ElementRef, OnDestroy
 } from '@angular/core';
-import { IIIFImage } from '../../shared/IIIFImage';
+import { IIIFImage } from '../../../shared/IIIFImage';
+
+// deprecated
 
 // This component needs the openseadragon library itself, as well as the openseadragon plugin openseadragon-svg-overlay
 // Both libraries are installed via package.json, and loaded globally via the script tag in .angular-cli.json
@@ -12,11 +14,11 @@ import { IIIFImage } from '../../shared/IIIFImage';
 declare let OpenSeadragon: any;
 
 @Component({
-  selector: 'app-image-frame',
-  templateUrl: './image-frame.component.html',
-  styleUrls: ['./image-frame.component.css']
+  selector: 'app-image-old-frame',
+  templateUrl: './image-frame-old.component.html',
+  styleUrls: ['./image-frame-old.component.css']
 })
-export class ImageFrameComponent implements OnInit, OnChanges, OnDestroy {
+export class ImageFrameOldComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() image: IIIFImage;
   @Input() width: number;

@@ -461,20 +461,13 @@
                (sendAppSettingsBack)="updateAppSettings($event)">
           <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'imageViewer' ].model[i].height, '700' ) + 'px',
   'width': produceHeightAndWidth( openAppsInThisPage[ 'imageViewer' ].model[i].width, '500' ) + 'px'}">
-          <!--<nie-image-frame style="position: sticky;"-->
-                           <!--[image]="{-->
-    <!--'@id' : openAppsInThisPage[ 'imageViewer' ].model[i]['@id'],-->
-    <!--'@type' : openAppsInThisPage[ 'imageViewer' ].model[i]['@type'],-->
-    <!--'knora-api:fileValueAsUrl' : openAppsInThisPage[ 'imageViewer' ].model[i]['fileValueAsUrl'],-->
-    <!--'knora-api:fileValueHasFilename' : openAppsInThisPage[ 'imageViewer' ].model[i]['fileValueHasFilename'],-->
-    <!--'knora-api:fileValueIsPreview' : false,-->
-    <!--'knora-api:stillImageFileValueHasDimX' : openAppsInThisPage[ 'imageViewer' ].model[i]['stillImageFileValueHasDimX'],-->
-    <!--'knora-api:stillImageFileValueHasDimY' : openAppsInThisPage[ 'imageViewer' ].model[i]['stillImageFileValueHasDimY'],-->
-    <!--'knora-api:stillImageFileValueHasIIIFBaseUrl' : openAppsInThisPage[ 'imageViewer' ].model[i]['stillImageFileValueHasIIIFBaseUrl']-->
-  <!--}"-->
-                           <!--width="500"-->
-                           <!--height="700">-->
-          <!--</nie-image-frame>-->
+          <app-image-with-overlay style="position: sticky;"
+                                  [iiifImagePath]="openAppsInThisPage[ 'imageViewer' ].model[i][ 'fileValueAsUrl' ]"
+                                  [maxImageWidth]="openAppsInThisPage[ 'imageViewer' ].model[i][ 'stillImageFileValueHasDimX' ]"
+                                  [maxImageHeight]="openAppsInThisPage[ 'imageViewer' ].model[i][ 'stillImageFileValueHasDimY' ]"
+                                  width="500"
+                                  height="700">
+          </app-image-with-overlay>
           </div>
         </popup>
         <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>image</mat-icon> {{ i }}</button>

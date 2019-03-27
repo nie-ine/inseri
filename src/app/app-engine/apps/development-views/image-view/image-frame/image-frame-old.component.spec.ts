@@ -1,24 +1,24 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ImageFrameComponent } from './image-frame.component';
+import { ImageFrameOldComponent } from './image-frame-old.component';
 import {FormsModule} from '@angular/forms';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
-describe('ImageFrameComponent', () => {
-  let component: ImageFrameComponent;
-  let fixture: ComponentFixture<ImageFrameComponent>;
+describe('ImageFrameOldComponent', () => {
+  let component: ImageFrameOldComponent;
+  let fixture: ComponentFixture<ImageFrameOldComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [FormsModule],
-      declarations: [ ImageFrameComponent ],
+      declarations: [ ImageFrameOldComponent ],
       schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ImageFrameComponent);
+    fixture = TestBed.createComponent(ImageFrameOldComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

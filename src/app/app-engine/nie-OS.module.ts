@@ -53,6 +53,7 @@ import { QueryInformationDialogComponent } from './page/query-information-dialog
 import { MatCardModule } from '@angular/material/card';
 import { DataListViewSettings} from './apps/data-list-view/data-list-view-settings/data-list-view-settings';
 import {GrapesjsComponent} from './apps/grapesjs/grapesjs.component';
+import { ImageFrameModule } from './apps/image-frame/image-frame.module';
 
 @NgModule({
   imports: [
@@ -90,6 +91,7 @@ import {GrapesjsComponent} from './apps/grapesjs/grapesjs.component';
     MatSortModule,
     MatChipsModule,
     MatCardModule,
+    ImageFrameModule,
     RouterModule.forChild([
       { path: 'page', component: PageComponent },
       { path: 'response-tree', component: ResponseTreeComponent }
