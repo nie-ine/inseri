@@ -6,6 +6,7 @@ import { AuthService } from '../mongodb/auth/auth.service';
 import {ContactService} from '../mongodb/contact/contact.service';
 import {environment} from '../../../environments/environment';
 import { PasswordFormatCheckService } from '../shared/password-format-check.service';
+import { TermsAndConditions } from './termsAndConditions/termsAndConditions';
 
 @Component({
   selector: 'app-register',
@@ -25,10 +26,12 @@ export class RegisterComponent implements OnInit{
     private alertService: AlertService,
     public authService: AuthService,
     private contactService: ContactService,
-    private passwordFormatCheckService: PasswordFormatCheckService
+    private passwordFormatCheckService: PasswordFormatCheckService,
+    private termsAndConditions: TermsAndConditions
   ) {}
 
   ngOnInit() {
+    console.log( this.termsAndConditions );
     this.model.newsletter = false;
     this.neededSpecialCharacters = this.passwordFormatCheckService.neededSpecialCharacters;
   }
