@@ -8,6 +8,7 @@ import { RegisterComponent } from './register/register.component';
 import { ReactivateAccountComponent } from './reactivate-account/reactivate-account.component';
 import { DeactivateNewsletterComponent } from './deactivate-newsletter/deactivate-newsletter.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import {TermsAndConditions} from './register/termsAndConditions/termsAndConditions';
 
 
 @NgModule({
@@ -29,9 +30,14 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     RegisterComponent,
     ReactivateAccountComponent,
     DeactivateNewsletterComponent,
-    ResetPasswordComponent],
+    ResetPasswordComponent
+  ],
   exports: [
-    HomeComponent]
+    HomeComponent
+  ],
+  providers: [
+    TermsAndConditions
+  ]
 })
 export class StaticPagesModule {
 }
