@@ -4,11 +4,12 @@ import {CoreModule} from './user-action-engine/core.module';
 import {AppComponent} from './app.component';
 import {AlertService} from './query-engine/fake-backend/auth/altert.service';
 import {AuthenticationService} from './query-engine/fake-backend/auth/authentication.service';
-import {HttpClientModule} from '@angular/common/http';
-import {fakeBackendProvider} from './query-engine/fake-backend/fake-backend';
+import {FakeBackendInterceptor} from './query-engine/fake-backend/fake-backend';
 import {AuthGuard} from './query-engine/fake-backend/auth/auth.guard';
 import {environment} from '../environments/environment';
-import {KuiCoreModule} from '@knora/core';
+import {HttpClientModule, HTTP_INTERCEPTORS, HttpClient} from '@angular/common/http';
+import {AuthService} from './user-action-engine/mongodb/auth/auth.service';
+
 
 @NgModule({
   declarations: [
@@ -16,12 +17,6 @@ import {KuiCoreModule} from '@knora/core';
   ],
   imports: [
     BrowserModule,
-    KuiCoreModule.forRoot({
-      name: environment.name,
-      api: environment.api,
-      media: environment.media,
-      app: environment.app
-    }),
     CoreModule,
     HttpClientModule
   ],
@@ -31,7 +26,7 @@ import {KuiCoreModule} from '@knora/core';
     AuthenticationService,
 
     // provider used to create fake backend
-    fakeBackendProvider
+    { provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

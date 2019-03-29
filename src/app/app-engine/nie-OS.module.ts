@@ -2,13 +2,11 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {PageComponent} from './page/page/page.component';
 import {RouterModule} from '@angular/router';
-import {ImageFrameComponent} from 'nie-ine';
 import {Frame} from './page/frame/frame';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatButtonModule} from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
-import {ArithmeticModule} from 'nie-ine';
 import {TextViewModule} from './apps/text-view/text-view.module';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {SynopsisModule} from './apps/synopsis/synopsis.module';
@@ -35,7 +33,7 @@ import {AbstractJsonService} from '../query-app-interface/data-management/servic
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { KeyValueFormComponent } from '../query-engine/query-entry/key-value-form/key-value-form.component';
 import { QueryAppInputMapComponent } from '../query-app-interface/query-app-input-map/query-app-input-map.component';
-import {MatProgressSpinnerModule} from '@angular/material';
+import {MatProgressSpinnerModule, MatTreeModule} from '@angular/material';
 import {MatListModule} from '@angular/material/list';
 import { FrameSettingsComponent } from './page/frame-settings/frame-settings.component';
 import {MatSliderModule} from '@angular/material/slider';
@@ -45,19 +43,25 @@ import { QueryListComponent } from '../query-engine/query-list/query-list.compon
 import { DataAssignmentComponent } from '../query-app-interface/data-management/data-assignment/data-assignment.component';
 import { UpdateLinkedAppsComponent } from '../query-app-interface/data-management/update-linked-apps/update-linked-apps.component';
 import { NewGjsBoxDialogComponent } from './apps/grapesjs/new-gjs-box-dialog/new-gjs-box-dialog.component';
-import { NgxEditorModule } from 'ngx-editor';
-import {MatDialogModule} from '@angular/material';
+import { MatDialogModule } from '@angular/material';
 import { SimpleImageAppComponent } from './apps/simple-image-app/simple-image-app.component';
+import { FileDatabase, ResponseTreeComponent } from './apps/response-tree/response-tree.component';
+import { DataListView } from './apps/data-list-view/data-list-view.component';
+import { CdkTableModule } from '@angular/cdk/table';
+import { MatPaginatorModule, MatSortModule } from '@angular/material';
+import { QueryInformationDialogComponent } from './page/query-information-dialog/query-information-dialog.component';
+import { MatCardModule } from '@angular/material/card';
+import { DataListViewSettings} from './apps/data-list-view/data-list-view-settings/data-list-view-settings';
+import {GrapesjsComponent} from './apps/grapesjs/grapesjs.component';
+import { ImageFrameModule } from './apps/image-frame/image-frame.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    ArithmeticModule,
     MatSidenavModule,
     MatButtonModule,
     MatMenuModule,
     MatIconModule,
-    ArithmeticModule,
     TextViewModule,
     MatTooltipModule,
     SynopsisModule,
@@ -80,20 +84,25 @@ import { SimpleImageAppComponent } from './apps/simple-image-app/simple-image-ap
     MatListModule,
     MatSliderModule,
     NgxSpinnerModule,
-    NgxEditorModule,
     MatDialogModule,
+    MatTreeModule,
+    CdkTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatChipsModule,
+    MatCardModule,
+    ImageFrameModule,
     RouterModule.forChild([
       { path: 'page', component: PageComponent },
-      { path: 'textlist', component: TextlistViewerComponent },
-      { path: 'tree-map', component: QueryAppInputMapComponent },
-      { path: 'simple-image-app', component: SimpleImageAppComponent },
+      { path: 'response-tree', component: ResponseTreeComponent }
     ])
   ],
   providers: [
     GenerateHashService,
     SendGravSearchQueryService,
     OpenAppsModel,
-    AbstractJsonService
+    AbstractJsonService,
+    FileDatabase
   ],
   declarations: [
     PageComponent,
@@ -109,20 +118,26 @@ import { SimpleImageAppComponent } from './apps/simple-image-app/simple-image-ap
     DataAssignmentComponent,
     UpdateLinkedAppsComponent,
     NewGjsBoxDialogComponent,
-    SimpleImageAppComponent
+    SimpleImageAppComponent,
+    ResponseTreeComponent,
+    DataListView,
+    DataListViewSettings,
+    QueryInformationDialogComponent,
+    GrapesjsComponent
   ],
   exports: [
     PageComponent,
-    MatSidenavModule
+    MatSidenavModule,
+    GrapesjsComponent
   ],
   entryComponents: [
-    ImageFrameComponent,
     DataManagementComponent,
     QueryEntryComponent,
     QueryAppInputMapComponent,
     FrameSettingsComponent,
     QueryListComponent,
-    NewGjsBoxDialogComponent
+    NewGjsBoxDialogComponent,
+    QueryInformationDialogComponent
   ]
 })
 export class NIEOSModule { }

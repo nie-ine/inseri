@@ -67,6 +67,10 @@ export class OpenAppsModel {
       type: 'barCharts',
       model: []
     },
+    spiralBarCharts: {
+      type: 'spiralBarCharts',
+      model: []
+    },
     lineCharts: {
       type: 'lineCharts',
       model: []
@@ -107,6 +111,24 @@ export class OpenAppsModel {
             'inputName': 'imageURL'
           }
         ]
+    },
+    jsonViewer: {
+      type: 'jsonViewer',
+      model: [],
+      inputs: [
+        {
+          'inputName': 'json'
+        }
+      ]
+    },
+    dataListView: {
+      type: 'dataListView',
+      model: [],
+      inputs: [
+        {
+          'inputName': 'json'
+        }
+      ]
     }
   };
 }

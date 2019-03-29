@@ -12,22 +12,115 @@ export class DataAssignmentComponent implements OnChanges {
   @Input() queryId;
   @Input() updateLinkedApps = false;
   @Input() indexAppMapping: any;
+  @Input() depth: number;
   @Output() sendAppTypesBackToNIEOS: EventEmitter<any> = new EventEmitter<any>();
   arrayIndicator: Array<any> = [];
-  currentIndex = undefined;
+  currentIndex: any = {};
+  firstChange = true;
+  changes: any;
   constructor() { }
 
   ngOnChanges( changes: SimpleChanges) {
-
-    // console.log( changes );
+    this.firstChange = true;
+    this.startPathUpdateProcess();
+    this.checkIfPathContainsScalarAsLastEntry();
     if ( this.updateLinkedApps === true ) {
       this.updateLinkedAppsMethod();
-      console.log( 'update linked apps' );
-    } else if ( this.currentIndex !== this.index ) {
-      this.currentIndex = this.index;
-      this.goThroughAppInputs();
-      console.log( 'Go Through App Inputs' );
     }
+  }
+
+  startPathUpdateProcess() {
+    if ( !this.currentIndex ) {
+      this.currentIndex = {};
+    }
+    if ( !this.currentIndex[ this.queryId ] ) {
+      this.currentIndex[ this.queryId ] = {};
+    }
+    this.currentIndex[ this.queryId ][ this.depth ] = this.index;
+    // console.log( this.appInputQueryMapping );
+    for ( const appHash in this.appInputQueryMapping ) {
+      for ( const inputName in this.appInputQueryMapping[ appHash ] ) {
+        if ( this.appInputQueryMapping[ appHash ][ inputName ].query === this.queryId ) {
+          // console.log( this.appInputQueryMapping[ appHash ][ inputName ].path );
+          this.updatePathWithIndices(
+            this.appInputQueryMapping[ appHash ][ inputName ].path,
+            this.response,
+            this.currentIndex[ this.queryId ],
+            0,
+            0
+          );
+        }
+      }
+    }
+    this.goThroughAppInputs();
+  }
+
+  updatePathWithIndices(
+    path: Array<string>,
+    response: any,
+    currentIndex: any,
+    indexDepth: number,
+    pathDepth: number
+  ) {
+    let deleteCount = 0;
+    // console.log( path[ pathDepth ] );
+    // if ( ( path[ pathDepth ] === 'text-editing:hasDiplomaticTranscriptionValue' ) ) {
+    //   console.log( indexDepth, this.depth, path[ pathDepth ], response );
+    // }
+    if (
+      response &&
+      response[ path[ pathDepth ] ] &&
+      response[ path[ pathDepth ] ].length > 0
+    ) {
+      // console.log( path[ pathDepth ] );
+        if ( indexDepth === this.depth ) {
+          if ( !isNaN( Number( path[ pathDepth + 1 ] ) ) ) {
+            deleteCount = 1;
+          }
+          // console.log( pathDepth, path.length );
+          if ( pathDepth + 1 !== path.length ) {
+            path.splice(pathDepth + 1, deleteCount, currentIndex[ indexDepth ]);
+          }
+        }
+        indexDepth += 1;
+        // console.log( path );
+      }
+    if ( path.length > pathDepth + 1 && response ) {
+      this.updatePathWithIndices(
+        path,
+        response[ path[ pathDepth ] ],
+        currentIndex,
+        indexDepth,
+        pathDepth + 1
+      );
+    }
+  }
+
+  checkIfPathContainsScalarAsLastEntry() {
+    setTimeout(() => {
+      if (
+        this.openAppsInThisPage[ 'dataChooser' ].model &&
+        this.openAppsInThisPage[ 'dataChooser' ].model.length > 0 && this.firstChange
+      ) {
+        this.firstChange = false;
+        for ( const appHash in this.appInputQueryMapping ) {
+          for ( const inputName in this.appInputQueryMapping[ appHash ] ) {
+            const path = this.appInputQueryMapping[ appHash ][ inputName ].path;
+            if ( path && !isNaN( Number ( path[ path.length - 1 ] ) ) ) {
+              for ( const dataChooser of this.openAppsInThisPage[ 'dataChooser' ].model ) {
+                // console.log('Go through app input');
+                this.goThroughAppInputs(
+                  dataChooser.response,
+                  dataChooser.queryId
+                );
+              }
+            }
+          }
+        }
+      } else {
+        this.checkIfPathContainsScalarAsLastEntry();
+      }
+    }, 1000);
   }
 
   /**
@@ -35,13 +128,13 @@ export class DataAssignmentComponent implements OnChanges {
    * this method assigns the depth = 0 to array coming after the first array where the depth is chosen by the
    * data chooser
    * */
-  goThroughAppInputs(  ) {
+  goThroughAppInputs( response?: any, queryId?: string ) {
     for ( const type in this.openAppsInThisPage ) {
       if (  this.openAppsInThisPage[ type ].model.length && type !== 'dataChooser' ) {
         for ( const app of this.openAppsInThisPage[ type ].model ) {
           if ( this.appInputQueryMapping[ app.hash ] ) {
             for ( const input in this.appInputQueryMapping[ app.hash ] ) {
-              if ( this.appInputQueryMapping[ app.hash ][ input ][ 'query' ] === this.queryId ) {
+              if ( this.appInputQueryMapping[ app.hash ][ input ][ 'query' ] === (this.queryId || queryId ) ) {
                 let increment = 0;
                 for ( const segment of this.appInputQueryMapping[ app.hash ][ input ][ 'path' ] ) {
                   if ( segment === null ) {
@@ -50,7 +143,7 @@ export class DataAssignmentComponent implements OnChanges {
                   increment += 1;
                 }
                   app[ input ] = this.generateAppinput(
-                    this.response,
+                    this.response || response,
                     this.appInputQueryMapping[ app.hash ][ input ][ 'path' ],
                     this.index,
                     0,
@@ -73,15 +166,37 @@ export class DataAssignmentComponent implements OnChanges {
     firstArray: boolean,
     app: any
   ) {
-    // console.log( depth, path.length );
+    // console.log( app, path );
     if ( response ) {
+        if ( path[ 0 ] === 'wholeJsonResponseAssignedToThisAppInput' ) {
+          return response;
+        }
         if ( path.length === 1 ) {
           return response[ path[ 0 ] ];
         } else if ( response.length  ) {                                          // Response is an array
+          // console.log( path, depth, path[ depth ] );
+          if ( !isNaN( path[ depth ] ) ) {
+            return this.generateAppinput(
+              response[ path[ depth ] ],
+              path,
+              index,
+              depth + 1,
+              false,
+              app
+            );
+          }
+          if (
+            depth === path.length - 1  &&
+            !isNaN( Number ( path[ path.length - 1 ] ) )
+          ) {
+            console.log( response[ Number ( path[ depth ] ) ], app );
+            return response[ Number ( path[ depth ] ) ];
+          }
           if ( typeof response === 'string' ) {
             return response;
           } else {
             if ( firstArray ) {
+              // console.log( 'First Array' );
               return this.generateAppinput(
                 response[ index ],
                 path,
@@ -113,7 +228,7 @@ export class DataAssignmentComponent implements OnChanges {
         } else if ( depth === path.length ) {
           // console.log( response );
           return response[ path[ depth - 1 ] ];
-        } else if ( path.length - 1 === depth &&  Number( path[ depth ] ) ) {
+        } else if ( path.length - 1 === depth && Number( path[ depth ] ) ) {
           return response[ path[ depth - 1 ] ][ Number( path[ depth ] ) ];
         } else {
           return this.generateAppinput(

@@ -1,0 +1,21 @@
+<mat-list style="overflow:auto">
+  <div *ngFor="let app of data">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>App | {{ app.appTitle }} | {{ app.type }}</mat-card-title>
+        <mat-card-subtitle>Input | {{ app.input }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-chip-list>
+          <mat-chip>Path:</mat-chip>
+          <mat-chip [color]="'primary'" selected *ngFor="let segment of app.path">
+            <mat-icon>arrow_right_alt</mat-icon> {{segment}}
+          </mat-chip>
+        </mat-chip-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</mat-list>
+
+<button mat-button (click)="onNoClick()">Close Dialog</button>

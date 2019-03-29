@@ -61,11 +61,17 @@
     <h3>File</h3>
 </p>
 <p class="comment">
-    <code>src/app/static-pages/register/register.component.ts</code>
+    <code>src/app/user-action-engine/register/register.component.ts</code>
 </p>
 
 
 
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
 
 
 <section>
@@ -114,6 +120,9 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                <a href="#acceptTermsBoolean">acceptTermsBoolean</a>
+                            </li>
+                            <li>
                                     <span class="modifier">Public</span>
                                 <a href="#authService">authService</a>
                             </li>
@@ -124,10 +133,16 @@
                                 <a href="#model">model</a>
                             </li>
                             <li>
+                                <a href="#neededSpecialCharacters">neededSpecialCharacters</a>
+                            </li>
+                            <li>
                                 <a href="#userCreated">userCreated</a>
                             </li>
                             <li>
                                 <a href="#validEmail">validEmail</a>
+                            </li>
+                            <li>
+                                <a href="#wrongFormatAlert">wrongFormatAlert</a>
                             </li>
                         </ul>
                     </td>
@@ -141,6 +156,15 @@
                 <tr>
                     <td class="col-md-4">
                         <ul class="index-list">
+                            <li>
+                                <a href="#acceptTerms">acceptTerms</a>
+                            </li>
+                            <li>
+                                <a href="#changeNewsletter">changeNewsletter</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
                             <li>
                                 <a href="#register">register</a>
                             </li>
@@ -162,12 +186,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>, userService: <a href="../injectables/UserService.html">UserService</a>, alertService: <a href="../injectables/AlertService.html">AlertService</a>, authService: <a href="../injectables/AuthService.html">AuthService</a>)</code>
+<code>constructor(router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>, alertService: <a href="../injectables/AlertService.html">AlertService</a>, authService: <a href="../injectables/AuthService.html">AuthService</a>, contactService: <a href="../injectables/ContactService.html">ContactService</a>, passwordFormatCheckService: <a href="../injectables/PasswordFormatCheckService.html">PasswordFormatCheckService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/static-pages/register/register.component.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/user-action-engine/register/register.component.ts:21</a></div>
                             </td>
                         </tr>
 
@@ -189,18 +213,6 @@
                                                   
                                                         <td>
                                                                     <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                        <td>userService</td>
-                                                  
-                                                        <td>
-                                                                    <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -232,6 +244,30 @@
                                                     </td>
                                                     
                                                 </tr>
+                                                <tr>
+                                                        <td>contactService</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../injectables/ContactService.html" target="_self" >ContactService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>passwordFormatCheckService</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../injectables/PasswordFormatCheckService.html" target="_self" >PasswordFormatCheckService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
                                         </tbody>
                                     </table>
                             </div>
@@ -254,6 +290,182 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
+                        <a name="acceptTerms"></a>
+                        <span class="name">
+                            <b>
+                            acceptTerms
+                            </b>
+                            <a href="#acceptTerms"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>acceptTerms(change: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="74" class="link-to-prism">src/app/user-action-engine/register/register.component.ts:74</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>change</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="changeNewsletter"></a>
+                        <span class="name">
+                            <b>
+                            changeNewsletter
+                            </b>
+                            <a href="#changeNewsletter"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>changeNewsletter(e: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="70" class="link-to-prism">src/app/user-action-engine/register/register.component.ts:70</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>e</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ngOnInit"></a>
+                        <span class="name">
+                            <b>
+                            ngOnInit
+                            </b>
+                            <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>ngOnInit()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/user-action-engine/register/register.component.ts:31</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
                         <a name="register"></a>
                         <span class="name">
                             <b>
@@ -272,7 +484,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/static-pages/register/register.component.ts:25</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/user-action-engine/register/register.component.ts:36</a></div>
                             </td>
                         </tr>
 
@@ -295,6 +507,39 @@
         <h3 id="inputs">
             Properties
         </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="acceptTermsBoolean"></a>
+                        <span class="name">
+                            <b>
+                            acceptTermsBoolean
+                            </b>
+                            <a href="#acceptTermsBoolean"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>acceptTermsBoolean:     <code></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/user-action-engine/register/register.component.ts:19</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
         <table class="table table-sm table-bordered">
             <tbody>
                 <tr>
@@ -323,7 +568,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/static-pages/register/register.component.ts:22</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/user-action-engine/register/register.component.ts:26</a></div>
                             </td>
                         </tr>
 
@@ -356,7 +601,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/static-pages/register/register.component.ts:14</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/user-action-engine/register/register.component.ts:16</a></div>
                             </td>
                         </tr>
 
@@ -395,7 +640,35 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/static-pages/register/register.component.ts:13</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/user-action-engine/register/register.component.ts:15</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="neededSpecialCharacters"></a>
+                        <span class="name">
+                            <b>
+                            neededSpecialCharacters
+                            </b>
+                            <a href="#neededSpecialCharacters"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>neededSpecialCharacters:     <code></code>
+</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/user-action-engine/register/register.component.ts:20</a></div>
                             </td>
                         </tr>
 
@@ -428,7 +701,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/static-pages/register/register.component.ts:15</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/user-action-engine/register/register.component.ts:17</a></div>
                             </td>
                         </tr>
 
@@ -461,7 +734,40 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/static-pages/register/register.component.ts:16</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/user-action-engine/register/register.component.ts:18</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="wrongFormatAlert"></a>
+                        <span class="name">
+                            <b>
+                            wrongFormatAlert
+                            </b>
+                            <a href="#wrongFormatAlert"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>wrongFormatAlert:     <code></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/user-action-engine/register/register.component.ts:21</a></div>
                             </td>
                         </tr>
 
@@ -477,46 +783,79 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
 import { Router } from &#x27;@angular/router&#x27;;
 
-import { AlertService} from &#x27;../../shared/nieOS/fake-backend/auth/altert.service&#x27;;
-import { UserService } from &#x27;../../shared/nieOS/fake-backend/user/user.service&#x27;;
-import { AuthService } from &#x27;../../shared/nieOS/mongodb/auth/auth.service&#x27;;
+import { AlertService} from &#x27;../../query-engine/fake-backend/auth/altert.service&#x27;;
+import { AuthService } from &#x27;../mongodb/auth/auth.service&#x27;;
+import {ContactService} from &#x27;../mongodb/contact/contact.service&#x27;;
+import {environment} from &#x27;../../../environments/environment&#x27;;
+import { PasswordFormatCheckService } from &#x27;../shared/password-format-check.service&#x27;;
 
 @Component({
   selector: &#x27;app-register&#x27;,
   templateUrl: &#x27;./register.component.html&#x27;
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit{
   model: any &#x3D; {};
   loading &#x3D; false;
   userCreated &#x3D; false;
   validEmail &#x3D; false;
+  acceptTermsBoolean &#x3D; false;
+  neededSpecialCharacters;
+  wrongFormatAlert &#x3D; false;
 
   constructor(
     private router: Router,
-    private userService: UserService,
     private alertService: AlertService,
-    public authService: AuthService
+    public authService: AuthService,
+    private contactService: ContactService,
+    private passwordFormatCheckService: PasswordFormatCheckService
   ) {}
 
+  ngOnInit() {
+    this.model.newsletter &#x3D; false;
+    this.neededSpecialCharacters &#x3D; this.passwordFormatCheckService.neededSpecialCharacters;
+  }
+
   register() {
-    this.loading &#x3D; true;
-    this.authService.createUser(this.model.email, this.model.password, this.model.firstName, this.model.lastName)
-      .subscribe( response &#x3D;&gt; {
-        // console.log(response);
-        this.userCreated &#x3D; true;
-      });
-/*    this.userService.create(this.model)
-      .subscribe(
-        data &#x3D;&gt; {
-          console.log(data);
-          this.alertService.success(&#x27;Registration successful&#x27;, true);
-          this.router.navigate([&#x27;/home&#x27;]);
-        },
-        error &#x3D;&gt; {
-          console.log(error);
-          this.alertService.error(error);
-          this.loading &#x3D; false;
-        });*/
+    if (this.passwordFormatCheckService.checkProposedPassword(this.model.password)) {
+      this.wrongFormatAlert &#x3D; false;
+      this.loading &#x3D; true;
+      this.authService.createUser(this.model.email, this.model.password, this.model.firstName, this.model.lastName, this.model.newsletter)
+        .subscribe(response &#x3D;&gt; {
+          console.log(response);
+          setTimeout(() &#x3D;&gt; {
+            this.userCreated &#x3D; true;
+            if (this.model.newsletter) {
+              const message &#x3D; &#x27;Guten Tag, &#x27; + this.model.firstName + &#x27;, Du hast Dich zu unserem Newsletter angemeldet.&#x27; +
+                &#x27;\n\nBitte klicke auf den folgenden Link, wenn Du Dich abmelden möchtest: \n\n&#x27;
+                + environment.app + &#x27;/deactivate-newsletter?user&#x3D;&#x27; + response.result._id;
+              this.contactService.sendMessage(message, this.model.email)
+                .subscribe(response1 &#x3D;&gt; {
+                  console.log(response1);
+                }, error1 &#x3D;&gt; {
+                  console.log(error1);
+                });
+            }
+            this.authService.login(
+              this.model.email,
+              this.model.password,
+              false
+            );
+          }, 2000);
+        }, error1 &#x3D;&gt; {
+          console.log(&#x27;Error&#x27;);
+        });
+    } else {
+      this.wrongFormatAlert &#x3D; true;
+    }
+  }
+
+    changeNewsletter(e: any) {
+      this.model.newsletter &#x3D; e.checked;
+    }
+
+  acceptTerms( change: any ) {
+    console.log( change.checked );
+    this.acceptTermsBoolean &#x3D; change.checked;
   }
 
 }
@@ -546,21 +885,67 @@ export class RegisterComponent {
       &lt;div *ngIf&#x3D;&quot;f.submitted &amp;&amp; !email.valid&quot; class&#x3D;&quot;help-block&quot;&gt;Email is required / Does not have the right format.&lt;/div&gt;
     &lt;/div&gt;
 
+    &lt;p&gt;The password should include at least&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;
+        an upper-case letter (A-Z)
+      &lt;/li&gt;
+      &lt;li&gt;
+        a lower-case letter (a-z)
+      &lt;/li&gt;
+      &lt;li&gt;
+        a number (0-9)
+      &lt;/li&gt;
+      &lt;li&gt;
+        one character of the following group: {{ neededSpecialCharacters }}
+      &lt;/li&gt;
+      &lt;li&gt;
+        and has to be at least 9 characters long
+      &lt;/li&gt;
+    &lt;/ul&gt;
+
     &lt;div class&#x3D;&quot;form-group&quot; [ngClass]&#x3D;&quot;{ &#x27;has-error&#x27;: f.submitted &amp;&amp; !password.valid }&quot;&gt;
       &lt;label for&#x3D;&quot;password&quot;&gt;Password&lt;/label&gt;
       &lt;input type&#x3D;&quot;password&quot; class&#x3D;&quot;form-control&quot; name&#x3D;&quot;password&quot; [(ngModel)]&#x3D;&quot;model.password&quot; #password&#x3D;&quot;ngModel&quot; required /&gt;
       &lt;div *ngIf&#x3D;&quot;f.submitted &amp;&amp; !password.valid&quot; class&#x3D;&quot;help-block&quot;&gt;Password is required&lt;/div&gt;
     &lt;/div&gt;
 
+    &lt;p *ngIf&#x3D;&quot;wrongFormatAlert&quot; style&#x3D;&quot;color: darkred&quot; &gt;The chosen password does not follow the requirements.&lt;/p&gt;
+
     &lt;div class&#x3D;&quot;form-group&quot;&gt;
-      &lt;button [disabled]&#x3D;&quot;loading&quot; class&#x3D;&quot;btn btn-primary&quot;&gt;Register&lt;/button&gt;
+      &lt;mat-slide-toggle [checked]&#x3D;&quot;model.newsletter&quot; (change)&#x3D;&quot;changeNewsletter($event)&quot;&gt;
+        Newsletter
+      &lt;/mat-slide-toggle&gt;
+    &lt;/div&gt;
+
+    &lt;h5&gt;Terms and Conditions&lt;/h5&gt;
+    &lt;div style&#x3D;&quot;height: 75px; overflow: auto; border-style: groove;&quot;&gt;
+      Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+      sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+      sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+      Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+      Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+      eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+      At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no
+      sea takimata sanctus est Lorem ipsum dolor sit amet.
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;form-group&quot; style&#x3D;&quot;margin-top: 20px&quot;&gt;
+      &lt;mat-slide-toggle [checked]&#x3D;&quot;acceptTermsBoolean&quot; (change)&#x3D;&quot;acceptTerms($event)&quot;&gt;
+        Accept Terms of Use
+      &lt;/mat-slide-toggle&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;form-group&quot;&gt;
+      &lt;button [disabled]&#x3D;&quot; !acceptTermsBoolean &quot; class&#x3D;&quot;btn btn-primary&quot;&gt;Register&lt;/button&gt;
       &lt;img *ngIf&#x3D;&quot;loading&quot; src&#x3D;&quot;data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA&#x3D;&#x3D;&quot; /&gt;
       &lt;a [routerLink]&#x3D;&quot;[&#x27;/home&#x27;]&quot; class&#x3D;&quot;btn btn-link&quot; &gt;Cancel&lt;/a&gt;
     &lt;/div&gt;
+
   &lt;/form&gt;
 &lt;/div&gt;
 
-&lt;div *ngIf&#x3D;&quot;userCreated&quot; style&#x3D;&quot;margin-top: 40px&quot;&gt; Greetings {{ model.firstName }} &lt;br&gt; Your user has been created in nieOS! Have fun! &lt;a href&#x3D;&quot;home#login&quot; class&#x3D;&quot;btn btn-link&quot;&gt;Go to Login&lt;/a&gt;&lt;/div&gt;
+&lt;div *ngIf&#x3D;&quot;userCreated&quot; style&#x3D;&quot;margin-top: 40px&quot;&gt; Greetings {{ model.firstName }} &lt;br&gt; Your user has been created in nieOS! Have fun! &lt;a href&#x3D;&quot;home#login&quot; class&#x3D;&quot;btn btn-link&quot;&gt;Go to your Dashboard&lt;/a&gt;&lt;/div&gt;
 </code></pre>
     </div>
 
@@ -589,8 +974,8 @@ export class RegisterComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="col-md-6 col-md-offset-3" style="margin-top: 30px" *ngIf="!userCreated">  <h2>Register</h2>  <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>    <div class="form-group" [ngClass]="{ \'has-error\': f.submitted && !firstName.valid }">      <label for="firstName">First Name</label>      <input type="text" class="form-control" name="firstName" [(ngModel)]="model.firstName" #firstName="ngModel" required />      <div *ngIf="f.submitted && !firstName.valid" class="help-block">First Name is required</div>    </div>    <div class="form-group" [ngClass]="{ \'has-error\': f.submitted && !lastName.valid }">      <label for="lastName">Last Name</label>      <input type="text" class="form-control" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" required />      <div *ngIf="f.submitted && !lastName.valid" class="help-block">Last Name is required</div>    </div>    <div class="form-group" [ngClass]="{ \'has-error\': f.submitted && !email.valid }">      <label for="email">Email</label>      <input type="email" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" required pattern="^\S+[@]\S+[.]\S+$" email/>      <div *ngIf="f.submitted && !email.valid" class="help-block">Email is required / Does not have the right format.</div>    </div>    <div class="form-group" [ngClass]="{ \'has-error\': f.submitted && !password.valid }">      <label for="password">Password</label>      <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />      <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>    </div>    <div class="form-group">      <button [disabled]="loading" class="btn btn-primary">Register</button>      <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />      <a [routerLink]="[\'/home\']" class="btn btn-link" >Cancel</a>    </div>  </form></div><div *ngIf="userCreated" style="margin-top: 40px"> Greetings {{ model.firstName }} <br> Your user has been created in nieOS! Have fun! <a href="home#login" class="btn btn-link">Go to Login</a></div></div>'
-    var COMPONENTS = [{'name': 'AboutComponent', 'selector': 'app-about'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'BooleanValueEditorComponent', 'selector': 'app-boolean-value-editor'},{'name': 'BrushAndZoomComponent', 'selector': 'app-brush-and-zoom'},{'name': 'ChordDiagramComponent', 'selector': 'app-chord-diagram'},{'name': 'CreateResourceComponent', 'selector': 'app-create-resource'},{'name': 'CreateResourceViewComponent', 'selector': 'app-create-resource-view'},{'name': 'D3tutorialComponent', 'selector': 'app-d3tutorial'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataChooserComponent', 'selector': 'app-data-chooser'},{'name': 'DataChooserSettingsComponent', 'selector': 'app-data-chooser-settings'},{'name': 'DateValueEditorComponent', 'selector': 'app-date-value-editor'},{'name': 'DateValueViewerComponent', 'selector': 'app-date-value-viewer'},{'name': 'DecimalValueEditorComponent', 'selector': 'app-decimal-value-editor'},{'name': 'DialogCreateNewPageComponent', 'selector': 'dialog-create-new-page'},{'name': 'DialogOverviewExampleDialog', 'selector': 'dialog-overview-example-dialog'},{'name': 'DialogUserSettingsDialog', 'selector': 'dialog-user-settings-dialog'},{'name': 'DictionaryComponent', 'selector': 'app-dictionary'},{'name': 'EditResourceViewComponent', 'selector': 'app-edit-resource-view'},{'name': 'FactSheetComponent', 'selector': 'app-fact-sheet'},{'name': 'FloatLightTableComponent', 'selector': 'app-float-light-table'},{'name': 'FloatingImageObjectComponent', 'selector': 'app-floating-image-object'},{'name': 'FloatingTextObjectComponent', 'selector': 'app-floating-text-object'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'GrapesjsComponent', 'selector': 'app-grapesjs'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'ImageFrameComponent', 'selector': 'app-image-frame'},{'name': 'ImageFrameSizesComponent', 'selector': 'app-image-frame-sizes'},{'name': 'ImageViewComponent', 'selector': 'app-image-view'},{'name': 'ImageWithOverlayComponent', 'selector': 'app-image-with-overlay'},{'name': 'InitPopupComponent', 'selector': 'app-init-popup'},{'name': 'IntValueEditorComponent', 'selector': 'app-int-value-editor'},{'name': 'LeafletExampleComponent', 'selector': 'app-leaflet-example'},{'name': 'LightTableComponent', 'selector': 'app-light-table'},{'name': 'LightTableMenuComponent', 'selector': 'app-light-table-menu'},{'name': 'LinkValueEditorComponent', 'selector': 'app-link-value-editor'},{'name': 'LinkValueLabelViewerComponent', 'selector': 'app-link-value-label-viewer'},{'name': 'LoadLightTableComponent', 'selector': 'app-load-light-table'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MetadataViewComponent', 'selector': 'app-metadata-view'},{'name': 'MultiLineChartComponent', 'selector': 'app-multi-line-chart'},{'name': 'MyMainComponentComponent', 'selector': 'app-my-main-component'},{'name': 'MyPractiseComponentComponent', 'selector': 'app-my-practise-component'},{'name': 'NIEOSComponent', 'selector': 'nie-os'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'PageSetLandingPageComponent', 'selector': 'app-page-set-landing-page'},{'name': 'PieChartComponent', 'selector': 'app-pie-chart'},{'name': 'PizzaPartyComponent', 'selector': 'snack-bar-component-example-snack'},{'name': 'Popup', 'selector': 'popup'},{'name': 'RadialBarchartComponent', 'selector': 'app-radial-barchart'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'RemoveObjectsByIdComponent', 'selector': 'app-remove-objects-by-id'},{'name': 'ResourceFormComponent', 'selector': 'app-resource-form'},{'name': 'ResourceValueHistoryComponent', 'selector': 'app-resource-value-history'},{'name': 'ResourceValueHistoryValueComponent', 'selector': 'app-resource-value-history-value'},{'name': 'ResponseTreeComponent', 'selector': 'app-response-tree'},{'name': 'SankeyComponent', 'selector': 'app-sankey'},{'name': 'SaveLightTableComponent', 'selector': 'app-save-light-table'},{'name': 'ShareLightTableComponent', 'selector': 'app-share-light-table'},{'name': 'SpaTextComponent', 'selector': 'app-spa-text'},{'name': 'StackedBarChartComponent', 'selector': 'app-stacked-bar-chart'},{'name': 'SynopsisComponent', 'selector': 'app-synopsis'},{'name': 'SynopsisObjectManagerComponent', 'selector': 'app-synopsis-object-manager'},{'name': 'SynopsisObjectToolboxComponent', 'selector': 'app-synopsis-object-toolbox'},{'name': 'TagChipsComponent', 'selector': 'app-tag-chips'},{'name': 'TextDevViewComponent', 'selector': 'app-text-dev-view'},{'name': 'TextDisplayComponent', 'selector': 'app-text-display'},{'name': 'TextDisplayComponent', 'selector': 'app-text-display'},{'name': 'TextLineComponent', 'selector': 'app-text-line'},{'name': 'TextLineGroupComponent', 'selector': 'app-text-line-group'},{'name': 'TextLineMarginComponent', 'selector': 'app-text-line-margin'},{'name': 'TextLineNumberComponent', 'selector': 'app-text-line-number'},{'name': 'TextPageOfWordsComponent', 'selector': 'app-text-page-of-words'},{'name': 'TextSvgViewComponent', 'selector': 'app-text-svg-view'},{'name': 'TextValueEditorComponent', 'selector': 'app-text-value-editor'},{'name': 'TextViewCanvasComponent', 'selector': 'app-text-view-canvas'},{'name': 'TextViewComponent', 'selector': 'app-text-view'},{'name': 'TextViewMetadataComponent', 'selector': 'app-text-view-metadata'},{'name': 'TextViewStructureComponent', 'selector': 'app-text-view-structure'},{'name': 'TextViewToolsComponent', 'selector': 'app-text-view-tools'},{'name': 'TextlistViewerComponent', 'selector': 'app-textlist-viewer'},{'name': 'ThumbnailbarComponent', 'selector': 'app-thumbnailbar'},{'name': 'TiledImageObjectComponent', 'selector': 'app-tiled-image-object'},{'name': 'TiledLightTableComponent', 'selector': 'app-tiled-light-table'},{'name': 'TiledTextObjectComponent', 'selector': 'app-tiled-text-object'},{'name': 'UpdatePageSetComponent', 'selector': 'app-update-page-set'}];
+        var COMPONENT_TEMPLATE = '<div><div class="col-md-6 col-md-offset-3" style="margin-top: 30px" *ngIf="!userCreated">  <h2>Register</h2>  <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>    <div class="form-group" [ngClass]="{ \'has-error\': f.submitted && !firstName.valid }">      <label for="firstName">First Name</label>      <input type="text" class="form-control" name="firstName" [(ngModel)]="model.firstName" #firstName="ngModel" required />      <div *ngIf="f.submitted && !firstName.valid" class="help-block">First Name is required</div>    </div>    <div class="form-group" [ngClass]="{ \'has-error\': f.submitted && !lastName.valid }">      <label for="lastName">Last Name</label>      <input type="text" class="form-control" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" required />      <div *ngIf="f.submitted && !lastName.valid" class="help-block">Last Name is required</div>    </div>    <div class="form-group" [ngClass]="{ \'has-error\': f.submitted && !email.valid }">      <label for="email">Email</label>      <input type="email" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" required pattern="^\S+[@]\S+[.]\S+$" email/>      <div *ngIf="f.submitted && !email.valid" class="help-block">Email is required / Does not have the right format.</div>    </div>    <p>The password should include at least</p>    <ul>      <li>        an upper-case letter (A-Z)      </li>      <li>        a lower-case letter (a-z)      </li>      <li>        a number (0-9)      </li>      <li>        one character of the following group: {{ neededSpecialCharacters }}      </li>      <li>        and has to be at least 9 characters long      </li>    </ul>    <div class="form-group" [ngClass]="{ \'has-error\': f.submitted && !password.valid }">      <label for="password">Password</label>      <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />      <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>    </div>    <p *ngIf="wrongFormatAlert" style="color: darkred" >The chosen password does not follow the requirements.</p>    <div class="form-group">      <mat-slide-toggle [checked]="model.newsletter" (change)="changeNewsletter($event)">        Newsletter      </mat-slide-toggle>    </div>    <h5>Terms and Conditions</h5>    <div style="height: 75px; overflow: auto; border-style: groove;">      Lorem ipsum dolor sit amet, consetetur sadipscing elitr,      sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,      sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.      Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.      Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy      eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.      At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no      sea takimata sanctus est Lorem ipsum dolor sit amet.    </div>    <div class="form-group" style="margin-top: 20px">      <mat-slide-toggle [checked]="acceptTermsBoolean" (change)="acceptTerms($event)">        Accept Terms of Use      </mat-slide-toggle>    </div>    <div class="form-group">      <button [disabled]=" !acceptTermsBoolean " class="btn btn-primary">Register</button>      <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />      <a [routerLink]="[\'/home\']" class="btn btn-link" >Cancel</a>    </div>  </form></div><div *ngIf="userCreated" style="margin-top: 40px"> Greetings {{ model.firstName }} <br> Your user has been created in nieOS! Have fun! <a href="home#login" class="btn btn-link">Go to your Dashboard</a></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'BooleanValueEditorComponent', 'selector': 'app-boolean-value-editor'},{'name': 'BrushAndZoomComponent', 'selector': 'app-brush-and-zoom'},{'name': 'ChordDiagramComponent', 'selector': 'app-chord-diagram'},{'name': 'CreateResourceComponent', 'selector': 'app-create-resource'},{'name': 'CreateResourceViewComponent', 'selector': 'app-create-resource-view'},{'name': 'D3tutorialComponent', 'selector': 'app-d3tutorial'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataAssignmentComponent', 'selector': 'app-data-assignment'},{'name': 'DataChooserComponent', 'selector': 'app-data-chooser'},{'name': 'DataChooserSettingsComponent', 'selector': 'app-data-chooser-settings'},{'name': 'DataManagementComponent', 'selector': 'app-data-management'},{'name': 'DateValueEditorComponent', 'selector': 'app-date-value-editor'},{'name': 'DateValueViewerComponent', 'selector': 'app-date-value-viewer'},{'name': 'DeactivateNewsletterComponent', 'selector': 'app-deactivate-newsletter'},{'name': 'DecimalValueEditorComponent', 'selector': 'app-decimal-value-editor'},{'name': 'DeleteActionComponent', 'selector': 'app-delete-action'},{'name': 'DeletePageComponent', 'selector': 'app-delete-page'},{'name': 'DialogCreateNewPageComponent', 'selector': 'dialog-create-new-page'},{'name': 'DialogOverviewExampleDialog', 'selector': 'dialog-overview-example-dialog'},{'name': 'DialogUserSettingsDialog', 'selector': 'dialog-user-settings-dialog'},{'name': 'DictionaryComponent', 'selector': 'app-dictionary'},{'name': 'DuplicatePageComponent', 'selector': 'app-duplicate-page'},{'name': 'EditActionComponent', 'selector': 'app-edit-action'},{'name': 'EditPageComponent', 'selector': 'app-edit-page'},{'name': 'EditPageSetComponent', 'selector': 'app-update-page-set'},{'name': 'EditResourceViewComponent', 'selector': 'app-edit-resource-view'},{'name': 'ExtendSessionComponent', 'selector': 'session-component'},{'name': 'FactSheetComponent', 'selector': 'app-fact-sheet'},{'name': 'FloatLightTableComponent', 'selector': 'app-float-light-table'},{'name': 'FloatingImageObjectComponent', 'selector': 'app-floating-image-object'},{'name': 'FloatingTextObjectComponent', 'selector': 'app-floating-text-object'},{'name': 'Frame', 'selector': 'popup'},{'name': 'FrameSettingsComponent', 'selector': 'app-frame-settings'},{'name': 'GrapesjsComponent', 'selector': 'app-grapesjs'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'ImageFrameComponent', 'selector': 'app-image-frame'},{'name': 'ImageFrameSizesComponent', 'selector': 'app-image-frame-sizes'},{'name': 'ImageViewComponent', 'selector': 'app-image-view'},{'name': 'ImageWithOverlayComponent', 'selector': 'app-image-with-overlay'},{'name': 'InitPopupComponent', 'selector': 'app-init-popup'},{'name': 'IntValueEditorComponent', 'selector': 'app-int-value-editor'},{'name': 'KeyValueFormComponent', 'selector': 'app-key-value-form'},{'name': 'LeafletExampleComponent', 'selector': 'app-leaflet-example'},{'name': 'LightTableComponent', 'selector': 'app-light-table'},{'name': 'LightTableMenuComponent', 'selector': 'app-light-table-menu'},{'name': 'LinkValueEditorComponent', 'selector': 'app-link-value-editor'},{'name': 'LinkValueLabelViewerComponent', 'selector': 'app-link-value-label-viewer'},{'name': 'LoadLightTableComponent', 'selector': 'app-load-light-table'},{'name': 'LoadVariablesComponent', 'selector': 'app-load-variables'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MetadataViewComponent', 'selector': 'app-metadata-view'},{'name': 'MultiLineChartComponent', 'selector': 'app-multi-line-chart'},{'name': 'MyMainComponentComponent', 'selector': 'app-my-main-component'},{'name': 'MyPractiseComponentComponent', 'selector': 'app-my-practise-component'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NewGjsBoxDialogComponent', 'selector': 'app-new-gjs-box-dialog'},{'name': 'PageComponent', 'selector': 'nie-os'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'PageSetLandingPageComponent', 'selector': 'app-page-set-landing-page'},{'name': 'PieChartComponent', 'selector': 'app-pie-chart'},{'name': 'PizzaPartyComponent', 'selector': 'snack-bar-component-example-snack'},{'name': 'QueryAppInputMapComponent', 'selector': 'app-query-app-input-map'},{'name': 'QueryEntryComponent', 'selector': 'app-query-entry'},{'name': 'QueryListComponent', 'selector': 'app-query-list'},{'name': 'RadialBarchartComponent', 'selector': 'app-radial-barchart'},{'name': 'ReactivateAccountComponent', 'selector': 'app-reactivate-account'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'RemoveObjectsByIdComponent', 'selector': 'app-remove-objects-by-id'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'ResourceFormComponent', 'selector': 'app-resource-form'},{'name': 'ResourceValueHistoryComponent', 'selector': 'app-resource-value-history'},{'name': 'ResourceValueHistoryValueComponent', 'selector': 'app-resource-value-history-value'},{'name': 'ResponseTreeComponent', 'selector': 'app-response-tree'},{'name': 'SankeyComponent', 'selector': 'app-sankey'},{'name': 'SaveLightTableComponent', 'selector': 'app-save-light-table'},{'name': 'ShareLightTableComponent', 'selector': 'app-share-light-table'},{'name': 'SimpleImageAppComponent', 'selector': 'app-simple-image-app'},{'name': 'SpaTextComponent', 'selector': 'app-spa-text'},{'name': 'StackedBarChartComponent', 'selector': 'app-stacked-bar-chart'},{'name': 'SynopsisComponent', 'selector': 'app-synopsis'},{'name': 'SynopsisObjectManagerComponent', 'selector': 'app-synopsis-object-manager'},{'name': 'SynopsisObjectToolboxComponent', 'selector': 'app-synopsis-object-toolbox'},{'name': 'TagChipsComponent', 'selector': 'app-tag-chips'},{'name': 'TextDevViewComponent', 'selector': 'app-text-dev-view'},{'name': 'TextDisplayComponent', 'selector': 'app-text-display'},{'name': 'TextDisplayComponent', 'selector': 'app-text-display'},{'name': 'TextLineComponent', 'selector': 'app-text-line'},{'name': 'TextLineGroupComponent', 'selector': 'app-text-line-group'},{'name': 'TextLineMarginComponent', 'selector': 'app-text-line-margin'},{'name': 'TextLineNumberComponent', 'selector': 'app-text-line-number'},{'name': 'TextPageOfWordsComponent', 'selector': 'app-text-page-of-words'},{'name': 'TextSvgViewComponent', 'selector': 'app-text-svg-view'},{'name': 'TextValueEditorComponent', 'selector': 'app-text-value-editor'},{'name': 'TextViewCanvasComponent', 'selector': 'app-text-view-canvas'},{'name': 'TextViewComponent', 'selector': 'app-text-view'},{'name': 'TextViewMetadataComponent', 'selector': 'app-text-view-metadata'},{'name': 'TextViewStructureComponent', 'selector': 'app-text-view-structure'},{'name': 'TextViewToolsComponent', 'selector': 'app-text-view-tools'},{'name': 'TextlistViewerComponent', 'selector': 'app-textlist-viewer'},{'name': 'ThumbnailbarComponent', 'selector': 'app-thumbnailbar'},{'name': 'TiledImageObjectComponent', 'selector': 'app-tiled-image-object'},{'name': 'TiledLightTableComponent', 'selector': 'app-tiled-light-table'},{'name': 'TiledTextObjectComponent', 'selector': 'app-tiled-text-object'},{'name': 'UpdateLinkedAppsComponent', 'selector': 'app-update-linked-apps'}];
     var DIRECTIVES = [{'name': 'DraggableDirective', 'selector': '[appDraggable]'},{'name': 'DraggableStubDirective', 'selector': '[appDraggable]'},{'name': 'FloatDropTargetDirective', 'selector': '[appDropTarget]'},{'name': 'ModifiableDirective', 'selector': '[appModifiable]'},{'name': 'ModifiableStubDirective', 'selector': '[appModifiable]'},{'name': 'SelectableDirective', 'selector': '[appSelectable]'},{'name': 'SelectableStubDirective', 'selector': '[appSelectable]'},{'name': 'SynopsisObjectAnchorDirective', 'selector': '[appSynopsisObjectAnchor]'},{'name': 'TileDropTargetDirective', 'selector': '[appTileDropTarget]'}];
     var ACTUAL_COMPONENT = {'name': 'RegisterComponent'};
 </script>

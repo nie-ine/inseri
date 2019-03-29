@@ -12,14 +12,14 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatFormField} from '@angular/m
 
 @Component({
   selector: 'app-data-chooser',
-  templateUrl: './data-chooser.component.html',
-  styleUrls: ['./data-chooser.component.scss']
+  templateUrl: './data-chooser.component.html'
 })
 export class DataChooserComponent implements AfterViewChecked {
   @Input() openAppsInThisPage;
   @Input() dataChooserEntries = [];
   @Input() response;
   @Input() queryId;
+  @Input() depth;
   @Input() description = '';
   @Output() sendAppTypesBackToNIEOS: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendIndexBack: EventEmitter<any> = new EventEmitter<any>();
@@ -46,7 +46,8 @@ export class DataChooserComponent implements AfterViewChecked {
     this.sendIndexBack.emit( {
       index: index,
       response: this.response,
-      queryId: this.queryId
+      queryId: this.queryId,
+      depth: this.depth
     } );
   }
 

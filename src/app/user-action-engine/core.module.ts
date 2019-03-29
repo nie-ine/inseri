@@ -16,7 +16,6 @@ import { ResultToTextMapperService } from '../app-engine/apps/text-view/result-t
 import { KnoraAuthService } from '../query-engine/knora/knora-auth.service';
 import { SynopsisModule } from '../app-engine/apps/synopsis/synopsis.module';
 import { SynopsisObjectStorageService } from '../app-engine/apps/synopsis/synopsis-object-storage.service';
-import { ArithmeticModule } from 'nie-ine';
 import { AuthenticationService } from '../query-engine/fake-backend/auth/authentication.service';
 import { MatDialogModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -39,7 +38,6 @@ import { DevelopmentViewsModule } from '../app-engine/apps/development-views/dev
     TextViewModule,
     MaterialModule,
     MatDialogModule,
-    ArithmeticModule,
     NIEOSModule,
     DashboardModule,
     SynopsisModule,

@@ -91,12 +91,9 @@ export class QueryAppInputMapComponent implements OnInit {
         });
   }
 
-  test() {
-    this.requestService.request('5c12873ab393460ad4d9abfa')
-      .subscribe((data) => {
-        if (data.status === 200) {
-          console.log(data.body);
-        }
-      });
+  mapWholeJsonToInput(input: string) {
+    this.paths[ input ] = ['wholeJsonResponseAssignedToThisAppInput'];
+    console.log( 'Map whole json to input' );
+    console.log( this.paths, this.input.page.appInputQueryMapping[ this.input.app.hash ], this.input );
   }
 }

@@ -14,7 +14,9 @@
 .classpath
 .c9/
 *.launch
+*.icloud
 backend/.settings/
+backend/.mongoData/
 *.sublime-workspace
 
 # IDE - VSCode

@@ -3,7 +3,7 @@
     <mat-select
       placeholder="{{description}}"
       style=" width: 120px"
-      (click)="resetDataChooserEntries()" >
+      (click)="resetDataChooserEntries()" matTooltip="{{description}}">
       <mat-option
         *ngFor="let entry of dataChooserEntries;
         let i = index;"

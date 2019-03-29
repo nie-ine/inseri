@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 import {DashboardComponent, DialogOverviewExampleDialog} from './dashboard/dashboard.component';
 import {RouterModule} from '@angular/router';
 import {MatButtonModule} from '@angular/material/button';
@@ -14,6 +14,8 @@ import { EditActionComponent } from './dashboard/edit-action/edit-action.compone
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCardModule} from '@angular/material/card';
 import { DeleteActionComponent } from './dashboard/delete-action/delete-action.component';
+import { ImpressumComponent } from './impressum/impressum.component';
+import {TermsAndConditions} from '../register/termsAndConditions/termsAndConditions';
 
 @NgModule({
   imports: [
@@ -31,20 +33,25 @@ import { DeleteActionComponent } from './dashboard/delete-action/delete-action.c
     MatExpansionModule,
     MatCardModule,
     RouterModule.forRoot([
-      {path: 'dashboard', component: DashboardComponent}
+      {path: 'dashboard', component: DashboardComponent},
+      {path: 'impressum', component: ImpressumComponent}
     ])
   ],
   declarations: [
     DashboardComponent,
     DialogOverviewExampleDialog,
     EditActionComponent,
-    DeleteActionComponent
+    DeleteActionComponent,
+    ImpressumComponent
   ],
   entryComponents: [
     DialogOverviewExampleDialog,
     EditActionComponent,
     DeleteActionComponent
   ],
-  providers: []
+  providers: [
+    TermsAndConditions,
+    DatePipe
+  ]
 })
 export class DashboardModule { }

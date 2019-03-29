@@ -59,7 +59,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/shared/nieOS/fake-backend/action/action.service.ts</code>
+            <code>src/app/user-action-engine/mongodb/action/action.service.ts</code>
         </p>
 
 
@@ -68,6 +68,27 @@
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Static</span>
+                                <a href="#API_BASE_URL_ACTION">API_BASE_URL_ACTION</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Static</span>
+                                <a href="#API_BASE_URL_USER">API_BASE_URL_USER</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
 
                 <tr>
                     <td class="col-md-4">
@@ -78,19 +99,22 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#create">create</a>
+                                <a href="#createAction">createAction</a>
                             </li>
                             <li>
-                                <a href="#delete">delete</a>
+                                <a href="#deleteAction">deleteAction</a>
                             </li>
                             <li>
-                                <a href="#getAll">getAll</a>
+                                <a href="#getAction">getAction</a>
                             </li>
                             <li>
-                                <a href="#getById">getById</a>
+                                <a href="#getAllActions">getAllActions</a>
                             </li>
                             <li>
-                                <a href="#update">update</a>
+                                <a href="#getAllActionsOfUser">getAllActionsOfUser</a>
+                            </li>
+                            <li>
+                                <a href="#updateAction">updateAction</a>
                             </li>
                         </ul>
                     </td>
@@ -115,7 +139,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/app/shared/nieOS/fake-backend/action/action.service.ts:8</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/user-action-engine/mongodb/action/action.service.ts:10</a></div>
                             </td>
                         </tr>
 
@@ -162,25 +186,25 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="create"></a>
+                        <a name="createAction"></a>
                         <span class="name">
                             <b>
-                            create
+                            createAction
                             </b>
-                            <a href="#create"><span class="icon ion-ios-link"></span></a>
+                            <a href="#createAction"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
                 <tr>
                     <td class="col-md-4">
-<code>create(action: <a href="../interfaces/Action.html">Action</a>)</code>
+<code>createAction(action: <a href="../interfaces/Action.html">Action</a>)</code>
                     </td>
                 </tr>
 
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/shared/nieOS/fake-backend/action/action.service.ts:19</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/user-action-engine/mongodb/action/action.service.ts:16</a></div>
                             </td>
                         </tr>
 
@@ -217,7 +241,7 @@
                             <div>
                             </div>
                             <div class="io-description">
-                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                <b>Returns : </b>    <code>Observable&lt;any&gt;</code>
 
                             </div>
                                 <div class="io-description">
@@ -231,25 +255,25 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="delete"></a>
+                        <a name="deleteAction"></a>
                         <span class="name">
                             <b>
-                            delete
+                            deleteAction
                             </b>
-                            <a href="#delete"><span class="icon ion-ios-link"></span></a>
+                            <a href="#deleteAction"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
                 <tr>
                     <td class="col-md-4">
-<code>delete(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+<code>deleteAction(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                     </td>
                 </tr>
 
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/shared/nieOS/fake-backend/action/action.service.ts:27</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/user-action-engine/mongodb/action/action.service.ts:36</a></div>
                             </td>
                         </tr>
 
@@ -271,7 +295,7 @@
                                                 <tr>
                                                         <td>id</td>
                                                         <td>
-                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                                         </td>
                                                     
                                                     <td>
@@ -286,7 +310,7 @@
                             <div>
                             </div>
                             <div class="io-description">
-                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                <b>Returns : </b>    <code>Observable&lt;any&gt;</code>
 
                             </div>
                                 <div class="io-description">
@@ -300,63 +324,25 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="getAll"></a>
+                        <a name="getAction"></a>
                         <span class="name">
                             <b>
-                            getAll
+                            getAction
                             </b>
-                            <a href="#getAll"><span class="icon ion-ios-link"></span></a>
+                            <a href="#getAction"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
                 <tr>
                     <td class="col-md-4">
-<code>getAll()</code>
+<code>getAction(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                     </td>
                 </tr>
 
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/shared/nieOS/fake-backend/action/action.service.ts:11</a></div>
-                            </td>
-                        </tr>
-
-
-                <tr>
-                    <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-
-                            </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="getById"></a>
-                        <span class="name">
-                            <b>
-                            getById
-                            </b>
-                            <a href="#getById"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-<code>getById(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
-                    </td>
-                </tr>
-
-
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/shared/nieOS/fake-backend/action/action.service.ts:15</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/user-action-engine/mongodb/action/action.service.ts:20</a></div>
                             </td>
                         </tr>
 
@@ -378,7 +364,7 @@
                                                 <tr>
                                                         <td>id</td>
                                                         <td>
-                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                                         </td>
                                                     
                                                     <td>
@@ -393,7 +379,7 @@
                             <div>
                             </div>
                             <div class="io-description">
-                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                <b>Returns : </b>    <code>Observable&lt;any&gt;</code>
 
                             </div>
                                 <div class="io-description">
@@ -407,25 +393,132 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="update"></a>
+                        <a name="getAllActions"></a>
                         <span class="name">
                             <b>
-                            update
+                            getAllActions
                             </b>
-                            <a href="#update"><span class="icon ion-ios-link"></span></a>
+                            <a href="#getAllActions"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
                 <tr>
                     <td class="col-md-4">
-<code>update(action: <a href="../interfaces/Action.html">Action</a>)</code>
+<code>getAllActions()</code>
                     </td>
                 </tr>
 
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/shared/nieOS/fake-backend/action/action.service.ts:23</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/user-action-engine/mongodb/action/action.service.ts:24</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code>Observable&lt;any&gt;</code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="getAllActionsOfUser"></a>
+                        <span class="name">
+                            <b>
+                            getAllActionsOfUser
+                            </b>
+                            <a href="#getAllActionsOfUser"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>getAllActionsOfUser(userID: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/user-action-engine/mongodb/action/action.service.ts:28</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>userID</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code>Observable&lt;any&gt;</code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="updateAction"></a>
+                        <span class="name">
+                            <b>
+                            updateAction
+                            </b>
+                            <a href="#updateAction"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>updateAction(action: <a href="../interfaces/Action.html">Action</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/user-action-engine/mongodb/action/action.service.ts:32</a></div>
                             </td>
                         </tr>
 
@@ -462,7 +555,7 @@
                             <div>
                             </div>
                             <div class="io-description">
-                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                <b>Returns : </b>    <code>Observable&lt;any&gt;</code>
 
                             </div>
                                 <div class="io-description">
@@ -474,40 +567,126 @@
         </table>
 </section>
 
+            <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="API_BASE_URL_ACTION"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                                <span class="modifier">Static</span>
+                            API_BASE_URL_ACTION
+                            </b>
+                            <a href="#API_BASE_URL_ACTION"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>API_BASE_URL_ACTION:     <code></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>environment.node + &#x27;/api/actions&#x27;</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/app/user-action-engine/mongodb/action/action.service.ts:9</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="API_BASE_URL_USER"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                                <span class="modifier">Static</span>
+                            API_BASE_URL_USER
+                            </b>
+                            <a href="#API_BASE_URL_USER"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>API_BASE_URL_USER:     <code></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>environment.node + &#x27;/api/users&#x27;</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/user-action-engine/mongodb/action/action.service.ts:10</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
 
     </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
-
-import { Action } from &#x27;./action&#x27;;
-
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {Injectable} from &#x27;@angular/core&#x27;;
 import { HttpClient } from &#x27;@angular/common/http&#x27;;
+import { Action } from &#x27;./action.model&#x27;;
+import { Observable } from &#x27;rxjs&#x27;;
+import { environment } from &#x27;../../../../environments/environment&#x27;;
 
-@Injectable()
+@Injectable({ providedIn: &#x27;root&#x27; })
 export class ActionService {
-  constructor(private http: HttpClient) { }
+  private static API_BASE_URL_ACTION &#x3D; environment.node + &#x27;/api/actions&#x27;;
+  private static API_BASE_URL_USER &#x3D; environment.node + &#x27;/api/users&#x27;;
 
-  getAll() {
-    return this.http.get&lt;Action[]&gt;(&#x27;/api/actions&#x27;);
+  constructor(
+    private http: HttpClient,
+  ) {}
+
+  createAction(action: Action): Observable&lt;any&gt; {
+    return this.http.post(&#x60;${ActionService.API_BASE_URL_ACTION}/&#x60;, action);
   }
 
-  getById(id: number) {
-    return this.http.get(&#x27;/api/actions/&#x27; + id);
+  getAction(id: string): Observable&lt;any&gt; {
+    return this.http.get(&#x60;${ActionService.API_BASE_URL_ACTION}/${id}&#x60;, {observe: &#x27;response&#x27;});
   }
 
-  create(action: Action) {
-    return this.http.post(&#x27;/api/actions&#x27;, action);
+  getAllActions(): Observable&lt;any&gt; {
+    return this.http.get(&#x60;${ActionService.API_BASE_URL_ACTION}&#x60;);
   }
 
-  update(action: Action) {
-    return this.http.put(&#x27;/api/actions/&#x27; + action.id, action);
+  getAllActionsOfUser(userID: string): Observable&lt;any&gt; {
+    return this.http.get&lt;Observable&lt;any&gt;&gt;(&#x60;${ActionService.API_BASE_URL_USER}/${userID}/actions&#x60;);
   }
 
-  delete(id: number) {
-    return this.http.delete(&#x27;/api/actions/&#x27; + id);
+  updateAction(action: Action): Observable&lt;any&gt; {
+    return this.http.put(&#x60;${ActionService.API_BASE_URL_ACTION}/${action.id}&#x60;, action);
   }
+
+  deleteAction(id: string): Observable&lt;any&gt; {
+    return this.http.delete(&#x60;${ActionService.API_BASE_URL_ACTION}/${id}&#x60;, {observe: &#x27;response&#x27;});
+  }
+
 }
 </code></pre>
     </div>

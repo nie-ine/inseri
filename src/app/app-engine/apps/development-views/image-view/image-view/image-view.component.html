@@ -1,20 +1,22 @@
 <h2>Component in this project, V1-like input</h2>
 
 <app-image-frame-sizes (viewerWidthChange)="viewerWidth = $event">
-  <app-image-frame [image]="picData1"
-                   [width]="viewerWidth"
-                   [height]="viewerWidth * picData1.height / picData1.width">
-  </app-image-frame>
+  <app-image-old-frame [image]="picData1"
+                       [width]="viewerWidth"
+                       [height]="viewerWidth * picData1.height / picData1.width">
+  </app-image-old-frame>
 </app-image-frame-sizes>
 
 <h2>Imported component, V2-like input</h2>
 
 <app-image-frame-sizes (viewerWidthChange)="viewerWidth = $event">
-  <app-image-with-overlay [image]="picData2"
+  <app-image-with-overlay [iiifImagePath]="picData2Raw['knora-api:fileValueAsUrl']"
+                          [maxImageHeight]="picData2Raw['knora-api:stillImageFileValueHasDimY']"
+                          [maxImageWidth]="picData2Raw['knora-api:stillImageFileValueHasDimX']"
                           [regions]="regions"
                           (hoveredRegion)="hoveredRegion = $event"
                    [width]="viewerWidth"
-                   [height]="viewerWidth * picData2.height / picData2.width">
+                   [height]="viewerWidth * picData2Raw['knora-api:stillImageFileValueHasDimY'] / picData2Raw['knora-api:stillImageFileValueHasDimX']">
   </app-image-with-overlay>
 </app-image-frame-sizes>
 
