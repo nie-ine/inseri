@@ -15,7 +15,7 @@
 
 <h5>Chosen inputs:</h5>
 <mat-chip-list *ngFor="let input of chosenInputs">
-  <mat-chip >
+  <mat-chip (click)="mapWholeJsonToInput( input )" matTooltip='Click here to map the whole Response to this input'>
   {{ input }}
   </mat-chip>
   <span *ngIf="paths">

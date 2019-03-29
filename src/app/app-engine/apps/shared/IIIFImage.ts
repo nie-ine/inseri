@@ -8,7 +8,7 @@ export class IIIFImage {
   height: number;
   width: number;
 
-  constructor(imageUrl: string, height: number, width: number) {
+  constructor(imageUrl: string, width: number, height: number) {
     this.height = height;
     this.width = width;
 

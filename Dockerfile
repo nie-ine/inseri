@@ -15,3 +15,5 @@ USER node
 RUN yarn --no-lockfile
 
 ENV PATH="$PATH:node_modules/@angular/cli/bin"
+
+RUN ng build --prod --optimization=false

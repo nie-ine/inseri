@@ -13,6 +13,7 @@ import { SankeyComponent } from './sankey/sankey.component';
 import { LeafletExampleComponent } from './leaflet-example/leaflet-example.component';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { ChordDiagramComponent } from './chord-diagram/chord-diagram.component';
+import { SpiralBarChartComponent } from './spiral-bar-chart/spiral-bar-chart.component';
 
 @NgModule({
   imports: [
@@ -42,7 +43,8 @@ import { ChordDiagramComponent } from './chord-diagram/chord-diagram.component';
     StackedBarChartComponent,
     SankeyComponent,
     LeafletExampleComponent,
-    ChordDiagramComponent
+    ChordDiagramComponent,
+    SpiralBarChartComponent
   ],
   exports: [
     BarChartComponent,
@@ -54,7 +56,8 @@ import { ChordDiagramComponent } from './chord-diagram/chord-diagram.component';
     StackedBarChartComponent,
     LeafletExampleComponent,
     SankeyComponent,
-    ChordDiagramComponent
+    ChordDiagramComponent,
+    SpiralBarChartComponent
 ]
 })
 export class D3jsModule { }

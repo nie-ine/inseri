@@ -33,8 +33,8 @@ export class ImageViewComponent implements OnInit {
 
   picData1 = new IIIFImage(
     this.picData1Raw.path,
-    this.picData1Raw.ny,
-    this.picData1Raw.nx
+    this.picData1Raw.nx,
+    this.picData1Raw.ny
   );
 
   picData2Raw = {
@@ -47,12 +47,6 @@ export class ImageViewComponent implements OnInit {
     'knora-api:stillImageFileValueHasDimY': 3456,
     'knora-api:stillImageFileValueHasIIIFBaseUrl': 'https://tools.wmflabs.org/zoomviewer'
   };
-
-  picData2 = new IIIFImage(
-    this.picData2Raw['knora-api:fileValueAsUrl'],
-    this.picData2Raw['knora-api:stillImageFileValueHasDimY'],
-    this.picData2Raw['knora-api:stillImageFileValueHasDimX'],
-  );
 
   regions = [{
     'status': 'active',

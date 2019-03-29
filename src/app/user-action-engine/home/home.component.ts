@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   returnUrl: string;
   loginError = false;
   deletedAccount = false;
-  forgotPassword: false;
+  forgotPassword = false;
 
   constructor(
     private route: ActivatedRoute,

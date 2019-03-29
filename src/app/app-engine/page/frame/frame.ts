@@ -65,7 +65,7 @@ export class Frame implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    console.log('changes');
+    // console.log('changes');
   }
 
   ngOnInit() {

@@ -103,10 +103,6 @@ export class LoadVariablesComponent implements OnInit, OnChanges {
             this.openAppsInThisPage,
             this.reload
           );
-          // console.log(
-          //   this.page,
-          //   this.openAppsInThisPage
-          // );
           this.sendPageBack.emit(
             [
               this.page,
