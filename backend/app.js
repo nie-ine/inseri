@@ -14,6 +14,8 @@ const app = express();
 
 const mongodbServer = require('./.settings/mongodbServer');
 
+var cors = require('cors');
+
 mongoose
   .connect(
     mongodbServer.mongodbServer
@@ -25,6 +27,12 @@ mongoose
     console.log("Connection failed!");
   });
 
+app.use(cors());
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/images", express.static(path.join("backend/images")));
