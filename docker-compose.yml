@@ -1,16 +1,17 @@
 version: "2"
 
 services:
-  nieos_production:
-    build: .
-    ports:
-    - "90:80"
-    volumes:
-    - ./nginx:/etc/nginx/conf.d
-    environment:
-    - VIRTUAL_HOST=nie-os.localhost
-    - LETSENCRYPT_HOST=nie-os.localhost
-    - LETSENCRYPT_EMAIL=jan.stoffregen@uzh.ch
+#  nieos_production:
+#    build: .
+#    # image: nieine/nieos:2019-03
+#    ports:
+#    - "90:80"
+#    volumes:
+#    - ./nginx:/etc/nginx/conf.d
+#    environment:
+#    - VIRTUAL_HOST=nie-os.localhost
+#    - LETSENCRYPT_HOST=nie-os.localhost
+#    - LETSENCRYPT_EMAIL=jan.stoffregen@uzh.ch
 
   node:
     image: mean:latest
@@ -23,8 +24,8 @@ services:
     - LETSENCRYPT_EMAIL=jan.stoffregen@uzh.ch
     volumes:
       - ./backend/.settings:/nieOS/backend/.settings
-    depends_on:
-      - mongodb
+#    depends_on:
+#      - mongodb
 
   nginx-proxy:
     image: jwilder/nginx-proxy
@@ -37,27 +38,27 @@ services:
     - /etc/nginx/vhost.d
     - /etc/nginx/certs
 
-  nginx-proxy-letsencrypt:
-    image: jrcs/letsencrypt-nginx-proxy-companion
-    volumes_from:
-      - nginx-proxy
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-
-
-  mongodb:
-    image: mongo
-    ports:
-      - 27017:27017
-    volumes:
-      - ./backend/.mongoData:/data/db
-
-  mondoGUI:
-    image: mongo-express
-    ports:
-      - 8081:8081
-    links:
-      - mongodb:mongo
+#  nginx-proxy-letsencrypt:
+#    image: jrcs/letsencrypt-nginx-proxy-companion
+#    volumes_from:
+#      - nginx-proxy
+#    volumes:
+#      - /var/run/docker.sock:/var/run/docker.sock:ro
+#
+#
+#  mongodb:
+#    image: mongo
+#    ports:
+#      - 27017:27017
+#    volumes:
+#      - ./backend/.mongoData:/data/db
+#
+#  mondoGUI:
+#    image: mongo-express
+#    ports:
+#      - 8081:8081
+#    links:
+#      - mongodb:mongo
 
 #  nieos:
 #    image: mean:latest

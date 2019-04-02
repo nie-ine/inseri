@@ -1,4 +1,5 @@
 const express = require('express');
+var cors = require('cors');
 let settings = require('../.settings/mailDetails');
 
 const checkAuth = require('../middleware/check-auth');
@@ -6,12 +7,11 @@ let nodemailer = require('nodemailer');
 const router = express.Router();
 
 
-router.post('', checkAuth, (req, res, next) => {
+router.post('', cors(), checkAuth, (req, res, next) => {
     const transporter = nodemailer.createTransport({
         service: settings.type,
         auth: {
-            user: settings.emailAdress, // Your email id
-            pass: settings.pw // Your password
+             pass: settings.pw // Your password
         }
     });
 

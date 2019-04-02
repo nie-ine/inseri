@@ -18,7 +18,7 @@ import {TermsAndConditions} from './register/termsAndConditions/termsAndConditio
     FormsModule,
     RouterModule.forChild([
       { path: 'home', component: HomeComponent },
-      // { path: 'register', component: RegisterComponent },
+      { path: 'register', component: RegisterComponent },
       { path: 'reactivate', component: ReactivateAccountComponent },
       { path: 'deactivate-newsletter', component: DeactivateNewsletterComponent },
       { path: 'reset-password', component: ResetPasswordComponent },
