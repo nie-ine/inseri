@@ -28,6 +28,7 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
   paths = [];
   chosenInputs = ['label'];
   error = false;
+  activateJsonButton = false;
 
   constructor(
     public dialogRef: MatDialogRef<QueryEntryComponent>,
@@ -187,6 +188,15 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
   updateQueryAppInputMaping( paths: any ) {
     console.log( paths );
     this.paths = paths;
+  }
+
+  generateNewJsonObject() {
+    console.log( 'Generate new JSON object' );
+    this.requestService.createJson()
+      .subscribe(data => {
+          console.log(data);
+        }, error => console.log(error)
+      );
   }
 
 }
