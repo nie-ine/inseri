@@ -143,8 +143,13 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
         .subscribe(data => {
             if (data.body.action.type === 'page-set') {
               this.pagesOfThisActtion = [];
-              for (const pageHash of ( data.body as any ).action.hasPageSet.hasPages as any ) {
-                this.pagesOfThisActtion[this.pagesOfThisActtion.length] = pageHash;
+              for (const page of ( data.body as any ).action.hasPageSet.hasPages as any ) {
+                console.log( page._id, this.hashOfThisPage );
+                if ( page._id === this.hashOfThisPage ) {
+                  this.selectedPage = this.pagesOfThisActtion.length;
+                  console.log( this.selectedPage );
+                }
+                this.pagesOfThisActtion[this.pagesOfThisActtion.length] = page;
                 this.alreadyLoaded = true;
               }
             }
