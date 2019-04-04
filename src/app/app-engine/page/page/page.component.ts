@@ -148,7 +148,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   openDataManagement() {
     this.spinner.show();
-    this.pageService.updatePage(this.page)
+    this.pageService.updatePage(
+      { ...this.page }
+    )
       .subscribe(
         data => {
           // console.log(data);
@@ -261,7 +263,10 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.page.openApps[ 'grapesJS' ].gjsHtml = localStorage.getItem('gjs-html');
     this.page.openApps[ 'grapesJS' ].gjsStyles = localStorage.getItem('gjs-styles');
     this.page.openApps[ 'grapesJS' ].hash = 'grapesJS';
-    // console.log( this.page );
+    console.log(
+      this.page,
+      this.openAppsInThisPage
+    );
     this.pageService.updatePage(
       { ...this.page }
       )

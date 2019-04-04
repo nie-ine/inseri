@@ -9,10 +9,12 @@ const router = express.Router();
 
 router.post('', cors(), checkAuth, (req, res, next) => {
     const transporter = nodemailer.createTransport({
-        service: settings.type,
-        auth: {
-             pass: settings.pw // Your password
-        }
+        // service: settings.type,
+        // auth: {
+        //      pass: settings.pw // Your password
+        // }
+      host: 'smtp.uzh.ch',
+      port: 25
     });
 
     let recipient = settings.recipient;

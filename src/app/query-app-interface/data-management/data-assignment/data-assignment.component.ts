@@ -21,6 +21,7 @@ export class DataAssignmentComponent implements OnChanges {
   constructor() { }
 
   ngOnChanges( changes: SimpleChanges) {
+    console.log( changes );
     this.firstChange = true;
     this.startPathUpdateProcess();
     this.checkIfPathContainsScalarAsLastEntry();
