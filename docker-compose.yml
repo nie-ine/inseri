@@ -1,15 +1,15 @@
 version: "2"
 
 services:
-#  nieos_production:
-#    build: .
-#    # image: nieine/nieos:2019-03
-#    ports:
-#    - "90:80"
-#    volumes:
-#    - ./nginx:/etc/nginx/conf.d
-#    environment:
-#    - VIRTUAL_HOST=nie-os.localhost
+  nieos_production:
+    build: .
+    # image: nieine/nieos:2019-03
+    ports:
+    - "90:80"
+    volumes:
+    - ./nginx:/etc/nginx/conf.d
+    environment:
+    - VIRTUAL_HOST=nie-os.localhost
 #    - LETSENCRYPT_HOST=nie-os.localhost
 #    - LETSENCRYPT_EMAIL=jan.stoffregen@uzh.ch
 
@@ -20,23 +20,23 @@ services:
     entrypoint: npm run start:server
     environment:
     - VIRTUAL_HOST=node.localhost
-    - LETSENCRYPT_HOST=node.localhost
-    - LETSENCRYPT_EMAIL=jan.stoffregen@uzh.ch
+#    - LETSENCRYPT_HOST=node.localhost
+#    - LETSENCRYPT_EMAIL=jan.stoffregen@uzh.ch
     volumes:
       - ./backend/.settings:/nieOS/backend/.settings
 #    depends_on:
 #      - mongodb
 
   nginx-proxy:
-    image: jwilder/nginx-proxy
+    image: jwilder/nginx-proxy:0.6.0
     ports:
     - "80:80"
     - "443:443"
     volumes:
     - /var/run/docker.sock:/tmp/docker.sock:ro
-    - /usr/share/nginx/html
-    - /etc/nginx/vhost.d
-    - /etc/nginx/certs
+#    - /usr/share/nginx/html
+#    - /etc/nginx/vhost.d
+#    - /etc/nginx/certs
 
 #  nginx-proxy-letsencrypt:
 #    image: jrcs/letsencrypt-nginx-proxy-companion
