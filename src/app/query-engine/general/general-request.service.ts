@@ -60,6 +60,13 @@ export class GeneralRequestService {
   }
 
   createJson() {
-    return this.http.get( GeneralRequestService.API_BASE_URL_MY_OWN_JSON );
+    return this.http.get( GeneralRequestService.API_BASE_URL_MY_OWN_JSON + '/newJson' );
+  }
+
+  updateJson(
+    jsonId: string,
+    body: any
+  ) {
+    return this.http.put( GeneralRequestService.API_BASE_URL_MY_OWN_JSON + '/updateJson/' + jsonId, body );
   }
 }
