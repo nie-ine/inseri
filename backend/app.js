@@ -9,6 +9,7 @@ const pageSetRoutes = require("./routes/page-set");
 const pageRoutes = require("./routes/page");
 const messageRoutes = require('./routes/message');
 const queryRoutes = require('./routes/query');
+const myOwnJsonRoutes = require('./routes/myOwnJson');
 
 const app = express();
 
@@ -56,5 +57,6 @@ app.use("/api/pagesets", pageSetRoutes);
 app.use("/api/pages", pageRoutes);
 app.use("/api/message", messageRoutes);
 app.use("/api/queries", queryRoutes);
+app.use("/api/myOwnJson", myOwnJsonRoutes);
 
 module.exports = app;

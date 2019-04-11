@@ -10,7 +10,6 @@ const generatedHash = require('../middleware/hash-generator');
 
 const router = express.Router();
 
-// Nur zum TESTEN
 router.get('', checkAuth, (req, res, next) => {
     Action.find()
       .populate('creator')
