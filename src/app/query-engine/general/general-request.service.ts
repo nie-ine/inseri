@@ -3,12 +3,14 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { QueryService } from '../../user-action-engine/mongodb/query/query.service';
 import 'rxjs/add/operator/mergeMap';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GeneralRequestService {
   params: any;
+  private static API_BASE_URL_MY_OWN_JSON = environment.node + '/api/myOwnJson';
   constructor(private http: HttpClient, private queryService: QueryService) { }
 
   request(queryID) {
@@ -25,6 +27,8 @@ export class GeneralRequestService {
               return this.put(query.serverUrl, data.query.params, query.header, query.body);
             case 'DELETE':
               return this.delete(query.serverUrl, data.query.params, query.header);
+            case 'JSON':
+              return this.get(query.serverUrl, data.query.params, query.header);
           }
       });
   }
@@ -55,5 +59,16 @@ export class GeneralRequestService {
   delete(url: string, parameter?: any, header?: any): Observable<any> {
     // console.log('DELETE Request', url, parameter, header);
     return this.http.delete(url, {params: this.transformParam(parameter), headers: header, observe: 'response'});
+  }
+
+  createJson() {
+    return this.http.get( GeneralRequestService.API_BASE_URL_MY_OWN_JSON + '/newJson' );
+  }
+
+  updateJson(
+    jsonId: string,
+    body: any
+  ) {
+    return this.http.put( GeneralRequestService.API_BASE_URL_MY_OWN_JSON + '/updateJson/' + jsonId, body );
   }
 }

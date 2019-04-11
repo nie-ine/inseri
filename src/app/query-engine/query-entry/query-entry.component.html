@@ -1,12 +1,18 @@
-<div style="margin-top: 30px">
+<div style="margin-top: 30px" *ngIf="!activateJsonButton">
   <button mat-button (click)="save()">
     <mat-icon>save</mat-icon> Save
   </button>
   <button mat-button (click)="close()">
     <mat-icon>clear</mat-icon> Close
   </button>
-  <button mat-button (click)="initiateQuery()">
+  <button mat-button (click)="initiateQuery()" *ngIf="!activateJsonButton">
     <mat-icon>label</mat-icon> Try Query
+  </button>
+</div>
+
+<div style="margin-top: 30px" *ngIf="activateJsonButton">
+  <button mat-button (click)="saveAndClose()" >
+    <mat-icon>clear</mat-icon> Save and Close
   </button>
 </div>
 
@@ -19,18 +25,60 @@
   </mat-form-field>
   <mat-form-field>
     <mat-select formControlName="method">
-      <mat-option [value]="'GET'">GET</mat-option>
-      <mat-option [value]="'POST'">POST</mat-option>
-      <mat-option [value]="'PUT'" disabled>PUT</mat-option>
-      <mat-option [value]="'DELETE'" disabled>DELETE</mat-option>
+      <mat-option
+        [value]="'GET'"
+        (click)="activateJsonButton = false">
+        GET
+      </mat-option>
+      <mat-option
+        [value]="'POST'"
+        (click)="activateJsonButton = false">
+        POST
+      </mat-option>
+      <mat-option
+        [value]="'PUT'"
+        (click)="activateJsonButton = false"
+        disabled>
+        PUT
+      </mat-option>
+      <mat-option
+        [value]="'DELETE'"
+        (click)="activateJsonButton = false"
+        disabled>
+        DELETE
+      </mat-option>
+      <mat-option
+        [value]="'JSON'"
+        (click)="activateJsonButton = true">
+        JSON Object
+      </mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field >
     <input formControlName="serverURL" matInput placeholder="Server URL">
   </mat-form-field>
 </form>
 
-<mat-tab-group style="margin-top: 50px">
+<button mat-button *ngIf="activateJsonButton && !form.get('serverURL').value" (click)="generateNewJsonObject()">
+  <mat-icon>add_circle</mat-icon> Generate new JSON Object
+</button>
+
+<button mat-button *ngIf="activateJsonButton && form.get('serverURL').value && jsonObjectHasArrived" (click)="updateJsonObject()">
+  <mat-icon>save</mat-icon> Save or Update Json Object
+</button>
+
+<button mat-button (click)="initiateQuery()" *ngIf="activateJsonButton && form.get('serverURL').value && !jsonObjectHasArrived">
+  <mat-icon>label</mat-icon> Get Json Object
+</button>
+
+<ace-editor class="url-extension"
+            #editor2
+            style="min-height: 40rem; width:100%; overflow: auto;"
+            [mode]="'typescript'"
+            *ngIf="activateJsonButton">
+</ace-editor>
+
+<mat-tab-group style="margin-top: 50px" >
   <mat-tab label="General Query Editor" >
 
     <div style="margin-top: 30px">
