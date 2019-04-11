@@ -1,4 +1,4 @@
-<div style="margin-top: 30px">
+<div style="margin-top: 30px" *ngIf="!activateJsonButton">
   <button mat-button (click)="save()">
     <mat-icon>save</mat-icon> Save
   </button>
@@ -7,6 +7,12 @@
   </button>
   <button mat-button (click)="initiateQuery()" *ngIf="!activateJsonButton">
     <mat-icon>label</mat-icon> Try Query
+  </button>
+</div>
+
+<div style="margin-top: 30px" *ngIf="activateJsonButton">
+  <button mat-button (click)="saveAndClose()" >
+    <mat-icon>clear</mat-icon> Save and Close
   </button>
 </div>
 

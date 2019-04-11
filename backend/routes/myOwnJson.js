@@ -71,7 +71,6 @@ router.put('/updateJson/:id', checkAuth, (req, res, next) => {
         message: 'JSON cannot be updated'
       });
     });
-  ;
 });
 
 module.exports = router;

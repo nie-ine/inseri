@@ -244,4 +244,9 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
     );
   }
 
+  saveAndClose() {
+    this.save();
+    this.close();
+  }
+
 }
