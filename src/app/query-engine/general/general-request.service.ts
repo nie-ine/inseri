@@ -27,6 +27,8 @@ export class GeneralRequestService {
               return this.put(query.serverUrl, data.query.params, query.header, query.body);
             case 'DELETE':
               return this.delete(query.serverUrl, data.query.params, query.header);
+            case 'JSON':
+              return this.get(query.serverUrl, data.query.params, query.header);
           }
       });
   }
