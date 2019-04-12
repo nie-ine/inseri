@@ -1,5 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 
+interface StyleDeclaration {
+  type: string;
+  name: string;
+  styles: {
+    [key: string]: string;
+  };
+}
+
+interface SelectableEnvironments {
+  [key: string]: Array<StyleDeclaration>;
+}
+
 @Component({
   selector: 'app-p0062-transcription-frame',
   templateUrl: './p0062-transcription-frame.component.html',
@@ -106,53 +118,98 @@ export class P0062TranscriptionFrameComponent implements OnInit {
     '            <p class="signed #fi19"><span class="#scl">Haeßel</span></p></div>\n' +
     '        </div>';
 
-  styleDeclarations = {
-    'initial': [
+  styleDeclarations: Array<StyleDeclaration> = [
       {
         'type': 'tag',
         'name': 'p',
         'styles': {
-          'fontFamily': 'Garamond, Times, serif',
-          'textAlign': 'justify'
+          'font-family': 'Garamond, Times, serif',
+          'text-align': 'justify'
         }
       },
       {
         'type': 'class',
         'name': 'big-replaced',
-        'styles': {'fontWeight': 'bold'}
+        'styles': {'font-weight': 'bold'}
       },
       {
         'type': 'class',
         'name': 'small-replaced',
-        'styles': {'fontSize': '80%'}
+        'styles': {'font-size': '80%'}
       },
       {
         'type': 'class',
         'name': '#scl',
-        'styles': {'fontFamily': 'Frutiger, Helvetica, sans-serif'}
+        'styles': {'font-family': 'Frutiger, Helvetica, sans-serif'}
       },
       {
         'type': 'class',
         'name': 'gap',
-        'styles': {'fontStyle': 'italic'}
+        'styles': {'font-style': 'italic'}
       },
       {
         'type': 'class',
         'name': 'supplied',
-        'styles': {'fontStyle': 'italic'}
+        'styles': {'font-style': 'italic'}
       },
       {
         'type': 'tag',
         'name': 'p',
-        'styles': {'textIndent': '3em'}
+        'styles': {'text-indent': '3em'}
       },
       {
         'type': 'class',
         'name': '#alr',
-        'styles': {'textAlign': 'right'}
+        'styles': {'text-align': 'right'}
       }
-    ]};
+    ];
 
+  selectiveStyleDeclarations: SelectableEnvironments = {
+    'opener': [
+      {
+        'type': 'class',
+        'name': 'opener',
+        'styles': {'color': 'red'}
+      }
+    ],
+    'closer': [
+      {
+        'type': 'class',
+        'name': 'closer',
+        'styles': {'color': 'blue'}
+      }
+    ],
+    'index': [
+      {
+        'type': 'class',
+        'name': 'person',
+        'styles': {'background-color': 'green'}
+      },
+      {
+        'type': 'class',
+        'name': 'place',
+        'styles': {'background-color': 'violet'}
+      },
+      {
+        'type': 'class',
+        'name': 'person',
+        'styles': {'background-color': 'orange'}
+      }
+    ]
+  };
+
+  annotationTypeIDs = new Set(['closer', 'opener', 'index']);
+  highlighted = new Set(['opener']);
+
+  activateAnnotationType(annotationTypeID: string) {
+    this.highlighted.add(annotationTypeID);
+    this.highlighted = new Set(Array.from(this.highlighted));
+  }
+
+  deactivateAnnotationType(annotationTypeID: string) {
+    this.highlighted.delete(annotationTypeID);
+    this.highlighted = new Set(Array.from(this.highlighted));
+  }
 
   constructor() { }
 
