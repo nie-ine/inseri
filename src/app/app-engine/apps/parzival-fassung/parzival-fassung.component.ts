@@ -7,10 +7,14 @@ import {Component, Input, OnChanges, OnInit} from '@angular/core';
 })
 export class ParzivalFassungComponent implements OnChanges {
   @Input() textJson: any;
+  zeilen: Array<any> = [];
   constructor() { }
 
   ngOnChanges() {
     console.log( this.textJson );
+    if ( this.textJson ) {
+      this.zeilen = this.textJson.zeilen;
+    }
   }
 
 }

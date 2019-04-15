@@ -1,3 +1,8 @@
-<p>
-  parzival-fassung works!
-</p>
+<div *ngFor="let zeile of zeilen; let i = index">
+  <a >{{ zeile.anchorName }}</a>
+  <span *ngFor="let wort of zeile.woerter" >
+    <span [ngStyle]="{'font-weight': wort.style.length ? 'bold' : 'normal'}">
+      {{ wort.wort }}
+    </span>
+  </span>
+</div>
