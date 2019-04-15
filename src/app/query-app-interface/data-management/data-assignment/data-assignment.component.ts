@@ -21,13 +21,22 @@ export class DataAssignmentComponent implements OnChanges {
   constructor() { }
 
   ngOnChanges( changes: SimpleChanges) {
-    console.log( changes );
+    // console.log( changes );
     this.firstChange = true;
     this.startPathUpdateProcess();
+    this.checkIfDirectlyAssigned();
     this.checkIfPathContainsScalarAsLastEntry();
     if ( this.updateLinkedApps === true ) {
       this.updateLinkedAppsMethod();
     }
+  }
+
+  checkIfDirectlyAssigned() {
+    console.log(
+      'Check if directly assigned',
+      this.appInputQueryMapping,
+      this.response
+    );
   }
 
   startPathUpdateProcess() {
@@ -135,6 +144,7 @@ export class DataAssignmentComponent implements OnChanges {
         for ( const app of this.openAppsInThisPage[ type ].model ) {
           if ( this.appInputQueryMapping[ app.hash ] ) {
             for ( const input in this.appInputQueryMapping[ app.hash ] ) {
+              // console.log( 'hier', this.queryId, queryId );
               if ( this.appInputQueryMapping[ app.hash ][ input ][ 'query' ] === (this.queryId || queryId ) ) {
                 let increment = 0;
                 for ( const segment of this.appInputQueryMapping[ app.hash ][ input ][ 'path' ] ) {
@@ -167,7 +177,7 @@ export class DataAssignmentComponent implements OnChanges {
     firstArray: boolean,
     app: any
   ) {
-    // console.log( app, path );
+    // console.log( app, path, index, response );
     if ( response ) {
         if ( path[ 0 ] === 'wholeJsonResponseAssignedToThisAppInput' ) {
           return response;
@@ -218,14 +228,19 @@ export class DataAssignmentComponent implements OnChanges {
             }
           }
         } else if ( depth !== path.length && response[ path[ depth ] ] ) {        // Response is not an array
-          return this.generateAppinput(
-            response[ path[ depth ] ],
-            path,
-            index,
-            depth + 1,
-            firstArray,
-            app
-          );
+          console.log( 'Response is not an array', response[ path[ depth ] ], depth, path.length );
+          if ( response[ path[ depth + 1 ] ] === undefined && depth === path.length - 1 ) {
+            return response[ path[ depth ] ];
+          } else {
+            return this.generateAppinput(
+              response[ path[ depth ] ],
+              path,
+              index,
+              depth + 1,
+              firstArray,
+              app
+            );
+          }
         } else if ( depth === path.length ) {
           // console.log( response );
           return response[ path[ depth - 1 ] ];

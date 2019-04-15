@@ -54,6 +54,7 @@ import { MatCardModule } from '@angular/material/card';
 import { DataListViewSettings} from './apps/data-list-view/data-list-view-settings/data-list-view-settings';
 import {GrapesjsComponent} from './apps/grapesjs/grapesjs.component';
 import { ImageFrameModule } from './apps/image-frame/image-frame.module';
+import { ParzivalFassungComponent } from './apps/parzival-fassung/parzival-fassung.component';
 
 @NgModule({
   imports: [
@@ -123,7 +124,8 @@ import { ImageFrameModule } from './apps/image-frame/image-frame.module';
     DataListView,
     DataListViewSettings,
     QueryInformationDialogComponent,
-    GrapesjsComponent
+    GrapesjsComponent,
+    ParzivalFassungComponent
   ],
   exports: [
     PageComponent,
