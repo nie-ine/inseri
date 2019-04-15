@@ -88,11 +88,11 @@ export class GenerateDataChoosersService {
     response: any,
     path: Array<string>
   ) {
-    console.log( response, path, path.length );
+    // console.log( response, path, path.length );
     for ( const segment of path ) {
-      console.log( segment );
+      // console.log( segment );
       if ( response[ segment ].length && typeof response[ segment ] !== 'string') {
-        console.log( 'response contains array' );
+        // console.log( 'response contains array' );
         return true;
       } else if ( response[ segment ] && response[ segment ] !== 'string' ) {
         path.splice(0, 1);
@@ -103,7 +103,7 @@ export class GenerateDataChoosersService {
       }
     }
   if ( path.length === 0 ) {
-      console.log( 'Dont generate data choosers ');
+      // console.log( 'Dont generate data choosers ');
       return false;
     }
   }

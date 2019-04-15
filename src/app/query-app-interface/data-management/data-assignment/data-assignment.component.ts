@@ -24,19 +24,10 @@ export class DataAssignmentComponent implements OnChanges {
     // console.log( changes );
     this.firstChange = true;
     this.startPathUpdateProcess();
-    this.checkIfDirectlyAssigned();
     this.checkIfPathContainsScalarAsLastEntry();
     if ( this.updateLinkedApps === true ) {
       this.updateLinkedAppsMethod();
     }
-  }
-
-  checkIfDirectlyAssigned() {
-    console.log(
-      'Check if directly assigned',
-      this.appInputQueryMapping,
-      this.response
-    );
   }
 
   startPathUpdateProcess() {
@@ -228,7 +219,7 @@ export class DataAssignmentComponent implements OnChanges {
             }
           }
         } else if ( depth !== path.length && response[ path[ depth ] ] ) {        // Response is not an array
-          console.log( 'Response is not an array', response[ path[ depth ] ], depth, path.length );
+          // console.log( 'Response is not an array', response[ path[ depth ] ], depth, path.length );
           if ( response[ path[ depth + 1 ] ] === undefined && depth === path.length - 1 ) {
             return response[ path[ depth ] ];
           } else {
