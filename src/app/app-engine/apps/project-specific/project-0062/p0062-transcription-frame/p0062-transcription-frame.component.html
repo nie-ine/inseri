@@ -1,1 +1,16 @@
-<app-p0062-transcription [htmlContent]="htmlContent" [baseStyles]="styleDeclarations"></app-p0062-transcription>
+<app-p0062-transcription [htmlContent]="htmlContent"
+                         [baseStyles]="styleDeclarations"
+                         [selectableEnvironments]="selectiveStyleDeclarations"
+                         [selectedEnvironmentKeys]="highlighted"></app-p0062-transcription>
+
+<div>
+  <p *ngFor="let h of annotationTypeIDs">
+    {{ h }}
+    <button (click)="activateAnnotationType(h)">+</button>
+  </p>
+
+  <p *ngFor="let h of highlighted">
+    {{ h }}
+    <button (click)="deactivateAnnotationType(h)">X</button>
+  </p>
+</div>
