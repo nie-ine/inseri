@@ -42,29 +42,69 @@ export class GenerateDataChoosersService {
           if (data.status === 200) {
             // console.log(data.body);
             this.response = data.body;
-            openAppsInThisPage.dataChooser.model.push( {
-              x: 150,
-              y: this.y,
-              dataChooserEntries: this.generateArrayFromLeafs.generateArrayFromLeafs(
-                this.response,
-                pathArray
-              ),
-              title: 'Query: ' + queryTitle,
-              response: data.body,
-              queryId: queryId,
-              depth: 0
-            } );
-            this.pathSet.add( pathArray[ 0 ] );
-            this.generateArrayKeyValueForEachArrayInResponse(
+            if ( this.checkIfSubsetOfResultContainsArray(
               data.body,
-              openAppsInThisPage,
-              queryTitle,
-              queryId,
-              this.depth
-            );
-            return openAppsInThisPage;
+              pathArray
+            ) ) {
+              openAppsInThisPage.dataChooser.model.push( {
+                x: 150,
+                y: this.y,
+                dataChooserEntries: this.generateArrayFromLeafs.generateArrayFromLeafs(
+                  this.response,
+                  pathArray
+                ),
+                title: 'Query: ' + queryTitle,
+                response: data.body,
+                queryId: queryId,
+                depth: 0
+              } );
+              this.pathSet.add( pathArray[ 0 ] );
+              this.generateArrayKeyValueForEachArrayInResponse(
+                data.body,
+                openAppsInThisPage,
+                queryTitle,
+                queryId,
+                this.depth
+              );
+              return openAppsInThisPage;
+            } else {
+              openAppsInThisPage.dataChooser.model.push( {
+                x: 150,
+                y: this.y,
+                dataChooserEntries: [ 'showData' ],
+                title: 'Query: ' + queryTitle,
+                response: data.body,
+                queryId: queryId,
+                depth: 0
+              } );
+              return openAppsInThisPage;
+            }
           }
         });
+    }
+  }
+
+  checkIfSubsetOfResultContainsArray(
+    response: any,
+    path: Array<string>
+  ) {
+    console.log( response, path, path.length );
+    for ( const segment of path ) {
+      console.log( segment );
+      if ( response[ segment ].length && typeof response[ segment ] !== 'string') {
+        console.log( 'response contains array' );
+        return true;
+      } else if ( response[ segment ] && response[ segment ] !== 'string' ) {
+        path.splice(0, 1);
+        this.checkIfSubsetOfResultContainsArray(
+          response[ segment ],
+          path
+        );
+      }
+    }
+  if ( path.length === 0 ) {
+      console.log( 'Dont generate data choosers ');
+      return false;
     }
   }
 

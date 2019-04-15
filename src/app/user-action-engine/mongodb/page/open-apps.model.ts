@@ -129,6 +129,15 @@ export class OpenAppsModel {
           'inputName': 'json'
         }
       ]
+    },
+    parzivalFassung: {
+      type: 'parzivalFassung',
+      model: [],
+      inputs: [
+        {
+          'inputName': 'textJson'
+        }
+      ]
     }
   };
 }

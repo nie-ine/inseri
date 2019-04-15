@@ -378,13 +378,13 @@ export class PageComponent implements OnInit, AfterViewChecked {
       }
     }, 1000);
     this.page = pageAndAction[ 0 ];
-    console.log( this.page );
+    // console.log( this.page );
     this.action = pageAndAction[ 1 ];
     this.reloadVariables = false;
   }
 
   receiveOpenAppsInThisPage( openAppsInThisPage: any ) {
-    console.log( openAppsInThisPage );
+    // console.log( openAppsInThisPage );
     this.openAppsInThisPage = openAppsInThisPage;
     this.reloadVariables = false;
     this.updateLinkedApps = false;

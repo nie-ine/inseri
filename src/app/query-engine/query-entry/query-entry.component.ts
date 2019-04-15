@@ -236,7 +236,9 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log( 'UpdateJson' );
     this.requestService.updateJson(
       this.jsonId,
-      JSON.parse(this.editor2.text)
+      JSON.parse(
+        this.editor2.text
+      )
     )
       .subscribe(data => {
       console.log(data);

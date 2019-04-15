@@ -108,6 +108,24 @@
 
       </mat-expansion-panel>
 
+      <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Parzival - Fassung
+          </mat-panel-title>
+          <mat-panel-description>
+            shortname: pF
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        Project specific App for the Parzival Project
+
+        <mat-divider></mat-divider>
+
+        <button mat-button (click)="addAnotherApp('parzivalFassung', true)">Add Parzival Fassung</button><br>
+
+      </mat-expansion-panel>
+
 
       <h4 style="align-content: center">Images</h4>
 
@@ -640,6 +658,33 @@
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'textlistViewers' ].model, i ) ">Remove this app</button>
         </mat-menu>
       </div>
+
+    <!-- parzivalFassung -->
+    <div *ngFor="let parzivalFassung of openAppsInThisPage[ 'parzivalFassung' ].model; let i = index;" >
+      <popup #parzivalFassung
+             [hash]="openAppsInThisPage[ 'parzivalFassung' ].model[i].hash"
+             [title]="openAppsInThisPage[ 'parzivalFassung' ].model[i].title || 'parzivalFassung ' + i"
+             [type]="openAppsInThisPage[ 'parzivalFassung' ].type"
+             [firstPopupX]="openAppsInThisPage[ 'parzivalFassung' ].model[i].x"
+             [firstPopupY]="openAppsInThisPage[ 'parzivalFassung' ].model[i].y"
+             [width]="produceHeightAndWidth( openAppsInThisPage[ 'parzivalFassung' ].model[i].width, '350' )"
+             [height]="produceHeightAndWidth( openAppsInThisPage[ 'parzivalFassung' ].model[i].height, '500')"
+             (sendAppCoordinatesBack)="updateAppCoordinates($event)"
+             (sendAppSettingsBack)="updateAppSettings($event)">
+        <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'parzivalFassung' ].model[i].height, '500' ) + 'px',
+        'width': produceHeightAndWidth( openAppsInThisPage[ 'parzivalFassung' ].model[i].width, '350' ) + 'px'}">
+          <app-parzival-fassung style="position: sticky;"
+                               (resourceIRI)="closeApp( openAppsInThisPage[ 'parzivalFassung' ].model, i )"
+                                [textJson]="openAppsInThisPage[ 'parzivalFassung' ].model[i]['textJson']">
+          </app-parzival-fassung>
+        </div>
+      </popup>
+      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" >pF {{ i }}</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="parzivalFassung.appear()" >Show Textlist Viewer {{ i }}</button>
+        <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'parzivalFassung' ].model, i ) ">Remove this app</button>
+      </mat-menu>
+    </div>
 
     <!-- jsonViewer -->
     <div *ngFor="let jsonViewer of openAppsInThisPage[ 'jsonViewer' ].model; let i = index;" >
