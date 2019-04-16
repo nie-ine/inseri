@@ -1,8 +1,15 @@
 <div *ngFor="let zeile of zeilen; let i = index">
-  <a >{{ zeile.anchorName }}</a>
+  <button
+    mat-button
+    (click)="updateURL(zeile)"
+    id="{{ '#id' + zeile.zeilenNummer }}" >{{ zeile.anchorName }}</button>
   <span *ngFor="let wort of zeile.woerter" >
-      <span [ngStyle]="wort.style">
+      <span [ngStyle]="wort.style" >
         {{ wort.wort }}
       </span>
   </span>
 </div>
+
+<span #myElem>
+    test
+  </span>
