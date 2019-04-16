@@ -6008,6 +6008,11 @@ ng2-ace-editor@^0.3.9:
     ace-builds "^1.4.2"
     brace "^0.11.1"
 
+ng2-scroll-to-el@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/ng2-scroll-to-el/-/ng2-scroll-to-el-1.2.1.tgz#52296f035c0c3600b1d9fc8290fbf135bec7e696"
+  integrity sha1-UilvA1wMNgCx2fyCkPvxNb7H5pY=
+
 ngx-bootstrap@^3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-3.3.0.tgz#91f1644a6fff8a493bc58a16bd9d02db7320bd6a"

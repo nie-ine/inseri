@@ -163,6 +163,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
           });
           dialogRef.afterClosed().subscribe((result) => {
             this.resetPage = true;
+            //
             // console.log(result);
             this.reloadVariables = true;
             this.spinner.show();
