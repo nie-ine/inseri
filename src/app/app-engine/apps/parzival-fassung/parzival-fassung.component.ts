@@ -8,6 +8,7 @@ import {Component, Input, OnChanges, OnInit} from '@angular/core';
 export class ParzivalFassungComponent implements OnChanges {
   @Input() textJson: any;
   zeilen: Array<any> = [];
+  sanitizedOnce = false;
   constructor() { }
 
   ngOnChanges() {
@@ -17,4 +18,10 @@ export class ParzivalFassungComponent implements OnChanges {
     }
   }
 
+  generateCSS(
+    style: any
+  ) {
+      const cssObject = {'font-weight':'bold', 'background-color':'green'};
+      return style;
+    }
 }
