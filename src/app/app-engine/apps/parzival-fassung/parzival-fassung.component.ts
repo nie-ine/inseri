@@ -1,4 +1,15 @@
-import {AfterViewChecked, ChangeDetectorRef, Component, ElementRef, Input, OnChanges, OnInit, ViewChild} from '@angular/core';
+import {
+  AfterViewChecked,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  OnInit,
+  ViewChild,
+  ViewChildren,
+  QueryList
+} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
 
@@ -9,11 +20,8 @@ import {Location} from '@angular/common';
 })
 export class ParzivalFassungComponent implements OnChanges, AfterViewChecked {
   @Input() textJson: any;
-  @ViewChild('myElem') MyProp: ElementRef;
+  @ViewChildren('cmp') MyProp2: ElementRef;
   zeilen: Array<any> = [];
-  sanitizedOnce = false;
-  currentAnchor = 1;
-  myElem = '#myElem';
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
@@ -29,10 +37,10 @@ export class ParzivalFassungComponent implements OnChanges, AfterViewChecked {
 
   ngAfterViewChecked() {
     this.cdr.detectChanges();
-    if ( this.currentAnchor !== this._route.snapshot.queryParams.parzivalFassungAnchor ) {
-      this.currentAnchor = this._route.snapshot.queryParams.parzivalFassungAnchor;
-      this.updateAllFassungsComponents();
-    }
+    // console.log( 'OnChanges' );
+    this.updateAllFassungsComponents(
+        this._route.snapshot.queryParams.parzivalFassungAnchor
+      );
     this.cdr.detectChanges();
   }
 
@@ -45,12 +53,11 @@ export class ParzivalFassungComponent implements OnChanges, AfterViewChecked {
       },
       queryParamsHandling: 'merge'
     });
-    this.MyProp.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
-  updateAllFassungsComponents() {
-    console.log( 'Update All Fassungs Components' );
-    this.MyProp.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
+  updateAllFassungsComponents( index: any ) {
+    if ( (this.MyProp2 as any)._results[ index ] ) {
+      (this.MyProp2 as any)._results[ index ].nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   }
-
 }
