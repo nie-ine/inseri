@@ -22,6 +22,7 @@ export class ParzivalFassungComponent implements OnChanges, AfterViewChecked {
   @Input() textJson: any;
   @ViewChildren('cmp') MyProp2: ElementRef;
   zeilen: Array<any> = [];
+  currentAnchor = 1;
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
@@ -38,9 +39,13 @@ export class ParzivalFassungComponent implements OnChanges, AfterViewChecked {
   ngAfterViewChecked() {
     this.cdr.detectChanges();
     // console.log( 'OnChanges' );
-    this.updateAllFassungsComponents(
+    if ( this.currentAnchor !== this._route.snapshot.queryParams.parzivalFassungAnchor ) {
+      this.currentAnchor = this._route.snapshot.queryParams.parzivalFassungAnchor;
+      this.updateAllFassungsComponents(
         this._route.snapshot.queryParams.parzivalFassungAnchor
       );
+    }
+
     this.cdr.detectChanges();
   }
 
@@ -57,7 +62,7 @@ export class ParzivalFassungComponent implements OnChanges, AfterViewChecked {
 
   updateAllFassungsComponents( index: any ) {
     if ( (this.MyProp2 as any)._results[ index ] ) {
-      (this.MyProp2 as any)._results[ index ].nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
+      (this.MyProp2 as any)._results[ index - 1 ].nativeElement.scrollIntoView({ block: "start" });
     }
   }
 }
