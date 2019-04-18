@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './p0041-strophe.component.html',
   styleUrls: ['./p0041-strophe.component.scss']
 })
-export class P0041StropheComponent implements OnInit {
+export class P0041StropheComponent implements OnChanges {
 
   @Input() resourceIRI;
   @Input() backendAddress;
@@ -17,7 +17,8 @@ export class P0041StropheComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
 
-  ngOnInit() {
+  ngOnChanges() {
+    console.log(this.backendAddress);
     if (this.resourceIRI && this.backendAddress) {
       this.getStropheTextTree();
       this.getStropheData();
@@ -128,6 +129,8 @@ export class P0041StropheComponent implements OnInit {
         }
       }
       this.stropheTextData = halfStrophes;
+    }, error1 => {
+      console.log(error1);
     });
   }
 
@@ -135,6 +138,8 @@ export class P0041StropheComponent implements OnInit {
     this.http.get(this.backendAddress + '/v2/resources/' + encodeURIComponent(this.resourceIRI) + '?' + this.basicAuthentication)
       .subscribe(d => {
         this.stropheData = d;
+      }, error1 => {
+        console.log(error1);
       });
   }
 
