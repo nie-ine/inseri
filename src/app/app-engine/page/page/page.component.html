@@ -126,6 +126,24 @@
 
       </mat-expansion-panel>
 
+      <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            AVP-Edition
+          </mat-panel-title>
+          <mat-panel-description>
+            avp-e
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        Project specific App for the AVP Project
+
+        <mat-divider></mat-divider>
+
+        <button mat-button (click)="addAnotherApp('avpEditionView', true)">Add AVP Edition View</button><br>
+
+      </mat-expansion-panel>
+
 
       <h4 style="align-content: center">Images</h4>
 
@@ -683,6 +701,32 @@
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="parzivalFassung.appear()" >Show Textlist Viewer {{ i }}</button>
         <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'parzivalFassung' ].model, i ) ">Remove this app</button>
+      </mat-menu>
+    </div>
+
+    <!-- avp-Edition -->
+    <div *ngFor="let avpEditionView of openAppsInThisPage[ 'avpEditionView' ].model; let i = index;" >
+      <popup #avpEditionView
+             [hash]="openAppsInThisPage[ 'avpEditionView' ].model[i].hash"
+             [title]="openAppsInThisPage[ 'avpEditionView' ].model[i].title || 'avpEditionView ' + i"
+             [type]="openAppsInThisPage[ 'avpEditionView' ].type"
+             [firstPopupX]="openAppsInThisPage[ 'avpEditionView' ].model[i].x"
+             [firstPopupY]="openAppsInThisPage[ 'avpEditionView' ].model[i].y"
+             [width]="produceHeightAndWidth( openAppsInThisPage[ 'avpEditionView' ].model[i].width, '350' )"
+             [height]="produceHeightAndWidth( openAppsInThisPage[ 'avpEditionView' ].model[i].height, '500')"
+             (sendAppCoordinatesBack)="updateAppCoordinates($event)"
+             (sendAppSettingsBack)="updateAppSettings($event)">
+        <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'avpEditionView' ].model[i].height, '500' ) + 'px',
+        'width': produceHeightAndWidth( openAppsInThisPage[ 'avpEditionView' ].model[i].width, '350' ) + 'px'}">
+          <app-p0041-edition style="position: sticky;"
+                             [backendAddress]="openAppsInThisPage[ 'avpEditionView' ].model[i][ 'backendAddress' ]">
+          </app-p0041-edition>
+        </div>
+      </popup>
+      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" >pF {{ i }}</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="avpEditionView.appear()" >Show AVP Edition Viewer {{ i }}</button>
+        <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'avpEditionView' ].model, i ) ">Remove this app</button>
       </mat-menu>
     </div>
 
