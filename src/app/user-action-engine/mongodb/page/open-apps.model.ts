@@ -138,6 +138,15 @@ export class OpenAppsModel {
           'inputName': 'textJson'
         }
       ]
+    },
+    avpEditionView: {
+      type: 'avpEditionView',
+      model: [],
+      inputs: [
+        {
+          'inputName': 'backendAddress'
+        }
+      ]
     }
   };
 }
