@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { P0062TranscriptionComponent } from './p0062-transcription.component';
+import { TextRichInnerhtmlComponent } from './text-rich-innerhtml.component';
 
-describe('P0062TranscriptionComponent', () => {
-  let component: P0062TranscriptionComponent;
-  let fixture: ComponentFixture<P0062TranscriptionComponent>;
+describe('TextRichInnerhtmlComponent', () => {
+  let component: TextRichInnerhtmlComponent;
+  let fixture: ComponentFixture<TextRichInnerhtmlComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ P0062TranscriptionComponent ]
+      declarations: [ TextRichInnerhtmlComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(P0062TranscriptionComponent);
+    fixture = TestBed.createComponent(TextRichInnerhtmlComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
