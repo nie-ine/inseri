@@ -11,9 +11,7 @@ export class GeneratePathService {
   generatePath( hash: string, tree: any ) {
     console.log( hash, tree );
     this.tree = tree;
-    this.iterateThroughTree( tree, hash );
-    console.log( this.path );
-    return this.path;
+    return this.iterateThroughTree( tree, hash );;
   }
 
   iterateThroughTree( tree: any, hash: string ) {
@@ -32,26 +30,21 @@ export class GeneratePathService {
   }
 
   iterateBack( tree: any, hash: string ) {
-    // console.log( 'path:', this.path );
     if (
-      this.checkIfPathExists( this.path, tree, 0 )
-      // tree[ this.path[ 0 ] ] &&
-      // ( !(this.path.length > 1) || tree[ this.path[ 0 ] ][ this.path[ 1 ] ] )
+      this.checkIfPathExists( this.path, tree, 0 ) &&
+      this.checkHashOfSubtree( tree, this.path, 0 )
     ) {
-      // console.log( 'path complete', this.path );
+      console.log( 'beginning:', this.path , tree);
       return this.path;
     } else {
       for ( const leaf in tree ) {
         if ( typeof tree[ leaf ] === 'object' && leaf !== 'path' ) {
           if (
-            // ( tree[ leaf ][ this.path[ 0 ] ] ) &&
-            // ( !(this.path.length > 1) ||  tree[ leaf ][ this.path[ 0 ] ][ this.path[ 1 ] ] ) &&
-            // ( !(this.path.length > 2) ||  tree[ leaf ][ this.path[ 0 ] ][ this.path[ 1 ] ][ this.path[ 2 ] ] )
             this.checkIfPathExists( this.path, tree[ leaf ], 0 )
           ) {
+            console.log( this.path, tree[ leaf ] );
             this.path.splice(0, 0, leaf );
             this.iterateBack( this.tree, hash );
-            // console.log( this.path );
           } else {
             this.iterateBack( tree[ leaf ], hash );
           }
@@ -61,7 +54,9 @@ export class GeneratePathService {
   }
 
   checkIfPathExists( path: any, subtree: any, depth: number ): boolean {
-    if ( !(path.length > depth ) || subtree[ path[ depth ] ] ) {
+    if (
+      ( !(path.length > depth ) || subtree[ path[ depth ] ] )
+    ) {
       if ( path.length < depth ) {
         this.checkIfPathExists( path, subtree, depth + 1 );
       } else {
@@ -70,5 +65,18 @@ export class GeneratePathService {
     } else {
       return false;
     }
+  }
+
+  checkHashOfSubtree( tree: any, path: any, depth: number ) {
+    if ( path.length > depth + 1 ) {
+        this.checkHashOfSubtree( tree[ path[ depth ] ], path, depth + 1 );
+    } else {
+      if ( tree.hash === path.hash ) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
   }
 }

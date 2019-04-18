@@ -141,7 +141,7 @@ export class ResponseTreeComponent implements OnChanges {
   chooseChip( hash: string, input: string ) {
     this.mapping[ input ] = this.generatePathService.generatePath( hash , this.queryResponse );
     this.mapping[ input ].hash = hash;
-    console.log( this.mapping, input );
+    // console.log( this.mapping, input );
     this.sendMappingBackToQueryAppInputMap.emit( this.mapping );
   }
 
