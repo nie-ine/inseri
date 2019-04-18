@@ -60,7 +60,6 @@
     "mongoose": "^5.4.15",
     "mongoose-unique-validator": "^2.0.2",
     "ng2-ace-editor": "^0.3.9",
-    "ng2-scroll-to-el": "^1.2.1",
     "ngx-bootstrap": "^3.3.0",
     "ngx-spinner": "^7.0.0",
     "nodemailer": "^5.1.1",

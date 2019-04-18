@@ -45,7 +45,6 @@ export class ParzivalFassungComponent implements OnChanges, AfterViewChecked {
         this._route.snapshot.queryParams.parzivalFassungAnchor
       );
     }
-
     this.cdr.detectChanges();
   }
 
