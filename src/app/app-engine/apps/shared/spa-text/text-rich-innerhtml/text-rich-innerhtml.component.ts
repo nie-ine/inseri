@@ -15,11 +15,11 @@ interface SelectableEnvironments {
 }
 
 @Component({
-  selector: 'app-p0062-transcription',
-  templateUrl: './p0062-transcription.component.html',
-  styleUrls: ['./p0062-transcription.component.scss']
+  selector: 'app-text-rich-innerhtml',
+  templateUrl: './text-rich-innerhtml.component.html',
+  styleUrls: ['./text-rich-innerhtml.component.scss']
 })
-export class P0062TranscriptionComponent implements OnInit, OnChanges, AfterViewInit {
+export class TextRichInnerhtmlComponent implements OnInit, OnChanges, AfterViewInit {
 
   @Input() htmlContent: string;
 

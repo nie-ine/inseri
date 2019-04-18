@@ -19,104 +19,104 @@ interface SelectableEnvironments {
 })
 export class P0062TranscriptionFrameComponent implements OnInit {
 
-  htmlContent = '<div xmlns="">Beta: <span class="page"></span>\n' +
-    '        <div class="opener"><span class="address"><p class="#alr"><span class="placeName"><span class="#scl">Leipzig</span></span>, d. 24/2.1883</p></span>\n' +
-    '          <div height="1 em"></div>\n' +
-    '        <p class="salute #fi1">Lieber Doctor!</p></div>\n' +
-    '        <div height="1 em"></div>\n' +
-    '        <p>Es war mir ein rechter Trost <a class="witn begin" id="ref:AHS.witn.1_b"></a><span class="subst"><span class="small-replaced"><span class="gap">x</span></span><span class="big-replaced">v</span></span>on\n' +
-    '          Ihrem letzten Briefe<a class="witn end" id="ref:AHS.witn.1_e"></a> den Kopf zu finden:\n' +
-    ' „Ihre Briefe sind mir immer eine Freude.“\n' +
-    ' Denn ich habe gar manchmal gezögert\n' +
-    ' mein unbedeutendes Geschreibsel fortzuschicken und wenn es fortwar, hätte\n' +
-    ' ich es gern wieder zurückgehabt. <a class="witn begin" id="ref:AHS.witn.2_b"></a>Sie\n' +
-    '          machen mir Courage!<a class="witn end" id="ref:AHS.witn.2_e"></a></p>\n' +
-    '        <p><a class="witn begin" id="ref:AHS.witn.8_b"></a>Das Erfreuliche zuerst. Vorgestern war\n' +
-    ' ich in einer großen Gesellschaft (– ich,\n' +
-    ' sonst ganz aus der Mode Gekommener,\n' +
-    ' mußte 5 Abende hintereinander große Diner\'s\n' +
-    ' und Soupers mitmachen und habe einige ⸢Male⸣\n' +
-    '          unter großem Beifall gesprochen, –). <a class="person begin ref:Ebers" id="AHS.pers.1_b"></a>Der\n' +
-    '          Erste den ich sah, war <a class="witn begin" id="ref:AHS.witn.10_b"></a><a class="expl begin" id="ref:AHS.expl.1_b"></a>Ebers umgeben von\n' +
-    '          einer Schaar von Frauen und Männern.\n' +
-    '          Ich wollte die erste Gelegenheit abwarten um\n' +
-    '          ihn anzureden. Da trat er, auf seine Krücke\n' +
-    '          gestützt<a class="expl end" id="ref:AHS.expl.1_e"></a><a class="witn end" id="ref:AHS.witn.10_e"></a>, plötzlich auf mich zu, um mich zu\n' +
-    ' begrüßen und ein langes, zuerst stehend\n' +
-    ' dann sitzend<span class="subst"><span class="small-replaced">es</span><span class="big-replaced">g</span></span>efuhrtes Gespräch drehte sich <span class="page">|2</span> einzig und allein um Sie. Es war\n' +
-    ' mir geradezu wohlthuend in welcher\n' +
-    ' Weise er von Ihnen sprach. <a class="expl begin" id="ref:AHS.expl.2_b"></a>Er werde\n' +
-    '          über <a class="text begin" id="ref:AHS.text.1_b"></a>sie<a class="text end" id="ref:AHS.text.1_e"></a> schreiben<a class="expl end" id="ref:AHS.expl.2_e"></a>, erwähnte er auch. Endlich\n' +
-    ' wurde ich von ihm gedrängt und ich konnte\n' +
-    '          nicht wieder zu ihm kommen.<a class="person end ref:Ebers" id="AHS.pers.1_e"></a></p>\n' +
-    '        <p>Keine der anderen z. Th. recht <a class="text begin" id="ref:AHS.text.4_b"></a>ansehnlichen<a class="text end" id="ref:AHS.text.4_e"></a>\n' +
-    ' Gesellschaften ist ohne an Sie erinnert zu\n' +
-    '          werden, vorüber gegangen.<a class="witn end" id="ref:AHS.witn.8_e"></a> Man ehrt mich\n' +
-    ' in Ihnen. Das ist auch so ganz richtig.</p>\n' +
-    '        <p><a class="person begin ref:Louise" id="AHS.pers.2_b"></a>Eine der Gesellschaften, erzählen Sie es\n' +
-    ' Frau Luise, war sowohl hinsichtlich der\n' +
-    ' Empfangsräume, als der Bewirthung, als\n' +
-    '          der Gesellschaft, von fürstlicher Pracht.<a class="person end ref:Louise" id="AHS.pers.2_e"></a> Ich\n' +
-    ' habe noch niemals so viel Diamantenschmuck\n' +
-    ' gesehen und die Dame, welche ich zu Tische\n' +
-    ' führte war bedeckt von den schönsten Steinen.\n' +
-    ' Ich sage immer: wie eine Wilde! wenn\n' +
-    ' ich Aehnliches sehe.</p>\n' +
-    '        <p><a class="witn begin" id="ref:AHS.witn.3_b"></a>Die eine Mittheilung Ihres Briefes,\n' +
-    '          die mir <a class="expl begin" id="ref:AHS.expl.3_b"></a>den Scheideweg schildert an dem\n' +
-    '          Sie wiederum stehen<a class="expl end" id="ref:AHS.expl.3_e"></a>, hat mich recht bedenklich\n' +
-    '          gemacht.<a class="witn end" id="ref:AHS.witn.3_e"></a> Möchten Sie inzwischen dazu\n' +
-    ' gekommen seyn, eine bestimmte Richtung\n' +
-    ' einzuschlagen. Welche es auch sey, – das <span class="page">|3</span> gute Ziel wird erreicht werden.</p>\n' +
-    '        <p><a class="person begin ref:Gedichte" id="AHS.pers.3_b"></a><a class="witn begin" id="ref:AHS.witn.4_b"></a>Ueber die Gedichte müssen Sie anderer\n' +
-    '          Ansicht werden.<a class="witn end" id="ref:AHS.witn.4_e"></a> Ich habe wohl so bestimmt nicht\n' +
-    ' gesagt: sie gehen <span class="#deu">nicht</span>. – Ich finde daß sie\n' +
-    '          mäßig gehen, aber sie gehen. <a class="person begin ref:Frey.Adolf" id="AHS.pers.4_b"></a><a class="paper begin ref:Deutsche_Rundschau" id="AHS.pape.1_b"></a><a class="witn begin" id="ref:AHS.witn.9_b"></a><a class="expl begin" id="ref:AHS.expl.4_b"></a>Frey\'s Kritik<a class="expl end" id="ref:AHS.expl.4_e"></a>\n' +
-    ' ist dem Absatze günstig gewesen. Ich glaube\n' +
-    '          er kann Alles Gesagte verantworten.<a class="person end ref:Frey.Adolf" id="AHS.pers.4_e"></a><a class="paper end ref:Deutsche_Rundschau" id="AHS.pape.1_e"></a> – Der\n' +
-    ' Absatz wird in dem ersten Jahre nicht 600 Ex.\n' +
-    ' erreichen, wohl glaube ich aber, daß etwa\n' +
-    ' 400 Ex. abgesetzt seyn können. Das ist ganz\n' +
-    ' zufriedenstellend. Trifft meine Erwartung\n' +
-    ' ein, so können in diesem Jahre wohl noch\n' +
-    ' 200 verkauft werden und Sie lassen ⸢dann⸣ 1884\n' +
-    '          die 2. Auflage erscheinen.<a class="witn end" id="ref:AHS.witn.9_e"></a></p>\n' +
-    '        <p>Das zu Ihrem Troste.<a class="person end ref:Gedichte" id="AHS.pers.3_e"></a> Ob in diesem\n' +
-    ' Jahre sonst noch etwas nothwendig werden\n' +
-    ' wird, das kann ich vor der Ostermesse nicht\n' +
-    ' wissen und ich würde davon nicht reden,\n' +
-    ' um Sie nicht in Ihren Arbeiten zu stören.</p>\n' +
-    '        <p><a class="person begin ref:Norddeutsche_Theater" id="AHS.pers.13_b"></a><a class="person begin ref:Burgtheater" id="AHS.pers.14_b"></a><a class="witn begin" id="ref:AHS.witn.5_b"></a>Ihr Urtheil über Laube gefällt mir sehr.\n' +
-    ' <a class="person begin ref:Laube.Heinrich" id="AHS.pers.5_b"></a>Es wandert in der nächsten Stunde an\n' +
-    '          <span class="#scl">Laube</span>,<a class="person end ref:Norddeutsche_Theater" id="AHS.pers.13_e"></a><a class="person end ref:Burgtheater" id="AHS.pers.14_e"></a> denn ich denke Sie wollen dem\n' +
-    '          alten Herrn eine Freude machen.<a class="witn end" id="ref:AHS.witn.5_e"></a> <a class="person begin ref:Schauspielerei" id="AHS.pers.6_b"></a>Das will\n' +
-    ' ich auch, denn er hat mir <a class="expl begin" id="ref:AHS.expl.5_b"></a>sein neues <span class="page">|4</span> Lustspiel <a class="text begin" id="ref:AHS.text.2_b"></a>„Sauspielerei“<a class="text end" id="ref:AHS.text.2_e"></a><a class="expl end" id="ref:AHS.expl.5_e"></a> vorige Woche\n' +
-    ' geschickt, das immer noch des Guten\n' +
-    '          gar Vieles enthält.<a class="person end ref:Laube.Heinrich" id="AHS.pers.5_e"></a><a class="person end ref:Schauspielerei" id="AHS.pers.6_e"></a></p>\n' +
-    '        <p><a class="person begin ref:Keller" id="AHS.pers.7_b"></a><a class="person begin ref:Spitteler" id="AHS.pers.8_b"></a><a class="expl begin" id="ref:AHS.expl.6_b"></a>Was <span class="#scl">Keller</span> an <span class="#scl">Tandem</span> geschrieben<a class="expl end" id="ref:AHS.expl.6_e"></a>\n' +
-    ' möchte ich wohl wissen. Vielleicht theilt\n' +
-    ' es mir <span class="#scl">Tandem</span> mit, dem ich morgen\n' +
-    '          zu schreiben habe.<a class="person end ref:Keller" id="AHS.pers.7_e"></a><a class="person end ref:Spitteler" id="AHS.pers.8_e"></a> <a class="person begin ref:Extramundana" id="AHS.pers.9_b"></a>Es ist etwas Sonderbares\n' +
-    ' um des Mannes Buch. Soeben verläßt\n' +
-    ' mich ein Gelehrter, der mich darum bat,\n' +
-    ' da er Interessantes davon gehört. – In\n' +
-    ' einzelnen Exemplaren ist es verlangt\n' +
-    ' worden, doch glaube ich nicht, daß mehr\n' +
-    '          als 50 verkauft seyn <a class="text begin" id="ref:AHS.text.5_b"></a>können<a class="text end" id="ref:AHS.text.5_e"></a>. <a class="person begin ref:Spitteler" id="AHS.pers.10_b"></a>Das wäre\n' +
-    ' mir ganz recht, wenn <span class="#scl">Tandem</span> nur den\n' +
-    ' rechten Weg erkennen würde, den er zu\n' +
-    '          gehen hat.<a class="person end ref:Extramundana" id="AHS.pers.9_e"></a><a class="person end ref:Spitteler" id="AHS.pers.10_e"></a> <a class="expl begin" id="ref:AHS.expl.7_b"></a><a class="person begin ref:Jesabel" id="AHS.pers.11_b"></a><a class="witn begin" id="ref:AHS.witn.7_b"></a>Ein Drama, als nächste Arbeit\n' +
-    '          zu nehmen, ist mir sehr bedenklich.<a class="expl end" id="ref:AHS.expl.7_e"></a><a class="witn end" id="ref:AHS.witn.7_e"></a><a class="person end ref:Jesabel" id="AHS.pers.11_e"></a> <a class="person begin ref:Schiller" id="AHS.pers.12_b"></a><a class="person begin ref:Raeuber" id="AHS.pers.16_b"></a><a class="expl begin" id="ref:AHS.expl.8_b"></a>Selbst\n' +
-    '          Schiller kam [<span class="gray-unclear">z</span>] erst zur Erkenntniß, als\n' +
-    '          er das Theater leibhaftig zur Hand hatte.<a class="expl end" id="ref:AHS.expl.8_e"></a><a class="person end ref:Raeuber" id="AHS.pers.16_e"></a><a class="person end ref:Schiller" id="AHS.pers.12_e"></a>\n' +
-    '          <a class="place begin ref:Schweiz" id="AHS.plac.1_b"></a> In einem Winkel der Schweiz wär⸢e⸣ das\n' +
-    '          Gelingen wunderbar!<a class="place end ref:Schweiz" id="AHS.plac.1_e"></a></p>\n' +
-    '        <p>Den <a class="witn begin" id="ref:AHS.witn.6_b"></a><a class="expl begin" id="ref:AHS.expl.9_b"></a>Sammelband Ihrer kleinen\n' +
-    '          Schriften<a class="expl end" id="ref:AHS.expl.9_e"></a><a class="witn end" id="ref:AHS.witn.6_e"></a> bedenken Sie doch immer bei Gelegenheit</p>\n' +
-    '        <div class="closer"><p class="salute #fi1"><a class="person begin ref:Louise" id="AHS.pers.15_b"></a>Herzlich grüßt Sie und Frau Luise<a class="person end ref:Louise" id="AHS.pers.15_e"></a></p>\n' +
-    '          <p class="salute #fi17">Ihr</p>\n' +
-    '            <p class="signed #fi19"><span class="#scl">Haeßel</span></p></div>\n' +
-    '        </div>';
+  htmlContent = '<div xmlns=""><span class="">Beta: </span><span class="page"></span><span class="">\n' +
+    '        </span><div class="opener"><div class="address"><p class="#alr"><span class="placeName"><span class="#scl"><span class="">Leipzig</span></span></span><span class="">, d. 24/2.1883</span></p></div><span class="">\n' +
+    '          </span><div height="1 em"></div><span class="">\n' +
+    '        </span><p class="salute #fi1"><span class="">Lieber Doctor!</span></p></div><span class="">\n' +
+    '        </span><div height="1 em"></div><span class="">\n' +
+    '        </span><p><span class="">Es war mir ein rechter Trost </span><span class="subst"><span class="small-replaced"><span class="gap">x</span></span><span class="big-replaced"><span class="ref:AHS.witn.1 witn-lemma ">v</span></span></span><span class="ref:AHS.witn.1 witn-lemma ">on</span><span class="ref:AHS.witn.1 witn-lemma ">\n' +
+    '          Ihrem letzten Briefe</span><span class=""> den Kopf zu finden:</span><span class="">\n' +
+    ' „Ihre Briefe sind mir immer eine Freude.“</span><span class="">\n' +
+    ' Denn ich habe gar manchmal gezögert</span><span class="">\n' +
+    ' mein unbedeutendes Geschreibsel fort</span><span class="">zuschicken und wenn es fortwar, hätte</span><span class="">\n' +
+    ' ich es gern wieder zurückgehabt. </span><span class="ref:AHS.witn.2 witn-lemma ">Sie</span><span class="ref:AHS.witn.2 witn-lemma ">\n' +
+    '          machen mir Courage!</span></p><span class="">\n' +
+    '        </span><p><span class="ref:AHS.witn.8 witn-lemma ">Das Erfreuliche zuerst. Vorgestern war</span><span class="ref:AHS.witn.8 witn-lemma ">\n' +
+    ' ich in einer großen Gesellschaft (– ich,</span><span class="ref:AHS.witn.8 witn-lemma ">\n' +
+    ' sonst ganz aus der Mode Gekommener,</span><span class="ref:AHS.witn.8 witn-lemma ">\n' +
+    ' mußte 5 Abende hintereinander große Diner\'s</span><span class="ref:AHS.witn.8 witn-lemma ">\n' +
+    ' und Soupers mitmachen und habe einige </span>⸢<span class="ref:AHS.witn.8 witn-lemma ">Male</span>⸣<span class="ref:AHS.witn.8 witn-lemma ">\n' +
+    '          unter großem Beifall gesprochen, –). </span><span class="ref:Ebers person ref:AHS.witn.8 witn-lemma ">Der</span><span class="ref:Ebers person ref:AHS.witn.8 witn-lemma ">\n' +
+    '          Erste den ich sah, war </span><span class="ref:Ebers person ref:AHS.expl.1 expl-lemma ref:AHS.witn.8 witn-lemma ref:AHS.witn.10 witn-lemma ">Ebers</span><span class="ref:Ebers person ref:AHS.expl.1 expl-lemma ref:AHS.witn.8 witn-lemma ref:AHS.witn.10 witn-lemma "> umgeben von</span><span class="ref:Ebers person ref:AHS.expl.1 expl-lemma ref:AHS.witn.8 witn-lemma ref:AHS.witn.10 witn-lemma ">\n' +
+    '          einer Schaar von Frauen und Männern.</span><span class="ref:Ebers person ref:AHS.expl.1 expl-lemma ref:AHS.witn.8 witn-lemma ref:AHS.witn.10 witn-lemma ">\n' +
+    '          Ich wollte die erste Gelegenheit abwarten um</span><span class="ref:Ebers person ref:AHS.expl.1 expl-lemma ref:AHS.witn.8 witn-lemma ref:AHS.witn.10 witn-lemma ">\n' +
+    '          ihn anzureden. Da trat er,</span><span class="ref:Ebers person ref:AHS.expl.1 expl-lemma ref:AHS.witn.8 witn-lemma ref:AHS.witn.10 witn-lemma "> auf seine Krücke</span><span class="ref:Ebers person ref:AHS.expl.1 expl-lemma ref:AHS.witn.8 witn-lemma ref:AHS.witn.10 witn-lemma ">\n' +
+    '          gestützt</span><span class="ref:Ebers person ref:AHS.witn.8 witn-lemma ">, plötzlich auf mich zu, um mich zu</span><span class="ref:Ebers person ref:AHS.witn.8 witn-lemma ">\n' +
+    ' begrüßen und ein langes, zuerst stehend</span><span class="ref:Ebers person ref:AHS.witn.8 witn-lemma ">\n' +
+    ' dann sitzend</span><span class="subst"><span class="small-replaced"><span class="ref:Ebers person ref:AHS.witn.8 witn-lemma ">es</span></span><span class="big-replaced"><span class="ref:Ebers person ref:AHS.witn.8 witn-lemma ">g</span></span></span><span class="ref:Ebers person ref:AHS.witn.8 witn-lemma ">efuhrtes Gespräch drehte sich </span><span class="page">|<span class="pageNumber">2</span></span><span class="ref:Ebers person ref:AHS.witn.8 witn-lemma "> einzig und allein um Sie. Es war</span><span class="ref:Ebers person ref:AHS.witn.8 witn-lemma ">\n' +
+    ' mir geradezu wohlthuend in welcher</span><span class="ref:Ebers person ref:AHS.witn.8 witn-lemma ">\n' +
+    ' Weise er von Ihnen sprach. </span><span class="ref:Ebers person ref:AHS.expl.2 expl-lemma ref:AHS.witn.8 witn-lemma ">Er werde</span><span class="ref:Ebers person ref:AHS.expl.2 expl-lemma ref:AHS.witn.8 witn-lemma ">\n' +
+    '          über </span><span class="ref:Ebers person ref:AHS.expl.2 expl-lemma ref:AHS.text.1 text-lemma ref:AHS.witn.8 witn-lemma ">sie</span><span class="ref:Ebers person ref:AHS.expl.2 expl-lemma ref:AHS.witn.8 witn-lemma "> schreiben</span><span class="ref:Ebers person ref:AHS.witn.8 witn-lemma ">, erwähnte er auch. Endlich</span><span class="ref:Ebers person ref:AHS.witn.8 witn-lemma ">\n' +
+    ' wurde ich von ihm gedrängt und ich konnte</span><span class="ref:Ebers person ref:AHS.witn.8 witn-lemma ">\n' +
+    '          nicht wieder zu ihm kommen.</span></p><span class="ref:AHS.witn.8 witn-lemma ">\n' +
+    '        </span><p><span class="ref:AHS.witn.8 witn-lemma ">Keine der anderen z. Th. recht </span><span class="ref:AHS.text.4 text-lemma ref:AHS.witn.8 witn-lemma ">ansehnlichen</span><span class="ref:AHS.witn.8 witn-lemma ">\n' +
+    ' Gesellschaften ist ohne an Sie erinnert zu</span><span class="ref:AHS.witn.8 witn-lemma ">\n' +
+    '          werden, vorüber gegangen.</span><span class=""> Man ehrt mich</span><span class="">\n' +
+    ' in Ihnen. Das ist auch so ganz richtig.</span></p><span class="">\n' +
+    '        </span><p><span class="ref:Louise person ">Eine der Gesellschaften, erzählen Sie es</span><span class="ref:Louise person ">\n' +
+    ' Frau Luise, war sowohl hinsichtlich der</span><span class="ref:Louise person ">\n' +
+    ' Empfangsräume, als der Bewirthung, als</span><span class="ref:Louise person ">\n' +
+    '          der Gesellschaft, von fürstlicher Pracht.</span><span class=""> Ich</span><span class="">\n' +
+    ' habe noch niemals so viel Diamantenschmuck</span><span class="">\n' +
+    ' gesehen und die Dame, welche ich zu Tische</span><span class="">\n' +
+    ' führte war bedeckt von den schönsten Steinen.</span><span class="">\n' +
+    ' Ich sage immer: wie eine Wilde! wenn</span><span class="">\n' +
+    ' ich Aehnliches sehe.</span></p><span class="">\n' +
+    '        </span><p><span class="ref:AHS.witn.3 witn-lemma ">Die eine Mittheilung Ihres Briefes,</span><span class="ref:AHS.witn.3 witn-lemma ">\n' +
+    '          die mir </span><span class="ref:AHS.expl.3 expl-lemma ref:AHS.witn.3 witn-lemma ">den Scheideweg schildert an dem</span><span class="ref:AHS.expl.3 expl-lemma ref:AHS.witn.3 witn-lemma ">\n' +
+    '          Sie wiederum stehen</span><span class="ref:AHS.witn.3 witn-lemma ">, hat mich recht bedenklich</span><span class="ref:AHS.witn.3 witn-lemma ">\n' +
+    '          gemacht.</span><span class=""> Möchten Sie inzwischen dazu</span><span class="">\n' +
+    ' gekommen seyn, eine bestimmte Richtung</span><span class="">\n' +
+    ' einzuschlagen. Welche es auch sey, – das </span><span class="page">|<span class="pageNumber">3</span></span><span class=""> gute Ziel wird erreicht werden.</span></p><span class="">\n' +
+    '        </span><p><span class="ref:Gedichte person ref:AHS.witn.4 witn-lemma ">Ueber die Gedichte müssen Sie anderer</span><span class="ref:Gedichte person ref:AHS.witn.4 witn-lemma ">\n' +
+    '          Ansicht werden.</span><span class="ref:Gedichte person "> Ich habe wohl so bestimmt nicht</span><span class="ref:Gedichte person ">\n' +
+    ' gesagt: sie gehen </span><span class="#deu"><span class="ref:Gedichte person ">nicht</span></span><span class="ref:Gedichte person ">. – Ich finde daß sie</span><span class="ref:Gedichte person ">\n' +
+    '          mäßig gehen, aber sie gehen. </span><span class="ref:Gedichte person ref:Frey.Adolf person ref:Deutsche_Rundschau paper ref:AHS.expl.4 expl-lemma ref:AHS.witn.9 witn-lemma ">Frey\'s Kritik</span><span class="ref:Gedichte person ref:Frey.Adolf person ref:Deutsche_Rundschau paper ref:AHS.witn.9 witn-lemma ">\n' +
+    ' ist dem Absatze günstig gewesen. Ich glaube</span><span class="ref:Gedichte person ref:Frey.Adolf person ref:Deutsche_Rundschau paper ref:AHS.witn.9 witn-lemma ">\n' +
+    '          er kann Alles Gesagte verantworten.</span><span class="ref:Gedichte person ref:AHS.witn.9 witn-lemma "> – Der</span><span class="ref:Gedichte person ref:AHS.witn.9 witn-lemma ">\n' +
+    ' Absatz wird in dem ersten Jahre nicht 600 Ex.</span><span class="ref:Gedichte person ref:AHS.witn.9 witn-lemma ">\n' +
+    ' erreichen, wohl glaube ich aber, daß etwa</span><span class="ref:Gedichte person ref:AHS.witn.9 witn-lemma ">\n' +
+    ' 400 Ex. abgesetzt seyn können. Das ist ganz</span><span class="ref:Gedichte person ref:AHS.witn.9 witn-lemma ">\n' +
+    ' zufriedenstellend. Trifft meine Erwartung</span><span class="ref:Gedichte person ref:AHS.witn.9 witn-lemma ">\n' +
+    ' ein, so können in diesem Jahre wohl noch</span><span class="ref:Gedichte person ref:AHS.witn.9 witn-lemma ">\n' +
+    ' 200 verkauft werden und Sie lassen </span>⸢<span class="ref:Gedichte person ref:AHS.witn.9 witn-lemma ">dann</span>⸣<span class="ref:Gedichte person ref:AHS.witn.9 witn-lemma "> 1884</span><span class="ref:Gedichte person ref:AHS.witn.9 witn-lemma ">\n' +
+    '          die 2. Auflage erscheinen.</span></p><span class="ref:Gedichte person ">\n' +
+    '        </span><p><span class="ref:Gedichte person ">Das zu Ihrem Troste.</span><span class=""> Ob in diesem</span><span class="">\n' +
+    ' Jahre sonst noch etwas nothwendig werden</span><span class="">\n' +
+    ' wird, das kann ich vor der Ostermesse nicht</span><span class="">\n' +
+    ' wissen und ich würde davon nicht reden,</span><span class="">\n' +
+    ' um Sie nicht in Ihren Arbeiten zu stören.</span></p><span class="">\n' +
+    '        </span><p><span class="ref:Norddeutsche_Theater person ref:Burgtheater person ref:AHS.witn.5 witn-lemma ">Ihr Urtheil über Laube gefällt mir sehr.</span><span class="ref:Norddeutsche_Theater person ref:Burgtheater person ref:AHS.witn.5 witn-lemma ">\n' +
+    ' </span><span class="ref:Norddeutsche_Theater person ref:Burgtheater person ref:Laube.Heinrich person ref:AHS.witn.5 witn-lemma ">Es wandert in der nächsten Stunde an</span><span class="ref:Norddeutsche_Theater person ref:Burgtheater person ref:Laube.Heinrich person ref:AHS.witn.5 witn-lemma ">\n' +
+    '          </span><span class="#scl"><span class="ref:Norddeutsche_Theater person ref:Burgtheater person ref:Laube.Heinrich person ref:AHS.witn.5 witn-lemma ">Laube</span></span><span class="ref:Norddeutsche_Theater person ref:Burgtheater person ref:Laube.Heinrich person ref:AHS.witn.5 witn-lemma ">,</span><span class="ref:Laube.Heinrich person ref:AHS.witn.5 witn-lemma "> denn ich denke Sie wollen dem</span><span class="ref:Laube.Heinrich person ref:AHS.witn.5 witn-lemma ">\n' +
+    '          alten Herrn eine Freude machen.</span><span class="ref:Laube.Heinrich person "> </span><span class="ref:Laube.Heinrich person ref:Schauspielerei person ">Das will</span><span class="ref:Laube.Heinrich person ref:Schauspielerei person ">\n' +
+    ' ich auch, denn er hat mir </span><span class="ref:Laube.Heinrich person ref:Schauspielerei person ref:AHS.expl.5 expl-lemma ">sein neues </span><span class="page">|<span class="pageNumber">4</span></span><span class="ref:Laube.Heinrich person ref:Schauspielerei person ref:AHS.expl.5 expl-lemma "> Lustspiel </span><span class="ref:Laube.Heinrich person ref:Schauspielerei person ref:AHS.expl.5 expl-lemma ref:AHS.text.2 text-lemma ">„Sauspielerei“</span><span class="ref:Laube.Heinrich person ref:Schauspielerei person "> vorige Woche</span><span class="ref:Laube.Heinrich person ref:Schauspielerei person ">\n' +
+    ' geschickt, das immer noch des Guten</span><span class="ref:Laube.Heinrich person ref:Schauspielerei person ">\n' +
+    '          gar Vieles enthält.</span></p><span class="">\n' +
+    '        </span><p><span class="ref:Keller person ref:Spitteler person ref:AHS.expl.6 expl-lemma ">Was </span><span class="#scl"><span class="ref:Keller person ref:Spitteler person ref:AHS.expl.6 expl-lemma ">Keller</span></span><span class="ref:Keller person ref:Spitteler person ref:AHS.expl.6 expl-lemma "> an </span><span class="#scl"><span class="ref:Keller person ref:Spitteler person ref:AHS.expl.6 expl-lemma ">Tandem</span></span><span class="ref:Keller person ref:Spitteler person ref:AHS.expl.6 expl-lemma "> geschrieben</span><span class="ref:Keller person ref:Spitteler person ">\n' +
+    ' möchte ich wohl wissen. Vielleicht theilt</span><span class="ref:Keller person ref:Spitteler person ">\n' +
+    ' es mir </span><span class="#scl"><span class="ref:Keller person ref:Spitteler person ">Tandem</span></span><span class="ref:Keller person ref:Spitteler person "> mit, dem ich morgen</span><span class="ref:Keller person ref:Spitteler person ">\n' +
+    '          zu schreiben habe.</span><span class=""> </span><span class="ref:Extramundana person ">Es ist etwas Sonderbares</span><span class="ref:Extramundana person ">\n' +
+    ' um des Mannes Buch. Soeben verläßt</span><span class="ref:Extramundana person ">\n' +
+    ' mich ein Gelehrter, der mich darum bat,</span><span class="ref:Extramundana person ">\n' +
+    ' da er Interessantes davon gehört. – In</span><span class="ref:Extramundana person ">\n' +
+    ' einzelnen Exemplaren ist es verlangt</span><span class="ref:Extramundana person ">\n' +
+    ' worden, doch glaube ich nicht, daß mehr</span><span class="ref:Extramundana person ">\n' +
+    '          als 50 verkauft seyn </span><span class="ref:Extramundana person ref:AHS.text.5 text-lemma ">können</span><span class="ref:Extramundana person ">. </span><span class="ref:Extramundana person ref:Spitteler person ">Das wäre</span><span class="ref:Extramundana person ref:Spitteler person ">\n' +
+    ' mir ganz recht, wenn </span><span class="#scl"><span class="ref:Extramundana person ref:Spitteler person ">Tandem</span></span><span class="ref:Extramundana person ref:Spitteler person "> nur den</span><span class="ref:Extramundana person ref:Spitteler person ">\n' +
+    ' rechten Weg erkennen würde, den er zu</span><span class="ref:Extramundana person ref:Spitteler person ">\n' +
+    '          gehen hat.</span><span class=""> </span><span class="ref:Jesabel person ref:AHS.expl.7 expl-lemma ref:AHS.witn.7 witn-lemma ">Ein Drama, als nächste Arbeit</span><span class="ref:Jesabel person ref:AHS.expl.7 expl-lemma ref:AHS.witn.7 witn-lemma ">\n' +
+    '          zu nehmen, ist mir sehr bedenklich.</span><span class=""> </span><span class="ref:Schiller person ref:Raeuber person ref:AHS.expl.8 expl-lemma ">Selbst</span><span class="ref:Schiller person ref:Raeuber person ref:AHS.expl.8 expl-lemma ">\n' +
+    '          Schiller kam </span>[<span class="gray-unclear"><span class="ref:Schiller person ref:Raeuber person ref:AHS.expl.8 expl-lemma ">z</span></span>]<span class="ref:Schiller person ref:Raeuber person ref:AHS.expl.8 expl-lemma "> erst zur Erkenntniß, als</span><span class="ref:Schiller person ref:Raeuber person ref:AHS.expl.8 expl-lemma ">\n' +
+    '          er das Theater leibhaftig zur Hand hatte.</span><span class="">\n' +
+    '          </span><span class="ref:Schweiz place "> In einem Winkel der Schweiz wär</span>⸢<span class="ref:Schweiz place ">e</span>⸣<span class="ref:Schweiz place "> das</span><span class="ref:Schweiz place ">\n' +
+    '          Gelingen wunderbar!</span></p><span class="">\n' +
+    '        </span><p><span class="">Den </span><span class="ref:AHS.expl.9 expl-lemma ref:AHS.witn.6 witn-lemma ">Sammelband Ihrer kleinen</span><span class="ref:AHS.expl.9 expl-lemma ref:AHS.witn.6 witn-lemma ">\n' +
+    '          Schriften</span><span class=""> bedenken Sie doch immer bei Gelegenheit</span></p><span class="">\n' +
+    '        </span><div class="closer"><p class="salute #fi1"><span class="ref:Louise person ">Herzlich grüßt Sie und Frau Luise</span></p><span class="">\n' +
+    '          </span><p class="salute #fi17"><span class="">Ihr</span></p><span class="">\n' +
+    '            </span><p class="signed #fi19"><span class="#scl"><span class="">Haeßel</span></span></p></div><span class="">\n' +
+    '        </span></div>';
 
   styleDeclarations: Array<StyleDeclaration> = [
       {
@@ -161,6 +161,15 @@ export class P0062TranscriptionFrameComponent implements OnInit {
         'type': 'class',
         'name': '#alr',
         'styles': {'text-align': 'right'}
+      },
+      {
+        'type': 'class',
+        'name': 'pageNumber',
+        'styles': {
+          'font-style': 'italic',
+          'vertical-align': 'super',
+          'font-size': '0.6em'
+        }
       }
     ];
 
