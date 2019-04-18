@@ -55,7 +55,6 @@ import { DataListViewSettings} from './apps/data-list-view/data-list-view-settin
 import {GrapesjsComponent} from './apps/grapesjs/grapesjs.component';
 import { ImageFrameModule } from './apps/image-frame/image-frame.module';
 import { ParzivalFassungComponent } from './apps/parzival-fassung/parzival-fassung.component';
-import { ScrollToModule } from 'ng2-scroll-to-el';
 
 @NgModule({
   imports: [
@@ -97,8 +96,7 @@ import { ScrollToModule } from 'ng2-scroll-to-el';
     RouterModule.forChild([
       { path: 'page', component: PageComponent },
       { path: 'response-tree', component: ResponseTreeComponent }
-    ]),
-    ScrollToModule.forRoot()
+    ])
   ],
   providers: [
     GenerateHashService,
