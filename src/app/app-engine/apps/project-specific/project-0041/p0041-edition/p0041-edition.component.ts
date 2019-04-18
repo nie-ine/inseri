@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class P0041EditionComponent implements OnInit {
 
+  // TODO remove default values
   kandaIRI = 'http://rdfh.ch/0041/07GyRR1fQLSjaIlAjRTq_Q';
   suktaIRI = 'http://rdfh.ch/0041/CEdPhqFoRqa4JMrLokpwHw';
   stropheIRI = 'http://rdfh.ch/0041/WA9dphq9RpmXkq5nSo6q3Q';

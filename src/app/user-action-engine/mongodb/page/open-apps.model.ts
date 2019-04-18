@@ -147,6 +147,24 @@ export class OpenAppsModel {
           'inputName': 'backendAddress'
         }
       ]
+    },
+    svgTranscription: {
+      type: 'svgTranscription',
+      model: [],
+      inputs: [
+        {
+          'inputName': 'pageTree'
+        },
+        {
+          'inputName': 'imageUrl'
+        },
+        {
+          'inputName': 'imageWidth'
+        },
+        {
+          'inputName': 'imageHeight'
+        }
+      ]
     }
   };
 }
