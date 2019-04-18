@@ -62,7 +62,7 @@
             [queryId] = "openAppsInThisPage[ 'dataChooser' ].model[i].queryId"
             [openAppsInThisPage] = "openAppsInThisPage"
             [dataChooserEntries]="openAppsInThisPage[ 'dataChooser' ].model[i].dataChooserEntries"
-            [description]=" 'Depth: ' + i "
+            [description]=" 'Depth: ' + openAppsInThisPage[ 'dataChooser' ].model[i].depth "
             [depth]="openAppsInThisPage[ 'dataChooser' ].model[i].depth"
             (sendIndexBack)="updateMainResourceIndex( $event )">
           </app-data-chooser>
