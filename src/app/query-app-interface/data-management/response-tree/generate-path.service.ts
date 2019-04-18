@@ -11,7 +11,8 @@ export class GeneratePathService {
   generatePath( hash: string, tree: any ) {
     console.log( hash, tree );
     this.tree = tree;
-    return this.iterateThroughTree( tree, hash );;
+    this.iterateThroughTree( tree, hash );
+    return this.path;
   }
 
   iterateThroughTree( tree: any, hash: string ) {
@@ -31,8 +32,7 @@ export class GeneratePathService {
 
   iterateBack( tree: any, hash: string ) {
     if (
-      this.checkIfPathExists( this.path, tree, 0 ) &&
-      this.checkHashOfSubtree( tree, this.path, 0 )
+      this.checkIfPathExists( this.path, tree, 0 )
     ) {
       console.log( 'beginning:', this.path , tree);
       return this.path;
