@@ -40,12 +40,14 @@ export class GenerateDataChoosersService {
       this.requestService.request(queryId)
         .subscribe((data) => {
           if (data.status === 200) {
-            // console.log(data.body);
+            // console.log(data.body, pathArray);
             this.response = data.body;
             if ( this.checkIfSubsetOfResultContainsArray(
               data.body,
               pathArray
             ) ) {
+              this.pathSet = new Set();
+              this.depth = 0;
               openAppsInThisPage.dataChooser.model.push( {
                 x: 150,
                 y: this.y,
