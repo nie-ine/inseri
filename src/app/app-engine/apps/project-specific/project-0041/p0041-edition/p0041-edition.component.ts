@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-p0041-edition',
@@ -11,11 +12,18 @@ export class P0041EditionComponent implements OnInit {
   suktaIRI = 'http://rdfh.ch/0041/CEdPhqFoRqa4JMrLokpwHw';
   stropheIRI = 'http://rdfh.ch/0041/WA9dphq9RpmXkq5nSo6q3Q';
 
-  backendAddress = 'http://localhost:3333';
+  @Input() backendAddress = 'http://localhost:3333';
 
-  constructor() { }
+  constructor(private _route: ActivatedRoute) { }
 
   ngOnInit() {
+    this._route.queryParams.subscribe(params => {
+      this.kandaIRI = params.d1;
+      this.suktaIRI = params.d2;
+      this.stropheIRI = params.d3;
+    });
   }
+
+
 
 }
