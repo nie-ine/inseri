@@ -290,8 +290,8 @@ router.get('/:email/reset-password', (req, res, next) => {
     .then(result => {
 
       const transporter = nodemailer.createTransport({
-        host: 'smtp.uzh.ch',
-        port: 25
+        host: 'mailgateway.zhdk.cloud.switch.ch',
+        port: 587
       });
 
       const mailOptions = {
