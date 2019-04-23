@@ -5,6 +5,7 @@ import { TextStructureModule } from '../text-structure/text-structure.module';
 import { SpaTextModule } from '../shared/spa-text/spa-text.module';
 import { TextSvgViewComponent } from './text-svg-view/text-svg-view.component';
 import { InterlinearGlossingComponent } from './interlinear-glossing/interlinear-glossing.component';
+import { TextSvgViewWrapperComponent } from './text-svg-view-app-wrapper/text-svg-view-wrapper.component';
 
 @NgModule({
   imports: [
@@ -12,7 +13,7 @@ import { InterlinearGlossingComponent } from './interlinear-glossing/interlinear
     SpaTextModule,
     TextStructureModule
   ],
-  declarations: [InterlinearGlossingComponent, TextPageOfWordsComponent, TextSvgViewComponent],
-  exports: [InterlinearGlossingComponent, TextPageOfWordsComponent, TextSvgViewComponent]
+  declarations: [InterlinearGlossingComponent, TextPageOfWordsComponent, TextSvgViewComponent, TextSvgViewWrapperComponent],
+  exports: [InterlinearGlossingComponent, TextPageOfWordsComponent, TextSvgViewComponent, TextSvgViewWrapperComponent]
 })
 export class ComplexTextViewsModule { }

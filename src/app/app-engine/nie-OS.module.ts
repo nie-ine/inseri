@@ -56,6 +56,7 @@ import {GrapesjsComponent} from './apps/grapesjs/grapesjs.component';
 import { ImageFrameModule } from './apps/image-frame/image-frame.module';
 import { ParzivalFassungComponent } from './apps/parzival-fassung/parzival-fassung.component';
 import { Project0041Module } from './apps/project-specific/project-0041/project-0041.module';
+import { ComplexTextViewsModule } from './apps/complex-text-views/complex-text-views.module';
 
 @NgModule({
   imports: [
@@ -94,6 +95,7 @@ import { Project0041Module } from './apps/project-specific/project-0041/project-
     MatChipsModule,
     MatCardModule,
     ImageFrameModule,
+    ComplexTextViewsModule,
     Project0041Module,
     RouterModule.forChild([
       { path: 'page', component: PageComponent },
