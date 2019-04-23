@@ -13,8 +13,8 @@ router.post('', cors(), checkAuth, (req, res, next) => {
         // auth: {
         //      pass: settings.pw // Your password
         // }
-      host: 'smtp.uzh.ch',
-      port: 25
+      host: 'mailgateway.zhdk.cloud.switch.ch',
+      port: 587
     });
 
     let recipient = settings.recipient;
