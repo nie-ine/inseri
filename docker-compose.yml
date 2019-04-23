@@ -2,8 +2,9 @@ version: "2"
 
 services:
   nieos_production:
-    build: .
-    # image: nieine/nieos:2019-03
+    # build: .
+    image: nieine/nieos:2019-04-23
+    # image: nieosproduction:latest
     ports:
     - "90:80"
     volumes:
@@ -14,7 +15,8 @@ services:
 #    - LETSENCRYPT_EMAIL=jan.stoffregen@uzh.ch
 
   node:
-    image: mean:latest
+    # image: mean:latest
+    image:  nieine/mean:2019-04-23
     ports:
     - 3000:3000
     entrypoint: npm run start:server
@@ -24,8 +26,8 @@ services:
 #    - LETSENCRYPT_EMAIL=jan.stoffregen@uzh.ch
     volumes:
       - ./backend/.settings:/nieOS/backend/.settings
-#    depends_on:
-#      - mongodb
+    depends_on:
+      - mongodb
 
   nginx-proxy:
     image: jwilder/nginx-proxy:0.6.0
@@ -46,12 +48,12 @@ services:
 #      - /var/run/docker.sock:/var/run/docker.sock:ro
 #
 #
-#  mongodb:
-#    image: mongo
-#    ports:
-#      - 27017:27017
-#    volumes:
-#      - ./backend/.mongoData:/data/db
+  mongodb:
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - ./backend/.mongoData:/data/db
 #
 #  mondoGUI:
 #    image: mongo-express

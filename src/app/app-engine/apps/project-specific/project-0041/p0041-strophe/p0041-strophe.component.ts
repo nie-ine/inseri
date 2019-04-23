@@ -14,6 +14,7 @@ export class P0041StropheComponent implements OnChanges {
 
   stropheTextData: any;
   stropheData: any;
+  stanzaData: any;
 
   constructor(private http: HttpClient) { }
 
