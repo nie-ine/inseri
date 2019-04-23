@@ -9,8 +9,8 @@ export class IIIFImage {
   width: number;
 
   constructor(imageUrl: string, width: number, height: number) {
-    this.height = height;
-    this.width = width;
+    this.height = Number(height);
+    this.width = Number(width);
 
     const urlParts = imageUrl.split('/');
 
