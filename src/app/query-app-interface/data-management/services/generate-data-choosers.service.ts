@@ -94,7 +94,7 @@ export class GenerateDataChoosersService {
       // console.log( response, path, path.length );
       for ( const segment of path ) {
         // console.log( segment );
-        if ( response[ segment ].length && typeof response[ segment ] !== 'string') {
+        if ( response[ segment ] && response[ segment ].length && typeof response[ segment ] !== 'string') {
           // console.log( 'response contains array' );
           return true;
         } else if ( response[ segment ] && response[ segment ] !== 'string' ) {
