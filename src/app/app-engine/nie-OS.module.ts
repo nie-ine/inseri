@@ -57,6 +57,7 @@ import { ImageFrameModule } from './apps/image-frame/image-frame.module';
 import { ParzivalFassungComponent } from './apps/parzival-fassung/parzival-fassung.component';
 import { Project0041Module } from './apps/project-specific/project-0041/project-0041.module';
 import { ComplexTextViewsModule } from './apps/complex-text-views/complex-text-views.module';
+import { ResourceFormModule } from './apps/resource-form/resource-form.module';
 
 @NgModule({
   imports: [
@@ -70,6 +71,7 @@ import { ComplexTextViewsModule } from './apps/complex-text-views/complex-text-v
     SynopsisModule,
     MyPageSetModule,
     CreateResourceModule,
+    ResourceFormModule,
     DataManagementToolModule,
     MatProgressSpinnerModule,
     MatExpansionModule,
