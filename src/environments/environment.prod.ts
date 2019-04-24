@@ -4,5 +4,5 @@ export const environment = {
   api: 'http://localhost:3333',
   app: 'http://localhost:4200',
   media: 'http://localhost:1024',
-  node: 'http://node.nie-ine.ch'
+  node: 'https://node.nie-ine.ch'
 };
