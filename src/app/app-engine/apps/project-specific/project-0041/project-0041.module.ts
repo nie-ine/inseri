@@ -5,6 +5,7 @@ import { P0041StropheComponent } from './p0041-strophe/p0041-strophe.component';
 import { ComplexTextViewsModule } from '../../complex-text-views/complex-text-views.module';
 import { TextStructureModule } from '../../text-structure/text-structure.module';
 import { SpaTextModule } from '../../shared/spa-text/spa-text.module';
+import { KnoraV2RequestService } from '../../../../query-engine/knora/knora-v2-request.service';
 
 @NgModule({
   declarations: [P0041EditionComponent, P0041StropheComponent],
@@ -14,6 +15,7 @@ import { SpaTextModule } from '../../shared/spa-text/spa-text.module';
     TextStructureModule,
     SpaTextModule
   ],
-  exports: [ P0041EditionComponent ]
+  exports: [ P0041EditionComponent ],
+  providers: [ KnoraV2RequestService ]
 })
 export class Project0041Module { }

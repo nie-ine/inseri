@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
+import { KnoraV2RequestService } from '../../../../../query-engine/knora/knora-v2-request.service';
 
 /**
  * This component is as of now a placeholder and should later be expanded to its full functionality for positional semantic annotations.
@@ -22,11 +22,9 @@ export class SpaTextComponent implements OnInit {
    */
   @Input() databaseAddress: string;
 
-  basicAuthentication = 'email=root%40example.com&password=test'; // TODO: integrate into login framework
-
   content: any;
 
-  constructor(private http: HttpClient, private sanitizer: DomSanitizer) { }
+  constructor(private knora2request: KnoraV2RequestService, private sanitizer: DomSanitizer) { }
 
   /**
    * written by angular-cli
@@ -38,11 +36,13 @@ export class SpaTextComponent implements OnInit {
   }
 
   getContent() {
-    this.http.get(this.databaseAddress + '/v2/resources/' + encodeURIComponent(this.spaTextIri) + '?' + this.basicAuthentication)
+    this.knora2request.getResourceFromSpecificInstance(this.spaTextIri, this.databaseAddress)
       .subscribe(d => {
         if (d['language:hasContent'] && d['language:hasContent']['knora-api:textValueAsXml']) {
           this.content = this.sanitizer.bypassSecurityTrustHtml(d[ 'language:hasContent' ][ 'knora-api:textValueAsXml' ]);
         }
+      }, error1 => {
+        console.log(error1);
       });
   }
 
