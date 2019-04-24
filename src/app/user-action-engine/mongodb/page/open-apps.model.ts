@@ -50,6 +50,10 @@ export class OpenAppsModel {
       type: 'createResourceForm',
       model: []
     },
+    editResourceForm: {
+      type: 'createResourceForm',
+      model: []
+    },
     dataChooser: {
       type: 'dataChooser',
       model: []
