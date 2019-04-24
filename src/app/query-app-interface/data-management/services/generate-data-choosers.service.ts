@@ -14,6 +14,7 @@ export class GenerateDataChoosersService {
   y = -50;
   pathSet = new Set();
   depth = 0;
+  containsArray: boolean;
   constructor(
     private http: HttpClient,
     private abstractJsonService: AbstractJsonService,
@@ -42,10 +43,11 @@ export class GenerateDataChoosersService {
           if (data.status === 200) {
             // console.log(data.body, pathArray);
             this.response = data.body;
-            if ( this.checkIfSubsetOfResultContainsArray(
+            this.checkIfSubsetOfResultContainsArray(
               data.body,
               pathArray
-            ) ) {
+            );
+            if ( this.containsArray ) {
               this.pathSet = new Set();
               this.depth = 0;
               openAppsInThisPage.dataChooser.model.push( {
@@ -60,6 +62,7 @@ export class GenerateDataChoosersService {
                 queryId: queryId,
                 depth: 0
               } );
+              console.log( openAppsInThisPage.dataChooser.model );
               this.pathSet.add( pathArray[ 0 ] );
               this.generateArrayKeyValueForEachArrayInResponse(
                 data.body,
@@ -91,12 +94,12 @@ export class GenerateDataChoosersService {
     path: Array<string>
   ) {
     if ( path ) {
-      // console.log( response, path, path.length );
+      console.log( response, path, path.length );
       for ( const segment of path ) {
         // console.log( segment );
         if ( response[ segment ] && response[ segment ].length && typeof response[ segment ] !== 'string') {
           // console.log( 'response contains array' );
-          return true;
+          this.containsArray = true;
         } else if ( response[ segment ] && response[ segment ] !== 'string' ) {
           path.splice(0, 1);
           this.checkIfSubsetOfResultContainsArray(
@@ -107,7 +110,7 @@ export class GenerateDataChoosersService {
       }
       if ( path.length === 0 ) {
         // console.log( 'Dont generate data choosers ');
-        return false;
+        this.containsArray = false;
       }
     }
   }
