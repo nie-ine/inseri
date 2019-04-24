@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { KnoraV2RequestService } from '../../../../../query-engine/knora/knora-v2-request.service';
 
 @Component({
   selector: 'app-p0041-strophe',
@@ -10,13 +10,12 @@ export class P0041StropheComponent implements OnChanges {
 
   @Input() resourceIRI;
   @Input() backendAddress;
-  basicAuthentication = 'email=root%40example.com&password=test'; // TODO: integrate into login framework
 
   stropheTextData: any;
   stropheData: any;
   stanzaData: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private knora2request: KnoraV2RequestService) { }
 
   ngOnChanges() {
     console.log(this.backendAddress);
@@ -27,8 +26,7 @@ export class P0041StropheComponent implements OnChanges {
   }
 
   getStropheTextTree() {
-
-    this.http.post(this.backendAddress + '/v2/searchextended?' + this.basicAuthentication,
+    const graveSearchRequest =
       'PREFIX atharvaveda: <http://0.0.0.0:3333/ontology/0041/atharvaveda/simple/v2#>\n' +
       'PREFIX text: <http://api.knora.org/ontology/shared/text/simple/v2#>\n' +
       'PREFIX text-structure: <http://api.knora.org/ontology/shared/text-structure/simple/v2#>\n' +
@@ -59,8 +57,10 @@ export class P0041StropheComponent implements OnChanges {
       '  ?word text-structure:isWordOfVerse ?verse .\n' +
       '  OPTIONAL { ?word concept:informationHasSubject ?padaword .\n' +
       '  ?padaword text:hasName ?padacontent . } \n' +
-      '}'
-    ).subscribe(d => {
+      '}';
+
+    this.knora2request.extendedSearchFromSpecificInstance(graveSearchRequest, this.backendAddress)
+      .subscribe(d => {
 
       const halfStrophes = [];
       let h: any;
@@ -136,7 +136,7 @@ export class P0041StropheComponent implements OnChanges {
   }
 
   getStropheData() {
-    this.http.get(this.backendAddress + '/v2/resources/' + encodeURIComponent(this.resourceIRI) + '?' + this.basicAuthentication)
+    this.knora2request.getResourceFromSpecificInstance(this.resourceIRI, this.backendAddress)
       .subscribe(d => {
         this.stropheData = d;
       }, error1 => {
