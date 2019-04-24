@@ -21,7 +21,7 @@ export class DataAssignmentComponent implements OnChanges {
   constructor() { }
 
   ngOnChanges( changes: SimpleChanges) {
-    console.log( changes );
+    // console.log( changes );
     this.firstChange = true;
     this.startPathUpdateProcess();
     this.checkIfPathContainsScalarAsLastEntry();
@@ -218,11 +218,11 @@ export class DataAssignmentComponent implements OnChanges {
             }
           }
         } else if ( depth !== path.length && response[ path[ depth ] ] ) {        // Response is not an array
-          console.log( 'Response is not an array', response[ path[ depth ] ], depth, path.length );
+          // console.log( 'Response is not an array', response[ path[ depth ] ], depth, path.length );
           if ( response[ path[ depth + 1 ] ] === undefined && depth === path.length - 1 ) {
             return response[ path[ depth ] ];
           } else {
-            console.log( 'here1', response[ path[ depth ] ], path[ depth ] );
+            // console.log( 'here1', response[ path[ depth ] ], path[ depth ] );
             return this.generateAppinput(
               response[ path[ depth ] ],
               path,
