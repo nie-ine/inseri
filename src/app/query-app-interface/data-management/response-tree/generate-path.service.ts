@@ -20,13 +20,17 @@ export class GeneratePathService {
       if ( typeof tree[ leaf ] === 'object' && leaf !== 'path' ) {
         if ( tree[ leaf ].hash === hash ) {
           console.log( pathString );
-          pathString +=  ', ' + leaf;
+          if ( pathString ) {
+            pathString +=  ',' + leaf;
+          } else {
+            pathString = leaf;
+          }
           const path = pathString.split(  ',' );
           console.log( path );
           this.path = path;
         } else {
           if ( pathString ) {
-            this.iterateThroughTree( tree[ leaf ], hash, pathString + ', ' + leaf );
+            this.iterateThroughTree( tree[ leaf ], hash, pathString + ',' + leaf );
           } else {
             this.iterateThroughTree( tree[ leaf ], hash, leaf );
           }
