@@ -1,0 +1,42 @@
+/*.mat-row, .mat-header-row {
+  min-width: 2800px;
+  width: 100%;
+}*/
+.mat-row:default {
+  height: 10px;
+}
+
+.mat-row:hover {
+  background-color: #e5e5e5;
+}
+
+.highlight {
+  font-weight: bold;
+}
+
+.authorsname {
+}
+
+.mat-cell {
+  /*white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;*/
+  padding: 5px;
+}
+
+/*  [ngClass]="row[col].value --> will search for the class name of the cells content */
+/*  [ngClass]="row[col].value --> will search for the class name of the cells content */
+
+.mat-cell .Fr29 {
+  background-color: lightgoldenrodyellow;
+}
+
+.mat-cell .Fr32 {
+  background-color: lightblue;
+}
+
+.filter {
+  padding: 10px;
+}
+
+
