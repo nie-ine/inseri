@@ -1,11 +1,17 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChange } from '@angular/core';
 import { IIIFImage } from '../../shared/IIIFImage';
 
+/**
+ * Variable to include openseadragon.
+ */
 declare let OpenSeadragon: any;
 
 require('../../svg-overlay/openseadragon-svg-overlay.js');
 
-
+/**
+ * This component enables showing a transcription with exact text positions on a IIIF image.
+ * Text elements can be activated by hovering or by input.
+ */
 @Component({
   selector: 'app-text-svg-view',
   templateUrl: './text-svg-view.component.html',
@@ -98,8 +104,8 @@ export class TextSvgViewComponent implements OnInit, OnChanges, OnDestroy {
   clickedStyle = 'fill: cyan; fill-opacity: 0.6;';
 
   /**
-   * TODO: comment
-   * @param elementRef
+   * Constructor initializes ElementRef
+   * @param elementRef  Enables addressing elements by class or tag
    */
   constructor(private elementRef: ElementRef) { }
 

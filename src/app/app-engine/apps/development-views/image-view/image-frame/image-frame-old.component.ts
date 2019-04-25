@@ -3,16 +3,20 @@ import {
 } from '@angular/core';
 import { IIIFImage } from '../../../shared/IIIFImage';
 
-// deprecated
-
-// This component needs the openseadragon library itself, as well as the openseadragon plugin openseadragon-svg-overlay
-// Both libraries are installed via package.json, and loaded globally via the script tag in .angular-cli.json
-
-// OpenSeadragon does not export itself as ES6/ECMA2015 module,
-// it is loaded globally in scripts tag of angular-cli.json,
-// we still need to declare the namespace to make TypeScript compiler happy.
+/**
+ * Variable to bind openseadragon.
+ */
 declare let OpenSeadragon: any;
 
+/**
+ * deprecated
+ * This component needs the openseadragon library itself, as well as the openseadragon plugin openseadragon-svg-overlay
+ * Both libraries are installed via package.json, and loaded globally via the script tag in .angular-cli.json
+ *
+ * OpenSeadragon does not export itself as ES6/ECMA2015 module,
+ * it is loaded globally in scripts tag of angular-cli.json,
+ * we still need to declare the namespace to make TypeScript compiler happy.
+ */
 @Component({
   selector: 'app-image-old-frame',
   templateUrl: './image-frame-old.component.html',
@@ -20,15 +24,37 @@ declare let OpenSeadragon: any;
 })
 export class ImageFrameOldComponent implements OnInit, OnChanges, OnDestroy {
 
+  /**
+   * Image on a IIIF server as object.
+   */
   @Input() image: IIIFImage;
+
+  /**
+   * Width of the viewer in pixels.
+   */
   @Input() width: number;
+
+  /**
+   * Height of the viewer in pixels.
+   */
   @Input() height: number;
 
+  /**
+   * Openseadragon viewer
+   */
   private viewer;
 
+  /**
+   * Constructor initializes ElementRef
+   * @param elementRef  Enables access to elements by class or id.
+   */
   constructor(private elementRef: ElementRef) {
   }
 
+  /**
+   * On first change, initialize viewer, then draw or redraw SVG image.
+   * @param changes  Changes in input variable image.
+   */
   ngOnChanges(changes: { [key: string]: SimpleChange }) {
     if (changes['image'] && changes['image'].isFirstChange()) {
       console.log(this.image);
@@ -122,10 +148,16 @@ export class ImageFrameOldComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
+  /**
+   * default written by angular-cli
+   */
   ngOnInit() {
     // initialisation is done on first run of ngOnChanges
   }
 
+  /**
+   * Delete viewer on destroy.
+   */
   ngOnDestroy() {
     if (this.viewer) {
       this.viewer.destroy();
@@ -133,6 +165,9 @@ export class ImageFrameOldComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
+  /**
+   * Initialize viewer, attaching it to element with class osdViewerContainer.
+   */
   private setupViewer(): void {
     const viewerContainer = this.elementRef.nativeElement.getElementsByClassName('osdViewerContainer')[0];
     const osdOptions = {
@@ -146,6 +181,9 @@ export class ImageFrameOldComponent implements OnInit, OnChanges, OnDestroy {
     this.viewer = new OpenSeadragon.Viewer(osdOptions);
   }
 
+  /**
+   * Enter image data into viewer.
+   */
   private openImage(): void {
 
     const tileSource = this.image.tileSource();

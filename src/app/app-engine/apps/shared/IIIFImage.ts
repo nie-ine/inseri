@@ -1,13 +1,44 @@
+/**
+ * This object defines the metadata for an image on a IIIF compatible image server.
+ */
 export class IIIFImage {
 
+  /**
+   * Protocol for access.
+   */
   scheme = 'https';
+
+  /**
+   * The image server.
+   */
   server: string;
+
+  /**
+   * Path on the server to the image.
+   */
   prefix: string;
+
+  /**
+   * ID of the image.
+   */
   identifier: string;
 
+  /**
+   * Maximal height of the image in pixels.
+   */
   height: number;
+
+  /**
+   * Maximal width of the image in pixels.
+   */
   width: number;
 
+  /**
+   * Constructor for this object.
+   * @param imageUrl  An URL that defines a possible view of this image.
+   * @param width  Maximal width of the image in pixels.
+   * @param height  Maximal height of the image in pixels.
+   */
   constructor(imageUrl: string, width: number, height: number) {
     this.height = Number(height);
     this.width = Number(width);
@@ -24,6 +55,9 @@ export class IIIFImage {
     }
   }
 
+  /**
+   * Formatted input for openseadragon.
+   */
   tileSource() {
 
     return {

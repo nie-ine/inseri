@@ -3,6 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { PAGETRANSCRIPTION } from './page-transcription';
 import { IIIFImage } from '../../../shared/IIIFImage';
 
+/**
+ * This component shows the use of the text components.
+ * It can be deleted after development.
+ */
 @Component({
   selector: 'app-text-dev-view',
   templateUrl: './text-dev-view.component.html',
@@ -10,11 +14,31 @@ import { IIIFImage } from '../../../shared/IIIFImage';
 })
 export class TextDevViewComponent implements OnInit {
 
+  /**
+   * Tree of the transcription of a page.
+   * TODO typing.
+   */
   pageTranscription;
+
+  /**
+   * The opacity of the image.
+   * 1 is full color, 0 means the image is invisible.
+   */
   imageOpacity = 1;
+
+  /**
+   * True means the whole transcription is visible. False means the Transcription is invisible.
+   */
   showWords = false;
+
+  /**
+   * True means the highlighted word is shown with transcription. False means only the region will light up.
+   */
   showHighlightedWord = true;
 
+  /**
+   * Test data for text components.
+   */
   testData = {
     lineGroupId: '1.1',
     lineGroupIri: 'cfugiuzoihjl',
@@ -43,6 +67,9 @@ export class TextDevViewComponent implements OnInit {
     ]
   };
 
+  /**
+   * Test data for text view.
+   */
   testDataForPage = {
     pageId: '56v',
     pageIri: 'algadsadf',
@@ -228,13 +255,29 @@ export class TextDevViewComponent implements OnInit {
     ]
   };
 
+  /**
+   * ID of the word the mouse is on.
+   */
   hoveredWord: string;
+
+  /**
+   * ID of the word that was clicked last.
+   */
   clickedWord: string;
 
+  /**
+   * Image data of the image, for svg-text-view
+   */
   imageSource = new IIIFImage('https://www.e-manuscripta.ch/zuz/i3f/v20/1510618/full/full/0/default.jpg', 4034, 3062);
 
+  /**
+   * default written by angular-cli
+   */
   constructor() { }
 
+  /**
+   * Initialize with data.
+   */
   ngOnInit() {
     this.pageTranscription = PAGETRANSCRIPTION;
   }

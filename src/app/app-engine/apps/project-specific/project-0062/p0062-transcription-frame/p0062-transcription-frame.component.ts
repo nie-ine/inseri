@@ -1,17 +1,38 @@
 import { Component, OnInit } from '@angular/core';
 
+/**
+ * CSS like declaration of a style environment identifying elements and their style maps.
+ */
 interface StyleDeclaration {
+  /**
+   * tag for the element name; class if the identification goes over the class attribute.
+   */
   type: string;
+
+  /**
+   * The tag name or class name depending on the value of the variable `type`.
+   */
   name: string;
+
+  /**
+   * Key-value like CSS, e.g. `background-color` : `black;`.
+   */
   styles: {
     [key: string]: string;
   };
 }
 
+/**
+ * `StyleDeclaration`s can be collected under keys to apply them bundled.
+ */
 interface SelectableEnvironments {
   [key: string]: Array<StyleDeclaration>;
 }
 
+/**
+ * This component wraps the text-rich-innerhtml component and governs its input.
+ * It is intended to be a NIE-OS app.
+ */
 @Component({
   selector: 'app-p0062-transcription-frame',
   templateUrl: './p0062-transcription-frame.component.html',
@@ -19,6 +40,10 @@ interface SelectableEnvironments {
 })
 export class P0062TranscriptionFrameComponent implements OnInit {
 
+  /**
+   * The unsanitized HTML content.
+   * TODO replace default value.
+   */
   htmlContent = '<div xmlns=""><span class="">Beta: </span><span class="page"></span><span class="">\n' +
     '        </span><div class="opener"><div class="address"><p class="#alr"><span class="placeName"><span class="#scl"><span class="">Leipzig</span></span></span><span class="">, d. 24/2.1883</span></p></div><span class="">\n' +
     '          </span><div height="1 em"></div><span class="">\n' +
@@ -118,6 +143,10 @@ export class P0062TranscriptionFrameComponent implements OnInit {
     '            </span><p class="signed #fi19"><span class="#scl"><span class="">Haeßel</span></span></p></div><span class="">\n' +
     '        </span></div>';
 
+  /**
+   * Style declarations that are applied on init.
+   * TODO: replace default
+   */
   styleDeclarations: Array<StyleDeclaration> = [
       {
         'type': 'tag',
@@ -173,6 +202,10 @@ export class P0062TranscriptionFrameComponent implements OnInit {
       }
     ];
 
+  /**
+   * Dynamic style declarations.
+   * TODO: remove default values.
+   */
   selectiveStyleDeclarations: SelectableEnvironments = {
     'opener': [
       {
@@ -207,21 +240,44 @@ export class P0062TranscriptionFrameComponent implements OnInit {
     ]
   };
 
+  /**
+   * Keys of selectiveStyleDeclarations that can be selected and de-selected.
+   */
   annotationTypeIDs = new Set(['closer', 'opener', 'index']);
+
+  /**
+   * Keys of selected selectiveStyleDeclarations.
+   */
   highlighted = new Set(['opener']);
 
+  /**
+   * Add selectiveStyleDeclaration key when selecting.
+   * TODO: by now, it is rewritten to make it easier to observe.
+   * @param annotationTypeID  key of the style
+   */
   activateAnnotationType(annotationTypeID: string) {
     this.highlighted.add(annotationTypeID);
     this.highlighted = new Set(Array.from(this.highlighted));
   }
 
+  /**
+   * Remove selectiveStyleDeclaration key when de-selecting.
+   * TODO: by now, it is rewritten to make it easier to observe.
+   * @param annotationTypeID  key of the style
+   */
   deactivateAnnotationType(annotationTypeID: string) {
     this.highlighted.delete(annotationTypeID);
     this.highlighted = new Set(Array.from(this.highlighted));
   }
 
+  /**
+   * default written by angular-cli
+   */
   constructor() { }
 
+  /**
+   * default written by angular-cli
+   */
   ngOnInit() {
   }
 

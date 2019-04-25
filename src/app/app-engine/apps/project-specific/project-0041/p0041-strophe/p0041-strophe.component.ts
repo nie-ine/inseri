@@ -1,6 +1,9 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { KnoraV2RequestService } from '../../../../../query-engine/knora/knora-v2-request.service';
 
+/**
+ * This component fetches and displays the data of a strophe in this project.
+ */
 @Component({
   selector: 'app-p0041-strophe',
   templateUrl: './p0041-strophe.component.html',
@@ -8,24 +11,48 @@ import { KnoraV2RequestService } from '../../../../../query-engine/knora/knora-v
 })
 export class P0041StropheComponent implements OnChanges {
 
+  /**
+   * IRI of the strophe
+   */
   @Input() resourceIRI;
+
+  /**
+   * Address of the Knora instance where the resource is hosted.
+   */
   @Input() backendAddress;
 
+  /**
+   * The data tree of the strophe consisting of half strophes, verses, words and word annotations.
+   * TODO: typing
+   */
   stropheTextData: any;
-  stropheData: any;
-  stanzaData: any;
 
+  /**
+   * The json-ld object of the strophe in Knora V2 format.
+   */
+  stropheData: any;
+
+  /**
+   * Constructor initializes KnoraV2RequestService.
+   * @param knora2request  Service to access a Knora instance.
+   */
   constructor(private knora2request: KnoraV2RequestService) { }
 
+  /**
+   * Do a request for the data of this strophe when the address to it changes.
+   */
   ngOnChanges() {
-    console.log(this.backendAddress);
     if (this.resourceIRI && this.backendAddress) {
       this.getStropheTextTree();
       this.getStropheData();
     }
   }
 
+  /**
+   * Get the strophe data in a tree representation with all elements that are part of it.
+   */
   getStropheTextTree() {
+    // body of GravSearch request
     const graveSearchRequest =
       'PREFIX atharvaveda: <http://0.0.0.0:3333/ontology/0041/atharvaveda/simple/v2#>\n' +
       'PREFIX text: <http://api.knora.org/ontology/shared/text/simple/v2#>\n' +
@@ -135,6 +162,9 @@ export class P0041StropheComponent implements OnChanges {
     });
   }
 
+  /**
+   * Get the json-ld representation of the strophe.
+   */
   getStropheData() {
     this.knora2request.getResourceFromSpecificInstance(this.resourceIRI, this.backendAddress)
       .subscribe(d => {
@@ -144,6 +174,10 @@ export class P0041StropheComponent implements OnChanges {
       });
   }
 
+  /**
+   * Check of an object is an array.
+   * @param toBeChecked  Object to be checked.
+   */
   isArray(toBeChecked) {
     return Array.isArray(toBeChecked);
   }

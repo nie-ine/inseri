@@ -34,6 +34,9 @@ export class DateValueViewerComponent implements OnInit {
    */
   showEra2 = false;
 
+  /**
+   * default written by angular-cli
+   */
   constructor() {
   }
 
