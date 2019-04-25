@@ -31,6 +31,10 @@ export class ResourceValueHistoryComponent implements OnInit {
    */
   valueHistory: any;
 
+  /**
+   * Constructor initializes KnoraV1RequestService
+   * @param knoraV1RequestService  Service to access data on a Knora instance.
+   */
   constructor(private knoraV1RequestService: KnoraV1RequestService) {
   }
 

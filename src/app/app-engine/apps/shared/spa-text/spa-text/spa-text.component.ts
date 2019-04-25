@@ -22,8 +22,16 @@ export class SpaTextComponent implements OnInit {
    */
   @Input() databaseAddress: string;
 
+  /**
+   * Sanitized HTML content.
+   */
   content: any;
 
+  /**
+   * Constructor initializes KnoraV2Service, DomSanitizer
+   * @param knora2request  Service to access data on a Knora instance
+   * @param sanitizer  Bypass HTML security
+   */
   constructor(private knora2request: KnoraV2RequestService, private sanitizer: DomSanitizer) { }
 
   /**
@@ -35,6 +43,9 @@ export class SpaTextComponent implements OnInit {
     }
   }
 
+  /**
+   * Get the content of a text resource.
+   */
   getContent() {
     this.knora2request.getResourceFromSpecificInstance(this.spaTextIri, this.databaseAddress)
       .subscribe(d => {

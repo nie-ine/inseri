@@ -25,7 +25,7 @@ export class ResourceFormComponent implements OnInit {
 
   /**
    * Emit an event if the resource is deleted. This enables closing the form and similar.
-   * @type {EventEmitter<any>}
+   * @type {EventEmitter<any>}  any change.
    */
   @Output() resourceIsDeleted: EventEmitter<any> = new EventEmitter();
 
@@ -60,6 +60,11 @@ export class ResourceFormComponent implements OnInit {
    */
   resource: any;
 
+  /**
+   * Constructor initializes KnoraV1Requestservice and ActivatedRoute
+   * @param knoraV1RequestService  Service to access data on a Knora instance
+   * @param _route  Gives access to query parameters in URL
+   */
   constructor(private knoraV1RequestService: KnoraV1RequestService,
               private _route: ActivatedRoute) {
   }

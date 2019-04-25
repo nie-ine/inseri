@@ -83,6 +83,10 @@ export class CreateResourceComponent implements OnInit {
    */
   @Output() resourceIRI: EventEmitter<string> = new EventEmitter<string>();
 
+  /**
+   * Constructor
+   * @param knora1RequestService  Service to make queries to a Knora instance
+   */
   constructor(private knora1RequestService: KnoraV1RequestService) {
   }
 

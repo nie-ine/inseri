@@ -1,3 +1,6 @@
+/**
+ * Test data for svg-text-view.
+ */
 export const PAGETRANSCRIPTION: any = {
   pageId: '1510618',
   pageHeight: 2634,
