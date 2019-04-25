@@ -1,6 +1,9 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import * as d3 from 'd3-selection';
 
+/**
+ * This component shows how to write a d3 visualization in an angular component.
+ */
 @Component({
   selector: 'app-d3tutorial',
   templateUrl: './d3tutorial.component.html',

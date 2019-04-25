@@ -6,6 +6,10 @@ import * as d3Axis from 'd3-axis';
 
 import { STATISTICS } from './statistics';
 
+/**
+ * This component describes a bar chart, with a column for each value from left to right.
+ * The column's height represents the value behind.
+ */
 @Component({
   selector: 'app-bar-chart',
   encapsulation: ViewEncapsulation.None,
@@ -14,22 +18,69 @@ import { STATISTICS } from './statistics';
 })
 export class BarChartComponent implements AfterViewChecked {
 
+  /**
+   * needed for NIE-OS
+   */
   @Input() initialised = false;
+
+  /**
+   * needed for NIE-OS
+   */
   @Input() numberOfInitialisedComponent: number;
+
+  /**
+   * Title of the component
+   */
   title = 'Bar Chart';
 
+  /**
+   * Width of the component in pixels.
+   */
   private width: number;
+
+  /**
+   * Height of the component in pixels.
+   */
   private height: number;
+
+  /**
+   * Margin around the SVG image.
+   */
   private margin = {top: 20, right: 20, bottom: 30, left: 40};
 
+  /**
+   * Horizontal axis scale.
+   */
   private x: any;
+
+  /**
+   * Vertical axis scale.
+   */
   private y: any;
+
+  /**
+   * Root element of the SVG image.
+   */
   private svg: any;
+
+  /**
+   * Group for the axis labels.
+   */
   private g: any;
+
+  /**
+   * needed by NIE-OS
+   */
   alreadyInitialised = false;
 
+  /**
+   * written by angular-cli
+   */
   constructor() {}
 
+  /**
+   * After initializing the component, initialize the SVG image.
+   */
   ngAfterViewChecked() {
     if( this.initialised && !this.alreadyInitialised ) {
       this.alreadyInitialised = true;
@@ -55,6 +106,9 @@ export class BarChartComponent implements AfterViewChecked {
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
   }
 
+  /**
+   * Initialize the components for the axis.
+   */
   private initAxis() {
     this.x = d3Scale.scaleBand().rangeRound([0, this.width]).padding(0.1);
     this.y = d3Scale.scaleLinear().rangeRound([this.height, 0]);
@@ -62,6 +116,9 @@ export class BarChartComponent implements AfterViewChecked {
     this.y.domain([0, d3Array.max(STATISTICS, (d) => d.frequency)]);
   }
 
+  /**
+   * Add the label of every entry to the axis.
+   */
   private drawAxis() {
     this.g.append('g')
       .attr('class', 'axis axis--x')
@@ -79,6 +136,9 @@ export class BarChartComponent implements AfterViewChecked {
       .text('Frequency');
   }
 
+  /**
+   * Draw a bar to every entrie, the height representing the value.
+   */
   private drawBars() {
     this.g.selectAll('.bar')
       .data(STATISTICS)
