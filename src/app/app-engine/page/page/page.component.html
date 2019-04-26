@@ -76,8 +76,8 @@
         <summary style="cursor: pointer"><h4 style="align-content: center; display: inline;">Text</h4><h4 style="align-content: center; display: inline; color: #4dc71f">&nbsp;Apps</h4></summary>
 
         <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
-          <mat-expansion-panel-header>
-            <mat-panel-title>
+          <mat-expansion-panel-header >
+            <mat-panel-title >
               Text Viewer
             </mat-panel-title>
             <mat-panel-description>
@@ -96,7 +96,7 @@
         <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
           <mat-expansion-panel-header>
             <mat-panel-title>
-              Textlist Viewer
+              Plaintext Viewer <span style="color: #4dc71f" >✓</span>
             </mat-panel-title>
             <mat-panel-description>
               Displays searchable Text
@@ -138,7 +138,7 @@
         <mat-expansion-panel style="width: 300px; padding-top: 10px;" [expanded]="panelsOpen" >
           <mat-expansion-panel-header>
             <mat-panel-title>
-              Parzival - Fassung
+              Parzival - Fassung <span style="color: #4dc71f" >✓</span>
             </mat-panel-title>
             <mat-panel-description>
               shortname: pF
@@ -180,7 +180,7 @@
 
           <mat-expansion-panel-header>
             <mat-panel-title>
-              Image Viewer
+              Image Viewer <span style="color: #4dc71f" >✓</span>
             </mat-panel-title>
             <mat-panel-description>
               Display and zoom in images
@@ -202,7 +202,7 @@
         <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
           <mat-expansion-panel-header>
             <mat-panel-title>
-              Simple Image App
+              Simple Image App <span style="color: #4dc71f" >✓</span>
             </mat-panel-title>
             <mat-panel-description>
               Displays simple image
@@ -211,7 +211,7 @@
           Description
           <mat-divider></mat-divider>
 
-          <button mat-button (click)="addAnotherApp('simpleImageApp', true)"><mat-icon>short_text</mat-icon>Add Image - Viewer</button><br>
+          <button mat-button (click)="addAnotherApp('simpleImageApp', true)"><mat-icon>add_photo_alternate</mat-icon>Add Image - Viewer</button><br>
 
         </mat-expansion-panel>
       </details>
@@ -283,7 +283,7 @@
       <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
         <mat-expansion-panel-header>
           <mat-panel-title>
-            Json Viewer
+            Json Viewer <span style="color: #4dc71f" >✓</span>
           </mat-panel-title>
           <mat-panel-description>
             Visualise Json Data
@@ -622,7 +622,7 @@
         </app-simple-image-app>
         </div>
       </popup>
-      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>search</mat-icon> {{ i }} </button>
+      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>add_photo_alternate</mat-icon> {{ i }} </button>
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="simpleImageApp.appear()" >Show Image Viewer {{ i }}</button>
         <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'simpleImageApp' ].model, i ) ">Remove this app</button>
@@ -741,7 +741,7 @@
       <div *ngFor="let createResourceForm of openAppsInThisPage[ 'textlistViewers' ].model; let i = index;" >
         <popup #textlistViewers
                [hash]="openAppsInThisPage[ 'textlistViewers' ].model[i].hash"
-               [title]="openAppsInThisPage[ 'textlistViewers' ].model[i].title || 'Textlist - Viewer ' + i"
+               [title]="openAppsInThisPage[ 'textlistViewers' ].model[i].title || 'Plaintext - Viewer ' + i"
                [type]="openAppsInThisPage[ 'textlistViewers' ].type"
                [firstPopupX]="openAppsInThisPage[ 'textlistViewers' ].model[i].x"
                [firstPopupY]="openAppsInThisPage[ 'textlistViewers' ].model[i].y"
@@ -756,7 +756,7 @@
             </app-textlist-viewer>
           </div>
         </popup>
-        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>view_headline</mat-icon> {{ i }}</button>
+        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>short_text</mat-icon> {{ i }}</button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item (click)="textlistViewers.appear()" >Show Textlist Viewer {{ i }}</button>
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'textlistViewers' ].model, i ) ">Remove this app</button>
