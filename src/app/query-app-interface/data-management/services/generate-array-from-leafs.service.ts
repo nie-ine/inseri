@@ -65,7 +65,7 @@ export class GenerateArrayFromLeafsService {
       for ( const arrayEntry of subtree ) {
          this.generateEntry( arrayEntry, this.depth );
       }
-      console.log( this.output );
+      // console.log( this.output );
       return this.output ;
   }
 

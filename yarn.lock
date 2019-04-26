@@ -6013,6 +6013,11 @@ ngx-bootstrap@^3.3.0:
   resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-3.3.0.tgz#91f1644a6fff8a493bc58a16bd9d02db7320bd6a"
   integrity sha512-eGKjMPM4XhYVCr/NdGnQ3SCOSUGMe00lytOmuDAgHf2JwMGfMD3EE7hX9KAONfNbUEuHzRfsjDAuQhWbCvZ8xg==
 
+ngx-csv@0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/ngx-csv/-/ngx-csv-0.3.1.tgz#4724ea3f065c33560306bd68556108319f79182c"
+  integrity sha512-/cDU7xLmOGrrVli7jOsQk5dKSiLg1lgRm9h4EoF3zVa2KgL1ZUXkZeO+Q9jQukw+u6Ej4dafBfpCYfNgjLqEVQ==
+
 ngx-spinner@^7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/ngx-spinner/-/ngx-spinner-7.0.0.tgz#44762ef684361a928ae58e73569c543e20ac0bd1"
