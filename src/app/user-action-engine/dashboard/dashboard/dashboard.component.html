@@ -20,7 +20,7 @@
 
       <div class="col-md-4" href="#portfolioModal1">
 
-        <span class="fa-stack fa-4x" >
+        <span class="fa-stack fa-4x" style="cursor: pointer">
          <i class="fa fa-circle fa-stack-2x text-primary" ></i>
           <a (click)="openDialog()" ><i class="fa fa-plus fa-stack-1x fa-inverse" style="background-color: #4cae4c !important;"></i></a>
         </span>
@@ -34,7 +34,7 @@
 
     <div *ngFor="let action of actions; let i = index" >
       <div class="col-md-4" href="#portfolioModal1" *ngIf="!action.deleted" [ngStyle]="{'color': action.isFinished ? 'green' : 'black'}">
-                    <span class="fa-stack fa-4x" [matMenuTriggerFor]="appMenu" [ngSwitch]="action.type">
+                    <span class="fa-stack fa-4x" [matMenuTriggerFor]="appMenu" [ngSwitch]="action.type" style="cursor: pointer">
                       <i class="fa fa-circle fa-stack-2x text-primary"></i>
                       <i *ngSwitchCase="'page-set'" class="fa fa-files-o fa-stack-1x fa-inverse" ></i>
                       <i *ngSwitchCase="'page'" class="fa fa-file-o fa-stack-1x fa-inverse" ></i>
