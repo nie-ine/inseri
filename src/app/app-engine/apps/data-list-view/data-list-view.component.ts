@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild, HostListener } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import {MatPaginator, MatSort, MatTable, MatTableDataSource} from '@angular/material';
 import { DataService } from './resources.service';
 import { MatDialog } from '@angular/material';
 import { DataListViewDetailsDialogComponent } from './data-list-view-details-dialog/data-list-view-details-dialog.component';
@@ -21,6 +21,7 @@ export class DataListView implements OnInit {
   @Input() inputMode: string;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatTable) table: MatTable<any>;
 
   resData: any;
   fuu: any;
@@ -180,26 +181,26 @@ export class DataListView implements OnInit {
 
     this.onGetData();
 
-    // GET the header variables used as columns
-    this.getColumns();
+    // // GET the header variables used as columns
+    // this.getColumns();
+    //
+    // // INSTANTIATE the datasource of the table
+    // this.dataSource = new MatTableDataSource(this.resData.results.bindings);
+    //
+    // // SUBSCRIBE to the tabledata for exporting this rendered data
+    // this.dataSource.connect().subscribe(data => this.renderedData = data);
 
-    // INSTANTIATE the datasource of the table
-    this.dataSource = new MatTableDataSource(this.resData.results.bindings);
-
-    // SUBSCRIBE to the tabledata for exporting this rendered data
-    this.dataSource.connect().subscribe(data => this.renderedData = data);
-
-    // setting Filter predicate acc. to settings
-    this.dataSource.filterPredicate = (data, filter) => {
-      // console.log("resetting filter predicate for Filter term " + filter);
-      const dataStr = this.joinFilteredColumns(data);
-      // applying case sensitivity/insensitivity from settings
-      if (this.dataListSettings.filter.caseSensitive) {
-        return dataStr.indexOf(filter) !== -1;
-      } else {
-        return dataStr.toLowerCase().indexOf(filter) !== -1;
-      }
-    };
+    // // setting Filter predicate acc. to settings
+    // this.dataSource.filterPredicate = (data, filter) => {
+    //   // console.log("resetting filter predicate for Filter term " + filter);
+    //   const dataStr = this.joinFilteredColumns(data);
+    //   // applying case sensitivity/insensitivity from settings
+    //   if (this.dataListSettings.filter.caseSensitive) {
+    //     return dataStr.indexOf(filter) !== -1;
+    //   } else {
+    //     return dataStr.toLowerCase().indexOf(filter) !== -1;
+    //   }
+    // };
 
   }
 
@@ -247,8 +248,21 @@ export class DataListView implements OnInit {
           //.subscribe(data => this.resData = data);
       }
       else {
-        this.dataService.getData().subscribe(data => this.fuu = data);
-        this.resData = this.resData2;
+        this.dataService.getData().subscribe(data => {
+          console.log( data, this.resData2 );
+          this.resData = data;
+          // this.table.renderRows();
+          // this.resData = this.resData2;
+          // GET the header variables used as columns
+          this.getColumns();
+
+          // INSTANTIATE the datasource of the table
+          this.dataSource = new MatTableDataSource(this.resData.results.bindings);
+
+          // SUBSCRIBE to the tabledata for exporting this rendered data
+          this.dataSource.connect().subscribe(data1 => this.renderedData = data1);
+        });
+
       }
     }
 
@@ -257,7 +271,9 @@ export class DataListView implements OnInit {
   private getColumns(){
     if (this.dataListSettings.columns.manualColumnDefinition){
       this.displayedColumns = this.dataListSettings.columns.displayedColumns;
-    } else {this.displayedColumns = this.resData.head.vars;}
+    } else if( this.resData ) {
+      this.displayedColumns = this.resData.head.vars;
+    }
   }
 
   // Returns for each column whether/which column should be sticky when scrolling horizontally (this.dataListSettings.columns.stickyColumn ? true : false)

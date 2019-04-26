@@ -1,12 +1,12 @@
 <!-- FILTER -->
-<div *ngIf="dataListSettings.filter.showFilter">
+<div *ngIf="dataListSettings.filter.showFilter && dataSource && dataSource.data && paginator">
   <mat-form-field>
     <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
-    <mat-hint>Showing {{this.paginator.length}} of {{dataSource.data.length}} entries in total</mat-hint>
+    <mat-hint>Showing {{paginator.length}} of {{dataSource.data.length}} entries in total</mat-hint>
   </mat-form-field>
 </div>
 <!-- TABLE -->
-<div>
+<div *ngIf="dataSource">
   <mat-table #table [dataSource]="dataSource"
              matSort
              [matSortDisabled] ="this.dataListSettings.sort.disallowSorting"
@@ -14,10 +14,10 @@
     <ng-container *ngFor="let col of displayedColumns;  let i = index" [cdkColumnDef]="col" [sticky]="isColumnSticky(i)">
       <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{col}}</mat-header-cell>
       <mat-cell *cdkCellDef="let row; let i = $implicit;"
-                [ngStyle]= "this.dataListSettings.styles.cellStyle"
-                (click)="onThisClick(row[col].value, i)">
+                [ngStyle]= "dataListSettings.styles.cellStyle">
+<!--                (click)="onThisClick(row[col].value, i)">-->
                 <!-- SETTING [ngClass]="col" enables to define styles for each column, setting it to row[col].value will enable to define a style for certain cell content -->
-        {{ row[col].value }} <!-- | highlight: toHighlightByFilter -->
+<!--        {{ row[col].value }} &lt;!&ndash; | highlight: toHighlightByFilter &ndash;&gt;-->
       </mat-cell>
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
