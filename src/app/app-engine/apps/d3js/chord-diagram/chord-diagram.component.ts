@@ -1,7 +1,3 @@
-/*
-  Chord diagram in angular. Original in javascript by Mike Bostock https://bl.ocks.org/mbostock/4062006
- */
-
 import { AfterViewChecked, Component, Input } from '@angular/core';
 import * as d3 from 'd3-selection';
 import * as d3Array from 'd3-array';
@@ -12,6 +8,10 @@ import * as d3ScaleChromatic from 'd3-scale-chromatic';
 import * as d3Shape from 'd3-shape';
 import { CONNECTIONS } from './connections';
 
+/**
+ Chord diagram in angular for showing the intensity of letter exchange between people.
+ Original in javascript by Mike Bostock https://bl.ocks.org/mbostock/4062006
+ */
 @Component({
   selector: 'app-chord-diagram',
   templateUrl: './chord-diagram.component.html',
@@ -19,27 +19,99 @@ import { CONNECTIONS } from './connections';
 })
 export class ChordDiagramComponent implements AfterViewChecked {
 
+  /**
+   * Variable for NIE-OS
+   */
   @Input() initialised = false;
+
+  /**
+   * Variable for NIE-OS
+   */
   @Input() numberOfInitialisedComponent: number;
+
+  /**
+   * Label/preposition for incoming connections "from".
+   */
   @Input() fromLabel = 'von';
+
+  /**
+   * Label/preposition for outgoing connecitons "to".
+   */
   @Input() toLabel = 'an';
+
+  /**
+   * Control over the initialization state of the component.
+   */
   alreadyInitialised = false;
+
+  /**
+   * Title of the component
+   */
   title = 'Chord Diagram';
 
+  /**
+   * The connections between source and target.
+   */
   private dataMatrix;
+
+  /**
+   * Label for a row/column in the matrix.
+   */
   private nameByIndex = {};
+
+  /**
+   * Index for a label in the matrix row.
+   */
   private indexByName = {};
 
+  /**
+   * Root element for the image.
+   */
   private svg;
+
+  /**
+   * Width of the image in pixels.
+   */
   private width;
+
+  /**
+   * Height of the image in pixels.
+   */
   private height;
+
+  /**
+   * Outer radius of the chord in pixels.
+   */
   private outerRadius;
+
+  /**
+   * Inner radius of the chord in pixels.
+   */
   private innerRadius;
+
+  /**
+   * The chord element that characterizes the component.
+   */
   private chord;
+
+  /**
+   * Part of the circle that represents an entity in the chord diagram.
+   */
   private arc;
+
+  /**
+   * A connection between a source and a target.
+   */
   private ribbon;
+
+  /**
+   * Construct that assigns colors to entities in the chord diagram.
+   */
   private color;
 
+  /**
+   * When the component has been drawn, initialize the SVG image.
+   */
   ngAfterViewChecked() {
     if ( this.initialised && !this.alreadyInitialised ) {
       this.alreadyInitialised = true;
@@ -49,6 +121,9 @@ export class ChordDiagramComponent implements AfterViewChecked {
     }
   }
 
+  /**
+   * Write the dataMatrix, indexByName, nameByIndex
+   */
   prepareData() {
     this.dataMatrix = [];
     let n = 0;
@@ -81,10 +156,16 @@ export class ChordDiagramComponent implements AfterViewChecked {
     }
   }
 
+  /**
+   * NIE-OS specific
+   */
   generateComponentDivClass() {
     return 'chordDiagram' + this.numberOfInitialisedComponent;
   }
 
+  /**
+   * Initialize variables for SVG image
+   */
   initSvg() {
     this.svg = d3.select('.' + this.generateComponentDivClass())
       .append('svg')
@@ -109,6 +190,9 @@ export class ChordDiagramComponent implements AfterViewChecked {
     this.color = d3Scale.scaleOrdinal(d3ScaleChromatic.schemeCategory10);
   }
 
+  /**
+   * Apply data to SVG image.
+   */
   drawChord() {
     const g = this.svg.append('g')
       .attr('transform', 'translate(' + this.width / 2 + ',' + this.height / 2 + ')')
@@ -179,6 +263,10 @@ export class ChordDiagramComponent implements AfterViewChecked {
       });
   }
 
+  /**
+   * Write the text for the mouseover explanation of a connection.
+   * @param d  A bidirectional connection between source and target.
+   */
   formatRibbonTitle(d) {
     return this.nameByIndex[d.source.index] + ' '
       + this.toLabel + ' '
@@ -190,6 +278,10 @@ export class ChordDiagramComponent implements AfterViewChecked {
       + d.target.value.toLocaleString();
   }
 
+  /**
+   * Write the text for the mouseover explanation of an entity in the chord diagram.
+   * @param d  The data of the entity.
+   */
   formatArcTitle(d) {
     return this.fromLabel + ' '
       + this.nameByIndex[d.index] + ': '

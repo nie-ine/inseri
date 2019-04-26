@@ -28,6 +28,9 @@ export class TextValueEditorComponent implements OnInit {
    */
   newText = '';
 
+  /**
+   * default written by angular-cli
+   */
   constructor() {
   }
 

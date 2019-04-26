@@ -22,6 +22,9 @@ export class IntValueEditorComponent implements OnInit {
    */
   @Output() intValue: EventEmitter<any> = new EventEmitter<any>();
 
+  /**
+   * default written by angular-cli
+   */
   constructor() {
   }
 

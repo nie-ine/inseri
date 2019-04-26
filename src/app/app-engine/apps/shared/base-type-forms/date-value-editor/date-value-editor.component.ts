@@ -83,6 +83,9 @@ export class DateValueEditorComponent implements OnInit {
    */
   @Output() dateValue: EventEmitter<any> = new EventEmitter<any>();
 
+  /**
+   * default written by angular-cli
+   */
   constructor() {
   }
 

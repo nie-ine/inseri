@@ -16,6 +16,9 @@ export class TextLineGroupComponent implements OnInit {
    */
   @Input() textTree;
 
+  /**
+   * default written by angular-cli
+   */
   constructor() { }
 
   /**

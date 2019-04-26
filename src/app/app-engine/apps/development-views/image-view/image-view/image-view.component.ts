@@ -12,14 +12,25 @@ import { IIIFImage } from '../../../shared/IIIFImage';
 })
 export class ImageViewComponent implements OnInit {
 
+  /**
+   * default written by angular-cli
+   */
   constructor() {
   }
 
+  /**
+   * ID of region the mouse is over.
+   */
   hoveredRegion: string;
 
+  /**
+   * Width of the viewer that can be changed.
+   */
   viewerWidth = 300;
 
-  // picture data like received from Knora
+  /**
+   * picture data like received from Knora through V1.
+   */
   picData1Raw = {
     duration: 0,
     format_name: 'JPEG2000',
@@ -31,12 +42,18 @@ export class ImageViewComponent implements OnInit {
     protocol: 'file'
   };
 
+  /**
+   * Alterantive image data.
+   */
   picData1 = new IIIFImage(
     this.picData1Raw.path,
     this.picData1Raw.nx,
     this.picData1Raw.ny
   );
 
+  /**
+   * Image data as received from Knora through V2.
+   */
   picData2Raw = {
     '@id': 'http://rdfh.ch/kuno-raeber/Uzo2YDhzTr-8CUSg1pQL4Q/values/gJVf-AQjSbSTAo8EsU8ErQ',
     '@type': 'knora-api:StillImageFileValue',
@@ -48,6 +65,9 @@ export class ImageViewComponent implements OnInit {
     'knora-api:stillImageFileValueHasIIIFBaseUrl': 'https://tools.wmflabs.org/zoomviewer'
   };
 
+  /**
+   * Definition of regions as received from Knora through V1.
+   */
   regions = [{
     'status': 'active',
     'lineColor': '#ff3333',
@@ -81,6 +101,9 @@ export class ImageViewComponent implements OnInit {
     'original_index': 1
   }];
 
+  /**
+   * default written by angular-cli
+   */
   ngOnInit() {
   }
 
