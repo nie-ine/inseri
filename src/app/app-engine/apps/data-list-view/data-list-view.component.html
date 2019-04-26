@@ -17,7 +17,10 @@
                 [ngStyle]= "dataListSettings.styles.cellStyle">
                 <!--(click)="onThisClick(row[col].value, i)" -->
                 <!-- SETTING [ngClass]="col" enables to define styles for each column, setting it to row[col].value will enable to define a style for certain cell content -->
-        {{ showValue(row, col) }} <!-- | highlight: toHighlightByFilter -->
+        <span *ngIf="row[col]">
+          {{ row[col].value }}
+        </span>
+<!--        {{ showValue(row, col) }} &lt;!&ndash; | highlight: toHighlightByFilter &ndash;&gt;-->
       </mat-cell>
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
