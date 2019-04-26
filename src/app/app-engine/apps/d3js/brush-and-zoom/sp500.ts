@@ -1,3 +1,6 @@
+/**
+ * Test data giving the price by date.
+ */
 export const SP500: any[] = [
     {date: 'Jan 2000', price: 1394.46},
     {date: 'Feb 2000', price: 1366.42},

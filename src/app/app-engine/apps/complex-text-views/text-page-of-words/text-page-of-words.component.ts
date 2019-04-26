@@ -36,6 +36,9 @@ export class TextPageOfWordsComponent implements OnInit {
    */
   @Output() hoveredWordChange: EventEmitter<string> = new EventEmitter<string>();
 
+  /**
+   * default written by angular-cli
+   */
   constructor() { }
 
   /**

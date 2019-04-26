@@ -10,6 +10,9 @@ import * as d3TimeFormat from 'd3-time-format';
 
 import { SP500 } from './sp500';
 
+/**
+ * Object defining margins on all four sides.
+ */
 export interface Margin {
   top: number;
   right: number;
@@ -17,8 +20,18 @@ export interface Margin {
   left: number;
 }
 
+/**
+ * Price for a specific date.
+ */
 interface Stock {
+  /**
+   * A date (as in the calendar).
+   */
   date: Date;
+
+  /**
+   * The prince.
+   */
   price: number;
 }
 
@@ -28,9 +41,6 @@ interface Stock {
   templateUrl: './brush-and-zoom.component.html',
   styleUrls: ['./brush-and-zoom.component.scss']
 })
-
-
-
 export class BrushAndZoomComponent implements AfterViewChecked {
 
   @Input() initialised = false;

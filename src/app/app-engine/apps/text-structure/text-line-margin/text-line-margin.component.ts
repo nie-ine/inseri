@@ -38,6 +38,9 @@ export class TextLineMarginComponent implements OnInit {
    */
   @Input() backgroundColor = 'white';
 
+  /**
+   * default written by angular-cli
+   */
   constructor() { }
 
   /**
