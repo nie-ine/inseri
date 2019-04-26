@@ -207,19 +207,19 @@ export class DataListView implements OnInit {
 
   ngAfterViewInit(): void {
 
-    // Pagination of table data
-    this.dataSource.paginator = this.paginator;
-
-    // AS the dataSource is nested MATSORT must sort the Table for subproperties (item.poperty.value)
-    // and not for properties (standard sort).
-    this.dataSource.sortingDataAccessor = (item, property) => {
-      switch (property) {
-        default:
-          return item[property].value;
-      }
-    };
-    // Table sorting
-    this.dataSource.sort = this.sort;
+    // // Pagination of table data
+    // this.dataSource.paginator = this.paginator;
+    //
+    // // AS the dataSource is nested MATSORT must sort the Table for subproperties (item.poperty.value)
+    // // and not for properties (standard sort).
+    // this.dataSource.sortingDataAccessor = (item, property) => {
+    //   switch (property) {
+    //     default:
+    //       return item[property].value;
+    //   }
+    // };
+    // // Table sorting
+    // this.dataSource.sort = this.sort;
   }
 
   // FILTER THE datasource
@@ -262,6 +262,20 @@ export class DataListView implements OnInit {
 
           // SUBSCRIBE to the tabledata for exporting this rendered data
           this.dataSource.connect().subscribe(data1 => this.renderedData = data1);
+
+          // Pagination of table data
+          this.dataSource.paginator = this.paginator;
+
+          // AS the dataSource is nested MATSORT must sort the Table for subproperties (item.poperty.value)
+          // and not for properties (standard sort).
+          this.dataSource.sortingDataAccessor = (item, property) => {
+            switch (property) {
+              default:
+                return item[property].value;
+            }
+          };
+          // Table sorting
+          this.dataSource.sort = this.sort;
         });
 
       }
