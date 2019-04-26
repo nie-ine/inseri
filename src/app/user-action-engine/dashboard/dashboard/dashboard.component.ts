@@ -123,6 +123,7 @@ export class DashboardComponent implements OnInit {
       .subscribe( response => {
         console.log(response);
         this.successfullySendMessage = true;
+        this.message = '';
       }, error1 => {
         console.log(error1);
       });
