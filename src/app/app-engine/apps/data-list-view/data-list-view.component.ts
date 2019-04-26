@@ -173,6 +173,7 @@ export class DataListView implements OnInit {
 
   // DATA for exporting from table
   renderedData: any;
+  shown = 0;
 
   constructor(private dataService: DataService, private dialog: MatDialog) {
   }
@@ -312,6 +313,17 @@ export class DataListView implements OnInit {
         }
       },
     });
+  }
+
+  showValue( row: any, col: any ) {
+    // if ( this.shown < 100 ) {
+      if ( row[col] ) {
+        // this.shown += 1;
+        // console.log( row, col, row[col].value );
+        return row[col].value;
+      }
+    // }
+    // return row[col].value;
   }
 
   // JOINING all columns to be searched by filter (defined in the settings) together.
