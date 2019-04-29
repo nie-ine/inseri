@@ -22,6 +22,9 @@ export class HomeComponent implements OnInit {
   loginError = false;
   deletedAccount = false;
   forgotPassword = false;
+  noEmailSent = false;
+  longerThanExpected = false;
+  emailSent = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -59,19 +62,32 @@ export class HomeComponent implements OnInit {
     );
     setTimeout(() => {
       this.loginError = true;
-    }, 4000);
+    }, 3000);
   }
 
   restorePassword() {
     console.log( 'Restore Password' );
+    setTimeout(() => {
+      this.longerThanExpected = true;
+    }, 5000);
     this.authService.resetPassword(this.username)
       .subscribe(
         data => {
           console.log( data );
+          this.longerThanExpected = false;
+          this.emailSent = true;
         }, error1 => {
           console.log( error1 );
+          this.longerThanExpected = false;
+          this.noEmailSent = true;
         }
       );
+  }
+
+  forgotPasswordMethod() {
+    console.log( this.forgotPassword );
+    this.forgotPassword = !this.forgotPassword;
+    return this.forgotPassword;
   }
 
 }
