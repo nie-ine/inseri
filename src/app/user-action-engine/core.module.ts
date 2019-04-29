@@ -29,7 +29,7 @@ import { ExtendSessionComponent } from './header/header.component';
 import { BrowserModule } from '@angular/platform-browser';
 import {MatChipsModule} from '@angular/material/chips';
 import { DevelopmentViewsModule } from '../app-engine/apps/development-views/development-views.module';
-
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   imports: [
@@ -50,6 +50,7 @@ import { DevelopmentViewsModule } from '../app-engine/apps/development-views/dev
     MockupTutorialModule,
     MatSnackBarModule,
     MatChipsModule,
+    MatIconModule,
     RouterModule.forRoot([
       { path: '**', component: PageNotFoundComponent }
       ])
