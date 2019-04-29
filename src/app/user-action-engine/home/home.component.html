@@ -187,7 +187,25 @@
               <mat-checkbox
                 class="section-subheading text-muted "
                 style="margin-top: 20px"
-                (click)="forgotPasswordMethod()">Passwort vergessen?</mat-checkbox>
+                (click)="forgotPasswordMethod()">Passwort vergessen?</mat-checkbox><br>
+              <span
+                class="section-subheading text-muted "
+                *ngIf="longerThanExpected">
+                Sending the Email to you takes longer than expected, please wait a little longer! <mat-icon>timelapse</mat-icon>
+              </span>
+              <span
+                class="section-subheading text-muted "
+                *ngIf="noEmailSent">
+                Something went wrong, please contact us directly
+              </span>
+              <span
+                class="section-subheading text-muted "
+                *ngIf="emailSent">
+                An Email has been sent to you. Please also check your spam - folder.
+                If you did not receive an Email, please contact us directly
+                <a href="https://www.nie-ine.ch/technik-de" *ngIf="emailSent">here.</a>
+              </span>
+              <a href="https://www.nie-ine.ch/technik-de" *ngIf="noEmailSent">here.</a>
             </div>
           </div>
         </form>
