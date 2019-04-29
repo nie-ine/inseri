@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { KnoraV2RequestService } from '../../../../../query-engine/knora/knora-v2-request.service';
+import { StyleDeclaration } from '../text-rich-innerhtml/text-rich-innerhtml.component';
+import { SelectableEnvironments } from '../text-rich-innerhtml/text-rich-innerhtml.component';
 
 /**
  * This component is as of now a placeholder and should later be expanded to its full functionality for positional semantic annotations.
@@ -23,16 +24,35 @@ export class SpaTextComponent implements OnInit {
   @Input() databaseAddress: string;
 
   /**
-   * Sanitized HTML content.
+   * Plain HTML content.
    */
-  content: any;
+  @Input() htmlContent: string;
+
+  /**
+   * List of environments that are styled by default.
+   */
+  @Input() baseStyles: StyleDeclaration[];
+
+  /**
+   * Bundles of style environments that can selectively be applied.
+   */
+  @Input() selectableEnvironments: SelectableEnvironments;
+
+  /**
+   * Keys of selected style environment bundles.
+   */
+  @Input() selectedEnvironmentKeys: Set<string>;
+
+  /**
+   * Literal HTML content.
+   */
+  content: string;
 
   /**
    * Constructor initializes KnoraV2Service, DomSanitizer
    * @param knora2request  Service to access data on a Knora instance
-   * @param sanitizer  Bypass HTML security
    */
-  constructor(private knora2request: KnoraV2RequestService, private sanitizer: DomSanitizer) { }
+  constructor(private knora2request: KnoraV2RequestService) { }
 
   /**
    * written by angular-cli
@@ -50,7 +70,7 @@ export class SpaTextComponent implements OnInit {
     this.knora2request.getResourceFromSpecificInstance(this.spaTextIri, this.databaseAddress)
       .subscribe(d => {
         if (d['language:hasContent'] && d['language:hasContent']['knora-api:textValueAsXml']) {
-          this.content = this.sanitizer.bypassSecurityTrustHtml(d[ 'language:hasContent' ][ 'knora-api:textValueAsXml' ]);
+          this.content = d[ 'language:hasContent' ][ 'knora-api:textValueAsXml' ];
         }
       }, error1 => {
         console.log(error1);

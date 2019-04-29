@@ -4,7 +4,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 /**
  * CSS like declaration of a style environment identifying elements and their style maps.
  */
-interface StyleDeclaration {
+export interface StyleDeclaration {
   /**
    * tag for the element name; class if the identification goes over the class attribute.
    */
@@ -26,7 +26,7 @@ interface StyleDeclaration {
 /**
  * `StyleDeclaration`s can be collected under keys to apply them bundled.
  */
-interface SelectableEnvironments {
+export interface SelectableEnvironments {
   [key: string]: Array<StyleDeclaration>;
 }
 
@@ -44,7 +44,7 @@ export class TextRichInnerhtmlComponent implements OnInit, OnChanges, AfterViewI
   /**
    * Plain HTML content.
    */
-  @Input() htmlContent: string;
+  @Input() htmlContent: any;
 
   /**
    * List of environments that are styled by default.
@@ -78,7 +78,6 @@ export class TextRichInnerhtmlComponent implements OnInit, OnChanges, AfterViewI
    * On initialization reset the HTML to the original input.
    */
   ngOnInit() {
-    this.cleanHtmlContent();
   }
 
   /**
@@ -86,9 +85,18 @@ export class TextRichInnerhtmlComponent implements OnInit, OnChanges, AfterViewI
    * @param changes  Changes by angular change detection.
    */
   ngOnChanges(changes: SimpleChanges): void {
-    this.clearStyles();
-    this.applyBasicStyles();
-    this.applySelectedStyles();
+    if (changes.htmlContent && this.htmlContent) {
+      this.cleanHtmlContent();
+      this.clearStyles();
+      this.applyBasicStyles();
+      this.applySelectedStyles();
+    }
+    if (changes.selectedEnvironmentKeys) {
+      this.clearStyles();
+      this.applyBasicStyles();
+      this.applySelectedStyles();
+      console.log('vittu');
+    }
   }
 
   /**
