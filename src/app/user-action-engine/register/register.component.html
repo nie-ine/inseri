@@ -48,7 +48,7 @@
     <p *ngIf="wrongFormatAlert" style="color: darkred" >The chosen password does not follow the requirements.</p>
 
     <div class="form-group">
-      <mat-slide-toggle [checked]="model.newsletter" (change)="changeNewsletter($event)">
+      <mat-slide-toggle [checked]="newsletter" (change)="changeNewsletter($event)">
         Newsletter
       </mat-slide-toggle>
     </div>

@@ -74,4 +74,10 @@ export class HomeComponent implements OnInit {
       );
   }
 
+  forgotPasswordMethod() {
+    console.log( this.forgotPassword );
+    this.forgotPassword = !this.forgotPassword;
+    return this.forgotPassword;
+  }
+
 }

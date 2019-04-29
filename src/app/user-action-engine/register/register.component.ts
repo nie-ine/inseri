@@ -20,6 +20,7 @@ export class RegisterComponent implements OnInit{
   acceptTermsBoolean = false;
   neededSpecialCharacters;
   wrongFormatAlert = false;
+  newsletter = false;
 
   constructor(
     private router: Router,
@@ -37,6 +38,7 @@ export class RegisterComponent implements OnInit{
   }
 
   register() {
+    console.log( this.newsletter );
     if (this.passwordFormatCheckService.checkProposedPassword(this.model.password)) {
       this.wrongFormatAlert = false;
       this.loading = true;
@@ -45,7 +47,7 @@ export class RegisterComponent implements OnInit{
           console.log(response);
           setTimeout(() => {
             this.userCreated = true;
-            if (this.model.newsletter) {
+            if (this.newsletter) {
               const message = 'Guten Tag, ' + this.model.firstName + ', Du hast Dich zu unserem Newsletter angemeldet.' +
                 '\n\nBitte klicke auf den folgenden Link, wenn Du Dich abmelden möchtest: \n\n'
                 + environment.app + '/deactivate-newsletter?user=' + response.result._id;
@@ -71,7 +73,7 @@ export class RegisterComponent implements OnInit{
   }
 
     changeNewsletter(e: any) {
-      this.model.newsletter = e.checked;
+      this.newsletter = e.checked;
     }
 
   acceptTerms( change: any ) {
