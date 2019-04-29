@@ -1,33 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-/**
- * CSS like declaration of a style environment identifying elements and their style maps.
- */
-interface StyleDeclaration {
-  /**
-   * tag for the element name; class if the identification goes over the class attribute.
-   */
-  type: string;
-
-  /**
-   * The tag name or class name depending on the value of the variable `type`.
-   */
-  name: string;
-
-  /**
-   * Key-value like CSS, e.g. `background-color` : `black;`.
-   */
-  styles: {
-    [key: string]: string;
-  };
-}
-
-/**
- * `StyleDeclaration`s can be collected under keys to apply them bundled.
- */
-interface SelectableEnvironments {
-  [key: string]: Array<StyleDeclaration>;
-}
+import { SelectableEnvironments, StyleDeclaration } from '../../../shared/rich-text/text-rich-innerhtml/text-rich-innerhtml.component';
 
 /**
  * This component wraps the text-rich-innerhtml component and governs its input.
