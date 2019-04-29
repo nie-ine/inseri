@@ -1,18 +1,18 @@
 version: "2"
 
 services:
-  nieos_production:
-    # build: .
-    image: nieine/nieos:2019-04-23
-    # image: nieosproduction:latest
-    ports:
-    - "90:80"
-    volumes:
-    - ./nginx:/etc/nginx/conf.d
-    environment:
-    - VIRTUAL_HOST=nie-os.localhost
-#    - LETSENCRYPT_HOST=nie-os.localhost
-#    - LETSENCRYPT_EMAIL=jan.stoffregen@uzh.ch
+#  nieos_production:
+#    # build: .
+#    image: nieine/nieos:2019-04-25
+#    # image: nieosproduction:latest
+#    ports:
+#    - "90:80"
+#    volumes:
+#    - ./nginx:/etc/nginx/conf.d
+#    environment:
+#    - VIRTUAL_HOST=nie-os.localhost
+##    - LETSENCRYPT_HOST=nie-os.localhost
+##    - LETSENCRYPT_EMAIL=jan.stoffregen@uzh.ch
 
   node:
     # image: mean:latest
