@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SpaTextComponent } from './spa-text/spa-text.component';
+import { RichTextByIriComponent } from './rich-text-by-iri/rich-text-by-iri.component';
 import { TextRichInnerhtmlComponent } from './text-rich-innerhtml/text-rich-innerhtml.component';
 import { KnoraV2RequestService } from '../../../../query-engine/knora/knora-v2-request.service';
 
@@ -12,13 +12,13 @@ import { KnoraV2RequestService } from '../../../../query-engine/knora/knora-v2-r
     CommonModule
   ],
   declarations: [
-    SpaTextComponent,
+    RichTextByIriComponent,
     TextRichInnerhtmlComponent
   ],
   exports: [
-    SpaTextComponent,
+    RichTextByIriComponent,
     TextRichInnerhtmlComponent
   ],
   providers: [ KnoraV2RequestService ]
 })
-export class SpaTextModule { }
+export class RichTextModule { }

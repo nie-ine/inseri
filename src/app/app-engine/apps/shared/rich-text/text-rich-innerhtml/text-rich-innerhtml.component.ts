@@ -95,7 +95,6 @@ export class TextRichInnerhtmlComponent implements OnInit, OnChanges, AfterViewI
       this.clearStyles();
       this.applyBasicStyles();
       this.applySelectedStyles();
-      console.log('vittu');
     }
   }
 

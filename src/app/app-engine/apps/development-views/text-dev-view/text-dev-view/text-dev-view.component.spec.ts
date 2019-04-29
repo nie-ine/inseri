@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TextDevViewComponent } from './text-dev-view.component';
 import { TextStructureModule } from '../../../text-structure/text-structure.module';
-import { SpaTextModule } from '../../../shared/spa-text/spa-text.module';
+import { RichTextModule } from '../../../shared/rich-text/rich-text.module';
 import { ComplexTextViewsModule } from '../../../complex-text-views/complex-text-views.module';
 
 describe('TextDevViewComponent', () => {
@@ -12,7 +12,7 @@ describe('TextDevViewComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ TextDevViewComponent ],
-      imports: [ TextStructureModule, SpaTextModule, ComplexTextViewsModule ]
+      imports: [ TextStructureModule, RichTextModule, ComplexTextViewsModule ]
     })
     .compileComponents();
   }));

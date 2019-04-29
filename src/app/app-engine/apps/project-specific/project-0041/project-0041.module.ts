@@ -4,7 +4,7 @@ import { P0041EditionComponent } from './p0041-edition/p0041-edition.component';
 import { P0041StropheComponent } from './p0041-strophe/p0041-strophe.component';
 import { ComplexTextViewsModule } from '../../complex-text-views/complex-text-views.module';
 import { TextStructureModule } from '../../text-structure/text-structure.module';
-import { SpaTextModule } from '../../shared/spa-text/spa-text.module';
+import { RichTextModule } from '../../shared/rich-text/rich-text.module';
 import { KnoraV2RequestService } from '../../../../query-engine/knora/knora-v2-request.service';
 
 @NgModule({
@@ -13,7 +13,7 @@ import { KnoraV2RequestService } from '../../../../query-engine/knora/knora-v2-r
     CommonModule,
     ComplexTextViewsModule,
     TextStructureModule,
-    SpaTextModule
+    RichTextModule
   ],
   exports: [ P0041EditionComponent ],
   providers: [ KnoraV2RequestService ]
