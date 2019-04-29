@@ -8,10 +8,10 @@ import { SelectableEnvironments } from '../text-rich-innerhtml/text-rich-innerht
  */
 @Component({
   selector: 'app-spa-text',
-  templateUrl: './spa-text.component.html',
-  styleUrls: ['./spa-text.component.scss']
+  templateUrl: './rich-text-by-iri.component.html',
+  styleUrls: ['./rich-text-by-iri.component.scss']
 })
-export class SpaTextComponent implements OnInit {
+export class RichTextByIriComponent implements OnInit {
 
   /**
    * The IRI of the text element that has annotations.

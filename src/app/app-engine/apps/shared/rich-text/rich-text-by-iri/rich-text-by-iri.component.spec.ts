@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SpaTextComponent } from './spa-text.component';
+import { RichTextByIriComponent } from './rich-text-by-iri.component';
 
-describe('SpaTextComponent', () => {
-  let component: SpaTextComponent;
-  let fixture: ComponentFixture<SpaTextComponent>;
+describe('RichTextByIriComponent', () => {
+  let component: RichTextByIriComponent;
+  let fixture: ComponentFixture<RichTextByIriComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SpaTextComponent ]
+      declarations: [ RichTextByIriComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SpaTextComponent);
+    fixture = TestBed.createComponent(RichTextByIriComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
