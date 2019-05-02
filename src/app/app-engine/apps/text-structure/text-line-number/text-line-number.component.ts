@@ -1,5 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 
+/**
+ * This component can be used to show line numbers in the margin next to lines.
+ * With parameters the repetition behavior can be defined.
+ */
 @Component({
   selector: 'app-text-line-number',
   templateUrl: './text-line-number.component.html',
@@ -32,6 +36,9 @@ export class TextLineNumberComponent implements OnInit {
    */
   label = '';
 
+  /**
+   * default written by angular-cli
+   */
   constructor() { }
 
   /**

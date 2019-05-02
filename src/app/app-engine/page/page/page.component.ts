@@ -148,7 +148,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   openDataManagement() {
     this.spinner.show();
-    this.pageService.updatePage(this.page)
+    this.pageService.updatePage(
+      { ...this.page }
+    )
       .subscribe(
         data => {
           // console.log(data);
@@ -161,7 +163,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
           });
           dialogRef.afterClosed().subscribe((result) => {
             this.resetPage = true;
-            console.log(result);
+            //
+            // console.log(result);
             this.reloadVariables = true;
             this.spinner.show();
             setTimeout(() => {
@@ -261,7 +264,10 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.page.openApps[ 'grapesJS' ].gjsHtml = localStorage.getItem('gjs-html');
     this.page.openApps[ 'grapesJS' ].gjsStyles = localStorage.getItem('gjs-styles');
     this.page.openApps[ 'grapesJS' ].hash = 'grapesJS';
-    // console.log( this.page );
+    console.log(
+      this.page,
+      this.openAppsInThisPage
+    );
     this.pageService.updatePage(
       { ...this.page }
       )
@@ -373,13 +379,13 @@ export class PageComponent implements OnInit, AfterViewChecked {
       }
     }, 1000);
     this.page = pageAndAction[ 0 ];
-    console.log( this.page );
+    // console.log( this.page );
     this.action = pageAndAction[ 1 ];
     this.reloadVariables = false;
   }
 
   receiveOpenAppsInThisPage( openAppsInThisPage: any ) {
-    console.log( openAppsInThisPage );
+    // console.log( openAppsInThisPage );
     this.openAppsInThisPage = openAppsInThisPage;
     this.reloadVariables = false;
     this.updateLinkedApps = false;

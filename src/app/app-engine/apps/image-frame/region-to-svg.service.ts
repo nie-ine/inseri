@@ -1,10 +1,21 @@
 import { Injectable } from '@angular/core';
 
+/**
+ * This service takes regions from knora and transforms them to SVG
+ */
 @Injectable()
 export class RegionToSvgService {
 
+  /**
+   * Default written by angular-cli
+   */
   constructor() { }
 
+  /**
+   * Create an element with the SVG vocabulary by input with comparable data.
+   * @param region  Definition of a region by attributes, mappable to SVG.
+   * @param maxSide  Information about the viewer to scale the regions.
+   */
   static createSvgElement(region, maxSide) {
 
     if (region.type === 'polygon') {

@@ -33,6 +33,9 @@ export class LinkValueEditorComponent implements OnInit {
    */
   searchstring: string;
 
+  /**
+   * default written by angular-cli
+   */
   constructor(private knoraV1RequestService: KnoraV1RequestService) {
   }
 

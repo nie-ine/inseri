@@ -8,7 +8,7 @@ export class AbstractJsonService {
   json2abstract( json: any ) {
     this.leafLoop( json, {}, undefined );
 
-    console.log( this.abstractTree );
+    // console.log( this.abstractTree );
     return this.abstractTree;
   }
 
@@ -29,7 +29,7 @@ export class AbstractJsonService {
           }
           for ( const subLeaf in leafLayer[ leaf ] ) {
             if ( isNaN( +subLeaf ) ) {
-              console.log(Number(leaf));
+              // console.log(Number(leaf));
               // console.log( leaf );
               const subLeafValue = leafLayer[leaf][subLeaf];
               // console.log( leaf, subLeafValue );

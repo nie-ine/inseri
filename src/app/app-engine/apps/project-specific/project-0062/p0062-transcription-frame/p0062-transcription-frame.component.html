@@ -1,0 +1,16 @@
+<app-text-rich-innerhtml [htmlContent]="htmlContent"
+                         [baseStyles]="styleDeclarations"
+                         [selectableEnvironments]="selectiveStyleDeclarations"
+                         [selectedEnvironmentKeys]="highlighted"></app-text-rich-innerhtml>
+
+<div>
+  <p *ngFor="let h of annotationTypeIDs">
+    {{ h }}
+    <button (click)="activateAnnotationType(h)">+</button>
+  </p>
+
+  <p *ngFor="let h of highlighted">
+    {{ h }}
+    <button (click)="deactivateAnnotationType(h)">X</button>
+  </p>
+</div>

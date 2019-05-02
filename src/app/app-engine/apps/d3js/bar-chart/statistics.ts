@@ -1,8 +1,21 @@
+/**
+ * Object for the frequency of one letter.
+ */
 export interface Frequency {
+  /**
+   * A letter of the alphabet. Label for the value.
+   */
   letter: string;
+
+  /**
+   * The frequency of the letter in some text, in decimals.
+   */
   frequency: number;
 }
 
+/**
+ * Test data for the bar chart containig letter frequencies.
+ */
 export const STATISTICS: Frequency[] = [
   {letter: 'A', frequency: .08167},
   {letter: 'B', frequency: .01492},

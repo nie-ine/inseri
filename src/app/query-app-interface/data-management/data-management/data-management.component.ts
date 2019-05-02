@@ -67,11 +67,18 @@ export class DataManagementComponent implements OnInit {
               if (
                 query._id === this.appInputQueryMapping[app][input][ 'query' ] &&
                 this.appInputQueryMapping[app][input][ 'path' ] ) {
-                console.log( query );
+                // console.log( query );
                 if ( !query.paths ) {
                   query.paths = [];
                 }
-                query.paths.push( this.appInputQueryMapping[app][input][ 'path' ] );
+                const path = this.appInputQueryMapping[app][input][ 'path' ];
+                for ( let i = 0; i < path.length; i++ ) {
+                  if ( !isNaN( Number( path[ i ] ) ) ) {
+                    path.splice( i, 1 );
+                  }
+                }
+                console.log( path );
+                query.paths.push( path );
               }
             }
             console.log(this.queries);

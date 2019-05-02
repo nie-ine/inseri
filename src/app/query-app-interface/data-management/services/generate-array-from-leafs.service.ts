@@ -11,7 +11,8 @@ export class GenerateArrayFromLeafsService {
 
   generateArrayFromLeafs(
     dataTree: any,
-    path: any
+    path: any,
+    depth: number
   ) {
     // console.log( dataTree, path );
     if ( path ) {
@@ -27,7 +28,7 @@ export class GenerateArrayFromLeafsService {
         increment += 1;
       }
       this.path = path;
-      this.depth = 0;
+      this.depth = depth;
       this.output = [];
       for ( const knot of path ) {
         // console.log( knot, dataTree[ knot ].length );
@@ -38,8 +39,12 @@ export class GenerateArrayFromLeafsService {
           return [ dataTree[ path[ 0 ] ] ];
         } else if ( dataTree[ knot ] &&  !dataTree[ knot ].length ) {
           // console.log( dataTree[ knot ], dataTree[ knot ].length );
-          this.generateEntry( dataTree[ knot ], 1 );
-          return this.output;
+          const clonedPath = Object.assign([], path);
+          const segment = clonedPath[ 0 ];
+          clonedPath.splice(0, 1);
+          return this.generateArrayFromLeafs( dataTree[ segment ], clonedPath, depth );
+          // this.generateEntry( dataTree[ knot ], 1 );
+          // return this.output;
         }
       }
     } else {
@@ -49,6 +54,7 @@ export class GenerateArrayFromLeafsService {
         this.output.push( increment );
         increment += 1;
       }
+      // console.log( this.output );
       return this.output;
     }
   }
@@ -59,11 +65,16 @@ export class GenerateArrayFromLeafsService {
       for ( const arrayEntry of subtree ) {
          this.generateEntry( arrayEntry, this.depth );
       }
+      // console.log( this.output );
       return this.output ;
   }
 
   generateEntry( subtree: any, depth: number ) {
-    if ( this.path.length - 1 === depth && subtree ) {
+    // console.log( this.path, subtree, depth, typeof subtree[ this.path[ depth ] ] );
+    if ( typeof subtree[ this.path[ depth ] ] === 'string'  ) {
+      // console.log( 'Push to data chooser entry' );
+      this.output.push( subtree[ this.path[ depth ] ] );
+    } else if ( this.path.length - 1 === depth && subtree ) {
       this.output.push( subtree[ this.path[ this.path.length - 1 ] ] );
     } else if ( subtree && !subtree[ 0 ] ) {
       this.generateEntry( subtree[ this.path[ depth ] ], depth + 1 );

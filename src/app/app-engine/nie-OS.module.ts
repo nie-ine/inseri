@@ -51,9 +51,15 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { MatPaginatorModule, MatSortModule } from '@angular/material';
 import { QueryInformationDialogComponent } from './page/query-information-dialog/query-information-dialog.component';
 import { MatCardModule } from '@angular/material/card';
-import { DataListViewSettings} from './apps/data-list-view/data-list-view-settings/data-list-view-settings';
 import {GrapesjsComponent} from './apps/grapesjs/grapesjs.component';
 import { ImageFrameModule } from './apps/image-frame/image-frame.module';
+import { ParzivalFassungComponent } from './apps/parzival-fassung/parzival-fassung.component';
+import { Project0041Module } from './apps/project-specific/project-0041/project-0041.module';
+import { ComplexTextViewsModule } from './apps/complex-text-views/complex-text-views.module';
+import { ResourceFormModule } from './apps/resource-form/resource-form.module';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { DataListViewDetailsDialogComponent } from './apps/data-list-view/data-list-view-details-dialog/data-list-view-details-dialog.component';
+import { ngxCsv } from 'ngx-csv/ngx-csv';
 
 @NgModule({
   imports: [
@@ -67,6 +73,7 @@ import { ImageFrameModule } from './apps/image-frame/image-frame.module';
     SynopsisModule,
     MyPageSetModule,
     CreateResourceModule,
+    ResourceFormModule,
     DataManagementToolModule,
     MatProgressSpinnerModule,
     MatExpansionModule,
@@ -92,6 +99,9 @@ import { ImageFrameModule } from './apps/image-frame/image-frame.module';
     MatChipsModule,
     MatCardModule,
     ImageFrameModule,
+    ComplexTextViewsModule,
+    Project0041Module,
+    OverlayModule,
     RouterModule.forChild([
       { path: 'page', component: PageComponent },
       { path: 'response-tree', component: ResponseTreeComponent }
@@ -121,9 +131,10 @@ import { ImageFrameModule } from './apps/image-frame/image-frame.module';
     SimpleImageAppComponent,
     ResponseTreeComponent,
     DataListView,
-    DataListViewSettings,
     QueryInformationDialogComponent,
-    GrapesjsComponent
+    GrapesjsComponent,
+    ParzivalFassungComponent,
+    DataListViewDetailsDialogComponent
   ],
   exports: [
     PageComponent,
@@ -137,7 +148,8 @@ import { ImageFrameModule } from './apps/image-frame/image-frame.module';
     FrameSettingsComponent,
     QueryListComponent,
     NewGjsBoxDialogComponent,
-    QueryInformationDialogComponent
+    QueryInformationDialogComponent,
+    DataListViewDetailsDialogComponent
   ]
 })
 export class NIEOSModule { }

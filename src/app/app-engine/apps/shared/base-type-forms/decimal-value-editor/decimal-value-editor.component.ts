@@ -22,6 +22,9 @@ export class DecimalValueEditorComponent implements OnInit {
    */
   @Output() decimalValue: EventEmitter<any> = new EventEmitter<any>();
 
+  /**
+   * default written by angular-cli
+   */
   constructor() {
   }
 

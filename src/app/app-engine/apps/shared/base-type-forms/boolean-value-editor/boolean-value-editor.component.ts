@@ -22,6 +22,9 @@ export class BooleanValueEditorComponent implements OnInit {
    */
   @Output() booleanValue: EventEmitter<any> = new EventEmitter<any>();
 
+  /**
+   * default written by angular-cli
+   */
   constructor() { }
 
   /**

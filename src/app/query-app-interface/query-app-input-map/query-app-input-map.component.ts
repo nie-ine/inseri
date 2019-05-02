@@ -70,7 +70,7 @@ export class QueryAppInputMapComponent implements OnInit {
   }
 
   updateQueryAppInputMaping( paths: any ) {
-    console.log( paths );
+    // console.log( paths );
     this.paths = paths;
   }
 

@@ -1,3 +1,6 @@
+/**
+ * This variable defines a default input for a chord diagram.
+ */
 export const CONNECTIONS = [
   {from: 'Anna', to: 'Bertha', value: 5871},
   {from: 'Anna', to: 'Caspar', value: 8916},

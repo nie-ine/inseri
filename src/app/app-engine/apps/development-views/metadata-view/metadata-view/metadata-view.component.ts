@@ -12,8 +12,10 @@ import { SubjectTag } from '../../../tag-chips/tag-chips/tag';
 })
 export class MetadataViewComponent implements OnInit {
 
-  // TODO: use a real response
-  // Answer from Knora v2: propInput is the content from "schema:itemListElement"
+  /**
+   * Answer from Knora v2: propInput is the content from "schema:itemListElement"
+   * TODO: use a real response
+   */
   propInput = {
     'kuno-raeber:containsEarlierStagesOfManuscriptConvoluteValue' : {
       '@id' : 'http://rdfh.ch/kuno-raeber/Uzo2YDhzTr-8CUSg1pQL4Q/values/qc2V1PW8TwWFpioYieRYkw',
@@ -54,7 +56,9 @@ export class MetadataViewComponent implements OnInit {
     }
   };
 
-  // List of properties for the fact-sheet plus the label. The order is the one displayed in the component.
+  /**
+   * List of properties for the fact-sheet plus the label. The order is the one displayed in the component.
+   */
   labelInput = [{
     'prop': 'text:hasAlias', 'label': 'Alias'
   }, {
@@ -63,16 +67,28 @@ export class MetadataViewComponent implements OnInit {
     'prop': 'text:containsEarlierStagesOfPublicationValue', 'label': 'Spätere Drucke', 'indirectProp': 'text:hasConvoluteTitle'
   }];
 
+  /**
+   * Array of subject tags.
+   */
   tagInput: Array<SubjectTag> = [];
 
+  /**
+   * Test data for tag input.
+   */
   tagData = [
     {'linkpart': 'a', 'tagName': 'Ameisen'},
     {'linkpart': 'b', 'tagName': 'Baeume'},
     {'linkpart': 'c', 'tagName': 'Christentum'}
     ];
 
+  /**
+   * default written by angular-cli
+   */
   constructor() { }
 
+  /**
+   * In initialization fill `tagInput` with (test) data.
+   */
   ngOnInit() {
     for (let d = 0; d < this.tagData.length; d++) {
       this.tagInput.push(new SubjectTag(this.tagData[d].linkpart, d.toString(), this.tagData[d].tagName));

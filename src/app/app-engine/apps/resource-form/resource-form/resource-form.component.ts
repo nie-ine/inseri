@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { KnoraV1RequestService } from '../../../../query-engine/knora/knora-v1-request.service';
+import { ActivatedRoute } from '@angular/router';
 
 /**
  * A form to display the label and property values of a resource.
@@ -15,16 +16,16 @@ export class ResourceFormComponent implements OnInit {
   /**
    * The IRI of the resource that has to be displayed or chaned
    */
-  @Input() resourceIRI: string;
+  resourceIRI: string;
 
   /**
    * Enables the editing mode in the component
    */
-  @Input() editRights: boolean;
+  editRights: boolean;
 
   /**
    * Emit an event if the resource is deleted. This enables closing the form and similar.
-   * @type {EventEmitter<any>}
+   * @type {EventEmitter<any>}  any change.
    */
   @Output() resourceIsDeleted: EventEmitter<any> = new EventEmitter();
 
@@ -59,13 +60,24 @@ export class ResourceFormComponent implements OnInit {
    */
   resource: any;
 
-  constructor(private knoraV1RequestService: KnoraV1RequestService) {
+  /**
+   * Constructor initializes KnoraV1Requestservice and ActivatedRoute
+   * @param knoraV1RequestService  Service to access data on a Knora instance
+   * @param _route  Gives access to query parameters in URL
+   */
+  constructor(private knoraV1RequestService: KnoraV1RequestService,
+              private _route: ActivatedRoute) {
   }
 
   /**
    * Get data of resource on init
    */
   ngOnInit() {
+    this._route.queryParams
+      .subscribe(params => {
+        this.resourceIRI = params.resId;
+        this.editRights = params.editRights;
+      });
     this.getResourceData();
   }
 
