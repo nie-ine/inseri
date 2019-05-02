@@ -2,27 +2,60 @@ import {Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit
 import { RegionToSvgService } from '../region-to-svg.service';
 
 
-// This component needs the openseadragon library itself, as well as the openseadragon plugin openseadragon-svg-overlay
-// Both libraries are installed via package.json, and loaded globally via the script tag in .angular-cli.json
+/**
+ * This component needs the openseadragon library itself, as well as the openseadragon plugin openseadragon-svg-overlay
+ * Both libraries are installed via package.json, and loaded globally via the script tag in .angular-cli.json
 
-// OpenSeadragon does not export itself as ES6/ECMA2015 module,
-// it is loaded globally in scripts tag of angular-cli.json,
-// we still need to declare the namespace to make TypeScript compiler happy.
+ * OpenSeadragon does not export itself as ES6/ECMA2015 module,
+ * it is loaded globally in scripts tag of angular-cli.json,
+ * we still need to declare the namespace to make TypeScript compiler happy.
+ */
 declare let OpenSeadragon: any;
 
-class IIIFImage {
+/**
+ * This object defines the metadata for an image on a IIIF compatible image server.
+ */
+export class IIIFImage {
 
+  /**
+   * Protocol for access.
+   */
   scheme = 'https';
+
+  /**
+   * The image server.
+   */
   server: string;
+
+  /**
+   * Path on the server to the image.
+   */
   prefix: string;
+
+  /**
+   * ID of the image.
+   */
   identifier: string;
 
+  /**
+   * Maximal height of the image in pixels.
+   */
   height: number;
+
+  /**
+   * Maximal width of the image in pixels.
+   */
   width: number;
 
+  /**
+   * Constructor for this object.
+   * @param imageUrl  An URL that defines a possible view of this image.
+   * @param width  Maximal width of the image in pixels.
+   * @param height  Maximal height of the image in pixels.
+   */
   constructor(imageUrl: string, width: number, height: number) {
-    this.height = height;
-    this.width = width;
+    this.height = Number(height);
+    this.width = Number(width);
 
     const urlParts = imageUrl.split('/');
 
@@ -36,6 +69,9 @@ class IIIFImage {
     }
   }
 
+  /**
+   * Formatted input for openseadragon.
+   */
   tileSource() {
 
     return {
@@ -57,7 +93,9 @@ class IIIFImage {
   }
 }
 
-
+/**
+ * This component allows showing an image from a IIIF server together with SVG annotations.
+ */
 @Component({
   selector: 'app-image-with-overlay',
   templateUrl: './image-with-overlay.component.html',
@@ -65,21 +103,66 @@ class IIIFImage {
 })
 export class ImageWithOverlayComponent implements OnInit, OnChanges, OnDestroy {
 
+  // Input not possible with object but with object's inputs.
   // @Input() image: IIIFImage;
+
+  /**
+   * A valid path to a IIIF image.
+   */
   @Input() iiifImagePath: string;
+
+  /**
+   * Maximal width of the image in pixels.
+   */
   @Input() maxImageWidth: number;
+
+  /**
+   * Maximal height of the image in pixels.
+   */
   @Input() maxImageHeight: number;
+
+  /**
+   * Annotations on the image.
+   */
   @Input() regions: any;
+
+  /**
+   * Width of the viewer in pixels.
+   */
   @Input() width: number;
+
+  /**
+   * Height of the viewer in pixels.
+   */
   @Input() height: number;
+
+  /**
+   * ID of the region, the mouse is over.
+   */
   @Output() hoveredRegion = new EventEmitter();
+
+  /**
+   * Length of longer side of the viewer in pixels.
+   */
   maxSide: number = 1;
 
+  /**
+   * Openseadragon viewer
+   */
   private viewer;
 
+  /**
+   * Constructor initializes ElementRef and RegionToSvgService
+   * @param elementRef  Enables access to elements by class name.
+   * @param regionToSvgService  Service that transforms regions to SVG overlay.
+   */
   constructor(private elementRef: ElementRef, private regionToSvgService: RegionToSvgService) {
   }
 
+  /**
+   * On the first change the viewer is initialized, then the image can be drawn or the sides changed.
+   * @param changes  changes by Angular change detection
+   */
   ngOnChanges(changes: { [key: string]: SimpleChange }) {
     if (changes['iiifImagePath'] && changes['iiifImagePath'].isFirstChange()) {
       this.setupViewer();
@@ -97,10 +180,16 @@ export class ImageWithOverlayComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
+  /**
+   * default written by angular-cli
+   */
   ngOnInit() {
     // initialisation is done on first run of ngOnChanges
   }
 
+  /**
+   * Delete the viewer on closing the component.
+   */
   ngOnDestroy() {
     if (this.viewer) {
       this.viewer.destroy();
@@ -108,6 +197,9 @@ export class ImageWithOverlayComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
+  /**
+   * Draw the regions as SVG overlay.
+   */
   drawRegions() {
     if (this.regions) {
       const overlay = this.viewer.svgOverlay();
@@ -129,6 +221,9 @@ export class ImageWithOverlayComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
+  /**
+   * Initialize viewer as IIIF viewer.
+   */
   private setupViewer(): void {
     const viewerContainer = this.elementRef.nativeElement.getElementsByClassName('osdViewerContainer')[0];
     const osdOptions = {
@@ -142,6 +237,9 @@ export class ImageWithOverlayComponent implements OnInit, OnChanges, OnDestroy {
     this.viewer = new OpenSeadragon.Viewer(osdOptions);
   }
 
+  /**
+   * Apply image data to viewer.
+   */
   private openImage(): void {
     if (this.iiifImagePath) {
       const image = new IIIFImage(this.iiifImagePath, this.maxImageWidth, this.maxImageHeight);

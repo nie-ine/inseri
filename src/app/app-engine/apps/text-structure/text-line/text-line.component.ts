@@ -27,6 +27,9 @@ export class TextLineComponent implements OnInit {
    */
   @Input() columnRatio = [1, 1, 1, 2, 1, 1, 1];
 
+  /**
+   * Default values for the column ratios.
+   */
   widths = {
     farfarleft: '12.5%',
     farleft: '12.5%',
@@ -37,6 +40,9 @@ export class TextLineComponent implements OnInit {
     farfarright: '12.5%'
   };
 
+  /**
+   * default witten by angular-cli
+   */
   constructor() { }
 
   /**
@@ -46,6 +52,9 @@ export class TextLineComponent implements OnInit {
     this.calculateWidths();
   }
 
+  /**
+   * Given the declared relative column widths, calculate width percentages.
+   */
   calculateWidths() {
     let sumOfRatios = 0;
     for (const s of this.columnRatio) {

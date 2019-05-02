@@ -50,6 +50,10 @@ export class OpenAppsModel {
       type: 'createResourceForm',
       model: []
     },
+    editResourceForm: {
+      type: 'createResourceForm',
+      model: []
+    },
     dataChooser: {
       type: 'dataChooser',
       model: []
@@ -127,6 +131,42 @@ export class OpenAppsModel {
       inputs: [
         {
           'inputName': 'json'
+        }
+      ]
+    },
+    parzivalFassung: {
+      type: 'parzivalFassung',
+      model: [],
+      inputs: [
+        {
+          'inputName': 'textJson'
+        }
+      ]
+    },
+    avpEditionView: {
+      type: 'avpEditionView',
+      model: [],
+      inputs: [
+        {
+          'inputName': 'backendAddress'
+        }
+      ]
+    },
+    svgTranscription: {
+      type: 'svgTranscription',
+      model: [],
+      inputs: [
+        {
+          'inputName': 'pageTree'
+        },
+        {
+          'inputName': 'imageUrl'
+        },
+        {
+          'inputName': 'imageWidth'
+        },
+        {
+          'inputName': 'imageHeight'
         }
       ]
     }

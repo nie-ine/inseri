@@ -290,11 +290,8 @@ router.get('/:email/reset-password', (req, res, next) => {
     .then(result => {
 
       const transporter = nodemailer.createTransport({
-        service: settings.type,
-        auth: {
-          user: settings.emailAdress, // Your email id
-          pass: settings.pw // Your password
-        }
+        host: 'mailgateway.zhdk.cloud.switch.ch',
+        port: 587
       });
 
       const mailOptions = {
@@ -312,7 +309,7 @@ router.get('/:email/reset-password', (req, res, next) => {
       transporter.sendMail(mailOptions, function(error, info){
         if (error) {
           console.log(error);
-          res.json({yo: 'error'});
+          res.status(401).json({yo: 'error'});
         } else {
           console.log('Message sent: ' + info.response);
           res.json({yo: info.response});

@@ -22,6 +22,9 @@ export class LinkValueLabelViewerComponent implements OnInit {
    */
   resource: any;
 
+  /**
+   * default written by angular-cli
+   */
   constructor(private knoraV1RequestService: KnoraV1RequestService) { }
 
   /**

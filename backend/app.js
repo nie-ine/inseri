@@ -9,10 +9,13 @@ const pageSetRoutes = require("./routes/page-set");
 const pageRoutes = require("./routes/page");
 const messageRoutes = require('./routes/message');
 const queryRoutes = require('./routes/query');
+const myOwnJsonRoutes = require('./routes/myOwnJson');
 
 const app = express();
 
 const mongodbServer = require('./.settings/mongodbServer');
+
+var cors = require('cors');
 
 mongoose
   .connect(
@@ -25,6 +28,12 @@ mongoose
     console.log("Connection failed!");
   });
 
+app.use(cors());
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/images", express.static(path.join("backend/images")));
@@ -48,5 +57,6 @@ app.use("/api/pagesets", pageSetRoutes);
 app.use("/api/pages", pageRoutes);
 app.use("/api/message", messageRoutes);
 app.use("/api/queries", queryRoutes);
+app.use("/api/myOwnJson", myOwnJsonRoutes);
 
 module.exports = app;
