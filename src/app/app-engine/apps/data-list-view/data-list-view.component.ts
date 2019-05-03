@@ -355,7 +355,7 @@ export class DataListView implements OnInit {
   // TODO: adjust export to csv to the nested objects
   // EXPORT TO CSV
   //
-  private exportToCsv() {
+  exportToCsv() {
     let data = this.renderedData;
 
 
