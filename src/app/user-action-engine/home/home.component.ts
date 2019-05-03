@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit {
   noEmailSent = false;
   longerThanExpected = false;
   emailSent = false;
+  checked = false;
 
   constructor(
     private route: ActivatedRoute,

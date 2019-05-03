@@ -184,10 +184,12 @@
             <div class="col-lg-12 text-center">
               <div id="forgotPassword"></div>
               <h2 class="section-heading"></h2>
-              <mat-checkbox
+              <button mat-button
                 class="section-subheading text-muted "
                 style="margin-top: 20px"
-                (click)="forgotPasswordMethod()">Passwort vergessen?</mat-checkbox><br>
+                (click)="forgotPasswordMethod()">
+                Passwort vergessen?
+              </button><br>
               <span
                 class="section-subheading text-muted "
                 *ngIf="longerThanExpected">
