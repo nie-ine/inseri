@@ -46,7 +46,7 @@ import { NewGjsBoxDialogComponent } from './apps/grapesjs/new-gjs-box-dialog/new
 import { MatDialogModule } from '@angular/material';
 import { SimpleImageAppComponent } from './apps/simple-image-app/simple-image-app.component';
 import { FileDatabase, ResponseTreeComponent } from './apps/response-tree/response-tree.component';
-import { DataListView } from './apps/data-list-view/data-list-view.component';
+import {DataListView, HighlightPipe} from './apps/data-list-view/data-list-view.component';
 import { CdkTableModule } from '@angular/cdk/table';
 import { MatPaginatorModule, MatSortModule } from '@angular/material';
 import { QueryInformationDialogComponent } from './page/query-information-dialog/query-information-dialog.component';
@@ -60,6 +60,7 @@ import { ResourceFormModule } from './apps/resource-form/resource-form.module';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { DataListViewDetailsDialogComponent } from './apps/data-list-view/data-list-view-details-dialog/data-list-view-details-dialog.component';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
+import {DataListViewSettings} from './apps/data-list-view/data-list-view-settings/data-list-view-settings';
 
 @NgModule({
   imports: [
@@ -134,7 +135,9 @@ import { ngxCsv } from 'ngx-csv/ngx-csv';
     QueryInformationDialogComponent,
     GrapesjsComponent,
     ParzivalFassungComponent,
-    DataListViewDetailsDialogComponent
+    DataListViewDetailsDialogComponent,
+    HighlightPipe,
+    DataListViewSettings
   ],
   exports: [
     PageComponent,
