@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DataService } from './resources.service';
-import { DataListViewDetailsDialogComponent } from './data-list-view-details-dialog/data-list-view-details-dialog.component';
 
 @Component({
   selector: 'data-list-view',
