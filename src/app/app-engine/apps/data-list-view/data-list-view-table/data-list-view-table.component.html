@@ -1,0 +1,47 @@
+<!-- FILTER -->
+<div *ngIf="dataListSettings.filter.showFilter && dataSource && dataSource.data">
+  <mat-form-field>
+    <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+    <mat-hint *ngIf="paginator">Showing {{paginator.length}} of {{dataSource.data.length}} entries in total</mat-hint>
+  </mat-form-field>
+</div>
+<!--TABLE-->
+<mat-table #table [dataSource]="dataSource"
+           matSort
+           [matSortDisabled] ="this.dataListSettings.sort.disallowSorting"
+           [multiTemplateDataRows]="true">
+  <ng-container *ngFor="let col of displayedColumns; let i = index" [cdkColumnDef]="col" [sticky]="isColumnSticky(i)">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{col}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row; let i = $implicit;" class = "fuu"
+              [ngStyle]= "dataListSettings.styles.cellStyle"
+              (click)="onThisClick(row[col].value, i)">
+      <!-- SETTING [ngClass]="col" enables to define styles for each column, setting it to row[col].value will enable to define a style for certain cell content -->
+      <span *ngIf="row[col]">
+          {{ row[col].value }}
+        </span>
+      <!--        {{ showValue(row, col) }} &lt;!&ndash; | highlight: toHighlightByFilter &ndash;&gt;-->
+    </mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row
+    matRipple
+    *matRowDef="let row; columns: displayedColumns;">
+  </mat-row>
+</mat-table>
+<!-- Show spinner while loading data -->
+<mat-card *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center">
+  <mat-progress-spinner
+    color="primary"
+    mode="indeterminate">
+  </mat-progress-spinner>
+</mat-card>
+<!-- PAGINATION -->
+<mat-paginator #paginator
+               [pageIndex]= "dataListSettings.paginator.pageIndex"
+               [pageSize]= "dataListSettings.paginator.pageSize"
+               [pageSizeOptions]= "dataListSettings.paginator.pageSizeOptions">
+</mat-paginator>
+<!-- EXPORT -->
+<div>
+  <button (click)="exportToCsv()">Export to CSV</button>
+</div>
