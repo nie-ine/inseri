@@ -21,7 +21,7 @@ export class DataListView implements OnInit {
   dataListSettings = {
     "inputModeFallback":  "query",
     "columns":{
-      "manualColumnDefinition": true,
+      "manualColumnDefinition": false,
       "displayedColumns": ["indexed_thing", "label", "occurence"],
       "stickyColumn": 0,
       },
@@ -54,9 +54,10 @@ export class DataListView implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.queryResponse)
     this.onGetData();
     // GET the header variables used as columns
-    this.getColumns();
+
   }
 
   // GET the data - either from running a query itself or by the input from another app/service (jsonResponse)
@@ -65,7 +66,7 @@ export class DataListView implements OnInit {
       // console.log('getting data directly by query.')
       this.dataService.getData().subscribe(data => this.resData = data);
     }
-    if (this.inputMode === 'json'){
+    if (this.inputMode === 'json') {
       this.resData = this.queryResponse;
     }
     // TODO: delete this else fallback once the binding/the inputs are implemented.
@@ -83,12 +84,5 @@ export class DataListView implements OnInit {
     }
   }
 
-  // GETS columns - either from the settings or by reading our the JSON (manualColumndefinition = false)
-  private getColumns() {
-    if (this.dataListSettings.columns.manualColumnDefinition){
-      this.displayedColumns = this.dataListSettings.columns.displayedColumns;
-    } else if( this.resData ) {
-      this.displayedColumns = this.resData.head.vars;
-    }
-  }
+
 }
