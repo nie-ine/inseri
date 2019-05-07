@@ -32,6 +32,7 @@ export class DataListViewTableComponent implements OnInit {
   ngOnInit() {
 
       this.populateByDatastream();
+      this.getColumns();
       this.setFilter();
 
   }
@@ -61,6 +62,17 @@ export class DataListViewTableComponent implements OnInit {
 
     this.dataSource.sort = this.sort;
 
+  }
+
+  // GETS columns - either from the settings or by reading our the JSON (manualColumndefinition = false)
+  private getColumns() {
+    if (this.dataListSettings.columns.manualColumnDefinition){
+      this.displayedColumns = this.dataListSettings.columns.displayedColumns;
+      console.log('got displayed columns by manual definition: ' + this.displayedColumns);
+    } else if ( this.dataToDisplay ) {
+      this.displayedColumns = this.dataToDisplay.head.vars;
+      console.log('got displayed columns from response: ' + this.displayedColumns);
+    }
   }
 
   // FILTERING THE datasource acc to settings
