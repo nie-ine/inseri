@@ -20,7 +20,7 @@ export class DataListView implements OnInit {
   dataListSettings = {
     "inputModeFallback":  "query",
     "columns":{
-      "manualColumnDefinition": false,
+      "manualColumnDefinition": true,
       "displayedColumns": ["indexed_thing", "label", "occurence"],
       "stickyColumn": 0,
       },
