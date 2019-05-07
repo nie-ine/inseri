@@ -13,12 +13,12 @@ import { ngxCsv } from 'ngx-csv/ngx-csv';
 export class DataListViewTableComponent implements OnInit {
   @Input() dataListSettings: any;
   @Input() dataToDisplay: any;
-  @Input() displayedColumns: any;
 
   @ViewChild(MatTable) table: MatTable<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+  displayedColumns: any;
   isLoading = true; // simple bool for displaying a loading sign until the data is loaded and displayed
   dataSource: MatTableDataSource <any>;
 
@@ -30,11 +30,9 @@ export class DataListViewTableComponent implements OnInit {
   }
 
   ngOnInit() {
-
       this.populateByDatastream();
       this.getColumns();
       this.setFilter();
-
   }
 
   //
@@ -71,7 +69,7 @@ export class DataListViewTableComponent implements OnInit {
       console.log('got displayed columns by manual definition: ' + this.displayedColumns);
     } else if ( this.dataToDisplay ) {
       this.displayedColumns = this.dataToDisplay.head.vars;
-      console.log('got displayed columns from response: ' + this.displayedColumns);
+      console.log('got displayed columns from data stream: ' + this.displayedColumns);
     }
   }
 
