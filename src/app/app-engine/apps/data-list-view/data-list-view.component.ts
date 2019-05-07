@@ -9,16 +9,14 @@ import { DataService } from './resources.service';
 
 export class DataListView implements OnInit {
   @Input() queryResponse: any;
-  //
-  // Inputmode:  "json" --> queryResponse will be displayed;
-  // Inputmode "query": A passed query will be run by the app itself and the answer will be displayed;
-  @Input() inputMode: string;
+  @Input() query: any;
+  @Input() settings: any;
 
   resData: any;
 
   // TODO: Store/load SETTINGS on/from MongoDB:
   dataListSettings = {
-    "inputModeFallback":  "query",
+    "inputMode":  "query",
     "columns":{
       "manualColumnDefinition": true,
       "displayedColumns": ["indexed_thing", "label", "occurence"],
@@ -59,27 +57,18 @@ export class DataListView implements OnInit {
 
   // GET the data - either from running a query itself or by the input from another app/service (jsonResponse)
   private onGetData() {
-    if (this.inputMode === 'query') {
-      console.log('getting data directly by query.')
-      this.dataService.getData().subscribe(data => this.resData = data);
+    console.log('Inputmode: ' + this.dataListSettings.inputMode);
+    if (this.dataListSettings.inputMode === 'query') {
+      console.log('getting data by sending a query passed by input.');
+      this.dataService.getData().subscribe(data => {
+        this.resData = data;
+      });
     }
-    if (this.inputMode === 'json') {
-      console.log('getting data by input.')
+    if (this.dataListSettings.inputMode === 'queryResponse') {
+      console.log('getting data by a queryResonse input.');
       this.resData = this.queryResponse;
-    }
-    // TODO: delete this else fallback once the binding/the inputs are implemented.
-    else {
-      console.log('fallback on input mode by settings. Mode: ' + this.dataListSettings.inputModeFallback)
-      if (this.dataListSettings.inputModeFallback === 'query') {
-        this.dataService.getData().subscribe(data => {
-          this.resData = data;
-        });
-      }
-      else {
+    } else {
         console.log('missing or wrong settings definition for data source.');
       }
     }
-  }
-
-
 }
