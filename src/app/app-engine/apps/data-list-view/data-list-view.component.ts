@@ -15,7 +15,6 @@ export class DataListView implements OnInit {
   @Input() inputMode: string;
 
   resData: any;
-  displayedColumns = {};
 
   // TODO: Store/load SETTINGS on/from MongoDB:
   dataListSettings = {
@@ -56,17 +55,16 @@ export class DataListView implements OnInit {
   ngOnInit() {
     console.log(this.queryResponse)
     this.onGetData();
-    // GET the header variables used as columns
-
   }
 
   // GET the data - either from running a query itself or by the input from another app/service (jsonResponse)
   private onGetData() {
     if (this.inputMode === 'query') {
-      // console.log('getting data directly by query.')
+      console.log('getting data directly by query.')
       this.dataService.getData().subscribe(data => this.resData = data);
     }
     if (this.inputMode === 'json') {
+      console.log('getting data by input.')
       this.resData = this.queryResponse;
     }
     // TODO: delete this else fallback once the binding/the inputs are implemented.
@@ -75,11 +73,10 @@ export class DataListView implements OnInit {
       if (this.dataListSettings.inputModeFallback === 'query') {
         this.dataService.getData().subscribe(data => {
           this.resData = data;
-
         });
       }
       else {
-        console.log('missing or wrong settings definition for data source.')
+        console.log('missing or wrong settings definition for data source.');
       }
     }
   }
