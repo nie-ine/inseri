@@ -14,7 +14,7 @@ export class TextLineGroupComponent implements OnInit {
    * Tree of text lines as input for the line group
    * TODO: specific class for this datatype
    */
-  @Input() textTree;
+  @Input() textTree: any;
 
   /**
    * default written by angular-cli
