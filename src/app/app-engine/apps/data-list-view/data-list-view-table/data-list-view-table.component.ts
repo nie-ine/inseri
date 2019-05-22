@@ -30,8 +30,8 @@ export class DataListViewTableComponent implements OnInit {
   }
 
   ngOnInit() {
-      this.populateByDatastream();
       this.getColumns();
+      this.populateByDatastream();
       this.setFilter();
   }
 
