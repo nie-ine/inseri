@@ -268,7 +268,7 @@ export class TextDevViewComponent implements OnInit {
   /**
    * Image data of the image, for svg-text-view
    */
-  imageSource = new IIIFImage('https://www.e-manuscripta.ch/zuz/i3f/v20/1510618/full/full/0/default.jpg', 4034, 3062);
+  imageSource = new IIIFImage('https://www.e-manuscripta.ch/zuz/i3f/v20/1510618/full/full/0/default.jpg', 3062, 4034 );
 
   /**
    * default written by angular-cli
