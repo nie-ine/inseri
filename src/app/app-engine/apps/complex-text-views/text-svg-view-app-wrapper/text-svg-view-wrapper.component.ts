@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { IIIFImage } from '../../shared/IIIFImage';
 import { ActivatedRoute } from '@angular/router';
+import { PageTree } from '../models/page-tree.model';
 
 /**
  * This component wraps a text-svg-view component to make it usable as a NIE-OS app.
@@ -29,9 +30,8 @@ export class TextSvgViewWrapperComponent implements OnInit, OnChanges {
 
   /**
    * The data of a page as a tree of lines and words, each element with an unique identifier.
-   * TODO: class describing this.
    */
-  @Input() pageTree;
+  @Input() pageTree: PageTree;
 
   /**
    * The unique id of the word that was last clicked and counts as activated. Only one word can be counted as activated at a time.
