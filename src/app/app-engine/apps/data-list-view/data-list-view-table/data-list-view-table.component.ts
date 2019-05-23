@@ -30,9 +30,24 @@ export class DataListViewTableComponent implements OnInit {
   }
 
   ngOnInit() {
-      this.getColumns();
-      this.populateByDatastream();
+      this.getTableData();
       this.setFilter();
+  }
+
+  // GETS columns - either from the settings or by reading our the JSON (manualColumndefinition = false)
+  private getTableData() {
+    if (this.dataListSettings.columns.manualColumnDefinition) {
+      this.displayedColumns = this.dataListSettings.columns.displayedColumns;
+      console.log('got displayed columns by manual definition: ' + this.displayedColumns);
+      this.populateByDatastream();
+
+    } else if ( this.dataToDisplay ) {
+      this.populateByDatastream();
+      this.displayedColumns = this.dataToDisplay.head.vars;
+      console.log('got displayed columns from data stream: ' + this.displayedColumns);
+    } else {
+      console.log('missing or inaccurate column definition.');
+    }
   }
 
   //
@@ -60,17 +75,6 @@ export class DataListViewTableComponent implements OnInit {
 
     this.dataSource.sort = this.sort;
 
-  }
-
-  // GETS columns - either from the settings or by reading our the JSON (manualColumndefinition = false)
-  private getColumns() {
-    if (this.dataListSettings.columns.manualColumnDefinition){
-      this.displayedColumns = this.dataListSettings.columns.displayedColumns;
-      console.log('got displayed columns by manual definition: ' + this.displayedColumns);
-    } else if ( this.dataToDisplay ) {
-      this.displayedColumns = this.dataToDisplay.head.vars;
-      console.log('got displayed columns from data stream: ' + this.displayedColumns);
-    }
   }
 
   // FILTERING THE datasource acc to settings
