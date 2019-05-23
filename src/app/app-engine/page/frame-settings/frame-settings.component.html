@@ -1,10 +1,10 @@
 
-<h4>Settings</h4>
+<h4 i18n="@@settingsHeader">Settings</h4>
 <button mat-button (click)="save()">
-  <mat-icon>save</mat-icon> Save
+  <mat-icon>save</mat-icon> <ng-container i18n="@@saveButton">Save</ng-container>
 </button>
 <button mat-button (click)="close()">
-  <mat-icon>clear</mat-icon> Close
+  <mat-icon>clear</mat-icon> <ng-container i18n="@@closeButton">Close</ng-container>
 </button>
 
 
@@ -14,7 +14,7 @@
   </mat-form-field>
 </form>
 
-<h5>Width</h5>
+<h5 i18n="@@widthLabel">Width</h5>
 <mat-slider
   [max]="1200"
   [min]="0"
@@ -27,7 +27,7 @@
   <input matInput type="number" placeholder="Current Width: {{ width }}" [(ngModel)]="width">
 </mat-form-field>
 
-<h5>Height</h5>
+<h5 i18n="@@heightLabel">Height</h5>
 <mat-slider
   [max]="1200"
   [min]="0"

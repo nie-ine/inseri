@@ -9,7 +9,7 @@
           (mouseenter)="hoverOntoWord(w.wordIri)"
           (mouseleave)="hoverOutOfWord()"
           [ngClass]="{'hovered-word': (w.wordIri === hoveredWord), 'clicked-word': (w.wordIri === clickedWord) }"
-    ><app-spa-text [spaTextIri]="w.textIri"></app-spa-text></span>
+    ><span>{{w.textIri}}</span><!-- TODO: good test data <app-spa-text [spaTextIri]="w.textIri"></app-spa-text> --></span>
   </ng-container>
 
 </app-text-line>
