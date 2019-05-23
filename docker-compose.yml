@@ -9,7 +9,7 @@ services:
     - "90:80"
     volumes:
     - ./nginx:/etc/nginx/conf.d
-    environment:
+#    environment:
 #    - VIRTUAL_HOST=nie-os.localhost
 #    - LETSENCRYPT_HOST=nie-os.localhost
 #    - LETSENCRYPT_EMAIL=jan.stoffregen@uzh.ch
@@ -20,7 +20,7 @@ services:
     ports:
     - 3000:3000
     entrypoint: npm run start:server
-    environment:
+#    environment:
 #    - VIRTUAL_HOST=node.localhost
 ##    - LETSENCRYPT_HOST=node.localhost
 ##    - LETSENCRYPT_EMAIL=jan.stoffregen@uzh.ch
