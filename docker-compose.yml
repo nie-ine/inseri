@@ -1,33 +1,33 @@
 version: "2"
 
 services:
-#  nieos_production:
-#    # build: .
-#    image: nieine/nieos:2019-05-03
-#    # image: nieosproduction:latest
-#    ports:
-#    - "90:80"
-#    volumes:
-#    - ./nginx:/etc/nginx/conf.d
-#    environment:
+  nieos_production:
+    # build: .
+    image: nieine/nieos:2019-05-03
+    # image: nieosproduction:latest
+    ports:
+    - "90:80"
+    volumes:
+    - ./nginx:/etc/nginx/conf.d
+    environment:
 #    - VIRTUAL_HOST=nie-os.localhost
 #    - LETSENCRYPT_HOST=nie-os.localhost
 #    - LETSENCRYPT_EMAIL=jan.stoffregen@uzh.ch
 
-#  node:
-#    # image: mean:latest
-#    image:  nieine/mean:2019-04-23
-#    ports:
-#    - 3000:3000
-#    entrypoint: npm run start:server
-#    environment:
+  node:
+    # image: mean:latest
+    image:  nieine/mean:2019-04-23
+    ports:
+    - 3000:3000
+    entrypoint: npm run start:server
+    environment:
 #    - VIRTUAL_HOST=node.localhost
 ##    - LETSENCRYPT_HOST=node.localhost
 ##    - LETSENCRYPT_EMAIL=jan.stoffregen@uzh.ch
-#    volumes:
-#      - ./backend/.settings:/nieOS/backend/.settings
-#    depends_on:
-#      - mongodb
+    volumes:
+      - ./backend/.settings:/nieOS/backend/.settings
+    depends_on:
+      - mongodb
 
 #  nginx-proxy:
 #    image: jwilder/nginx-proxy:0.6.0
@@ -64,12 +64,3 @@ services:
     depends_on:
       - mongodb
     restart: always
-
-#  nieos:
-#    image: mean:latest
-#    ports:
-#    - 4200:4200
-#    entrypoint: ng s --host 0.0.0.0 --disable-host-check
-#    environment:
-#    - VIRTUAL_HOST=nie-ine.localhost
-#    - LETSENCRYPT_HOST=nie-ine.localhost
