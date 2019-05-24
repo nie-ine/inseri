@@ -3,12 +3,13 @@ version: "2"
 services:
   nieos_production:
     # build: .
-    image: nieine/nieos:2019-05-03
+    image: nieosproduction:latest
     # image: nieosproduction:latest
     ports:
-    - "90:80"
+    - 4200:80
     volumes:
     - ./nginx:/etc/nginx/conf.d
+    - ./src/assets/config:/usr/share/nginx/html/dist/config
 #    environment:
 #    - VIRTUAL_HOST=nie-os.localhost
 #    - LETSENCRYPT_HOST=nie-os.localhost
