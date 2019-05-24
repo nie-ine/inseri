@@ -13,13 +13,12 @@ export class DataListView implements OnInit {
   @Input() settings: any;
 
   resData: any;
-
   // TODO: Store/load SETTINGS on/from MongoDB:
   dataListSettings = {
     "inputMode":  "query",
     "columns":{
       "manualColumnDefinition": true,
-      "displayedColumns": ["indexed_thing", "label", "occurence"],
+      "displayedColumns": ["indexed_thing", "label"],
       "stickyColumn": 0,
       },
     "filter": {   "showFilter": true,
@@ -51,20 +50,18 @@ export class DataListView implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.queryResponse)
     this.onGetData();
   }
 
   // GET the data - either from running a query itself or by the input from another app/service (jsonResponse)
   private onGetData() {
-    console.log('Inputmode: ' + this.dataListSettings.inputMode);
     if (this.dataListSettings.inputMode === 'query') {
       console.log('getting data by sending a query passed by input.');
       this.dataService.getData().subscribe(data => {
         this.resData = data;
       });
     }
-    if (this.dataListSettings.inputMode === 'queryResponse') {
+    else if (this.dataListSettings.inputMode === 'queryResponse') {
       console.log('getting data by a queryResonse input.');
       this.resData = this.queryResponse;
     } else {
