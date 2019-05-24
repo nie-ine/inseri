@@ -92,6 +92,7 @@
             ],
             "styles": [
               "src/styles.scss",
+              "src/assets/css/project-styles/p_00001.css",
               "node_modules/grapesjs/dist/css/grapes.min.css"
             ],
             "assets": [
