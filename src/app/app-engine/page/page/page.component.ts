@@ -216,7 +216,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   ngOnInit() {
     this.cssUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.stylemapping.getUserCss().toString());
-    console.log(this.cssUrl);
     this.openAppsInThisPage = {};
     this.page = {};
     const reset = new OpenAppsModel;
