@@ -151,7 +151,7 @@ export class DataListViewTableComponent implements OnInit {
   //
   // EXPORT TO CSV
   // TODO: adjust export to csv to the nested objects
-  private exportToCsv() {
+  public exportToCsv() {
     let data = this.renderedData;
 
     var options = {

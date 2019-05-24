@@ -7,11 +7,27 @@ Powered by [FEE](http://www.fee.unibas.ch/), mandated by [swissuniversities](htt
 [![Build Status](https://travis-ci.org/nie-ine/NIE-OS.svg?branch=devel)](https://travis-ci.org/nie-ine/NIE-OS)
 ![Docker pulls](https://img.shields.io/docker/pulls/nieine/nieos.svg)
 
+## Get it up and running to use it locally
+
+ - ``git clone https://github.com/nie-ine/NIE-OS.git``
+ - ``cd NIE-OS``
+ 
+1. ```mv ./backend/settings_default ./backend/.settings```
+2. ```docker-compose up```
+3. Wait until the mongodb - conatiner has a first terminal output, then restart the nieine/mean container, the last terminal output of the node container should say  "connected to database"
+
+So, in another terminal, type:
+
+```docker ps``` to find out the < container id > of nieine/mean`
+
+```docker restart < container id >``
+
+
 ## Get it up and running for development
 
 ### Clone nieOS
- - ``git clone https://github.com/nie-ine/nieOS.git``
- - ``cd nieOS``
+ - ``git clone https://github.com/nie-ine/NIE-OS.git``
+ - ``cd NIE-OS``
 
 ## 1. Create MongoDB instance:
 
