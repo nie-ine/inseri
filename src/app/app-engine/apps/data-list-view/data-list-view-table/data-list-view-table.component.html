@@ -28,13 +28,6 @@
     *matRowDef="let row; columns: displayedColumns;">
   </mat-row>
 </mat-table>
-<!-- Show spinner while loading data -->
-<mat-card *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center">
-  <mat-progress-spinner
-    color="primary"
-    mode="indeterminate">
-  </mat-progress-spinner>
-</mat-card>
 <!-- PAGINATION -->
 <mat-paginator #paginator
                [pageIndex]= "dataListSettings.paginator.pageIndex"
