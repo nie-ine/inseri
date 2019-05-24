@@ -10,7 +10,7 @@
  * */
 
 import {AfterViewChecked, ChangeDetectorRef, Component, NgModule, OnInit, VERSION} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
+import {BrowserModule, DomSanitizer} from '@angular/platform-browser';
 import {Frame} from '../frame/frame';
 import 'rxjs/add/operator/map';
 import { ActivatedRoute } from '@angular/router';
@@ -25,12 +25,14 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import {GeneralRequestService} from '../../../query-engine/general/general-request.service';
 import {NewGjsBoxDialogComponent} from '../../apps/grapesjs/new-gjs-box-dialog/new-gjs-box-dialog.component';
 import {QueryInformationDialogComponent} from '../query-information-dialog/query-information-dialog.component';
+import {StyleMappingService} from '../../../query-app-interface/services/style-mapping-service';
 
 declare var grapesjs: any; // Important!
 
 @Component({
   selector: 'nie-os',
   templateUrl: `page.component.html`,
+  providers: [StyleMappingService]
 })
 export class PageComponent implements OnInit, AfterViewChecked {
   projectIRI: string = 'http://rdfh.ch/projects/0001';
@@ -54,6 +56,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   grapesJSActivated = false;
   blockManager: any;
   depth: number;
+  cssUrl: any;
 
   blockManagerModel = [
     {
@@ -103,7 +106,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
     public dialog: MatDialog,
     public queryInfoDialog: MatDialog,
     private spinner: NgxSpinnerService,
-    private requestService: GeneralRequestService
+    private requestService: GeneralRequestService,
+    public sanitizer: DomSanitizer,
+    private stylemapping: StyleMappingService
   ) {
     // this.route.params.subscribe(params => console.log(params));
   }
@@ -210,6 +215,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnInit() {
+    this.cssUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.stylemapping.getUserCss().toString());
+    console.log(this.cssUrl);
     this.openAppsInThisPage = {};
     this.page = {};
     const reset = new OpenAppsModel;
