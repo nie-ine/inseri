@@ -7,8 +7,7 @@ import { ngxCsv } from 'ngx-csv/ngx-csv';
 
 @Component({
   selector: 'data-list-view-table',
-  templateUrl: './data-list-view-table.component.html',
-  styleUrls: ['./data-list-view-table.component.css']
+  templateUrl: './data-list-view-table.component.html'
 })
 export class DataListViewTableComponent implements OnInit {
   @Input() dataListSettings: any;
@@ -17,11 +16,9 @@ export class DataListViewTableComponent implements OnInit {
   @ViewChild(MatTable) table: MatTable<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-
+  // cssUrl: string;
   displayedColumns: any;
-  isLoading = true; // simple bool for displaying a loading sign until the data is loaded and displayed
   dataSource: MatTableDataSource <any>;
-
   // TODO: highlight filter results in table cells by pipe
   toHighlightByFilter: string = ''; // For highlighting Filter results
   renderedData: any;
@@ -30,9 +27,25 @@ export class DataListViewTableComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.getTableData();
+    this.setFilter();
+  }
+
+  // GETS columns - either from the settings or by reading our the JSON (manualColumndefinition = false)
+  private getTableData() {
+    if (this.dataListSettings.columns.manualColumnDefinition) {
+      this.displayedColumns = this.dataListSettings.columns.displayedColumns;
+      console.log('got displayed columns by manual definition: ' + this.displayedColumns);
       this.populateByDatastream();
-      this.getColumns();
-      this.setFilter();
+
+    } else if ( this.dataToDisplay ) {
+      this.populateByDatastream();
+      this.displayedColumns = this.dataToDisplay.head.vars;
+      console.log('got displayed columns from data stream: ' + this.displayedColumns);
+    } else {
+      console.log('missing or inaccurate column definition.');
+    }
   }
 
   //
@@ -41,7 +54,6 @@ export class DataListViewTableComponent implements OnInit {
   private populateByDatastream() {
     // INSTANTIATE the datasource of the table
     this.dataSource = new MatTableDataSource(this.dataToDisplay.results.bindings);
-    this.isLoading = false;
     this.dataSource.paginator = this.paginator;
 
     // SUBSCRIBE to the tabledata for exporting this rendered data
@@ -60,17 +72,6 @@ export class DataListViewTableComponent implements OnInit {
 
     this.dataSource.sort = this.sort;
 
-  }
-
-  // GETS columns - either from the settings or by reading our the JSON (manualColumndefinition = false)
-  private getColumns() {
-    if (this.dataListSettings.columns.manualColumnDefinition){
-      this.displayedColumns = this.dataListSettings.columns.displayedColumns;
-      console.log('got displayed columns by manual definition: ' + this.displayedColumns);
-    } else if ( this.dataToDisplay ) {
-      this.displayedColumns = this.dataToDisplay.head.vars;
-      console.log('got displayed columns from data stream: ' + this.displayedColumns);
-    }
   }
 
   // FILTERING THE datasource acc to settings
@@ -150,7 +151,7 @@ export class DataListViewTableComponent implements OnInit {
   //
   // EXPORT TO CSV
   // TODO: adjust export to csv to the nested objects
-  private exportToCsv() {
+  public exportToCsv() {
     let data = this.renderedData;
 
     var options = {
