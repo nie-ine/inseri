@@ -1,5 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChange } from '@angular/core';
 import { IIIFImage } from '../../shared/IIIFImage';
+import { PageTree } from '../models/page-tree.model';
 
 /**
  * Variable to include openseadragon.
@@ -41,9 +42,8 @@ export class TextSvgViewComponent implements OnInit, OnChanges, OnDestroy {
 
   /**
    * The data of a page as a tree of lines and words, each element with an unique identifier.
-   * TODO: class describing this.
    */
-  @Input() pageTree;
+  @Input() pageTree: PageTree;
 
   /**
    * The unique id of the word that was last clicked and counts as activated. Only one word can be counted as activated at a time.

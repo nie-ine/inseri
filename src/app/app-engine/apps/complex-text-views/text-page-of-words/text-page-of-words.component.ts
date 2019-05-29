@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { PageTree } from '../models/page-tree.model';
 
 /**
  * This component shows page transcriptions with heavily annotated words on lines. The words can be hovered on or clicked for more info.
@@ -12,9 +13,8 @@ export class TextPageOfWordsComponent implements OnInit {
 
   /**
    * The data of a page as a tree of lines and words, each element with an unique identifier.
-   * TODO: class describing this.
    */
-  @Input() textTree;
+  @Input() textTree: PageTree;
 
   /**
    * The unique id of the word that was last clicked and counts as activated. Only one word can be counted as activated at a time.

@@ -516,6 +516,7 @@ router.post('/signup', (req, res, next) => {
 
 router.post('/login', (req, res, next) => {
     let fetchedUser;
+    console.log( 'Login' );
     User.findOne({ email: req.body.email })
         .then( user => {
             if (!user) {
