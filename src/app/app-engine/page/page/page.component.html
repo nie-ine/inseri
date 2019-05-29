@@ -265,6 +265,23 @@
         <button mat-button (click)="addAnotherApp('dataListView', true)"><mat-icon>short_text</mat-icon>Add a data list / data table</button><br>
       </mat-expansion-panel>
 
+        <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Tree navigation
+            </mat-panel-title>
+            <mat-panel-description>
+              Displays a navigable tree structure.
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          This app can be combined with apps for resource view.
+
+          <mat-divider></mat-divider>
+
+          <button mat-button (click)="addAnotherApp('treeNavigation', true)"><mat-icon>short_text</mat-icon>Add a tree navigation</button><br>
+        </mat-expansion-panel>
+
       </details>
 
       <details style="margin-top: 35px; width: 300px;">
@@ -877,6 +894,33 @@
         <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'jsonViewer' ].model, i ) ">Remove this app</button>
       </mat-menu>
     </div>
+
+    <!-- Tree navigation -->
+    <div *ngFor="let treeNavigation of openAppsInThisPage[ 'treeNavigation' ].model; let i = index;" >
+      <popup #treeNavigation
+             [hash]="openAppsInThisPage[ 'treeNavigation' ].model[i].hash"
+             [title]="openAppsInThisPage[ 'treeNavigation' ].model[i].title ||  'Tree navigation ' + i"
+             [type]="openAppsInThisPage[ 'treeNavigation' ].type"
+             [firstPopupX]="openAppsInThisPage[ 'treeNavigation' ].model[i].x"
+             [firstPopupY]="openAppsInThisPage[ 'treeNavigation' ].model[i].y"
+             [width]="produceHeightAndWidth( openAppsInThisPage[ 'treeNavigation' ].model[i].width, '400' )"
+             [height]="produceHeightAndWidth( openAppsInThisPage[ 'treeNavigation' ].model[i].height, '600')"
+             (sendAppCoordinatesBack)="updateAppCoordinates($event)"
+             (sendAppSettingsBack)="updateAppSettings($event)">
+        <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'treeNavigation' ].model[i].height, '600' ) + 'px',
+  'width': produceHeightAndWidth( openAppsInThisPage[ 'treeNavigation' ].model[i].width, '400' ) + 'px'}" >
+          <app-navigation-tree [queryResponse]="openAppsInThisPage[ 'treeNavigation' ].model[i]['json']">
+          </app-navigation-tree>
+        </div>
+      </popup>
+      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>add_to_queue</mat-icon> {{ i }}</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="treeNavigation.appear()" >Show Tree Navigation {{ i }}</button>
+        <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'treeNavigation' ].model, i ) ">Remove this app</button>
+      </mat-menu>
+
+    </div>
+
     <!-- Result list -->
     <div *ngFor="let dataListView of openAppsInThisPage[ 'dataListView' ].model; let i = index;" >
       <popup #dataListView

@@ -1,0 +1,42 @@
+<mat-tree *ngIf="queryResponse" [dataSource]="dataSource" [treeControl]="treeControl" style="margin-top: 30px">
+
+
+  <mat-tree-node
+    *matTreeNodeDef="let node;"
+    matTreeNodeToggle
+    matTreeNodePadding>
+
+    <button mat-icon-button (click)="chooseNode(node.identifier, node.level)">
+      <ng-container >
+        {{ node.label }}
+      </ng-container>
+    </button>
+
+  </mat-tree-node>
+
+  <mat-tree-node
+    *matTreeNodeDef=" let node; when: hasChild"
+    matTreeNodePadding>
+
+    <button
+      mat-icon-button
+      matTreeNodeToggle
+      (click)="chooseNode(node.identifier, node.level)"
+      [attr.aria-label]="'toggle ' + node.label">
+
+      <mat-icon
+        class="mat-icon-rtl-mirror">
+        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+      </mat-icon>
+
+      <ng-container >
+        {{ node.label }}
+      </ng-container>
+    </button>
+
+  </mat-tree-node>
+
+
+</mat-tree>
+
+<!-- [ngClass]="{'active': resourcePath.indexOf(node.identifier) !== -1}" -->
