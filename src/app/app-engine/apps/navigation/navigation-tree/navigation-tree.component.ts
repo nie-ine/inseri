@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 interface ResourceNode {
   label: string;
   identifier: string;
+  path: string[];
   children?: ResourceNode[];
 }
 
@@ -14,6 +15,7 @@ interface ResourceNode {
 interface ResourceFlatNode {
   expandable: boolean;
   identifier: string;
+  path: string[];
   label: string;
   level: number;
 }
@@ -23,11 +25,26 @@ interface ResourceFlatNode {
   templateUrl: './navigation-tree.component.html',
   styleUrls: [ './navigation-tree.component.scss' ]
 })
-export class NavigationTreeComponent implements OnChanges {
+export class NavigationTreeComponent implements OnChanges, OnInit {
 
+  /**
+   * JSON-LD tree from Knora extended search.
+   */
   @Input() queryResponse: any;
+
+  /**
+   * The maximal depth supported by the navigation tree. If more than 5, expand the function `flattenResponseTree` and update this comment.
+   */
   maximalTreeDepth = 5;
+
+  /**
+   * Copy of queryParams of this page
+   */
   qParams: any;
+
+  /**
+   * The prefix used for the queryParams for the path in the navigation tree.
+   */
   parameterKeyBase = 'd';
 
   private transformer = (node: ResourceNode, level: number) => {
@@ -35,6 +52,7 @@ export class NavigationTreeComponent implements OnChanges {
       expandable: !!node.children && node.children.length > 0,
       label: node.label,
       identifier: node.identifier,
+      path: node.path,
       level: level
     };
   };
@@ -59,33 +77,49 @@ export class NavigationTreeComponent implements OnChanges {
     }
   }
 
+  ngOnInit() {
+    for (const n of this.treeControl.dataNodes) {
+      for (let i = 0; i < this.maximalTreeDepth; i++) {
+        if (n.identifier === this.qParams[this.parameterKey(i)]) {
+          this.treeControl.expand(n);
+        }
+      }
+    }
+  }
+
   hasChild = (_: number, _nodeData: ResourceFlatNode) => _nodeData.expandable;
 
   /**
    * Navigate to a selected node in the tree by updating the query parameters.
-   * @param identifier  Unique identifier of a resouce
-   * @param level  Depth of the node in the tree
+   * @param node  A node in the material tree
    */
-  chooseNode(identifier, level) {
-    this.qParams[this.parameterKey(level)] = identifier;
-    for (let i = level + 1; i < this.maximalTreeDepth; i++) {
+  chooseNode(node) {
+
+    // Reset parameters for parents of the selected node and the node itself
+    for (let i = 0; i <= node.level; i++) {
+      this.qParams[this.parameterKey(i)] = node.path[i];
+    }
+
+    // Empty parameters for possible children of the selected node
+    for (let i = node.level + 1; i < this.maximalTreeDepth; i++) {
       this.qParams[this.parameterKey(i)] = null;
     }
-    console.log(this.qParams);
+
+    // Update the URL to the new selection
     this._router.navigate([], {queryParams: this.qParams, relativeTo: this._route});
   }
 
   /**
    * Convert level of a node in the tree to its query parameter key.
-   * @param level
+   * @param level  The depth, a node is in.
    */
   parameterKey(level): string {
     return this.parameterKeyBase + level;
   }
 
   /**
-   * Convert Knora json-ld tree with incoming links into a less deep tree with children directly accessible.
-   * @param responseTree
+   * Convert Knora JSON-LD tree with incoming links into a less deep tree with children directly accessible.
+   * @param responseTree  JSON-LD tree from Knora extended search.
    */
   flattenResponseTree(responseTree): Array<ResourceNode> {
 
@@ -110,6 +144,9 @@ export class NavigationTreeComponent implements OnChanges {
           responseDepth2 = [ responseDepth1[ i ][ 'knora-api:hasIncomingLinkValue' ] ];
         }
 
+        const d0ResourceId = responseDepth1[ i ][ '@id' ];
+        const d0ResourcePath = [d0ResourceId];
+
         for (let j = 0; j < responseDepth2.length; j++) {
           if (responseDepth2[j]) {
 
@@ -120,6 +157,9 @@ export class NavigationTreeComponent implements OnChanges {
             } else {
               responseDepth3 = [ responseDepth2[ j ][ 'knora-api:linkValueHasSource' ][ 'knora-api:hasIncomingLinkValue' ] ];
             }
+
+            const d1ResourceId = responseDepth2[ j ][ 'knora-api:linkValueHasSource' ][ '@id' ];
+            const d1ResourcePath = d0ResourcePath.concat([d1ResourceId]);
 
             for (let k = 0; k < responseDepth3.length; k++) {
               if (responseDepth3[ k ]) {
@@ -132,6 +172,9 @@ export class NavigationTreeComponent implements OnChanges {
                   responseDepth4 = [ responseDepth3[ k ][ 'knora-api:linkValueHasSource' ][ 'knora-api:hasIncomingLinkValue' ] ];
                 }
 
+                const d2ResourceId = responseDepth3[ k ][ 'knora-api:linkValueHasSource' ][ '@id' ];
+                const d2ResourcePath = d1ResourcePath.concat([d2ResourceId]);
+
                 for (let l = 0; l < responseDepth4.length; l++) {
                   if (responseDepth4[ l ]) {
 
@@ -143,14 +186,20 @@ export class NavigationTreeComponent implements OnChanges {
                       responseDepth5 = [ responseDepth4[ l ][ 'knora-api:linkValueHasSource' ][ 'knora-api:hasIncomingLinkValue' ] ];
                     }
 
+                    const d3ResourceId = responseDepth4[ l ][ 'knora-api:linkValueHasSource' ][ '@id' ];
+                    const d3ResourcePath = d2ResourcePath.concat([d3ResourceId]);
+
                     for (let m = 0; m < responseDepth5.length; m++) {
                       if (responseDepth5[ m ]) {
 
-                        // TODO look if more levels are needed
+                        const d4ResourceId = responseDepth5[ m ][ 'knora-api:linkValueHasSource' ][ '@id' ];
+                        const d4ResourcePath = d3ResourcePath.concat([d4ResourceId]);
+                        // TODO Expand here if more levels are needed
 
                         const d4: ResourceNode = {
                           'label': responseDepth5[ m ][ 'knora-api:linkValueHasSource' ][ 'rdfs:label' ],
-                          'identifier': responseDepth5[ m ][ 'knora-api:linkValueHasSource' ][ '@id' ]
+                          'identifier': d4ResourceId,
+                          'path': d4ResourcePath
                         };
                         dataDepth4.push(d4);
                       }
@@ -158,7 +207,8 @@ export class NavigationTreeComponent implements OnChanges {
                     const d3: ResourceNode = {
                       'children': dataDepth4,
                       'label': responseDepth4[ l ][ 'knora-api:linkValueHasSource' ][ 'rdfs:label' ],
-                      'identifier': responseDepth4[ l ][ 'knora-api:linkValueHasSource' ][ '@id' ]
+                      'identifier': d3ResourceId,
+                      'path': d3ResourcePath
                     };
                     dataDepth3.push(d3);
                   }
@@ -166,7 +216,8 @@ export class NavigationTreeComponent implements OnChanges {
                 const d2: ResourceNode = {
                   'children': dataDepth3,
                   'label': responseDepth3[ k ][ 'knora-api:linkValueHasSource' ][ 'rdfs:label' ],
-                  'identifier': responseDepth3[ k ][ 'knora-api:linkValueHasSource' ][ '@id' ]
+                  'identifier': d2ResourceId,
+                  'path': d2ResourcePath
                 };
                 dataDepth2.push(d2);
               }
@@ -174,7 +225,8 @@ export class NavigationTreeComponent implements OnChanges {
             const d1: ResourceNode = {
               'children': dataDepth2,
               'label': responseDepth2[ j ][ 'knora-api:linkValueHasSource' ][ 'rdfs:label' ],
-              'identifier': responseDepth2[ j ][ 'knora-api:linkValueHasSource' ][ '@id' ]
+              'identifier': d1ResourceId,
+              'path': d1ResourcePath
             };
             dataDepth1.push(d1);
           }
@@ -182,7 +234,8 @@ export class NavigationTreeComponent implements OnChanges {
         const d0: ResourceNode = {
           'children': dataDepth1,
           'label': responseDepth1[ i ][ 'rdfs:label' ],
-          'identifier': responseDepth1[ i ][ '@id' ]
+          'identifier': d0ResourceId,
+          'path': d0ResourcePath
         };
         dataDepth0.push(d0);
       }
