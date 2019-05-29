@@ -125,6 +125,15 @@ export class OpenAppsModel {
         }
       ]
     },
+    treeNavigation: {
+      type: 'treeNavigation',
+      model: [],
+      inputs: [
+        {
+          'inputName': 'json'
+        }
+      ]
+    },
     dataListView: {
       type: 'dataListView',
       model: [],
