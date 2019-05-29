@@ -100,11 +100,6 @@ module.exports = {
 ## 4. Start node.js
 ```npm run start:server```
 
-## Run in Docker container 
-run ```docker-compose up```
-
-If everything works as expected, push the mean - image to dockerhub (once tag it as with a version, once tag it with latest) and pull it on your server.
-
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
