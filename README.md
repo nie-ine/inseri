@@ -20,7 +20,7 @@ So, in another terminal, type:
 
 ```docker ps``` to find out the < container id > of nieine/mean`
 
-```docker restart < container id >``
+```docker restart < container id >```
 
 
 ## Get it up and running for development
