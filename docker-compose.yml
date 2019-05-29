@@ -3,7 +3,7 @@ version: "2"
 services:
   nieos_production:
     # build: .
-    image: nieosproduction:latest
+    image: nieine/nieos:2019-05-24
     # image: nieosproduction:latest
     ports:
     - 4200:80
