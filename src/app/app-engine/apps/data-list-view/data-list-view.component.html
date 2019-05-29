@@ -1,50 +1,7 @@
-<!-- FILTER -->
-<div *ngIf="dataListSettings.filter.showFilter && dataSource && dataSource.data && paginator">
-  <mat-form-field>
-    <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
-    <mat-hint>Showing {{paginator.length}} of {{dataSource.data.length}} entries in total</mat-hint>
-  </mat-form-field>
-</div>
 <!-- TABLE -->
-<div *ngIf="dataSource">
-  <mat-table #table [dataSource]="dataSource"
-             matSort
-             [matSortDisabled] ="this.dataListSettings.sort.disallowSorting"
-             [multiTemplateDataRows]="true">
-    <ng-container *ngFor="let col of displayedColumns;  let i = index" [cdkColumnDef]="col" [sticky]="isColumnSticky(i)">
-      <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{col}}</mat-header-cell>
-      <mat-cell *cdkCellDef="let row; let i = $implicit;"
-                [ngStyle]= "dataListSettings.styles.cellStyle">
-                <!--(click)="onThisClick(row[col].value, i)" -->
-                <!-- SETTING [ngClass]="col" enables to define styles for each column, setting it to row[col].value will enable to define a style for certain cell content -->
-        <span *ngIf="row[col]">
-          {{ row[col].value }}
-        </span>
-<!--        {{ showValue(row, col) }} &lt;!&ndash; | highlight: toHighlightByFilter &ndash;&gt;-->
-      </mat-cell>
-    </ng-container>
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row
-      matRipple
-      *matRowDef="let row; columns: displayedColumns;">
-    </mat-row>
-  </mat-table>
-  <mat-paginator #paginator
-                 [length]= dataSource?.data.length
-                 [pageIndex]= dataListSettings.paginator.pageIndex
-                 [pageSize]= dataListSettings.paginator.pageSize
-                 [pageSizeOptions]= dataListSettings.paginator.pageSizeOptions>
-  </mat-paginator>
+<div *ngIf="resData">
+  <data-list-view-table [dataToDisplay] = "resData"
+                        [dataListSettings] = "dataListSettings">
+  </data-list-view-table>
 </div>
-<div>
-  <button (click)="exportToCsv()">Export to CSV</button>
-</div>
-<pre>
-  {{ this.resData2 | json }}
-</pre>
-<hr>
-<pre>
-  {{ this.fuu | json}}
-</pre>
-
 

@@ -60,6 +60,8 @@ import { ResourceFormModule } from './apps/resource-form/resource-form.module';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { DataListViewDetailsDialogComponent } from './apps/data-list-view/data-list-view-details-dialog/data-list-view-details-dialog.component';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
+import { DataListViewSettings } from './apps/data-list-view/data-list-view-settings/data-list-view-settings';
+import { DataListViewTableComponent, HighlightPipe } from './apps/data-list-view/data-list-view-table/data-list-view-table.component';
 
 @NgModule({
   imports: [
@@ -134,7 +136,10 @@ import { ngxCsv } from 'ngx-csv/ngx-csv';
     QueryInformationDialogComponent,
     GrapesjsComponent,
     ParzivalFassungComponent,
-    DataListViewDetailsDialogComponent
+    DataListViewDetailsDialogComponent,
+    HighlightPipe,
+    DataListViewSettings,
+    DataListViewTableComponent
   ],
   exports: [
     PageComponent,

@@ -110,6 +110,7 @@ export class AuthService {
 
   login(email: string, password: string, navigateToDashboard: boolean) {
     const authData = { email: email, password: password };
+    console.log( 'Start Login Process' );
     this.http.post<
       {
         token: string,

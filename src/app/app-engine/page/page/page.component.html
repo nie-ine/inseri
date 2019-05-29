@@ -30,24 +30,27 @@
     <mat-drawer #drawer mode="side" [opened]="true">
 
       <div *ngIf="!pageAsDemo">
-        <h4 style="align-content: center">Your Page</h4>
-        <button mat-button (click)="updatePage()">Save Page</button>
-        <button mat-button (click)="expandPanels()"> Un/fold description</button><br>
-        <button mat-button (click)="openDataManagement()">Page Data Management</button><br>
+        <h4 style="align-content: center" i18n="@@yourPageTitle">Your Page</h4>
+        <button mat-button (click)="updatePage()" i18n="@@savePageButton">Save Page</button>
+        <button mat-button (click)="expandPanels()" i18n="@@toggleDescriptionButton"> Un/fold description</button><br>
+        <button mat-button (click)="openDataManagement()" i18n="@@pageDataManagementLink">Page Data Management</button><br>
         <h4 style="align-content: center">GrapesJS</h4>
-        <button mat-button (click)="activateGrapesJS()">Add GrapesJS</button>
-        <button mat-button (click)="deactivateGrapesJS()">Remove GrapesJS</button><br>
-        <button mat-button (click)="deleteGrapesJSData()">Delete GrapesJS Data</button>
-        <button mat-button (click)="addBlock()">Add Block</button>
+        <button mat-button (click)="activateGrapesJS()" i18n="@@addGrapeJsButton">Add GrapesJS</button>
+        <button mat-button (click)="deactivateGrapesJS()" i18n="@@removeGrapeJsButton">Remove GrapesJS</button><br>
+        <button mat-button (click)="deleteGrapesJSData()" i18n="@@deleteGrapeJsDataButton">Delete GrapesJS Data</button>
+        <button mat-button (click)="addBlock()" i18n="@@addBlockButton">Add Block</button>
       </div>
 
       <div *ngIf="pageAsDemo">
-        <h4 style="align-content: center">Demo - Page</h4>
-        You can not save anything you do on this <br> demo - page. If you would like to save <br> pages and pageSets, please <a href="/register">register</a>.
+        <h4 style="align-content: center" i18n="@@demoPageTitle">Demo - Page</h4>
+        <ng-container i18n="@@registerForFullPageFunctionalityMessage">
+          You can not save anything you do on this <br> demo - page. If you would like to save <br> pages and pageSets, please register
+        </ng-container>
+        <a href="/register" i18n="@@hereLinkLabel">here</a>.
       </div>
 
       <!-- Data Chooser -->
-      <h4 style="align-content: center" *ngIf="openAppsInThisPage[ 'dataChooser' ].model.length > 0">Queries</h4>
+      <h4 style="align-content: center" *ngIf="openAppsInThisPage[ 'dataChooser' ].model.length > 0" i18n="@@QueriesLabel">Queries</h4>
       <div *ngFor="let dataChooser of openAppsInThisPage[ 'dataChooser' ].model; let i = index;" >
         <button
           *ngIf="openAppsInThisPage[ 'dataChooser' ].model[i].title.search( 'Depth: ' ) === -1"
@@ -73,19 +76,24 @@
 
       <!-- Texts -->
       <details style="margin-top: 35px; width: 300px;">
-        <summary style="cursor: pointer"><h4 style="align-content: center; display: inline;">Text</h4><h4 style="align-content: center; display: inline; color: #4dc71f">&nbsp;Apps</h4></summary>
+        <summary style="cursor: pointer"><h4 style="align-content: center; display: inline;" i18n="@@textAppsLabel">Text</h4><h4 style="align-content: center; display: inline; color: #4dc71f" i18n="@@appsLabel">&nbsp;Apps</h4></summary>
 
         <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
           <mat-expansion-panel-header >
-            <mat-panel-title >
+            <mat-panel-title i18n="@@textViewerAppLabel">
               Text Viewer
             </mat-panel-title>
-            <mat-panel-description>
+            <mat-panel-description i18n="@@textViewerAppDescription">
               Displays searchable Text
             </mat-panel-description>
           </mat-expansion-panel-header>
 
-          This app is under development. It displays searchable text which can be changed regarding the font size, the design.
+          <ng-container i18n="@@appUnderDevelopmentLabel">
+            This app is under development.
+          </ng-container>
+          <ng-container i18n="@@textViewerApp">
+            It displays searchable text which can be changed regarding the font size, the design.
+          </ng-container>
 
           <mat-divider></mat-divider>
 
@@ -530,6 +538,8 @@
       </details>
 
     </mat-drawer>
+    <div>
+      <link rel="stylesheet"  type="text/css" [href]='cssUrl'>
 
       <div *ngIf="grapesJSActivated" id="grapesJSViewer" style="z-index: -1; position: absolute; "></div>
 
@@ -1176,5 +1186,5 @@
         </mat-menu>
 
       </div>
-
+    </div>
   </mat-drawer-container>
