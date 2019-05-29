@@ -6,10 +6,10 @@
     matTreeNodeToggle
     matTreeNodePadding>
 
-    <button mat-icon-button (click)="chooseNode(node.identifier, node.level)">
-      <ng-container >
+    <button mat-icon-button (click)="chooseNode(node)">
+      <span [class.activePath]="node.identifier === qParams[parameterKey(node.level)]">
         {{ node.label }}
-      </ng-container>
+      </span>
     </button>
 
   </mat-tree-node>
@@ -21,7 +21,7 @@
     <button
       mat-icon-button
       matTreeNodeToggle
-      (click)="chooseNode(node.identifier, node.level)"
+      (click)="chooseNode(node)"
       [attr.aria-label]="'toggle ' + node.label">
 
       <mat-icon
@@ -29,14 +29,12 @@
         {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
       </mat-icon>
 
-      <ng-container >
+      <span [class.activePath]="node.identifier === qParams[parameterKey(node.level)]">
         {{ node.label }}
-      </ng-container>
+      </span>
     </button>
 
   </mat-tree-node>
 
 
 </mat-tree>
-
-<!-- [ngClass]="{'active': resourcePath.indexOf(node.identifier) !== -1}" -->
