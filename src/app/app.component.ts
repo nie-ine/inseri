@@ -15,14 +15,12 @@ export class AppComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log( 'App Component ts' );
-    this.authService.autoAuthUser();
     this.http.get('assets/config/environment.json')
       .subscribe(
         config => {
           localStorage.setItem( 'node', ( config as any ).node );
-          console.log( localStorage.getItem('node'), environment );
         }
       );
+    this.authService.autoAuthUser();
   }
 }
