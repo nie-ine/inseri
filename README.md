@@ -18,7 +18,7 @@ Powered by [FEE](http://www.fee.unibas.ch/), mandated by [swissuniversities](htt
 
 So, in another terminal, type:
 
-```docker ps``` to find out the < container id > of nieine/mean`
+```docker ps``` to find out the < container id > of nieine/mean
 
 ```docker restart < container id >```
 
