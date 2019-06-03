@@ -24,9 +24,9 @@ So, in another terminal, type:
 
 You can find the software on the following ports:
 
-NIE-OS:  [localhost:4200](localhost:4200)
+NIE-OS:  [http://localhost:4200](http://localhost:4200)
 
-MongoDB - Admin - Interface: [localhost:8081](localhost:8081)
+MongoDB - Admin - Interface: [http://localhost:8081](http://localhost:8081)
 
 ## Get it up and running for development
 
