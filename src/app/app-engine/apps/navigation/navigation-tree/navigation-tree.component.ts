@@ -78,10 +78,12 @@ export class NavigationTreeComponent implements OnChanges, OnInit {
   }
 
   ngOnInit() {
-    for (const n of this.treeControl.dataNodes) {
-      for (let i = 0; i < this.maximalTreeDepth; i++) {
-        if (n.identifier === this.qParams[this.parameterKey(i)]) {
-          this.treeControl.expand(n);
+    if (this.treeControl.dataNodes) {
+      for (const n of this.treeControl.dataNodes) {
+        for (let i = 0; i < this.maximalTreeDepth; i++) {
+          if (n.identifier === this.qParams[ this.parameterKey(i) ]) {
+            this.treeControl.expand(n);
+          }
         }
       }
     }
