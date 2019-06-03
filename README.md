@@ -112,3 +112,36 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 ## Technical Documentation:
 
 https://nie-ine.github.io/NIE-OS/
+
+## How can I use NIE-OS to create websites and components of websites?
+
+The following graph illustrates how you can use NIE-OS:
+
+--> 1. You can create your entire website in NIE-OS with the help of pageSets. While this is suitable and you have the option to create your own,
+project specific design, you don't have the option to design all parts of the design of your website. 
+
+--> 2.1.1 "I design my own website and I use iframe to include apps that I host on my own webserver": You can host an NIE-OS instance on your 
+webserver, create a page, open the desired app with the option to display it as a full - screen - app, publish this app and include it in
+your own website with iframe
+
+--> 2.1.2 "I design my own website and I use iframe to include pages that I host on my own webserver": You can host an NIE-OS instance on your 
+webserver, create a page, open the desired apps, publish this app and include it in your own website with iframe
+
+--> 2.1.3 "I design my own website and I use iframe to include apps that I host on the NIE-OS productive instance": You can create an account,
+on our productive NIE-OS instance, create a page, open the desired app with the option to display it as a full - screen - app, publish this app and include it in
+your own website with iframe
+
+--> 2.1.4 "I design my own website and I use iframe to include pages that I host on the NIE-OS productive instance": You can create an account,
+on our productive NIE-OS instance, create a page, open the desired app with the option to display it as a full - screen - app, publish this app and include it in
+your own website with iframe
+
+--> 2.2.1 "I'd like to use apps from NIE-OS in my own website": Each app will bee available as an own npm - module that you can use in your
+Javascript - Based Website, for instance using Angular, pure Javascript, Vue.js, etc.
+
+--> 2.2.2 "I'd like to use pages from NIE-OS in my own website": You can create a page in NIE-OS and export it. Then you can include NIE-OS
+as an npm - module in your code with the page - export - file as an input. This feature is still under development:
+[https://github.com/nie-ine/NIE-OS/issues/273](https://github.com/nie-ine/NIE-OS/issues/273)
+
+
+<img src="./src/assets/img/NIE-OS_publication_process.png" alt="NIE-OS publication options" width="1000"/>
+

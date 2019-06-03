@@ -9,7 +9,6 @@ services:
     - 4200:80
     volumes:
     - ./nginx:/etc/nginx/conf.d
-    - ./src/assets/config:/usr/share/nginx/html/assets/config
 #    environment:
 #    - VIRTUAL_HOST=nie-os.localhost
 #    - LETSENCRYPT_HOST=nie-os.localhost
