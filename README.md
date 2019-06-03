@@ -7,7 +7,7 @@ Powered by [FEE](http://www.fee.unibas.ch/), mandated by [swissuniversities](htt
 [![Build Status](https://travis-ci.org/nie-ine/NIE-OS.svg?branch=devel)](https://travis-ci.org/nie-ine/NIE-OS)
 ![Docker pulls](https://img.shields.io/docker/pulls/nieine/nieos.svg)
 
-## Get it up and running to use it locally
+## Get it up and running to use it locally with docker
 
  - ``git clone https://github.com/nie-ine/NIE-OS.git``
  - ``cd NIE-OS``
@@ -22,6 +22,11 @@ So, in another terminal, type:
 
 ```docker restart < container id >```
 
+You can find the software on the following ports:
+
+NIE-OS:  [localhost:4200](localhost:4200)
+
+MongoDB - Admin - Interface: [localhost:8081](localhost:8081)
 
 ## Get it up and running for development
 
