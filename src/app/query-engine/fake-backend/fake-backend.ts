@@ -9,6 +9,7 @@ import 'rxjs/add/operator/materialize';
 import 'rxjs/add/operator/dematerialize';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {AuthService} from '../../user-action-engine/mongodb/auth/auth.service';
+import { environment} from '../../../environments/environment';
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
@@ -595,13 +596,13 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           // console.log('Pass on request');
           // console.log(request);
           // attach Token from nodejs
-          // console.log(request.url);
-          if( request.url.search( 'knora' ) === -1 ) {
+          console.log(request.url);
+          if( request.url.search( environment.node ) !== -1 ) {
             const authToken = this.authService.getToken();
             const authRequest = request.clone({
               headers: request.headers.set('Authorization', 'Bearer ' + authToken)
             });
-            return next.handle(authRequest);
+            return next.handle(authRequest); // authRequest
           } else {
             return next.handle(request);
           }
