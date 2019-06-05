@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../../query-engine/fake-backend/auth/authentication.service';
 import { AlertService } from '../../query-engine/fake-backend/auth/altert.service';
 import {AuthService} from '../mongodb/auth/auth.service';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
 declare let OpenSeadragon: any;
 
@@ -32,7 +33,8 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private alertService: AlertService,
-    public authService: AuthService
+    public authService: AuthService,
+    public http: HttpClient
   ) {
   }
 
@@ -52,6 +54,28 @@ export class HomeComponent implements OnInit {
       console.log( 'deletedAccount' );
       this.deletedAccount = true;
     }
+
+    const headers = new HttpHeaders({
+      // 'Origin': 'http://localhost:4200',
+      'Content-Type': 'application/json'
+    });
+    let params = new HttpParams;
+    params = params.append( 'query', '*' );
+    params = params.append( 'wskey', 'zTMYGWi6G' );
+    this.http.get(
+      'https://www.europeana.eu/api/v2/search.json',
+      {
+        headers: headers,
+        params: params
+      } )
+      .subscribe(
+        data => {
+          console.log( data );
+        }, error => {
+          console.log( error );
+        }
+      );
+
   }
 
   startLoginProcess() {

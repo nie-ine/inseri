@@ -123,6 +123,7 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   initiateQuery() {
+    // console.log( 'Initiate Query' );
     const url = this.form.get('serverURL').value;
     const method = this.form.get('method').value;
     let header, param2;
@@ -149,6 +150,7 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getRequest(url: string, parameter: any, header: any) {
+    // console.log( 'Get Request' );
     this.requestService.get(url, parameter, header)
       .subscribe(data => {
           console.log(data);

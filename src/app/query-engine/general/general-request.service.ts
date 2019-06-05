@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { QueryService } from '../../user-action-engine/mongodb/query/query.service';
 import 'rxjs/add/operator/mergeMap';
@@ -41,9 +41,18 @@ export class GeneralRequestService {
     return param;
   }
 
+  transformHeader( header: any ) {
+    let headerTransformed = new HttpHeaders();
+    for (const i in header) {
+      headerTransformed = headerTransformed.append(i, header[ i ]);
+    }
+    console.log( headerTransformed );
+    return headerTransformed;
+  }
+
   get(url: string, parameter?: any, header?: any): Observable<any> {
-    // console.log('GET Request', url, parameter, header);
-    return this.http.get(url, {headers: header, params : this.transformParam(parameter), observe: 'response'});
+    console.log('GET Request', url, parameter, header);
+    return this.http.get(url, {headers: this.transformHeader(header), params : this.transformParam(parameter), observe: 'response'});
   }
 
   post(url: string, parameter?: any, header?: any, body?: string): Observable<any> {
