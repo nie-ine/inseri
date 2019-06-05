@@ -54,28 +54,6 @@ export class HomeComponent implements OnInit {
       console.log( 'deletedAccount' );
       this.deletedAccount = true;
     }
-
-    const headers = new HttpHeaders({
-      // 'Origin': 'http://localhost:4200',
-      'Content-Type': 'application/json'
-    });
-    let params = new HttpParams;
-    params = params.append( 'query', '*' );
-    params = params.append( 'wskey', 'zTMYGWi6G' );
-    this.http.get(
-      'https://www.europeana.eu/api/v2/search.json',
-      {
-        headers: headers,
-        params: params
-      } )
-      .subscribe(
-        data => {
-          console.log( data );
-        }, error => {
-          console.log( error );
-        }
-      );
-
   }
 
   startLoginProcess() {
