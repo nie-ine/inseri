@@ -1,15 +1,21 @@
 <div>
-  {{backendAddress}}
   <div *ngIf="kandaIRI">
-
+    <app-p0041-kanda
+      [resourceIRI]="kandaIRI"
+      [suktaIRI]="suktaIRI"
+      [backendAddress]="backendAddress"></app-p0041-kanda>
   </div>
 
   <div *ngIf="suktaIRI">
-
+    <app-p0041-sukta
+      [resourceIRI]="suktaIRI"
+      [stropheIRI]="stropheIRI"
+      [backendAddress]="backendAddress"></app-p0041-sukta>
   </div>
 
   <div *ngIf="stropheIRI">
-    <app-p0041-strophe [resourceIRI]="stropheIRI" [backendAddress]="backendAddress"></app-p0041-strophe>
-
+    <app-p0041-strophe
+      [resourceIRI]="stropheIRI"
+      [backendAddress]="backendAddress"></app-p0041-strophe>
   </div>
 </div>

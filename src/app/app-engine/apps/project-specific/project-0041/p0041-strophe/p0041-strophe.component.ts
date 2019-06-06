@@ -1,6 +1,21 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { KnoraV2RequestService } from '../../../../../query-engine/knora/knora-v2-request.service';
 
+interface HalfStrophe {
+  verses: Array<Verse>;
+}
+
+interface Verse {
+  metric?: string;
+  samhitawords: Array<SamhitaWord>;
+}
+
+interface SamhitaWord {
+  id: string;
+  padawords?: Array<any>;
+}
+
+
 /**
  * This component fetches and displays the data of a strophe in this project.
  */
@@ -25,7 +40,7 @@ export class P0041StropheComponent implements OnChanges {
    * The data tree of the strophe consisting of half strophes, verses, words and word annotations.
    * TODO: typing
    */
-  stropheTextData: any;
+  stropheTextData: Array<HalfStrophe>;
 
   /**
    * The json-ld object of the strophe in Knora V2 format.
@@ -89,7 +104,7 @@ export class P0041StropheComponent implements OnChanges {
     this.knora2request.extendedSearchFromSpecificInstance(graveSearchRequest, this.backendAddress)
       .subscribe(d => {
 
-      const halfStrophes = [];
+      const halfStrophes: Array<HalfStrophe> = [];
       let h: any;
       if (this.isArray(d['knora-api:hasIncomingLinkValue'])) {
         h = d['knora-api:hasIncomingLinkValue'];
@@ -99,7 +114,7 @@ export class P0041StropheComponent implements OnChanges {
 
       for (let i = 0; i < h.length; i++ ) {
 
-        const verses = [];
+        const verses: Array<Verse> = [];
         let v: Array<any>;
         if (this.isArray(h[i]['knora-api:linkValueHasSource']['knora-api:hasIncomingLinkValue'])) {
           v = h[i]['knora-api:linkValueHasSource']['knora-api:hasIncomingLinkValue'];
@@ -109,7 +124,7 @@ export class P0041StropheComponent implements OnChanges {
 
         for (let j = 0; j < v.length; j++ ) {
 
-          const samhitawords = [];
+          const samhitawords: Array<SamhitaWord> = [];
           let s: Array<any>;
           if (this.isArray(v[j]['knora-api:linkValueHasSource']['knora-api:hasIncomingLinkValue'])) {
             s = v[j]['knora-api:linkValueHasSource']['knora-api:hasIncomingLinkValue'];
@@ -119,7 +134,7 @@ export class P0041StropheComponent implements OnChanges {
 
           for (let k = 0; k < s.length; k++ ) {
 
-            const padapathawords = [];
+            const padapathawords: Array<any> = [];
             let p: Array<any>;
             if (this.isArray(
               s[k]['knora-api:linkValueHasSource']['http://api.knora.org/ontology/shared/concept/v2#informationHasSubjectValue'])) {
@@ -149,8 +164,7 @@ export class P0041StropheComponent implements OnChanges {
           }
           if (v[j]['knora-api:linkValueHasSource']['@type'] === 'atharvaveda:Verse') {
             verses.push({'samhitawords': samhitawords,
-            'metric': metric});
-          }
+              'metric': metric});}
         }
         if (h[i]['knora-api:linkValueHasSource']['@type'] === 'atharvaveda:HalfStrophe') {
           halfStrophes.push({'verses': verses});
