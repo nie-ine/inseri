@@ -555,10 +555,321 @@
       </details>
 
     </mat-drawer>
-    <div>
-      <link rel="stylesheet"  type="text/css" [href]='cssUrl'>
+<!--    <div>-->
+<!--      <link rel="stylesheet"  type="text/css" [href]='cssUrl'>-->
 
-      <div *ngIf="grapesJSActivated" id="grapesJSViewer" style="z-index: -1; position: absolute; "></div>
+<!--    <div>-->
+<!--      <p>-->
+<!--        Le site <em>L’Homme des champs : éditer une réception littéraire</em>-->
+<!--        constitue l'un des volets d'un <strong>programme de recherche</strong>-->
+<!--        plus vaste, le projet <a href="https://delille.philhist.unibas.ch/" target="_blank">Reconstruire Delille</a>,-->
+<!--        mené au sein des universités de Bâle et Neuchâtel, soutenu par le Fonds national suisse de la recherche scientifique-->
+<!--        (<a href="http://www.snf.ch/fr/Pages/default.aspx" target="_blank">FNS</a>) et associé à l'infrastructure pour l'édition-->
+<!--        <a href="http://www.fee.unibas.ch/index.html" target="_blank">FEE/NIE</a>.-->
+<!--      </p>-->
+<!--      <p>-->
+<!--        Le présent travail rassemble différents <a href="">contributeurs</a>.-->
+<!--      </p>-->
+<!--    </div>-->
+
+<!--    <h2>Pourquoi proposer en ligne une édition &quot;inverse&quot; ?</h2>-->
+<!--    <div>-->
+<!--      <p>-->
+<!--        Le site tente d&#039;annoter un texte poétique, le chant 3 de-->
+<!--        <em>L&#039;Homme des champs</em> de Jacques Delille, en proposant des informations, non sur les sources utilisées-->
+<!--        par l&#039;auteur, ni sur le sens de termes difficiles, mais sur la <strong>réception</strong> dont ce texte a fait-->
+<!--        l&#039;objet. Ce travail ne regarde donc pas vers l&#039;<strong>amont</strong> du poème, mais toujours vers l&#039;-->
+<!--        <strong>aval</strong>. Il tente de déployer et de cartographier ce que l&#039;on pourrait nommer “l&#039;œuvre-->
+<!--        de l&#039;œuvre”, c&#039;est-à-dire son <strong>impact</strong>. La démarche doit en effet permettre de-->
+<!--        reconstituer et d&#039;analyser avec un grand degré de finesse la place que ces vers, publiés en 1800,-->
+<!--        ont tenue dans la culture du 19<sup>e</sup> siècle, en France comme dans le reste de l&#039;Europe, c&#039;est-à-dire-->
+<!--        la manière dont ils ont été commentés, réutilisés, parodiés, illustrés, traduits, etc.-->
+<!--      </p>-->
+<!--      <p>-->
+<!--        Cette édition en ligne double la mise en œuvre, simultanée, d&#039;une-->
+<!--        <strong>édition scientifique traditionnelle</strong> de <em>L&#039;Homme des champs</em>.-->
+<!--        Elle n&#039;entend donc pas s&#039;y substituer, ce qui explique que le texte principal soit présenté ici sans-->
+<!--        aucune des précisions attendues d&#039;une édition scientifique.-->
+<!--      </p>-->
+<!--      <p>-->
+<!--        Seuls quelques éclaircissements philologiques s&#039;imposent.-->
+<!--      </p>-->
+<!--      <hr />-->
+<!--      <p>-->
+<!--        <strong>Textes suivis</strong>-->
+<!--      </p>-->
+<!--      <p>-->
+<!--        La leçon suivie ici pour <em>L&#039;Homme des champs</em> est celle de la “nouvelle édition augmentée” de-->
+<!--        <strong>1805</strong>, dans laquelle Delille apporte d&#039;importantes modifications au texte original, publié en-->
+<!--        1800. Conformément aux usages des libraires de l&#039;époque, cette édition augmentée a été simultanément mise en-->
+<!--        vente sous plusieurs formats. Notre texte est celui des volumes <strong>in-8</strong> publiés à Paris par Levrault,-->
+<!--        Schoell et Cie, et imprimés par Didot, avec 13 “figures” (un de ces exemplaires est consultable en ligne, sur-->
+<!--        <a href="http://gallica.bnf.fr/ark:/12148/bpt6k5445687m" target="_blank">Gallica</a>).-->
+<!--      </p>-->
+
+<!--      <p>-->
+<!--        Les références des autres documents figurent dans chaque fiche.-->
+<!--      </p>-->
+
+<!--      <p>-->
+<!--        L&#039;<strong>orthographe</strong> d&#039;origine est partout conservée.-->
+<!--      </p>-->
+<!--      <hr />-->
+
+<!--      <p>-->
+<!--        <strong>Un “poème scientifique”</strong>-->
+<!--      </p>-->
+
+<!--      <p>-->
+<!--        Incitation à fréquenter la campagne,-->
+<!--        <em>L&#039;Homme des champs</em> se divise en <strong>quatre chants</strong>, “tous relatifs-->
+<!--        aux jouissances champêtres” qui attendent un riche propriétaire. Ces sections évoquent successivement les plaisirs-->
+<!--      </p>-->
+<!--      <ol>-->
+<!--        <li class="level1"><div class="li"> du “sage”, qui savoure le calme de la nature, tout en s&#039;attachant-->
+<!--          à répandre l&#039;instruction et le progrès parmi les habitants du lieu,</div>-->
+<!--        </li>-->
+<!--        <li class="level1"><div class="li"> de “l&#039;agriculteur”, grand entrepreneur capable d&#039;améliorer les-->
+<!--          terrains en engageant de grands travaux de terrassement ou d&#039;irrigation,</div>-->
+<!--        </li>-->
+<!--        <li class="level1"><div class="li"> de “l&#039;observateur naturaliste”, qui, initié aux sciences de la terre et-->
+<!--          de la vie, découvre autour de lui un monde insoupçonné,</div>-->
+<!--        </li>-->
+<!--        <li class="level1"><div class="li"> du “poëte des champs”, qui apprend “à célébrer, en vers dignes de la nature,-->
+<!--          ses phénomènes et ses richesse”.</div>-->
+<!--        </li>-->
+<!--      </ol>-->
+
+<!--      <p>-->
+<!--        Présentes dès 1800, les <strong>notes</strong> savantes qui suivent les vers du chant 3, sur la-->
+<!--        <a href="">page principale</a>, sont dues à Delille<sup><a href="#refnotes:1:note1"-->
+<!--                                                                   name="refnotes:1:ref1" class="refnotes-ref">1</a></sup>,-->
+<!--        au naturaliste strasbourgeois Jean Hermann, ou aux éditeurs-libraires. Elles font donc pleinement partie de l&#039;œuvre,-->
+<!--        mais, quand elles ne sont pas signées par Delille, elles constituent aussi déjà un discours <strong>produit par ses vers</strong>,-->
+<!--        soit un élément de réception auquel ont à leur tour réagi certains lecteurs, comme-->
+<!--        <a href="" title="guinguenecompterendudecade">Ginguené</a>. La même analyse vaut pour les illustrations du poème.-->
+<!--      </p>-->
+<!--      <hr />-->
+
+<!--      <p>-->
+<!--        Trois motifs ont milité pour que l&#039;enquête porte d&#039;abord sur le chant 3 :-->
+<!--      </p>-->
+<!--      <ul>-->
+<!--        <li class="level1"><div class="li">-->
+<!--          Il s&#039;agit de la portion du poème qui dialogue le plus nettement avec les sciences. Or la possibilité d&#039;-->
+<!--          <strong>allier science et poésie</strong> constitue à la fois un trait majeur de la poétique de Delille, et l&#039;objet d&#039;un-->
+<!--          débat extrêmement nourri tout au long du siècle<sup>-->
+<!--          <a href="#refnotes:1:note2" name="refnotes:1:ref2" class="refnotes-ref">2</a></sup>.</div>-->
+<!--        </li>-->
+<!--        <li class="level1"><div class="li"> Delille lui-même a indiqué dans sa préface qu&#039;il tenait-->
+<!--          le chant sur les sciences naturelles comme la partie la plus <strong>novatrice</strong> de-->
+<!--          <em>L&#039;Homme des champs</em> : “Le sujet de ce chant, écrit-il, est le plus fécond de tous, et jamais-->
+<!--          une carrière et plus vaste et plus neuve ne fut ouverte à la poésie”.</div>-->
+<!--        </li>-->
+<!--        <li class="level1"><div class="li"> Le chant 3 est relativement peu touché par les modifications introduites en 1805-->
+<!--          <sup><a href="#refnotes:1:note3" name="refnotes:1:ref3" class="refnotes-ref">3</a></sup>. L&#039;écart entre les-->
+<!--          deux versions fut donc faible, ce qui évite d&#039;avoir à suivre la réception de deux lignées divergentes.</div>-->
+<!--        </li>-->
+<!--      </ul>-->
+
+<!--      <p>-->
+<!--        Le choix d&#039;une publication en ligne, sous forme de-->
+<!--        <a href="https://fr.wikipedia.org/wiki/Wiki" target="_blank" title="https://fr.wikipedia.org/wiki/Wiki">wiki</a>,-->
+<!--        permet au projet d&#039;intégrer différents contributeurs, d&#039;offrir aux utilisateurs la possibilité de se-->
+<!--        reporter immédiatement aux autres œuvres citées, et de disposer d&#039;une <strong>structure évolutive</strong>,-->
+<!--        adaptée à l&#039;ajout progressif de références nouvelles.-->
+<!--      </p>-->
+
+<!--    </div>-->
+
+<!--    <h2>L&#039;oreille et l&#039;œil</h2>-->
+<!--    <div>-->
+<!--      <p>-->
+<!--        Reflet des régimes de sociabilité de l&#039;Ancien Régime et du rôle important que la poésie du premier-->
+<!--        19<sup>e</sup> siècle donnait encore à la performance orale des textes, la poésie de Delille ne s&#039;est-->
+<!--        pas seulement diffusée sous forme imprimée, mais à travers les nombreuses <strong>lectures</strong>-->
+<!--        publiques qu&#039;il en a lui-même données, dans le cadre privé des salons, ou lors de cérémonies officielles-->
+<!--        (notamment au Collège de France et à l&#039;Académie française, dont il était membre). Traitées comme des-->
+<!--        événements, de telles manifestations attiraient un public d&#039;autant plus nombreux que les talents de lecteur-->
+<!--        de Delille étaient célèbres : ils lui valurent le surnom de “dupeur d&#039;oreilles”. Aussi ces apparitions-->
+<!--        firent-elles l&#039;objet dans la presse de comptes rendus, dont les auteurs citent volontiers certains des vers lus,-->
+<!--        voire des passages entiers, reconstitués de mémoire.-->
+<!--      </p>-->
+<!--      <p>-->
+<!--        C&#039;est ce qui explique que les œuvres de Delille, et notamment-->
+<!--        <em>L&#039;Homme des champs</em>, aient été connues et commentées avant même d&#039;être disponibles sous forme-->
+<!--        imprimée. Notre édition inverse rend compte de ce phénomène. Elle intègre des <strong>éléments de réception</strong>-->
+<!--        de l&#039;œuvre qui peuvent être <strong>antérieurs à sa première publication</strong> (1800) et remonter à-->
+<!--        <a href="[LINK TO A GIVEN PAGE]" title="correspondance_litt021775">1775</a>. Sous cet angle, les documents-->
+<!--        réunis entendent soulever deux questions :-->
+<!--      </p>-->
+<!--      <ul>-->
+<!--        <li class="level1"><div class="li">-->
+<!--          dans quelle mesure les traces écrites laissées par les lectures orales permettent-elles, sinon de les-->
+<!--          reconstituer, du moins de <strong>réunir des indications sur elles</strong> ?</div>-->
+<!--        </li>-->
+<!--        <li class="level1"><div class="li"> quelle forme ces phénomènes de <strong>réception de l&#039;œuvre “avant l&#039;œuvre”</strong>-->
+<!--          ont-ils pris ?</div>-->
+<!--        </li>-->
+<!--      </ul>-->
+<!--    </div>-->
+
+<!--    <h2>Modéliser une vogue</h2>-->
+<!--    <div class="level2">-->
+<!--      <p>-->
+<!--        Acclamé de son vivant, Delille a par la suite progressivement sombré dans l&#039;oubli, un oubli auquel a-->
+<!--        contribué la violence des <strong>attaques</strong> que son œuvre a subies de la part des auteurs qui ont-->
+<!--        dominé le canon littéraire après 1820. Suivre la réception de ces textes, c&#039;est donc se lancer sur la-->
+<!--        piste d&#039;une brusque rupture – <strong>le congé que le romantisme donna à la poésie du 18<sup>e</sup> siècle</strong>.-->
+<!--      </p>-->
+<!--      <p>-->
+<!--        Reconstituer avec finesse les échos reçus au fil du siècle par le segment d&#039;un de ses poèmes les plus-->
+<!--        acclamés doit permettre d&#039;analyser et comprendre de manière plus poussée les <strong>dynamiques qui ont-->
+<!--        conduit à sa célébrité, puis à sa disparition</strong>. Quels arguments furent mis en avant pour louer ou-->
+<!--        décrire son écriture ? Quels vers ont été les plus cités, ou parodiés ? Les processus de <strong>célébration</strong>-->
+<!--        et de <strong>minoration</strong> de l&#039;auteur sont-ils rattachés à des renvois précis à ses vers ? Ces derniers-->
+<!--        ont-ils parfois pu rester dans les mémoires sans que leur origine ne demeure consciente ? Ont-ils pu devenir des lieux communs ?-->
+<!--      </p>-->
+<!--      <p>-->
+<!--        Soulever ces questions revient à lier la réception littéraire à des phénomènes plus larges, et très actuels,-->
+<!--        mais dont l&#039;<strong>archéologie</strong> mérite d&#039;être tentée. Peut-on parler, à propos de-->
+<!--        Delille, de phénomènes de <strong>viralité</strong>, comparables à ceux qui s&#039;observent aujourd&#039;hui-->
+<!--        sur Internet ? Quels vers — et quels éléments de discours associés à ces vers – se sont-ils constitués en-->
+<!--        <strong>mèmes</strong>, terme pris ici au sens d&#039;unités discursives susceptibles d&#039;être fortement-->
+<!--        reproduites d&#039;une génération à l&#039;autre ? Selon quel biais cette sélection est-elle intervenue ?-->
+<!--        Quel a été, par exemple, le rôle de la presse, des dictionnaires ou des manuels scolaires, dans la manière dont-->
+<!--        ces segments privilégiés ont été sélectionnés ? Ou encore, celui de Delille lui-même, qui, dans ses poèmes-->
+<!--        ultérieurs, est fréquemment revenu sur <em>L&#039;Homme des champs</em> ?-->
+<!--      </p>-->
+<!--    </div>-->
+
+<!--    <h2>Distinguer des tendances</h2>-->
+<!--    <div class="level2">-->
+<!--      <p>-->
+<!--        L&#039;inventaire doit non seulement mettre au jour des mécanismes de diffusion, de-->
+<!--        sélection et d&#039;effacement, mais aussi des <strong>phénomènes d&#039;altération</strong> :-->
+<!--        le texte de Delille ne survit pas sans heurts à sa diffusion. Il est transformé, des citations fautives s&#039;imposant-->
+<!--        ici et là à la place du texte original.-->
+<!--      </p>-->
+<!--      <p>-->
+<!--        Surtout, il ne connaît pas la même fortune selon les <strong>groupes</strong>.-->
+<!--      </p>-->
+<!--      <ul>-->
+<!--        <li class="level1"><div class="li"> Les “classiques” furent-ils unanimes à le défendre, et les “romantiques”-->
+<!--          tous d&#039;accord pour le railler ? <a href="[LINK TO A CITATION]" title="gautiercomedie">Théophile Gautier</a>-->
+<!--          fut-il le seul “moderne” à lui emprunter un beau vers ?</div>-->
+<!--        </li>-->
+<!--        <li class="level1"><div class="li"> Les scientifiques et vulgarisateurs lurent-ils autrement que le reste du-->
+<!--          public un chant tout entier voué aux sciences naturelles, et le souvenir du poème perdura-t-il plus longtemps-->
+<!--          sous leur plume ?</div>-->
+<!--        </li>-->
+<!--        <li class="level1"><div class="li"> Cette étude de réception peut-elle indiquer si, et quand, Delille s&#039;est-->
+<!--          mué en poète pour <em>bourgeois</em> ou pour <em>provinciaux</em>, comme le pensait Balzac ?</div>-->
+<!--        </li>-->
+<!--      </ul>-->
+
+<!--    </div>-->
+
+<!--    <h2>Voir le dix-neuvième siècle autrement</h2>-->
+<!--    <div class="level2">-->
+
+<!--      <p>-->
+<!--        Réunir les échos reçus tout au long du 19<sup>e</sup> siècle par quelques centaines de vers, publiés-->
+<!--        à l&#039;aube de cette période, revient aussi à observer cette dernière sous un jour inattendu, pour y-->
+<!--        découvrir des textes méconnus, comme l&#039;<a href="" class="wikilink1" title="dauxpetitshommes">éloge de-->
+<!--        la petitesse</a> de l&#039;abbé Daux, mais surtout, pour pratiquer dans la masse des discours du temps-->
+<!--        une <strong>ponction inédite</strong>. Quelle unité trouver entre toutes les œuvres que traversent des références-->
+<!--        au chant 3 de <em>L&#039;Homme des champs</em> ? Quel 19<sup>e</sup> siècle cette collection est-elle susceptible-->
+<!--        de peindre ? En quoi se distingue-t-il d&#039;autres portraits possibles de la période, et comment son-->
+<!--        exploration peut-elle perturber nos habitudes, secouer nos certitudes ?-->
+<!--      </p>-->
+<!--      <p>-->
+<!--        Plus largement, qu&#039;est-ce qu&#039;une telle entreprise peut-nous apprendre sur la place dévolue, non pas-->
+<!--        seulement à Delille au sein de la littérature de cette période, mais à la littérature au sein d&#039;un vaste-->
+<!--        discours social – un <strong>éventail de pratiques, de disciplines et de débats</strong> où l&#039;on ne s&#039;attendrait-->
+<!--        pas forcément à trouver des références à <em>L&#039;Homme des champs</em> ?-->
+<!--      </p>-->
+<!--    </div>-->
+
+<!--    <h2>L&#039;inventaire doit-il être exhaustif ?</h2>-->
+<!--    <div class="level2">-->
+<!--      <p>-->
+<!--        Repérer l&#039;ensemble des échos qu&#039;un texte a pu recevoir sur près d&#039;un siècle tient-->
+<!--        évidemment de la <strong>gageure</strong>, même si, pour des raisons de faisabilité, l&#039;inventaire se-->
+<!--        limite pour le moment au seul chant 3.-->
+<!--      </p>-->
+<!--      <p>-->
+<!--        Le but du projet n&#039;est pas de recenser toutes les marques de réception, mais d&#039;intégrer un-->
+<!--        nombre d&#039;exemples suffisamment variés et divers pour penser atteindre une bonne <strong>représentativité</strong>.-->
+<!--        <em>Work in progress</em>, cette édition en ligne est appelée à se développer au fil des trouvailles.-->
+<!--      </p>-->
+<!--      <p>-->
+<!--        Sur un plan pratique, la collecte s&#039;appuie sur les possibilités de recherche en mode “plein texte” offertes-->
+<!--        par les grands <strong>bibliothèques numériques</strong>. Les contributeurs formulent des requêtes permettant de-->
+<!--        repérer la manière dont un vers donné (voire ses seuls termes clés) apparaît dans les collections de Gallica,-->
+<!--        Europeana, GoogleBooks, HathiTrust, InternetArchive, etc.-->
+<!--      </p>-->
+<!--    </div>-->
+
+<!--    <h2>Le projet a-t-il vocation à accueillir des collaborations externes ?</h2>-->
+<!--    <div class="level2">-->
+<!--      <p>-->
+<!--        Bien qu&#039;il constitue un wiki, <strong>le site ne permet pas aux visiteurs d&#039;intervenir sur son-->
+<!--        contenu</strong>. Cette possibilité pourra être offerte à moyen terme, mais seulement à l&#039;issue d&#039;une-->
+<!--        phase de test encore en cours.-->
+<!--      </p>-->
+<!--      <p>-->
+<!--        Si vous souhaitez être associé(e) au projet, merci de <strong>contacter</strong> <a href="" title="collaborateurs">l&#039;équipe</a>.-->
+<!--      </p>-->
+
+<!--    </div>-->
+
+<!--    <h2>Bibliographie</h2>-->
+<!--    <div class="level2">-->
+<!--      <p>-->
+<!--        <strong>Ouvrages et articles</strong>-->
+<!--      </p>-->
+<!--      <p>-->
+<!--        <br/>-->
+<!--        Voir le site <a href="https://delille.philhist.unibas.ch/poete.html" target="_blank" title="https://delille.philhist.unibas.ch/poete.html">Reconstruire Delille</a>.-->
+<!--      </p>-->
+
+<!--      <p>-->
+<!--        <br/>-->
+<!--        <strong>Ressources numériques</strong>-->
+<!--        <br/>-->
+
+<!--      </p>-->
+<!--      <ul>-->
+<!--        <li class="level1"><div class="li"> Une analyse métrique complète du chant 3, dans la version de 1800, a été menée dans le cadre du projet ANAMÈTRE (CRISCO, université de Caen) : <a href="http://www.crisco.unicaen.fr/~stage/Verlaine/index.php?navigation=textesauteurs&amp;auteur=DEL_2&amp;code_text=DEL7" target="_blank" title="http://www.crisco.unicaen.fr/~stage/Verlaine/index.php?navigation=textesauteurs&amp;auteur=DEL_2&amp;code_text=DEL7">lien</a>.</div>-->
+<!--        </li>-->
+<!--      </ul>-->
+<!--      <hr />-->
+<!--    </div>-->
+<!--    <div class="refnotes">-->
+<!--      <hr>-->
+<!--      <div class="notes">-->
+<!--        <div class="note justify">-->
+<!--          <sup><b><a href="#refnotes:1:ref1" name="refnotes:1:note1" class="backref">1</a></b></sup>-->
+<!--          <span id="refnotes:1:note1:text">-->
+<!--Elles sont alors distinguées dès le texte original par la mention “Note de l&#039;auteur”.-->
+<!--</span></div>-->
+<!--        <div class="note justify">-->
+<!--          <sup><b><a href="#refnotes:1:ref2" name="refnotes:1:note2" class="backref">2</a></b></sup>-->
+<!--          <span id="refnotes:1:note2:text">-->
+<!--Voir Hugues Marchal (dir.), <em>Muses et ptérodactyles : la poésie de la science de Chénier à Rimbaud</em>, Paris, Seuil, 2013.-->
+<!--</span></div>-->
+<!--        <div class="note justify">-->
+<!--          <sup><b><a href="#refnotes:1:ref3" name="refnotes:1:note3" class="backref">3</a></b></sup>-->
+<!--          <span id="refnotes:1:note3:text">-->
+<!--Le seul ajout important est le texte de l&#039;argument liminaire.-->
+<!--</span></div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+    <div *ngIf="grapesJSActivated" id="grapesJSViewer" style="z-index: -1; position: absolute; "></div>
+
+
 
       <div style="margin-top: 30px; vertical-align: bottom;">
         <button type="button" mat-button (click)="drawer.toggle()" matTooltip='{{ createTooltip() }}'>
@@ -931,14 +1242,15 @@
              [type]="openAppsInThisPage[ 'dataListView' ].type"
              [firstPopupX]="openAppsInThisPage[ 'dataListView' ].model[i].x"
              [firstPopupY]="openAppsInThisPage[ 'dataListView' ].model[i].y"
-             [width]="produceHeightAndWidth( openAppsInThisPage[ 'dataListView' ].model[i].width, '500' )"
+             [width]="produceHeightAndWidth( openAppsInThisPage[ 'dataListView' ].model[i].width, '700' )"
              [height]="produceHeightAndWidth( openAppsInThisPage[ 'dataListView' ].model[i].height, '500')"
              (sendAppCoordinatesBack)="updateAppCoordinates($event)"
              (sendAppSettingsBack)="updateAppSettings($event)">
         <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'dataListView' ].model[i].height, '500' ) + 'px',
-        'width': produceHeightAndWidth( openAppsInThisPage[ 'dataListView' ].model[i].width, '500' ) + 'px'}">
+        'width': produceHeightAndWidth( openAppsInThisPage[ 'dataListView' ].model[i].width, '700' ) + 'px'}">
           <data-list-view style="position: sticky;"
-                         [queryResponse]="openAppsInThisPage[ 'dataListView' ].model[i]['json']">
+                         [queryResponse]="openAppsInThisPage[ 'dataListView' ].model[i]['json']"
+                          [dataListSettings]="openAppsInThisPage[ 'dataListView' ].model[i]['settings']">
           </data-list-view>
         </div>
       </popup>
@@ -1230,5 +1542,5 @@
         </mat-menu>
 
       </div>
-    </div>
+<!--    </div>-->
   </mat-drawer-container>

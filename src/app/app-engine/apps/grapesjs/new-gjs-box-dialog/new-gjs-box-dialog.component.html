@@ -1,37 +1,40 @@
-<h4>Add GrapesJS Box</h4>
+<div style="overflow: auto">
+  <h4>Add GrapesJS Box</h4>
 
-<form >
-  <mat-form-field style="width: 100%;">
-    <input matInput placeholder="Unique Id" [(ngModel)]="box.id" name="id">
-  </mat-form-field>
+  <form >
+    <mat-form-field style="width: 100%;">
+      <input matInput placeholder="Unique Id" [(ngModel)]="box.id" name="id">
+    </mat-form-field>
+
+    <br>
+
+    <mat-form-field style="width: 100%;">
+      <input matInput placeholder="Label" [(ngModel)]="box.label" name="label">
+    </mat-form-field>
+
+    <br>
+
+    <mat-form-field style="width: 100%;">
+      <input matInput placeholder="Font Awesome Image for Block" [(ngModel)]="box.class" name="class">
+    </mat-form-field>
+    <br>
+  </form>
+
+  <h5> html content </h5>
+
+  <!--<app-ngx-editor [placeholder]="'Enter text here...'" [spellcheck]="true" [(ngModel)]="box.content" name="content"></app-ngx-editor>-->
+
+  <ace-editor class="url-extension"
+              #editor
+              style="min-height: 20rem; width: 700px; overflow: auto;"
+              [mode]="'html'"
+              [(text)]="box.content">
+  </ace-editor>
+
+  <div [innerHtml]="box.content"></div>
 
   <br>
 
-  <mat-form-field style="width: 100%;">
-    <input matInput placeholder="Label" [(ngModel)]="box.label" name="label">
-  </mat-form-field>
+  <button mat-button [mat-dialog-close]="box" >Add Box</button> <button mat-button (click)="onNoClick()">Close Dialog</button>
+</div>
 
-  <br>
-
-  <mat-form-field style="width: 100%;">
-    <input matInput placeholder="Font Awesome Image for Block" [(ngModel)]="box.class" name="class">
-  </mat-form-field>
-  <br>
-</form>
-
-<h5> html content </h5>
-
-<!--<app-ngx-editor [placeholder]="'Enter text here...'" [spellcheck]="true" [(ngModel)]="box.content" name="content"></app-ngx-editor>-->
-
-<ace-editor class="url-extension"
-            #editor
-            style="min-height: 20rem; width: 700px; overflow: auto;"
-            [mode]="'html'"
-            [(text)]="box.content">
-</ace-editor>
-
-<div [innerHtml]="box.content"></div>
-
-<br>
-
-<button mat-button [mat-dialog-close]="box" >Add Box</button> <button mat-button (click)="onNoClick()">Close Dialog</button>

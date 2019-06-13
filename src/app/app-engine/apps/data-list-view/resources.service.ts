@@ -43,9 +43,9 @@ export class DataService {
 
   public getData() {
     const complete_url = this.getUrl(this.baseUrl, this.query);
-    console.log('post query to server ' + this.baseUrl)
+    console.log('post query to server ' + this.baseUrl);
 
-    return this.http.get(complete_url, this.httpOptions)
+    return this.http.get(complete_url, this.httpOptions);
       // .subscribe(response => {console.log(response)})
   }
 
