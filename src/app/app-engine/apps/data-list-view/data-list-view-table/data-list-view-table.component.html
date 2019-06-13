@@ -14,10 +14,10 @@
     <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{col}}</mat-header-cell>
     <mat-cell *cdkCellDef="let row; let i = $implicit;" class = "fuu"
               [ngStyle]= "dataListSettings.styles.cellStyle"
-              (click)="onThisClick(row[col].value, i)">
+              (click)="onThisClick(row[col], i)">
       <!-- SETTING [ngClass]="col" enables to define styles for each column, setting it to row[col].value will enable to define a style for certain cell content -->
       <span *ngIf="row[col]">
-          {{ row[col].value }}
+          {{ row[col] }}
         </span>
       <!--        {{ showValue(row, col) }} &lt;!&ndash; | highlight: toHighlightByFilter &ndash;&gt;-->
     </mat-cell>
