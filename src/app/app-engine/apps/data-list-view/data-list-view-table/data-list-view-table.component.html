@@ -35,6 +35,13 @@
                [pageSizeOptions]= "dataListSettings.paginator.pageSizeOptions">
 </mat-paginator>
 <!-- EXPORT -->
-<div>
-  <button (click)="exportToCsv()">Export to CSV</button>
-</div>
+<mat-form-field>
+  <mat-label>Export options</mat-label>
+  <mat-select [(value)]="exportSelection">
+    <mat-option value="displayed">Displayed data only</mat-option>
+    <mat-option value="complete">Complete export</mat-option>
+  </mat-select>
+</mat-form-field>
+<button (click)="exportToCsv()">Export to CSV</button>
+
+
