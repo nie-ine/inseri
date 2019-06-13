@@ -19,9 +19,13 @@ export class DataListViewTableComponent implements OnInit {
   // cssUrl: string;
   displayedColumns: any;
   dataSource: MatTableDataSource <any>;
+  dataSourceForExport: MatTableDataSource <any>;
   // TODO: highlight filter results in table cells by pipe
   toHighlightByFilter: string = ''; // For highlighting Filter results
+  // Export variables
   renderedData: any;
+  renderedDisplayedData: any;
+  exportSelection = 'displayed';
 
   constructor(private dialog: MatDialog) {
   }
@@ -41,8 +45,10 @@ export class DataListViewTableComponent implements OnInit {
 
     } else if ( this.dataToDisplay ) {
       this.populateByDatastream();
+      // TODO: if (jsonType === 'extendedSearch') { ... }
       this.displayedColumns = this.dataToDisplay.head.vars;
       console.log('got displayed columns from data stream: ' + this.displayedColumns);
+
     } else {
       console.log('missing or inaccurate column definition.');
     }
@@ -53,11 +59,14 @@ export class DataListViewTableComponent implements OnInit {
   //
   private populateByDatastream() {
     // INSTANTIATE the datasource of the table
+    // TODO: if (jsonType === extendedSearch ) { ... }
     this.dataSource = new MatTableDataSource(this.dataToDisplay.results.bindings);
+    this.dataSource.connect().subscribe(data => this.renderedDisplayedData = data);
     this.dataSource.paginator = this.paginator;
 
     // SUBSCRIBE to the tabledata for exporting this rendered data
-    this.dataSource.connect().subscribe(data => this.renderedData = data);
+    this.dataSourceForExport = new MatTableDataSource(this.dataToDisplay.results.bindings);
+    this.dataSourceForExport.connect().subscribe(data => this.renderedData = data);
 
     // AS the dataSource is nested MATSORT must sort the Table for subproperties (item.poperty.value)
     // and not for properties (standard sort).
@@ -69,9 +78,7 @@ export class DataListViewTableComponent implements OnInit {
         }
       };
     }
-
     this.dataSource.sort = this.sort;
-
   }
 
   // FILTERING THE datasource acc to settings
@@ -108,7 +115,7 @@ export class DataListViewTableComponent implements OnInit {
     // so the object property value is compared by filtering and not the object itself.
     let dataStr = '';
     for (let col in this.dataListSettings.filter.filteredColumns) {
-      dataStr = dataStr + data[this.dataListSettings.filter.filteredColumns[col]].value
+      dataStr = dataStr + data[this.dataListSettings.filter.filteredColumns[col]].value;
     }
     return dataStr;
   }
@@ -150,9 +157,7 @@ export class DataListViewTableComponent implements OnInit {
 
   //
   // EXPORT TO CSV
-  // TODO: adjust export to csv to the nested objects
   public exportToCsv() {
-    let data = this.renderedData;
 
     var options = {
       fieldSeparator: ',',
@@ -163,11 +168,33 @@ export class DataListViewTableComponent implements OnInit {
       title: 'data export',
       useBom: true,
       noDownload: false,
-      headers: this.displayedColumns
+      headers: this.dataToDisplay.head.vars
     };
 
-    new ngxCsv(data, options.title, options);
+    let exportData = this.getExportData();
+    new ngxCsv(exportData, options.title, options);
+  }
 
+  public getExportData() {
+    if (this.exportSelection === 'displayed') {
+      return this.flatten(this.renderedDisplayedData);
+    } else { return this.flatten(this.renderedData); }
+  }
+
+  public flatten(data) {
+    // FLATTENS the data so the actual values of the nested objects are exported - not whole objects.
+    let flattenedData = [];
+    for (let obj in data) {
+          let flattenobject = [];
+          if (obj < data.length) {
+            for (let property in data[obj]) {
+              const prop = data[obj][property].value;
+              flattenobject.push(prop);
+            }
+            flattenedData.push(flattenobject);
+          }
+    }
+    return flattenedData;
   }
   //
 // Display / Design stuff
