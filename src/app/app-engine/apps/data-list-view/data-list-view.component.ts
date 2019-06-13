@@ -16,6 +16,7 @@ export class DataListView implements OnInit {
   // TODO: Store/load SETTINGS on/from MongoDB:
   dataListSettings = {
     "inputMode":  "query",
+    "jsonType": "knora-extended",
     "columns":{
       "manualColumnDefinition": true,
       "displayedColumns": ["indexed_thing", "label"],
@@ -56,7 +57,7 @@ export class DataListView implements OnInit {
   // GET the data - either from running a query itself or by the input from another app/service (jsonResponse)
   private onGetData() {
     if (this.dataListSettings.inputMode === 'query') {
-      console.log('getting data by sending a query passed by input.');
+      console.log('getting data by running a SPARQL query passed by input.');
       this.dataService.getData().subscribe(data => {
         this.resData = data;
       });
