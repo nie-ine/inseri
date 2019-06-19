@@ -59,7 +59,7 @@ export class TextRichInnerhtmlComponent implements OnInit, OnChanges, AfterViewI
   /**
    * Keys of selected style environment bundles.
    */
-  @Input() selectedEnvironmentKeys: Set<string>;
+  @Input() selectedEnvironmentKeys: Array<string>;
 
   /**
    * Sanitized HTML content.
@@ -144,7 +144,7 @@ export class TextRichInnerhtmlComponent implements OnInit, OnChanges, AfterViewI
    */
   applySelectedStyles() {
     if (this.selectedEnvironmentKeys && this.selectableEnvironments) {
-      for (const s of Array.from(this.selectedEnvironmentKeys) ) {
+      for (const s of this.selectedEnvironmentKeys ) {
         const z = this.selectableEnvironments[s];
         for (const b of z) {
           if (b[ 'type' ] === 'tag') {

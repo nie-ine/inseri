@@ -41,7 +41,7 @@ export class RichTextByIriComponent implements OnInit {
   /**
    * Keys of selected style environment bundles.
    */
-  @Input() selectedEnvironmentKeys: Set<string>;
+  @Input() selectedEnvironmentKeys: Array<string>;
 
   /**
    * Literal HTML content.
