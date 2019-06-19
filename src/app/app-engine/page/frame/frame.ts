@@ -33,6 +33,7 @@ export class Frame implements OnInit, OnChanges {
   @Input() index: number = undefined;
   @Input() arrayLength: number = undefined;
   @Input() queryId: string;
+  @Input() position = 'absolute';
   @Output() sendAppCoordinatesBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendAppSettingsBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendIndexBack: EventEmitter<any> = new EventEmitter<any>();

@@ -57,6 +57,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   blockManager: any;
   depth: number;
   cssUrl: any;
+  appFramePosition = 'absolute';
 
   blockManagerModel = [
     {
@@ -129,6 +130,16 @@ export class PageComponent implements OnInit, AfterViewChecked {
         attributes: { class: block.class },
         content: block.content
       });
+    }
+  }
+
+  changeAppFramePosition() {
+    if ( this.appFramePosition === 'absolute' ) {
+      this.appFramePosition = 'static';
+      console.log(  this.appFramePosition );
+    } else {
+      this.appFramePosition = 'absolute';
+      console.log(  this.appFramePosition );
     }
   }
 
@@ -271,6 +282,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.page.openApps[ 'grapesJS' ].gjsHtml = localStorage.getItem('gjs-html');
     this.page.openApps[ 'grapesJS' ].gjsStyles = localStorage.getItem('gjs-styles');
     this.page.openApps[ 'grapesJS' ].hash = 'grapesJS';
+    this.page.openApps[ 'appsTiledOrFloating' ] = {};
+    this.page.openApps[ 'appsTiledOrFloating' ].hash = 'appsTiledOrFloating';
+    this.page.openApps[ 'appsTiledOrFloating' ].layout = this.appFramePosition;
     console.log(
       this.page,
       this.openAppsInThisPage
@@ -368,6 +382,11 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   receivePage( pageAndAction: any ) {
+    console.log( pageAndAction );
+    if (
+      pageAndAction[ 0 ].openApps[ 'appsTiledOrFloating' ] ) {
+      this.appFramePosition = pageAndAction[ 0 ].openApps[ 'appsTiledOrFloating' ].layout;
+    }
     setTimeout(() => {
       if (
         pageAndAction[ 0 ].openApps['grapesJS'] &&
