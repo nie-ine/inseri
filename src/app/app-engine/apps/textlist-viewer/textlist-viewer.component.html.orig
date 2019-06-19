@@ -1,0 +1,19 @@
+<<<<<<< HEAD
+<div style="margin-top: 20px; margin-left: 30px; " >
+=======
+<div style="height:100vh; margin-top: 40px; margin-left: 30px; " >
+>>>>>>> e5576ecb6e2613a366c852c8a7f11796d93b952b
+  <span *ngIf="displayArray">
+    <span *ngFor="let textentry of textToDisplay" >
+      <span [innerHtml]="textentry" style="margin-bottom: 10px"></span>
+      <br>
+      <span style="margin-bottom: 10px; margin-top: 30px">
+        <mat-divider></mat-divider>
+      </span>
+      <br>
+    </span>
+  </span>
+  <span *ngIf="!displayArray">
+    <span [innerHtml]="textToDisplay"></span>
+  </span>
+</div>

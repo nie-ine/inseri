@@ -1,0 +1,24 @@
+import {Component, OnInit, Input, OnChanges} from '@angular/core';
+
+@Component({
+  selector: 'app-textlist-viewer',
+  templateUrl: './textlist-viewer.component.html',
+  styleUrls: ['./textlist-viewer.component.scss']
+})
+<<<<<<< HEAD
+export class TextlistViewerComponent implements OnChanges {
+=======
+export class TextlistViewerComponent implements OnChanges{
+>>>>>>> e5576ecb6e2613a366c852c8a7f11796d93b952b
+  @Input() textToDisplay;
+  displayArray: boolean;
+  constructor() {
+  }
+  ngOnChanges() {
+    if ( typeof this.textToDisplay !== 'string' ) {
+      this.displayArray = true;
+    } else {
+      this.displayArray = false;
+    }
+  }
+}

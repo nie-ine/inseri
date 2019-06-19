@@ -34,7 +34,10 @@
         <button mat-button (click)="updatePage()" i18n="@@savePageButton">Save Page</button>
         <button mat-button (click)="expandPanels()" i18n="@@toggleDescriptionButton"> Un/fold description</button><br>
         <button mat-button (click)="openDataManagement()" i18n="@@pageDataManagementLink">Page Data Management</button><br>
+<<<<<<< HEAD
         <button mat-button (click)="changeAppFramePosition()" > Tiled or floating apps </button>
+=======
+>>>>>>> e5576ecb6e2613a366c852c8a7f11796d93b952b
         <h4 style="align-content: center">GrapesJS</h4>
         <button mat-button (click)="activateGrapesJS()" i18n="@@addGrapeJsButton">Add GrapesJS</button>
         <button mat-button (click)="deactivateGrapesJS()" i18n="@@removeGrapeJsButton">Remove GrapesJS</button><br>
@@ -556,6 +559,92 @@
       </details>
 
     </mat-drawer>
+<<<<<<< HEAD
+=======
+<!--    <div>-->
+<!--      <link rel="stylesheet"  type="text/css" [href]='cssUrl'>-->
+
+<!--    <div>-->
+<!--      <p>-->
+<!--        Le site <em>L’Homme des champs : éditer une réception littéraire</em>-->
+<!--        constitue l'un des volets d'un <strong>programme de recherche</strong>-->
+<!--        plus vaste, le projet <a href="https://delille.philhist.unibas.ch/" target="_blank">Reconstruire Delille</a>,-->
+<!--        mené au sein des universités de Bâle et Neuchâtel, soutenu par le Fonds national suisse de la recherche scientifique-->
+<!--        (<a href="http://www.snf.ch/fr/Pages/default.aspx" target="_blank">FNS</a>) et associé à l'infrastructure pour l'édition-->
+<!--        <a href="http://www.fee.unibas.ch/index.html" target="_blank">FEE/NIE</a>.-->
+<!--      </p>-->
+<!--      <p>-->
+<!--        Le présent travail rassemble différents <a href="">contributeurs</a>.-->
+<!--      </p>-->
+<!--    </div>-->
+
+<!--    <h2>Pourquoi proposer en ligne une édition &quot;inverse&quot; ?</h2>-->
+<!--    <div>-->
+<!--      <p>-->
+<!--        Le site tente d&#039;annoter un texte poétique, le chant 3 de-->
+<!--        <em>L&#039;Homme des champs</em> de Jacques Delille, en proposant des informations, non sur les sources utilisées-->
+<!--        par l&#039;auteur, ni sur le sens de termes difficiles, mais sur la <strong>réception</strong> dont ce texte a fait-->
+<!--        l&#039;objet. Ce travail ne regarde donc pas vers l&#039;<strong>amont</strong> du poème, mais toujours vers l&#039;-->
+<!--        <strong>aval</strong>. Il tente de déployer et de cartographier ce que l&#039;on pourrait nommer “l&#039;œuvre-->
+<!--        de l&#039;œuvre”, c&#039;est-à-dire son <strong>impact</strong>. La démarche doit en effet permettre de-->
+<!--        reconstituer et d&#039;analyser avec un grand degré de finesse la place que ces vers, publiés en 1800,-->
+<!--        ont tenue dans la culture du 19<sup>e</sup> siècle, en France comme dans le reste de l&#039;Europe, c&#039;est-à-dire-->
+<!--        la manière dont ils ont été commentés, réutilisés, parodiés, illustrés, traduits, etc.-->
+<!--      </p>-->
+<!--      <p>-->
+<!--        Cette édition en ligne double la mise en œuvre, simultanée, d&#039;une-->
+<!--        <strong>édition scientifique traditionnelle</strong> de <em>L&#039;Homme des champs</em>.-->
+<!--        Elle n&#039;entend donc pas s&#039;y substituer, ce qui explique que le texte principal soit présenté ici sans-->
+<!--        aucune des précisions attendues d&#039;une édition scientifique.-->
+<!--      </p>-->
+<!--      <p>-->
+<!--        Seuls quelques éclaircissements philologiques s&#039;imposent.-->
+<!--      </p>-->
+<!--      <hr />-->
+<!--      <p>-->
+<!--        <strong>Textes suivis</strong>-->
+<!--      </p>-->
+<!--      <p>-->
+<!--        La leçon suivie ici pour <em>L&#039;Homme des champs</em> est celle de la “nouvelle édition augmentée” de-->
+<!--        <strong>1805</strong>, dans laquelle Delille apporte d&#039;importantes modifications au texte original, publié en-->
+<!--        1800. Conformément aux usages des libraires de l&#039;époque, cette édition augmentée a été simultanément mise en-->
+<!--        vente sous plusieurs formats. Notre texte est celui des volumes <strong>in-8</strong> publiés à Paris par Levrault,-->
+<!--        Schoell et Cie, et imprimés par Didot, avec 13 “figures” (un de ces exemplaires est consultable en ligne, sur-->
+<!--        <a href="http://gallica.bnf.fr/ark:/12148/bpt6k5445687m" target="_blank">Gallica</a>).-->
+<!--      </p>-->
+
+<!--      <p>-->
+<!--        Les références des autres documents figurent dans chaque fiche.-->
+<!--      </p>-->
+
+<!--      <p>-->
+<!--        L&#039;<strong>orthographe</strong> d&#039;origine est partout conservée.-->
+<!--      </p>-->
+<!--      <hr />-->
+
+<!--      <p>-->
+<!--        <strong>Un “poème scientifique”</strong>-->
+<!--      </p>-->
+
+<!--      <p>-->
+<!--        Incitation à fréquenter la campagne,-->
+<!--        <em>L&#039;Homme des champs</em> se divise en <strong>quatre chants</strong>, “tous relatifs-->
+<!--        aux jouissances champêtres” qui attendent un riche propriétaire. Ces sections évoquent successivement les plaisirs-->
+<!--      </p>-->
+<!--      <ol>-->
+<!--        <li class="level1"><div class="li"> du “sage”, qui savoure le calme de la nature, tout en s&#039;attachant-->
+<!--          à répandre l&#039;instruction et le progrès parmi les habitants du lieu,</div>-->
+<!--        </li>-->
+<!--        <li class="level1"><div class="li"> de “l&#039;agriculteur”, grand entrepreneur capable d&#039;améliorer les-->
+<!--          terrains en engageant de grands travaux de terrassement ou d&#039;irrigation,</div>-->
+<!--        </li>-->
+<!--        <li class="level1"><div class="li"> de “l&#039;observateur naturaliste”, qui, initié aux sciences de la terre et-->
+<!--          de la vie, découvre autour de lui un monde insoupçonné,</div>-->
+<!--        </li>-->
+<!--        <li class="level1"><div class="li"> du “poëte des champs”, qui apprend “à célébrer, en vers dignes de la nature,-->
+<!--          ses phénomènes et ses richesse”.</div>-->
+<!--        </li>-->
+<!--      </ol>-->
 
 <!--      <p>-->
 <!--        Présentes dès 1800, les <strong>notes</strong> savantes qui suivent les vers du chant 3, sur la-->
@@ -783,6 +872,7 @@
 <!--</span></div>-->
 <!--      </div>-->
 <!--    </div>-->
+>>>>>>> e5576ecb6e2613a366c852c8a7f11796d93b952b
 
     <div *ngIf="grapesJSActivated" id="grapesJSViewer" style="z-index: -1; position: absolute; "></div>
 
@@ -994,6 +1084,7 @@
 
     <!-- textlistViewers -->
       <div *ngFor="let createResourceForm of openAppsInThisPage[ 'textlistViewers' ].model; let i = index;" >
+<<<<<<< HEAD
         <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>short_text</mat-icon> {{ i }}</button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item (click)="textlistViewers.appear()" >Show Textlist Viewer {{ i }}</button>
@@ -1001,6 +1092,9 @@
         </mat-menu>
         <popup #textlistViewers
                [position]="appFramePosition"
+=======
+        <popup #textlistViewers
+>>>>>>> e5576ecb6e2613a366c852c8a7f11796d93b952b
                [hash]="openAppsInThisPage[ 'textlistViewers' ].model[i].hash"
                [title]="openAppsInThisPage[ 'textlistViewers' ].model[i].title || 'Plaintext - Viewer ' + i"
                [type]="openAppsInThisPage[ 'textlistViewers' ].type"
@@ -1017,6 +1111,14 @@
             </app-textlist-viewer>
           </div>
         </popup>
+<<<<<<< HEAD
+=======
+        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>short_text</mat-icon> {{ i }}</button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="textlistViewers.appear()" >Show Textlist Viewer {{ i }}</button>
+          <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'textlistViewers' ].model, i ) ">Remove this app</button>
+        </mat-menu>
+>>>>>>> e5576ecb6e2613a366c852c8a7f11796d93b952b
       </div>
 
     <!-- parzivalFassung -->
