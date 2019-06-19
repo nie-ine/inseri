@@ -8,6 +8,7 @@ import { RichTextModule } from '../shared/rich-text/rich-text.module';
   imports: [
     CommonModule,
     RichTextModule
-  ]
+  ],
+  exports: [HtmlViewerComponent]
 })
 export class HtmlViewerModule { }

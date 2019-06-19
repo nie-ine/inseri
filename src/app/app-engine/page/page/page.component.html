@@ -102,6 +102,31 @@
 
         </mat-expansion-panel>
 
+
+        <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
+          <mat-expansion-panel-header >
+            <mat-panel-title i18n="@@textViewerAppLabel">
+              HTML Viewer
+            </mat-panel-title>
+            <mat-panel-description i18n="@@textViewerAppDescription">
+              Displays HTML with possible configuration
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <ng-container i18n="@@appUnderDevelopmentLabel">
+            This app is under development.
+          </ng-container>
+          <ng-container i18n="@@textViewerApp">
+            It displays HTML snippets and applies externally defined styles to the view.
+          </ng-container>
+
+          <mat-divider></mat-divider>
+
+          <button mat-button (click)="addAnotherApp('htmlViewer', true)"><mat-icon>view_headline</mat-icon> Add HTML Viewer</button><br>
+
+        </mat-expansion-panel>
+
+
         <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
           <mat-expansion-panel-header>
             <mat-panel-title>
@@ -683,6 +708,35 @@
         </mat-menu>
 
       </div>
+
+    <!-- HTML viewer -->
+    <div *ngFor="let htmlViewer of openAppsInThisPage[ 'htmlViewer' ].model; let i = index;" >
+      <popup #htmlViewer
+             [hash]="openAppsInThisPage[ 'htmlViewer' ].model[i].hash"
+             [title]="openAppsInThisPage[ 'htmlViewer' ].model[i].title || 'HTML Viewer ' + i"
+             [type]="openAppsInThisPage[ 'htmlViewer' ].type"
+             [firstPopupX]="openAppsInThisPage[ 'htmlViewer' ].model[i].x"
+             [firstPopupY]="openAppsInThisPage[ 'htmlViewer' ].model[i].y"
+             [width]="produceHeightAndWidth( openAppsInThisPage[ 'htmlViewer' ].model[i].width, '500' )"
+             [height]="produceHeightAndWidth( openAppsInThisPage[ 'htmlViewer' ].model[i].height, '500')"
+             (sendAppCoordinatesBack)="updateAppCoordinates($event)"
+             (sendAppSettingsBack)="updateAppSettings($event)">
+        <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'htmlViewer' ].model[i].height, '500' ) + 'px',
+  'width': produceHeightAndWidth( openAppsInThisPage[ 'htmlViewer' ].model[i].width, '500' ) + 'px'}">
+          <app-html-viewer class="draggable" style="position: sticky;"
+                           [htmlContent]="openAppsInThisPage[ 'htmlViewer' ].model[i]['htmlContent']"
+                           [selectiveStyleDeclarations]="openAppsInThisPage[ 'htmlViewer' ].model[i]['selectiveStyleDeclarations']"
+                           [styleDeclarations]="openAppsInThisPage[ 'htmlViewer' ].model[i]['styleDeclarations']">
+          </app-html-viewer>
+        </div>
+      </popup>
+      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>short_text</mat-icon> {{ i }}</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="htmlViewer.appear()" >Show HTML Viewer {{ i }}</button>
+        <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'htmlViewer' ].model, i ) ">Remove this app</button>
+      </mat-menu>
+
+    </div>
 
       <!-- Synopsis -->
       <div *ngFor="let synopsisViewer of openAppsInThisPage[ 'synopsisViewer' ].model; let i = index;" >
