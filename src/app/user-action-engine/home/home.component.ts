@@ -54,31 +54,6 @@ export class HomeComponent implements OnInit {
       console.log( 'deletedAccount' );
       this.deletedAccount = true;
     }
-
-    const json = {
-      'method': 'searchSpaces',
-      'params': [
-        'lmalms-190619065358687x6154E50F778BD35A6008F42875F0E1DF',
-        {
-          '@type': 'as.dto.space.search.SpaceSearchCriteria'
-        }, {
-          '@type': 'as.dto.space.fetchoptions.SpaceFetchOptions',
-          'from': null, 'count': null
-        }], 'id': '2', 'jsonrpc': '2.0'
-    };
-
-    const jsonConverted = JSON.stringify(json);
-
-    this.http.post(
-      `https://s3itdata.uzh.ch/openbis/openbis/rmi-application-server-v3.json`,
-      jsonConverted
-    ).subscribe(
-        data => {
-          console.log( data );
-        }, error1 => {
-          console.log( error1 );
-      }
-    );
   }
 
   startLoginProcess() {
