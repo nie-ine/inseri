@@ -146,7 +146,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
   addBlock() {
     const dialogRef = this.dialog.open(NewGjsBoxDialogComponent, {
       width: '700px',
-      height: '1000px',
       data: 'test'
     });
 

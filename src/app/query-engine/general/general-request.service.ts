@@ -46,12 +46,12 @@ export class GeneralRequestService {
     for (const i in header) {
       headerTransformed = headerTransformed.append(i, header[ i ]);
     }
-    // console.log( headerTransformed );
+    console.log( headerTransformed );
     return headerTransformed;
   }
 
   get(url: string, parameter?: any, header?: any): Observable<any> {
-    // console.log('GET Request', url, parameter, header);
+    console.log('GET Request', url, parameter, header);
     return this.http.get(url, {headers: this.transformHeader(header), params : this.transformParam(parameter), observe: 'response'});
   }
 

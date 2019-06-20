@@ -596,7 +596,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           // console.log('Pass on request');
           // console.log(request);
           // attach Token from nodejs
-          // console.log(request.url);
+          console.log(request.url);
           if( request.url.search( environment.node ) !== -1 ) {
             const authToken = this.authService.getToken();
             const authRequest = request.clone({

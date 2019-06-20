@@ -140,9 +140,6 @@ export class OpenAppsModel {
       inputs: [
         {
           'inputName': 'json'
-        },
-        {
-          'inputName': 'settings'
         }
       ]
     },

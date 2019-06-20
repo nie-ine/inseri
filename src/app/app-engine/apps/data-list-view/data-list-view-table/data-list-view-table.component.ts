@@ -60,12 +60,12 @@ export class DataListViewTableComponent implements OnInit {
   private populateByDatastream() {
     // INSTANTIATE the datasource of the table
     // TODO: if (jsonType === extendedSearch ) { ... }
-    this.dataSource = new MatTableDataSource(this.dataToDisplay);
+    this.dataSource = new MatTableDataSource(this.dataToDisplay.results.bindings);
     this.dataSource.connect().subscribe(data => this.renderedDisplayedData = data);
     this.dataSource.paginator = this.paginator;
 
     // SUBSCRIBE to the tabledata for exporting this rendered data
-    this.dataSourceForExport = new MatTableDataSource(this.dataToDisplay);
+    this.dataSourceForExport = new MatTableDataSource(this.dataToDisplay.results.bindings);
     this.dataSourceForExport.connect().subscribe(data => this.renderedData = data);
 
     // AS the dataSource is nested MATSORT must sort the Table for subproperties (item.poperty.value)
