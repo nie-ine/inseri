@@ -192,6 +192,13 @@
   dependencies:
     tslib "^1.9.0"
 
+"@angular/flex-layout@^7.0.0-beta.23":
+  version "7.0.0-beta.24"
+  resolved "https://registry.yarnpkg.com/@angular/flex-layout/-/flex-layout-7.0.0-beta.24.tgz#ad2fd2b0ff5e49119a6e0bc2052256967ad749af"
+  integrity sha512-ll6sK0nLGxqI/f5+z4jbd+pve1QITzgehv2AuGvfSDgIjPMeqUDB5YZqQmIGM/dQRk/vIio5KCW5LQPJWzMMYQ==
+  dependencies:
+    tslib "^1.7.1"
+
 "@angular/forms@7.2.6":
   version "7.2.6"
   resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-7.2.6.tgz#4db5238a5aa462927be29c90bc60ce4585ed939f"
@@ -331,6 +338,27 @@
     esutils "^2.0.2"
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
+
+"@knora/action@^8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@knora/action/-/action-8.0.0.tgz#af839768417692641095d1e79875c09bb062f455"
+  integrity sha512-R+Rrw6K/spXR9zsgs4i44Ic6OvTjSnsg7zR+ssoswp9IN0h4A+cPC5TOUId0Z7aV8U3Evu4sKvVrAXKClgPlGw==
+  dependencies:
+    tslib "^1.9.0"
+
+"@knora/core@^8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@knora/core/-/core-8.0.0.tgz#3f24af507c38dfff4b279768fd8a2e218fe9fde9"
+  integrity sha512-d0KQJRK8qs8gZDCaAEM9AgJo+GV6C3g5OXymT7g8+mhBldVA2df9vens2g7IPWDxvGO9+DeMzvCCYuOmsqMfHw==
+  dependencies:
+    tslib "^1.9.0"
+
+"@knora/viewer@^8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@knora/viewer/-/viewer-8.0.0.tgz#d3228f7f0843274f3d94eefc2d9ec95167cbf397"
+  integrity sha512-MbZMyn2avtywks5eG35tRhsg44ZCrm6dio9cGahmkHcxMLhDyV0DQeSa8Qa3Nlw24wG4GJTPVn8h02exrUIoeQ==
+  dependencies:
+    tslib "^1.9.0"
 
 "@ngtools/webpack@7.3.9":
   version "7.3.9"
@@ -4584,6 +4612,18 @@ jasminewd2@^2.1.0:
   resolved "https://registry.yarnpkg.com/jasminewd2/-/jasminewd2-2.2.0.tgz#e37cf0b17f199cce23bea71b2039395246b4ec4e"
   integrity sha1-43zwsX8ZnM4jvqcbIDk5Uka07E4=
 
+jdnconvertiblecalendar@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/jdnconvertiblecalendar/-/jdnconvertiblecalendar-0.0.3.tgz#a4e6106340b27bc06bf08cd00912960c666693cc"
+  integrity sha512-AxqmzIkHLE/iEZuej5S9zTqXOAvtHJIk6iMPM3tLBha9UBclxXqXGeqJtclMflVHuvpzm06e0zJ2YVCSA8vtQg==
+
+jdnconvertiblecalendardateadapter@^0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/jdnconvertiblecalendardateadapter/-/jdnconvertiblecalendardateadapter-0.0.9.tgz#b02f044139b28cfa0e631f779caa270a91e67ddf"
+  integrity sha512-LnAlZ6pE9lOa5eSWydpLAeBJ297z2HaWIp2GB5AQgackPkl/LNdP/zBpa5rvUOywpuuuKFfocLwIL1UVMn8xtA==
+  dependencies:
+    tslib "^1.9.0"
+
 jquery@^3.1.1, jquery@^3.3.1:
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.4.1.tgz#714f1f8d9dde4bdfa55764ba37ef214630d80ef2"
@@ -8609,6 +8649,11 @@ trim-right@^1.0.1:
   integrity sha512-m6s2OdQe5wgpFMC+pAJ+q9djG82O2jcHPOI6RNg1yy9rCYR+WD6Nbpl32fDpfC56nirdRy+opFa/Vk7HYhqaew==
   dependencies:
     glob "^7.1.2"
+
+ts-md5@^1.2.4:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/ts-md5/-/ts-md5-1.2.4.tgz#7030d7ba9134449deedf6f609d4b4509b94a5712"
+  integrity sha512-oW+rNjc9CAhalPFzbPWsLqPLzdNcJ8iSm+OXO+Uv+99r3PzCJuM5sVc0bO1eS+4LD2xv+nfU7ylBdwoemUV9Yw==
 
 ts-node@~8.0.2:
   version "8.0.3"

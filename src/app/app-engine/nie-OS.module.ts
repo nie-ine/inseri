@@ -1,44 +1,44 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {PageComponent} from './page/page/page.component';
-import {RouterModule} from '@angular/router';
-import {Frame} from './page/frame/frame';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatButtonModule} from '@angular/material/button';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatIconModule} from '@angular/material/icon';
-import {TextViewModule} from './apps/text-view/text-view.module';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {SynopsisModule} from './apps/synopsis/synopsis.module';
-import {MyPageSetModule} from '../user-action-engine/page-set/page-set.module';
-import {GenerateHashService} from '../user-action-engine/other/generateHash.service';
-import {CreateResourceModule} from './apps/create-resource/create-resource.module';
-import {DataManagementToolModule} from '../query-app-interface/data-management-tool/data-management-tool.module';
-import {SendGravSearchQueryService} from '../query-engine/knora/gravsearch/sendGravSearchQuery.service';
-import {TextlistViewerComponent} from './apps/textlist-viewer/textlist-viewer.component';
-import {MatExpansionModule} from '@angular/material/expansion';
-import {MatDividerModule} from '@angular/material/divider';
-import {D3jsModule} from './apps/d3js/d3js.module';
-import {OpenAppsModel} from '../user-action-engine/mongodb/page/open-apps.model';
-import {MatChipsModule} from '@angular/material/chips';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { PageComponent } from './page/page/page.component';
+import { RouterModule } from '@angular/router';
+import { Frame } from './page/frame/frame';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { TextViewModule } from './apps/text-view/text-view.module';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { SynopsisModule } from './apps/synopsis/synopsis.module';
+import { MyPageSetModule } from '../user-action-engine/page-set/page-set.module';
+import { GenerateHashService } from '../user-action-engine/other/generateHash.service';
+import { CreateResourceModule } from './apps/create-resource/create-resource.module';
+import { DataManagementToolModule } from '../query-app-interface/data-management-tool/data-management-tool.module';
+import { SendGravSearchQueryService } from '../query-engine/knora/gravsearch/sendGravSearchQuery.service';
+import { TextlistViewerComponent } from './apps/textlist-viewer/textlist-viewer.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatDividerModule } from '@angular/material/divider';
+import { D3jsModule } from './apps/d3js/d3js.module';
+import { OpenAppsModel } from '../user-action-engine/mongodb/page/open-apps.model';
+import { MatChipsModule } from '@angular/material/chips';
 import { DataManagementComponent } from '../query-app-interface/data-management/data-management/data-management.component';
-import {MatTableModule} from '@angular/material/table';
-import {MatInputModule} from '@angular/material/input';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatSelectModule} from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
 import { QueryEntryComponent } from '../query-engine/query-entry/query-entry.component';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatTabsModule } from '@angular/material/tabs';
 import { AceEditorModule } from 'ng2-ace-editor';
-import {AbstractJsonService} from '../query-app-interface/data-management/services/abstract-json.service';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { AbstractJsonService } from '../query-app-interface/data-management/services/abstract-json.service';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { KeyValueFormComponent } from '../query-engine/query-entry/key-value-form/key-value-form.component';
 import { QueryAppInputMapComponent } from '../query-app-interface/query-app-input-map/query-app-input-map.component';
-import {MatProgressSpinnerModule, MatTreeModule} from '@angular/material';
-import {MatListModule} from '@angular/material/list';
+import { MatProgressSpinnerModule, MatTreeModule } from '@angular/material';
+import { MatListModule } from '@angular/material/list';
 import { FrameSettingsComponent } from './page/frame-settings/frame-settings.component';
-import {MatSliderModule} from '@angular/material/slider';
+import { MatSliderModule } from '@angular/material/slider';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import {LoadVariablesComponent} from './load-variables/load-variables.component';
+import { LoadVariablesComponent } from './load-variables/load-variables.component';
 import { QueryListComponent } from '../query-engine/query-list/query-list.component';
 import { DataAssignmentComponent } from '../query-app-interface/data-management/data-assignment/data-assignment.component';
 import { UpdateLinkedAppsComponent } from '../query-app-interface/data-management/update-linked-apps/update-linked-apps.component';
@@ -51,7 +51,7 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { MatPaginatorModule, MatSortModule } from '@angular/material';
 import { QueryInformationDialogComponent } from './page/query-information-dialog/query-information-dialog.component';
 import { MatCardModule } from '@angular/material/card';
-import {GrapesjsComponent} from './apps/grapesjs/grapesjs.component';
+import { GrapesjsComponent } from './apps/grapesjs/grapesjs.component';
 import { ImageFrameModule } from './apps/image-frame/image-frame.module';
 import { ParzivalFassungComponent } from './apps/parzival-fassung/parzival-fassung.component';
 import { Project0041Module } from './apps/project-specific/project-0041/project-0041.module';
@@ -62,9 +62,16 @@ import { DataListViewDetailsDialogComponent } from './apps/data-list-view/data-l
 import { ngxCsv } from 'ngx-csv/ngx-csv';
 import { DataListViewSettings } from './apps/data-list-view/data-list-view-settings/data-list-view-settings';
 import { DataListViewTableComponent, HighlightPipe } from './apps/data-list-view/data-list-view-table/data-list-view-table.component';
+import { ProjectViewerComponent } from './apps/project-viewer/project-viewer.component';
+import { KuiCoreModule } from '@knora/core';
+import { KuiActionModule } from '@knora/action';
+import { KuiViewerModule } from '@knora/viewer';
 
 @NgModule({
   imports: [
+    KuiCoreModule,
+    KuiActionModule,
+    KuiViewerModule,
     CommonModule,
     MatSidenavModule,
     MatButtonModule,
@@ -106,7 +113,8 @@ import { DataListViewTableComponent, HighlightPipe } from './apps/data-list-view
     OverlayModule,
     RouterModule.forChild([
       { path: 'page', component: PageComponent },
-      { path: 'response-tree', component: ResponseTreeComponent }
+      { path: 'response-tree', component: ResponseTreeComponent },
+      { path: 'project', component: ProjectViewerComponent }
     ])
   ],
   providers: [
@@ -139,7 +147,8 @@ import { DataListViewTableComponent, HighlightPipe } from './apps/data-list-view
     DataListViewDetailsDialogComponent,
     HighlightPipe,
     DataListViewSettings,
-    DataListViewTableComponent
+    DataListViewTableComponent,
+    ProjectViewerComponent
   ],
   exports: [
     PageComponent,

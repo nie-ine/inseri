@@ -1,0 +1,7 @@
+<div class="container">
+  <!-- <kui-search-results [searchQuery]="'ding'" [searchMode]="'fulltext'"></kui-search-results> -->
+  <h3>All projects</h3>
+  <ul>
+    <li *ngFor="let project of projects">{{project.longname}} | {{project.shortcode}}</li>
+  </ul>
+</div>

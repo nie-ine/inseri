@@ -3,9 +3,10 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
+
 export const environment = {
-  production: false,
   name: 'nieOS',
+  production: false,
   api: 'http://localhost:3333',
   app: 'http://localhost:4200',
   media: 'http://localhost:1024',

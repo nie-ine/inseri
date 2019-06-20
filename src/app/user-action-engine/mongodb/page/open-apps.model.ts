@@ -34,6 +34,10 @@ export class OpenAppsModel {
       type: 'textViewer',
       model: []
     },
+    projectViewer: {
+      type: 'projectViewer',
+      model: []
+    },
     searchViewer: {
       type: 'searchViewer',
       model: []
@@ -111,10 +115,10 @@ export class OpenAppsModel {
       type: 'simpleImageApp',
       model: [],
       inputs: [
-          {
-            'inputName': 'imageURL'
-          }
-        ]
+        {
+          'inputName': 'imageURL'
+        }
+      ]
     },
     jsonViewer: {
       type: 'jsonViewer',

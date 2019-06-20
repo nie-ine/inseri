@@ -23,7 +23,8 @@
                 "output": "leaflet/"
               },
               "src/assets",
-              "src/favicon.ico"
+              "src/favicon.ico",
+              "src/config"
             ],
             "styles": [
               "src/styles.scss",
@@ -97,7 +98,8 @@
             ],
             "assets": [
               "src/assets",
-              "src/favicon.jpg"
+              "src/favicon.jpg",
+              "src/config"
             ]
           }
         },
