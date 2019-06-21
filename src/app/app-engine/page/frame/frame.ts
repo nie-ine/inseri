@@ -37,6 +37,7 @@ export class Frame implements OnInit, OnChanges {
   @Output() sendAppCoordinatesBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendAppSettingsBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendIndexBack: EventEmitter<any> = new EventEmitter<any>();
+  @Output() sendTiledPositionBack: EventEmitter<any> = new EventEmitter<any>();
 
   mousemoveEvent: any;
   mouseupEvent: any;
@@ -192,6 +193,26 @@ export class Frame implements OnInit, OnChanges {
         index: this.index,
         hash: this.hash,
         queryId: this.queryId
+      }
+    );
+  }
+
+  up() {
+    console.log( 'up' );
+    this.sendTiledPositionBack.emit(
+      {
+        move: 'up',
+        hash: this.hash
+      }
+    );
+  }
+
+  down() {
+    console.log( 'down' );
+    this.sendTiledPositionBack.emit(
+      {
+        move: 'down',
+        hash: this.hash
       }
     );
   }

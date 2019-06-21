@@ -465,4 +465,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
     });
   }
 
+  updateTiledPosition( moveAndHash: any ) {
+    console.log( moveAndHash );
+  }
+
 }
