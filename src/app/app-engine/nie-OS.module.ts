@@ -63,6 +63,7 @@ import { ngxCsv } from 'ngx-csv/ngx-csv';
 import { DataListViewSettings } from './apps/data-list-view/data-list-view-settings/data-list-view-settings';
 import { DataListViewTableComponent, HighlightPipe } from './apps/data-list-view/data-list-view-table/data-list-view-table.component';
 import { NavigationModule } from './apps/navigation/navigation.module';
+import { HtmlViewerModule } from './apps/html-viewer/html-viewer.module';
 
 @NgModule({
   imports: [
@@ -104,6 +105,7 @@ import { NavigationModule } from './apps/navigation/navigation.module';
     ImageFrameModule,
     ComplexTextViewsModule,
     Project0041Module,
+    HtmlViewerModule,
     NavigationModule,
     OverlayModule,
     RouterModule.forChild([
