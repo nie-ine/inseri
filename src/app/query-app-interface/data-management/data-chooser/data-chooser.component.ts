@@ -31,6 +31,7 @@ export class DataChooserComponent implements AfterViewChecked {
   dataChooserSettingsOutput: any;
   responseTest: any;
   index: number;
+  alreadyEmitted = false;
   constructor(
     public dialogSettings: MatDialog,
     private cdr: ChangeDetectorRef,
@@ -40,6 +41,10 @@ export class DataChooserComponent implements AfterViewChecked {
 
   ngAfterViewChecked() {
     this.cdr.detectChanges();
+    if ( this.dataChooserEntries [ 0 ] === 'showData' && !this.alreadyEmitted ) {
+      this.alreadyEmitted = true;
+      this.chooseResource( 0 );
+    }
   }
   chooseResource(index: number) {
     this.index = index;
