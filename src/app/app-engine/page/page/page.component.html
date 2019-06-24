@@ -204,6 +204,27 @@
           <button mat-button (click)="addAnotherApp('avpEditionView', true)">Add AVP Edition View</button><br>
 
         </mat-expansion-panel>
+
+
+        <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Openbis - Login
+            </mat-panel-title>
+            <mat-panel-description>
+              with token
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          Set token for OpenBis
+
+          <mat-divider></mat-divider>
+
+          <button mat-button (click)="addAnotherApp('openbisLogin', true)">Add OpenBis Login App</button><br>
+
+        </mat-expansion-panel>
+
+
       </details>
 
       <!-- Images -->
@@ -601,6 +622,7 @@
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'imageViewer' ].model, i ) ">Remove this app</button>
         </mat-menu>
         <popup #imageViewer
+               [fullWidth]="openAppsInThisPage[ 'imageViewer' ].model[i].fullWidth"
                [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
@@ -637,6 +659,7 @@
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'searchViewer' ].model, i ) ">Remove this app</button>
         </mat-menu>
         <popup #searchViewer
+               [fullWidth]="openAppsInThisPage[ 'searchViewer' ].model[i].fullWidth"
                [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
@@ -667,6 +690,7 @@
         <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'simpleImageApp' ].model, i ) ">Remove this app</button>
       </mat-menu>
       <popup #simpleImageApp
+             [fullWidth]="openAppsInThisPage[ 'simpleImageApp' ].model[i].fullWidth"
              [index] = "i"
              (sendTiledPositionBack) = "updateTiledPosition( $event )"
              [position]="appFramePosition"
@@ -699,6 +723,7 @@
           <button mat-menu-item>Choose Text</button>
         </mat-menu>
         <popup #textViewer
+               [fullWidth]="openAppsInThisPage[ 'textViewer' ].model[i].fullWidth"
                [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
@@ -722,6 +747,7 @@
     <!-- HTML viewer -->
     <div *ngFor="let htmlViewer of openAppsInThisPage[ 'htmlViewer' ].model; let i = index;" >
       <popup #htmlViewer
+             [fullWidth]="openAppsInThisPage[ 'htmlViewer' ].model[i].fullWidth"
              [index] = "i"
              [hash]="openAppsInThisPage[ 'htmlViewer' ].model[i].hash"
              [title]="openAppsInThisPage[ 'htmlViewer' ].model[i].title || 'HTML Viewer ' + i"
@@ -757,6 +783,7 @@
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'synopsisViewer' ].model, i ) ">Remove this app</button>
         </mat-menu>
         <popup #synopsisViewer
+               [fullWidth]="openAppsInThisPage[ 'synopsisViewer' ].model[i].fullWidth"
                [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
@@ -786,6 +813,7 @@
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'createResourceForm' ].model, i ) ">Remove this app</button>
         </mat-menu>
         <popup #createResourceForm
+               [fullWidth]="openAppsInThisPage[ 'createResourceForm' ].model[i].fullWidth"
                [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
@@ -816,6 +844,7 @@
         <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'editResourceForm' ].model, i ) ">Remove this app</button>
       </mat-menu>
       <popup #editResourceForm
+             [fullWidth]="openAppsInThisPage[ 'editResourceForm' ].model[i].fullWidth"
              [index] = "i"
              (sendTiledPositionBack) = "updateTiledPosition( $event )"
              [position]="appFramePosition"
@@ -875,6 +904,7 @@
         <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'parzivalFassung' ].model, i ) ">Remove this app</button>
       </mat-menu>
       <popup #parzivalFassung
+             [fullWidth]="openAppsInThisPage[ 'parzivalFassung' ].model[i].fullWidth"
              [index] = "i"
              (sendTiledPositionBack) = "updateTiledPosition( $event )"
              [position]="appFramePosition"
@@ -904,6 +934,7 @@
         <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'avpEditionView' ].model, i ) ">Remove this app</button>
       </mat-menu>
       <popup #avpEditionView
+             [fullWidth]="openAppsInThisPage[ 'avpEditionView' ].model[i].fullWidth"
              [index] = "i"
              (sendTiledPositionBack) = "updateTiledPosition( $event )"
              [position]="appFramePosition"
@@ -925,6 +956,36 @@
       </popup>
     </div>
 
+    <!-- openbis Login -->
+    <div *ngFor="let openbisLogin of openAppsInThisPage[ 'openbisLogin' ].model; let i = index;" >
+      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" >Openbis Login {{ i }}</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="openbisLogin.appear()" >Show OpenBis Login {{ i }}</button>
+        <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'openbisLogin' ].model, i ) ">Remove this app</button>
+      </mat-menu>
+      <popup #openbisLogin
+             [fullWidth]="openAppsInThisPage[ 'openbisLogin' ].model[i].fullWidth"
+             [index] = "i"
+             (sendTiledPositionBack) = "updateTiledPosition( $event )"
+             [position]="appFramePosition"
+             [hash]="openAppsInThisPage[ 'openbisLogin' ].model[i].hash"
+             [title]="openAppsInThisPage[ 'openbisLogin' ].model[i].title || 'openbisLogin ' + i"
+             [type]="openAppsInThisPage[ 'openbisLogin' ].type"
+             [firstPopupX]="openAppsInThisPage[ 'openbisLogin' ].model[i].x"
+             [firstPopupY]="openAppsInThisPage[ 'openbisLogin' ].model[i].y"
+             [width]="produceHeightAndWidth( openAppsInThisPage[ 'openbisLogin' ].model[i].width, '500' )"
+             [height]="produceHeightAndWidth( openAppsInThisPage[ 'openbisLogin' ].model[i].height, '350')"
+             (sendAppCoordinatesBack)="updateAppCoordinates($event)"
+             (sendAppSettingsBack)="updateAppSettings($event)">
+        <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'openbisLogin' ].model[i].height, '350' ) + 'px',
+        'width': produceHeightAndWidth( openAppsInThisPage[ 'openbisLogin' ].model[i].width, '500' ) + 'px'}">
+          <app-openbis-login>
+
+          </app-openbis-login>
+        </div>
+      </popup>
+    </div>
+
     <!-- svg-Transcription -->
     <div *ngFor="let svgTranscription of openAppsInThisPage[ 'svgTranscription' ].model; let i = index;" >
       <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" >svg {{ i }}</button>
@@ -933,6 +994,7 @@
         <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'svgTranscription' ].model, i ) ">Remove this app</button>
       </mat-menu>
       <popup #svgTranscription
+             [fullWidth]="openAppsInThisPage[ 'svgTranscription' ].model[i].fullWidth"
              [index] = "i"
              (sendTiledPositionBack) = "updateTiledPosition( $event )"
              [position]="appFramePosition"
@@ -965,6 +1027,7 @@
         <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'jsonViewer' ].model, i ) ">Remove this app</button>
       </mat-menu>
       <popup #jsonViewer
+             [fullWidth]="openAppsInThisPage[ 'jsonViewer' ].model[i].fullWidth"
              [index] = "i"
              (sendTiledPositionBack) = "updateTiledPosition( $event )"
              [position]="appFramePosition"
@@ -994,6 +1057,7 @@
         <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'treeNavigation' ].model, i ) ">Remove this app</button>
       </mat-menu>
       <popup #treeNavigation
+             [fullWidth]="openAppsInThisPage[ 'treeNavigation' ].model[i].fullWidth"
              [index] = "i"
              (sendTiledPositionBack) = "updateTiledPosition( $event )"
              [position]="appFramePosition"
@@ -1022,6 +1086,7 @@
         <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'dataListView' ].model, i ) ">Remove this app</button>
       </mat-menu>
       <popup #dataListView
+             [fullWidth]="openAppsInThisPage[ 'dataListView' ].model[i].fullWidth"
              [index] = "i"
              (sendTiledPositionBack) = "updateTiledPosition( $event )"
              [position]="appFramePosition"
@@ -1052,6 +1117,7 @@
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'barCharts' ].model, i ) ">Remove this app</button>
         </mat-menu>
         <popup #barChart
+               [fullWidth]="openAppsInThisPage[ 'barCharts' ].model[i].fullWidth"
                [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
@@ -1083,6 +1149,7 @@
         <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'spiralBarCharts' ].model, i ) ">Remove this app</button>
       </mat-menu>
       <popup #spiralBarCharts
+             [fullWidth]="openAppsInThisPage[ 'spiralBarCharts' ].model[i].fullWidth"
              [index] = "i"
              (sendTiledPositionBack) = "updateTiledPosition( $event )"
              [position]="appFramePosition"
@@ -1115,6 +1182,7 @@
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'lineCharts' ].model, i ) ">Remove this app</button>
         </mat-menu>
         <popup #lineChart
+               [fullWidth]="openAppsInThisPage[ 'lineCharts' ].model[i].fullWidth"
                [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
@@ -1146,6 +1214,7 @@
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'brushZoomCharts' ].model, i ) ">Remove this app</button>
         </mat-menu>
         <popup #brushZoomChart
+               [fullWidth]="openAppsInThisPage[ 'brushZoomCharts' ].model[i].fullWidth"
                [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
@@ -1177,6 +1246,7 @@
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'leafletMaps' ].model, i ) ">Remove this app</button>
         </mat-menu>
         <popup #leafletMap
+               [fullWidth]="openAppsInThisPage[ 'leafletMaps' ].model[i].fullWidth"
                [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
@@ -1208,6 +1278,7 @@
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'pieCharts' ].model, i ) ">Remove this app</button>
         </mat-menu>
         <popup #pieChart
+               [fullWidth]="openAppsInThisPage[ 'pieCharts' ].model[i].fullWidth"
                [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
@@ -1238,6 +1309,7 @@
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'radialBarCharts' ].model, i ) ">Remove this app</button>
         </mat-menu>
         <popup #radialBarChart
+               [fullWidth]="openAppsInThisPage[ 'radialBarCharts' ].model[i].fullWidth"
                [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
@@ -1268,6 +1340,7 @@
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'sankeyCharts' ].model, i ) ">Remove this app</button>
         </mat-menu>
         <popup #sankeyChart
+               [fullWidth]="openAppsInThisPage[ 'sankeyCharts' ].model[i].fullWidth"
                [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
@@ -1298,6 +1371,7 @@
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'stackedBarCharts' ].model, i ) ">Remove this app</button>
         </mat-menu>
         <popup #stackedBarChart
+               [fullWidth]="openAppsInThisPage[ 'stackedBarCharts' ].model[i].fullWidth"
                [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
@@ -1328,6 +1402,7 @@
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'chordDiagrams' ].model, i ) ">Close this app</button>
         </mat-menu>
         <popup #chordDiagram
+               [fullWidth]="openAppsInThisPage[ 'chordDiagrams' ].model[i].fullWidth"
                [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"

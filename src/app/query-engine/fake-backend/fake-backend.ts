@@ -10,6 +10,7 @@ import 'rxjs/add/operator/dematerialize';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {AuthService} from '../../user-action-engine/mongodb/auth/auth.service';
 import { environment} from '../../../environments/environment';
+import {stringify} from 'querystring';
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
@@ -603,6 +604,18 @@ export class FakeBackendInterceptor implements HttpInterceptor {
               headers: request.headers.set('Authorization', 'Bearer ' + authToken)
             });
             return next.handle(authRequest); // authRequest
+          } else if ( request.url.search( 'openbis' ) !== -1 ) {
+            let newBody = JSON.parse( request.body );
+            newBody[ 'params' ].splice( 0, 0, localStorage.getItem( 'openBisToken' ) ) ;
+            newBody = JSON.stringify(newBody);
+            console.log( newBody );
+            const updatedRequest = request.clone(
+              {
+                body: newBody
+              }
+            );
+            console.log( updatedRequest );
+            return next.handle(updatedRequest);
           } else {
             return next.handle(request);
           }

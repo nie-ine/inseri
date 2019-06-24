@@ -154,7 +154,8 @@ export class Frame implements OnInit, OnChanges {
       data: [
         this.title,
         this.width,
-        this.height
+        this.height,
+        this.fullWidth
       ]
     });
     dialogRef.afterClosed().subscribe((result) => {

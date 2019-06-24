@@ -21,6 +21,7 @@ export class FrameSettingsComponent implements OnInit {
     this.title = this.data[ 0 ];
     this.width = this.data[ 1 ];
     this.height = this.data[ 2 ];
+    this.fullWidth = this.data[ 3 ];
   }
 
   close() {

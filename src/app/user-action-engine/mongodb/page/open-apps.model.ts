@@ -34,6 +34,10 @@ export class OpenAppsModel {
       type: 'textViewer',
       model: []
     },
+    openbisLogin: {
+      type: 'openbisLogin',
+      model: []
+    },
     searchViewer: {
       type: 'searchViewer',
       model: []

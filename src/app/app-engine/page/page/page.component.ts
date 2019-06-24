@@ -57,7 +57,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   blockManager: any;
   depth: number;
   cssUrl: any;
-  appFramePosition = 'float';
+  appFramePosition = 'absolute';
   appPositionArray = [];
 
   blockManagerModel = [
@@ -313,6 +313,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
       appModel[ length ].hash = this.generateHashService.generateHash();
       appModel[ length ].type = appType;
       appModel[ length ].title = appType + ' ' + length;
+      appModel[ length ].fullWidth = false;
       console.log( appModel[ length ] );
       if (this.page.openApps[ appModel[ length ].hash ] === null) {
         this.page.openApps[ appModel[ length ].hash ] = [];

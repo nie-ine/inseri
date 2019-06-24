@@ -1,0 +1,25 @@
+<div style="margin-top: 40px">
+  <h5>Please enter your token:</h5>
+
+  <mat-form-field style="width: 100%">
+    <input matInput placeholder="Enter new Openbis token" [(ngModel)]="tokenEntered">
+  </mat-form-field>
+
+  <br>
+
+  <button mat-button (click)="setToken()" > Set token on this browser  </button>
+
+  <br><br>
+
+  <h5> Current Token: </h5>
+
+  <br>
+
+  <span style="color: #07a5e7" *ngIf="!token"> {{ '!!!none token set' }} </span>
+  <span style="color: #55b030" *ngIf="token"> {{ token }} </span>
+
+  <br><br>
+
+  <span> Existence of Token Last Checked: {{ date }} - This does not mean that the token is not expired</span>
+
+</div>

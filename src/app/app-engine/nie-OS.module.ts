@@ -65,6 +65,7 @@ import { DataListViewTableComponent, HighlightPipe } from './apps/data-list-view
 import { NavigationModule } from './apps/navigation/navigation.module';
 import { HtmlViewerModule } from './apps/html-viewer/html-viewer.module';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { OpenbisLoginComponent } from './apps/openbis-login/openbis-login.component';
 
 @NgModule({
   imports: [
@@ -112,7 +113,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatCheckboxModule,
     RouterModule.forChild([
       { path: 'page', component: PageComponent },
-      { path: 'response-tree', component: ResponseTreeComponent }
+      { path: 'response-tree', component: ResponseTreeComponent },
+      { path: 'openbis-login', component: OpenbisLoginComponent }
     ])
   ],
   providers: [
@@ -145,7 +147,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     DataListViewDetailsDialogComponent,
     HighlightPipe,
     DataListViewSettings,
-    DataListViewTableComponent
+    DataListViewTableComponent,
+    OpenbisLoginComponent
   ],
   exports: [
     PageComponent,
