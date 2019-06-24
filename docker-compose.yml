@@ -4,7 +4,7 @@ services:
   nieos_production:
     # build: .
     #image: nieine/nieos:2019-05-29
-    image: nieine/nieos:19-06-03
+    image: nieine/nieos-test-instance:2019-06-24
     ports:
     - 4200:80
     volumes:
