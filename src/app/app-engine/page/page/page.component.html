@@ -639,7 +639,7 @@
                (sendIndexBack)="updateIndices( $event )"
                (sendAppSettingsBack)="updateAppSettings($event)">
           <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'imageViewer' ].model[i].height, '700' ) + 'px',
-  'width': produceHeightAndWidth( openAppsInThisPage[ 'imageViewer' ].model[i].width, '500' ) + 'px'}">
+  'width': openAppsInThisPage[ 'imageViewer' ].model[i].fullWidth ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'imageViewer' ].model[i].width, '500' ) + 'px'}">
           <app-image-with-overlay style="position: sticky;"
                                   [iiifImagePath]="openAppsInThisPage[ 'imageViewer' ].model[i][ 'fileValueAsUrl' ]"
                                   [maxImageWidth]="openAppsInThisPage[ 'imageViewer' ].model[i][ 'stillImageFileValueHasDimX' ]"
@@ -673,7 +673,7 @@
                (sendAppCoordinatesBack)="updateAppCoordinates($event)"
                (sendAppSettingsBack)="updateAppSettings($event)">
           <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'searchViewer' ].model[i].height, '400' ) + 'px',
-  'width': produceHeightAndWidth( openAppsInThisPage[ 'searchViewer' ].model[i].width, '250' ) + 'px'}">
+  'width': openAppsInThisPage[ 'searchViewer' ].model[i].fullWidth ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'searchViewer' ].model[i].width, '250' ) + 'px'}">
           <!--<nie-search-->
             <!--style="position: sticky;">-->
 
@@ -704,7 +704,7 @@
              (sendAppCoordinatesBack)="updateAppCoordinates($event)"
              (sendAppSettingsBack)="updateAppSettings($event)">
         <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'simpleImageApp' ].model[i].height, '500' ) + 'px',
-  'width': produceHeightAndWidth( openAppsInThisPage[ 'simpleImageApp' ].model[i].width, '500' ) + 'px'}">
+  'width': openAppsInThisPage[ 'simpleImageApp' ].model[i].fullWidth ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'simpleImageApp' ].model[i].width, '500' ) + 'px'}">
         <app-simple-image-app
           style="position: sticky;"
           [imageURL]="openAppsInThisPage[ 'simpleImageApp' ].model[i]['imageURL']">
@@ -737,7 +737,7 @@
                (sendAppCoordinatesBack)="updateAppCoordinates($event)"
                (sendAppSettingsBack)="updateAppSettings($event)">
           <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'textViewer' ].model[i].height, '500' ) + 'px',
-  'width': produceHeightAndWidth( openAppsInThisPage[ 'textViewer' ].model[i].width, '500' ) + 'px'}">
+  'width': openAppsInThisPage[ 'textViewer' ].model[i].fullWidth ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'textViewer' ].model[i].width, '500' ) + 'px'}">
             <app-text-view class="draggable" style="position: sticky;">
             </app-text-view>
           </div>
@@ -759,7 +759,7 @@
              (sendAppCoordinatesBack)="updateAppCoordinates($event)"
              (sendAppSettingsBack)="updateAppSettings($event)">
         <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'htmlViewer' ].model[i].height, '500' ) + 'px',
-  'width': produceHeightAndWidth( openAppsInThisPage[ 'htmlViewer' ].model[i].width, '500' ) + 'px'}">
+  'width': openAppsInThisPage[ 'htmlViewer' ].model[i].fullWidth ? '100%' : openAppsInThisPage[ 'htmlViewer' ].model[i].fullWidth ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'htmlViewer' ].model[i].width, '500' ) + 'px'}">
           <app-html-viewer class="draggable" style="position: sticky;"
                            [htmlContent]="openAppsInThisPage[ 'htmlViewer' ].model[i]['htmlContent']"
                            [selectiveStyleDeclarations]="openAppsInThisPage[ 'htmlViewer' ].model[i]['selectiveStyleDeclarations']"
@@ -797,7 +797,7 @@
                (sendAppCoordinatesBack)="updateAppCoordinates($event)"
                (sendAppSettingsBack)="updateAppSettings($event)">
           <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'synopsisViewer' ].model[i].height, '150' ) + 'px',
-  'width': produceHeightAndWidth( openAppsInThisPage[ 'synopsisViewer' ].model[i].width, '250' ) + 'px'}">
+  'width': openAppsInThisPage[ 'synopsisViewer' ].model[i].fullWidth ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'synopsisViewer' ].model[i].width, '250' ) + 'px'}">
             <app-synopsis style="position: sticky;">
 
             </app-synopsis>
@@ -827,7 +827,7 @@
                (sendAppCoordinatesBack)="updateAppCoordinates($event)"
                (sendAppSettingsBack)="updateAppSettings($event)">
           <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'createResourceForm' ].model[i].height, '400' ) + 'px',
-  'width': produceHeightAndWidth( openAppsInThisPage[ 'createResourceForm' ].model[i].width, '900' ) + 'px'}" >
+  'width': openAppsInThisPage[ 'createResourceForm' ].model[i].fullWidth ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'createResourceForm' ].model[i].width, '900' ) + 'px'}" >
             <app-create-resource style="position: sticky;"
                                  [projectIRI]="projectIRI"
                                  (resourceIRI)="closeApp( openAppsInThisPage[ 'createResourceForm' ].model, i )">
@@ -858,7 +858,7 @@
              (sendAppCoordinatesBack)="updateAppCoordinates($event)"
              (sendAppSettingsBack)="updateAppSettings($event)">
         <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'editResourceForm' ].model[i].height, '400' ) + 'px',
-  'width': produceHeightAndWidth( openAppsInThisPage[ 'editResourceForm' ].model[i].width, '900' ) + 'px'}" >
+  'width': openAppsInThisPage[ 'editResourceForm' ].model[i].fullWidth ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'editResourceForm' ].model[i].width, '900' ) + 'px'}" >
           <app-resource-form (resourceIsDeleted)="closeApp( openAppsInThisPage[ 'createResourceForm' ].model, i )">
           </app-resource-form>
         </div>
@@ -888,7 +888,7 @@
                (sendAppCoordinatesBack)="updateAppCoordinates($event)"
                (sendAppSettingsBack)="updateAppSettings($event)">
           <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'textlistViewers' ].model[i].height, '150' ) + 'px',
-        'width': produceHeightAndWidth( openAppsInThisPage[ 'textlistViewers' ].model[i].width, '250' ) + 'px'}">
+        'width': openAppsInThisPage[ 'textlistViewers' ].model[i].fullWidth ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'textlistViewers' ].model[i].width, '250' ) + 'px'}">
             <app-textlist-viewer style="position: sticky;"
                                  [textToDisplay]="openAppsInThisPage[ 'textlistViewers' ].model[i]['textlist']">
             </app-textlist-viewer>
@@ -918,7 +918,7 @@
              (sendAppCoordinatesBack)="updateAppCoordinates($event)"
              (sendAppSettingsBack)="updateAppSettings($event)">
         <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'parzivalFassung' ].model[i].height, '500' ) + 'px',
-        'width': produceHeightAndWidth( openAppsInThisPage[ 'parzivalFassung' ].model[i].width, '350' ) + 'px'}">
+        'width': openAppsInThisPage[ 'parzivalFassung' ].model[i].fullWidth ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'parzivalFassung' ].model[i].width, '350' ) + 'px'}">
           <app-parzival-fassung style="position: sticky;"
                                 [textJson]="openAppsInThisPage[ 'parzivalFassung' ].model[i]['textJson']">
           </app-parzival-fassung>
@@ -948,7 +948,7 @@
              (sendAppCoordinatesBack)="updateAppCoordinates($event)"
              (sendAppSettingsBack)="updateAppSettings($event)">
         <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'avpEditionView' ].model[i].height, '500' ) + 'px',
-        'width': produceHeightAndWidth( openAppsInThisPage[ 'avpEditionView' ].model[i].width, '350' ) + 'px'}">
+        'width': openAppsInThisPage[ 'avpEditionView' ].model[i].fullWidth ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'avpEditionView' ].model[i].width, '350' ) + 'px'}">
           <app-p0041-edition style="position: sticky;"
                              [backendAddress]="openAppsInThisPage[ 'avpEditionView' ].model[i][ 'backendAddress' ]">
           </app-p0041-edition>
@@ -978,7 +978,7 @@
              (sendAppCoordinatesBack)="updateAppCoordinates($event)"
              (sendAppSettingsBack)="updateAppSettings($event)">
         <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'openbisLogin' ].model[i].height, '350' ) + 'px',
-        'width': produceHeightAndWidth( openAppsInThisPage[ 'openbisLogin' ].model[i].width, '500' ) + 'px'}">
+        'width': openAppsInThisPage[ 'openbisLogin' ].model[i].fullWidth ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'openbisLogin' ].model[i].width, '500' ) + 'px'}">
           <app-openbis-login>
 
           </app-openbis-login>
@@ -1008,7 +1008,7 @@
              (sendAppCoordinatesBack)="updateAppCoordinates($event)"
              (sendAppSettingsBack)="updateAppSettings($event)">
         <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'svgTranscription' ].model[i].height, '500' ) + 'px',
-        'width': produceHeightAndWidth( openAppsInThisPage[ 'svgTranscription' ].model[i].width, '350' ) + 'px'}">
+        'width': openAppsInThisPage[ 'svgTranscription' ].model[i].fullWidth ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'svgTranscription' ].model[i].width, '350' ) + 'px'}">
           <app-text-svg-view-wrapper style="position: sticky;"
                                          [pageTree]="openAppsInThisPage['svgTranscription'].model[i]['pageTree']"
                                          [imageUrl]="openAppsInThisPage['svgTranscription'].model[i]['imageUrl']"
@@ -1041,7 +1041,7 @@
              (sendAppCoordinatesBack)="updateAppCoordinates($event)"
              (sendAppSettingsBack)="updateAppSettings($event)">
         <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'jsonViewer' ].model[i].height, '500' ) + 'px',
-        'width': produceHeightAndWidth( openAppsInThisPage[ 'jsonViewer' ].model[i].width, '500' ) + 'px'}">
+        'width': openAppsInThisPage[ 'jsonViewer' ].model[i].fullWidth ? '100%' :  produceHeightAndWidth( openAppsInThisPage[ 'jsonViewer' ].model[i].width, '500' ) + 'px'}">
           <response-tree style="position: sticky;"
                                [queryResponse]="openAppsInThisPage[ 'jsonViewer' ].model[i]['json']">
           </response-tree>
@@ -1071,7 +1071,7 @@
              (sendAppCoordinatesBack)="updateAppCoordinates($event)"
              (sendAppSettingsBack)="updateAppSettings($event)">
         <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'treeNavigation' ].model[i].height, '600' ) + 'px',
-  'width': produceHeightAndWidth( openAppsInThisPage[ 'treeNavigation' ].model[i].width, '400' ) + 'px'}" >
+  'width': openAppsInThisPage[ 'treeNavigation' ].model[i].fullWidth ? '100%' :  produceHeightAndWidth( openAppsInThisPage[ 'treeNavigation' ].model[i].width, '400' ) + 'px'}" >
           <app-navigation-tree [queryResponse]="openAppsInThisPage[ 'treeNavigation' ].model[i]['json']">
           </app-navigation-tree>
         </div>
@@ -1100,7 +1100,7 @@
              (sendAppCoordinatesBack)="updateAppCoordinates($event)"
              (sendAppSettingsBack)="updateAppSettings($event)">
         <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'dataListView' ].model[i].height, '500' ) + 'px',
-        'width': produceHeightAndWidth( openAppsInThisPage[ 'dataListView' ].model[i].width, '700' ) + 'px'}">
+        'width': openAppsInThisPage[ 'dataListView' ].model[i].fullWidth ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'dataListView' ].model[i].width, '700' ) + 'px'}">
           <data-list-view style="position: sticky;"
                          [queryResponse]="openAppsInThisPage[ 'dataListView' ].model[i]['json']"
                           [dataListSettings]="openAppsInThisPage[ 'dataListView' ].model[i]['settings']">
@@ -1131,7 +1131,7 @@
                (sendAppCoordinatesBack)="updateAppCoordinates($event)"
                (sendAppSettingsBack)="updateAppSettings($event)">
           <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'barCharts' ].model[i].height, '500' ) + 'px',
-  'width': produceHeightAndWidth( openAppsInThisPage[ 'barCharts' ].model[i].width, '1200' ) + 'px'}">
+  'width': openAppsInThisPage[ 'barCharts' ].model[i].fullWidth ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'barCharts' ].model[i].width, '1200' ) + 'px'}">
             <app-bar-chart
               [initialised] = "openAppsInThisPage[ 'barCharts' ].model[i].initialized"
               [numberOfInitialisedComponent] = " i " >
@@ -1163,7 +1163,7 @@
              (sendAppCoordinatesBack)="updateAppCoordinates($event)"
              (sendAppSettingsBack)="updateAppSettings($event)">
         <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'spiralBarCharts' ].model[i].height, '500' ) + 'px',
-  'width': produceHeightAndWidth( openAppsInThisPage[ 'spiralBarCharts' ].model[i].width, '500' ) + 'px'}">
+  'width': openAppsInThisPage[ 'spiralBarCharts' ].model[i].fullWidth ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'spiralBarCharts' ].model[i].width, '500' ) + 'px'}">
           <app-spiral-bar-chart
             [initialised] = "openAppsInThisPage[ 'spiralBarCharts' ].model[i].initialized"
             [numberOfInitialisedComponent] = " i " >
@@ -1196,7 +1196,7 @@
                (sendAppCoordinatesBack)="updateAppCoordinates($event)"
                (sendAppSettingsBack)="updateAppSettings($event)">
           <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'lineCharts' ].model[i].height, '400' ) + 'px',
-  'width': produceHeightAndWidth( openAppsInThisPage[ 'lineCharts' ].model[i].width, '600' ) + 'px'}">
+  'width': openAppsInThisPage[ 'lineCharts' ].model[i].fullWidth ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'lineCharts' ].model[i].width, '600' ) + 'px'}">
             <app-multi-line-chart
               [initialised] = "openAppsInThisPage[ 'lineCharts' ].model[i].initialized"
               [numberOfInitialisedComponent] = " i " >
@@ -1228,7 +1228,7 @@
                (sendAppCoordinatesBack)="updateAppCoordinates($event)"
                (sendAppSettingsBack)="updateAppSettings($event)">
           <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'brushZoomCharts' ].model[i].height, '500' ) + 'px',
-  'width': produceHeightAndWidth( openAppsInThisPage[ 'brushZoomCharts' ].model[i].width, '900' ) + 'px'}">
+  'width': openAppsInThisPage[ 'brushZoomCharts' ].model[i].fullWidth ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'brushZoomCharts' ].model[i].width, '900' ) + 'px'}">
             <app-brush-and-zoom
               [initialised] = "openAppsInThisPage[ 'brushZoomCharts' ].model[i].initialized"
               [numberOfInitialisedComponent] = " i " >
@@ -1260,7 +1260,7 @@
                (sendAppCoordinatesBack)="updateAppCoordinates($event)"
                (sendAppSettingsBack)="updateAppSettings($event)">
           <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'leafletMaps' ].model[i].height, '500' ) + 'px',
-  'width': produceHeightAndWidth( openAppsInThisPage[ 'leafletMaps' ].model[i].width, '500' ) + 'px'}">
+  'width': openAppsInThisPage[ 'leafletMaps' ].model[i].fullWidth ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'leafletMaps' ].model[i].width, '500' ) + 'px'}">
             <app-leaflet-example
               [initialised] = "openAppsInThisPage[ 'leafletMaps' ].model[i].initialized"
               [numberOfInitialisedComponent] = " i " >
@@ -1292,7 +1292,7 @@
                (sendAppCoordinatesBack)="updateAppCoordinates($event)"
                (sendAppSettingsBack)="updateAppSettings($event)">
           <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'pieCharts' ].model[i].height, '500' ) + 'px',
-  'width': produceHeightAndWidth( openAppsInThisPage[ 'pieCharts' ].model[i].width, '700' ) + 'px'}">
+  'width': openAppsInThisPage[ 'pieCharts' ].model[i].fullWidth ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'pieCharts' ].model[i].width, '700' ) + 'px'}">
             <app-pie-chart
               [initialised] = "openAppsInThisPage[ 'pieCharts' ].model[i].initialized"
               [numberOfInitialisedComponent] = " i " >
@@ -1323,7 +1323,7 @@
                (sendAppCoordinatesBack)="updateAppCoordinates($event)"
                (sendAppSettingsBack)="updateAppSettings($event)">
           <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'radialBarCharts' ].model[i].height, '500' ) + 'px',
-  'width': produceHeightAndWidth( openAppsInThisPage[ 'radialBarCharts' ].model[i].width, '500' ) + 'px'}">
+  'width': openAppsInThisPage[ 'radialBarCharts' ].model[i].fullWidth ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'radialBarCharts' ].model[i].width, '500' ) + 'px'}">
             <app-radial-barchart
               [initialised] = "openAppsInThisPage[ 'radialBarCharts' ].model[i].initialized"
               [numberOfInitialisedComponent] = " i " >
@@ -1354,7 +1354,7 @@
                (sendAppCoordinatesBack)="updateAppCoordinates($event)"
                (sendAppSettingsBack)="updateAppSettings($event)">
           <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'sankeyCharts' ].model[i].height, '500' ) + 'px',
-  'width': produceHeightAndWidth( openAppsInThisPage[ 'sankeyCharts' ].model[i].width, '900' ) + 'px'}">
+  'width': openAppsInThisPage[ 'sankeyCharts' ].model[i].fullWidth ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'sankeyCharts' ].model[i].width, '900' ) + 'px'}">
             <app-sankey
               [initialised] = "openAppsInThisPage[ 'sankeyCharts' ].model[i].initialized"
               [numberOfInitialisedComponent] = " i " >
@@ -1385,7 +1385,7 @@
                (sendAppCoordinatesBack)="updateAppCoordinates($event)"
                (sendAppSettingsBack)="updateAppSettings($event)">
           <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'stackedBarCharts' ].model[i].height, '500' ) + 'px',
-  'width': produceHeightAndWidth( openAppsInThisPage[ 'stackedBarCharts' ].model[i].width, '800' ) + 'px'}">
+  'width': openAppsInThisPage[ 'stackedBarCharts' ].model[i].fullWidth ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'stackedBarCharts' ].model[i].width, '800' ) + 'px'}">
             <app-stacked-bar-chart
               [initialised] = "openAppsInThisPage[ 'stackedBarCharts' ].model[i].initialized"
               [numberOfInitialisedComponent] = " i " >
@@ -1416,7 +1416,7 @@
                (sendAppCoordinatesBack)="updateAppCoordinates($event)"
                (sendAppSettingsBack)="updateAppSettings($event)">
           <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'chordDiagrams' ].model[i].height, '500' ) + 'px',
-  'width': produceHeightAndWidth( openAppsInThisPage[ 'chordDiagrams' ].model[i].width, '600' ) + 'px'}">
+  'width': openAppsInThisPage[ 'chordDiagrams' ].model[i].fullWidth ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'chordDiagrams' ].model[i].width, '600' ) + 'px'}">
             <app-chord-diagram
               [initialised] = "openAppsInThisPage[ 'chordDiagrams' ].model[i].initialized"
               [numberOfInitialisedComponent] = " i " >
