@@ -10,6 +10,7 @@ export class FrameSettingsComponent implements OnInit {
   title: string;
   width: number;
   height: number;
+  fullWidth: false;
   constructor(
     public dialogRef: MatDialogRef<FrameSettingsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -31,7 +32,8 @@ export class FrameSettingsComponent implements OnInit {
       [
         this.title,
         this.width,
-        this.height
+        this.height,
+        this.fullWidth
       ]
     );
   }

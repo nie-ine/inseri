@@ -57,7 +57,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
   blockManager: any;
   depth: number;
   cssUrl: any;
-  appFramePosition = 'absolute';
+  appFramePosition = 'float';
+  appPositionArray = [];
 
   blockManagerModel = [
     {
@@ -349,11 +350,13 @@ export class PageComponent implements OnInit, AfterViewChecked {
         app.title = settings.title;
         app.width = settings.width;
         app.height = settings.height;
+        app.fullWidth = settings.fullWidth;
       }
     }
     this.page.openApps[ settings.hash ].title = settings.title;
     this.page.openApps[ settings.hash ].width = settings.width;
     this.page.openApps[ settings.hash ].height = settings.height;
+    this.page.openApps[ settings.hash ].fullWidth = settings.fullWidth;
   }
 
   produceHeightAndWidth( appValue: string, defaultHeight: string ) {

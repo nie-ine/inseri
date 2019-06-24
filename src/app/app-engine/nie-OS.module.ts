@@ -64,6 +64,7 @@ import { DataListViewSettings } from './apps/data-list-view/data-list-view-setti
 import { DataListViewTableComponent, HighlightPipe } from './apps/data-list-view/data-list-view-table/data-list-view-table.component';
 import { NavigationModule } from './apps/navigation/navigation.module';
 import { HtmlViewerModule } from './apps/html-viewer/html-viewer.module';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   imports: [
@@ -108,6 +109,7 @@ import { HtmlViewerModule } from './apps/html-viewer/html-viewer.module';
     HtmlViewerModule,
     NavigationModule,
     OverlayModule,
+    MatCheckboxModule,
     RouterModule.forChild([
       { path: 'page', component: PageComponent },
       { path: 'response-tree', component: ResponseTreeComponent }

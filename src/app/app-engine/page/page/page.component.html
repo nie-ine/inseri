@@ -34,7 +34,7 @@
         <button mat-button (click)="updatePage()" i18n="@@savePageButton">Save Page</button>
         <button mat-button (click)="expandPanels()" i18n="@@toggleDescriptionButton"> Un/fold description</button><br>
         <button mat-button (click)="openDataManagement()" i18n="@@pageDataManagementLink">Page Data Management</button><br>
-        <button mat-button (click)="changeAppFramePosition()" > Tiled or floating apps </button>
+        <button mat-button (click)="changeAppFramePosition()" > Order apps by type </button>
 <!--        <h4 style="align-content: center">GrapesJS</h4>-->
 <!--        <button mat-button (click)="activateGrapesJS()" i18n="@@addGrapeJsButton">Add GrapesJS</button>-->
 <!--        <button mat-button (click)="deactivateGrapesJS()" i18n="@@removeGrapeJsButton">Remove GrapesJS</button><br>-->
@@ -601,6 +601,7 @@
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'imageViewer' ].model, i ) ">Remove this app</button>
         </mat-menu>
         <popup #imageViewer
+               [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
                [hash]="openAppsInThisPage[ 'imageViewer' ].model[i].hash"
@@ -610,7 +611,6 @@
                [firstPopupY]="openAppsInThisPage[ 'imageViewer' ].model[i].y"
                [width]="produceHeightAndWidth( openAppsInThisPage[ 'imageViewer' ].model[i].width, '500' )"
                [height]="produceHeightAndWidth( openAppsInThisPage[ 'imageViewer' ].model[i].height, '700')"
-               [index] = "openAppsInThisPage[ 'imageViewer' ].model[i].index"
                [arrayLength] = "openAppsInThisPage[ 'imageViewer' ].model[i].arrayLength"
                (sendAppCoordinatesBack)="updateAppCoordinates($event)"
                [queryId] = "openAppsInThisPage[ 'imageViewer' ].model[i].queryId"
@@ -637,6 +637,7 @@
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'searchViewer' ].model, i ) ">Remove this app</button>
         </mat-menu>
         <popup #searchViewer
+               [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
                [hash]="openAppsInThisPage[ 'searchViewer' ].model[i].hash"
@@ -666,6 +667,7 @@
         <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'simpleImageApp' ].model, i ) ">Remove this app</button>
       </mat-menu>
       <popup #simpleImageApp
+             [index] = "i"
              (sendTiledPositionBack) = "updateTiledPosition( $event )"
              [position]="appFramePosition"
              [hash]="openAppsInThisPage[ 'simpleImageApp' ].model[i].hash"
@@ -697,6 +699,7 @@
           <button mat-menu-item>Choose Text</button>
         </mat-menu>
         <popup #textViewer
+               [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
                [hash]="openAppsInThisPage[ 'textViewer' ].model[i].hash"
@@ -719,6 +722,7 @@
     <!-- HTML viewer -->
     <div *ngFor="let htmlViewer of openAppsInThisPage[ 'htmlViewer' ].model; let i = index;" >
       <popup #htmlViewer
+             [index] = "i"
              [hash]="openAppsInThisPage[ 'htmlViewer' ].model[i].hash"
              [title]="openAppsInThisPage[ 'htmlViewer' ].model[i].title || 'HTML Viewer ' + i"
              [type]="openAppsInThisPage[ 'htmlViewer' ].type"
@@ -753,6 +757,7 @@
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'synopsisViewer' ].model, i ) ">Remove this app</button>
         </mat-menu>
         <popup #synopsisViewer
+               [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
                [hash]="openAppsInThisPage[ 'synopsisViewer' ].model[i].hash"
@@ -781,6 +786,7 @@
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'createResourceForm' ].model, i ) ">Remove this app</button>
         </mat-menu>
         <popup #createResourceForm
+               [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
                [hash]="openAppsInThisPage[ 'createResourceForm' ].model[i].hash"
@@ -810,6 +816,7 @@
         <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'editResourceForm' ].model, i ) ">Remove this app</button>
       </mat-menu>
       <popup #editResourceForm
+             [index] = "i"
              (sendTiledPositionBack) = "updateTiledPosition( $event )"
              [position]="appFramePosition"
              [hash]="openAppsInThisPage[ 'editResourceForm' ].model[i].hash"
@@ -838,6 +845,8 @@
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'textlistViewers' ].model, i ) ">Remove this app</button>
         </mat-menu>
         <popup #textlistViewers
+               [fullWidth]="openAppsInThisPage[ 'textlistViewers' ].model[i].fullWidth"
+               [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
                [hash]="openAppsInThisPage[ 'textlistViewers' ].model[i].hash"
@@ -866,6 +875,7 @@
         <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'parzivalFassung' ].model, i ) ">Remove this app</button>
       </mat-menu>
       <popup #parzivalFassung
+             [index] = "i"
              (sendTiledPositionBack) = "updateTiledPosition( $event )"
              [position]="appFramePosition"
              [hash]="openAppsInThisPage[ 'parzivalFassung' ].model[i].hash"
@@ -894,6 +904,7 @@
         <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'avpEditionView' ].model, i ) ">Remove this app</button>
       </mat-menu>
       <popup #avpEditionView
+             [index] = "i"
              (sendTiledPositionBack) = "updateTiledPosition( $event )"
              [position]="appFramePosition"
              [hash]="openAppsInThisPage[ 'avpEditionView' ].model[i].hash"
@@ -922,6 +933,7 @@
         <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'svgTranscription' ].model, i ) ">Remove this app</button>
       </mat-menu>
       <popup #svgTranscription
+             [index] = "i"
              (sendTiledPositionBack) = "updateTiledPosition( $event )"
              [position]="appFramePosition"
              [hash]="openAppsInThisPage[ 'svgTranscription' ].model[i].hash"
@@ -953,6 +965,7 @@
         <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'jsonViewer' ].model, i ) ">Remove this app</button>
       </mat-menu>
       <popup #jsonViewer
+             [index] = "i"
              (sendTiledPositionBack) = "updateTiledPosition( $event )"
              [position]="appFramePosition"
              [hash]="openAppsInThisPage[ 'jsonViewer' ].model[i].hash"
@@ -981,6 +994,7 @@
         <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'treeNavigation' ].model, i ) ">Remove this app</button>
       </mat-menu>
       <popup #treeNavigation
+             [index] = "i"
              (sendTiledPositionBack) = "updateTiledPosition( $event )"
              [position]="appFramePosition"
              [hash]="openAppsInThisPage[ 'treeNavigation' ].model[i].hash"
@@ -1008,6 +1022,7 @@
         <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'dataListView' ].model, i ) ">Remove this app</button>
       </mat-menu>
       <popup #dataListView
+             [index] = "i"
              (sendTiledPositionBack) = "updateTiledPosition( $event )"
              [position]="appFramePosition"
              [hash]="openAppsInThisPage[ 'dataListView' ].model[i].hash"
@@ -1037,6 +1052,7 @@
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'barCharts' ].model, i ) ">Remove this app</button>
         </mat-menu>
         <popup #barChart
+               [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
                [hash]="openAppsInThisPage[ 'barCharts' ].model[i].hash"
@@ -1067,6 +1083,7 @@
         <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'spiralBarCharts' ].model, i ) ">Remove this app</button>
       </mat-menu>
       <popup #spiralBarCharts
+             [index] = "i"
              (sendTiledPositionBack) = "updateTiledPosition( $event )"
              [position]="appFramePosition"
              [hash]="openAppsInThisPage[ 'spiralBarCharts' ].model[i].hash"
@@ -1098,6 +1115,7 @@
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'lineCharts' ].model, i ) ">Remove this app</button>
         </mat-menu>
         <popup #lineChart
+               [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
                [hash]="openAppsInThisPage[ 'lineCharts' ].model[i].hash"
@@ -1128,6 +1146,7 @@
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'brushZoomCharts' ].model, i ) ">Remove this app</button>
         </mat-menu>
         <popup #brushZoomChart
+               [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
                [hash]="openAppsInThisPage[ 'brushZoomCharts' ].model[i].hash"
@@ -1158,6 +1177,7 @@
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'leafletMaps' ].model, i ) ">Remove this app</button>
         </mat-menu>
         <popup #leafletMap
+               [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
                [hash]="openAppsInThisPage[ 'leafletMaps' ].model[i].hash"
@@ -1188,6 +1208,7 @@
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'pieCharts' ].model, i ) ">Remove this app</button>
         </mat-menu>
         <popup #pieChart
+               [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
                [hash]="openAppsInThisPage[ 'pieCharts' ].model[i].hash"
@@ -1217,6 +1238,7 @@
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'radialBarCharts' ].model, i ) ">Remove this app</button>
         </mat-menu>
         <popup #radialBarChart
+               [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
                [hash]="openAppsInThisPage[ 'radialBarCharts' ].model[i].hash"
@@ -1246,6 +1268,7 @@
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'sankeyCharts' ].model, i ) ">Remove this app</button>
         </mat-menu>
         <popup #sankeyChart
+               [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
                [hash]="openAppsInThisPage[ 'sankeyCharts' ].model[i].title || openAppsInThisPage[ 'sankeyCharts' ].model[i].hash"
@@ -1275,6 +1298,7 @@
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'stackedBarCharts' ].model, i ) ">Remove this app</button>
         </mat-menu>
         <popup #stackedBarChart
+               [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
                [hash]="openAppsInThisPage[ 'stackedBarCharts' ].model[i].hash"
@@ -1304,6 +1328,7 @@
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'chordDiagrams' ].model, i ) ">Close this app</button>
         </mat-menu>
         <popup #chordDiagram
+               [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
                [hash]="openAppsInThisPage[ 'chordDiagrams' ].model[i].hash"

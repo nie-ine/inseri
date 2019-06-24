@@ -34,6 +34,7 @@ export class Frame implements OnInit, OnChanges {
   @Input() arrayLength: number = undefined;
   @Input() queryId: string;
   @Input() position = 'absolute';
+  @Input() fullWidth: string;
   @Output() sendAppCoordinatesBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendAppSettingsBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendIndexBack: EventEmitter<any> = new EventEmitter<any>();
@@ -54,7 +55,6 @@ export class Frame implements OnInit, OnChanges {
   yStartMousePoint: number;
   fatherPopup: any;
   sendCoordinatesBack: any;
-
   isMouseBtnOnPress: boolean;
 
   constructor(
@@ -166,24 +166,13 @@ export class Frame implements OnInit, OnChanges {
             width: result[ 1 ],
             height: result[ 2 ],
             hash: this.hash,
-            type: this.type
+            type: this.type,
+            fullWidth: result[ 3 ]
           }
         );
         // this.title = result.title;
       }
     });
-  }
-
-  moveBack() {
-    // console.log('move back');
-    this.index -= 1;
-    this.emitIndex();
-  }
-
-  moveForward() {
-    // console.log('move forward');
-    this.index += 1;
-    this.emitIndex();
   }
 
   emitIndex() {
@@ -202,7 +191,10 @@ export class Frame implements OnInit, OnChanges {
     this.sendTiledPositionBack.emit(
       {
         move: 'up',
-        hash: this.hash
+        hash: this.hash,
+        y: this.curY,
+        type: this.type,
+        index: this.index
       }
     );
   }
@@ -212,7 +204,10 @@ export class Frame implements OnInit, OnChanges {
     this.sendTiledPositionBack.emit(
       {
         move: 'down',
-        hash: this.hash
+        hash: this.hash,
+        y: this.curY,
+        type: this.type,
+        index: this.index
       }
     );
   }
