@@ -1,7 +1,14 @@
 <div class="popup" *ngIf="show">
 
   <div class="popup-win"
-       [ngStyle]="{'top': curY + 'px', 'left': fullWidth ? '0' : curX + 'px','z-index': curZIndex, 'position': position, width: fullWidth ? '100%' : ''}">
+       [ngStyle]="{
+       'top': fullHeight ? '0' : curY + 'px',
+       'left': fullWidth ? '0' : curX + 'px',
+       'z-index': curZIndex,
+       'position': position,
+       width: fullWidth ? '100%' : '',
+       height: '100%'
+       }">
     <div class="popup-title-bar popup-drag" (mousedown)="mousedown($event)">
       <span style=" margin-right: 20px; color: blue; cursor: pointer;" (click)="disappear()">-</span>
         {{title}}

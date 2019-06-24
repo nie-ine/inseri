@@ -12,7 +12,8 @@
   <mat-form-field class="example-full-width" >
     <input matInput placeholder="Title" value="{{ title }}" name="title" [(ngModel)]="title">
   </mat-form-field>
-  <mat-checkbox name="fullWidth" [(ngModel)]="fullWidth">Fullwidth</mat-checkbox>
+  <mat-checkbox name="fullWidth" [(ngModel)]="fullWidth">Full Width</mat-checkbox>
+  <mat-checkbox name="fullHeight" [(ngModel)]="fullHeight">Full Height</mat-checkbox>
 
 </form>
 
@@ -32,6 +33,7 @@
 
 <h5 i18n="@@heightLabel">Height</h5>
 <mat-slider
+  [disabled]="fullHeight"
   [max]="1200"
   [min]="0"
   [step]="20"

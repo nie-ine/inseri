@@ -314,6 +314,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
       appModel[ length ].type = appType;
       appModel[ length ].title = appType + ' ' + length;
       appModel[ length ].fullWidth = false;
+      appModel[ length ].fullHeight = false;
       console.log( appModel[ length ] );
       if (this.page.openApps[ appModel[ length ].hash ] === null) {
         this.page.openApps[ appModel[ length ].hash ] = [];
@@ -352,12 +353,14 @@ export class PageComponent implements OnInit, AfterViewChecked {
         app.width = settings.width;
         app.height = settings.height;
         app.fullWidth = settings.fullWidth;
+        app.fullHeight = settings.fullHeight;
       }
     }
     this.page.openApps[ settings.hash ].title = settings.title;
     this.page.openApps[ settings.hash ].width = settings.width;
     this.page.openApps[ settings.hash ].height = settings.height;
     this.page.openApps[ settings.hash ].fullWidth = settings.fullWidth;
+    this.page.openApps[ settings.hash ].fullHeight = settings.fullHeight;
   }
 
   produceHeightAndWidth( appValue: string, defaultHeight: string ) {

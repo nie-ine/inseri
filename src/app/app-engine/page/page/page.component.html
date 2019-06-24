@@ -748,6 +748,7 @@
     <div *ngFor="let htmlViewer of openAppsInThisPage[ 'htmlViewer' ].model; let i = index;" >
       <popup #htmlViewer
              [fullWidth]="openAppsInThisPage[ 'htmlViewer' ].model[i].fullWidth"
+             [fullHeight]="openAppsInThisPage[ 'htmlViewer' ].model[i].fullHeight"
              [index] = "i"
              [hash]="openAppsInThisPage[ 'htmlViewer' ].model[i].hash"
              [title]="openAppsInThisPage[ 'htmlViewer' ].model[i].title || 'HTML Viewer ' + i"
@@ -758,7 +759,7 @@
              [height]="produceHeightAndWidth( openAppsInThisPage[ 'htmlViewer' ].model[i].height, '500')"
              (sendAppCoordinatesBack)="updateAppCoordinates($event)"
              (sendAppSettingsBack)="updateAppSettings($event)">
-        <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'htmlViewer' ].model[i].height, '500' ) + 'px',
+        <div [ngStyle]="{'height': openAppsInThisPage[ 'htmlViewer' ].model[i].fullHeight ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'htmlViewer' ].model[i].height, '500' ) + 'px',
   'width': openAppsInThisPage[ 'htmlViewer' ].model[i].fullWidth ? '100%' : openAppsInThisPage[ 'htmlViewer' ].model[i].fullWidth ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'htmlViewer' ].model[i].width, '500' ) + 'px'}">
           <app-html-viewer class="draggable" style="position: sticky;"
                            [htmlContent]="openAppsInThisPage[ 'htmlViewer' ].model[i]['htmlContent']"

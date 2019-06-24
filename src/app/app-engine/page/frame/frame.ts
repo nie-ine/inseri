@@ -34,7 +34,8 @@ export class Frame implements OnInit, OnChanges {
   @Input() arrayLength: number = undefined;
   @Input() queryId: string;
   @Input() position = 'absolute';
-  @Input() fullWidth: string;
+  @Input() fullWidth: boolean;
+  @Input() fullHeight: boolean;
   @Output() sendAppCoordinatesBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendAppSettingsBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendIndexBack: EventEmitter<any> = new EventEmitter<any>();
@@ -155,7 +156,8 @@ export class Frame implements OnInit, OnChanges {
         this.title,
         this.width,
         this.height,
-        this.fullWidth
+        this.fullWidth,
+        this.fullHeight
       ]
     });
     dialogRef.afterClosed().subscribe((result) => {
@@ -168,48 +170,12 @@ export class Frame implements OnInit, OnChanges {
             height: result[ 2 ],
             hash: this.hash,
             type: this.type,
-            fullWidth: result[ 3 ]
+            fullWidth: result[ 3 ],
+            fullHeight: result[ 4 ]
           }
         );
         // this.title = result.title;
       }
     });
-  }
-
-  emitIndex() {
-    console.log( this.index, this.hash );
-    this.sendIndexBack.emit(
-      {
-        index: this.index,
-        hash: this.hash,
-        queryId: this.queryId
-      }
-    );
-  }
-
-  up() {
-    console.log( 'up' );
-    this.sendTiledPositionBack.emit(
-      {
-        move: 'up',
-        hash: this.hash,
-        y: this.curY,
-        type: this.type,
-        index: this.index
-      }
-    );
-  }
-
-  down() {
-    console.log( 'down' );
-    this.sendTiledPositionBack.emit(
-      {
-        move: 'down',
-        hash: this.hash,
-        y: this.curY,
-        type: this.type,
-        index: this.index
-      }
-    );
   }
 }
