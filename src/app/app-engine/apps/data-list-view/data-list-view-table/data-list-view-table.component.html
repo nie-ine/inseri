@@ -14,7 +14,8 @@
     <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{col}}</mat-header-cell>
     <mat-cell *cdkCellDef="let row; let i = $implicit;" class = "fuu"
               [ngStyle]= "dataListSettings.styles.cellStyle"
-              (click)="onThisClick(row[col], i)">
+              (click)="onThisClick(row[col], i)"
+              [ngClass]="col">
       <!-- SETTING [ngClass]="col" enables to define styles for each column, setting it to row[col].value will enable to define a style for certain cell content -->
       <span *ngIf="row[col]">
           {{ row[col] }}
@@ -32,16 +33,20 @@
 <mat-paginator #paginator
                [pageIndex]= "dataListSettings.paginator.pageIndex"
                [pageSize]= "dataListSettings.paginator.pageSize"
-               [pageSizeOptions]= "dataListSettings.paginator.pageSizeOptions">
+               [pageSizeOptions]= "dataListSettings.paginator.pageSizeOptions"
+               [ngStyle]= "{display: dataListSettings.paginator.paginate ? 'block' : 'none'}">
 </mat-paginator>
 <!-- EXPORT -->
-<mat-form-field>
-  <mat-label>Export options</mat-label>
-  <mat-select [(value)]="exportSelection">
-    <mat-option value="displayed">Displayed data only</mat-option>
-    <mat-option value="complete">Complete export</mat-option>
-  </mat-select>
-</mat-form-field>
-<button (click)="exportToCsv()">Export to CSV</button>
+<div *ngIf="dataListSettings.export.showExport">
+  <mat-form-field>
+    <mat-label>Export options</mat-label>
+    <mat-select [(value)]="exportSelection">
+      <mat-option value="displayed">Displayed data only</mat-option>
+      <mat-option value="complete">Complete export</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button (click)="exportToCsv()">Export to CSV</button>
+</div>
+
 
 
