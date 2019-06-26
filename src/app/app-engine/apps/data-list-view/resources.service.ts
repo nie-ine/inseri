@@ -23,30 +23,13 @@ export class DataService {
     return completeUrl;
   }
 
-/*  public getHeaders() {
-      const complete_url = this.getUrl(this.baseUrl, this.query);
-      console.log('post query to server ' + this.baseUrl)
-
-      return this.http.get(complete_url, this.httpOptions)
-        //.subscribe(response => {console.log(response)})
-        .map((response: Response) => {
-          const headers = [];
-          for (let key in response ) {
-            if(key === 'head' ) {
-              headers.push(response[key])
-            }
-          }
-          console.log(headers);
-          return headers;
-        });
-    }*/
-
-  public getData() {
+  public getData(baseurl?, query?, options?) {
+    if (baseurl && query && options) {
+      const complete_url = this.getUrl(baseurl, query);
+      return this.http.get(complete_url, options);
+    } else {
     const complete_url = this.getUrl(this.baseUrl, this.query);
     console.log('post query to server ' + this.baseUrl);
-
-    return this.http.get(complete_url, this.httpOptions);
-      // .subscribe(response => {console.log(response)})
+    return this.http.get(complete_url, this.httpOptions); }
   }
-
 }
