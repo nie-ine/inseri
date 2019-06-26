@@ -28,6 +28,13 @@ mongoose
     console.log("Connection failed!");
   });
 
+app.use( bodyParser.json({limit: '50mb'}) );
+app.use(bodyParser.urlencoded({
+  limit: '50mb',
+  extended: true,
+  parameterLimit:50000
+}));
+
 app.use(cors());
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -50,6 +57,7 @@ app.use((req, res, next) => {
   );
   next();
 });
+
 
 app.use("/api/users", userRoutes);
 app.use("/api/actions", actionRoutes);

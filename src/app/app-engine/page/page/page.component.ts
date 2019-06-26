@@ -437,38 +437,49 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.updateLinkedApps = true;
   }
 
-  openQueryInformationDialog( queryId: string, title: string ) {
-    let queryAppPathInformation = [];
-    for ( const appHash in this.page.appInputQueryMapping ) {
-      for ( const appType in this.openAppsInThisPage ) {
-        if (
-          this.openAppsInThisPage[ appType ].model.length > 0 &&
-          appType !== 'dataChooser'
-        ) {
-          for ( const appEntry of this.openAppsInThisPage[ appType ].model ) {
-            if ( appEntry.hash === appHash ) {
-              for ( const input in this.page.appInputQueryMapping[ appHash ] ) {
-                if ( this.page.appInputQueryMapping[ appHash ][ input ].query === queryId ) {
-                  queryAppPathInformation.push(
-                    {
-                      appHash: appHash,
-                      appTitle: appEntry.title,
-                      path: this.page.appInputQueryMapping[ appHash ][ input ].path,
-                      input: input,
-                      type: appType
+  generateQueryAppPathInformation( queryId: string ): any {
+      let queryAppPathInformation = undefined;
+      for ( const appHash in this.page.appInputQueryMapping ) {
+        for ( const appType in this.openAppsInThisPage ) {
+          if (
+            this.openAppsInThisPage[ appType ].model.length > 0 &&
+            appType !== 'dataChooser'
+          ) {
+            for ( const appEntry of this.openAppsInThisPage[ appType ].model ) {
+              if ( appEntry.hash === appHash ) {
+                for ( const input in this.page.appInputQueryMapping[ appHash ] ) {
+                  if ( this.page.appInputQueryMapping[ appHash ][ input ].query === queryId ) {
+                    if ( queryAppPathInformation === undefined ) {
+                      queryAppPathInformation = [];
                     }
-                  );
+                    queryAppPathInformation.push(
+                      {
+                        appHash: appHash,
+                        appTitle: appEntry.title,
+                        path: this.page.appInputQueryMapping[ appHash ][ input ].path,
+                        input: input,
+                        type: appType
+                      }
+                    );
+                  }
                 }
               }
             }
           }
         }
       }
-    }
+      if ( queryAppPathInformation === undefined ) {
+        return undefined;
+      } else {
+        return queryAppPathInformation;
+      }
+  }
+
+  openQueryInformationDialog( queryId: string ) {
     const dialogRef = this.queryInfoDialog.open(QueryInformationDialogComponent, {
       width: '800px',
       height: '400px',
-      data: queryAppPathInformation
+      data: this.generateQueryAppPathInformation( queryId )
     });
   }
 

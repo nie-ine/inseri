@@ -31,7 +31,7 @@
     "@types/leaflet": "1.4",
     "angular-cli-ghpages": "^0.5.3",
     "bcrypt": "^3.0.4",
-    "body-parser": "^1.18.3",
+    "body-parser": "^1.19.0",
     "core-js": "^2.6.5",
     "cors": "^2.8.5",
     "d3-array": "^2.0.3",
