@@ -1,5 +1,6 @@
 import {Component, Input, OnChanges} from '@angular/core';
 import { DataService } from './resources.service';
+// import {KnoraJsonldSimplify} from 'knora-jsonld-simplify/dist';
 
 @Component({
   selector: 'data-list-view',

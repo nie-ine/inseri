@@ -66,6 +66,7 @@ import { NavigationModule } from './apps/navigation/navigation.module';
 import { HtmlViewerModule } from './apps/html-viewer/html-viewer.module';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { OpenbisLoginComponent } from './apps/openbis-login/openbis-login.component';
+// import { KnoraJsonldSimplify } from 'knora-jsonld-simplify/dist';
 
 @NgModule({
   imports: [
@@ -111,6 +112,7 @@ import { OpenbisLoginComponent } from './apps/openbis-login/openbis-login.compon
     NavigationModule,
     OverlayModule,
     MatCheckboxModule,
+    // KnoraJsonldSimplify,
     RouterModule.forChild([
       { path: 'page', component: PageComponent },
       { path: 'response-tree', component: ResponseTreeComponent },
