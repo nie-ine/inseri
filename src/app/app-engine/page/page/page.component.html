@@ -101,7 +101,7 @@
 
           <mat-divider></mat-divider>
 
-          <button mat-button (click)="addAnotherApp('htmlViewer', true)"><mat-icon>view_headline</mat-icon> Add HTML Viewer</button><br>
+          <button mat-button (click)="addAnotherApp('htmlViewer', true)"><mat-icon>aspect_ratio</mat-icon> Add HTML Viewer</button><br>
 
         </mat-expansion-panel>
 
@@ -138,7 +138,7 @@
 
           <mat-divider></mat-divider>
 
-          <button mat-button (click)="addAnotherApp('svgTranscription', true)">Add SVG Transcription View</button><br>
+          <button mat-button (click)="addAnotherApp('svgTranscription', true)"><mat-icon>line_style</mat-icon> Add SVG Transcription View</button><br>
 
         </mat-expansion-panel>
 
@@ -256,27 +256,6 @@
       <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
         <mat-expansion-panel-header>
           <mat-panel-title>
-            Simple Full Text Search
-          </mat-panel-title>
-          <mat-panel-description>
-            Search in all resources
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-
-        This app searches in all resources of your project and provides a simple output. It is still under development.
-
-        <mat-divider></mat-divider>
-
-        <button mat-button (click)="addAnotherApp('searchViewer', true)">
-          <mat-icon >search</mat-icon>
-          Add search Viewer
-        </button><br>
-
-      </mat-expansion-panel>
-
-      <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
-        <mat-expansion-panel-header>
-          <mat-panel-title>
             Data list viewer
           </mat-panel-title>
           <mat-panel-description>
@@ -288,7 +267,7 @@
 
         <mat-divider></mat-divider>
 
-        <button mat-button (click)="addAnotherApp('dataListView', true)"><mat-icon>short_text</mat-icon>Add a data list / data table</button><br>
+        <button mat-button (click)="addAnotherApp('dataListView', true)"><mat-icon>view_list</mat-icon> Add a data list / data table</button><br>
       </mat-expansion-panel>
 
         <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
@@ -305,7 +284,7 @@
 
           <mat-divider></mat-divider>
 
-          <button mat-button (click)="addAnotherApp('treeNavigation', true)"><mat-icon>short_text</mat-icon>Add a tree navigation</button><br>
+          <button mat-button (click)="addAnotherApp('treeNavigation', true)"><mat-icon>subdirectory_arrow_right</mat-icon>Add a tree navigation</button><br>
         </mat-expansion-panel>
 
       </details>
@@ -586,7 +565,7 @@
 
 
 
-      <div style="margin-top: 30px; vertical-align: bottom;">
+      <div style="margin-top: 30px; vertical-align: bottom; z-index: 9999">
         <button type="button" mat-button (keydown.control.o)="drawer.toggle()" (click)="drawer.toggle()" matTooltip='{{ createTooltip() }}'>
           <mat-icon color="primary" >chrome_reader_mode</mat-icon> <h4 style="align-content: center" *ngIf="pageAsDemo">Demo</h4>
         </button>
@@ -627,38 +606,6 @@
                                   width="500"
                                   height="700">
           </app-image-with-overlay>
-          </div>
-        </popup>
-      </div>
-
-      <!-- Search -->
-      <div *ngFor="let search of openAppsInThisPage[ 'searchViewer' ].model; let i = index;" >
-        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>search</mat-icon> {{ i }} </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="searchViewer.appear()" >Show Search Viewer {{ i }}</button>
-          <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'searchViewer' ].model, i ) ">Remove this app</button>
-        </mat-menu>
-        <popup #searchViewer
-               [fullWidth]="openAppsInThisPage[ 'searchViewer' ].model[i].fullWidth"
-               [fullHeight]="openAppsInThisPage[ 'searchViewer' ].model[i].fullHeight"
-               [index] = "i"
-               (sendTiledPositionBack) = "updateTiledPosition( $event )"
-               [position]="appFramePosition"
-               [hash]="openAppsInThisPage[ 'searchViewer' ].model[i].hash"
-               [title]="openAppsInThisPage[ 'searchViewer' ].model[i].title || 'Search ' + i"
-               [type]="openAppsInThisPage[ 'searchViewer' ].type"
-               [firstPopupX]="openAppsInThisPage[ 'searchViewer' ].model[i].x"
-               [firstPopupY]="openAppsInThisPage[ 'searchViewer' ].model[i].y"
-               [width]="produceHeightAndWidth( openAppsInThisPage[ 'searchViewer' ].model[i].width, '250' )"
-               [height]="produceHeightAndWidth( openAppsInThisPage[ 'searchViewer' ].model[i].height, '400')"
-               (sendAppCoordinatesBack)="updateAppCoordinates($event)"
-               (sendAppSettingsBack)="updateAppSettings($event)">
-          <div [ngStyle]="{'height': openAppsInThisPage[ 'searchViewer' ].model[i].fullHeight ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'searchViewer' ].model[i].height, '400' ) + 'px',
-  'width': openAppsInThisPage[ 'searchViewer' ].model[i].fullWidth ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'searchViewer' ].model[i].width, '250' ) + 'px'}">
-          <!--<nie-search-->
-            <!--style="position: sticky;">-->
-
-          <!--</nie-search>-->
           </div>
         </popup>
       </div>
@@ -751,7 +698,7 @@
           </app-html-viewer>
         </div>
       </popup>
-      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>short_text</mat-icon> {{ i }}</button>
+      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>aspect_ratio</mat-icon> {{ i }}</button>
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="htmlViewer.appear()" >Show HTML Viewer {{ i }}</button>
         <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'htmlViewer' ].model, i ) ">Remove this app</button>
@@ -979,7 +926,7 @@
 
     <!-- svg-Transcription -->
     <div *ngFor="let svgTranscription of openAppsInThisPage[ 'svgTranscription' ].model; let i = index;" >
-      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" >svg {{ i }}</button>
+      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>line_style</mat-icon> {{ i }}</button>
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="svgTranscription.appear()" >Show AVP Edition Viewer {{ i }}</button>
         <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'svgTranscription' ].model, i ) ">Remove this app</button>
@@ -1044,7 +991,7 @@
 
     <!-- Tree navigation -->
     <div *ngFor="let treeNavigation of openAppsInThisPage[ 'treeNavigation' ].model; let i = index;" >
-      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>add_to_queue</mat-icon> {{ i }}</button>
+      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>subdirectory_arrow_right</mat-icon> {{ i }}</button>
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="treeNavigation.appear()" >Show Tree Navigation {{ i }}</button>
         <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'treeNavigation' ].model, i ) ">Remove this app</button>
@@ -1074,7 +1021,7 @@
 
     <!-- Result list -->
     <div *ngFor="let dataListView of openAppsInThisPage[ 'dataListView' ].model; let i = index;" >
-      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>spa</mat-icon> {{ i }}</button>
+      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>view_list</mat-icon> {{ i }}</button>
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="dataListView.appear()" >Show Data list Viewer {{ i }}</button>
         <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'dataListView' ].model, i ) ">Remove this app</button>
