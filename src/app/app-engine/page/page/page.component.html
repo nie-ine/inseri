@@ -750,7 +750,7 @@
              (sendAppCoordinatesBack)="updateAppCoordinates($event)" (sendAppSettingsBack)="updateAppSettings($event)">
         <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'projectViewer' ].model[i].height, '500' ) + 'px',
   'width': produceHeightAndWidth( openAppsInThisPage[ 'projectViewer' ].model[i].width, '500' ) + 'px'}">
-          <app-project-viewer class="draggable" style="position: sticky;">
+          <app-project-viewer class="draggable" style="position: sticky;" [projectToDisplay]="openAppsInThisPage['projectViewer'].model[i]['iri']">
           </app-project-viewer>
         </div>
       </popup>

@@ -1,7 +1,10 @@
 <div class="container">
-  <!-- <kui-search-results [searchQuery]="'ding'" [searchMode]="'fulltext'"></kui-search-results> -->
-  <h3>All projects</h3>
-  <ul>
-    <li *ngFor="let project of projects">{{project.longname}} | {{project.shortcode}}</li>
-  </ul>
+    <!-- <kui-search-results [searchQuery]="'ding'" [searchMode]="'fulltext'"></kui-search-results> -->
+    <h3>{{project.longname}}</h3>
+    <h4>{{project.shortcode}} | {{project.shortname}}</h4>
+    <div>
+        {{project.description[0].value}}
+    </div>
 </div>
+
+<!-- <kui-search-results [searchQuery]="'ding'" [searchMode]="'fulltext'" [complexView]="false"></kui-search-results> -->
