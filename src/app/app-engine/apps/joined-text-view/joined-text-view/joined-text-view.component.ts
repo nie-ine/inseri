@@ -74,7 +74,13 @@ export class JoinedTextViewComponent implements OnInit {
     }
   };
 
-
+  // TODO:
+  // - Include all input for HTML-Viewer
+  // - Include a component for columns
+  // - Include sorting
+  // - Split between example and reusable components
+  // - Turn into app
+  // - Enable click and mouseover events
 
 
   // queryParam
