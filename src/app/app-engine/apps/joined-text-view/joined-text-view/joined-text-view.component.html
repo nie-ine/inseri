@@ -1,0 +1,15 @@
+<p>test 1</p>
+
+<app-joined-text-block *ngIf="textConfiguration1.blocks"
+                       [backendAddress]="backendAddress"
+                       [blockConfiguration]="textConfiguration1.blocks"
+                       [parentIri]="textRootIri">
+</app-joined-text-block>
+
+<p>test 2</p>
+
+<app-joined-text-line *ngIf="textConfiguration2.lines"
+                      [backendAddress]="backendAddress"
+                      [lineConfiguration]="textConfiguration2.lines"
+                      [parentIri]="textRootIri">
+</app-joined-text-line>

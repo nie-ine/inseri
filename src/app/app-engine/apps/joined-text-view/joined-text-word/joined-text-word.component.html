@@ -1,0 +1,11 @@
+<span *ngIf="wordConfiguration.prefix">{{ wordConfiguration.prefix }}</span><span *ngFor="let w of words; let i = index">
+  <span *ngIf="wordConfiguration.interfix && i != 0">{{ wordConfiguration.interfix }}</span>
+
+  <app-joined-text-textwrapper
+    *ngIf="wordConfiguration.contentPropertyIri"
+    [namespaces]="namespaces"
+    [propertyIri]="wordConfiguration.contentPropertyIri"
+    [resource]="w">
+  </app-joined-text-textwrapper>
+
+</span><span *ngIf="wordConfiguration.suffix">{{ wordConfiguration.suffix }}</span>

@@ -1,0 +1,18 @@
+<span *ngIf="linepartConfiguration.prefix">{{ linepartConfiguration.prefix }}</span><span *ngFor="let l of lineparts; let i = index">
+  <span *ngIf="linepartConfiguration.interfix && i !== 0">{{ linepartConfiguration.interfix }}</span>
+
+  <app-joined-text-word
+    *ngIf="linepartConfiguration.words"
+    [parentIri]="l['@id']"
+    [backendAddress]="backendAddress"
+    [wordConfiguration]="linepartConfiguration.words">
+  </app-joined-text-word>
+
+  <app-joined-text-linepart
+      *ngIf="linepartConfiguration.lineparts"
+      [parentIri]="l['@id']"
+      [backendAddress]="backendAddress"
+      [linepartConfiguration]="linepartConfiguration.lineparts">
+  </app-joined-text-linepart>
+
+</span><span *ngIf="linepartConfiguration.suffix">{{ linepartConfiguration.suffix }}</span>

@@ -1,0 +1,38 @@
+<div [ngStyle]="{'background-color': backgroundColor, 'height': '100%'}" *ngFor="let m of margins">
+  <div [ngStyle]="{'white-space': whitespaceBehavior, 'overflow-x': overflowX, 'overflow-y': overflowY}"
+       [ngClass]="{'text-margin-with-fix-height': fixHeight === 'true'}">
+
+    <app-joined-text-block
+      *ngIf="marginConfiguration.blocks"
+      [parentIri]="m['@id']"
+      [backendAddress]="backendAddress"
+      [blockConfiguration]="marginConfiguration.blocks">
+    </app-joined-text-block>
+
+    <app-joined-text-line
+      *ngIf="marginConfiguration.lines"
+      [parentIri]="m['@id']"
+      [backendAddress]="backendAddress"
+      [lineConfiguration]="marginConfiguration.lines">
+    </app-joined-text-line>
+
+    <app-joined-text-word
+      *ngIf="marginConfiguration.words"
+      [parentIri]="m['@id']"
+      [backendAddress]="backendAddress"
+      [wordConfiguration]="marginConfiguration.words">
+    </app-joined-text-word>
+
+    <ng-container *ngIf="marginConfiguration.contentProperty">
+      <span *ngIf="marginConfiguration.contentProperty === 'self'">
+         <app-joined-text-textwrapper
+            *ngIf="marginConfiguration.propertyIri"
+            [namespaces]="namespaces"
+            [propertyIri]="marginConfiguration.propertyIri"
+            [resource]="m">
+          </app-joined-text-textwrapper>
+      </span>
+    </ng-container>
+
+  </div>
+</div>

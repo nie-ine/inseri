@@ -1,0 +1,80 @@
+<div *ngFor="let l of lines; let i = index" class="text-line-columns">
+
+  <div class="text-line-column" [ngStyle]="{'width': widths.farfarleft}">
+    <app-joined-text-margin
+      *ngIf="lineConfiguration.farfarleft"
+      [parentIri]="l['@id']"
+      [backendAddress]="backendAddress"
+      [marginConfiguration]="lineConfiguration.farfarleft">
+    </app-joined-text-margin>
+  </div>
+
+  <div class="text-line-column" [ngStyle]="{'width': widths.farleft}">
+    <app-joined-text-margin
+      *ngIf="lineConfiguration.farleft"
+      [parentIri]="l['@id']"
+      [backendAddress]="backendAddress"
+      [marginConfiguration]="lineConfiguration.farleft">
+    </app-joined-text-margin>
+  </div>
+
+  <div class="text-line-column" [ngStyle]="{'width': widths.left}">
+    <app-joined-text-margin
+      *ngIf="lineConfiguration.left"
+      [parentIri]="l['@id']"
+      [backendAddress]="backendAddress"
+      [marginConfiguration]="lineConfiguration.left">
+    </app-joined-text-margin>
+  </div>
+
+  <div class="text-line-column" [ngStyle]="{'white-space': whitespaceBehavior, 'width': widths.middle, 'overflow-x': lineConfiguration.overflowX}">
+    <span *ngIf="lineConfiguration.prefix && i === 0">{{ lineConfiguration.prefix }}</span>
+
+    <app-joined-text-linepart
+      *ngIf="lineConfiguration.lineparts"
+      [parentIri]="l['@id']"
+      [backendAddress]="backendAddress"
+      [linepartConfiguration]="lineConfiguration.lineparts">
+    </app-joined-text-linepart>
+
+    <app-joined-text-word
+      *ngIf="lineConfiguration.words"
+      [parentIri]="l['@id']"
+      [backendAddress]="backendAddress"
+      [wordConfiguration]="lineConfiguration.words">
+    </app-joined-text-word>
+
+    <span *ngIf="lineConfiguration.interfix && i !== 0 && i !== lines.length - 1">{{ lineConfiguration.interfix }}</span>
+    <span *ngIf="lineConfiguration.suffix && i === lines.length">{{ lineConfiguration.suffix }}</span>
+  </div>
+
+
+  <div class="text-line-column" [ngStyle]="{'width': widths.right}">
+    <app-joined-text-margin
+      *ngIf="lineConfiguration.right"
+      [parentIri]="l['@id']"
+      [backendAddress]="backendAddress"
+      [marginConfiguration]="lineConfiguration.right">
+    </app-joined-text-margin>
+  </div>
+
+  <div class="text-line-column" [ngStyle]="{'width': widths.farright}">
+    <app-joined-text-margin
+      *ngIf="lineConfiguration.farright"
+      [parentIri]="l['@id']"
+      [backendAddress]="backendAddress"
+      [marginConfiguration]="lineConfiguration.farright">
+    </app-joined-text-margin>
+  </div>
+
+  <div class="text-line-column" [ngStyle]="{'width': widths.farfarright}">
+    <app-joined-text-margin
+      *ngIf="lineConfiguration.farfarright"
+      [parentIri]="l['@id']"
+      [backendAddress]="backendAddress"
+      [marginConfiguration]="lineConfiguration.farfarright">
+    </app-joined-text-margin>
+  </div>
+
+</div>
+

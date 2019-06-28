@@ -1,0 +1,17 @@
+<div *ngFor="let b of blocks">
+
+  <app-joined-text-line
+    *ngIf="blockConfiguration.lines"
+    [parentIri]="b['@id']"
+    [backendAddress]="backendAddress"
+    [lineConfiguration]="blockConfiguration.lines">
+  </app-joined-text-line>
+
+  <app-joined-text-linepart
+    *ngIf="blockConfiguration.lineparts"
+    [parentIri]="b['@id']"
+    [backendAddress]="backendAddress"
+    [linepartConfiguration]="blockConfiguration.lineparts">
+  </app-joined-text-linepart>
+
+</div>
