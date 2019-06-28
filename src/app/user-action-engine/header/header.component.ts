@@ -172,10 +172,10 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   generateLeftHeaderString(): string {
     return (
-      this.routeMapping( 'dashboard', 'NIE-OS - Dashboard' ) ||
-      this.routeMapping( 'home', 'NIE-OS' ) ||
-      this.routeMapping( 'page', 'NIE-OS - Page' ) ||
-      this.routeMapping( '', 'NIE-OS' )
+      this.routeMapping( 'dashboard', 'Inseri - Dashboard' ) ||
+      this.routeMapping( 'home', 'Inseri' ) ||
+      this.routeMapping( 'page', 'Inseri - Page' ) ||
+      this.routeMapping( '', 'Inseri' )
     );
   }
 
@@ -384,10 +384,10 @@ export class DialogUserSettingsDialog implements OnInit {
         console.log( result );
         this.contactService.sendMessage(
           'Guten Tag, ' + this.data.firstName + ',\n\n' +
-          'schade, dass Du Deinen Account bei NIE-OS deaktiviert hast, wir werden Dich vermissen!\n\n\n' +
+          'schade, dass Du Deinen Account bei Inseri deaktiviert hast, wir werden Dich vermissen!\n\n\n' +
           'Innerhalb der nächsten 30 Tage kannst Du Deinen Account wiederherstellen, wenn Du hier klickst:\n\n' +
           environment.app + '/reactivate?user=' + this.userId +
-          '\n\n\nViele schöne Grüsse und alles Gute von Deinem NIE-OS Team!', this.profileForm.get('email').value
+          '\n\n\nViele schöne Grüsse und alles Gute von Deinem Inseri Team!', this.profileForm.get('email').value
         )
           .subscribe( response => {
             console.log(response);
