@@ -57,6 +57,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
   blockManager: any;
   depth: number;
   cssUrl: any;
+  appFramePosition = 'absolute';
+  appPositionArray = [];
 
   blockManagerModel = [
     {
@@ -132,9 +134,20 @@ export class PageComponent implements OnInit, AfterViewChecked {
     }
   }
 
+  changeAppFramePosition() {
+    if ( this.appFramePosition === 'absolute' ) {
+      this.appFramePosition = 'static';
+      console.log(  this.appFramePosition );
+    } else {
+      this.appFramePosition = 'absolute';
+      console.log(  this.appFramePosition );
+    }
+  }
+
   addBlock() {
     const dialogRef = this.dialog.open(NewGjsBoxDialogComponent, {
       width: '700px',
+      height: '1000px',
       data: 'test'
     });
 
@@ -270,6 +283,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.page.openApps[ 'grapesJS' ].gjsHtml = localStorage.getItem('gjs-html');
     this.page.openApps[ 'grapesJS' ].gjsStyles = localStorage.getItem('gjs-styles');
     this.page.openApps[ 'grapesJS' ].hash = 'grapesJS';
+    this.page.openApps[ 'appsTiledOrFloating' ] = {};
+    this.page.openApps[ 'appsTiledOrFloating' ].hash = 'appsTiledOrFloating';
+    this.page.openApps[ 'appsTiledOrFloating' ].layout = this.appFramePosition;
     console.log(
       this.page,
       this.openAppsInThisPage
@@ -297,6 +313,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
       appModel[ length ].hash = this.generateHashService.generateHash();
       appModel[ length ].type = appType;
       appModel[ length ].title = appType + ' ' + length;
+      appModel[ length ].fullWidth = false;
+      appModel[ length ].fullHeight = false;
       console.log( appModel[ length ] );
       if (this.page.openApps[ appModel[ length ].hash ] === null) {
         this.page.openApps[ appModel[ length ].hash ] = [];
@@ -334,11 +352,15 @@ export class PageComponent implements OnInit, AfterViewChecked {
         app.title = settings.title;
         app.width = settings.width;
         app.height = settings.height;
+        app.fullWidth = settings.fullWidth;
+        app.fullHeight = settings.fullHeight;
       }
     }
     this.page.openApps[ settings.hash ].title = settings.title;
     this.page.openApps[ settings.hash ].width = settings.width;
     this.page.openApps[ settings.hash ].height = settings.height;
+    this.page.openApps[ settings.hash ].fullWidth = settings.fullWidth;
+    this.page.openApps[ settings.hash ].fullHeight = settings.fullHeight;
   }
 
   produceHeightAndWidth( appValue: string, defaultHeight: string ) {
@@ -367,6 +389,11 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   receivePage( pageAndAction: any ) {
+    console.log( pageAndAction );
+    if (
+      pageAndAction[ 0 ].openApps[ 'appsTiledOrFloating' ] ) {
+      this.appFramePosition = pageAndAction[ 0 ].openApps[ 'appsTiledOrFloating' ].layout;
+    }
     setTimeout(() => {
       if (
         pageAndAction[ 0 ].openApps['grapesJS'] &&
@@ -410,39 +437,54 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.updateLinkedApps = true;
   }
 
-  openQueryInformationDialog( queryId: string, title: string ) {
-    let queryAppPathInformation = [];
-    for ( const appHash in this.page.appInputQueryMapping ) {
-      for ( const appType in this.openAppsInThisPage ) {
-        if (
-          this.openAppsInThisPage[ appType ].model.length > 0 &&
-          appType !== 'dataChooser'
-        ) {
-          for ( const appEntry of this.openAppsInThisPage[ appType ].model ) {
-            if ( appEntry.hash === appHash ) {
-              for ( const input in this.page.appInputQueryMapping[ appHash ] ) {
-                if ( this.page.appInputQueryMapping[ appHash ][ input ].query === queryId ) {
-                  queryAppPathInformation.push(
-                    {
-                      appHash: appHash,
-                      appTitle: appEntry.title,
-                      path: this.page.appInputQueryMapping[ appHash ][ input ].path,
-                      input: input,
-                      type: appType
+  generateQueryAppPathInformation( queryId: string ): any {
+      let queryAppPathInformation = undefined;
+      for ( const appHash in this.page.appInputQueryMapping ) {
+        for ( const appType in this.openAppsInThisPage ) {
+          if (
+            this.openAppsInThisPage[ appType ].model.length > 0 &&
+            appType !== 'dataChooser'
+          ) {
+            for ( const appEntry of this.openAppsInThisPage[ appType ].model ) {
+              if ( appEntry.hash === appHash ) {
+                for ( const input in this.page.appInputQueryMapping[ appHash ] ) {
+                  if ( this.page.appInputQueryMapping[ appHash ][ input ].query === queryId ) {
+                    if ( queryAppPathInformation === undefined ) {
+                      queryAppPathInformation = [];
                     }
-                  );
+                    queryAppPathInformation.push(
+                      {
+                        appHash: appHash,
+                        appTitle: appEntry.title,
+                        path: this.page.appInputQueryMapping[ appHash ][ input ].path,
+                        input: input,
+                        type: appType
+                      }
+                    );
+                  }
                 }
               }
             }
           }
         }
       }
-    }
+      if ( queryAppPathInformation === undefined ) {
+        return undefined;
+      } else {
+        return queryAppPathInformation;
+      }
+  }
+
+  openQueryInformationDialog( queryId: string ) {
     const dialogRef = this.queryInfoDialog.open(QueryInformationDialogComponent, {
       width: '800px',
       height: '400px',
-      data: queryAppPathInformation
+      data: this.generateQueryAppPathInformation( queryId )
     });
+  }
+
+  updateTiledPosition( moveAndHash: any ) {
+    console.log( moveAndHash );
   }
 
 }

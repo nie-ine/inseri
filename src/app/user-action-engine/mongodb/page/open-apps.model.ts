@@ -34,6 +34,10 @@ export class OpenAppsModel {
       type: 'textViewer',
       model: []
     },
+    openbisLogin: {
+      type: 'openbisLogin',
+      model: []
+    },
     searchViewer: {
       type: 'searchViewer',
       model: []
@@ -125,12 +129,24 @@ export class OpenAppsModel {
         }
       ]
     },
+    treeNavigation: {
+      type: 'treeNavigation',
+      model: [],
+      inputs: [
+        {
+          'inputName': 'json'
+        }
+      ]
+    },
     dataListView: {
       type: 'dataListView',
       model: [],
       inputs: [
         {
           'inputName': 'json'
+        },
+        {
+          'inputName': 'settings'
         }
       ]
     },
@@ -167,6 +183,21 @@ export class OpenAppsModel {
         },
         {
           'inputName': 'imageHeight'
+        }
+      ]
+    },
+    htmlViewer: {
+      type: 'htmlViewer',
+      model: [],
+      inputs: [
+        {
+          'inputName': 'htmlContent'
+        },
+        {
+          'inputName': 'selectiveStyleDeclarations'
+        },
+        {
+          'inputName': 'styleDeclarations'
         }
       ]
     }

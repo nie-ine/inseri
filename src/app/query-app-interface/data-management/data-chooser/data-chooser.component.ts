@@ -9,6 +9,7 @@ import {
   EventEmitter} from '@angular/core';
 import {Router} from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatFormField} from '@angular/material';
+import {type} from 'os';
 
 @Component({
   selector: 'app-data-chooser',
@@ -31,6 +32,7 @@ export class DataChooserComponent implements AfterViewChecked {
   dataChooserSettingsOutput: any;
   responseTest: any;
   index: number;
+  alreadyEmitted = false;
   constructor(
     public dialogSettings: MatDialog,
     private cdr: ChangeDetectorRef,
@@ -40,6 +42,14 @@ export class DataChooserComponent implements AfterViewChecked {
 
   ngAfterViewChecked() {
     this.cdr.detectChanges();
+    if ( this.dataChooserEntries [ 0 ] === 'showData' && !this.alreadyEmitted ) {
+      this.alreadyEmitted = true;
+      this.chooseResource( 0 );
+    }
+    if ( typeof this.dataChooserEntries [ 0 ] === 'object' ) {
+      this.alreadyEmitted = true;
+      this.chooseResource( 0 );
+    }
   }
   chooseResource(index: number) {
     this.index = index;
