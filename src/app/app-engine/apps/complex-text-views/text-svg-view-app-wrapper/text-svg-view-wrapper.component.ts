@@ -75,6 +75,8 @@ export class TextSvgViewWrapperComponent implements OnInit, OnChanges {
   ngOnInit() {
   }
 
+  // TODO navigate on hover or click changes
+
   /**
    * Change properties if the query parameters or the input variables change.
    */

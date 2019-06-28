@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { KnoraV2RequestService } from '../../../../query-engine/knora/knora-v2-request.service';
 import { JoinedTextViewKnoraRequestService } from '../joined-text-view-knora-request.service';
+import { SelectableEnvironments, StyleDeclaration } from '../../shared/rich-text/text-rich-innerhtml/text-rich-innerhtml.component';
 
 export interface JoinedTextWord {
   contentPropertyIri?: string;
@@ -27,6 +28,38 @@ export class JoinedTextWordComponent implements OnInit {
   @Input() backendAddress;
   @Input() wordConfiguration: JoinedTextWord;
 
+  @Input() styleDeclarations: Array<StyleDeclaration>;
+
+  /**
+   * Dynamic style declarations.
+   */
+  @Input() selectiveStyleDeclarations: SelectableEnvironments;
+
+  /**
+   * Keys of selected selectiveStyleDeclarations.
+   */
+  @Input() highlighted: Array<string>;
+
+  /**
+   * The unique id of the word that was last clicked and counts as activated. Only one word can be counted as activated at a time.
+   */
+  @Input() clickedWord: string;
+
+  /**
+   * Give an event containing the unique word id if a word on the page description is clicked
+   */
+  @Output() clickedWordChange: EventEmitter<string> = new EventEmitter<string>();
+
+  /**
+   * The unique id of the word the mouse is hovering on.
+   */
+  @Input() hoveredWord: string;
+
+  /**
+   * Give an event containing the unique word id if the mouse hovers on a word in the page description
+   */
+  @Output() hoveredWordChange: EventEmitter<string> = new EventEmitter<string>();
+
   words: Array<any>;
 
   namespaces: any;
@@ -45,7 +78,6 @@ export class JoinedTextWordComponent implements OnInit {
 
     this.knoraV2Request.extendedSearchFromSpecificInstance(graveSearchRequest, this.backendAddress)
       .subscribe(d => {
-        console.log(d);
         if (d['@graph']) {
           this.words = d['@graph'];
         } else {

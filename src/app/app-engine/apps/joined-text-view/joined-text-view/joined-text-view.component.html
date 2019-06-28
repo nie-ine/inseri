@@ -1,15 +1,25 @@
-<p>test 1</p>
+<div *ngIf="textConfiguration">
+  <app-joined-text-block
+    *ngIf="textConfiguration.blocks"
+    [backendAddress]="backendAddress"
+    [blockConfiguration]="textConfiguration.blocks"
+    [parentIri]="textRootIri"
+    [highlighted]="highlighted"
+    [styleDeclarations]="styleDeclarations"
+    [selectiveStyleDeclarations]="selectiveStyleDeclarations"
+    [(clickedWord)]="clickedWord"
+    [(hoveredWord)]="hoveredWord">
+  </app-joined-text-block>
 
-<app-joined-text-block *ngIf="textConfiguration1.blocks"
-                       [backendAddress]="backendAddress"
-                       [blockConfiguration]="textConfiguration1.blocks"
-                       [parentIri]="textRootIri">
-</app-joined-text-block>
-
-<p>test 2</p>
-
-<app-joined-text-line *ngIf="textConfiguration2.lines"
-                      [backendAddress]="backendAddress"
-                      [lineConfiguration]="textConfiguration2.lines"
-                      [parentIri]="textRootIri">
-</app-joined-text-line>
+  <app-joined-text-line
+    *ngIf="textConfiguration.lines"
+    [backendAddress]="backendAddress"
+    [lineConfiguration]="textConfiguration.lines"
+    [parentIri]="textRootIri"
+    [highlighted]="highlighted"
+    [styleDeclarations]="styleDeclarations"
+    [selectiveStyleDeclarations]="selectiveStyleDeclarations"
+    [(clickedWord)]="clickedWord"
+    [(hoveredWord)]="hoveredWord">
+  </app-joined-text-line>
+</div>

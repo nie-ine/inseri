@@ -6,21 +6,36 @@
       *ngIf="marginConfiguration.blocks"
       [parentIri]="m['@id']"
       [backendAddress]="backendAddress"
-      [blockConfiguration]="marginConfiguration.blocks">
+      [blockConfiguration]="marginConfiguration.blocks"
+      [highlighted]="highlighted"
+      [styleDeclarations]="styleDeclarations"
+      [selectiveStyleDeclarations]="selectiveStyleDeclarations"
+      [(clickedWord)]="clickedWord"
+      [(hoveredWord)]="hoveredWord">
     </app-joined-text-block>
 
     <app-joined-text-line
       *ngIf="marginConfiguration.lines"
       [parentIri]="m['@id']"
       [backendAddress]="backendAddress"
-      [lineConfiguration]="marginConfiguration.lines">
+      [lineConfiguration]="marginConfiguration.lines"
+      [highlighted]="highlighted"
+      [styleDeclarations]="styleDeclarations"
+      [selectiveStyleDeclarations]="selectiveStyleDeclarations"
+      [(clickedWord)]="clickedWord"
+      [(hoveredWord)]="hoveredWord">
     </app-joined-text-line>
 
     <app-joined-text-word
       *ngIf="marginConfiguration.words"
       [parentIri]="m['@id']"
       [backendAddress]="backendAddress"
-      [wordConfiguration]="marginConfiguration.words">
+      [wordConfiguration]="marginConfiguration.words"
+      [highlighted]="highlighted"
+      [styleDeclarations]="styleDeclarations"
+      [selectiveStyleDeclarations]="selectiveStyleDeclarations"
+      [(clickedWord)]="clickedWord"
+      [(hoveredWord)]="hoveredWord">
     </app-joined-text-word>
 
     <ng-container *ngIf="marginConfiguration.contentProperty">
@@ -29,7 +44,12 @@
             *ngIf="marginConfiguration.propertyIri"
             [namespaces]="namespaces"
             [propertyIri]="marginConfiguration.propertyIri"
-            [resource]="m">
+            [resource]="m"
+            [highlighted]="highlighted"
+            [styleDeclarations]="styleDeclarations"
+            [selectiveStyleDeclarations]="selectiveStyleDeclarations"
+            [(clickedWord)]="clickedWord"
+            [(hoveredWord)]="hoveredWord">
           </app-joined-text-textwrapper>
       </span>
     </ng-container>

@@ -1,10 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { KnoraV2RequestService } from '../../../../query-engine/knora/knora-v2-request.service';
 import { JoinedTextViewKnoraRequestService } from '../joined-text-view-knora-request.service';
 import { JoinedTextElement } from '../joined-text-view/joined-text-view.component';
 import { JoinedTextLinepart } from '../joined-text-linepart/joined-text-linepart.component';
 import { JoinedTextWord } from '../joined-text-word/joined-text-word.component';
 import { JoinedTextMargin } from '../joined-text-margin/joined-text-margin.component';
+import { SelectableEnvironments, StyleDeclaration } from '../../shared/rich-text/text-rich-innerhtml/text-rich-innerhtml.component';
 
 export interface JoinedTextLine extends JoinedTextElement {
   propertyDirection: string;
@@ -51,6 +52,38 @@ export class JoinedTextLineComponent implements OnInit {
   @Input() backendAddress;
   @Input() lineConfiguration: JoinedTextLine;
 
+  @Input() styleDeclarations: Array<StyleDeclaration>;
+
+  /**
+   * Dynamic style declarations.
+   */
+  @Input() selectiveStyleDeclarations: SelectableEnvironments;
+
+  /**
+   * Keys of selected selectiveStyleDeclarations.
+   */
+  @Input() highlighted: Array<string>;
+
+  /**
+   * The unique id of the word that was last clicked and counts as activated. Only one word can be counted as activated at a time.
+   */
+  @Input() clickedWord: string;
+
+  /**
+   * Give an event containing the unique word id if a word on the page description is clicked
+   */
+  @Output() clickedWordChange: EventEmitter<string> = new EventEmitter<string>();
+
+  /**
+   * The unique id of the word the mouse is hovering on.
+   */
+  @Input() hoveredWord: string;
+
+  /**
+   * Give an event containing the unique word id if the mouse hovers on a word in the page description
+   */
+  @Output() hoveredWordChange: EventEmitter<string> = new EventEmitter<string>();
+
   lines: Array<any>;
 
   namespaces: any;
@@ -65,7 +98,7 @@ export class JoinedTextLineComponent implements OnInit {
    * The behavior of the text overflowing over the right border. 'visible' makes the content overlap with the content on the right.
    * (Options of CSS style overflow-x)
    */
-  overflowX?: string;
+  overflowX: string;
 
   /**
    * Default values for the column ratios.
@@ -106,7 +139,6 @@ export class JoinedTextLineComponent implements OnInit {
 
     this.knoraV2Request.extendedSearchFromSpecificInstance(graveSearchRequest, this.backendAddress)
       .subscribe(d => {
-        console.log(d);
         if (d['@graph']) {
           this.lines = d['@graph'];
         } else {

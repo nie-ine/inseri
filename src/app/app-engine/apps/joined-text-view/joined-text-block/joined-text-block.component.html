@@ -4,14 +4,24 @@
     *ngIf="blockConfiguration.lines"
     [parentIri]="b['@id']"
     [backendAddress]="backendAddress"
-    [lineConfiguration]="blockConfiguration.lines">
+    [lineConfiguration]="blockConfiguration.lines"
+    [highlighted]="highlighted"
+    [styleDeclarations]="styleDeclarations"
+    [selectiveStyleDeclarations]="selectiveStyleDeclarations"
+    [(clickedWord)]="clickedWord"
+    [(hoveredWord)]="hoveredWord">
   </app-joined-text-line>
 
   <app-joined-text-linepart
     *ngIf="blockConfiguration.lineparts"
     [parentIri]="b['@id']"
     [backendAddress]="backendAddress"
-    [linepartConfiguration]="blockConfiguration.lineparts">
+    [linepartConfiguration]="blockConfiguration.lineparts"
+    [highlighted]="highlighted"
+    [styleDeclarations]="styleDeclarations"
+    [selectiveStyleDeclarations]="selectiveStyleDeclarations"
+    [(clickedWord)]="clickedWord"
+    [(hoveredWord)]="hoveredWord">
   </app-joined-text-linepart>
 
 </div>

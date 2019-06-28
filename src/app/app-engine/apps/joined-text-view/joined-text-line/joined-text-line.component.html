@@ -5,7 +5,12 @@
       *ngIf="lineConfiguration.farfarleft"
       [parentIri]="l['@id']"
       [backendAddress]="backendAddress"
-      [marginConfiguration]="lineConfiguration.farfarleft">
+      [marginConfiguration]="lineConfiguration.farfarleft"
+      [highlighted]="highlighted"
+      [styleDeclarations]="styleDeclarations"
+      [selectiveStyleDeclarations]="selectiveStyleDeclarations"
+      [(clickedWord)]="clickedWord"
+      [(hoveredWord)]="hoveredWord">
     </app-joined-text-margin>
   </div>
 
@@ -14,7 +19,12 @@
       *ngIf="lineConfiguration.farleft"
       [parentIri]="l['@id']"
       [backendAddress]="backendAddress"
-      [marginConfiguration]="lineConfiguration.farleft">
+      [marginConfiguration]="lineConfiguration.farleft"
+      [highlighted]="highlighted"
+      [styleDeclarations]="styleDeclarations"
+      [selectiveStyleDeclarations]="selectiveStyleDeclarations"
+      [(clickedWord)]="clickedWord"
+      [(hoveredWord)]="hoveredWord">
     </app-joined-text-margin>
   </div>
 
@@ -23,7 +33,12 @@
       *ngIf="lineConfiguration.left"
       [parentIri]="l['@id']"
       [backendAddress]="backendAddress"
-      [marginConfiguration]="lineConfiguration.left">
+      [marginConfiguration]="lineConfiguration.left"
+      [highlighted]="highlighted"
+      [styleDeclarations]="styleDeclarations"
+      [selectiveStyleDeclarations]="selectiveStyleDeclarations"
+      [(clickedWord)]="clickedWord"
+      [(hoveredWord)]="hoveredWord">
     </app-joined-text-margin>
   </div>
 
@@ -34,18 +49,28 @@
       *ngIf="lineConfiguration.lineparts"
       [parentIri]="l['@id']"
       [backendAddress]="backendAddress"
-      [linepartConfiguration]="lineConfiguration.lineparts">
+      [linepartConfiguration]="lineConfiguration.lineparts"
+      [highlighted]="highlighted"
+      [styleDeclarations]="styleDeclarations"
+      [selectiveStyleDeclarations]="selectiveStyleDeclarations"
+      [(clickedWord)]="clickedWord"
+      [(hoveredWord)]="hoveredWord">
     </app-joined-text-linepart>
 
     <app-joined-text-word
       *ngIf="lineConfiguration.words"
       [parentIri]="l['@id']"
       [backendAddress]="backendAddress"
-      [wordConfiguration]="lineConfiguration.words">
+      [wordConfiguration]="lineConfiguration.words"
+      [highlighted]="highlighted"
+      [styleDeclarations]="styleDeclarations"
+      [selectiveStyleDeclarations]="selectiveStyleDeclarations"
+      [(clickedWord)]="clickedWord"
+      [(hoveredWord)]="hoveredWord">
     </app-joined-text-word>
 
-    <span *ngIf="lineConfiguration.interfix && i !== 0 && i !== lines.length - 1">{{ lineConfiguration.interfix }}</span>
-    <span *ngIf="lineConfiguration.suffix && i === lines.length">{{ lineConfiguration.suffix }}</span>
+    <span *ngIf="lineConfiguration.interfix && i !== lines.length - 1">{{ lineConfiguration.interfix }}</span>
+    <span *ngIf="lineConfiguration.suffix && i === lines.length - 1">{{ lineConfiguration.suffix }}</span>
   </div>
 
 
@@ -54,7 +79,12 @@
       *ngIf="lineConfiguration.right"
       [parentIri]="l['@id']"
       [backendAddress]="backendAddress"
-      [marginConfiguration]="lineConfiguration.right">
+      [marginConfiguration]="lineConfiguration.right"
+      [highlighted]="highlighted"
+      [styleDeclarations]="styleDeclarations"
+      [selectiveStyleDeclarations]="selectiveStyleDeclarations"
+      [(clickedWord)]="clickedWord"
+      [(hoveredWord)]="hoveredWord">
     </app-joined-text-margin>
   </div>
 
@@ -63,7 +93,12 @@
       *ngIf="lineConfiguration.farright"
       [parentIri]="l['@id']"
       [backendAddress]="backendAddress"
-      [marginConfiguration]="lineConfiguration.farright">
+      [marginConfiguration]="lineConfiguration.farright"
+      [highlighted]="highlighted"
+      [styleDeclarations]="styleDeclarations"
+      [selectiveStyleDeclarations]="selectiveStyleDeclarations"
+      [(clickedWord)]="clickedWord"
+      [(hoveredWord)]="hoveredWord">
     </app-joined-text-margin>
   </div>
 
@@ -72,7 +107,12 @@
       *ngIf="lineConfiguration.farfarright"
       [parentIri]="l['@id']"
       [backendAddress]="backendAddress"
-      [marginConfiguration]="lineConfiguration.farfarright">
+      [marginConfiguration]="lineConfiguration.farfarright"
+      [highlighted]="highlighted"
+      [styleDeclarations]="styleDeclarations"
+      [selectiveStyleDeclarations]="selectiveStyleDeclarations"
+      [(clickedWord)]="clickedWord"
+      [(hoveredWord)]="hoveredWord">
     </app-joined-text-margin>
   </div>
 

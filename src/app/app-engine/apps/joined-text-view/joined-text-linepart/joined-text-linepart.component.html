@@ -5,14 +5,24 @@
     *ngIf="linepartConfiguration.words"
     [parentIri]="l['@id']"
     [backendAddress]="backendAddress"
-    [wordConfiguration]="linepartConfiguration.words">
+    [wordConfiguration]="linepartConfiguration.words"
+    [highlighted]="highlighted"
+    [styleDeclarations]="styleDeclarations"
+    [selectiveStyleDeclarations]="selectiveStyleDeclarations"
+    [(clickedWord)]="clickedWord"
+    [(hoveredWord)]="hoveredWord">
   </app-joined-text-word>
 
   <app-joined-text-linepart
-      *ngIf="linepartConfiguration.lineparts"
-      [parentIri]="l['@id']"
-      [backendAddress]="backendAddress"
-      [linepartConfiguration]="linepartConfiguration.lineparts">
+    *ngIf="linepartConfiguration.lineparts"
+    [parentIri]="l['@id']"
+    [backendAddress]="backendAddress"
+    [linepartConfiguration]="linepartConfiguration.lineparts"
+    [highlighted]="highlighted"
+    [styleDeclarations]="styleDeclarations"
+    [selectiveStyleDeclarations]="selectiveStyleDeclarations"
+    [(clickedWord)]="clickedWord"
+    [(hoveredWord)]="hoveredWord">
   </app-joined-text-linepart>
 
 </span><span *ngIf="linepartConfiguration.suffix">{{ linepartConfiguration.suffix }}</span>

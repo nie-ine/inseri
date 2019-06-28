@@ -1,43 +1,20 @@
 <h2>Development View for Text</h2>
 
-<app-joined-text-view></app-joined-text-view>
+<h3>Strophe in Verses</h3>
 
-<app-text-line-group [textTree]="testData"></app-text-line-group>
+<app-joined-text-view
+  [backendAddress]="backendAddress"
+  [textRootIri]="textRootIri"
+  [textConfiguration]="textConfiguration1">
+</app-joined-text-view>
 
-<h3>Configurable line numbers</h3>
+<h3>Strophe in Halfstrophes</h3>
 
-<app-text-line *ngFor="let v of [1,2,3,4,5,6,7,8,9]" [columnRatio]="[0,1,0,9,0,0,0]">
-  <app-text-line-margin class="farleft" [backgroundColor]="'lightgray'">
-    <app-text-line-number [lineNumber]="v"
-                          [forceLabelAt]="[1]"
-                          [repeatAfter]="4">
-    </app-text-line-number>
-  </app-text-line-margin>
-  this is a line.
-</app-text-line>
-
-<h3>Test intendation of a line</h3>
-
-
-<app-text-line [columnRatio]="[0,1,0,9,0,0,0]">
-  <app-text-line-margin class="farleft" [backgroundColor]="'lightgray'">
-    <app-text-line-number [lineNumber]="1"
-                          [forceLabelAt]="[1]"
-                          [repeatAfter]="4">
-    </app-text-line-number>
-  </app-text-line-margin>
-  this is a line.
-</app-text-line>
-
-<app-text-line [columnRatio]="[0,1,0,9,0,0,0]">
-  <app-text-line-margin class="farleft" [backgroundColor]="'lightgray'">
-    <app-text-line-number [lineNumber]="2"
-                          [forceLabelAt]="[1]"
-                          [repeatAfter]="4">
-    </app-text-line-number>
-  </app-text-line-margin>
-  <div style="text-indent: 1em;">zis is a lein</div>
-</app-text-line>
+<app-joined-text-view
+  [backendAddress]="backendAddress"
+  [textRootIri]="textRootIri"
+  [textConfiguration]="textConfiguration2">
+</app-joined-text-view>
 
 <h3>Text for page transcriptions with words</h3>
 
@@ -59,3 +36,41 @@ Show highlighted Words <input [(ngModel)]="showHighlightedWord" type="checkbox">
                    [showHighlightedWord]="showHighlightedWord"
                    [image]="imageSource">
 </app-text-svg-view>
+
+<h3>Old experiments</h3>
+
+<app-text-line-group [textTree]="testData"></app-text-line-group>
+
+<h4>Configurable line numbers</h4>
+
+<app-text-line *ngFor="let v of [1,2,3,4,5,6,7,8,9]" [columnRatio]="[0,1,0,9,0,0,0]">
+  <app-text-line-margin class="farleft" [backgroundColor]="'lightgray'">
+    <app-text-line-number [lineNumber]="v"
+                          [forceLabelAt]="[1]"
+                          [repeatAfter]="4">
+    </app-text-line-number>
+  </app-text-line-margin>
+  this is a line.
+</app-text-line>
+
+<h4>Test intendation of a line</h4>
+
+<app-text-line [columnRatio]="[0,1,0,9,0,0,0]">
+  <app-text-line-margin class="farleft" [backgroundColor]="'lightgray'">
+    <app-text-line-number [lineNumber]="1"
+                          [forceLabelAt]="[1]"
+                          [repeatAfter]="4">
+    </app-text-line-number>
+  </app-text-line-margin>
+  this is a line.
+</app-text-line>
+
+<app-text-line [columnRatio]="[0,1,0,9,0,0,0]">
+  <app-text-line-margin class="farleft" [backgroundColor]="'lightgray'">
+    <app-text-line-number [lineNumber]="2"
+                          [forceLabelAt]="[1]"
+                          [repeatAfter]="4">
+    </app-text-line-number>
+  </app-text-line-margin>
+  <div style="text-indent: 1em;">this is an indented line</div>
+</app-text-line>
