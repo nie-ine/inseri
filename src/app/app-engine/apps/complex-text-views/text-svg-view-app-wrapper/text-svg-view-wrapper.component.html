@@ -1,7 +1,7 @@
 <div>
   <app-text-svg-view [pageTree]="pageTree"
-                   [(clickedWord)]="clickedWord"
-                   [(hoveredWord)]="hoveredWord"
+                   [clickedWord]="clickedWord" (clickedWordChange)="clickChange($event)"
+                   [hoveredWord]="hoveredWord" (hoveredWordChange)="hoverChange($event)"
                    [showWords]="showWords"
                    [imageOpacity]="imageOpacity"
                    [showHighlightedWord]="showHighlightedWord"

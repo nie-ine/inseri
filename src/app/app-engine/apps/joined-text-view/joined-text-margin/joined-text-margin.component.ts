@@ -15,6 +15,7 @@ export interface JoinedTextMargin extends JoinedTextElement {
   blocks?: JoinedTextBlock;
   contentProperty?: string;
   sortByPropertyIri?: string;
+  styleKeys: string[];
 
   fixHeight?: boolean;
   overflowX?: string;
@@ -33,27 +34,9 @@ export interface JoinedTextMargin extends JoinedTextElement {
 export class JoinedTextMarginComponent implements OnInit {
 
   /**
-   * Behavior of the content in the left margin. 'normal' means floating text,
-   * 'nowrap' makes an unbroken line of text (like CSS style white-space)
-   */
-  whitespaceBehavior = 'normal';
-
-  /**
    * True means that the content in this cannot increase the space between lines in TextLineComponent and stays fix
    */
   fixHeight = true;
-
-  /**
-   * This corresponds to the CSS style overflow-x if the content does not break and overlaps into the TextLineComponent.
-   * 'visible' makes it written into TextLineComponent.
-   */
-  overflowX = 'visible';
-
-  /**
-   * This corresponds to the CSS style overflow-y if the height cannot expand and overlaps into the TextLeftMarginComponent of the next row.
-   * 'visible' makes it written into the text below.
-   */
-  overflowY = 'visible';
 
   @Input() parentIri: string;
 
@@ -110,18 +93,6 @@ export class JoinedTextMarginComponent implements OnInit {
       this.fixHeight = this.marginConfiguration.fixHeight;
     }
 
-    if (this.marginConfiguration.overflowX) {
-      this.overflowX = this.marginConfiguration.overflowX;
-    }
-
-    if (this.marginConfiguration.overflowY) {
-      this.overflowY = this.marginConfiguration.overflowY;
-    }
-
-    if (this.marginConfiguration.whitespaceBehavior) {
-      this.whitespaceBehavior = this.marginConfiguration.whitespaceBehavior;
-    }
-
     const graveSearchRequest = this.joinedTextViewKnoraRequest.getGravSearch(this.marginConfiguration, this.parentIri);
 
     this.knoraV2Request.extendedSearchFromSpecificInstance(graveSearchRequest, this.backendAddress)
@@ -144,5 +115,38 @@ export class JoinedTextMarginComponent implements OnInit {
   hoverChange(resIri: string) {
     this.hoveredResourceChange.emit(resIri);
   }
+
+
+  getStyleDict(paramKey) {
+    const styles = {};
+
+    if (this.styleDeclarations && this.marginConfiguration[paramKey]) {
+      for (const b of this.styleDeclarations) {
+        if (b[ 'type' ] === 'component') {
+          if (this.marginConfiguration[paramKey].indexOf(b['name']) > -1) {
+            for (const [key, value] of Object.entries((b['styles']))) {
+              styles[key] = value;
+            }
+          }
+        }
+      }
+    }
+    if (this.highlighted && this.selectiveStyleDeclarations && this.marginConfiguration[paramKey]) {
+      for (const s of this.highlighted ) {
+        const z = this.selectiveStyleDeclarations[s];
+        for (const b of z) {
+          if (b[ 'type' ] === 'component') {
+            if (this.marginConfiguration[paramKey].indexOf(b['name']) > -1) {
+              for (const [key, value] of Object.entries((b['styles']))) {
+                styles[key] = value;
+              }
+            }
+          }
+        }
+      }
+    }
+    return styles;
+  }
+
 
 }

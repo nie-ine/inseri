@@ -1,5 +1,5 @@
 <div [ngStyle]="{'height': '100%'}" *ngFor="let m of margins">
-  <div [ngStyle]="{'white-space': whitespaceBehavior, 'overflow-x': overflowX, 'overflow-y': overflowY}"
+  <div [ngStyle]="getStyleDict('styleKeys')"
        [ngClass]="{'text-margin-with-fix-height': fixHeight}">
 
     <app-joined-text-block

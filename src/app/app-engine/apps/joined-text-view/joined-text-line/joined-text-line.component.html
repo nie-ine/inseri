@@ -1,6 +1,6 @@
 <div *ngFor="let l of lines; let i = index" class="text-line-columns">
 
-  <div class="text-line-column" [ngStyle]="{'width': widths.farfarleft}">
+  <div class="text-line-column" [ngStyle]="getStyleDict('farfarleftStyleKeys')">
     <app-joined-text-margin
       *ngIf="lineConfiguration.farfarleft"
       [parentIri]="l['@id']"
@@ -14,7 +14,7 @@
     </app-joined-text-margin>
   </div>
 
-  <div class="text-line-column" [ngStyle]="{'width': widths.farleft}">
+  <div class="text-line-column" [ngStyle]="getStyleDict('farleftStyleKeys')">
     <app-joined-text-margin
       *ngIf="lineConfiguration.farleft"
       [parentIri]="l['@id']"
@@ -28,7 +28,7 @@
     </app-joined-text-margin>
   </div>
 
-  <div class="text-line-column" [ngStyle]="{'width': widths.left}">
+  <div class="text-line-column" [ngStyle]="getStyleDict('leftStyleKeys')">
     <app-joined-text-margin
       *ngIf="lineConfiguration.left"
       [parentIri]="l['@id']"
@@ -43,11 +43,16 @@
   </div>
 
   <div class="text-line-column"
-       [ngStyle]="{'white-space': whitespaceBehavior, 'width': widths.middle, 'overflow-x': lineConfiguration.overflowX}"
+       [ngStyle]="getStyleDict('middleStyleKeys')"
        (click)="clickLine(l['@id'])"
        (mouseenter)="hoverOntoLine(l['@id'])"
        (mouseleave)="hoverOutOfLine()">
-    <span *ngIf="lineConfiguration.prefix && i === 0">{{ lineConfiguration.prefix }}</span>
+    <span *ngIf="lineConfiguration.prefix && i === 0"
+          [ngStyle]="getStyleDict('prefixStyleKeys')"
+          [innerHtml]="lineConfiguration.prefix"></span>
+    <span *ngIf="lineConfiguration.interfix && i !== 0"
+          [ngStyle]="getStyleDict('interfixStyleKeys')"
+          [innerHtml]="lineConfiguration.interfix"></span>
 
     <app-joined-text-linepart
       *ngIf="lineConfiguration.lineparts"
@@ -61,12 +66,16 @@
       [hoveredResource]="hoveredResource" (hoveredResourceChange)="hoverChange($event)">
     </app-joined-text-linepart>
 
-    <span *ngIf="lineConfiguration.interfix && i !== lines.length - 1">{{ lineConfiguration.interfix }}</span>
-    <span *ngIf="lineConfiguration.suffix && i === lines.length - 1">{{ lineConfiguration.suffix }}</span>
+    <span *ngIf="lineConfiguration.interfix2 && i !== lines.length - 1"
+          [ngStyle]="getStyleDict('interfix2StyleKeys')"
+          [innerHtml]="lineConfiguration.interfix2"></span>
+    <span *ngIf="lineConfiguration.suffix && i === lines.length - 1"
+          [ngStyle]="getStyleDict('suffixStyleKeys')"
+          [innerHtml]="lineConfiguration.suffix"></span>
   </div>
 
 
-  <div class="text-line-column" [ngStyle]="{'width': widths.right}">
+  <div class="text-line-column" [ngStyle]="getStyleDict('rightStyleKeys')">
     <app-joined-text-margin
       *ngIf="lineConfiguration.right"
       [parentIri]="l['@id']"
@@ -80,7 +89,7 @@
     </app-joined-text-margin>
   </div>
 
-  <div class="text-line-column" [ngStyle]="{'width': widths.farright}">
+  <div class="text-line-column" [ngStyle]="getStyleDict('farrightStyleKeys')">
     <app-joined-text-margin
       *ngIf="lineConfiguration.farright"
       [parentIri]="l['@id']"
@@ -94,7 +103,7 @@
     </app-joined-text-margin>
   </div>
 
-  <div class="text-line-column" [ngStyle]="{'width': widths.farfarright}">
+  <div class="text-line-column" [ngStyle]="getStyleDict('farfarrightStyleKeys')">
     <app-joined-text-margin
       *ngIf="lineConfiguration.farfarright"
       [parentIri]="l['@id']"

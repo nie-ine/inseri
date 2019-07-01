@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { JoinedTextLine } from '../joined-text-line/joined-text-line.component';
 import { KnoraV2RequestService } from '../../../../query-engine/knora/knora-v2-request.service';
 import { JoinedTextViewKnoraRequestService } from '../joined-text-view-knora-request.service';
 import { JoinedTextElement } from '../joined-text-view/joined-text-view.component';
@@ -12,10 +11,14 @@ export interface JoinedTextLinepart extends JoinedTextElement {
   lineparts?: JoinedTextLinepart;
   clickable?: boolean;
   hoverable?: boolean;
+  styleKeys?: string[];
 
   prefix?: string;
+  prefixStyleKeys?: string[];
   interfix?: string;
+  interfixStyleKeys?: string[];
   suffix?: string;
+  suffixStyleKeys?: string[];
 }
 
 /**
@@ -31,7 +34,7 @@ export class JoinedTextLinepartComponent implements OnInit {
   @Input() parentIri: string;
 
   @Input() backendAddress;
-  @Input() linepartConfiguration: JoinedTextLine;
+  @Input() linepartConfiguration: JoinedTextLinepart;
   @Input() styleDeclarations: Array<StyleDeclaration>;
 
   /**
@@ -130,6 +133,37 @@ export class JoinedTextLinepartComponent implements OnInit {
     if (this.linepartConfiguration.hoverable) {
       this.hoveredResourceChange.emit(null);
     }
+  }
+
+  getStyleDict(paramKey) {
+    const styles = {};
+
+    if (this.styleDeclarations && this.linepartConfiguration[paramKey]) {
+      for (const b of this.styleDeclarations) {
+        if (b[ 'type' ] === 'component') {
+          if (this.linepartConfiguration[paramKey].indexOf(b['name']) > -1) {
+            for (const [key, value] of Object.entries((b['styles']))) {
+              styles[key] = value;
+            }
+          }
+        }
+      }
+    }
+    if (this.highlighted && this.selectiveStyleDeclarations && this.linepartConfiguration[paramKey]) {
+      for (const s of this.highlighted ) {
+        const z = this.selectiveStyleDeclarations[s];
+        for (const b of z) {
+          if (b[ 'type' ] === 'component') {
+            if (this.linepartConfiguration[paramKey].indexOf(b['name']) > -1) {
+              for (const [key, value] of Object.entries((b['styles']))) {
+                styles[key] = value;
+              }
+            }
+          }
+        }
+      }
+    }
+    return styles;
   }
 
 }

@@ -18,25 +18,30 @@ export interface JoinedTextLine extends JoinedTextElement {
   farright?: JoinedTextMargin;
   farfarright?: JoinedTextMargin;
 
+  linepartsStyleKeys?: string[];
+  farfarleftStyleKeys?: string[];
+  farleftStyleKeys?: string[];
+  leftStyleKeys?: string[];
+  rightStyleKeys?: string[];
+  farrightStyleKeys?: string[];
+  farfarrightStyleKeys?: string[];
+
   prefix?: string;
+  prefixStyleKeys?: string[];
   interfix?: string;
+  interfixStyleKeys?: string[];
+  interfix2?: string;
+  interfix2StyleKeys?: string[];
   suffix?: string;
+  suffixStyleKeys?: string[];
 
   hoverable?: boolean;
   clickable?: boolean;
 
-  whitespaceBehavior?: string;
-
-  /**
-   * The behavior of the text overflowing over the right border. 'visible' makes the content overlap with the content on the right.
-   * (Options of CSS style overflow-x)
-   */
-  overflowX?: string;
-
   /**
    * The ratio of the widths of the columns (far far left margin, far left, left margin, middle, right margin, far right, far far right)
    */
-  columnRatio?: number[];
+  columnRatio?: string[];
 }
 
 /**
@@ -91,28 +96,16 @@ export class JoinedTextLineComponent implements OnInit {
   namespaces: any;
 
   /**
-   * Option to define the line breaking behavior of the text line. 'nowrap' makes an unbroken line. 'normal' makes floating text.
-   * (Options of CSS style white-space)
-   */
-  whitespaceBehavior = 'nowrap';
-
-  /**
-   * The behavior of the text overflowing over the right border. 'visible' makes the content overlap with the content on the right.
-   * (Options of CSS style overflow-x)
-   */
-  overflowX: string;
-
-  /**
    * Default values for the column ratios.
    */
   widths = {
-    farfarleft: '12.5%',
-    farleft: '12.5%',
-    left: '12.5%',
-    middle: '25%',
-    right: '12.5%',
-    farright: '12.5%',
-    farfarright: '12.5%'
+    farfarleftStyleKeys: '12.5%',
+    farleftStyleKeys: '12.5%',
+    leftStyleKeys: '12.5%',
+    middleStyleKeys: '25%',
+    rightStyleKeys: '12.5%',
+    farrightStyleKeys: '12.5%',
+    farfarrightStyleKeys: '12.5%'
   };
 
   /**
@@ -126,14 +119,6 @@ export class JoinedTextLineComponent implements OnInit {
   ngOnInit() {
     if (this.lineConfiguration.columnRatio) {
       this.calculateWidths(this.lineConfiguration.columnRatio);
-    }
-
-    if (this.lineConfiguration.overflowX) {
-      this.overflowX = this.lineConfiguration.overflowX;
-    }
-
-    if (this.lineConfiguration.whitespaceBehavior) {
-      this.whitespaceBehavior = this.lineConfiguration.whitespaceBehavior;
     }
 
     const graveSearchRequest = this.joinedTextViewKnoraRequest.getGravSearch(this.lineConfiguration, this.parentIri);
@@ -156,51 +141,46 @@ export class JoinedTextLineComponent implements OnInit {
    */
   calculateWidths(columnRatio) {
 
-    let sumOfRatios = 0;
-    for (const s of columnRatio) {
-      sumOfRatios += s;
-    }
-
     if (columnRatio[0]) {
-      this.widths.farfarleft = 100 / sumOfRatios * columnRatio[0] + '%';
+      this.widths.farfarleftStyleKeys = columnRatio[0];
     } else {
-      this.widths.farfarleft = '0';
+      this.widths.farfarleftStyleKeys = '0';
     }
 
     if (columnRatio[1]) {
-      this.widths.farleft = 100 / sumOfRatios * columnRatio[1] + '%';
+      this.widths.farleftStyleKeys = columnRatio[1];
     } else {
-      this.widths.farleft = '0';
+      this.widths.farleftStyleKeys = '0';
     }
 
     if (columnRatio[2]) {
-      this.widths.left = 100 / sumOfRatios * columnRatio[2] + '%';
+      this.widths.leftStyleKeys = columnRatio[2];
     } else {
-      this.widths.left = '0';
+      this.widths.leftStyleKeys = '0';
     }
 
     if (columnRatio[3]) {
-      this.widths.middle = 100 / sumOfRatios * columnRatio[3] + '%';
+      this.widths.middleStyleKeys = columnRatio[3];
     } else {
-      this.widths.middle = '100%';
+      this.widths.middleStyleKeys = '100%';
     }
 
     if (columnRatio[4]) {
-      this.widths.right = 100 / sumOfRatios * columnRatio[4] + '%';
+      this.widths.rightStyleKeys = columnRatio[4];
     } else {
-      this.widths.right = '0';
+      this.widths.rightStyleKeys = '0';
     }
 
     if (columnRatio[5]) {
-      this.widths.farright = 100 / sumOfRatios * columnRatio[5] + '%';
+      this.widths.farrightStyleKeys = columnRatio[5];
     } else {
-      this.widths.farright = '0';
+      this.widths.farrightStyleKeys = '0';
     }
 
     if (columnRatio[6]) {
-      this.widths.farfarright = 100 / sumOfRatios * columnRatio[6] + '%';
+      this.widths.farfarrightStyleKeys = columnRatio[6];
     } else {
-      this.widths.farfarright = '0';
+      this.widths.farfarrightStyleKeys = '0';
     }
   }
 
@@ -241,6 +221,39 @@ export class JoinedTextLineComponent implements OnInit {
     if (this.lineConfiguration.hoverable) {
       this.hoveredResourceChange.emit(null);
     }
+  }
+
+
+  getStyleDict(paramKey) {
+    const styles = {};
+
+    if (this.styleDeclarations && this.lineConfiguration[paramKey]) {
+      for (const b of this.styleDeclarations) {
+        if (b[ 'type' ] === 'component') {
+          if (this.lineConfiguration[paramKey].indexOf(b['name']) > -1) {
+            for (const [key, value] of Object.entries((b['styles']))) {
+              styles[key] = value;
+            }
+          }
+        }
+      }
+    }
+    if (this.highlighted && this.selectiveStyleDeclarations && this.lineConfiguration[paramKey]) {
+      for (const s of this.highlighted ) {
+        const z = this.selectiveStyleDeclarations[s];
+        for (const b of z) {
+          if (b[ 'type' ] === 'component') {
+            if (this.lineConfiguration[paramKey].indexOf(b['name']) > -1) {
+              for (const [key, value] of Object.entries((b['styles']))) {
+                styles[key] = value;
+              }
+            }
+          }
+        }
+      }
+    }
+    styles['width'] = this.widths[paramKey];
+    return styles;
   }
 
 }

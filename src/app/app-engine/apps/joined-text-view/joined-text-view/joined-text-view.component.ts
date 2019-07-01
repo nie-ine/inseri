@@ -32,13 +32,8 @@ export class JoinedTextViewComponent implements OnChanges {
   @Input() textConfiguration: JoinedTextViewRoot;
 
   // TODO:
-  // - Include a component for columns
-  // - add css classes with component type and depth in their title
   // - Turn into app
-  // - Clean code and comment
-  // - Remove CSS functionalities if possible with StyleDeclaration
-  // - Is margin replaceable by block?
-  // - Sync with TextSvgViewWrapperComponent
+  // - add column functionality to block-component
   // - Style for hover and click
 
   @Input() styleDeclarations: Array<StyleDeclaration>;

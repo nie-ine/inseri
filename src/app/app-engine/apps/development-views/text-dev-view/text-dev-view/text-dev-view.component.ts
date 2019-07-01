@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { PAGETRANSCRIPTION } from './page-transcription';
 import { IIIFImage } from '../../../shared/IIIFImage';
 import { JoinedTextViewRoot } from '../../../joined-text-view/joined-text-view/joined-text-view.component';
+import { StyleDeclaration } from '../../../shared/rich-text/text-rich-innerhtml/text-rich-innerhtml.component';
 
 /**
  * This component shows the use of the text components.
@@ -285,6 +286,8 @@ export class TextDevViewComponent implements OnInit {
       lines: {
         propertyIri: 'http://0.0.0.0:3333/ontology/0041/atharvaveda/simple/v2#isVerseOfHalfStrophe',
         propertyDirection: 'inverted',
+        interfix: '&nbsp; ',
+        columnRatio: ['0', '0', '0', '50%', '0', '0', '50%'],
         lineparts: {
           propertyIri: 'http://api.knora.org/ontology/shared/text-structure/simple/v2#isWordOfVerse',
           propertyDirection: 'inverted',
@@ -304,8 +307,9 @@ export class TextDevViewComponent implements OnInit {
     lines: {
       propertyIri: 'http://api.knora.org/ontology/shared/text-structure/simple/v2#isPartOfTextExpression',
       propertyDirection: 'inverted',
-      interfix: ' | ',
+      interfix2: ' | ',
       suffix: ' || ',
+      columnRatio: ['0', '0', '0', '100%', '0', '0', '0'],
       lineparts: {
         propertyIri: 'http://0.0.0.0:3333/ontology/0041/atharvaveda/simple/v2#isVerseOfHalfStrophe',
         propertyDirection: 'inverted',
@@ -319,12 +323,24 @@ export class TextDevViewComponent implements OnInit {
             propertyDirection: 'direct',
             contentPropertyIri: 'http://api.knora.org/ontology/shared/text/simple/v2#hasName',
             hoverable: true,
-            clickable: true
+            clickable: true,
+            styleKeys: ['pt-word']
           }
         }
       }
     }
   };
+
+  styleDeclatation: StyleDeclaration[] = [
+      {
+      'type': 'component',
+      'name': 'pt-word',
+      'styles': {
+        'font-family': 'Times, serif',
+        'color': 'gray'
+      }
+    }
+  ];
 
   /**
    * default written by angular-cli

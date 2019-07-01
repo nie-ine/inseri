@@ -12,6 +12,7 @@ export interface JoinedTextBlock extends JoinedTextElement {
   sortByPropertyIri?: string;
   lines?: JoinedTextLine;
   lineparts?: JoinedTextLinepart;
+  styleKeys?: string[];
 }
 
 /**
@@ -115,6 +116,38 @@ export class JoinedTextBlockComponent implements OnInit {
 
   hoverChange(resIri: string) {
     this.hoveredResourceChange.emit(resIri);
+  }
+
+
+  getStyleDict(paramKey) {
+    const styles = {};
+
+    if (this.styleDeclarations && this.blockConfiguration[paramKey]) {
+      for (const b of this.styleDeclarations) {
+        if (b[ 'type' ] === 'component') {
+          if (this.blockConfiguration[paramKey].indexOf(b['name']) > -1) {
+            for (const [key, value] of Object.entries((b['styles']))) {
+              styles[key] = value;
+            }
+          }
+        }
+      }
+    }
+    if (this.highlighted && this.selectiveStyleDeclarations && this.blockConfiguration[paramKey]) {
+      for (const s of this.highlighted ) {
+        const z = this.selectiveStyleDeclarations[s];
+        for (const b of z) {
+          if (b[ 'type' ] === 'component') {
+            if (this.blockConfiguration[paramKey].indexOf(b['name']) > -1) {
+              for (const [key, value] of Object.entries((b['styles']))) {
+                styles[key] = value;
+              }
+            }
+          }
+        }
+      }
+    }
+    return styles;
   }
 
 }

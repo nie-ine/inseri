@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { IIIFImage } from '../../shared/IIIFImage';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PageTree } from '../models/page-tree.model';
 
 /**
@@ -66,16 +66,15 @@ export class TextSvgViewWrapperComponent implements OnInit, OnChanges {
   /**
    * Constructor initializes ActivatedRoute
    * @param _route  Enables access to the query parameters.
+   * @param _router   Router for navigation.
    */
-  constructor(private _route: ActivatedRoute) { }
+  constructor(private _route: ActivatedRoute, private _router: Router) { }
 
   /**
    * default written by angular-cli
    */
   ngOnInit() {
   }
-
-  // TODO navigate on hover or click changes
 
   /**
    * Change properties if the query parameters or the input variables change.
@@ -94,6 +93,14 @@ export class TextSvgViewWrapperComponent implements OnInit, OnChanges {
     if (this.imageUrl && this.width && this.height) {
       this.image = new IIIFImage(this.imageUrl, this.width, this.height);
     }
+  }
+
+  clickChange(resIri: string) {
+    this._router.navigate([], {relativeTo: this._route, queryParams: {focus: resIri}, queryParamsHandling: 'merge'});
+  }
+
+  hoverChange(resIri: string) {
+    this._router.navigate([], {relativeTo: this._route, queryParams: {hover: resIri}, queryParamsHandling: 'merge'});
   }
 
 }

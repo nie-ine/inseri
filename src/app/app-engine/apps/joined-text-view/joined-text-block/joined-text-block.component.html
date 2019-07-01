@@ -1,4 +1,4 @@
-<div *ngFor="let b of blocks">
+<div *ngFor="let b of blocks" [ngStyle]="getStyleDict('styleKeys')">
 
   <app-joined-text-line
     *ngIf="blockConfiguration.lines"
