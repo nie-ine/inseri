@@ -1,6 +1,6 @@
-<div [ngStyle]="{'background-color': backgroundColor, 'height': '100%'}" *ngFor="let m of margins">
+<div [ngStyle]="{'height': '100%'}" *ngFor="let m of margins">
   <div [ngStyle]="{'white-space': whitespaceBehavior, 'overflow-x': overflowX, 'overflow-y': overflowY}"
-       [ngClass]="{'text-margin-with-fix-height': fixHeight === 'true'}">
+       [ngClass]="{'text-margin-with-fix-height': fixHeight}">
 
     <app-joined-text-block
       *ngIf="marginConfiguration.blocks"
@@ -10,8 +10,8 @@
       [highlighted]="highlighted"
       [styleDeclarations]="styleDeclarations"
       [selectiveStyleDeclarations]="selectiveStyleDeclarations"
-      [(clickedWord)]="clickedWord"
-      [(hoveredWord)]="hoveredWord">
+      [clickedResource]="clickedResource" (clickedResourceChange)="clickChange($event)"
+      [hoveredResource]="hoveredResource" (hoveredResourceChange)="hoverChange($event)">
     </app-joined-text-block>
 
     <app-joined-text-line
@@ -22,24 +22,24 @@
       [highlighted]="highlighted"
       [styleDeclarations]="styleDeclarations"
       [selectiveStyleDeclarations]="selectiveStyleDeclarations"
-      [(clickedWord)]="clickedWord"
-      [(hoveredWord)]="hoveredWord">
+      [clickedResource]="clickedResource" (clickedResourceChange)="clickChange($event)"
+      [hoveredResource]="hoveredResource" (hoveredResourceChange)="hoverChange($event)">
     </app-joined-text-line>
 
-    <app-joined-text-word
-      *ngIf="marginConfiguration.words"
+    <app-joined-text-linepart
+      *ngIf="marginConfiguration.lineparts"
       [parentIri]="m['@id']"
       [backendAddress]="backendAddress"
-      [wordConfiguration]="marginConfiguration.words"
+      [linepartConfiguration]="marginConfiguration.lineparts"
       [highlighted]="highlighted"
       [styleDeclarations]="styleDeclarations"
       [selectiveStyleDeclarations]="selectiveStyleDeclarations"
-      [(clickedWord)]="clickedWord"
-      [(hoveredWord)]="hoveredWord">
-    </app-joined-text-word>
+      [clickedResource]="clickedResource" (clickedResourceChange)="clickChange($event)"
+      [hoveredResource]="hoveredResource" (hoveredResourceChange)="hoverChange($event)">
+    </app-joined-text-linepart>
 
     <ng-container *ngIf="marginConfiguration.contentProperty">
-      <span *ngIf="marginConfiguration.contentProperty === 'self'">
+      <ng-container *ngIf="marginConfiguration.contentProperty === 'self'">
          <app-joined-text-textwrapper
             *ngIf="marginConfiguration.propertyIri"
             [namespaces]="namespaces"
@@ -47,11 +47,9 @@
             [resource]="m"
             [highlighted]="highlighted"
             [styleDeclarations]="styleDeclarations"
-            [selectiveStyleDeclarations]="selectiveStyleDeclarations"
-            [(clickedWord)]="clickedWord"
-            [(hoveredWord)]="hoveredWord">
+            [selectiveStyleDeclarations]="selectiveStyleDeclarations">
           </app-joined-text-textwrapper>
-      </span>
+      </ng-container>
     </ng-container>
 
   </div>

@@ -3,14 +3,15 @@ import { JoinedTextLine } from '../joined-text-line/joined-text-line.component';
 import { KnoraV2RequestService } from '../../../../query-engine/knora/knora-v2-request.service';
 import { JoinedTextViewKnoraRequestService } from '../joined-text-view-knora-request.service';
 import { JoinedTextElement } from '../joined-text-view/joined-text-view.component';
-import { JoinedTextWord } from '../joined-text-word/joined-text-word.component';
 import { SelectableEnvironments, StyleDeclaration } from '../../shared/rich-text/text-rich-innerhtml/text-rich-innerhtml.component';
 
 export interface JoinedTextLinepart extends JoinedTextElement {
   propertyIri: string;
   propertyDirection: string;
-  words?: JoinedTextWord;
+  sortByPropertyIri?: string;
   lineparts?: JoinedTextLinepart;
+  clickable?: boolean;
+  hoverable?: boolean;
 
   prefix?: string;
   interfix?: string;
@@ -46,22 +47,22 @@ export class JoinedTextLinepartComponent implements OnInit {
   /**
    * The unique id of the word that was last clicked and counts as activated. Only one word can be counted as activated at a time.
    */
-  @Input() clickedWord: string;
+  @Input() clickedResource: string;
 
   /**
    * Give an event containing the unique word id if a word on the page description is clicked
    */
-  @Output() clickedWordChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() clickedResourceChange: EventEmitter<string> = new EventEmitter<string>();
 
   /**
    * The unique id of the word the mouse is hovering on.
    */
-  @Input() hoveredWord: string;
+  @Input() hoveredResource: string;
 
   /**
    * Give an event containing the unique word id if the mouse hovers on a word in the page description
    */
-  @Output() hoveredWordChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() hoveredResourceChange: EventEmitter<string> = new EventEmitter<string>();
 
   lineparts: Array<any>;
 
@@ -90,6 +91,45 @@ export class JoinedTextLinepartComponent implements OnInit {
       }, error1 => {
         console.log(error1);
       });
+  }
+
+  clickChange(resIri: string) {
+    this.clickedResourceChange.emit(resIri);
+  }
+
+  hoverChange(resIri: string) {
+    this.hoveredResourceChange.emit(resIri);
+  }
+
+  /**
+   * When a line part is clicked, set the variable clickedResource to a parts unique identifier
+   * and communicate this as output clickedResourceChange.
+   * @param resIri: the unique identifier of a text element that is clicked
+   */
+  clickLinepart(resIri: string) {
+    if (this.linepartConfiguration.clickable) {
+      this.clickedResourceChange.emit(resIri);
+    }
+  }
+
+  /**
+   * When the mouse hovers on a line part, set the variable hoveredResource to a part's unique identifier and communicate this as output
+   * hoveredResourceChange.
+   * @param resIri: the unique identifier of a text element that is clicked
+   */
+  hoverOntoLinepart(resIri: string) {
+    if (this.linepartConfiguration.hoverable) {
+      this.hoveredResourceChange.emit(resIri);
+    }
+  }
+
+  /**
+   * When the mouse leaves from a line part, reset the variable hoveredResource and communicate this as output hoveredResourceChange.
+   */
+  hoverOutOfLinepart() {
+    if (this.linepartConfiguration.hoverable) {
+      this.hoveredResourceChange.emit(null);
+    }
   }
 
 }

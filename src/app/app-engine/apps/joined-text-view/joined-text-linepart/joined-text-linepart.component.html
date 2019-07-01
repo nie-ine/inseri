@@ -1,17 +1,8 @@
-<span *ngIf="linepartConfiguration.prefix">{{ linepartConfiguration.prefix }}</span><span *ngFor="let l of lineparts; let i = index">
-  <span *ngIf="linepartConfiguration.interfix && i !== 0">{{ linepartConfiguration.interfix }}</span>
-
-  <app-joined-text-word
-    *ngIf="linepartConfiguration.words"
-    [parentIri]="l['@id']"
-    [backendAddress]="backendAddress"
-    [wordConfiguration]="linepartConfiguration.words"
-    [highlighted]="highlighted"
-    [styleDeclarations]="styleDeclarations"
-    [selectiveStyleDeclarations]="selectiveStyleDeclarations"
-    [(clickedWord)]="clickedWord"
-    [(hoveredWord)]="hoveredWord">
-  </app-joined-text-word>
+<span *ngIf="linepartConfiguration.prefix">{{ linepartConfiguration.prefix }}</span><span
+  *ngFor="let l of lineparts; let i = index"
+  (click)="clickLinepart(l['@id'])"
+  (mouseenter)="hoverOntoLinepart(l['@id'])"
+  (mouseleave)="hoverOutOfLinepart()"><span *ngIf="linepartConfiguration.interfix && i !== 0">{{ linepartConfiguration.interfix }}</span>
 
   <app-joined-text-linepart
     *ngIf="linepartConfiguration.lineparts"
@@ -21,8 +12,18 @@
     [highlighted]="highlighted"
     [styleDeclarations]="styleDeclarations"
     [selectiveStyleDeclarations]="selectiveStyleDeclarations"
-    [(clickedWord)]="clickedWord"
-    [(hoveredWord)]="hoveredWord">
+    [clickedResource]="clickedResource" (clickedResourceChange)="clickChange($event)"
+    [hoveredResource]="hoveredResource" (hoveredResourceChange)="hoverChange($event)">
   </app-joined-text-linepart>
+
+  <app-joined-text-textwrapper
+    *ngIf="linepartConfiguration.contentPropertyIri"
+    [namespaces]="namespaces"
+    [propertyIri]="linepartConfiguration.contentPropertyIri"
+    [resource]="l"
+    [highlighted]="highlighted"
+    [styleDeclarations]="styleDeclarations"
+    [selectiveStyleDeclarations]="selectiveStyleDeclarations">
+  </app-joined-text-textwrapper>
 
 </span><span *ngIf="linepartConfiguration.suffix">{{ linepartConfiguration.suffix }}</span>

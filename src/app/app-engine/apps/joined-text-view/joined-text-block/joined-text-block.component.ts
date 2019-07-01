@@ -9,6 +9,7 @@ import { SelectableEnvironments, StyleDeclaration } from '../../shared/rich-text
 export interface JoinedTextBlock extends JoinedTextElement {
   propertyIri: string;
   propertyDirection: string;
+  sortByPropertyIri?: string;
   lines?: JoinedTextLine;
   lineparts?: JoinedTextLinepart;
 }
@@ -23,11 +24,24 @@ export interface JoinedTextBlock extends JoinedTextElement {
 })
 export class JoinedTextBlockComponent implements OnInit {
 
+  /**
+   * Address to the backend with the resource with parentIri.
+   */
   @Input() backendAddress;
+
+  /**
+   * The parent resource of all resources displayed as blocks.
+   */
   @Input() parentIri: string;
 
+  /**
+   * Configuration for this component.
+   */
   @Input() blockConfiguration: JoinedTextBlock;
 
+  /**
+   * Default style declration.
+   */
   @Input() styleDeclarations: Array<StyleDeclaration>;
 
   /**
@@ -43,25 +57,31 @@ export class JoinedTextBlockComponent implements OnInit {
   /**
    * The unique id of the word that was last clicked and counts as activated. Only one word can be counted as activated at a time.
    */
-  @Input() clickedWord: string;
+  @Input() clickedResource: string;
 
   /**
    * Give an event containing the unique word id if a word on the page description is clicked
    */
-  @Output() clickedWordChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() clickedResourceChange: EventEmitter<string> = new EventEmitter<string>();
 
   /**
    * The unique id of the word the mouse is hovering on.
    */
-  @Input() hoveredWord: string;
+  @Input() hoveredResource: string;
 
   /**
    * Give an event containing the unique word id if the mouse hovers on a word in the page description
    */
-  @Output() hoveredWordChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() hoveredResourceChange: EventEmitter<string> = new EventEmitter<string>();
 
+  /**
+   * The resources to be displayed as text blocks.
+   */
   blocks: Array<any>;
 
+  /**
+   * The ontological namespaces by prefix.
+   */
   namespaces: any;
 
   /**
@@ -87,6 +107,14 @@ export class JoinedTextBlockComponent implements OnInit {
       }, error1 => {
         console.log(error1);
       });
+  }
+
+  clickChange(resIri: string) {
+    this.clickedResourceChange.emit(resIri);
+  }
+
+  hoverChange(resIri: string) {
+    this.hoveredResourceChange.emit(resIri);
   }
 
 }

@@ -7,8 +7,8 @@
     [highlighted]="highlighted"
     [styleDeclarations]="styleDeclarations"
     [selectiveStyleDeclarations]="selectiveStyleDeclarations"
-    [(clickedWord)]="clickedWord"
-    [(hoveredWord)]="hoveredWord">
+    [clickedResource]="clickedResource" (clickedResourceChange)="clickChange($event)"
+    [hoveredResource]="hoveredResource" (hoveredResourceChange)="hoverChange($event)">
   </app-joined-text-block>
 
   <app-joined-text-line
@@ -19,7 +19,7 @@
     [highlighted]="highlighted"
     [styleDeclarations]="styleDeclarations"
     [selectiveStyleDeclarations]="selectiveStyleDeclarations"
-    [(clickedWord)]="clickedWord"
-    [(hoveredWord)]="hoveredWord">
+    [clickedResource]="clickedResource" (clickedResourceChange)="clickChange($event)"
+    [hoveredResource]="hoveredResource" (hoveredResourceChange)="hoverChange($event)">
   </app-joined-text-line>
 </div>

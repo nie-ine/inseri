@@ -285,7 +285,7 @@ export class TextDevViewComponent implements OnInit {
       lines: {
         propertyIri: 'http://0.0.0.0:3333/ontology/0041/atharvaveda/simple/v2#isVerseOfHalfStrophe',
         propertyDirection: 'inverted',
-        words: {
+        lineparts: {
           propertyIri: 'http://api.knora.org/ontology/shared/text-structure/simple/v2#isWordOfVerse',
           propertyDirection: 'inverted',
           contentPropertyIri: 'http://api.knora.org/ontology/shared/language/simple/v2#hasContent'
@@ -314,10 +314,12 @@ export class TextDevViewComponent implements OnInit {
           propertyIri: 'http://api.knora.org/ontology/shared/text-structure/simple/v2#isWordOfVerse',
           propertyDirection: 'inverted',
           interfix: ' ',
-          words: {
+          lineparts: {
             propertyIri: 'http://api.knora.org/ontology/shared/concept/simple/v2#informationHasSubject',
             propertyDirection: 'direct',
-            contentPropertyIri: 'http://api.knora.org/ontology/shared/text/simple/v2#hasName'
+            contentPropertyIri: 'http://api.knora.org/ontology/shared/text/simple/v2#hasName',
+            hoverable: true,
+            clickable: true
           }
         }
       }

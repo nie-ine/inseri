@@ -37,7 +37,15 @@ export class JoinedTextViewKnoraRequestService {
       }
     }
 
+    if (configuration.sortByPropertyIri) {
+      wherePart = wherePart + '  ?res <' + configuration.sortByPropertyIri + '> ?sortingprop .\n';
+    }
+
     graveSearchRequest = graveSearchRequest + constructPart + wherePart + '}';
+    if (configuration.sortByPropertyIri) {
+      graveSearchRequest = graveSearchRequest + ' SORT BY ?sortingprop';
+    }
+
     return graveSearchRequest;
   }
 }

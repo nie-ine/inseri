@@ -5,7 +5,6 @@ import { JoinedTextBlockComponent } from './joined-text-block/joined-text-block.
 import { JoinedTextLineComponent } from './joined-text-line/joined-text-line.component';
 import { JoinedTextLinepartComponent } from './joined-text-linepart/joined-text-linepart.component';
 import { JoinedTextMarginComponent } from './joined-text-margin/joined-text-margin.component';
-import { JoinedTextWordComponent } from './joined-text-word/joined-text-word.component';
 import { RichTextModule } from '../shared/rich-text/rich-text.module';
 import { JoinedTextTextwrapperComponent } from './joined-text-textwrapper/joined-text-textwrapper.component';
 
@@ -16,7 +15,6 @@ import { JoinedTextTextwrapperComponent } from './joined-text-textwrapper/joined
     JoinedTextLineComponent,
     JoinedTextLinepartComponent,
     JoinedTextMarginComponent,
-    JoinedTextWordComponent,
     JoinedTextTextwrapperComponent  ],
   imports: [
     CommonModule,

@@ -2,24 +2,24 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { JoinedTextElement } from '../joined-text-view/joined-text-view.component';
 import { JoinedTextLine } from '../joined-text-line/joined-text-line.component';
 import { JoinedTextBlock } from '../joined-text-block/joined-text-block.component';
-import { JoinedTextWord } from '../joined-text-word/joined-text-word.component';
 import { KnoraV2RequestService } from '../../../../query-engine/knora/knora-v2-request.service';
 import { JoinedTextViewKnoraRequestService } from '../joined-text-view-knora-request.service';
 import { SelectableEnvironments, StyleDeclaration } from '../../shared/rich-text/text-rich-innerhtml/text-rich-innerhtml.component';
+import { JoinedTextLinepart } from '../joined-text-linepart/joined-text-linepart.component';
 
 export interface JoinedTextMargin extends JoinedTextElement {
   propertyIri: string;
   propertyDirection: string;
   lines?: JoinedTextLine;
+  lineparts?: JoinedTextLinepart;
   blocks?: JoinedTextBlock;
-  words?: JoinedTextWord;
   contentProperty?: string;
+  sortByPropertyIri?: string;
 
-  fixHeight?: string;
+  fixHeight?: boolean;
   overflowX?: string;
   overflowY?: string;
   whitespaceBehavior?: string;
-  backgroundColor?: string;
 }
 
 /**
@@ -41,7 +41,7 @@ export class JoinedTextMarginComponent implements OnInit {
   /**
    * True means that the content in this cannot increase the space between lines in TextLineComponent and stays fix
    */
-  fixHeight = 'true';
+  fixHeight = true;
 
   /**
    * This corresponds to the CSS style overflow-x if the content does not break and overlaps into the TextLineComponent.
@@ -54,13 +54,6 @@ export class JoinedTextMarginComponent implements OnInit {
    * 'visible' makes it written into the text below.
    */
   overflowY = 'visible';
-
-  /**
-   * This corresponds to the CSS style background-color and makes it possible to use a background color behind for example line numbers.
-   */
-  backgroundColor = 'white';
-
-
 
   @Input() parentIri: string;
 
@@ -82,22 +75,22 @@ export class JoinedTextMarginComponent implements OnInit {
   /**
    * The unique id of the word that was last clicked and counts as activated. Only one word can be counted as activated at a time.
    */
-  @Input() clickedWord: string;
+  @Input() clickedResource: string;
 
   /**
    * Give an event containing the unique word id if a word on the page description is clicked
    */
-  @Output() clickedWordChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() clickedResourceChange: EventEmitter<string> = new EventEmitter<string>();
 
   /**
    * The unique id of the word the mouse is hovering on.
    */
-  @Input() hoveredWord: string;
+  @Input() hoveredResource: string;
 
   /**
    * Give an event containing the unique word id if the mouse hovers on a word in the page description
    */
-  @Output() hoveredWordChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() hoveredResourceChange: EventEmitter<string> = new EventEmitter<string>();
 
   margins: Array<any>;
 
@@ -129,10 +122,6 @@ export class JoinedTextMarginComponent implements OnInit {
       this.whitespaceBehavior = this.marginConfiguration.whitespaceBehavior;
     }
 
-    if (this.marginConfiguration.backgroundColor) {
-      this.backgroundColor = this.marginConfiguration.backgroundColor;
-    }
-
     const graveSearchRequest = this.joinedTextViewKnoraRequest.getGravSearch(this.marginConfiguration, this.parentIri);
 
     this.knoraV2Request.extendedSearchFromSpecificInstance(graveSearchRequest, this.backendAddress)
@@ -148,5 +137,12 @@ export class JoinedTextMarginComponent implements OnInit {
       });
   }
 
+  clickChange(resIri: string) {
+    this.clickedResourceChange.emit(resIri);
+  }
+
+  hoverChange(resIri: string) {
+    this.hoveredResourceChange.emit(resIri);
+  }
 
 }

@@ -9,8 +9,8 @@
       [highlighted]="highlighted"
       [styleDeclarations]="styleDeclarations"
       [selectiveStyleDeclarations]="selectiveStyleDeclarations"
-      [(clickedWord)]="clickedWord"
-      [(hoveredWord)]="hoveredWord">
+      [clickedResource]="clickedResource" (clickedResourceChange)="clickChange($event)"
+      [hoveredResource]="hoveredResource" (hoveredResourceChange)="hoverChange($event)">
     </app-joined-text-margin>
   </div>
 
@@ -23,8 +23,8 @@
       [highlighted]="highlighted"
       [styleDeclarations]="styleDeclarations"
       [selectiveStyleDeclarations]="selectiveStyleDeclarations"
-      [(clickedWord)]="clickedWord"
-      [(hoveredWord)]="hoveredWord">
+      [clickedResource]="clickedResource" (clickedResourceChange)="clickChange($event)"
+      [hoveredResource]="hoveredResource" (hoveredResourceChange)="hoverChange($event)">
     </app-joined-text-margin>
   </div>
 
@@ -37,12 +37,16 @@
       [highlighted]="highlighted"
       [styleDeclarations]="styleDeclarations"
       [selectiveStyleDeclarations]="selectiveStyleDeclarations"
-      [(clickedWord)]="clickedWord"
-      [(hoveredWord)]="hoveredWord">
+      [clickedResource]="clickedResource" (clickedResourceChange)="clickChange($event)"
+      [hoveredResource]="hoveredResource" (hoveredResourceChange)="hoverChange($event)">
     </app-joined-text-margin>
   </div>
 
-  <div class="text-line-column" [ngStyle]="{'white-space': whitespaceBehavior, 'width': widths.middle, 'overflow-x': lineConfiguration.overflowX}">
+  <div class="text-line-column"
+       [ngStyle]="{'white-space': whitespaceBehavior, 'width': widths.middle, 'overflow-x': lineConfiguration.overflowX}"
+       (click)="clickLine(l['@id'])"
+       (mouseenter)="hoverOntoLine(l['@id'])"
+       (mouseleave)="hoverOutOfLine()">
     <span *ngIf="lineConfiguration.prefix && i === 0">{{ lineConfiguration.prefix }}</span>
 
     <app-joined-text-linepart
@@ -53,21 +57,9 @@
       [highlighted]="highlighted"
       [styleDeclarations]="styleDeclarations"
       [selectiveStyleDeclarations]="selectiveStyleDeclarations"
-      [(clickedWord)]="clickedWord"
-      [(hoveredWord)]="hoveredWord">
+      [clickedResource]="clickedResource" (clickedResourceChange)="clickChange($event)"
+      [hoveredResource]="hoveredResource" (hoveredResourceChange)="hoverChange($event)">
     </app-joined-text-linepart>
-
-    <app-joined-text-word
-      *ngIf="lineConfiguration.words"
-      [parentIri]="l['@id']"
-      [backendAddress]="backendAddress"
-      [wordConfiguration]="lineConfiguration.words"
-      [highlighted]="highlighted"
-      [styleDeclarations]="styleDeclarations"
-      [selectiveStyleDeclarations]="selectiveStyleDeclarations"
-      [(clickedWord)]="clickedWord"
-      [(hoveredWord)]="hoveredWord">
-    </app-joined-text-word>
 
     <span *ngIf="lineConfiguration.interfix && i !== lines.length - 1">{{ lineConfiguration.interfix }}</span>
     <span *ngIf="lineConfiguration.suffix && i === lines.length - 1">{{ lineConfiguration.suffix }}</span>
@@ -83,8 +75,8 @@
       [highlighted]="highlighted"
       [styleDeclarations]="styleDeclarations"
       [selectiveStyleDeclarations]="selectiveStyleDeclarations"
-      [(clickedWord)]="clickedWord"
-      [(hoveredWord)]="hoveredWord">
+      [clickedResource]="clickedResource" (clickedResourceChange)="clickChange($event)"
+      [hoveredResource]="hoveredResource" (hoveredResourceChange)="hoverChange($event)">
     </app-joined-text-margin>
   </div>
 
@@ -97,8 +89,8 @@
       [highlighted]="highlighted"
       [styleDeclarations]="styleDeclarations"
       [selectiveStyleDeclarations]="selectiveStyleDeclarations"
-      [(clickedWord)]="clickedWord"
-      [(hoveredWord)]="hoveredWord">
+      [clickedResource]="clickedResource" (clickedResourceChange)="clickChange($event)"
+      [hoveredResource]="hoveredResource" (hoveredResourceChange)="hoverChange($event)">
     </app-joined-text-margin>
   </div>
 
@@ -111,8 +103,8 @@
       [highlighted]="highlighted"
       [styleDeclarations]="styleDeclarations"
       [selectiveStyleDeclarations]="selectiveStyleDeclarations"
-      [(clickedWord)]="clickedWord"
-      [(hoveredWord)]="hoveredWord">
+      [clickedResource]="clickedResource" (clickedResourceChange)="clickChange($event)"
+      [hoveredResource]="hoveredResource" (hoveredResourceChange)="hoverChange($event)">
     </app-joined-text-margin>
   </div>
 

@@ -8,12 +8,24 @@ import { SelectableEnvironments, StyleDeclaration } from '../../shared/rich-text
 })
 export class JoinedTextTextwrapperComponent implements OnInit {
 
+  /**
+   * A Knora resource with a text that has to be displayed.
+   */
   @Input() resource: any;
 
+  /**
+   * The IRI of the property with the text in the resource.
+   */
   @Input() propertyIri: string;
 
+  /**
+   * The ontological namespaces by prefix.
+   */
   @Input() namespaces: any;
 
+  /**
+   * Base style declaration.
+   */
   @Input() styleDeclarations: Array<StyleDeclaration>;
 
   /**
@@ -27,25 +39,8 @@ export class JoinedTextTextwrapperComponent implements OnInit {
   @Input() highlighted: Array<string>;
 
   /**
-   * The unique id of the word that was last clicked and counts as activated. Only one word can be counted as activated at a time.
+   * The propertyIri formated with a prefix instead of a namespace.
    */
-  @Input() clickedWord: string;
-
-  /**
-   * Give an event containing the unique word id if a word on the page description is clicked
-   */
-  @Output() clickedWordChange: EventEmitter<string> = new EventEmitter<string>();
-
-  /**
-   * The unique id of the word the mouse is hovering on.
-   */
-  @Input() hoveredWord: string;
-
-  /**
-   * Give an event containing the unique word id if the mouse hovers on a word in the page description
-   */
-  @Output() hoveredWordChange: EventEmitter<string> = new EventEmitter<string>();
-
   propertyKey: string;
 
   constructor() { }

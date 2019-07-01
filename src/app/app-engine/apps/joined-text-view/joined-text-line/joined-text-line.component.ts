@@ -3,15 +3,14 @@ import { KnoraV2RequestService } from '../../../../query-engine/knora/knora-v2-r
 import { JoinedTextViewKnoraRequestService } from '../joined-text-view-knora-request.service';
 import { JoinedTextElement } from '../joined-text-view/joined-text-view.component';
 import { JoinedTextLinepart } from '../joined-text-linepart/joined-text-linepart.component';
-import { JoinedTextWord } from '../joined-text-word/joined-text-word.component';
 import { JoinedTextMargin } from '../joined-text-margin/joined-text-margin.component';
 import { SelectableEnvironments, StyleDeclaration } from '../../shared/rich-text/text-rich-innerhtml/text-rich-innerhtml.component';
 
 export interface JoinedTextLine extends JoinedTextElement {
   propertyDirection: string;
   propertyIri: string;
+  sortByPropertyIri?: string;
   lineparts?: JoinedTextLinepart;
-  words?: JoinedTextWord;
   farfarleft?: JoinedTextMargin;
   farleft?: JoinedTextMargin;
   left?: JoinedTextMargin;
@@ -22,6 +21,9 @@ export interface JoinedTextLine extends JoinedTextElement {
   prefix?: string;
   interfix?: string;
   suffix?: string;
+
+  hoverable?: boolean;
+  clickable?: boolean;
 
   whitespaceBehavior?: string;
 
@@ -67,22 +69,22 @@ export class JoinedTextLineComponent implements OnInit {
   /**
    * The unique id of the word that was last clicked and counts as activated. Only one word can be counted as activated at a time.
    */
-  @Input() clickedWord: string;
+  @Input() clickedResource: string;
 
   /**
    * Give an event containing the unique word id if a word on the page description is clicked
    */
-  @Output() clickedWordChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() clickedResourceChange: EventEmitter<string> = new EventEmitter<string>();
 
   /**
    * The unique id of the word the mouse is hovering on.
    */
-  @Input() hoveredWord: string;
+  @Input() hoveredResource: string;
 
   /**
    * Give an event containing the unique word id if the mouse hovers on a word in the page description
    */
-  @Output() hoveredWordChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() hoveredResourceChange: EventEmitter<string> = new EventEmitter<string>();
 
   lines: Array<any>;
 
@@ -112,7 +114,6 @@ export class JoinedTextLineComponent implements OnInit {
     farright: '12.5%',
     farfarright: '12.5%'
   };
-
 
   /**
    * default written by angular-cli
@@ -203,5 +204,43 @@ export class JoinedTextLineComponent implements OnInit {
     }
   }
 
+  clickChange(resIri: string) {
+    this.clickedResourceChange.emit(resIri);
+  }
+
+  hoverChange(resIri: string) {
+    this.hoveredResourceChange.emit(resIri);
+  }
+
+  /**
+   * When a line is clicked, set the variable clickedResource to a words unique identifier
+   * and communicate this as output clickedResourceChange.
+   * @param lineIri: the unique identifier of a text element that is clicked
+   */
+  clickLine(lineIri: string) {
+    if (this.lineConfiguration.clickable) {
+      this.clickedResourceChange.emit(lineIri);
+    }
+  }
+
+  /**
+   * When the mouse hovers on a line, set the variable hoveredResource to a line's unique identifier and communicate this as output
+   * hoveredResourceChange.
+   * @param lineIri: the unique identifier of a text element that is clicked
+   */
+  hoverOntoLine(lineIri: string) {
+    if (this.lineConfiguration.hoverable) {
+      this.hoveredResourceChange.emit(lineIri);
+    }
+  }
+
+  /**
+   * When the mouse leaves from a line, reset the variable hoveredResource and communicate this as output hoveredResourceChange.
+   */
+  hoverOutOfLine() {
+    if (this.lineConfiguration.hoverable) {
+      this.hoveredResourceChange.emit(null);
+    }
+  }
 
 }
