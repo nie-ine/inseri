@@ -258,14 +258,14 @@
       <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen">
         <mat-expansion-panel-header>
           <mat-panel-title>
-            Simple Full Text Search
+            Data list viewer
           </mat-panel-title>
           <mat-panel-description>
-            Search in all resources
+            Displays query results in a table format.
           </mat-panel-description>
         </mat-expansion-panel-header>
 
-        This app searches in all resources of your project and provides a simple output. It is still under development.
+        This app can be combined with the data - chooser. A tutorial on how to use the data - chooser will follow.
 
         <mat-divider></mat-divider>
 
@@ -286,9 +286,9 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
 
-        This app can be combined with the data - chooser. A tutorial on how to use the data - chooser will follow.
+          This app can be combined with apps for resource view.
 
-        <mat-divider></mat-divider>
+          <mat-divider></mat-divider>
 
         <button mat-button (click)="addAnotherApp('dataListView', true)">
           <mat-icon>short_text</mat-icon>Add a data list / data table
@@ -924,6 +924,28 @@
         <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'avpEditionView' ].model, i ) ">Remove this
           app</button>
       </mat-menu>
+      <popup #openbisLogin
+             [fullWidth]="openAppsInThisPage[ 'openbisLogin' ].model[i].fullWidth"
+             [fullHeight]="openAppsInThisPage[ 'openbisLogin' ].model[i].fullHeight"
+             [index] = "i"
+             (sendTiledPositionBack) = "updateTiledPosition( $event )"
+             [position]="appFramePosition"
+             [hash]="openAppsInThisPage[ 'openbisLogin' ].model[i].hash"
+             [title]="openAppsInThisPage[ 'openbisLogin' ].model[i].title || 'openbisLogin ' + i"
+             [type]="openAppsInThisPage[ 'openbisLogin' ].type"
+             [firstPopupX]="openAppsInThisPage[ 'openbisLogin' ].model[i].x"
+             [firstPopupY]="openAppsInThisPage[ 'openbisLogin' ].model[i].y"
+             [width]="produceHeightAndWidth( openAppsInThisPage[ 'openbisLogin' ].model[i].width, '500' )"
+             [height]="produceHeightAndWidth( openAppsInThisPage[ 'openbisLogin' ].model[i].height, '350')"
+             (sendAppCoordinatesBack)="updateAppCoordinates($event)"
+             (sendAppSettingsBack)="updateAppSettings($event)">
+        <div [ngStyle]="{'height': openAppsInThisPage[ 'openbisLogin' ].model[i].fullHeight ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'openbisLogin' ].model[i].height, '350' ) + 'px',
+        'width': openAppsInThisPage[ 'openbisLogin' ].model[i].fullWidth ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'openbisLogin' ].model[i].width, '500' ) + 'px'}">
+          <app-openbis-login>
+
+          </app-openbis-login>
+        </div>
+      </popup>
     </div>
 
     <!-- svg-Transcription -->
@@ -979,7 +1001,29 @@
         <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'jsonViewer' ].model, i ) ">Remove this
           app</button>
       </mat-menu>
+      <popup #treeNavigation
+             [fullWidth]="openAppsInThisPage[ 'treeNavigation' ].model[i].fullWidth"
+             [fullHeight]="openAppsInThisPage[ 'treeNavigation' ].model[i].fullHeight"
+             [index] = "i"
+             (sendTiledPositionBack) = "updateTiledPosition( $event )"
+             [position]="appFramePosition"
+             [hash]="openAppsInThisPage[ 'treeNavigation' ].model[i].hash"
+             [title]="openAppsInThisPage[ 'treeNavigation' ].model[i].title ||  'Tree navigation ' + i"
+             [type]="openAppsInThisPage[ 'treeNavigation' ].type"
+             [firstPopupX]="openAppsInThisPage[ 'treeNavigation' ].model[i].x"
+             [firstPopupY]="openAppsInThisPage[ 'treeNavigation' ].model[i].y"
+             [width]="produceHeightAndWidth( openAppsInThisPage[ 'treeNavigation' ].model[i].width, '400' )"
+             [height]="produceHeightAndWidth( openAppsInThisPage[ 'treeNavigation' ].model[i].height, '600')"
+             (sendAppCoordinatesBack)="updateAppCoordinates($event)"
+             (sendAppSettingsBack)="updateAppSettings($event)">
+        <div [ngStyle]="{'height': openAppsInThisPage[ 'treeNavigation' ].model[i].fullHeight ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'treeNavigation' ].model[i].height, '600' ) + 'px',
+  'width': openAppsInThisPage[ 'treeNavigation' ].model[i].fullWidth ? '100%' :  produceHeightAndWidth( openAppsInThisPage[ 'treeNavigation' ].model[i].width, '400' ) + 'px'}" >
+          <app-navigation-tree [queryResponse]="openAppsInThisPage[ 'treeNavigation' ].model[i]['json']">
+          </app-navigation-tree>
+        </div>
+      </popup>
     </div>
+
     <!-- Result list -->
     <div *ngFor="let dataListView of openAppsInThisPage[ 'dataListView' ].model; let i = index;">
       <popup #dataListView [hash]="openAppsInThisPage[ 'dataListView' ].model[i].hash"
@@ -987,7 +1031,7 @@
              [type]="openAppsInThisPage[ 'dataListView' ].type"
              [firstPopupX]="openAppsInThisPage[ 'dataListView' ].model[i].x"
              [firstPopupY]="openAppsInThisPage[ 'dataListView' ].model[i].y"
-             [width]="produceHeightAndWidth( openAppsInThisPage[ 'dataListView' ].model[i].width, '500' )"
+             [width]="produceHeightAndWidth( openAppsInThisPage[ 'dataListView' ].model[i].width, '700' )"
              [height]="produceHeightAndWidth( openAppsInThisPage[ 'dataListView' ].model[i].height, '500')"
              (sendAppCoordinatesBack)="updateAppCoordinates($event)" (sendAppSettingsBack)="updateAppSettings($event)">
         <div [ngStyle]="{'height': produceHeightAndWidth( openAppsInThisPage[ 'dataListView' ].model[i].height, '500' ) + 'px',

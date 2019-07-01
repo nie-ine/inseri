@@ -30,6 +30,8 @@ export class DataManagementComponent implements OnInit {
   page: any;
   action: any;
   reloadVariables = false;
+  allPathsChosen = true;
+  showMessage = false;
 
   constructor(
     public dialogRef: MatDialogRef<DataManagementComponent>,
@@ -58,16 +60,12 @@ export class DataManagementComponent implements OnInit {
     this.queryService.getAllQueriesOfPage(this.page._id)
       .subscribe((data) => {
         this.queries = data.queries;
-        console.log( this.queries );
-        console.log('assignPathsToQuery', this.appInputQueryMapping);
         for ( const app in this.appInputQueryMapping ) {
-          console.log(this.appInputQueryMapping[app]);
           for ( const input in this.appInputQueryMapping[app] ) {
             for ( const query of this.queries ) {
               if (
                 query._id === this.appInputQueryMapping[app][input][ 'query' ] &&
                 this.appInputQueryMapping[app][input][ 'path' ] ) {
-                // console.log( query );
                 if ( !query.paths ) {
                   query.paths = [];
                 }
@@ -77,11 +75,9 @@ export class DataManagementComponent implements OnInit {
                     path.splice( i, 1 );
                   }
                 }
-                console.log( path );
                 query.paths.push( path );
               }
             }
-            console.log(this.queries);
           }
         }
         this.spinner1.hide();
@@ -183,8 +179,8 @@ export class DataManagementComponent implements OnInit {
     });
   }
 
-  close() {
-    this.dialogRef.close();
+  close( ) {
+      this.dialogRef.close();
   }
 
   openQueryEntry(query: any) {
@@ -266,7 +262,7 @@ export class DataManagementComponent implements OnInit {
 
   save() {
     this.page['appInputQueryMapping'] = this.appInputQueryMapping;
-    console.log( this.page );
+    // console.log( this.page );
     this.pageService.updatePage(this.page)
       .subscribe(
         data => {
@@ -277,37 +273,35 @@ export class DataManagementComponent implements OnInit {
         });
     for ( const query of this.queries ) {
       console.log( query );
-      this.queryService.updateQueryOfPage(this.page._id, query._id, query)
-        .subscribe((data) => {
-          if (data.status === 200) {
-            console.log( data );
-          } else {
-            console.log('Updating query failed');
-            // this.close();
-          }
-        });
+      if ( query.chosenPath !== undefined ) {
+        this.queryService.updateQueryOfPage(this.page._id, query._id, query)
+          .subscribe((data) => {
+            if (data.status === 200) {
+              console.log( 'query update successfull' );
+            } else {
+              console.log('Updating query failed');
+              // this.close();
+            }
+          });
+      }
     }
     }
 
   assignQueryToPath( path: any, query: any ) {
-    console.log( path );
-    let increment = 0;
-    for ( const segment of path ) {
-      if ( segment === null ) {
-        path.splice( increment, 1 );
-      }
-      increment += 1;
-    }
+    // console.log( path, query );
     query.chosenPath = path;
+    this.save();
   }
 
   generateCurrentPath( item ) {
-    if( item.path ) {
+    if ( item.path ) {
       let concatenatedPath = '';
       for ( const segment of item.path ) {
         concatenatedPath += ' ' + segment;
       }
       return concatenatedPath;
+    } else {
+      return '⛔⛔⛔ Please choose a path!';
     }
   }
 }

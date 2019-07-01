@@ -6,9 +6,11 @@ import { ComplexTextViewsModule } from '../../complex-text-views/complex-text-vi
 import { TextStructureModule } from '../../text-structure/text-structure.module';
 import { RichTextModule } from '../../shared/rich-text/rich-text.module';
 import { KnoraV2RequestService } from '../../../../query-engine/knora/knora-v2-request.service';
+import { P0041KandaComponent } from './p0041-kanda/p0041-kanda.component';
+import { P0041SuktaComponent } from './p0041-sukta/p0041-sukta.component';
 
 @NgModule({
-  declarations: [P0041EditionComponent, P0041StropheComponent],
+  declarations: [P0041EditionComponent, P0041StropheComponent, P0041KandaComponent, P0041SuktaComponent],
   imports: [
     CommonModule,
     ComplexTextViewsModule,

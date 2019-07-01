@@ -15,12 +15,6 @@ export class AppComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.http.get('assets/config/environment.json')
-      .subscribe(
-        config => {
-          localStorage.setItem( 'node', ( config as any ).node );
-        }
-      );
     this.authService.autoAuthUser();
   }
 }

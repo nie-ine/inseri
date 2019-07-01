@@ -7,9 +7,6 @@
 </app-load-variables>
 
   <div style="margin-top: 30px">
-    <button mat-button (click)="save()">
-      <mat-icon>save</mat-icon> Save
-    </button>
     <button mat-button (click)="close()">
       <mat-icon>clear</mat-icon> Close
     </button>
@@ -24,9 +21,9 @@
       <td mat-cell *matCellDef="let item">
         <button mat-button (click)="delete(item)" mat-icon-button><mat-icon>close</mat-icon></button>
         <button mat-button (click)="openQueryEntry(item)"> {{item.title}} </button>
-        <mat-select [(value)]="item.selected" style="width: 200px" *ngIf="item.paths" placeholder="{{generateCurrentPath( item )}}">
+        <mat-select [(value)]="item.selected" style="width: 200px" *ngIf="item.paths" placeholder="{{generateCurrentPath( item )}}" >
           <mat-option value="i" *ngFor="let path of item.paths; let i = index" (click)="assignQueryToPath( path, item )" >
-            <span *ngFor="let segment of path"> {{ segment }}</span>
+            <span *ngFor="let segment of path" > {{ segment }}</span>
           </mat-option>
         </mat-select>
       </td>

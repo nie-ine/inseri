@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../../query-engine/fake-backend/auth/authentication.service';
 import { AlertService } from '../../query-engine/fake-backend/auth/altert.service';
 import {AuthService} from '../mongodb/auth/auth.service';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
 declare let OpenSeadragon: any;
 
@@ -32,7 +33,8 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private alertService: AlertService,
-    public authService: AuthService
+    public authService: AuthService,
+    public http: HttpClient
   ) {
   }
 
@@ -41,15 +43,15 @@ export class HomeComponent implements OnInit {
     this.authenticationService.logout();
     const expirationDate = localStorage.getItem('expiration');
     const now = new Date();
-    if ( new Date(expirationDate).getTime() - now.getTime() > 0 ) {
-      this.router.navigate(['/dashboard' ], {fragment: 'top'});
+    if (new Date(expirationDate).getTime() - now.getTime() > 0) {
+      this.router.navigate(['/dashboard'], {fragment: 'top'});
     }
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || encodeURI('/dashboard#top');
-    console.log( this.route.snapshot );
-    if ( this.route.snapshot.queryParams['deletedAccount'] ) {
-      console.log( 'deletedAccount' );
+    console.log(this.route.snapshot);
+    if (this.route.snapshot.queryParams['deletedAccount']) {
+      console.log('deletedAccount');
       this.deletedAccount = true;
     }
   }

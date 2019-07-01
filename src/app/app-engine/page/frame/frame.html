@@ -1,35 +1,18 @@
 <div class="popup" *ngIf="show">
 
   <div class="popup-win"
-       [ngStyle]="{'top': curY + 'px', 'left': curX + 'px','z-index': curZIndex}"
-       >
+       [ngStyle]="{
+       'top': fullHeight ? '0' : curY + 'px',
+       'left': fullWidth ? '0' : curX + 'px',
+       'z-index': curZIndex,
+       'position': position,
+       width: fullWidth ? '100%' : '',
+       height: fullHeight ? '100%' : ''
+       }">
     <div class="popup-title-bar popup-drag" (mousedown)="mousedown($event)">
-      <button mat-icon-button color="primary" style="position: absolute; left: 0px; top: 0px;" (click)="disappear()">-</button>
-      <button mat-icon-button color="primary" style="position: absolute; right: 0px; top: 0px;" (click)="openSettings()">*</button>
-      <button
-        *ngIf="index !== undefined"
-        style="position: absolute; top: 0px; right: 80px"
-        mat-icon-button
-        color="primary" (click)="moveBack()"
-        [disabled]="!(index > 0)">
-        <
-      </button>
+      <span style=" margin-right: 20px; color: blue; cursor: pointer;" (click)="disappear()">-</span>
         {{title}}
-      <button
-        *ngIf="index !== undefined"
-        style="position: absolute; top: 0px; right: 30px"
-        mat-icon-button
-        color="primary" (click)="moveForward()"
-        [disabled]="!(index < arrayLength - 1)">
-        >
-      </button>
-      <button
-        [disabled]="true"
-        *ngIf="index !== undefined"
-        style="position: absolute; top: 0px; right: 55px"
-        mat-icon-button>
-        {{ index }}
-      </button>
+      <span style=" margin-left: 20px; color: blue; cursor: pointer;" (click)="openSettings()">*</span>
     </div>
 
     <div class="popup-content">

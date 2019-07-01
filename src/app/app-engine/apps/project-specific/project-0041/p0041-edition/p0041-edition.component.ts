@@ -14,27 +14,23 @@ export class P0041EditionComponent implements OnInit {
 
   /**
    * IRI of the Kanda.
-   * TODO remove default value
    */
-  kandaIRI = 'http://rdfh.ch/0041/07GyRR1fQLSjaIlAjRTq_Q';
+  kandaIRI: string;
 
   /**
    * IRI of the Sukta.
-   * TODO remove default value
    */
-  suktaIRI = 'http://rdfh.ch/0041/CEdPhqFoRqa4JMrLokpwHw';
+  suktaIRI: string;
 
   /**
    * IRI of the strophe.
-   * TODO remove default value
    */
-  stropheIRI = 'http://rdfh.ch/0041/WA9dphq9RpmXkq5nSo6q3Q';
+  stropheIRI: string;
 
   /**
    * Address of the Knora instance the project data are hosted in.
-   * TODO remove default value
    */
-  @Input() backendAddress = 'http://localhost:3333';
+  @Input() backendAddress: string;
 
   /**
    * Constructor initializes ActivatedRoute.
@@ -47,9 +43,9 @@ export class P0041EditionComponent implements OnInit {
    */
   ngOnInit() {
     this._route.queryParams.subscribe(params => {
-      this.kandaIRI = params.d1;
-      this.suktaIRI = params.d2;
-      this.stropheIRI = params.d3;
+      this.kandaIRI = params.d0;
+      this.suktaIRI = params.d1;
+      this.stropheIRI = params.d2;
     });
   }
 

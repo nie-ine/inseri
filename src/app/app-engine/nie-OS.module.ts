@@ -62,108 +62,120 @@ import { DataListViewDetailsDialogComponent } from './apps/data-list-view/data-l
 import { ngxCsv } from 'ngx-csv/ngx-csv';
 import { DataListViewSettings } from './apps/data-list-view/data-list-view-settings/data-list-view-settings';
 import { DataListViewTableComponent, HighlightPipe } from './apps/data-list-view/data-list-view-table/data-list-view-table.component';
+
 import { ProjectViewerComponent } from './apps/project-viewer/project-viewer.component';
 import { KuiCoreModule } from '@knora/core';
 import { KuiActionModule } from '@knora/action';
 import { KuiViewerModule } from '@knora/viewer';
+import { NavigationModule } from './apps/navigation/navigation.module';
+import { HtmlViewerModule } from './apps/html-viewer/html-viewer.module';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { OpenbisLoginComponent } from './apps/openbis-login/openbis-login.component';
+// import { KnoraJsonldSimplify } from 'knora-jsonld-simplify/dist';
 
 @NgModule({
-  imports: [
-    KuiCoreModule,
-    KuiActionModule,
-    KuiViewerModule,
-    CommonModule,
-    MatSidenavModule,
-    MatButtonModule,
-    MatMenuModule,
-    MatIconModule,
-    TextViewModule,
-    MatTooltipModule,
-    SynopsisModule,
-    MyPageSetModule,
-    CreateResourceModule,
-    ResourceFormModule,
-    DataManagementToolModule,
-    MatProgressSpinnerModule,
-    MatExpansionModule,
-    MatDividerModule,
-    D3jsModule,
-    MatChipsModule,
-    MatTableModule,
-    MatInputModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatSelectModule,
-    MatTabsModule,
-    AceEditorModule,
-    MatButtonToggleModule,
-    MatListModule,
-    MatSliderModule,
-    NgxSpinnerModule,
-    MatDialogModule,
-    MatTreeModule,
-    CdkTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatChipsModule,
-    MatCardModule,
-    ImageFrameModule,
-    ComplexTextViewsModule,
-    Project0041Module,
-    OverlayModule,
-    RouterModule.forChild([
-      { path: 'page', component: PageComponent },
-      { path: 'response-tree', component: ResponseTreeComponent },
-      { path: 'project', component: ProjectViewerComponent }
-    ])
-  ],
-  providers: [
-    GenerateHashService,
-    SendGravSearchQueryService,
-    OpenAppsModel,
-    AbstractJsonService,
-    FileDatabase
-  ],
-  declarations: [
-    PageComponent,
-    Frame,
-    TextlistViewerComponent,
-    DataManagementComponent,
-    QueryEntryComponent,
-    KeyValueFormComponent,
-    QueryAppInputMapComponent,
-    FrameSettingsComponent,
-    LoadVariablesComponent,
-    QueryListComponent,
-    DataAssignmentComponent,
-    UpdateLinkedAppsComponent,
-    NewGjsBoxDialogComponent,
-    SimpleImageAppComponent,
-    ResponseTreeComponent,
-    DataListView,
-    QueryInformationDialogComponent,
-    GrapesjsComponent,
-    ParzivalFassungComponent,
-    DataListViewDetailsDialogComponent,
-    HighlightPipe,
-    DataListViewSettings,
-    DataListViewTableComponent,
-    ProjectViewerComponent
-  ],
-  exports: [
-    PageComponent,
-    MatSidenavModule,
-    GrapesjsComponent
-  ],
-  entryComponents: [
-    DataManagementComponent,
-    QueryEntryComponent,
-    QueryAppInputMapComponent,
-    FrameSettingsComponent,
-    QueryListComponent,
-    NewGjsBoxDialogComponent,
-    QueryInformationDialogComponent,
-    DataListViewDetailsDialogComponent
-  ]
+    imports: [
+        KuiCoreModule,
+        KuiActionModule,
+        KuiViewerModule,
+        CommonModule,
+        MatSidenavModule,
+        MatButtonModule,
+        MatMenuModule,
+        MatIconModule,
+        TextViewModule,
+        MatTooltipModule,
+        SynopsisModule,
+        MyPageSetModule,
+        CreateResourceModule,
+        ResourceFormModule,
+        DataManagementToolModule,
+        MatProgressSpinnerModule,
+        MatExpansionModule,
+        MatDividerModule,
+        D3jsModule,
+        MatChipsModule,
+        MatTableModule,
+        MatInputModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatSelectModule,
+        MatTabsModule,
+        AceEditorModule,
+        MatButtonToggleModule,
+        MatListModule,
+        MatSliderModule,
+        NgxSpinnerModule,
+        MatDialogModule,
+        MatTreeModule,
+        CdkTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatChipsModule,
+        MatCardModule,
+        ImageFrameModule,
+        ComplexTextViewsModule,
+        Project0041Module,
+        HtmlViewerModule,
+        NavigationModule,
+        OverlayModule,
+        MatCheckboxModule,
+        // KnoraJsonldSimplify,
+        RouterModule.forChild([
+            { path: 'page', component: PageComponent },
+            { path: 'response-tree', component: ResponseTreeComponent },
+            { path: 'project', component: ProjectViewerComponent },
+            { path: 'openbis-login', component: OpenbisLoginComponent }
+        ])
+    ],
+    providers: [
+        GenerateHashService,
+        SendGravSearchQueryService,
+        OpenAppsModel,
+        AbstractJsonService,
+        FileDatabase
+    ],
+    declarations: [
+        PageComponent,
+        Frame,
+        TextlistViewerComponent,
+        DataManagementComponent,
+        QueryEntryComponent,
+        KeyValueFormComponent,
+        QueryAppInputMapComponent,
+        FrameSettingsComponent,
+        LoadVariablesComponent,
+        QueryListComponent,
+        DataAssignmentComponent,
+        UpdateLinkedAppsComponent,
+        NewGjsBoxDialogComponent,
+        SimpleImageAppComponent,
+        ResponseTreeComponent,
+        DataListView,
+        QueryInformationDialogComponent,
+        GrapesjsComponent,
+        ParzivalFassungComponent,
+        DataListViewDetailsDialogComponent,
+        HighlightPipe,
+        DataListViewSettings,
+        DataListViewTableComponent,
+        ProjectViewerComponent,
+        OpenbisLoginComponent
+    ],
+    exports: [
+        PageComponent,
+        MatSidenavModule,
+        GrapesjsComponent
+    ],
+    entryComponents: [
+        DataManagementComponent,
+        QueryEntryComponent,
+        QueryAppInputMapComponent,
+        FrameSettingsComponent,
+        QueryListComponent,
+        NewGjsBoxDialogComponent,
+        QueryInformationDialogComponent,
+        DataListViewDetailsDialogComponent
+    ]
 })
 export class NIEOSModule { }

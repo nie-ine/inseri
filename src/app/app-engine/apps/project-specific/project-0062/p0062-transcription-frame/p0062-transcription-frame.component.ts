@@ -220,7 +220,7 @@ export class P0062TranscriptionFrameComponent implements OnInit {
   /**
    * Keys of selected selectiveStyleDeclarations.
    */
-  highlighted = new Set(['opener']);
+  highlighted = ['opener'];
 
   /**
    * Add selectiveStyleDeclaration key when selecting.
@@ -228,8 +228,7 @@ export class P0062TranscriptionFrameComponent implements OnInit {
    * @param annotationTypeID  key of the style
    */
   activateAnnotationType(annotationTypeID: string) {
-    this.highlighted.add(annotationTypeID);
-    this.highlighted = new Set(Array.from(this.highlighted));
+    this.highlighted = this.highlighted.concat(annotationTypeID);
   }
 
   /**
@@ -238,8 +237,7 @@ export class P0062TranscriptionFrameComponent implements OnInit {
    * @param annotationTypeID  key of the style
    */
   deactivateAnnotationType(annotationTypeID: string) {
-    this.highlighted.delete(annotationTypeID);
-    this.highlighted = new Set(Array.from(this.highlighted));
+    this.highlighted = this.highlighted.filter(key => key !== annotationTypeID);
   }
 
   /**

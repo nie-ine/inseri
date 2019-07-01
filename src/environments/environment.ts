@@ -10,5 +10,5 @@ export const environment = {
   api: 'http://localhost:3333',
   app: 'http://localhost:4200',
   media: 'http://localhost:1024',
-  node: localStorage.getItem('node')
+  node: 'http://localhost:3000'
 };

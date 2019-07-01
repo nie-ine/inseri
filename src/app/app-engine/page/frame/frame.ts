@@ -33,9 +33,13 @@ export class Frame implements OnInit, OnChanges {
   @Input() index: number = undefined;
   @Input() arrayLength: number = undefined;
   @Input() queryId: string;
+  @Input() position = 'absolute';
+  @Input() fullWidth: boolean;
+  @Input() fullHeight: boolean;
   @Output() sendAppCoordinatesBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendAppSettingsBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendIndexBack: EventEmitter<any> = new EventEmitter<any>();
+  @Output() sendTiledPositionBack: EventEmitter<any> = new EventEmitter<any>();
 
   mousemoveEvent: any;
   mouseupEvent: any;
@@ -52,7 +56,6 @@ export class Frame implements OnInit, OnChanges {
   yStartMousePoint: number;
   fatherPopup: any;
   sendCoordinatesBack: any;
-
   isMouseBtnOnPress: boolean;
 
   constructor(
@@ -152,7 +155,9 @@ export class Frame implements OnInit, OnChanges {
       data: [
         this.title,
         this.width,
-        this.height
+        this.height,
+        this.fullWidth,
+        this.fullHeight
       ]
     });
     dialogRef.afterClosed().subscribe((result) => {
@@ -164,34 +169,13 @@ export class Frame implements OnInit, OnChanges {
             width: result[ 1 ],
             height: result[ 2 ],
             hash: this.hash,
-            type: this.type
+            type: this.type,
+            fullWidth: result[ 3 ],
+            fullHeight: result[ 4 ]
           }
         );
         // this.title = result.title;
       }
     });
-  }
-
-  moveBack() {
-    // console.log('move back');
-    this.index -= 1;
-    this.emitIndex();
-  }
-
-  moveForward() {
-    // console.log('move forward');
-    this.index += 1;
-    this.emitIndex();
-  }
-
-  emitIndex() {
-    console.log( this.index, this.hash );
-    this.sendIndexBack.emit(
-      {
-        index: this.index,
-        hash: this.hash,
-        queryId: this.queryId
-      }
-    );
   }
 }
