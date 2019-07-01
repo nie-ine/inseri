@@ -15,7 +15,7 @@ export interface JoinedTextMargin extends JoinedTextElement {
   blocks?: JoinedTextBlock;
   contentProperty?: string;
   sortByPropertyIri?: string;
-  styleKeys: string[];
+  styleKeys?: string[];
 
   fixHeight?: boolean;
   overflowX?: string;

@@ -323,7 +323,9 @@ export class TextDevViewComponent implements OnInit {
             propertyDirection: 'direct',
             contentPropertyIri: 'http://api.knora.org/ontology/shared/text/simple/v2#hasName',
             hoverable: true,
+            hoverColor: '#F0F8FF',
             clickable: true,
+            clickColor: 'cyan',
             styleKeys: ['pt-word']
           }
         }

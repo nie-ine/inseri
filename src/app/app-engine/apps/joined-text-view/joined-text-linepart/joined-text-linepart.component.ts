@@ -11,6 +11,8 @@ export interface JoinedTextLinepart extends JoinedTextElement {
   lineparts?: JoinedTextLinepart;
   clickable?: boolean;
   hoverable?: boolean;
+  hoverColor?: string;
+  clickColor?: string;
   styleKeys?: string[];
 
   prefix?: string;
@@ -135,7 +137,7 @@ export class JoinedTextLinepartComponent implements OnInit {
     }
   }
 
-  getStyleDict(paramKey) {
+  getStyleDict(paramKey, resId) {
     const styles = {};
 
     if (this.styleDeclarations && this.linepartConfiguration[paramKey]) {
@@ -163,6 +165,15 @@ export class JoinedTextLinepartComponent implements OnInit {
         }
       }
     }
+
+    if (resId && resId === this.hoveredResource) {
+      styles['background-color'] = this.linepartConfiguration.hoverColor;
+    }
+
+    if (resId && resId === this.clickedResource) {
+      styles['background-color'] = this.linepartConfiguration.clickColor;
+    }
+
     return styles;
   }
 

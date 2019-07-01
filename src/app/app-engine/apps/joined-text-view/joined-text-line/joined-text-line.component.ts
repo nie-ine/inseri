@@ -37,6 +37,8 @@ export interface JoinedTextLine extends JoinedTextElement {
 
   hoverable?: boolean;
   clickable?: boolean;
+  hoverColor?: string;
+  clickColor?: string;
 
   /**
    * The ratio of the widths of the columns (far far left margin, far left, left margin, middle, right margin, far right, far far right)
@@ -224,7 +226,7 @@ export class JoinedTextLineComponent implements OnInit {
   }
 
 
-  getStyleDict(paramKey) {
+  getStyleDict(paramKey, resId) {
     const styles = {};
 
     if (this.styleDeclarations && this.lineConfiguration[paramKey]) {
@@ -252,6 +254,15 @@ export class JoinedTextLineComponent implements OnInit {
         }
       }
     }
+
+    if (resId && resId === this.hoveredResource) {
+      styles['background-color'] = this.lineConfiguration.hoverColor;
+    }
+
+    if (resId && resId === this.clickedResource) {
+      styles['background-color'] = this.lineConfiguration.clickColor;
+    }
+
     styles['width'] = this.widths[paramKey];
     return styles;
   }

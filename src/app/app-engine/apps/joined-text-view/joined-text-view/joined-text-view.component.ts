@@ -34,7 +34,6 @@ export class JoinedTextViewComponent implements OnChanges {
   // TODO:
   // - Turn into app
   // - add column functionality to block-component
-  // - Style for hover and click
 
   @Input() styleDeclarations: Array<StyleDeclaration>;
 
