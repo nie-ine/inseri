@@ -43,9 +43,9 @@
       </div>
 
       <div *ngIf="pageAsDemo">
-        <h4 style="align-content: center" i18n="@@demoPageTitle">Demo - Page</h4>
+        <h4 style="align-content: center" i18n="@@demoPageTitle">Inseri Page</h4>
         <ng-container i18n="@@registerForFullPageFunctionalityMessage">
-          You can not save anything you do on this <br> demo - page. If you would like to save <br> pages and pageSets, please register
+          You can not save anything unless you <br> login or register
         </ng-container>
         <a href="/register" i18n="@@hereLinkLabel">here</a>.
       </div>
@@ -567,7 +567,7 @@
 
       <div style="margin-top: 30px; vertical-align: bottom; z-index: 9999">
         <button type="button" mat-button (keydown.control.o)="drawer.toggle()" (click)="drawer.toggle()" matTooltip='{{ createTooltip() }}'>
-          <mat-icon color="primary" >chrome_reader_mode</mat-icon> <h4 style="align-content: center" *ngIf="pageAsDemo">Demo</h4>
+          <mat-icon color="primary" >chrome_reader_mode</mat-icon>
         </button>
       </div>
 

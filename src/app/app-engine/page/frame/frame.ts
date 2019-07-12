@@ -1,3 +1,10 @@
+/**
+ * The frame.component is the "container" for every app
+ * and takes care of the all general app - information,
+ * for example the app - title - bar, the current position,
+ * the drag - and - drop attributes etc.
+ * */
+
 import {
   Component,
   Input,
@@ -20,11 +27,20 @@ import { FrameSettingsComponent } from '../frame-settings/frame-settings.compone
 })
 export class Frame implements OnInit, OnChanges {
 
+  /**
+   * @param show - indicates if app is minimalized or not
+   * @param title - title of the app
+   * @param type - type of the app
+   * @param firstPopupX - if app is opened for the first time, this variable indicates where it should disappear vertically
+   * @param firstPopupY - if app is opened for the first time, this variable indicates where it should disappear horizontally
+   * @param hash -
+   * @param -
+   * @param -
+   * @param -
+   * */
   show = false;
-
   @Input() title: string;
   @Input() type: string;
-  @Input() id: number;
   @Input() firstPopupX: number;
   @Input() firstPopupY: number;
   @Input() hash: string;
