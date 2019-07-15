@@ -582,7 +582,6 @@
         <popup #imageViewer
                [fullWidth]="openAppsInThisPage[ 'imageViewer' ].model[i].fullWidth"
                [fullHeight]="openAppsInThisPage[ 'imageViewer' ].model[i].fullHeight"
-               [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
                [hash]="openAppsInThisPage[ 'imageViewer' ].model[i].hash"
@@ -592,9 +591,7 @@
                [firstPopupY]="openAppsInThisPage[ 'imageViewer' ].model[i].y"
                [width]="produceHeightAndWidth( openAppsInThisPage[ 'imageViewer' ].model[i].width, '500' )"
                [height]="produceHeightAndWidth( openAppsInThisPage[ 'imageViewer' ].model[i].height, '700')"
-               [arrayLength] = "openAppsInThisPage[ 'imageViewer' ].model[i].arrayLength"
                (sendAppCoordinatesBack)="updateAppCoordinates($event)"
-               [queryId] = "openAppsInThisPage[ 'imageViewer' ].model[i].queryId"
                (sendIndexBack)="updateIndices( $event )"
                (sendAppSettingsBack)="updateAppSettings($event)">
           <div [ngStyle]="{'height': openAppsInThisPage[ 'imageViewer' ].model[i].fullHeight ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'imageViewer' ].model[i].height, '700' ) + 'px',
@@ -620,7 +617,6 @@
       <popup #simpleImageApp
              [fullWidth]="openAppsInThisPage[ 'simpleImageApp' ].model[i].fullWidth"
              [fullHeight]="openAppsInThisPage[ 'simpleImageApp' ].model[i].fullHeight"
-             [index] = "i"
              (sendTiledPositionBack) = "updateTiledPosition( $event )"
              [position]="appFramePosition"
              [hash]="openAppsInThisPage[ 'simpleImageApp' ].model[i].hash"
@@ -654,7 +650,6 @@
         <popup #textViewer
                [fullWidth]="openAppsInThisPage[ 'textViewer' ].model[i].fullWidth"
                [fullHeight]="openAppsInThisPage[ 'textViewer' ].model[i].fullHeight"
-               [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
                [hash]="openAppsInThisPage[ 'textViewer' ].model[i].hash"
@@ -679,7 +674,6 @@
       <popup #htmlViewer
              [fullWidth]="openAppsInThisPage[ 'htmlViewer' ].model[i].fullWidth"
              [fullHeight]="openAppsInThisPage[ 'htmlViewer' ].model[i].fullHeight"
-             [index] = "i"
              [hash]="openAppsInThisPage[ 'htmlViewer' ].model[i].hash"
              [title]="openAppsInThisPage[ 'htmlViewer' ].model[i].title || 'HTML Viewer ' + i"
              [type]="openAppsInThisPage[ 'htmlViewer' ].type"
@@ -716,7 +710,6 @@
         <popup #synopsisViewer
                [fullWidth]="openAppsInThisPage[ 'synopsisViewer' ].model[i].fullWidth"
                [fullHeight]="openAppsInThisPage[ 'synopsisViewer' ].model[i].fullHeight"
-               [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
                [hash]="openAppsInThisPage[ 'synopsisViewer' ].model[i].hash"
@@ -747,7 +740,6 @@
         <popup #createResourceForm
                [fullWidth]="openAppsInThisPage[ 'createResourceForm' ].model[i].fullWidth"
                [fullHeight]="openAppsInThisPage[ 'createResourceForm' ].model[i].fullHeight"
-               [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
                [hash]="openAppsInThisPage[ 'createResourceForm' ].model[i].hash"
@@ -779,7 +771,6 @@
       <popup #editResourceForm
              [fullWidth]="openAppsInThisPage[ 'editResourceForm' ].model[i].fullWidth"
              [fullHeight]="openAppsInThisPage[ 'editResourceForm' ].model[i].fullHeight"
-             [index] = "i"
              (sendTiledPositionBack) = "updateTiledPosition( $event )"
              [position]="appFramePosition"
              [hash]="openAppsInThisPage[ 'editResourceForm' ].model[i].hash"
@@ -810,7 +801,6 @@
         <popup #textlistViewers
                [fullWidth]="openAppsInThisPage[ 'textlistViewers' ].model[i].fullWidth"
                [fullHeight]="openAppsInThisPage[ 'textlistViewers' ].model[i].fullHeight"
-               [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
                [hash]="openAppsInThisPage[ 'textlistViewers' ].model[i].hash"
@@ -841,7 +831,6 @@
       <popup #parzivalFassung
              [fullWidth]="openAppsInThisPage[ 'parzivalFassung' ].model[i].fullWidth"
              [fullHeight]="openAppsInThisPage[ 'parzivalFassung' ].model[i].fullHeight"
-             [index] = "i"
              (sendTiledPositionBack) = "updateTiledPosition( $event )"
              [position]="appFramePosition"
              [hash]="openAppsInThisPage[ 'parzivalFassung' ].model[i].hash"
@@ -872,7 +861,6 @@
       <popup #avpEditionView
              [fullWidth]="openAppsInThisPage[ 'avpEditionView' ].model[i].fullWidth"
              [fullHeight]="openAppsInThisPage[ 'avpEditionView' ].model[i].fullHeight"
-             [index] = "i"
              (sendTiledPositionBack) = "updateTiledPosition( $event )"
              [position]="appFramePosition"
              [hash]="openAppsInThisPage[ 'avpEditionView' ].model[i].hash"
@@ -903,7 +891,6 @@
       <popup #openbisLogin
              [fullWidth]="openAppsInThisPage[ 'openbisLogin' ].model[i].fullWidth"
              [fullHeight]="openAppsInThisPage[ 'openbisLogin' ].model[i].fullHeight"
-             [index] = "i"
              (sendTiledPositionBack) = "updateTiledPosition( $event )"
              [position]="appFramePosition"
              [hash]="openAppsInThisPage[ 'openbisLogin' ].model[i].hash"
@@ -934,7 +921,6 @@
       <popup #svgTranscription
              [fullWidth]="openAppsInThisPage[ 'svgTranscription' ].model[i].fullWidth"
              [fullHeight]="openAppsInThisPage[ 'svgTranscription' ].model[i].fullHeight"
-             [index] = "i"
              (sendTiledPositionBack) = "updateTiledPosition( $event )"
              [position]="appFramePosition"
              [hash]="openAppsInThisPage[ 'svgTranscription' ].model[i].hash"
@@ -968,7 +954,6 @@
       <popup #jsonViewer
              [fullWidth]="openAppsInThisPage[ 'jsonViewer' ].model[i].fullWidth"
              [fullHeight]="openAppsInThisPage[ 'jsonViewer' ].model[i].fullHeight"
-             [index] = "i"
              (sendTiledPositionBack) = "updateTiledPosition( $event )"
              [position]="appFramePosition"
              [hash]="openAppsInThisPage[ 'jsonViewer' ].model[i].hash"
@@ -999,7 +984,6 @@
       <popup #treeNavigation
              [fullWidth]="openAppsInThisPage[ 'treeNavigation' ].model[i].fullWidth"
              [fullHeight]="openAppsInThisPage[ 'treeNavigation' ].model[i].fullHeight"
-             [index] = "i"
              (sendTiledPositionBack) = "updateTiledPosition( $event )"
              [position]="appFramePosition"
              [hash]="openAppsInThisPage[ 'treeNavigation' ].model[i].hash"
@@ -1029,7 +1013,6 @@
       <popup #dataListView
              [fullWidth]="openAppsInThisPage[ 'dataListView' ].model[i].fullWidth"
              [fullHeight]="openAppsInThisPage[ 'dataListView' ].model[i].fullHeight"
-             [index] = "i"
              (sendTiledPositionBack) = "updateTiledPosition( $event )"
              [position]="appFramePosition"
              [hash]="openAppsInThisPage[ 'dataListView' ].model[i].hash"
@@ -1061,7 +1044,6 @@
         <popup #barChart
                [fullWidth]="openAppsInThisPage[ 'barCharts' ].model[i].fullWidth"
                [fullHeight]="openAppsInThisPage[ 'barCharts' ].model[i].fullHeight"
-               [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
                [hash]="openAppsInThisPage[ 'barCharts' ].model[i].hash"
@@ -1094,7 +1076,6 @@
       <popup #spiralBarCharts
              [fullWidth]="openAppsInThisPage[ 'spiralBarCharts' ].model[i].fullWidth"
              [fullHeight]="openAppsInThisPage[ 'spiralBarCharts' ].model[i].fullHeight"
-             [index] = "i"
              (sendTiledPositionBack) = "updateTiledPosition( $event )"
              [position]="appFramePosition"
              [hash]="openAppsInThisPage[ 'spiralBarCharts' ].model[i].hash"
@@ -1128,7 +1109,6 @@
         <popup #lineChart
                [fullWidth]="openAppsInThisPage[ 'lineCharts' ].model[i].fullWidth"
                [fullHeight]="openAppsInThisPage[ 'lineCharts' ].model[i].fullHeight"
-               [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
                [hash]="openAppsInThisPage[ 'lineCharts' ].model[i].hash"
@@ -1161,7 +1141,6 @@
         <popup #brushZoomChart
                [fullWidth]="openAppsInThisPage[ 'brushZoomCharts' ].model[i].fullWidth"
                [fullHeight]="openAppsInThisPage[ 'brushZoomCharts' ].model[i].fullHeight"
-               [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
                [hash]="openAppsInThisPage[ 'brushZoomCharts' ].model[i].hash"
@@ -1194,7 +1173,6 @@
         <popup #leafletMap
                [fullWidth]="openAppsInThisPage[ 'leafletMaps' ].model[i].fullWidth"
                [fullHeight]="openAppsInThisPage[ 'leafletMaps' ].model[i].fullHeight"
-               [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
                [hash]="openAppsInThisPage[ 'leafletMaps' ].model[i].hash"
@@ -1227,7 +1205,6 @@
         <popup #pieChart
                [fullWidth]="openAppsInThisPage[ 'pieCharts' ].model[i].fullWidth"
                [fullHeight]="openAppsInThisPage[ 'pieCharts' ].model[i].fullHeight"
-               [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
                [hash]="openAppsInThisPage[ 'pieCharts' ].model[i].hash"
@@ -1259,7 +1236,6 @@
         <popup #radialBarChart
                [fullWidth]="openAppsInThisPage[ 'radialBarCharts' ].model[i].fullWidth"
                [fullHeight]="openAppsInThisPage[ 'radialBarCharts' ].model[i].fullHeight"
-               [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
                [hash]="openAppsInThisPage[ 'radialBarCharts' ].model[i].hash"
@@ -1291,7 +1267,6 @@
         <popup #sankeyChart
                [fullWidth]="openAppsInThisPage[ 'sankeyCharts' ].model[i].fullWidth"
                [fullHeight]="openAppsInThisPage[ 'sankeyCharts' ].model[i].fullHeight"
-               [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
                [hash]="openAppsInThisPage[ 'sankeyCharts' ].model[i].title || openAppsInThisPage[ 'sankeyCharts' ].model[i].hash"
@@ -1323,7 +1298,6 @@
         <popup #stackedBarChart
                [fullWidth]="openAppsInThisPage[ 'stackedBarCharts' ].model[i].fullWidth"
                [fullHeight]="openAppsInThisPage[ 'stackedBarCharts' ].model[i].fullHeight"
-               [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
                [hash]="openAppsInThisPage[ 'stackedBarCharts' ].model[i].hash"
@@ -1355,7 +1329,6 @@
         <popup #chordDiagram
                [fullWidth]="openAppsInThisPage[ 'chordDiagrams' ].model[i].fullWidth"
                [fullHeight]="openAppsInThisPage[ 'chordDiagrams' ].model[i].fullHeight"
-               [index] = "i"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
                [hash]="openAppsInThisPage[ 'chordDiagrams' ].model[i].hash"

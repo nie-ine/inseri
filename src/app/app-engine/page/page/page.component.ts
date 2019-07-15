@@ -1,17 +1,10 @@
-
-
 /**
- * Deprecated!
- * Manual: How to add an app:
- * 1. Import the Component or Module in nie-OS.module.ts
- * 2. Add the app to the Model 'openAppsInThisPage' in this file
- * 3. Add this app to the 'Menu to open Apps' - div in nie-OS.component.html
- * 4. Add an app div by copying and pasting one of the existing divs and adjusting the input variables and the selector
+ * This is the page.component, the central component for opening and open apps.
+ * Data for the apps are loaded with the help of the load-variables component.
  * */
 
 import {AfterViewChecked, ChangeDetectorRef, Component, NgModule, OnInit, VERSION} from '@angular/core';
-import {BrowserModule, DomSanitizer} from '@angular/platform-browser';
-import {Frame} from '../frame/frame';
+import {DomSanitizer} from '@angular/platform-browser';
 import 'rxjs/add/operator/map';
 import { ActivatedRoute } from '@angular/router';
 import {GenerateHashService} from '../../../user-action-engine/other/generateHash.service';
@@ -19,15 +12,10 @@ import {OpenAppsModel} from '../../../user-action-engine/mongodb/page/open-apps.
 import {PageService} from '../../../user-action-engine/mongodb/page/page.service';
 import { DataManagementComponent } from '../../../query-app-interface/data-management/data-management/data-management.component';
 import {MatDialog} from '@angular/material';
-import {GenerateDataChoosersService} from '../../../query-app-interface/data-management/services/generate-data-choosers.service';
-import {HttpClient} from '@angular/common/http';
 import { NgxSpinnerService } from 'ngx-spinner';
 import {GeneralRequestService} from '../../../query-engine/general/general-request.service';
-import {NewGjsBoxDialogComponent} from '../../apps/grapesjs/new-gjs-box-dialog/new-gjs-box-dialog.component';
 import {QueryInformationDialogComponent} from '../query-information-dialog/query-information-dialog.component';
 import {StyleMappingService} from '../../../query-app-interface/services/style-mapping-service';
-
-declare var grapesjs: any; // Important!
 
 @Component({
   selector: 'nie-os',
@@ -35,7 +23,6 @@ declare var grapesjs: any; // Important!
   providers: [StyleMappingService]
 })
 export class PageComponent implements OnInit, AfterViewChecked {
-  projectIRI: string = 'http://rdfh.ch/projects/0001';
   actionID: string;
   length: number;
   page: any;
@@ -54,49 +41,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
   updateLinkedApps = false;
   indexAppMapping: any = {};
   grapesJSActivated = false;
-  blockManager: any;
   depth: number;
   cssUrl: any;
   appFramePosition = 'absolute';
-  appPositionArray = [];
-
-  blockManagerModel = [
-    {
-      id: 'image',
-      label: 'Image',
-      class: 'fa fa-image',
-      content: {
-        type: 'image'
-      }
-    },
-    {
-      id: 'block',
-      label: 'Text Block',
-      class: 'gjs-fonts gjs-f-text',
-      content: '<div>Your changeable text</div>'
-    },
-    {
-      id: 'my-map-block',
-      label: 'map',
-      class: 'fa fa-map-o',
-      content: {
-        type: 'map',
-        style: {
-          height: '350px',
-          width: '350px'
-        }
-      }
-    },
-    {
-      id: 'link',
-      label: 'Link',
-      class: 'fa fa-link',
-      content: {
-        type: 'link',
-        content:  'Your link here',
-      }
-    }
-  ];
 
   constructor(
     private route: ActivatedRoute,
@@ -111,57 +58,14 @@ export class PageComponent implements OnInit, AfterViewChecked {
     private requestService: GeneralRequestService,
     public sanitizer: DomSanitizer,
     private stylemapping: StyleMappingService
-  ) {
-    // this.route.params.subscribe(params => console.log(params));
-  }
-
-  activateGrapesJS() {
-    this.grapesJSActivated = true;
-    console.log( 'Activate GrapesJS' );
-    const editor = grapesjs.init({
-      container: '#grapesJSViewer',
-      height: '100vh'
-    });
-
-    this.blockManager = editor.BlockManager;
-
-    for ( const block of this.blockManagerModel ) {
-      this.blockManager.add( block.id, {
-        label: block.label,
-        attributes: { class: block.class },
-        content: block.content
-      });
-    }
-  }
+  ) {}
 
   changeAppFramePosition() {
     if ( this.appFramePosition === 'absolute' ) {
       this.appFramePosition = 'static';
-      console.log(  this.appFramePosition );
     } else {
       this.appFramePosition = 'absolute';
-      console.log(  this.appFramePosition );
     }
-  }
-
-  addBlock() {
-    const dialogRef = this.dialog.open(NewGjsBoxDialogComponent, {
-      width: '700px',
-      height: '1000px',
-      data: 'test'
-    });
-
-    dialogRef.afterClosed().subscribe(box => {
-      console.log(box);
-      box.content = '<div>' + box.content + '</div>';
-      this.blockManagerModel.push( box );
-      this.activateGrapesJS();
-    });
-
-  }
-
-  deactivateGrapesJS() {
-    this.grapesJSActivated = false;
   }
 
   openDataManagement() {
@@ -247,24 +151,10 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   updateAppCoordinates(app: any) {
-    console.log('x: ' + app.x);
-    console.log('y: ' + app.y);
-    console.log('type: ' + app.type);
-    console.log('hash: ' + app.hash );
     if (this.page.openApps[ app.hash ] === null) {
       this.page.openApps[ app.hash ] = [];
     }
     this.page.openApps[ app.hash ] = app;
-  }
-
-  clearAppsInThisPage() {
-    console.log('Clear apps in this page');
-    console.log(this.openApps.openApps);
-    for ( const app in this.openApps.openApps ) {
-      this.openApps.openApps[ app ].model = [];
-      // console.log( this.openApps.openApps[ app ].model );
-    }
-    console.log(this.openApps.openApps);
   }
 
   createTooltip() {
@@ -276,20 +166,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   updatePage() {
-    this.page.openApps[ 'grapesJS' ] = {};
-    this.page.openApps[ 'grapesJS' ].gjsAssets = localStorage.getItem('gjs-assets');
-    this.page.openApps[ 'grapesJS' ].gjsComponents = localStorage.getItem('gjs-components');
-    this.page.openApps[ 'grapesJS' ].gjsCss = localStorage.getItem('gjs-css');
-    this.page.openApps[ 'grapesJS' ].gjsHtml = localStorage.getItem('gjs-html');
-    this.page.openApps[ 'grapesJS' ].gjsStyles = localStorage.getItem('gjs-styles');
-    this.page.openApps[ 'grapesJS' ].hash = 'grapesJS';
     this.page.openApps[ 'appsTiledOrFloating' ] = {};
     this.page.openApps[ 'appsTiledOrFloating' ].hash = 'appsTiledOrFloating';
     this.page.openApps[ 'appsTiledOrFloating' ].layout = this.appFramePosition;
-    console.log(
-      this.page,
-      this.openAppsInThisPage
-    );
     this.pageService.updatePage(
       { ...this.page }
       )
@@ -379,38 +258,12 @@ export class PageComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  deleteGrapesJSData() {
-    this.grapesJSActivated = false;
-    this.setGrapesJSLocalStorage( 'gjs-assets', undefined );
-    this.setGrapesJSLocalStorage( 'gjs-components', undefined );
-    this.setGrapesJSLocalStorage( 'gjs-css', undefined );
-    this.setGrapesJSLocalStorage( 'gjs-html', undefined );
-    this.setGrapesJSLocalStorage( 'gjs-styles', undefined );
-  }
-
   receivePage( pageAndAction: any ) {
     console.log( pageAndAction );
     if (
       pageAndAction[ 0 ].openApps[ 'appsTiledOrFloating' ] ) {
       this.appFramePosition = pageAndAction[ 0 ].openApps[ 'appsTiledOrFloating' ].layout;
     }
-    setTimeout(() => {
-      if (
-        pageAndAction[ 0 ].openApps['grapesJS'] &&
-        (
-          localStorage.getItem('gjs-assets') !== null
-          || localStorage.getItem('gjs-components') !== null
-          || localStorage.getItem('gjs-css') !== null
-          || localStorage.getItem('gjs-html') !== null
-          || localStorage.getItem('gjs-styles') !== null
-        )
-      ) {
-        this.activateGrapesJS();
-        setTimeout(() => {
-          this.activateGrapesJS();
-        }, 3000);
-      }
-    }, 1000);
     this.page = pageAndAction[ 0 ];
     // console.log( this.page );
     this.action = pageAndAction[ 1 ];

@@ -33,10 +33,10 @@ export class Frame implements OnInit, OnChanges {
    * @param type - type of the app
    * @param firstPopupX - if app is opened for the first time, this variable indicates where it should disappear vertically
    * @param firstPopupY - if app is opened for the first time, this variable indicates where it should disappear horizontally
-   * @param hash -
-   * @param -
-   * @param -
-   * @param -
+   * @param hash - hash of the open app, this has to be emitted for the page so that the page knows which app is emmitting the information
+   * @param width, height - width and height of the open app
+   * @param position - "static" if the option "sort by appType" is chosen, "absolute" otherwise
+   * @remarks otherParameters should be self explanatory
    * */
   show = false;
   @Input() title: string;
@@ -46,9 +46,6 @@ export class Frame implements OnInit, OnChanges {
   @Input() hash: string;
   @Input() width: number;
   @Input() height: number;
-  @Input() index: number = undefined;
-  @Input() arrayLength: number = undefined;
-  @Input() queryId: string;
   @Input() position = 'absolute';
   @Input() fullWidth: boolean;
   @Input() fullHeight: boolean;
@@ -83,10 +80,17 @@ export class Frame implements OnInit, OnChanges {
     this.dragging = this.unboundDragging.bind(this);
   }
 
+  /**
+   * This is necessary for the app to be able to react onChanges regarding the input data for the apps,
+   * for example updated App - Settings or updated App - Title
+   * */
   ngOnChanges() {
     // console.log('changes');
   }
 
+  /**
+   * When open at first, the app appears at the coordinates (100|100)
+   * */
   ngOnInit() {
     // If coordinates of window are set through input, let it appear
     if ( this.firstPopupX && this.firstPopupY ) {
@@ -176,6 +180,13 @@ export class Frame implements OnInit, OnChanges {
         this.fullHeight
       ]
     });
+    /**
+     * After the dialog is closed, all settings are send back to the page.
+     * This emit triggers the update of the frame - inputs through onChanges.
+     * Thus, the inputs of the frame are not updated immediatly in the frame.component
+     * but through the onChanges - Event. This is necessary in order for the page
+     * to be able to save all app - settings immediately.
+     * */
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
       if ( result ) {
@@ -190,7 +201,7 @@ export class Frame implements OnInit, OnChanges {
             fullHeight: result[ 4 ]
           }
         );
-        // this.title = result.title;
+
       }
     });
   }
