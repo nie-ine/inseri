@@ -166,7 +166,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     }, 5000); // TODO: bind end of spinner to event that all queries have been loaded instead of setTimeout!
     setTimeout(() => {
       this.showNote = true;
-    }, 4000);
+    }, 7000);
   }
 
   /**
