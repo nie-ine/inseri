@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import { SelectableEnvironments, StyleDeclaration } from '../../shared/rich-text/text-rich-innerhtml/text-rich-innerhtml.component';
 import { ActivatedRoute } from '@angular/router';
 
@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './html-viewer.component.html',
   styleUrls: ['./html-viewer.component.scss']
 })
-export class HtmlViewerComponent implements OnInit {
+export class HtmlViewerComponent implements OnChanges {
 
   /**
    * The unsanitized HTML content.
@@ -75,7 +75,50 @@ export class HtmlViewerComponent implements OnInit {
   /**
    * On initialization of this component, subscribe to query parameters in the URL.
    */
-  ngOnInit() {
+  ngOnChanges() {
+    if (
+      this.htmlContent === undefined &&
+      this.styleDeclarations === undefined &&
+      this.selectiveStyleDeclarations === undefined
+    ) {
+      this.htmlContent = '<div><p class="lorem">No Input given - This app is used to display html with css</p><p class="dolor"This app is used to display html with css</p></div>';
+      this.styleDeclarations = [
+        {
+          'type': 'tag',
+          'name': 'p',
+          'styles': {
+            'font-family': 'Times, serif',
+            'text-align': 'justify'
+          }
+        },
+        {
+          'type': 'class',
+          'name': 'lorem',
+          'styles': {'font-weight': 'bold'}
+        },
+      ];
+      this.selectiveStyleDeclarations = {
+        'dolor': [
+          {
+            'type': 'class',
+            'name': 'dolor',
+            'styles': {'color': 'blue'},
+          }
+        ],
+        'all': [
+          {
+            'type': 'class',
+            'name': 'dolor',
+            'styles': {'font-style': 'italic'}
+          },
+          {
+            'type': 'class',
+            'name': 'lorem',
+            'styles': {'font-style': 'italic'}
+          }
+        ]
+      };
+    }
     this._route.queryParams.subscribe(params => {
       this.highlighted = [].concat(params.style);
     });

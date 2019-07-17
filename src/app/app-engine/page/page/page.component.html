@@ -32,7 +32,7 @@
         <button type="button" mat-button  matTooltip='{{ createTooltip() }}' (click)="openPageMenu()" >
 <!--          (click)="drawer.toggle()"-->
           <img [src]="'../../../../assets/img/logo_transparent.png'" style="width: 40px; margin-bottom: 2px;">
-          <span *ngIf="pageAsDemo && showNote"> &#8592; Check out all Inseri Apps and how they visualise data from the API you'd like to query</span>
+          <span *ngIf="pageAsDemo && showNote"> &#8592; Click here and check out all Inseri Apps and how they visualise data from the API you'd like to query</span>
         </button>
       </div>
 
@@ -372,7 +372,9 @@
           </div>
 
           <div *ngIf="pageAsDemo">
-            <h5 style="align-content: center" i18n="@@demoPageTitle">Please open any app and drag it around to make space for more apps</h5>
+            <span style="align-content: center" i18n="@@demoPageTitle">Please open any app and drag it around if you'd
+              like to open more than one app. You can increase the size of the page by dragging the app below the
+              bottom of the page</span>
           </div>
 
           <!-- Texts -->
