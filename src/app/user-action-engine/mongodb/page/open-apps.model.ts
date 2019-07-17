@@ -200,6 +200,14 @@ export class OpenAppsModel {
           'inputName': 'styleDeclarations'
         }
       ]
+    },
+    login: {
+      type: 'login',
+      model: []
+    },
+    pageMenu: {
+      type: 'pageMenu',
+      model: []
     }
   };
 }

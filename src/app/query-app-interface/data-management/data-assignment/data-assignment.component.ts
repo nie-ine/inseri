@@ -133,7 +133,7 @@ export class DataAssignmentComponent implements OnChanges {
     for ( const type in this.openAppsInThisPage ) {
       if (  this.openAppsInThisPage[ type ].model.length && type !== 'dataChooser' ) {
         for ( const app of this.openAppsInThisPage[ type ].model ) {
-          if ( this.appInputQueryMapping[ app.hash ] ) {
+          if ( this.appInputQueryMapping && this.appInputQueryMapping[ app.hash ] ) {
             for ( const input in this.appInputQueryMapping[ app.hash ] ) {
               // console.log( 'hier', this.queryId, queryId );
               if ( this.appInputQueryMapping[ app.hash ][ input ][ 'query' ] === (this.queryId || queryId ) ) {

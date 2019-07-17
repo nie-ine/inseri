@@ -9,6 +9,7 @@ import { ReactivateAccountComponent } from './reactivate-account/reactivate-acco
 import { DeactivateNewsletterComponent } from './deactivate-newsletter/deactivate-newsletter.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import {TermsAndConditions} from './register/termsAndConditions/termsAndConditions';
+import {PageComponent} from '../app-engine/page/page/page.component';
 
 
 @NgModule({
@@ -17,7 +18,7 @@ import {TermsAndConditions} from './register/termsAndConditions/termsAndConditio
     MaterialModule,
     FormsModule,
     RouterModule.forChild([
-      { path: 'home', component: HomeComponent },
+      { path: 'home', component: PageComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'reactivate', component: ReactivateAccountComponent },
       { path: 'deactivate-newsletter', component: DeactivateNewsletterComponent },

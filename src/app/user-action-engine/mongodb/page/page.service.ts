@@ -28,7 +28,7 @@ export class PageService {
     // console.log(page);
     const openAppAsStringArray = [];
     for ( const openApp in page.openApps) {
-      if( page.openApps[openApp].type !== 'dataChooser' ) {
+      if( page.openApps[openApp].type !== 'dataChooser' && page.openApps[openApp].type !== 'pageMenu' ) {
         openAppAsStringArray[ openAppAsStringArray.length ] = JSON.stringify(page.openApps[openApp]);
       }
     }

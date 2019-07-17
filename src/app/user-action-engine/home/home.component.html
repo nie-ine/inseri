@@ -124,22 +124,40 @@
 <!--</section>-->
 
 <!-- Contact Section -->
-<section id="login">
-  <div class="container" style=" ">
+  <div class="container" style="margin-top: 40px !important">
     <div>
       <div class="col-lg-12 text-center">
         <h1 class="section-heading" style="text-transform: none!important; font-size: 45px" >
-
-          Inseri </h1>
+          Inseri Login</h1>
         <div
           class=" text-muted"
-          style="margin-bottom: 55px !important; margin-top: 20px !important; font-style: italic; font-size:16px;">
+          style="margin-bottom: 30px !important; margin-top: 20px !important; font-style: italic; font-size:16px;">
           Sie haben keinen Useraccount?
           Zögern Sie nicht, uns zu
           <a href="http://www.nie-ine.ch" target="_blank">
             kontaktieren!
           </a> Oder <a  href="register">registrieren</a> Sie sich!</div>
+        <input
+          style="width: 400px; margin-left: auto; margin-right: auto;"
+          [(ngModel)]="username"
+          name="Email"
+          type="email"
+          class="form-control"
+          placeholder="Email" >
+        <p class="help-block text-danger"></p>
+        <input
+          style="width: 400px; margin-left: auto; margin-right: auto;"
+          *ngIf="!forgotPassword"
+          [(ngModel)]="password"
+          name="password"
+          type="password"
+          class="form-control"
+          placeholder="Password" >
+        <p class="help-block text-danger"></p>
         <h6 *ngIf="loginError" style="color: #b05f56" class="section-subheading text-muted">Username oder Passwort ist falsch!</h6>
+        <span
+          *ngIf="forgotPassword"
+          class="section-subheading text-muted "> You will get an Email with a Link to restore your password</span>
         <h5 *ngIf="deletedAccount" style="color: #b05f56" class="section-subheading text-muted">Your account has been deleted.
           You can restore it for the next 30 days with the help of the email that you have received.</h5>
       </div>
@@ -148,32 +166,6 @@
       <div class="col-lg-12">
         <form name="sentMessage" id="contactForm" novalidate>
           <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <input
-                  [(ngModel)]="username"
-                  name="Email"
-                  type="email"
-                  class="form-control"
-                  placeholder="Email" >
-                <p class="help-block text-danger"></p>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <input
-                  *ngIf="!forgotPassword"
-                  [(ngModel)]="password"
-                  name="password"
-                  type="password"
-                  class="form-control"
-                  placeholder="Password" >
-                <p class="help-block text-danger"></p>
-                <span
-                  *ngIf="forgotPassword"
-                  class="section-subheading text-muted "> You will get an Email with a Link to restore your password</span>
-              </div>
-            </div>
             <div class="clearfix"></div>
             <div class="col-lg-12 text-center">
               <div id="success"></div>
@@ -222,7 +214,6 @@
       </div>
     </div>
   </div>
-</section>
 
 
 

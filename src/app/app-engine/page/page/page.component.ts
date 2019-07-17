@@ -16,7 +16,26 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import {GeneralRequestService} from '../../../query-engine/general/general-request.service';
 import {QueryInformationDialogComponent} from '../query-information-dialog/query-information-dialog.component';
 import {StyleMappingService} from '../../../query-app-interface/services/style-mapping-service';
+import {PageMenuComponent} from '../page-menu/page-menu.component';
 
+/**
+ * @params actionID - the actionID of the action that the page belongs to
+ * @params page - information about the page, title, queryIDs, etc.
+ * @params action - information about the action, title, etc
+ * @params panelsOpen - indicates if all panels in the sideNav are open or closed
+ * @params pageIDFromURL - pageID, taken from the URL - param
+ * @params openAppsInThisPage - open apps formatted in a way that ng iterates through them in page.html
+ * @params pageAsDemo - if no pageID is given in the url, a demo page is opened
+ * @params isLoading - indicates if spinner is displayed or not
+ * @params resetPage - gets rid of all open apps
+ * @params reloadVariables - initialises a reload of all open apps for the current page
+ * @params response - after choosing a data entry in the data chooser, the response of the respective query is send back as well
+ * @params queryID - after choosing a data entry in the data chooser, the queryID of the respective query is send back as well
+ * @params index - when a user klick on the array in the data chooser, the index that the user chose is send back to the page.component
+ * @params depth - depth in json of the array that the user chose in the data - chooser
+ * @params cssUrl - variable needed for POC of page - specific css, contact domsteinbach on github for more information
+ * @params appFramePosition - "static" if user chooses the option to sort apps by type, "absolute" otherwise
+ * */
 @Component({
   selector: 'nie-os',
   templateUrl: `page.component.html`,
@@ -24,26 +43,22 @@ import {StyleMappingService} from '../../../query-app-interface/services/style-m
 })
 export class PageComponent implements OnInit, AfterViewChecked {
   actionID: string;
-  length: number;
-  page: any;
+  page: any = {};
   action: any;
   panelsOpen = false;
   pageIDFromURL: string;
-  openAppsInThisPage: any = {};
+  openAppsInThisPage: any = (new OpenAppsModel).openApps;
   pageAsDemo = false;
-  pageUpdated = false;
   isLoading = true;
   resetPage = false;
   reloadVariables = false;
   response: any;
   queryId: string;
   index: number;
-  updateLinkedApps = false;
-  indexAppMapping: any = {};
-  grapesJSActivated = false;
   depth: number;
   cssUrl: any;
   appFramePosition = 'absolute';
+  showNote = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -75,8 +90,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
     )
       .subscribe(
         data => {
-          // console.log(data);
-          // console.log( this.openAppsInThisPage );
           this.updateOpenAppsInThisPage();
           const dialogRef = this.dialog.open(DataManagementComponent, {
             width: '100%',
@@ -85,13 +98,11 @@ export class PageComponent implements OnInit, AfterViewChecked {
           });
           dialogRef.afterClosed().subscribe((result) => {
             this.resetPage = true;
-            //
-            // console.log(result);
             this.reloadVariables = true;
             this.spinner.show();
             setTimeout(() => {
               this.spinner.hide();
-            }, 5000);
+            }, 5000); // TODO: bind end of spinner to event that all queries have been loaded instead of setTimeout!
           });
         },
         error => {
@@ -100,43 +111,48 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   updateOpenAppsInThisPage() {
-    for( const app in this.page.openApps ) {
-      if( app && this.openAppsInThisPage[ this.page.openApps[ app ].type ] ) {
-        console.log( this.openAppsInThisPage[ this.page.openApps[ app ].type ] );
-        for( let openApp of this.openAppsInThisPage[ this.page.openApps[ app ].type ].model ) {
+    for ( const app in this.page.openApps ) {
+      if ( app && this.openAppsInThisPage[ this.page.openApps[ app ].type ] ) {
+        for ( const openApp of this.openAppsInThisPage[ this.page.openApps[ app ].type ].model ) {
           if ( openApp['hash'] === app ) {
             openApp.type = this.page.openApps[ app ].type;
-            console.log( openApp );
-            console.log( this.page.openApps[ app ] );
           }
         }
       }
     }
-    console.log( this.openAppsInThisPage );
   }
 
+  /**
+   * if the pageID changes in URL, the page is updated through setting reloadViariables to true,
+   * this change is detected by the load - variables.component which loads all variables and
+   * emits it back to the page.component
+   * */
   ngAfterViewChecked() {
     this.cdr.detectChanges();
     if ( this.pageIDFromURL !==  this.route.snapshot.queryParams.page ) {
-      console.log( 'Update Page' );
-      this.grapesJSActivated = false;
       this.pageIDFromURL = this.route.snapshot.queryParams.page;
-      console.log( this.pageIDFromURL, this.route.snapshot.queryParams.page );
       this.reloadVariables = true;
       this.spinner.show();
       setTimeout(() => {
         this.spinner.hide();
-      }, 5000);
+      }, 5000); // TODO: bind end of spinner to event that all queries have been loaded instead of setTimeout!
     }
     this.cdr.detectChanges();
   }
 
   ngOnInit() {
-    this.cssUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.stylemapping.getUserCss().toString());
-    this.openAppsInThisPage = {};
-    this.page = {};
-    const reset = new OpenAppsModel;
-    this.openAppsInThisPage = reset.openApps;
+    console.log( this.route.snapshot );
+    if (
+      this.route.snapshot.url[0].path === 'home' &&
+      this.route.snapshot.queryParams.actionID === undefined
+    ) {
+      this.addAnotherApp( 'login', true );
+      console.log( this.openAppsInThisPage );
+      this.openAppsInThisPage[ 'login' ].model[ 0 ].initialized = true;
+      this.openAppsInThisPage[ 'login' ].model[ 0 ].x = 100;
+      this.openAppsInThisPage[ 'login' ].model[ 0 ].y = 150;
+    }
+    // this.cssUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.stylemapping.getUserCss().toString());
     this.actionID = this.route.snapshot.queryParams.actionID;
     this.pageIDFromURL = this.route.snapshot.queryParams.page;
     if ( !this.actionID ) {
@@ -147,9 +163,17 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
     setTimeout(() => {
       this.spinner.hide();
-    }, 5000);
+    }, 5000); // TODO: bind end of spinner to event that all queries have been loaded instead of setTimeout!
+    setTimeout(() => {
+      this.showNote = true;
+    }, 3000);
   }
 
+  /**
+   * This routine updates the coordinates of a moved app in the variable
+   * page.openApps[ app.hash ], this is necessary in order to save
+   * the coordinates of the app as well.
+   * */
   updateAppCoordinates(app: any) {
     if (this.page.openApps[ app.hash ] === null) {
       this.page.openApps[ app.hash ] = [];
@@ -169,6 +193,11 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.page.openApps[ 'appsTiledOrFloating' ] = {};
     this.page.openApps[ 'appsTiledOrFloating' ].hash = 'appsTiledOrFloating';
     this.page.openApps[ 'appsTiledOrFloating' ].layout = this.appFramePosition;
+    /**
+     * @remarks - it is important to give a COPY of this.page as an input, thus { ...this.page },
+     * otherwise this.page will be rewritten by the routine pageService.updatePage
+     * during its execution!
+     * */
     this.pageService.updatePage(
       { ...this.page }
       )
@@ -181,6 +210,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
         });
   }
 
+  /**
+   * Todo: continue here with documentation!
+   * */
   addAnotherApp (
     appType: string,
     generateHash: boolean
@@ -194,11 +226,15 @@ export class PageComponent implements OnInit, AfterViewChecked {
       appModel[ length ].title = appType + ' ' + length;
       appModel[ length ].fullWidth = false;
       appModel[ length ].fullHeight = false;
-      console.log( appModel[ length ] );
-      if (this.page.openApps[ appModel[ length ].hash ] === null) {
+      if (
+        this.page.openApps &&
+        this.page.openApps[ appModel[ length ].hash ] === null
+      ) {
         this.page.openApps[ appModel[ length ].hash ] = [];
       }
-      this.page.openApps[ appModel[ length ].hash ] = appModel[ length ];
+      if ( this.page.openApps ) {
+        this.page.openApps[ appModel[ length ].hash ] = appModel[ length ];
+      }
     }
     return appModel;
   }
@@ -207,15 +243,10 @@ export class PageComponent implements OnInit, AfterViewChecked {
     appModel: Array<any>,
     i: number
   ) {
-    console.log(appModel);
-    console.log(this.page);
-    console.log(this.page.openApps[appModel[ i ].hash]);
     delete this.page.openApps[appModel[ i ].hash];
     appModel.splice(
       i,
       1);
-    console.log(this.page);
-    console.log(this.openAppsInThisPage);
   }
 
   expandPanels() {
@@ -250,14 +281,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  setGrapesJSLocalStorage( key: string, value: string ) {
-    if ( value ) {
-      localStorage.setItem( key, value );
-    } else {
-      localStorage.removeItem(key);
-    }
-  }
-
   receivePage( pageAndAction: any ) {
     console.log( pageAndAction );
     if (
@@ -274,7 +297,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
     // console.log( openAppsInThisPage );
     this.openAppsInThisPage = openAppsInThisPage;
     this.reloadVariables = false;
-    this.updateLinkedApps = false;
   }
 
   updateMainResourceIndex( input: any ) {
@@ -282,12 +304,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.response = input.response;
     this.queryId = input.queryId;
     this.depth = input.depth;
-  }
-
-  updateIndices( indexAppMapping: any ) {
-    this.indexAppMapping[ indexAppMapping.hash ] = indexAppMapping;
-    console.log( this.indexAppMapping );
-    this.updateLinkedApps = true;
   }
 
   generateQueryAppPathInformation( queryId: string ): any {
@@ -338,6 +354,15 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   updateTiledPosition( moveAndHash: any ) {
     console.log( moveAndHash );
+  }
+
+  openPageMenu() {
+    console.log( 'Open Page Menu as an app' );
+    this.addAnotherApp( 'pageMenu', true );
+    console.log( this.openAppsInThisPage );
+    this.openAppsInThisPage[ 'pageMenu' ].model[ 0 ].initialized = true;
+    this.openAppsInThisPage[ 'pageMenu' ].model[ 0 ].x = 500;
+    this.openAppsInThisPage[ 'pageMenu' ].model[ 0 ].y = 100;
   }
 
 }

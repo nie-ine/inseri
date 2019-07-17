@@ -1,0 +1,462 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>nie-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">nie-frontend documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search">
+</div>
+            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Interfaces</li>
+  <li>Stock</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/app-engine/apps/d3js/brush-and-zoom/brush-and-zoom.component.ts</code>
+        </p>
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Price for a specific date.</p>
+
+            </p>
+
+
+        <section>
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                        <a href="#date">date</a>
+                                </li>
+                                <li>
+                                        <a href="#price">price</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section>
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="date"></a>
+                                        <span class="name"><b>date</b><a href="#date"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>date:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>A date (as in the calendar).</p>
+</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="price"></a>
+                                        <span class="name"><b>price</b><a href="#price"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>price:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The prince.</p>
+</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {Component, OnInit, ViewEncapsulation, Input, AfterViewChecked} from &#x27;@angular/core&#x27;;
+import * as d3 from &#x27;d3-selection&#x27;;
+import * as d3Scale from &#x27;d3-scale&#x27;;
+import * as d3Shape from &#x27;d3-shape&#x27;;
+import * as d3Axis from &#x27;d3-axis&#x27;;
+import * as d3Zoom from &#x27;d3-zoom&#x27;;
+import * as d3Brush from &#x27;d3-brush&#x27;;
+import * as d3Array from &#x27;d3-array&#x27;;
+import * as d3TimeFormat from &#x27;d3-time-format&#x27;;
+
+import { SP500 } from &#x27;./sp500&#x27;;
+
+/**
+ * Object defining margins on all four sides.
+ */
+export interface Margin {
+  top: number;
+  right: number;
+  bottom: number;
+  left: number;
+}
+
+/**
+ * Price for a specific date.
+ */
+interface Stock {
+  /**
+   * A date (as in the calendar).
+   */
+  date: Date;
+
+  /**
+   * The prince.
+   */
+  price: number;
+}
+
+@Component({
+  selector: &#x27;app-brush-and-zoom&#x27;,
+  encapsulation: ViewEncapsulation.None,
+  templateUrl: &#x27;./brush-and-zoom.component.html&#x27;,
+  styleUrls: [&#x27;./brush-and-zoom.component.scss&#x27;]
+})
+export class BrushAndZoomComponent implements AfterViewChecked {
+
+  @Input() initialised &#x3D; false;
+  @Input() numberOfInitialisedComponent: number;
+  alreadyInitialised &#x3D; false;
+
+  title &#x3D; &#x27;Brush &amp; Zoom&#x27;;
+
+  private margin: Margin;
+  private margin2: Margin;
+
+  private width: number;
+  private height: number;
+  private height2: number;
+
+  private svg: any;     // TODO replace all &#x60;any&#x60; by the right type
+
+  private x: any;
+  private x2: any;
+  private y: any;
+  private y2: any;
+
+  private xAxis: any;
+  private xAxis2: any;
+  private yAxis: any;
+
+  private context: any;
+  private brush: any;
+  private zoom: any;
+  private area: any;
+  private area2: any;
+  private focus: any;
+
+  private parseDate &#x3D; d3TimeFormat.timeParse(&#x27;%b %Y&#x27;);
+
+  constructor() {
+  }
+
+  ngAfterViewChecked() {
+    if ( this.initialised &amp;&amp; !this.alreadyInitialised ) {
+      this.alreadyInitialised &#x3D; true;
+    this.initMargins();
+    this.initSvg();
+    this.drawChart(this.parseData(SP500));
+    }
+  }
+
+  generateComponentDivClass() {
+    return &#x27;brush-zoom&#x27; + this.numberOfInitialisedComponent;
+  }
+
+  private initMargins() {
+    this.margin &#x3D; {top: 20, right: 20, bottom: 110, left: 40};
+    this.margin2 &#x3D; {top: 430, right: 20, bottom: 30, left: 40};
+  }
+
+  private parseData(data: any[]): Stock[] {
+    return data.map(v &#x3D;&gt; &lt;Stock&gt;{date: this.parseDate(v.date), price: v.price});
+  }
+
+  private initSvg() {
+    this.svg &#x3D; d3.select(&#x27;.&#x27; + this.generateComponentDivClass())
+      .append(&#x27;svg&#x27;)
+      .attr(&#x27;width&#x27;, 960)
+      .attr(&#x27;height&#x27;, 500);
+
+    this.width &#x3D; +this.svg.attr(&#x27;width&#x27;) - this.margin.left - this.margin.right;
+    this.height &#x3D; +this.svg.attr(&#x27;height&#x27;) - this.margin.top - this.margin.bottom;
+    this.height2 &#x3D; +this.svg.attr(&#x27;height&#x27;) - this.margin2.top - this.margin2.bottom;
+
+    this.x &#x3D; d3Scale.scaleTime().range([0, this.width]);
+    this.x2 &#x3D; d3Scale.scaleTime().range([0, this.width]);
+    this.y &#x3D; d3Scale.scaleLinear().range([this.height, 0]);
+    this.y2 &#x3D; d3Scale.scaleLinear().range([this.height2, 0]);
+
+    this.xAxis &#x3D; d3Axis.axisBottom(this.x);
+    this.xAxis2 &#x3D; d3Axis.axisBottom(this.x2);
+    this.yAxis &#x3D; d3Axis.axisLeft(this.y);
+
+    this.brush &#x3D; d3Brush.brushX()
+      .extent([[0, 0], [this.width, this.height2]])
+      .on(&#x27;brush end&#x27;, this.brushed.bind(this));
+
+    this.zoom &#x3D; d3Zoom.zoom()
+      .scaleExtent([1, Infinity])
+      .translateExtent([[0, 0], [this.width, this.height]])
+      .extent([[0, 0], [this.width, this.height]])
+      .on(&#x27;zoom&#x27;, this.zoomed.bind(this));
+
+    this.area &#x3D; d3Shape.area()
+      .curve(d3Shape.curveMonotoneX)
+      .x((d: any) &#x3D;&gt; this.x(d.date))
+      .y0(this.height)
+      .y1((d: any) &#x3D;&gt; this.y(d.price));
+
+    this.area2 &#x3D; d3Shape.area()
+      .curve(d3Shape.curveMonotoneX)
+      .x((d: any) &#x3D;&gt; this.x2(d.date))
+      .y0(this.height2)
+      .y1((d: any) &#x3D;&gt; this.y2(d.price));
+
+    this.svg.append(&#x27;defs&#x27;).append(&#x27;clipPath&#x27;)
+      .attr(&#x27;id&#x27;, &#x27;clip&#x27;)
+      .append(&#x27;rect&#x27;)
+      .attr(&#x27;width&#x27;, this.width)
+      .attr(&#x27;height&#x27;, this.height);
+
+    this.focus &#x3D; this.svg.append(&#x27;g&#x27;)
+      .attr(&#x27;class&#x27;, &#x27;focus&#x27;)
+      .attr(&#x27;transform&#x27;, &#x27;translate(&#x27; + this.margin.left + &#x27;,&#x27; + this.margin.top + &#x27;)&#x27;);
+
+    this.context &#x3D; this.svg.append(&#x27;g&#x27;)
+      .attr(&#x27;class&#x27;, &#x27;context&#x27;)
+      .attr(&#x27;transform&#x27;, &#x27;translate(&#x27; + this.margin2.left + &#x27;,&#x27; + this.margin2.top + &#x27;)&#x27;);
+  }
+
+  private brushed() {
+    if (d3.event.sourceEvent &amp;&amp; d3.event.sourceEvent.type &#x3D;&#x3D;&#x3D; &#x27;zoom&#x27;) return; // ignore brush-by-zoom
+    let s &#x3D; d3.event.selection || this.x2.range();
+    this.x.domain(s.map(this.x2.invert, this.x2));
+    this.focus.select(&#x27;.area&#x27;).attr(&#x27;d&#x27;, this.area);
+    this.focus.select(&#x27;.axis--x&#x27;).call(this.xAxis);
+    this.svg.select(&#x27;.zoom&#x27;).call(this.zoom.transform, d3Zoom.zoomIdentity
+      .scale(this.width / (s[1] - s[0]))
+      .translate(-s[0], 0));
+  }
+
+  private zoomed() {
+    if (d3.event.sourceEvent &amp;&amp; d3.event.sourceEvent.type &#x3D;&#x3D;&#x3D; &#x27;brush&#x27;) return; // ignore zoom-by-brush
+    let t &#x3D; d3.event.transform;
+    this.x.domain(t.rescaleX(this.x2).domain());
+    this.focus.select(&#x27;.area&#x27;).attr(&#x27;d&#x27;, this.area);
+    this.focus.select(&#x27;.axis--x&#x27;).call(this.xAxis);
+    this.context.select(&#x27;.brush&#x27;).call(this.brush.move, this.x.range().map(t.invertX, t));
+  }
+
+  private drawChart(data: Stock[]) {
+
+    this.x.domain(d3Array.extent(data, (d: Stock) &#x3D;&gt; d.date));
+    this.y.domain([0, d3Array.max(data, (d: Stock) &#x3D;&gt; d.price)]);
+    this.x2.domain(this.x.domain());
+    this.y2.domain(this.y.domain());
+
+    this.focus.append(&#x27;path&#x27;)
+      .datum(data)
+      .attr(&#x27;class&#x27;, &#x27;area&#x27;)
+      .attr(&#x27;d&#x27;, this.area);
+
+    this.focus.append(&#x27;g&#x27;)
+      .attr(&#x27;class&#x27;, &#x27;axis axis--x&#x27;)
+      .attr(&#x27;transform&#x27;, &#x27;translate(0,&#x27; + this.height + &#x27;)&#x27;)
+      .call(this.xAxis);
+
+    this.focus.append(&#x27;g&#x27;)
+      .attr(&#x27;class&#x27;, &#x27;axis axis--y&#x27;)
+      .call(this.yAxis);
+
+    this.context.append(&#x27;path&#x27;)
+      .datum(data)
+      .attr(&#x27;class&#x27;, &#x27;area&#x27;)
+      .attr(&#x27;d&#x27;, this.area2);
+
+    this.context.append(&#x27;g&#x27;)
+      .attr(&#x27;class&#x27;, &#x27;axis axis--x&#x27;)
+      .attr(&#x27;transform&#x27;, &#x27;translate(0,&#x27; + this.height2 + &#x27;)&#x27;)
+      .call(this.xAxis2);
+
+    this.context.append(&#x27;g&#x27;)
+      .attr(&#x27;class&#x27;, &#x27;brush&#x27;)
+      .call(this.brush)
+      .call(this.brush.move, this.x.range());
+
+    this.svg.append(&#x27;rect&#x27;)
+      .attr(&#x27;class&#x27;, &#x27;zoom&#x27;)
+      .attr(&#x27;width&#x27;, this.width)
+      .attr(&#x27;height&#x27;, this.height)
+      .attr(&#x27;transform&#x27;, &#x27;translate(&#x27; + this.margin.left + &#x27;,&#x27; + this.margin.top + &#x27;)&#x27;)
+      .call(this.zoom);
+  }
+
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'Stock.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <script src="../js/menu-wc.js"></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

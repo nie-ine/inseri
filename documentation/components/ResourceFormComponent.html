@@ -1,0 +1,1956 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>nie-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">nie-frontend documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search">
+</div>
+            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>ResourceFormComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/app-engine/apps/resource-form/resource-form/resource-form.component.ts</code>
+</p>
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>A form to display the label and property values of a resource.
+An editing mode enables adding, changing and deleting property values and also deleting the resource.</p>
+
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-resource-form</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>resource-form.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./resource-form.component.html</code></td>
+            </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#editRights">editRights</a>
+                            </li>
+                            <li>
+                                <a href="#focusedValue">focusedValue</a>
+                            </li>
+                            <li>
+                                <a href="#focusedValueContent">focusedValueContent</a>
+                            </li>
+                            <li>
+                                <a href="#propKeys">propKeys</a>
+                            </li>
+                            <li>
+                                <a href="#resource">resource</a>
+                            </li>
+                            <li>
+                                <a href="#resourceIRI">resourceIRI</a>
+                            </li>
+                            <li>
+                                <a href="#stableResourceIRI">stableResourceIRI</a>
+                            </li>
+                            <li>
+                                <a href="#valuesWithShownHistory">valuesWithShownHistory</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#activateValue">activateValue</a>
+                            </li>
+                            <li>
+                                <a href="#activateValueHistory">activateValueHistory</a>
+                            </li>
+                            <li>
+                                <a href="#addProperty">addProperty</a>
+                            </li>
+                            <li>
+                                <a href="#changeProperty">changeProperty</a>
+                            </li>
+                            <li>
+                                <a href="#deleteProperty">deleteProperty</a>
+                            </li>
+                            <li>
+                                <a href="#deleteResource">deleteResource</a>
+                            </li>
+                            <li>
+                                <a href="#getResourceData">getResourceData</a>
+                            </li>
+                            <li>
+                                <a href="#hideValueHistory">hideValueHistory</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#resetLabel">resetLabel</a>
+                            </li>
+                            <li>
+                                <a href="#setValue">setValue</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#resourceIsDeleted">resourceIsDeleted</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(knoraV1RequestService: <a href="../injectables/RequestService.html">KnoraV1RequestService</a>, _route: <a href="https://angular.io/api/router/ActivatedRoute" target="_blank">ActivatedRoute</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/app/app-engine/apps/resource-form/resource-form/resource-form.component.ts:61</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Constructor initializes KnoraV1Requestservice and ActivatedRoute</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>knoraV1RequestService</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../injectables/RequestService.html" target="_self" >KnoraV1RequestService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <code><p>Service to access data on a Knora instance</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>_route</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="https://angular.io/api/router/ActivatedRoute" target="_blank" >ActivatedRoute</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <code><p>Gives access to query parameters in URL</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section>
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="resourceIsDeleted"></a>
+                        <code>resourceIsDeleted</code>
+                    </td>
+                    <td class="col-md-10">
+                        <div><p>Emit an event if the resource is deleted. This enables closing the form and similar.</p>
+</div>
+                        <em><code>$event</code> Type:</em>    <code>EventEmitter&lt;any&gt;</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/app-engine/apps/resource-form/resource-form/resource-form.component.ts:30</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section>
+    
+        <h3 id="methods">
+            Methods
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="activateValue"></a>
+                        <span class="name">
+                            <b>
+                            activateValue
+                            </b>
+                            <a href="#activateValue"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>activateValue(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, content: )</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="107" class="link-to-prism">src/app/app-engine/apps/resource-form/resource-form/resource-form.component.ts:107</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>id</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p>Depending on the field a propertyTypeIRI (adding), a valueIRI (changing or deleting) or &#39;label&#39;</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>content</td>
+                                                        <td>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p>Reset the content for this property</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="activateValueHistory"></a>
+                        <span class="name">
+                            <b>
+                            activateValueHistory
+                            </b>
+                            <a href="#activateValueHistory"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>activateValueHistory(valueIRI: )</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="229" class="link-to-prism">src/app/app-engine/apps/resource-form/resource-form/resource-form.component.ts:229</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Add a value IRI to the set of values with shown history</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>valueIRI</td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="addProperty"></a>
+                        <span class="name">
+                            <b>
+                            addProperty
+                            </b>
+                            <a href="#addProperty"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>addProperty(propertyTypeIRI: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="181" class="link-to-prism">src/app/app-engine/apps/resource-form/resource-form/resource-form.component.ts:181</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Add a property value and reload afterwards.</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>propertyTypeIRI</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p>The property of the value to be added</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="changeProperty"></a>
+                        <span class="name">
+                            <b>
+                            changeProperty
+                            </b>
+                            <a href="#changeProperty"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>changeProperty(valueIRI: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="206" class="link-to-prism">src/app/app-engine/apps/resource-form/resource-form/resource-form.component.ts:206</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Change a property value and update afterwards</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>valueIRI</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p>The IRI of the value that has to be changed.</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="deleteProperty"></a>
+                        <span class="name">
+                            <b>
+                            deleteProperty
+                            </b>
+                            <a href="#deleteProperty"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>deleteProperty(valueIRI: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="161" class="link-to-prism">src/app/app-engine/apps/resource-form/resource-form/resource-form.component.ts:161</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Delete a property value. Reload afterwards</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>valueIRI</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p>The IRI of the value that will be deleted</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="deleteResource"></a>
+                        <span class="name">
+                            <b>
+                            deleteResource
+                            </b>
+                            <a href="#deleteResource"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>deleteResource()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="142" class="link-to-prism">src/app/app-engine/apps/resource-form/resource-form/resource-form.component.ts:142</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Delete the shown resource. Emit an event for outside proceeding.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="getResourceData"></a>
+                        <span class="name">
+                            <b>
+                            getResourceData
+                            </b>
+                            <a href="#getResourceData"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>getResourceData()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="87" class="link-to-prism">src/app/app-engine/apps/resource-form/resource-form/resource-form.component.ts:87</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Get the data of the resource and the possible properties&#39; propertyTypeIRIs</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="hideValueHistory"></a>
+                        <span class="name">
+                            <b>
+                            hideValueHistory
+                            </b>
+                            <a href="#hideValueHistory"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>hideValueHistory(valueIRI: )</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="237" class="link-to-prism">src/app/app-engine/apps/resource-form/resource-form/resource-form.component.ts:237</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Remove a value IRI from the set of values with shown hitstory</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>valueIRI</td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ngOnInit"></a>
+                        <span class="name">
+                            <b>
+                            ngOnInit
+                            </b>
+                            <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>ngOnInit()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="75" class="link-to-prism">src/app/app-engine/apps/resource-form/resource-form/resource-form.component.ts:75</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Get data of resource on init</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="resetLabel"></a>
+                        <span class="name">
+                            <b>
+                            resetLabel
+                            </b>
+                            <a href="#resetLabel"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>resetLabel()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="123" class="link-to-prism">src/app/app-engine/apps/resource-form/resource-form/resource-form.component.ts:123</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Reset the label of a property, afterwards reload data</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="setValue"></a>
+                        <span class="name">
+                            <b>
+                            setValue
+                            </b>
+                            <a href="#setValue"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>setValue(newValue: )</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="116" class="link-to-prism">src/app/app-engine/apps/resource-form/resource-form/resource-form.component.ts:116</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Manually update the content for the focused property field</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>newValue</td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p>The value for a property in Knora&#39;s Json format</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="editRights"></a>
+                        <span class="name">
+                            <b>
+                            editRights
+                            </b>
+                            <a href="#editRights"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>editRights:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/app-engine/apps/resource-form/resource-form/resource-form.component.ts:24</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Enables the editing mode in the component</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="focusedValue"></a>
+                        <span class="name">
+                            <b>
+                            focusedValue
+                            </b>
+                            <a href="#focusedValue"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>focusedValue:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>&#x27;&#x27;</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/app-engine/apps/resource-form/resource-form/resource-form.component.ts:46</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The propertyTypeIRI or the valueIRI or &#39;label&#39; for the field whose input is possible and stored in focusedValueContent</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="focusedValueContent"></a>
+                        <span class="name">
+                            <b>
+                            focusedValueContent
+                            </b>
+                            <a href="#focusedValueContent"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>focusedValueContent:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/app-engine/apps/resource-form/resource-form/resource-form.component.ts:51</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The content of the active input field.</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="propKeys"></a>
+                        <span class="name">
+                            <b>
+                            propKeys
+                            </b>
+                            <a href="#propKeys"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>propKeys:     <code>Array&lt;string&gt;</code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Array&lt;string&gt;</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/app-engine/apps/resource-form/resource-form/resource-form.component.ts:35</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Array of the properties possible for the resource class corresponding to the resourceIRI</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="resource"></a>
+                        <span class="name">
+                            <b>
+                            resource
+                            </b>
+                            <a href="#resource"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>resource:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/app/app-engine/apps/resource-form/resource-form/resource-form.component.ts:61</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The data of the resource of this component, corresponds to resourceIRI resp. stableResourceIRI</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="resourceIRI"></a>
+                        <span class="name">
+                            <b>
+                            resourceIRI
+                            </b>
+                            <a href="#resourceIRI"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>resourceIRI:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/app-engine/apps/resource-form/resource-form/resource-form.component.ts:19</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The IRI of the resource that has to be displayed or chaned</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="stableResourceIRI"></a>
+                        <span class="name">
+                            <b>
+                            stableResourceIRI
+                            </b>
+                            <a href="#stableResourceIRI"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>stableResourceIRI:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/app-engine/apps/resource-form/resource-form/resource-form.component.ts:40</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Copy of resourceIRI if that should change.</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="valuesWithShownHistory"></a>
+                        <span class="name">
+                            <b>
+                            valuesWithShownHistory
+                            </b>
+                            <a href="#valuesWithShownHistory"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>valuesWithShownHistory:     <code>Set&lt;string&gt;</code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Set&lt;string&gt;</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new Set()</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/app/app-engine/apps/resource-form/resource-form/resource-form.component.ts:56</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>List of ValueIRIs whose history is shown</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, EventEmitter, OnInit, Output } from &#x27;@angular/core&#x27;;
+import { KnoraV1RequestService } from &#x27;../../../../query-engine/knora/knora-v1-request.service&#x27;;
+import { ActivatedRoute } from &#x27;@angular/router&#x27;;
+
+/**
+ * A form to display the label and property values of a resource.
+ * An editing mode enables adding, changing and deleting property values and also deleting the resource.
+ */
+@Component({
+  selector: &#x27;app-resource-form&#x27;,
+  templateUrl: &#x27;./resource-form.component.html&#x27;,
+  styleUrls: [&#x27;./resource-form.component.scss&#x27;]
+})
+export class ResourceFormComponent implements OnInit {
+
+  /**
+   * The IRI of the resource that has to be displayed or chaned
+   */
+  resourceIRI: string;
+
+  /**
+   * Enables the editing mode in the component
+   */
+  editRights: boolean;
+
+  /**
+   * Emit an event if the resource is deleted. This enables closing the form and similar.
+   * @type {EventEmitter&lt;any&gt;}  any change.
+   */
+  @Output() resourceIsDeleted: EventEmitter&lt;any&gt; &#x3D; new EventEmitter();
+
+  /**
+   * Array of the properties possible for the resource class corresponding to the resourceIRI
+   */
+  propKeys: Array&lt;string&gt;;
+
+  /**
+   * Copy of resourceIRI if that should change.
+   */
+  stableResourceIRI: string;
+
+  /**
+   * The propertyTypeIRI or the valueIRI or &#x27;label&#x27; for the field whose input is possible and stored in focusedValueContent
+   * @type {string}
+   */
+  focusedValue &#x3D; &#x27;&#x27;;
+
+  /**
+   * The content of the active input field.
+   */
+  focusedValueContent: any;
+
+  /**
+   * List of ValueIRIs whose history is shown
+   */
+  valuesWithShownHistory: Set&lt;string&gt; &#x3D; new Set();
+
+  /**
+   * The data of the resource of this component, corresponds to resourceIRI resp. stableResourceIRI
+   */
+  resource: any;
+
+  /**
+   * Constructor initializes KnoraV1Requestservice and ActivatedRoute
+   * @param knoraV1RequestService  Service to access data on a Knora instance
+   * @param _route  Gives access to query parameters in URL
+   */
+  constructor(private knoraV1RequestService: KnoraV1RequestService,
+              private _route: ActivatedRoute) {
+  }
+
+  /**
+   * Get data of resource on init
+   */
+  ngOnInit() {
+    this._route.queryParams
+      .subscribe(params &#x3D;&gt; {
+        this.resourceIRI &#x3D; params.resId;
+        this.editRights &#x3D; params.editRights;
+      });
+    this.getResourceData();
+  }
+
+  /**
+   * Get the data of the resource and the possible properties&#x27; propertyTypeIRIs
+   */
+  getResourceData() {
+
+    if (this.resourceIRI) {
+      this.knoraV1RequestService.getResource(this.resourceIRI)
+        .subscribe(res &#x3D;&gt; {
+            this.resource &#x3D; res;
+            this.propKeys &#x3D; Object.keys(this.resource[&#x27;props&#x27;]);
+          },
+          err &#x3D;&gt; {
+            console.log(err);
+          });
+      this.stableResourceIRI &#x3D; this.resourceIRI;
+    }
+  }
+
+  /**
+   *
+   * @param {string} id  Depending on the field a propertyTypeIRI (adding), a valueIRI (changing or deleting) or &#x27;label&#x27;
+   * @param content  Reset the content for this property
+   */
+  activateValue(id: string, content) {
+    this.focusedValue &#x3D; id;
+    this.focusedValueContent &#x3D; content;
+  }
+
+  /**
+   * Manually update the content for the focused property field
+   * @param newValue  The value for a property in Knora&#x27;s Json format
+   */
+  setValue(newValue) {
+    this.focusedValueContent &#x3D; newValue;
+  }
+
+  /**
+   * Reset the label of a property, afterwards reload data
+   */
+  resetLabel() {
+    const resourceParams &#x3D; {&#x27;label&#x27;: this.focusedValueContent};
+
+    // put label or log error
+    this.knoraV1RequestService.changeResourceLabel(this.stableResourceIRI, resourceParams)
+      .subscribe(
+        res &#x3D;&gt; {
+          this.getResourceData();
+          this.activateValue(&#x27;&#x27;, null);
+        },
+        err &#x3D;&gt; {
+          console.log(err);
+        }
+      );
+  }
+
+  /**
+   * Delete the shown resource. Emit an event for outside proceeding.
+   */
+  deleteResource() {
+
+    // post property or log error
+    this.knoraV1RequestService.deleteResource(this.stableResourceIRI)
+      .subscribe(
+        res &#x3D;&gt; {
+          this.resourceIsDeleted.emit();
+          this.activateValue(&#x27;&#x27;, null);
+        },
+        err &#x3D;&gt; {
+          console.log(err);
+        }
+      );
+  }
+
+  /**
+   * Delete a property value. Reload afterwards
+   * @param {string} valueIRI The IRI of the value that will be deleted
+   */
+  deleteProperty(valueIRI: string) {
+
+    // post property or log error
+    this.knoraV1RequestService.deletePropertyValue(valueIRI)
+      .subscribe(
+        res &#x3D;&gt; {
+          // reload resource data
+          this.getResourceData();
+          this.activateValue(&#x27;&#x27;, null);
+        },
+        err &#x3D;&gt; {
+          console.log(err);
+        }
+      );
+  }
+
+  /**
+   * Add a property value and reload afterwards.
+   * @param {string} propertyTypeIRI The property of the value to be added
+   */
+  addProperty(propertyTypeIRI: string) {
+
+    const resourceParams &#x3D; this.focusedValueContent;
+    resourceParams[&#x27;res_id&#x27;] &#x3D; this.stableResourceIRI;
+    resourceParams[&#x27;prop&#x27;] &#x3D; propertyTypeIRI;
+    resourceParams[&#x27;project_id&#x27;] &#x3D; this.resource[&#x27;resinfo&#x27;][&#x27;project_id&#x27;];
+
+    // post property or log error
+    this.knoraV1RequestService.postPropertyValue(resourceParams)
+      .subscribe(
+        res &#x3D;&gt; {
+          // reload resource data
+          this.getResourceData();
+          this.activateValue(&#x27;&#x27;, null);
+        },
+        err &#x3D;&gt; {
+          console.log(err);
+        }
+      );
+  }
+
+  /**
+   * Change a property value and update afterwards
+   * @param {string} valueIRI The IRI of the value that has to be changed.
+   */
+  changeProperty(valueIRI: string) {
+
+    const resourceParams &#x3D; this.focusedValueContent;
+    resourceParams[&#x27;project_id&#x27;] &#x3D; this.resource[&#x27;resinfo&#x27;][&#x27;project_id&#x27;];
+
+    // put property or log error
+    this.knoraV1RequestService.changePropertyValue(valueIRI, resourceParams)
+      .subscribe(
+        res &#x3D;&gt; {
+          // reload resource data
+          this.getResourceData();
+          this.activateValue(&#x27;&#x27;, null);
+        },
+        err &#x3D;&gt; {
+          console.log(err);
+        }
+      );
+  }
+
+  /**
+   * Add a value IRI to the set of values with shown history
+   * @param valueIRI
+   */
+  activateValueHistory(valueIRI) {
+    this.valuesWithShownHistory.add(valueIRI);
+  }
+
+  /**
+   * Remove a value IRI from the set of values with shown hitstory
+   * @param valueIRI
+   */
+  hideValueHistory(valueIRI) {
+    this.valuesWithShownHistory.delete(valueIRI);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;h4 *ngIf&#x3D;&quot;resource &amp;&amp; resource[&#x27;resinfo&#x27;][&#x27;restype_label&#x27;]&quot;&gt;
+  {{ resource[&#x27;resinfo&#x27;][&#x27;restype_label&#x27;] }}
+&lt;/h4&gt;
+
+&lt;table *ngIf&#x3D;&quot;resource&quot;&gt;
+
+  &lt;!-- Show or edit resource label --&gt;
+  &lt;tr *ngIf&#x3D;&quot;resource[&#x27;resinfo&#x27;][&#x27;firstproperty&#x27;]&quot;&gt;
+    &lt;td&gt;Label&lt;/td&gt;
+
+    &lt;td&gt;
+      &lt;ng-container *ngIf&#x3D;&quot;focusedValue !&#x3D; &#x27;label&#x27;&quot;&gt;
+
+          {{ resource[&#x27;resinfo&#x27;][&#x27;firstproperty&#x27;] }}
+
+      &lt;/ng-container&gt;
+      &lt;ng-container *ngIf&#x3D;&quot;focusedValue &#x3D;&#x3D; &#x27;label&#x27;&quot;&gt;
+
+        &lt;input type&#x3D;&quot;text&quot; [(ngModel)]&#x3D;&quot;focusedValueContent&quot;/&gt;
+
+      &lt;/ng-container&gt;
+    &lt;/td&gt;
+
+    &lt;td *ngIf&#x3D;&quot;editRights&quot;&gt;
+      &lt;ng-container *ngIf&#x3D;&quot;focusedValue !&#x3D; &#x27;label&#x27;&quot;&gt;
+        &lt;button (click)&#x3D;&quot;activateValue(&#x27;label&#x27;, resource[&#x27;resinfo&#x27;][&#x27;firstproperty&#x27;])&quot;&gt;Edit&lt;/button&gt;
+      &lt;/ng-container&gt;
+
+      &lt;ng-container *ngIf&#x3D;&quot;focusedValue &#x3D;&#x3D; &#x27;label&#x27;&quot;&gt;
+        &lt;button (click)&#x3D;&quot;resetLabel()&quot;&gt;Save&lt;/button&gt;
+        &lt;button (click)&#x3D;&quot;activateValue(&#x27;&#x27;, null)&quot;&gt;Cancel&lt;/button&gt;
+      &lt;/ng-container&gt;
+    &lt;/td&gt;
+
+    &lt;td&gt;
+    &lt;/td&gt;
+  &lt;/tr&gt;
+
+  &lt;!-- Show or change regular properties --&gt;
+  &lt;ng-container *ngIf&#x3D;&quot;resource[&#x27;props&#x27;] !&#x3D; undefined&quot;&gt;
+    &lt;ng-container *ngFor&#x3D;&quot;let p of propKeys; let i &#x3D; index&quot;&gt;
+
+      &lt;!-- show and change existing value and show old values --&gt;
+      &lt;ng-container *ngFor&#x3D;&quot;let v of resource[&#x27;props&#x27;][p][&#x27;value_ids&#x27;]; let j &#x3D; index&quot;&gt;
+
+        &lt;!-- show and change exisiting value --&gt;
+        &lt;tr&gt;
+          &lt;td&gt;
+            {{ resource[&#x27;props&#x27;][p][&#x27;label&#x27;] }}
+          &lt;/td&gt;
+
+          &lt;td&gt;
+            &lt;ng-container *ngIf&#x3D;&quot;focusedValue !&#x3D; v&quot;&gt;
+
+              &lt;ng-container [ngSwitch]&#x3D;&quot;resource[&#x27;props&#x27;][p][&#x27;valuetype_id&#x27;]&quot;&gt;
+
+                &lt;ng-container
+                  *ngSwitchCase&#x3D;&quot;&#x27;http://www.knora.org/ontology/knora-base#TextValue&#x27;&quot;&gt;
+                  {{ resource[&#x27;props&#x27;][p][&#x27;values&#x27;][j][&#x27;utf8str&#x27;] }}
+                &lt;/ng-container&gt;
+
+                &lt;ng-container
+                  *ngSwitchCase&#x3D;&quot;&#x27;http://www.knora.org/ontology/knora-base#IntValue&#x27;&quot;&gt;
+                  {{ resource[&#x27;props&#x27;][p][&#x27;values&#x27;][j] }}
+                &lt;/ng-container&gt;
+
+                &lt;ng-container
+                  *ngSwitchCase&#x3D;&quot;&#x27;http://www.knora.org/ontology/knora-base#DecimalValue&#x27;&quot;&gt;
+                  {{ resource[&#x27;props&#x27;][p][&#x27;values&#x27;][j] }}
+                &lt;/ng-container&gt;
+
+                &lt;ng-container
+                  *ngSwitchCase&#x3D;&quot;&#x27;http://www.knora.org/ontology/knora-base#BooleanValue&#x27;&quot;&gt;
+                  {{ resource[&#x27;props&#x27;][p][&#x27;values&#x27;][j] }}
+                &lt;/ng-container&gt;
+
+                &lt;ng-container
+                  *ngSwitchCase&#x3D;&quot;&#x27;http://www.knora.org/ontology/knora-base#DateValue&#x27;&quot;&gt;
+                  &lt;app-date-value-viewer [propertyValue]&#x3D;&quot;resource[&#x27;props&#x27;][p][&#x27;values&#x27;][j]&quot;&gt;
+                  &lt;/app-date-value-viewer&gt;
+                &lt;/ng-container&gt;
+
+                &lt;ng-container
+                  *ngSwitchCase&#x3D;&quot;&#x27;http://www.knora.org/ontology/knora-base#LinkValue&#x27;&quot;&gt;
+                  {{ resource[&#x27;props&#x27;][p][&#x27;value_firstprops&#x27;][j] }}
+                &lt;/ng-container&gt;
+
+                &lt;ng-container *ngSwitchDefault&gt;
+                  type not supported
+                &lt;/ng-container&gt;
+
+              &lt;/ng-container&gt;
+            &lt;/ng-container&gt;
+            &lt;ng-container *ngIf&#x3D;&quot;focusedValue &#x3D;&#x3D; v&quot;&gt;
+              &lt;ng-container [ngSwitch]&#x3D;&quot;resource[&#x27;props&#x27;][p][&#x27;valuetype_id&#x27;]&quot;&gt;
+
+                &lt;ng-container
+                  *ngSwitchCase&#x3D;&quot;&#x27;http://www.knora.org/ontology/knora-base#TextValue&#x27;&quot;&gt;
+                  &lt;app-text-value-editor [oldValue]&#x3D;&quot;resource[&#x27;props&#x27;][p][&#x27;values&#x27;][j]&quot;
+                                         (textValue)&#x3D;&quot;setValue($event)&quot;&gt;
+                  &lt;/app-text-value-editor&gt;
+                &lt;/ng-container&gt;
+
+                &lt;ng-container
+                  *ngSwitchCase&#x3D;&quot;&#x27;http://www.knora.org/ontology/knora-base#IntValue&#x27;&quot;&gt;
+                  &lt;app-int-value-editor [oldValue]&#x3D;&quot;resource[&#x27;props&#x27;][p][&#x27;values&#x27;][j]&quot;
+                                        (intValue)&#x3D;&quot;setValue($event)&quot;&gt;
+                  &lt;/app-int-value-editor&gt;
+                &lt;/ng-container&gt;
+
+                &lt;ng-container
+                  *ngSwitchCase&#x3D;&quot;&#x27;http://www.knora.org/ontology/knora-base#DecimalValue&#x27;&quot;&gt;
+                  &lt;app-decimal-value-editor [oldValue]&#x3D;&quot;resource[&#x27;props&#x27;][p][&#x27;values&#x27;][j]&quot;
+                                            (decimalValue)&#x3D;&quot;setValue($event)&quot;&gt;
+                  &lt;/app-decimal-value-editor&gt;
+                &lt;/ng-container&gt;
+
+                &lt;ng-container
+                  *ngSwitchCase&#x3D;&quot;&#x27;http://www.knora.org/ontology/knora-base#BooleanValue&#x27;&quot;&gt;
+                  &lt;app-boolean-value-editor [oldValue]&#x3D;&quot;resource[&#x27;props&#x27;][p][&#x27;values&#x27;][j]&quot;
+                                            (booleanValue)&#x3D;&quot;setValue($event)&quot;&gt;
+                  &lt;/app-boolean-value-editor&gt;
+                &lt;/ng-container&gt;
+
+                &lt;ng-container
+                  *ngSwitchCase&#x3D;&quot;&#x27;http://www.knora.org/ontology/knora-base#DateValue&#x27;&quot;&gt;
+                  &lt;app-date-value-editor [oldValue]&#x3D;&quot;resource[&#x27;props&#x27;][p][&#x27;values&#x27;][j]&quot;
+                                         (dateValue)&#x3D;&quot;setValue($event)&quot;&gt;&lt;/app-date-value-editor&gt;
+                &lt;/ng-container&gt;
+
+                &lt;ng-container
+                  *ngSwitchCase&#x3D;&quot;&#x27;http://www.knora.org/ontology/knora-base#LinkValue&#x27;&quot;&gt;
+                  &lt;app-link-value-editor [targetClass]&#x3D;&quot;resource[&#x27;props&#x27;][p][&#x27;attributes&#x27;]&quot;
+                                         (linkValue)&#x3D;&quot;setValue($event)&quot;&gt;&lt;/app-link-value-editor&gt;
+                &lt;/ng-container&gt;
+
+                &lt;ng-container *ngSwitchDefault&gt;
+                  type not supported
+                &lt;/ng-container&gt;
+
+              &lt;/ng-container&gt;
+            &lt;/ng-container&gt;
+          &lt;/td&gt;
+
+          &lt;td *ngIf&#x3D;&quot;editRights&quot;&gt;
+            &lt;ng-container *ngIf&#x3D;&quot;focusedValue !&#x3D; v&quot;&gt;
+              &lt;button (click)&#x3D;&quot;activateValue(v, resource[&#x27;props&#x27;][p][&#x27;values&#x27;][j])&quot;&gt;Edit&lt;/button&gt;
+            &lt;/ng-container&gt;
+
+            &lt;ng-container *ngIf&#x3D;&quot;focusedValue &#x3D;&#x3D; v&quot;&gt;
+              &lt;button (click)&#x3D;&quot;changeProperty(v)&quot;&gt;Save&lt;/button&gt;
+              &lt;button (click)&#x3D;&quot;deleteProperty(v)&quot;&gt;Delete property&lt;/button&gt;
+              &lt;button (click)&#x3D;&quot;activateValue(&#x27;&#x27;, null)&quot;&gt;Cancel&lt;/button&gt;
+            &lt;/ng-container&gt;
+          &lt;/td&gt;
+
+          &lt;td&gt;
+            &lt;ng-container *ngIf&#x3D;&quot;valuesWithShownHistory.has(v)&quot;&gt;
+              &lt;button (click)&#x3D;&quot;hideValueHistory(v)&quot;&gt;History&lt;/button&gt;
+            &lt;/ng-container&gt;
+            &lt;ng-container *ngIf&#x3D;&quot;!valuesWithShownHistory.has(v)&quot;&gt;
+              &lt;button (click)&#x3D;&quot;activateValueHistory(v)&quot;&gt;History&lt;/button&gt;
+            &lt;/ng-container&gt;
+          &lt;/td&gt;
+        &lt;/tr&gt;
+
+        &lt;!-- old values --&gt;
+        &lt;tr *ngIf&#x3D;&quot;valuesWithShownHistory.has(v)&quot;&gt;
+          &lt;td&gt;&lt;/td&gt;
+          &lt;td colspan&#x3D;&quot;2&quot;&gt;
+            &lt;app-resource-value-history [resourceIRI]&#x3D;&quot;resourceIRI&quot;
+                                      [propertyTypeIRI]&#x3D;&quot;p&quot;
+                                      [valueIRI]&#x3D;&quot;v&quot;&gt;
+            &lt;/app-resource-value-history&gt;
+          &lt;/td&gt;
+
+        &lt;/tr&gt;
+      &lt;/ng-container&gt;
+
+      &lt;!-- add new value --&gt;
+      &lt;tr *ngIf&#x3D;&quot;editRights&quot;&gt;
+        &lt;td&gt;{{ resource[&#x27;props&#x27;][p][&#x27;label&#x27;]}}&lt;/td&gt;
+
+        &lt;td&gt;
+          &lt;ng-container *ngIf&#x3D;&quot;focusedValue !&#x3D; p&quot;&gt;
+
+            &lt;button (click)&#x3D;&quot;activateValue(p, null)&quot;&gt;Add&lt;/button&gt;
+
+          &lt;/ng-container&gt;
+          &lt;ng-container *ngIf&#x3D;&quot;focusedValue &#x3D;&#x3D; p&quot;&gt;
+
+            &lt;ng-container [ngSwitch]&#x3D;&quot;resource[&#x27;props&#x27;][p][&#x27;valuetype_id&#x27;]&quot;&gt;
+
+              &lt;ng-container
+                *ngSwitchCase&#x3D;&quot;&#x27;http://www.knora.org/ontology/knora-base#TextValue&#x27;&quot;&gt;
+                &lt;app-text-value-editor (textValue)&#x3D;&quot;setValue($event)&quot;&gt;
+                &lt;/app-text-value-editor&gt;
+              &lt;/ng-container&gt;
+
+              &lt;ng-container
+                *ngSwitchCase&#x3D;&quot;&#x27;http://www.knora.org/ontology/knora-base#IntValue&#x27;&quot;&gt;
+                &lt;app-int-value-editor (intValue)&#x3D;&quot;setValue($event)&quot;&gt;
+                &lt;/app-int-value-editor&gt;
+              &lt;/ng-container&gt;
+
+              &lt;ng-container
+                *ngSwitchCase&#x3D;&quot;&#x27;http://www.knora.org/ontology/knora-base#DecimalValue&#x27;&quot;&gt;
+                &lt;app-decimal-value-editor (decimalValue)&#x3D;&quot;setValue($event)&quot;&gt;
+                &lt;/app-decimal-value-editor&gt;
+              &lt;/ng-container&gt;
+
+              &lt;ng-container
+                *ngSwitchCase&#x3D;&quot;&#x27;http://www.knora.org/ontology/knora-base#BooleanValue&#x27;&quot;&gt;
+                &lt;app-boolean-value-editor (booleanValue)&#x3D;&quot;setValue($event)&quot;&gt;
+                &lt;/app-boolean-value-editor&gt;
+              &lt;/ng-container&gt;
+
+              &lt;ng-container
+                *ngSwitchCase&#x3D;&quot;&#x27;http://www.knora.org/ontology/knora-base#DateValue&#x27;&quot;&gt;
+                &lt;app-date-value-editor (dateValue)&#x3D;&quot;setValue($event)&quot;&gt;&lt;/app-date-value-editor&gt;
+              &lt;/ng-container&gt;
+
+              &lt;ng-container
+                *ngSwitchCase&#x3D;&quot;&#x27;http://www.knora.org/ontology/knora-base#LinkValue&#x27;&quot;&gt;
+                &lt;app-link-value-editor [targetClass]&#x3D;&quot;resource[&#x27;props&#x27;][p][&#x27;attributes&#x27;]&quot;
+                                       (linkValue)&#x3D;&quot;setValue($event)&quot;&gt;
+                &lt;/app-link-value-editor&gt;
+              &lt;/ng-container&gt;
+
+              &lt;ng-container *ngSwitchDefault&gt;
+                type not supported
+              &lt;/ng-container&gt;
+
+            &lt;/ng-container&gt;
+          &lt;/ng-container&gt;
+        &lt;/td&gt;
+
+        &lt;td *ngIf&#x3D;&quot;editRights&quot;&gt;
+
+          &lt;ng-container *ngIf&#x3D;&quot;focusedValue &#x3D;&#x3D; p&quot;&gt;
+            &lt;button (click)&#x3D;&quot;addProperty(p)&quot;&gt;Save&lt;/button&gt;
+            &lt;button (click)&#x3D;&quot;activateValue(&#x27;&#x27;, null)&quot;&gt;Cancel&lt;/button&gt;
+          &lt;/ng-container&gt;
+        &lt;/td&gt;
+
+        &lt;td&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+
+    &lt;/ng-container&gt;
+  &lt;/ng-container&gt;
+&lt;/table&gt;
+
+&lt;ng-container *ngIf&#x3D;&quot;editRights&quot;&gt;
+  &lt;button *ngIf&#x3D;&quot;resource&quot;
+        (click)&#x3D;&quot;deleteResource()&quot;&gt;
+    Delete resource
+  &lt;/button&gt;
+&lt;/ng-container&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><h4 *ngIf="resource && resource[\'resinfo\'][\'restype_label\']">  {{ resource[\'resinfo\'][\'restype_label\'] }}</h4><table *ngIf="resource">  <!-- Show or edit resource label -->  <tr *ngIf="resource[\'resinfo\'][\'firstproperty\']">    <td>Label</td>    <td>      <ng-container *ngIf="focusedValue != \'label\'">          {{ resource[\'resinfo\'][\'firstproperty\'] }}      </ng-container>      <ng-container *ngIf="focusedValue == \'label\'">        <input type="text" [(ngModel)]="focusedValueContent"/>      </ng-container>    </td>    <td *ngIf="editRights">      <ng-container *ngIf="focusedValue != \'label\'">        <button (click)="activateValue(\'label\', resource[\'resinfo\'][\'firstproperty\'])">Edit</button>      </ng-container>      <ng-container *ngIf="focusedValue == \'label\'">        <button (click)="resetLabel()">Save</button>        <button (click)="activateValue(\'\', null)">Cancel</button>      </ng-container>    </td>    <td>    </td>  </tr>  <!-- Show or change regular properties -->  <ng-container *ngIf="resource[\'props\'] != undefined">    <ng-container *ngFor="let p of propKeys; let i = index">      <!-- show and change existing value and show old values -->      <ng-container *ngFor="let v of resource[\'props\'][p][\'value_ids\']; let j = index">        <!-- show and change exisiting value -->        <tr>          <td>            {{ resource[\'props\'][p][\'label\'] }}          </td>          <td>            <ng-container *ngIf="focusedValue != v">              <ng-container [ngSwitch]="resource[\'props\'][p][\'valuetype_id\']">                <ng-container                  *ngSwitchCase="\'http://www.knora.org/ontology/knora-base#TextValue\'">                  {{ resource[\'props\'][p][\'values\'][j][\'utf8str\'] }}                </ng-container>                <ng-container                  *ngSwitchCase="\'http://www.knora.org/ontology/knora-base#IntValue\'">                  {{ resource[\'props\'][p][\'values\'][j] }}                </ng-container>                <ng-container                  *ngSwitchCase="\'http://www.knora.org/ontology/knora-base#DecimalValue\'">                  {{ resource[\'props\'][p][\'values\'][j] }}                </ng-container>                <ng-container                  *ngSwitchCase="\'http://www.knora.org/ontology/knora-base#BooleanValue\'">                  {{ resource[\'props\'][p][\'values\'][j] }}                </ng-container>                <ng-container                  *ngSwitchCase="\'http://www.knora.org/ontology/knora-base#DateValue\'">                  <app-date-value-viewer [propertyValue]="resource[\'props\'][p][\'values\'][j]">                  </app-date-value-viewer>                </ng-container>                <ng-container                  *ngSwitchCase="\'http://www.knora.org/ontology/knora-base#LinkValue\'">                  {{ resource[\'props\'][p][\'value_firstprops\'][j] }}                </ng-container>                <ng-container *ngSwitchDefault>                  type not supported                </ng-container>              </ng-container>            </ng-container>            <ng-container *ngIf="focusedValue == v">              <ng-container [ngSwitch]="resource[\'props\'][p][\'valuetype_id\']">                <ng-container                  *ngSwitchCase="\'http://www.knora.org/ontology/knora-base#TextValue\'">                  <app-text-value-editor [oldValue]="resource[\'props\'][p][\'values\'][j]"                                         (textValue)="setValue($event)">                  </app-text-value-editor>                </ng-container>                <ng-container                  *ngSwitchCase="\'http://www.knora.org/ontology/knora-base#IntValue\'">                  <app-int-value-editor [oldValue]="resource[\'props\'][p][\'values\'][j]"                                        (intValue)="setValue($event)">                  </app-int-value-editor>                </ng-container>                <ng-container                  *ngSwitchCase="\'http://www.knora.org/ontology/knora-base#DecimalValue\'">                  <app-decimal-value-editor [oldValue]="resource[\'props\'][p][\'values\'][j]"                                            (decimalValue)="setValue($event)">                  </app-decimal-value-editor>                </ng-container>                <ng-container                  *ngSwitchCase="\'http://www.knora.org/ontology/knora-base#BooleanValue\'">                  <app-boolean-value-editor [oldValue]="resource[\'props\'][p][\'values\'][j]"                                            (booleanValue)="setValue($event)">                  </app-boolean-value-editor>                </ng-container>                <ng-container                  *ngSwitchCase="\'http://www.knora.org/ontology/knora-base#DateValue\'">                  <app-date-value-editor [oldValue]="resource[\'props\'][p][\'values\'][j]"                                         (dateValue)="setValue($event)"></app-date-value-editor>                </ng-container>                <ng-container                  *ngSwitchCase="\'http://www.knora.org/ontology/knora-base#LinkValue\'">                  <app-link-value-editor [targetClass]="resource[\'props\'][p][\'attributes\']"                                         (linkValue)="setValue($event)"></app-link-value-editor>                </ng-container>                <ng-container *ngSwitchDefault>                  type not supported                </ng-container>              </ng-container>            </ng-container>          </td>          <td *ngIf="editRights">            <ng-container *ngIf="focusedValue != v">              <button (click)="activateValue(v, resource[\'props\'][p][\'values\'][j])">Edit</button>            </ng-container>            <ng-container *ngIf="focusedValue == v">              <button (click)="changeProperty(v)">Save</button>              <button (click)="deleteProperty(v)">Delete property</button>              <button (click)="activateValue(\'\', null)">Cancel</button>            </ng-container>          </td>          <td>            <ng-container *ngIf="valuesWithShownHistory.has(v)">              <button (click)="hideValueHistory(v)">History</button>            </ng-container>            <ng-container *ngIf="!valuesWithShownHistory.has(v)">              <button (click)="activateValueHistory(v)">History</button>            </ng-container>          </td>        </tr>        <!-- old values -->        <tr *ngIf="valuesWithShownHistory.has(v)">          <td></td>          <td colspan="2">            <app-resource-value-history [resourceIRI]="resourceIRI"                                      [propertyTypeIRI]="p"                                      [valueIRI]="v">            </app-resource-value-history>          </td>        </tr>      </ng-container>      <!-- add new value -->      <tr *ngIf="editRights">        <td>{{ resource[\'props\'][p][\'label\']}}</td>        <td>          <ng-container *ngIf="focusedValue != p">            <button (click)="activateValue(p, null)">Add</button>          </ng-container>          <ng-container *ngIf="focusedValue == p">            <ng-container [ngSwitch]="resource[\'props\'][p][\'valuetype_id\']">              <ng-container                *ngSwitchCase="\'http://www.knora.org/ontology/knora-base#TextValue\'">                <app-text-value-editor (textValue)="setValue($event)">                </app-text-value-editor>              </ng-container>              <ng-container                *ngSwitchCase="\'http://www.knora.org/ontology/knora-base#IntValue\'">                <app-int-value-editor (intValue)="setValue($event)">                </app-int-value-editor>              </ng-container>              <ng-container                *ngSwitchCase="\'http://www.knora.org/ontology/knora-base#DecimalValue\'">                <app-decimal-value-editor (decimalValue)="setValue($event)">                </app-decimal-value-editor>              </ng-container>              <ng-container                *ngSwitchCase="\'http://www.knora.org/ontology/knora-base#BooleanValue\'">                <app-boolean-value-editor (booleanValue)="setValue($event)">                </app-boolean-value-editor>              </ng-container>              <ng-container                *ngSwitchCase="\'http://www.knora.org/ontology/knora-base#DateValue\'">                <app-date-value-editor (dateValue)="setValue($event)"></app-date-value-editor>              </ng-container>              <ng-container                *ngSwitchCase="\'http://www.knora.org/ontology/knora-base#LinkValue\'">                <app-link-value-editor [targetClass]="resource[\'props\'][p][\'attributes\']"                                       (linkValue)="setValue($event)">                </app-link-value-editor>              </ng-container>              <ng-container *ngSwitchDefault>                type not supported              </ng-container>            </ng-container>          </ng-container>        </td>        <td *ngIf="editRights">          <ng-container *ngIf="focusedValue == p">            <button (click)="addProperty(p)">Save</button>            <button (click)="activateValue(\'\', null)">Cancel</button>          </ng-container>        </td>        <td>        </td>      </tr>    </ng-container>  </ng-container></table><ng-container *ngIf="editRights">  <button *ngIf="resource"        (click)="deleteResource()">    Delete resource  </button></ng-container></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'BooleanValueEditorComponent', 'selector': 'app-boolean-value-editor'},{'name': 'BrushAndZoomComponent', 'selector': 'app-brush-and-zoom'},{'name': 'ChordDiagramComponent', 'selector': 'app-chord-diagram'},{'name': 'CreateResourceComponent', 'selector': 'app-create-resource'},{'name': 'D3tutorialComponent', 'selector': 'app-d3tutorial'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataAssignmentComponent', 'selector': 'app-data-assignment'},{'name': 'DataChooserComponent', 'selector': 'app-data-chooser'},{'name': 'DataChooserSettingsComponent', 'selector': 'app-data-chooser-settings'},{'name': 'DataListView', 'selector': 'data-list-view'},{'name': 'DataListViewDetailsDialogComponent', 'selector': 'app-data-list-view-details-dialog'},{'name': 'DataListViewSettings', 'selector': 'data-list-view-settings'},{'name': 'DataListViewTableComponent', 'selector': 'data-list-view-table'},{'name': 'DataManagementComponent', 'selector': 'app-data-management'},{'name': 'DateValueEditorComponent', 'selector': 'app-date-value-editor'},{'name': 'DateValueViewerComponent', 'selector': 'app-date-value-viewer'},{'name': 'DeactivateNewsletterComponent', 'selector': 'app-deactivate-newsletter'},{'name': 'DecimalValueEditorComponent', 'selector': 'app-decimal-value-editor'},{'name': 'DeleteActionComponent', 'selector': 'app-delete-action'},{'name': 'DeletePageComponent', 'selector': 'app-delete-page'},{'name': 'DialogCreateNewPageComponent', 'selector': 'dialog-create-new-page'},{'name': 'DialogOverviewExampleDialog', 'selector': 'dialog-overview-example-dialog'},{'name': 'DialogUserSettingsDialog', 'selector': 'dialog-user-settings-dialog'},{'name': 'DictionaryComponent', 'selector': 'app-dictionary'},{'name': 'DuplicatePageComponent', 'selector': 'app-duplicate-page'},{'name': 'EditActionComponent', 'selector': 'app-edit-action'},{'name': 'EditPageComponent', 'selector': 'app-edit-page'},{'name': 'EditPageSetComponent', 'selector': 'app-update-page-set'},{'name': 'ExtendSessionComponent', 'selector': 'session-component'},{'name': 'FactSheetComponent', 'selector': 'app-fact-sheet'},{'name': 'FloatLightTableComponent', 'selector': 'app-float-light-table'},{'name': 'FloatingImageObjectComponent', 'selector': 'app-floating-image-object'},{'name': 'FloatingTextObjectComponent', 'selector': 'app-floating-text-object'},{'name': 'Frame', 'selector': 'popup'},{'name': 'FrameSettingsComponent', 'selector': 'app-frame-settings'},{'name': 'GrapesjsComponent', 'selector': 'app-grapesjs'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HtmlViewerComponent', 'selector': 'app-html-viewer'},{'name': 'ImageFrameOldComponent', 'selector': 'app-image-old-frame'},{'name': 'ImageFrameSizesComponent', 'selector': 'app-image-frame-sizes'},{'name': 'ImageViewComponent', 'selector': 'app-image-view'},{'name': 'ImageWithOverlayComponent', 'selector': 'app-image-with-overlay'},{'name': 'ImpressumComponent', 'selector': 'app-impressum'},{'name': 'InitPopupComponent', 'selector': 'app-init-popup'},{'name': 'IntValueEditorComponent', 'selector': 'app-int-value-editor'},{'name': 'InterlinearGlossingComponent', 'selector': 'app-interlinear-glossing'},{'name': 'KeyValueFormComponent', 'selector': 'app-key-value-form'},{'name': 'LeafletExampleComponent', 'selector': 'app-leaflet-example'},{'name': 'LightTableComponent', 'selector': 'app-light-table'},{'name': 'LightTableMenuComponent', 'selector': 'app-light-table-menu'},{'name': 'LinkValueEditorComponent', 'selector': 'app-link-value-editor'},{'name': 'LinkValueLabelViewerComponent', 'selector': 'app-link-value-label-viewer'},{'name': 'LoadLightTableComponent', 'selector': 'app-load-light-table'},{'name': 'LoadVariablesComponent', 'selector': 'app-load-variables'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MetadataViewComponent', 'selector': 'app-metadata-view'},{'name': 'MultiLineChartComponent', 'selector': 'app-multi-line-chart'},{'name': 'MyMainComponentComponent', 'selector': 'app-my-main-component'},{'name': 'MyPractiseComponentComponent', 'selector': 'app-my-practise-component'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationTreeComponent', 'selector': 'app-navigation-tree'},{'name': 'NewGjsBoxDialogComponent', 'selector': 'app-new-gjs-box-dialog'},{'name': 'OpenbisLoginComponent', 'selector': 'app-openbis-login'},{'name': 'P0041EditionComponent', 'selector': 'app-p0041-edition'},{'name': 'P0041KandaComponent', 'selector': 'app-p0041-kanda'},{'name': 'P0041StropheComponent', 'selector': 'app-p0041-strophe'},{'name': 'P0041SuktaComponent', 'selector': 'app-p0041-sukta'},{'name': 'P0062TranscriptionFrameComponent', 'selector': 'app-p0062-transcription-frame'},{'name': 'PageComponent', 'selector': 'nie-os'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'PageSetLandingPageComponent', 'selector': 'app-page-set-landing-page'},{'name': 'ParzivalFassungComponent', 'selector': 'app-parzival-fassung'},{'name': 'PieChartComponent', 'selector': 'app-pie-chart'},{'name': 'PizzaPartyComponent', 'selector': 'snack-bar-component-example-snack'},{'name': 'QueryAppInputMapComponent', 'selector': 'app-query-app-input-map'},{'name': 'QueryEntryComponent', 'selector': 'app-query-entry'},{'name': 'QueryInformationDialogComponent', 'selector': 'app-query-information-dialog'},{'name': 'QueryListComponent', 'selector': 'app-query-list'},{'name': 'RadialBarchartComponent', 'selector': 'app-radial-barchart'},{'name': 'ReactivateAccountComponent', 'selector': 'app-reactivate-account'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'RemoveObjectsByIdComponent', 'selector': 'app-remove-objects-by-id'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'ResourceFormComponent', 'selector': 'app-resource-form'},{'name': 'ResourceValueHistoryComponent', 'selector': 'app-resource-value-history'},{'name': 'ResourceValueHistoryValueComponent', 'selector': 'app-resource-value-history-value'},{'name': 'ResponseTreeComponent', 'selector': 'response-tree'},{'name': 'ResponseTreeComponent', 'selector': 'app-response-tree'},{'name': 'RichTextByIriComponent', 'selector': 'app-spa-text'},{'name': 'SankeyComponent', 'selector': 'app-sankey'},{'name': 'SaveLightTableComponent', 'selector': 'app-save-light-table'},{'name': 'ShareLightTableComponent', 'selector': 'app-share-light-table'},{'name': 'SimpleImageAppComponent', 'selector': 'app-simple-image-app'},{'name': 'SpiralBarChartComponent', 'selector': 'app-spiral-bar-chart'},{'name': 'StackedBarChartComponent', 'selector': 'app-stacked-bar-chart'},{'name': 'SynopsisComponent', 'selector': 'app-synopsis'},{'name': 'SynopsisObjectManagerComponent', 'selector': 'app-synopsis-object-manager'},{'name': 'SynopsisObjectToolboxComponent', 'selector': 'app-synopsis-object-toolbox'},{'name': 'TagChipsComponent', 'selector': 'app-tag-chips'},{'name': 'TextDevViewComponent', 'selector': 'app-text-dev-view'},{'name': 'TextDisplayComponent', 'selector': 'app-text-display'},{'name': 'TextDisplayComponent', 'selector': 'app-text-display'},{'name': 'TextLineComponent', 'selector': 'app-text-line'},{'name': 'TextLineGroupComponent', 'selector': 'app-text-line-group'},{'name': 'TextLineMarginComponent', 'selector': 'app-text-line-margin'},{'name': 'TextLineNumberComponent', 'selector': 'app-text-line-number'},{'name': 'TextPageOfWordsComponent', 'selector': 'app-text-page-of-words'},{'name': 'TextRichInnerhtmlComponent', 'selector': 'app-text-rich-innerhtml'},{'name': 'TextSvgViewComponent', 'selector': 'app-text-svg-view'},{'name': 'TextSvgViewWrapperComponent', 'selector': 'app-text-svg-view-wrapper'},{'name': 'TextValueEditorComponent', 'selector': 'app-text-value-editor'},{'name': 'TextViewCanvasComponent', 'selector': 'app-text-view-canvas'},{'name': 'TextViewComponent', 'selector': 'app-text-view'},{'name': 'TextViewMetadataComponent', 'selector': 'app-text-view-metadata'},{'name': 'TextViewStructureComponent', 'selector': 'app-text-view-structure'},{'name': 'TextViewToolsComponent', 'selector': 'app-text-view-tools'},{'name': 'TextlistViewerComponent', 'selector': 'app-textlist-viewer'},{'name': 'ThumbnailbarComponent', 'selector': 'app-thumbnailbar'},{'name': 'TiledImageObjectComponent', 'selector': 'app-tiled-image-object'},{'name': 'TiledLightTableComponent', 'selector': 'app-tiled-light-table'},{'name': 'TiledTextObjectComponent', 'selector': 'app-tiled-text-object'},{'name': 'UpdateLinkedAppsComponent', 'selector': 'app-update-linked-apps'}];
+    var DIRECTIVES = [{'name': 'DraggableDirective', 'selector': '[appDraggable]'},{'name': 'DraggableStubDirective', 'selector': '[appDraggable]'},{'name': 'FloatDropTargetDirective', 'selector': '[appDropTarget]'},{'name': 'ModifiableDirective', 'selector': '[appModifiable]'},{'name': 'ModifiableStubDirective', 'selector': '[appModifiable]'},{'name': 'SelectableDirective', 'selector': '[appSelectable]'},{'name': 'SelectableStubDirective', 'selector': '[appSelectable]'},{'name': 'SynopsisObjectAnchorDirective', 'selector': '[appSynopsisObjectAnchor]'},{'name': 'TileDropTargetDirective', 'selector': '[appTileDropTarget]'}];
+    var ACTUAL_COMPONENT = {'name': 'ResourceFormComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ResourceFormComponent.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <script src="../js/menu-wc.js"></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

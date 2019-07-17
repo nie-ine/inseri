@@ -145,3 +145,9 @@ as an npm - module in your code with the page - export - file as an input. This 
 
 <img src="./src/assets/img/NIE-OS_publication_process.png" alt="NIE-OS publication options" width="1000"/>
 
+## Generate documentation
+
+npm run compodoc
+
+compodoc -p src/tsconfig.app.json -s
+

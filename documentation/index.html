@@ -1,0 +1,210 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>nie-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+	      <link rel="stylesheet" href="./styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="./" class="navbar-brand">nie-frontend documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search">
+</div>
+            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content getting-started">
+                   <div class="content-data">
+
+<p>Contact and info about the organisation NIE-INE | NATIONAL INFRASTRUCTURE FOR EDITIONS | A swiss-wide organisation for the infrastructure of editions: <a href="https://www.nie-ine.ch/">https://www.nie-ine.ch/</a></p>
+<p>Powered by <a href="http://www.fee.unibas.ch/">FEE</a>, mandated by <a href="https://www.swissuniversities.ch/">swissuniversities</a></p>
+<h1 id="nieos">nieOS</h1>
+<p><a href="https://travis-ci.org/nie-ine/NIE-OS"><img src="https://travis-ci.org/nie-ine/NIE-OS.svg?branch=devel" alt="Build Status" class="img-responsive"></a>
+<img src="https://img.shields.io/docker/pulls/nieine/nieos.svg" alt="Docker pulls" class="img-responsive"></p>
+<h2 id="get-it-up-and-running-to-use-it-locally-with-docker">Get it up and running to use it locally with docker</h2>
+<ul>
+<li><code>git clone https://github.com/nie-ine/NIE-OS.git</code></li>
+<li><code>cd NIE-OS</code></li>
+</ul>
+<ol>
+<li><code>mv ./backend/settings_default ./backend/.settings</code></li>
+<li><code>docker-compose up</code></li>
+<li>Wait until the mongodb - conatiner has a first terminal output, then restart the nieine/mean container, the last terminal output of the node container should say  &quot;connected to database&quot;</li>
+</ol>
+<p>So, in another terminal, type:</p>
+<p><code>docker ps</code> to find out the &lt; container id &gt; of nieine/mean</p>
+<p><code>docker restart &lt; container id &gt;</code></p>
+<p>You can find the software on the following ports:</p>
+<p>NIE-OS:  <a href="http://localhost:4200">http://localhost:4200</a></p>
+<p>MongoDB - Admin - Interface: <a href="http://localhost:8081">http://localhost:8081</a></p>
+<h2 id="get-it-up-and-running-for-development">Get it up and running for development</h2>
+<h3 id="clone-nieos">Clone nieOS</h3>
+<ul>
+<li><code>git clone https://github.com/nie-ine/NIE-OS.git</code></li>
+<li><code>cd NIE-OS</code></li>
+</ul>
+<h2 id="1-create-mongodb-instance-">1. Create MongoDB instance:</h2>
+<h3 id="alternative-1-create-your-own-mongodb-instance-">Alternative 1: Create your own MongoDB instance:</h3>
+<ul>
+<li>Create a sandbox on Mongodb, choose a free instance.</li>
+<li>In this sandbox, add your IP to the whitelist</li>
+<li>Get the server-connect string, similiar to this: <code>mongodb+srv://user:dfgsdbdtrgr@cluster567-7kilp.mongodb.net/node-angular</code> via klick on Connect, klick on connect your application, klick one nodejs</li>
+</ul>
+<h3 id="alternative-2-contact-jan-stoffregen-uzh-ch">Alternative 2: Contact <a href="mailto:jan.stoffregen@uzh.ch">jan.stoffregen@uzh.ch</a></h3>
+<h2 id="2-connect-nieos-to-mongodb-">2. Connect nieOS to MongoDB:</h2>
+<ul>
+<li>Create a folder .settings</li>
+<li>In the folder settings, create the file mongodbServer.js Your file should look similiar to the following:</li>
+</ul>
+<div><pre class="line-numbers"><code class="language-none">const mongodbServer = &#39;mongodb+srv://user:dfgsdbdtrgr&#64;cluster567-7kilp.mongodb.net/node-angular&#39;;
+
+module.exports = {
+  mongodbServer: mongodbServer
+};</code></pre></div><ul>
+<li>another file in this folder should be mailDetails, where you can put the information for your email - server, it should look like the following:</li>
+</ul>
+<div><pre class="line-numbers"><code class="language-none">const emailAdress = &#39;&lt;your Email Address&gt;&#39;;
+const pw = &#39;&lt;your password&gt;&#39;;
+const recipient = &#39;&lt;default recipient if there is no other one defined&gt;&#39;;
+const type = &#39;&lt;type of your mail server&gt;&#39;;
+
+module.exports = {
+  emailAdress: emailAdress,
+  pw: pw,
+  recipient: recipient,
+  type: type
+};</code></pre></div><ul>
+<li>another file is nieOsServer.js:</li>
+</ul>
+<div><pre class="line-numbers"><code class="language-none">const nieOSServer = &#39;http://localhost:4200&#39;;
+
+module.exports = {
+  nieOSServer: nieOSServer
+};
+</code></pre></div><ul>
+<li>another file is salt.js</li>
+</ul>
+<div><pre class="line-numbers"><code class="language-none">const salt = &#39;your_secret_that_should_be_very_long&#39;;
+
+
+module.exports = {
+  salt: salt
+};
+</code></pre></div><h2 id="3-start-angular-and-node-js">3. Start Angular and Node.js</h2>
+<ul>
+<li><code>yarn</code></li>
+<li><code>ng s</code></li>
+</ul>
+<h2 id="4-start-node-js">4. Start node.js</h2>
+<p><code>npm run start:server</code></p>
+<h2 id="running-unit-tests">Running unit tests</h2>
+<p>Run <code>ng test</code> to execute the unit tests via <a href="https://karma-runner.github.io">Karma</a>.</p>
+<h2 id="technical-documentation-">Technical Documentation:</h2>
+<p><a href="https://nie-ine.github.io/NIE-OS/">https://nie-ine.github.io/NIE-OS/</a></p>
+<h2 id="how-can-i-use-nie-os-to-create-websites-and-components-of-websites-">How can I use NIE-OS to create websites and components of websites?</h2>
+<p>The following graph illustrates how you can use NIE-OS:</p>
+<p>--&gt; 1. You can create your entire website in NIE-OS with the help of pageSets. While this is suitable and you have the option to create your own,
+project specific design, you don&#39;t have the option to design all parts of the design of your website. </p>
+<p>--&gt; 2.1.1 &quot;I design my own website and I use iframe to include apps that I host on my own webserver&quot;: You can host an NIE-OS instance on your 
+webserver, create a page, open the desired app with the option to display it as a full - screen - app, publish this app and include it in
+your own website with iframe</p>
+<p>--&gt; 2.1.2 &quot;I design my own website and I use iframe to include pages that I host on my own webserver&quot;: You can host an NIE-OS instance on your 
+webserver, create a page, open the desired apps, publish this app and include it in your own website with iframe</p>
+<p>--&gt; 2.1.3 &quot;I design my own website and I use iframe to include apps that I host on the NIE-OS productive instance&quot;: You can create an account,
+on our productive NIE-OS instance, create a page, open the desired app with the option to display it as a full - screen - app, publish this app and include it in
+your own website with iframe</p>
+<p>--&gt; 2.1.4 &quot;I design my own website and I use iframe to include pages that I host on the NIE-OS productive instance&quot;: You can create an account,
+on our productive NIE-OS instance, create a page, open the desired app with the option to display it as a full - screen - app, publish this app and include it in
+your own website with iframe</p>
+<p>--&gt; 2.2.1 &quot;I&#39;d like to use apps from NIE-OS in my own website&quot;: Each app will bee available as an own npm - module that you can use in your
+Javascript - Based Website, for instance using Angular, pure Javascript, Vue.js, etc.</p>
+<p>--&gt; 2.2.2 &quot;I&#39;d like to use pages from NIE-OS in my own website&quot;: You can create a page in NIE-OS and export it. Then you can include NIE-OS
+as an npm - module in your code with the page - export - file as an input. This feature is still under development:
+<a href="https://github.com/nie-ine/NIE-OS/issues/273">https://github.com/nie-ine/NIE-OS/issues/273</a></p>
+<img src="./src/assets/img/NIE-OS_publication_process.png" alt="NIE-OS publication options" width="1000"/>
+
+<h2 id="generate-documentation">Generate documentation</h2>
+<p>npm run compodoc</p>
+<p>compodoc -p src/tsconfig.app.json -s</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 0;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'getting-started';
+            var COMPODOC_CURRENT_PAGE_URL = 'index.html';
+       </script>
+
+       <script src="./js/libs/custom-elements.min.js"></script>
+       <script src="./js/libs/lit-html.js"></script>
+       <script src="./js/menu-wc.js"></script>
+
+       <script src="./js/libs/bootstrap-native.js"></script>
+
+       <script src="./js/libs/es6-shim.min.js"></script>
+       <script src="./js/libs/EventDispatcher.js"></script>
+       <script src="./js/libs/promise.min.js"></script>
+       <script src="./js/libs/zepto.min.js"></script>
+
+       <script src="./js/compodoc.js"></script>
+
+       <script src="./js/tabs.js"></script>
+       <script src="./js/menu.js"></script>
+       <script src="./js/libs/clipboard.min.js"></script>
+       <script src="./js/libs/prism.js"></script>
+       <script src="./js/sourceCode.js"></script>
+          <script src="./js/search/search.js"></script>
+          <script src="./js/search/lunr.min.js"></script>
+          <script src="./js/search/search-lunr.js"></script>
+          <script src="./js/search/search_index.js"></script>
+       <script src="./js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

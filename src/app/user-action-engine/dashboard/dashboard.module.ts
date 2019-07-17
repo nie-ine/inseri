@@ -16,6 +16,10 @@ import {MatCardModule} from '@angular/material/card';
 import { DeleteActionComponent } from './dashboard/delete-action/delete-action.component';
 import { ImpressumComponent } from './impressum/impressum.component';
 import {TermsAndConditions} from '../register/termsAndConditions/termsAndConditions';
+import {StaticPagesModule} from '../static-pages.module';
+import { HeaderComponent } from '../header/header.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatChipsModule} from '@angular/material/chips';
 
 @NgModule({
   imports: [
@@ -32,6 +36,9 @@ import {TermsAndConditions} from '../register/termsAndConditions/termsAndConditi
     MatProgressSpinnerModule,
     MatExpansionModule,
     MatCardModule,
+    StaticPagesModule,
+    MatTooltipModule,
+    MatChipsModule,
     RouterModule.forRoot([
       {path: 'dashboard', component: DashboardComponent},
       {path: 'impressum', component: ImpressumComponent}
@@ -42,7 +49,8 @@ import {TermsAndConditions} from '../register/termsAndConditions/termsAndConditi
     DialogOverviewExampleDialog,
     EditActionComponent,
     DeleteActionComponent,
-    ImpressumComponent
+    ImpressumComponent,
+    HeaderComponent
   ],
   entryComponents: [
     DialogOverviewExampleDialog,
@@ -52,6 +60,7 @@ import {TermsAndConditions} from '../register/termsAndConditions/termsAndConditi
   providers: [
     TermsAndConditions,
     DatePipe
-  ]
+  ],
+  exports: [DashboardComponent, HeaderComponent]
 })
 export class DashboardModule { }
