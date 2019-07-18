@@ -6,7 +6,7 @@
 import {AfterViewChecked, ChangeDetectorRef, Component, NgModule, OnInit, VERSION} from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
 import 'rxjs/add/operator/map';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {GenerateHashService} from '../../../user-action-engine/other/generateHash.service';
 import {OpenAppsModel} from '../../../user-action-engine/mongodb/page/open-apps.model';
 import {PageService} from '../../../user-action-engine/mongodb/page/page.service';
@@ -17,6 +17,9 @@ import {GeneralRequestService} from '../../../query-engine/general/general-reque
 import {QueryInformationDialogComponent} from '../query-information-dialog/query-information-dialog.component';
 import {StyleMappingService} from '../../../query-app-interface/services/style-mapping-service';
 import {PageMenuComponent} from '../page-menu/page-menu.component';
+import {Subscription} from 'rxjs';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {ActionService} from '../../../user-action-engine/mongodb/action/action.service';
 
 /**
  * @params actionID - the actionID of the action that the page belongs to
@@ -59,6 +62,25 @@ export class PageComponent implements OnInit, AfterViewChecked {
   cssUrl: any;
   appFramePosition = 'absolute';
   showNote = false;
+  currentRoute: string;
+  pagesOfThisActtion: Array<any>;
+  hashOfThisPage: string;
+  lastView: any;
+  nextView: any;
+  foundHashOfThisView: boolean;
+  private authListenerSubs: Subscription;
+  userIsAuthenticated = false;
+  pagesOfThisAction: any;
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  selectedPage = 0;
+  alreadyLoaded = false;
+  userInfo: string;
+  sub: any;
+  snackBarOpen = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -72,8 +94,16 @@ export class PageComponent implements OnInit, AfterViewChecked {
     private spinner: NgxSpinnerService,
     private requestService: GeneralRequestService,
     public sanitizer: DomSanitizer,
-    private stylemapping: StyleMappingService
-  ) {}
+    private stylemapping: StyleMappingService,
+    private actionService: ActionService,
+    private router: Router
+  ) {
+    this.route.queryParams.subscribe(params => {
+      this.hashOfThisPage = params.page;
+      this.actionID = params.actionID;
+      this.generateNavigation(params.actionID);
+    });
+  }
 
   changeAppFramePosition() {
     if ( this.appFramePosition === 'absolute' ) {
@@ -166,7 +196,49 @@ export class PageComponent implements OnInit, AfterViewChecked {
     }, 5000); // TODO: bind end of spinner to event that all queries have been loaded instead of setTimeout!
     setTimeout(() => {
       this.showNote = true;
-    }, 7000);
+    }, 10000);
+  }
+
+  checkIfSelected( index: number ) {
+    return (index === this.selectedPage);
+  }
+
+  selectPage(i: number, page: any) {
+    this.selectedPage = i;
+    this.navigateToOtherView(page);
+  }
+
+  navigateToOtherView(page: any) {
+    console.log('Navigate to last View');
+    this.router.navigate( [ 'page' ], {
+      queryParams: {
+        'actionID': this.actionID,
+        'page': page._id
+      }
+    } );
+  }
+
+  generateNavigation(actionID: string) {
+    if (!this.alreadyLoaded && actionID) {
+      this.actionService.getAction(actionID)
+        .subscribe(data => {
+            if (data.body.action.type === 'page-set') {
+              this.pagesOfThisActtion = [];
+              for (const page of ( data.body as any ).action.hasPageSet.hasPages as any ) {
+                console.log( page._id, this.hashOfThisPage );
+                if ( page._id === this.hashOfThisPage ) {
+                  this.selectedPage = this.pagesOfThisActtion.length;
+                  console.log( this.selectedPage );
+                }
+                this.pagesOfThisActtion[this.pagesOfThisActtion.length] = page;
+                this.alreadyLoaded = true;
+              }
+            }
+          },
+          error => {
+            // console.log(error);
+          });
+    }
   }
 
   /**

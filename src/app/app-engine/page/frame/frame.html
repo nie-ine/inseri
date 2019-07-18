@@ -6,8 +6,10 @@
        'left': fullWidth ? '0' : curX + 'px',
        'z-index': curZIndex,
        'position': position,
-       width: fullWidth ? '100%' : '',
-       height: fullHeight ? '100%' : ''
+       width: fullWidth ? 'calc(100% - 70px)' : '',
+       height: fullHeight ? 'calc(100% - 70px)' : '',
+       'margin-top': fullHeight ? '70px' : '',
+       'margin-left': fullWidth ? '70px' : ''
        }">
     <div class="popup-title-bar popup-drag" (mousedown)="mousedown($event)">
       <span style=" margin-right: 20px; color: blue; cursor: pointer;" (click)="disappear()">-</span>
