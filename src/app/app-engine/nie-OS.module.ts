@@ -69,6 +69,7 @@ import { OpenbisLoginComponent } from './apps/openbis-login/openbis-login.compon
 // import { KnoraJsonldSimplify } from 'knora-jsonld-simplify/dist';
 import { StaticPagesModule } from  '../user-action-engine/static-pages.module';
 import { PageMenuComponent } from './page/page-menu/page-menu.component';
+import { YoutubeVideoComponent } from './apps/youtube-video/youtube-video.component';
 
 @NgModule({
   imports: [
@@ -119,7 +120,8 @@ import { PageMenuComponent } from './page/page-menu/page-menu.component';
     RouterModule.forChild([
       { path: 'page', component: PageComponent },
       { path: 'response-tree', component: ResponseTreeComponent },
-      { path: 'openbis-login', component: OpenbisLoginComponent }
+      { path: 'openbis-login', component: OpenbisLoginComponent },
+      { path: 'youtube-video', component: YoutubeVideoComponent }
     ])
   ],
   providers: [
@@ -154,7 +156,8 @@ import { PageMenuComponent } from './page/page-menu/page-menu.component';
     DataListViewSettings,
     DataListViewTableComponent,
     OpenbisLoginComponent,
-    PageMenuComponent
+    PageMenuComponent,
+    YoutubeVideoComponent
   ],
   exports: [
     PageComponent,

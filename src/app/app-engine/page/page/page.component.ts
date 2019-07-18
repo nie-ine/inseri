@@ -196,7 +196,19 @@ export class PageComponent implements OnInit, AfterViewChecked {
     }, 5000); // TODO: bind end of spinner to event that all queries have been loaded instead of setTimeout!
     setTimeout(() => {
       this.showNote = true;
-    }, 10000);
+    }, 4000);
+  }
+
+  addVideoApp( url: string ) {
+    this.addAnotherApp( 'youtubeVideo', true );
+    const length = this.openAppsInThisPage[ 'youtubeVideo' ].model.length - 1;
+    console.log( length );
+    this.openAppsInThisPage[ 'youtubeVideo' ].model[ length ].initialized = true;
+    this.openAppsInThisPage[ 'youtubeVideo' ].model[ length ].x = 100;
+    this.openAppsInThisPage[ 'youtubeVideo' ].model[ length ].y = 100;
+    this.openAppsInThisPage[ 'youtubeVideo' ].model[ length ]['videoURL'] = url;
+    this.openAppsInThisPage[ 'youtubeVideo' ].model[ length ].width = 600;
+    this.openAppsInThisPage[ 'youtubeVideo' ].model[ length ].height = 400;
   }
 
   checkIfSelected( index: number ) {
@@ -433,7 +445,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.addAnotherApp( 'pageMenu', true );
     console.log( this.openAppsInThisPage );
     this.openAppsInThisPage[ 'pageMenu' ].model[ 0 ].initialized = true;
-    this.openAppsInThisPage[ 'pageMenu' ].model[ 0 ].x = 500;
+    this.openAppsInThisPage[ 'pageMenu' ].model[ 0 ].x = 600;
     this.openAppsInThisPage[ 'pageMenu' ].model[ 0 ].y = 100;
   }
 

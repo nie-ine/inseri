@@ -1,0 +1,19 @@
+<div style="margin-top: 20px; margin-left: 20px;">
+  <form style="width: 400px">
+    <mat-form-field  >
+      <input matInput placeholder="Youtube URL" value="{{ videoURL }}" name="title" [(ngModel)]="videoURL" >
+    </mat-form-field>
+    <button mat-button (click)="setNewVideo()">Set new Video</button>
+    <mat-icon matTooltip='On youtube, click on share, then on embed to find the right url to embed the video in this app'>help</mat-icon>
+  </form>
+
+  <iframe
+    *ngIf="videoURL !== ''"
+    width="560"
+    height="315"
+    [src]='safeURL'
+    frameborder="0"
+    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen></iframe>
+
+</div>

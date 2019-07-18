@@ -71,6 +71,15 @@ export class OpenAppsModel {
         }
       ]
     },
+    youtubeVideo: {
+      type: 'youtubeVideo',
+      model: [],
+      inputs: [
+        {
+          'inputName': 'videoURL'
+        }
+      ]
+    },
     barCharts: {
       type: 'barCharts',
       model: []

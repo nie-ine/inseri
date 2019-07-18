@@ -33,7 +33,7 @@
       <div style="margin-top: 20px; vertical-align: bottom; z-index: 9999">
         <button type="button" mat-button  matTooltip='{{ createTooltip() }}' (click)="openPageMenu()" >
 <!--          (click)="drawer.toggle()"-->
-          <img [src]="'../../../../assets/img/logo_transparent.png'" style="width: 40px; margin-bottom: 2px;">
+          <img [src]="'../../../../assets/img/logo_transparent.png'" style="width: 40px; margin-bottom: 2px;"> <span *ngIf="showNote && pageAsDemo"> &#8592; Click here for tutorials and the app store</span>
         </button>
         <a href="dashboard#top" *ngIf=" (!pageAsDemo)" style="color: #4cae4c !important"><mat-icon matTooltip="back to dashboard">home</mat-icon></a>
         <a href="{{'page-set?actionID=' + route.snapshot.queryParams.actionID}}" *ngIf="route.snapshot.queryParams.page" style="color: #4cae4c !important; margin-left: 15px;"><mat-icon matTooltip="back to pageSet">filter_none</mat-icon></a>
@@ -351,6 +351,37 @@
         </popup>
       </div>
 
+      <!-- youtubeVideo -->
+      <div *ngFor="let createResourceForm of openAppsInThisPage[ 'youtubeVideo' ].model; let i = index;" >
+        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>video_library</mat-icon> {{ i }}</button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="youtubeVideo.appear()" >Show Youtube Video Viewer {{ i }}</button>
+          <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'youtubeVideo' ].model, i ) ">Remove this app</button>
+        </mat-menu>
+        <popup #youtubeVideo
+               [fullWidth]="openAppsInThisPage[ 'youtubeVideo' ].model[i].fullWidth"
+               [fullHeight]="openAppsInThisPage[ 'youtubeVideo' ].model[i].fullHeight"
+               (sendTiledPositionBack) = "updateTiledPosition( $event )"
+               [position]="appFramePosition"
+               [hash]="openAppsInThisPage[ 'youtubeVideo' ].model[i].hash"
+               [title]="openAppsInThisPage[ 'youtubeVideo' ].model[i].title || 'Youtube Video ' + i"
+               [type]="openAppsInThisPage[ 'youtubeVideo' ].type"
+               [firstPopupX]="openAppsInThisPage[ 'youtubeVideo' ].model[i].x"
+               [firstPopupY]="openAppsInThisPage[ 'youtubeVideo' ].model[i].y"
+               [width]="produceHeightAndWidth( openAppsInThisPage[ 'youtubeVideo' ].model[i].width, '600' )"
+               [height]="produceHeightAndWidth( openAppsInThisPage[ 'youtubeVideo' ].model[i].height, '400')"
+               (sendAppCoordinatesBack)="updateAppCoordinates($event)"
+               (sendAppSettingsBack)="updateAppSettings($event)">
+          <div [ngStyle]="{'height': openAppsInThisPage[ 'youtubeVideo' ].model[i].fullHeight ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'youtubeVideo' ].model[i].height, '400' ) + 'px',
+            'width': openAppsInThisPage[ 'youtubeVideo' ].model[i].fullWidth ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'youtubeVideo' ].model[i].width, '600' ) + 'px'}">
+            <app-youtube-video
+              [videoURL]="openAppsInThisPage[ 'youtubeVideo' ].model[i]['videoURL']">
+
+            </app-youtube-video>
+          </div>
+        </popup>
+      </div>
+
     <!-- pageMenu -->
     <div *ngFor="let createResourceForm of openAppsInThisPage[ 'pageMenu' ].model; let i = index;" >
       <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>settings</mat-icon> {{ i }}</button>
@@ -384,9 +415,7 @@
           </div>
 
           <div *ngIf="pageAsDemo">
-            <span style="align-content: center" i18n="@@demoPageTitle">Please open any app and drag it around if you'd
-              like to open more than one app. You can increase the size of the page by dragging the app below the
-              bottom of the page</span>
+            <button mat-button color="primary" (click)="addVideoApp( 'https://www.youtube.com/embed/9An1cGPrv9Q' )"> <mat-icon>video_library</mat-icon> Watch Video "First steps in Inseri"</button>
           </div>
 
           <!-- Texts -->
@@ -603,6 +632,23 @@
 
           <details style="margin-top: 35px; width: 300px;">
             <summary style="cursor: pointer"><h4 style="align-content: center; display: inline;">Multimedia</h4><h4 style="align-content: center; display: inline; color: #4dc71f">&nbsp;Apps</h4></summary>
+
+            <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Youtube Video Viewer
+                </mat-panel-title>
+                <mat-panel-description>
+                  Embed Youtube Videos
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+              You can embed youtube - videos in this app.
+
+              <mat-divider></mat-divider>
+
+              <button mat-button (click)="addAnotherApp('youtubeVideo', true)"><mat-icon>video_library</mat-icon> Add Synopsis Viewer</button><br>
+            </mat-expansion-panel>
 
             <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
               <mat-expansion-panel-header>
@@ -860,7 +906,7 @@
     <div *ngFor="let parzivalFassung of openAppsInThisPage[ 'parzivalFassung' ].model; let i = index;" >
       <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" >pF {{ i }}</button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="parzivalFassung.appear()" >Show Textlist Viewer {{ i }}</button>
+        <button mat-menu-item (click)="parzivalFassung.appear()" >Show Parzival Fassungs App {{ i }}</button>
         <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'parzivalFassung' ].model, i ) ">Remove this app</button>
       </mat-menu>
       <popup #parzivalFassung
@@ -992,7 +1038,7 @@
              (sendTiledPositionBack) = "updateTiledPosition( $event )"
              [position]="appFramePosition"
              [hash]="openAppsInThisPage[ 'jsonViewer' ].model[i].hash"
-             [title]="openAppsInThisPage[ 'jsonViewer' ].model[i].title || 'Textlist - Viewer ' + i"
+             [title]="openAppsInThisPage[ 'jsonViewer' ].model[i].title || 'Json - Viewer ' + i"
              [type]="openAppsInThisPage[ 'jsonViewer' ].type"
              [firstPopupX]="openAppsInThisPage[ 'jsonViewer' ].model[i].x"
              [firstPopupY]="openAppsInThisPage[ 'jsonViewer' ].model[i].y"
