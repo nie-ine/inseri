@@ -49,6 +49,7 @@ export class Frame implements OnInit, OnChanges {
   @Input() position = 'absolute';
   @Input() fullWidth: boolean;
   @Input() fullHeight: boolean;
+  @Input() preview = false;
   @Output() sendAppCoordinatesBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendAppSettingsBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendIndexBack: EventEmitter<any> = new EventEmitter<any>();

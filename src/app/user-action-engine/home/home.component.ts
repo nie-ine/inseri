@@ -56,6 +56,10 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  goToRegister(){
+    this.router.navigate(['/register' ]);
+  }
+
   startLoginProcess() {
     this.loginError = false;
     this.authService.login(
