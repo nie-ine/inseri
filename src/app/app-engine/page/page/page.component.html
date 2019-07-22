@@ -30,10 +30,10 @@
 
 
 
-      <div style="margin-top: 20px; vertical-align: bottom; z-index: 9999">
-        <button type="button" mat-button  matTooltip='{{ createTooltip() }}' (click)="openPageMenu()" *ngIf="!preview">
+      <div style="margin-top: 20px; vertical-align: bottom; ">
+        <button type="button" mat-button  matTooltip='{{ createTooltip() }}' (click)="openPageMenu()" *ngIf="!preview" #tooltip="matTooltip">
 <!--          (click)="drawer.toggle()"-->
-          <img [src]="'../../../../assets/img/logo_transparent.png'" style="width: 40px; margin-bottom: 2px;"> <span *ngIf="showNote && pageAsDemo"> &#8592; Click here for Inseri tutorials and the Inseri app store</span>
+          <img [src]="'../../../../assets/img/logo_transparent.png'" style="width: 40px; margin-bottom: 2px;"> <span *ngIf="showNote && pageAsDemo"  > &#8592; Click here for inseri tutorials and the inseri App Menu</span>
         </button>
         <a href="dashboard#top" *ngIf=" (!pageAsDemo) && !preview" style="color: #4cae4c !important"><mat-icon matTooltip="back to dashboard">home</mat-icon></a>
         <a href="{{'page-set?actionID=' + route.snapshot.queryParams.actionID}}" *ngIf="route.snapshot.queryParams.page" style="color: #4cae4c !important; margin-left: 15px;"><mat-icon matTooltip="back to pageSet">filter_none</mat-icon></a>
@@ -53,37 +53,39 @@
 <div>
 
     <!-- Data Chooser -->
+  <div style=" position: fixed; bottom: 0; right: 0; z-index: 200; height: 30%; overflow-x: auto; margin-top: 60%; margin-bottom: 10%">
     <div *ngFor="let dataChooser of openAppsInThisPage[ 'dataChooser' ].model; let i = index;" >
-      <div *ngIf="generateQueryAppPathInformation( openAppsInThisPage[ 'dataChooser' ].model[i].queryId ) !== undefined">
+      <div *ngIf="generateQueryAppPathInformation( openAppsInThisPage[ 'dataChooser' ].model[i].queryId ) !== undefined" >
         <button
-          *ngIf="openAppsInThisPage[ 'dataChooser' ].model[i].title.search( 'Depth: ' ) === -1 && !preview"
+          *ngIf="openAppsInThisPage[ 'dataChooser' ].model[i].title.search( 'Depth: ' ) === -1 "
           (click)="openQueryInformationDialog( openAppsInThisPage[ 'dataChooser' ].model[i].queryId )"
-          mat-button>
-          {{ openAppsInThisPage[ 'dataChooser' ].model[i].title }}
-        </button>
-        <div style="width: 300px;" *ngIf="!preview">
-          <app-data-chooser
-            [appInputQueryMapping]=" page.appInputQueryMapping"
-            [response]="openAppsInThisPage[ 'dataChooser' ].model[i].response"
-            [queryId] = "openAppsInThisPage[ 'dataChooser' ].model[i].queryId"
-            [openAppsInThisPage] = "openAppsInThisPage"
-            [dataChooserEntries]="openAppsInThisPage[ 'dataChooser' ].model[i].dataChooserEntries"
-            [description]=" 'Depth: ' + openAppsInThisPage[ 'dataChooser' ].model[i].depth "
-            [depth]="openAppsInThisPage[ 'dataChooser' ].model[i].depth"
-            (sendIndexBack)="updateMainResourceIndex( $event )">
-          </app-data-chooser>
-        </div>
+          mat-button matTooltip="{{openAppsInThisPage[ 'dataChooser' ].model[i].title}}" >
+          {{ 'Query ' + i }}
+        </button> <br>
+        <app-data-chooser
+          [appInputQueryMapping]=" page.appInputQueryMapping"
+          [response]="openAppsInThisPage[ 'dataChooser' ].model[i].response"
+          [queryId] = "openAppsInThisPage[ 'dataChooser' ].model[i].queryId"
+          [openAppsInThisPage] = "openAppsInThisPage"
+          [dataChooserEntries]="openAppsInThisPage[ 'dataChooser' ].model[i].dataChooserEntries"
+          [description]=" openAppsInThisPage[ 'dataChooser' ].model[i].depth "
+          [depth]="openAppsInThisPage[ 'dataChooser' ].model[i].depth"
+          (sendIndexBack)="updateMainResourceIndex( $event )">
+        </app-data-chooser>
       </div>
     </div>
+  </div>
 
       <!-- Image Viewer -->
       <div *ngFor="let imageViewer of openAppsInThisPage[ 'imageViewer' ].model; let i = index;" >
-        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>image</mat-icon> {{ i }}</button>
-        <mat-menu #menu="matMenu" >
-          <button mat-menu-item (click)="imageViewer.appear()">Show Image Viewer {{ i }}</button>
-          <button mat-menu-item >Choose Image</button>
-          <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'imageViewer' ].model, i ) ">Remove this app</button>
-        </mat-menu>
+        <div *ngIf="!preview">
+          <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>image</mat-icon> {{ i }}</button>
+          <mat-menu #menu="matMenu" >
+            <button mat-menu-item (click)="imageViewer.appear()">Show Image Viewer {{ i }}</button>
+            <button mat-menu-item >Choose Image</button>
+            <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'imageViewer' ].model, i ) ">Remove this app</button>
+          </mat-menu>
+        </div>
         <popup #imageViewer
                [preview]="preview"
                [fullWidth]="openAppsInThisPage[ 'imageViewer' ].model[i].fullWidth"
@@ -114,11 +116,13 @@
 
     <!-- Simple Image App -->
     <div *ngFor="let image of openAppsInThisPage[ 'simpleImageApp' ].model; let i = index;" >
-      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>add_photo_alternate</mat-icon> {{ i }} </button>
-      <mat-menu #menu="matMenu" >
-        <button mat-menu-item (click)="simpleImageApp.appear()" >Show Image Viewer {{ i }}</button>
-        <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'simpleImageApp' ].model, i ) ">Remove this app</button>
-      </mat-menu>
+      <div *ngIf="!preview">
+        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>add_photo_alternate</mat-icon> {{ i }} </button>
+        <mat-menu #menu="matMenu" >
+          <button mat-menu-item (click)="simpleImageApp.appear()" >Show Image Viewer {{ i }}</button>
+          <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'simpleImageApp' ].model, i ) ">Remove this app</button>
+        </mat-menu>
+      </div>
       <popup #simpleImageApp
              [preview]="preview"
              [fullWidth]="openAppsInThisPage[ 'simpleImageApp' ].model[i].fullWidth"
@@ -149,10 +153,12 @@
 
     <!-- Login -->
     <div *ngFor="let image of openAppsInThisPage[ 'login' ].model; let i = index;" >
-      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>lock_open</mat-icon> {{ i }} </button>
-      <mat-menu #menu="matMenu" >
-        <button mat-menu-item (click)="login.appear()" >Show Inseri Login {{ i }}</button>
-      </mat-menu>
+      <div *ngIf="!preview">
+        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>lock_open</mat-icon> {{ i }} </button>
+        <mat-menu #menu="matMenu" >
+          <button mat-menu-item (click)="login.appear()" >Show Inseri Login {{ i }}</button>
+        </mat-menu>
+      </div>
       <popup #login
              [preview]="preview"
              [fullWidth]="openAppsInThisPage[ 'login' ].model[i].fullWidth"
@@ -177,12 +183,14 @@
 
       <!-- TextViewer -->
       <div *ngFor="let textViewer of openAppsInThisPage[ 'textViewer' ].model; let i = index;" >
-        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>short_text</mat-icon> {{ i }}</button>
-        <mat-menu #menu="matMenu" >
-          <button mat-menu-item (click)="textViewer.appear()" >Show Text Viewer {{ i }}</button>
-          <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'textViewer' ].model, i ) ">Remove this app</button>
-          <button mat-menu-item>Choose Text</button>
-        </mat-menu>
+        <div *ngIf="!preview">
+          <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>short_text</mat-icon> {{ i }}</button>
+          <mat-menu #menu="matMenu" >
+            <button mat-menu-item (click)="textViewer.appear()" >Show Text Viewer {{ i }}</button>
+            <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'textViewer' ].model, i ) ">Remove this app</button>
+            <button mat-menu-item>Choose Text</button>
+          </mat-menu>
+        </div>
         <popup #textViewer
                [preview]="preview"
                [fullWidth]="openAppsInThisPage[ 'textViewer' ].model[i].fullWidth"
@@ -230,21 +238,24 @@
           </app-html-viewer>
         </div>
       </popup>
-      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>aspect_ratio</mat-icon> {{ i }}</button>
-      <mat-menu #menu="matMenu" >
-        <button mat-menu-item (click)="htmlViewer.appear()" >Show HTML Viewer {{ i }}</button>
-        <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'htmlViewer' ].model, i ) ">Remove this app</button>
-      </mat-menu>
-
+      <div *ngIf="!preview">
+        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>aspect_ratio</mat-icon> {{ i }}</button>
+        <mat-menu #menu="matMenu" >
+          <button mat-menu-item (click)="htmlViewer.appear()" >Show HTML Viewer {{ i }}</button>
+          <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'htmlViewer' ].model, i ) ">Remove this app</button>
+        </mat-menu>
+      </div>
     </div>
 
       <!-- Synopsis -->
       <div *ngFor="let synopsisViewer of openAppsInThisPage[ 'synopsisViewer' ].model; let i = index;" >
-        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>art_track</mat-icon> {{ i }}</button>
-        <mat-menu #menu="matMenu" >
-          <button mat-menu-item (click)="synopsisViewer.appear()" >Show Synopsis Viewer {{ i }}</button><br>
-          <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'synopsisViewer' ].model, i ) ">Remove this app</button>
-        </mat-menu>
+        <div *ngIf="!preview">
+          <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>art_track</mat-icon> {{ i }}</button>
+          <mat-menu #menu="matMenu" >
+            <button mat-menu-item (click)="synopsisViewer.appear()" >Show Synopsis Viewer {{ i }}</button><br>
+            <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'synopsisViewer' ].model, i ) ">Remove this app</button>
+          </mat-menu>
+        </div>
         <popup #synopsisViewer
                [preview]="preview"
                [fullWidth]="openAppsInThisPage[ 'synopsisViewer' ].model[i].fullWidth"
@@ -271,11 +282,13 @@
 
       <!-- Resource Creation Form -->
       <div *ngFor="let createResourceForm of openAppsInThisPage[ 'createResourceForm' ].model; let i = index;" >
-        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>add_to_queue</mat-icon> {{ i }}</button>
-        <mat-menu #menu="matMenu" >
-          <button mat-menu-item (click)="createResourceForm.appear()" >Show Create Resource Form {{ i }}</button>
-          <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'createResourceForm' ].model, i ) ">Remove this app</button>
-        </mat-menu>
+        <div *ngIf="!preview">
+          <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>add_to_queue</mat-icon> {{ i }}</button>
+          <mat-menu #menu="matMenu" >
+            <button mat-menu-item (click)="createResourceForm.appear()" >Show Create Resource Form {{ i }}</button>
+            <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'createResourceForm' ].model, i ) ">Remove this app</button>
+          </mat-menu>
+        </div>
         <popup #createResourceForm
                [preview]="preview"
                [fullWidth]="openAppsInThisPage[ 'createResourceForm' ].model[i].fullWidth"
@@ -303,11 +316,13 @@
 
     <!-- Edit Resource Form -->
     <div *ngFor="let editResourceForm of openAppsInThisPage[ 'editResourceForm' ].model; let i = index;" >
-      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>add_to_queue</mat-icon> {{ i }}</button>
-      <mat-menu #menu="matMenu" >
-        <button mat-menu-item (click)="editResourceForm.appear()" >Show Create Resource Form {{ i }}</button>
-        <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'editResourceForm' ].model, i ) ">Remove this app</button>
-      </mat-menu>
+      <div *ngIf="!preview">
+        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>add_to_queue</mat-icon> {{ i }}</button>
+        <mat-menu #menu="matMenu" >
+          <button mat-menu-item (click)="editResourceForm.appear()" >Show Create Resource Form {{ i }}</button>
+          <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'editResourceForm' ].model, i ) ">Remove this app</button>
+        </mat-menu>
+      </div>
       <popup #editResourceForm
              [preview]="preview"
              [fullWidth]="openAppsInThisPage[ 'editResourceForm' ].model[i].fullWidth"
@@ -334,11 +349,13 @@
 
     <!-- textlistViewers -->
       <div *ngFor="let createResourceForm of openAppsInThisPage[ 'textlistViewers' ].model; let i = index;" >
-        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>short_text</mat-icon> {{ i }}</button>
-        <mat-menu #menu="matMenu" >
-          <button mat-menu-item (click)="textlistViewers.appear()" >Show Plaintext Viewer {{ i }}</button>
-          <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'textlistViewers' ].model, i ) ">Remove this app</button>
-        </mat-menu>
+        <div *ngIf="!preview">
+          <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>short_text</mat-icon> {{ i }}</button>
+          <mat-menu #menu="matMenu" >
+            <button mat-menu-item (click)="textlistViewers.appear()" >Show Plaintext Viewer {{ i }}</button>
+            <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'textlistViewers' ].model, i ) ">Remove this app</button>
+          </mat-menu>
+        </div>
         <popup #textlistViewers
                [preview]="preview"
                [fullWidth]="openAppsInThisPage[ 'textlistViewers' ].model[i].fullWidth"
@@ -365,11 +382,13 @@
 
       <!-- youtubeVideo -->
       <div *ngFor="let createResourceForm of openAppsInThisPage[ 'youtubeVideo' ].model; let i = index;" >
-        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>video_library</mat-icon> {{ i }}</button>
-        <mat-menu #menu="matMenu" >
-          <button mat-menu-item (click)="youtubeVideo.appear()" >Show Youtube Video Viewer {{ i }}</button>
-          <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'youtubeVideo' ].model, i ) ">Remove this app</button>
-        </mat-menu>
+        <div *ngIf="!preview">
+          <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>video_library</mat-icon> {{ i }}</button>
+          <mat-menu #menu="matMenu" >
+            <button mat-menu-item (click)="youtubeVideo.appear()" >Show Youtube Video Viewer {{ i }}</button>
+            <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'youtubeVideo' ].model, i ) ">Remove this app</button>
+          </mat-menu>
+        </div>
         <popup #youtubeVideo
                [preview]="preview"
                [fullWidth]="openAppsInThisPage[ 'youtubeVideo' ].model[i].fullWidth"
@@ -397,11 +416,13 @@
 
     <!-- pageMenu -->
     <div *ngFor="let createResourceForm of openAppsInThisPage[ 'pageMenu' ].model; let i = index;" >
-      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>settings</mat-icon> {{ i }}</button>
-      <mat-menu #menu="matMenu" >
-        <button mat-menu-item (click)="pageMenu.appear()" >Show Page Menu {{ i }}</button>
-        <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'pageMenu' ].model, i ) ">Remove this app</button>
-      </mat-menu>
+      <div *ngIf="!preview">
+        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>settings</mat-icon> {{ i }}</button>
+        <mat-menu #menu="matMenu" >
+          <button mat-menu-item (click)="pageMenu.appear()" >Show Page Menu {{ i }}</button>
+          <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'pageMenu' ].model, i ) ">Remove this app</button>
+        </mat-menu>
+      </div>
       <popup #pageMenu
              [preview]="preview"
              [fullWidth]="openAppsInThisPage[ 'pageMenu' ].model[i].fullWidth"
@@ -918,11 +939,13 @@
 
     <!-- parzivalFassung -->
     <div *ngFor="let parzivalFassung of openAppsInThisPage[ 'parzivalFassung' ].model; let i = index;" >
-      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" >pF {{ i }}</button>
-      <mat-menu #menu="matMenu" >
-        <button mat-menu-item (click)="parzivalFassung.appear()" >Show Parzival Fassungs App {{ i }}</button>
-        <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'parzivalFassung' ].model, i ) ">Remove this app</button>
-      </mat-menu>
+      <div *ngIf="!preview">
+        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" >pF {{ i }}</button>
+        <mat-menu #menu="matMenu" >
+          <button mat-menu-item (click)="parzivalFassung.appear()" >Show Parzival Fassungs App {{ i }}</button>
+          <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'parzivalFassung' ].model, i ) ">Remove this app</button>
+        </mat-menu>
+      </div>
       <popup #parzivalFassung
              [preview]="preview"
              [fullWidth]="openAppsInThisPage[ 'parzivalFassung' ].model[i].fullWidth"
@@ -949,11 +972,13 @@
 
     <!-- avp-Edition -->
     <div *ngFor="let avpEditionView of openAppsInThisPage[ 'avpEditionView' ].model; let i = index;" >
-      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" >avpE {{ i }}</button>
-      <mat-menu #menu="matMenu" >
-        <button mat-menu-item (click)="avpEditionView.appear()" >Show AVP Edition Viewer {{ i }}</button>
-        <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'avpEditionView' ].model, i ) ">Remove this app</button>
-      </mat-menu>
+      <div *ngIf="!preview">
+        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" >avpE {{ i }}</button>
+        <mat-menu #menu="matMenu" >
+          <button mat-menu-item (click)="avpEditionView.appear()" >Show AVP Edition Viewer {{ i }}</button>
+          <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'avpEditionView' ].model, i ) ">Remove this app</button>
+        </mat-menu>
+      </div>
       <popup #avpEditionView
              [preview]="preview"
              [fullWidth]="openAppsInThisPage[ 'avpEditionView' ].model[i].fullWidth"
@@ -980,11 +1005,13 @@
 
     <!-- openbis Login -->
     <div *ngFor="let openbisLogin of openAppsInThisPage[ 'openbisLogin' ].model; let i = index;" >
-      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" >Openbis Login {{ i }}</button>
-      <mat-menu #menu="matMenu" >
-        <button mat-menu-item (click)="openbisLogin.appear()" >Show OpenBis Login {{ i }}</button>
-        <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'openbisLogin' ].model, i ) ">Remove this app</button>
-      </mat-menu>
+      <div *ngIf="!preview">
+        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" >Openbis Login {{ i }}</button>
+        <mat-menu #menu="matMenu" >
+          <button mat-menu-item (click)="openbisLogin.appear()" >Show OpenBis Login {{ i }}</button>
+          <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'openbisLogin' ].model, i ) ">Remove this app</button>
+        </mat-menu>
+      </div>
       <popup #openbisLogin
              [preview]="preview"
              [fullWidth]="openAppsInThisPage[ 'openbisLogin' ].model[i].fullWidth"
@@ -1011,11 +1038,13 @@
 
     <!-- svg-Transcription -->
     <div *ngFor="let svgTranscription of openAppsInThisPage[ 'svgTranscription' ].model; let i = index;" >
-      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>line_style</mat-icon> {{ i }}</button>
-      <mat-menu #menu="matMenu" >
-        <button mat-menu-item (click)="svgTranscription.appear()" >Show AVP Edition Viewer {{ i }}</button>
-        <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'svgTranscription' ].model, i ) ">Remove this app</button>
-      </mat-menu>
+      <div *ngIf="!preview">
+        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>line_style</mat-icon> {{ i }}</button>
+        <mat-menu #menu="matMenu" >
+          <button mat-menu-item (click)="svgTranscription.appear()" >Show AVP Edition Viewer {{ i }}</button>
+          <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'svgTranscription' ].model, i ) ">Remove this app</button>
+        </mat-menu>
+      </div>
       <popup #svgTranscription
              [preview]="preview"
              [fullWidth]="openAppsInThisPage[ 'svgTranscription' ].model[i].fullWidth"
@@ -1045,11 +1074,13 @@
 
     <!-- jsonViewer -->
     <div *ngFor="let jsonViewer of openAppsInThisPage[ 'jsonViewer' ].model; let i = index;" >
-      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>spa</mat-icon> {{ i }}</button>
-      <mat-menu #menu="matMenu" >
-        <button mat-menu-item (click)="jsonViewer.appear()" >Show Json Viewer {{ i }}</button>
-        <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'jsonViewer' ].model, i ) ">Remove this app</button>
-      </mat-menu>
+      <div *ngIf="!preview">
+        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>spa</mat-icon> {{ i }}</button>
+        <mat-menu #menu="matMenu" >
+          <button mat-menu-item (click)="jsonViewer.appear()" >Show Json Viewer {{ i }}</button>
+          <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'jsonViewer' ].model, i ) ">Remove this app</button>
+        </mat-menu>
+      </div>
       <popup #jsonViewer
              [preview]="preview"
              [fullWidth]="openAppsInThisPage[ 'jsonViewer' ].model[i].fullWidth"
@@ -1076,11 +1107,13 @@
 
     <!-- Tree navigation -->
     <div *ngFor="let treeNavigation of openAppsInThisPage[ 'treeNavigation' ].model; let i = index;" >
-      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>subdirectory_arrow_right</mat-icon> {{ i }}</button>
-      <mat-menu #menu="matMenu" *ngIf="!preview">
-        <button mat-menu-item (click)="treeNavigation.appear()" >Show Tree Navigation {{ i }}</button>
-        <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'treeNavigation' ].model, i ) ">Remove this app</button>
-      </mat-menu>
+      <div *ngIf="!preview">
+        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>subdirectory_arrow_right</mat-icon> {{ i }}</button>
+        <mat-menu #menu="matMenu" *ngIf="!preview">
+          <button mat-menu-item (click)="treeNavigation.appear()" >Show Tree Navigation {{ i }}</button>
+          <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'treeNavigation' ].model, i ) ">Remove this app</button>
+        </mat-menu>
+      </div>
       <popup #treeNavigation
              [preview]="preview"
              [fullWidth]="openAppsInThisPage[ 'treeNavigation' ].model[i].fullWidth"
@@ -1106,11 +1139,13 @@
 
     <!-- Result list -->
     <div *ngFor="let dataListView of openAppsInThisPage[ 'dataListView' ].model; let i = index;" >
-      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>view_list</mat-icon> {{ i }}</button>
-      <mat-menu #menu="matMenu" >
-        <button mat-menu-item (click)="dataListView.appear()" >Show Data list Viewer {{ i }}</button>
-        <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'dataListView' ].model, i ) ">Remove this app</button>
-      </mat-menu>
+      <div *ngIf="!preview">
+        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>view_list</mat-icon> {{ i }}</button>
+        <mat-menu #menu="matMenu" >
+          <button mat-menu-item (click)="dataListView.appear()" >Show Data list Viewer {{ i }}</button>
+          <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'dataListView' ].model, i ) ">Remove this app</button>
+        </mat-menu>
+      </div>
       <popup #dataListView
              [preview]="preview"
              [fullWidth]="openAppsInThisPage[ 'dataListView' ].model[i].fullWidth"
@@ -1138,11 +1173,13 @@
 
       <!-- Bar Charts -->
       <div *ngFor="let barChart of openAppsInThisPage[ 'barCharts' ].model; let i = index;" >
-        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>bar_chart</mat-icon> {{ i }}</button>
-        <mat-menu #menu="matMenu" >
-          <button mat-menu-item (click)="barChart.appear()" (click)="openAppsInThisPage[ 'barCharts' ].model[i].initialized = true">Show Bar Chart {{ i }}</button>
-          <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'barCharts' ].model, i ) ">Remove this app</button>
-        </mat-menu>
+        <div *ngIf="!preview">
+          <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>bar_chart</mat-icon> {{ i }}</button>
+          <mat-menu #menu="matMenu" >
+            <button mat-menu-item (click)="barChart.appear()" (click)="openAppsInThisPage[ 'barCharts' ].model[i].initialized = true">Show Bar Chart {{ i }}</button>
+            <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'barCharts' ].model, i ) ">Remove this app</button>
+          </mat-menu>
+        </div>
         <popup #barChart
                [preview]="preview"
                [fullWidth]="openAppsInThisPage[ 'barCharts' ].model[i].fullWidth"
@@ -1171,11 +1208,13 @@
 
     <!-- Spiral Bar Charts -->
     <div *ngFor="let barChart of openAppsInThisPage[ 'spiralBarCharts' ].model; let i = index;" >
-      <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>bar_chart</mat-icon> {{ i }}</button>
-      <mat-menu #menu="matMenu" >
-        <button mat-menu-item (click)="spiralBarCharts.appear()" (click)="openAppsInThisPage[ 'spiralBarCharts' ].model[i].initialized = true">Show Spiral Bar Chart {{ i }}</button>
-        <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'spiralBarCharts' ].model, i ) ">Remove this app</button>
-      </mat-menu>
+      <div *ngIf="!preview">
+        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>bar_chart</mat-icon> {{ i }}</button>
+        <mat-menu #menu="matMenu" >
+          <button mat-menu-item (click)="spiralBarCharts.appear()" (click)="openAppsInThisPage[ 'spiralBarCharts' ].model[i].initialized = true">Show Spiral Bar Chart {{ i }}</button>
+          <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'spiralBarCharts' ].model, i ) ">Remove this app</button>
+        </mat-menu>
+      </div>
       <popup #spiralBarCharts
              [preview]="preview"
              [fullWidth]="openAppsInThisPage[ 'spiralBarCharts' ].model[i].fullWidth"
@@ -1205,11 +1244,13 @@
 
       <!-- Line Charts -->
       <div *ngFor="let lineChart of openAppsInThisPage[ 'lineCharts' ].model; let i = index;" >
-        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>show_chart</mat-icon> {{ i }}</button>
-        <mat-menu #menu="matMenu" >
-          <button mat-menu-item (click)="lineChart.appear()" (click)="openAppsInThisPage[ 'lineCharts' ].model[i].initialized = true">Show Line Chart {{ i }}</button>
-          <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'lineCharts' ].model, i ) ">Remove this app</button>
-        </mat-menu>
+        <div *ngIf="!preview">
+          <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>show_chart</mat-icon> {{ i }}</button>
+          <mat-menu #menu="matMenu" >
+            <button mat-menu-item (click)="lineChart.appear()" (click)="openAppsInThisPage[ 'lineCharts' ].model[i].initialized = true">Show Line Chart {{ i }}</button>
+            <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'lineCharts' ].model, i ) ">Remove this app</button>
+          </mat-menu>
+        </div>
         <popup #lineChart
                [preview]="preview"
                [fullWidth]="openAppsInThisPage[ 'lineCharts' ].model[i].fullWidth"
@@ -1238,11 +1279,13 @@
 
       <!-- Brush Zoom Charts -->
       <div *ngFor="let brushZoomChart of openAppsInThisPage[ 'brushZoomCharts' ].model; let i = index;" >
-        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>insert_chart_outlined</mat-icon> {{ i }}</button>
-        <mat-menu #menu="matMenu" >
-          <button mat-menu-item (click)="brushZoomChart.appear()" (click)="openAppsInThisPage[ 'brushZoomCharts' ].model[i].initialized = true">Show Brush Zoom Chart {{ i }}</button>
-          <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'brushZoomCharts' ].model, i ) ">Remove this app</button>
-        </mat-menu>
+        <div *ngIf="!preview">
+          <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>insert_chart_outlined</mat-icon> {{ i }}</button>
+          <mat-menu #menu="matMenu" >
+            <button mat-menu-item (click)="brushZoomChart.appear()" (click)="openAppsInThisPage[ 'brushZoomCharts' ].model[i].initialized = true">Show Brush Zoom Chart {{ i }}</button>
+            <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'brushZoomCharts' ].model, i ) ">Remove this app</button>
+          </mat-menu>
+        </div>
         <popup #brushZoomChart
                [preview]="preview"
                [fullWidth]="openAppsInThisPage[ 'brushZoomCharts' ].model[i].fullWidth"
@@ -1271,11 +1314,13 @@
 
       <!-- Leaflet Map -->
       <div *ngFor="let leafletMap of openAppsInThisPage[ 'leafletMaps' ].model; let i = index;" >
-        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>add_location</mat-icon> {{ i }}</button>
-        <mat-menu #menu="matMenu" >
-          <button mat-menu-item (click)="leafletMap.appear()" (click)="openAppsInThisPage[ 'leafletMaps' ].model[i].initialized = true">Show Leaflet Map {{ i }}</button>
-          <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'leafletMaps' ].model, i ) ">Remove this app</button>
-        </mat-menu>
+        <div *ngIf="!preview">
+          <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>add_location</mat-icon> {{ i }}</button>
+          <mat-menu #menu="matMenu" >
+            <button mat-menu-item (click)="leafletMap.appear()" (click)="openAppsInThisPage[ 'leafletMaps' ].model[i].initialized = true">Show Leaflet Map {{ i }}</button>
+            <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'leafletMaps' ].model, i ) ">Remove this app</button>
+          </mat-menu>
+        </div>
         <popup #leafletMap
                [preview]="preview"
                [fullWidth]="openAppsInThisPage[ 'leafletMaps' ].model[i].fullWidth"
@@ -1304,11 +1349,13 @@
 
       <!-- Pie Chart -->
       <div *ngFor="let pieChart of openAppsInThisPage[ 'pieCharts' ].model; let i = index;" >
-        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>pie_chart</mat-icon> {{ i }}</button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="pieChart.appear()" (click)="openAppsInThisPage[ 'pieCharts' ].model[i].initialized = true">Show Pie Chart {{ i }}</button>
-          <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'pieCharts' ].model, i ) ">Remove this app</button>
-        </mat-menu>
+        <div *ngIf="!preview">
+          <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>pie_chart</mat-icon> {{ i }}</button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="pieChart.appear()" (click)="openAppsInThisPage[ 'pieCharts' ].model[i].initialized = true">Show Pie Chart {{ i }}</button>
+            <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'pieCharts' ].model, i ) ">Remove this app</button>
+          </mat-menu>
+        </div>
         <popup #pieChart
                [preview]="preview"
                [fullWidth]="openAppsInThisPage[ 'pieCharts' ].model[i].fullWidth"
@@ -1336,11 +1383,13 @@
 
       <!-- Radial Bar Chart -->
       <div *ngFor="let radialBarChart of openAppsInThisPage[ 'radialBarCharts' ].model; let i = index;" >
-        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>multiline_chart</mat-icon> {{ i }}</button>
-        <mat-menu #menu="matMenu" >
-          <button mat-menu-item (click)="radialBarChart.appear()" (click)="openAppsInThisPage[ 'radialBarCharts' ].model[i].initialized = true">Show Radial Bar Chart {{ i }}</button>
-          <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'radialBarCharts' ].model, i ) ">Remove this app</button>
-        </mat-menu>
+        <div *ngIf="!preview">
+          <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>multiline_chart</mat-icon> {{ i }}</button>
+          <mat-menu #menu="matMenu" >
+            <button mat-menu-item (click)="radialBarChart.appear()" (click)="openAppsInThisPage[ 'radialBarCharts' ].model[i].initialized = true">Show Radial Bar Chart {{ i }}</button>
+            <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'radialBarCharts' ].model, i ) ">Remove this app</button>
+          </mat-menu>
+        </div>
         <popup #radialBarChart
                [preview]="preview"
                [fullWidth]="openAppsInThisPage[ 'radialBarCharts' ].model[i].fullWidth"
@@ -1368,11 +1417,13 @@
 
       <!-- Sankey Chart -->
       <div *ngFor="let sankeyChart of openAppsInThisPage[ 'sankeyCharts' ].model; let i = index;" >
-        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>linear_scale</mat-icon> {{ i }}</button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="sankeyChart.appear()" (click)="openAppsInThisPage[ 'sankeyCharts' ].model[i].initialized = true">Sankey Chart {{ i }}</button>
-          <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'sankeyCharts' ].model, i ) ">Remove this app</button>
-        </mat-menu>
+        <div *ngIf="!preview">
+          <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>linear_scale</mat-icon> {{ i }}</button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="sankeyChart.appear()" (click)="openAppsInThisPage[ 'sankeyCharts' ].model[i].initialized = true">Sankey Chart {{ i }}</button>
+            <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'sankeyCharts' ].model, i ) ">Remove this app</button>
+          </mat-menu>
+        </div>
         <popup #sankeyChart
                [preview]="preview"
                [fullWidth]="openAppsInThisPage[ 'sankeyCharts' ].model[i].fullWidth"
@@ -1400,11 +1451,13 @@
 
       <!-- Stacked Bar Chart -->
       <div *ngFor="let stackedBarChart of openAppsInThisPage[ 'stackedBarCharts' ].model; let i = index;" >
-        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>view_list</mat-icon> {{ i }}</button>
-        <mat-menu #menu="matMenu" >
-          <button mat-menu-item (click)="stackedBarChart.appear()" (click)="openAppsInThisPage[ 'stackedBarCharts' ].model[i].initialized = true">Stacked Bar Chart {{ i }}</button>
-          <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'stackedBarCharts' ].model, i ) ">Remove this app</button>
-        </mat-menu>
+        <div *ngIf="!preview">
+          <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>view_list</mat-icon> {{ i }}</button>
+          <mat-menu #menu="matMenu" >
+            <button mat-menu-item (click)="stackedBarChart.appear()" (click)="openAppsInThisPage[ 'stackedBarCharts' ].model[i].initialized = true">Stacked Bar Chart {{ i }}</button>
+            <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'stackedBarCharts' ].model, i ) ">Remove this app</button>
+          </mat-menu>
+        </div>
         <popup #stackedBarChart
                [preview]="preview"
                [fullWidth]="openAppsInThisPage[ 'stackedBarCharts' ].model[i].fullWidth"
@@ -1432,11 +1485,13 @@
 
       <!-- Chord diagram -->
       <div *ngFor="let chordDiagram of openAppsInThisPage[ 'chordDiagrams' ].model; let i = index;" >
-        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>all_out</mat-icon> {{ i }}</button>
-        <mat-menu #menu="matMenu" >
-          <button mat-menu-item (click)="chordDiagram.appear()" (click)="openAppsInThisPage[ 'chordDiagrams' ].model[i].initialized = true">Chord Diagram {{ i }}</button>
-          <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'chordDiagrams' ].model, i ) ">Close this app</button>
-        </mat-menu>
+        <div *ngIf="!preview">
+          <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>all_out</mat-icon> {{ i }}</button>
+          <mat-menu #menu="matMenu" >
+            <button mat-menu-item (click)="chordDiagram.appear()" (click)="openAppsInThisPage[ 'chordDiagrams' ].model[i].initialized = true">Chord Diagram {{ i }}</button>
+            <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'chordDiagrams' ].model, i ) ">Close this app</button>
+          </mat-menu>
+        </div>
         <popup #chordDiagram
                [preview]="preview"
                [fullWidth]="openAppsInThisPage[ 'chordDiagrams' ].model[i].fullWidth"

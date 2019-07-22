@@ -46,7 +46,8 @@ export class DataChooserComponent implements AfterViewChecked {
       this.alreadyEmitted = true;
       this.chooseResource( 0 );
     }
-    if ( typeof this.dataChooserEntries [ 0 ] === 'object' ) {
+    if ( typeof this.dataChooserEntries [ 0 ] === 'object'  && !this.alreadyEmitted ) {
+      console.log( 'Emit first value' );
       this.alreadyEmitted = true;
       this.chooseResource( 0 );
     }

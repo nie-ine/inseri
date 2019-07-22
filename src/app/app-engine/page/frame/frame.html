@@ -6,10 +6,10 @@
        'left': fullWidth ? '0' : curX + 'px',
        'z-index': curZIndex,
        'position': position,
-       width: fullWidth ? 'calc(100% - 70px)' : '',
+       width: fullWidth ? 'calc(100% - 120px)' : '',
        height: fullHeight ? 'calc(100% - 70px)' : '',
        'margin-top': fullHeight ? '70px' : '',
-       'margin-left': fullWidth ? '70px' : ''
+       'margin-left': fullWidth ? '120px' : ''
        }">
     <div class="popup-title-bar popup-drag" (mousedown)="mousedown($event)" *ngIf="!preview">
       <span style=" margin-right: 20px; color: blue; cursor: pointer;" (click)="disappear()">-</span>

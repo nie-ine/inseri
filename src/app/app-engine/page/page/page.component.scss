@@ -1,3 +1,14 @@
+.i {
+  color: #f7d336;
+  position: relative;
+}
+.i:before {
+  content: "ı";
+  position: absolute;
+  color: black;
+}
+
+
 .popup-win {
   position: fixed;
   min-width: 300px;

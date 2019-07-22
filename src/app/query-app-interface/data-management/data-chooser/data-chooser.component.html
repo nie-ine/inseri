@@ -1,16 +1,16 @@
 <div style="height:100vh; margin-top: 40px; display:inline; " *ngIf=" dataChooserEntries[ 0 ] !== 'showData' ">
   <button [disabled]="!(index > 0)" mat-button (click)="moveBack()" > <mat-icon>keyboard_arrow_left</mat-icon> </button>
-    <mat-select
-      placeholder="{{description}}"
-      style=" width: 120px"
-      (click)="resetDataChooserEntries()" matTooltip="{{description}}">
-      <mat-option
-        *ngFor="let entry of dataChooserEntries;
+  <mat-select
+    placeholder="{{description}}"
+    style=" width: 120px"
+    (click)="resetDataChooserEntries()" matTooltip="{{description}}">
+    <mat-option
+      *ngFor="let entry of dataChooserEntries;
         let i = index;"
-        [value] = "i"
-        (click)="chooseResource(i)" >
-        {{ showChosenEnrty( entry ) }}
-      </mat-option>
-    </mat-select>
+      [value] = "i"
+      (click)="chooseResource(i)" >
+      {{ showChosenEnrty( entry ) }}
+    </mat-option>
+  </mat-select>
   <button [disabled]="!(dataChooserEntries && index < dataChooserEntries.length - 1)" mat-button (click)="moveForward()"> <mat-icon>keyboard_arrow_right</mat-icon> </button>
 </div>
