@@ -33,7 +33,8 @@
       <div style="margin-top: 20px; vertical-align: bottom; ">
         <button type="button" mat-button  matTooltip='{{ createTooltip() }}' (click)="openPageMenu()" *ngIf="!preview" #tooltip="matTooltip">
 <!--          (click)="drawer.toggle()"-->
-          <img [src]="'../../../../assets/img/logo_transparent.png'" style="width: 40px; margin-bottom: 2px;"> <span *ngIf="showNote && pageAsDemo"  > &#8592; Click here for inseri tutorials and the inseri App Menu</span>
+          <img [src]="'../../../../assets/img/logo_transparent.png'" style="width: 40px; margin-bottom: 2px;">
+<!--          <span *ngIf="showNote && pageAsDemo"  > &#8592; Click here for inseri tutorials and the inseri App Menu</span>-->
         </button>
         <a href="dashboard#top" *ngIf=" (!pageAsDemo) && !preview" style="color: #4cae4c !important"><mat-icon matTooltip="back to dashboard">home</mat-icon></a>
         <a href="{{'page-set?actionID=' + route.snapshot.queryParams.actionID}}" *ngIf="route.snapshot.queryParams.page" style="color: #4cae4c !important; margin-left: 15px;"><mat-icon matTooltip="back to pageSet">filter_none</mat-icon></a>
@@ -48,32 +49,39 @@
         <a *ngIf=" (!pageAsDemo) && !preview" matTooltip='Preview of published page' style="margin-left: 15px; float: right; margin-right: 15px;" (click)="preview = !preview" ><mat-icon>nature_people</mat-icon></a>
         <a *ngIf=" (!pageAsDemo) && preview" matTooltip='Back to page editor' style="color: #4cae4c !important;  margin-left: 15px; float: right; margin-right: 15px;" (click)="preview = !preview" ><mat-icon>nature</mat-icon></a>
         <button *ngIf="preview" mat-button style="float: right">Page Publish options</button>
-      </div>
-
 <div>
 
     <!-- Data Chooser -->
-  <div style=" position: fixed; bottom: 0; right: 0; z-index: 200; height: 30%; overflow-x: auto; margin-top: 60%; margin-bottom: 10%">
-    <div *ngFor="let dataChooser of openAppsInThisPage[ 'dataChooser' ].model; let i = index;" >
-      <div *ngIf="generateQueryAppPathInformation( openAppsInThisPage[ 'dataChooser' ].model[i].queryId ) !== undefined" >
-        <button
-          *ngIf="openAppsInThisPage[ 'dataChooser' ].model[i].title.search( 'Depth: ' ) === -1 "
-          (click)="openQueryInformationDialog( openAppsInThisPage[ 'dataChooser' ].model[i].queryId )"
-          mat-button matTooltip="{{openAppsInThisPage[ 'dataChooser' ].model[i].title}}" >
-          {{ 'Query ' + i }}
-        </button> <br>
-        <app-data-chooser
-          [appInputQueryMapping]=" page.appInputQueryMapping"
-          [response]="openAppsInThisPage[ 'dataChooser' ].model[i].response"
-          [queryId] = "openAppsInThisPage[ 'dataChooser' ].model[i].queryId"
-          [openAppsInThisPage] = "openAppsInThisPage"
-          [dataChooserEntries]="openAppsInThisPage[ 'dataChooser' ].model[i].dataChooserEntries"
-          [description]=" openAppsInThisPage[ 'dataChooser' ].model[i].depth "
-          [depth]="openAppsInThisPage[ 'dataChooser' ].model[i].depth"
-          (sendIndexBack)="updateMainResourceIndex( $event )">
-        </app-data-chooser>
+  <div style=" position: fixed; bottom: 0; right: 0; z-index: 200; overflow-x: auto; margin-top: 70px;"
+       *ngIf="openAppsInThisPage[ 'dataChooser' ].model.length > 0">
+    <mat-expansion-panel style="float: right; width: 300px;">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Queries
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div *ngFor="let dataChooser of openAppsInThisPage[ 'dataChooser' ].model; let i = index;" >
+        <div *ngIf="generateQueryAppPathInformation( openAppsInThisPage[ 'dataChooser' ].model[i].queryId ) !== undefined" >
+          <button
+            *ngIf="openAppsInThisPage[ 'dataChooser' ].model[i].title.search( 'Depth: ' ) === -1 "
+            (click)="openQueryInformationDialog( openAppsInThisPage[ 'dataChooser' ].model[i].queryId )"
+            mat-button matTooltip="{{openAppsInThisPage[ 'dataChooser' ].model[i].title}}" >
+            {{ 'Query ' + i }}
+          </button> <br>
+          <app-data-chooser
+            [appInputQueryMapping]=" page.appInputQueryMapping"
+            [response]="openAppsInThisPage[ 'dataChooser' ].model[i].response"
+            [queryId] = "openAppsInThisPage[ 'dataChooser' ].model[i].queryId"
+            [openAppsInThisPage] = "openAppsInThisPage"
+            [dataChooserEntries]="openAppsInThisPage[ 'dataChooser' ].model[i].dataChooserEntries"
+            [description]=" openAppsInThisPage[ 'dataChooser' ].model[i].depth "
+            [depth]="openAppsInThisPage[ 'dataChooser' ].model[i].depth"
+            (sendIndexBack)="updateMainResourceIndex( $event )">
+          </app-data-chooser>
+        </div>
       </div>
-    </div>
+    </mat-expansion-panel>
+  </div>
   </div>
 
       <!-- Image Viewer -->
@@ -317,7 +325,7 @@
     <!-- Edit Resource Form -->
     <div *ngFor="let editResourceForm of openAppsInThisPage[ 'editResourceForm' ].model; let i = index;" >
       <div *ngIf="!preview">
-        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>add_to_queue</mat-icon> {{ i }}</button>
+        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>web</mat-icon> {{ i }}</button>
         <mat-menu #menu="matMenu" >
           <button mat-menu-item (click)="editResourceForm.appear()" >Show Create Resource Form {{ i }}</button>
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'editResourceForm' ].model, i ) ">Remove this app</button>
@@ -434,12 +442,12 @@
              [type]="openAppsInThisPage[ 'pageMenu' ].type"
              [firstPopupX]="openAppsInThisPage[ 'pageMenu' ].model[i].x"
              [firstPopupY]="openAppsInThisPage[ 'pageMenu' ].model[i].y"
-             [width]="produceHeightAndWidth( openAppsInThisPage[ 'pageMenu' ].model[i].width, '310' )"
+             [width]="produceHeightAndWidth( openAppsInThisPage[ 'pageMenu' ].model[i].width, '600' )"
              [height]="produceHeightAndWidth( openAppsInThisPage[ 'pageMenu' ].model[i].height, '600')"
              (sendAppCoordinatesBack)="updateAppCoordinates($event)"
              (sendAppSettingsBack)="updateAppSettings($event)">
         <div [ngStyle]="{'height': openAppsInThisPage[ 'pageMenu' ].model[i].fullHeight ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'pageMenu' ].model[i].height, '600' ) + 'px',
-        'width': openAppsInThisPage[ 'pageMenu' ].model[i].fullWidth ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'pageMenu' ].model[i].width, '310' ) + 'px'}">
+        'width': openAppsInThisPage[ 'pageMenu' ].model[i].fullWidth ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'pageMenu' ].model[i].width, '600' ) + 'px'}">
 
           <div *ngIf="!pageAsDemo">
             <h4 style="align-content: center" i18n="@@yourPageTitle">Your Page</h4>
@@ -453,486 +461,46 @@
             <button mat-button color="primary" (click)="addVideoApp( 'https://www.youtube.com/embed/9An1cGPrv9Q' )"> <mat-icon>video_library</mat-icon> Watch Video "First steps in Inseri"</button>
           </div>
 
-          <!-- Texts -->
-          <details style="margin-top: 35px; width: 300px;">
-            <summary style="cursor: pointer"><h4 style="align-content: center; display: inline;" i18n="@@textAppsLabel">Text</h4><h4 style="align-content: center; display: inline; color: #4dc71f" i18n="@@appsLabel">&nbsp;Apps</h4></summary>
+          <mat-form-field style="width: 100%">
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+          </mat-form-field>
 
+          <div style="width: 100%">
+            <table mat-table [dataSource]="dataSource" matSort>
 
-            <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
-              <mat-expansion-panel-header >
-                <mat-panel-title i18n="@@textViewerAppLabel">
-                  HTML Viewer <span style="color: #4dc71f" >✓</span>
-                </mat-panel-title>
-                <mat-panel-description i18n="@@textViewerAppDescription">
-                  Displays HTML with possible configuration
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-
-              <ng-container i18n="@@appUnderDevelopmentLabel">
-                This app is under development.
-              </ng-container>
-              <ng-container i18n="@@textViewerApp">
-                It displays HTML snippets and applies externally defined styles to the view.
+              <!-- ID Column -->
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Icon </th>
+                <td mat-cell *matCellDef="let row" (click)="addAnotherApp(row.appType, true)" style="cursor: pointer; width: 25%;"> <mat-icon>{{row.id}}</mat-icon> </td>
               </ng-container>
 
-              <mat-divider></mat-divider>
-
-              <button mat-button (click)="addAnotherApp('htmlViewer', true)"><mat-icon>aspect_ratio</mat-icon> Add HTML Viewer</button><br>
-
-            </mat-expansion-panel>
-
-
-            <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Plaintext Viewer <span style="color: #4dc71f" >✓</span>
-                </mat-panel-title>
-                <mat-panel-description>
-                  Displays searchable Text
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-
-              This app can be combined with the data - chooser. A tutorial on how to use the data - chooser will follow.
-
-              <mat-divider></mat-divider>
-
-              <button mat-button (click)="addAnotherApp('textlistViewers', true)"><mat-icon>short_text</mat-icon>Add Plaintext - Viewer</button><br>
-
-            </mat-expansion-panel>
-
-            <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  SVG-Transcription
-                </mat-panel-title>
-                <mat-panel-description>
-                  svg-text
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-
-              SVG transcription with exact word positions
-
-              <mat-divider></mat-divider>
-
-              <button mat-button (click)="addAnotherApp('svgTranscription', true)"><mat-icon>line_style</mat-icon> Add SVG Transcription View</button><br>
-
-            </mat-expansion-panel>
-
-          </details>
-
-          <!-- project specific -->
-          <details style="margin-top: 35px; width: 300px;">
-            <summary style="cursor: pointer"><h4 style="align-content: center; display: inline;">Project Specific</h4><h4 style="align-content: center; display: inline; color: #4dc71f">&nbsp;Apps</h4></summary>
-
-            <mat-expansion-panel style="width: 300px; padding-top: 10px;" [expanded]="panelsOpen" >
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Parzival - Fassung <span style="color: #4dc71f" >✓</span>
-                </mat-panel-title>
-                <mat-panel-description>
-                  shortname: pF
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-
-              Project specific App for the Parzival Project - Open more than one app of this type to test it!
-
-              <mat-divider></mat-divider>
-
-              <button mat-button (click)="addAnotherApp('parzivalFassung', true)">Add Parzival Fassung</button><br>
-
-            </mat-expansion-panel>
-
-            <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  AVP-Edition
-                </mat-panel-title>
-                <mat-panel-description>
-                  avp-e
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-
-              Project specific App for the AVP Project
-
-              <mat-divider></mat-divider>
-
-              <button mat-button (click)="addAnotherApp('avpEditionView', true)">Add AVP Edition View</button><br>
-
-            </mat-expansion-panel>
-
-
-            <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Openbis - Login <span style="color: #4dc71f" >✓</span>
-                </mat-panel-title>
-                <mat-panel-description>
-                  with token
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-
-              Set token for OpenBis
-
-              <mat-divider></mat-divider>
-
-              <button mat-button (click)="addAnotherApp('openbisLogin', true)">Add OpenBis Login App</button><br>
-
-            </mat-expansion-panel>
-
-
-          </details>
-
-          <!-- Images -->
-          <details style="margin-top: 35px; width: 300px;">
-            <summary style="cursor: pointer"><h4 style="align-content: center; display: inline;">Image</h4><h4 style="align-content: center; display: inline; color: #4dc71f">&nbsp;Apps</h4></summary>
-
-            <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
-
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Image Viewer <span style="color: #4dc71f" >✓</span>
-                </mat-panel-title>
-                <mat-panel-description>
-                  Display and zoom in images
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-
-              This app displays the image of your choice with the OpenSea - Dragon - Plugin. You can zoom in and have
-              a look at it in fullscreen - mode. The documentation of this App can be found
-              <a href="https://nie-ine.github.io/nieOS/components/ImageFrameComponent.html" target="_blank">here</a>.
-
-              <mat-divider></mat-divider>
-
-              <button mat-button (click)="addAnotherApp('imageViewer', true)" >
-                <mat-icon >image</mat-icon>
-                Add Image Viewer</button><br>
-
-            </mat-expansion-panel>
-
-            <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Simple Image App <span style="color: #4dc71f" >✓</span>
-                </mat-panel-title>
-                <mat-panel-description>
-                  Displays simple image
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-              Description
-              <mat-divider></mat-divider>
-
-              <button mat-button (click)="addAnotherApp('simpleImageApp', true)"><mat-icon>add_photo_alternate</mat-icon>Add Image - Viewer</button><br>
-
-            </mat-expansion-panel>
-          </details>
-
-          <details style="margin-top: 35px; width: 300px;">
-            <summary style="cursor: pointer"><h4 style="align-content: center; display: inline;">Search & Retrieve</h4><h4 style="align-content: center; display: inline; color: #4dc71f">&nbsp;Apps</h4></summary>
-
-            <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Data list viewer
-                </mat-panel-title>
-                <mat-panel-description>
-                  Displays query results in a table format.
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-
-              This app can be combined with the data - chooser. A tutorial on how to use the data - chooser will follow.
-
-              <mat-divider></mat-divider>
-
-              <button mat-button (click)="addAnotherApp('dataListView', true)"><mat-icon>view_list</mat-icon> Add a data list / data table</button><br>
-            </mat-expansion-panel>
-
-            <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Tree navigation
-                </mat-panel-title>
-                <mat-panel-description>
-                  Displays a navigable tree structure.
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-
-              This app can be combined with apps for resource view.
-
-              <mat-divider></mat-divider>
-
-              <button mat-button (click)="addAnotherApp('treeNavigation', true)"><mat-icon>subdirectory_arrow_right</mat-icon>Add a tree navigation</button><br>
-            </mat-expansion-panel>
-
-          </details>
-
-          <details style="margin-top: 35px; width: 300px;">
-            <summary style="cursor: pointer"><h4 style="align-content: center; display: inline;">Multimedia</h4><h4 style="align-content: center; display: inline; color: #4dc71f">&nbsp;Apps</h4></summary>
-
-            <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Youtube Video Viewer
-                </mat-panel-title>
-                <mat-panel-description>
-                  Embed Youtube Videos
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-
-              You can embed youtube - videos in this app.
-
-              <mat-divider></mat-divider>
-
-              <button mat-button (click)="addAnotherApp('youtubeVideo', true)"><mat-icon>video_library</mat-icon> Add Synopsis Viewer</button><br>
-            </mat-expansion-panel>
-
-            <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Synopsis Viewer
-                </mat-panel-title>
-                <mat-panel-description>
-                  Compare images and texts
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-
-              This app is under development. It has the functionality of a light - table and can compare image and text objects.
-              It is currently working much better as an own window and can be opened as an own window <a href="/synopsis" target="_blank">here</a>.
-
-              <mat-divider></mat-divider>
-
-              <button mat-button (click)="addAnotherApp('synopsisViewer', true)"><mat-icon>art_track</mat-icon> Add Synopsis Viewer</button><br>
-            </mat-expansion-panel>
-
-            <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Json Viewer <span style="color: #4dc71f" >✓</span>
-                </mat-panel-title>
-                <mat-panel-description>
-                  Visualise Json Data
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-
-              This app visualizes json objects as a tree.
-
-              <mat-divider></mat-divider>
-
-              <button mat-button (click)="addAnotherApp('jsonViewer', true)"><mat-icon>spa</mat-icon> Add Data Chooser</button><br>
-
-            </mat-expansion-panel>
-
-          </details>
-
-          <!-- Data visualization -->
-          <details style="margin-top: 35px; width: 300px;">
-            <summary style="cursor: pointer"><h4 style="align-content: center; display: inline;">Visualisation</h4><h4 style="align-content: center; display: inline; color: #4dc71f">&nbsp;Apps</h4></summary>
-
-            <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Bar Chart
-                </mat-panel-title>
-                <mat-panel-description>
-                  To define data with two dimensions
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-
-              This app is under development
-
-              <mat-divider></mat-divider>
-
-              <button mat-button (click)="addAnotherApp('barCharts', true)"><mat-icon>bar_chart</mat-icon> Add Bar Chart</button><br>
-
-            </mat-expansion-panel>
-
-            <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Line Chart
-                </mat-panel-title>
-                <mat-panel-description>
-                  To define data with two dimensions
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-
-              This app is under development
-
-              <mat-divider></mat-divider>
-
-              <button mat-button (click)="addAnotherApp('lineCharts', true)"><mat-icon>show_chart</mat-icon> Add Line Chart</button><br>
-
-            </mat-expansion-panel>
-
-            <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Brush Zoom
-                </mat-panel-title>
-                <mat-panel-description>
-                  To define data with two dimensions
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-
-              This app is under development
-
-              <mat-divider></mat-divider>
-
-              <button mat-button (click)="addAnotherApp('brushZoomCharts' , true)"><mat-icon>insert_chart_outlined</mat-icon> Add Brush Zoom Chart</button><br>
-
-            </mat-expansion-panel>
-
-            <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Leaflet map
-                </mat-panel-title>
-                <mat-panel-description>
-                  Visualize data on maps
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-
-              This app is under development
-
-              <mat-divider></mat-divider>
-
-              <button mat-button (click)="addAnotherApp('leafletMaps', true)"><mat-icon>add_location</mat-icon> Add Leaflet Map</button><br>
-
-            </mat-expansion-panel>
-
-            <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Pie Chart
-                </mat-panel-title>
-                <mat-panel-description>
-                  To visualise subsets
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-
-              This app is under development
-
-              <mat-divider></mat-divider>
-
-              <button mat-button (click)="addAnotherApp('pieCharts', true)"><mat-icon>pie_chart</mat-icon> Add Pie Chart</button><br>
-
-            </mat-expansion-panel>
-
-            <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Radial Bar Chart
-                </mat-panel-title>
-                <mat-panel-description>
-                  To two dimensional data
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-
-              This app is under development
-
-              <mat-divider></mat-divider>
-
-              <button mat-button (click)="addAnotherApp('radialBarCharts', true)"><mat-icon>multiline_chart</mat-icon> Add Radial Bar Chart</button><br>
-
-            </mat-expansion-panel>
-
-            <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Sankey
-                </mat-panel-title>
-                <mat-panel-description>
-                  To display dependend data
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-
-              This app is under development
-
-              <mat-divider></mat-divider>
-
-              <button mat-button (click)="addAnotherApp('sankeyCharts', true)"><mat-icon>linear_scale</mat-icon> Add Sankey Chart</button><br>
-
-            </mat-expansion-panel>
-
-            <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Stacked Bar Chart
-                </mat-panel-title>
-                <mat-panel-description>
-                  To display grouped sets
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-
-              This app is under development
-
-              <mat-divider></mat-divider>
-
-              <button mat-button (click)="addAnotherApp('stackedBarCharts', true)"><mat-icon>view_list</mat-icon> Add Stacked Bar Chart</button><br>
-
-            </mat-expansion-panel>
-
-
-            <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Chord diagram
-                </mat-panel-title>
-                <mat-panel-description>
-                  To compare intensity of connections
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-
-              This app is under development
-
-              <mat-divider></mat-divider>
-
-              <button mat-button (click)="addAnotherApp('chordDiagrams', true)"><mat-icon>all_out</mat-icon> Add Chord Diagram</button><br>
-
-            </mat-expansion-panel>
-          </details>
-
-          <!-- Data insertion -->
-          <details style="margin-top: 35px; width: 300px;">
-            <summary style="cursor: pointer"><h4 style="align-content: center; display: inline;">Insertion</h4><h4 style="align-content: center; display: inline; color: #4dc71f">&nbsp;Apps</h4></summary>
-
-
-
-            <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Resource Creation
-                </mat-panel-title>
-                <mat-panel-description>
-                  For Knora
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-
-              With this app you can create data in Knora.
-
-              <mat-divider></mat-divider>
-
-              <button mat-button (click)="addAnotherApp('createResourceForm', true)"><mat-icon>add_to_queue</mat-icon> Add Creation Form</button>
-
-            </mat-expansion-panel>
-
-            <mat-expansion-panel style="width: 300px; margin-top: 10px;" [expanded]="panelsOpen" >
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Edit Resource
-                </mat-panel-title>
-                <mat-panel-description>
-                  For Knora
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-
-              With this app you can change data in Knora and see the history of given properties.
-
-              <mat-divider></mat-divider>
-
-              <button mat-button (click)="addAnotherApp('editResourceForm', true)"><mat-icon>add_to_queue</mat-icon> Add Edit Form</button>
-
-            </mat-expansion-panel>
-          </details>
+              <!-- Tag Column -->
+              <ng-container matColumnDef="tags" >
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Tags </th>
+                <td mat-cell *matCellDef="let row" (click)="addAnotherApp(row.appType, true)" style="cursor: pointer; width: 25%;"> {{row.tags}} </td>
+              </ng-container>
+
+              <!-- Name Column -->
+              <ng-container matColumnDef="name" >
+                <th mat-header-cell *matHeaderCellDef mat-sort-header > Name </th>
+                <td mat-cell *matCellDef="let row"
+                    (click)="addAnotherApp(row.appType, true)"
+                    style="cursor: pointer; width: 25%;" > {{row.name}} </td>
+              </ng-container>
+
+              <!-- Color Column -->
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                <td mat-cell *matCellDef="let row" [style.color]="row.color" (click)="addAnotherApp(row.appType, true)" style="cursor: pointer; width: 25%;" matTooltip="{{row.description}}"> {{row.status}} </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns" style="width: 100%;"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;" style="width: 100%;">
+              </tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+          </div>
         </div>
       </popup>
     </div>
@@ -940,7 +508,7 @@
     <!-- parzivalFassung -->
     <div *ngFor="let parzivalFassung of openAppsInThisPage[ 'parzivalFassung' ].model; let i = index;" >
       <div *ngIf="!preview">
-        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" >pF {{ i }}</button>
+        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>view_week</mat-icon> {{ i }}</button>
         <mat-menu #menu="matMenu" >
           <button mat-menu-item (click)="parzivalFassung.appear()" >Show Parzival Fassungs App {{ i }}</button>
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'parzivalFassung' ].model, i ) ">Remove this app</button>
@@ -973,7 +541,7 @@
     <!-- avp-Edition -->
     <div *ngFor="let avpEditionView of openAppsInThisPage[ 'avpEditionView' ].model; let i = index;" >
       <div *ngIf="!preview">
-        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" >avpE {{ i }}</button>
+        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>turned_in</mat-icon> {{ i }}</button>
         <mat-menu #menu="matMenu" >
           <button mat-menu-item (click)="avpEditionView.appear()" >Show AVP Edition Viewer {{ i }}</button>
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'avpEditionView' ].model, i ) ">Remove this app</button>
@@ -1006,7 +574,7 @@
     <!-- openbis Login -->
     <div *ngFor="let openbisLogin of openAppsInThisPage[ 'openbisLogin' ].model; let i = index;" >
       <div *ngIf="!preview">
-        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" >Openbis Login {{ i }}</button>
+        <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>album</mat-icon> {{ i }}</button>
         <mat-menu #menu="matMenu" >
           <button mat-menu-item (click)="openbisLogin.appear()" >Show OpenBis Login {{ i }}</button>
           <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'openbisLogin' ].model, i ) ">Remove this app</button>
@@ -1452,7 +1020,7 @@
       <!-- Stacked Bar Chart -->
       <div *ngFor="let stackedBarChart of openAppsInThisPage[ 'stackedBarCharts' ].model; let i = index;" >
         <div *ngIf="!preview">
-          <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>view_list</mat-icon> {{ i }}</button>
+          <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>subtitles</mat-icon> {{ i }}</button>
           <mat-menu #menu="matMenu" >
             <button mat-menu-item (click)="stackedBarChart.appear()" (click)="openAppsInThisPage[ 'stackedBarCharts' ].model[i].initialized = true">Stacked Bar Chart {{ i }}</button>
             <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ 'stackedBarCharts' ].model, i ) ">Remove this app</button>
