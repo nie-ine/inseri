@@ -11,7 +11,7 @@
        'margin-top': fullHeight ? '70px' : '',
        'margin-left': fullWidth ? '70px' : ''
        }">
-    <div class="popup-title-bar popup-drag" (mousedown)="mousedown($event)" *ngIf="!preview">
+    <div class="popup-title-bar popup-drag" (mousedown)="mousedown($event)" *ngIf="!preview" (mousedown)="setNewZIndex()">
       <span style=" margin-right: 20px; color: blue; cursor: pointer;" (click)="disappear()">-</span>
         {{title}}
       <span style=" margin-left: 20px; color: blue; cursor: pointer;" (click)="openSettings()">*</span>

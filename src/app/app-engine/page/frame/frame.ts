@@ -206,4 +206,18 @@ export class Frame implements OnInit, OnChanges {
       }
     });
   }
+
+  setNewZIndex() {
+    console.log( 'Set new z index;' );
+    console.log( this.curZIndex );
+    const savedZIndex = localStorage.getItem('curZIndex');
+    if ( savedZIndex === null ) {
+      this.curZIndex += 1;
+      localStorage.setItem( 'curZIndex', this.curZIndex + 1 );
+    } else {
+      this.curZIndex = +savedZIndex + 1;
+      localStorage.setItem( 'curZIndex', this.curZIndex );
+    }
+  }
+
 }

@@ -453,6 +453,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     setTimeout(() => {
       this.showNote = true;
     }, 6000);
+    localStorage.removeItem('curZIndex');
   }
 
   addVideoApp( url: string ) {

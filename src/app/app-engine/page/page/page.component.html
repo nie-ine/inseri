@@ -33,11 +33,14 @@
       <div style="margin-top: 20px; vertical-align: bottom; ">
         <button type="button" mat-button  matTooltip='{{ createTooltip() }}' (click)="openPageMenu()" *ngIf="!preview" #tooltip="matTooltip">
 <!--          (click)="drawer.toggle()"-->
-          <img [src]="'../../../../assets/img/logo_transparent.png'" style="width: 40px; margin-bottom: 2px;">
+          <img [src]="'../../../../assets/img/logo_transparent.png'" style="width: 40px; margin-bottom: 2px;" matTooltip="inseri apps">
 <!--          <span *ngIf="showNote && pageAsDemo"  > &#8592; Click here for inseri tutorials and the inseri App Menu</span>-->
         </button>
         <a href="dashboard#top" *ngIf=" (!pageAsDemo) && !preview" style="color: #4cae4c !important"><mat-icon matTooltip="back to dashboard">home</mat-icon></a>
         <a href="{{'page-set?actionID=' + route.snapshot.queryParams.actionID}}" *ngIf="route.snapshot.queryParams.page" style="color: #4cae4c !important; margin-left: 15px;"><mat-icon matTooltip="back to pageSet">filter_none</mat-icon></a>
+          <a *ngIf=" (!pageAsDemo) && !preview" (click)="updatePage()" style="color: #4cae4c !important; margin-left: 15px; cursor: pointer;"><mat-icon  matTooltip="save page">save</mat-icon></a>
+          <a *ngIf=" (!pageAsDemo) && !preview" (click)="openDataManagement()" style="color: #4cae4c !important; margin-left: 15px; cursor: pointer;" ><mat-icon matTooltip="page data manager">zoom_out_map</mat-icon></a>
+          <a *ngIf=" (!pageAsDemo) && !preview" (click)="changeAppFramePosition()" style="color: #4cae4c !important; margin-left: 15px; cursor: pointer;"> <mat-icon matTooltip="order apps by type">star_half</mat-icon> </a>
         <mat-chip-list *ngFor="let page of pagesOfThisActtion; let i = index;" style=" margin-left: 15px; display: inline-block;">
           <mat-chip matTooltip="{{ page.description }}" selected [color]="'primary'"  *ngIf="checkIfSelected( i )">
             {{ page.title }}
@@ -449,16 +452,10 @@
         <div [ngStyle]="{'height': openAppsInThisPage[ 'pageMenu' ].model[i].fullHeight ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'pageMenu' ].model[i].height, '600' ) + 'px',
         'width': openAppsInThisPage[ 'pageMenu' ].model[i].fullWidth ? '100%' : produceHeightAndWidth( openAppsInThisPage[ 'pageMenu' ].model[i].width, '600' ) + 'px'}">
 
-          <div *ngIf="!pageAsDemo">
-            <h4 style="align-content: center" i18n="@@yourPageTitle">Your Page</h4>
-            <button mat-button (click)="updatePage()" i18n="@@savePageButton">Save Page</button>
-            <button mat-button (click)="expandPanels()" i18n="@@toggleDescriptionButton"> Un/fold description</button><br>
-            <button mat-button (click)="openDataManagement()" i18n="@@pageDataManagementLink">Page Data Management</button><br>
-            <button mat-button (click)="changeAppFramePosition()" > Order apps by type </button>
-          </div>
-
           <div *ngIf="pageAsDemo">
+            <h4>Tutorial Videos</h4>
             <button mat-button color="primary" (click)="addVideoApp( 'https://www.youtube.com/embed/9An1cGPrv9Q' )"> <mat-icon>video_library</mat-icon> Watch Video "First steps in Inseri"</button>
+            <h4 style="margin-top: 15px;" >Apps</h4>
           </div>
 
           <mat-form-field style="width: 100%">
