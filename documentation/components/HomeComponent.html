@@ -187,6 +187,9 @@
                                 <a href="#forgotPasswordMethod">forgotPasswordMethod</a>
                             </li>
                             <li>
+                                <a href="#goToRegister">goToRegister</a>
+                            </li>
+                            <li>
                                 <a href="#ngOnInit">ngOnInit</a>
                             </li>
                             <li>
@@ -347,7 +350,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="90" class="link-to-prism">src/app/user-action-engine/home/home.component.ts:90</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="94" class="link-to-prism">src/app/user-action-engine/home/home.component.ts:94</a></div>
                             </td>
                         </tr>
 
@@ -357,6 +360,44 @@
 
                             <div class="io-description">
                                 <b>Returns : </b>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="goToRegister"></a>
+                        <span class="name">
+                            <b>
+                            goToRegister
+                            </b>
+                            <a href="#goToRegister"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>goToRegister()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">src/app/user-action-engine/home/home.component.ts:59</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
                             </div>
                     </td>
@@ -423,7 +464,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">src/app/user-action-engine/home/home.component.ts:71</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="75" class="link-to-prism">src/app/user-action-engine/home/home.component.ts:75</a></div>
                             </td>
                         </tr>
 
@@ -461,7 +502,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">src/app/user-action-engine/home/home.component.ts:59</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/app/user-action-engine/home/home.component.ts:63</a></div>
                             </td>
                         </tr>
 
@@ -1058,6 +1099,10 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  goToRegister(){
+    this.router.navigate([&#x27;/register&#x27; ]);
+  }
+
   startLoginProcess() {
     this.loginError &#x3D; false;
     this.authService.login(
@@ -1100,148 +1145,38 @@ export class HomeComponent implements OnInit {
     </div>
 
     <div class="tab-pane fade " id="c-templateData">
-        <pre class="line-numbers"><code class="language-html">&lt;!-- Header --&gt;
-&lt;!--&lt;header&gt;--&gt;
-  &lt;!--&lt;div id&#x3D;&quot;top&quot; class&#x3D;&quot;container&quot;&gt;--&gt;
-    &lt;!--&lt;div class&#x3D;&quot;intro-text&quot;&gt;--&gt;
-      &lt;!--&lt;div class&#x3D;&quot;intro-lead-in&quot;&gt;Arbeits - und Publikationsplattform für Editionen&lt;/div&gt;--&gt;
-      &lt;!--&lt;div class&#x3D;&quot;intro-heading&quot;&gt;Langfristig Verfügbar&lt;/div&gt;--&gt;
-      &lt;!--&lt;a href&#x3D;&quot;home#login&quot; class&#x3D;&quot;page-scroll btn btn-xl&quot;&gt;Get Started&lt;/a&gt;--&gt;
-      &lt;!--&lt;span style&#x3D;&quot;margin-left: 20px&quot;&gt;&lt;/span&gt;--&gt;
-      &lt;!--&lt;a href&#x3D;&quot;/page&quot; class&#x3D;&quot;page-scroll btn btn-xl&quot;&gt;NIEOS Demo&lt;/a&gt;--&gt;
-    &lt;!--&lt;/div&gt;--&gt;
-  &lt;!--&lt;/div&gt;--&gt;
-&lt;!--&lt;/header&gt;--&gt;
-
-&lt;!--&amp;lt;!&amp;ndash; Services Section &amp;ndash;&amp;gt;--&gt;
-&lt;!--&lt;section id&#x3D;&quot;funktionen&quot;&gt;--&gt;
-  &lt;!--&lt;div class&#x3D;&quot;container&quot;&gt;--&gt;
-    &lt;!--&lt;div class&#x3D;&quot;row&quot;&gt;--&gt;
-      &lt;!--&lt;div class&#x3D;&quot;col-lg-12 text-center&quot;&gt;--&gt;
-        &lt;!--&lt;h2 class&#x3D;&quot;section-heading&quot;&gt;Verfügbare Funktionen&lt;/h2&gt;--&gt;
-        &lt;!--&lt;h3 class&#x3D;&quot;section-subheading text-muted&quot;&gt;Funktionen, die bereits in NIE-OS zur Verfügung stehen.&lt;/h3&gt;--&gt;
-      &lt;!--&lt;/div&gt;--&gt;
-    &lt;!--&lt;/div&gt;--&gt;
-    &lt;!--&lt;div class&#x3D;&quot;row text-center&quot;&gt;--&gt;
-      &lt;!--&lt;div class&#x3D;&quot;col-md-4&quot;&gt;--&gt;
-                    &lt;!--&lt;span class&#x3D;&quot;fa-stack fa-4x&quot;&gt;--&gt;
-                        &lt;!--&lt;i class&#x3D;&quot;fa fa-circle fa-stack-2x text-primary&quot;&gt;&lt;/i&gt;--&gt;
-                        &lt;!--&lt;i class&#x3D;&quot;fa fa-file-text fa-stack-1x fa-inverse&quot;&gt;&lt;/i&gt;--&gt;
-                    &lt;!--&lt;/span&gt;--&gt;
-        &lt;!--&lt;h4 class&#x3D;&quot;service-heading&quot;&gt;Testen Sie unsere Apps&lt;/h4&gt;--&gt;
-        &lt;!--&lt;p class&#x3D;&quot;text-muted&quot;&gt;Apps dienen Ihnen zur Darstellung und Bearbeitung Ihrer Daten und können beliebig kombiniert--&gt;
-        &lt;!--und geöffnet auf einer Page abgespeichert werden. Für die von Ihnen angestrebte online - representation&lt;/p&gt;--&gt;
-      &lt;!--&lt;/div&gt;--&gt;
-      &lt;!--&lt;div class&#x3D;&quot;col-md-4&quot;&gt;--&gt;
-                  &lt;!--&lt;span class&#x3D;&quot;fa-stack fa-4x&quot;&gt;--&gt;
-                      &lt;!--&lt;i class&#x3D;&quot;fa fa-circle fa-stack-2x text-primary&quot;&gt;&lt;/i&gt;--&gt;
-                      &lt;!--&lt;i class&#x3D;&quot;fa fa-ruble fa-stack-1x fa-inverse&quot;&gt;&lt;/i&gt;--&gt;
-                  &lt;!--&lt;/span&gt;--&gt;
-        &lt;!--&lt;h4 class&#x3D;&quot;service-heading&quot;&gt;Erstellen Sie Mockups in Form von pageSets &lt;/h4&gt;--&gt;
-        &lt;!--&lt;p class&#x3D;&quot;text-muted&quot;&gt;pageSets bestehen aus einer Menge von Pages, auf der vom User angeordnete Apps geöffnet abgespeichert--&gt;
-          &lt;!--werden. &lt;/p&gt;--&gt;
-      &lt;!--&lt;/div&gt;--&gt;
-    &lt;!--&lt;/div&gt;--&gt;
-  &lt;!--&lt;/div&gt;--&gt;
-&lt;!--&lt;/section&gt;--&gt;
-
-
-&lt;!--&lt;section id&#x3D;&quot;about&quot;&gt;--&gt;
-  &lt;!--&lt;div class&#x3D;&quot;container&quot;&gt;--&gt;
-    &lt;!--&lt;div class&#x3D;&quot;row&quot;&gt;--&gt;
-      &lt;!--&lt;div class&#x3D;&quot;col-lg-12 text-center&quot;&gt;--&gt;
-        &lt;!--&lt;h2 class&#x3D;&quot;section-heading text-uppercase&quot;&gt;Funktionen in der Entwicklung&lt;/h2&gt;--&gt;
-        &lt;!--&lt;h3 class&#x3D;&quot;section-subheading text-muted&quot;&gt;NIE-OS befindet sich in der Entwicklung. In der folgenden Reihenfolge werden Funktionen zur Verfügung gestellt werden.&lt;/h3&gt;--&gt;
-      &lt;!--&lt;/div&gt;--&gt;
-    &lt;!--&lt;/div&gt;--&gt;
-    &lt;!--&lt;div class&#x3D;&quot;row&quot;&gt;--&gt;
-      &lt;!--&lt;div class&#x3D;&quot;col-lg-12&quot;&gt;--&gt;
-        &lt;!--&lt;ul class&#x3D;&quot;timeline&quot;&gt;--&gt;
-          &lt;!--&lt;li&gt;--&gt;
-            &lt;!--&lt;div class&#x3D;&quot;timeline-image&quot;&gt;--&gt;
-
-                &lt;!--&lt;span class&#x3D;&quot;fa-stack fa-4x&quot; style&#x3D;&quot;margin-top: 20px&quot;&gt;--&gt;
-                  &lt;!--&lt;i class&#x3D;&quot;fa fa-circle fa-stack-2x text-primary&quot;&gt;&lt;/i&gt;--&gt;
-                  &lt;!--&lt;i class&#x3D;&quot;fa fa-database fa-stack-1x fa-inverse&quot;&gt;&lt;/i&gt;--&gt;
-                &lt;!--&lt;/span&gt;--&gt;
-
-            &lt;!--&lt;/div&gt;--&gt;
-            &lt;!--&lt;div class&#x3D;&quot;timeline-panel&quot;&gt;--&gt;
-              &lt;!--&lt;div class&#x3D;&quot;timeline-heading&quot;&gt;--&gt;
-                &lt;!--&lt;h4&gt;Arbeiten mit Ihren Daten&lt;/h4&gt;--&gt;
-              &lt;!--&lt;/div&gt;--&gt;
-              &lt;!--&lt;div class&#x3D;&quot;timeline-body&quot;&gt;--&gt;
-                &lt;!--&lt;p class&#x3D;&quot;text-muted&quot;&gt;Verbinden Sie Ihre Datenbank mit einer NIE-OS Page und Stellen Sie Ihre Daten mit Hilfe der Apps dar.&lt;/p&gt;--&gt;
-              &lt;!--&lt;/div&gt;--&gt;
-            &lt;!--&lt;/div&gt;--&gt;
-          &lt;!--&lt;/li&gt;--&gt;
-          &lt;!--&lt;li class&#x3D;&quot;timeline-inverted&quot;&gt;--&gt;
-              &lt;!--&lt;div class&#x3D;&quot;timeline-image&quot;&gt;--&gt;
-
-                &lt;!--&lt;span class&#x3D;&quot;fa-stack fa-4x&quot; style&#x3D;&quot;margin-top: 20px&quot;&gt;--&gt;
-                  &lt;!--&lt;i class&#x3D;&quot;fa fa-circle fa-stack-2x text-primary&quot;&gt;&lt;/i&gt;--&gt;
-                  &lt;!--&lt;i class&#x3D;&quot;fa fa-file-text fa-stack-1x fa-inverse&quot;&gt;&lt;/i&gt;--&gt;
-                &lt;!--&lt;/span&gt;--&gt;
-
-            &lt;!--&lt;/div&gt;--&gt;
-            &lt;!--&lt;div class&#x3D;&quot;timeline-panel&quot;&gt;--&gt;
-              &lt;!--&lt;div class&#x3D;&quot;timeline-heading&quot;&gt;--&gt;
-                &lt;!--&lt;h4&gt;Editionsspezifische Apps&lt;/h4&gt;--&gt;
-              &lt;!--&lt;/div&gt;--&gt;
-              &lt;!--&lt;div class&#x3D;&quot;timeline-body&quot;&gt;--&gt;
-                &lt;!--&lt;p class&#x3D;&quot;text-muted&quot;&gt;NIE-INE entwickelt editionsspezifische Apps zur spezifischen Darstellung der Editionsdaten.&lt;/p&gt;--&gt;
-              &lt;!--&lt;/div&gt;--&gt;
-            &lt;!--&lt;/div&gt;--&gt;
-          &lt;!--&lt;/li&gt;--&gt;
-          &lt;!--&lt;li class&#x3D;&quot;timeline-image&quot;&gt;--&gt;
-              &lt;!--&lt;div class&#x3D;&quot;timeline-image&quot;&gt;--&gt;
-
-                &lt;!--&lt;span class&#x3D;&quot;fa-stack fa-4x&quot; style&#x3D;&quot;margin-top: 20px&quot;&gt;--&gt;
-                  &lt;!--&lt;i class&#x3D;&quot;fa fa-circle fa-stack-2x text-primary&quot;&gt;&lt;/i&gt;--&gt;
-                  &lt;!--&lt;i class&#x3D;&quot;fa fa-group fa-stack-1x fa-inverse&quot;&gt;&lt;/i&gt;--&gt;
-                &lt;!--&lt;/span&gt;--&gt;
-
-              &lt;!--&lt;/div&gt;--&gt;
-            &lt;!--&lt;div class&#x3D;&quot;timeline-panel&quot;&gt;--&gt;
-              &lt;!--&lt;div class&#x3D;&quot;timeline-heading&quot;&gt;--&gt;
-                &lt;!--&lt;h4&gt;Kollaborative Datenbearbeitung&lt;/h4&gt;--&gt;
-              &lt;!--&lt;/div&gt;--&gt;
-              &lt;!--&lt;div class&#x3D;&quot;timeline-body&quot;&gt;--&gt;
-                &lt;!--&lt;p class&#x3D;&quot;text-muted&quot;&gt;Generische und individuell anpassbare Arbeitsabläufe für Editionen werden zur Verfügung gestellt. Auf verschiedenen Pages werden verschiedene Arbeitsabläufe--&gt;
-                &lt;!--vorgenommen, die einander zugewiesen werden können.&lt;/p&gt;--&gt;
-              &lt;!--&lt;/div&gt;--&gt;
-            &lt;!--&lt;/div&gt;--&gt;
-          &lt;!--&lt;/li&gt;--&gt;
-          &lt;!--&lt;li class&#x3D;&quot;timeline-inverted&quot;&gt;--&gt;
-            &lt;!--&lt;div class&#x3D;&quot;timeline-image&quot;&gt;--&gt;
-              &lt;!--&lt;h4&gt;NIE-OS--&gt;
-                &lt;!--&lt;br&gt;alpha--&gt;
-                &lt;!--&lt;br&gt;release&lt;/h4&gt;--&gt;
-            &lt;!--&lt;/div&gt;--&gt;
-          &lt;!--&lt;/li&gt;--&gt;
-        &lt;!--&lt;/ul&gt;--&gt;
-      &lt;!--&lt;/div&gt;--&gt;
-    &lt;!--&lt;/div&gt;--&gt;
-  &lt;!--&lt;/div&gt;--&gt;
-&lt;!--&lt;/section&gt;--&gt;
-
+        <pre class="line-numbers"><code class="language-html">
 &lt;!-- Contact Section --&gt;
-&lt;section id&#x3D;&quot;login&quot;&gt;
-  &lt;div class&#x3D;&quot;container&quot; style&#x3D;&quot; &quot;&gt;
+  &lt;div class&#x3D;&quot;container&quot; style&#x3D;&quot;margin-top: 40px !important&quot;&gt;
     &lt;div&gt;
       &lt;div class&#x3D;&quot;col-lg-12 text-center&quot;&gt;
         &lt;h1 class&#x3D;&quot;section-heading&quot; style&#x3D;&quot;text-transform: none!important; font-size: 45px&quot; &gt;
-
-          Inseri &lt;/h1&gt;
+          &lt;span class&#x3D;&quot; i i:before &quot; &gt;i&lt;/span&gt;nser&lt;span class&#x3D;&quot; i i:before &quot;&gt;i&lt;/span&gt;&lt;/h1&gt;
         &lt;div
           class&#x3D;&quot; text-muted&quot;
-          style&#x3D;&quot;margin-bottom: 55px !important; margin-top: 20px !important; font-style: italic; font-size:16px;&quot;&gt;
-          Sie haben keinen Useraccount?
-          Zögern Sie nicht, uns zu
-          &lt;a href&#x3D;&quot;http://www.nie-ine.ch&quot; target&#x3D;&quot;_blank&quot;&gt;
-            kontaktieren!
-          &lt;/a&gt; Oder &lt;a  href&#x3D;&quot;register&quot;&gt;registrieren&lt;/a&gt; Sie sich!&lt;/div&gt;
+          style&#x3D;&quot;margin-bottom: 30px !important; margin-top: 20px !important; font-style: italic; font-size:16px;&quot;&gt;
+          Where you can gather information.&lt;/div&gt;
+        &lt;input
+          style&#x3D;&quot;width: 400px; margin-left: auto; margin-right: auto;&quot;
+          [(ngModel)]&#x3D;&quot;username&quot;
+          name&#x3D;&quot;Email&quot;
+          type&#x3D;&quot;email&quot;
+          class&#x3D;&quot;form-control&quot;
+          placeholder&#x3D;&quot;Email&quot; &gt;
+        &lt;p class&#x3D;&quot;help-block text-danger&quot;&gt;&lt;/p&gt;
+        &lt;input
+          style&#x3D;&quot;width: 400px; margin-left: auto; margin-right: auto;&quot;
+          *ngIf&#x3D;&quot;!forgotPassword&quot;
+          [(ngModel)]&#x3D;&quot;password&quot;
+          name&#x3D;&quot;password&quot;
+          type&#x3D;&quot;password&quot;
+          class&#x3D;&quot;form-control&quot;
+          placeholder&#x3D;&quot;Password&quot; &gt;
+        &lt;p class&#x3D;&quot;help-block text-danger&quot;&gt;&lt;/p&gt;
         &lt;h6 *ngIf&#x3D;&quot;loginError&quot; style&#x3D;&quot;color: #b05f56&quot; class&#x3D;&quot;section-subheading text-muted&quot;&gt;Username oder Passwort ist falsch!&lt;/h6&gt;
+        &lt;span
+          *ngIf&#x3D;&quot;forgotPassword&quot;
+          class&#x3D;&quot;section-subheading text-muted &quot; style&#x3D;&quot;margin-top: 20px; margin-bottom: 20px;&quot;&gt; You will get an Email with a Link to restore your password&lt;/span&gt;
         &lt;h5 *ngIf&#x3D;&quot;deletedAccount&quot; style&#x3D;&quot;color: #b05f56&quot; class&#x3D;&quot;section-subheading text-muted&quot;&gt;Your account has been deleted.
           You can restore it for the next 30 days with the help of the email that you have received.&lt;/h5&gt;
       &lt;/div&gt;
@@ -1250,32 +1185,6 @@ export class HomeComponent implements OnInit {
       &lt;div class&#x3D;&quot;col-lg-12&quot;&gt;
         &lt;form name&#x3D;&quot;sentMessage&quot; id&#x3D;&quot;contactForm&quot; novalidate&gt;
           &lt;div class&#x3D;&quot;row&quot;&gt;
-            &lt;div class&#x3D;&quot;col-md-6&quot;&gt;
-              &lt;div class&#x3D;&quot;form-group&quot;&gt;
-                &lt;input
-                  [(ngModel)]&#x3D;&quot;username&quot;
-                  name&#x3D;&quot;Email&quot;
-                  type&#x3D;&quot;email&quot;
-                  class&#x3D;&quot;form-control&quot;
-                  placeholder&#x3D;&quot;Email&quot; &gt;
-                &lt;p class&#x3D;&quot;help-block text-danger&quot;&gt;&lt;/p&gt;
-              &lt;/div&gt;
-            &lt;/div&gt;
-            &lt;div class&#x3D;&quot;col-md-6&quot;&gt;
-              &lt;div class&#x3D;&quot;form-group&quot;&gt;
-                &lt;input
-                  *ngIf&#x3D;&quot;!forgotPassword&quot;
-                  [(ngModel)]&#x3D;&quot;password&quot;
-                  name&#x3D;&quot;password&quot;
-                  type&#x3D;&quot;password&quot;
-                  class&#x3D;&quot;form-control&quot;
-                  placeholder&#x3D;&quot;Password&quot; &gt;
-                &lt;p class&#x3D;&quot;help-block text-danger&quot;&gt;&lt;/p&gt;
-                &lt;span
-                  *ngIf&#x3D;&quot;forgotPassword&quot;
-                  class&#x3D;&quot;section-subheading text-muted &quot;&gt; You will get an Email with a Link to restore your password&lt;/span&gt;
-              &lt;/div&gt;
-            &lt;/div&gt;
             &lt;div class&#x3D;&quot;clearfix&quot;&gt;&lt;/div&gt;
             &lt;div class&#x3D;&quot;col-lg-12 text-center&quot;&gt;
               &lt;div id&#x3D;&quot;success&quot;&gt;&lt;/div&gt;
@@ -1284,11 +1193,16 @@ export class HomeComponent implements OnInit {
                 (click)&#x3D;&quot;startLoginProcess()&quot;
                 type&#x3D;&quot;submit&quot;
                 class&#x3D;&quot;btn btn-xl&quot;&gt;Login&lt;/button&gt;
+              &lt;button mat-button *ngIf&#x3D;&quot;!forgotPassword&quot;
+                      class&#x3D;&quot;section-subheading text-muted &quot;
+                      style&#x3D;&quot;margin-top: 20px&quot; (click)&#x3D;&quot;goToRegister()&quot;&gt;
+                Sign in
+              &lt;/button&gt;
               &lt;button
                 *ngIf&#x3D;&quot;forgotPassword&quot;
                 (click)&#x3D;&quot;restorePassword()&quot;
                 type&#x3D;&quot;button&quot;
-                class&#x3D;&quot;btn btn-xl&quot;&gt;Send Email&lt;/button&gt;
+                class&#x3D;&quot;btn btn-xl&quot; style&#x3D;&quot;margin-top: 20px&quot;&gt;Send Email&lt;/button&gt;
             &lt;/div&gt;
             &lt;div class&#x3D;&quot;clearfix&quot;&gt;&lt;/div&gt;
             &lt;div class&#x3D;&quot;col-lg-12 text-center&quot;&gt;
@@ -1298,7 +1212,7 @@ export class HomeComponent implements OnInit {
                       class&#x3D;&quot;section-subheading text-muted &quot;
                       style&#x3D;&quot;margin-top: 20px&quot;
                       (click)&#x3D;&quot;forgotPasswordMethod()&quot;&gt;
-                Passwort vergessen?
+                Forgot password?
               &lt;/button&gt;&lt;br&gt;
               &lt;span
                 class&#x3D;&quot;section-subheading text-muted &quot;
@@ -1324,9 +1238,6 @@ export class HomeComponent implements OnInit {
       &lt;/div&gt;
     &lt;/div&gt;
   &lt;/div&gt;
-&lt;/section&gt;
-
-
 
 &lt;footer style&#x3D;&quot;margin-top: 200px&quot;&gt;
   &lt;div class&#x3D;&quot;container&quot;&gt;
@@ -1395,8 +1306,8 @@ export class HomeComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><!-- Header --><!--<header>-->  <!--<div id="top" class="container">-->    <!--<div class="intro-text">-->      <!--<div class="intro-lead-in">Arbeits - und Publikationsplattform für Editionen</div>-->      <!--<div class="intro-heading">Langfristig Verfügbar</div>-->      <!--<a href="home#login" class="page-scroll btn btn-xl">Get Started</a>-->      <!--<span style="margin-left: 20px"></span>-->      <!--<a href="/page" class="page-scroll btn btn-xl">NIEOS Demo</a>-->    <!--</div>-->  <!--</div>--><!--</header>--><!--&lt;!&ndash; Services Section &ndash;&gt;--><!--<section id="funktionen">-->  <!--<div class="container">-->    <!--<div class="row">-->      <!--<div class="col-lg-12 text-center">-->        <!--<h2 class="section-heading">Verfügbare Funktionen</h2>-->        <!--<h3 class="section-subheading text-muted">Funktionen, die bereits in NIE-OS zur Verfügung stehen.</h3>-->      <!--</div>-->    <!--</div>-->    <!--<div class="row text-center">-->      <!--<div class="col-md-4">-->                    <!--<span class="fa-stack fa-4x">-->                        <!--<i class="fa fa-circle fa-stack-2x text-primary"></i>-->                        <!--<i class="fa fa-file-text fa-stack-1x fa-inverse"></i>-->                    <!--</span>-->        <!--<h4 class="service-heading">Testen Sie unsere Apps</h4>-->        <!--<p class="text-muted">Apps dienen Ihnen zur Darstellung und Bearbeitung Ihrer Daten und können beliebig kombiniert-->        <!--und geöffnet auf einer Page abgespeichert werden. Für die von Ihnen angestrebte online - representation</p>-->      <!--</div>-->      <!--<div class="col-md-4">-->                  <!--<span class="fa-stack fa-4x">-->                      <!--<i class="fa fa-circle fa-stack-2x text-primary"></i>-->                      <!--<i class="fa fa-ruble fa-stack-1x fa-inverse"></i>-->                  <!--</span>-->        <!--<h4 class="service-heading">Erstellen Sie Mockups in Form von pageSets </h4>-->        <!--<p class="text-muted">pageSets bestehen aus einer Menge von Pages, auf der vom User angeordnete Apps geöffnet abgespeichert-->          <!--werden. </p>-->      <!--</div>-->    <!--</div>-->  <!--</div>--><!--</section>--><!--<section id="about">-->  <!--<div class="container">-->    <!--<div class="row">-->      <!--<div class="col-lg-12 text-center">-->        <!--<h2 class="section-heading text-uppercase">Funktionen in der Entwicklung</h2>-->        <!--<h3 class="section-subheading text-muted">NIE-OS befindet sich in der Entwicklung. In der folgenden Reihenfolge werden Funktionen zur Verfügung gestellt werden.</h3>-->      <!--</div>-->    <!--</div>-->    <!--<div class="row">-->      <!--<div class="col-lg-12">-->        <!--<ul class="timeline">-->          <!--<li>-->            <!--<div class="timeline-image">-->                <!--<span class="fa-stack fa-4x" style="margin-top: 20px">-->                  <!--<i class="fa fa-circle fa-stack-2x text-primary"></i>-->                  <!--<i class="fa fa-database fa-stack-1x fa-inverse"></i>-->                <!--</span>-->            <!--</div>-->            <!--<div class="timeline-panel">-->              <!--<div class="timeline-heading">-->                <!--<h4>Arbeiten mit Ihren Daten</h4>-->              <!--</div>-->              <!--<div class="timeline-body">-->                <!--<p class="text-muted">Verbinden Sie Ihre Datenbank mit einer NIE-OS Page und Stellen Sie Ihre Daten mit Hilfe der Apps dar.</p>-->              <!--</div>-->            <!--</div>-->          <!--</li>-->          <!--<li class="timeline-inverted">-->              <!--<div class="timeline-image">-->                <!--<span class="fa-stack fa-4x" style="margin-top: 20px">-->                  <!--<i class="fa fa-circle fa-stack-2x text-primary"></i>-->                  <!--<i class="fa fa-file-text fa-stack-1x fa-inverse"></i>-->                <!--</span>-->            <!--</div>-->            <!--<div class="timeline-panel">-->              <!--<div class="timeline-heading">-->                <!--<h4>Editionsspezifische Apps</h4>-->              <!--</div>-->              <!--<div class="timeline-body">-->                <!--<p class="text-muted">NIE-INE entwickelt editionsspezifische Apps zur spezifischen Darstellung der Editionsdaten.</p>-->              <!--</div>-->            <!--</div>-->          <!--</li>-->          <!--<li class="timeline-image">-->              <!--<div class="timeline-image">-->                <!--<span class="fa-stack fa-4x" style="margin-top: 20px">-->                  <!--<i class="fa fa-circle fa-stack-2x text-primary"></i>-->                  <!--<i class="fa fa-group fa-stack-1x fa-inverse"></i>-->                <!--</span>-->              <!--</div>-->            <!--<div class="timeline-panel">-->              <!--<div class="timeline-heading">-->                <!--<h4>Kollaborative Datenbearbeitung</h4>-->              <!--</div>-->              <!--<div class="timeline-body">-->                <!--<p class="text-muted">Generische und individuell anpassbare Arbeitsabläufe für Editionen werden zur Verfügung gestellt. Auf verschiedenen Pages werden verschiedene Arbeitsabläufe-->                <!--vorgenommen, die einander zugewiesen werden können.</p>-->              <!--</div>-->            <!--</div>-->          <!--</li>-->          <!--<li class="timeline-inverted">-->            <!--<div class="timeline-image">-->              <!--<h4>NIE-OS-->                <!--<br>alpha-->                <!--<br>release</h4>-->            <!--</div>-->          <!--</li>-->        <!--</ul>-->      <!--</div>-->    <!--</div>-->  <!--</div>--><!--</section>--><!-- Contact Section --><section id="login">  <div class="container" style=" ">    <div>      <div class="col-lg-12 text-center">        <h1 class="section-heading" style="text-transform: none!important; font-size: 45px" >          Inseri </h1>        <div          class=" text-muted"          style="margin-bottom: 55px !important; margin-top: 20px !important; font-style: italic; font-size:16px;">          Sie haben keinen Useraccount?          Zögern Sie nicht, uns zu          <a href="http://www.nie-ine.ch" target="_blank">            kontaktieren!          </a> Oder <a  href="register">registrieren</a> Sie sich!</div>        <h6 *ngIf="loginError" style="color: #b05f56" class="section-subheading text-muted">Username oder Passwort ist falsch!</h6>        <h5 *ngIf="deletedAccount" style="color: #b05f56" class="section-subheading text-muted">Your account has been deleted.          You can restore it for the next 30 days with the help of the email that you have received.</h5>      </div>    </div>    <div class="row">      <div class="col-lg-12">        <form name="sentMessage" id="contactForm" novalidate>          <div class="row">            <div class="col-md-6">              <div class="form-group">                <input                  [(ngModel)]="username"                  name="Email"                  type="email"                  class="form-control"                  placeholder="Email" >                <p class="help-block text-danger"></p>              </div>            </div>            <div class="col-md-6">              <div class="form-group">                <input                  *ngIf="!forgotPassword"                  [(ngModel)]="password"                  name="password"                  type="password"                  class="form-control"                  placeholder="Password" >                <p class="help-block text-danger"></p>                <span                  *ngIf="forgotPassword"                  class="section-subheading text-muted "> You will get an Email with a Link to restore your password</span>              </div>            </div>            <div class="clearfix"></div>            <div class="col-lg-12 text-center">              <div id="success"></div>              <button                *ngIf="!forgotPassword"                (click)="startLoginProcess()"                type="submit"                class="btn btn-xl">Login</button>              <button                *ngIf="forgotPassword"                (click)="restorePassword()"                type="button"                class="btn btn-xl">Send Email</button>            </div>            <div class="clearfix"></div>            <div class="col-lg-12 text-center">              <div id="forgotPassword"></div>              <h2 class="section-heading"></h2>              <button mat-button                      class="section-subheading text-muted "                      style="margin-top: 20px"                      (click)="forgotPasswordMethod()">                Passwort vergessen?              </button><br>              <span                class="section-subheading text-muted "                *ngIf="longerThanExpected">                Sending the Email to you takes longer than expected, please wait a little longer! <mat-icon>timelapse</mat-icon>              </span>              <span                class="section-subheading text-muted "                *ngIf="noEmailSent">                Something went wrong, please contact us directly              </span>              <span                class="section-subheading text-muted "                *ngIf="emailSent">                An Email has been sent to you. Please also check your spam - folder.                If you did not receive an Email, please contact us directly                <a href="https://www.nie-ine.ch/technik-de" *ngIf="emailSent">here.</a>              </span>              <a href="https://www.nie-ine.ch/technik-de" *ngIf="noEmailSent">here.</a>            </div>          </div>        </form>      </div>    </div>  </div></section><footer style="margin-top: 200px">  <div class="container">    <div class="row">      <div class="col-md-4">        <span class="copyright">Copyright &copy; NIE-INE 2019</span>      </div>      <div class="col-md-4">        <ul class="list-inline social-buttons">          <li><a href="http://www.nie-ine.ch"><i class="fa fa-users"></i></a>          </li> - About us        </ul>      </div>      <div class="col-md-4">        <ul class="list-inline quicklinks">          <li><a href="/impressum">Impressum, Nutzungsbedingungen</a>          </li>        </ul>      </div>    </div>  </div></footer><!-- jQuery --><script src="vendor/jquery/jquery.min.js"></script><!-- Bootstrap Core JavaScript --><script src="vendor/bootstrap/js/bootstrap.min.js"></script><!-- Plugin JavaScript --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js" integrity="sha384-mE6eXfrb8jxl0rzJDBRanYqgBxtJ6Unn4/1F7q4xRRyIw7Vdg9jP4ycT7x1iVsgb" crossorigin="anonymous"></script><!-- Contact Form JavaScript --><script src="js/jqBootstrapValidation.js"></script><script src="js/contact_me.js"></script><!-- Theme JavaScript --><script src="js/agency.min.js"></script></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'BooleanValueEditorComponent', 'selector': 'app-boolean-value-editor'},{'name': 'BrushAndZoomComponent', 'selector': 'app-brush-and-zoom'},{'name': 'ChordDiagramComponent', 'selector': 'app-chord-diagram'},{'name': 'CreateResourceComponent', 'selector': 'app-create-resource'},{'name': 'D3tutorialComponent', 'selector': 'app-d3tutorial'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataAssignmentComponent', 'selector': 'app-data-assignment'},{'name': 'DataChooserComponent', 'selector': 'app-data-chooser'},{'name': 'DataChooserSettingsComponent', 'selector': 'app-data-chooser-settings'},{'name': 'DataListView', 'selector': 'data-list-view'},{'name': 'DataListViewDetailsDialogComponent', 'selector': 'app-data-list-view-details-dialog'},{'name': 'DataListViewSettings', 'selector': 'data-list-view-settings'},{'name': 'DataListViewTableComponent', 'selector': 'data-list-view-table'},{'name': 'DataManagementComponent', 'selector': 'app-data-management'},{'name': 'DateValueEditorComponent', 'selector': 'app-date-value-editor'},{'name': 'DateValueViewerComponent', 'selector': 'app-date-value-viewer'},{'name': 'DeactivateNewsletterComponent', 'selector': 'app-deactivate-newsletter'},{'name': 'DecimalValueEditorComponent', 'selector': 'app-decimal-value-editor'},{'name': 'DeleteActionComponent', 'selector': 'app-delete-action'},{'name': 'DeletePageComponent', 'selector': 'app-delete-page'},{'name': 'DialogCreateNewPageComponent', 'selector': 'dialog-create-new-page'},{'name': 'DialogOverviewExampleDialog', 'selector': 'dialog-overview-example-dialog'},{'name': 'DialogUserSettingsDialog', 'selector': 'dialog-user-settings-dialog'},{'name': 'DictionaryComponent', 'selector': 'app-dictionary'},{'name': 'DuplicatePageComponent', 'selector': 'app-duplicate-page'},{'name': 'EditActionComponent', 'selector': 'app-edit-action'},{'name': 'EditPageComponent', 'selector': 'app-edit-page'},{'name': 'EditPageSetComponent', 'selector': 'app-update-page-set'},{'name': 'ExtendSessionComponent', 'selector': 'session-component'},{'name': 'FactSheetComponent', 'selector': 'app-fact-sheet'},{'name': 'FloatLightTableComponent', 'selector': 'app-float-light-table'},{'name': 'FloatingImageObjectComponent', 'selector': 'app-floating-image-object'},{'name': 'FloatingTextObjectComponent', 'selector': 'app-floating-text-object'},{'name': 'Frame', 'selector': 'popup'},{'name': 'FrameSettingsComponent', 'selector': 'app-frame-settings'},{'name': 'GrapesjsComponent', 'selector': 'app-grapesjs'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HtmlViewerComponent', 'selector': 'app-html-viewer'},{'name': 'ImageFrameOldComponent', 'selector': 'app-image-old-frame'},{'name': 'ImageFrameSizesComponent', 'selector': 'app-image-frame-sizes'},{'name': 'ImageViewComponent', 'selector': 'app-image-view'},{'name': 'ImageWithOverlayComponent', 'selector': 'app-image-with-overlay'},{'name': 'ImpressumComponent', 'selector': 'app-impressum'},{'name': 'InitPopupComponent', 'selector': 'app-init-popup'},{'name': 'IntValueEditorComponent', 'selector': 'app-int-value-editor'},{'name': 'InterlinearGlossingComponent', 'selector': 'app-interlinear-glossing'},{'name': 'KeyValueFormComponent', 'selector': 'app-key-value-form'},{'name': 'LeafletExampleComponent', 'selector': 'app-leaflet-example'},{'name': 'LightTableComponent', 'selector': 'app-light-table'},{'name': 'LightTableMenuComponent', 'selector': 'app-light-table-menu'},{'name': 'LinkValueEditorComponent', 'selector': 'app-link-value-editor'},{'name': 'LinkValueLabelViewerComponent', 'selector': 'app-link-value-label-viewer'},{'name': 'LoadLightTableComponent', 'selector': 'app-load-light-table'},{'name': 'LoadVariablesComponent', 'selector': 'app-load-variables'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MetadataViewComponent', 'selector': 'app-metadata-view'},{'name': 'MultiLineChartComponent', 'selector': 'app-multi-line-chart'},{'name': 'MyMainComponentComponent', 'selector': 'app-my-main-component'},{'name': 'MyPractiseComponentComponent', 'selector': 'app-my-practise-component'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationTreeComponent', 'selector': 'app-navigation-tree'},{'name': 'NewGjsBoxDialogComponent', 'selector': 'app-new-gjs-box-dialog'},{'name': 'OpenbisLoginComponent', 'selector': 'app-openbis-login'},{'name': 'P0041EditionComponent', 'selector': 'app-p0041-edition'},{'name': 'P0041KandaComponent', 'selector': 'app-p0041-kanda'},{'name': 'P0041StropheComponent', 'selector': 'app-p0041-strophe'},{'name': 'P0041SuktaComponent', 'selector': 'app-p0041-sukta'},{'name': 'P0062TranscriptionFrameComponent', 'selector': 'app-p0062-transcription-frame'},{'name': 'PageComponent', 'selector': 'nie-os'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'PageSetLandingPageComponent', 'selector': 'app-page-set-landing-page'},{'name': 'ParzivalFassungComponent', 'selector': 'app-parzival-fassung'},{'name': 'PieChartComponent', 'selector': 'app-pie-chart'},{'name': 'PizzaPartyComponent', 'selector': 'snack-bar-component-example-snack'},{'name': 'QueryAppInputMapComponent', 'selector': 'app-query-app-input-map'},{'name': 'QueryEntryComponent', 'selector': 'app-query-entry'},{'name': 'QueryInformationDialogComponent', 'selector': 'app-query-information-dialog'},{'name': 'QueryListComponent', 'selector': 'app-query-list'},{'name': 'RadialBarchartComponent', 'selector': 'app-radial-barchart'},{'name': 'ReactivateAccountComponent', 'selector': 'app-reactivate-account'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'RemoveObjectsByIdComponent', 'selector': 'app-remove-objects-by-id'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'ResourceFormComponent', 'selector': 'app-resource-form'},{'name': 'ResourceValueHistoryComponent', 'selector': 'app-resource-value-history'},{'name': 'ResourceValueHistoryValueComponent', 'selector': 'app-resource-value-history-value'},{'name': 'ResponseTreeComponent', 'selector': 'response-tree'},{'name': 'ResponseTreeComponent', 'selector': 'app-response-tree'},{'name': 'RichTextByIriComponent', 'selector': 'app-spa-text'},{'name': 'SankeyComponent', 'selector': 'app-sankey'},{'name': 'SaveLightTableComponent', 'selector': 'app-save-light-table'},{'name': 'ShareLightTableComponent', 'selector': 'app-share-light-table'},{'name': 'SimpleImageAppComponent', 'selector': 'app-simple-image-app'},{'name': 'SpiralBarChartComponent', 'selector': 'app-spiral-bar-chart'},{'name': 'StackedBarChartComponent', 'selector': 'app-stacked-bar-chart'},{'name': 'SynopsisComponent', 'selector': 'app-synopsis'},{'name': 'SynopsisObjectManagerComponent', 'selector': 'app-synopsis-object-manager'},{'name': 'SynopsisObjectToolboxComponent', 'selector': 'app-synopsis-object-toolbox'},{'name': 'TagChipsComponent', 'selector': 'app-tag-chips'},{'name': 'TextDevViewComponent', 'selector': 'app-text-dev-view'},{'name': 'TextDisplayComponent', 'selector': 'app-text-display'},{'name': 'TextDisplayComponent', 'selector': 'app-text-display'},{'name': 'TextLineComponent', 'selector': 'app-text-line'},{'name': 'TextLineGroupComponent', 'selector': 'app-text-line-group'},{'name': 'TextLineMarginComponent', 'selector': 'app-text-line-margin'},{'name': 'TextLineNumberComponent', 'selector': 'app-text-line-number'},{'name': 'TextPageOfWordsComponent', 'selector': 'app-text-page-of-words'},{'name': 'TextRichInnerhtmlComponent', 'selector': 'app-text-rich-innerhtml'},{'name': 'TextSvgViewComponent', 'selector': 'app-text-svg-view'},{'name': 'TextSvgViewWrapperComponent', 'selector': 'app-text-svg-view-wrapper'},{'name': 'TextValueEditorComponent', 'selector': 'app-text-value-editor'},{'name': 'TextViewCanvasComponent', 'selector': 'app-text-view-canvas'},{'name': 'TextViewComponent', 'selector': 'app-text-view'},{'name': 'TextViewMetadataComponent', 'selector': 'app-text-view-metadata'},{'name': 'TextViewStructureComponent', 'selector': 'app-text-view-structure'},{'name': 'TextViewToolsComponent', 'selector': 'app-text-view-tools'},{'name': 'TextlistViewerComponent', 'selector': 'app-textlist-viewer'},{'name': 'ThumbnailbarComponent', 'selector': 'app-thumbnailbar'},{'name': 'TiledImageObjectComponent', 'selector': 'app-tiled-image-object'},{'name': 'TiledLightTableComponent', 'selector': 'app-tiled-light-table'},{'name': 'TiledTextObjectComponent', 'selector': 'app-tiled-text-object'},{'name': 'UpdateLinkedAppsComponent', 'selector': 'app-update-linked-apps'}];
+        var COMPONENT_TEMPLATE = '<div><!-- Contact Section -->  <div class="container" style="margin-top: 40px !important">    <div>      <div class="col-lg-12 text-center">        <h1 class="section-heading" style="text-transform: none!important; font-size: 45px" >          <span class=" i i:before " >i</span>nser<span class=" i i:before ">i</span></h1>        <div          class=" text-muted"          style="margin-bottom: 30px !important; margin-top: 20px !important; font-style: italic; font-size:16px;">          Where you can gather information.</div>        <input          style="width: 400px; margin-left: auto; margin-right: auto;"          [(ngModel)]="username"          name="Email"          type="email"          class="form-control"          placeholder="Email" >        <p class="help-block text-danger"></p>        <input          style="width: 400px; margin-left: auto; margin-right: auto;"          *ngIf="!forgotPassword"          [(ngModel)]="password"          name="password"          type="password"          class="form-control"          placeholder="Password" >        <p class="help-block text-danger"></p>        <h6 *ngIf="loginError" style="color: #b05f56" class="section-subheading text-muted">Username oder Passwort ist falsch!</h6>        <span          *ngIf="forgotPassword"          class="section-subheading text-muted " style="margin-top: 20px; margin-bottom: 20px;"> You will get an Email with a Link to restore your password</span>        <h5 *ngIf="deletedAccount" style="color: #b05f56" class="section-subheading text-muted">Your account has been deleted.          You can restore it for the next 30 days with the help of the email that you have received.</h5>      </div>    </div>    <div class="row">      <div class="col-lg-12">        <form name="sentMessage" id="contactForm" novalidate>          <div class="row">            <div class="clearfix"></div>            <div class="col-lg-12 text-center">              <div id="success"></div>              <button                *ngIf="!forgotPassword"                (click)="startLoginProcess()"                type="submit"                class="btn btn-xl">Login</button>              <button mat-button *ngIf="!forgotPassword"                      class="section-subheading text-muted "                      style="margin-top: 20px" (click)="goToRegister()">                Sign in              </button>              <button                *ngIf="forgotPassword"                (click)="restorePassword()"                type="button"                class="btn btn-xl" style="margin-top: 20px">Send Email</button>            </div>            <div class="clearfix"></div>            <div class="col-lg-12 text-center">              <div id="forgotPassword"></div>              <h2 class="section-heading"></h2>              <button mat-button                      class="section-subheading text-muted "                      style="margin-top: 20px"                      (click)="forgotPasswordMethod()">                Forgot password?              </button><br>              <span                class="section-subheading text-muted "                *ngIf="longerThanExpected">                Sending the Email to you takes longer than expected, please wait a little longer! <mat-icon>timelapse</mat-icon>              </span>              <span                class="section-subheading text-muted "                *ngIf="noEmailSent">                Something went wrong, please contact us directly              </span>              <span                class="section-subheading text-muted "                *ngIf="emailSent">                An Email has been sent to you. Please also check your spam - folder.                If you did not receive an Email, please contact us directly                <a href="https://www.nie-ine.ch/technik-de" *ngIf="emailSent">here.</a>              </span>              <a href="https://www.nie-ine.ch/technik-de" *ngIf="noEmailSent">here.</a>            </div>          </div>        </form>      </div>    </div>  </div><footer style="margin-top: 200px">  <div class="container">    <div class="row">      <div class="col-md-4">        <span class="copyright">Copyright &copy; NIE-INE 2019</span>      </div>      <div class="col-md-4">        <ul class="list-inline social-buttons">          <li><a href="http://www.nie-ine.ch"><i class="fa fa-users"></i></a>          </li> - About us        </ul>      </div>      <div class="col-md-4">        <ul class="list-inline quicklinks">          <li><a href="/impressum">Impressum, Nutzungsbedingungen</a>          </li>        </ul>      </div>    </div>  </div></footer><!-- jQuery --><script src="vendor/jquery/jquery.min.js"></script><!-- Bootstrap Core JavaScript --><script src="vendor/bootstrap/js/bootstrap.min.js"></script><!-- Plugin JavaScript --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js" integrity="sha384-mE6eXfrb8jxl0rzJDBRanYqgBxtJ6Unn4/1F7q4xRRyIw7Vdg9jP4ycT7x1iVsgb" crossorigin="anonymous"></script><!-- Contact Form JavaScript --><script src="js/jqBootstrapValidation.js"></script><script src="js/contact_me.js"></script><!-- Theme JavaScript --><script src="js/agency.min.js"></script></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'BooleanValueEditorComponent', 'selector': 'app-boolean-value-editor'},{'name': 'BrushAndZoomComponent', 'selector': 'app-brush-and-zoom'},{'name': 'ChordDiagramComponent', 'selector': 'app-chord-diagram'},{'name': 'CreateResourceComponent', 'selector': 'app-create-resource'},{'name': 'D3tutorialComponent', 'selector': 'app-d3tutorial'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataAssignmentComponent', 'selector': 'app-data-assignment'},{'name': 'DataChooserComponent', 'selector': 'app-data-chooser'},{'name': 'DataChooserSettingsComponent', 'selector': 'app-data-chooser-settings'},{'name': 'DataListView', 'selector': 'data-list-view'},{'name': 'DataListViewDetailsDialogComponent', 'selector': 'app-data-list-view-details-dialog'},{'name': 'DataListViewSettings', 'selector': 'data-list-view-settings'},{'name': 'DataListViewTableComponent', 'selector': 'data-list-view-table'},{'name': 'DataManagementComponent', 'selector': 'app-data-management'},{'name': 'DateValueEditorComponent', 'selector': 'app-date-value-editor'},{'name': 'DateValueViewerComponent', 'selector': 'app-date-value-viewer'},{'name': 'DeactivateNewsletterComponent', 'selector': 'app-deactivate-newsletter'},{'name': 'DecimalValueEditorComponent', 'selector': 'app-decimal-value-editor'},{'name': 'DeleteActionComponent', 'selector': 'app-delete-action'},{'name': 'DeletePageComponent', 'selector': 'app-delete-page'},{'name': 'DialogCreateNewPageComponent', 'selector': 'dialog-create-new-page'},{'name': 'DialogOverviewExampleDialog', 'selector': 'dialog-overview-example-dialog'},{'name': 'DialogUserSettingsDialog', 'selector': 'dialog-user-settings-dialog'},{'name': 'DictionaryComponent', 'selector': 'app-dictionary'},{'name': 'DuplicatePageComponent', 'selector': 'app-duplicate-page'},{'name': 'EditActionComponent', 'selector': 'app-edit-action'},{'name': 'EditPageComponent', 'selector': 'app-edit-page'},{'name': 'EditPageSetComponent', 'selector': 'app-update-page-set'},{'name': 'ExtendSessionComponent', 'selector': 'session-component'},{'name': 'FactSheetComponent', 'selector': 'app-fact-sheet'},{'name': 'FloatLightTableComponent', 'selector': 'app-float-light-table'},{'name': 'FloatingImageObjectComponent', 'selector': 'app-floating-image-object'},{'name': 'FloatingTextObjectComponent', 'selector': 'app-floating-text-object'},{'name': 'Frame', 'selector': 'popup'},{'name': 'FrameSettingsComponent', 'selector': 'app-frame-settings'},{'name': 'GrapesjsComponent', 'selector': 'app-grapesjs'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HtmlViewerComponent', 'selector': 'app-html-viewer'},{'name': 'ImageFrameOldComponent', 'selector': 'app-image-old-frame'},{'name': 'ImageFrameSizesComponent', 'selector': 'app-image-frame-sizes'},{'name': 'ImageViewComponent', 'selector': 'app-image-view'},{'name': 'ImageWithOverlayComponent', 'selector': 'app-image-with-overlay'},{'name': 'ImpressumComponent', 'selector': 'app-impressum'},{'name': 'InitPopupComponent', 'selector': 'app-init-popup'},{'name': 'IntValueEditorComponent', 'selector': 'app-int-value-editor'},{'name': 'InterlinearGlossingComponent', 'selector': 'app-interlinear-glossing'},{'name': 'KeyValueFormComponent', 'selector': 'app-key-value-form'},{'name': 'LeafletExampleComponent', 'selector': 'app-leaflet-example'},{'name': 'LightTableComponent', 'selector': 'app-light-table'},{'name': 'LightTableMenuComponent', 'selector': 'app-light-table-menu'},{'name': 'LinkValueEditorComponent', 'selector': 'app-link-value-editor'},{'name': 'LinkValueLabelViewerComponent', 'selector': 'app-link-value-label-viewer'},{'name': 'LoadLightTableComponent', 'selector': 'app-load-light-table'},{'name': 'LoadVariablesComponent', 'selector': 'app-load-variables'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MetadataViewComponent', 'selector': 'app-metadata-view'},{'name': 'MultiLineChartComponent', 'selector': 'app-multi-line-chart'},{'name': 'MyMainComponentComponent', 'selector': 'app-my-main-component'},{'name': 'MyPractiseComponentComponent', 'selector': 'app-my-practise-component'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationTreeComponent', 'selector': 'app-navigation-tree'},{'name': 'NewGjsBoxDialogComponent', 'selector': 'app-new-gjs-box-dialog'},{'name': 'OpenbisLoginComponent', 'selector': 'app-openbis-login'},{'name': 'P0041EditionComponent', 'selector': 'app-p0041-edition'},{'name': 'P0041KandaComponent', 'selector': 'app-p0041-kanda'},{'name': 'P0041StropheComponent', 'selector': 'app-p0041-strophe'},{'name': 'P0041SuktaComponent', 'selector': 'app-p0041-sukta'},{'name': 'P0062TranscriptionFrameComponent', 'selector': 'app-p0062-transcription-frame'},{'name': 'PageComponent', 'selector': 'nie-os'},{'name': 'PageMenuComponent', 'selector': 'app-page-menu'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'PageSetLandingPageComponent', 'selector': 'app-page-set-landing-page'},{'name': 'ParzivalFassungComponent', 'selector': 'app-parzival-fassung'},{'name': 'PieChartComponent', 'selector': 'app-pie-chart'},{'name': 'PizzaPartyComponent', 'selector': 'snack-bar-component-example-snack'},{'name': 'QueryAppInputMapComponent', 'selector': 'app-query-app-input-map'},{'name': 'QueryEntryComponent', 'selector': 'app-query-entry'},{'name': 'QueryInformationDialogComponent', 'selector': 'app-query-information-dialog'},{'name': 'QueryListComponent', 'selector': 'app-query-list'},{'name': 'RadialBarchartComponent', 'selector': 'app-radial-barchart'},{'name': 'ReactivateAccountComponent', 'selector': 'app-reactivate-account'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'RemoveObjectsByIdComponent', 'selector': 'app-remove-objects-by-id'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'ResourceFormComponent', 'selector': 'app-resource-form'},{'name': 'ResourceValueHistoryComponent', 'selector': 'app-resource-value-history'},{'name': 'ResourceValueHistoryValueComponent', 'selector': 'app-resource-value-history-value'},{'name': 'ResponseTreeComponent', 'selector': 'response-tree'},{'name': 'ResponseTreeComponent', 'selector': 'app-response-tree'},{'name': 'RichTextByIriComponent', 'selector': 'app-spa-text'},{'name': 'SankeyComponent', 'selector': 'app-sankey'},{'name': 'SaveLightTableComponent', 'selector': 'app-save-light-table'},{'name': 'ShareLightTableComponent', 'selector': 'app-share-light-table'},{'name': 'SimpleImageAppComponent', 'selector': 'app-simple-image-app'},{'name': 'SpiralBarChartComponent', 'selector': 'app-spiral-bar-chart'},{'name': 'StackedBarChartComponent', 'selector': 'app-stacked-bar-chart'},{'name': 'SynopsisComponent', 'selector': 'app-synopsis'},{'name': 'SynopsisObjectManagerComponent', 'selector': 'app-synopsis-object-manager'},{'name': 'SynopsisObjectToolboxComponent', 'selector': 'app-synopsis-object-toolbox'},{'name': 'TagChipsComponent', 'selector': 'app-tag-chips'},{'name': 'TextDevViewComponent', 'selector': 'app-text-dev-view'},{'name': 'TextDisplayComponent', 'selector': 'app-text-display'},{'name': 'TextDisplayComponent', 'selector': 'app-text-display'},{'name': 'TextLineComponent', 'selector': 'app-text-line'},{'name': 'TextLineGroupComponent', 'selector': 'app-text-line-group'},{'name': 'TextLineMarginComponent', 'selector': 'app-text-line-margin'},{'name': 'TextLineNumberComponent', 'selector': 'app-text-line-number'},{'name': 'TextPageOfWordsComponent', 'selector': 'app-text-page-of-words'},{'name': 'TextRichInnerhtmlComponent', 'selector': 'app-text-rich-innerhtml'},{'name': 'TextSvgViewComponent', 'selector': 'app-text-svg-view'},{'name': 'TextSvgViewWrapperComponent', 'selector': 'app-text-svg-view-wrapper'},{'name': 'TextValueEditorComponent', 'selector': 'app-text-value-editor'},{'name': 'TextViewCanvasComponent', 'selector': 'app-text-view-canvas'},{'name': 'TextViewComponent', 'selector': 'app-text-view'},{'name': 'TextViewMetadataComponent', 'selector': 'app-text-view-metadata'},{'name': 'TextViewStructureComponent', 'selector': 'app-text-view-structure'},{'name': 'TextViewToolsComponent', 'selector': 'app-text-view-tools'},{'name': 'TextlistViewerComponent', 'selector': 'app-textlist-viewer'},{'name': 'ThumbnailbarComponent', 'selector': 'app-thumbnailbar'},{'name': 'TiledImageObjectComponent', 'selector': 'app-tiled-image-object'},{'name': 'TiledLightTableComponent', 'selector': 'app-tiled-light-table'},{'name': 'TiledTextObjectComponent', 'selector': 'app-tiled-text-object'},{'name': 'UpdateLinkedAppsComponent', 'selector': 'app-update-linked-apps'},{'name': 'YoutubeVideoComponent', 'selector': 'app-youtube-video'}];
     var DIRECTIVES = [{'name': 'DraggableDirective', 'selector': '[appDraggable]'},{'name': 'DraggableStubDirective', 'selector': '[appDraggable]'},{'name': 'FloatDropTargetDirective', 'selector': '[appDropTarget]'},{'name': 'ModifiableDirective', 'selector': '[appModifiable]'},{'name': 'ModifiableStubDirective', 'selector': '[appModifiable]'},{'name': 'SelectableDirective', 'selector': '[appSelectable]'},{'name': 'SelectableStubDirective', 'selector': '[appSelectable]'},{'name': 'SynopsisObjectAnchorDirective', 'selector': '[appSynopsisObjectAnchor]'},{'name': 'TileDropTargetDirective', 'selector': '[appTileDropTarget]'}];
     var ACTUAL_COMPONENT = {'name': 'HomeComponent'};
 </script>

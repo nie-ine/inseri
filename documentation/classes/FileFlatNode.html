@@ -483,6 +483,14 @@ export class ResponseTreeComponent implements OnChanges {
   ngOnChanges() {
     // console.log(&#x27;Query Response:&#x27;);
     // console.log( this.queryResponse );
+    if ( this.queryResponse &#x3D;&#x3D;&#x3D; undefined ) {
+      this.queryResponse &#x3D; {
+        &#x27;no&#x27;: {
+          &#x27;input&#x27;: &#x27;given&#x27;,
+          &#x27;for&#x27;: [&#x27;this&#x27;, &#x27;app&#x27;]
+        }
+      };
+    }
     if ( this.queryResponse ) {
       this.database.initialize( this.queryResponse );
     }

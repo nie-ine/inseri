@@ -212,6 +212,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
   userInfo: string;
   sub: any;
   snackBarOpen &#x3D; false;
+  dialogIsOpen &#x3D; false;
 
   constructor(
     private initService: InitService,
@@ -345,7 +346,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
   generateLoginOrSettingsButton(): string {
     return(
       this.routeMapping( &#x27;dashboard&#x27;, &#x27;Logout&#x27; ) ||
-      this.routeMapping( &#x27;page&#x27;, &#x27;Einstellungen&#x27; )
+      this.routeMapping( &#x27;page&#x27;, &#x27;User Settings&#x27; )
     );
   }
 
@@ -394,25 +395,32 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   openSettingsDialog() {
-    const userId &#x3D; localStorage.getItem(&#x27;userId&#x27;);
-    if (userId) {
-      this.authService.getUser(userId).subscribe((result) &#x3D;&gt; {
-        this.dialog.open(DialogUserSettingsDialog, {
-          width: &#x27;600px&#x27;,
-          data: {
-            userId: userId,
-            email: result.user.email,
-            firstName: result.user.firstName,
-            lastName: result.user.lastName,
-            newsletter: result.user.newsletter
-          }
+    if ( !this.dialogIsOpen ) {
+      this. dialogIsOpen &#x3D; true;
+      const userId &#x3D; localStorage.getItem(&#x27;userId&#x27;);
+      if (userId) {
+        this.authService.getUser(userId).subscribe((result) &#x3D;&gt; {
+          const dialogRef &#x3D; this.dialog.open(DialogUserSettingsDialog, {
+            width: &#x27;600px&#x27;,
+            data: {
+              userId: userId,
+              email: result.user.email,
+              firstName: result.user.firstName,
+              lastName: result.user.lastName,
+              newsletter: result.user.newsletter
+            }
+          });
+          dialogRef.afterClosed().subscribe((result1) &#x3D;&gt; {
+            this. dialogIsOpen &#x3D; false;
+          });
+        }, (error) &#x3D;&gt; {
+          console.log(error);
         });
-      }, (error) &#x3D;&gt; {
-        console.log(error);
-      });
-    } else {
-      console.log(&#x27;UserId was not found in storage&#x27;);
+      } else {
+        console.log(&#x27;UserId was not found in storage&#x27;);
+      }
     }
+
   }
 }
 

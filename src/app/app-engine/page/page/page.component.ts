@@ -32,112 +32,145 @@ import { AppMenuModel } from './appMenu.model';
   providers: [StyleMappingService]
 })
 export class PageComponent implements OnInit, AfterViewChecked {
+
+  /**
+   * Needed for the inseri page menu, this array indicates the columns of the mat-table
+   * */
   displayedColumns: string[] = ['id', 'name', 'tags', 'status'];
+
+  /**
+   * this variable instantiates the MatTableDataSource used for the inseri app menu
+   * */
   dataSource: MatTableDataSource<any>;
 
+  /**
+   * paginator for the inseri app menu
+   * */
   @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  /**
+   * needed for the sorting for the inseri app menu
+   * */
   @ViewChild(MatSort) sort: MatSort;
 
   /**
-   * @remarks actionID - the actionID of the action that the page belongs to
+   * actionID - the actionID of the action that the page belongs to
    * */
   actionID: string;
 
   /**
-   * @remarks page - information about the page, title, queryIDs, etc.
+   * page - information about the page, title, queryIDs, etc.
    * */
   page: any = {};
 
   /**
-   * @remarks action - information about the action, title, etc
+   * action - information about the action, title, etc
    * */
   action: any;
 
   /**
-   * @remarks panelsOpen - indicates if all panels in the sideNav are open or closed
+   * panelsOpen - indicates if all panels in the sideNav are open or closed
    * */
   panelsOpen = false;
 
   /**
-   * @remarks pageIDFromURL - pageID, taken from the URL - param
+   * pageIDFromURL - pageID, taken from the URL - param
    * */
   pageIDFromURL: string;
 
   /**
-   * @remarks openAppsInThisPage - open apps formatted in a way that ng iterates through them in page.html
+   * openAppsInThisPage - open apps formatted in a way that ng iterates through them in page.html
    * */
   openAppsInThisPage: any = (new OpenAppsModel).openApps;
 
   /**
-   * @remarks pageAsDemo - if no pageID is given in the url, a demo page is opened
+   * pageAsDemo - if no pageID is given in the url, a demo page is opened
    * */
   pageAsDemo = false;
 
   /**
-   * @remarks isLoading - indicates if spinner is displayed or not
+   * isLoading - indicates if spinner is displayed or not
    * */
   isLoading = true;
 
   /**
-   * @remarks resetPage - gets rid of all open apps
+   * resetPage - gets rid of all open apps
    * */
   resetPage = false;
 
   /**
-   * @remarks reloadVariables - initialises a reload of all open apps for the current page
+   * reloadVariables - initialises a reload of all open apps for the current page
    * */
   reloadVariables = false;
 
   /**
-   * @remarks response - after choosing a data entry in the data chooser, the response of the respective query is send back as well
+   * response - after choosing a data entry in the data chooser, the response of the respective query is send back as well
    * */
   response: any;
 
   /**
-   * @remarks queryID - after choosing a data entry in the data chooser, the queryID of the respective query is send back as well
+   * queryID - after choosing a data entry in the data chooser, the queryID of the respective query is send back as well
    * */
   queryId: string;
 
   /**
-   * @remarks index - when a user klick on the array in the data chooser, the index that the user chose is send back to the page.component
+   * index - when a user klick on the array in the data chooser, the index that the user chose is send back to the page.component
    * */
   index: number;
 
   /**
-   * @remarks depth - depth in json of the array that the user chose in the data - chooser
+   * depth - depth in json of the array that the user chose in the data - chooser
    * */
   depth: number;
 
   /**
-   * @remarks cssUrl - variable needed for POC of page - specific css, contact domsteinbach on github for more information
+   * cssUrl - variable needed for POC of page - specific css, contact domsteinbach on github for more information
    * */
   cssUrl: any;
 
   /**
-   * @remarks appFramePosition - "static" if user chooses the option to sort apps by type, "absolute" otherwise
+   * appFramePosition - "static" if user chooses the option to sort apps by type, "absolute" otherwise
    * */
   appFramePosition = 'absolute';
 
-  showNote = false;
+  /**
+   * currentRoute: is used to get url params, for example to determin if page is part of a pageSet
+   * */
   currentRoute: string;
+
+  /**
+   * needed to generate the navigation in case that the page belongs to a pageSet
+   * */
   pagesOfThisActtion: Array<any>;
+
+  /**
+   * same as pageID
+   * */
   hashOfThisPage: string;
+
+  /**
+   *  - Needed to generate the navigation
+   * */
   lastView: any;
+
+  /**
+   * Needed to generate the navigation
+   * */
   nextView: any;
-  foundHashOfThisView: boolean;
-  private authListenerSubs: Subscription;
-  userIsAuthenticated = false;
-  pagesOfThisAction: any;
-  visible = true;
-  selectable = true;
-  removable = true;
-  addOnBlur = true;
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  /**
+   * If an action is a pageSet, it contains an array with the pages, from this array the navigation is created,
+   * the following value is needed to generate the navigation
+   * */
   selectedPage = 0;
+
+  /**
+   * This variable makes sure that the load-variables.component is loaded only once
+   * */
   alreadyLoaded = false;
-  userInfo: string;
-  sub: any;
-  snackBarOpen = false;
+
+  /**
+   * this variable indicates if page is shown in the preview - mode which indicates how the page would look published.
+   * */
   preview = false;
 
   constructor(
@@ -265,9 +298,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
     setTimeout(() => {
       this.spinner.hide();
     }, 5000); // TODO: bind end of spinner to event that all queries have been loaded instead of setTimeout!
-    setTimeout(() => {
-      this.showNote = true;
-    }, 6000);
     localStorage.removeItem('curZIndex');
   }
 
@@ -350,7 +380,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.page.openApps[ 'appsTiledOrFloating' ].hash = 'appsTiledOrFloating';
     this.page.openApps[ 'appsTiledOrFloating' ].layout = this.appFramePosition;
     /**
-     * @remarks - it is important to give a COPY of this.page as an input, thus { ...this.page },
+     *  - it is important to give a COPY of this.page as an input, thus { ...this.page },
      * otherwise this.page will be rewritten by the routine pageService.updatePage
      * during its execution!
      * */

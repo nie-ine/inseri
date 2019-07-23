@@ -714,7 +714,7 @@ export class PageService {
     // console.log(page);
     const openAppAsStringArray &#x3D; [];
     for ( const openApp in page.openApps) {
-      if( page.openApps[openApp].type !&#x3D;&#x3D; &#x27;dataChooser&#x27; ) {
+      if( page.openApps[openApp].type !&#x3D;&#x3D; &#x27;dataChooser&#x27; &amp;&amp; page.openApps[openApp].type !&#x3D;&#x3D; &#x27;pageMenu&#x27; ) {
         openAppAsStringArray[ openAppAsStringArray.length ] &#x3D; JSON.stringify(page.openApps[openApp]);
       }
     }

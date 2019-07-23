@@ -261,6 +261,7 @@ import { ReactivateAccountComponent } from &#x27;./reactivate-account/reactivate
 import { DeactivateNewsletterComponent } from &#x27;./deactivate-newsletter/deactivate-newsletter.component&#x27;;
 import { ResetPasswordComponent } from &#x27;./reset-password/reset-password.component&#x27;;
 import {TermsAndConditions} from &#x27;./register/termsAndConditions/termsAndConditions&#x27;;
+import {PageComponent} from &#x27;../app-engine/page/page/page.component&#x27;;
 
 
 @NgModule({
@@ -269,7 +270,7 @@ import {TermsAndConditions} from &#x27;./register/termsAndConditions/termsAndCon
     MaterialModule,
     FormsModule,
     RouterModule.forChild([
-      { path: &#x27;home&#x27;, component: HomeComponent },
+      { path: &#x27;home&#x27;, component: PageComponent },
       { path: &#x27;register&#x27;, component: RegisterComponent },
       { path: &#x27;reactivate&#x27;, component: ReactivateAccountComponent },
       { path: &#x27;deactivate-newsletter&#x27;, component: DeactivateNewsletterComponent },
