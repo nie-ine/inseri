@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { PAGETRANSCRIPTION } from './page-transcription';
 import { IIIFImage } from '../../../shared/IIIFImage';
-import { JoinedTextViewRoot } from '../../../joined-text-view/joined-text-view/joined-text-view.component';
 import { StyleDeclaration } from '../../../shared/rich-text/text-rich-innerhtml/text-rich-innerhtml.component';
+import { JoinedTextViewRoot } from '../../../joined-text-view/joined-text-view/joined-text-view';
 
 /**
  * This component shows the use of the text components.

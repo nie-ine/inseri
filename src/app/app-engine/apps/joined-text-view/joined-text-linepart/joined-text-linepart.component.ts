@@ -1,27 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { KnoraV2RequestService } from '../../../../query-engine/knora/knora-v2-request.service';
 import { JoinedTextViewKnoraRequestService } from '../joined-text-view-knora-request.service';
-import { JoinedTextElement } from '../joined-text-view/joined-text-view.component';
 import { SelectableEnvironments, StyleDeclaration } from '../../shared/rich-text/text-rich-innerhtml/text-rich-innerhtml.component';
-
-export interface JoinedTextLinepart extends JoinedTextElement {
-  propertyIri: string;
-  propertyDirection: string;
-  sortByPropertyIri?: string;
-  lineparts?: JoinedTextLinepart;
-  clickable?: boolean;
-  hoverable?: boolean;
-  hoverColor?: string;
-  clickColor?: string;
-  styleKeys?: string[];
-
-  prefix?: string;
-  prefixStyleKeys?: string[];
-  interfix?: string;
-  interfixStyleKeys?: string[];
-  suffix?: string;
-  suffixStyleKeys?: string[];
-}
+import { JoinedTextLinepart } from './joined-text-linepart';
 
 /**
  * A horizontal text element with the options of left and right columns for marginals or metadata
@@ -33,8 +14,14 @@ export interface JoinedTextLinepart extends JoinedTextElement {
 })
 export class JoinedTextLinepartComponent implements OnInit {
 
+  /**
+   * Identifier of the parent of the line parts.
+   */
   @Input() parentIri: string;
 
+  /**
+   * Address to the Knora instance with the data
+   */
   @Input() backendAddress;
   @Input() linepartConfiguration: JoinedTextLinepart;
   @Input() styleDeclarations: Array<StyleDeclaration>;
@@ -71,6 +58,9 @@ export class JoinedTextLinepartComponent implements OnInit {
 
   lineparts: Array<any>;
 
+  /**
+   * Namespaces around this this resource.
+   */
   namespaces: any;
 
   /**

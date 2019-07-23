@@ -1,27 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { JoinedTextElement } from '../joined-text-view/joined-text-view.component';
-import { JoinedTextLine } from '../joined-text-line/joined-text-line.component';
-import { JoinedTextBlock } from '../joined-text-block/joined-text-block.component';
 import { KnoraV2RequestService } from '../../../../query-engine/knora/knora-v2-request.service';
 import { JoinedTextViewKnoraRequestService } from '../joined-text-view-knora-request.service';
 import { SelectableEnvironments, StyleDeclaration } from '../../shared/rich-text/text-rich-innerhtml/text-rich-innerhtml.component';
-import { JoinedTextLinepart } from '../joined-text-linepart/joined-text-linepart.component';
-
-export interface JoinedTextMargin extends JoinedTextElement {
-  propertyIri: string;
-  propertyDirection: string;
-  lines?: JoinedTextLine;
-  lineparts?: JoinedTextLinepart;
-  blocks?: JoinedTextBlock;
-  contentProperty?: string;
-  sortByPropertyIri?: string;
-  styleKeys?: string[];
-
-  fixHeight?: boolean;
-  overflowX?: string;
-  overflowY?: string;
-  whitespaceBehavior?: string;
-}
+import { JoinedTextMargin } from './joined-text-margin';
 
 /**
  * This component can be used in TextLineComponent to add text or objects left of the line.
@@ -38,11 +19,24 @@ export class JoinedTextMarginComponent implements OnInit {
    */
   fixHeight = true;
 
+  /**
+   * IRI of the resource that bundles the margin resources.
+   */
   @Input() parentIri: string;
 
+  /**
+   * Address to the Knora instance with the text data.
+   */
   @Input() backendAddress;
+
+  /**
+   * Configuration about the behaviour of this component.
+   */
   @Input() marginConfiguration: JoinedTextMargin;
 
+  /**
+   * Default style declaration.
+   */
   @Input() styleDeclarations: Array<StyleDeclaration>;
 
   /**
@@ -75,8 +69,14 @@ export class JoinedTextMarginComponent implements OnInit {
    */
   @Output() hoveredResourceChange: EventEmitter<string> = new EventEmitter<string>();
 
+  /**
+   * Margins that are to be shown in this component (usually 1).
+   */
   margins: Array<any>;
 
+  /**
+   * Namespaces around this resources.
+   */
   namespaces: any;
 
   /**

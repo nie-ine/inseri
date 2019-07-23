@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { JoinedTextElement } from './joined-text-view/joined-text-view.component';
+import { JoinedTextElement } from './joined-text-view/joined-text-view';
 
 @Injectable({
   providedIn: 'root'

@@ -1,50 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { KnoraV2RequestService } from '../../../../query-engine/knora/knora-v2-request.service';
 import { JoinedTextViewKnoraRequestService } from '../joined-text-view-knora-request.service';
-import { JoinedTextElement } from '../joined-text-view/joined-text-view.component';
-import { JoinedTextLinepart } from '../joined-text-linepart/joined-text-linepart.component';
-import { JoinedTextMargin } from '../joined-text-margin/joined-text-margin.component';
 import { SelectableEnvironments, StyleDeclaration } from '../../shared/rich-text/text-rich-innerhtml/text-rich-innerhtml.component';
-
-export interface JoinedTextLine extends JoinedTextElement {
-  propertyDirection: string;
-  propertyIri: string;
-  sortByPropertyIri?: string;
-  lineparts?: JoinedTextLinepart;
-  farfarleft?: JoinedTextMargin;
-  farleft?: JoinedTextMargin;
-  left?: JoinedTextMargin;
-  right?: JoinedTextMargin;
-  farright?: JoinedTextMargin;
-  farfarright?: JoinedTextMargin;
-
-  linepartsStyleKeys?: string[];
-  farfarleftStyleKeys?: string[];
-  farleftStyleKeys?: string[];
-  leftStyleKeys?: string[];
-  rightStyleKeys?: string[];
-  farrightStyleKeys?: string[];
-  farfarrightStyleKeys?: string[];
-
-  prefix?: string;
-  prefixStyleKeys?: string[];
-  interfix?: string;
-  interfixStyleKeys?: string[];
-  interfix2?: string;
-  interfix2StyleKeys?: string[];
-  suffix?: string;
-  suffixStyleKeys?: string[];
-
-  hoverable?: boolean;
-  clickable?: boolean;
-  hoverColor?: string;
-  clickColor?: string;
-
-  /**
-   * The ratio of the widths of the columns (far far left margin, far left, left margin, middle, right margin, far right, far far right)
-   */
-  columnRatio?: string[];
-}
+import { JoinedTextLine } from './joined-text-line';
 
 /**
  * A horizontal text element with the options of left and right columns for marginals or metadata
@@ -56,11 +14,24 @@ export interface JoinedTextLine extends JoinedTextElement {
 })
 export class JoinedTextLineComponent implements OnInit {
 
+  /**
+   * The identifier of the parent element of the lines.
+   */
   @Input() parentIri: string;
 
+  /**
+   * The Knora instance with the data.
+   */
   @Input() backendAddress;
+
+  /**
+   * The parameters for the line behaviour.
+   */
   @Input() lineConfiguration: JoinedTextLine;
 
+  /**
+   * Default style declarations.
+   */
   @Input() styleDeclarations: Array<StyleDeclaration>;
 
   /**
@@ -93,8 +64,14 @@ export class JoinedTextLineComponent implements OnInit {
    */
   @Output() hoveredResourceChange: EventEmitter<string> = new EventEmitter<string>();
 
+  /**
+   * All line objects in this component.
+   */
   lines: Array<any>;
 
+  /**
+   * Ontology namespaces around this resource.
+   */
   namespaces: any;
 
   /**
@@ -186,10 +163,20 @@ export class JoinedTextLineComponent implements OnInit {
     }
   }
 
+  /**
+   * When an element is clicked (in this component or in a child), give the identifier of that element as output to be used outside for
+   * updating the query parameter.
+   * @param resIri  The identifier of a the clicked resource that is further used as query parameter.
+   */
   clickChange(resIri: string) {
     this.clickedResourceChange.emit(resIri);
   }
 
+  /**
+   * When an element is hovered over (in this component or in a child), give the identifier of that element as output to be used outside for
+   * updating the query parameter.
+   * @param resIri  The identifier of a the hovered resource that is further used as query parameter.
+   */
   hoverChange(resIri: string) {
     this.hoveredResourceChange.emit(resIri);
   }
@@ -225,7 +212,11 @@ export class JoinedTextLineComponent implements OnInit {
     }
   }
 
-
+  /**
+   * Using an external style definition, get all the CSS definition for this element, depending on keys.
+   * @param paramKey  The key of the definitions of the style environment for this element.
+   * @param resId  The identifier of the element for specific highlighting.
+   */
   getStyleDict(paramKey, resId) {
     const styles = {};
 

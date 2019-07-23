@@ -1,22 +1,7 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { JoinedTextBlock } from '../joined-text-block/joined-text-block.component';
-import { JoinedTextLine } from '../joined-text-line/joined-text-line.component';
+import { Component, Input, OnChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SelectableEnvironments, StyleDeclaration } from '../../shared/rich-text/text-rich-innerhtml/text-rich-innerhtml.component';
-import { IIIFImage } from '../../shared/IIIFImage';
-
-export interface JoinedTextElement {
-  propertyIri: string;
-  propertyDirection: string;
-  contentPropertyIri?: string;
-  contentProperty?: string;
-  sortByPropertyIri?: string;
-}
-
-export interface JoinedTextViewRoot {
-  blocks?: JoinedTextBlock;
-  lines?: JoinedTextLine;
-}
+import { JoinedTextViewRoot } from './joined-text-view';
 
 @Component({
   selector: 'app-joined-text-view',
@@ -25,16 +10,28 @@ export interface JoinedTextViewRoot {
 })
 export class JoinedTextViewComponent implements OnChanges {
 
+  /**
+   * Address to the Knora instance with the text resources.
+   */
   @Input() backendAddress: string;
 
+  /**
+   * IRI of the resource that holds the parts of the text.
+   */
   @Input() textRootIri: string;
 
+  /**
+   * Configuration for the displayed text.
+   */
   @Input() textConfiguration: JoinedTextViewRoot;
 
   // TODO:
   // - Turn into app
   // - add column functionality to block-component
 
+  /**
+   * Default style declarations.
+   */
   @Input() styleDeclarations: Array<StyleDeclaration>;
 
   /**
@@ -57,8 +54,16 @@ export class JoinedTextViewComponent implements OnChanges {
    */
   hoveredResource: string;
 
+  /**
+   * Constructor
+   * @param _route  Activated route for this component
+   * @param _router  Router for navigation
+   */
   constructor(private _route: ActivatedRoute, private _router: Router) { }
 
+  /**
+   * Subscribe to the query parameters for focus, hovering and other selections.
+   */
   ngOnChanges() {
     this._route.queryParams.subscribe(params => {
       this.highlighted = [].concat(params.style);
@@ -67,10 +72,18 @@ export class JoinedTextViewComponent implements OnChanges {
     });
   }
 
+  /**
+   * Update the query parameter `focus` after clicking on a resource.
+   * @param resIri  IRI of the clicked resource.
+   */
   clickChange(resIri: string) {
     this._router.navigate([], {relativeTo: this._route, queryParams: {focus: resIri}, queryParamsHandling: 'merge'});
   }
 
+  /**
+   * Update the query parameter `hover` after moving the mouse pointer.
+   * @param resIri  IRI of the resource under the mouse pointer
+   */
   hoverChange(resIri: string) {
     this._router.navigate([], {relativeTo: this._route, queryParams: {hover: resIri}, queryParamsHandling: 'merge'});
   }

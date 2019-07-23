@@ -1,19 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { KnoraV2RequestService } from '../../../../query-engine/knora/knora-v2-request.service';
 import { JoinedTextViewKnoraRequestService } from '../joined-text-view-knora-request.service';
-import { JoinedTextElement } from '../joined-text-view/joined-text-view.component';
-import { JoinedTextLine } from '../joined-text-line/joined-text-line.component';
-import { JoinedTextLinepart } from '../joined-text-linepart/joined-text-linepart.component';
 import { SelectableEnvironments, StyleDeclaration } from '../../shared/rich-text/text-rich-innerhtml/text-rich-innerhtml.component';
-
-export interface JoinedTextBlock extends JoinedTextElement {
-  propertyIri: string;
-  propertyDirection: string;
-  sortByPropertyIri?: string;
-  lines?: JoinedTextLine;
-  lineparts?: JoinedTextLinepart;
-  styleKeys?: string[];
-}
+import { JoinedTextBlock } from './joined-text-block';
 
 /**
  * Combination of text lines into a specific form
@@ -110,15 +99,28 @@ export class JoinedTextBlockComponent implements OnInit {
       });
   }
 
+  /**
+   * When an element is clicked (in this component or in a child), give the identifier of that element as output to be used outside for
+   * updating the query parameter.
+   * @param resIri  The identifier of a the clicked resource that is further used as query parameter.
+   */
   clickChange(resIri: string) {
     this.clickedResourceChange.emit(resIri);
   }
 
+  /**
+   * When an element is hovered over (in this component or in a child), give the identifier of that element as output to be used outside for
+   * updating the query parameter.
+   * @param resIri  The identifier of a the hovered resource that is further used as query parameter.
+   */
   hoverChange(resIri: string) {
     this.hoveredResourceChange.emit(resIri);
   }
 
-
+  /**
+   * Using an external style definition, get all the CSS definition for this element, depending on keys.
+   * @param paramKey  The key of the definitions of the style environment for this element.
+   */
   getStyleDict(paramKey) {
     const styles = {};
 
