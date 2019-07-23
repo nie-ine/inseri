@@ -29,23 +29,39 @@ export class Frame implements OnInit, OnChanges {
 
   /**
    * @param show - indicates if app is minimalized or not
-   * @param title - title of the app
-   * @param type - type of the app
-   * @param firstPopupX - if app is opened for the first time, this variable indicates where it should disappear vertically
-   * @param firstPopupY - if app is opened for the first time, this variable indicates where it should disappear horizontally
-   * @param hash - hash of the open app, this has to be emitted for the page so that the page knows which app is emmitting the information
-   * @param width, height - width and height of the open app
-   * @param position - "static" if the option "sort by appType" is chosen, "absolute" otherwise
-   * @remarks otherParameters should be self explanatory
    * */
   show = false;
+  /**
+   * @param title - title of the app
+   * */
   @Input() title: string;
+  /**
+   * @param type - type of the app
+   * */
   @Input() type: string;
+  /**
+   * @param firstPopupX - if app is opened for the first time, this variable indicates where it should disappear vertically
+   * */
   @Input() firstPopupX: number;
+  /**
+   * @param firstPopupY - if app is opened for the first time, this variable indicates where it should disappear horizontally
+   * */
   @Input() firstPopupY: number;
+  /**
+   * @param hash - hash of the open app, this has to be emitted for the page so that the page knows which app is emmitting the information
+   * */
   @Input() hash: string;
+  /**
+   * @param width, height - width and height of the open app
+   * */
   @Input() width: number;
+  /**
+   * @param width, height - width and height of the open app
+   * */
   @Input() height: number;
+  /**
+   * @param position - "static" if the option "sort by appType" is chosen, "absolute" otherwise
+   * */
   @Input() position = 'absolute';
   @Input() fullWidth: boolean;
   @Input() fullHeight: boolean;
@@ -207,6 +223,10 @@ export class Frame implements OnInit, OnChanges {
     });
   }
 
+  /**
+   * This routine makes sure that when you click on the app
+   * it comes to thr foreground
+   * */
   setNewZIndex() {
     console.log( 'Set new z index;' );
     console.log( this.curZIndex );

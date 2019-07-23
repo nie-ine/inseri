@@ -17,17 +17,18 @@ import {ActionService} from '../../user-action-engine/mongodb/action/action.serv
 })
 export class LoadVariablesComponent implements OnInit, OnChanges {
   /**
-   * @param reload - input given by the page.component.ts, if
+   * @remarks reload - input given by the page.component.ts, if
    * this input is true, apps etc. are reloaded so that the whole
    * page is reloaded from MongoDB
-   *
-   * @param sendPageBack - output emits the variables page and actions
-   *
-   * @param sendOpenAppsInThisPageBack emits openAppsInThisPage
-   *
    * */
   @Input() reload = false;
+  /**
+   * @remarks sendPageBack - output emits the variables page and actions
+   * */
   @Output() sendPageBack = new EventEmitter();
+  /**
+   * @remarks sendOpenAppsInThisPageBack emits openAppsInThisPage
+   * */
   @Output() sendOpenAppsInThisPageBack = new EventEmitter();
   pageId: string;
   actionId: string;

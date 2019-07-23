@@ -23,42 +23,9 @@ import {ActionService} from '../../../user-action-engine/mongodb/action/action.s
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+import { AppMenuModel } from './appMenu.model';
 
-export interface UserData {
-  id: string;
-  name: string;
-  progress: string;
-  color: string;
-}
 
-/** Constants used to fill up our data base. */
-const COLORS: string[] = [
-  'maroon', 'red', 'orange', 'yellow', 'olive', 'green', 'purple', 'fuchsia', 'lime', 'teal',
-  'aqua', 'blue', 'navy', 'black', 'gray'
-];
-const NAMES: string[] = [
-  'Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack', 'Charlotte', 'Theodore', 'Isla', 'Oliver',
-  'Isabella', 'Jasperrrrrrrrrrrrrrr', 'Cora', 'Levi', 'Violet', 'Arthur', 'Mia', 'Thomas', 'Elizabeth'
-];
-
-/**
- * @params actionID - the actionID of the action that the page belongs to
- * @params page - information about the page, title, queryIDs, etc.
- * @params action - information about the action, title, etc
- * @params panelsOpen - indicates if all panels in the sideNav are open or closed
- * @params pageIDFromURL - pageID, taken from the URL - param
- * @params openAppsInThisPage - open apps formatted in a way that ng iterates through them in page.html
- * @params pageAsDemo - if no pageID is given in the url, a demo page is opened
- * @params isLoading - indicates if spinner is displayed or not
- * @params resetPage - gets rid of all open apps
- * @params reloadVariables - initialises a reload of all open apps for the current page
- * @params response - after choosing a data entry in the data chooser, the response of the respective query is send back as well
- * @params queryID - after choosing a data entry in the data chooser, the queryID of the respective query is send back as well
- * @params index - when a user klick on the array in the data chooser, the index that the user chose is send back to the page.component
- * @params depth - depth in json of the array that the user chose in the data - chooser
- * @params cssUrl - variable needed for POC of page - specific css, contact domsteinbach on github for more information
- * @params appFramePosition - "static" if user chooses the option to sort apps by type, "absolute" otherwise
- * */
 @Component({
   selector: 'nie-os',
   templateUrl: `page.component.html`,
@@ -70,22 +37,87 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+
+  /**
+   * @remarks actionID - the actionID of the action that the page belongs to
+   * */
   actionID: string;
+
+  /**
+   * @remarks page - information about the page, title, queryIDs, etc.
+   * */
   page: any = {};
+
+  /**
+   * @remarks action - information about the action, title, etc
+   * */
   action: any;
+
+  /**
+   * @remarks panelsOpen - indicates if all panels in the sideNav are open or closed
+   * */
   panelsOpen = false;
+
+  /**
+   * @remarks pageIDFromURL - pageID, taken from the URL - param
+   * */
   pageIDFromURL: string;
+
+  /**
+   * @remarks openAppsInThisPage - open apps formatted in a way that ng iterates through them in page.html
+   * */
   openAppsInThisPage: any = (new OpenAppsModel).openApps;
+
+  /**
+   * @remarks pageAsDemo - if no pageID is given in the url, a demo page is opened
+   * */
   pageAsDemo = false;
+
+  /**
+   * @remarks isLoading - indicates if spinner is displayed or not
+   * */
   isLoading = true;
+
+  /**
+   * @remarks resetPage - gets rid of all open apps
+   * */
   resetPage = false;
+
+  /**
+   * @remarks reloadVariables - initialises a reload of all open apps for the current page
+   * */
   reloadVariables = false;
+
+  /**
+   * @remarks response - after choosing a data entry in the data chooser, the response of the respective query is send back as well
+   * */
   response: any;
+
+  /**
+   * @remarks queryID - after choosing a data entry in the data chooser, the queryID of the respective query is send back as well
+   * */
   queryId: string;
+
+  /**
+   * @remarks index - when a user klick on the array in the data chooser, the index that the user chose is send back to the page.component
+   * */
   index: number;
+
+  /**
+   * @remarks depth - depth in json of the array that the user chose in the data - chooser
+   * */
   depth: number;
+
+  /**
+   * @remarks cssUrl - variable needed for POC of page - specific css, contact domsteinbach on github for more information
+   * */
   cssUrl: any;
+
+  /**
+   * @remarks appFramePosition - "static" if user chooses the option to sort apps by type, "absolute" otherwise
+   * */
   appFramePosition = 'absolute';
+
   showNote = false;
   currentRoute: string;
   pagesOfThisActtion: Array<any>;
@@ -130,224 +162,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
       this.generateNavigation(params.actionID);
     });
     this.dataSource = new MatTableDataSource(
-      [
-        {
-          id: 'aspect_ratio',
-          name: 'HTML Viewer ',
-          tags: 'html, css, plaintext ',
-          color: 'green',
-          status: 'stable',
-          appType: 'htmlViewer',
-          description: 'It displays HTML snippets and applies externally defined styles to the view.'
-        },
-        {
-          id: 'short_text',
-          name: 'Plaintext Viewer ',
-          tags: 'plaintext, html without css ',
-          color: 'green',
-          status: 'stable',
-          appType: 'textlistViewers',
-          description: undefined
-        },
-        {
-          id: 'line_style',
-          name: 'SVG-Transcription',
-          tags: 'diplomatic transcription, text',
-          color: 'orange',
-          status: 'under development',
-          appType: 'svgTranscription',
-          description: ' SVG transcription with exact word positions'
-        },
-        {
-          id: 'view_week',
-          name: 'Parzival - Fassung',
-          tags: 'synopsis, text, version',
-          color: 'green',
-          status: 'stable',
-          appType: 'parzivalFassung',
-          description: 'Project specific App for the Parzival Project - Open more than one app of this type to test it!'
-        },
-        {
-          id: 'turned_in',
-          name: 'AVP-Edition',
-          tags: 'synopsis, text, version',
-          color: 'orange',
-          status: 'under development',
-          appType: 'avpEditionView',
-          description: 'Project specific App for the AVP Project'
-        },
-        {
-          id: 'album',
-          name: 'OpenBis Login',
-          tags: 'login, query, third party token',
-          color: 'green',
-          status: 'stable',
-          appType: 'openbisLogin',
-          description: 'Set token for OpenBis'
-        },
-        {
-          id: 'image',
-          name: 'Image Viewer',
-          tags: 'image, zoom, iif',
-          color: 'green',
-          status: 'stable',
-          appType: 'imageViewer',
-          description: 'Display and zoom in images'
-        },
-        {
-          id: 'add_photo_alternate',
-          name: 'Simple Image App',
-          tags: 'image',
-          color: 'green',
-          status: 'stable',
-          appType: 'simpleImageApp',
-          description: 'Display simple images'
-        },
-        {
-          id: 'view_list',
-          name: 'Data list viewer',
-          tags: 'generic, list, configurable',
-          color: 'green',
-          status: 'stable',
-          appType: 'dataListView',
-          description: 'Display simple images'
-        },
-        {
-          id: 'subdirectory_arrow_right',
-          name: 'Tree navigation',
-          tags: 'navigation',
-          color: 'green',
-          status: 'stable',
-          appType: 'treeNavigation',
-          description: ' This app can be combined with apps for resource view.'
-        },
-        {
-          id: 'video_library',
-          name: 'Youtube Video Viewer',
-          tags: 'video',
-          color: 'green',
-          status: 'stable',
-          appType: 'youtubeVideo',
-          description: ' You can embed youtube - videos in this app.'
-        },
-        {
-          id: 'art_track',
-          name: 'Synopsis Viewer',
-          tags: 'synopsis, light table',
-          color: 'orange',
-          status: 'under development',
-          appType: 'synopsisViewer',
-          description: 'Open and compare different images and text'
-        },
-        {
-          id: 'spa',
-          name: 'Json Viewer',
-          tags: 'json tree',
-          color: 'green',
-          status: 'stable',
-          appType: 'jsonViewer',
-          description: 'This app visualizes json objects as a tree.'
-        },
-        {
-          id: 'bar_chart',
-          name: 'Bar Chart',
-          tags: 'd3.js, interactive',
-          color: 'orange',
-          status: 'under development',
-          appType: 'barCharts',
-          description: 'To define data with two dimensions'
-        },
-        {
-          id: 'show_chart',
-          name: 'Line Chart',
-          tags: 'd3.js, interactive',
-          color: 'orange',
-          status: 'under development',
-          appType: 'lineCharts',
-          description: 'To define data with two dimensions'
-        },
-        {
-          id: 'insert_chart_outlined',
-          name: 'Brush Zoom',
-          tags: 'd3.js, interactive',
-          color: 'orange',
-          status: 'under development',
-          appType: 'brushZoomCharts',
-          description: 'To define data with two dimensions'
-        },
-        {
-          id: 'add_location',
-          name: 'Leaflet map',
-          tags: 'geo data visualisation',
-          color: 'orange',
-          status: 'under development',
-          appType: 'leafletMaps',
-          description: 'Visualize data on maps'
-        },
-        {
-          id: 'pie_chart',
-          name: 'Pie Chart',
-          tags: 'd3.js, data visualisation',
-          color: 'orange',
-          status: 'under development',
-          appType: 'pieCharts',
-          description: 'To visualise subsets'
-        },
-        {
-          id: 'multiline_chart',
-          name: 'Radial Bar Chart',
-          tags: 'd3.js, data visualisation',
-          color: 'orange',
-          status: 'under development',
-          appType: 'radialBarCharts',
-          description: 'For two dimensional data'
-        },
-        {
-          id: 'linear_scale',
-          name: 'Sankey',
-          tags: 'd3.js, data visualisation',
-          color: 'orange',
-          status: 'under development',
-          appType: 'sankeyCharts',
-          description: ' To display dependent data'
-        },
-        {
-          id: 'subtitles',
-          name: ' Stacked Bar Chart',
-          tags: 'd3.js, data visualisation',
-          color: 'orange',
-          status: 'under development',
-          appType: 'stackedBarCharts',
-          description: 'To display grouped sets'
-        },
-        {
-          id: 'all_out',
-          name: 'Chord diagram',
-          tags: 'd3.js, data visualisation',
-          color: 'orange',
-          status: 'under development',
-          appType: 'chordDiagrams',
-          description: 'To compare intensity of connections'
-        },
-        {
-          id: 'add_to_queue',
-          name: 'Resource Creation',
-          tags: 'knora, data entry',
-          color: 'orange',
-          status: 'under development',
-          appType: 'createResourceForm',
-          description: 'With this app you can create data in Knora.'
-        },
-        {
-          id: 'web',
-          name: 'Edit Resource',
-          tags: 'knora, data manipulation',
-          color: 'orange',
-          status: 'under development',
-          appType: 'editResourceForm',
-          description: 'With this app you can change data in Knora and see the history of given properties.'
-        }
-      ]
+      new AppMenuModel().appMenu
     );
   }
 
@@ -709,17 +524,4 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.openAppsInThisPage[ 'pageMenu' ].model[ 0 ].y = 100;
   }
 
-}
-
-/** Builds and returns a new User. */
-function createNewUser(id: number): UserData {
-  const name = NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
-
-  return {
-    id: id.toString(),
-    name: name,
-    progress: Math.round(Math.random() * 100).toString(),
-    color: COLORS[Math.round(Math.random() * (COLORS.length - 1))]
-  };
 }
