@@ -1,4 +1,4 @@
-<div class="popup" *ngIf="show">
+<div class="popup" *ngIf="show"  >
 
   <div class="popup-win"
        [ngStyle]="{
@@ -12,9 +12,9 @@
        'margin-left': fullWidth ? '70px' : ''
        }">
     <div class="popup-title-bar popup-drag" (mousedown)="mousedown($event)" *ngIf="!preview" (mousedown)="setNewZIndex()">
-      <span style=" margin-right: 20px; color: blue; cursor: pointer;" (click)="disappear()">-</span>
+      <span style=" margin-right: 20px; color: blue; cursor: pointer;" (click)="disappear()" *ngIf="!preview && showAppSettingsOnPublish" >-</span>
         {{title}}
-      <span style=" margin-left: 20px; color: blue; cursor: pointer;" (click)="openSettings()">*</span>
+      <span style=" margin-left: 20px; color: blue; cursor: pointer;" (click)="openSettings()" *ngIf="!preview && showAppSettingsOnPublish">*</span>
     </div>
 
     <div class="popup-content">

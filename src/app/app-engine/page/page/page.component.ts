@@ -11,7 +11,7 @@ import {GenerateHashService} from '../../../user-action-engine/other/generateHas
 import {OpenAppsModel} from '../../../user-action-engine/mongodb/page/open-apps.model';
 import {PageService} from '../../../user-action-engine/mongodb/page/page.service';
 import { DataManagementComponent } from '../../../query-app-interface/data-management/data-management/data-management.component';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatSnackBar} from '@angular/material';
 import { NgxSpinnerService } from 'ngx-spinner';
 import {GeneralRequestService} from '../../../query-engine/general/general-request.service';
 import {QueryInformationDialogComponent} from '../query-information-dialog/query-information-dialog.component';
@@ -24,6 +24,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { AppMenuModel } from './appMenu.model';
+import {ExtendSessionComponent, PizzaPartyComponent} from '../../../user-action-engine/header/header.component';
 
 
 @Component({
@@ -173,6 +174,17 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * */
   preview = false;
 
+  userInfo: string;
+
+  sub: any;
+  snackBarOpen = false;
+  lightHouse = true;
+  showAppTitlesOnPublish = false;
+  showInseriLogoOnPublish = false;
+  showAppSettingsOnPublish = false;
+  showDataBrowserOnPublish = true;
+  publishedOptionsExpanded = false;
+
   constructor(
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
@@ -188,6 +200,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     private stylemapping: StyleMappingService,
     private actionService: ActionService,
     private router: Router,
+    public snackBar: MatSnackBar
   ) {
     this.route.queryParams.subscribe(params => {
       this.hashOfThisPage = params.page;
@@ -292,6 +305,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     if ( !this.actionID ) {
       this.pageAsDemo = true;
       this.isLoading = false;
+      this.lightHouse = false;
     }
     this.spinner.show();
 
@@ -299,6 +313,16 @@ export class PageComponent implements OnInit, AfterViewChecked {
       this.spinner.hide();
     }, 5000); // TODO: bind end of spinner to event that all queries have been loaded instead of setTimeout!
     localStorage.removeItem('curZIndex');
+    if ( this.pageAsDemo ) {
+      this.startLightHouse();
+    }
+  }
+
+  startLightHouse() {
+    setTimeout(() => {
+      this.lightHouse = !this.lightHouse;
+      this.startLightHouse();
+    }, 7000);
   }
 
   addVideoApp( url: string ) {
@@ -356,9 +380,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   /**
-   * This routine updates the coordinates of a moved app in the variable
-   * page.openApps[ app.hash ], this is necessary in order to save
-   * the coordinates of the app as well.
+   * This routine updates the coordinates and all other metadata of a moved app in the variable
+   * page.openApps[ app.hash ]. This is necessary for the updatePage() routine which saves the page
+   * including all open apps.
    * */
   updateAppCoordinates(app: any) {
     if (this.page.openApps[ app.hash ] === null) {
@@ -390,9 +414,14 @@ export class PageComponent implements OnInit, AfterViewChecked {
       .subscribe(
         data => {
           console.log(data);
+          this.snackBar.open( 'Page successfully saved', 'ok',
+            {
+              duration: 1500
+            });
         },
         error => {
           console.log(error);
+          this.snackBar.open( 'Sth went wrong, page has not been saved' );
         });
   }
 
@@ -546,12 +575,39 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   openPageMenu() {
-    console.log( 'Open Page Menu as an app' );
+    this.openAppsInThisPage[ 'pageMenu' ].model = [];
     this.addAnotherApp( 'pageMenu', true );
-    console.log( this.openAppsInThisPage );
     this.openAppsInThisPage[ 'pageMenu' ].model[ 0 ].initialized = true;
     this.openAppsInThisPage[ 'pageMenu' ].model[ 0 ].x = 600;
     this.openAppsInThisPage[ 'pageMenu' ].model[ 0 ].y = 100;
   }
 
+  checkTimeUntilLogout() {
+    const now = new Date();
+    const expirationDate = localStorage.getItem('expiration');
+    const secondsTotal = ( new Date(expirationDate).getTime() - now.getTime() ) / 1000;
+    const minutes = Math.floor(secondsTotal / 60);
+    const seconds = Math.floor(secondsTotal - minutes * 60);
+    this.userInfo = 'Session expires in ' + minutes + ' min and ' + seconds + ' sec';
+    if ( expirationDate && new Date(expirationDate).getTime() - now.getTime() > 0) {
+      if ( minutes < 5 && !this.snackBarOpen) {
+        this.snackBarOpen = true;
+        this.openExtendSessionBar();
+      } else if ( minutes > 5 ) {
+        this.snackBar.dismiss();
+      }
+    }
+  }
+
+  openSnackBar() {
+    this.snackBar.openFromComponent(PizzaPartyComponent, {
+      duration: 3000,
+    });
+  }
+
+  openExtendSessionBar() {
+    this.snackBar.openFromComponent(ExtendSessionComponent, {
+      duration: 100000,
+    });
+  }
 }

@@ -3,12 +3,17 @@
   box-shadow: /*0 0px 0px 0px rgba(0,0,0,.2), 0 11px 15px 3px rgba(0,0,0,.14),*/ 0 1px 1px 1px rgba(0,0,0,.06);
   resize: both;
   overflow: auto;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 .popup-content {
   opacity: 1;
   padding: 7px;
   background-color: rgba(250, 250, 250, 0.98);
+
 }
 
 .popup-overlay {
@@ -40,9 +45,15 @@
 }
 
 .popup-title-bar {
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
   text-align: center;
-  padding-top: 7px;
-  padding-bottom: 7px;
+  padding-top: 3px;
+  padding-bottom: 3px;
   color: #000000;
-  background-color: rgb(250, 247, 234);
+  background: #C9D6FF;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #E2E2E2, #C9D6FF);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #E2E2E2, #C9D6FF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
 }

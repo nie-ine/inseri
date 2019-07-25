@@ -66,6 +66,7 @@ export class Frame implements OnInit, OnChanges {
   @Input() fullWidth: boolean;
   @Input() fullHeight: boolean;
   @Input() preview = false;
+  @Input() showAppSettingsOnPublish = true;
   @Output() sendAppCoordinatesBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendAppSettingsBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendIndexBack: EventEmitter<any> = new EventEmitter<any>();
@@ -103,6 +104,7 @@ export class Frame implements OnInit, OnChanges {
    * */
   ngOnChanges() {
     // console.log('changes');
+    console.log( this.preview, this.showAppSettingsOnPublish );
   }
 
   /**
@@ -123,6 +125,7 @@ export class Frame implements OnInit, OnChanges {
     document.getSelection().removeAllRanges();
     this.setPos();
     this.show = true;
+    this.setNewZIndex();
   }
 
   disappear() {
@@ -176,6 +179,8 @@ export class Frame implements OnInit, OnChanges {
     this.sendCoordinatesBack.title = this.title;
     this.sendCoordinatesBack.width = this.width;
     this.sendCoordinatesBack.height = this.height;
+    this.sendCoordinatesBack.fullWidth = this.fullWidth;
+    this.sendCoordinatesBack.fullHeight = this.fullHeight;
     console.log(this.sendCoordinatesBack);
     this.sendAppCoordinatesBack.emit(
       this.sendCoordinatesBack

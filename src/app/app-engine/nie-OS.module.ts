@@ -70,6 +70,7 @@ import { OpenbisLoginComponent } from './apps/openbis-login/openbis-login.compon
 import { StaticPagesModule } from  '../user-action-engine/static-pages.module';
 import { PageMenuComponent } from './page/page-menu/page-menu.component';
 import { YoutubeVideoComponent } from './apps/youtube-video/youtube-video.component';
+import {MatRadioModule} from '@angular/material/radio';
 
 @NgModule({
   imports: [
@@ -116,6 +117,7 @@ import { YoutubeVideoComponent } from './apps/youtube-video/youtube-video.compon
     OverlayModule,
     MatCheckboxModule,
     StaticPagesModule,
+    MatRadioModule,
     // KnoraJsonldSimplify,
     RouterModule.forChild([
       { path: 'page', component: PageComponent },
