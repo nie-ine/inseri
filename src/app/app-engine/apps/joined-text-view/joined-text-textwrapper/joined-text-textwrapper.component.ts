@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { SelectableEnvironments, StyleDeclaration } from '../../shared/rich-text/text-rich-innerhtml/text-rich-innerhtml.component';
 
 @Component({
@@ -45,8 +45,8 @@ export class JoinedTextTextwrapperComponent implements OnChanges {
 
   constructor() { }
 
-  ngOnChanges() {
-    if (this.propertyIri && this.namespaces) {
+  ngOnChanges(changes: SimpleChanges) {
+    if ((this.propertyIri && this.namespaces) && (changes['propertyIri'] || changes['namespaces'] )) {
       let tempKey = this.propertyIri;
 
       // Change from simple API Knora namespaces to prefixes

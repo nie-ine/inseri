@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { KnoraV2RequestService } from '../../../../query-engine/knora/knora-v2-request.service';
 import { JoinedTextViewKnoraRequestService } from '../joined-text-view-knora-request.service';
 import { SelectableEnvironments, StyleDeclaration } from '../../shared/rich-text/text-rich-innerhtml/text-rich-innerhtml.component';
@@ -87,13 +87,13 @@ export class JoinedTextMarginComponent implements OnChanges {
   /**
    * load content on changing input variables
    */
-  ngOnChanges() {
+  ngOnChanges(changes: SimpleChanges) {
 
     if (this.marginConfiguration.fixHeight) {
       this.fixHeight = this.marginConfiguration.fixHeight;
     }
 
-    if (this.backendAddress && this.marginConfiguration && this.parentIri) {
+    if ((this.backendAddress && this.marginConfiguration && this.parentIri) && (changes['parentIri'] || changes['backendAddress'] || changes['marginConfiguration'])) {
 
       const graveSearchRequest = this.joinedTextViewKnoraRequest.getGravSearch(this.marginConfiguration, this.parentIri);
 

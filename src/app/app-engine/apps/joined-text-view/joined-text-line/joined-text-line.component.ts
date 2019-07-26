@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { KnoraV2RequestService } from '../../../../query-engine/knora/knora-v2-request.service';
 import { JoinedTextViewKnoraRequestService } from '../joined-text-view-knora-request.service';
 import { SelectableEnvironments, StyleDeclaration } from '../../shared/rich-text/text-rich-innerhtml/text-rich-innerhtml.component';
@@ -95,12 +95,12 @@ export class JoinedTextLineComponent implements OnChanges {
   /**
    * load content with changing input variables
    */
-  ngOnChanges() {
+  ngOnChanges(changes: SimpleChanges) {
     if (this.lineConfiguration.columnRatio) {
       this.calculateWidths(this.lineConfiguration.columnRatio);
     }
 
-    if (this.backendAddress && this.parentIri && this.lineConfiguration) {
+    if ((this.backendAddress && this.parentIri && this.lineConfiguration) && (changes['parentIri'] || changes['backendAddress'] || changes['lineConfiguration'])) {
       const graveSearchRequest = this.joinedTextViewKnoraRequest.getGravSearch(this.lineConfiguration, this.parentIri);
 
       this.knoraV2Request.extendedSearchFromSpecificInstance(graveSearchRequest, this.backendAddress)
