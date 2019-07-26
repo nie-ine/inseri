@@ -1,0 +1,1119 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>nie-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">nie-frontend documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search">
+</div>
+            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Injectables</li>
+  <li>GenerateDataChoosersService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts</code>
+        </p>
+
+
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#data">data</a>
+                            </li>
+                            <li>
+                                <a href="#dataChooserEntries">dataChooserEntries</a>
+                            </li>
+                            <li>
+                                <a href="#depth">depth</a>
+                            </li>
+                            <li>
+                                <a href="#path">path</a>
+                            </li>
+                            <li>
+                                <a href="#pathSet">pathSet</a>
+                            </li>
+                            <li>
+                                <a href="#query">query</a>
+                            </li>
+                            <li>
+                                <a href="#response">response</a>
+                            </li>
+                            <li>
+                                <a href="#y">y</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#checkIfSubsetOfResultContainsArray">checkIfSubsetOfResultContainsArray</a>
+                            </li>
+                            <li>
+                                <a href="#generateArrayKeyValueForEachArrayInResponse">generateArrayKeyValueForEachArrayInResponse</a>
+                            </li>
+                            <li>
+                                <a href="#generateDataChoosers">generateDataChoosers</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(http: <a href="https://angular.io/api/common/http/HttpClient" target="_blank">HttpClient</a>, abstractJsonService: <a href="../classes/AbstractJsonService.html">AbstractJsonService</a>, generateArrayFromLeafs: <a href="../injectables/GenerateArrayFromLeafsService.html">GenerateArrayFromLeafsService</a>, requestService: <a href="../injectables/RequestService.html">GeneralRequestService</a>, queryService: <a href="../injectables/QueryService.html">QueryService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts:19</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>http</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="https://angular.io/api/common/http/HttpClient" target="_blank" >HttpClient</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>abstractJsonService</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../classes/AbstractJsonService.html" target="_self" >AbstractJsonService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>generateArrayFromLeafs</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../injectables/GenerateArrayFromLeafsService.html" target="_self" >GenerateArrayFromLeafsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>requestService</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../injectables/RequestService.html" target="_self" >GeneralRequestService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>queryService</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../injectables/QueryService.html" target="_self" >QueryService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+        <h3 id="methods">
+            Methods
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="checkIfSubsetOfResultContainsArray"></a>
+                        <span class="name">
+                            <b>
+                            checkIfSubsetOfResultContainsArray
+                            </b>
+                            <a href="#checkIfSubsetOfResultContainsArray"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>checkIfSubsetOfResultContainsArray(response: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, path: Array<string>, openAppsInThisPage: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, pathArray: Array<string>, queryTitle: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, data: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, queryId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts:63</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>response</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>path</td>
+                                                        <td>
+                                                                    <code>Array&lt;string&gt;</code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>openAppsInThisPage</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>pathArray</td>
+                                                        <td>
+                                                                    <code>Array&lt;string&gt;</code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>queryTitle</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>data</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>queryId</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="generateArrayKeyValueForEachArrayInResponse"></a>
+                        <span class="name">
+                            <b>
+                            generateArrayKeyValueForEachArrayInResponse
+                            </b>
+                            <a href="#generateArrayKeyValueForEachArrayInResponse"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>generateArrayKeyValueForEachArrayInResponse(response: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, openAppsInThisPage: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, queryTitle: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, queryId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, depth: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="134" class="link-to-prism">src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts:134</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>response</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>openAppsInThisPage</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>queryTitle</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>queryId</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>depth</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="generateDataChoosers"></a>
+                        <span class="name">
+                            <b>
+                            generateDataChoosers
+                            </b>
+                            <a href="#generateDataChoosers"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>generateDataChoosers(page: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, openAppsInThisPage: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, reset: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts:28</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>page</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>openAppsInThisPage</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>reset</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="data"></a>
+                        <span class="name">
+                            <b>
+                            data
+                            </b>
+                            <a href="#data"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>data:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts:17</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="dataChooserEntries"></a>
+                        <span class="name">
+                            <b>
+                            dataChooserEntries
+                            </b>
+                            <a href="#dataChooserEntries"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>dataChooserEntries:     <code>[]</code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts:13</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="depth"></a>
+                        <span class="name">
+                            <b>
+                            depth
+                            </b>
+                            <a href="#depth"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>depth:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>0</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts:16</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="path"></a>
+                        <span class="name">
+                            <b>
+                            path
+                            </b>
+                            <a href="#path"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>path:     <code>Array&lt;string&gt;</code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Array&lt;string&gt;</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts:18</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="pathSet"></a>
+                        <span class="name">
+                            <b>
+                            pathSet
+                            </b>
+                            <a href="#pathSet"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>pathSet:     <code></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new Set()</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts:15</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="query"></a>
+                        <span class="name">
+                            <b>
+                            query
+                            </b>
+                            <a href="#query"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>query:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts:19</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="response"></a>
+                        <span class="name">
+                            <b>
+                            response
+                            </b>
+                            <a href="#response"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>response:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts:12</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="y"></a>
+                        <span class="name">
+                            <b>
+                            y
+                            </b>
+                            <a href="#y"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>y:     <code></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>-50</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts:14</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
+import {HttpClient} from &#x27;@angular/common/http&#x27;;
+import {AbstractJsonService} from &#x27;./abstract-json.service&#x27;;
+import {GenerateArrayFromLeafsService} from &#x27;./generate-array-from-leafs.service&#x27;;
+import {GeneralRequestService} from &#x27;../../../query-engine/general/general-request.service&#x27;;
+import { QueryService } from &#x27;../../../user-action-engine/mongodb/query/query.service&#x27;;
+
+@Injectable({
+  providedIn: &#x27;root&#x27;
+})
+export class GenerateDataChoosersService {
+  response: any;
+  dataChooserEntries &#x3D; [];
+  y &#x3D; -50;
+  pathSet &#x3D; new Set();
+  depth &#x3D; 0;
+  data: any;
+  path: Array&lt;string&gt;;
+  query: any
+  constructor(
+    private http: HttpClient,
+    private abstractJsonService: AbstractJsonService,
+    private generateArrayFromLeafs: GenerateArrayFromLeafsService,
+    private requestService: GeneralRequestService,
+    private queryService: QueryService
+  ) { }
+
+  generateDataChoosers( page: any, openAppsInThisPage: any, reset: boolean ) {
+    this.pathSet &#x3D; new Set();
+    if ( reset ) {
+      this.y &#x3D; -50;
+    }
+    for ( const queryId of  page.queries ) {
+      let queryTitle &#x3D; &#x27;&#x27;;
+      let pathArray &#x3D; [];
+      this.depth &#x3D; 0;
+      this.queryService.getQuery(queryId)
+        .subscribe((data) &#x3D;&gt; {
+          // console.log( data );
+          queryTitle &#x3D; data.query.title;
+          pathArray &#x3D; data.query.path;       // path array is the path chosen for the entries to be displayed in the data chooser dropdown
+          this.query &#x3D; data;
+          this.requestService.request(queryId)
+            .subscribe((data1) &#x3D;&gt; {
+              if (data1.status &#x3D;&#x3D;&#x3D; 200) {
+                // console.log(data.body, pathArray);
+                this.response &#x3D; data1.body;
+                this.checkIfSubsetOfResultContainsArray(
+                  data1.body,
+                  pathArray,
+                  openAppsInThisPage,
+                  pathArray,
+                  queryTitle,
+                  data1,
+                  queryId
+                );
+              }
+            });
+        });
+    }
+  }
+
+  checkIfSubsetOfResultContainsArray(
+    response: any,
+    path: Array&lt;string&gt;,
+    openAppsInThisPage: any,
+    pathArray: Array&lt;string&gt;,
+    queryTitle: string,
+    data: any,
+    queryId: string
+  ) {
+    if ( path ) {
+      // console.log( response, path, path.length );
+      for ( const segment of path ) {
+        // console.log( segment );
+        if ( response[ segment ] &amp;&amp; response[ segment ].length &gt; 1 &amp;&amp; typeof response[ segment ] !&#x3D;&#x3D; &#x27;string&#x27;) {
+          // console.log( &#x27;response contains array&#x27; );
+          this.pathSet &#x3D; new Set();
+          this.depth &#x3D; 0;
+          openAppsInThisPage.dataChooser.model.push( {
+            x: 150,
+            y: this.y,
+            dataChooserEntries: this.generateArrayFromLeafs.generateArrayFromLeafs(
+              this.response,
+              pathArray,
+              0
+            ),
+            title: &#x27;Query: &#x27; + queryTitle,
+            response: data.body,
+            queryId: queryId,
+            depth: 0
+          } );
+          // console.log( openAppsInThisPage.dataChooser.model );
+          this.pathSet.add( path[ 0 ] );
+          this.generateArrayKeyValueForEachArrayInResponse(
+            data.body,
+            openAppsInThisPage,
+            queryTitle,
+            queryId,
+            this.depth
+          );
+          return openAppsInThisPage;
+        } else if ( response[ segment ] &amp;&amp; response[ segment ] !&#x3D;&#x3D; &#x27;string&#x27; ) {
+          const clonedPath &#x3D; Object.assign([], path);
+          clonedPath.splice(0, 1);
+          this.checkIfSubsetOfResultContainsArray(
+            response[ segment ],
+            clonedPath,
+            openAppsInThisPage,
+            pathArray,
+            queryTitle,
+            data,
+            queryId
+          );
+        }
+      }
+      if ( path.length &#x3D;&#x3D;&#x3D; 0 ) {
+        // console.log( &#x27;Dont generate data choosers &#x27;);
+        openAppsInThisPage.dataChooser.model.push( {
+          x: 150,
+          y: this.y,
+          dataChooserEntries: [ &#x27;showData&#x27; ],
+          title: &#x27;Query: &#x27; + queryTitle,
+          response: data.body,
+          queryId: queryId,
+          depth: 0
+        } );
+        return openAppsInThisPage;
+      }
+    }
+  }
+
+
+  generateArrayKeyValueForEachArrayInResponse(
+    response: any,
+    openAppsInThisPage: any,
+    queryTitle: string,
+    queryId: string,
+    depth: number
+  ) {
+    // console.log( response, pathArray );
+    for ( const key in response ) {
+      if (
+        response[ key ].length &gt; 1 &amp;&amp;
+        typeof response[ key ] !&#x3D;&#x3D; &#x27;string&#x27; &amp;&amp;
+        !this.pathSet.has( key )
+      ) {
+        this.pathSet.add( key );
+        depth +&#x3D; 1;
+        openAppsInThisPage.dataChooser.model.push( {
+          x: 150,
+          y: this.y,
+          dataChooserEntries: this.generateArrayFromLeafs.generateArrayFromLeafs(
+            response[ key ],
+            undefined,
+            0
+          ),
+          title: &#x27;Query: &#x27; + queryTitle + &#x27; Depth: &#x27; + String(depth),
+          response: this.response,
+          queryId: queryId,
+          depth: depth
+        } );
+      }
+      // console.log( typeof response[ key ] );
+      if ( typeof response[ key ] !&#x3D;&#x3D; &#x27;string&#x27; ) {
+        this.generateArrayKeyValueForEachArrayInResponse(
+          response[ key ],
+          openAppsInThisPage,
+          queryTitle,
+          queryId,
+          depth
+        );
+      }
+    }
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'GenerateDataChoosersService.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <script src="../js/menu-wc.js"></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

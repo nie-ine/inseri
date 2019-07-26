@@ -1,3 +1,7 @@
+/**
+ * This component is self - explanatory
+ * */
+
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 

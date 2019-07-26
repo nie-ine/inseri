@@ -1,9 +1,10 @@
-<nav id="mainNav" class="navbar navbar-default  navbar-fixed-top">
+<nav id="mainNav" class="navbar navbar-default  navbar-fixed-top" *ngIf="router.url.search( 'home' ) === -1">
   <div  class="container">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header page-scroll">
+
       <a class="navbar-brand page-scroll" href="dashboard#top" *ngIf="isAuthenticated() && (!isOnDashboard())" style="color: #4cae4c !important"><mat-icon matTooltip="back to dashboard">home</mat-icon></a>
-      <a class="navbar-brand page-scroll" >{{ generateLeftHeaderString() }}</a>
+      <a class="navbar-brand page-scroll" > {{ generateLeftHeaderString() }}</a>
       <a class="navbar-brand page-scroll" href="{{'page-set?actionID=' + actionID}}" *ngIf="hashOfThisPage" style="color: #4cae4c !important"><mat-icon matTooltip="back to pageSet">filter_none</mat-icon></a>
     </div>
 

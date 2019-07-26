@@ -71,6 +71,15 @@ export class OpenAppsModel {
         }
       ]
     },
+    youtubeVideo: {
+      type: 'youtubeVideo',
+      model: [],
+      inputs: [
+        {
+          'inputName': 'videoURL'
+        }
+      ]
+    },
     barCharts: {
       type: 'barCharts',
       model: []
@@ -200,6 +209,14 @@ export class OpenAppsModel {
           'inputName': 'styleDeclarations'
         }
       ]
+    },
+    login: {
+      type: 'login',
+      model: []
+    },
+    pageMenu: {
+      type: 'pageMenu',
+      model: []
     }
   };
 }

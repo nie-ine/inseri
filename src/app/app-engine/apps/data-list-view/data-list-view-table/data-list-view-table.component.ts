@@ -34,6 +34,7 @@ export class DataListViewTableComponent implements OnInit {
   }
 
   ngOnInit() {
+    // console.log( this.dataToDisplay );
     // console.log('displayed columns:' + this.displayedColumns);
     this.populateByDatastream();
     this.setFilter();

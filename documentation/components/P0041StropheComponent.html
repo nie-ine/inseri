@@ -1,0 +1,985 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>nie-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">nie-frontend documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search">
+</div>
+            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>P0041StropheComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/app-engine/apps/project-specific/project-0041/p0041-strophe/p0041-strophe.component.ts</code>
+</p>
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>This component fetches and displays the data of a strophe in this project.</p>
+
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code><a href="https://angular.io/api/core/OnChanges" target="_blank" >OnChanges</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-p0041-strophe</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>p0041-strophe.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./p0041-strophe.component.html</code></td>
+            </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#stropheData">stropheData</a>
+                            </li>
+                            <li>
+                                <a href="#stropheTextData">stropheTextData</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#getStropheData">getStropheData</a>
+                            </li>
+                            <li>
+                                <a href="#getStropheTextTree">getStropheTextTree</a>
+                            </li>
+                            <li>
+                                <a href="#isArray">isArray</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnChanges">ngOnChanges</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#backendAddress">backendAddress</a>
+                            </li>
+                            <li>
+                                <a href="#resourceIRI">resourceIRI</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(knora2request: <a href="../injectables/RequestService.html">KnoraV2RequestService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/app-engine/apps/project-specific/project-0041/p0041-strophe/p0041-strophe.component.ts:48</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Constructor initializes KnoraV2RequestService.</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>knora2request</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../injectables/RequestService.html" target="_self" >KnoraV2RequestService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <code><p>Service to access a Knora instance.</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="backendAddress"></a>
+                        <code>backendAddress</code>
+                    </td>
+                    <td class="col-md-10">
+                        <div><p>Address of the Knora instance where the resource is hosted.</p>
+</div>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/app-engine/apps/project-specific/project-0041/p0041-strophe/p0041-strophe.component.ts:37</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="resourceIRI"></a>
+                        <code>resourceIRI</code>
+                    </td>
+                    <td class="col-md-10">
+                        <div><p>IRI of the strophe</p>
+</div>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/app-engine/apps/project-specific/project-0041/p0041-strophe/p0041-strophe.component.ts:32</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+    <section>
+    
+        <h3 id="methods">
+            Methods
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="getStropheData"></a>
+                        <span class="name">
+                            <b>
+                            getStropheData
+                            </b>
+                            <a href="#getStropheData"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>getStropheData()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="182" class="link-to-prism">src/app/app-engine/apps/project-specific/project-0041/p0041-strophe/p0041-strophe.component.ts:182</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Get the json-ld representation of the strophe.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="getStropheTextTree"></a>
+                        <span class="name">
+                            <b>
+                            getStropheTextTree
+                            </b>
+                            <a href="#getStropheTextTree"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>getStropheTextTree()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="69" class="link-to-prism">src/app/app-engine/apps/project-specific/project-0041/p0041-strophe/p0041-strophe.component.ts:69</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Get the strophe data in a tree representation with all elements that are part of it.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isArray"></a>
+                        <span class="name">
+                            <b>
+                            isArray
+                            </b>
+                            <a href="#isArray"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>isArray(toBeChecked: )</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="195" class="link-to-prism">src/app/app-engine/apps/project-specific/project-0041/p0041-strophe/p0041-strophe.component.ts:195</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Check of an object is an array.</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>toBeChecked</td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p>Object to be checked.</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ngOnChanges"></a>
+                        <span class="name">
+                            <b>
+                            ngOnChanges
+                            </b>
+                            <a href="#ngOnChanges"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>ngOnChanges()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">src/app/app-engine/apps/project-specific/project-0041/p0041-strophe/p0041-strophe.component.ts:59</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Do a request for the data of this strophe when the address to it changes.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="stropheData"></a>
+                        <span class="name">
+                            <b>
+                            stropheData
+                            </b>
+                            <a href="#stropheData"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>stropheData:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/app-engine/apps/project-specific/project-0041/p0041-strophe/p0041-strophe.component.ts:48</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The json-ld object of the strophe in Knora V2 format.</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="stropheTextData"></a>
+                        <span class="name">
+                            <b>
+                            stropheTextData
+                            </b>
+                            <a href="#stropheTextData"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>stropheTextData:     <code><a href="../interfaces/HalfStrophe.html" target="_self" >Array&lt;HalfStrophe&gt;</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="../interfaces/HalfStrophe.html" target="_self" >Array&lt;HalfStrophe&gt;</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/app-engine/apps/project-specific/project-0041/p0041-strophe/p0041-strophe.component.ts:43</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The data tree of the strophe consisting of half strophes, verses, words and word annotations.
+TODO: typing</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Input, OnChanges } from &#x27;@angular/core&#x27;;
+import { KnoraV2RequestService } from &#x27;../../../../../query-engine/knora/knora-v2-request.service&#x27;;
+
+interface HalfStrophe {
+  verses: Array&lt;Verse&gt;;
+}
+
+interface Verse {
+  metric?: string;
+  samhitawords: Array&lt;SamhitaWord&gt;;
+}
+
+interface SamhitaWord {
+  id: string;
+  padawords?: Array&lt;any&gt;;
+}
+
+
+/**
+ * This component fetches and displays the data of a strophe in this project.
+ */
+@Component({
+  selector: &#x27;app-p0041-strophe&#x27;,
+  templateUrl: &#x27;./p0041-strophe.component.html&#x27;,
+  styleUrls: [&#x27;./p0041-strophe.component.scss&#x27;]
+})
+export class P0041StropheComponent implements OnChanges {
+
+  /**
+   * IRI of the strophe
+   */
+  @Input() resourceIRI;
+
+  /**
+   * Address of the Knora instance where the resource is hosted.
+   */
+  @Input() backendAddress;
+
+  /**
+   * The data tree of the strophe consisting of half strophes, verses, words and word annotations.
+   * TODO: typing
+   */
+  stropheTextData: Array&lt;HalfStrophe&gt;;
+
+  /**
+   * The json-ld object of the strophe in Knora V2 format.
+   */
+  stropheData: any;
+
+  /**
+   * Constructor initializes KnoraV2RequestService.
+   * @param knora2request  Service to access a Knora instance.
+   */
+  constructor(private knora2request: KnoraV2RequestService) { }
+
+  /**
+   * Do a request for the data of this strophe when the address to it changes.
+   */
+  ngOnChanges() {
+    if (this.resourceIRI &amp;&amp; this.backendAddress) {
+      this.getStropheTextTree();
+      this.getStropheData();
+    }
+  }
+
+  /**
+   * Get the strophe data in a tree representation with all elements that are part of it.
+   */
+  getStropheTextTree() {
+    // body of GravSearch request
+    const graveSearchRequest &#x3D;
+      &#x27;PREFIX atharvaveda: &lt;http://0.0.0.0:3333/ontology/0041/atharvaveda/simple/v2#&gt;\n&#x27; +
+      &#x27;PREFIX text: &lt;http://api.knora.org/ontology/shared/text/simple/v2#&gt;\n&#x27; +
+      &#x27;PREFIX text-structure: &lt;http://api.knora.org/ontology/shared/text-structure/simple/v2#&gt;\n&#x27; +
+      &#x27;PREFIX literature: &lt;http://api.knora.org/ontology/shared/literature/simple/v2#&gt;\n&#x27; +
+      &#x27;PREFIX linguistics: &lt;http://api.knora.org/ontology/shared/linguistics/simple/v2#&gt;\n&#x27; +
+      &#x27;PREFIX language: &lt;http://api.knora.org/ontology/shared/language/simple/v2#&gt;\n&#x27; +
+      &#x27;PREFIX concept: &lt;http://api.knora.org/ontology/shared/concept/simple/v2#&gt;\n&#x27; +
+      &#x27;PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;\n&#x27; +
+      &#x27;PREFIX knora-api: &lt;http://api.knora.org/ontology/knora-api/simple/v2#&gt;\n&#x27; +
+      &#x27;\n&#x27; +
+      &#x27;CONSTRUCT {\n&#x27; +
+      &#x27;  ?strophe knora-api:isMainResource true .\n&#x27; +
+      &#x27;  ?halfstrophe text-structure:isPartOfTextExpression ?strophe .\n&#x27; +
+      &#x27;  ?verse atharvaveda:isVerseOfHalfStrophe ?halfstrophe .\n&#x27; +
+      &#x27;  ?verse linguistics:hasComment ?versemetrics .\n&#x27; +
+      &#x27;  ?word text-structure:isWordOfVerse ?verse .\n&#x27; +
+      &#x27;  ?word concept:informationHasSubject ?padaword .\n&#x27; +
+      &#x27;  ?padaword text:hasName ?padacontent .\n&#x27; +
+      &#x27;} WHERE {\n&#x27; +
+      &#x27;  BIND(&lt;&#x27; + this.resourceIRI + &#x27;&gt; AS ?strophe)\n&#x27; +
+      &#x27;  ?strophe a atharvaveda:Strophe .\n&#x27; +
+      &#x27;  ?halfstrophe a atharvaveda:HalfStrophe .\n&#x27; +
+      &#x27;  ?halfstrophe text-structure:isPartOfTextExpression ?strophe .\n&#x27; +
+      &#x27;  ?verse a atharvaveda:Verse .\n&#x27; +
+      &#x27;  ?verse atharvaveda:isVerseOfHalfStrophe ?halfstrophe .\n&#x27; +
+      &#x27;  OPTIONAL { ?verse linguistics:hasComment ?versemetrics . }\n&#x27; +
+      &#x27;  ?word a text-structure:Word .\n&#x27; +
+      &#x27;  ?word text-structure:isWordOfVerse ?verse .\n&#x27; +
+      &#x27;  OPTIONAL { ?word concept:informationHasSubject ?padaword .\n&#x27; +
+      &#x27;  ?padaword text:hasName ?padacontent . } \n&#x27; +
+      &#x27;}&#x27;;
+
+    this.knora2request.extendedSearchFromSpecificInstance(graveSearchRequest, this.backendAddress)
+      .subscribe(d &#x3D;&gt; {
+
+      const halfStrophes: Array&lt;HalfStrophe&gt; &#x3D; [];
+      let h: any;
+      if (this.isArray(d[&#x27;knora-api:hasIncomingLinkValue&#x27;])) {
+        h &#x3D; d[&#x27;knora-api:hasIncomingLinkValue&#x27;];
+      } else {
+        h &#x3D; [d[&#x27;knora-api:hasIncomingLinkValue&#x27;]];
+      }
+
+      for (let i &#x3D; 0; i &lt; h.length; i++ ) {
+
+        const verses: Array&lt;Verse&gt; &#x3D; [];
+        let v: Array&lt;any&gt;;
+        if (this.isArray(h[i][&#x27;knora-api:linkValueHasSource&#x27;][&#x27;knora-api:hasIncomingLinkValue&#x27;])) {
+          v &#x3D; h[i][&#x27;knora-api:linkValueHasSource&#x27;][&#x27;knora-api:hasIncomingLinkValue&#x27;];
+        } else {
+          v &#x3D; [h[i][&#x27;knora-api:linkValueHasSource&#x27;][&#x27;knora-api:hasIncomingLinkValue&#x27;]];
+        }
+
+        for (let j &#x3D; 0; j &lt; v.length; j++ ) {
+
+          const samhitawords: Array&lt;SamhitaWord&gt; &#x3D; [];
+          let s: Array&lt;any&gt;;
+          if (this.isArray(v[j][&#x27;knora-api:linkValueHasSource&#x27;][&#x27;knora-api:hasIncomingLinkValue&#x27;])) {
+            s &#x3D; v[j][&#x27;knora-api:linkValueHasSource&#x27;][&#x27;knora-api:hasIncomingLinkValue&#x27;];
+          } else {
+            s &#x3D; [v[j][&#x27;knora-api:linkValueHasSource&#x27;][&#x27;knora-api:hasIncomingLinkValue&#x27;]];
+          }
+
+          for (let k &#x3D; 0; k &lt; s.length; k++ ) {
+
+            const padapathawords: Array&lt;any&gt; &#x3D; [];
+            let p: Array&lt;any&gt;;
+            if (this.isArray(
+              s[k][&#x27;knora-api:linkValueHasSource&#x27;][&#x27;http://api.knora.org/ontology/shared/concept/v2#informationHasSubjectValue&#x27;])) {
+              p &#x3D; s[k][&#x27;knora-api:linkValueHasSource&#x27;][&#x27;http://api.knora.org/ontology/shared/concept/v2#informationHasSubjectValue&#x27;];
+            } else {
+              p &#x3D; [s[k][&#x27;knora-api:linkValueHasSource&#x27;][&#x27;http://api.knora.org/ontology/shared/concept/v2#informationHasSubjectValue&#x27;]];
+            }
+
+            for (let l &#x3D; 0; l &lt; p.length; l++ ) {
+              if (
+                p[l]
+                &amp;&amp; p[l][&#x27;knora-api:linkValueHasTarget&#x27;]
+                &amp;&amp; p[l][&#x27;knora-api:linkValueHasTarget&#x27;][&#x27;@type&#x27;] &#x3D;&#x3D;&#x3D; &#x27;http://api.knora.org/ontology/shared/concept/v2#Concept&#x27;
+              ) {
+                padapathawords.push(p[l][&#x27;knora-api:linkValueHasTarget&#x27;]);
+              }
+            }
+            if (s[k][&#x27;knora-api:linkValueHasSource&#x27;][&#x27;@type&#x27;] &#x3D;&#x3D;&#x3D; &#x27;http://api.knora.org/ontology/shared/text-structure/v2#Word&#x27;) {
+              samhitawords.push({&#x27;padawords&#x27;: padapathawords,
+              &#x27;id&#x27;: s[k][&#x27;knora-api:linkValueHasSource&#x27;][&#x27;@id&#x27;]});
+            }
+          }
+          let metric;
+          if (v[j][&#x27;knora-api:linkValueHasSource&#x27;][&#x27;http://api.knora.org/ontology/shared/linguistics/v2#hasComment&#x27;]
+            &amp;&amp; v[j][&#x27;knora-api:linkValueHasSource&#x27;][&#x27;http://api.knora.org/ontology/shared/linguistics/v2#hasComment&#x27;][&#x27;knora-api:valueAsString&#x27;]) {
+            metric &#x3D; v[j][&#x27;knora-api:linkValueHasSource&#x27;][&#x27;http://api.knora.org/ontology/shared/linguistics/v2#hasComment&#x27;][&#x27;knora-api:valueAsString&#x27;];
+          }
+          if (v[j][&#x27;knora-api:linkValueHasSource&#x27;][&#x27;@type&#x27;] &#x3D;&#x3D;&#x3D; &#x27;atharvaveda:Verse&#x27;) {
+            verses.push({&#x27;samhitawords&#x27;: samhitawords,
+              &#x27;metric&#x27;: metric});}
+        }
+        if (h[i][&#x27;knora-api:linkValueHasSource&#x27;][&#x27;@type&#x27;] &#x3D;&#x3D;&#x3D; &#x27;atharvaveda:HalfStrophe&#x27;) {
+          halfStrophes.push({&#x27;verses&#x27;: verses});
+        }
+      }
+      this.stropheTextData &#x3D; halfStrophes;
+    }, error1 &#x3D;&gt; {
+      console.log(error1);
+    });
+  }
+
+  /**
+   * Get the json-ld representation of the strophe.
+   */
+  getStropheData() {
+    this.knora2request.getResourceFromSpecificInstance(this.resourceIRI, this.backendAddress)
+      .subscribe(d &#x3D;&gt; {
+        this.stropheData &#x3D; d;
+      }, error1 &#x3D;&gt; {
+        console.log(error1);
+      });
+  }
+
+  /**
+   * Check of an object is an array.
+   * @param toBeChecked  Object to be checked.
+   */
+  isArray(toBeChecked) {
+    return Array.isArray(toBeChecked);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div&gt;
+  &lt;h2 *ngIf&#x3D;&quot;stropheData&quot;&gt;{{ stropheData[&#x27;rdfs:label&#x27;] }}&lt;/h2&gt;
+
+  &lt;div&gt;
+    &lt;div&gt;
+
+      &lt;div&gt;
+        &lt;p style&#x3D;&quot;color: red&quot;&gt;
+          Parallel Passages: none (only AVP)
+        &lt;/p&gt;
+        &lt;p style&#x3D;&quot;color: red&quot;&gt;
+          Manuscripts: Kashmir: K, Orissa Ek1, Ek2, Ku1, Ja1, Ma1, Vā
+        &lt;/p&gt;
+      &lt;/div&gt;
+
+      &lt;details [open]&#x3D;&quot;true&quot;&gt;
+        &lt;summary&gt;Samhita&lt;/summary&gt;
+        &lt;div&gt;
+          &lt;ng-container *ngFor&#x3D;&quot;let halfstrophe of stropheTextData&quot;&gt;
+            &lt;app-text-line *ngFor&#x3D;&quot;let verse of halfstrophe?.verses; let i &#x3D; index&quot; [columnRatio]&#x3D;&quot;[0,0,0,8,2]&quot; [whitespaceBehavior]&#x3D;&quot;&#x27;normal&#x27;&quot;&gt;
+              &lt;span *ngIf&#x3D;&quot;i !&#x3D; 0&quot;&gt;&amp;nbsp;&amp;nbsp;&lt;/span&gt;
+              &lt;ng-container *ngFor&#x3D;&quot;let samhitaword of verse?.samhitawords&quot;&gt;
+                &lt;app-spa-text [databaseAddress]&#x3D;&quot;backendAddress&quot; [spaTextIri]&#x3D;&quot;samhitaword?.id&quot;&gt;&lt;/app-spa-text&gt;
+              &lt;/ng-container&gt;
+              &lt;app-text-line-margin class&#x3D;&quot;right&quot;&gt;{{ verse?.metric }}&lt;/app-text-line-margin&gt;
+            &lt;/app-text-line&gt;
+          &lt;/ng-container&gt;
+        &lt;/div&gt;
+      &lt;/details&gt;
+
+      &lt;details [open]&#x3D;&quot;true&quot;&gt;
+        &lt;summary&gt;Padapāṭha&lt;/summary&gt;
+        &lt;div&gt;
+          &lt;p *ngFor&#x3D;&quot;let halfstrophe of stropheTextData; let j &#x3D; index&quot;&gt;
+            &lt;span *ngFor&#x3D;&quot;let verse of halfstrophe?.verses; let i &#x3D; index&quot;&gt;
+              &lt;ng-container *ngFor&#x3D;&quot;let samhitaword of verse?.samhitawords&quot;&gt;
+                &lt;span *ngFor&#x3D;&quot;let padaword of samhitaword?.padawords&quot;&gt;
+                  {{ padaword[&#x27;http://api.knora.org/ontology/shared/text/v2#hasName&#x27;][&#x27;knora-api:valueAsString&#x27;] }}
+                &lt;/span&gt;
+              &lt;/ng-container&gt;
+              &lt;ng-container *ngIf&#x3D;&quot;i &lt; halfstrophe?.verses?.length - 1&quot;&gt;&#x27;&lt;/ng-container&gt;
+            &lt;/span&gt;
+            &lt;ng-container *ngIf&#x3D;&quot;j &lt; stropheTextData?.length - 1&quot;&gt;|&lt;/ng-container&gt;
+            &lt;ng-container *ngIf&#x3D;&quot;j &#x3D;&#x3D; stropheTextData?.length - 1&quot;&gt;||&lt;/ng-container&gt;
+          &lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/details&gt;
+
+      &lt;details [open]&#x3D;&quot;true&quot;&gt;
+        &lt;summary&gt;Interlinear Glossing&lt;/summary&gt;
+        &lt;app-interlinear-glossing&gt;&lt;/app-interlinear-glossing&gt;
+      &lt;/details&gt;
+
+&lt;!--      &lt;details [open]&#x3D;&quot;false&quot;&gt;--&gt;
+&lt;!--        &lt;summary&gt;Translation&lt;/summary&gt;--&gt;
+&lt;!--        {{ stanzaData?.translation }}--&gt;
+&lt;!--      &lt;/details&gt;--&gt;
+
+      &lt;details [open]&#x3D;&quot;false&quot;&gt;
+        &lt;summary&gt;Manuscript&lt;/summary&gt;
+        Lorem ipsum dolor sit amet
+      &lt;/details&gt;
+
+      &lt;details [open]&#x3D;&quot;false&quot;&gt;
+        &lt;summary&gt;Critical Apparatus&lt;/summary&gt;
+        Lorem ipsum dolor sit amet
+      &lt;/details&gt;
+
+      &lt;details [open]&#x3D;&quot;false&quot;&gt;
+        &lt;summary&gt;Linguistic Commentary&lt;/summary&gt;
+        &lt;p style&#x3D;&quot;color: red&quot;&gt;
+          +Dadad dīr- (or dadadīr-). Renou (1964:440) thinks the Orissa text contains
+          the form dada, which he understands as an imperative of a thematic present
+          stem dádati &#x27;he gives&#x27;.
+        &lt;/p&gt;
+        &lt;p style&#x3D;&quot;color: red&quot;&gt;
+          However, such a present stem does not exist in the Veda, cf. Goto (1987:79).
+          On the other hand, the Kashimirian reading dadad is easily interpretable as
+          participle of athematic dádāti &#x27;he gives&#x27;. Simplification of two stops like dd→d is
+          a common mistake in the Orissa tradition.
+        &lt;/p&gt;
+      &lt;/details&gt;
+
+    &lt;/div&gt;
+
+    &lt;div&gt;
+      &lt;div&gt;
+        &lt;h3&gt;Paradigm&lt;/h3&gt;
+        [Paradigm]
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;h3&gt;Subject tags&lt;/h3&gt;
+        &lt;ul *ngIf&#x3D;&quot;stropheData&quot;&gt;
+          &lt;li *ngFor&#x3D;&quot;let c of stropheData[&#x27;concept:informationHasSubjectDescription&#x27;]&quot;&gt;
+            {{ c[&#x27;knora-api:valueAsString&#x27;] }}
+          &lt;/li&gt;
+        &lt;/ul&gt;
+
+        &lt;h3&gt;Indologic Commentary&lt;/h3&gt;
+        &lt;p&gt;
+          Lorem ipsum
+        &lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div>  <h2 *ngIf="stropheData">{{ stropheData[\'rdfs:label\'] }}</h2>  <div>    <div>      <div>        <p style="color: red">          Parallel Passages: none (only AVP)        </p>        <p style="color: red">          Manuscripts: Kashmir: K, Orissa Ek1, Ek2, Ku1, Ja1, Ma1, Vā        </p>      </div>      <details [open]="true">        <summary>Samhita</summary>        <div>          <ng-container *ngFor="let halfstrophe of stropheTextData">            <app-text-line *ngFor="let verse of halfstrophe?.verses; let i = index" [columnRatio]="[0,0,0,8,2]" [whitespaceBehavior]="\'normal\'">              <span *ngIf="i != 0">&nbsp;&nbsp;</span>              <ng-container *ngFor="let samhitaword of verse?.samhitawords">                <app-spa-text [databaseAddress]="backendAddress" [spaTextIri]="samhitaword?.id"></app-spa-text>              </ng-container>              <app-text-line-margin class="right">{{ verse?.metric }}</app-text-line-margin>            </app-text-line>          </ng-container>        </div>      </details>      <details [open]="true">        <summary>Padapāṭha</summary>        <div>          <p *ngFor="let halfstrophe of stropheTextData; let j = index">            <span *ngFor="let verse of halfstrophe?.verses; let i = index">              <ng-container *ngFor="let samhitaword of verse?.samhitawords">                <span *ngFor="let padaword of samhitaword?.padawords">                  {{ padaword[\'http://api.knora.org/ontology/shared/text/v2#hasName\'][\'knora-api:valueAsString\'] }}                </span>              </ng-container>              <ng-container *ngIf="i < halfstrophe?.verses?.length - 1">\'</ng-container>            </span>            <ng-container *ngIf="j < stropheTextData?.length - 1">|</ng-container>            <ng-container *ngIf="j == stropheTextData?.length - 1">||</ng-container>          </p>        </div>      </details>      <details [open]="true">        <summary>Interlinear Glossing</summary>        <app-interlinear-glossing></app-interlinear-glossing>      </details><!--      <details [open]="false">--><!--        <summary>Translation</summary>--><!--        {{ stanzaData?.translation }}--><!--      </details>-->      <details [open]="false">        <summary>Manuscript</summary>        Lorem ipsum dolor sit amet      </details>      <details [open]="false">        <summary>Critical Apparatus</summary>        Lorem ipsum dolor sit amet      </details>      <details [open]="false">        <summary>Linguistic Commentary</summary>        <p style="color: red">          +Dadad dīr- (or dadadīr-). Renou (1964:440) thinks the Orissa text contains          the form dada, which he understands as an imperative of a thematic present          stem dádati \'he gives\'.        </p>        <p style="color: red">          However, such a present stem does not exist in the Veda, cf. Goto (1987:79).          On the other hand, the Kashimirian reading dadad is easily interpretable as          participle of athematic dádāti \'he gives\'. Simplification of two stops like dd→d is          a common mistake in the Orissa tradition.        </p>      </details>    </div>    <div>      <div>        <h3>Paradigm</h3>        [Paradigm]      </div>      <div>        <h3>Subject tags</h3>        <ul *ngIf="stropheData">          <li *ngFor="let c of stropheData[\'concept:informationHasSubjectDescription\']">            {{ c[\'knora-api:valueAsString\'] }}          </li>        </ul>        <h3>Indologic Commentary</h3>        <p>          Lorem ipsum        </p>      </div>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'BooleanValueEditorComponent', 'selector': 'app-boolean-value-editor'},{'name': 'BrushAndZoomComponent', 'selector': 'app-brush-and-zoom'},{'name': 'ChordDiagramComponent', 'selector': 'app-chord-diagram'},{'name': 'CreateResourceComponent', 'selector': 'app-create-resource'},{'name': 'D3tutorialComponent', 'selector': 'app-d3tutorial'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataAssignmentComponent', 'selector': 'app-data-assignment'},{'name': 'DataChooserComponent', 'selector': 'app-data-chooser'},{'name': 'DataChooserSettingsComponent', 'selector': 'app-data-chooser-settings'},{'name': 'DataListView', 'selector': 'data-list-view'},{'name': 'DataListViewDetailsDialogComponent', 'selector': 'app-data-list-view-details-dialog'},{'name': 'DataListViewSettings', 'selector': 'data-list-view-settings'},{'name': 'DataListViewTableComponent', 'selector': 'data-list-view-table'},{'name': 'DataManagementComponent', 'selector': 'app-data-management'},{'name': 'DateValueEditorComponent', 'selector': 'app-date-value-editor'},{'name': 'DateValueViewerComponent', 'selector': 'app-date-value-viewer'},{'name': 'DeactivateNewsletterComponent', 'selector': 'app-deactivate-newsletter'},{'name': 'DecimalValueEditorComponent', 'selector': 'app-decimal-value-editor'},{'name': 'DeleteActionComponent', 'selector': 'app-delete-action'},{'name': 'DeletePageComponent', 'selector': 'app-delete-page'},{'name': 'DialogCreateNewPageComponent', 'selector': 'dialog-create-new-page'},{'name': 'DialogOverviewExampleDialog', 'selector': 'dialog-overview-example-dialog'},{'name': 'DialogUserSettingsDialog', 'selector': 'dialog-user-settings-dialog'},{'name': 'DictionaryComponent', 'selector': 'app-dictionary'},{'name': 'DuplicatePageComponent', 'selector': 'app-duplicate-page'},{'name': 'EditActionComponent', 'selector': 'app-edit-action'},{'name': 'EditPageComponent', 'selector': 'app-edit-page'},{'name': 'EditPageSetComponent', 'selector': 'app-update-page-set'},{'name': 'ExtendSessionComponent', 'selector': 'session-component'},{'name': 'FactSheetComponent', 'selector': 'app-fact-sheet'},{'name': 'FloatLightTableComponent', 'selector': 'app-float-light-table'},{'name': 'FloatingImageObjectComponent', 'selector': 'app-floating-image-object'},{'name': 'FloatingTextObjectComponent', 'selector': 'app-floating-text-object'},{'name': 'Frame', 'selector': 'popup'},{'name': 'FrameSettingsComponent', 'selector': 'app-frame-settings'},{'name': 'GrapesjsComponent', 'selector': 'app-grapesjs'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HtmlViewerComponent', 'selector': 'app-html-viewer'},{'name': 'ImageFrameOldComponent', 'selector': 'app-image-old-frame'},{'name': 'ImageFrameSizesComponent', 'selector': 'app-image-frame-sizes'},{'name': 'ImageViewComponent', 'selector': 'app-image-view'},{'name': 'ImageWithOverlayComponent', 'selector': 'app-image-with-overlay'},{'name': 'ImpressumComponent', 'selector': 'app-impressum'},{'name': 'InitPopupComponent', 'selector': 'app-init-popup'},{'name': 'IntValueEditorComponent', 'selector': 'app-int-value-editor'},{'name': 'InterlinearGlossingComponent', 'selector': 'app-interlinear-glossing'},{'name': 'KeyValueFormComponent', 'selector': 'app-key-value-form'},{'name': 'LeafletExampleComponent', 'selector': 'app-leaflet-example'},{'name': 'LightTableComponent', 'selector': 'app-light-table'},{'name': 'LightTableMenuComponent', 'selector': 'app-light-table-menu'},{'name': 'LinkValueEditorComponent', 'selector': 'app-link-value-editor'},{'name': 'LinkValueLabelViewerComponent', 'selector': 'app-link-value-label-viewer'},{'name': 'LoadLightTableComponent', 'selector': 'app-load-light-table'},{'name': 'LoadVariablesComponent', 'selector': 'app-load-variables'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MetadataViewComponent', 'selector': 'app-metadata-view'},{'name': 'MultiLineChartComponent', 'selector': 'app-multi-line-chart'},{'name': 'MyMainComponentComponent', 'selector': 'app-my-main-component'},{'name': 'MyPractiseComponentComponent', 'selector': 'app-my-practise-component'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationTreeComponent', 'selector': 'app-navigation-tree'},{'name': 'NewGjsBoxDialogComponent', 'selector': 'app-new-gjs-box-dialog'},{'name': 'OpenbisLoginComponent', 'selector': 'app-openbis-login'},{'name': 'P0041EditionComponent', 'selector': 'app-p0041-edition'},{'name': 'P0041KandaComponent', 'selector': 'app-p0041-kanda'},{'name': 'P0041StropheComponent', 'selector': 'app-p0041-strophe'},{'name': 'P0041SuktaComponent', 'selector': 'app-p0041-sukta'},{'name': 'P0062TranscriptionFrameComponent', 'selector': 'app-p0062-transcription-frame'},{'name': 'PageComponent', 'selector': 'nie-os'},{'name': 'PageMenuComponent', 'selector': 'app-page-menu'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'PageSetLandingPageComponent', 'selector': 'app-page-set-landing-page'},{'name': 'ParzivalFassungComponent', 'selector': 'app-parzival-fassung'},{'name': 'PieChartComponent', 'selector': 'app-pie-chart'},{'name': 'PizzaPartyComponent', 'selector': 'snack-bar-component-example-snack'},{'name': 'QueryAppInputMapComponent', 'selector': 'app-query-app-input-map'},{'name': 'QueryEntryComponent', 'selector': 'app-query-entry'},{'name': 'QueryInformationDialogComponent', 'selector': 'app-query-information-dialog'},{'name': 'QueryListComponent', 'selector': 'app-query-list'},{'name': 'RadialBarchartComponent', 'selector': 'app-radial-barchart'},{'name': 'ReactivateAccountComponent', 'selector': 'app-reactivate-account'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'RemoveObjectsByIdComponent', 'selector': 'app-remove-objects-by-id'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'ResourceFormComponent', 'selector': 'app-resource-form'},{'name': 'ResourceValueHistoryComponent', 'selector': 'app-resource-value-history'},{'name': 'ResourceValueHistoryValueComponent', 'selector': 'app-resource-value-history-value'},{'name': 'ResponseTreeComponent', 'selector': 'response-tree'},{'name': 'ResponseTreeComponent', 'selector': 'app-response-tree'},{'name': 'RichTextByIriComponent', 'selector': 'app-spa-text'},{'name': 'SankeyComponent', 'selector': 'app-sankey'},{'name': 'SaveLightTableComponent', 'selector': 'app-save-light-table'},{'name': 'ShareLightTableComponent', 'selector': 'app-share-light-table'},{'name': 'SimpleImageAppComponent', 'selector': 'app-simple-image-app'},{'name': 'SpiralBarChartComponent', 'selector': 'app-spiral-bar-chart'},{'name': 'StackedBarChartComponent', 'selector': 'app-stacked-bar-chart'},{'name': 'SynopsisComponent', 'selector': 'app-synopsis'},{'name': 'SynopsisObjectManagerComponent', 'selector': 'app-synopsis-object-manager'},{'name': 'SynopsisObjectToolboxComponent', 'selector': 'app-synopsis-object-toolbox'},{'name': 'TagChipsComponent', 'selector': 'app-tag-chips'},{'name': 'TextDevViewComponent', 'selector': 'app-text-dev-view'},{'name': 'TextDisplayComponent', 'selector': 'app-text-display'},{'name': 'TextDisplayComponent', 'selector': 'app-text-display'},{'name': 'TextLineComponent', 'selector': 'app-text-line'},{'name': 'TextLineGroupComponent', 'selector': 'app-text-line-group'},{'name': 'TextLineMarginComponent', 'selector': 'app-text-line-margin'},{'name': 'TextLineNumberComponent', 'selector': 'app-text-line-number'},{'name': 'TextPageOfWordsComponent', 'selector': 'app-text-page-of-words'},{'name': 'TextRichInnerhtmlComponent', 'selector': 'app-text-rich-innerhtml'},{'name': 'TextSvgViewComponent', 'selector': 'app-text-svg-view'},{'name': 'TextSvgViewWrapperComponent', 'selector': 'app-text-svg-view-wrapper'},{'name': 'TextValueEditorComponent', 'selector': 'app-text-value-editor'},{'name': 'TextViewCanvasComponent', 'selector': 'app-text-view-canvas'},{'name': 'TextViewComponent', 'selector': 'app-text-view'},{'name': 'TextViewMetadataComponent', 'selector': 'app-text-view-metadata'},{'name': 'TextViewStructureComponent', 'selector': 'app-text-view-structure'},{'name': 'TextViewToolsComponent', 'selector': 'app-text-view-tools'},{'name': 'TextlistViewerComponent', 'selector': 'app-textlist-viewer'},{'name': 'ThumbnailbarComponent', 'selector': 'app-thumbnailbar'},{'name': 'TiledImageObjectComponent', 'selector': 'app-tiled-image-object'},{'name': 'TiledLightTableComponent', 'selector': 'app-tiled-light-table'},{'name': 'TiledTextObjectComponent', 'selector': 'app-tiled-text-object'},{'name': 'UpdateLinkedAppsComponent', 'selector': 'app-update-linked-apps'},{'name': 'YoutubeVideoComponent', 'selector': 'app-youtube-video'}];
+    var DIRECTIVES = [{'name': 'DraggableDirective', 'selector': '[appDraggable]'},{'name': 'DraggableStubDirective', 'selector': '[appDraggable]'},{'name': 'FloatDropTargetDirective', 'selector': '[appDropTarget]'},{'name': 'ModifiableDirective', 'selector': '[appModifiable]'},{'name': 'ModifiableStubDirective', 'selector': '[appModifiable]'},{'name': 'SelectableDirective', 'selector': '[appSelectable]'},{'name': 'SelectableStubDirective', 'selector': '[appSelectable]'},{'name': 'SynopsisObjectAnchorDirective', 'selector': '[appSynopsisObjectAnchor]'},{'name': 'TileDropTargetDirective', 'selector': '[appTileDropTarget]'}];
+    var ACTUAL_COMPONENT = {'name': 'P0041StropheComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'P0041StropheComponent.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <script src="../js/menu-wc.js"></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

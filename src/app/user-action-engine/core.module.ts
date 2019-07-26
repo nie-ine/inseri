@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { StaticPagesModule } from './static-pages.module';
 import { MaterialModule } from '../material.module';
 import { NIEOSModule } from '../app-engine/nie-OS.module';
-import { DialogUserSettingsDialog, HeaderComponent} from './header/header.component';
+import { DialogUserSettingsDialog} from './header/header.component';
 import { MainComponent } from './main/main.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { NavigationComponent } from './navigation/navigation.component';
@@ -56,7 +56,6 @@ import {MatIconModule} from '@angular/material/icon';
       ])
   ],
   declarations: [
-    HeaderComponent,
     MainComponent,
     PageNotFoundComponent,
     NavigationComponent,
@@ -79,7 +78,7 @@ import {MatIconModule} from '@angular/material/icon';
     AuthenticationService,
     DialogUserSettingsDialog
   ],
-  exports: [HeaderComponent, MainComponent, RouterModule]
+  exports: [MainComponent, RouterModule]
 })
 export class CoreModule {
 }

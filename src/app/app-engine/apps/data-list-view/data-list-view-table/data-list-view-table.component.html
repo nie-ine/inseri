@@ -18,7 +18,7 @@
               [ngClass]="col">
       <!-- SETTING [ngClass]="col" enables to define styles for each column, setting it to row[col].value will enable to define a style for certain cell content -->
       <span *ngIf="row[col]">
-          {{ row[col] }}
+        <span [innerHTML]="row[col]" ></span>
         </span>
       <!--        {{ showValue(row, col) }} &lt;!&ndash; | highlight: toHighlightByFilter &ndash;&gt;-->
     </mat-cell>

@@ -66,6 +66,11 @@ import { NavigationModule } from './apps/navigation/navigation.module';
 import { HtmlViewerModule } from './apps/html-viewer/html-viewer.module';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { OpenbisLoginComponent } from './apps/openbis-login/openbis-login.component';
+// import { KnoraJsonldSimplify } from 'knora-jsonld-simplify/dist';
+import { StaticPagesModule } from  '../user-action-engine/static-pages.module';
+import { PageMenuComponent } from './page/page-menu/page-menu.component';
+import { YoutubeVideoComponent } from './apps/youtube-video/youtube-video.component';
+import {MatRadioModule} from '@angular/material/radio';
 
 @NgModule({
   imports: [
@@ -111,10 +116,14 @@ import { OpenbisLoginComponent } from './apps/openbis-login/openbis-login.compon
     NavigationModule,
     OverlayModule,
     MatCheckboxModule,
+    StaticPagesModule,
+    MatRadioModule,
+    // KnoraJsonldSimplify,
     RouterModule.forChild([
       { path: 'page', component: PageComponent },
       { path: 'response-tree', component: ResponseTreeComponent },
-      { path: 'openbis-login', component: OpenbisLoginComponent }
+      { path: 'openbis-login', component: OpenbisLoginComponent },
+      { path: 'youtube-video', component: YoutubeVideoComponent }
     ])
   ],
   providers: [
@@ -148,7 +157,9 @@ import { OpenbisLoginComponent } from './apps/openbis-login/openbis-login.compon
     HighlightPipe,
     DataListViewSettings,
     DataListViewTableComponent,
-    OpenbisLoginComponent
+    OpenbisLoginComponent,
+    PageMenuComponent,
+    YoutubeVideoComponent
   ],
   exports: [
     PageComponent,

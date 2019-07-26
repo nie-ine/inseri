@@ -1,33 +1,31 @@
-
-
 /**
- * Deprecated!
- * Manual: How to add an app:
- * 1. Import the Component or Module in nie-OS.module.ts
- * 2. Add the app to the Model 'openAppsInThisPage' in this file
- * 3. Add this app to the 'Menu to open Apps' - div in nie-OS.component.html
- * 4. Add an app div by copying and pasting one of the existing divs and adjusting the input variables and the selector
+ * This is the page.component, the central component for opening and open apps.
+ * Data for the apps are loaded with the help of the load-variables component.
  * */
 
-import {AfterViewChecked, ChangeDetectorRef, Component, NgModule, OnInit, VERSION} from '@angular/core';
-import {BrowserModule, DomSanitizer} from '@angular/platform-browser';
-import {Frame} from '../frame/frame';
+import {AfterViewChecked, ChangeDetectorRef, Component, NgModule, OnInit, VERSION, ViewChild} from '@angular/core';
+import {DomSanitizer} from '@angular/platform-browser';
 import 'rxjs/add/operator/map';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {GenerateHashService} from '../../../user-action-engine/other/generateHash.service';
 import {OpenAppsModel} from '../../../user-action-engine/mongodb/page/open-apps.model';
 import {PageService} from '../../../user-action-engine/mongodb/page/page.service';
 import { DataManagementComponent } from '../../../query-app-interface/data-management/data-management/data-management.component';
-import {MatDialog} from '@angular/material';
-import {GenerateDataChoosersService} from '../../../query-app-interface/data-management/services/generate-data-choosers.service';
-import {HttpClient} from '@angular/common/http';
+import {MatDialog, MatSnackBar} from '@angular/material';
 import { NgxSpinnerService } from 'ngx-spinner';
 import {GeneralRequestService} from '../../../query-engine/general/general-request.service';
-import {NewGjsBoxDialogComponent} from '../../apps/grapesjs/new-gjs-box-dialog/new-gjs-box-dialog.component';
 import {QueryInformationDialogComponent} from '../query-information-dialog/query-information-dialog.component';
 import {StyleMappingService} from '../../../query-app-interface/services/style-mapping-service';
+import {PageMenuComponent} from '../page-menu/page-menu.component';
+import {Subscription} from 'rxjs';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {ActionService} from '../../../user-action-engine/mongodb/action/action.service';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
+import { AppMenuModel } from './appMenu.model';
+import {ExtendSessionComponent, PizzaPartyComponent} from '../../../user-action-engine/header/header.component';
 
-declare var grapesjs: any; // Important!
 
 @Component({
   selector: 'nie-os',
@@ -35,68 +33,157 @@ declare var grapesjs: any; // Important!
   providers: [StyleMappingService]
 })
 export class PageComponent implements OnInit, AfterViewChecked {
-  projectIRI: string = 'http://rdfh.ch/projects/0001';
-  actionID: string;
-  length: number;
-  page: any;
-  action: any;
-  panelsOpen = false;
-  pageIDFromURL: string;
-  openAppsInThisPage: any = {};
-  pageAsDemo = false;
-  pageUpdated = false;
-  isLoading = true;
-  resetPage = false;
-  reloadVariables = false;
-  response: any;
-  queryId: string;
-  index: number;
-  updateLinkedApps = false;
-  indexAppMapping: any = {};
-  grapesJSActivated = false;
-  blockManager: any;
-  depth: number;
-  cssUrl: any;
-  appFramePosition = 'absolute';
-  appPositionArray = [];
 
-  blockManagerModel = [
-    {
-      id: 'image',
-      label: 'Image',
-      class: 'fa fa-image',
-      content: {
-        type: 'image'
-      }
-    },
-    {
-      id: 'block',
-      label: 'Text Block',
-      class: 'gjs-fonts gjs-f-text',
-      content: '<div>Your changeable text</div>'
-    },
-    {
-      id: 'my-map-block',
-      label: 'map',
-      class: 'fa fa-map-o',
-      content: {
-        type: 'map',
-        style: {
-          height: '350px',
-          width: '350px'
-        }
-      }
-    },
-    {
-      id: 'link',
-      label: 'Link',
-      class: 'fa fa-link',
-      content: {
-        type: 'link',
-        content:  'Your link here',
-      }
-    }
-  ];
+  /**
+   * Needed for the inseri page menu, this array indicates the columns of the mat-table
+   * */
+  displayedColumns: string[] = ['id', 'name', 'tags', 'status'];
+
+  /**
+   * this variable instantiates the MatTableDataSource used for the inseri app menu
+   * */
+  dataSource: MatTableDataSource<any>;
+
+  /**
+   * paginator for the inseri app menu
+   * */
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  /**
+   * needed for the sorting for the inseri app menu
+   * */
+  @ViewChild(MatSort) sort: MatSort;
+
+  /**
+   * actionID - the actionID of the action that the page belongs to
+   * */
+  actionID: string;
+
+  /**
+   * page - information about the page, title, queryIDs, etc.
+   * */
+  page: any = {};
+
+  /**
+   * action - information about the action, title, etc
+   * */
+  action: any;
+
+  /**
+   * panelsOpen - indicates if all panels in the sideNav are open or closed
+   * */
+  panelsOpen = false;
+
+  /**
+   * pageIDFromURL - pageID, taken from the URL - param
+   * */
+  pageIDFromURL: string;
+
+  /**
+   * openAppsInThisPage - open apps formatted in a way that ng iterates through them in page.html
+   * */
+  openAppsInThisPage: any = (new OpenAppsModel).openApps;
+
+  /**
+   * pageAsDemo - if no pageID is given in the url, a demo page is opened
+   * */
+  pageAsDemo = false;
+
+  /**
+   * isLoading - indicates if spinner is displayed or not
+   * */
+  isLoading = true;
+
+  /**
+   * resetPage - gets rid of all open apps
+   * */
+  resetPage = false;
+
+  /**
+   * reloadVariables - initialises a reload of all open apps for the current page
+   * */
+  reloadVariables = false;
+
+  /**
+   * response - after choosing a data entry in the data chooser, the response of the respective query is send back as well
+   * */
+  response: any;
+
+  /**
+   * queryID - after choosing a data entry in the data chooser, the queryID of the respective query is send back as well
+   * */
+  queryId: string;
+
+  /**
+   * index - when a user klick on the array in the data chooser, the index that the user chose is send back to the page.component
+   * */
+  index: number;
+
+  /**
+   * depth - depth in json of the array that the user chose in the data - chooser
+   * */
+  depth: number;
+
+  /**
+   * cssUrl - variable needed for POC of page - specific css, contact domsteinbach on github for more information
+   * */
+  cssUrl: any;
+
+  /**
+   * appFramePosition - "static" if user chooses the option to sort apps by type, "absolute" otherwise
+   * */
+  appFramePosition = 'absolute';
+
+  /**
+   * currentRoute: is used to get url params, for example to determin if page is part of a pageSet
+   * */
+  currentRoute: string;
+
+  /**
+   * needed to generate the navigation in case that the page belongs to a pageSet
+   * */
+  pagesOfThisActtion: Array<any>;
+
+  /**
+   * same as pageID
+   * */
+  hashOfThisPage: string;
+
+  /**
+   *  - Needed to generate the navigation
+   * */
+  lastView: any;
+
+  /**
+   * Needed to generate the navigation
+   * */
+  nextView: any;
+  /**
+   * If an action is a pageSet, it contains an array with the pages, from this array the navigation is created,
+   * the following value is needed to generate the navigation
+   * */
+  selectedPage = 0;
+
+  /**
+   * This variable makes sure that the load-variables.component is loaded only once
+   * */
+  alreadyLoaded = false;
+
+  /**
+   * this variable indicates if page is shown in the preview - mode which indicates how the page would look published.
+   * */
+  preview = false;
+
+  userInfo: string;
+
+  sub: any;
+  snackBarOpen = false;
+  lightHouse = true;
+  showAppTitlesOnPublish = false;
+  showInseriLogoOnPublish = false;
+  showAppSettingsOnPublish = false;
+  showDataBrowserOnPublish = true;
+  publishedOptionsExpanded = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -110,58 +197,27 @@ export class PageComponent implements OnInit, AfterViewChecked {
     private spinner: NgxSpinnerService,
     private requestService: GeneralRequestService,
     public sanitizer: DomSanitizer,
-    private stylemapping: StyleMappingService
+    private stylemapping: StyleMappingService,
+    private actionService: ActionService,
+    private router: Router,
+    public snackBar: MatSnackBar
   ) {
-    // this.route.params.subscribe(params => console.log(params));
-  }
-
-  activateGrapesJS() {
-    this.grapesJSActivated = true;
-    console.log( 'Activate GrapesJS' );
-    const editor = grapesjs.init({
-      container: '#grapesJSViewer',
-      height: '100vh'
+    this.route.queryParams.subscribe(params => {
+      this.hashOfThisPage = params.page;
+      this.actionID = params.actionID;
+      this.generateNavigation(params.actionID);
     });
-
-    this.blockManager = editor.BlockManager;
-
-    for ( const block of this.blockManagerModel ) {
-      this.blockManager.add( block.id, {
-        label: block.label,
-        attributes: { class: block.class },
-        content: block.content
-      });
-    }
+    this.dataSource = new MatTableDataSource(
+      new AppMenuModel().appMenu
+    );
   }
 
   changeAppFramePosition() {
     if ( this.appFramePosition === 'absolute' ) {
       this.appFramePosition = 'static';
-      console.log(  this.appFramePosition );
     } else {
       this.appFramePosition = 'absolute';
-      console.log(  this.appFramePosition );
     }
-  }
-
-  addBlock() {
-    const dialogRef = this.dialog.open(NewGjsBoxDialogComponent, {
-      width: '700px',
-      height: '1000px',
-      data: 'test'
-    });
-
-    dialogRef.afterClosed().subscribe(box => {
-      console.log(box);
-      box.content = '<div>' + box.content + '</div>';
-      this.blockManagerModel.push( box );
-      this.activateGrapesJS();
-    });
-
-  }
-
-  deactivateGrapesJS() {
-    this.grapesJSActivated = false;
   }
 
   openDataManagement() {
@@ -171,8 +227,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
     )
       .subscribe(
         data => {
-          // console.log(data);
-          // console.log( this.openAppsInThisPage );
           this.updateOpenAppsInThisPage();
           const dialogRef = this.dialog.open(DataManagementComponent, {
             width: '100%',
@@ -181,13 +235,11 @@ export class PageComponent implements OnInit, AfterViewChecked {
           });
           dialogRef.afterClosed().subscribe((result) => {
             this.resetPage = true;
-            //
-            // console.log(result);
             this.reloadVariables = true;
             this.spinner.show();
             setTimeout(() => {
               this.spinner.hide();
-            }, 5000);
+            }, 5000); // TODO: bind end of spinner to event that all queries have been loaded instead of setTimeout!
           });
         },
         error => {
@@ -196,75 +248,147 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   updateOpenAppsInThisPage() {
-    for( const app in this.page.openApps ) {
-      if( app && this.openAppsInThisPage[ this.page.openApps[ app ].type ] ) {
-        console.log( this.openAppsInThisPage[ this.page.openApps[ app ].type ] );
-        for( let openApp of this.openAppsInThisPage[ this.page.openApps[ app ].type ].model ) {
+    for ( const app in this.page.openApps ) {
+      if ( app && this.openAppsInThisPage[ this.page.openApps[ app ].type ] ) {
+        for ( const openApp of this.openAppsInThisPage[ this.page.openApps[ app ].type ].model ) {
           if ( openApp['hash'] === app ) {
             openApp.type = this.page.openApps[ app ].type;
-            console.log( openApp );
-            console.log( this.page.openApps[ app ] );
           }
         }
       }
     }
-    console.log( this.openAppsInThisPage );
   }
 
+  /**
+   * if the pageID changes in URL, the page is updated through setting reloadViariables to true,
+   * this change is detected by the load - variables.component which loads all variables and
+   * emits it back to the page.component
+   * */
   ngAfterViewChecked() {
     this.cdr.detectChanges();
     if ( this.pageIDFromURL !==  this.route.snapshot.queryParams.page ) {
-      console.log( 'Update Page' );
-      this.grapesJSActivated = false;
       this.pageIDFromURL = this.route.snapshot.queryParams.page;
-      console.log( this.pageIDFromURL, this.route.snapshot.queryParams.page );
       this.reloadVariables = true;
       this.spinner.show();
       setTimeout(() => {
         this.spinner.hide();
-      }, 5000);
+      }, 5000); // TODO: bind end of spinner to event that all queries have been loaded instead of setTimeout!
     }
     this.cdr.detectChanges();
   }
 
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
   ngOnInit() {
-    this.cssUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.stylemapping.getUserCss().toString());
-    this.openAppsInThisPage = {};
-    this.page = {};
-    const reset = new OpenAppsModel;
-    this.openAppsInThisPage = reset.openApps;
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    console.log( this.route.snapshot );
+    if (
+      this.route.snapshot.url[0].path === 'home' &&
+      this.route.snapshot.queryParams.actionID === undefined
+    ) {
+      this.addAnotherApp( 'login', true );
+      console.log( this.openAppsInThisPage );
+      this.openAppsInThisPage[ 'login' ].model[ 0 ].initialized = true;
+      this.openAppsInThisPage[ 'login' ].model[ 0 ].x = 100;
+      this.openAppsInThisPage[ 'login' ].model[ 0 ].y = 150;
+    }
+    // this.cssUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.stylemapping.getUserCss().toString());
     this.actionID = this.route.snapshot.queryParams.actionID;
     this.pageIDFromURL = this.route.snapshot.queryParams.page;
     if ( !this.actionID ) {
       this.pageAsDemo = true;
       this.isLoading = false;
+      this.lightHouse = false;
     }
     this.spinner.show();
 
     setTimeout(() => {
       this.spinner.hide();
-    }, 5000);
+    }, 5000); // TODO: bind end of spinner to event that all queries have been loaded instead of setTimeout!
+    localStorage.removeItem('curZIndex');
+    if ( this.pageAsDemo ) {
+      this.startLightHouse();
+    }
   }
 
+  startLightHouse() {
+    setTimeout(() => {
+      this.lightHouse = !this.lightHouse;
+      this.startLightHouse();
+    }, 7000);
+  }
+
+  addVideoApp( url: string ) {
+    this.addAnotherApp( 'youtubeVideo', true );
+    const length = this.openAppsInThisPage[ 'youtubeVideo' ].model.length - 1;
+    console.log( length );
+    this.openAppsInThisPage[ 'youtubeVideo' ].model[ length ].initialized = true;
+    this.openAppsInThisPage[ 'youtubeVideo' ].model[ length ].x = 100;
+    this.openAppsInThisPage[ 'youtubeVideo' ].model[ length ].y = 100;
+    this.openAppsInThisPage[ 'youtubeVideo' ].model[ length ]['videoURL'] = url;
+    this.openAppsInThisPage[ 'youtubeVideo' ].model[ length ].width = 600;
+    this.openAppsInThisPage[ 'youtubeVideo' ].model[ length ].height = 400;
+  }
+
+  checkIfSelected( index: number ) {
+    return (index === this.selectedPage);
+  }
+
+  selectPage(i: number, page: any) {
+    this.selectedPage = i;
+    this.navigateToOtherView(page);
+  }
+
+  navigateToOtherView(page: any) {
+    console.log('Navigate to last View');
+    this.router.navigate( [ 'page' ], {
+      queryParams: {
+        'actionID': this.actionID,
+        'page': page._id
+      }
+    } );
+  }
+
+  generateNavigation(actionID: string) {
+    if (!this.alreadyLoaded && actionID) {
+      this.actionService.getAction(actionID)
+        .subscribe(data => {
+            if (data.body.action.type === 'page-set') {
+              this.pagesOfThisActtion = [];
+              for (const page of ( data.body as any ).action.hasPageSet.hasPages as any ) {
+                console.log( page._id, this.hashOfThisPage );
+                if ( page._id === this.hashOfThisPage ) {
+                  this.selectedPage = this.pagesOfThisActtion.length;
+                  console.log( this.selectedPage );
+                }
+                this.pagesOfThisActtion[this.pagesOfThisActtion.length] = page;
+                this.alreadyLoaded = true;
+              }
+            }
+          },
+          error => {
+            // console.log(error);
+          });
+    }
+  }
+
+  /**
+   * This routine updates the coordinates and all other metadata of a moved app in the variable
+   * page.openApps[ app.hash ]. This is necessary for the updatePage() routine which saves the page
+   * including all open apps.
+   * */
   updateAppCoordinates(app: any) {
-    console.log('x: ' + app.x);
-    console.log('y: ' + app.y);
-    console.log('type: ' + app.type);
-    console.log('hash: ' + app.hash );
     if (this.page.openApps[ app.hash ] === null) {
       this.page.openApps[ app.hash ] = [];
     }
     this.page.openApps[ app.hash ] = app;
-  }
-
-  clearAppsInThisPage() {
-    console.log('Clear apps in this page');
-    console.log(this.openApps.openApps);
-    for ( const app in this.openApps.openApps ) {
-      this.openApps.openApps[ app ].model = [];
-      // console.log( this.openApps.openApps[ app ].model );
-    }
-    console.log(this.openApps.openApps);
   }
 
   createTooltip() {
@@ -276,32 +400,34 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   updatePage() {
-    this.page.openApps[ 'grapesJS' ] = {};
-    this.page.openApps[ 'grapesJS' ].gjsAssets = localStorage.getItem('gjs-assets');
-    this.page.openApps[ 'grapesJS' ].gjsComponents = localStorage.getItem('gjs-components');
-    this.page.openApps[ 'grapesJS' ].gjsCss = localStorage.getItem('gjs-css');
-    this.page.openApps[ 'grapesJS' ].gjsHtml = localStorage.getItem('gjs-html');
-    this.page.openApps[ 'grapesJS' ].gjsStyles = localStorage.getItem('gjs-styles');
-    this.page.openApps[ 'grapesJS' ].hash = 'grapesJS';
     this.page.openApps[ 'appsTiledOrFloating' ] = {};
     this.page.openApps[ 'appsTiledOrFloating' ].hash = 'appsTiledOrFloating';
     this.page.openApps[ 'appsTiledOrFloating' ].layout = this.appFramePosition;
-    console.log(
-      this.page,
-      this.openAppsInThisPage
-    );
+    /**
+     *  - it is important to give a COPY of this.page as an input, thus { ...this.page },
+     * otherwise this.page will be rewritten by the routine pageService.updatePage
+     * during its execution!
+     * */
     this.pageService.updatePage(
       { ...this.page }
       )
       .subscribe(
         data => {
           console.log(data);
+          this.snackBar.open( 'Page successfully saved', 'ok',
+            {
+              duration: 1500
+            });
         },
         error => {
           console.log(error);
+          this.snackBar.open( 'Sth went wrong, page has not been saved' );
         });
   }
 
+  /**
+   * Todo: continue here with documentation!
+   * */
   addAnotherApp (
     appType: string,
     generateHash: boolean
@@ -315,11 +441,18 @@ export class PageComponent implements OnInit, AfterViewChecked {
       appModel[ length ].title = appType + ' ' + length;
       appModel[ length ].fullWidth = false;
       appModel[ length ].fullHeight = false;
-      console.log( appModel[ length ] );
-      if (this.page.openApps[ appModel[ length ].hash ] === null) {
+      appModel[ length ].initialized = true;
+      appModel[ length ].x = 100;
+      appModel[ length ].y = 100;
+      if (
+        this.page.openApps &&
+        this.page.openApps[ appModel[ length ].hash ] === null
+      ) {
         this.page.openApps[ appModel[ length ].hash ] = [];
       }
-      this.page.openApps[ appModel[ length ].hash ] = appModel[ length ];
+      if ( this.page.openApps ) {
+        this.page.openApps[ appModel[ length ].hash ] = appModel[ length ];
+      }
     }
     return appModel;
   }
@@ -328,15 +461,10 @@ export class PageComponent implements OnInit, AfterViewChecked {
     appModel: Array<any>,
     i: number
   ) {
-    console.log(appModel);
-    console.log(this.page);
-    console.log(this.page.openApps[appModel[ i ].hash]);
     delete this.page.openApps[appModel[ i ].hash];
     appModel.splice(
       i,
       1);
-    console.log(this.page);
-    console.log(this.openAppsInThisPage);
   }
 
   expandPanels() {
@@ -371,46 +499,12 @@ export class PageComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  setGrapesJSLocalStorage( key: string, value: string ) {
-    if ( value ) {
-      localStorage.setItem( key, value );
-    } else {
-      localStorage.removeItem(key);
-    }
-  }
-
-  deleteGrapesJSData() {
-    this.grapesJSActivated = false;
-    this.setGrapesJSLocalStorage( 'gjs-assets', undefined );
-    this.setGrapesJSLocalStorage( 'gjs-components', undefined );
-    this.setGrapesJSLocalStorage( 'gjs-css', undefined );
-    this.setGrapesJSLocalStorage( 'gjs-html', undefined );
-    this.setGrapesJSLocalStorage( 'gjs-styles', undefined );
-  }
-
   receivePage( pageAndAction: any ) {
     console.log( pageAndAction );
     if (
       pageAndAction[ 0 ].openApps[ 'appsTiledOrFloating' ] ) {
       this.appFramePosition = pageAndAction[ 0 ].openApps[ 'appsTiledOrFloating' ].layout;
     }
-    setTimeout(() => {
-      if (
-        pageAndAction[ 0 ].openApps['grapesJS'] &&
-        (
-          localStorage.getItem('gjs-assets') !== null
-          || localStorage.getItem('gjs-components') !== null
-          || localStorage.getItem('gjs-css') !== null
-          || localStorage.getItem('gjs-html') !== null
-          || localStorage.getItem('gjs-styles') !== null
-        )
-      ) {
-        this.activateGrapesJS();
-        setTimeout(() => {
-          this.activateGrapesJS();
-        }, 3000);
-      }
-    }, 1000);
     this.page = pageAndAction[ 0 ];
     // console.log( this.page );
     this.action = pageAndAction[ 1 ];
@@ -421,7 +515,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
     // console.log( openAppsInThisPage );
     this.openAppsInThisPage = openAppsInThisPage;
     this.reloadVariables = false;
-    this.updateLinkedApps = false;
   }
 
   updateMainResourceIndex( input: any ) {
@@ -429,12 +522,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.response = input.response;
     this.queryId = input.queryId;
     this.depth = input.depth;
-  }
-
-  updateIndices( indexAppMapping: any ) {
-    this.indexAppMapping[ indexAppMapping.hash ] = indexAppMapping;
-    console.log( this.indexAppMapping );
-    this.updateLinkedApps = true;
   }
 
   generateQueryAppPathInformation( queryId: string ): any {
@@ -487,4 +574,40 @@ export class PageComponent implements OnInit, AfterViewChecked {
     console.log( moveAndHash );
   }
 
+  openPageMenu() {
+    this.openAppsInThisPage[ 'pageMenu' ].model = [];
+    this.addAnotherApp( 'pageMenu', true );
+    this.openAppsInThisPage[ 'pageMenu' ].model[ 0 ].initialized = true;
+    this.openAppsInThisPage[ 'pageMenu' ].model[ 0 ].x = 600;
+    this.openAppsInThisPage[ 'pageMenu' ].model[ 0 ].y = 100;
+  }
+
+  checkTimeUntilLogout() {
+    const now = new Date();
+    const expirationDate = localStorage.getItem('expiration');
+    const secondsTotal = ( new Date(expirationDate).getTime() - now.getTime() ) / 1000;
+    const minutes = Math.floor(secondsTotal / 60);
+    const seconds = Math.floor(secondsTotal - minutes * 60);
+    this.userInfo = 'Session expires in ' + minutes + ' min and ' + seconds + ' sec';
+    if ( expirationDate && new Date(expirationDate).getTime() - now.getTime() > 0) {
+      if ( minutes < 5 && !this.snackBarOpen) {
+        this.snackBarOpen = true;
+        this.openExtendSessionBar();
+      } else if ( minutes > 5 ) {
+        this.snackBar.dismiss();
+      }
+    }
+  }
+
+  openSnackBar() {
+    this.snackBar.openFromComponent(PizzaPartyComponent, {
+      duration: 3000,
+    });
+  }
+
+  openExtendSessionBar() {
+    this.snackBar.openFromComponent(ExtendSessionComponent, {
+      duration: 100000,
+    });
+  }
 }
