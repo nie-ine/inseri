@@ -297,6 +297,30 @@ export class OpenAppsModel {
       initialWidth: '500',
       initialHeight: '500'
     },
+    joinedTextView: {
+      type: 'joinedTextView',
+      model: [],
+      inputs: [
+        {
+          'inputName': 'textConfiguration'
+        },
+        {
+          'inputName': 'selectiveStyleDeclarations'
+        },
+        {
+          'inputName': 'styleDeclarations'
+        },
+        {
+          'inputName': 'backendAddress'
+        },
+        {
+          'inputName': 'textRootIri'
+        }
+      ],
+      materialIcon: 'aspect_ratio',
+      initialWidth: '500',
+      initialHeight: '500'
+    },
     login: {
       type: 'login',
       model: [],

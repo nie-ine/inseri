@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { KnoraV2RequestService } from '../../../../query-engine/knora/knora-v2-request.service';
 import { JoinedTextViewKnoraRequestService } from '../joined-text-view-knora-request.service';
 import { SelectableEnvironments, StyleDeclaration } from '../../shared/rich-text/text-rich-innerhtml/text-rich-innerhtml.component';
@@ -12,7 +12,7 @@ import { JoinedTextBlock } from './joined-text-block';
   templateUrl: './joined-text-block.component.html',
   styleUrls: ['./joined-text-block.component.scss']
 })
-export class JoinedTextBlockComponent implements OnInit {
+export class JoinedTextBlockComponent implements OnChanges {
 
   /**
    * Address to the backend with the resource with parentIri.
@@ -80,23 +80,25 @@ export class JoinedTextBlockComponent implements OnInit {
   constructor(private knoraV2Request: KnoraV2RequestService, private joinedTextViewKnoraRequest: JoinedTextViewKnoraRequestService) { }
 
   /**
-   * written by angular-cli
+   * load new content with new input variables
    */
-  ngOnInit() {
+  ngOnChanges() {
 
-    const graveSearchRequest = this.joinedTextViewKnoraRequest.getGravSearch(this.blockConfiguration, this.parentIri);
+    if (this.parentIri && this.blockConfiguration && this.backendAddress) {
+      const graveSearchRequest = this.joinedTextViewKnoraRequest.getGravSearch(this.blockConfiguration, this.parentIri);
 
-    this.knoraV2Request.extendedSearchFromSpecificInstance(graveSearchRequest, this.backendAddress)
-      .subscribe(d => {
-        if (d['@graph']) {
-          this.blocks = d['@graph'];
-        } else {
-          this.blocks = [d];
-        }
-        this.namespaces = d['@context'];
-      }, error1 => {
-        console.log(error1);
-      });
+      this.knoraV2Request.extendedSearchFromSpecificInstance(graveSearchRequest, this.backendAddress)
+        .subscribe(d => {
+          if (d[ '@graph' ]) {
+            this.blocks = d[ '@graph' ];
+          } else {
+            this.blocks = [ d ];
+          }
+          this.namespaces = d[ '@context' ];
+        }, error1 => {
+          console.log(error1);
+        });
+    }
   }
 
   /**

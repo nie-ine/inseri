@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { SelectableEnvironments, StyleDeclaration } from '../../shared/rich-text/text-rich-innerhtml/text-rich-innerhtml.component';
 
 @Component({
@@ -6,7 +6,7 @@ import { SelectableEnvironments, StyleDeclaration } from '../../shared/rich-text
   templateUrl: './joined-text-textwrapper.component.html',
   styleUrls: ['./joined-text-textwrapper.component.scss']
 })
-export class JoinedTextTextwrapperComponent implements OnInit {
+export class JoinedTextTextwrapperComponent implements OnChanges {
 
   /**
    * A Knora resource with a text that has to be displayed.
@@ -45,7 +45,7 @@ export class JoinedTextTextwrapperComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnChanges() {
     if (this.propertyIri && this.namespaces) {
       let tempKey = this.propertyIri;
 

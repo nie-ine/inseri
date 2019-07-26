@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { KnoraV2RequestService } from '../../../../query-engine/knora/knora-v2-request.service';
 import { JoinedTextViewKnoraRequestService } from '../joined-text-view-knora-request.service';
 import { SelectableEnvironments, StyleDeclaration } from '../../shared/rich-text/text-rich-innerhtml/text-rich-innerhtml.component';
@@ -12,7 +12,7 @@ import { JoinedTextLine } from './joined-text-line';
   templateUrl: './joined-text-line.component.html',
   styleUrls: ['./joined-text-line.component.scss']
 })
-export class JoinedTextLineComponent implements OnInit {
+export class JoinedTextLineComponent implements OnChanges {
 
   /**
    * The identifier of the parent element of the lines.
@@ -93,26 +93,28 @@ export class JoinedTextLineComponent implements OnInit {
   constructor(private knoraV2Request: KnoraV2RequestService, private joinedTextViewKnoraRequest: JoinedTextViewKnoraRequestService) { }
 
   /**
-   * written by angular-cli
+   * load content with changing input variables
    */
-  ngOnInit() {
+  ngOnChanges() {
     if (this.lineConfiguration.columnRatio) {
       this.calculateWidths(this.lineConfiguration.columnRatio);
     }
 
-    const graveSearchRequest = this.joinedTextViewKnoraRequest.getGravSearch(this.lineConfiguration, this.parentIri);
+    if (this.backendAddress && this.parentIri && this.lineConfiguration) {
+      const graveSearchRequest = this.joinedTextViewKnoraRequest.getGravSearch(this.lineConfiguration, this.parentIri);
 
-    this.knoraV2Request.extendedSearchFromSpecificInstance(graveSearchRequest, this.backendAddress)
-      .subscribe(d => {
-        if (d['@graph']) {
-          this.lines = d['@graph'];
-        } else {
-          this.lines = [d];
-        }
-        this.namespaces = d['@context'];
-      }, error1 => {
-        console.log(error1);
-      });
+      this.knoraV2Request.extendedSearchFromSpecificInstance(graveSearchRequest, this.backendAddress)
+        .subscribe(d => {
+          if (d[ '@graph' ]) {
+            this.lines = d[ '@graph' ];
+          } else {
+            this.lines = [ d ];
+          }
+          this.namespaces = d[ '@context' ];
+        }, error1 => {
+          console.log(error1);
+        });
+    }
   }
 
   /**

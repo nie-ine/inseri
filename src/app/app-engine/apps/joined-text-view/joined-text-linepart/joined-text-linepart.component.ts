@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { KnoraV2RequestService } from '../../../../query-engine/knora/knora-v2-request.service';
 import { JoinedTextViewKnoraRequestService } from '../joined-text-view-knora-request.service';
 import { SelectableEnvironments, StyleDeclaration } from '../../shared/rich-text/text-rich-innerhtml/text-rich-innerhtml.component';
@@ -12,7 +12,7 @@ import { JoinedTextLinepart } from './joined-text-linepart';
   templateUrl: './joined-text-linepart.component.html',
   styleUrls: ['./joined-text-linepart.component.scss']
 })
-export class JoinedTextLinepartComponent implements OnInit {
+export class JoinedTextLinepartComponent implements OnChanges {
 
   /**
    * Identifier of the parent of the line parts.
@@ -77,23 +77,25 @@ export class JoinedTextLinepartComponent implements OnInit {
   constructor(private knoraV2Request: KnoraV2RequestService, private joinedTextViewKnoraRequest: JoinedTextViewKnoraRequestService) { }
 
   /**
-   * written by angular-cli
+   * load content with changing input variables
    */
-  ngOnInit() {
+  ngOnChanges() {
 
-    const graveSearchRequest = this.joinedTextViewKnoraRequest.getGravSearch(this.linepartConfiguration, this.parentIri);
+    if (this.backendAddress && this.linepartConfiguration && this.parentIri) {
+      const graveSearchRequest = this.joinedTextViewKnoraRequest.getGravSearch(this.linepartConfiguration, this.parentIri);
 
-    this.knoraV2Request.extendedSearchFromSpecificInstance(graveSearchRequest, this.backendAddress)
-      .subscribe(d => {
-        if (d['@graph']) {
-          this.lineparts = d['@graph'];
-        } else {
-          this.lineparts = [d];
-        }
-        this.namespaces = d['@context'];
-      }, error1 => {
-        console.log(error1);
-      });
+      this.knoraV2Request.extendedSearchFromSpecificInstance(graveSearchRequest, this.backendAddress)
+        .subscribe(d => {
+          if (d[ '@graph' ]) {
+            this.lineparts = d[ '@graph' ];
+          } else {
+            this.lineparts = [ d ];
+          }
+          this.namespaces = d[ '@context' ];
+        }, error1 => {
+          console.log(error1);
+        });
+    }
   }
 
   /**

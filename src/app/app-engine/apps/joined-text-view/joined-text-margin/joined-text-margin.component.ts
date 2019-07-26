@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { KnoraV2RequestService } from '../../../../query-engine/knora/knora-v2-request.service';
 import { JoinedTextViewKnoraRequestService } from '../joined-text-view-knora-request.service';
 import { SelectableEnvironments, StyleDeclaration } from '../../shared/rich-text/text-rich-innerhtml/text-rich-innerhtml.component';
@@ -12,7 +12,7 @@ import { JoinedTextMargin } from './joined-text-margin';
   templateUrl: './joined-text-margin.component.html',
   styleUrls: ['./joined-text-margin.component.scss']
 })
-export class JoinedTextMarginComponent implements OnInit {
+export class JoinedTextMarginComponent implements OnChanges {
 
   /**
    * True means that the content in this cannot increase the space between lines in TextLineComponent and stays fix
@@ -85,27 +85,30 @@ export class JoinedTextMarginComponent implements OnInit {
   constructor(private knoraV2Request: KnoraV2RequestService, private joinedTextViewKnoraRequest: JoinedTextViewKnoraRequestService) { }
 
   /**
-   * written by angular-cli
+   * load content on changing input variables
    */
-  ngOnInit() {
+  ngOnChanges() {
 
     if (this.marginConfiguration.fixHeight) {
       this.fixHeight = this.marginConfiguration.fixHeight;
     }
 
-    const graveSearchRequest = this.joinedTextViewKnoraRequest.getGravSearch(this.marginConfiguration, this.parentIri);
+    if (this.backendAddress && this.marginConfiguration && this.parentIri) {
 
-    this.knoraV2Request.extendedSearchFromSpecificInstance(graveSearchRequest, this.backendAddress)
-      .subscribe(d => {
-        if (d['@graph']) {
-          this.margins = d['@graph'];
-        } else {
-          this.margins = [d];
-        }
-        this.namespaces = d['@context'];
-      }, error1 => {
-        console.log(error1);
-      });
+      const graveSearchRequest = this.joinedTextViewKnoraRequest.getGravSearch(this.marginConfiguration, this.parentIri);
+
+      this.knoraV2Request.extendedSearchFromSpecificInstance(graveSearchRequest, this.backendAddress)
+        .subscribe(d => {
+          if (d[ '@graph' ]) {
+            this.margins = d[ '@graph' ];
+          } else {
+            this.margins = [ d ];
+          }
+          this.namespaces = d[ '@context' ];
+        }, error1 => {
+          console.log(error1);
+        });
+    }
   }
 
   /**
