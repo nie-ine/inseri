@@ -25,10 +25,6 @@ export class JoinedTextViewComponent implements OnChanges {
    */
   @Input() textConfiguration: JoinedTextViewRoot;
 
-  // TODO:
-  // - Turn into app
-  // - add column functionality to block-component
-
   /**
    * Default style declarations.
    */

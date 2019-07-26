@@ -23,7 +23,15 @@ export class JoinedTextLinepartComponent implements OnInit {
    * Address to the Knora instance with the data
    */
   @Input() backendAddress;
+
+  /**
+   * The parameters for the line part behaviour.
+   */
   @Input() linepartConfiguration: JoinedTextLinepart;
+
+  /**
+   * Default style declarations.
+   */
   @Input() styleDeclarations: Array<StyleDeclaration>;
 
   /**
@@ -88,10 +96,16 @@ export class JoinedTextLinepartComponent implements OnInit {
       });
   }
 
+  /**
+   * Give an event containing the unique word id if a word on the page description is clicked
+   */
   clickChange(resIri: string) {
     this.clickedResourceChange.emit(resIri);
   }
 
+  /**
+   * Give an event containing the unique word id if a word on the page description is clicked
+   */
   hoverChange(resIri: string) {
     this.hoveredResourceChange.emit(resIri);
   }
@@ -127,6 +141,11 @@ export class JoinedTextLinepartComponent implements OnInit {
     }
   }
 
+  /**
+   * Using an external style definition, get all the CSS definition for this element, depending on keys.
+   * @param paramKey  The key of the definitions of the style environment for this element.
+   * @param resId  The identifier of the element for specific highlighting.
+   */
   getStyleDict(paramKey, resId) {
     const styles = {};
 

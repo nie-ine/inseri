@@ -108,15 +108,24 @@ export class JoinedTextMarginComponent implements OnInit {
       });
   }
 
+  /**
+   * Give an event containing the unique word id if a word on the page description is clicked
+   */
   clickChange(resIri: string) {
     this.clickedResourceChange.emit(resIri);
   }
 
+  /**
+   * Give an event containing the unique word id if the mouse hovers on a word in the page description
+   */
   hoverChange(resIri: string) {
     this.hoveredResourceChange.emit(resIri);
   }
 
-
+  /**
+   * Using an external style definition, get all the CSS definition for this element, depending on keys.
+   * @param paramKey  The key of the definitions of the style environment for this element.
+   */
   getStyleDict(paramKey) {
     const styles = {};
 
