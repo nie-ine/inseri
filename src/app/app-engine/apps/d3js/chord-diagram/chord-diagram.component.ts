@@ -114,10 +114,12 @@ export class ChordDiagramComponent implements AfterViewChecked {
    */
   ngAfterViewChecked() {
     if ( this.initialised && !this.alreadyInitialised ) {
+      setTimeout(() => {
       this.alreadyInitialised = true;
       this.prepareData();
       this.initSvg();
       this.drawChord();
+      }, 100);
     }
   }
 
@@ -160,7 +162,7 @@ export class ChordDiagramComponent implements AfterViewChecked {
    * NIE-OS specific
    */
   generateComponentDivClass() {
-    return 'chordDiagram' + this.numberOfInitialisedComponent;
+    return 'chord' + this.numberOfInitialisedComponent;
   }
 
   /**

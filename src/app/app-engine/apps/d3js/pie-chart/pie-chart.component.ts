@@ -36,9 +36,11 @@ export class PieChartComponent implements AfterViewChecked {
 
   ngAfterViewChecked() {
     if ( this.initialised && !this.alreadyInitialised ) {
+      setTimeout(() => {
       this.alreadyInitialised = true;
       this.initSvg();
       this.drawPie();
+      }, 100);
     }
   }
 

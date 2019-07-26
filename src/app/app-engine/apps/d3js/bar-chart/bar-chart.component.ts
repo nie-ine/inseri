@@ -83,11 +83,13 @@ export class BarChartComponent implements AfterViewChecked {
    */
   ngAfterViewChecked() {
     if( this.initialised && !this.alreadyInitialised ) {
+      setTimeout(() => {
       this.alreadyInitialised = true;
       this.initSvg();
       this.initAxis();
       this.drawAxis();
       this.drawBars();
+      }, 100);
     }
   }
 

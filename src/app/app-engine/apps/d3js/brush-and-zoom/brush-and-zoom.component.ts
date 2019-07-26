@@ -81,15 +81,17 @@ export class BrushAndZoomComponent implements AfterViewChecked {
 
   ngAfterViewChecked() {
     if ( this.initialised && !this.alreadyInitialised ) {
+      setTimeout(() => {
       this.alreadyInitialised = true;
-    this.initMargins();
-    this.initSvg();
-    this.drawChart(this.parseData(SP500));
+      this.initMargins();
+      this.initSvg();
+      this.drawChart(this.parseData(SP500));
+      }, 100);
     }
   }
 
   generateComponentDivClass() {
-    return 'brush-zoom' + this.numberOfInitialisedComponent;
+    return 'brushZoom' + this.numberOfInitialisedComponent;
   }
 
   private initMargins() {

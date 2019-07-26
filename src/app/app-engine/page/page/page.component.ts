@@ -185,6 +185,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
   showDataBrowserOnPublish = true;
   publishedOptionsExpanded = false;
 
+  appTypes: Array<string> = [];
+
   constructor(
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
@@ -210,14 +212,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.dataSource = new MatTableDataSource(
       new AppMenuModel().appMenu
     );
-  }
-
-  changeAppFramePosition() {
-    if ( this.appFramePosition === 'absolute' ) {
-      this.appFramePosition = 'static';
-    } else {
-      this.appFramePosition = 'absolute';
-    }
   }
 
   openDataManagement() {
@@ -286,6 +280,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnInit() {
+    for ( const appType in this.openApps.openApps ) {
+      this.appTypes.push( appType );
+    }
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     console.log( this.route.snapshot );
