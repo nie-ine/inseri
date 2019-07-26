@@ -242,7 +242,7 @@ export class SpiralBarChartComponent implements AfterViewChecked {
   }
 
   generateComponentDivClass() {
-    return 'spiralBarChart' + this.numberOfInitialisedComponent;
+    return 'app' + this.numberOfInitialisedComponent;
   }
 
   theta (r) {

@@ -133,7 +133,7 @@ export class Frame implements OnInit, OnChanges {
   }
 
   setPos() {
-    if (this.fatherPopup == undefined) {
+    if (this.fatherPopup == undefined ) {
       this.curX = this.firstPopupX;
       this.curY = this.firstPopupY;
       this.curZIndex = this.firstPopupZ;
