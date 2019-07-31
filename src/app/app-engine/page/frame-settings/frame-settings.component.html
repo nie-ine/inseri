@@ -9,11 +9,11 @@
 
 
 <form >
-  <mat-form-field class="example-full-width" >
-    <input matInput placeholder="Title" value="{{ title }}" name="title" [(ngModel)]="title">
-  </mat-form-field>
+  <mat-form-field  >
+    <input matInput placeholder="Title" value="{{ title }}" name="title" [(ngModel)]="title" style="width: 150px">
+  </mat-form-field> <br>
   <mat-checkbox name="fullWidth" [(ngModel)]="fullWidth">Full Width</mat-checkbox>
-  <mat-checkbox name="fullHeight" [(ngModel)]="fullHeight">Full Height</mat-checkbox>
+  <mat-checkbox name="fullHeight" [(ngModel)]="fullHeight" style="margin-left: 20px">Full Height</mat-checkbox>
 
 </form>
 

@@ -73,7 +73,7 @@ export class GenerateDataChoosersService {
       // console.log( response, path, path.length );
       for ( const segment of path ) {
         // console.log( segment );
-        if ( response[ segment ] && response[ segment ].length && typeof response[ segment ] !== 'string') {
+        if ( response[ segment ] && response[ segment ].length > 1 && typeof response[ segment ] !== 'string') {
           // console.log( 'response contains array' );
           this.pathSet = new Set();
           this.depth = 0;
@@ -141,7 +141,7 @@ export class GenerateDataChoosersService {
     // console.log( response, pathArray );
     for ( const key in response ) {
       if (
-        response[ key ].length &&
+        response[ key ].length > 1 &&
         typeof response[ key ] !== 'string' &&
         !this.pathSet.has( key )
       ) {

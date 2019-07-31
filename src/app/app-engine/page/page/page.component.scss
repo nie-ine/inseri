@@ -1,3 +1,25 @@
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 25%;
+}
+
+.i {
+  color: #f7d336;
+  position: relative;
+}
+.i:before {
+  content: "ı";
+  position: absolute;
+  color: black;
+}
 
 
 .popup-win {

@@ -38,17 +38,17 @@ export class MultiLineChartComponent implements AfterViewChecked {
 
   ngAfterViewChecked() {
     if ( this.initialised && !this.alreadyInitialised ) {
+      setTimeout(() => {
       this.alreadyInitialised = true;
-    this.data = TEMPERATURES.map((v) => v.values.map((v) => v.date ))[0];
-    //.reduce((a, b) => a.concat(b), []);
-
-    this.initChart();
-    this.drawAxis();
-    this.drawPath();
+      this.data = TEMPERATURES.map((v) => v.values.map((v) => v.date ))[0];
+      this.initChart();
+      this.drawAxis();
+      this.drawPath();
+      }, 100);
     }
   }
   generateComponentDivClass() {
-    return 'lineChart' + this.numberOfInitialisedComponent;
+    return 'multiLine' + this.numberOfInitialisedComponent;
   }
 
   private initChart(): void {

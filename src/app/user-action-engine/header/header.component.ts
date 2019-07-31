@@ -49,6 +49,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
   userInfo: string;
   sub: any;
   snackBarOpen = false;
+  dialogIsOpen = false;
 
   constructor(
     private initService: InitService,
@@ -172,17 +173,17 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   generateLeftHeaderString(): string {
     return (
-      this.routeMapping( 'dashboard', 'NIE-OS - Dashboard' ) ||
-      this.routeMapping( 'home', 'NIE-OS' ) ||
-      this.routeMapping( 'page', 'NIE-OS - Page' ) ||
-      this.routeMapping( '', 'NIE-OS' )
+      this.routeMapping( 'dashboard', 'inseri - Dashboard' ) ||
+      this.routeMapping( 'home', 'Inseri' ) ||
+      this.routeMapping( 'page', 'Inseri - Page' ) ||
+      this.routeMapping( '', 'Inseri' )
     );
   }
 
   generateLoginOrSettingsButton(): string {
     return(
       this.routeMapping( 'dashboard', 'Logout' ) ||
-      this.routeMapping( 'page', 'Einstellungen' )
+      this.routeMapping( 'page', 'User Settings' )
     );
   }
 
@@ -231,25 +232,32 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   openSettingsDialog() {
-    const userId = localStorage.getItem('userId');
-    if (userId) {
-      this.authService.getUser(userId).subscribe((result) => {
-        this.dialog.open(DialogUserSettingsDialog, {
-          width: '600px',
-          data: {
-            userId: userId,
-            email: result.user.email,
-            firstName: result.user.firstName,
-            lastName: result.user.lastName,
-            newsletter: result.user.newsletter
-          }
+    if ( !this.dialogIsOpen ) {
+      this. dialogIsOpen = true;
+      const userId = localStorage.getItem('userId');
+      if (userId) {
+        this.authService.getUser(userId).subscribe((result) => {
+          const dialogRef = this.dialog.open(DialogUserSettingsDialog, {
+            width: '600px',
+            data: {
+              userId: userId,
+              email: result.user.email,
+              firstName: result.user.firstName,
+              lastName: result.user.lastName,
+              newsletter: result.user.newsletter
+            }
+          });
+          dialogRef.afterClosed().subscribe((result1) => {
+            this. dialogIsOpen = false;
+          });
+        }, (error) => {
+          console.log(error);
         });
-      }, (error) => {
-        console.log(error);
-      });
-    } else {
-      console.log('UserId was not found in storage');
+      } else {
+        console.log('UserId was not found in storage');
+      }
     }
+
   }
 }
 
@@ -384,10 +392,10 @@ export class DialogUserSettingsDialog implements OnInit {
         console.log( result );
         this.contactService.sendMessage(
           'Guten Tag, ' + this.data.firstName + ',\n\n' +
-          'schade, dass Du Deinen Account bei NIE-OS deaktiviert hast, wir werden Dich vermissen!\n\n\n' +
+          'schade, dass Du Deinen Account bei Inseri deaktiviert hast, wir werden Dich vermissen!\n\n\n' +
           'Innerhalb der nächsten 30 Tage kannst Du Deinen Account wiederherstellen, wenn Du hier klickst:\n\n' +
           environment.app + '/reactivate?user=' + this.userId +
-          '\n\n\nViele schöne Grüsse und alles Gute von Deinem NIE-OS Team!', this.profileForm.get('email').value
+          '\n\n\nViele schöne Grüsse und alles Gute von Deinem Inseri Team!', this.profileForm.get('email').value
         )
           .subscribe( response => {
             console.log(response);

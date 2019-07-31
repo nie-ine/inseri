@@ -1,0 +1,1706 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>nie-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">nie-frontend documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search">
+</div>
+            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>SpiralBarChartComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/app-engine/apps/d3js/spiral-bar-chart/spiral-bar-chart.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code><a href="https://angular.io/api/core/AfterViewChecked" target="_blank" >AfterViewChecked</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-spiral-bar-chart</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>spiral-bar-chart.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./spiral-bar-chart.component.html</code></td>
+            </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#alreadyInitialised">alreadyInitialised</a>
+                            </li>
+                            <li>
+                                <a href="#barWidth">barWidth</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#color">color</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#end">end</a>
+                            </li>
+                            <li>
+                                <a href="#firstInMonth">firstInMonth</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#height">height</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#margin">margin</a>
+                            </li>
+                            <li>
+                                <a href="#N">N</a>
+                            </li>
+                            <li>
+                                <a href="#numSpirals">numSpirals</a>
+                            </li>
+                            <li>
+                                <a href="#path">path</a>
+                            </li>
+                            <li>
+                                <a href="#points">points</a>
+                            </li>
+                            <li>
+                                <a href="#r">r</a>
+                            </li>
+                            <li>
+                                <a href="#radius">radius</a>
+                            </li>
+                            <li>
+                                <a href="#someData">someData</a>
+                            </li>
+                            <li>
+                                <a href="#spiral">spiral</a>
+                            </li>
+                            <li>
+                                <a href="#spiralLength">spiralLength</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#start">start</a>
+                            </li>
+                            <li>
+                                <a href="#svg">svg</a>
+                            </li>
+                            <li>
+                                <a href="#tF">tF</a>
+                            </li>
+                            <li>
+                                <a href="#timeScale">timeScale</a>
+                            </li>
+                            <li>
+                                <a href="#title">title</a>
+                            </li>
+                            <li>
+                                <a href="#tooltip">tooltip</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#width">width</a>
+                            </li>
+                            <li>
+                                <a href="#yScale">yScale</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#generateComponentDivClass">generateComponentDivClass</a>
+                            </li>
+                            <li>
+                                <a href="#ngAfterViewChecked">ngAfterViewChecked</a>
+                            </li>
+                            <li>
+                                <a href="#theta">theta</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#initialised">initialised</a>
+                            </li>
+                            <li>
+                                <a href="#numberOfInitialisedComponent">numberOfInitialisedComponent</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/app/app-engine/apps/d3js/spiral-bar-chart/spiral-bar-chart.component.ts:56</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="initialised"></a>
+                        <code>initialised</code>
+                    </td>
+                    <td class="col-md-10">
+                        <p>
+                            <em>Default value : </em><code>false</code>
+                        </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/app-engine/apps/d3js/spiral-bar-chart/spiral-bar-chart.component.ts:19</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="numberOfInitialisedComponent"></a>
+                        <code>numberOfInitialisedComponent</code>
+                    </td>
+                    <td class="col-md-10">
+                            <p>
+                            <em>Type :</em>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                            </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/app-engine/apps/d3js/spiral-bar-chart/spiral-bar-chart.component.ts:20</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+    <section>
+    
+        <h3 id="methods">
+            Methods
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="generateComponentDivClass"></a>
+                        <span class="name">
+                            <b>
+                            generateComponentDivClass
+                            </b>
+                            <a href="#generateComponentDivClass"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>generateComponentDivClass()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="244" class="link-to-prism">src/app/app-engine/apps/d3js/spiral-bar-chart/spiral-bar-chart.component.ts:244</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ngAfterViewChecked"></a>
+                        <span class="name">
+                            <b>
+                            ngAfterViewChecked
+                            </b>
+                            <a href="#ngAfterViewChecked"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>ngAfterViewChecked()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/app-engine/apps/d3js/spiral-bar-chart/spiral-bar-chart.component.ts:60</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="theta"></a>
+                        <span class="name">
+                            <b>
+                            theta
+                            </b>
+                            <a href="#theta"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>theta(r: )</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="248" class="link-to-prism">src/app/app-engine/apps/d3js/spiral-bar-chart/spiral-bar-chart.component.ts:248</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>r</td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="alreadyInitialised"></a>
+                        <span class="name">
+                            <b>
+                            alreadyInitialised
+                            </b>
+                            <a href="#alreadyInitialised"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>alreadyInitialised:     <code></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/app-engine/apps/d3js/spiral-bar-chart/spiral-bar-chart.component.ts:23</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="barWidth"></a>
+                        <span class="name">
+                            <b>
+                            barWidth
+                            </b>
+                            <a href="#barWidth"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>barWidth:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/app-engine/apps/d3js/spiral-bar-chart/spiral-bar-chart.component.ts:50</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="color"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            color
+                            </b>
+                            <a href="#color"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>color:     <code></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>d3Scale.scaleOrdinal(
+    d3ScaleChromatic.schemeCategory10
+  )</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/app-engine/apps/d3js/spiral-bar-chart/spiral-bar-chart.component.ts:38</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="end"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            end
+                            </b>
+                            <a href="#end"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>end:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>2.25</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/app-engine/apps/d3js/spiral-bar-chart/spiral-bar-chart.component.ts:28</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="firstInMonth"></a>
+                        <span class="name">
+                            <b>
+                            firstInMonth
+                            </b>
+                            <a href="#firstInMonth"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>firstInMonth:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>{}</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/app-engine/apps/d3js/spiral-bar-chart/spiral-bar-chart.component.ts:55</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="height"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            height
+                            </b>
+                            <a href="#height"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>height:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>500</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/app-engine/apps/d3js/spiral-bar-chart/spiral-bar-chart.component.ts:26</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="margin"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            margin
+                            </b>
+                            <a href="#margin"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>margin:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>{
+    top: 50,
+    right: 50,
+    bottom: 50,
+    left: 50
+  }</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/app-engine/apps/d3js/spiral-bar-chart/spiral-bar-chart.component.ts:30</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="N"></a>
+                        <span class="name">
+                            <b>
+                            N
+                            </b>
+                            <a href="#N"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>N:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/app-engine/apps/d3js/spiral-bar-chart/spiral-bar-chart.component.ts:49</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="numSpirals"></a>
+                        <span class="name">
+                            <b>
+                            numSpirals
+                            </b>
+                            <a href="#numSpirals"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>numSpirals:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>3</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/app-engine/apps/d3js/spiral-bar-chart/spiral-bar-chart.component.ts:29</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="path"></a>
+                        <span class="name">
+                            <b>
+                            path
+                            </b>
+                            <a href="#path"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>path:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/app-engine/apps/d3js/spiral-bar-chart/spiral-bar-chart.component.ts:47</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="points"></a>
+                        <span class="name">
+                            <b>
+                            points
+                            </b>
+                            <a href="#points"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>points:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/app-engine/apps/d3js/spiral-bar-chart/spiral-bar-chart.component.ts:45</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="r"></a>
+                        <span class="name">
+                            <b>
+                            r
+                            </b>
+                            <a href="#r"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>r:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/app-engine/apps/d3js/spiral-bar-chart/spiral-bar-chart.component.ts:42</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="radius"></a>
+                        <span class="name">
+                            <b>
+                            radius
+                            </b>
+                            <a href="#radius"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>radius:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/app-engine/apps/d3js/spiral-bar-chart/spiral-bar-chart.component.ts:43</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="someData"></a>
+                        <span class="name">
+                            <b>
+                            someData
+                            </b>
+                            <a href="#someData"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>someData:     <code>[]</code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/app-engine/apps/d3js/spiral-bar-chart/spiral-bar-chart.component.ts:51</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="spiral"></a>
+                        <span class="name">
+                            <b>
+                            spiral
+                            </b>
+                            <a href="#spiral"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>spiral:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/app-engine/apps/d3js/spiral-bar-chart/spiral-bar-chart.component.ts:46</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="spiralLength"></a>
+                        <span class="name">
+                            <b>
+                            spiralLength
+                            </b>
+                            <a href="#spiralLength"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>spiralLength:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/app-engine/apps/d3js/spiral-bar-chart/spiral-bar-chart.component.ts:48</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="start"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            start
+                            </b>
+                            <a href="#start"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>start:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>0</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/app-engine/apps/d3js/spiral-bar-chart/spiral-bar-chart.component.ts:27</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="svg"></a>
+                        <span class="name">
+                            <b>
+                            svg
+                            </b>
+                            <a href="#svg"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>svg:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/app-engine/apps/d3js/spiral-bar-chart/spiral-bar-chart.component.ts:44</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tF"></a>
+                        <span class="name">
+                            <b>
+                            tF
+                            </b>
+                            <a href="#tF"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>tF:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/app-engine/apps/d3js/spiral-bar-chart/spiral-bar-chart.component.ts:54</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="timeScale"></a>
+                        <span class="name">
+                            <b>
+                            timeScale
+                            </b>
+                            <a href="#timeScale"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>timeScale:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/app-engine/apps/d3js/spiral-bar-chart/spiral-bar-chart.component.ts:52</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="title"></a>
+                        <span class="name">
+                            <b>
+                            title
+                            </b>
+                            <a href="#title"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>title:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>&#x27;Spiral Bar Chart&#x27;</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/app-engine/apps/d3js/spiral-bar-chart/spiral-bar-chart.component.ts:22</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tooltip"></a>
+                        <span class="name">
+                            <b>
+                            tooltip
+                            </b>
+                            <a href="#tooltip"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>tooltip:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/app/app-engine/apps/d3js/spiral-bar-chart/spiral-bar-chart.component.ts:56</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="width"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            width
+                            </b>
+                            <a href="#width"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>width:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>500</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/app-engine/apps/d3js/spiral-bar-chart/spiral-bar-chart.component.ts:25</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="yScale"></a>
+                        <span class="name">
+                            <b>
+                            yScale
+                            </b>
+                            <a href="#yScale"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>yScale:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/app-engine/apps/d3js/spiral-bar-chart/spiral-bar-chart.component.ts:53</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {AfterViewChecked, Component, Input, OnInit} from &#x27;@angular/core&#x27;;
+import * as d3 from &#x27;d3-selection&#x27;;
+import * as d3Scale from &#x27;d3-scale&#x27;;
+import * as d3Array from &#x27;d3-array&#x27;;
+import * as d3Axis from &#x27;d3-axis&#x27;;
+import * as d3Format from &#x27;d3-format&#x27;;
+import * as d3Shape from &#x27;d3-shape&#x27;;
+import * as d3Interpolate from &#x27;d3-interpolate&#x27;;
+import * as d3ScaleChromatic from &#x27;d3-scale-chromatic&#x27;;
+import * as d3TimeFormat from &#x27;d3-time-format&#x27;;
+
+@Component({
+  selector: &#x27;app-spiral-bar-chart&#x27;,
+  templateUrl: &#x27;./spiral-bar-chart.component.html&#x27;,
+  styleUrls: [&#x27;./spiral-bar-chart.component.scss&#x27;]
+})
+export class SpiralBarChartComponent implements AfterViewChecked {
+
+  @Input() initialised &#x3D; false;
+  @Input() numberOfInitialisedComponent: number;
+
+  title &#x3D; &#x27;Spiral Bar Chart&#x27;;
+  alreadyInitialised &#x3D; false;
+
+  private width &#x3D; 500;
+  private height &#x3D; 500;
+  private start &#x3D; 0;
+  private end &#x3D; 2.25;
+  numSpirals &#x3D; 3;
+  private margin &#x3D; {
+    top: 50,
+    right: 50,
+    bottom: 50,
+    left: 50
+  };
+
+  // used to assign nodes color by group
+  private color &#x3D; d3Scale.scaleOrdinal(
+    d3ScaleChromatic.schemeCategory10
+  );
+
+  r: any;
+  radius: any;
+  svg: any;
+  points: any;
+  spiral: any;
+  path: any;
+  spiralLength: any;
+  N: any;
+  barWidth: any;
+  someData &#x3D; [];
+  timeScale: any;
+  yScale: any;
+  tF: any;
+  firstInMonth &#x3D; {};
+  tooltip: any;
+
+  constructor() { }
+
+  ngAfterViewChecked() {
+    if ( this.initialised &amp;&amp; !this.alreadyInitialised ) {
+      this.alreadyInitialised &#x3D; true;
+      this.r &#x3D; 100;
+
+      // console.log( this.r );
+
+      this.radius &#x3D; d3Scale.scaleLinear()
+        .domain( [ this.start, this.end ] )
+        .range( [ 40, this.r ] );
+
+      // console.log( this.radius );
+
+      this.svg &#x3D; d3.select(
+        &#x27;.&#x27; + this.generateComponentDivClass()
+      ).append(&#x27;svg&#x27;)
+        .attr(&#x27;width&#x27;, this.width + this.margin.right + this.margin.left)
+        .attr(&#x27;height&#x27;, this.height + this.margin.left + this.margin.right)
+        .append(&#x27;g&#x27;)
+        .attr(&#x27;transform&#x27;, &#x27;translate(&#x27; + this.width / 2 + &#x27;,&#x27; + this.height / 2 + &#x27;)&#x27;);
+
+      this.points &#x3D; d3Array.range(
+        this.start,
+        this.end + 0.001,
+        (
+          this.end - this.start
+        ) / 1000
+      );
+
+      // console.log( this.points );
+
+      this.spiral &#x3D; d3Shape.radialLine()
+        .curve(d3Shape.curveCardinal)
+        .angle(
+          this.theta( this.r )  // theta
+        )
+        .radius(this.radius);
+
+      // console.log( this.spiral );
+
+      this.svg.append(&#x27;path&#x27;)
+        .datum(this.points)
+        .attr(&#x27;id&#x27;, &#x27;spiral&#x27;)
+        .attr(&#x27;d&#x27;, this.spiral)
+        .style(&#x27;fill&#x27;, &#x27;none&#x27;)
+        .style(&#x27;stroke&#x27;, &#x27;steelblue&#x27;);
+      //
+      // this.spiralLength &#x3D; this.path.node().getTotalLength();
+      // this.N &#x3D; 365;
+      // this.barWidth &#x3D; ( this.spiralLength / this.N ); // -1 rausgenommen
+      //
+      // console.log( this.barWidth );
+      //
+      // for (let i &#x3D; 0; i &lt; this.N; i++) {
+      //   const currentDate &#x3D; new Date();
+      //   currentDate.setDate(currentDate.getDate() + i);
+      //   this.someData.push({
+      //     date: currentDate,
+      //     value: Math.random(),
+      //     group: currentDate.getMonth()
+      //   });
+      // }
+      // this.timeScale &#x3D; d3Scale.scaleTime()
+      //   .domain(d3Array.extent(this.someData, (d) &#x3D;&gt; {
+      //     return d.date;
+      //   }))
+      //   .range([0, this.spiralLength]);
+      //
+      // // yScale for the bar height
+      // this.yScale &#x3D; d3Scale.scaleLinear()
+      //   .domain([0, d3Array.max(this.someData, (d) &#x3D;&gt; {
+      //     return d.value;
+      //   })])
+      //   .range([0, (this.r / this.numSpirals) - 30]);
+      //
+      // this.svg.selectAll(&#x27;rect&#x27;)
+      //   .data(this.someData)
+      //   .enter()
+      //   .append(&#x27;rect&#x27;)
+      //   .attr(&#x27;x&#x27;, ( d, i ) &#x3D;&gt; {
+      //
+      //     let linePer &#x3D; this.timeScale(d.date),
+      //       posOnLine &#x3D; this.path.node().getPointAtLength(linePer),
+      //       angleOnLine &#x3D; this.path.node().getPointAtLength(linePer - this.barWidth);
+      //
+      //     d.linePer &#x3D; linePer; // % distance are on the spiral
+      //     d.x &#x3D; posOnLine.x; // x postion on the spiral
+      //     d.y &#x3D; posOnLine.y; // y position on the spiral
+      //
+      //     d.a &#x3D; (Math.atan2(angleOnLine.y, angleOnLine.x) * 180 / Math.PI) - 90;
+      //
+      //     return d.x;
+      //   })
+      //   .attr(&#x27;y&#x27;, (d) &#x3D;&gt; {
+      //     return d.y;
+      //   })
+      //   .attr(&#x27;width&#x27;, ( d ) &#x3D;&gt; {
+      //     return this.barWidth
+      //   })
+      //   .attr(&#x27;height&#x27;, (d) &#x3D;&gt; {
+      //     return this.yScale(d.value);
+      //   })
+      //   .style(&#x27;fill&#x27;, (d) &#x3D;&gt; {
+      //     return this.color(d.group);
+      //   })
+      //   .style(&#x27;stroke&#x27;, &#x27;none&#x27;)
+      //   .attr(&#x27;transform&#x27;, (d) &#x3D;&gt; {
+      //     return &#x27;rotate(&#x27; + d.a + &#x27;,&#x27; + d.x  + &#x27;,&#x27; + d.y + &#x27;)&#x27;; // rotate the bar
+      //   });
+      //
+      // // add date labels
+      // this.tF &#x3D; d3TimeFormat.timeFormat(&#x27;%b %Y&#x27;);
+      //
+      // this.svg.selectAll(&#x27;text&#x27;)
+      //   .data(this.someData)
+      //   .enter()
+      //   .append(&#x27;text&#x27;)
+      //   .attr(&#x27;dy&#x27;, 10)
+      //   .style(&#x27;text-anchor&#x27;, &#x27;start&#x27;)
+      //   .style(&#x27;font&#x27;, &#x27;10px arial&#x27;)
+      //   .append(&#x27;textPath&#x27;)
+      //   // only add for the first of each month
+      //   .filter( (d) &#x3D;&gt; {
+      //     let sd &#x3D; this.tF(
+      //       d.date
+      //     );
+      //     if (!this.firstInMonth[sd]){
+      //       this.firstInMonth[sd] &#x3D; 1;
+      //       return true;
+      //     }
+      //     return false;
+      //   })
+      //   .text( (d) &#x3D;&gt; {
+      //     return this.tF(d.date);
+      //   })
+      //   // place text along spiral
+      //   .attr(&#x27;xlink:href&#x27;, &#x27;#spiral&#x27;)
+      //   .style(&#x27;fill&#x27;, &#x27;grey&#x27;)
+      //   .attr(&#x27;startOffset&#x27;, (d) &#x3D;&gt; {
+      //     return ((d.linePer / this.spiralLength) * 100) + &#x27;%&#x27;;
+      //   });
+      //
+      // this.tooltip &#x3D; d3.select( &#x27;.&#x27; + this.generateComponentDivClass() )
+      //   .append(&#x27;div&#x27;)
+      //   .attr(&#x27;class&#x27;, &#x27;tooltip&#x27;);
+      //
+      // this.tooltip.append(&#x27;div&#x27;)
+      //   .attr(&#x27;class&#x27;, &#x27;date&#x27;);
+      // this.tooltip.append(&#x27;div&#x27;)
+      //   .attr(&#x27;class&#x27;, &#x27;value&#x27;);
+      //
+      // this.svg.selectAll(&#x27;rect&#x27;)
+      //   .on(&#x27;mouseover&#x27;, (d) &#x3D;&gt; {
+      //
+      //     this.tooltip.select(&#x27;.date&#x27;).html(&#x27;Date: &lt;b&gt;&#x27; + d.date.toDateString() + &#x27;&lt;/b&gt;&#x27;);
+      //     this.tooltip.select(&#x27;.value&#x27;).html(&#x27;Value: &lt;b&gt;&#x27; + Math.round(d.value * 100 ) / 100 + &#x27;&lt;b&gt;&#x27;);
+      //
+      //     d3.select(this)
+      //       .style(&#x27;fill&#x27;,&#x27;#FFFFFF&#x27;)
+      //       .style(&#x27;stroke&#x27;,&#x27;#000000&#x27;)
+      //       .style(&#x27;stroke-width&#x27;,&#x27;2px&#x27;);
+      //
+      //     this.tooltip.style(&#x27;display&#x27;, &#x27;block&#x27;);
+      //     this.tooltip.style(&#x27;opacity&#x27;,2);
+      //
+      //   })
+      //   .on(&#x27;mousemove&#x27;, (d) &#x3D;&gt; {
+      //     this.tooltip.style(&#x27;top&#x27;, (d3.event.layerY + 10) + &#x27;px&#x27;)
+      //       .style(&#x27;left&#x27;, (d3.event.layerX - 25) + &#x27;px&#x27;);
+      //   })
+      //   .on(&#x27;mouseout&#x27;, function(d) {
+      //     d3.selectAll(&#x27;rect&#x27;)
+      //       .style(&#x27;fill&#x27;, ( d ) &#x3D;&gt; {
+      //         return this.color(d.group);
+      //       })
+      //       .style(&#x27;stroke&#x27;, &#x27;none&#x27;)
+      //
+      //     this.tooltip.style(&#x27;display&#x27;, &#x27;none&#x27;);
+      //     this.tooltip.style(&#x27;opacity&#x27;, 0);
+      //   });
+
+    }
+  }
+
+  generateComponentDivClass() {
+    return &#x27;spiralBarChart&#x27; + this.numberOfInitialisedComponent;
+  }
+
+  theta (r) {
+    return this.numSpirals * Math.PI * r;
+  };
+
+
+
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div style&#x3D;&quot;margin-top: 30px&quot;&gt;
+  &lt;div class&#x3D;&quot;{{ generateComponentDivClass() }}&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div style="margin-top: 30px">  <div class="{{ generateComponentDivClass() }}"></div></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'BooleanValueEditorComponent', 'selector': 'app-boolean-value-editor'},{'name': 'BrushAndZoomComponent', 'selector': 'app-brush-and-zoom'},{'name': 'ChordDiagramComponent', 'selector': 'app-chord-diagram'},{'name': 'CreateResourceComponent', 'selector': 'app-create-resource'},{'name': 'D3tutorialComponent', 'selector': 'app-d3tutorial'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataAssignmentComponent', 'selector': 'app-data-assignment'},{'name': 'DataChooserComponent', 'selector': 'app-data-chooser'},{'name': 'DataChooserSettingsComponent', 'selector': 'app-data-chooser-settings'},{'name': 'DataListView', 'selector': 'data-list-view'},{'name': 'DataListViewDetailsDialogComponent', 'selector': 'app-data-list-view-details-dialog'},{'name': 'DataListViewSettings', 'selector': 'data-list-view-settings'},{'name': 'DataListViewTableComponent', 'selector': 'data-list-view-table'},{'name': 'DataManagementComponent', 'selector': 'app-data-management'},{'name': 'DateValueEditorComponent', 'selector': 'app-date-value-editor'},{'name': 'DateValueViewerComponent', 'selector': 'app-date-value-viewer'},{'name': 'DeactivateNewsletterComponent', 'selector': 'app-deactivate-newsletter'},{'name': 'DecimalValueEditorComponent', 'selector': 'app-decimal-value-editor'},{'name': 'DeleteActionComponent', 'selector': 'app-delete-action'},{'name': 'DeletePageComponent', 'selector': 'app-delete-page'},{'name': 'DialogCreateNewPageComponent', 'selector': 'dialog-create-new-page'},{'name': 'DialogOverviewExampleDialog', 'selector': 'dialog-overview-example-dialog'},{'name': 'DialogUserSettingsDialog', 'selector': 'dialog-user-settings-dialog'},{'name': 'DictionaryComponent', 'selector': 'app-dictionary'},{'name': 'DuplicatePageComponent', 'selector': 'app-duplicate-page'},{'name': 'EditActionComponent', 'selector': 'app-edit-action'},{'name': 'EditPageComponent', 'selector': 'app-edit-page'},{'name': 'EditPageSetComponent', 'selector': 'app-update-page-set'},{'name': 'ExtendSessionComponent', 'selector': 'session-component'},{'name': 'FactSheetComponent', 'selector': 'app-fact-sheet'},{'name': 'FloatLightTableComponent', 'selector': 'app-float-light-table'},{'name': 'FloatingImageObjectComponent', 'selector': 'app-floating-image-object'},{'name': 'FloatingTextObjectComponent', 'selector': 'app-floating-text-object'},{'name': 'Frame', 'selector': 'popup'},{'name': 'FrameSettingsComponent', 'selector': 'app-frame-settings'},{'name': 'GrapesjsComponent', 'selector': 'app-grapesjs'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HtmlViewerComponent', 'selector': 'app-html-viewer'},{'name': 'ImageFrameOldComponent', 'selector': 'app-image-old-frame'},{'name': 'ImageFrameSizesComponent', 'selector': 'app-image-frame-sizes'},{'name': 'ImageViewComponent', 'selector': 'app-image-view'},{'name': 'ImageWithOverlayComponent', 'selector': 'app-image-with-overlay'},{'name': 'ImpressumComponent', 'selector': 'app-impressum'},{'name': 'InitPopupComponent', 'selector': 'app-init-popup'},{'name': 'IntValueEditorComponent', 'selector': 'app-int-value-editor'},{'name': 'InterlinearGlossingComponent', 'selector': 'app-interlinear-glossing'},{'name': 'KeyValueFormComponent', 'selector': 'app-key-value-form'},{'name': 'LeafletExampleComponent', 'selector': 'app-leaflet-example'},{'name': 'LightTableComponent', 'selector': 'app-light-table'},{'name': 'LightTableMenuComponent', 'selector': 'app-light-table-menu'},{'name': 'LinkValueEditorComponent', 'selector': 'app-link-value-editor'},{'name': 'LinkValueLabelViewerComponent', 'selector': 'app-link-value-label-viewer'},{'name': 'LoadLightTableComponent', 'selector': 'app-load-light-table'},{'name': 'LoadVariablesComponent', 'selector': 'app-load-variables'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MetadataViewComponent', 'selector': 'app-metadata-view'},{'name': 'MultiLineChartComponent', 'selector': 'app-multi-line-chart'},{'name': 'MyMainComponentComponent', 'selector': 'app-my-main-component'},{'name': 'MyPractiseComponentComponent', 'selector': 'app-my-practise-component'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationTreeComponent', 'selector': 'app-navigation-tree'},{'name': 'NewGjsBoxDialogComponent', 'selector': 'app-new-gjs-box-dialog'},{'name': 'OpenbisLoginComponent', 'selector': 'app-openbis-login'},{'name': 'P0041EditionComponent', 'selector': 'app-p0041-edition'},{'name': 'P0041KandaComponent', 'selector': 'app-p0041-kanda'},{'name': 'P0041StropheComponent', 'selector': 'app-p0041-strophe'},{'name': 'P0041SuktaComponent', 'selector': 'app-p0041-sukta'},{'name': 'P0062TranscriptionFrameComponent', 'selector': 'app-p0062-transcription-frame'},{'name': 'PageComponent', 'selector': 'nie-os'},{'name': 'PageMenuComponent', 'selector': 'app-page-menu'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'PageSetLandingPageComponent', 'selector': 'app-page-set-landing-page'},{'name': 'ParzivalFassungComponent', 'selector': 'app-parzival-fassung'},{'name': 'PieChartComponent', 'selector': 'app-pie-chart'},{'name': 'PizzaPartyComponent', 'selector': 'snack-bar-component-example-snack'},{'name': 'QueryAppInputMapComponent', 'selector': 'app-query-app-input-map'},{'name': 'QueryEntryComponent', 'selector': 'app-query-entry'},{'name': 'QueryInformationDialogComponent', 'selector': 'app-query-information-dialog'},{'name': 'QueryListComponent', 'selector': 'app-query-list'},{'name': 'RadialBarchartComponent', 'selector': 'app-radial-barchart'},{'name': 'ReactivateAccountComponent', 'selector': 'app-reactivate-account'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'RemoveObjectsByIdComponent', 'selector': 'app-remove-objects-by-id'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'ResourceFormComponent', 'selector': 'app-resource-form'},{'name': 'ResourceValueHistoryComponent', 'selector': 'app-resource-value-history'},{'name': 'ResourceValueHistoryValueComponent', 'selector': 'app-resource-value-history-value'},{'name': 'ResponseTreeComponent', 'selector': 'response-tree'},{'name': 'ResponseTreeComponent', 'selector': 'app-response-tree'},{'name': 'RichTextByIriComponent', 'selector': 'app-spa-text'},{'name': 'SankeyComponent', 'selector': 'app-sankey'},{'name': 'SaveLightTableComponent', 'selector': 'app-save-light-table'},{'name': 'ShareLightTableComponent', 'selector': 'app-share-light-table'},{'name': 'SimpleImageAppComponent', 'selector': 'app-simple-image-app'},{'name': 'SpiralBarChartComponent', 'selector': 'app-spiral-bar-chart'},{'name': 'StackedBarChartComponent', 'selector': 'app-stacked-bar-chart'},{'name': 'SynopsisComponent', 'selector': 'app-synopsis'},{'name': 'SynopsisObjectManagerComponent', 'selector': 'app-synopsis-object-manager'},{'name': 'SynopsisObjectToolboxComponent', 'selector': 'app-synopsis-object-toolbox'},{'name': 'TagChipsComponent', 'selector': 'app-tag-chips'},{'name': 'TextDevViewComponent', 'selector': 'app-text-dev-view'},{'name': 'TextDisplayComponent', 'selector': 'app-text-display'},{'name': 'TextDisplayComponent', 'selector': 'app-text-display'},{'name': 'TextLineComponent', 'selector': 'app-text-line'},{'name': 'TextLineGroupComponent', 'selector': 'app-text-line-group'},{'name': 'TextLineMarginComponent', 'selector': 'app-text-line-margin'},{'name': 'TextLineNumberComponent', 'selector': 'app-text-line-number'},{'name': 'TextPageOfWordsComponent', 'selector': 'app-text-page-of-words'},{'name': 'TextRichInnerhtmlComponent', 'selector': 'app-text-rich-innerhtml'},{'name': 'TextSvgViewComponent', 'selector': 'app-text-svg-view'},{'name': 'TextSvgViewWrapperComponent', 'selector': 'app-text-svg-view-wrapper'},{'name': 'TextValueEditorComponent', 'selector': 'app-text-value-editor'},{'name': 'TextViewCanvasComponent', 'selector': 'app-text-view-canvas'},{'name': 'TextViewComponent', 'selector': 'app-text-view'},{'name': 'TextViewMetadataComponent', 'selector': 'app-text-view-metadata'},{'name': 'TextViewStructureComponent', 'selector': 'app-text-view-structure'},{'name': 'TextViewToolsComponent', 'selector': 'app-text-view-tools'},{'name': 'TextlistViewerComponent', 'selector': 'app-textlist-viewer'},{'name': 'ThumbnailbarComponent', 'selector': 'app-thumbnailbar'},{'name': 'TiledImageObjectComponent', 'selector': 'app-tiled-image-object'},{'name': 'TiledLightTableComponent', 'selector': 'app-tiled-light-table'},{'name': 'TiledTextObjectComponent', 'selector': 'app-tiled-text-object'},{'name': 'UpdateLinkedAppsComponent', 'selector': 'app-update-linked-apps'},{'name': 'YoutubeVideoComponent', 'selector': 'app-youtube-video'}];
+    var DIRECTIVES = [{'name': 'DraggableDirective', 'selector': '[appDraggable]'},{'name': 'DraggableStubDirective', 'selector': '[appDraggable]'},{'name': 'FloatDropTargetDirective', 'selector': '[appDropTarget]'},{'name': 'ModifiableDirective', 'selector': '[appModifiable]'},{'name': 'ModifiableStubDirective', 'selector': '[appModifiable]'},{'name': 'SelectableDirective', 'selector': '[appSelectable]'},{'name': 'SelectableStubDirective', 'selector': '[appSelectable]'},{'name': 'SynopsisObjectAnchorDirective', 'selector': '[appSynopsisObjectAnchor]'},{'name': 'TileDropTargetDirective', 'selector': '[appTileDropTarget]'}];
+    var ACTUAL_COMPONENT = {'name': 'SpiralBarChartComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'SpiralBarChartComponent.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <script src="../js/menu-wc.js"></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

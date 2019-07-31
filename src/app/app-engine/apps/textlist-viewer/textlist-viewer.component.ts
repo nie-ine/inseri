@@ -11,10 +11,9 @@ export class TextlistViewerComponent implements OnChanges {
   constructor() {
   }
   ngOnChanges() {
-    if ( typeof this.textToDisplay !== 'string' ) {
-      this.displayArray = true;
-    } else {
-      this.displayArray = false;
+    if ( this.textToDisplay === undefined ) {
+      this.textToDisplay = 'No Input given - This App is used to display plain text and <h4>html</h4> without css';
     }
+    console.log( 'Changes', this.textToDisplay );
   }
 }

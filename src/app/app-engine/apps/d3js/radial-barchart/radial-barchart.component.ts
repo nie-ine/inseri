@@ -47,6 +47,7 @@ export class RadialBarchartComponent implements AfterViewChecked {
 
   ngAfterViewChecked() {
     if (this.initialised && !this.alreadyInitialised) {
+      setTimeout(() => {
       this.alreadyInitialised = true;
       // this.formatNumber = d3Format.format('s');
       this.color = d3Scale.scaleOrdinal()
@@ -66,11 +67,12 @@ export class RadialBarchartComponent implements AfterViewChecked {
         ]);
       this.initSvg();
       this.initAxis();
+      }, 100);
     }
   }
 
   generateComponentDivClass() {
-    return 'radialBarchart' + this.numberOfInitialisedComponent;
+    return 'radialBarChart' + this.numberOfInitialisedComponent;
   }
 
   initSvg() {

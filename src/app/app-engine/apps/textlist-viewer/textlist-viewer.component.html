@@ -1,15 +1,5 @@
 <div style="margin-top: 20px; margin-left: 30px; " >
-  <span *ngIf="displayArray">
-    <span *ngFor="let textentry of textToDisplay" >
-      <span [innerHtml]="textentry" style="margin-bottom: 10px"></span>
-      <br>
-      <span style="margin-bottom: 10px; margin-top: 30px">
-        <mat-divider></mat-divider>
-      </span>
-      <br>
-    </span>
-  </span>
-  <span *ngIf="!displayArray">
+  <span >
     <span [innerHtml]="textToDisplay"></span>
   </span>
 </div>

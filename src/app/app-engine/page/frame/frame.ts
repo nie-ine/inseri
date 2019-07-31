@@ -1,3 +1,10 @@
+/**
+ * The frame.component is the "container" for every app
+ * and takes care of the all general app - information,
+ * for example the app - title - bar, the current position,
+ * the drag - and - drop attributes etc.
+ * */
+
 import {
   Component,
   Input,
@@ -20,22 +27,46 @@ import { FrameSettingsComponent } from '../frame-settings/frame-settings.compone
 })
 export class Frame implements OnInit, OnChanges {
 
+  /**
+   * @param show - indicates if app is minimalized or not
+   * */
   show = false;
-
+  /**
+   * @param title - title of the app
+   * */
   @Input() title: string;
+  /**
+   * @param type - type of the app
+   * */
   @Input() type: string;
-  @Input() id: number;
+  /**
+   * @param firstPopupX - if app is opened for the first time, this variable indicates where it should disappear vertically
+   * */
   @Input() firstPopupX: number;
+  /**
+   * @param firstPopupY - if app is opened for the first time, this variable indicates where it should disappear horizontally
+   * */
   @Input() firstPopupY: number;
+  /**
+   * @param hash - hash of the open app, this has to be emitted for the page so that the page knows which app is emmitting the information
+   * */
   @Input() hash: string;
+  /**
+   * @param width, height - width and height of the open app
+   * */
   @Input() width: number;
+  /**
+   * @param width, height - width and height of the open app
+   * */
   @Input() height: number;
-  @Input() index: number = undefined;
-  @Input() arrayLength: number = undefined;
-  @Input() queryId: string;
+  /**
+   * @param position - "static" if the option "sort by appType" is chosen, "absolute" otherwise
+   * */
   @Input() position = 'absolute';
   @Input() fullWidth: boolean;
   @Input() fullHeight: boolean;
+  @Input() preview = false;
+  @Input() showAppSettingsOnPublish = true;
   @Output() sendAppCoordinatesBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendAppSettingsBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendIndexBack: EventEmitter<any> = new EventEmitter<any>();
@@ -67,10 +98,18 @@ export class Frame implements OnInit, OnChanges {
     this.dragging = this.unboundDragging.bind(this);
   }
 
+  /**
+   * This is necessary for the app to be able to react onChanges regarding the input data for the apps,
+   * for example updated App - Settings or updated App - Title
+   * */
   ngOnChanges() {
     // console.log('changes');
+    console.log( this.preview, this.showAppSettingsOnPublish );
   }
 
+  /**
+   * When open at first, the app appears at the coordinates (100|100)
+   * */
   ngOnInit() {
     // If coordinates of window are set through input, let it appear
     if ( this.firstPopupX && this.firstPopupY ) {
@@ -86,6 +125,7 @@ export class Frame implements OnInit, OnChanges {
     document.getSelection().removeAllRanges();
     this.setPos();
     this.show = true;
+    this.setNewZIndex();
   }
 
   disappear() {
@@ -93,7 +133,7 @@ export class Frame implements OnInit, OnChanges {
   }
 
   setPos() {
-    if (this.fatherPopup == undefined) {
+    if (this.fatherPopup == undefined ) {
       this.curX = this.firstPopupX;
       this.curY = this.firstPopupY;
       this.curZIndex = this.firstPopupZ;
@@ -139,6 +179,8 @@ export class Frame implements OnInit, OnChanges {
     this.sendCoordinatesBack.title = this.title;
     this.sendCoordinatesBack.width = this.width;
     this.sendCoordinatesBack.height = this.height;
+    this.sendCoordinatesBack.fullWidth = this.fullWidth;
+    this.sendCoordinatesBack.fullHeight = this.fullHeight;
     console.log(this.sendCoordinatesBack);
     this.sendAppCoordinatesBack.emit(
       this.sendCoordinatesBack
@@ -160,6 +202,13 @@ export class Frame implements OnInit, OnChanges {
         this.fullHeight
       ]
     });
+    /**
+     * After the dialog is closed, all settings are send back to the page.
+     * This emit triggers the update of the frame - inputs through onChanges.
+     * Thus, the inputs of the frame are not updated immediatly in the frame.component
+     * but through the onChanges - Event. This is necessary in order for the page
+     * to be able to save all app - settings immediately.
+     * */
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
       if ( result ) {
@@ -174,8 +223,26 @@ export class Frame implements OnInit, OnChanges {
             fullHeight: result[ 4 ]
           }
         );
-        // this.title = result.title;
+
       }
     });
   }
+
+  /**
+   * This routine makes sure that when you click on the app
+   * it comes to thr foreground
+   * */
+  setNewZIndex() {
+    console.log( 'Set new z index;' );
+    console.log( this.curZIndex );
+    const savedZIndex = localStorage.getItem('curZIndex');
+    if ( savedZIndex === null ) {
+      this.curZIndex += 1;
+      localStorage.setItem( 'curZIndex', this.curZIndex + 1 );
+    } else {
+      this.curZIndex = +savedZIndex + 1;
+      localStorage.setItem( 'curZIndex', this.curZIndex );
+    }
+  }
+
 }

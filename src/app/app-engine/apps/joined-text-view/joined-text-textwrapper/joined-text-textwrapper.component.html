@@ -1,0 +1,19 @@
+<ng-container *ngIf="resource">
+  <ng-container *ngIf="resource[propertyKey]">
+    <ng-container *ngIf="resource[propertyKey]['knora-api:textValueAsXml']">
+      <app-text-rich-innerhtml
+        [htmlContent]="resource[propertyKey]['knora-api:textValueAsXml']"
+        [selectedEnvironmentKeys]="highlighted"
+        [baseStyles]="styleDeclarations"
+        [selectableEnvironments]="selectiveStyleDeclarations"></app-text-rich-innerhtml>
+    </ng-container>
+
+    <ng-container *ngIf="resource[propertyKey]['knora-api:valueAsString']">
+      <app-text-rich-innerhtml
+        [htmlContent]="resource[propertyKey]['knora-api:valueAsString']"
+        [selectedEnvironmentKeys]="highlighted"
+        [baseStyles]="styleDeclarations"
+        [selectableEnvironments]="selectiveStyleDeclarations"></app-text-rich-innerhtml>
+    </ng-container>
+  </ng-container>
+</ng-container>
