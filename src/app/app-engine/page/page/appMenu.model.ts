@@ -215,6 +215,15 @@ export class AppMenuModel {
       status: 'under development',
       appType: 'editResourceForm',
       description: 'With this app you can change data in Knora and see the history of given properties.'
+    },
+    {
+      id: 'joined_text_view',
+      name: 'Joined Text View',
+      tags: 'knora, text, html',
+      color: 'orange',
+      status: 'under development',
+      appType: 'joinedTextView',
+      description: 'Map text resources to blocks, lines and words and show them as HTML'
     }
   ];
 }

@@ -1,0 +1,25 @@
+<div *ngIf="textConfiguration">
+  <app-joined-text-block
+    *ngIf="textConfiguration.blocks"
+    [backendAddress]="backendAddress"
+    [blockConfiguration]="textConfiguration.blocks"
+    [parentIri]="textRootIri"
+    [highlighted]="highlighted"
+    [styleDeclarations]="styleDeclarations"
+    [selectiveStyleDeclarations]="selectiveStyleDeclarations"
+    [clickedResource]="clickedResource" (clickedResourceChange)="clickChange($event)"
+    [hoveredResource]="hoveredResource" (hoveredResourceChange)="hoverChange($event)">
+  </app-joined-text-block>
+
+  <app-joined-text-line
+    *ngIf="textConfiguration.lines"
+    [backendAddress]="backendAddress"
+    [lineConfiguration]="textConfiguration.lines"
+    [parentIri]="textRootIri"
+    [highlighted]="highlighted"
+    [styleDeclarations]="styleDeclarations"
+    [selectiveStyleDeclarations]="selectiveStyleDeclarations"
+    [clickedResource]="clickedResource" (clickedResourceChange)="clickChange($event)"
+    [hoveredResource]="hoveredResource" (hoveredResourceChange)="hoverChange($event)">
+  </app-joined-text-line>
+</div>

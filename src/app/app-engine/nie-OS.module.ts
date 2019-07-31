@@ -71,6 +71,7 @@ import { StaticPagesModule } from  '../user-action-engine/static-pages.module';
 import { PageMenuComponent } from './page/page-menu/page-menu.component';
 import { YoutubeVideoComponent } from './apps/youtube-video/youtube-video.component';
 import {MatRadioModule} from '@angular/material/radio';
+import { JoinedTextViewModule } from './apps/joined-text-view/joined-text-view.module';
 
 @NgModule({
   imports: [
@@ -118,6 +119,7 @@ import {MatRadioModule} from '@angular/material/radio';
     MatCheckboxModule,
     StaticPagesModule,
     MatRadioModule,
+    JoinedTextViewModule,
     // KnoraJsonldSimplify,
     RouterModule.forChild([
       { path: 'page', component: PageComponent },

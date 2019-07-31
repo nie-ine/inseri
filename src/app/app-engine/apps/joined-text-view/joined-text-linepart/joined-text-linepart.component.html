@@ -1,0 +1,35 @@
+<span *ngIf="linepartConfiguration.prefix"
+      [ngStyle]="getStyleDict('prefixStyleKeys', null)">{{ linepartConfiguration.prefix }}</span><span
+  *ngFor="let l of lineparts; let i = index"
+  [ngStyle]="getStyleDict('styleKeys', l['@id'])"
+  (click)="clickLinepart(l['@id'])"
+  (mouseenter)="hoverOntoLinepart(l['@id'])"
+  (mouseleave)="hoverOutOfLinepart()"><span
+  *ngIf="linepartConfiguration.interfix && i !== 0"
+  [ngStyle]="getStyleDict('interfixStyleKeys', null)">{{ linepartConfiguration.interfix }}</span>
+
+  <app-joined-text-linepart
+    *ngIf="linepartConfiguration.lineparts"
+    [parentIri]="l['@id']"
+    [backendAddress]="backendAddress"
+    [linepartConfiguration]="linepartConfiguration.lineparts"
+    [highlighted]="highlighted"
+    [styleDeclarations]="styleDeclarations"
+    [selectiveStyleDeclarations]="selectiveStyleDeclarations"
+    [clickedResource]="clickedResource" (clickedResourceChange)="clickChange($event)"
+    [hoveredResource]="hoveredResource" (hoveredResourceChange)="hoverChange($event)">
+  </app-joined-text-linepart>
+
+  <app-joined-text-textwrapper
+    *ngIf="linepartConfiguration.contentPropertyIri"
+    [namespaces]="namespaces"
+    [propertyIri]="linepartConfiguration.contentPropertyIri"
+    [resource]="l"
+    [highlighted]="highlighted"
+    [styleDeclarations]="styleDeclarations"
+    [selectiveStyleDeclarations]="selectiveStyleDeclarations">
+  </app-joined-text-textwrapper>
+
+</span><span
+  *ngIf="linepartConfiguration.suffix"
+  [ngStyle]="getStyleDict('suffixStyleKeys', null)">{{ linepartConfiguration.suffix }}</span>

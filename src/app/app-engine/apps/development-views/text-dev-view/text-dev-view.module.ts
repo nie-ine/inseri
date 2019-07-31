@@ -6,6 +6,7 @@ import { TextStructureModule } from '../../text-structure/text-structure.module'
 import { RichTextModule } from '../../shared/rich-text/rich-text.module';
 import { ComplexTextViewsModule } from '../../complex-text-views/complex-text-views.module';
 import { FormsModule } from '@angular/forms';
+import { JoinedTextViewModule } from '../../joined-text-view/joined-text-view.module';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { FormsModule } from '@angular/forms';
     TextStructureModule,
     ComplexTextViewsModule,
     RichTextModule,
+    JoinedTextViewModule,
     RouterModule.forChild([
       { path: 'dev/text', component: TextDevViewComponent}
     ])
