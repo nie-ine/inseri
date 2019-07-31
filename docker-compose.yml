@@ -3,8 +3,8 @@ version: "2"
 services:
   nieos_production:
     # build: .
-    #image: nieine/nieos:2019-05-29
-    image: nieine/nieos-test-instance:2019-06-24
+    #image: nieine/nieos:2019-07-31
+    image: nieine/nieos-test-instance:19-07-31
     ports:
     - 4200:80
     volumes:
