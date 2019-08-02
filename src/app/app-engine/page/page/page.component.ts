@@ -184,6 +184,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   showAppSettingsOnPublish = false;
   showDataBrowserOnPublish = true;
   publishedOptionsExpanded = false;
+  pageIsPublished = false;
 
   appTypes: Array<string> = [];
 
@@ -293,8 +294,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
       this.addAnotherApp( 'login', true );
       console.log( this.openAppsInThisPage );
       this.openAppsInThisPage[ 'login' ].model[ 0 ].initialized = true;
-      this.openAppsInThisPage[ 'login' ].model[ 0 ].x = 100;
-      this.openAppsInThisPage[ 'login' ].model[ 0 ].y = 150;
+      this.openAppsInThisPage[ 'login' ].model[ 0 ].x = 150;
+      this.openAppsInThisPage[ 'login' ].model[ 0 ].y = 130;
     }
     // this.cssUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.stylemapping.getUserCss().toString());
     this.actionID = this.route.snapshot.queryParams.actionID;
@@ -506,6 +507,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     // console.log( this.page );
     this.action = pageAndAction[ 1 ];
     this.reloadVariables = false;
+    this.pageIsPublished = this.page.published;
   }
 
   receiveOpenAppsInThisPage( openAppsInThisPage: any ) {
@@ -606,5 +608,21 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.snackBar.openFromComponent(ExtendSessionComponent, {
       duration: 100000,
     });
+  }
+
+  publishPageOrMakePagePrivate( published: boolean ) {
+    console.log( this.page );
+    for ( const queryId in this.page ) {
+
+    }
+    this.pageIsPublished = published;
+    this.page.published = published;
+    this.action.published = published;
+    this.updatePage();
+    this.action.id = this.action._id;
+    this.actionService.updateAction(this.action)
+      .subscribe((action) => {
+        console.log(action);
+      });
   }
 }

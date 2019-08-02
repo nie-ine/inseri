@@ -4,7 +4,7 @@ const Page = require('../models/page');
 const Query = require('../models/query');
 
 const checkAuth = require('../middleware/check-auth');
-
+const checkAuth2 = require('../middleware/check-auth-without-immediate-response');
 const router = express.Router();
 
 // Nur zum TESTEN
@@ -26,26 +26,50 @@ router.get('', checkAuth, (req, res, next) => {
         });
 });
 
-router.get('/:id', checkAuth, (req, res, next) => {
-    Page.findById(req.params.id)
-        .then(result => {
-            if (result) {
-                res.status(200).json({
-                    message: 'Page was found',
-                    page: result
-                });
-            } else {
-                res.status(404).json({
-                    message: 'Page was not found'
-                });
-            }
-        })
-        .catch(error => {
-            res.status(500).json({
-                message: 'Fetching page failed',
-                error: error
+router.get('/:id', checkAuth2, (req, res, next) => {
+    console.log( req.loggedIn );
+    if( req.loggedIn === true ) {
+        Page.findById(req.params.id)
+            .then(result => {
+                if (result) {
+                    res.status(200).json({
+                        message: 'Page was found',
+                        page: result
+                    });
+                } else {
+                    res.status(404).json({
+                        message: 'Page was not found'
+                    });
+                }
             })
-        })
+            .catch(error => {
+                res.status(500).json({
+                    message: 'Fetching page failed',
+                    error: error
+                })
+            })
+    } else if ( req.loggedIn === false ) {
+        Page.findById(req.params.id)
+            .then(result => {
+                if (result) {
+                    console.log( result );
+                    res.status(200).json({
+                        message: 'Page was found',
+                        page: result
+                    });
+                } else {
+                    res.status(404).json({
+                        message: 'Page was not found'
+                    });
+                }
+            })
+            .catch(error => {
+                res.status(500).json({
+                    message: 'Fetching page failed',
+                    error: error
+                })
+            })
+    }
 });
 
 router.get('/:id/queries', checkAuth, (req, res, next) => {
@@ -257,9 +281,11 @@ router.delete('/:pageID/queries/:queryID', checkAuth, (req, res, next) => {
 });
 
 router.put('/:id', checkAuth, (req, res, next) => {
+    console.log( req.body );
     Page.findByIdAndUpdate({_id: req.params.id}, {
         openApps: req.body.openApps,
-        appInputQueryMapping: req.body.appInputQueryMapping
+        appInputQueryMapping: req.body.appInputQueryMapping,
+        published: req.body.published
     }, {new:true})
         .then(resultPage => {
             res.status(200).json({

@@ -115,9 +115,10 @@
             {{ page.title }}
           </mat-chip>
         </mat-chip-list>
+        <a *ngIf="pageIsPublished" matTooltip='Page is published' style="margin-left: 15px; float: right; margin-right: 15px; color: #4cae4c !important;"  ><mat-icon>public</mat-icon></a>
         <a *ngIf=" (!pageAsDemo) && !preview" matTooltip='Preview of published page' style="margin-left: 15px; float: right; margin-right: 15px;" (click)="preview = !preview" ><mat-icon>nature_people</mat-icon></a>
         <a *ngIf=" (!pageAsDemo) && preview" matTooltip='Back to page editor' style="color: #4cae4c !important;  margin-left: 15px; float: right; margin-right: 15px;" (click)="preview = !preview" ><mat-icon>nature</mat-icon></a>
-        <div style=" position: fixed; right: 55px; top: 12px; z-index: 300; width: 300px; margin-bottom: 70px;" *ngIf="preview">
+        <div style=" position: fixed; right: 125px; top: 12px; z-index: 300; width: 300px; margin-bottom: 70px;" *ngIf="preview">
           <mat-expansion-panel [ngStyle]="{
           'height': publishedOptionsExpanded ? '500px' : '',
           'overflow': publishedOptionsExpanded ? 'auto' : '' }" >
@@ -143,6 +144,8 @@
               Thus, the page is quotable and can be used as a reference for scientific publications.
             </mat-radio-group>
             <mat-divider style="margin-top: 10px; margin-bottom: 10px;"  ></mat-divider>
+            <button mat-button *ngIf="!pageIsPublished" (click)="publishPageOrMakePagePrivate( true )"> <mat-icon>publish</mat-icon> Publish Page</button>
+            <button mat-button *ngIf="pageIsPublished" (click)="publishPageOrMakePagePrivate( false )"> <mat-icon>fingerprint</mat-icon> Make page private again</button>
           </mat-expansion-panel>
         </div>
 

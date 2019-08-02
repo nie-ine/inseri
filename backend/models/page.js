@@ -6,6 +6,7 @@ const pageSchema = mongoose.Schema({
     openApps: { type: [String] },
     appInputQueryMapping: { type: [String] },
     queries: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Query' }],
+    published: { type: Boolean }
 });
 
 module.exports = mongoose.model('Page', pageSchema);

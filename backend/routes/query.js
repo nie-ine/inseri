@@ -3,6 +3,7 @@ const express = require('express');
 const Query = require('../models/query');
 
 const checkAuth = require('../middleware/check-auth');
+const checkAuth2 = require('../middleware/check-auth-without-immediate-response');
 
 const router = express.Router();
 
@@ -30,26 +31,49 @@ router.get('',  checkAuth, (req, res, next) => {
         })
 });
 
-router.get('/:id', checkAuth, (req, res, next) => {
-    Query.findById(req.params.id)
+router.get('/:id', checkAuth2, (req, res, next) => {
+    if( req.loggedIn === true ) {
+      Query.findById(req.params.id)
         .then(result => {
-            if (result) {
-                res.status(200).json({
-                    message: 'Query was found',
-                    query: result
-                });
-            } else {
-                res.status(404).json({
-                    message: 'Query was not found'
-                });
-            }
+          if (result) {
+            res.status(200).json({
+              message: 'Query was found',
+              query: result
+            });
+          } else {
+            res.status(404).json({
+              message: 'Query was not found'
+            });
+          }
         })
         .catch(error => {
-            res.status(500).json({
-                message: 'Fetching query failed',
-                error: error
-            })
+          res.status(500).json({
+            message: 'Fetching query failed',
+            error: error
+          })
         })
+    } else if ( req.loggedIn === false ) {
+      Query.findById(req.params.id)
+        .then(result => {
+          if (result && result.published === true) {
+            res.status(200).json({
+              message: 'Query was found',
+              query: result
+            });
+          } else {
+            res.status(404).json({
+              message: 'Query was not found'
+            });
+          }
+        })
+        .catch(error => {
+          res.status(500).json({
+            message: 'Fetching query failed',
+            error: error
+          })
+        })
+    }
+
 });
 
 router.put('/:id', (req, res, next) => {
