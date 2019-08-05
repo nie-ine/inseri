@@ -25,6 +25,8 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { AppMenuModel } from './appMenu.model';
 import {ExtendSessionComponent, PizzaPartyComponent} from '../../../user-action-engine/header/header.component';
+import {AuthService} from '../../../user-action-engine/mongodb/auth/auth.service';
+import {QueryService} from '../../../user-action-engine/mongodb/query/query.service';
 
 
 @Component({
@@ -189,7 +191,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   appTypes: Array<string> = [];
 
   constructor(
-    private route: ActivatedRoute,
+    public route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
     private generateHashService: GenerateHashService,
     private openApps: OpenAppsModel,
@@ -203,7 +205,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
     private stylemapping: StyleMappingService,
     private actionService: ActionService,
     private router: Router,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    private authService: AuthService,
+    private queryService: QueryService
   ) {
     this.route.queryParams.subscribe(params => {
       this.hashOfThisPage = params.page;
@@ -612,8 +616,15 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   publishPageOrMakePagePrivate( published: boolean ) {
     console.log( this.page );
-    for ( const queryId in this.page ) {
-
+    for ( const queryId of this.page.queries ) {
+      console.log( queryId );
+      this.queryService.publishQuery(queryId, published)
+        .subscribe(
+          (response) => {
+            console.log( response );
+          }, error => {
+            console.log( error );
+          });
     }
     this.pageIsPublished = published;
     this.page.published = published;
@@ -624,5 +635,11 @@ export class PageComponent implements OnInit, AfterViewChecked {
       .subscribe((action) => {
         console.log(action);
       });
+  }
+
+  logout() {
+    console.log('Log out');
+    this.authService.logout();
+    this.router.navigate(['/']);
   }
 }

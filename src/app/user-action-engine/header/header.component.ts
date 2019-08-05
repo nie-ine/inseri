@@ -53,7 +53,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   constructor(
     private initService: InitService,
-    private router: Router,
+    public router: Router,
     private dialog: MatDialog,
     private dialog2: MatDialog,
     private activatedRoute: ActivatedRoute,

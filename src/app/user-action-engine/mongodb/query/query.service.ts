@@ -42,6 +42,10 @@ export class QueryService {
     return this.http.put(`${QueryService.API_BASE_URL_QUERY}/${queryId}`, query, {observe: 'response'});
   }
 
+  publishQuery(queryId: string, published: boolean): Observable<any> {
+    return this.http.put(`${QueryService.API_BASE_URL_QUERY}/${queryId}/publish`, {published: published}, {observe: 'response'});
+  }
+
   updateQueryOfPage(pageId: string, queryId: string, query: any): Observable<any> {
     return this.http.put(`${QueryService.API_BASE_URL_PAGE}/${pageId}/queries/${queryId}`, query, {observe: 'response'});
   }

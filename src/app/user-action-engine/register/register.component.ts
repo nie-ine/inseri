@@ -21,6 +21,7 @@ export class RegisterComponent implements OnInit{
   neededSpecialCharacters;
   wrongFormatAlert = false;
   newsletter = false;
+  environment = environment.node;
 
   constructor(
     private router: Router,
@@ -32,7 +33,7 @@ export class RegisterComponent implements OnInit{
   ) {}
 
   ngOnInit() {
-    console.log( this.termsAndConditions );
+    console.log( this.environment );
     this.model.newsletter = false;
     this.neededSpecialCharacters = this.passwordFormatCheckService.neededSpecialCharacters;
   }

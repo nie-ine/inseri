@@ -1,4 +1,4 @@
-<div class="col-md-6 col-md-offset-3" style="margin-top: 30px" *ngIf="!userCreated">
+<div class="col-md-6 col-md-offset-3" style="margin-top: 30px" *ngIf="!userCreated && environment.search('test') === -1">
   <h2>Register</h2>
   <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
 
@@ -74,3 +74,7 @@
 </div>
 
 <div *ngIf="userCreated" style="margin-top: 40px"> Greetings {{ model.firstName }} <br> Your user has been created in nieOS! Have fun! <a href="home#login" class="btn btn-link">Go to your Dashboard</a></div>
+
+<div *ngIf="environment.search('test') !== -1" > This is the test - instance, please go to the
+  <a href="https://nieos.nie-ine.ch">production instance.</a>
+</div>

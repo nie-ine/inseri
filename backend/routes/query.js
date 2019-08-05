@@ -55,7 +55,7 @@ router.get('/:id', checkAuth2, (req, res, next) => {
     } else if ( req.loggedIn === false ) {
       Query.findById(req.params.id)
         .then(result => {
-          if (result && result.published === true) {
+          if (result && result.published ) {
             res.status(200).json({
               message: 'Query was found',
               query: result
@@ -76,7 +76,7 @@ router.get('/:id', checkAuth2, (req, res, next) => {
 
 });
 
-router.put('/:id', (req, res, next) => {
+router.put('/:id', checkAuth, (req, res, next) => {
     Query.update({ _id: req.params.id}, {
       title: req.body.title,
       description: req.body.description,
@@ -99,6 +99,25 @@ router.put('/:id', (req, res, next) => {
           error: error
         });
       })
+});
+
+router.put('/:id/publish', checkAuth, (req, res, next) => {
+  console.log( 'Here', req.params.id, req.body );
+  Query.update({ _id: req.params.id}, {
+    published: req.body.published
+  }, {new:true})
+    .then(updatedQuery => {
+      res.status(200).json({
+        message: 'Query was updated successfully',
+        query: updatedQuery
+      });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Query cannot be updated',
+        error: error
+      });
+    })
 });
 
 router.post('', checkAuth, (req, res, next) => {
