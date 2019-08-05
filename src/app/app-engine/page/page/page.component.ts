@@ -618,6 +618,27 @@ export class PageComponent implements OnInit, AfterViewChecked {
     console.log( this.page );
     for ( const queryId of this.page.queries ) {
       console.log( queryId );
+      this.queryService.getQuery(queryId)
+        .subscribe(
+          (query) => {
+            console.log( query );
+            if ( query.query.method === 'JSON' ) {
+              let splittedString = query.query.serverUrl.split('/');
+              splittedString = splittedString[ splittedString.length - 1 ];
+              console.log( splittedString, typeof splittedString );
+              this.requestService.publishJSON( splittedString, published )
+                .subscribe(
+                  (json) => {
+                    console.log( json );
+                  }, error1 => {
+                    console.log( error1 );
+                  }
+                );
+            }
+          }, error1 => {
+            console.log( error1 );
+          }
+        );
       this.queryService.publishQuery(queryId, published)
         .subscribe(
           (response) => {

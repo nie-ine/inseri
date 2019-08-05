@@ -80,4 +80,8 @@ export class GeneralRequestService {
   ) {
     return this.http.put( GeneralRequestService.API_BASE_URL_MY_OWN_JSON + '/updateJson/' + jsonId, body );
   }
+
+  publishJSON( jsonId: string, published: boolean ) {
+    return this.http.put( GeneralRequestService.API_BASE_URL_MY_OWN_JSON + '/publishJSON/' + jsonId, {published: published} );
+  }
 }

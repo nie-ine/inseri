@@ -3,6 +3,7 @@ const express = require('express');
 const MyOwnJson = require('../models/myOwnJson');
 
 const checkAuth = require('../middleware/check-auth');
+const checkAuth2 = require('../middleware/check-auth-without-immediate-response');
 
 const router = express.Router();
 
@@ -28,27 +29,50 @@ router.get('/newJson', checkAuth, (req, res, next) => {
     });
 });
 
-router.get('/getJson/:id', checkAuth, (req, res, next) => {
-  console.log( 'Get my own Json' );
-  MyOwnJson.findById(req.params.id)
-    .then(result => {
-      if (result) {
-        res.status(200).json({
-          message: 'MyOwnJson was found',
-          result: result
-        });
-      } else {
-        res.status(404).json({
-          message: 'MyOwnJson was not found'
-        });
-      }
-    })
-    .catch(error => {
-      res.status(500).json({
-        message: 'Fetching MyOwnJson failed',
-        error: error
+router.get('/getJson/:id', checkAuth2, (req, res, next) => {
+  if ( req.loggedIn ) {
+    MyOwnJson.findById(req.params.id)
+      .then(result => {
+        if (result) {
+          res.status(200).json({
+            message: 'MyOwnJson was found',
+            result: result
+          });
+        } else {
+          res.status(404).json({
+            message: 'MyOwnJson was not found'
+          });
+        }
       })
-    })
+      .catch(error => {
+        res.status(500).json({
+          message: 'Fetching MyOwnJson failed',
+          error: error
+        })
+      })
+  } else {
+    MyOwnJson.findById(req.params.id)
+      .then(result => {
+        console.log( result, 'PUBLISHED?' );
+        if (result && result.published) {
+          res.status(200).json({
+            message: 'MyOwnJson was found',
+            result: result
+          });
+        } else {
+          res.status(404).json({
+            message: 'MyOwnJson was not found'
+          });
+        }
+      })
+      .catch(error => {
+        res.status(500).json({
+          message: 'Fetching MyOwnJson failed',
+          error: error
+        })
+      })
+  }
+
 });
 
 router.put('/updateJson/:id', checkAuth, (req, res, next) => {
@@ -71,6 +95,25 @@ router.put('/updateJson/:id', checkAuth, (req, res, next) => {
         message: 'JSON cannot be updated'
       });
     });
+});
+
+router.put('/publishJSON/:id', checkAuth, (req, res, next) => {
+  MyOwnJson.update({ _id: req.params.id}, {
+    published: req.body.published
+  }, {new:true})
+    .then(updatedJson => {
+      console.log( updatedJson );
+      res.status(200).json({
+        message: 'myOwnJson was updated successfully',
+        query: updatedJson
+      });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'myOwnJson cannot be updated',
+        error: error
+      });
+    })
 });
 
 module.exports = router;

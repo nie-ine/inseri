@@ -73,7 +73,6 @@ router.get('/:id', checkAuth2, (req, res, next) => {
           })
         })
     }
-
 });
 
 router.put('/:id', checkAuth, (req, res, next) => {
@@ -102,7 +101,6 @@ router.put('/:id', checkAuth, (req, res, next) => {
 });
 
 router.put('/:id/publish', checkAuth, (req, res, next) => {
-  console.log( 'Here', req.params.id, req.body );
   Query.update({ _id: req.params.id}, {
     published: req.body.published
   }, {new:true})

@@ -27,7 +27,7 @@ router.get('', checkAuth, (req, res, next) => {
 });
 
 router.get('/:id', checkAuth2, (req, res, next) => {
-    console.log( req.loggedIn );
+
     if( req.loggedIn === true ) {
         Page.findById(req.params.id)
             .then(result => {
@@ -52,7 +52,6 @@ router.get('/:id', checkAuth2, (req, res, next) => {
         Page.findById(req.params.id)
             .then(result => {
                 if (result) {
-                    console.log( result );
                     res.status(200).json({
                         message: 'Page was found',
                         page: result
@@ -281,7 +280,6 @@ router.delete('/:pageID/queries/:queryID', checkAuth, (req, res, next) => {
 });
 
 router.put('/:id', checkAuth, (req, res, next) => {
-    console.log( req.body );
     Page.findByIdAndUpdate({_id: req.params.id}, {
         openApps: req.body.openApps,
         appInputQueryMapping: req.body.appInputQueryMapping,
