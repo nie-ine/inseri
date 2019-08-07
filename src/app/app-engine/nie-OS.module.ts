@@ -68,7 +68,6 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { OpenbisLoginComponent } from './apps/openbis-login/openbis-login.component';
 // import { KnoraJsonldSimplify } from 'knora-jsonld-simplify/dist';
 import { StaticPagesModule } from  '../user-action-engine/static-pages.module';
-import { PageMenuComponent } from './page/page-menu/page-menu.component';
 import { YoutubeVideoComponent } from './apps/youtube-video/youtube-video.component';
 import {MatRadioModule} from '@angular/material/radio';
 import { JoinedTextViewModule } from './apps/joined-text-view/joined-text-view.module';
@@ -160,7 +159,6 @@ import { JoinedTextViewModule } from './apps/joined-text-view/joined-text-view.m
     DataListViewSettings,
     DataListViewTableComponent,
     OpenbisLoginComponent,
-    PageMenuComponent,
     YoutubeVideoComponent
   ],
   exports: [

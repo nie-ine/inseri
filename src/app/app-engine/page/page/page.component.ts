@@ -16,7 +16,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import {GeneralRequestService} from '../../../query-engine/general/general-request.service';
 import {QueryInformationDialogComponent} from '../query-information-dialog/query-information-dialog.component';
 import {StyleMappingService} from '../../../query-app-interface/services/style-mapping-service';
-import {PageMenuComponent} from '../page-menu/page-menu.component';
 import {Observable, Subscription} from 'rxjs';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {ActionService} from '../../../user-action-engine/mongodb/action/action.service';
@@ -176,19 +175,52 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * */
   preview = false;
 
+  /**
+   * Used to display how much longer the user will be logged in
+   * */
   userInfo: string;
 
+  /**
+   * used to reqest the expiration time of the currently logged in user
+   * */
   sub: any;
+
+  /**
+   * Used to display notifications
+   * */
   snackBarOpen = false;
+
+  /**
+   * Indicates if the lighthouse button is highlighted or not
+   * */
   lightHouse = true;
+
+  /**
+   * Describes which elements should be shown on published page
+   * */
   showAppTitlesOnPublish = false;
   showInseriLogoOnPublish = false;
   showAppSettingsOnPublish = false;
   showDataBrowserOnPublish = true;
+
+  /**
+   * Described if publish option expansion panel is open
+   * */
   publishedOptionsExpanded = false;
+
+  /**
+   * indicates if page is published
+   * */
   pageIsPublished = false;
+
+  /**
+   * Describes if user is logged in
+   * */
   loggedIn = true;
 
+  /**
+   * Array of appType names
+   * */
   appTypes: Array<string> = [];
 
   constructor(
@@ -220,6 +252,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
     );
   }
 
+  /**
+   * Opens the data managment dialog where users can add queries to the page
+   * */
   openDataManagement() {
     this.spinner.show();
     this.pageService.updatePage(
@@ -247,6 +282,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
         });
   }
 
+  /**
+   * updates variable openAppsInThisPage
+   * */
   updateOpenAppsInThisPage() {
     for ( const app in this.page.openApps ) {
       if ( app && this.openAppsInThisPage[ this.page.openApps[ app ].type ] ) {
@@ -287,6 +325,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   ngOnInit() {
 
+    /**
+     * Checks how much longer user is logged on
+     * */
     this.sub = Observable.interval(1000)
       .subscribe((val) => {
         this.checkTimeUntilLogout();
@@ -301,7 +342,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     }
 
     /**
-     * Necesarry for appshore menu
+     * Necesary for appshore menu
      * */
     for ( const appType in this.openApps.openApps ) {
       this.appTypes.push( appType );
@@ -322,25 +363,43 @@ export class PageComponent implements OnInit, AfterViewChecked {
       this.openAppsInThisPage[ 'login' ].model[ 0 ].x = 150;
       this.openAppsInThisPage[ 'login' ].model[ 0 ].y = 130;
     }
+
     this.actionID = this.route.snapshot.queryParams.actionID;
     this.pageIDFromURL = this.route.snapshot.queryParams.page;
+
+    /**
+     * If there is no action Id in the url, variables are set to instantiate the landing page
+     * */
     if ( !this.actionID ) {
       this.pageAsDemo = true;
       this.isLoading = false;
       this.lightHouse = false;
     }
+
     this.spinner.show();
 
     setTimeout(() => {
       this.spinner.hide();
     }, 5000); // TODO: bind end of spinner to event that all queries have been loaded instead of setTimeout!
+
+    /**
+     * The key value pair curZindex is reset, it is incremented by one every time the user clicks on the app frame title bar
+     * so that the clicked app comes to the front
+     * */
     localStorage.removeItem('curZIndex');
+
+    /**
+     * If the page is a demo, the lighthouse changes the colour every 7 secdons
+     * */
     if ( this.pageAsDemo ) {
       this.startLightHouse();
     }
 
   }
 
+  /**
+   * If the page is a demo, the lighthouse changes the colour every 7 secdons
+   * */
   startLightHouse() {
     setTimeout(() => {
       this.lightHouse = !this.lightHouse;
@@ -348,10 +407,12 @@ export class PageComponent implements OnInit, AfterViewChecked {
     }, 7000);
   }
 
+  /**
+   * Youtube utorial videos are added with this function
+   * */
   addVideoApp( url: string ) {
     this.addAnotherApp( 'youtubeVideo', true );
     const length = this.openAppsInThisPage[ 'youtubeVideo' ].model.length - 1;
-    console.log( length );
     this.openAppsInThisPage[ 'youtubeVideo' ].model[ length ].initialized = true;
     this.openAppsInThisPage[ 'youtubeVideo' ].model[ length ].x = 100;
     this.openAppsInThisPage[ 'youtubeVideo' ].model[ length ].y = 100;
@@ -360,17 +421,26 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.openAppsInThisPage[ 'youtubeVideo' ].model[ length ].height = 400;
   }
 
+  /**
+   * This function returns the index of the currently displayed page
+   * referring to the page - Array of the action
+   * */
   checkIfSelected( index: number ) {
     return (index === this.selectedPage);
   }
 
+  /**
+   * This function is used to navigate to another page belonging to the current pageSet
+   * */
   selectPage(i: number, page: any) {
     this.selectedPage = i;
     this.navigateToOtherView(page);
   }
 
+  /**
+   * This function is used to navigate to another page belonging to the current pageSet
+   * */
   navigateToOtherView(page: any) {
-    console.log('Navigate to last View');
     this.router.navigate( [ 'page' ], {
       queryParams: {
         'actionID': this.actionID,
@@ -379,6 +449,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
     } );
   }
 
+  /**
+   * This function generates the pagesOfThisActtion Array
+   * */
   generateNavigation(actionID: string) {
     if (!this.alreadyLoaded && actionID) {
       this.actionService.getAction(actionID)
@@ -386,10 +459,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
             if (data.body.action.type === 'page-set') {
               this.pagesOfThisActtion = [];
               for (const page of ( data.body as any ).action.hasPageSet.hasPages as any ) {
-                console.log( page._id, this.hashOfThisPage );
                 if ( page._id === this.hashOfThisPage ) {
                   this.selectedPage = this.pagesOfThisActtion.length;
-                  console.log( this.selectedPage );
                 }
                 this.pagesOfThisActtion[this.pagesOfThisActtion.length] = page;
                 this.alreadyLoaded = true;
@@ -414,6 +485,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.page.openApps[ app.hash ] = app;
   }
 
+  /**
+   * This function returns the tooltip of the page selector of a pageSet Navigation chips
+   * */
   createTooltip() {
     if ( this.action ) {
       return 'Page: ' + this.action.title + ', Description: ' + this.action.description;
@@ -422,10 +496,10 @@ export class PageComponent implements OnInit, AfterViewChecked {
     }
   }
 
+  /**
+   * This function updates the page in MongoDB
+   * */
   updatePage() {
-    this.page.openApps[ 'appsTiledOrFloating' ] = {};
-    this.page.openApps[ 'appsTiledOrFloating' ].hash = 'appsTiledOrFloating';
-    this.page.openApps[ 'appsTiledOrFloating' ].layout = this.appFramePosition;
     /**
      *  - it is important to give a COPY of this.page as an input, thus { ...this.page },
      * otherwise this.page will be rewritten by the routine pageService.updatePage
@@ -449,7 +523,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   /**
-   * Todo: continue here with documentation!
+   * This function adds another app to the page. It is invocated through the
+   * inseri appshore menu
    * */
   addAnotherApp (
     appType: string,
@@ -480,6 +555,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
     return appModel;
   }
 
+  /**
+   * This function is used to remove an app from the page
+   * */
   closeApp(
     appModel: Array<any>,
     i: number
@@ -490,14 +568,12 @@ export class PageComponent implements OnInit, AfterViewChecked {
       1);
   }
 
-  expandPanels() {
-    this.panelsOpen = !this.panelsOpen;
-  }
-
+  /**
+   * When a user updates settings in the app setting dialog instantiated in
+   * frame.component.ts, this component emits the settings back so that
+   * it can be stored as part of the page that contains the app
+   * */
   updateAppSettings( settings: any ) {
-    console.log( settings );
-    console.log( this.openAppsInThisPage );
-    console.log( this.page );
     for ( const app of this.openAppsInThisPage[ settings.type ].model ) {
       if ( settings.hash === app.hash ) {
         app.title = settings.title;
@@ -514,6 +590,10 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.page.openApps[ settings.hash ].fullHeight = settings.fullHeight;
   }
 
+  /**
+   * This function produces the height and the width of
+   * each open app
+   * */
   produceHeightAndWidth( appValue: string, defaultHeight: string ) {
     if ( appValue ) {
       return appValue ;
@@ -522,14 +602,16 @@ export class PageComponent implements OnInit, AfterViewChecked {
     }
   }
 
+  /**
+   * The load-variables.component emits the page and the action loaded from mongodb to this
+   * function where the relevant variables are updated
+   * */
   receivePage( pageAndAction: any ) {
-    console.log( pageAndAction );
     if (
       pageAndAction[ 0 ].openApps[ 'appsTiledOrFloating' ] ) {
       this.appFramePosition = pageAndAction[ 0 ].openApps[ 'appsTiledOrFloating' ].layout;
     }
     this.page = pageAndAction[ 0 ];
-    // console.log( this.page );
     this.action = pageAndAction[ 1 ];
     this.reloadVariables = false;
     this.pageIsPublished = this.page.published;
@@ -539,12 +621,19 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.showDataBrowserOnPublish = this.page.showDataBrowserOnPublish;
   }
 
+  /**
+   * The load-variables.component emits the openApps - information loaded from mongodb to this
+   * function where the relevant variables are updated
+   * */
   receiveOpenAppsInThisPage( openAppsInThisPage: any ) {
-    // console.log( openAppsInThisPage );
     this.openAppsInThisPage = openAppsInThisPage;
     this.reloadVariables = false;
   }
 
+  /**
+   * This fuction is invoked by an emit of the data-chooser component,
+   * after the user chooses a data entry
+   * */
   updateMainResourceIndex( input: any ) {
     this.index = input.index;
     this.response = input.response;
@@ -552,8 +641,13 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.depth = input.depth;
   }
 
+  /**
+   * In the data chooser, a user can click on the name of the query.
+   * This function generates the Query information needed to
+   * generate the information in the the generated dialog.
+   * */
   generateQueryAppPathInformation( queryId: string ): any {
-      let queryAppPathInformation = undefined;
+      let queryAppPathInformation;
       for ( const appHash in this.page.appInputQueryMapping ) {
         for ( const appType in this.openAppsInThisPage ) {
           if (
@@ -590,6 +684,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
       }
   }
 
+  /**
+   * This function opens the QueryInformationDialog
+   * */
   openQueryInformationDialog( queryId: string ) {
     const dialogRef = this.queryInfoDialog.open(QueryInformationDialogComponent, {
       width: '800px',
@@ -627,12 +724,19 @@ export class PageComponent implements OnInit, AfterViewChecked {
     }
   }
 
+  /**
+   * This material snackbar is opened to display if a paage has been saved or not
+   * */
   openSnackBar() {
     this.snackBar.openFromComponent(PizzaPartyComponent, {
       duration: 3000,
     });
   }
 
+  /**
+   * This material snackbar is opened when the session of a user is close to
+   * expiring
+   * */
   openExtendSessionBar() {
     this.snackBar.openFromComponent(ExtendSessionComponent, {
       duration: 100000,
@@ -640,17 +744,23 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   publishPageOrMakePagePrivate( published: boolean ) {
-    console.log( this.page );
+
+    /**
+     * This part of the function publishes all queries
+     * */
     for ( const queryId of this.page.queries ) {
-      console.log( queryId );
       this.queryService.getQuery(queryId)
         .subscribe(
           (query) => {
-            console.log( query );
             if ( query.query.method === 'JSON' ) {
+              /**
+               * The query that is from type 'JSON', which means that this
+               * query requests data from mongodb, contains the mongodb id
+               * of the bson entry at the end of the query.serverUrl part.
+               * This part is queried in the following 2 lines.
+               * */
               let splittedString = query.query.serverUrl.split('/');
               splittedString = splittedString[ splittedString.length - 1 ];
-              console.log( splittedString, typeof splittedString );
               this.requestService.publishJSON( splittedString, published )
                 .subscribe(
                   (json) => {
@@ -672,6 +782,10 @@ export class PageComponent implements OnInit, AfterViewChecked {
             console.log( error );
           });
     }
+
+    /**
+     * The following part publishes / makes private the page and the action
+     * */
     this.pageIsPublished = published;
     this.page.published = published;
     this.action.published = published;
@@ -688,11 +802,14 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   logout() {
-    console.log('Log out');
     this.authService.logout();
     this.router.navigate(['/']);
   }
 
+  /**
+   * When clicking on a publish option on the publish expansion panel,
+   * this function automatically updates this information in mongodb
+   * */
   updatePagePublishSettings() {
     setTimeout(() => {
       this.page.showAppTitlesOnPublish = this.showAppTitlesOnPublish;

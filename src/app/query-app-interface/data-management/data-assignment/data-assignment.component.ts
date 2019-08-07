@@ -1,3 +1,11 @@
+/**
+ * This component assigns the data chosen by the user through the data chooser
+ * to each respective input of an open app.
+ * If part a of query b is mapped by the user to app c input d, this component
+ * assigns a to d.
+ * */
+
+
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 
 @Component({
