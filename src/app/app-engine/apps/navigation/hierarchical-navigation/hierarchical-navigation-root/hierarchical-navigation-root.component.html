@@ -1,0 +1,11 @@
+<div *ngFor="let c of children" style="padding-left: 2em;">
+  <app-hierarchical-navigation-node
+    *ngIf="nodeConfiguration.children"
+    [resource]="c"
+    [backendAddress]="backendAddress"
+    [nodeConfiguration]="nodeConfiguration.children"
+    [queryParams]="queryParams"
+    [routeKeys]="routeKeys"
+    (pathChange)="processPathChange()">
+  </app-hierarchical-navigation-node>
+</div>

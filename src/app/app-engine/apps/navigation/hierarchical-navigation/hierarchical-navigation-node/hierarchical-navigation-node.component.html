@@ -1,0 +1,20 @@
+<div>
+  <ng-container *ngIf="nodeConfiguration.children">
+    <button *ngIf="childrenAreActive">–</button>
+    <button *ngIf="!childrenAreActive" (click)="loadChildren()">+</button>
+  </ng-container>
+
+  <span (click)="selectThisNode()" [ngStyle]="{'color': isInPath ? 'red' : 'black'}">{{ resource['rdfs:label'] }}</span>
+</div>
+
+<div *ngFor="let c of children" style="padding-left: 2em;">
+  <app-hierarchical-navigation-node
+    *ngIf="nodeConfiguration.children"
+    [backendAddress]="backendAddress"
+    [resource]="c"
+    [nodeConfiguration]="nodeConfiguration.children"
+    [queryParams]="queryParams"
+    [routeKeys]="routeKeys"
+    (pathChange)="processPathChange()">
+  </app-hierarchical-navigation-node>
+</div>

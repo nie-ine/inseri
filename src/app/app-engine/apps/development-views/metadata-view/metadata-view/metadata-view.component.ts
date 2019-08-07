@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SubjectTag } from '../../../tag-chips/tag-chips/tag';
+import { HierarchicalNavigationConfiguration } from '../../../navigation/hierarchical-navigation/hierarchical-navigation-configuration';
 
 /**
  * This component shows the use of the modules FactSheetModule and TagChipsModule.
@@ -80,6 +81,23 @@ export class MetadataViewComponent implements OnInit {
     {'linkpart': 'b', 'tagName': 'Baeume'},
     {'linkpart': 'c', 'tagName': 'Christentum'}
     ];
+
+  backendAddress = 'http://localhost:3333';
+
+  navigationRootIri = 'http://rdfh.ch/0041/qetIHdOZTceuFKXIPWXofA';
+
+  navigationConfiguration: HierarchicalNavigationConfiguration = {
+    children: {
+      propertyIri: 'http://api.knora.org/ontology/shared/literature/simple/v2#isPartOfVerseSongbook',
+      propertyDirection: 'inverted',
+      routeKey: 'sukta',
+      children: {
+        propertyIri: 'http://0.0.0.0:3333/ontology/0041/atharvaveda/simple/v2#isStropheOfSukta',
+        propertyDirection: 'inverted',
+        routeKey: 'stanza'
+      }
+    }
+  };
 
   /**
    * default written by angular-cli

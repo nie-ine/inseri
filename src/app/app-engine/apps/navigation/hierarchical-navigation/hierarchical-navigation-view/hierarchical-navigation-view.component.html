@@ -1,0 +1,11 @@
+<div *ngIf="navigationConfiguration">
+  <app-hierarchical-navigation-root
+    *ngIf="navigationConfiguration"
+    [backendAddress]="backendAddress"
+    [nodeConfiguration]="navigationConfiguration"
+    [resourceIri]="navigationRootIri"
+    [queryParams]="queryParams"
+    [routeKeys]="routeKeys"
+    (pathChange)="navigationChange()">
+  </app-hierarchical-navigation-root>
+</div>
