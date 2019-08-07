@@ -280,10 +280,15 @@ router.delete('/:pageID/queries/:queryID', checkAuth, (req, res, next) => {
 });
 
 router.put('/:id', checkAuth, (req, res, next) => {
+    console.log( 'arriving page:', req.body );
     Page.findByIdAndUpdate({_id: req.params.id}, {
         openApps: req.body.openApps,
         appInputQueryMapping: req.body.appInputQueryMapping,
-        published: req.body.published
+        published: req.body.published,
+        showAppTitlesOnPublish: req.body.showAppTitlesOnPublish,
+        showAppSettingsOnPublish: req.body.showAppSettingsOnPublish,
+        showInseriLogoOnPublish: req.body.showInseriLogoOnPublish,
+        showDataBrowserOnPublish: req.body.showDataBrowserOnPublish
     }, {new:true})
         .then(resultPage => {
             res.status(200).json({

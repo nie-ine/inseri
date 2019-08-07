@@ -104,7 +104,7 @@ export class Frame implements OnInit, OnChanges {
    * */
   ngOnChanges() {
     // console.log('changes');
-    console.log( this.preview, this.showAppSettingsOnPublish );
+    // console.log( this.preview, this.showAppSettingsOnPublish );
   }
 
   /**
@@ -233,8 +233,8 @@ export class Frame implements OnInit, OnChanges {
    * it comes to thr foreground
    * */
   setNewZIndex() {
-    console.log( 'Set new z index;' );
-    console.log( this.curZIndex );
+    // console.log( 'Set new z index;' );
+    // console.log( this.curZIndex );
     const savedZIndex = localStorage.getItem('curZIndex');
     if ( savedZIndex === null ) {
       this.curZIndex += 1;

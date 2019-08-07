@@ -25,7 +25,7 @@ export class PageService {
   }
 
   updatePage(page: any): Observable<any> {
-    // console.log(page);
+    console.log(page);
     const openAppAsStringArray = [];
     for ( const openApp in page.openApps) {
       if( page.openApps[openApp].type !== 'dataChooser' && page.openApps[openApp].type !== 'pageMenu' ) {

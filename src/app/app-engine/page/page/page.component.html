@@ -107,7 +107,7 @@
         <a href="{{'page-set?actionID=' + route.snapshot.queryParams.actionID}}" *ngIf="route.snapshot.queryParams.page" style="color: #4cae4c !important; margin-left: 15px;"><mat-icon matTooltip="page overview">filter_none</mat-icon></a>
         <a *ngIf=" (!pageAsDemo) && !preview" (click)="updatePage()" style="color: #4cae4c !important; margin-left: 15px; cursor: pointer;"><mat-icon  matTooltip="save page">save</mat-icon></a>
         <a *ngIf=" (!pageAsDemo) && !preview" (click)="openDataManagement()" style="color: #4cae4c !important; margin-left: 15px; cursor: pointer;" ><mat-icon matTooltip="page data manager">zoom_out_map</mat-icon></a>
-        <a *ngIf=" (!pageAsDemo) && !preview" (click)="logout()" style="color: #4cae4c !important; margin-left: 15px; cursor: pointer;" ><mat-icon matTooltip="logout">lock_open</mat-icon></a>
+        <a *ngIf=" (!pageAsDemo) && !preview" (click)="logout()" style="color: #4cae4c !important; margin-left: 15px; cursor: pointer;" ><mat-icon matTooltip="{{ 'click to logout - ' + userInfo }}">lock_open</mat-icon></a>
         <mat-chip-list *ngFor="let page of pagesOfThisActtion; let i = index;" style=" margin-left: 15px; display: inline-block;">
           <mat-chip matTooltip="{{ page.description }}" selected [color]="'primary'"  *ngIf="checkIfSelected( i )">
             {{ page.title }}
@@ -116,10 +116,10 @@
             {{ page.title }}
           </mat-chip>
         </mat-chip-list>
-        <a *ngIf="pageIsPublished" matTooltip='Page is published' style="margin-left: 15px; float: right; margin-right: 15px; color: #4cae4c !important;"  ><mat-icon>public</mat-icon></a>
-        <a *ngIf=" (!pageAsDemo) && !preview" matTooltip='Preview of published page' style="margin-left: 15px; float: right; margin-right: 15px;" (click)="preview = !preview" ><mat-icon>nature_people</mat-icon></a>
-        <a *ngIf=" (!pageAsDemo) && preview" matTooltip='Back to page editor' style="color: #4cae4c !important;  margin-left: 15px; float: right; margin-right: 15px;" (click)="preview = !preview" ><mat-icon>nature</mat-icon></a>
-        <div style=" position: fixed; right: 125px; top: 12px; z-index: 300; width: 300px; margin-bottom: 70px;" *ngIf="preview">
+        <a *ngIf="pageIsPublished && loggedIn" matTooltip='Page is published' style="margin-left: 15px; float: right; margin-right: 15px; color: #4cae4c !important;"  ><mat-icon>public</mat-icon></a>
+        <a *ngIf=" (!pageAsDemo) && !preview && loggedIn" matTooltip='Preview of published page' style="margin-left: 15px; float: right; margin-right: 15px;" (click)="preview = !preview" ><mat-icon>nature_people</mat-icon></a>
+        <a *ngIf=" (!pageAsDemo) && preview && loggedIn" matTooltip='Back to page editor' style="color: #4cae4c !important;  margin-left: 15px; float: right; margin-right: 15px;" (click)="preview = !preview" ><mat-icon>nature</mat-icon></a>
+        <div style=" position: fixed; right: 125px; top: 12px; z-index: 300; width: 300px; margin-bottom: 70px;" *ngIf="preview && loggedIn">
           <mat-expansion-panel [ngStyle]="{
           'height': publishedOptionsExpanded ? '500px' : '',
           'overflow': publishedOptionsExpanded ? 'auto' : '' }" >
@@ -129,14 +129,14 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
 
-            <mat-checkbox [(ngModel)]="showAppTitlesOnPublish" >Show app title bar</mat-checkbox> - This enables the user to reorganise the published page for his own purpose, for example to minimize some apps etc.
+            <mat-checkbox [(ngModel)]="showAppTitlesOnPublish" (click)="updatePagePublishSettings()">Show app title bar</mat-checkbox> - This enables the user to reorganise the published page for his own purpose, for example to minimize some apps etc.
             Changes of a user are dismissed after the user leaves the published page. <br>
-            <mat-checkbox [disabled]="!showAppTitlesOnPublish" [(ngModel)]="showAppSettingsOnPublish">Show app settings</mat-checkbox> - This enables the user to minimize apps and change app sizes.
+            <mat-checkbox [disabled]="!showAppTitlesOnPublish" [(ngModel)]="showAppSettingsOnPublish" (click)="updatePagePublishSettings()">Show app settings</mat-checkbox> - This enables the user to minimize apps and change app sizes.
             <mat-divider style="margin-top: 10px; margin-bottom: 10px;" ></mat-divider>
-            <mat-checkbox [(ngModel)]="showInseriLogoOnPublish" >Show Inseri Appshore Button</mat-checkbox> - This option enables users of the page to open apps on your published page. It enables users for example to insert own, non - public comments on your page as well as
+            <mat-checkbox [(ngModel)]="showInseriLogoOnPublish" (click)="updatePagePublishSettings()">Show Inseri Appshore Button</mat-checkbox> - This option enables users of the page to open apps on your published page. It enables users for example to insert own, non - public comments on your page as well as
             open other apps that only the respective user can see, for example to write an own, non public essay with a text - editor - app.
             <mat-divider style="margin-top: 10px; margin-bottom: 10px;"  ></mat-divider>
-            <mat-checkbox  [(ngModel)]="showDataBrowserOnPublish">Show Data Browser</mat-checkbox> - This option enables users of the page to possibly browse through the data of the page, if you mapped an array from the json to an app input.
+            <mat-checkbox  [(ngModel)]="showDataBrowserOnPublish" (click)="updatePagePublishSettings()">Show Data Browser</mat-checkbox> - This option enables users of the page to possibly browse through the data of the page, if you mapped an array from the json to an app input.
             <mat-divider style="margin-top: 10px; margin-bottom: 10px;"  ></mat-divider>
             <mat-radio-group aria-label="Select an option">
               <mat-radio-button value="1" [checked]="true" >Beta Publication</mat-radio-button> - This inseri publication type indicates for a user that the page can still be changed by the user after the page has been published. Thus,

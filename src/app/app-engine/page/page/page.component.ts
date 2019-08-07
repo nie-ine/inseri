@@ -17,7 +17,7 @@ import {GeneralRequestService} from '../../../query-engine/general/general-reque
 import {QueryInformationDialogComponent} from '../query-information-dialog/query-information-dialog.component';
 import {StyleMappingService} from '../../../query-app-interface/services/style-mapping-service';
 import {PageMenuComponent} from '../page-menu/page-menu.component';
-import {Subscription} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {ActionService} from '../../../user-action-engine/mongodb/action/action.service';
 import {MatPaginator} from '@angular/material/paginator';
@@ -187,6 +187,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   showDataBrowserOnPublish = true;
   publishedOptionsExpanded = false;
   pageIsPublished = false;
+  loggedIn = true;
 
   appTypes: Array<string> = [];
 
@@ -285,23 +286,42 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnInit() {
+
+    this.sub = Observable.interval(1000)
+      .subscribe((val) => {
+        this.checkTimeUntilLogout();
+      });
+
+    /**
+     * If not logged in, preview instatiates the published page options.
+     * */
+    if ( !this.authService.getIsAuth() ) {
+      this.preview = true;
+      this.loggedIn = false;
+    }
+
+    /**
+     * Necesarry for appshore menu
+     * */
     for ( const appType in this.openApps.openApps ) {
       this.appTypes.push( appType );
     }
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    console.log( this.route.snapshot );
+
+    /**
+     * Creates home page
+     * */
     if (
       this.route.snapshot.url[0].path === 'home' &&
       this.route.snapshot.queryParams.actionID === undefined
     ) {
       this.addAnotherApp( 'login', true );
-      console.log( this.openAppsInThisPage );
+      this.preview = false;
       this.openAppsInThisPage[ 'login' ].model[ 0 ].initialized = true;
       this.openAppsInThisPage[ 'login' ].model[ 0 ].x = 150;
       this.openAppsInThisPage[ 'login' ].model[ 0 ].y = 130;
     }
-    // this.cssUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.stylemapping.getUserCss().toString());
     this.actionID = this.route.snapshot.queryParams.actionID;
     this.pageIDFromURL = this.route.snapshot.queryParams.page;
     if ( !this.actionID ) {
@@ -318,6 +338,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     if ( this.pageAsDemo ) {
       this.startLightHouse();
     }
+
   }
 
   startLightHouse() {
@@ -512,6 +533,10 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.action = pageAndAction[ 1 ];
     this.reloadVariables = false;
     this.pageIsPublished = this.page.published;
+    this.showAppTitlesOnPublish = this.page.showAppTitlesOnPublish;
+    this.showAppSettingsOnPublish = this.page.showAppSettingsOnPublish;
+    this.showInseriLogoOnPublish = this.page.showInseriLogoOnPublish;
+    this.showDataBrowserOnPublish = this.page.showDataBrowserOnPublish;
   }
 
   receiveOpenAppsInThisPage( openAppsInThisPage: any ) {
@@ -650,6 +675,10 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.pageIsPublished = published;
     this.page.published = published;
     this.action.published = published;
+    this.page.showAppTitlesOnPublish = this.showAppTitlesOnPublish;
+    this.page.showAppSettingsOnPublish = this.showAppSettingsOnPublish;
+    this.page.showInseriLogoOnPublish = this.showInseriLogoOnPublish;
+    this.page.showDataBrowserOnPublish = this.showDataBrowserOnPublish;
     this.updatePage();
     this.action.id = this.action._id;
     this.actionService.updateAction(this.action)
@@ -662,5 +691,15 @@ export class PageComponent implements OnInit, AfterViewChecked {
     console.log('Log out');
     this.authService.logout();
     this.router.navigate(['/']);
+  }
+
+  updatePagePublishSettings() {
+    setTimeout(() => {
+      this.page.showAppTitlesOnPublish = this.showAppTitlesOnPublish;
+      this.page.showAppSettingsOnPublish = this.showAppSettingsOnPublish;
+      this.page.showInseriLogoOnPublish = this.showInseriLogoOnPublish;
+      this.page.showDataBrowserOnPublish = this.showDataBrowserOnPublish;
+      this.updatePage();
+    }, 2000);
   }
 }

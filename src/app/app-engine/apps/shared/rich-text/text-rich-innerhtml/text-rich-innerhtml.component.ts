@@ -146,19 +146,21 @@ export class TextRichInnerhtmlComponent implements OnInit, OnChanges, AfterViewI
     if (this.selectedEnvironmentKeys && this.selectableEnvironments) {
       for (const s of this.selectedEnvironmentKeys ) {
         const z = this.selectableEnvironments[s];
-        for (const b of z) {
-          if (b[ 'type' ] === 'tag') {
-            const elements = this.elementRef.nativeElement.getElementsByTagName(b[ 'name' ]);
-            for (const e of elements) {
-              for (const [key, value] of Object.entries((b['styles']))) {
-                this.renderer.setStyle(e, key, value);
+        if ( z ) {
+          for (const b of z) {
+            if (b[ 'type' ] === 'tag') {
+              const elements = this.elementRef.nativeElement.getElementsByTagName(b[ 'name' ]);
+              for (const e of elements) {
+                for (const [key, value] of Object.entries((b['styles']))) {
+                  this.renderer.setStyle(e, key, value);
+                }
               }
-            }
-          } else if (b[ 'type' ] === 'class') {
-            const elements = this.elementRef.nativeElement.getElementsByClassName(b[ 'name' ]);
-            for (const e of elements) {
-              for (const [key, value] of Object.entries((b['styles']))) {
-                this.renderer.setStyle(e, key, value);
+            } else if (b[ 'type' ] === 'class') {
+              const elements = this.elementRef.nativeElement.getElementsByClassName(b[ 'name' ]);
+              for (const e of elements) {
+                for (const [key, value] of Object.entries((b['styles']))) {
+                  this.renderer.setStyle(e, key, value);
+                }
               }
             }
           }
