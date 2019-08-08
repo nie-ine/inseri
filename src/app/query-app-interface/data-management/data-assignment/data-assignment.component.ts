@@ -1,8 +1,9 @@
 /**
  * This component assigns the data chosen by the user through the data chooser
  * to each respective input of an open app.
- * If part a of query b is mapped by the user to app c input d, this component
+ * If part a of json response of query b is mapped by the user to app c input d, this component
  * assigns a to d.
+ * This method is invoked in the page.html
  * */
 
 
@@ -13,32 +14,87 @@ import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges
   templateUrl: './data-assignment.component.html'
 })
 export class DataAssignmentComponent implements OnChanges {
+
+  /**
+   * the index emitted when a user clicks on the data chooser
+   * */
   @Input() index: number;
+
+  /**
+   * The open apps on the current page, this is the same variable that page.html iterates through
+   * */
   @Input() openAppsInThisPage: any;
+
+  /**
+   * This object stores, which part of the json of wchi query is mapped to which input
+   * */
   @Input() appInputQueryMapping: any;
+
+  /**
+   * This is the response of the respective query
+   * */
   @Input() response: any;
+
+  /**
+   * This is the id of the query that this component is dealing with
+   * */
   @Input() queryId;
+
+  /**
+   * This input is not used anymore, TODO: invest if this variable can be deleted
+   * */
   @Input() updateLinkedApps = false;
+
+  /**
+   * This input is not used anymore, TODO: invest if this variable can be deleted
+   * */
   @Input() indexAppMapping: any;
+
+  /**
+   * In the data chooser, you can choose entries in different depths of the json. After
+   * each array that occurs in the json, the depth is incremented by one. Thus,
+   * the number of nested arrays defines the meaning of the depth.
+   * */
   @Input() depth: number;
+
+  /**
+   * After assigning the inputs to the app variables, this output sends back
+   * the variable openAppsInThisPage
+   * */
   @Output() sendAppTypesBackToNIEOS: EventEmitter<any> = new EventEmitter<any>();
   arrayIndicator: Array<any> = [];
+
+  /**
+   * currentIndex is an array: currentIndex[ queryId ][ depth ] = index defines which
+   * index in which depth of which query is chosen by the user in the data chooser
+   * */
   currentIndex: any = {};
   firstChange = true;
   changes: any;
   constructor() { }
 
+  /**
+   * ngOnChages is triggered when a user chooses an entry in the data chooser
+   * */
   ngOnChanges( changes: SimpleChanges) {
-    // console.log( changes );
     this.firstChange = true;
     this.startPathUpdateProcess();
+
+    /**
+     * the path is the path through the json response of the respective query.
+     * if the deepest layer of the json response is an array with strings as values,
+     * the user can choose in the appInputQueryMapping GUI to define an entry of the
+     * array that should be mapped to an app input. The following routine checks if
+     * the last segment of the path defined by the user is a scalar which deinfe
+     * */
     this.checkIfPathContainsScalarAsLastEntry();
-    if ( this.updateLinkedApps === true ) {
-      this.updateLinkedAppsMethod();
-    }
   }
 
   startPathUpdateProcess() {
+
+    /**
+     * Initiates currentindex if not defined
+     * */
     if ( !this.currentIndex ) {
       this.currentIndex = {};
     }
@@ -46,11 +102,14 @@ export class DataAssignmentComponent implements OnChanges {
       this.currentIndex[ this.queryId ] = {};
     }
     this.currentIndex[ this.queryId ][ this.depth ] = this.index;
-    // console.log( this.appInputQueryMapping );
+
+    /**
+     * Iterates through every input of every app and performs the updatePathWithindices
+     * method for each input
+     * */
     for ( const appHash in this.appInputQueryMapping ) {
       for ( const inputName in this.appInputQueryMapping[ appHash ] ) {
         if ( this.appInputQueryMapping[ appHash ][ inputName ].query === this.queryId ) {
-          // console.log( this.appInputQueryMapping[ appHash ][ inputName ].path );
           this.updatePathWithIndices(
             this.appInputQueryMapping[ appHash ][ inputName ].path,
             this.response,
@@ -64,6 +123,10 @@ export class DataAssignmentComponent implements OnChanges {
     this.goThroughAppInputs();
   }
 
+  /**
+   * This method is recursively going through parts of the json and checks if the part of the json has
+   * been reached that the user has mapped to the app input
+   * */
   updatePathWithIndices(
     path: Array<string>,
     response: any,
@@ -72,28 +135,43 @@ export class DataAssignmentComponent implements OnChanges {
     pathDepth: number
   ) {
     let deleteCount = 0;
-    // console.log( path[ pathDepth ] );
-    // if ( ( path[ pathDepth ] === 'text-editing:hasDiplomaticTranscriptionValue' ) ) {
-    //   console.log( indexDepth, this.depth, path[ pathDepth ], response );
-    // }
+
+    /**
+     * This if statement if the currently treated part of the json response is and array
+     * */
     if (
       response &&
       response[ path[ pathDepth ] ] &&
       response[ path[ pathDepth ] ].length > 0
     ) {
-      // console.log( path[ pathDepth ] );
+
+      /**
+       * This if statement checks if the right depth in the json response has been reached already
+       * */
         if ( indexDepth === this.depth ) {
+
+          /**
+           * This if statement checks if the next segment of the path is a number
+           * */
           if ( !isNaN( Number( path[ pathDepth + 1 ] ) ) ) {
             deleteCount = 1;
           }
-          // console.log( pathDepth, path.length );
+          /**
+           * the following routine replaces the path entry which is a scalar with the
+           * entry chosen by the user, only if this path entry is not at the deepest level
+           * of the json
+           * */
           if ( pathDepth + 1 !== path.length ) {
             path.splice(pathDepth + 1, deleteCount, currentIndex[ indexDepth ]);
           }
         }
         indexDepth += 1;
-        // console.log( path );
       }
+
+    /**
+     * If the routine updatePathWithIndices has not reached the right depth, chosen by the user,
+     * it is recursively invoced again, going one depth further in the json
+     * */
     if ( path.length > pathDepth + 1 && response ) {
       this.updatePathWithIndices(
         path,
@@ -105,6 +183,11 @@ export class DataAssignmentComponent implements OnChanges {
     }
   }
 
+  /**
+   * When the page.component is loaded for the first time, this function is invoked.
+   * If the last part of the path is an number, the function goThroughAppInputs is invoked directly.
+   * Thus, the inputs of the appInputs mapped to the respective apps are filled immediately.
+   * */
   checkIfPathContainsScalarAsLastEntry() {
     setTimeout(() => {
       if (
@@ -152,13 +235,15 @@ export class DataAssignmentComponent implements OnChanges {
                   }
                   increment += 1;
                 }
+                  /**
+                   * Here, the appInput is assigned to the respective part of the json
+                   * */
                   app[ input ] = this.generateAppinput(
                     this.response || response,
                     this.appInputQueryMapping[ app.hash ][ input ][ 'path' ],
                     this.index,
                     0,
-                    true,
-                    app
+                    true
                   );
               }
             }
@@ -168,271 +253,110 @@ export class DataAssignmentComponent implements OnChanges {
     }
   }
 
+  /**
+   * This method returns the respective json part that is assigned to the respective appInput
+   * */
   generateAppinput(
     response: any,
     path: any,
     index: number,
     depth: number,
-    firstArray: boolean,
-    app: any
+    firstArray: boolean
   ) {
-    // console.log( app, path, index, response );
     if ( response ) {
+
+      /**
+       * If the whole json response is mapped to an app, the whole reponse is returned from this function
+       * */
         if ( path[ 0 ] === 'wholeJsonResponseAssignedToThisAppInput' ) {
           return response;
         }
+
+        /**
+         * if the path has only one segment, the right part of the json can be returned immediately
+         * */
         if ( path.length === 1 ) {
           return response[ path[ 0 ] ];
-        } else if ( response.length  ) {                                          // Response is an array
-          // console.log( path, depth, path[ depth ] );
+        } else if ( response.length  ) {
+          /**
+           * The statement else if above is invoked if the current part of the response is an array
+           * */
+
+          /**
+           * The following if statement checks if the current segment of the path is a number.
+           * It should be a number since in this else if body, deals with an array as part of the json
+           * reponse.
+           * */
           if ( !isNaN( path[ depth ] ) ) {
             return this.generateAppinput(
               response[ path[ depth ] ],
               path,
               index,
               depth + 1,
-              false,
-              app
+              false
             );
           }
+
+          /**
+           * If the next segment of the path is a number and its the deepest segment of the
+           * path, the respective part of the json can be returned immediately
+           * */
           if (
             depth === path.length - 1  &&
             !isNaN( Number ( path[ path.length - 1 ] ) )
           ) {
-            console.log( response[ Number ( path[ depth ] ) ], app );
             return response[ Number ( path[ depth ] ) ];
           }
           if ( typeof response === 'string' ) {
             return response;
           } else {
+
+            /**
+             * Todo: document the following to conditional statements
+             * */
             if ( firstArray ) {
               return this.generateAppinput(
                 response[ index ],
                 path,
                 index,
                 depth + 1,
-                false,
-                app
-              );
-            } else {
-              return this.generateArrayInput(
-                response,
-                path,
-                index,
-                depth,
-                false,
-                app
+                false
               );
             }
           }
-        } else if ( depth !== path.length && response[ path[ depth ] ] ) {        // Response is not an array
-          // console.log( 'Response is not an array', response[ path[ depth ] ], depth, path.length );
+        } else if ( depth !== path.length && response[ path[ depth ] ] ) {
+          /**
+           * The else if statement above is invoked if the currently treated part of the json is not an array
+           * */
+
+          /**
+           * if you have reached the right depth of the json, you can return the response
+           * */
           if ( response[ path[ depth + 1 ] ] === undefined && depth === path.length - 1 ) {
             return response[ path[ depth ] ];
           } else {
-            // console.log( 'here1', response[ path[ depth ] ], path[ depth ] );
+            /**
+             * otherwise you recursively invoke the current method to go one step further in the current json
+             * */
             return this.generateAppinput(
               response[ path[ depth ] ],
               path,
               index,
               depth + 1,
-              firstArray,
-              app
+              firstArray
             );
           }
         } else if ( depth === path.length ) {
-          // console.log( response );
           return response[ path[ depth - 1 ] ];
         } else if ( path.length - 1 === depth && Number( path[ depth ] ) ) {
           return response[ path[ depth - 1 ] ][ Number( path[ depth ] ) ];
         } else {
-          console.log( 'here2', response, path[ depth ], response[ path[ depth ] ] );
           return this.generateAppinput(
             response[ path[ depth ] ],
             path, index,
             depth + 1,
-            firstArray,
-            app
+            firstArray
           );
-      }
-    }
-  }
-
-  generateArrayInput(
-    response: any,
-    path: any,
-    index: number,
-    depth: number,
-    firstArray: boolean,
-    app: any
-  ) {
-    app.index = 0;
-    app.arrayLength = response.length;
-    app.queryId  = this.queryId;
-    // console.log( 'Generate Array Input', app );
-    return this.generateAppinput(
-      response[ app.index ],
-      path,
-      app.index,
-      depth,
-      true,
-      app
-    );
-  }
-
-  updateLinkedAppsMethod() {
-    // console.log(
-    //   'Update Linked Apps Method',
-    //   this.indexAppMapping,
-    //   this.openAppsInThisPage
-    // );
-    for (const appHash in this.indexAppMapping) {
-      for (const type in this.openAppsInThisPage) {
-        if (this.openAppsInThisPage[type].model.length && type !== 'dataChooser') {
-          for (const app of this.openAppsInThisPage[type].model) {
-            if (this.appInputQueryMapping[app.hash] && appHash === app.hash) {
-              for (const input in this.appInputQueryMapping[app.hash]) {
-                this.arrayIndicator[this.appInputQueryMapping[app.hash][input]['query']] = [];
-                if (this.appInputQueryMapping[app.hash][input]['query'] === this.indexAppMapping[appHash].queryId) {
-                  this.updatePath(
-                    this.appInputQueryMapping[app.hash][input]['path'],
-                    this.indexAppMapping[appHash].index,
-                    this.response,
-                    this.appInputQueryMapping[app.hash][input]['query']
-                  );
-                }
-                this.findLastArrayIndexAndreplaceItWithIndex(
-                  this.indexAppMapping[ appHash ].index,
-                  this.appInputQueryMapping[app.hash][input]['query']
-                );
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  findLastArrayIndexAndreplaceItWithIndex(index: number, query: string) {
-    for ( let i = this.arrayIndicator[query].length - 1; i >= 0; i-- ) {
-      if ( !isNaN ( Number( this.arrayIndicator[query][ i ] ) ) ) {
-        this.arrayIndicator[query][ i ] = index;
-        i = -1;
-      }
-    }
-    this.updateAppInputWithNewPath();
-  }
-
-  updateAppInputWithNewPath() {
-    for ( const queryId in this.arrayIndicator ) {
-      for ( const type in this.openAppsInThisPage ) {
-        if (this.openAppsInThisPage[type].model.length && type !== 'dataChooser') {
-          for (const app of this.openAppsInThisPage[type].model) {
-            if (this.appInputQueryMapping[app.hash]) {
-              for (const input in this.appInputQueryMapping[app.hash]) {
-                if (this.appInputQueryMapping[app.hash][input]['query'] === queryId) {
-                  if( this.appInputQueryMapping[app.hash][input][ 'path' ].length > 0 ) {
-                    this.updateAppInput(
-                      this.response,
-                      this.rewritePath(
-                        this.appInputQueryMapping[app.hash][input][ 'path' ],
-                        this.arrayIndicator[queryId]
-                      ),
-                      0,
-                      app,
-                      input
-                    );
-                    // console.log( input, app[ input ] );
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    this.sendAppTypesBackToNIEOS.emit( this.openAppsInThisPage );
-  }
-  updateAppInput(
-    response: any,
-    path: any,
-    depth: number,
-    app: any,
-    input: string
-  ) {
-    // console.log('Update App Input', response, path[ depth ]);
-    if ( response ) {
-      if ( response[ path[ depth ] ] && typeof response !== 'string' ) {
-        this.updateAppInput(
-          response[ path[ depth ] ],
-          path,
-          depth + 1,
-          app,
-          input
-        );
-      } else {
-        // console.log( response );
-        app[ input ] = response;
-      }
-    }
-  }
-
-  rewritePath( oldPath: any, newPath: any ) {
-    let i = 0;
-    if ( oldPath.length > 0 ) {
-      for ( const newSegment of newPath ) {
-        if ( newPath[ i ] !== oldPath[ i ] && oldPath[ i - 1 ] === newPath[ i - 1 ] && oldPath[ i ] ) {
-          if ( !isNaN( newPath[ i ]  ) ) {
-            oldPath.splice( i, 0, newPath[ i ] );
-          }
-        }
-        i += 1;
-      }
-      for ( let j = 0; j < oldPath.length; j++ ) {
-        if ( !isNaN( oldPath[ j ]  ) ) {
-          oldPath[ j ] = this.index;
-          j = oldPath.length;
-        }
-      }
-      return oldPath;
-    }
-  }
-
-  updatePath(
-    path: Array<any>,
-    index: number,
-    response,
-    queryId: string
-  ) {
-    // console.log(
-    //   'Update Path',
-    //   path,
-    //   index,
-    //   // response,
-    //   this.arrayIndicator
-    // );
-    /**
-     * Find last array in this path and update it with index!
-     * */
-    if( response && typeof response !== 'string') {
-      if ( response[ path[ 0 ] ] ) {
-        const segment = path[ 0 ];
-        path.splice( 0, 1 );
-        this.arrayIndicator[ queryId ].push(segment);
-        this.updatePath(
-          path,
-          index,
-          response[ segment ],
-          queryId
-        );
-      } else {
-        this.arrayIndicator[ queryId ].push(0);
-        this.updatePath(
-          path,
-          index,
-          response[ 0 ],
-          queryId
-        );
       }
     }
   }
