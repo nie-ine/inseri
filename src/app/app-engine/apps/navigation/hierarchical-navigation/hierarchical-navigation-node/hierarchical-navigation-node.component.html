@@ -1,10 +1,10 @@
 <div>
   <ng-container *ngIf="nodeConfiguration.children">
-    <button *ngIf="childrenAreActive">–</button>
+    <button *ngIf="childrenAreActive" (click)="hideChildren()">–</button>
     <button *ngIf="!childrenAreActive" (click)="loadChildren()">+</button>
   </ng-container>
 
-  <span (click)="selectThisNode()" [ngStyle]="{'color': isInPath ? 'red' : 'black'}">{{ resource['rdfs:label'] }}</span>
+  <span (click)="selectNode()" [ngStyle]="{'color': isInPath ? 'red' : 'black'}">{{ resource['rdfs:label'] }}</span>
 </div>
 
 <div *ngFor="let c of children" style="padding-left: 2em;">
@@ -15,6 +15,6 @@
     [nodeConfiguration]="nodeConfiguration.children"
     [queryParams]="queryParams"
     [routeKeys]="routeKeys"
-    (pathChange)="processPathChange()">
+    (pathChange)="processPathChange($event)">
   </app-hierarchical-navigation-node>
 </div>
