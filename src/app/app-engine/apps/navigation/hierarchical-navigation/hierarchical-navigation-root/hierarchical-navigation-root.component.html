@@ -1,4 +1,4 @@
-<div *ngFor="let c of children" style="padding-left: 2em;">
+<ul *ngFor="let c of children" style="list-style-type: none" role="tree">
   <app-hierarchical-navigation-node
     *ngIf="nodeConfiguration.children"
     [resource]="c"
@@ -8,4 +8,4 @@
     [routeKeys]="routeKeys"
     (pathChange)="processPathChange($event)">
   </app-hierarchical-navigation-node>
-</div>
+</ul>

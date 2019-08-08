@@ -7,4 +7,5 @@ export class HierarchicalNavigationNodeConfiguration {
   propertyDirection: string;
   routeKey: string;
   children?: HierarchicalNavigationNodeConfiguration;
+  sortByPropertyIri?: string;
 }

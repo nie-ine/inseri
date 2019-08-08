@@ -1,11 +1,13 @@
 <div *ngIf="navigationConfiguration">
-  <app-hierarchical-navigation-root
-    *ngIf="navigationConfiguration"
-    [backendAddress]="backendAddress"
-    [nodeConfiguration]="navigationConfiguration"
-    [resourceIri]="navigationRootIri"
-    [queryParams]="queryParams"
-    [routeKeys]="routeKeys"
-    (pathChange)="navigationChange($event)">
-  </app-hierarchical-navigation-root>
+  <nav role="navigation" aria-label="Select a resource in a tree structure.">
+    <app-hierarchical-navigation-root
+      *ngIf="navigationConfiguration"
+      [backendAddress]="backendAddress"
+      [nodeConfiguration]="navigationConfiguration"
+      [resourceIri]="navigationRootIri"
+      [queryParams]="queryParams"
+      [routeKeys]="routeKeys"
+      (pathChange)="navigationChange($event)">
+    </app-hierarchical-navigation-root>
+  </nav>
 </div>

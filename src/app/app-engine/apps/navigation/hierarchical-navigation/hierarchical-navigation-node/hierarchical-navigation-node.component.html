@@ -1,20 +1,26 @@
-<div>
-  <ng-container *ngIf="nodeConfiguration.children">
-    <button *ngIf="childrenAreActive" (click)="hideChildren()">–</button>
-    <button *ngIf="!childrenAreActive" (click)="loadChildren()">+</button>
-  </ng-container>
+<li role="treeitem" [attr.aria-expanded]="childrenAreActive" [attr.aria-selected]="isInPath">
+  <div>
+    <ng-container *ngIf="nodeConfiguration.children">
+      <button mat-button *ngIf="childrenAreActive" (click)="hideChildren()" aria-label="hide child nodes">
+        <mat-icon>expand_less</mat-icon>
+      </button>
+      <button mat-button *ngIf="!childrenAreActive" (click)="loadChildren()" aria-label="load child nodes">
+        <mat-icon>expand_more</mat-icon>
+      </button>
+    </ng-container>
 
-  <span (click)="selectNode()" [ngStyle]="{'color': isInPath ? 'red' : 'black'}">{{ resource['rdfs:label'] }}</span>
-</div>
+    <a mat-button (click)="selectNode(); loadChildren()" [ngStyle]="{'color': isInPath ? 'red' : 'black'}">{{ resource['rdfs:label'] }}</a>
+  </div>
 
-<div *ngFor="let c of children" style="padding-left: 2em;">
-  <app-hierarchical-navigation-node
-    *ngIf="nodeConfiguration.children"
-    [backendAddress]="backendAddress"
-    [resource]="c"
-    [nodeConfiguration]="nodeConfiguration.children"
-    [queryParams]="queryParams"
-    [routeKeys]="routeKeys"
-    (pathChange)="processPathChange($event)">
-  </app-hierarchical-navigation-node>
-</div>
+  <ul *ngFor="let c of children" style="padding-left: 2em; list-style-type: none" role="group">
+    <app-hierarchical-navigation-node
+      *ngIf="nodeConfiguration.children"
+      [backendAddress]="backendAddress"
+      [resource]="c"
+      [nodeConfiguration]="nodeConfiguration.children"
+      [queryParams]="queryParams"
+      [routeKeys]="routeKeys"
+      (pathChange)="processPathChange($event)">
+    </app-hierarchical-navigation-node>
+  </ul>
+</li>
