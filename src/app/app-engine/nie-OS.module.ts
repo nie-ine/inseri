@@ -13,7 +13,6 @@ import {SynopsisModule} from './apps/synopsis/synopsis.module';
 import {MyPageSetModule} from '../user-action-engine/page-set/page-set.module';
 import {GenerateHashService} from '../user-action-engine/other/generateHash.service';
 import {CreateResourceModule} from './apps/create-resource/create-resource.module';
-import {DataManagementToolModule} from '../query-app-interface/data-management-tool/data-management-tool.module';
 import {SendGravSearchQueryService} from '../query-engine/knora/gravsearch/sendGravSearchQuery.service';
 import {TextlistViewerComponent} from './apps/textlist-viewer/textlist-viewer.component';
 import {MatExpansionModule} from '@angular/material/expansion';
@@ -41,11 +40,10 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import {LoadVariablesComponent} from './load-variables/load-variables.component';
 import { QueryListComponent } from '../query-engine/query-list/query-list.component';
 import { DataAssignmentComponent } from '../query-app-interface/data-management/data-assignment/data-assignment.component';
-import { UpdateLinkedAppsComponent } from '../query-app-interface/data-management/update-linked-apps/update-linked-apps.component';
 import { NewGjsBoxDialogComponent } from './apps/grapesjs/new-gjs-box-dialog/new-gjs-box-dialog.component';
 import { MatDialogModule } from '@angular/material';
 import { SimpleImageAppComponent } from './apps/simple-image-app/simple-image-app.component';
-import { FileDatabase, ResponseTreeComponent } from './apps/response-tree/response-tree.component';
+import { FileDatabaseForApp, ResponseTreeAppComponent } from './apps/response-tree/response-tree.component';
 import { DataListView } from './apps/data-list-view/data-list-view.component';
 import { CdkTableModule } from '@angular/cdk/table';
 import { MatPaginatorModule, MatSortModule } from '@angular/material';
@@ -67,10 +65,12 @@ import { HtmlViewerModule } from './apps/html-viewer/html-viewer.module';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { OpenbisLoginComponent } from './apps/openbis-login/openbis-login.component';
 // import { KnoraJsonldSimplify } from 'knora-jsonld-simplify/dist';
+import { DataChooserComponent } from '../query-app-interface/data-management/data-chooser/data-chooser.component';
 import { StaticPagesModule } from  '../user-action-engine/static-pages.module';
 import { YoutubeVideoComponent } from './apps/youtube-video/youtube-video.component';
 import {MatRadioModule} from '@angular/material/radio';
 import { JoinedTextViewModule } from './apps/joined-text-view/joined-text-view.module';
+import { ResponseTreeComponent, FileDatabase } from '../query-app-interface/data-management/response-tree/response-tree.component';
 
 @NgModule({
   imports: [
@@ -85,7 +85,6 @@ import { JoinedTextViewModule } from './apps/joined-text-view/joined-text-view.m
     MyPageSetModule,
     CreateResourceModule,
     ResourceFormModule,
-    DataManagementToolModule,
     MatProgressSpinnerModule,
     MatExpansionModule,
     MatDividerModule,
@@ -121,10 +120,7 @@ import { JoinedTextViewModule } from './apps/joined-text-view/joined-text-view.m
     JoinedTextViewModule,
     // KnoraJsonldSimplify,
     RouterModule.forChild([
-      { path: 'page', component: PageComponent },
-      { path: 'response-tree', component: ResponseTreeComponent },
-      { path: 'openbis-login', component: OpenbisLoginComponent },
-      { path: 'youtube-video', component: YoutubeVideoComponent }
+      { path: 'page', component: PageComponent }
     ])
   ],
   providers: [
@@ -132,7 +128,8 @@ import { JoinedTextViewModule } from './apps/joined-text-view/joined-text-view.m
     SendGravSearchQueryService,
     OpenAppsModel,
     AbstractJsonService,
-    FileDatabase
+    FileDatabase,
+    FileDatabaseForApp
   ],
   declarations: [
     PageComponent,
@@ -146,10 +143,9 @@ import { JoinedTextViewModule } from './apps/joined-text-view/joined-text-view.m
     LoadVariablesComponent,
     QueryListComponent,
     DataAssignmentComponent,
-    UpdateLinkedAppsComponent,
     NewGjsBoxDialogComponent,
     SimpleImageAppComponent,
-    ResponseTreeComponent,
+    ResponseTreeAppComponent,
     DataListView,
     QueryInformationDialogComponent,
     GrapesjsComponent,
@@ -159,7 +155,9 @@ import { JoinedTextViewModule } from './apps/joined-text-view/joined-text-view.m
     DataListViewSettings,
     DataListViewTableComponent,
     OpenbisLoginComponent,
-    YoutubeVideoComponent
+    YoutubeVideoComponent,
+    DataChooserComponent,
+    ResponseTreeComponent
   ],
   exports: [
     PageComponent,
@@ -174,7 +172,8 @@ import { JoinedTextViewModule } from './apps/joined-text-view/joined-text-view.m
     QueryListComponent,
     NewGjsBoxDialogComponent,
     QueryInformationDialogComponent,
-    DataListViewDetailsDialogComponent
+    DataListViewDetailsDialogComponent,
+    DataChooserComponent
   ]
 })
 export class NIEOSModule { }

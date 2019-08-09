@@ -1,3 +1,7 @@
+/**
+ * This service generates all data choosers for all queries defined
+ * */
+
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {AbstractJsonService} from './abstract-json.service';
@@ -11,12 +15,11 @@ import { QueryService } from '../../../user-action-engine/mongodb/query/query.se
 export class GenerateDataChoosersService {
   response: any;
   dataChooserEntries = [];
-  y = -50;
   pathSet = new Set();
   depth = 0;
   data: any;
   path: Array<string>;
-  query: any
+  query: any;
   constructor(
     private http: HttpClient,
     private abstractJsonService: AbstractJsonService,
@@ -27,16 +30,12 @@ export class GenerateDataChoosersService {
 
   generateDataChoosers( page: any, openAppsInThisPage: any, reset: boolean ) {
     this.pathSet = new Set();
-    if ( reset ) {
-      this.y = -50;
-    }
     for ( const queryId of  page.queries ) {
       let queryTitle = '';
       let pathArray = [];
       this.depth = 0;
       this.queryService.getQuery(queryId)
         .subscribe((data) => {
-          // console.log( data );
           queryTitle = data.query.title;
           pathArray = data.query.path;       // path array is the path chosen for the entries to be displayed in the data chooser dropdown
           this.query = data;
@@ -78,8 +77,6 @@ export class GenerateDataChoosersService {
           this.pathSet = new Set();
           this.depth = 0;
           openAppsInThisPage.dataChooser.model.push( {
-            x: 150,
-            y: this.y,
             dataChooserEntries: this.generateArrayFromLeafs.generateArrayFromLeafs(
               this.response,
               pathArray,
@@ -117,8 +114,6 @@ export class GenerateDataChoosersService {
       if ( path.length === 0 ) {
         // console.log( 'Dont generate data choosers ');
         openAppsInThisPage.dataChooser.model.push( {
-          x: 150,
-          y: this.y,
           dataChooserEntries: [ 'showData' ],
           title: 'Query: ' + queryTitle,
           response: data.body,
@@ -148,8 +143,6 @@ export class GenerateDataChoosersService {
         this.pathSet.add( key );
         depth += 1;
         openAppsInThisPage.dataChooser.model.push( {
-          x: 150,
-          y: this.y,
           dataChooserEntries: this.generateArrayFromLeafs.generateArrayFromLeafs(
             response[ key ],
             undefined,
