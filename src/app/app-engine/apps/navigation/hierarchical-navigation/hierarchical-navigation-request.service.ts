@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { JoinedTextElement } from '../../joined-text-view/joined-text-view/joined-text-view';
+import { DomEvent } from 'leaflet';
+import off = DomEvent.off;
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +10,7 @@ export class HierarchicalNavigationRequestService {
 
   constructor() { }
 
-  getGravSearch(configuration: JoinedTextElement, parentIri): string {
+  getGravSearch(configuration: JoinedTextElement, parentIri, offset): string {
 
     let graveSearchRequest =
       'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n' +
@@ -45,6 +47,7 @@ export class HierarchicalNavigationRequestService {
     if (configuration.sortByPropertyIri) {
       graveSearchRequest = graveSearchRequest + ' SORT BY ?sortingprop';
     }
+    graveSearchRequest = graveSearchRequest + ' OFFSET ' + offset;
 
     return graveSearchRequest;
   }

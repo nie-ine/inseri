@@ -24,5 +24,12 @@
     </app-hierarchical-navigation-node>
   </ul>
 
-  <!-- TODO option to load more -->
+  <ng-container *ngIf="children && childrenAreActive">
+    <button mat-button
+            (click)="loadMoreChildren()"
+            aria-label="load more"
+            *ngIf="totalNumberOfChildren > children.length">
+      <mat-icon>add</mat-icon>
+    </button>
+  </ng-container>
 </li>

@@ -11,3 +11,10 @@
 
   <!-- TODO option to load more -->
 </ul>
+
+<button mat-button
+        (click)="loadMoreChildren()"
+        aria-label="load more"
+        *ngIf="totalNumberOfChildren > loadedNumberOfChildren">
+  <mat-icon>add</mat-icon>
+</button>

@@ -61,4 +61,14 @@ export class KnoraV2RequestService {
     return this.httpClient.post(databaseAddress + '/v2/searchextended?' + this.basicAuthentication, graveSearchRequest);
   }
 
+  /**
+   * Get a JSON representation of a resource
+   * @param {string} graveSearchRequest  A SPARQL like request
+   * @param {string} databaseAddress  The domain of the Knora instance
+   * @returns {Observable<Object>}  The Knora V1 response for this resource
+   */
+  countExtendedSearchFromSpecificInstance(graveSearchRequest: string, databaseAddress: string) {
+    return this.httpClient.post(databaseAddress + '/v2/searchextended/count?' + this.basicAuthentication, graveSearchRequest);
+  }
+
 }
