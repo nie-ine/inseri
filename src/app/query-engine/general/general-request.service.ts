@@ -1,3 +1,8 @@
+/**
+ * This service performs the RESTFul http requests
+ * saved by the user in inseri
+ * */
+
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
