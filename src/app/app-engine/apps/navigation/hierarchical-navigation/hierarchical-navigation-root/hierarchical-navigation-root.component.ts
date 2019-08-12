@@ -61,6 +61,8 @@ export class HierarchicalNavigationRootComponent implements OnChanges {
       (changes['parentIri'] || changes['backendAddress'] || changes['nodeConfiguration'])) {
       this.loadChildren();
     }
+
+    // TODO: load until IRI from query param is in result.
   }
 
   /**

@@ -80,6 +80,8 @@ export class HierarchicalNavigationNodeComponent implements OnChanges {
         }
       }
     }
+
+    // TODO: load until IRI from query param is in result.
   }
 
   /**
