@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
-import { AlertService} from '../../query-engine/fake-backend/auth/altert.service';
 import { AuthService } from '../mongodb/auth/auth.service';
 import {ContactService} from '../mongodb/contact/contact.service';
 import {environment} from '../../../environments/environment';
@@ -25,7 +23,6 @@ export class RegisterComponent implements OnInit{
 
   constructor(
     private router: Router,
-    private alertService: AlertService,
     public authService: AuthService,
     private contactService: ContactService,
     private passwordFormatCheckService: PasswordFormatCheckService,
