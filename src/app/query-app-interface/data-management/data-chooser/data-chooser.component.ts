@@ -1,44 +1,72 @@
+/**
+ * This component generates the Data Browser / Data Chooser with which the user can browse through
+ * the responses of the queries
+ * */
+
 import {
   Component,
-  OnInit,
-  Inject,
   AfterViewChecked,
   ChangeDetectorRef,
   Input,
   Output,
   EventEmitter} from '@angular/core';
-import {Router} from '@angular/router';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatFormField} from '@angular/material';
-import {type} from 'os';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-data-chooser',
   templateUrl: './data-chooser.component.html'
 })
 export class DataChooserComponent implements AfterViewChecked {
+
+  /**
+   * This variable contains the currently open apps on the respective page
+   * */
   @Input() openAppsInThisPage;
+
+  /**
+   * This Array contains the strings of the array of the first depth of
+   * the respective json response
+   * */
   @Input() dataChooserEntries = [];
+
+  /**
+   * This is the json response of the respective query
+   * */
   @Input() response;
+
+  /**
+   * This is the query id of the respecrive query
+   * */
   @Input() queryId;
+
+  /**
+   * This is the depth of the array residing as part of the json response of the query
+   * */
   @Input() depth;
+
+  /**
+   * This string is unsed to describe the depth of the data chooser entry
+   * */
   @Input() description = '';
-  @Output() sendAppTypesBackToNIEOS: EventEmitter<any> = new EventEmitter<any>();
+
+  /**
+   * This output emits the index chosen by the user
+   * */
   @Output() sendIndexBack: EventEmitter<any> = new EventEmitter<any>();
-  @Input() appInputQueryMapping;
-  gravSearchString: string;
-  dataChooserString: string;
-  gravSearchResponse: Array<any>;
-  chosenPropertyArray: Array<any>;
-  dataChooserSettingsOutput: any;
-  responseTest: any;
+
+  /**
+   * this variable stores the index emitted by the data chooser
+   * */
   index: number;
+
+  /**
+   * This boolean prevents the data chooser to emit an already emitted index
+   * */
   alreadyEmitted = false;
   constructor(
     public dialogSettings: MatDialog,
     private cdr: ChangeDetectorRef,
-  ) {
-    // console.log( this.dataChooserEntries );
-  }
+  ) {}
 
   ngAfterViewChecked() {
     this.cdr.detectChanges();
@@ -47,7 +75,6 @@ export class DataChooserComponent implements AfterViewChecked {
       this.chooseResource( 0 );
     }
     if ( typeof this.dataChooserEntries [ 0 ] === 'object'  && !this.alreadyEmitted ) {
-      console.log( 'Emit first value' );
       this.alreadyEmitted = true;
       this.chooseResource( 0 );
     }
@@ -63,20 +90,17 @@ export class DataChooserComponent implements AfterViewChecked {
   }
 
   moveBack() {
-    // console.log('move back');
     this.index -= 1;
     this.chooseResource( this.index );
   }
 
   moveForward() {
-    // console.log('move forward');
     this.index += 1;
     this.chooseResource( this.index );
   }
 
   showChosenEnrty( entry: string) {
-    // console.log( entry, this.index );
-    if( !this.index ) {
+    if ( !this.index ) {
       return entry;
     }
     return this.dataChooserEntries[this.index];

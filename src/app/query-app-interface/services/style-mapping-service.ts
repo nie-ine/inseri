@@ -1,3 +1,8 @@
+/**
+ * This service is part of a proof of concept for page specific css,
+ * maintained by github user domsteinbach
+ * */
+
 import { Injectable } from '@angular/core';
 
 @Injectable()

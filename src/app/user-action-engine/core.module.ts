@@ -16,7 +16,6 @@ import { ResultToTextMapperService } from '../app-engine/apps/text-view/result-t
 import { KnoraAuthService } from '../query-engine/knora/knora-auth.service';
 import { SynopsisModule } from '../app-engine/apps/synopsis/synopsis.module';
 import { SynopsisObjectStorageService } from '../app-engine/apps/synopsis/synopsis-object-storage.service';
-import { AuthenticationService } from '../query-engine/fake-backend/auth/authentication.service';
 import { MatDialogModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InitPopupComponent } from './init-popup/init-popup.component';
@@ -75,7 +74,6 @@ import {MatIconModule} from '@angular/material/icon';
     ResultToTextMapperService,
     KnoraAuthService,
     SynopsisObjectStorageService,
-    AuthenticationService,
     DialogUserSettingsDialog
   ],
   exports: [MainComponent, RouterModule]

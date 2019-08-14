@@ -1,3 +1,9 @@
+/**
+ * This component is taken from here: https://material.angular.io/components/tree/overview
+ * It includes only some small adjustments to emit the chosen path back to the
+ * query-app-input-map component
+ * */
+
 import {Input, OnInit, OnChanges, EventEmitter, Output} from '@angular/core';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {Component, Injectable} from '@angular/core';

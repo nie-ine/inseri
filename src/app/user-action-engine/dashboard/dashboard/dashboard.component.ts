@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Router, NavigationEnd } from '@angular/router';
-import { AlertService} from '../../../query-engine/fake-backend/auth/altert.service';
 import { ActionService } from '../../mongodb/action/action.service';
 import { Action } from '../../mongodb/action/action.model';
 import { map } from 'rxjs/operators';
@@ -26,7 +25,6 @@ export class DashboardComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private router: Router,
-    private alertService: AlertService,
     private actionService: ActionService,
     private contactService: ContactService
   ) {
