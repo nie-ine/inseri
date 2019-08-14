@@ -60,7 +60,7 @@ export class HierarchicalNavigationRootComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (
       (this.resourceIri && this.nodeConfiguration && this.backendAddress && this.nodeConfiguration.children) &&
-      (changes['parentIri'] || changes['backendAddress'] || changes['nodeConfiguration'])) {
+      (changes['resourceIri'] || changes['backendAddress'] || changes['nodeConfiguration'])) {
 
       // load until a specific child node if specified
       if (this.queryParams[this.nodeConfiguration.children.routeKey]) {

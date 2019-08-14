@@ -224,6 +224,15 @@ export class AppMenuModel {
       status: 'under development',
       appType: 'joinedTextView',
       description: 'Map text resources to blocks, lines and words and show them as HTML'
+    },
+    {
+      id: 'hierarchical_navigation_view',
+      name: 'Hierarchical navigation with dynamic loading',
+      tags: 'knora, navigation',
+      color: 'orange',
+      status: 'under development',
+      appType: 'hierarchicalNavigationView',
+      description: 'Map resources in a graph to a navigation tree.'
     }
   ];
 }

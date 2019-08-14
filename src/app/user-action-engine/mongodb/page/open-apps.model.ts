@@ -1,3 +1,6 @@
+import { Input } from '@angular/core';
+import { HierarchicalNavigationConfiguration } from '../../../app-engine/apps/navigation/hierarchical-navigation/hierarchical-navigation-configuration';
+
 export class OpenAppsModel {
   openApps = {
     imageViewer: {
@@ -213,6 +216,24 @@ export class OpenAppsModel {
       inputs: [
         {
           'inputName': 'json'
+        }
+      ],
+      materialIcon: 'subdirectory_arrow_right',
+      initialWidth: '400',
+      initialHeight: '600'
+    },
+    hierarchicalNavigationView: {
+      type: 'hierarchicalNavigationView',
+      model: [],
+      inputs: [
+        {
+          'inputName': 'backendAddress'
+        },
+        {
+          'inputName': 'navigationRootIri'
+        },
+        {
+          'inputName': 'navigationConfiguration'
         }
       ],
       materialIcon: 'subdirectory_arrow_right',

@@ -300,6 +300,14 @@
 
             </app-navigation-tree>
 
+
+            <app-hierarchical-navigation-view *ngIf="appType === 'hierarchicalNavigationView'"
+                                              [backendAddress]="openAppsInThisPage['hierarchicalNavigationView'].model[i]['backendAddress']"
+                                              [navigationRootIri]="openAppsInThisPage['hierarchicalNavigationView'].model[i]['navigationRootIri']"
+                                              [navigationConfiguration]="openAppsInThisPage['hierarchicalNavigationView'].model[i]['navigationConfiguration']">
+            </app-hierarchical-navigation-view>
+
+
             <data-list-view style="position: sticky;" *ngIf="appType === 'dataListView'"
                            [queryResponse]="openAppsInThisPage[ 'dataListView' ].model[i]['json']"
                             [dataListSettings]="openAppsInThisPage[ 'dataListView' ].model[i]['settings']">

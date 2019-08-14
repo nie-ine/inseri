@@ -8,13 +8,13 @@
     [routeKeys]="routeKeys"
     (pathChange)="processPathChange($event)">
   </app-hierarchical-navigation-node>
-
-  <!-- TODO option to load more -->
 </ul>
 
-<button mat-button
-        (click)="loadMoreChildren()"
-        aria-label="load more"
-        *ngIf="totalNumberOfChildren > loadedNumberOfChildren">
-  <mat-icon>add</mat-icon>
-</button>
+<ng-container *ngIf="children">
+  <button mat-button
+          (click)="loadMoreChildren()"
+          aria-label="load more"
+          *ngIf="totalNumberOfChildren > children.length">
+    <mat-icon>add</mat-icon>
+  </button>
+</ng-container>

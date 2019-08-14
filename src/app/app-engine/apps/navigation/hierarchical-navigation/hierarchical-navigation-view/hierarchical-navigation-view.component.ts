@@ -9,6 +9,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class HierarchicalNavigationViewComponent implements OnChanges {
 
+  // TODO: sorting of children
+  // TODO: custom property instead of label
+
   /**
    * Address to Knora instance with the input data for this component.
    */
