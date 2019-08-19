@@ -336,6 +336,9 @@ export class OpenAppsModel {
         },
         {
           'inputName': 'textRootIri'
+        },
+        {
+          'inputName': 'queryParamForTextRootIri'
         }
       ],
       materialIcon: 'aspect_ratio',

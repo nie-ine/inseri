@@ -381,6 +381,7 @@
             <app-joined-text-view *ngIf="appType === 'joinedTextView'"
                                   [backendAddress]="openAppsInThisPage[ 'joinedTextView' ].model[i]['backendAddress']"
                                   [textRootIri]="openAppsInThisPage[ 'joinedTextView' ].model[i]['textRootIri']"
+                                  [queryParamForTextRootIri]="openAppsInThisPage['joinedTextView'].model[i]['queryParamForTextRootIri']"
                                   [textConfiguration]="openAppsInThisPage[ 'joinedTextView' ].model[i]['textConfiguration']"
                                   [styleDeclarations]="openAppsInThisPage[ 'joinedTextView' ].model[i]['styleDeclarations']"
                                   [selectiveStyleDeclarations]="openAppsInThisPage[ 'joinedTextView' ].model[i]['selectiveStyleDeclarations']">
