@@ -45,7 +45,7 @@ export class HierarchicalNavigationRequestService {
 
     graveSearchRequest = graveSearchRequest + constructPart + wherePart + '}';
     if (configuration.sortByPropertyIri) {
-      graveSearchRequest = graveSearchRequest + ' SORT BY ?sortingprop';
+      graveSearchRequest = graveSearchRequest + ' ORDER BY ?sortingprop';
     }
     graveSearchRequest = graveSearchRequest + ' OFFSET ' + offset;
 
