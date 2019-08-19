@@ -84,17 +84,25 @@ export class MetadataViewComponent implements OnInit {
 
   backendAddress = 'http://localhost:3333';
 
-  navigationRootIri = 'http://rdfh.ch/0041/qetIHdOZTceuFKXIPWXofA';
+  navigationRootIri =  'http://rdfh.ch/0041/jmP456wdSyWD-0XG1_6_VQ';
 
   navigationConfiguration: HierarchicalNavigationConfiguration = {
     children: {
-      propertyIri: 'http://api.knora.org/ontology/shared/literature/simple/v2#isPartOfVerseSongbook',
+      propertyIri: 'http://api.knora.org/ontology/shared/concept/simple/v2#isPartOf',
       propertyDirection: 'inverted',
-      routeKey: 'sukta',
+      sortByPropertyIri: 'http://api.knora.org/ontology/knora-api/simple/v2#seqnum',
+      routeKey: 'kanda',
       children: {
-        propertyIri: 'http://0.0.0.0:3333/ontology/0041/atharvaveda/simple/v2#isStropheOfSukta',
+        propertyIri: 'http://api.knora.org/ontology/shared/literature/simple/v2#isPartOfVerseSongbook',
         propertyDirection: 'inverted',
-        routeKey: 'stanza'
+        sortByPropertyIri: 'http://api.knora.org/ontology/knora-api/simple/v2#seqnum',
+        routeKey: 'sukta',
+        children: {
+          propertyIri: 'http://0.0.0.0:3333/ontology/0041/atharvaveda/simple/v2#isStropheOfSukta',
+          propertyDirection: 'inverted',
+          sortByPropertyIri: 'http://api.knora.org/ontology/knora-api/simple/v2#seqnum',
+          routeKey: 'stanza'
+        }
       }
     }
   };
