@@ -26,9 +26,9 @@ export class HierarchicalNavigationRootComponent implements OnChanges {
   @Input() nodeConfiguration: HierarchicalNavigationConfiguration;
 
   /**
-   * Query parameters containing the most recent path selection.
+   * Subset of query parameters containing the most recent path selection.
    */
-  @Input() queryParams: any;
+  @Input() pathMap: any;
 
   /**
    * Possible keys that could be part of the path selection.
@@ -63,7 +63,7 @@ export class HierarchicalNavigationRootComponent implements OnChanges {
       (changes['resourceIri'] || changes['backendAddress'] || changes['nodeConfiguration'])) {
 
       // load until a specific child node if specified
-      if (this.queryParams[this.nodeConfiguration.children.routeKey]) {
+      if (this.pathMap[this.nodeConfiguration.children.routeKey]) {
         this.loadChildrenUntil();
       } else {
         this.loadChildren();
@@ -122,7 +122,7 @@ export class HierarchicalNavigationRootComponent implements OnChanges {
 
         // stop if the id is already found
         for (const c of this.children) {
-          if (this.queryParams[this.nodeConfiguration.children.routeKey] === c['@id']) {
+          if (this.pathMap[this.nodeConfiguration.children.routeKey] === c['@id']) {
             iterate = false;
           }
         }
@@ -142,7 +142,7 @@ export class HierarchicalNavigationRootComponent implements OnChanges {
 
                 // stop if a child matches
                 for (const c of d[ '@graph' ]) {
-                  if (this.queryParams[this.nodeConfiguration.children.routeKey] === c['@id']) {
+                  if (this.pathMap[this.nodeConfiguration.children.routeKey] === c['@id']) {
                     iterate = false;
                   }
                 }
@@ -150,7 +150,7 @@ export class HierarchicalNavigationRootComponent implements OnChanges {
                 // if only one child
                 this.children = [ d ];
 
-                if (this.queryParams[this.nodeConfiguration.children.routeKey] === d['@id']) {
+                if (this.pathMap[this.nodeConfiguration.children.routeKey] === d['@id']) {
                   iterate = false;
                 }
               }

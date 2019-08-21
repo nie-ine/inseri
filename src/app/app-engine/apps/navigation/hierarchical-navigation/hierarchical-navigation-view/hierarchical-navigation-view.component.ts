@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { HierarchicalNavigationConfiguration } from '../hierarchical-navigation-configuration';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -35,7 +35,7 @@ export class HierarchicalNavigationViewComponent implements OnChanges {
   /**
    * Most recent query parameters with the active path.
    */
-  queryParams;
+  pathMap;
 
   /**
    * Constructor
@@ -49,7 +49,8 @@ export class HierarchicalNavigationViewComponent implements OnChanges {
    */
   ngOnChanges() {
     this._route.queryParams.subscribe(params => {
-      this.queryParams = params;
+      // TODO filter out hover and focus
+      this.pathMap = params;
     });
 
     if (this.navigationConfiguration) {
@@ -77,7 +78,7 @@ export class HierarchicalNavigationViewComponent implements OnChanges {
     // new parameter object
     const params = {};
     // copy old values
-    for (const [k, v] of Object.entries(this.queryParams)) {
+    for (const [k, v] of Object.entries(this.pathMap)) {
       params[k] = v;
     }
     // replace with new values

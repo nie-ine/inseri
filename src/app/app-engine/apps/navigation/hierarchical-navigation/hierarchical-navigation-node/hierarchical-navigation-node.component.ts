@@ -26,9 +26,9 @@ export class HierarchicalNavigationNodeComponent implements OnChanges {
   @Input() nodeConfiguration: HierarchicalNavigationNodeConfiguration;
 
   /**
-   * Query parameters containing the most recent path selection.
+   * Subset of query parameters containing the most recent path selection.
    */
-  @Input() queryParams: any;
+  @Input() pathMap: any;
 
   /**
    * Possible keys that could be part of the path selection.
@@ -71,16 +71,16 @@ export class HierarchicalNavigationNodeComponent implements OnChanges {
   /**
    * load new content with new input variables
    */
-  ngOnChanges(changes: SimpleChanges){
-    if (changes[ 'queryParams' ] || changes[ 'routeKeys' ]) {
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes[ 'pathMap' ] || changes[ 'routeKeys' ]) {
       this.isInPath = false;
 
       // if this resource is in the selected path, highlight it
-      if (this.queryParams[ this.nodeConfiguration.routeKey ] === this.resource[ '@id' ]) {
+      if (this.pathMap[ this.nodeConfiguration.routeKey ] === this.resource[ '@id' ]) {
         this.isInPath = true;
 
         // if this resource is in the selected path and has a selected child, load the children
-        if (this.nodeConfiguration.children && this.queryParams[ this.nodeConfiguration.children.routeKey ]) {
+        if (this.nodeConfiguration.children && this.pathMap[ this.nodeConfiguration.children.routeKey ]) {
           this.loadChildrenUntil();
         }
       }
@@ -138,7 +138,7 @@ export class HierarchicalNavigationNodeComponent implements OnChanges {
 
         // stop if the id is already found
         for (const c of this.children) {
-          if (this.queryParams[this.nodeConfiguration.children.routeKey] === c['@id']) {
+          if (this.pathMap[this.nodeConfiguration.children.routeKey] === c['@id']) {
             iterate = false;
           }
         }
@@ -161,7 +161,7 @@ export class HierarchicalNavigationNodeComponent implements OnChanges {
 
                 // stop if a child matches
                 for (const c of d[ '@graph' ]) {
-                  if (this.queryParams[this.nodeConfiguration.children.routeKey] === c['@id']) {
+                  if (this.pathMap[this.nodeConfiguration.children.routeKey] === c['@id']) {
                     iterate = false;
                   }
                 }
@@ -169,7 +169,7 @@ export class HierarchicalNavigationNodeComponent implements OnChanges {
                 // if only one child
                 this.children.concat([ d ]);
 
-                if (this.queryParams[this.nodeConfiguration.children.routeKey] === d['@id']) {
+                if (this.pathMap[this.nodeConfiguration.children.routeKey] === d['@id']) {
                   iterate = false;
                 }
               }
