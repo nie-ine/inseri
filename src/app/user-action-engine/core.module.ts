@@ -11,7 +11,6 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { TextViewModule } from '../app-engine/apps/text-view/text-view.module';
 import { KnoraRequestService } from '../query-engine/knora/knora-request.service';
-import { SparqlRequestService } from '../query-engine/sparql/sparql-request.service';
 import { ResultToTextMapperService } from '../app-engine/apps/text-view/result-to-text-mapper.service';
 import { KnoraAuthService } from '../query-engine/knora/knora-auth.service';
 import { SynopsisModule } from '../app-engine/apps/synopsis/synopsis.module';
@@ -70,7 +69,6 @@ import {MatIconModule} from '@angular/material/icon';
   ],
   providers: [
     KnoraRequestService,
-    SparqlRequestService,
     ResultToTextMapperService,
     KnoraAuthService,
     SynopsisObjectStorageService,

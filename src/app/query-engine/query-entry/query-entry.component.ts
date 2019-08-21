@@ -1,3 +1,7 @@
+/**
+ * This component is the GUI to enter queries by the user
+ * */
+
 import { AfterViewInit, Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatTabChangeEvent } from '@angular/material';
 import {HttpClient} from '@angular/common/http';
