@@ -1,6 +1,3 @@
-import { Input } from '@angular/core';
-import { HierarchicalNavigationConfiguration } from '../../../app-engine/apps/navigation/hierarchical-navigation/hierarchical-navigation-configuration';
-
 export class OpenAppsModel {
   openApps = {
     imageViewer: {
