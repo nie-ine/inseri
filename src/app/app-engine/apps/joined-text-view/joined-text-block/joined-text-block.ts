@@ -12,6 +12,9 @@ export interface JoinedTextBlock extends JoinedTextElement {
   /** If sorting is needed, to by the value of this property */
   sortByPropertyIri?: string;
 
+  /** The identifier that leads to the literal content for this resource. */
+  contentPropertyIri?: string;
+
   /** Configuration of lines in this block */
   lines?: JoinedTextLine;
 
