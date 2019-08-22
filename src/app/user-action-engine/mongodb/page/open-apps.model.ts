@@ -331,7 +331,38 @@ export class OpenAppsModel {
     pageMenu: {
       type: 'pageMenu',
       model: [],
-      materialIcon: 'setttings'
+      materialIcon: 'settings'
+    },
+    sparqlVisualizer: {
+      type: 'sparqlVisualizer',
+      model: [],
+      materialIcon: 'drag_indicator',
+    initialWidth: '750',
+    initialHeight: '900',
+      inputs: [
+        {
+          'inputName': 'url'
+        }
+      ],
+    },
+    salsah2: {
+      type: 'salsah2',
+      model: [],
+      materialIcon: 'camera_enhance',
+      initialWidth: '700',
+      initialHeight: '1200',
+      inputs: [
+        {
+          'inputName': 'url'
+        }
+      ],
+    },
+    primeEditor: {
+      type: 'primeEditor',
+      model: [],
+      materialIcon: 'format_size',
+      initialWidth: '700',
+      initialHeight: '400'
     }
   };
 }

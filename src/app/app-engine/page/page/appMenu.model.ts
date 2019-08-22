@@ -224,6 +224,34 @@ export class AppMenuModel {
       status: 'under development',
       appType: 'joinedTextView',
       description: 'Map text resources to blocks, lines and words and show them as HTML'
+    },
+    {
+      id: 'drag_indicator',
+      name: 'Sparql - Visualiser',
+      tags: 'sparql, rdf, rdfs, olw',
+      color: 'green',
+      status: 'stable',
+      appType: 'sparqlVisualizer',
+      description: 'Visualize Ontologies and RDF/RDFS/Owl data'
+    },
+    {
+      id: 'camera_enhance',
+      name: 'Salsah 2',
+      tags: 'DaSCH',
+      color: 'red',
+      status: 'deprecated by the DaSCH',
+      appType: 'salsah2',
+      description: 'Predecessor of Kuirl / SUID'
+    }
+    ,
+    {
+      id: 'format_size',
+      name: 'Text Editor',
+      tags: 'primefaces, quill',
+      color: 'green',
+      status: 'stable',
+      appType: 'primeEditor',
+      description: 'Write and Save text on a page'
     }
   ];
 }

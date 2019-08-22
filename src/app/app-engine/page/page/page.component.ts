@@ -26,7 +26,7 @@ import { AppMenuModel } from './appMenu.model';
 import {ExtendSessionComponent, PizzaPartyComponent} from '../../../user-action-engine/header/header.component';
 import {AuthService} from '../../../user-action-engine/mongodb/auth/auth.service';
 import {QueryService} from '../../../user-action-engine/mongodb/query/query.service';
-
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'nie-os',
@@ -222,6 +222,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * Array of appType names
    * */
   appTypes: Array<string> = [];
+
+  environment = environment;
 
   constructor(
     public route: ActivatedRoute,
@@ -819,4 +821,17 @@ export class PageComponent implements OnInit, AfterViewChecked {
       this.updatePage();
     }, 2000);
   }
+
+  updateTextOnApp( textAndHash: any ) {
+    console.log( textAndHash );
+    for ( const app of this.openAppsInThisPage[ textAndHash.type ].model ) {
+      if ( textAndHash.hash === app.hash ) {
+        app.text = textAndHash.text;
+      }
+    }
+    this.page.openApps[ textAndHash.hash ].text = textAndHash.text;
+    console.log( this.page.openApps, this.openAppsInThisPage );
+    this.updatePage();
+  }
+
 }

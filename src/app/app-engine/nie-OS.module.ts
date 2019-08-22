@@ -71,6 +71,11 @@ import { YoutubeVideoComponent } from './apps/youtube-video/youtube-video.compon
 import {MatRadioModule} from '@angular/material/radio';
 import { JoinedTextViewModule } from './apps/joined-text-view/joined-text-view.module';
 import { ResponseTreeComponent, FileDatabase } from '../query-app-interface/data-management/response-tree/response-tree.component';
+import { IframeComponent } from './apps/iframe/iframe.component';
+import { NgMagicIframeModule } from '@sebgroup/ng-magic-iframe';
+import { PrimeEditorComponent } from './apps/prime-editor/prime-editor.component';
+import {EditorModule} from 'primeng/editor';
+import { AngularHandsometableComponent } from './apps/angular-handsometable/angular-handsometable.component';
 
 @NgModule({
   imports: [
@@ -118,9 +123,12 @@ import { ResponseTreeComponent, FileDatabase } from '../query-app-interface/data
     StaticPagesModule,
     MatRadioModule,
     JoinedTextViewModule,
+    NgMagicIframeModule,
+    EditorModule,
     // KnoraJsonldSimplify,
     RouterModule.forChild([
-      { path: 'page', component: PageComponent }
+      { path: 'page', component: PageComponent },
+      { path: 'table', component: AngularHandsometableComponent }
     ])
   ],
   providers: [
@@ -157,7 +165,10 @@ import { ResponseTreeComponent, FileDatabase } from '../query-app-interface/data
     OpenbisLoginComponent,
     YoutubeVideoComponent,
     DataChooserComponent,
-    ResponseTreeComponent
+    ResponseTreeComponent,
+    IframeComponent,
+    PrimeEditorComponent,
+    AngularHandsometableComponent
   ],
   exports: [
     PageComponent,

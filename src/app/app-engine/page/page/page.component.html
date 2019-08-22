@@ -378,6 +378,25 @@
                                   [selectiveStyleDeclarations]="openAppsInThisPage[ 'joinedTextView' ].model[i]['selectiveStyleDeclarations']">
             </app-joined-text-view>
 
+            <app-iframe *ngIf="appType === 'sparqlVisualizer'"
+                                                [url]="environment.sparqlVisualizer">
+
+          </app-iframe>
+
+            <app-iframe *ngIf="appType === 'salsah2'"
+                        [url]="environment.salsah2">
+
+            </app-iframe>
+
+            <app-prime-editor
+              *ngIf="appType === 'primeEditor'"
+              [text]="openAppsInThisPage[ 'primeEditor' ].model[i]['text']"
+              (sendTextBack) = "updateTextOnApp( $event )"
+              [hash]="openAppsInThisPage[ 'primeEditor' ].model[i].hash"
+              [type]="openAppsInThisPage[ 'primeEditor' ].type">
+
+            </app-prime-editor>
+
           </div>
         </popup>
       </div>

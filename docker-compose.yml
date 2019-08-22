@@ -64,3 +64,8 @@ services:
     depends_on:
       - mongodb
     restart: always
+
+  sparqlvisualiser:
+    image: nieine/sparqlvisualiser
+    ports:
+      - 5200:80

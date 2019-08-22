@@ -9,5 +9,7 @@ export const environment = {
   api: 'http://localhost:3333',
   app: 'http://localhost:4200',
   media: 'http://localhost:1024',
-  node: 'http://localhost:3000'
+  node: 'http://localhost:3000',
+  sparqlVisualizer: 'http://localhost:5200',
+  salsah2: 'http://salsah2.nie-ine.ch/'
 };
