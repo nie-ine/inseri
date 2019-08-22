@@ -217,7 +217,7 @@ export class AppMenuModel {
       description: 'With this app you can change data in Knora and see the history of given properties.'
     },
     {
-      id: 'joined_text_view',
+      id: 'aspect_ratio',
       name: 'Joined Text View',
       tags: 'knora, text, html',
       color: 'orange',
@@ -254,13 +254,22 @@ export class AppMenuModel {
       description: 'Write and Save text on a page'
     },
     {
-      id: 'hierarchical_navigation_view',
+      id: 'subdirectory_arrow_right',
       name: 'Hierarchical navigation with dynamic loading',
       tags: 'knora, navigation',
       color: 'orange',
       status: 'under development',
       appType: 'hierarchicalNavigationView',
       description: 'Map resources in a graph to a navigation tree.'
+    },
+    {
+      id: 'table_chart',
+      name: 'Spreadsheet',
+      tags: 'spreadsheet you will love',
+      color: 'orange',
+      status: 'under development',
+      appType: 'spreadSheet',
+      description: 'Your spreadsheet'
     }
   ];
 }

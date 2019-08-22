@@ -77,6 +77,8 @@ import { NgMagicIframeModule } from '@sebgroup/ng-magic-iframe';
 import { PrimeEditorComponent } from './apps/prime-editor/prime-editor.component';
 import {EditorModule} from 'primeng/editor';
 import { AngularHandsometableComponent } from './apps/angular-handsometable/angular-handsometable.component';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { AgGridModule } from 'ag-grid-angular';
 
 @NgModule({
   imports: [
@@ -127,7 +129,9 @@ import { AngularHandsometableComponent } from './apps/angular-handsometable/angu
     NgMagicIframeModule,
     HierarchicalNavigationModule,
     EditorModule,
+    Ng2SmartTableModule,
     // KnoraJsonldSimplify,
+    AgGridModule.withComponents([]),
     RouterModule.forChild([
       { path: 'page', component: PageComponent },
       { path: 'table', component: AngularHandsometableComponent }

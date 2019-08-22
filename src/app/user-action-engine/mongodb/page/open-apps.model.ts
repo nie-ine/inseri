@@ -384,6 +384,13 @@ export class OpenAppsModel {
       materialIcon: 'format_size',
       initialWidth: '700',
       initialHeight: '400'
+    },
+    spreadSheet: {
+      type: 'spreadSheet',
+      model: [],
+      materialIcon: 'table_chart',
+      initialWidth: '700',
+      initialHeight: '600'
     }
   };
 }
