@@ -219,6 +219,24 @@ export class OpenAppsModel {
       initialWidth: '400',
       initialHeight: '600'
     },
+    hierarchicalNavigationView: {
+      type: 'hierarchicalNavigationView',
+      model: [],
+      inputs: [
+        {
+          'inputName': 'backendAddress'
+        },
+        {
+          'inputName': 'navigationRootIri'
+        },
+        {
+          'inputName': 'navigationConfiguration'
+        }
+      ],
+      materialIcon: 'subdirectory_arrow_right',
+      initialWidth: '400',
+      initialHeight: '600'
+    },
     dataListView: {
       type: 'dataListView',
       model: [],
@@ -315,6 +333,9 @@ export class OpenAppsModel {
         },
         {
           'inputName': 'textRootIri'
+        },
+        {
+          'inputName': 'queryParamForTextRootIri'
         }
       ],
       materialIcon: 'aspect_ratio',

@@ -8,6 +8,7 @@ import { TagChipsModule } from '../../tag-chips/tag-chips.module';
 import { D3jsModule } from '../../d3js/d3js.module';
 import { Project0041Module } from '../../project-specific/project-0041/project-0041.module';
 import { Project0062Module } from '../../project-specific/project-0062/project-0062.module';
+import { HierarchicalNavigationModule } from '../../navigation/hierarchical-navigation/hierarchical-navigation.module';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { Project0062Module } from '../../project-specific/project-0062/project-0
     TagChipsModule,
     Project0041Module,
     Project0062Module,
+    HierarchicalNavigationModule,
     D3jsModule,
     RouterModule.forChild([
       { path: 'dev/metadata', component: MetadataViewComponent }

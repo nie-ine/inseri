@@ -71,6 +71,7 @@ import { YoutubeVideoComponent } from './apps/youtube-video/youtube-video.compon
 import {MatRadioModule} from '@angular/material/radio';
 import { JoinedTextViewModule } from './apps/joined-text-view/joined-text-view.module';
 import { ResponseTreeComponent, FileDatabase } from '../query-app-interface/data-management/response-tree/response-tree.component';
+import { HierarchicalNavigationModule } from './apps/navigation/hierarchical-navigation/hierarchical-navigation.module';
 
 @NgModule({
   imports: [
@@ -118,6 +119,7 @@ import { ResponseTreeComponent, FileDatabase } from '../query-app-interface/data
     StaticPagesModule,
     MatRadioModule,
     JoinedTextViewModule,
+    HierarchicalNavigationModule,
     // KnoraJsonldSimplify,
     RouterModule.forChild([
       { path: 'page', component: PageComponent }
