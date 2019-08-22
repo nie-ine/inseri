@@ -300,6 +300,14 @@
 
             </app-navigation-tree>
 
+
+            <app-hierarchical-navigation-view *ngIf="appType === 'hierarchicalNavigationView'"
+                                              [backendAddress]="openAppsInThisPage['hierarchicalNavigationView'].model[i]['backendAddress']"
+                                              [navigationRootIri]="openAppsInThisPage['hierarchicalNavigationView'].model[i]['navigationRootIri']"
+                                              [navigationConfiguration]="openAppsInThisPage['hierarchicalNavigationView'].model[i]['navigationConfiguration']">
+            </app-hierarchical-navigation-view>
+
+
             <data-list-view style="position: sticky;" *ngIf="appType === 'dataListView'"
                            [queryResponse]="openAppsInThisPage[ 'dataListView' ].model[i]['json']"
                             [dataListSettings]="openAppsInThisPage[ 'dataListView' ].model[i]['settings']">
@@ -373,6 +381,7 @@
             <app-joined-text-view *ngIf="appType === 'joinedTextView'"
                                   [backendAddress]="openAppsInThisPage[ 'joinedTextView' ].model[i]['backendAddress']"
                                   [textRootIri]="openAppsInThisPage[ 'joinedTextView' ].model[i]['textRootIri']"
+                                  [queryParamForTextRootIri]="openAppsInThisPage['joinedTextView'].model[i]['queryParamForTextRootIri']"
                                   [textConfiguration]="openAppsInThisPage[ 'joinedTextView' ].model[i]['textConfiguration']"
                                   [styleDeclarations]="openAppsInThisPage[ 'joinedTextView' ].model[i]['styleDeclarations']"
                                   [selectiveStyleDeclarations]="openAppsInThisPage[ 'joinedTextView' ].model[i]['selectiveStyleDeclarations']">

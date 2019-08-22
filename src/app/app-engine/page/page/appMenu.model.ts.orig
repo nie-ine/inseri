@@ -226,6 +226,7 @@ export class AppMenuModel {
       description: 'Map text resources to blocks, lines and words and show them as HTML'
     },
     {
+<<<<<<< HEAD
       id: 'drag_indicator',
       name: 'Sparql - Visualiser',
       tags: 'sparql, rdf, rdfs, olw',
@@ -252,8 +253,7 @@ export class AppMenuModel {
       status: 'stable',
       appType: 'primeEditor',
       description: 'Write and Save text on a page'
-    },
-    {
+=======
       id: 'hierarchical_navigation_view',
       name: 'Hierarchical navigation with dynamic loading',
       tags: 'knora, navigation',
@@ -261,6 +261,7 @@ export class AppMenuModel {
       status: 'under development',
       appType: 'hierarchicalNavigationView',
       description: 'Map resources in a graph to a navigation tree.'
+>>>>>>> 4f5a4d6846d4b35dd224f3fed67205aed3638c40
     }
   ];
 }

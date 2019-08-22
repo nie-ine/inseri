@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
-import { JoinedTextElement } from './joined-text-view/joined-text-view';
+import { JoinedTextElement } from '../../joined-text-view/joined-text-view/joined-text-view';
+import { DomEvent } from 'leaflet';
+import off = DomEvent.off;
 
 @Injectable({
   providedIn: 'root'
 })
-export class JoinedTextViewKnoraRequestService {
+export class HierarchicalNavigationRequestService {
 
   constructor() { }
 
-  getGravSearch(configuration: JoinedTextElement, parentIri): string {
+  getGravSearch(configuration: JoinedTextElement, parentIri, offset): string {
 
     let graveSearchRequest =
       'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n' +
@@ -18,7 +20,7 @@ export class JoinedTextViewKnoraRequestService {
     let constructPart = 'CONSTRUCT {\n  ?res knora-api:isMainResource true .\n';
     let wherePart = '} WHERE {\n';
 
-    if (configuration.contentProperty === 'self') {
+    if (configuration.contentProperty && configuration.contentProperty === 'self') {
       constructPart = constructPart + '  ?res <' + configuration.propertyIri + '> ?rescontent .\n';
       wherePart = wherePart + ' BIND(<' + parentIri + '> AS ?res) ';
       wherePart = wherePart + '  ?res <' + configuration.propertyIri + '> ?rescontent .\n';
@@ -45,6 +47,7 @@ export class JoinedTextViewKnoraRequestService {
     if (configuration.sortByPropertyIri) {
       graveSearchRequest = graveSearchRequest + ' ORDER BY ?sortingprop';
     }
+    graveSearchRequest = graveSearchRequest + ' OFFSET ' + offset;
 
     return graveSearchRequest;
   }

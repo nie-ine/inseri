@@ -276,21 +276,24 @@ export class TextDevViewComponent implements OnInit {
   backendAddress = 'http://localhost:3333';
 
   // Input()
-  textRootIri = 'http://rdfh.ch/0041/WA9dphq9RpmXkq5nSo6q3Q';
+  textRootIri = 'http://rdfh.ch/0041/-jGSetHwRzSVPRLH-PcqfA';
 
 
   textConfiguration1: JoinedTextViewRoot = {
     blocks: {
       propertyIri: 'http://api.knora.org/ontology/shared/text-structure/simple/v2#isPartOfTextExpression',
       propertyDirection: 'inverted',
+      sortByPropertyIri: 'http://api.knora.org/ontology/knora-api/simple/v2#seqnum',
       lines: {
         propertyIri: 'http://0.0.0.0:3333/ontology/0041/atharvaveda/simple/v2#isVerseOfHalfStrophe',
         propertyDirection: 'inverted',
+        sortByPropertyIri: 'http://api.knora.org/ontology/knora-api/simple/v2#seqnum',
         interfix: '&nbsp; ',
         columnRatio: ['0', '0', '0', '50%', '0', '0', '50%'],
         lineparts: {
-          propertyIri: 'http://api.knora.org/ontology/shared/text-structure/simple/v2#isWordOfVerse',
+          propertyIri: 'http://api.knora.org/ontology/shared/prosodic-structure/simple/v2#isWordOfVerse',
           propertyDirection: 'inverted',
+          sortByPropertyIri: 'http://api.knora.org/ontology/knora-api/simple/v2#seqnum',
           contentPropertyIri: 'http://api.knora.org/ontology/shared/language/simple/v2#hasContent'
         },
         farfarright: {
@@ -307,21 +310,25 @@ export class TextDevViewComponent implements OnInit {
     lines: {
       propertyIri: 'http://api.knora.org/ontology/shared/text-structure/simple/v2#isPartOfTextExpression',
       propertyDirection: 'inverted',
+      sortByPropertyIri: 'http://api.knora.org/ontology/knora-api/simple/v2#seqnum',
       interfix2: ' | ',
       suffix: ' || ',
       columnRatio: ['0', '0', '0', '100%', '0', '0', '0'],
       lineparts: {
         propertyIri: 'http://0.0.0.0:3333/ontology/0041/atharvaveda/simple/v2#isVerseOfHalfStrophe',
         propertyDirection: 'inverted',
+        sortByPropertyIri: 'http://api.knora.org/ontology/knora-api/simple/v2#seqnum',
         interfix: ' \' ',
         lineparts: {
-          propertyIri: 'http://api.knora.org/ontology/shared/text-structure/simple/v2#isWordOfVerse',
+          propertyIri: 'http://api.knora.org/ontology/shared/prosodic-structure/simple/v2#isWordOfVerse',
           propertyDirection: 'inverted',
+          sortByPropertyIri: 'http://api.knora.org/ontology/knora-api/simple/v2#seqnum',
           interfix: ' ',
           lineparts: {
             propertyIri: 'http://api.knora.org/ontology/shared/concept/simple/v2#informationHasSubject',
             propertyDirection: 'direct',
-            contentPropertyIri: 'http://api.knora.org/ontology/shared/text/simple/v2#hasName',
+            sortByPropertyIri: 'http://api.knora.org/ontology/knora-api/simple/v2#seqnum',
+            contentPropertyIri: 'http://api.knora.org/ontology/shared/language/simple/v2#hasContent',
             hoverable: true,
             hoverColor: '#F0F8FF',
             clickable: true,
