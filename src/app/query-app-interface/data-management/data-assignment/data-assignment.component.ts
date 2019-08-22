@@ -140,7 +140,7 @@ export class DataAssignmentComponent implements OnChanges {
      * This if statement if the currently treated part of the json response is and array
      * */
     if (
-      response &&
+      response && path &&
       response[ path[ pathDepth ] ] &&
       response[ path[ pathDepth ] ].length > 0
     ) {
@@ -172,7 +172,7 @@ export class DataAssignmentComponent implements OnChanges {
      * If the routine updatePathWithIndices has not reached the right depth, chosen by the user,
      * it is recursively invoced again, going one depth further in the json
      * */
-    if ( path.length > pathDepth + 1 && response ) {
+    if ( path && path.length > pathDepth + 1 && response ) {
       this.updatePathWithIndices(
         path,
         response[ path[ pathDepth ] ],
