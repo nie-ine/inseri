@@ -258,7 +258,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * Opens the data managment dialog where users can add queries to the page
    * */
   openDataManagement() {
-    this.spinner.show();
+    // this.spinner.show();
     this.pageService.updatePage(
       { ...this.page }
     )
@@ -273,10 +273,10 @@ export class PageComponent implements OnInit, AfterViewChecked {
           dialogRef.afterClosed().subscribe((result) => {
             this.resetPage = true;
             this.reloadVariables = true;
-            this.spinner.show();
-            setTimeout(() => {
-              this.spinner.hide();
-            }, 5000); // TODO: bind end of spinner to event that all queries have been loaded instead of setTimeout!
+          //   this.spinner.show();
+          //   setTimeout(() => {
+          //     this.spinner.hide();
+          //   }, 1000); // TODO: bind end of spinner to event that all queries have been loaded instead of setTimeout!
           });
         },
         error => {
@@ -309,10 +309,10 @@ export class PageComponent implements OnInit, AfterViewChecked {
     if ( this.pageIDFromURL !==  this.route.snapshot.queryParams.page ) {
       this.pageIDFromURL = this.route.snapshot.queryParams.page;
       this.reloadVariables = true;
-      this.spinner.show();
-      setTimeout(() => {
-        this.spinner.hide();
-      }, 5000); // TODO: bind end of spinner to event that all queries have been loaded instead of setTimeout!
+      // this.spinner.show();
+      // setTimeout(() => {
+      //   this.spinner.hide();
+      // }, 1000); // TODO: bind end of spinner to event that all queries have been loaded instead of setTimeout!
     }
     this.cdr.detectChanges();
   }
@@ -378,11 +378,11 @@ export class PageComponent implements OnInit, AfterViewChecked {
       this.lightHouse = false;
     }
 
-    this.spinner.show();
-
-    setTimeout(() => {
-      this.spinner.hide();
-    }, 5000); // TODO: bind end of spinner to event that all queries have been loaded instead of setTimeout!
+    // this.spinner.show();
+    //
+    // setTimeout(() => {
+    //   this.spinner.hide();
+    // }, 1000); // TODO: bind end of spinner to event that all queries have been loaded instead of setTimeout!
 
     /**
      * The key value pair curZindex is reset, it is incremented by one every time the user clicks on the app frame title bar
@@ -609,6 +609,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * function where the relevant variables are updated
    * */
   receivePage( pageAndAction: any ) {
+    console.log( pageAndAction );
     if (
       pageAndAction[ 0 ].openApps[ 'appsTiledOrFloating' ] ) {
       this.appFramePosition = pageAndAction[ 0 ].openApps[ 'appsTiledOrFloating' ].layout;
@@ -790,6 +791,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
      * */
     this.pageIsPublished = published;
     this.page.published = published;
+    console.log( this.action );
     this.action.published = published;
     this.page.showAppTitlesOnPublish = this.showAppTitlesOnPublish;
     this.page.showAppSettingsOnPublish = this.showAppSettingsOnPublish;
