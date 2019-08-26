@@ -20,7 +20,7 @@ export class PageSetLandingPageComponent implements OnInit {
   name: string;
   actionID: string;
   pageSet: any;
-  action: Action;
+  action: any;
   pagesOfThisPageSet: any;
   isLoading: boolean;
 
@@ -152,6 +152,27 @@ export class PageSetLandingPageComponent implements OnInit {
         this.checkIfPageSetExists(this.actionID);
       });
   }
+
+  switchPages(currentPosition: number, newPosition: number) {
+    console.log( this.action );
+    const currentPage = this.pagesOfThisPageSet[ currentPosition ];
+    this.pagesOfThisPageSet[ currentPosition ] = this.pagesOfThisPageSet[ newPosition ];
+    this.pagesOfThisPageSet[ newPosition ] = currentPage;
+    const newAction = { ...this.action };
+    newAction.hasPageSet.hasPages = this.pagesOfThisPageSet;
+    newAction.id = this.action._id;
+    console.log( newAction );
+    setTimeout(() => {
+      this.actionService.updateAction( newAction )
+        .subscribe(data => {
+          console.log( data );
+        }, error => {
+          console.log(error);
+        });
+    }, 1000);
+
+  }
+
 }
 
 @Component({
@@ -207,4 +228,5 @@ export class DialogCreateNewPageComponent implements OnInit {
         this.isLoading = false;
       });
   }
+
 }
