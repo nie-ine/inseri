@@ -10,6 +10,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DeletePageComponent } from '../delete-page/delete-page.component';
 import { PageService } from '../../mongodb/page/page.service';
 import { DuplicatePageComponent } from "../duplicate-page/duplicate-page.component";
+import {PageSetService} from '../../mongodb/pageset/page-set.service';
 
 @Component({
   selector: 'app-page-set-landing-page',
@@ -31,6 +32,7 @@ export class PageSetLandingPageComponent implements OnInit {
     public dialogDuplicatePage: MatDialog,
     private route: ActivatedRoute,
     private actionService: ActionService,
+    private pageSetService: PageSetService
   ) { }
 
   ngOnInit() {
@@ -154,23 +156,33 @@ export class PageSetLandingPageComponent implements OnInit {
   }
 
   switchPages(currentPosition: number, newPosition: number) {
-    console.log( this.action );
     const currentPage = this.pagesOfThisPageSet[ currentPosition ];
     this.pagesOfThisPageSet[ currentPosition ] = this.pagesOfThisPageSet[ newPosition ];
     this.pagesOfThisPageSet[ newPosition ] = currentPage;
-    const newAction = { ...this.action };
-    newAction.hasPageSet.hasPages = this.pagesOfThisPageSet;
-    newAction.id = this.action._id;
-    console.log( newAction );
-    setTimeout(() => {
-      this.actionService.updateAction( newAction )
-        .subscribe(data => {
-          console.log( data );
-        }, error => {
-          console.log(error);
-        });
-    }, 1000);
-
+    const pageIdArray = [];
+    let i = 0;
+    for ( const page of this.pagesOfThisPageSet ) {
+      pageIdArray[ i ] = page._id;
+      i++;
+    }
+    this.pageSetService.getPageSet( this.action.hasPageSet._id )
+      .subscribe(
+        data => {
+          const pageSet = data.pageset;
+          pageSet.hasPages = pageIdArray;
+          pageSet.id = pageSet._id;
+          this.pageSetService.updatePageSet( pageSet )
+            .subscribe(
+              data1 => {
+                console.log( data1 );
+              }, error2 => {
+                console.log( error2 );
+              }
+            );
+        }, error1 => {
+          console.log( error1 );
+        }
+      );
   }
 
 }

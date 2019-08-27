@@ -35,7 +35,7 @@ router.get('', checkAuth, (req, res, next) => {
 
 router.get('/:id', checkAuth, (req, res, next) => {
     PageSet.findById({_id: req.params.id})
-        .populate('hasPages')
+
         .then(pageSet => {
             if (pageSet) {
                 res.status(200).json({
@@ -68,7 +68,8 @@ router.put('/:id', checkAuth, (req, res, next) => {
     PageSet.findByIdAndUpdate({_id: req.params.id}, {
         title: req.body.title,
         description: req.body.description,
-        linkToImage: req.body.linkToImage
+        linkToImage: req.body.linkToImage,
+        hasPages: req.body.hasPages
     }, {new:true})
         .populate('hasPages')
         .then((resultPageSet) => {
@@ -78,8 +79,9 @@ router.put('/:id', checkAuth, (req, res, next) => {
             });
         })
         .catch(error => {
-            res.status(200).json({
-                message: 'PageSet cannot be updated'
+            res.status(401).json({
+                message: 'PageSet cannot be updated',
+                error: error
             });
         });
 });
