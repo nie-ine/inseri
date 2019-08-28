@@ -11,6 +11,7 @@ import { DeletePageComponent } from '../delete-page/delete-page.component';
 import { PageService } from '../../mongodb/page/page.service';
 import { DuplicatePageComponent } from "../duplicate-page/duplicate-page.component";
 import {PageSetService} from '../../mongodb/pageset/page-set.service';
+import {AuthService} from '../../mongodb/auth/auth.service';
 
 @Component({
   selector: 'app-page-set-landing-page',
@@ -25,6 +26,16 @@ export class PageSetLandingPageComponent implements OnInit {
   pagesOfThisPageSet: any;
   isLoading: boolean;
 
+  /**
+   * Describes if user is logged in
+   * */
+  loggedIn = true;
+
+  /**
+   * this variable indicates if page is shown in the preview - mode which indicates how the page would look published.
+   * */
+  preview = false;
+
   constructor(
     public dialog: MatDialog,
     public dialogUpdatePageSet: MatDialog,
@@ -33,7 +44,8 @@ export class PageSetLandingPageComponent implements OnInit {
     private route: ActivatedRoute,
     private actionService: ActionService,
     private pageSetService: PageSetService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -42,6 +54,11 @@ export class PageSetLandingPageComponent implements OnInit {
     if (this.actionID) {
       this.checkIfPageSetExists(this.actionID);
     }
+    if ( !this.authService.getIsAuth() ) {
+      this.preview = true;
+      this.loggedIn = false;
+    }
+    console.log( this.preview );
   }
 
   checkIfPageSetExists(actionID: string) {
@@ -61,6 +78,10 @@ export class PageSetLandingPageComponent implements OnInit {
         this.isLoading = false;
         // Fehlermeldung
       });
+  }
+
+  goToDashBoard() {
+    this.router.navigate(['/dashboard']);
   }
 
   generateDescription() {

@@ -123,8 +123,10 @@ router.post('', checkAuth, (req, res, next) => {
     // Case 1: action has a page set
     if (req.body.type === 'page-set') {
         // Default values for the pageset
-        const defaultTitle = 'Example pageSet 00';
-        const defaultDescription = 'Dies als Beispiel für eine PageSet bei NIE-OS';
+        const defaultTitle = 'document index';
+        const defaultDescription = 'You can change the title of this inseri document ' +
+          'as well as the description by clicking on the \'change document title and description\' button on the ' +
+          'bottom right';
         const defaultLinkToImage = '../../../../assets/img/pageset.png';
 
         const newPageSet = new PageSet({

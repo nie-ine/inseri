@@ -18,6 +18,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import {EditPageComponent } from './edit-page/edit-page.component';
 import { DeletePageComponent } from './delete-page/delete-page.component';
 import { DuplicatePageComponent } from './duplicate-page/duplicate-page.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   imports: [
@@ -34,6 +35,7 @@ import { DuplicatePageComponent } from './duplicate-page/duplicate-page.componen
     MatDividerModule,
     MatProgressSpinnerModule,
     MatCheckboxModule,
+    MatTooltipModule,
     RouterModule.forRoot([
       {path: 'page-set', component: PageSetLandingPageComponent}
     ])

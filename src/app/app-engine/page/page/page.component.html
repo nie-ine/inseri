@@ -104,12 +104,12 @@
 <!--          <span *ngIf="showNote && pageAsDemo"  > &#8592; Click here for inseri tutorials and the inseri App Menu</span>-->
         </button>
         <a (click)="goToDashBoard()" *ngIf=" (!pageAsDemo) && !preview" style="color: #4cae4c !important; cursor: pointer;"><mat-icon matTooltip="back to dashboard">home</mat-icon></a>
-        <a (click)="goToPageSet()" *ngIf="route.snapshot.queryParams.page" style="color: #4cae4c !important; margin-left: 15px; cursor: pointer"><mat-icon matTooltip="page overview">filter_none</mat-icon></a>
+        <a (click)="goToPageSet()" *ngIf="route.snapshot.queryParams.page" style="color: #4cae4c !important; margin-left: 15px; cursor: pointer"><mat-icon matTooltip="document index">list</mat-icon></a>
         <a *ngIf=" (!pageAsDemo) && !preview" (click)="updatePage()" style="color: #4cae4c !important; margin-left: 15px; cursor: pointer;"><mat-icon  matTooltip="save page">save</mat-icon></a>
         <a *ngIf=" (!pageAsDemo) && !preview" (click)="openDataManagement()" style="color: #4cae4c !important; margin-left: 15px; cursor: pointer;" ><mat-icon matTooltip="page data manager">zoom_out_map</mat-icon></a>
         <a *ngIf=" (!pageAsDemo) && !preview" (click)="logout()" style="color: #4cae4c !important; margin-left: 15px; cursor: pointer;" ><mat-icon matTooltip="{{ 'click to logout - ' + userInfo }}">lock_open</mat-icon></a>
         <mat-chip style="cursor: pointer; float: right; margin-right: 15px;" *ngIf=" (!pageAsDemo) && !preview && route.snapshot.queryParams.page">
-          <mat-icon (click)="addNewPage()" matTooltip="'ad new page tho this pageSet'">
+          <mat-icon (click)="addNewPage()" matTooltip="'add new page tho this pageSet'">
             add
           </mat-icon>
         </mat-chip>

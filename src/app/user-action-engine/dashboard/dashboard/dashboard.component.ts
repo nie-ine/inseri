@@ -74,7 +74,7 @@ export class DashboardComponent implements OnInit {
           if ( action.type === 'page-set' ) {
             this.actionService.getAction(action.id)
               .subscribe(data => {
-                if ( data.body.action.hasPageSet.hasPages !== null ) {
+                if ( data.body.action.hasPageSet.hasPages !== null && data.body.action.hasPageSet.hasPages[ 0 ]._id ) {
                   action.hasPage = data.body.action.hasPageSet.hasPages[ 0 ]._id;
                 }
               }, error => {
