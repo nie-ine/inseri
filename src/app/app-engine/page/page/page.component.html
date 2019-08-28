@@ -234,8 +234,8 @@
                                     [iiifImagePath]="openAppsInThisPage[ 'imageViewer' ].model[i][ 'fileValueAsUrl' ]"
                                     [maxImageWidth]="openAppsInThisPage[ 'imageViewer' ].model[i][ 'stillImageFileValueHasDimX' ]"
                                     [maxImageHeight]="openAppsInThisPage[ 'imageViewer' ].model[i][ 'stillImageFileValueHasDimY' ]"
-                                    width="500"
-                                    height="700">
+                                    [width]="produceHeightAndWidth( openAppsInThisPage[ 'imageViewer' ].model[i].width,  openApps.openApps[ 'imageViewer' ].initialWidth )"
+                                    [height]="produceHeightAndWidth( openAppsInThisPage[ 'imageViewer' ].model[i].height,  openApps.openApps[ 'imageViewer' ].initialHeight)">
             </app-image-with-overlay>
 
 
