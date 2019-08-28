@@ -293,7 +293,9 @@
                                            [pageTree]="openAppsInThisPage['svgTranscription'].model[i]['pageTree']"
                                            [imageUrl]="openAppsInThisPage['svgTranscription'].model[i]['imageUrl']"
                                            [width]="openAppsInThisPage['svgTranscription'].model[i]['imageWidth']"
-                                           [height]="openAppsInThisPage['svgTranscription'].model[i]['imageHeight']" >
+                                           [height]="openAppsInThisPage['svgTranscription'].model[i]['imageHeight']"
+                                           [viewerWidth]="produceHeightAndWidth( openAppsInThisPage[ 'svgTranscription' ].model[i].width,  openApps.openApps[ 'svgTranscription' ].initialWidth )"
+                                           [viewerHeight]="produceHeightAndWidth( openAppsInThisPage[ 'svgTranscription' ].model[i].height,  openApps.openApps[ 'svgTranscription' ].initialHeight)">
             </app-text-svg-view-wrapper>
 
 

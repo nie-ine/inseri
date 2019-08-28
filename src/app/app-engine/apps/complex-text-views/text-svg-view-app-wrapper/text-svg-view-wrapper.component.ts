@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { IIIFImage } from '../../shared/IIIFImage';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageTree } from '../models/page-tree.model';
+import { PAGETRANSCRIPTION } from '../../development-views/text-dev-view/text-dev-view/page-transcription';
 
 /**
  * This component wraps a text-svg-view component to make it usable as a NIE-OS app.
@@ -32,6 +33,10 @@ export class TextSvgViewWrapperComponent implements OnInit, OnChanges {
    * The data of a page as a tree of lines and words, each element with an unique identifier.
    */
   @Input() pageTree: PageTree;
+
+  @Input() viewerWidth = 900;
+
+  @Input() viewerHeight = 1200;
 
   /**
    * The unique id of the word that was last clicked and counts as activated. Only one word can be counted as activated at a time.
@@ -80,6 +85,13 @@ export class TextSvgViewWrapperComponent implements OnInit, OnChanges {
    * Change properties if the query parameters or the input variables change.
    */
   ngOnChanges() {
+    if (this.imageUrl === undefined && this.width === undefined && this.height === undefined && this.pageTree === undefined) {
+      this.imageUrl = 'https://www.e-manuscripta.ch/zuz/i3f/v20/1510618/full/full/0/default.jpg';
+      this.width = 3062;
+      this.height = 4034;
+      this.pageTree = PAGETRANSCRIPTION;
+    }
+
     // Change properties if the query parameters change.
     this._route.queryParams.subscribe(params => {
       this.clickedWord = params.focus;

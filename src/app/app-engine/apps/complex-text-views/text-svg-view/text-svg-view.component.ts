@@ -45,6 +45,10 @@ export class TextSvgViewComponent implements OnInit, OnChanges, OnDestroy {
    */
   @Input() pageTree: PageTree;
 
+  @Input() viewerWidth = 1;
+
+  @Input() viewerHeight = 1;
+
   /**
    * The unique id of the word that was last clicked and counts as activated. Only one word can be counted as activated at a time.
    */
