@@ -139,7 +139,6 @@ export class DataManagementComponent implements OnInit {
             }
           }
         }
-        this.spinner1.hide();
       });
   }
 
@@ -175,7 +174,6 @@ export class DataManagementComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.spinner1.show();
   }
 
   checkIfPathIsDefined( appHash: string ) {
@@ -315,7 +313,6 @@ export class DataManagementComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       this.reloadVariables = true;
-      this.spinner1.show();
     });
   }
 

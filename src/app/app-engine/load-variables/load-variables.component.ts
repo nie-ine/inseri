@@ -51,6 +51,7 @@ export class LoadVariablesComponent implements OnInit, OnChanges {
   reloadVariables() {
     this.pageId = this.route.snapshot.queryParams.page;
     this.actionId = this.route.snapshot.queryParams.actionID;
+    console.log( this.actionId );
     this.page = {};
     const reset = new OpenAppsModel;
     this.openAppsInThisPage = reset.openApps;
@@ -101,7 +102,7 @@ export class LoadVariablesComponent implements OnInit, OnChanges {
             this.openAppsInThisPage,
             this.reload
           );
-          this.actionService.getAction(actionID)
+          this.actionService.getAction(this.actionId)
             .subscribe(
               data1 => {
                 if (data1.status === 200) {

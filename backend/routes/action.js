@@ -231,7 +231,8 @@ router.put('/:id', checkAuth, (req, res, next) => {
     Action.findOneAndUpdate({_id: req.params.id, creator: req.userData.userId}, {
         title: req.body.title,
         description: req.body.description,
-        published: req.body.published
+        published: req.body.published,
+        isFinished: req.body.isFinished
     },{new:true})
         .populate('hasPage')
         .populate({

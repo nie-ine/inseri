@@ -11,7 +11,12 @@
 
         <h2 class="section-heading">Guten Tag, {{ userFirstName }}</h2>
 
-        <h3 class="section-subheading text-muted">Arbeite an einer Aktion weiter oder fange eine neue Aktion an</h3>
+        <h3 class="section-subheading text-muted">Arbeite an einer Aktion weiter oder fange eine neue Aktion an <br>
+          <button mat-button style="margin-top: 30px;" (click)="showArchivedDocuments = !showArchivedDocuments" *ngIf="!showArchivedDocuments" > Show archived inseri documents</button>
+          <button mat-button style="margin-top: 30px;" (click)="showArchivedDocuments = !showArchivedDocuments" *ngIf="showArchivedDocuments"> Show non archived inseri documents</button>
+        </h3>
+
+
 
       </div>
 
@@ -20,7 +25,7 @@
     <div class="row text-center">
 
 
-      <div class="col-md-4" href="#portfolioModal1">
+      <div class="col-md-4" href="#portfolioModal1" style=" width: 230px; height: 300px; display: inline-block;">
 
         <span class="fa-stack fa-4x" style="cursor: pointer">
          <i class="fa fa-circle fa-stack-2x text-primary" ></i>
@@ -34,8 +39,8 @@
       </div>
 
 
-    <div *ngFor="let action of actions; let i = index" >
-      <div class="col-md-4" href="#portfolioModal1" *ngIf="!action.deleted" [ngStyle]="{'color': action.isFinished ? 'green' : 'black'}">
+    <div *ngFor="let action of actions; let i = index">
+      <div class="col-md-4" href="#portfolioModal1" *ngIf="!action.deleted && !action.isFinished && !showArchivedDocuments" [ngStyle]="{'color': action.isFinished ? 'green' : 'black'}" style=" width: 230px; height: 300px; display: inline-block;" >
                     <span class="fa-stack fa-4x" [matMenuTriggerFor]="appMenu" [ngSwitch]="action.type" style="cursor: pointer">
                       <i class="fa fa-circle fa-stack-2x text-primary"></i>
                       <i *ngSwitchCase="'page-set'" class="fa fa-files-o fa-stack-1x fa-inverse" ></i>
@@ -43,11 +48,29 @@
                       <i *ngSwitchDefault class="fa fa-question fa-stack-1x fa-inverse" ></i>
                     </span>
                     <mat-menu #appMenu="matMenu">
-                      <button mat-menu-item (click)="continueAction( action )" >Aktion fortführen</button>
-                      <button mat-menu-item (click)="editAction( action )" >Aktion bearbeiten</button>
-                      <button mat-menu-item (click)="deleteAction( action )" >Lösche diese Aktion</button>
-                      <button mat-menu-item (click)="markAsDone( action )" >Als fertig markieren</button>
+                      <button mat-menu-item (click)="continueAction( action )" >Go to document</button>
+                      <button mat-menu-item (click)="goToDocumentIndex( action )" *ngIf="action.type === 'page-set'">Go to document index</button>
+                      <button mat-menu-item (click)="editAction( action )" >Change title or description</button>
+                      <button mat-menu-item (click)="deleteAction( action )" >Delete document</button>
+                      <button mat-menu-item (click)="markAsDone( action )" >Archive document</button>
                     </mat-menu>
+        <h4 class="service-heading">{{ action.title }}</h4>
+        <p class="text-muted">{{ action.description }}</p>
+      </div>
+      <div class="col-md-4" href="#portfolioModal1" *ngIf="!action.deleted && action.isFinished && showArchivedDocuments" [ngStyle]="{'color': action.isFinished ? 'green' : 'black'}" style=" width: 230px; height: 300px; display: inline-block;" >
+                    <span class="fa-stack fa-4x" [matMenuTriggerFor]="appMenu" [ngSwitch]="action.type" style="cursor: pointer">
+                      <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                      <i *ngSwitchCase="'page-set'" class="fa fa-files-o fa-stack-1x fa-inverse" ></i>
+                      <i *ngSwitchCase="'page'" class="fa fa-file-o fa-stack-1x fa-inverse" ></i>
+                      <i *ngSwitchDefault class="fa fa-question fa-stack-1x fa-inverse" ></i>
+                    </span>
+        <mat-menu #appMenu="matMenu">
+          <button mat-menu-item (click)="continueAction( action )" >Go to document</button>
+          <button mat-menu-item (click)="goToDocumentIndex( action )" *ngIf="action.type === 'page-set'">Go to document index</button>
+          <button mat-menu-item (click)="editAction( action )" >Change title or description</button>
+          <button mat-menu-item (click)="deleteAction( action )" >Delete document</button>
+          <button mat-menu-item (click)="markAsDone( action )" >Archive document</button>
+        </mat-menu>
         <h4 class="service-heading">{{ action.title }}</h4>
         <p class="text-muted">{{ action.description }}</p>
       </div>

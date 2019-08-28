@@ -64,7 +64,7 @@ router.put('/:id', checkAuth, (req, res, next) => {
 
     // Attaches error messages to the response
     if (messages.length > 0) return res.status(400).json({messages: messages});
-
+    console.log( req.body );
     PageSet.findByIdAndUpdate({_id: req.params.id}, {
         title: req.body.title,
         description: req.body.description,
@@ -96,7 +96,6 @@ router.post('/:id/pages', checkAuth, (req, res, next) => {
 
     // Attaches error messages to the response
     if (messages.length > 0) return res.status(400).json({messages: messages});
-
     PageSet.findById(req.params.id)
         .then(resultPageSet => {
             if (!resultPageSet) {
@@ -113,6 +112,7 @@ router.post('/:id/pages', checkAuth, (req, res, next) => {
 
             newPage.save()
                 .then(newPageResult => {
+                  console.log( resultPageSet );
                     PageSet.update({_id: resultPageSet._id}, { $push: { hasPages: newPageResult._id } })
                         .then(updatedPageSet => {
                             if (updatedPageSet.n > 0) {

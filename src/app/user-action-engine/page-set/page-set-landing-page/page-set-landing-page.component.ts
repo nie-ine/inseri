@@ -32,7 +32,8 @@ export class PageSetLandingPageComponent implements OnInit {
     public dialogDuplicatePage: MatDialog,
     private route: ActivatedRoute,
     private actionService: ActionService,
-    private pageSetService: PageSetService
+    private pageSetService: PageSetService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -183,6 +184,16 @@ export class PageSetLandingPageComponent implements OnInit {
           console.log( error1 );
         }
       );
+  }
+
+  goToPage( page: any ) {
+    this.router.navigate(['/page'],
+      { queryParams:
+          {
+            actionID: this.actionID,
+            page: page._id
+          }
+      });
   }
 
 }

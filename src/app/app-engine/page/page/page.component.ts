@@ -27,6 +27,7 @@ import {ExtendSessionComponent, PizzaPartyComponent} from '../../../user-action-
 import {AuthService} from '../../../user-action-engine/mongodb/auth/auth.service';
 import {QueryService} from '../../../user-action-engine/mongodb/query/query.service';
 import { environment } from '../../../../environments/environment';
+import {DialogCreateNewPageComponent} from '../../../user-action-engine/page-set/page-set-landing-page/page-set-landing-page.component';
 
 @Component({
   selector: 'nie-os',
@@ -429,6 +430,32 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * */
   checkIfSelected( index: number ) {
     return (index === this.selectedPage);
+  }
+
+  goToPageSet() {
+    this.router.navigate(['/page-set'],
+      { queryParams:
+          {
+            actionID: this.actionID
+          }
+      });
+  }
+
+  goToDashBoard() {
+    this.router.navigate(['/dashboard']);
+  }
+
+  addNewPage() {
+    const dialogRef = this.dialog.open(DialogCreateNewPageComponent, {
+      width: '700px',
+      data: { pageset: this.action.hasPageSet }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.alreadyLoaded = false;
+      this.generateNavigation(
+        this.actionID
+      );
+    });
   }
 
   /**

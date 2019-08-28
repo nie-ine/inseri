@@ -73,11 +73,9 @@ import { JoinedTextViewModule } from './apps/joined-text-view/joined-text-view.m
 import { ResponseTreeComponent, FileDatabase } from '../query-app-interface/data-management/response-tree/response-tree.component';
 import { HierarchicalNavigationModule } from './apps/navigation/hierarchical-navigation/hierarchical-navigation.module';
 import { IframeComponent } from './apps/iframe/iframe.component';
-import { NgMagicIframeModule } from '@sebgroup/ng-magic-iframe';
 import { PrimeEditorComponent } from './apps/prime-editor/prime-editor.component';
 import {EditorModule} from 'primeng/editor';
 import { AngularHandsometableComponent } from './apps/angular-handsometable/angular-handsometable.component';
-import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { AgGridModule } from 'ag-grid-angular';
 
 @NgModule({
@@ -126,10 +124,8 @@ import { AgGridModule } from 'ag-grid-angular';
     StaticPagesModule,
     MatRadioModule,
     JoinedTextViewModule,
-    NgMagicIframeModule,
     HierarchicalNavigationModule,
     EditorModule,
-    Ng2SmartTableModule,
     // KnoraJsonldSimplify,
     AgGridModule.withComponents([]),
     RouterModule.forChild([
