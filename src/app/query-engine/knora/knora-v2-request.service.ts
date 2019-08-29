@@ -22,7 +22,7 @@ export class KnoraV2RequestService {
   /**
    * Get a JSON representation of a resource
    * @param {string} resourceIRI  The uniqe IRI of the requested resource
-   * @returns {Observable<Object>}  The Knora V1 response for this resource
+   * @returns {Observable<Object>}  The Knora V2 response for this resource
    */
   getResource(resourceIRI: string) {
     return this.httpClient.get(this.instanceAddress + '/v2/resources/'
@@ -34,7 +34,7 @@ export class KnoraV2RequestService {
    * Get a JSON representation of a resource
    * @param {string} resourceIRI  The uniqe IRI of the requested resource
    * @param {string} databaseAddress  The domain of the Knora instance
-   * @returns {Observable<Object>}  The Knora V1 response for this resource
+   * @returns {Observable<Object>}  The Knora V2 response for this resource
    */
   getResourceFromSpecificInstance(resourceIRI: string, databaseAddress: string) {
     return this.httpClient.get(databaseAddress + '/v2/resources/'
@@ -43,29 +43,29 @@ export class KnoraV2RequestService {
   }
 
   /**
-   * Get a JSON representation of a resource
+   * Get a JSON representation of a tree defined by a gravesearch query
    * @param {string} graveSearchRequest  A SPARQL like request
-   * @returns {Observable<Object>}  The Knora V1 response for this resource
+   * @returns {Observable<Object>}  The Knora V2 response for this resource
    */
   extendedSearch(graveSearchRequest: string) {
     return this.httpClient.post(this.instanceAddress + '/v2/searchextended?' + this.basicAuthentication, graveSearchRequest);
   }
 
   /**
-   * Get a JSON representation of a resource
+   * Get a JSON representation of a tree defined by a gravesearch query
    * @param {string} graveSearchRequest  A SPARQL like request
    * @param {string} databaseAddress  The domain of the Knora instance
-   * @returns {Observable<Object>}  The Knora V1 response for this resource
+   * @returns {Observable<Object>}  The Knora V2 response for this resource
    */
   extendedSearchFromSpecificInstance(graveSearchRequest: string, databaseAddress: string) {
     return this.httpClient.post(databaseAddress + '/v2/searchextended?' + this.basicAuthentication, graveSearchRequest);
   }
 
   /**
-   * Get a JSON representation of a resource
+   * Get the number of main resources defined by a gravesearch query
    * @param {string} graveSearchRequest  A SPARQL like request
    * @param {string} databaseAddress  The domain of the Knora instance
-   * @returns {Observable<Object>}  The Knora V1 response for this resource
+   * @returns {Observable<Object>}  The Knora V2 response for this resource
    */
   countExtendedSearchFromSpecificInstance(graveSearchRequest: string, databaseAddress: string) {
     return this.httpClient.post(databaseAddress + '/v2/searchextended/count?' + this.basicAuthentication, graveSearchRequest);
