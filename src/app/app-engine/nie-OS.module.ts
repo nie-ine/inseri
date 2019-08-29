@@ -13,7 +13,6 @@ import {SynopsisModule} from './apps/synopsis/synopsis.module';
 import {MyPageSetModule} from '../user-action-engine/page-set/page-set.module';
 import {GenerateHashService} from '../user-action-engine/other/generateHash.service';
 import {CreateResourceModule} from './apps/create-resource/create-resource.module';
-import {SendGravSearchQueryService} from '../query-engine/knora/gravsearch/sendGravSearchQuery.service';
 import {TextlistViewerComponent} from './apps/textlist-viewer/textlist-viewer.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDividerModule} from '@angular/material/divider';
@@ -135,7 +134,6 @@ import { AgGridModule } from 'ag-grid-angular';
   ],
   providers: [
     GenerateHashService,
-    SendGravSearchQueryService,
     OpenAppsModel,
     AbstractJsonService,
     FileDatabase,
