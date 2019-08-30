@@ -59,13 +59,13 @@
               <table mat-table [dataSource]="dataSource" matSort>
 
                 <!-- ID Column -->
-                <ng-container matColumnDef="id">
+                <ng-container matColumnDef="id"  >
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Icon </th>
                   <td mat-cell *matCellDef="let row" (click)="addAnotherApp(row.appType, true)" style="cursor: pointer; width: 25%;"> <mat-icon>{{row.id}}</mat-icon> </td>
                 </ng-container>
 
                 <!-- Tag Column -->
-                <ng-container matColumnDef="tags" >
+                <ng-container matColumnDef="tags"  >
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Tags </th>
                   <td mat-cell *matCellDef="let row" (click)="addAnotherApp(row.appType, true)" style="cursor: pointer; width: 25%;"> {{row.tags}} </td>
                 </ng-container>
@@ -79,14 +79,13 @@
                 </ng-container>
 
                 <!-- Color Column -->
-                <ng-container matColumnDef="status">
+                <ng-container matColumnDef="status"  >
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
                   <td mat-cell *matCellDef="let row" [style.color]="row.color" (click)="addAnotherApp(row.appType, true)" style="cursor: pointer; width: 25%;" matTooltip="{{row.description}}"> {{row.status}} </td>
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns" style="width: 100%;"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;" style="width: 100%;">
-                </tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;" style="width: 100%;"></tr>
               </table>
 
               <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
@@ -397,9 +396,12 @@
             </app-joined-text-view>
 
             <app-iframe *ngIf="appType === 'sparqlVisualizer'"
-                                                [url]="environment.sparqlVisualizer">
+                        [url]="environment.sparqlVisualizer">
+            </app-iframe>
 
-          </app-iframe>
+            <app-iframe *ngIf="appType === 'raeber'"
+                        [url]="environment.raeber">
+            </app-iframe>
 
             <app-iframe *ngIf="appType === 'salsah2'"
                         [url]="environment.salsah2">
@@ -418,6 +420,13 @@
             <app-angular-handsometable *ngIf="appType === 'spreadSheet'">
 
             </app-angular-handsometable>
+
+            <app-raeber-navigation
+              *ngIf="appType === 'urlUpdate'"
+              [actionID]="actionID"
+              [pageId]="pageIDFromURL">
+
+            </app-raeber-navigation>
 
           </div>
         </popup>

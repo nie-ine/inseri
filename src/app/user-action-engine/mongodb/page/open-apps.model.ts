@@ -378,6 +378,18 @@ export class OpenAppsModel {
         }
       ],
     },
+    raeber: {
+      type: 'raeber',
+      model: [],
+      materialIcon: 'book',
+      initialWidth: '900',
+      initialHeight: '700',
+      inputs: [
+        {
+          'inputName': 'url'
+        }
+      ],
+    },
     primeEditor: {
       type: 'primeEditor',
       model: [],
@@ -391,6 +403,14 @@ export class OpenAppsModel {
       materialIcon: 'table_chart',
       initialWidth: '700',
       initialHeight: '600'
+    }
+    ,
+    urlUpdate: {
+      type: 'urlUpdate',
+      model: [],
+      materialIcon: 'horizontal_split',
+      initialWidth: '200',
+      initialHeight: '200'
     }
   };
 }

@@ -76,6 +76,7 @@ import { PrimeEditorComponent } from './apps/prime-editor/prime-editor.component
 import {EditorModule} from 'primeng/editor';
 import { AngularHandsometableComponent } from './apps/angular-handsometable/angular-handsometable.component';
 import { AgGridModule } from 'ag-grid-angular';
+import { RaeberNavigationComponent } from './apps/raeber-navigation/raeber-navigation.component';
 
 @NgModule({
   imports: [
@@ -168,7 +169,8 @@ import { AgGridModule } from 'ag-grid-angular';
     ResponseTreeComponent,
     IframeComponent,
     PrimeEditorComponent,
-    AngularHandsometableComponent
+    AngularHandsometableComponent,
+    RaeberNavigationComponent
   ],
   exports: [
     PageComponent,

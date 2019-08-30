@@ -250,9 +250,22 @@ export class PageComponent implements OnInit, AfterViewChecked {
       this.actionID = params.actionID;
       this.generateNavigation(params.actionID);
     });
-    this.dataSource = new MatTableDataSource(
-      new AppMenuModel().appMenu
-    );
+    if ( this.route.snapshot.queryParams.page ) {
+      this.dataSource = new MatTableDataSource(
+        new AppMenuModel().appMenu
+      );
+    } else {
+      const menuForHome = [];
+      for ( const app of new AppMenuModel().appMenu ) {
+        if ( app.showOnHome ) {
+          menuForHome.push(app);
+        }
+      }
+      this.dataSource = new MatTableDataSource(
+        menuForHome
+      );
+    }
+
   }
 
   /**
