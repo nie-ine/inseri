@@ -43,7 +43,7 @@ export class JoinedTextViewKnoraRequestService {
 
     graveSearchRequest = graveSearchRequest + constructPart + wherePart + '}';
     if (configuration.sortByPropertyIri) {
-      graveSearchRequest = graveSearchRequest + ' SORT BY ?sortingprop';
+      graveSearchRequest = graveSearchRequest + ' ORDER BY ?sortingprop';
     }
 
     return graveSearchRequest;

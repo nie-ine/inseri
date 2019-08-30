@@ -10,6 +10,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DeletePageComponent } from '../delete-page/delete-page.component';
 import { PageService } from '../../mongodb/page/page.service';
 import { DuplicatePageComponent } from "../duplicate-page/duplicate-page.component";
+import {PageSetService} from '../../mongodb/pageset/page-set.service';
+import {AuthService} from '../../mongodb/auth/auth.service';
 
 @Component({
   selector: 'app-page-set-landing-page',
@@ -20,9 +22,19 @@ export class PageSetLandingPageComponent implements OnInit {
   name: string;
   actionID: string;
   pageSet: any;
-  action: Action;
+  action: any;
   pagesOfThisPageSet: any;
   isLoading: boolean;
+
+  /**
+   * Describes if user is logged in
+   * */
+  loggedIn = true;
+
+  /**
+   * this variable indicates if page is shown in the preview - mode which indicates how the page would look published.
+   * */
+  preview = false;
 
   constructor(
     public dialog: MatDialog,
@@ -31,6 +43,9 @@ export class PageSetLandingPageComponent implements OnInit {
     public dialogDuplicatePage: MatDialog,
     private route: ActivatedRoute,
     private actionService: ActionService,
+    private pageSetService: PageSetService,
+    private router: Router,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -39,6 +54,11 @@ export class PageSetLandingPageComponent implements OnInit {
     if (this.actionID) {
       this.checkIfPageSetExists(this.actionID);
     }
+    if ( !this.authService.getIsAuth() ) {
+      this.preview = true;
+      this.loggedIn = false;
+    }
+    console.log( this.preview );
   }
 
   checkIfPageSetExists(actionID: string) {
@@ -58,6 +78,10 @@ export class PageSetLandingPageComponent implements OnInit {
         this.isLoading = false;
         // Fehlermeldung
       });
+  }
+
+  goToDashBoard() {
+    this.router.navigate(['/dashboard']);
   }
 
   generateDescription() {
@@ -152,6 +176,47 @@ export class PageSetLandingPageComponent implements OnInit {
         this.checkIfPageSetExists(this.actionID);
       });
   }
+
+  switchPages(currentPosition: number, newPosition: number) {
+    const currentPage = this.pagesOfThisPageSet[ currentPosition ];
+    this.pagesOfThisPageSet[ currentPosition ] = this.pagesOfThisPageSet[ newPosition ];
+    this.pagesOfThisPageSet[ newPosition ] = currentPage;
+    const pageIdArray = [];
+    let i = 0;
+    for ( const page of this.pagesOfThisPageSet ) {
+      pageIdArray[ i ] = page._id;
+      i++;
+    }
+    this.pageSetService.getPageSet( this.action.hasPageSet._id )
+      .subscribe(
+        data => {
+          const pageSet = data.pageset;
+          pageSet.hasPages = pageIdArray;
+          pageSet.id = pageSet._id;
+          this.pageSetService.updatePageSet( pageSet )
+            .subscribe(
+              data1 => {
+                console.log( data1 );
+              }, error2 => {
+                console.log( error2 );
+              }
+            );
+        }, error1 => {
+          console.log( error1 );
+        }
+      );
+  }
+
+  goToPage( page: any ) {
+    this.router.navigate(['/page'],
+      { queryParams:
+          {
+            actionID: this.actionID,
+            page: page._id
+          }
+      });
+  }
+
 }
 
 @Component({
@@ -207,4 +272,5 @@ export class DialogCreateNewPageComponent implements OnInit {
         this.isLoading = false;
       });
   }
+
 }

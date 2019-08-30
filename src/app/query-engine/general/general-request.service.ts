@@ -1,3 +1,8 @@
+/**
+ * This service performs the RESTFul http requests
+ * saved by the user in inseri
+ * */
+
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -79,5 +84,9 @@ export class GeneralRequestService {
     body: any
   ) {
     return this.http.put( GeneralRequestService.API_BASE_URL_MY_OWN_JSON + '/updateJson/' + jsonId, body );
+  }
+
+  publishJSON( jsonId: string, published: boolean ) {
+    return this.http.put( GeneralRequestService.API_BASE_URL_MY_OWN_JSON + '/publishJSON/' + jsonId, {published: published} );
   }
 }

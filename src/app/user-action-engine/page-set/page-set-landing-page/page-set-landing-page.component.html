@@ -19,19 +19,36 @@
     <div style="margin-right: 30px; margin-top: 20px;" *ngFor="let page of pagesOfThisPageSet; let i = index; ">
       <mat-divider></mat-divider>
         <span>
-          <a href="{{ generateURL( page ) }}" style="font-size: 25px" > {{ page.title }} </a>
-          <button mat-button (click)="editPage(page)"><mat-icon>settings</mat-icon></button><br>
-          <button mat-button (click)="deletePage(page)"><mat-icon>delete</mat-icon></button>
-          <button mat-button (click)="duplicatePage(page)"><mat-icon>file_copy</mat-icon></button>
+          <button
+            *ngIf="!preview"
+            (click)="switchPages( i, i - 1 )"
+            mat-button
+            [disabled]=" i === 0 ">
+            <mat-icon>keyboard_arrow_up</mat-icon>
+          </button>
+          <button *ngIf="!preview" mat-button (click)="editPage(page)"><mat-icon>settings</mat-icon></button>
+          <a (click)="goToPage(  page )" style="font-size: 25px; cursor: pointer;" >{{ page.title }}</a>
+          <br>
+          <button
+            *ngIf="!preview"
+            (click)="switchPages( i, i + 1 )"
+            mat-button
+            [disabled]=" i === pagesOfThisPageSet.length - 1 ">
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </button>
+          <button mat-button (click)="deletePage(page)" *ngIf="!preview"><mat-icon>delete</mat-icon></button>
+<!--          <button mat-button (click)="duplicatePage(page)"><mat-icon>file_copy</mat-icon></button>-->
           <span style="font-size: 15px" > {{ page.description }}   </span>
         </span>
     </div>
   </div>
 
-  <div style="position: fixed; bottom: 0; right: 0;">
-    <button mat-button (click)="addPage()">Füge Page hinzu</button>
+  <div style="position: fixed; bottom: 0; right: 0;" *ngIf="!preview">
+    <button mat-button (click)="goToDashBoard()" style="color: #4cae4c !important; cursor: pointer;"><mat-icon matTooltip="back to dashboard">home</mat-icon></button>
+      <br>
+    <button mat-button (click)="addPage()" matTooltip="add page" ><mat-icon>add</mat-icon></button>
     <br>
-    <button mat-button (click)="editPageSet()">Editiere PageSet</button><br>
+    <button mat-button (click)="editPageSet()" matTooltip="Change title and description of inseri document"><mat-icon>settings</mat-icon></button><br>
   </div>
 
 </div>

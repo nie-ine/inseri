@@ -1,0 +1,20 @@
+<ul *ngFor="let c of children" style="list-style-type: none" role="tree">
+  <app-hierarchical-navigation-node
+    *ngIf="nodeConfiguration.children"
+    [resource]="c"
+    [backendAddress]="backendAddress"
+    [nodeConfiguration]="nodeConfiguration.children"
+    [pathMap]="pathMap"
+    [routeKeys]="routeKeys"
+    (pathChange)="processPathChange($event)">
+  </app-hierarchical-navigation-node>
+</ul>
+
+<ng-container *ngIf="children">
+  <button mat-button
+          (click)="loadMoreChildren()"
+          aria-label="load more"
+          *ngIf="totalNumberOfChildren > children.length">
+    <mat-icon>add</mat-icon>
+  </button>
+</ng-container>

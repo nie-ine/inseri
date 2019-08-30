@@ -1,6 +1,5 @@
 import {Component, OnInit, OnDestroy, Inject, AfterViewChecked, ChangeDetectorRef} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {AuthenticationService} from '../../query-engine/fake-backend/auth/authentication.service';
 import {AuthService} from '../mongodb/auth/auth.service';
 import {Subscription} from 'rxjs';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
@@ -53,11 +52,10 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   constructor(
     private initService: InitService,
-    private router: Router,
+    public router: Router,
     private dialog: MatDialog,
     private dialog2: MatDialog,
     private activatedRoute: ActivatedRoute,
-    private authenticationService: AuthenticationService,
     private authService: AuthService,
     public cdr: ChangeDetectorRef,
     public snackBar: MatSnackBar,

@@ -219,6 +219,24 @@ export class OpenAppsModel {
       initialWidth: '400',
       initialHeight: '600'
     },
+    hierarchicalNavigationView: {
+      type: 'hierarchicalNavigationView',
+      model: [],
+      inputs: [
+        {
+          'inputName': 'backendAddress'
+        },
+        {
+          'inputName': 'navigationRootIri'
+        },
+        {
+          'inputName': 'navigationConfiguration'
+        }
+      ],
+      materialIcon: 'subdirectory_arrow_right',
+      initialWidth: '400',
+      initialHeight: '600'
+    },
     dataListView: {
       type: 'dataListView',
       model: [],
@@ -315,6 +333,9 @@ export class OpenAppsModel {
         },
         {
           'inputName': 'textRootIri'
+        },
+        {
+          'inputName': 'queryParamForTextRootIri'
         }
       ],
       materialIcon: 'aspect_ratio',
@@ -325,13 +346,51 @@ export class OpenAppsModel {
       type: 'login',
       model: [],
       materialIcon: 'lock_open',
-      initialWidth: '1200',
+      initialWidth: '750',
       initialHeight: '500'
     },
     pageMenu: {
       type: 'pageMenu',
       model: [],
-      materialIcon: 'setttings'
+      materialIcon: 'settings'
+    },
+    sparqlVisualizer: {
+      type: 'sparqlVisualizer',
+      model: [],
+      materialIcon: 'drag_indicator',
+    initialWidth: '750',
+    initialHeight: '900',
+      inputs: [
+        {
+          'inputName': 'url'
+        }
+      ],
+    },
+    salsah2: {
+      type: 'salsah2',
+      model: [],
+      materialIcon: 'camera_enhance',
+      initialWidth: '700',
+      initialHeight: '1200',
+      inputs: [
+        {
+          'inputName': 'url'
+        }
+      ],
+    },
+    primeEditor: {
+      type: 'primeEditor',
+      model: [],
+      materialIcon: 'format_size',
+      initialWidth: '700',
+      initialHeight: '400'
+    },
+    spreadSheet: {
+      type: 'spreadSheet',
+      model: [],
+      materialIcon: 'table_chart',
+      initialWidth: '700',
+      initialHeight: '600'
     }
   };
 }

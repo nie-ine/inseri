@@ -1,0 +1,12 @@
+<ag-grid-angular
+  #agGrid
+  style="width: 650px; height: 500px;"
+  class="ag-theme-balham"
+  [rowData]="rowData"
+  [columnDefs]="columnDefs"
+>
+</ag-grid-angular>
+
+<button mat-button (click)="save()" > Save data </button>
+<button mat-button (click)="addRow()"> Add Row </button>
+<button mat-button (click)="addColumn()"> Add Column </button>

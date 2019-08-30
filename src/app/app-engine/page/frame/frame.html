@@ -17,7 +17,7 @@
       <span style=" margin-left: 20px; color: blue; cursor: pointer;" (click)="openSettings()" *ngIf="!preview && showAppSettingsOnPublish">*</span>
     </div>
 
-    <div class="popup-content">
+    <div class="popup-content" (mousedown)="setNewZIndex()">
       <ng-content></ng-content>
     </div>
 

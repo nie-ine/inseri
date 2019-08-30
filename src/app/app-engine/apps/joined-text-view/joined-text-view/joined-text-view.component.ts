@@ -16,9 +16,14 @@ export class JoinedTextViewComponent implements OnChanges {
   @Input() backendAddress: string;
 
   /**
-   * IRI of the resource that holds the parts of the text.
+   * IRI of the resource that holds the parts of the text, unless `queryParamForTextRootIri` is defined.
    */
   @Input() textRootIri: string;
+
+  /**
+   * Query parameter where the IRI of the text resource comes in, as an alternative to textRootIri.
+   */
+  @Input() queryParamForTextRootIri: string;
 
   /**
    * Configuration for the displayed text.
@@ -34,6 +39,11 @@ export class JoinedTextViewComponent implements OnChanges {
    * Dynamic style declarations.
    */
   @Input() selectiveStyleDeclarations: SelectableEnvironments;
+
+  /**
+   * Variable for the value of textRootIri or queryParamForTextRootIri, depending on configuration.
+   */
+  internalTextRootIri: string;
 
   /**
    * Keys of selected selectiveStyleDeclarations.
@@ -65,7 +75,14 @@ export class JoinedTextViewComponent implements OnChanges {
       this.highlighted = [].concat(params.style);
       this.clickedResource = params.focus;
       this.hoveredResource = params.hover;
+      if (this.queryParamForTextRootIri) {
+        this.internalTextRootIri = params[this.queryParamForTextRootIri];
+      }
     });
+
+    if (!this.queryParamForTextRootIri) {
+      this.internalTextRootIri = this.textRootIri;
+    }
   }
 
   /**

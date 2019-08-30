@@ -103,21 +103,30 @@
           <img [src]=" lightHouse ?  '../../../../assets/img/logo_transparent.png' : '../../../../assets/img/logo_transparent2.png'" style="width: 40px; margin-bottom: 2px;" matTooltip="inseri apps" >
 <!--          <span *ngIf="showNote && pageAsDemo"  > &#8592; Click here for inseri tutorials and the inseri App Menu</span>-->
         </button>
-        <a href="dashboard#top" *ngIf=" (!pageAsDemo) && !preview" style="color: #4cae4c !important"><mat-icon matTooltip="back to dashboard">home</mat-icon></a>
-        <a href="{{'page-set?actionID=' + route.snapshot.queryParams.actionID}}" *ngIf="route.snapshot.queryParams.page" style="color: #4cae4c !important; margin-left: 15px;"><mat-icon matTooltip="page overview">filter_none</mat-icon></a>
-          <a *ngIf=" (!pageAsDemo) && !preview" (click)="updatePage()" style="color: #4cae4c !important; margin-left: 15px; cursor: pointer;"><mat-icon  matTooltip="save page">save</mat-icon></a>
-          <a *ngIf=" (!pageAsDemo) && !preview" (click)="openDataManagement()" style="color: #4cae4c !important; margin-left: 15px; cursor: pointer;" ><mat-icon matTooltip="page data manager">zoom_out_map</mat-icon></a>
-        <mat-chip-list *ngFor="let page of pagesOfThisActtion; let i = index;" style=" margin-left: 15px; display: inline-block;">
-          <mat-chip matTooltip="{{ page.description }}" selected [color]="'primary'"  *ngIf="checkIfSelected( i )">
-            {{ page.title }}
-          </mat-chip>
-          <mat-chip matTooltip="{{ page.description }}" *ngIf="!checkIfSelected( i )" (click)="selectPage( i, page )">
-            {{ page.title }}
-          </mat-chip>
-        </mat-chip-list>
-        <a *ngIf=" (!pageAsDemo) && !preview" matTooltip='Preview of published page' style="margin-left: 15px; float: right; margin-right: 15px;" (click)="preview = !preview" ><mat-icon>nature_people</mat-icon></a>
-        <a *ngIf=" (!pageAsDemo) && preview" matTooltip='Back to page editor' style="color: #4cae4c !important;  margin-left: 15px; float: right; margin-right: 15px;" (click)="preview = !preview" ><mat-icon>nature</mat-icon></a>
-        <div style=" position: fixed; right: 55px; top: 12px; z-index: 300; width: 300px; margin-bottom: 70px;" *ngIf="preview">
+        <a (click)="goToDashBoard()" *ngIf=" (!pageAsDemo) && !preview" style="color: #4cae4c !important; cursor: pointer;"><mat-icon matTooltip="back to dashboard">home</mat-icon></a>
+        <a (click)="goToPageSet()" *ngIf="route.snapshot.queryParams.page" style="color: #4cae4c !important; margin-left: 15px; cursor: pointer"><mat-icon matTooltip="document index">list</mat-icon></a>
+        <a *ngIf=" (!pageAsDemo) && !preview" (click)="updatePage()" style="color: #4cae4c !important; margin-left: 15px; cursor: pointer;"><mat-icon  matTooltip="save page">save</mat-icon></a>
+        <a *ngIf=" (!pageAsDemo) && !preview" (click)="openDataManagement()" style="color: #4cae4c !important; margin-left: 15px; cursor: pointer;" ><mat-icon matTooltip="page data manager">zoom_out_map</mat-icon></a>
+        <a *ngIf=" (!pageAsDemo) && !preview" (click)="logout()" style="color: #4cae4c !important; margin-left: 15px; cursor: pointer;" ><mat-icon matTooltip="{{ 'click to logout - ' + userInfo }}">lock_open</mat-icon></a>
+        <mat-chip style="cursor: pointer; float: right; margin-right: 15px;" *ngIf=" (!pageAsDemo) && !preview && route.snapshot.queryParams.page">
+          <mat-icon (click)="addNewPage()" matTooltip="'add new page tho this pageSet'">
+            add
+          </mat-icon>
+        </mat-chip>
+        <div style=" width: 400px; scrollbar-width: none; overflow-x: auto; overflow-y: hidden; display: inline-block; position: relative; white-space: nowrap; float: right; margin-right: 15px;" >
+          <mat-chip-list *ngFor="let page of pagesOfThisActtion; let i = index;" style=" margin-left: 15px; display: inline-block; ">
+            <mat-chip matTooltip="{{ page.description }}" selected [color]="'primary'"  *ngIf="checkIfSelected( i )" style="cursor: pointer; display: inline-block;">
+              {{ page.title }}
+            </mat-chip>
+            <mat-chip matTooltip="{{ page.description }}" *ngIf="!checkIfSelected( i )" (click)="selectPage( i, page )" style="cursor: pointer; display: inline-block;">
+              {{ page.title }}
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+        <a *ngIf="pageIsPublished && loggedIn" matTooltip='Page is published' style="margin-left: 15px; margin-right: 15px; color: #4cae4c !important;"  ><mat-icon>public</mat-icon></a>
+        <a *ngIf=" (!pageAsDemo) && !preview && loggedIn" matTooltip='Preview of published page' style="margin-left: 15px; margin-right: 15px; cursor: pointer" (click)="preview = !preview" ><mat-icon>nature_people</mat-icon></a>
+        <a *ngIf=" (!pageAsDemo) && preview && loggedIn" matTooltip='Back to page editor' style="color: #4cae4c !important;  margin-left: 15px; margin-right: 15px; cursor: pointer" (click)="preview = !preview" ><mat-icon>nature</mat-icon></a>
+        <div style=" position: fixed; bottom: 0; left: 0; z-index: 200; overflow-x: auto; margin-top: 70px; width: 300px;" *ngIf="preview && loggedIn">
           <mat-expansion-panel [ngStyle]="{
           'height': publishedOptionsExpanded ? '500px' : '',
           'overflow': publishedOptionsExpanded ? 'auto' : '' }" >
@@ -127,14 +136,14 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
 
-            <mat-checkbox [(ngModel)]="showAppTitlesOnPublish" >Show app title bar</mat-checkbox> - This enables the user to reorganise the published page for his own purpose, for example to minimize some apps etc.
+            <mat-checkbox [(ngModel)]="showAppTitlesOnPublish" (click)="updatePagePublishSettings()">Show app title bar</mat-checkbox> - This enables the user to reorganise the published page for his own purpose, for example to minimize some apps etc.
             Changes of a user are dismissed after the user leaves the published page. <br>
-            <mat-checkbox [disabled]="!showAppTitlesOnPublish" [(ngModel)]="showAppSettingsOnPublish">Show app settings</mat-checkbox> - This enables the user to minimize apps and change app sizes.
+            <mat-checkbox [disabled]="!showAppTitlesOnPublish" [(ngModel)]="showAppSettingsOnPublish" (click)="updatePagePublishSettings()">Show app settings</mat-checkbox> - This enables the user to minimize apps and change app sizes.
             <mat-divider style="margin-top: 10px; margin-bottom: 10px;" ></mat-divider>
-            <mat-checkbox [(ngModel)]="showInseriLogoOnPublish" >Show Inseri Appshore Button</mat-checkbox> - This option enables users of the page to open apps on your published page. It enables users for example to insert own, non - public comments on your page as well as
+            <mat-checkbox [(ngModel)]="showInseriLogoOnPublish" (click)="updatePagePublishSettings()">Show Inseri Appshore Button</mat-checkbox> - This option enables users of the page to open apps on your published page. It enables users for example to insert own, non - public comments on your page as well as
             open other apps that only the respective user can see, for example to write an own, non public essay with a text - editor - app.
             <mat-divider style="margin-top: 10px; margin-bottom: 10px;"  ></mat-divider>
-            <mat-checkbox  [(ngModel)]="showDataBrowserOnPublish">Show Data Browser</mat-checkbox> - This option enables users of the page to possibly browse through the data of the page, if you mapped an array from the json to an app input.
+            <mat-checkbox  [(ngModel)]="showDataBrowserOnPublish" (click)="updatePagePublishSettings()">Show Data Browser</mat-checkbox> - This option enables users of the page to possibly browse through the data of the page, if you mapped an array from the json to an app input.
             <mat-divider style="margin-top: 10px; margin-bottom: 10px;"  ></mat-divider>
             <mat-radio-group aria-label="Select an option">
               <mat-radio-button value="1" [checked]="true" >Beta Publication</mat-radio-button> - This inseri publication type indicates for a user that the page can still be changed by the user after the page has been published. Thus,
@@ -143,6 +152,8 @@
               Thus, the page is quotable and can be used as a reference for scientific publications.
             </mat-radio-group>
             <mat-divider style="margin-top: 10px; margin-bottom: 10px;"  ></mat-divider>
+            <button mat-button *ngIf="!pageIsPublished" (click)="publishPageOrMakePagePrivate( true )"> <mat-icon>publish</mat-icon> Publish Page</button>
+            <button mat-button *ngIf="pageIsPublished" (click)="publishPageOrMakePagePrivate( false )"> <mat-icon>fingerprint</mat-icon> Make page private again</button>
           </mat-expansion-panel>
         </div>
 
@@ -165,7 +176,6 @@
             {{ 'Query ' + i }}
           </button> <br>
           <app-data-chooser
-            [appInputQueryMapping]=" page.appInputQueryMapping"
             [response]="openAppsInThisPage[ 'dataChooser' ].model[i].response"
             [queryId] = "openAppsInThisPage[ 'dataChooser' ].model[i].queryId"
             [openAppsInThisPage] = "openAppsInThisPage"
@@ -224,8 +234,8 @@
                                     [iiifImagePath]="openAppsInThisPage[ 'imageViewer' ].model[i][ 'fileValueAsUrl' ]"
                                     [maxImageWidth]="openAppsInThisPage[ 'imageViewer' ].model[i][ 'stillImageFileValueHasDimX' ]"
                                     [maxImageHeight]="openAppsInThisPage[ 'imageViewer' ].model[i][ 'stillImageFileValueHasDimY' ]"
-                                    width="500"
-                                    height="700">
+                                    [width]="produceHeightAndWidth( openAppsInThisPage[ 'imageViewer' ].model[i].width,  openApps.openApps[ 'imageViewer' ].initialWidth )"
+                                    [height]="produceHeightAndWidth( openAppsInThisPage[ 'imageViewer' ].model[i].height,  openApps.openApps[ 'imageViewer' ].initialHeight)">
             </app-image-with-overlay>
 
 
@@ -283,7 +293,9 @@
                                            [pageTree]="openAppsInThisPage['svgTranscription'].model[i]['pageTree']"
                                            [imageUrl]="openAppsInThisPage['svgTranscription'].model[i]['imageUrl']"
                                            [width]="openAppsInThisPage['svgTranscription'].model[i]['imageWidth']"
-                                           [height]="openAppsInThisPage['svgTranscription'].model[i]['imageHeight']" >
+                                           [height]="openAppsInThisPage['svgTranscription'].model[i]['imageHeight']"
+                                           [viewerWidth]="produceHeightAndWidth( openAppsInThisPage[ 'svgTranscription' ].model[i].width,  openApps.openApps[ 'svgTranscription' ].initialWidth )"
+                                           [viewerHeight]="produceHeightAndWidth( openAppsInThisPage[ 'svgTranscription' ].model[i].height,  openApps.openApps[ 'svgTranscription' ].initialHeight)">
             </app-text-svg-view-wrapper>
 
 
@@ -296,6 +308,14 @@
               [queryResponse]="openAppsInThisPage[ 'treeNavigation' ].model[i]['json']">
 
             </app-navigation-tree>
+
+
+            <app-hierarchical-navigation-view *ngIf="appType === 'hierarchicalNavigationView'"
+                                              [backendAddress]="openAppsInThisPage['hierarchicalNavigationView'].model[i]['backendAddress']"
+                                              [navigationRootIri]="openAppsInThisPage['hierarchicalNavigationView'].model[i]['navigationRootIri']"
+                                              [navigationConfiguration]="openAppsInThisPage['hierarchicalNavigationView'].model[i]['navigationConfiguration']">
+            </app-hierarchical-navigation-view>
+
 
             <data-list-view style="position: sticky;" *ngIf="appType === 'dataListView'"
                            [queryResponse]="openAppsInThisPage[ 'dataListView' ].model[i]['json']"
@@ -370,10 +390,34 @@
             <app-joined-text-view *ngIf="appType === 'joinedTextView'"
                                   [backendAddress]="openAppsInThisPage[ 'joinedTextView' ].model[i]['backendAddress']"
                                   [textRootIri]="openAppsInThisPage[ 'joinedTextView' ].model[i]['textRootIri']"
+                                  [queryParamForTextRootIri]="openAppsInThisPage['joinedTextView'].model[i]['queryParamForTextRootIri']"
                                   [textConfiguration]="openAppsInThisPage[ 'joinedTextView' ].model[i]['textConfiguration']"
                                   [styleDeclarations]="openAppsInThisPage[ 'joinedTextView' ].model[i]['styleDeclarations']"
                                   [selectiveStyleDeclarations]="openAppsInThisPage[ 'joinedTextView' ].model[i]['selectiveStyleDeclarations']">
             </app-joined-text-view>
+
+            <app-iframe *ngIf="appType === 'sparqlVisualizer'"
+                                                [url]="environment.sparqlVisualizer">
+
+          </app-iframe>
+
+            <app-iframe *ngIf="appType === 'salsah2'"
+                        [url]="environment.salsah2">
+
+            </app-iframe>
+
+            <app-prime-editor
+              *ngIf="appType === 'primeEditor'"
+              [text]="openAppsInThisPage[ 'primeEditor' ].model[i]['text']"
+              (sendTextBack) = "updateTextOnApp( $event )"
+              [hash]="openAppsInThisPage[ 'primeEditor' ].model[i].hash"
+              [type]="openAppsInThisPage[ 'primeEditor' ].type">
+
+            </app-prime-editor>
+
+            <app-angular-handsometable *ngIf="appType === 'spreadSheet'">
+
+            </app-angular-handsometable>
 
           </div>
         </popup>

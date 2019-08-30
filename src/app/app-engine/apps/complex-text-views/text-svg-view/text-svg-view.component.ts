@@ -45,6 +45,10 @@ export class TextSvgViewComponent implements OnInit, OnChanges, OnDestroy {
    */
   @Input() pageTree: PageTree;
 
+  @Input() viewerWidth = 1;
+
+  @Input() viewerHeight = 1;
+
   /**
    * The unique id of the word that was last clicked and counts as activated. Only one word can be counted as activated at a time.
    */
@@ -331,8 +335,12 @@ export class TextSvgViewComponent implements OnInit, OnChanges, OnDestroy {
     imageRect.setAttribute('x', '0');
     imageRect.setAttribute('y', '0');
 
-    // Color of the image blur box
-    imageRect.setAttribute('style', 'fill: white; fill-opacity: ' + (1 - this.imageOpacity).toString());
+    // Color of the image blur box and set opacity if defined. Default is no visible blur box.
+    if (this.imageOpacity) {
+      imageRect.setAttribute('style', 'fill: white; fill-opacity: ' + (1 - this.imageOpacity).toString());
+    } else {
+      imageRect.setAttribute('style', 'fill: white; fill-opacity: 0' );
+    }
 
     svgGroup.appendChild(imageRect);
 

@@ -217,13 +217,59 @@ export class AppMenuModel {
       description: 'With this app you can change data in Knora and see the history of given properties.'
     },
     {
-      id: 'joined_text_view',
+      id: 'aspect_ratio',
       name: 'Joined Text View',
       tags: 'knora, text, html',
       color: 'orange',
       status: 'under development',
       appType: 'joinedTextView',
       description: 'Map text resources to blocks, lines and words and show them as HTML'
+    },
+    {
+      id: 'drag_indicator',
+      name: 'Sparql - Visualiser',
+      tags: 'sparql, rdf, rdfs, olw',
+      color: 'green',
+      status: 'stable',
+      appType: 'sparqlVisualizer',
+      description: 'Visualize Ontologies and RDF/RDFS/Owl data'
+    },
+    {
+      id: 'camera_enhance',
+      name: 'Salsah 2',
+      tags: 'DaSCH',
+      color: 'red',
+      status: 'deprecated by the DaSCH',
+      appType: 'salsah2',
+      description: 'Predecessor of Kuirl / SUID'
+    }
+    ,
+    {
+      id: 'format_size',
+      name: 'Text Editor',
+      tags: 'primefaces, quill',
+      color: 'green',
+      status: 'stable',
+      appType: 'primeEditor',
+      description: 'Write and Save text on a page'
+    },
+    {
+      id: 'subdirectory_arrow_right',
+      name: 'Hierarchical navigation with dynamic loading',
+      tags: 'knora, navigation',
+      color: 'orange',
+      status: 'under development',
+      appType: 'hierarchicalNavigationView',
+      description: 'Map resources in a graph to a navigation tree.'
+    },
+    {
+      id: 'table_chart',
+      name: 'Spreadsheet',
+      tags: 'spreadsheet you will love',
+      color: 'orange',
+      status: 'under development',
+      appType: 'spreadSheet',
+      description: 'Your spreadsheet'
     }
   ];
 }

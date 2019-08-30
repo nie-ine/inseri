@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
-import { AlertService} from '../../query-engine/fake-backend/auth/altert.service';
 import { AuthService } from '../mongodb/auth/auth.service';
 import {ContactService} from '../mongodb/contact/contact.service';
 import {environment} from '../../../environments/environment';
@@ -21,10 +19,10 @@ export class RegisterComponent implements OnInit{
   neededSpecialCharacters;
   wrongFormatAlert = false;
   newsletter = false;
+  environment = environment.node;
 
   constructor(
     private router: Router,
-    private alertService: AlertService,
     public authService: AuthService,
     private contactService: ContactService,
     private passwordFormatCheckService: PasswordFormatCheckService,
@@ -32,7 +30,7 @@ export class RegisterComponent implements OnInit{
   ) {}
 
   ngOnInit() {
-    console.log( this.termsAndConditions );
+    console.log( this.environment );
     this.model.newsletter = false;
     this.neededSpecialCharacters = this.passwordFormatCheckService.neededSpecialCharacters;
   }

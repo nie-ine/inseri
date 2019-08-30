@@ -1,3 +1,7 @@
+/**
+ * This component is the key value form for the query-entry.component
+ * */
+
 import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 

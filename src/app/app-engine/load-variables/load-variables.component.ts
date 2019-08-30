@@ -43,7 +43,7 @@ export class LoadVariablesComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnChanges() {
-    if( this.reload ) {
+    if ( this.reload ) {
       this.reloadVariables();
     }
   }
@@ -51,14 +51,16 @@ export class LoadVariablesComponent implements OnInit, OnChanges {
   reloadVariables() {
     this.pageId = this.route.snapshot.queryParams.page;
     this.actionId = this.route.snapshot.queryParams.actionID;
+    console.log( this.actionId );
     this.page = {};
     const reset = new OpenAppsModel;
     this.openAppsInThisPage = reset.openApps;
     /**
      * @remarks - pageId exists if the page is part of a pageSet
      * */
+    console.log( 'here' );
     if ( this.pageId ) {
-      this.updateAppsInView( this.pageId );
+      this.updateAppsInView( this.pageId, this.actionId );
     } else {
       this.checkIfPageExistsForThisAction( this.actionId );
     }
@@ -68,7 +70,7 @@ export class LoadVariablesComponent implements OnInit, OnChanges {
     this.reloadVariables();
   }
 
-  updateAppsInView(viewHash: string ) {
+  updateAppsInView(viewHash: string, actionID?: string ) {
     this.pageService.getPage(viewHash)
       .subscribe(
         data => {
@@ -100,12 +102,23 @@ export class LoadVariablesComponent implements OnInit, OnChanges {
             this.openAppsInThisPage,
             this.reload
           );
-          this.sendPageBack.emit(
-            [
-              this.page,
-              this.action
-            ] );
-          this.sendOpenAppsInThisPageBack.emit( this.openAppsInThisPage );
+          this.actionService.getAction(this.actionId)
+            .subscribe(
+              data1 => {
+                if (data1.status === 200) {
+                  this.action = ( data1 as any ).body.action;
+                  console.log( this.action );
+                  this.sendPageBack.emit(
+                    [
+                      this.page,
+                      this.action
+                    ] );
+                  this.sendOpenAppsInThisPageBack.emit( this.openAppsInThisPage );
+                }
+              },
+              error => {
+                console.log(error);
+              });
         },
         error => {
           console.log(error);
@@ -149,6 +162,7 @@ export class LoadVariablesComponent implements OnInit, OnChanges {
         data => {
           if (data.status === 200) {
             this.action = ( data as any ).body.action;
+            console.log( this.action );
             if (this.action.type === 'page') {
               this.updateAppsInView(this.action.hasPage._id);
             }
@@ -190,5 +204,6 @@ export class LoadVariablesComponent implements OnInit, OnChanges {
     appModel[ length ].fullHeight = appFromViewModel.fullHeight;
     appModel[ length ].type = appType;
     appModel[ length ].initialized = true;
+    appModel[ length ].text = appFromViewModel.text;
   }
 }

@@ -24,4 +24,14 @@
     [hoveredResource]="hoveredResource" (hoveredResourceChange)="hoverChange($event)">
   </app-joined-text-linepart>
 
+  <app-joined-text-textwrapper
+    *ngIf="blockConfiguration.contentPropertyIri"
+    [namespaces]="namespaces"
+    [propertyIri]="blockConfiguration.contentPropertyIri"
+    [resource]="b"
+    [highlighted]="highlighted"
+    [styleDeclarations]="styleDeclarations"
+    [selectiveStyleDeclarations]="selectiveStyleDeclarations">
+  </app-joined-text-textwrapper>
+
 </div>

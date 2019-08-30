@@ -27,17 +27,20 @@
             ],
             "styles": [
               "src/styles.scss",
-              "node_modules/grapesjs/dist/css/grapes.min.css",
-              "node_modules/leaflet/dist/leaflet.css"
+              "node_modules/leaflet/dist/leaflet.css",
+              "node_modules/quill/dist/quill.core.css",
+              "node_modules/quill/dist/quill.snow.css",
+              "node_modules/ag-grid/dist/styles/ag-grid.css",
+              "node_modules/ag-grid/dist/styles/ag-theme-balham.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/grapesjs/dist/grapes.min.js",
               "node_modules/openseadragon/build/openseadragon/openseadragon.min.js",
               "node_modules/ace-builds/src-min/ace.js",
               "node_modules/ace-builds/src-min/theme-eclipse.js",
               "node_modules/ace-builds/src-min/mode-typescript.js",
-              "node_modules/ace-builds/src-min/mode-html.js"
+              "node_modules/ace-builds/src-min/mode-html.js",
+              "node_modules/quill/dist/quill.js"
             ]
           },
           "configurations": {
@@ -103,14 +106,17 @@
             "tsConfig": "src/tsconfig.spec.json",
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/grapesjs/dist/grapes.min.js",
               "node_modules/openseadragon/build/openseadragon/openseadragon.min.js",
-              "src/app/app-engine/apps/svg-overlay/openseadragon-svg-overlay.js"
+              "src/app/app-engine/apps/svg-overlay/openseadragon-svg-overlay.js",
+              "../node_modules/quill/dist/quill.js"
             ],
             "styles": [
               "src/styles.scss",
               "src/assets/css/project-styles/p_00001.css",
-              "node_modules/grapesjs/dist/css/grapes.min.css"
+              "../node_modules/quill/dist/quill.core.css",
+              "../node_modules/quill/dist/quill.snow.css",
+              "node_modules/ag-grid/dist/styles/ag-grid.css",
+              "node_modules/ag-grid/dist/styles/ag-theme-balham.css"
             ],
             "assets": [
               "src/assets",

@@ -35,7 +35,7 @@ router.get('', checkAuth, (req, res, next) => {
 
 router.get('/:id', checkAuth, (req, res, next) => {
     PageSet.findById({_id: req.params.id})
-        .populate('hasPages')
+
         .then(pageSet => {
             if (pageSet) {
                 res.status(200).json({
@@ -64,11 +64,12 @@ router.put('/:id', checkAuth, (req, res, next) => {
 
     // Attaches error messages to the response
     if (messages.length > 0) return res.status(400).json({messages: messages});
-
+    console.log( req.body );
     PageSet.findByIdAndUpdate({_id: req.params.id}, {
         title: req.body.title,
         description: req.body.description,
-        linkToImage: req.body.linkToImage
+        linkToImage: req.body.linkToImage,
+        hasPages: req.body.hasPages
     }, {new:true})
         .populate('hasPages')
         .then((resultPageSet) => {
@@ -78,8 +79,9 @@ router.put('/:id', checkAuth, (req, res, next) => {
             });
         })
         .catch(error => {
-            res.status(200).json({
-                message: 'PageSet cannot be updated'
+            res.status(401).json({
+                message: 'PageSet cannot be updated',
+                error: error
             });
         });
 });
@@ -94,7 +96,6 @@ router.post('/:id/pages', checkAuth, (req, res, next) => {
 
     // Attaches error messages to the response
     if (messages.length > 0) return res.status(400).json({messages: messages});
-
     PageSet.findById(req.params.id)
         .then(resultPageSet => {
             if (!resultPageSet) {
@@ -111,6 +112,7 @@ router.post('/:id/pages', checkAuth, (req, res, next) => {
 
             newPage.save()
                 .then(newPageResult => {
+                  console.log( resultPageSet );
                     PageSet.update({_id: resultPageSet._id}, { $push: { hasPages: newPageResult._id } })
                         .then(updatedPageSet => {
                             if (updatedPageSet.n > 0) {

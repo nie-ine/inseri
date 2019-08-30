@@ -1,3 +1,9 @@
+/**
+ * This component displays the list of queries saved by a user.
+ * it can be generated from the dashboard by the user by clicking on
+ * "show" all queries
+ * */
+
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
 import { QueryService } from '../../user-action-engine/mongodb/query/query.service';

@@ -1,3 +1,8 @@
+/**
+ * This service generates the path when a user clicks on
+ * the hash of a tree node to map this path to the input.
+ * */
+
 import { Injectable } from '@angular/core';
 
 @Injectable({

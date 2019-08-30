@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthenticationService } from '../../query-engine/fake-backend/auth/authentication.service';
-import { AlertService } from '../../query-engine/fake-backend/auth/altert.service';
 import {AuthService} from '../mongodb/auth/auth.service';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
@@ -31,8 +29,6 @@ export class HomeComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService,
-    private alertService: AlertService,
     public authService: AuthService,
     public http: HttpClient
   ) {
@@ -40,7 +36,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     // reset login status
-    this.authenticationService.logout();
     const expirationDate = localStorage.getItem('expiration');
     const now = new Date();
     if (new Date(expirationDate).getTime() - now.getTime() > 0) {

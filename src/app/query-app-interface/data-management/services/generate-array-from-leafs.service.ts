@@ -1,3 +1,10 @@
+/**
+ * This service generates an array filled with strings for the
+ * first depth of the data chooser. When choosing an entry in the
+ * first depth of the respective query, those strings are displayed instead
+ * of the location number of the entry in the array.
+ * */
+
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -9,17 +16,25 @@ export class GenerateArrayFromLeafsService {
   output = [];
   constructor() { }
 
+  /**
+   * This is a recursive function that iterates through the json which is the response
+   * of a respective query.
+   * After finding the correct depth in the json, the array of strings is returned.
+   * */
   generateArrayFromLeafs(
     dataTree: any,
     path: any,
     depth: number
   ) {
-    // console.log( dataTree, path );
     if ( path ) {
       if ( path && !isNaN( Number( path[ path.length - 1 ] ) ) ) {
-        // console.log( 'Its a number, dont return anything' );
         return undefined;
       }
+
+      /**
+       * The following loop was implemented as an intermediate fix.
+       * Todo: check if paths with an empty segment still appear
+       * */
       let increment = 0;
       for ( const segment of path ) {
         if ( segment === null ) {
@@ -27,24 +42,20 @@ export class GenerateArrayFromLeafsService {
         }
         increment += 1;
       }
+
       this.path = path;
       this.depth = depth;
       this.output = [];
       for ( const knot of path ) {
-        // console.log( knot, dataTree[ knot ].length );
         if ( dataTree[ knot ] && dataTree[ knot ].length !== undefined && path.length > 1 ) {
           return this.goThroughArray( dataTree[ knot ] );
         } else if ( dataTree[ knot ] && dataTree[ knot ].length !== undefined && path.length === 1 ) {
-          // console.log( dataTree, path );
           return [ dataTree[ path[ 0 ] ] ];
         } else if ( dataTree[ knot ] &&  !dataTree[ knot ].length ) {
-          // console.log( dataTree[ knot ], dataTree[ knot ].length );
           const clonedPath = Object.assign([], path);
           const segment = clonedPath[ 0 ];
           clonedPath.splice(0, 1);
           return this.generateArrayFromLeafs( dataTree[ segment ], clonedPath, depth );
-          // this.generateEntry( dataTree[ knot ], 1 );
-          // return this.output;
         }
       }
     } else {
@@ -54,25 +65,28 @@ export class GenerateArrayFromLeafsService {
         this.output.push( increment );
         increment += 1;
       }
-      // console.log( this.output );
       return this.output;
     }
   }
 
+  /**
+   * This function goes through the array as part of the json
+   * and returns the array for the data chooser
+   * */
   goThroughArray( subtree: any ) {
-    // console.log( 'Go through array', subtree );
     this.depth += 1;
       for ( const arrayEntry of subtree ) {
          this.generateEntry( arrayEntry, this.depth );
       }
-      // console.log( this.output );
       return this.output ;
   }
 
+  /**
+   * This recursive function is going through the children of the array
+   * of the json to find the right string for the entry array of the data chooser
+   * */
   generateEntry( subtree: any, depth: number ) {
-    // console.log( this.path, subtree, depth, typeof subtree[ this.path[ depth ] ] );
     if ( typeof subtree[ this.path[ depth ] ] === 'string'  ) {
-      // console.log( 'Push to data chooser entry' );
       this.output.push( subtree[ this.path[ depth ] ] );
     } else if ( this.path.length - 1 === depth && subtree ) {
       this.output.push( subtree[ this.path[ this.path.length - 1 ] ] );

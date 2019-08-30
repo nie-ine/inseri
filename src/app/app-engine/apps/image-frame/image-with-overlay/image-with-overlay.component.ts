@@ -164,6 +164,14 @@ export class ImageWithOverlayComponent implements OnInit, OnChanges, OnDestroy {
    * @param changes  changes by Angular change detection
    */
   ngOnChanges(changes: { [key: string]: SimpleChange }) {
+    if (this.maxImageHeight === undefined && this.maxImageWidth === undefined && this.iiifImagePath === undefined) {
+      // default image for demonstration purpose
+      this.iiifImagePath = 'https://www.e-manuscripta.ch/zuz/i3f/v20/1510618/full/full/0/default.jpg';
+      this.maxImageWidth = 3062;
+      this.maxImageHeight = 4034;
+      // as regions are optional, no default can be given
+    }
+
     if (changes['iiifImagePath'] && changes['iiifImagePath'].isFirstChange()) {
       this.setupViewer();
     }

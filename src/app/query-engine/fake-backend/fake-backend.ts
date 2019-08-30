@@ -1,4 +1,10 @@
-﻿import { Injectable } from '@angular/core';
+﻿/**
+ * This http interceptor contains on the one hand test - data to test the appInputQueryMapping.
+ * One the other hand, at the end of the document, some tokens are attached for different apis,
+ * for instance for openBis
+ * */
+
+import { Injectable } from '@angular/core';
 import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';

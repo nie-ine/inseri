@@ -1,0 +1,35 @@
+<li role="treeitem" [attr.aria-expanded]="childrenAreActive" [attr.aria-selected]="isInPath">
+  <div>
+    <ng-container *ngIf="nodeConfiguration.children">
+      <button mat-button *ngIf="childrenAreActive" (click)="hideChildren()" aria-label="hide child nodes">
+        <mat-icon>expand_less</mat-icon>
+      </button>
+      <button mat-button *ngIf="!childrenAreActive" (click)="loadChildren()" aria-label="load child nodes">
+        <mat-icon>expand_more</mat-icon>
+      </button>
+    </ng-container>
+
+    <a mat-button (click)="selectNode(); loadChildren()" [ngStyle]="{'color': isInPath ? 'red' : 'black'}">{{ resource['rdfs:label'] }}</a>
+  </div>
+
+  <ul *ngFor="let c of children" style="padding-left: 2em; list-style-type: none" role="group">
+    <app-hierarchical-navigation-node
+      *ngIf="nodeConfiguration.children"
+      [backendAddress]="backendAddress"
+      [resource]="c"
+      [nodeConfiguration]="nodeConfiguration.children"
+      [pathMap]="pathMap"
+      [routeKeys]="routeKeys"
+      (pathChange)="processPathChange($event)">
+    </app-hierarchical-navigation-node>
+  </ul>
+
+  <ng-container *ngIf="children && childrenAreActive">
+    <button mat-button
+            (click)="loadMoreChildren()"
+            aria-label="load more"
+            *ngIf="totalNumberOfChildren > children.length">
+      <mat-icon>add</mat-icon>
+    </button>
+  </ng-container>
+</li>

@@ -6,6 +6,7 @@ const PageSet = require('../models/page-set');
 const Query = require('../models/query');
 
 const checkAuth = require('../middleware/check-auth');
+const checkAuth2 = require('../middleware/check-auth-without-immediate-response');
 const generatedHash = require('../middleware/hash-generator');
 
 const router = express.Router();
@@ -35,32 +36,61 @@ router.get('', checkAuth, (req, res, next) => {
         })
 });
 
-router.get('/:id', checkAuth, (req, res, next) => {
+router.get('/:id', checkAuth2, (req, res, next) => {
     // Authorisation (only if user is also the creator of the action)
+  if( req.loggedIn === true ) {
     Action.find({_id:req.params.id, creator: req.userData.userId})
-        .populate('hasPage')
-        .populate({
-            path: 'hasPageSet',
-            populate: {
-                path: 'hasPages'
-            }
+      .populate('hasPage')
+      .populate({
+        path: 'hasPageSet',
+        populate: {
+          path: 'hasPages'
+        }
+      })
+      .then(result => {
+        if (result.length === 1) {
+          // console.log( result );
+          res.status(200).json({
+            message: 'Action was found',
+            action: result[0]
+          })
+        } else {
+          res.status(404).json({message: 'Action was not found'})
+        }
+      })
+      .catch(error => {
+        res.status(500).json({
+          message: 'Fetching action failed',
+          error: error
         })
-        .then(result => {
-            if (result.length === 1) {
-                res.status(200).json({
-                    message: 'Action was found',
-                    action: result[0]
-                })
-            } else {
-                res.status(404).json({message: 'Action was not found'})
-            }
+      })
+  } else if ( req.loggedIn === false ) {
+    Action.find({_id:req.params.id})
+      .populate('hasPage')
+      .populate({
+        path: 'hasPageSet',
+        populate: {
+          path: 'hasPages'
+        }
+      })
+      .then(result => {
+        if (result[ 0 ].published === true ) {
+          res.status(200).json({
+            message: 'Action was found',
+            action: result[0]
+          })
+        } else {
+          res.status(404).json({message: 'Action was not found'})
+        }
+      })
+      .catch(error => {
+        res.status(500).json({
+          message: 'Fetching action failed',
+          error: error
         })
-        .catch(error => {
-            res.status(500).json({
-                message: 'Fetching action failed',
-                error: error
-            })
-        })
+      })
+  }
+
 });
 
 router.post('', checkAuth, (req, res, next) => {
@@ -93,8 +123,10 @@ router.post('', checkAuth, (req, res, next) => {
     // Case 1: action has a page set
     if (req.body.type === 'page-set') {
         // Default values for the pageset
-        const defaultTitle = 'Example pageSet 00';
-        const defaultDescription = 'Dies als Beispiel für eine PageSet bei NIE-OS';
+        const defaultTitle = 'document index';
+        const defaultDescription = 'You can change the title of this inseri document ' +
+          'as well as the description by clicking on the \'change document title and description\' button on the ' +
+          'bottom right';
         const defaultLinkToImage = '../../../../assets/img/pageset.png';
 
         const newPageSet = new PageSet({
@@ -200,7 +232,9 @@ router.put('/:id', checkAuth, (req, res, next) => {
     // Updates action and returns the updated action
     Action.findOneAndUpdate({_id: req.params.id, creator: req.userData.userId}, {
         title: req.body.title,
-        description: req.body.description
+        description: req.body.description,
+        published: req.body.published,
+        isFinished: req.body.isFinished
     },{new:true})
         .populate('hasPage')
         .populate({
