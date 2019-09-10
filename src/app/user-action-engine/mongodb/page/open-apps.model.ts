@@ -411,6 +411,24 @@ export class OpenAppsModel {
       materialIcon: 'horizontal_split',
       initialWidth: '200',
       initialHeight: '200'
+    },
+    pdfViewer: {
+      type: 'pdfViewer',
+      model: [],
+      materialIcon: 'horizontal_split',
+      initialWidth: '700',
+      initialHeight: '700',
+      inputs: [
+        {
+          'inputName': 'source'
+        },
+        {
+          'inputName': 'page'
+        },
+        {
+          'inputName': 'pdfLength'
+        }
+      ],
     }
   };
 }

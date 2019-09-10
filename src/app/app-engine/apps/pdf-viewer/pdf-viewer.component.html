@@ -1,0 +1,9 @@
+<button mat-button (click)="page = page - 1" [disabled]="page === 1"> previous page </button>
+<button mat-button (click)="page = page + 1" [disabled]=" page === pdfLength"> next page </button>
+
+<pdf-viewer [src]="source"
+            [render-text]="true"
+            [show-all]="false"
+            [page]="page"
+            style="display: block;"
+></pdf-viewer>

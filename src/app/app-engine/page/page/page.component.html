@@ -96,23 +96,11 @@
 
 
       <!-- Publish Option Expansion Panel -->
-      <div style="margin-top: 20px; vertical-align: bottom; ">
-        <button type="button" mat-button  matTooltip='{{ createTooltip() }}' (click)="openPageMenu()" *ngIf="!preview || showInseriLogoOnPublish" #tooltip="matTooltip">
-<!--          (click)="drawer.toggle()"-->
-          <img [src]=" lightHouse ?  '../../../../assets/img/logo_transparent.png' : '../../../../assets/img/logo_transparent2.png'" style="width: 40px; margin-bottom: 2px;" matTooltip="inseri apps" >
-<!--          <span *ngIf="showNote && pageAsDemo"  > &#8592; Click here for inseri tutorials and the inseri App Menu</span>-->
+      <div style="vertical-align: bottom; ">
+        <button type="button" mat-button (click)="openPageMenu()" *ngIf="!preview || showInseriLogoOnPublish" style="margin-top: 15px;">
+          <img [src]=" lightHouse ?  '../../../../assets/img/logo_transparent.png' : '../../../../assets/img/logo_transparent2.png'" style="width: 40px; margin-bottom: 2px; vertical-align: bottom;" matTooltip="inseri apps" >
         </button>
-        <a (click)="goToDashBoard()" *ngIf=" (!pageAsDemo) && !preview" style="color: #4cae4c !important; cursor: pointer;"><mat-icon matTooltip="back to dashboard">home</mat-icon></a>
-        <a (click)="goToPageSet()" *ngIf="route.snapshot.queryParams.page" style="color: #4cae4c !important; margin-left: 15px; cursor: pointer"><mat-icon matTooltip="document index">list</mat-icon></a>
-        <a *ngIf=" (!pageAsDemo) && !preview" (click)="updatePage()" style="color: #4cae4c !important; margin-left: 15px; cursor: pointer;"><mat-icon  matTooltip="save page">save</mat-icon></a>
-        <a *ngIf=" (!pageAsDemo) && !preview" (click)="openDataManagement()" style="color: #4cae4c !important; margin-left: 15px; cursor: pointer;" ><mat-icon matTooltip="page data manager">zoom_out_map</mat-icon></a>
-        <a *ngIf=" (!pageAsDemo) && !preview" (click)="logout()" style="color: #4cae4c !important; margin-left: 15px; cursor: pointer;" ><mat-icon matTooltip="{{ 'click to logout - ' + userInfo }}">lock_open</mat-icon></a>
-        <mat-chip style="cursor: pointer; float: right; margin-right: 15px;" *ngIf=" (!pageAsDemo) && !preview && route.snapshot.queryParams.page">
-          <mat-icon (click)="addNewPage()" matTooltip="'add new page tho this pageSet'">
-            add
-          </mat-icon>
-        </mat-chip>
-        <div style=" width: 400px; scrollbar-width: none; overflow-x: auto; overflow-y: hidden; display: inline-block; position: relative; white-space: nowrap; float: right; margin-right: 15px;" >
+        <div style=" width: 70%; overflow-x: auto; overflow-y: hidden; display: inline-block; position: relative; white-space: nowrap; margin-right: 15px; margin-top: 8px; vertical-align: top;" >
           <mat-chip-list *ngFor="let page of pagesOfThisActtion; let i = index;" style=" margin-left: 15px; display: inline-block; ">
             <mat-chip matTooltip="{{ page.description }}" selected [color]="'primary'"  *ngIf="checkIfSelected( i )" style="cursor: pointer; display: inline-block;">
               {{ page.title }}
@@ -120,11 +108,34 @@
             <mat-chip matTooltip="{{ page.description }}" *ngIf="!checkIfSelected( i )" (click)="selectPage( i, page )" style="cursor: pointer; display: inline-block;">
               {{ page.title }}
             </mat-chip>
+            <mat-chip style="cursor: pointer; margin-left: 15px;" *ngIf=" (!pageAsDemo) && !preview && route.snapshot.queryParams.page && i === pagesOfThisActtion.length -1">
+              <mat-icon (click)="addNewPage()" matTooltip="'add new page tho this pageSet'">
+                add
+              </mat-icon>
+            </mat-chip>
           </mat-chip-list>
         </div>
-        <a *ngIf="pageIsPublished && loggedIn" matTooltip='Page is published' style="margin-left: 15px; margin-right: 15px; color: #4cae4c !important;"  ><mat-icon>public</mat-icon></a>
-        <a *ngIf=" (!pageAsDemo) && !preview && loggedIn" matTooltip='Preview of published page' style="margin-left: 15px; margin-right: 15px; cursor: pointer" (click)="preview = !preview" ><mat-icon>nature_people</mat-icon></a>
-        <a *ngIf=" (!pageAsDemo) && preview && loggedIn" matTooltip='Back to page editor' style="color: #4cae4c !important;  margin-left: 15px; margin-right: 15px; cursor: pointer" (click)="preview = !preview" ><mat-icon>nature</mat-icon></a>
+        <button mat-button *ngIf="pageIsPublished && loggedIn" matTooltip='Page is published' style="float: right; margin-top: 4px; "  ><mat-icon>public</mat-icon></button>
+        <button mat-button *ngIf=" (!pageAsDemo) && !preview && loggedIn" matTooltip='Preview of published page' style="float: right; margin-top: 4px;" (click)="preview = !preview" ><mat-icon>nature_people</mat-icon></button>
+        <button mat-button *ngIf=" (!pageAsDemo) && preview && loggedIn" matTooltip='Back to page editor' style=" cursor: pointer; float: right; margin-top: 4px;" (click)="preview = !preview" ><mat-icon>nature</mat-icon></button>
+        <button mat-button [matMenuTriggerFor]="menu1" *ngIf=" (!pageAsDemo) && !preview" style="float: right; margin-top: 4px;"><mat-icon>settings</mat-icon></button>
+        <mat-menu #menu1="matMenu">
+          <button mat-menu-item (click)="goToDashBoard()" *ngIf=" (!pageAsDemo) && !preview">
+            <mat-icon matTooltip="back to dashboard">home</mat-icon> Dashboard
+          </button>
+          <button mat-menu-item (click)="goToPageSet()" *ngIf="route.snapshot.queryParams.page" >
+            <mat-icon matTooltip="document index">list</mat-icon> Document index
+          </button>
+          <button mat-menu-item *ngIf=" (!pageAsDemo) && !preview" (click)="updatePage()" >
+            <mat-icon  matTooltip="save page">save</mat-icon> Save Page
+          </button>
+          <button mat-menu-item *ngIf=" (!pageAsDemo) && !preview" (click)="openDataManagement()" >
+            <mat-icon matTooltip="page data manager">zoom_out_map</mat-icon> Data management
+          </button>
+          <button mat-menu-item *ngIf=" (!pageAsDemo) && !preview" (click)="logout()" >
+            <mat-icon matTooltip="{{ 'click to logout - ' + userInfo }}">lock_open</mat-icon> Log out
+          </button>
+        </mat-menu>
         <div style=" position: fixed; bottom: 0; left: 0; z-index: 200; overflow-x: auto; margin-top: 70px; width: 300px;" *ngIf="preview && loggedIn">
           <mat-expansion-panel [ngStyle]="{
           'height': publishedOptionsExpanded ? '500px' : '',
@@ -427,6 +438,14 @@
               [pageId]="pageIDFromURL">
 
             </app-raeber-navigation>
+
+            <app-pdf-viewer
+              *ngIf="appType === 'pdfViewer'"
+              [source]="openAppsInThisPage[ 'pdfViewer' ].model[i]['source']"
+              [page]="openAppsInThisPage[ 'pdfViewer' ].model[i]['page']"
+              [pdfLength]="openAppsInThisPage[ 'pdfViewer' ].model[i]['pdfLength']">
+
+            </app-pdf-viewer>
 
           </div>
         </popup>

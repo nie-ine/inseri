@@ -320,6 +320,16 @@ export class AppMenuModel {
       appType: 'urlUpdate',
       description: 'urlUpdate',
       showOnHome: false
+    },
+    {
+      id: 'horizontal_split',
+      name: 'pdf viewer',
+      tags: 'pdf',
+      color: 'green',
+      status: 'stable',
+      appType: 'pdfViewer',
+      description: 'pdfViewer',
+      showOnHome: false
     }
   ];
 }

@@ -77,6 +77,8 @@ import {EditorModule} from 'primeng/editor';
 import { AngularHandsometableComponent } from './apps/angular-handsometable/angular-handsometable.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { RaeberNavigationComponent } from './apps/raeber-navigation/raeber-navigation.component';
+import { PdfViewerComponent } from './apps/pdf-viewer/pdf-viewer.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 @NgModule({
   imports: [
@@ -126,11 +128,12 @@ import { RaeberNavigationComponent } from './apps/raeber-navigation/raeber-navig
     JoinedTextViewModule,
     HierarchicalNavigationModule,
     EditorModule,
+    PdfViewerModule,
     // KnoraJsonldSimplify,
     AgGridModule.withComponents([]),
     RouterModule.forChild([
       { path: 'page', component: PageComponent },
-      { path: 'table', component: AngularHandsometableComponent }
+      { path: 'pdf', component: PdfViewerComponent }
     ])
   ],
   providers: [
@@ -170,7 +173,8 @@ import { RaeberNavigationComponent } from './apps/raeber-navigation/raeber-navig
     IframeComponent,
     PrimeEditorComponent,
     AngularHandsometableComponent,
-    RaeberNavigationComponent
+    RaeberNavigationComponent,
+    PdfViewerComponent
   ],
   exports: [
     PageComponent,

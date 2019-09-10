@@ -622,6 +622,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             );
             console.log( updatedRequest );
             return next.handle(updatedRequest);
+          } else if ( request.url.search( 'test' ) !== -1 ) {
+            console.log( request );
           } else {
             return next.handle(request);
           }
