@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { IIIFImage } from '../../shared/IIIFImage';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageTree } from '../models/page-tree.model';
@@ -39,6 +39,16 @@ export class TextSvgViewWrapperComponent implements OnInit, OnChanges {
   @Input() viewerHeight = 1200;
 
   /**
+   * The unique id of the word the mouse is hovering on.
+   */
+  @Input() hoveredWord: string;
+
+  /**
+   * Give an event containing the unique word id if the mouse hovers on a word in the page description
+   */
+  @Output() hoveredWordChange: EventEmitter<string> = new EventEmitter<string>();
+
+  /**
    * The unique id of the word that was last clicked and counts as activated. Only one word can be counted as activated at a time.
    */
   clickedWord: string;
@@ -57,11 +67,6 @@ export class TextSvgViewWrapperComponent implements OnInit, OnChanges {
    * The image can be whited out. 1 means that the image is fully visible. 0 means that it's hidden.
    */
   imageOpacity = 0.4;
-
-  /**
-   * The unique id of the word the mouse is hovering on.
-   */
-  hoveredWord: string;
 
   /**
    * The object that contains the information of the IIIF image for input in openseadragon.
@@ -98,7 +103,6 @@ export class TextSvgViewWrapperComponent implements OnInit, OnChanges {
       this.showWords = params.showWords;
       this.showHighlightedWord = params.showFocus;
       this.imageOpacity = params.imageOpacity;
-      this.hoveredWord = params.hover;
     });
 
     // Replace the IIIFImage object if its properties change.
@@ -109,10 +113,6 @@ export class TextSvgViewWrapperComponent implements OnInit, OnChanges {
 
   clickChange(resIri: string) {
     this._router.navigate([], {relativeTo: this._route, queryParams: {focus: resIri}, queryParamsHandling: 'merge'});
-  }
-
-  hoverChange(resIri: string) {
-    this._router.navigate([], {relativeTo: this._route, queryParams: {hover: resIri}, queryParamsHandling: 'merge'});
   }
 
 }

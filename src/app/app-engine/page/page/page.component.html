@@ -245,7 +245,8 @@
                                     [maxImageWidth]="openAppsInThisPage[ 'imageViewer' ].model[i][ 'stillImageFileValueHasDimX' ]"
                                     [maxImageHeight]="openAppsInThisPage[ 'imageViewer' ].model[i][ 'stillImageFileValueHasDimY' ]"
                                     [width]="produceHeightAndWidth( openAppsInThisPage[ 'imageViewer' ].model[i].width,  openApps.openApps[ 'imageViewer' ].initialWidth )"
-                                    [height]="produceHeightAndWidth( openAppsInThisPage[ 'imageViewer' ].model[i].height,  openApps.openApps[ 'imageViewer' ].initialHeight)">
+                                    [height]="produceHeightAndWidth( openAppsInThisPage[ 'imageViewer' ].model[i].height,  openApps.openApps[ 'imageViewer' ].initialHeight)"
+                                    [(hoveredRegion)]="hoveredElement">
             </app-image-with-overlay>
 
 
@@ -305,7 +306,8 @@
                                            [width]="openAppsInThisPage['svgTranscription'].model[i]['imageWidth']"
                                            [height]="openAppsInThisPage['svgTranscription'].model[i]['imageHeight']"
                                            [viewerWidth]="produceHeightAndWidth( openAppsInThisPage[ 'svgTranscription' ].model[i].width,  openApps.openApps[ 'svgTranscription' ].initialWidth )"
-                                           [viewerHeight]="produceHeightAndWidth( openAppsInThisPage[ 'svgTranscription' ].model[i].height,  openApps.openApps[ 'svgTranscription' ].initialHeight)">
+                                           [viewerHeight]="produceHeightAndWidth( openAppsInThisPage[ 'svgTranscription' ].model[i].height,  openApps.openApps[ 'svgTranscription' ].initialHeight)"
+                                            [(hoveredWord)]="hoveredElement">
             </app-text-svg-view-wrapper>
 
 
@@ -403,7 +405,8 @@
                                   [queryParamForTextRootIri]="openAppsInThisPage['joinedTextView'].model[i]['queryParamForTextRootIri']"
                                   [textConfiguration]="openAppsInThisPage[ 'joinedTextView' ].model[i]['textConfiguration']"
                                   [styleDeclarations]="openAppsInThisPage[ 'joinedTextView' ].model[i]['styleDeclarations']"
-                                  [selectiveStyleDeclarations]="openAppsInThisPage[ 'joinedTextView' ].model[i]['selectiveStyleDeclarations']">
+                                  [selectiveStyleDeclarations]="openAppsInThisPage[ 'joinedTextView' ].model[i]['selectiveStyleDeclarations']"
+                                  [(hoveredResource)]="hoveredElement">
             </app-joined-text-view>
 
             <app-iframe *ngIf="appType === 'sparqlVisualizer'"
