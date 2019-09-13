@@ -1,5 +1,17 @@
 <div *ngFor="let b of blocks" [ngStyle]="getStyleDict('styleKeys')">
 
+  <app-joined-text-block
+    *ngIf="blockConfiguration.blocks"
+    [parentIri]="b['@id']"
+    [backendAddress]="backendAddress"
+    [blockConfiguration]="blockConfiguration.blocks"
+    [highlighted]="highlighted"
+    [styleDeclarations]="styleDeclarations"
+    [selectiveStyleDeclarations]="selectiveStyleDeclarations"
+    [clickedResource]="clickedResource" (clickedResourceChange)="clickChange($event)"
+    [hoveredResource]="hoveredResource" (hoveredResourceChange)="hoverChange($event)">
+  </app-joined-text-block>
+
   <app-joined-text-line
     *ngIf="blockConfiguration.lines"
     [parentIri]="b['@id']"
@@ -33,5 +45,19 @@
     [styleDeclarations]="styleDeclarations"
     [selectiveStyleDeclarations]="selectiveStyleDeclarations">
   </app-joined-text-textwrapper>
+
+  <ng-container *ngIf="blockConfiguration.contentProperty">
+    <ng-container *ngIf="blockConfiguration.contentProperty === 'self'">
+      <app-joined-text-textwrapper
+        *ngIf="blockConfiguration.propertyIri"
+        [namespaces]="namespaces"
+        [propertyIri]="blockConfiguration.propertyIri"
+        [resource]="b"
+        [highlighted]="highlighted"
+        [styleDeclarations]="styleDeclarations"
+        [selectiveStyleDeclarations]="selectiveStyleDeclarations">
+      </app-joined-text-textwrapper>
+    </ng-container>
+  </ng-container>
 
 </div>
