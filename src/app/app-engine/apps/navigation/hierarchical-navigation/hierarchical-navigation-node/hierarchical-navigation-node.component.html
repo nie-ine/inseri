@@ -9,10 +9,10 @@
       </button>
     </ng-container>
 
-    <a mat-button (click)="selectNode(); loadChildren()" [ngStyle]="{'color': isInPath ? 'red' : 'black'}">{{ resource['rdfs:label'] }}</a>
+    <a mat-button (click)="selectNode(); loadChildren()" [ngStyle]="{'color': isInPath ? 'red' : 'black'}"><span [innerHtml]="resource['rdfs:label']"></span></a>
   </div>
 
-  <ul *ngFor="let c of children" style="padding-left: 2em; list-style-type: none" role="group">
+  <ul *ngFor="let c of children" style="list-style-type: none" role="group">
     <app-hierarchical-navigation-node
       *ngIf="nodeConfiguration.children"
       [backendAddress]="backendAddress"
