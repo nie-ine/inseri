@@ -278,6 +278,9 @@
 
             </app-resource-form>
 
+            <app-resource-form-v2 *ngIf="appType === 'knoraV2viewer'" (resourceIsDeleted)="closeApp( openAppsInThisPage[ 'createResourceForm' ].model, i )">
+
+            </app-resource-form-v2>
 
             <app-youtube-video *ngIf=" appType === 'youtubeVideo'"
               [videoURL]="openAppsInThisPage[ 'youtubeVideo' ].model[i]['videoURL']">

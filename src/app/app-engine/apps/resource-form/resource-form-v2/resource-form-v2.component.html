@@ -1,0 +1,55 @@
+<div *ngIf="resourceData">
+  <h3 [innerHtml]="resourceData['rdfs:label']"></h3>
+
+  <div *ngFor="let key of resourceData.keys">
+
+    <!-- text values -->
+    <div *ngIf="resourceData[key]['knora-api:textValueAsXml']">
+      <h4>{{key}}</h4>
+      <app-text-rich-innerhtml
+        [htmlContent]="resourceData[key]['knora-api:textValueAsXml']"></app-text-rich-innerhtml>
+    </div>
+
+    <div *ngIf="resourceData[key]['knora-api:textValueAsHtml']">
+      <h4>{{key}}</h4>
+      <app-text-rich-innerhtml
+        [htmlContent]="resourceData[key]['knora-api:textValueAsHtml']"></app-text-rich-innerhtml>
+    </div>
+
+    <div *ngIf="resourceData[key]['knora-api:ValueAsString']">
+      <h4>{{key}}</h4>
+      <app-text-rich-innerhtml
+        [htmlContent]="resourceData[key]['knora-api:ValueAsString']"></app-text-rich-innerhtml>
+    </div>
+
+    <!-- int value -->
+    <div *ngIf="resourceData[key]['knora-api:ValueAsInt']">
+      <h4>{{key}}</h4>
+      <app-text-rich-innerhtml
+        [htmlContent]="resourceData[key]['knora-api:ValueAsInt']"></app-text-rich-innerhtml>
+    </div>
+
+    <!-- decimal value TODO -->
+
+    <!-- uri value TODO -->
+
+    <!-- date value TODO -->
+
+    <!-- color value TODO -->
+
+    <!-- hlist value TODO -->
+
+    <!-- interval value TODO -->
+
+    <div *ngIf="resourceData[key]['knora-api:linkValueHasTarget']">
+      <h4>{{key}}</h4>
+      <a [ngStyle]="{'background-color': hoveredResource === resourceData[key]['knora-api:linkValueHasTarget']['@id'] ? hoverColor: ''}"
+         (mouseenter)="hoverOntoLink(resourceData[key]['knora-api:linkValueHasTarget']['@id'])"
+         (mouseleave)="hoverOutOfLink()"
+         (click)="clickTarget(resourceData[key]['knora-api:linkValueHasTarget']['@id'])">
+        {{resourceData[key]['knora-api:linkValueHasTarget']['rdfs:label']}}
+      </a>
+    </div>
+
+  </div>
+</div>
