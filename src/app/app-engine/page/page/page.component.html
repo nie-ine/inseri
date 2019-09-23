@@ -100,6 +100,18 @@
         <button type="button" mat-button (click)="openPageMenu()" *ngIf="!preview || showInseriLogoOnPublish" style="margin-top: 15px;">
           <img [src]=" lightHouse ?  '../../../../assets/img/logo_transparent.png' : '../../../../assets/img/logo_transparent2.png'" style="width: 40px; margin-bottom: 2px; vertical-align: bottom;" matTooltip="inseri apps" >
         </button>
+
+
+        <button mat-button [matMenuTriggerFor]="menu3">Menu</button>
+        <mat-menu #menu3="matMenu" >
+          <button
+            color="{{checkIfSelected( i ) ? 'accent' : null}}"
+            *ngFor="let page of pagesOfThisActtion; let i = index;"
+            matTooltip="{{ page.description }}"
+            mat-menu-item
+            (click)="selectPage( i, page )">{{ page.title }}</button>
+        </mat-menu>
+
         <div style=" width: 70%; overflow-x: auto; overflow-y: hidden; display: inline-block; position: relative; white-space: nowrap; margin-right: 15px; margin-top: 8px; vertical-align: top;" >
           <mat-chip-list *ngFor="let page of pagesOfThisActtion; let i = index;" style=" margin-left: 15px; display: inline-block; ">
             <mat-chip matTooltip="{{ page.description }}" selected [color]="'primary'"  *ngIf="checkIfSelected( i )" style="cursor: pointer; display: inline-block;">
@@ -115,6 +127,8 @@
             </mat-chip>
           </mat-chip-list>
         </div>
+
+
         <button mat-button *ngIf="pageIsPublished && loggedIn" matTooltip='Page is published' style="float: right; margin-top: 4px; "  ><mat-icon>public</mat-icon></button>
         <button mat-button *ngIf=" (!pageAsDemo) && !preview && loggedIn" matTooltip='Preview of published page' style="float: right; margin-top: 4px;" (click)="preview = !preview" ><mat-icon>nature_people</mat-icon></button>
         <button mat-button *ngIf=" (!pageAsDemo) && preview && loggedIn" matTooltip='Back to page editor' style=" cursor: pointer; float: right; margin-top: 4px;" (click)="preview = !preview" ><mat-icon>nature</mat-icon></button>
