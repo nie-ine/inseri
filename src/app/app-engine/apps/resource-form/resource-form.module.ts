@@ -13,14 +13,14 @@ import { RichTextModule } from '../shared/rich-text/rich-text.module';
   imports: [
     CommonModule,
     FormsModule,
-    BaseTypeFormsModule
+    BaseTypeFormsModule,
+    RichTextModule
   ],
   declarations: [
     ResourceFormComponent,
     ResourceValueHistoryComponent,
     ResourceValueHistoryValueComponent,
-    ResourceFormV2Component,
-    RichTextModule
+    ResourceFormV2Component
   ],
   exports: [ResourceFormComponent, ResourceFormV2Component],
   providers: [ KnoraV1RequestService ]

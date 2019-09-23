@@ -242,7 +242,7 @@ export class AppMenuModel {
     },
     {
       id: 'web',
-      name: 'Simple Resource Viewer',
+      name: 'Nested Resource Viewer',
       tags: 'knora',
       color: 'orange',
       status: 'under development',

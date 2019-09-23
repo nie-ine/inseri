@@ -95,9 +95,9 @@ export class JoinedTextMarginComponent implements OnChanges {
 
     if ((this.backendAddress && this.marginConfiguration && this.parentIri) && (changes['parentIri'] || changes['backendAddress'] || changes['marginConfiguration'])) {
 
-      const graveSearchRequest = this.joinedTextViewKnoraRequest.getGravSearch(this.marginConfiguration, this.parentIri);
+      const gravSearchRequest = this.joinedTextViewKnoraRequest.getGravSearch(this.marginConfiguration, this.parentIri);
 
-      this.knoraV2Request.extendedSearchFromSpecificInstance(graveSearchRequest, this.backendAddress)
+      this.knoraV2Request.extendedSearchFromSpecificInstance(gravSearchRequest, this.backendAddress)
         .subscribe(d => {
           if (d[ '@graph' ]) {
             this.margins = d[ '@graph' ];

@@ -85,9 +85,9 @@ export class JoinedTextBlockComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
 
     if ((this.parentIri && this.blockConfiguration && this.backendAddress) && (changes['parentIri'] || changes['backendAddress'] || changes['blockConfiguration'])) {
-      const graveSearchRequest = this.joinedTextViewKnoraRequest.getGravSearch(this.blockConfiguration, this.parentIri);
+      const gravSearchRequest = this.joinedTextViewKnoraRequest.getGravSearch(this.blockConfiguration, this.parentIri);
 
-      this.knoraV2Request.extendedSearchFromSpecificInstance(graveSearchRequest, this.backendAddress)
+      this.knoraV2Request.extendedSearchFromSpecificInstance(gravSearchRequest, this.backendAddress)
         .subscribe(d => {
           if (d[ '@graph' ]) {
             this.blocks = d[ '@graph' ];

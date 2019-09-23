@@ -39,6 +39,10 @@ export class ResourceFormV2Component implements OnChanges {
    */
   @Output() hoveredResourceChange: EventEmitter<string> = new EventEmitter<string>();
 
+  @Input() maxDepth: number;
+
+  internalMaxDepth = 2;
+
   /**
    * Variable for the value of resourceIRI or queryParamForResourceIRI, depending on configuration.
    */
@@ -48,6 +52,8 @@ export class ResourceFormV2Component implements OnChanges {
    * The json-ld structure with the content that has to be displayed.
    */
   resourceData: any;
+
+  propertyKeys: Array<string>;
 
   /**
    * Constructor
@@ -60,19 +66,23 @@ export class ResourceFormV2Component implements OnChanges {
    * Subscribe to the query parameters for focus, hovering and other selections.
    */
   ngOnChanges() {
-    this._route.queryParams.subscribe(params => {
-      if (this.queryParamForResourceIRI) {
+    if (this.queryParamForResourceIRI) {
+      this._route.queryParams.subscribe(params => {
         this.internalIRI = params[this.queryParamForResourceIRI];
-      }
-    });
+        this.getResource();
 
-    if (!this.queryParamForResourceIRI) {
+      });
+    } else {
       this.internalIRI = this.resourceIRI;
+      this.getResource();
+
     }
 
-    if (this.internalIRI) {
-      this.getResource();
+    if (this.maxDepth) {
+      this.internalMaxDepth = this.maxDepth;
+      console.log(this.maxDepth);
     }
+
   }
 
   getResource() {
@@ -80,6 +90,7 @@ export class ResourceFormV2Component implements OnChanges {
       this.knoraV2Request.getResourceFromSpecificInstance(this.internalIRI, this.backendAddress)
         .subscribe(res => {
           this.resourceData = res;
+          this.propertyKeys = Object.keys(res);
         }, error => {
           console.log(error);
         });

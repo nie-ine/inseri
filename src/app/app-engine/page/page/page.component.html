@@ -278,8 +278,13 @@
 
             </app-resource-form>
 
-            <app-resource-form-v2 *ngIf="appType === 'knoraV2viewer'" (resourceIsDeleted)="closeApp( openAppsInThisPage[ 'createResourceForm' ].model, i )">
-
+            <app-resource-form-v2 *ngIf="appType === 'knoraV2viewer'"
+                                  [backendAddress]="openAppsInThisPage['knoraV2viewer'].model[i]['backendAddress']"
+                                  [resourceIRI]="openAppsInThisPage['knoraV2viewer'].model[i]['resourceIRI']"
+                                  [queryParamForResourceIRI]="openAppsInThisPage['knoraV2viewer'].model[i]['queryParamForResourceIRI']"
+                                  [hoverColor]="openAppsInThisPage['knoraV2viewer'].model[i]['hoverColor']"
+                                  [maxDepth]="openAppsInThisPage['knoraV2viewer'].model[i]['maxDepth']"
+                                  [(hoveredResource)]="hoveredElement">
             </app-resource-form-v2>
 
             <app-youtube-video *ngIf=" appType === 'youtubeVideo'"

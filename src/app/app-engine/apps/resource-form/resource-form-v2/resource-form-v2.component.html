@@ -1,55 +1,65 @@
 <div *ngIf="resourceData">
-  <h3 [innerHtml]="resourceData['rdfs:label']"></h3>
+  <span [innerHtml]="resourceData['rdfs:label']"></span>
 
-  <div *ngFor="let key of resourceData.keys">
+  <ng-container *ngIf="internalMaxDepth > 0">
+    <ul *ngFor="let key of propertyKeys">
 
-    <!-- text values -->
-    <div *ngIf="resourceData[key]['knora-api:textValueAsXml']">
-      <h4>{{key}}</h4>
-      <app-text-rich-innerhtml
-        [htmlContent]="resourceData[key]['knora-api:textValueAsXml']"></app-text-rich-innerhtml>
-    </div>
+      <!-- text values -->
+      <li *ngIf="resourceData[key]['knora-api:textValueAsXml']">
+        {{key}}:
+        <app-text-rich-innerhtml
+          [htmlContent]="resourceData[key]['knora-api:textValueAsXml']"></app-text-rich-innerhtml>
+      </li>
 
-    <div *ngIf="resourceData[key]['knora-api:textValueAsHtml']">
-      <h4>{{key}}</h4>
-      <app-text-rich-innerhtml
-        [htmlContent]="resourceData[key]['knora-api:textValueAsHtml']"></app-text-rich-innerhtml>
-    </div>
+      <li *ngIf="resourceData[key]['knora-api:textValueAsHtml']">
+        {{key}}:
+        <app-text-rich-innerhtml
+          [htmlContent]="resourceData[key]['knora-api:textValueAsHtml']"></app-text-rich-innerhtml>
+      </li>
 
-    <div *ngIf="resourceData[key]['knora-api:ValueAsString']">
-      <h4>{{key}}</h4>
-      <app-text-rich-innerhtml
-        [htmlContent]="resourceData[key]['knora-api:ValueAsString']"></app-text-rich-innerhtml>
-    </div>
+      <li *ngIf="resourceData[key]['knora-api:ValueAsString']">
+        {{key}}:
+        <app-text-rich-innerhtml
+          [htmlContent]="resourceData[key]['knora-api:ValueAsString']"></app-text-rich-innerhtml>
+      </li>
 
-    <!-- int value -->
-    <div *ngIf="resourceData[key]['knora-api:ValueAsInt']">
-      <h4>{{key}}</h4>
-      <app-text-rich-innerhtml
-        [htmlContent]="resourceData[key]['knora-api:ValueAsInt']"></app-text-rich-innerhtml>
-    </div>
+      <!-- int value -->
+      <li *ngIf="resourceData[key]['knora-api:ValueAsInt']">
+        {{key}}:
+        <app-text-rich-innerhtml
+          [htmlContent]="resourceData[key]['knora-api:ValueAsInt']"></app-text-rich-innerhtml>
+      </li>
 
-    <!-- decimal value TODO -->
+      <!-- decimal value TODO -->
 
-    <!-- uri value TODO -->
+      <!-- uri value TODO -->
 
-    <!-- date value TODO -->
+      <!-- date value TODO -->
 
-    <!-- color value TODO -->
+      <!-- color value TODO -->
 
-    <!-- hlist value TODO -->
+      <!-- hlist value TODO -->
 
-    <!-- interval value TODO -->
+      <!-- interval value TODO -->
 
-    <div *ngIf="resourceData[key]['knora-api:linkValueHasTarget']">
-      <h4>{{key}}</h4>
-      <a [ngStyle]="{'background-color': hoveredResource === resourceData[key]['knora-api:linkValueHasTarget']['@id'] ? hoverColor: ''}"
-         (mouseenter)="hoverOntoLink(resourceData[key]['knora-api:linkValueHasTarget']['@id'])"
-         (mouseleave)="hoverOutOfLink()"
-         (click)="clickTarget(resourceData[key]['knora-api:linkValueHasTarget']['@id'])">
-        {{resourceData[key]['knora-api:linkValueHasTarget']['rdfs:label']}}
-      </a>
-    </div>
+   <!--   <li *ngIf="resourceData[key]['knora-api:linkValueHasTarget']">
+        <h4>{{key}}</h4>
+        <a [ngStyle]="{'background-color': hoveredResource === resourceData[key]['knora-api:linkValueHasTarget']['@id'] ? hoverColor: ''}"
+           (mouseenter)="hoverOntoLink(resourceData[key]['knora-api:linkValueHasTarget']['@id'])"
+           (mouseleave)="hoverOutOfLink()"
+           (click)="clickTarget(resourceData[key]['knora-api:linkValueHasTarget']['@id'])">
+          {{resourceData[key]['knora-api:linkValueHasTarget']['rdfs:label']}}
+        </a>
+      </li> -->
 
-  </div>
+      <li *ngIf="resourceData[key]['knora-api:linkValueHasTarget']">
+        {{key}}:
+        <app-resource-form-v2
+          [backendAddress]="backendAddress"
+          [maxDepth]="internalMaxDepth - 1"
+          [resourceIRI]="resourceData[key]['knora-api:linkValueHasTarget']['@id']"></app-resource-form-v2>
+      </li>
+
+    </ul>
+  </ng-container>
 </div>

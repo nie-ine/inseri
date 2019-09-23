@@ -82,6 +82,30 @@ export class OpenAppsModel {
       initialWidth: '900',
       initialHeight: '400'
     },
+    knoraV2viewer: {
+      type: 'knoraV2viewer',
+      model: [],
+      inputs: [
+        {
+          'inputName': 'backendAddress'
+        },
+        {
+          'inputName': 'resourceIRI'
+        },
+        {
+          'inputName': 'queryParamForResourceIRI'
+        },
+        {
+          'inputName': 'hoverColor'
+        },
+        {
+          'inputName': 'maxDepth'
+        }
+      ],
+      materialIcon: 'web',
+      initialWidth: '900',
+      initialHeight: '400'
+    },
     dataChooser: {
       type: 'dataChooser',
       model: [],
