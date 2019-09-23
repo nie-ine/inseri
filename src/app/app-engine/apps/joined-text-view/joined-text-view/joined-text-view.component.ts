@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SelectableEnvironments, StyleDeclaration } from '../../shared/rich-text/text-rich-innerhtml/text-rich-innerhtml.component';
 import { JoinedTextViewRoot } from './joined-text-view';
@@ -41,6 +41,16 @@ export class JoinedTextViewComponent implements OnChanges {
   @Input() selectiveStyleDeclarations: SelectableEnvironments;
 
   /**
+   * The unique id of the word the mouse is hovering on.
+   */
+  @Input() hoveredResource: string;
+
+  /**
+   * Give an event containing the unique word id if the mouse hovers on a word in the page description
+   */
+  @Output() hoveredResourceChange: EventEmitter<string> = new EventEmitter<string>();
+
+  /**
    * Variable for the value of textRootIri or queryParamForTextRootIri, depending on configuration.
    */
   internalTextRootIri: string;
@@ -56,11 +66,6 @@ export class JoinedTextViewComponent implements OnChanges {
   clickedResource: string;
 
   /**
-   * The unique id of the word the mouse is hovering on.
-   */
-  hoveredResource: string;
-
-  /**
    * Constructor
    * @param _route  Activated route for this component
    * @param _router  Router for navigation
@@ -74,7 +79,6 @@ export class JoinedTextViewComponent implements OnChanges {
     this._route.queryParams.subscribe(params => {
       this.highlighted = [].concat(params.style);
       this.clickedResource = params.focus;
-      this.hoveredResource = params.hover;
       if (this.queryParamForTextRootIri) {
         this.internalTextRootIri = params[this.queryParamForTextRootIri];
       }
@@ -91,14 +95,6 @@ export class JoinedTextViewComponent implements OnChanges {
    */
   clickChange(resIri: string) {
     this._router.navigate([], {relativeTo: this._route, queryParams: {focus: resIri}, queryParamsHandling: 'merge'});
-  }
-
-  /**
-   * Update the query parameter `hover` after moving the mouse pointer.
-   * @param resIri  IRI of the resource under the mouse pointer
-   */
-  hoverChange(resIri: string) {
-    this._router.navigate([], {relativeTo: this._route, queryParams: {hover: resIri}, queryParamsHandling: 'merge'});
   }
 
 }

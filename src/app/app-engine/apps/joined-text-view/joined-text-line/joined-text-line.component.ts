@@ -101,9 +101,9 @@ export class JoinedTextLineComponent implements OnChanges {
     }
 
     if ((this.backendAddress && this.parentIri && this.lineConfiguration) && (changes['parentIri'] || changes['backendAddress'] || changes['lineConfiguration'])) {
-      const graveSearchRequest = this.joinedTextViewKnoraRequest.getGravSearch(this.lineConfiguration, this.parentIri);
+      const gravSearchRequest = this.joinedTextViewKnoraRequest.getGravSearch(this.lineConfiguration, this.parentIri);
 
-      this.knoraV2Request.extendedSearchFromSpecificInstance(graveSearchRequest, this.backendAddress)
+      this.knoraV2Request.extendedSearchFromSpecificInstance(gravSearchRequest, this.backendAddress)
         .subscribe(d => {
           if (d[ '@graph' ]) {
             this.lines = d[ '@graph' ];

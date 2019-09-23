@@ -142,6 +142,11 @@ export class PageComponent implements OnInit, AfterViewChecked {
   currentRoute: string;
 
   /**
+   * Identifier of a resource on which the mouse pointer is on. This variable enables sharing the information between apps.
+   */
+  hoveredElement: string;
+
+  /**
    * needed to generate the navigation in case that the page belongs to a pageSet
    * */
   pagesOfThisActtion: Array<any>;

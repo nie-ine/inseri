@@ -259,7 +259,8 @@
                                     [maxImageWidth]="openAppsInThisPage[ 'imageViewer' ].model[i][ 'stillImageFileValueHasDimX' ]"
                                     [maxImageHeight]="openAppsInThisPage[ 'imageViewer' ].model[i][ 'stillImageFileValueHasDimY' ]"
                                     [width]="produceHeightAndWidth( openAppsInThisPage[ 'imageViewer' ].model[i].width,  openApps.openApps[ 'imageViewer' ].initialWidth )"
-                                    [height]="produceHeightAndWidth( openAppsInThisPage[ 'imageViewer' ].model[i].height,  openApps.openApps[ 'imageViewer' ].initialHeight)">
+                                    [height]="produceHeightAndWidth( openAppsInThisPage[ 'imageViewer' ].model[i].height,  openApps.openApps[ 'imageViewer' ].initialHeight)"
+                                    [(hoveredRegion)]="hoveredElement">
             </app-image-with-overlay>
 
 
@@ -291,6 +292,14 @@
 
             </app-resource-form>
 
+            <app-resource-form-v2 *ngIf="appType === 'knoraV2viewer'"
+                                  [backendAddress]="openAppsInThisPage['knoraV2viewer'].model[i]['backendAddress']"
+                                  [resourceIRI]="openAppsInThisPage['knoraV2viewer'].model[i]['resourceIRI']"
+                                  [queryParamForResourceIRI]="openAppsInThisPage['knoraV2viewer'].model[i]['queryParamForResourceIRI']"
+                                  [hoverColor]="openAppsInThisPage['knoraV2viewer'].model[i]['hoverColor']"
+                                  [maxDepth]="openAppsInThisPage['knoraV2viewer'].model[i]['maxDepth']"
+                                  [(hoveredResource)]="hoveredElement">
+            </app-resource-form-v2>
 
             <app-youtube-video *ngIf=" appType === 'youtubeVideo'"
               [videoURL]="openAppsInThisPage[ 'youtubeVideo' ].model[i]['videoURL']">
@@ -319,7 +328,8 @@
                                            [width]="openAppsInThisPage['svgTranscription'].model[i]['imageWidth']"
                                            [height]="openAppsInThisPage['svgTranscription'].model[i]['imageHeight']"
                                            [viewerWidth]="produceHeightAndWidth( openAppsInThisPage[ 'svgTranscription' ].model[i].width,  openApps.openApps[ 'svgTranscription' ].initialWidth )"
-                                           [viewerHeight]="produceHeightAndWidth( openAppsInThisPage[ 'svgTranscription' ].model[i].height,  openApps.openApps[ 'svgTranscription' ].initialHeight)">
+                                           [viewerHeight]="produceHeightAndWidth( openAppsInThisPage[ 'svgTranscription' ].model[i].height,  openApps.openApps[ 'svgTranscription' ].initialHeight)"
+                                            [(hoveredWord)]="hoveredElement">
             </app-text-svg-view-wrapper>
 
 
@@ -417,7 +427,8 @@
                                   [queryParamForTextRootIri]="openAppsInThisPage['joinedTextView'].model[i]['queryParamForTextRootIri']"
                                   [textConfiguration]="openAppsInThisPage[ 'joinedTextView' ].model[i]['textConfiguration']"
                                   [styleDeclarations]="openAppsInThisPage[ 'joinedTextView' ].model[i]['styleDeclarations']"
-                                  [selectiveStyleDeclarations]="openAppsInThisPage[ 'joinedTextView' ].model[i]['selectiveStyleDeclarations']">
+                                  [selectiveStyleDeclarations]="openAppsInThisPage[ 'joinedTextView' ].model[i]['selectiveStyleDeclarations']"
+                                  [(hoveredResource)]="hoveredElement">
             </app-joined-text-view>
 
             <app-iframe *ngIf="appType === 'sparqlVisualizer'"

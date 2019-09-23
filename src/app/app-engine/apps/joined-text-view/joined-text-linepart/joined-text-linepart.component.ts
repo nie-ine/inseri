@@ -82,9 +82,9 @@ export class JoinedTextLinepartComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
 
     if ((this.backendAddress && this.linepartConfiguration && this.parentIri) && (changes['parentIri'] || changes['backendAddress'] || changes['linepartConfiguration'])) {
-      const graveSearchRequest = this.joinedTextViewKnoraRequest.getGravSearch(this.linepartConfiguration, this.parentIri);
+      const gravSearchRequest = this.joinedTextViewKnoraRequest.getGravSearch(this.linepartConfiguration, this.parentIri);
 
-      this.knoraV2Request.extendedSearchFromSpecificInstance(graveSearchRequest, this.backendAddress)
+      this.knoraV2Request.extendedSearchFromSpecificInstance(gravSearchRequest, this.backendAddress)
         .subscribe(d => {
           if (d[ '@graph' ]) {
             this.lineparts = d[ '@graph' ];

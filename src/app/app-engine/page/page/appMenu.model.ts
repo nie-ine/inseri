@@ -241,6 +241,16 @@ export class AppMenuModel {
       showOnHome: false
     },
     {
+      id: 'web',
+      name: 'Nested Resource Viewer',
+      tags: 'knora',
+      color: 'orange',
+      status: 'under development',
+      appType: 'knoraV2viewer',
+      description: 'With this app you can easily look at a Knora resource.',
+      showOnHome: false
+    },
+    {
       id: 'aspect_ratio',
       name: 'Joined Text View',
       tags: 'knora, text, html',

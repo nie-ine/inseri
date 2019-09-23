@@ -139,7 +139,8 @@ export class ImageWithOverlayComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * ID of the region, the mouse is over.
    */
-  @Output() hoveredRegion = new EventEmitter();
+  @Output() hoveredRegionChange = new EventEmitter<string>();
+  @Input() hoveredRegion: string;
 
   /**
    * Length of longer side of the viewer in pixels.
@@ -220,7 +221,7 @@ export class ImageWithOverlayComponent implements OnInit, OnChanges, OnDestroy {
         const id = element.id;
 
         element.addEventListener('mouseover', (e) => {
-          this.hoveredRegion.emit(id);
+          this.hoveredRegionChange.emit(id);
         });
         svgGroup.appendChild(element);
       }

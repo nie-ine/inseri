@@ -38,6 +38,16 @@
       [hoveredResource]="hoveredResource" (hoveredResourceChange)="hoverChange($event)">
     </app-joined-text-linepart>
 
+    <app-joined-text-textwrapper
+      *ngIf="marginConfiguration.contentPropertyIri"
+      [namespaces]="namespaces"
+      [propertyIri]="marginConfiguration.contentPropertyIri"
+      [resource]="m"
+      [highlighted]="highlighted"
+      [styleDeclarations]="styleDeclarations"
+      [selectiveStyleDeclarations]="selectiveStyleDeclarations">
+    </app-joined-text-textwrapper>
+
     <ng-container *ngIf="marginConfiguration.contentProperty">
       <ng-container *ngIf="marginConfiguration.contentProperty === 'self'">
          <app-joined-text-textwrapper

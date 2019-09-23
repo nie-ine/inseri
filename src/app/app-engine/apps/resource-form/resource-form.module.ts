@@ -6,19 +6,23 @@ import { ResourceFormComponent } from './resource-form/resource-form.component';
 import { ResourceValueHistoryComponent } from './resource-value-history/resource-value-history.component';
 import { ResourceValueHistoryValueComponent } from './resource-value-history-value/resource-value-history-value.component';
 import { KnoraV1RequestService } from '../../../query-engine/knora/knora-v1-request.service';
+import { ResourceFormV2Component } from './resource-form-v2/resource-form-v2.component';
+import { RichTextModule } from '../shared/rich-text/rich-text.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    BaseTypeFormsModule
+    BaseTypeFormsModule,
+    RichTextModule
   ],
   declarations: [
     ResourceFormComponent,
     ResourceValueHistoryComponent,
-    ResourceValueHistoryValueComponent
+    ResourceValueHistoryValueComponent,
+    ResourceFormV2Component
   ],
-  exports: [ResourceFormComponent],
+  exports: [ResourceFormComponent, ResourceFormV2Component],
   providers: [ KnoraV1RequestService ]
 })
 export class ResourceFormModule { }
