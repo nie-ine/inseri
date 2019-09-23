@@ -119,12 +119,15 @@
             matTooltip="{{ page.description }}"
             mat-button
             (click)="selectPage( i, page )">{{ page.title }}</button>
+          <button
+            *ngIf=" (!pageAsDemo) && !preview && loggedIn" mat-button
+            (click)="addNewPage()" matTooltip="'add new page tho this pageSet'"><mat-icon>add</mat-icon></button>
         </mat-menu>
         <button [disabled]="selectedPage === pagesOfThisActtion.length - 1"
                 *ngIf="pagesOfThisActtion"
                 mat-button
                 (click)="selectPage( selectedPage + 1 , pagesOfThisActtion[ selectedPage + 1 ] )">
-          <mat-icon> keyboard_arrow_right </mat-icon>
+          <mat-icon > keyboard_arrow_right </mat-icon>
         </button>
 
 <!--        <div style=" width: 70%; overflow-x: auto; overflow-y: hidden; display: inline-block; position: relative; white-space: nowrap; margin-right: 15px; margin-top: 8px; vertical-align: top;" >-->
