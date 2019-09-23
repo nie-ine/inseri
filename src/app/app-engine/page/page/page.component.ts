@@ -231,6 +231,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   environment = environment;
 
+  selectedPageToShow: number;
+
   constructor(
     public route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
@@ -481,6 +483,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * */
   selectPage(i: number, page: any) {
     this.selectedPage = i;
+    this.selectedPageToShow = i + 1;
     this.navigateToOtherView(page);
   }
 

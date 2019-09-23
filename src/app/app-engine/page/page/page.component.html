@@ -102,31 +102,46 @@
         </button>
 
 
-        <button mat-button [matMenuTriggerFor]="menu3">Menu</button>
+        <button *ngIf="pagesOfThisActtion"
+          [disabled]="selectedPage === 0"
+          mat-button
+          (click)="selectPage( selectedPage - 1 , pagesOfThisActtion[ selectedPage - 1 ] )">
+          <mat-icon> keyboard_arrow_left </mat-icon>
+        </button>
+        <button mat-button [matMenuTriggerFor]="menu3" *ngIf="pagesOfThisActtion">{{
+          page.title }}
+        </button>
         <mat-menu #menu3="matMenu" >
           <button
-            color="{{checkIfSelected( i ) ? 'accent' : null}}"
+            style="display: block"
+            [color]=" checkIfSelected( i ) ? 'primary' : 'null'"
             *ngFor="let page of pagesOfThisActtion; let i = index;"
             matTooltip="{{ page.description }}"
-            mat-menu-item
+            mat-button
             (click)="selectPage( i, page )">{{ page.title }}</button>
         </mat-menu>
+        <button [disabled]="selectedPage === pagesOfThisActtion.length - 1"
+                *ngIf="pagesOfThisActtion"
+                mat-button
+                (click)="selectPage( selectedPage + 1 , pagesOfThisActtion[ selectedPage + 1 ] )">
+          <mat-icon> keyboard_arrow_right </mat-icon>
+        </button>
 
-        <div style=" width: 70%; overflow-x: auto; overflow-y: hidden; display: inline-block; position: relative; white-space: nowrap; margin-right: 15px; margin-top: 8px; vertical-align: top;" >
-          <mat-chip-list *ngFor="let page of pagesOfThisActtion; let i = index;" style=" margin-left: 15px; display: inline-block; ">
-            <mat-chip matTooltip="{{ page.description }}" selected [color]="'primary'"  *ngIf="checkIfSelected( i )" style="cursor: pointer; display: inline-block;">
-              {{ page.title }}
-            </mat-chip>
-            <mat-chip matTooltip="{{ page.description }}" *ngIf="!checkIfSelected( i )" (click)="selectPage( i, page )" style="cursor: pointer; display: inline-block;">
-              {{ page.title }}
-            </mat-chip>
-            <mat-chip style="cursor: pointer; margin-left: 15px;" *ngIf=" (!pageAsDemo) && !preview && route.snapshot.queryParams.page && i === pagesOfThisActtion.length -1">
-              <mat-icon (click)="addNewPage()" matTooltip="'add new page tho this pageSet'">
-                add
-              </mat-icon>
-            </mat-chip>
-          </mat-chip-list>
-        </div>
+<!--        <div style=" width: 70%; overflow-x: auto; overflow-y: hidden; display: inline-block; position: relative; white-space: nowrap; margin-right: 15px; margin-top: 8px; vertical-align: top;" >-->
+<!--          <mat-chip-list *ngFor="let page of pagesOfThisActtion; let i = index;" style=" margin-left: 15px; display: inline-block; ">-->
+<!--            <mat-chip matTooltip="{{ page.description }}" selected [color]="'primary'"  *ngIf="checkIfSelected( i )" style="cursor: pointer; display: inline-block;">-->
+<!--              {{ page.title }}-->
+<!--            </mat-chip>-->
+<!--            <mat-chip matTooltip="{{ page.description }}" *ngIf="!checkIfSelected( i )" (click)="selectPage( i, page )" style="cursor: pointer; display: inline-block;">-->
+<!--              {{ page.title }}-->
+<!--            </mat-chip>-->
+<!--            <mat-chip style="cursor: pointer; margin-left: 15px;" *ngIf=" (!pageAsDemo) && !preview && route.snapshot.queryParams.page && i === pagesOfThisActtion.length -1">-->
+<!--              <mat-icon (click)="addNewPage()" matTooltip="'add new page tho this pageSet'">-->
+<!--                add-->
+<!--              </mat-icon>-->
+<!--            </mat-chip>-->
+<!--          </mat-chip-list>-->
+<!--        </div>-->
 
 
         <button mat-button *ngIf="pageIsPublished && loggedIn" matTooltip='Page is published' style="float: right; margin-top: 4px; "  ><mat-icon>public</mat-icon></button>
