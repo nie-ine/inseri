@@ -12,6 +12,7 @@
        'margin-left': fullWidth ? '70px' : ''
        }">
     <div class="popup-title-bar popup-drag" (mousedown)="mousedown($event)" *ngIf="!preview" (mousedown)="setNewZIndex()">
+      <span style=" margin-right: 20px; color: blue; cursor: pointer;" (click)="assignInput()" *ngIf="!preview && showAppSettingsOnPublish" >&#x27BD;</span>
       <span style=" margin-right: 20px; color: blue; cursor: pointer;" (click)="disappear()" *ngIf="!preview && showAppSettingsOnPublish" >-</span>
         {{title}}
       <span style=" margin-left: 20px; color: blue; cursor: pointer;" (click)="openSettings()" *ngIf="!preview && showAppSettingsOnPublish">*</span>

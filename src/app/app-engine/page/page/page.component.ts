@@ -884,4 +884,12 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.updatePage();
   }
 
+  openAssignInputDialog( input: any ) {
+    console.log(
+      this.openAppsInThisPage[input.type].inputs,
+      input.hash,
+      'next: open input assign dialog'
+    );
+  }
+
 }

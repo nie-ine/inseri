@@ -256,7 +256,8 @@
                [height]="produceHeightAndWidth( openAppsInThisPage[ appType ].model[i].height,  openApps.openApps[ appType ].initialHeight)"
                [width]="produceHeightAndWidth( openAppsInThisPage[ appType ].model[i].width,  openApps.openApps[ appType ].initialWidth )"
                (sendAppCoordinatesBack)="updateAppCoordinates($event)"
-               (sendAppSettingsBack)="updateAppSettings($event)">
+               (sendAppSettingsBack)="updateAppSettings($event)"
+               (sendAssignInputCommandBack)="openAssignInputDialog($event)">
           <div [ngStyle]="{
           'height': openAppsInThisPage[ appType ].model[i].fullHeight ? '100%' : produceHeightAndWidth( openAppsInThisPage[ appType ].model[i].height, openApps.openApps[ appType ].initialHeight ) + 'px',
           'width': openAppsInThisPage[ appType ].model[i].fullWidth ? '100%' : produceHeightAndWidth( openAppsInThisPage[ appType ].model[i].width, openApps.openApps[ appType ].initialWidth ) + 'px'}">

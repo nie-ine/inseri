@@ -71,6 +71,7 @@ export class Frame implements OnInit, OnChanges {
   @Output() sendAppSettingsBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendIndexBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendTiledPositionBack: EventEmitter<any> = new EventEmitter<any>();
+  @Output() sendAssignInputCommandBack: EventEmitter<any> = new EventEmitter<any>();
 
   mousemoveEvent: any;
   mouseupEvent: any;
@@ -243,6 +244,11 @@ export class Frame implements OnInit, OnChanges {
       this.curZIndex = +savedZIndex + 1;
       localStorage.setItem( 'curZIndex', this.curZIndex );
     }
+  }
+
+  assignInput() {
+    console.log( 'assign input' );
+    this.sendAssignInputCommandBack.emit( {hash: this.hash, type: this.type} );
   }
 
 }
