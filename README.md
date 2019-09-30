@@ -111,7 +111,7 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 ## Technical Documentation:
 
-https://nie-ine.github.io/NIE-OS/
+https://nie-ine.github.io/inseri/
 
 ## How can I use NIE-OS to create websites and components of websites?
 
