@@ -15,6 +15,9 @@ export interface JoinedTextBlock extends JoinedTextElement {
   /** The identifier that leads to the literal content for this resource. */
   contentPropertyIri?: string;
 
+  /** Configuration of blocks in this block */
+  blocks?: JoinedTextBlock;
+
   /** Configuration of lines in this block */
   lines?: JoinedTextLine;
 

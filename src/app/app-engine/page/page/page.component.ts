@@ -142,6 +142,11 @@ export class PageComponent implements OnInit, AfterViewChecked {
   currentRoute: string;
 
   /**
+   * Identifier of a resource on which the mouse pointer is on. This variable enables sharing the information between apps.
+   */
+  hoveredElement: string;
+
+  /**
    * needed to generate the navigation in case that the page belongs to a pageSet
    * */
   pagesOfThisActtion: Array<any>;
@@ -226,6 +231,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   environment = environment;
 
+  selectedPageToShow: number;
+
   constructor(
     public route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
@@ -250,9 +257,22 @@ export class PageComponent implements OnInit, AfterViewChecked {
       this.actionID = params.actionID;
       this.generateNavigation(params.actionID);
     });
-    this.dataSource = new MatTableDataSource(
-      new AppMenuModel().appMenu
-    );
+    if ( this.route.snapshot.queryParams.page ) {
+      this.dataSource = new MatTableDataSource(
+        new AppMenuModel().appMenu
+      );
+    } else {
+      const menuForHome = [];
+      for ( const app of new AppMenuModel().appMenu ) {
+        if ( app.showOnHome ) {
+          menuForHome.push(app);
+        }
+      }
+      this.dataSource = new MatTableDataSource(
+        menuForHome
+      );
+    }
+
   }
 
   /**
@@ -463,6 +483,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * */
   selectPage(i: number, page: any) {
     this.selectedPage = i;
+    this.selectedPageToShow = i + 1;
     this.navigateToOtherView(page);
   }
 
@@ -861,6 +882,14 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.page.openApps[ textAndHash.hash ].text = textAndHash.text;
     console.log( this.page.openApps, this.openAppsInThisPage );
     this.updatePage();
+  }
+
+  openAssignInputDialog( input: any ) {
+    console.log(
+      this.openAppsInThisPage[input.type].inputs,
+      input.hash,
+      'next: open input assign dialog'
+    );
   }
 
 }

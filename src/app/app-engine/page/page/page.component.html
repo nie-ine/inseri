@@ -59,13 +59,13 @@
               <table mat-table [dataSource]="dataSource" matSort>
 
                 <!-- ID Column -->
-                <ng-container matColumnDef="id">
+                <ng-container matColumnDef="id"  >
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Icon </th>
                   <td mat-cell *matCellDef="let row" (click)="addAnotherApp(row.appType, true)" style="cursor: pointer; width: 25%;"> <mat-icon>{{row.id}}</mat-icon> </td>
                 </ng-container>
 
                 <!-- Tag Column -->
-                <ng-container matColumnDef="tags" >
+                <ng-container matColumnDef="tags"  >
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Tags </th>
                   <td mat-cell *matCellDef="let row" (click)="addAnotherApp(row.appType, true)" style="cursor: pointer; width: 25%;"> {{row.tags}} </td>
                 </ng-container>
@@ -79,14 +79,13 @@
                 </ng-container>
 
                 <!-- Color Column -->
-                <ng-container matColumnDef="status">
+                <ng-container matColumnDef="status"  >
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
                   <td mat-cell *matCellDef="let row" [style.color]="row.color" (click)="addAnotherApp(row.appType, true)" style="cursor: pointer; width: 25%;" matTooltip="{{row.description}}"> {{row.status}} </td>
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns" style="width: 100%;"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;" style="width: 100%;">
-                </tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;" style="width: 100%;"></tr>
               </table>
 
               <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
@@ -97,35 +96,78 @@
 
 
       <!-- Publish Option Expansion Panel -->
-      <div style="margin-top: 20px; vertical-align: bottom; ">
-        <button type="button" mat-button  matTooltip='{{ createTooltip() }}' (click)="openPageMenu()" *ngIf="!preview || showInseriLogoOnPublish" #tooltip="matTooltip">
-<!--          (click)="drawer.toggle()"-->
-          <img [src]=" lightHouse ?  '../../../../assets/img/logo_transparent.png' : '../../../../assets/img/logo_transparent2.png'" style="width: 40px; margin-bottom: 2px;" matTooltip="inseri apps" >
-<!--          <span *ngIf="showNote && pageAsDemo"  > &#8592; Click here for inseri tutorials and the inseri App Menu</span>-->
+      <div style="vertical-align: bottom; ">
+        <button type="button" mat-button (click)="openPageMenu()" *ngIf="!preview || showInseriLogoOnPublish" style="margin-top: 15px;">
+          <img [src]=" lightHouse ?  '../../../../assets/img/logo_transparent.png' : '../../../../assets/img/logo_transparent2.png'" style="width: 40px; margin-bottom: 2px; vertical-align: bottom;" matTooltip="inseri apps" >
         </button>
-        <a (click)="goToDashBoard()" *ngIf=" (!pageAsDemo) && !preview" style="color: #4cae4c !important; cursor: pointer;"><mat-icon matTooltip="back to dashboard">home</mat-icon></a>
-        <a (click)="goToPageSet()" *ngIf="route.snapshot.queryParams.page" style="color: #4cae4c !important; margin-left: 15px; cursor: pointer"><mat-icon matTooltip="document index">list</mat-icon></a>
-        <a *ngIf=" (!pageAsDemo) && !preview" (click)="updatePage()" style="color: #4cae4c !important; margin-left: 15px; cursor: pointer;"><mat-icon  matTooltip="save page">save</mat-icon></a>
-        <a *ngIf=" (!pageAsDemo) && !preview" (click)="openDataManagement()" style="color: #4cae4c !important; margin-left: 15px; cursor: pointer;" ><mat-icon matTooltip="page data manager">zoom_out_map</mat-icon></a>
-        <a *ngIf=" (!pageAsDemo) && !preview" (click)="logout()" style="color: #4cae4c !important; margin-left: 15px; cursor: pointer;" ><mat-icon matTooltip="{{ 'click to logout - ' + userInfo }}">lock_open</mat-icon></a>
-        <mat-chip style="cursor: pointer; float: right; margin-right: 15px;" *ngIf=" (!pageAsDemo) && !preview && route.snapshot.queryParams.page">
-          <mat-icon (click)="addNewPage()" matTooltip="'add new page tho this pageSet'">
-            add
-          </mat-icon>
-        </mat-chip>
-        <div style=" width: 400px; scrollbar-width: none; overflow-x: auto; overflow-y: hidden; display: inline-block; position: relative; white-space: nowrap; float: right; margin-right: 15px;" >
-          <mat-chip-list *ngFor="let page of pagesOfThisActtion; let i = index;" style=" margin-left: 15px; display: inline-block; ">
-            <mat-chip matTooltip="{{ page.description }}" selected [color]="'primary'"  *ngIf="checkIfSelected( i )" style="cursor: pointer; display: inline-block;">
-              {{ page.title }}
-            </mat-chip>
-            <mat-chip matTooltip="{{ page.description }}" *ngIf="!checkIfSelected( i )" (click)="selectPage( i, page )" style="cursor: pointer; display: inline-block;">
-              {{ page.title }}
-            </mat-chip>
-          </mat-chip-list>
-        </div>
-        <a *ngIf="pageIsPublished && loggedIn" matTooltip='Page is published' style="margin-left: 15px; margin-right: 15px; color: #4cae4c !important;"  ><mat-icon>public</mat-icon></a>
-        <a *ngIf=" (!pageAsDemo) && !preview && loggedIn" matTooltip='Preview of published page' style="margin-left: 15px; margin-right: 15px; cursor: pointer" (click)="preview = !preview" ><mat-icon>nature_people</mat-icon></a>
-        <a *ngIf=" (!pageAsDemo) && preview && loggedIn" matTooltip='Back to page editor' style="color: #4cae4c !important;  margin-left: 15px; margin-right: 15px; cursor: pointer" (click)="preview = !preview" ><mat-icon>nature</mat-icon></a>
+
+
+        <button *ngIf="pagesOfThisActtion"
+          [disabled]="selectedPage === 0"
+          mat-button
+          (click)="selectPage( selectedPage - 1 , pagesOfThisActtion[ selectedPage - 1 ] )">
+          <mat-icon> keyboard_arrow_left </mat-icon>
+        </button>
+        <button mat-button [matMenuTriggerFor]="menu3" *ngIf="pagesOfThisActtion">{{
+          page.title }}
+        </button>
+        <mat-menu #menu3="matMenu" >
+          <button
+            style="display: block"
+            [color]=" checkIfSelected( i ) ? 'primary' : 'null'"
+            *ngFor="let page of pagesOfThisActtion; let i = index;"
+            matTooltip="{{ page.description }}"
+            mat-button
+            (click)="selectPage( i, page )">{{ page.title }}</button>
+          <button
+            *ngIf=" (!pageAsDemo) && !preview && loggedIn" mat-button
+            (click)="addNewPage()" matTooltip="'add new page tho this pageSet'"><mat-icon>add</mat-icon></button>
+        </mat-menu>
+        <button [disabled]="selectedPage === pagesOfThisActtion.length - 1"
+                *ngIf="pagesOfThisActtion"
+                mat-button
+                (click)="selectPage( selectedPage + 1 , pagesOfThisActtion[ selectedPage + 1 ] )">
+          <mat-icon > keyboard_arrow_right </mat-icon>
+        </button>
+
+<!--        <div style=" width: 70%; overflow-x: auto; overflow-y: hidden; display: inline-block; position: relative; white-space: nowrap; margin-right: 15px; margin-top: 8px; vertical-align: top;" >-->
+<!--          <mat-chip-list *ngFor="let page of pagesOfThisActtion; let i = index;" style=" margin-left: 15px; display: inline-block; ">-->
+<!--            <mat-chip matTooltip="{{ page.description }}" selected [color]="'primary'"  *ngIf="checkIfSelected( i )" style="cursor: pointer; display: inline-block;">-->
+<!--              {{ page.title }}-->
+<!--            </mat-chip>-->
+<!--            <mat-chip matTooltip="{{ page.description }}" *ngIf="!checkIfSelected( i )" (click)="selectPage( i, page )" style="cursor: pointer; display: inline-block;">-->
+<!--              {{ page.title }}-->
+<!--            </mat-chip>-->
+<!--            <mat-chip style="cursor: pointer; margin-left: 15px;" *ngIf=" (!pageAsDemo) && !preview && route.snapshot.queryParams.page && i === pagesOfThisActtion.length -1">-->
+<!--              <mat-icon (click)="addNewPage()" matTooltip="'add new page tho this pageSet'">-->
+<!--                add-->
+<!--              </mat-icon>-->
+<!--            </mat-chip>-->
+<!--          </mat-chip-list>-->
+<!--        </div>-->
+
+
+        <button mat-button *ngIf="pageIsPublished && loggedIn" matTooltip='Page is published' style="float: right; margin-top: 4px; "  ><mat-icon>public</mat-icon></button>
+        <button mat-button *ngIf=" (!pageAsDemo) && !preview && loggedIn" matTooltip='Preview of published page' style="float: right; margin-top: 4px;" (click)="preview = !preview" ><mat-icon>nature_people</mat-icon></button>
+        <button mat-button *ngIf=" (!pageAsDemo) && preview && loggedIn" matTooltip='Back to page editor' style=" cursor: pointer; float: right; margin-top: 4px;" (click)="preview = !preview" ><mat-icon>nature</mat-icon></button>
+        <button mat-button [matMenuTriggerFor]="menu1" *ngIf=" (!pageAsDemo) && !preview" style="float: right; margin-top: 4px;"><mat-icon>settings</mat-icon></button>
+        <mat-menu #menu1="matMenu">
+          <button mat-menu-item (click)="goToDashBoard()" *ngIf=" (!pageAsDemo) && !preview">
+            <mat-icon matTooltip="back to dashboard">home</mat-icon> Dashboard
+          </button>
+          <button mat-menu-item (click)="goToPageSet()" *ngIf="route.snapshot.queryParams.page" >
+            <mat-icon matTooltip="document index">list</mat-icon> Document index
+          </button>
+          <button mat-menu-item *ngIf=" (!pageAsDemo) && !preview" (click)="updatePage()" >
+            <mat-icon  matTooltip="save page">save</mat-icon> Save Page
+          </button>
+          <button mat-menu-item *ngIf=" (!pageAsDemo) && !preview" (click)="openDataManagement()" >
+            <mat-icon matTooltip="page data manager">zoom_out_map</mat-icon> Data management
+          </button>
+          <button mat-menu-item *ngIf=" (!pageAsDemo) && !preview" (click)="logout()" >
+            <mat-icon matTooltip="{{ 'click to logout - ' + userInfo }}">lock_open</mat-icon> Log out
+          </button>
+        </mat-menu>
         <div style=" position: fixed; bottom: 0; left: 0; z-index: 200; overflow-x: auto; margin-top: 70px; width: 300px;" *ngIf="preview && loggedIn">
           <mat-expansion-panel [ngStyle]="{
           'height': publishedOptionsExpanded ? '500px' : '',
@@ -214,7 +256,8 @@
                [height]="produceHeightAndWidth( openAppsInThisPage[ appType ].model[i].height,  openApps.openApps[ appType ].initialHeight)"
                [width]="produceHeightAndWidth( openAppsInThisPage[ appType ].model[i].width,  openApps.openApps[ appType ].initialWidth )"
                (sendAppCoordinatesBack)="updateAppCoordinates($event)"
-               (sendAppSettingsBack)="updateAppSettings($event)">
+               (sendAppSettingsBack)="updateAppSettings($event)"
+               (sendAssignInputCommandBack)="openAssignInputDialog($event)">
           <div [ngStyle]="{
           'height': openAppsInThisPage[ appType ].model[i].fullHeight ? '100%' : produceHeightAndWidth( openAppsInThisPage[ appType ].model[i].height, openApps.openApps[ appType ].initialHeight ) + 'px',
           'width': openAppsInThisPage[ appType ].model[i].fullWidth ? '100%' : produceHeightAndWidth( openAppsInThisPage[ appType ].model[i].width, openApps.openApps[ appType ].initialWidth ) + 'px'}">
@@ -235,7 +278,8 @@
                                     [maxImageWidth]="openAppsInThisPage[ 'imageViewer' ].model[i][ 'stillImageFileValueHasDimX' ]"
                                     [maxImageHeight]="openAppsInThisPage[ 'imageViewer' ].model[i][ 'stillImageFileValueHasDimY' ]"
                                     [width]="produceHeightAndWidth( openAppsInThisPage[ 'imageViewer' ].model[i].width,  openApps.openApps[ 'imageViewer' ].initialWidth )"
-                                    [height]="produceHeightAndWidth( openAppsInThisPage[ 'imageViewer' ].model[i].height,  openApps.openApps[ 'imageViewer' ].initialHeight)">
+                                    [height]="produceHeightAndWidth( openAppsInThisPage[ 'imageViewer' ].model[i].height,  openApps.openApps[ 'imageViewer' ].initialHeight)"
+                                    [(hoveredRegion)]="hoveredElement">
             </app-image-with-overlay>
 
 
@@ -267,6 +311,14 @@
 
             </app-resource-form>
 
+            <app-resource-form-v2 *ngIf="appType === 'knoraV2viewer'"
+                                  [backendAddress]="openAppsInThisPage['knoraV2viewer'].model[i]['backendAddress']"
+                                  [resourceIRI]="openAppsInThisPage['knoraV2viewer'].model[i]['resourceIRI']"
+                                  [queryParamForResourceIRI]="openAppsInThisPage['knoraV2viewer'].model[i]['queryParamForResourceIRI']"
+                                  [hoverColor]="openAppsInThisPage['knoraV2viewer'].model[i]['hoverColor']"
+                                  [maxDepth]="openAppsInThisPage['knoraV2viewer'].model[i]['maxDepth']"
+                                  [(hoveredResource)]="hoveredElement">
+            </app-resource-form-v2>
 
             <app-youtube-video *ngIf=" appType === 'youtubeVideo'"
               [videoURL]="openAppsInThisPage[ 'youtubeVideo' ].model[i]['videoURL']">
@@ -295,7 +347,8 @@
                                            [width]="openAppsInThisPage['svgTranscription'].model[i]['imageWidth']"
                                            [height]="openAppsInThisPage['svgTranscription'].model[i]['imageHeight']"
                                            [viewerWidth]="produceHeightAndWidth( openAppsInThisPage[ 'svgTranscription' ].model[i].width,  openApps.openApps[ 'svgTranscription' ].initialWidth )"
-                                           [viewerHeight]="produceHeightAndWidth( openAppsInThisPage[ 'svgTranscription' ].model[i].height,  openApps.openApps[ 'svgTranscription' ].initialHeight)">
+                                           [viewerHeight]="produceHeightAndWidth( openAppsInThisPage[ 'svgTranscription' ].model[i].height,  openApps.openApps[ 'svgTranscription' ].initialHeight)"
+                                            [(hoveredWord)]="hoveredElement">
             </app-text-svg-view-wrapper>
 
 
@@ -393,13 +446,17 @@
                                   [queryParamForTextRootIri]="openAppsInThisPage['joinedTextView'].model[i]['queryParamForTextRootIri']"
                                   [textConfiguration]="openAppsInThisPage[ 'joinedTextView' ].model[i]['textConfiguration']"
                                   [styleDeclarations]="openAppsInThisPage[ 'joinedTextView' ].model[i]['styleDeclarations']"
-                                  [selectiveStyleDeclarations]="openAppsInThisPage[ 'joinedTextView' ].model[i]['selectiveStyleDeclarations']">
+                                  [selectiveStyleDeclarations]="openAppsInThisPage[ 'joinedTextView' ].model[i]['selectiveStyleDeclarations']"
+                                  [(hoveredResource)]="hoveredElement">
             </app-joined-text-view>
 
             <app-iframe *ngIf="appType === 'sparqlVisualizer'"
-                                                [url]="environment.sparqlVisualizer">
+                        [url]="environment.sparqlVisualizer">
+            </app-iframe>
 
-          </app-iframe>
+            <app-iframe *ngIf="appType === 'raeber'"
+                        [url]="environment.raeber">
+            </app-iframe>
 
             <app-iframe *ngIf="appType === 'salsah2'"
                         [url]="environment.salsah2">
@@ -418,6 +475,21 @@
             <app-angular-handsometable *ngIf="appType === 'spreadSheet'">
 
             </app-angular-handsometable>
+
+            <app-raeber-navigation
+              *ngIf="appType === 'urlUpdate'"
+              [actionID]="actionID"
+              [pageId]="pageIDFromURL">
+
+            </app-raeber-navigation>
+
+            <app-pdf-viewer
+              *ngIf="appType === 'pdfViewer'"
+              [source]="openAppsInThisPage[ 'pdfViewer' ].model[i]['source']"
+              [page]="openAppsInThisPage[ 'pdfViewer' ].model[i]['page']"
+              [pdfLength]="openAppsInThisPage[ 'pdfViewer' ].model[i]['pdfLength']">
+
+            </app-pdf-viewer>
 
           </div>
         </popup>

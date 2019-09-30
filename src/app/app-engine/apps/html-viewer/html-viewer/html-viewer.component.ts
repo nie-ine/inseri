@@ -81,7 +81,7 @@ export class HtmlViewerComponent implements OnChanges {
       this.styleDeclarations === undefined &&
       this.selectiveStyleDeclarations === undefined
     ) {
-      this.htmlContent = '<div><p class="lorem">No Input given - This app is used to display html with css</p><p class="dolor"This app is used to display html with css</p></div>';
+      this.htmlContent = '';
       this.styleDeclarations = [
         {
           'type': 'tag',

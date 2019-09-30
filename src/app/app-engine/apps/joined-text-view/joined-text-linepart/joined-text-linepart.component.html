@@ -30,6 +30,20 @@
     [selectiveStyleDeclarations]="selectiveStyleDeclarations">
   </app-joined-text-textwrapper>
 
+  <ng-container *ngIf="linepartConfiguration.contentProperty">
+    <ng-container *ngIf="linepartConfiguration.contentProperty === 'self'">
+      <app-joined-text-textwrapper
+        *ngIf="linepartConfiguration.propertyIri"
+        [namespaces]="namespaces"
+        [propertyIri]="linepartConfiguration.propertyIri"
+        [resource]="l"
+        [highlighted]="highlighted"
+        [styleDeclarations]="styleDeclarations"
+        [selectiveStyleDeclarations]="selectiveStyleDeclarations">
+      </app-joined-text-textwrapper>
+    </ng-container>
+  </ng-container>
+
 </span><span
   *ngIf="linepartConfiguration.suffix"
   [ngStyle]="getStyleDict('suffixStyleKeys', null)">{{ linepartConfiguration.suffix }}</span>

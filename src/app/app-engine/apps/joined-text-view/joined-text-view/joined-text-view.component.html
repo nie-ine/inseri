@@ -8,7 +8,7 @@
     [styleDeclarations]="styleDeclarations"
     [selectiveStyleDeclarations]="selectiveStyleDeclarations"
     [clickedResource]="clickedResource" (clickedResourceChange)="clickChange($event)"
-    [hoveredResource]="hoveredResource" (hoveredResourceChange)="hoverChange($event)">
+    [(hoveredResource)]="hoveredResource">
   </app-joined-text-block>
 
   <app-joined-text-line
@@ -20,6 +20,6 @@
     [styleDeclarations]="styleDeclarations"
     [selectiveStyleDeclarations]="selectiveStyleDeclarations"
     [clickedResource]="clickedResource" (clickedResourceChange)="clickChange($event)"
-    [hoveredResource]="hoveredResource" (hoveredResourceChange)="hoverChange($event)">
+    [(hoveredResource)]="hoveredResource">
   </app-joined-text-line>
 </div>

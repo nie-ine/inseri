@@ -316,35 +316,16 @@ export class DataManagementComponent implements OnInit {
     });
   }
 
-  save() {
-    this.page['appInputQueryMapping'] = this.appInputQueryMapping;
-    // console.log( this.page );
-    this.pageService.updatePage(this.page)
-      .subscribe(
-        data => {
-          console.log(data);
-        },
-        error => {
-          console.log(error);
-        });
-    for ( const query of this.queries ) {
-      console.log( query );
-      if ( query.chosenPath !== undefined ) {
-        this.queryService.updateQueryOfPage(this.page._id, query._id, query)
-          .subscribe((data) => {
-            if (data.status === 200) {
-              console.log( 'query update successfull' );
-            } else {
-              console.log('Updating query failed');
-            }
-          });
-      }
-    }
-    }
-
   assignQueryToPath( path: any, query: any ) {
     query.chosenPath = path;
-    this.save();
+    this.queryService.updateQueryOfPage(this.page._id, query._id, query)
+      .subscribe((data) => {
+        if (data.status === 200) {
+          console.log( 'query update successfull' );
+        } else {
+          console.log('Updating query failed');
+        }
+      });
   }
 
   generateCurrentPath( item ) {

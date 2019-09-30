@@ -7,7 +7,8 @@ export class AppMenuModel {
       color: 'green',
       status: 'stable',
       appType: 'htmlViewer',
-      description: 'It displays HTML snippets and applies externally defined styles to the view.'
+      description: 'It displays HTML snippets and applies externally defined styles to the view.',
+      showOnHome: false
     },
     {
       id: 'short_text',
@@ -16,7 +17,8 @@ export class AppMenuModel {
       color: 'green',
       status: 'stable',
       appType: 'textlistViewers',
-      description: undefined
+      description: undefined,
+      showOnHome: false
     },
     {
       id: 'line_style',
@@ -25,7 +27,8 @@ export class AppMenuModel {
       color: 'orange',
       status: 'under development',
       appType: 'svgTranscription',
-      description: ' SVG transcription with exact word positions'
+      description: ' SVG transcription with exact word positions',
+      showOnHome: true
     },
     {
       id: 'view_week',
@@ -34,7 +37,8 @@ export class AppMenuModel {
       color: 'green',
       status: 'stable',
       appType: 'parzivalFassung',
-      description: 'Project specific App for the Parzival Project - Open more than one app of this type to test it!'
+      description: 'Project specific App for the Parzival Project - Open more than one app of this type to test it!',
+      showOnHome: false
     },
     {
       id: 'turned_in',
@@ -43,7 +47,8 @@ export class AppMenuModel {
       color: 'orange',
       status: 'under development',
       appType: 'avpEditionView',
-      description: 'Project specific App for the AVP Project'
+      description: 'Project specific App for the AVP Project',
+      showOnHome: false
     },
     {
       id: 'album',
@@ -52,7 +57,8 @@ export class AppMenuModel {
       color: 'green',
       status: 'stable',
       appType: 'openbisLogin',
-      description: 'Set token for OpenBis'
+      description: 'Set token for OpenBis',
+      showOnHome: false
     },
     {
       id: 'image',
@@ -61,7 +67,8 @@ export class AppMenuModel {
       color: 'green',
       status: 'stable',
       appType: 'imageViewer',
-      description: 'Display and zoom in images'
+      description: 'Display and zoom in images',
+      showOnHome: true
     },
     {
       id: 'add_photo_alternate',
@@ -70,7 +77,8 @@ export class AppMenuModel {
       color: 'green',
       status: 'stable',
       appType: 'simpleImageApp',
-      description: 'Display simple images'
+      description: 'Display simple images',
+      showOnHome: false
     },
     {
       id: 'view_list',
@@ -79,7 +87,8 @@ export class AppMenuModel {
       color: 'green',
       status: 'stable',
       appType: 'dataListView',
-      description: 'Display simple images'
+      description: 'Display simple images',
+      showOnHome: false
     },
     {
       id: 'subdirectory_arrow_right',
@@ -88,7 +97,8 @@ export class AppMenuModel {
       color: 'green',
       status: 'stable',
       appType: 'treeNavigation',
-      description: ' This app can be combined with apps for resource view.'
+      description: ' This app can be combined with apps for resource view.',
+      showOnHome: false
     },
     {
       id: 'video_library',
@@ -97,7 +107,8 @@ export class AppMenuModel {
       color: 'green',
       status: 'stable',
       appType: 'youtubeVideo',
-      description: ' You can embed youtube - videos in this app.'
+      description: ' You can embed youtube - videos in this app.',
+      showOnHome: true
     },
     {
       id: 'art_track',
@@ -106,7 +117,8 @@ export class AppMenuModel {
       color: 'orange',
       status: 'under development',
       appType: 'synopsisViewer',
-      description: 'Open and compare different images and text'
+      description: 'Open and compare different images and text',
+      showOnHome: false
     },
     {
       id: 'spa',
@@ -115,7 +127,8 @@ export class AppMenuModel {
       color: 'green',
       status: 'stable',
       appType: 'jsonViewer',
-      description: 'This app visualizes json objects as a tree.'
+      description: 'This app visualizes json objects as a tree.',
+      showOnHome: false
     },
     {
       id: 'bar_chart',
@@ -124,7 +137,8 @@ export class AppMenuModel {
       color: 'orange',
       status: 'under development',
       appType: 'barCharts',
-      description: 'To define data with two dimensions'
+      description: 'To define data with two dimensions',
+      showOnHome: false
     },
     {
       id: 'show_chart',
@@ -133,7 +147,8 @@ export class AppMenuModel {
       color: 'orange',
       status: 'under development',
       appType: 'lineCharts',
-      description: 'To define data with two dimensions'
+      description: 'To define data with two dimensions',
+      showOnHome: false
     },
     {
       id: 'insert_chart_outlined',
@@ -142,7 +157,8 @@ export class AppMenuModel {
       color: 'orange',
       status: 'under development',
       appType: 'brushZoomCharts',
-      description: 'To define data with two dimensions'
+      description: 'To define data with two dimensions',
+      showOnHome: false
     },
     {
       id: 'add_location',
@@ -151,7 +167,8 @@ export class AppMenuModel {
       color: 'orange',
       status: 'under development',
       appType: 'leafletMaps',
-      description: 'Visualize data on maps'
+      description: 'Visualize data on maps',
+      showOnHome: false
     },
     {
       id: 'pie_chart',
@@ -160,7 +177,8 @@ export class AppMenuModel {
       color: 'orange',
       status: 'under development',
       appType: 'pieCharts',
-      description: 'To visualise subsets'
+      description: 'To visualise subsets',
+      showOnHome: false
     },
     {
       id: 'multiline_chart',
@@ -169,7 +187,8 @@ export class AppMenuModel {
       color: 'orange',
       status: 'under development',
       appType: 'radialBarCharts',
-      description: 'For two dimensional data'
+      description: 'For two dimensional data',
+      showOnHome: false
     },
     {
       id: 'linear_scale',
@@ -178,7 +197,8 @@ export class AppMenuModel {
       color: 'orange',
       status: 'under development',
       appType: 'sankeyCharts',
-      description: ' To display dependent data'
+      description: ' To display dependent data',
+      showOnHome: false
     },
     {
       id: 'subtitles',
@@ -187,7 +207,8 @@ export class AppMenuModel {
       color: 'orange',
       status: 'under development',
       appType: 'stackedBarCharts',
-      description: 'To display grouped sets'
+      description: 'To display grouped sets',
+      showOnHome: false
     },
     {
       id: 'all_out',
@@ -196,7 +217,8 @@ export class AppMenuModel {
       color: 'orange',
       status: 'under development',
       appType: 'chordDiagrams',
-      description: 'To compare intensity of connections'
+      description: 'To compare intensity of connections',
+      showOnHome: false
     },
     {
       id: 'add_to_queue',
@@ -205,7 +227,8 @@ export class AppMenuModel {
       color: 'orange',
       status: 'under development',
       appType: 'createResourceForm',
-      description: 'With this app you can create data in Knora.'
+      description: 'With this app you can create data in Knora.',
+      showOnHome: false
     },
     {
       id: 'web',
@@ -214,7 +237,18 @@ export class AppMenuModel {
       color: 'orange',
       status: 'under development',
       appType: 'editResourceForm',
-      description: 'With this app you can change data in Knora and see the history of given properties.'
+      description: 'With this app you can change data in Knora and see the history of given properties.',
+      showOnHome: false
+    },
+    {
+      id: 'web',
+      name: 'Nested Resource Viewer',
+      tags: 'knora',
+      color: 'orange',
+      status: 'under development',
+      appType: 'knoraV2viewer',
+      description: 'With this app you can easily look at a Knora resource.',
+      showOnHome: false
     },
     {
       id: 'aspect_ratio',
@@ -223,25 +257,28 @@ export class AppMenuModel {
       color: 'orange',
       status: 'under development',
       appType: 'joinedTextView',
-      description: 'Map text resources to blocks, lines and words and show them as HTML'
+      description: 'Map text resources to blocks, lines and words and show them as HTML',
+      showOnHome: false
     },
     {
       id: 'drag_indicator',
       name: 'Sparql - Visualiser',
-      tags: 'sparql, rdf, rdfs, olw',
+      tags: 'sparql, rdf, rdfs, owl',
       color: 'green',
       status: 'stable',
       appType: 'sparqlVisualizer',
-      description: 'Visualize Ontologies and RDF/RDFS/Owl data'
+      description: 'Visualize Ontologies and RDF/RDFS/Owl data',
+      showOnHome: true
     },
     {
       id: 'camera_enhance',
       name: 'Salsah 2',
       tags: 'DaSCH',
-      color: 'red',
-      status: 'deprecated by the DaSCH',
+      color: 'orange',
+      status: 'deprecated',
       appType: 'salsah2',
-      description: 'Predecessor of Kuirl / SUID'
+      description: 'Predecessor of Kuirl / SUID',
+      showOnHome: true
     }
     ,
     {
@@ -251,7 +288,8 @@ export class AppMenuModel {
       color: 'green',
       status: 'stable',
       appType: 'primeEditor',
-      description: 'Write and Save text on a page'
+      description: 'Write and Save text on a page',
+      showOnHome: true
     },
     {
       id: 'subdirectory_arrow_right',
@@ -260,7 +298,8 @@ export class AppMenuModel {
       color: 'orange',
       status: 'under development',
       appType: 'hierarchicalNavigationView',
-      description: 'Map resources in a graph to a navigation tree.'
+      description: 'Map resources in a graph to a navigation tree.',
+      showOnHome: false
     },
     {
       id: 'table_chart',
@@ -269,7 +308,38 @@ export class AppMenuModel {
       color: 'orange',
       status: 'under development',
       appType: 'spreadSheet',
-      description: 'Your spreadsheet'
+      description: 'Your spreadsheet',
+      showOnHome: true
+    },
+    {
+      id: 'book',
+      name: 'Kuno Raeber Online Eition',
+      tags: 'raeber',
+      color: 'green',
+      status: 'stable',
+      appType: 'raeber',
+      description: 'raeber app',
+      showOnHome: true
+    },
+    {
+      id: 'horizontal_split',
+      name: 'Url update app',
+      tags: 'url',
+      color: 'green',
+      status: 'stable',
+      appType: 'urlUpdate',
+      description: 'urlUpdate',
+      showOnHome: false
+    },
+    {
+      id: 'horizontal_split',
+      name: 'pdf viewer',
+      tags: 'pdf',
+      color: 'green',
+      status: 'stable',
+      appType: 'pdfViewer',
+      description: 'pdfViewer',
+      showOnHome: false
     }
   ];
 }

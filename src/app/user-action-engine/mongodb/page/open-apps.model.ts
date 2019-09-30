@@ -82,6 +82,30 @@ export class OpenAppsModel {
       initialWidth: '900',
       initialHeight: '400'
     },
+    knoraV2viewer: {
+      type: 'knoraV2viewer',
+      model: [],
+      inputs: [
+        {
+          'inputName': 'backendAddress'
+        },
+        {
+          'inputName': 'resourceIRI'
+        },
+        {
+          'inputName': 'queryParamForResourceIRI'
+        },
+        {
+          'inputName': 'hoverColor'
+        },
+        {
+          'inputName': 'maxDepth'
+        }
+      ],
+      materialIcon: 'web',
+      initialWidth: '900',
+      initialHeight: '400'
+    },
     dataChooser: {
       type: 'dataChooser',
       model: [],
@@ -378,6 +402,18 @@ export class OpenAppsModel {
         }
       ],
     },
+    raeber: {
+      type: 'raeber',
+      model: [],
+      materialIcon: 'book',
+      initialWidth: '900',
+      initialHeight: '700',
+      inputs: [
+        {
+          'inputName': 'url'
+        }
+      ],
+    },
     primeEditor: {
       type: 'primeEditor',
       model: [],
@@ -391,6 +427,32 @@ export class OpenAppsModel {
       materialIcon: 'table_chart',
       initialWidth: '700',
       initialHeight: '600'
+    }
+    ,
+    urlUpdate: {
+      type: 'urlUpdate',
+      model: [],
+      materialIcon: 'horizontal_split',
+      initialWidth: '200',
+      initialHeight: '200'
+    },
+    pdfViewer: {
+      type: 'pdfViewer',
+      model: [],
+      materialIcon: 'horizontal_split',
+      initialWidth: '700',
+      initialHeight: '700',
+      inputs: [
+        {
+          'inputName': 'source'
+        },
+        {
+          'inputName': 'page'
+        },
+        {
+          'inputName': 'pdfLength'
+        }
+      ],
     }
   };
 }
