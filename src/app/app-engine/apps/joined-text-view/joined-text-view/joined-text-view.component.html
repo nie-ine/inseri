@@ -1,4 +1,4 @@
-<div *ngIf="textConfiguration">
+<div *ngIf="textConfiguration && internalTextRootIri">
   <app-joined-text-block
     *ngIf="textConfiguration.blocks"
     [backendAddress]="backendAddress"
