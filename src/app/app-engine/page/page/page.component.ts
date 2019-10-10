@@ -28,6 +28,7 @@ import {AuthService} from '../../../user-action-engine/mongodb/auth/auth.service
 import {QueryService} from '../../../user-action-engine/mongodb/query/query.service';
 import { environment } from '../../../../environments/environment';
 import {DialogCreateNewPageComponent} from '../../../user-action-engine/page-set/page-set-landing-page/page-set-landing-page.component';
+import {AppInputComponentComponent} from '../app-input-component/app-input-component.component';
 
 @Component({
   selector: 'nie-os',
@@ -890,6 +891,17 @@ export class PageComponent implements OnInit, AfterViewChecked {
       input.hash,
       'next: open input assign dialog'
     );
+    const dialogRef = this.dialog.open(AppInputComponentComponent, {
+      width: '30%',
+      height: '30%',
+      data: {
+        appHash: input.hash,
+        inputs: this.openAppsInThisPage[input.type].inputs
+      }
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log( 'after closed' );
+    });
   }
 
 }

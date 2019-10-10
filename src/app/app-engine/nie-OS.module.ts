@@ -79,6 +79,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import { RaeberNavigationComponent } from './apps/raeber-navigation/raeber-navigation.component';
 import { PdfViewerComponent } from './apps/pdf-viewer/pdf-viewer.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { AppInputComponentComponent } from './page/app-input-component/app-input-component.component';
 
 @NgModule({
   imports: [
@@ -174,7 +175,8 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     PrimeEditorComponent,
     AngularHandsometableComponent,
     RaeberNavigationComponent,
-    PdfViewerComponent
+    PdfViewerComponent,
+    AppInputComponentComponent
   ],
   exports: [
     PageComponent,
@@ -190,7 +192,8 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     NewGjsBoxDialogComponent,
     QueryInformationDialogComponent,
     DataListViewDetailsDialogComponent,
-    DataChooserComponent
+    DataChooserComponent,
+    AppInputComponentComponent
   ]
 })
 export class NIEOSModule { }
