@@ -51,14 +51,12 @@ export class LoadVariablesComponent implements OnInit, OnChanges {
   reloadVariables() {
     this.pageId = this.route.snapshot.queryParams.page;
     this.actionId = this.route.snapshot.queryParams.actionID;
-    console.log( this.actionId );
     this.page = {};
     const reset = new OpenAppsModel;
     this.openAppsInThisPage = reset.openApps;
     /**
      * @remarks - pageId exists if the page is part of a pageSet
      * */
-    console.log( 'here' );
     if ( this.pageId ) {
       this.updateAppsInView( this.pageId, this.actionId );
     } else {
@@ -107,7 +105,6 @@ export class LoadVariablesComponent implements OnInit, OnChanges {
               data1 => {
                 if (data1.status === 200) {
                   this.action = ( data1 as any ).body.action;
-                  console.log( this.action );
                   this.sendPageBack.emit(
                     [
                       this.page,

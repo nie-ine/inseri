@@ -62,7 +62,7 @@ export class GenerateArrayFromLeafsService {
       let increment = 0;
       this.output = [];
       for ( const entry of dataTree ) {
-        this.output.push( increment );
+        this.output.push( JSON.stringify(entry) );
         increment += 1;
       }
       return this.output;
@@ -86,7 +86,7 @@ export class GenerateArrayFromLeafsService {
    * of the json to find the right string for the entry array of the data chooser
    * */
   generateEntry( subtree: any, depth: number ) {
-    if ( typeof subtree[ this.path[ depth ] ] === 'string'  ) {
+    if ( subtree && typeof subtree[ this.path[ depth ] ] === 'string'  ) {
       this.output.push( subtree[ this.path[ depth ] ] );
     } else if ( this.path.length - 1 === depth && subtree ) {
       this.output.push( subtree[ this.path[ this.path.length - 1 ] ] );

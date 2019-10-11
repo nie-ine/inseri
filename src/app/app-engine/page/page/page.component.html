@@ -215,7 +215,7 @@
             *ngIf="openAppsInThisPage[ 'dataChooser' ].model[i].title.search( 'Depth: ' ) === -1 "
             (click)="openQueryInformationDialog( openAppsInThisPage[ 'dataChooser' ].model[i].queryId )"
             mat-button matTooltip="{{openAppsInThisPage[ 'dataChooser' ].model[i].title}}" >
-            {{ 'Query ' + i }}
+            {{ openAppsInThisPage[ 'dataChooser' ].model[i].title }}
           </button> <br>
           <app-data-chooser
             [response]="openAppsInThisPage[ 'dataChooser' ].model[i].response"

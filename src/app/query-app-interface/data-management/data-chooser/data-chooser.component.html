@@ -8,7 +8,7 @@
       *ngFor="let entry of dataChooserEntries;
         let i = index;"
       [value] = "i"
-      (click)="chooseResource(i)" >
+      (click)="chooseResource(i)" matTooltip="{{showChosenEnrty( entry )}}">
       {{ showChosenEnrty( entry ) }}
     </mat-option>
   </mat-select>

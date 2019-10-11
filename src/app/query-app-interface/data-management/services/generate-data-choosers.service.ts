@@ -20,6 +20,9 @@ export class GenerateDataChoosersService {
   data: any;
   path: Array<string>;
   query: any;
+  querySet: any;
+  queries: any;
+  pushedQuery: any;
   constructor(
     private http: HttpClient,
     private abstractJsonService: AbstractJsonService,
@@ -30,32 +33,45 @@ export class GenerateDataChoosersService {
 
   generateDataChoosers( page: any, openAppsInThisPage: any, reset: boolean ) {
     this.pathSet = new Set();
+    this.querySet = new Set();
+    this.pushedQuery = new Set();
     for ( const queryId of  page.queries ) {
       let queryTitle = '';
       let pathArray = [];
-      this.depth = 0;
-      this.queryService.getQuery(queryId)
-        .subscribe((data) => {
-          queryTitle = data.query.title;
-          pathArray = data.query.path;       // path array is the path chosen for the entries to be displayed in the data chooser dropdown
-          this.query = data;
-          this.requestService.request(queryId)
-            .subscribe((data1) => {
-              if (data1.status === 200) {
-                // console.log(data.body, pathArray);
-                this.response = data1.body;
-                this.checkIfSubsetOfResultContainsArray(
-                  data1.body,
-                  pathArray,
-                  openAppsInThisPage,
-                  pathArray,
-                  queryTitle,
-                  data1,
-                  queryId
-                );
-              }
-            });
-        });
+      for ( const appHash in page.appInputQueryMapping ) {
+        for ( const appInput in page.appInputQueryMapping[appHash] ) {
+          if ( page.appInputQueryMapping[ appHash ][ appInput ].query === queryId ) {
+            pathArray = page.appInputQueryMapping[ appHash ][ appInput ].path;
+            this.depth = 0;
+            if ( !this.querySet.has( queryId ) ) {
+              this.querySet.add(queryId);
+              this.queryService.getQuery(queryId)
+                .subscribe((data) => {
+                  queryTitle = data.query.title;
+                  this.query = data;
+                  this.requestService.request(queryId)
+                    .subscribe((data1) => {
+                      if (data1.status === 200) {
+                        // console.log(data.body, pathArray);
+                        this.response = data1.body;
+                        this.checkIfSubsetOfResultContainsArray(
+                          data1.body,
+                          pathArray,
+                          openAppsInThisPage,
+                          pathArray,
+                          queryTitle,
+                          data1,
+                          queryId,
+                          appInput
+                        );
+                      }
+                    });
+                });
+            }
+          }
+        }
+
+      }
     }
   }
 
@@ -66,8 +82,10 @@ export class GenerateDataChoosersService {
     pathArray: Array<string>,
     queryTitle: string,
     data: any,
-    queryId: string
+    queryId: string,
+    appInput: string
   ) {
+    console.log( path );
     if ( path ) {
       // console.log( response, path, path.length );
       for ( const segment of path ) {
@@ -76,18 +94,22 @@ export class GenerateDataChoosersService {
           // console.log( 'response contains array' );
           this.pathSet = new Set();
           this.depth = 0;
-          openAppsInThisPage.dataChooser.model.push( {
-            dataChooserEntries: this.generateArrayFromLeafs.generateArrayFromLeafs(
-              this.response,
-              pathArray,
-              0
-            ),
-            title: 'Query: ' + queryTitle,
-            response: data.body,
-            queryId: queryId,
-            depth: 0
-          } );
-          // console.log( openAppsInThisPage.dataChooser.model );
+          console.log('push 1');
+          if ( !this.pushedQuery.has(queryId) ) {
+            this.pushedQuery.add(queryId);
+            openAppsInThisPage.dataChooser.model.push( {
+              dataChooserEntries: this.generateArrayFromLeafs.generateArrayFromLeafs(
+                this.response,
+                pathArray,
+                0
+              ),
+              title: queryTitle,
+              response: data.body,
+              queryId: queryId,
+              depth: 0
+            } );
+          }
+          console.log( openAppsInThisPage.dataChooser.model );
           this.pathSet.add( path[ 0 ] );
           this.generateArrayKeyValueForEachArrayInResponse(
             data.body,
@@ -107,19 +129,24 @@ export class GenerateDataChoosersService {
             pathArray,
             queryTitle,
             data,
-            queryId
+            queryId,
+            appInput
           );
         }
       }
       if ( path.length === 0 ) {
         // console.log( 'Dont generate data choosers ');
-        openAppsInThisPage.dataChooser.model.push( {
-          dataChooserEntries: [ 'showData' ],
-          title: 'Query: ' + queryTitle,
-          response: data.body,
-          queryId: queryId,
-          depth: 0
-        } );
+        console.log('push 2');
+        if ( !this.pushedQuery.has(queryId) ) {
+          this.pushedQuery.add(queryId);
+          openAppsInThisPage.dataChooser.model.push( {
+            dataChooserEntries: [ 'showData' ],
+            title: 'Query: ' + queryTitle,
+            response: data.body,
+            queryId: queryId,
+            depth: 0
+          } );
+        }
         return openAppsInThisPage;
       }
     }
@@ -142,17 +169,21 @@ export class GenerateDataChoosersService {
       ) {
         this.pathSet.add( key );
         depth += 1;
-        openAppsInThisPage.dataChooser.model.push( {
-          dataChooserEntries: this.generateArrayFromLeafs.generateArrayFromLeafs(
-            response[ key ],
-            undefined,
-            0
-          ),
-          title: 'Query: ' + queryTitle + ' Depth: ' + String(depth),
-          response: this.response,
-          queryId: queryId,
-          depth: depth
-        } );
+        console.log('push 3');
+        // if ( !this.pushedQuery.has(queryId) ) {
+        //   this.pushedQuery.add(queryId);
+          openAppsInThisPage.dataChooser.model.push( {
+            dataChooserEntries: this.generateArrayFromLeafs.generateArrayFromLeafs(
+              response[ key ],
+              undefined,
+              0
+            ),
+            title: 'Query: ' + queryTitle + ' Depth: ' + String(depth),
+            response: this.response,
+            queryId: queryId,
+            depth: depth
+          } );
+        // }
       }
       // console.log( typeof response[ key ] );
       if ( typeof response[ key ] !== 'string' ) {

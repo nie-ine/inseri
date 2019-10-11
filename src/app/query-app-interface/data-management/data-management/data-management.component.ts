@@ -129,11 +129,11 @@ export class DataManagementComponent implements OnInit {
                   query.paths = [];
                 }
                 const path = this.appInputQueryMapping[app][input][ 'path' ];
-                for ( let i = 0; i < path.length; i++ ) {
-                  if ( !isNaN( Number( path[ i ] ) ) ) {
-                    path.splice( i, 1 );
-                  }
-                }
+                // for ( let i = 0; i < path.length; i++ ) {
+                //   if ( !isNaN( Number( path[ i ] ) ) ) {
+                //     path.splice( i, 1 );
+                //   }
+                // }
                 query.paths.push( path );
               }
             }
