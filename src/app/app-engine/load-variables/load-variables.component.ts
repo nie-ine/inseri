@@ -44,6 +44,7 @@ export class LoadVariablesComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     if ( this.reload ) {
+      console.log( this.reload );
       this.reloadVariables();
     }
   }

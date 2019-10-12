@@ -37,11 +37,16 @@ export class GenerateDataChoosersService {
     this.pushedQuery = new Set();
     for ( const queryId of  page.queries ) {
       let queryTitle = '';
-      let pathArray = [];
       for ( const appHash in page.appInputQueryMapping ) {
-        for ( const appInput in page.appInputQueryMapping[appHash] ) {
-          if ( page.appInputQueryMapping[ appHash ][ appInput ].query === queryId ) {
+            for ( const appInput in page.appInputQueryMapping[appHash] ) {
+              let pathArray = [];
             pathArray = page.appInputQueryMapping[ appHash ][ appInput ].path;
+            if ( pathArray ) {
+              for ( let i = 0; i < pathArray.length; i++ ) {
+                pathArray[ i ] = pathArray[ i ].toString();
+              }
+            }
+            // console.log( pathArray );
             this.depth = 0;
             if ( !this.querySet.has( queryId ) ) {
               this.querySet.add(queryId);
@@ -68,7 +73,6 @@ export class GenerateDataChoosersService {
                     });
                 });
             }
-          }
         }
 
       }
@@ -85,7 +89,7 @@ export class GenerateDataChoosersService {
     queryId: string,
     appInput: string
   ) {
-    console.log( path );
+    // console.log( path );
     if ( path ) {
       // console.log( response, path, path.length );
       for ( const segment of path ) {
@@ -95,8 +99,8 @@ export class GenerateDataChoosersService {
           this.pathSet = new Set();
           this.depth = 0;
           console.log('push 1');
-          if ( !this.pushedQuery.has(pathArray) ) {
-            this.pushedQuery.add(pathArray);
+          // if ( !this.pushedQuery.has(pathArray) ) {
+          //   this.pushedQuery.add(pathArray);
             openAppsInThisPage.dataChooser.model.push( {
               dataChooserEntries: this.generateArrayFromLeafs.generateArrayFromLeafs(
                 this.response,
@@ -108,7 +112,7 @@ export class GenerateDataChoosersService {
               queryId: queryId,
               depth: 0
             } );
-          }
+          // }
           console.log( openAppsInThisPage.dataChooser.model );
           this.pathSet.add( path[ 0 ] );
           this.generateArrayKeyValueForEachArrayInResponse(
@@ -170,8 +174,8 @@ export class GenerateDataChoosersService {
         this.pathSet.add( key );
         depth += 1;
         console.log('push 3');
-         if ( !this.pushedQuery.has(response[ key ]) ) {
-           this.pushedQuery.add(response[ key ]);
+         // if ( !this.pushedQuery.has(response[ key ]) ) {
+         //   this.pushedQuery.add(response[ key ]);
           openAppsInThisPage.dataChooser.model.push( {
             dataChooserEntries: this.generateArrayFromLeafs.generateArrayFromLeafs(
               response[ key ],
@@ -183,7 +187,7 @@ export class GenerateDataChoosersService {
             queryId: queryId,
             depth: depth
           } );
-        }
+        // }
       }
       // console.log( typeof response[ key ] );
       if ( typeof response[ key ] !== 'string' ) {

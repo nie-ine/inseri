@@ -26,6 +26,7 @@ export class GenerateArrayFromLeafsService {
     path: any,
     depth: number
   ) {
+    console.log( path );
     if ( path ) {
       if ( path && !isNaN( Number( path[ path.length - 1 ] ) ) ) {
         return undefined;
@@ -61,6 +62,7 @@ export class GenerateArrayFromLeafsService {
     } else {
       let increment = 0;
       this.output = [];
+      console.log( dataTree );
       for ( const entry of dataTree ) {
         this.output.push( JSON.stringify(entry) );
         increment += 1;
