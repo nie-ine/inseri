@@ -1,4 +1,4 @@
-<div style="height:100vh; margin-top: 40px; display:inline; " *ngIf=" dataChooserEntries[ 0 ] !== 'showData' ">
+<div style="height:100vh; margin-top: 40px; display:inline; " *ngIf=" dataChooserEntries[ 0 ] !== 'showData' && dataChooserEntries.length > 0">
   <button [disabled]="!(index > 0)" mat-button (click)="moveBack()" > <mat-icon>keyboard_arrow_left</mat-icon> </button>
   <mat-select
     placeholder="{{description}}"

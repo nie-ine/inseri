@@ -95,8 +95,8 @@ export class GenerateDataChoosersService {
           this.pathSet = new Set();
           this.depth = 0;
           console.log('push 1');
-          if ( !this.pushedQuery.has(queryId) ) {
-            this.pushedQuery.add(queryId);
+          if ( !this.pushedQuery.has(pathArray) ) {
+            this.pushedQuery.add(pathArray);
             openAppsInThisPage.dataChooser.model.push( {
               dataChooserEntries: this.generateArrayFromLeafs.generateArrayFromLeafs(
                 this.response,
@@ -137,8 +137,8 @@ export class GenerateDataChoosersService {
       if ( path.length === 0 ) {
         // console.log( 'Dont generate data choosers ');
         console.log('push 2');
-        if ( !this.pushedQuery.has(queryId) ) {
-          this.pushedQuery.add(queryId);
+        // if ( !this.pushedQuery.has(queryId) ) {
+        //   this.pushedQuery.add(queryId);
           openAppsInThisPage.dataChooser.model.push( {
             dataChooserEntries: [ 'showData' ],
             title: 'Query: ' + queryTitle,
@@ -146,7 +146,7 @@ export class GenerateDataChoosersService {
             queryId: queryId,
             depth: 0
           } );
-        }
+        // }
         return openAppsInThisPage;
       }
     }
@@ -170,8 +170,8 @@ export class GenerateDataChoosersService {
         this.pathSet.add( key );
         depth += 1;
         console.log('push 3');
-        // if ( !this.pushedQuery.has(queryId) ) {
-        //   this.pushedQuery.add(queryId);
+         if ( !this.pushedQuery.has(response[ key ]) ) {
+           this.pushedQuery.add(response[ key ]);
           openAppsInThisPage.dataChooser.model.push( {
             dataChooserEntries: this.generateArrayFromLeafs.generateArrayFromLeafs(
               response[ key ],
@@ -183,7 +183,7 @@ export class GenerateDataChoosersService {
             queryId: queryId,
             depth: depth
           } );
-        // }
+        }
       }
       // console.log( typeof response[ key ] );
       if ( typeof response[ key ] !== 'string' ) {
