@@ -77,6 +77,7 @@ export class DataAssignmentComponent implements OnChanges {
    * ngOnChages is triggered when a user chooses an entry in the data chooser
    * */
   ngOnChanges( changes: SimpleChanges) {
+    console.log( this.index );
     this.firstChange = true;
     this.startPathUpdateProcess();
 
@@ -134,6 +135,8 @@ export class DataAssignmentComponent implements OnChanges {
     indexDepth: number,
     pathDepth: number
   ) {
+
+    // console.log( 'update path with indices' );
     let deleteCount = 0;
 
     /**
@@ -263,6 +266,8 @@ export class DataAssignmentComponent implements OnChanges {
     depth: number,
     firstArray: boolean
   ) {
+    console.log( response, index, depth );
+    console.log( path );
     if ( response ) {
 
       /**

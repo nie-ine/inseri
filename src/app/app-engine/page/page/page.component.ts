@@ -687,6 +687,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * after the user chooses a data entry
    * */
   updateMainResourceIndex( input: any ) {
+    // console.log( input );
     this.index = input.index;
     this.response = input.response;
     this.queryId = input.queryId;

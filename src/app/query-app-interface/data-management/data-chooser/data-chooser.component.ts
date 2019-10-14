@@ -71,16 +71,13 @@ export class DataChooserComponent implements AfterViewChecked {
   ngAfterViewChecked() {
     // console.log( this.dataChooserEntries );
     this.cdr.detectChanges();
-    if ( this.dataChooserEntries [ 0 ] === 'showData' && !this.alreadyEmitted ) {
-      this.alreadyEmitted = true;
-      this.chooseResource( 0 );
-    }
-    if ( typeof this.dataChooserEntries [ 0 ] === 'object'  && !this.alreadyEmitted ) {
+    if ( !this.alreadyEmitted ) {
       this.alreadyEmitted = true;
       this.chooseResource( 0 );
     }
   }
   chooseResource(index: number) {
+    console.log( 'Choose resource' );
     this.index = index;
     this.sendIndexBack.emit( {
       index: index,

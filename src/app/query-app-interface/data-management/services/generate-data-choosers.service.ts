@@ -89,7 +89,7 @@ export class GenerateDataChoosersService {
     queryId: string,
     appInput: string
   ) {
-    // console.log( path );
+    console.log( path );
     if ( path ) {
       // console.log( response, path, path.length );
       for ( const segment of path ) {
@@ -103,7 +103,7 @@ export class GenerateDataChoosersService {
           //   this.pushedQuery.add(pathArray);
             openAppsInThisPage.dataChooser.model.push( {
               dataChooserEntries: this.generateArrayFromLeafs.generateArrayFromLeafs(
-                this.response,
+                response[ segment ],
                 pathArray,
                 0
               ),
