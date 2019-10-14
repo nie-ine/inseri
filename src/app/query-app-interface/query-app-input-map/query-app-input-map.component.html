@@ -8,10 +8,10 @@
 </div>
 
 <h5>App:</h5>
-{{ dialogInput.app.type + ' ' + dialogInput.app.hash }}
+{{ input.app.type + ' ' + input.app.hash }}
 
 <h5>Query Name:</h5>
-{{ dialogInput.query.title }}
+{{ input.query.title }}
 
 <h5>Chosen inputs:</h5>
 <mat-chip-list *ngFor="let input of chosenInputs">
@@ -19,21 +19,9 @@
   {{ input }}
   </mat-chip>
   <span *ngIf="paths">
-    <span *ngFor="let segment of paths[ input ]; let i = index;" style="display: inline-block">
-      <button mat-button (click)="addEmpyPathSegment(input, i)" *ngIf="i === 0" matTooltip='add segment'> <mat-icon>add</mat-icon></button>
-      <input #inputField matInput placeholder="{{segment}}" value="{{segment}}" style="width: 70px" (keyup)="updatePath( input, i, inputField.value )">
-      <button mat-button [matMenuTriggerFor]="menu"><mat-icon>arrow_right_alt</mat-icon></button>
-      <mat-menu #menu="matMenu">
-        <button mat-button (click)="deleteSegment(input, i)">
-          delete path segment
-        </button><br>
-      <button mat-button (click)="addEmpyPathSegment(input, i + 1)">
-        add path segment
-      </button>
-      </mat-menu>
-
-    </span>
-
+    <mat-chip [color]="'primary'" selected *ngFor="let segment of paths[ input ]">
+      <mat-icon>arrow_right_alt</mat-icon> {{segment}}
+    </mat-chip>
   </span>
 </mat-chip-list>
 

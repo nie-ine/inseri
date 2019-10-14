@@ -14,6 +14,7 @@
     [response]="response"
     [queryId] = "queryId"
     [depth]="depth"
+    [pathWithArray]="pathWithArray"
     (sendAppTypesBackToNIEOS)="receiveOpenAppsInThisPage( $event )">
 
   </app-data-assignment>
@@ -224,6 +225,7 @@
             [dataChooserEntries]="openAppsInThisPage[ 'dataChooser' ].model[i].dataChooserEntries"
             [description]=" openAppsInThisPage[ 'dataChooser' ].model[i].depth "
             [depth]="openAppsInThisPage[ 'dataChooser' ].model[i].depth"
+            [pathWithArray]="openAppsInThisPage[ 'dataChooser' ].model[i].pathWithArray"
             (sendIndexBack)="updateMainResourceIndex( $event )">
           </app-data-chooser>
         </div>

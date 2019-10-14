@@ -50,6 +50,12 @@ export class DataChooserComponent implements AfterViewChecked {
   @Input() description = '';
 
   /**
+   *
+   * */
+
+  @Input() pathWithArray;
+
+  /**
    * This output emits the index chosen by the user
    * */
   @Output() sendIndexBack: EventEmitter<any> = new EventEmitter<any>();
@@ -69,21 +75,26 @@ export class DataChooserComponent implements AfterViewChecked {
   ) {}
 
   ngAfterViewChecked() {
-    // console.log( this.dataChooserEntries );
+    // console.log( this.depth );
     this.cdr.detectChanges();
-    if ( !this.alreadyEmitted ) {
+    if ( this.dataChooserEntries [ 0 ] === 'showData' && !this.alreadyEmitted ) {
+      this.alreadyEmitted = true;
+      this.chooseResource( 0 );
+    }
+    if ( typeof this.dataChooserEntries [ 0 ] === 'object'  && !this.alreadyEmitted ) {
       this.alreadyEmitted = true;
       this.chooseResource( 0 );
     }
   }
   chooseResource(index: number) {
-    console.log( 'Choose resource' );
+    // console.log( this.depth );
     this.index = index;
     this.sendIndexBack.emit( {
       index: index,
       response: this.response,
       queryId: this.queryId,
-      depth: this.depth
+      depth: this.depth,
+      pathWithArray: this.pathWithArray
     } );
   }
 

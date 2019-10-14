@@ -32,7 +32,7 @@ export class QueryAppInputMapComponent implements OnInit {
   action: any;
   constructor(
     public dialogRef: MatDialogRef<QueryAppInputMapComponent>,
-    @Inject(MAT_DIALOG_DATA) public dialogInput: any,
+    @Inject(MAT_DIALOG_DATA) public input: any,
     private http: HttpClient,
     private abstractJsonService: AbstractJsonService,
     private pageService: PageService,
@@ -42,10 +42,10 @@ export class QueryAppInputMapComponent implements OnInit {
     /**
      * This loop generates the chosenInputs - Variable and the paths variable.
      * */
-    for ( const appInput in dialogInput.mapping[ dialogInput.app.hash ] ) {
-      if ( this.dialogInput.mapping[ dialogInput.app.hash ][appInput][ 'query' ] === this.dialogInput.query._id ) {
+    for ( const appInput in input.mapping[ input.app.hash ] ) {
+      if ( this.input.mapping[ input.app.hash ][appInput][ 'query' ] === this.input.query._id ) {
         this.chosenInputs.push( appInput );
-        this.paths[ appInput ] = this.dialogInput.mapping[ dialogInput.app.hash ][appInput][ 'path' ];
+        this.paths[ appInput ] = this.input.mapping[ input.app.hash ][appInput][ 'path' ];
       }
     }
   }
@@ -59,7 +59,7 @@ export class QueryAppInputMapComponent implements OnInit {
   }
 
   loadAbstractResponse() {
-    this.requestService.request(this.dialogInput.query._id)
+    this.requestService.request(this.input.query._id)
       .subscribe((data) => {
         if (data.status === 200) {
           this.response = data.body;
@@ -75,14 +75,13 @@ export class QueryAppInputMapComponent implements OnInit {
 
   updateQueryAppInputMaping( paths: any ) {
     this.paths = paths;
-    console.log( paths );
   }
 
   save() {
     for ( const appInput in this.paths ) {
-      this.dialogInput.page.appInputQueryMapping[ this.dialogInput.app.hash ][ appInput ][ 'path' ] = this.paths[ appInput ];
+      this.input.page.appInputQueryMapping[ this.input.app.hash ][ appInput ][ 'path' ] = this.paths[ appInput ];
     }
-    this.pageService.updatePage(this.dialogInput.page)
+    this.pageService.updatePage(this.input.page)
       .subscribe(
         data => {
           console.log(data);
@@ -94,20 +93,5 @@ export class QueryAppInputMapComponent implements OnInit {
 
   mapWholeJsonToInput(input: string) {
     this.paths[ input ] = ['wholeJsonResponseAssignedToThisAppInput'];
-  }
-
-  addEmpyPathSegment(input: string, index: number) {
-    console.log( input );
-    this.paths[ input ].splice( index, 0, '' );
-    console.log(this.paths[ input ]);
-  }
-
-  updatePath( input: string, index: number, pathString: string ) {
-    this.paths[ input ][ index ] = pathString;
-    console.log( this.paths[ input ] );
-  }
-
-  deleteSegment( input: string, index: number ) {
-    this.paths[ input ].splice( index, 1 );
   }
 }

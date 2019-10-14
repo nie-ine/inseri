@@ -234,6 +234,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   selectedPageToShow: number;
 
+  pathWithArray: Array<string>;
+
   constructor(
     public route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
@@ -684,7 +686,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   /**
    * This fuction is invoked by an emit of the data-chooser component,
-   * after the user chooses a data entry
+   * after the user chooses a data entry and triggers the data assignment component
    * */
   updateMainResourceIndex( input: any ) {
     // console.log( input );
@@ -692,6 +694,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.response = input.response;
     this.queryId = input.queryId;
     this.depth = input.depth;
+    this.pathWithArray = input.pathWithArray;
   }
 
   /**

@@ -8,6 +8,7 @@ import {AbstractJsonService} from './abstract-json.service';
 import {GenerateArrayFromLeafsService} from './generate-array-from-leafs.service';
 import {GeneralRequestService} from '../../../query-engine/general/general-request.service';
 import { QueryService } from '../../../user-action-engine/mongodb/query/query.service';
+import {cloneDate} from 'ngx-bootstrap/chronos/create/clone';
 
 @Injectable({
   providedIn: 'root'
@@ -20,9 +21,6 @@ export class GenerateDataChoosersService {
   data: any;
   path: Array<string>;
   query: any;
-  querySet: any;
-  queries: any;
-  pushedQuery: any;
   constructor(
     private http: HttpClient,
     private abstractJsonService: AbstractJsonService,
@@ -33,49 +31,32 @@ export class GenerateDataChoosersService {
 
   generateDataChoosers( page: any, openAppsInThisPage: any, reset: boolean ) {
     this.pathSet = new Set();
-    this.querySet = new Set();
-    this.pushedQuery = new Set();
     for ( const queryId of  page.queries ) {
       let queryTitle = '';
-      for ( const appHash in page.appInputQueryMapping ) {
-            for ( const appInput in page.appInputQueryMapping[appHash] ) {
-              let pathArray = [];
-            pathArray = page.appInputQueryMapping[ appHash ][ appInput ].path;
-            if ( pathArray ) {
-              for ( let i = 0; i < pathArray.length; i++ ) {
-                pathArray[ i ] = pathArray[ i ].toString();
+      let pathArray = [];
+      this.depth = 0;
+      this.queryService.getQuery(queryId)
+        .subscribe((data) => {
+          queryTitle = data.query.title;
+          pathArray = data.query.path;       // path array is the path chosen for the entries to be displayed in the data chooser dropdown
+          this.query = data;
+          this.requestService.request(queryId)
+            .subscribe((data1) => {
+              if (data1.status === 200) {
+                // console.log(data.body, pathArray);
+                this.response = data1.body;
+                this.checkIfSubsetOfResultContainsArray(
+                  data1.body,
+                  pathArray,
+                  openAppsInThisPage,
+                  pathArray,
+                  queryTitle,
+                  data1,
+                  queryId
+                );
               }
-            }
-            // console.log( pathArray );
-            this.depth = 0;
-            if ( !this.querySet.has( queryId ) ) {
-              this.querySet.add(queryId);
-              this.queryService.getQuery(queryId)
-                .subscribe((data) => {
-                  queryTitle = data.query.title;
-                  this.query = data;
-                  this.requestService.request(queryId)
-                    .subscribe((data1) => {
-                      if (data1.status === 200) {
-                        // console.log(data.body, pathArray);
-                        this.response = data1.body;
-                        this.checkIfSubsetOfResultContainsArray(
-                          data1.body,
-                          pathArray,
-                          openAppsInThisPage,
-                          pathArray,
-                          queryTitle,
-                          data1,
-                          queryId,
-                          appInput
-                        );
-                      }
-                    });
-                });
-            }
-        }
-
-      }
+            });
+        });
     }
   }
 
@@ -86,10 +67,9 @@ export class GenerateDataChoosersService {
     pathArray: Array<string>,
     queryTitle: string,
     data: any,
-    queryId: string,
-    appInput: string
+    queryId: string
   ) {
-    console.log( path );
+    console.log( pathArray );
     if ( path ) {
       // console.log( response, path, path.length );
       for ( const segment of path ) {
@@ -98,29 +78,28 @@ export class GenerateDataChoosersService {
           // console.log( 'response contains array' );
           this.pathSet = new Set();
           this.depth = 0;
-          console.log('push 1');
-          // if ( !this.pushedQuery.has(pathArray) ) {
-          //   this.pushedQuery.add(pathArray);
-            openAppsInThisPage.dataChooser.model.push( {
-              dataChooserEntries: this.generateArrayFromLeafs.generateArrayFromLeafs(
-                response[ segment ],
-                pathArray,
-                0
-              ),
-              title: queryTitle,
-              response: data.body,
-              queryId: queryId,
-              depth: 0
-            } );
-          // }
-          console.log( openAppsInThisPage.dataChooser.model );
+          console.log( 'push 1', path);
+          openAppsInThisPage.dataChooser.model.push( {
+            dataChooserEntries: this.generateArrayFromLeafs.generateArrayFromLeafs(
+              this.response,
+              pathArray,
+              0
+            ),
+            title: 'Query: ' + queryTitle,
+            response: data.body,
+            queryId: queryId,
+            depth: 0,
+            pathWithArray: path
+          } );
+          // console.log( openAppsInThisPage.dataChooser.model );
           this.pathSet.add( path[ 0 ] );
           this.generateArrayKeyValueForEachArrayInResponse(
             data.body,
             openAppsInThisPage,
             queryTitle,
             queryId,
-            this.depth
+            this.depth,
+            []
           );
           return openAppsInThisPage;
         } else if ( response[ segment ] && response[ segment ] !== 'string' ) {
@@ -133,24 +112,21 @@ export class GenerateDataChoosersService {
             pathArray,
             queryTitle,
             data,
-            queryId,
-            appInput
+            queryId
           );
         }
       }
       if ( path.length === 0 ) {
         // console.log( 'Dont generate data choosers ');
-        console.log('push 2');
-        // if ( !this.pushedQuery.has(queryId) ) {
-        //   this.pushedQuery.add(queryId);
-          openAppsInThisPage.dataChooser.model.push( {
-            dataChooserEntries: [ 'showData' ],
-            title: 'Query: ' + queryTitle,
-            response: data.body,
-            queryId: queryId,
-            depth: 0
-          } );
-        // }
+        console.log( 'Push 2', data.body );
+        openAppsInThisPage.dataChooser.model.push( {
+          dataChooserEntries: [ 'showData' ],
+          title: 'Query: ' + queryTitle,
+          response: data.body,
+          queryId: queryId,
+          depth: 0,
+          pathWithArray: path
+        } );
         return openAppsInThisPage;
       }
     }
@@ -162,10 +138,17 @@ export class GenerateDataChoosersService {
     openAppsInThisPage: any,
     queryTitle: string,
     queryId: string,
-    depth: number
+    depth: number,
+    pathWithArray: Array<string>
   ) {
-    // console.log( response, pathArray );
     for ( const key in response ) {
+      if (
+        response[ key ].length === 1 &&
+        typeof response[ key ] !== 'string' &&
+        !this.pathSet.has( key )
+      ) {
+        pathWithArray = [];
+      }
       if (
         response[ key ].length > 1 &&
         typeof response[ key ] !== 'string' &&
@@ -173,30 +156,37 @@ export class GenerateDataChoosersService {
       ) {
         this.pathSet.add( key );
         depth += 1;
-        console.log('push 3');
-         // if ( !this.pushedQuery.has(response[ key ]) ) {
-         //   this.pushedQuery.add(response[ key ]);
-          openAppsInThisPage.dataChooser.model.push( {
-            dataChooserEntries: this.generateArrayFromLeafs.generateArrayFromLeafs(
-              response[ key ],
-              undefined,
-              0
-            ),
-            title: 'Query: ' + queryTitle + ' Depth: ' + String(depth),
-            response: this.response,
-            queryId: queryId,
-            depth: depth
-          } );
-        // }
+        pathWithArray.push( key );
+        const clonedPath = Object.assign([], pathWithArray);
+        console.log( 'push 3', clonedPath );
+        openAppsInThisPage.dataChooser.model.push( {
+          dataChooserEntries: this.generateArrayFromLeafs.generateArrayFromLeafs(
+            response[ key ],
+            undefined,
+            0
+          ),
+          title: 'Query: ' + queryTitle + ' Depth: ' + String(depth),
+          response: this.response,
+          queryId: queryId,
+          pathWithArray: clonedPath
+        } );
+        pathWithArray.splice( pathWithArray.length - 1, 1 );
       }
       // console.log( typeof response[ key ] );
-      if ( typeof response[ key ] !== 'string' ) {
+      if ( typeof response[ key ] !== 'string' && typeof response[ key ] !== 'number' ) {
+        if ( depth = 0 ) {
+          pathWithArray = [];
+        }
+        if ( isNaN( +key ) ) {
+          pathWithArray.push( key );
+        }
         this.generateArrayKeyValueForEachArrayInResponse(
           response[ key ],
           openAppsInThisPage,
           queryTitle,
           queryId,
-          depth
+          depth + 1,
+          pathWithArray
         );
       }
     }
