@@ -78,7 +78,10 @@ export class GenerateDataChoosersService {
           // console.log( 'response contains array' );
           this.pathSet = new Set();
           this.depth = 0;
-          console.log( 'push 1', path);
+          console.log(path);
+          const newPath = Object.assign( [], pathArray );
+          newPath.pop();
+          console.log( 'push 1', newPath);
           openAppsInThisPage.dataChooser.model.push( {
             dataChooserEntries: this.generateArrayFromLeafs.generateArrayFromLeafs(
               this.response,
@@ -89,7 +92,7 @@ export class GenerateDataChoosersService {
             response: data.body,
             queryId: queryId,
             depth: 0,
-            pathWithArray: path
+            pathWithArray: newPath
           } );
           // console.log( openAppsInThisPage.dataChooser.model );
           this.pathSet.add( path[ 0 ] );
@@ -170,24 +173,27 @@ export class GenerateDataChoosersService {
           queryId: queryId,
           pathWithArray: clonedPath
         } );
+        console.log( pathWithArray );
         pathWithArray.splice( pathWithArray.length - 1, 1 );
-      }
-      // console.log( typeof response[ key ] );
-      if ( typeof response[ key ] !== 'string' && typeof response[ key ] !== 'number' ) {
-        if ( depth = 0 ) {
-          pathWithArray = [];
+      } else {
+        // console.log( typeof response[ key ] );
+        if ( typeof response[ key ] !== 'string' && typeof response[ key ] !== 'number' ) {
+          if ( depth = 0 ) {
+            pathWithArray = [];
+          }
+          if ( isNaN( +key ) ) {
+            pathWithArray.push( key );
+
+          }
+          this.generateArrayKeyValueForEachArrayInResponse(
+            response[ key ],
+            openAppsInThisPage,
+            queryTitle,
+            queryId,
+            depth + 1,
+            pathWithArray
+          );
         }
-        if ( isNaN( +key ) ) {
-          pathWithArray.push( key );
-        }
-        this.generateArrayKeyValueForEachArrayInResponse(
-          response[ key ],
-          openAppsInThisPage,
-          queryTitle,
-          queryId,
-          depth + 1,
-          pathWithArray
-        );
       }
     }
   }
