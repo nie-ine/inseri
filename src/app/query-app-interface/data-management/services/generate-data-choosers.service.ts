@@ -45,15 +45,26 @@ export class GenerateDataChoosersService {
               if (data1.status === 200) {
                 // console.log(data.body, pathArray);
                 this.response = data1.body;
-                this.checkIfSubsetOfResultContainsArray(
-                  data1.body,
-                  pathArray,
-                  openAppsInThisPage,
-                  pathArray,
-                  queryTitle,
-                  data1,
-                  queryId
-                );
+                for ( const appHash in page.appInputQueryMapping ) {
+                  for ( const input in page.appInputQueryMapping[ appHash ] ) {
+                    const path = page.appInputQueryMapping[ appHash ][ input ].path;
+                    for ( let i = 0; i < path.length; i++ ) {
+                      if ( typeof path[ i ] === 'number' ) {
+                        path.splice( i, 1 );
+                      }
+                    }
+                    console.log( path );
+                    this.checkIfSubsetOfResultContainsArray(
+                      data1.body,
+                      path,
+                      openAppsInThisPage,
+                      path,
+                      queryTitle,
+                      data1,
+                      queryId
+                    );
+                  }
+                }
               }
             });
         });
@@ -69,13 +80,13 @@ export class GenerateDataChoosersService {
     data: any,
     queryId: string
   ) {
-    // console.log( pathArray );
+    console.log( path );
     if ( path ) {
       // console.log( response, path, path.length );
       for ( const segment of path ) {
-        // console.log( segment );
+        console.log( segment );
         if ( response[ segment ] && response[ segment ].length > 1 && typeof response[ segment ] !== 'string') {
-          // console.log( 'response contains array' );
+          console.log( 'response contains array' );
           this.pathSet = new Set();
           this.depth = 0;
           // console.log(path);
@@ -106,6 +117,7 @@ export class GenerateDataChoosersService {
         } else if ( response[ segment ] && response[ segment ] !== 'string' ) {
           const clonedPath = Object.assign([], path);
           clonedPath.splice(0, 1);
+          console.log( 'case 1', clonedPath );
           this.checkIfSubsetOfResultContainsArray(
             response[ segment ],
             clonedPath,
