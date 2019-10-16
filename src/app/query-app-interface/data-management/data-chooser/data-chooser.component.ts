@@ -76,12 +76,16 @@ export class DataChooserComponent implements AfterViewChecked {
 
   ngAfterViewChecked() {
     // console.log( this.depth );
-    this.cdr.detectChanges();
-    if ( this.dataChooserEntries [ 0 ] === 'showData' && !this.alreadyEmitted ) {
-      this.alreadyEmitted = true;
-      this.chooseResource( 0 );
-    }
-    if ( typeof this.dataChooserEntries [ 0 ] === 'object'  && !this.alreadyEmitted ) {
+    // this.cdr.detectChanges();
+    // if ( this.dataChooserEntries [ 0 ] === 'showData' && !this.alreadyEmitted ) {
+    //   this.alreadyEmitted = true;
+    //   this.chooseResource( 0 );
+    // }
+    // if ( typeof this.dataChooserEntries [ 0 ] === 'object'  && !this.alreadyEmitted ) {
+    //   this.alreadyEmitted = true;
+    //   this.chooseResource( 0 );
+    // }
+    if ( !this.alreadyEmitted ) {
       this.alreadyEmitted = true;
       this.chooseResource( 0 );
     }

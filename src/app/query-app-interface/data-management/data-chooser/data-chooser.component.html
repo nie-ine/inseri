@@ -5,6 +5,8 @@
     style=" width: 120px"
     (click)="resetDataChooserEntries()" matTooltip="{{description}}">
     <mat-option
+      matTooltip="{{entry}}"
+      [matTooltipPosition]="'left'"
       *ngFor="let entry of dataChooserEntries;
         let i = index;"
       [value] = "i"

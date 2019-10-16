@@ -122,7 +122,7 @@ export class DataAssignmentComponent implements OnChanges {
 
           const helpArray = [];
 
-          console.log( this.appInputQueryMapping[ appHash ][ inputName ].path, this.pathWithArray );
+          // console.log( this.appInputQueryMapping[ appHash ][ inputName ].path, this.pathWithArray );
 
           for ( let i = 0; i < this.appInputQueryMapping[ appHash ][ inputName ].path.length; i++ ) {
 
@@ -130,7 +130,7 @@ export class DataAssignmentComponent implements OnChanges {
 
               if ( this.appInputQueryMapping[ appHash ][ inputName ].path[ i ] === this.pathWithArray[ i - difference ] ) {
 
-                console.log( this.pathWithArray[ i - difference ], i, difference, this.pathWithArray.length );
+                // console.log( this.pathWithArray[ i - difference ], i, difference, this.pathWithArray.length );
                 if ( i - difference  === this.pathWithArray.length - 1 && allTheSameSegments ) {
 
                   // console.log( this.appInputQueryMapping[ appHash ][ inputName ].path[ i ] );
@@ -144,7 +144,7 @@ export class DataAssignmentComponent implements OnChanges {
 
                   }
 
-                  console.log( this.appInputQueryMapping[ appHash ][ inputName ].path );
+                  // console.log( this.appInputQueryMapping[ appHash ][ inputName ].path );
 
                 }
 
@@ -249,7 +249,7 @@ export class DataAssignmentComponent implements OnChanges {
     if ( response ) {
 
       if ( response[ path[ depth ] ] && response[ path[ depth ] ].length === 1 ) {
-        console.log( response[ path[ depth ] ], response, path, depth );
+        // console.log( response[ path[ depth ] ], response, path, depth );
         return this.generateAppinput(
           response[ path[ depth ] ][ 0 ],
           path,
