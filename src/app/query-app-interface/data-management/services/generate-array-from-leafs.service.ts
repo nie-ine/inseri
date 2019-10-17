@@ -24,6 +24,7 @@ export class GenerateArrayFromLeafsService {
   generateArrayFromLeafs(
     dataTree: any
   ) {
+      // console.log( dataTree );
       let increment = 0;
       this.output = [];
       for ( const entry of dataTree ) {

@@ -53,7 +53,7 @@ export class GenerateDataChoosersService {
                         path.splice( i, 1 );
                       }
                     }
-                    console.log( path );
+                    // console.log( path );
                     this.checkIfSubsetOfResultContainsArray(
                       data1.body,
                       path,
@@ -80,44 +80,36 @@ export class GenerateDataChoosersService {
     data: any,
     queryId: string
   ) {
-    console.log( path );
+    // console.log( path );
     if ( path ) {
-      // console.log( response, path, path.length );
-      for ( const segment of path ) {
-        console.log( segment );
-        if ( response[ segment ] && response[ segment ].length > 1 && typeof response[ segment ] !== 'string') {
-          console.log( 'response contains array' );
-          this.pathSet = new Set();
-          this.depth = 0;
-          // console.log(path);
-          const newPath = Object.assign( [], pathArray );
-          newPath.pop();
-          console.log( 'push 1', this.response);
-          openAppsInThisPage.dataChooser.model.push( {
-            dataChooserEntries: this.generateArrayFromLeafs.generateArrayFromLeafs(
-              this.response[ segment ]
-            ),
-            title: 'Query: ' + queryTitle,
-            response: data.body,
-            queryId: queryId,
-            depth: 0,
-            pathWithArray: newPath
-          } );
-          // console.log( openAppsInThisPage.dataChooser.model );
-          this.pathSet.add( path[ 0 ] );
-          this.generateArrayKeyValueForEachArrayInResponse(
-            data.body,
+      const segment = path[ 0 ];
+      // console.log( segment, response );
+      if ( response[ segment ] && response[ segment ].length > 1 && typeof response[ segment ] !== 'string') {
+        // console.log( openAppsInThisPage.dataChooser.model );
+        this.generateArrayKeyValueForEachArrayInResponse(
+          data.body,
+          openAppsInThisPage,
+          queryTitle,
+          queryId,
+          this.depth,
+          []
+        );
+        return openAppsInThisPage;
+      } else if ( response[ segment ] && response[ segment ] !== 'string' ) {
+        const clonedPath = Object.assign([], path);
+        clonedPath.splice(0, 1);
+        // console.log( 'case 1', clonedPath, response[ segment ] );
+        if ( response[ segment ].length === 1 ) {
+          this.checkIfSubsetOfResultContainsArray(
+            response[ segment ] [ 0 ],
+            clonedPath,
             openAppsInThisPage,
+            pathArray,
             queryTitle,
-            queryId,
-            this.depth,
-            []
+            data,
+            queryId
           );
-          return openAppsInThisPage;
-        } else if ( response[ segment ] && response[ segment ] !== 'string' ) {
-          const clonedPath = Object.assign([], path);
-          clonedPath.splice(0, 1);
-          console.log( 'case 1', clonedPath );
+        } else {
           this.checkIfSubsetOfResultContainsArray(
             response[ segment ],
             clonedPath,
@@ -128,10 +120,11 @@ export class GenerateDataChoosersService {
             queryId
           );
         }
+
       }
       if ( path.length === 0 ) {
         // console.log( 'Dont generate data choosers ');
-        console.log( 'Push 2', data.body );
+        console.log( 'Push 2', path );
         openAppsInThisPage.dataChooser.model.push( {
           dataChooserEntries: [ 'showData' ],
           title: 'Query: ' + queryTitle,
@@ -158,20 +151,29 @@ export class GenerateDataChoosersService {
       if (
         response[ key ].length === 1 &&
         typeof response[ key ] !== 'string' &&
-        !this.pathSet.has( key )
+        !this.pathSet.has( {
+          key: key,
+          queryId: queryId
+        } )
       ) {
         pathWithArray = [];
       }
       if (
         response[ key ].length > 1 &&
         typeof response[ key ] !== 'string' &&
-        !this.pathSet.has( key )
+        !this.pathSet.has( {
+          key: key,
+          queryId: queryId
+        } )
       ) {
-        this.pathSet.add( key );
+        this.pathSet.add( {
+          key: key,
+          queryId: queryId
+        } );
         depth += 1;
         pathWithArray.push( key );
         const clonedPath = Object.assign([], pathWithArray);
-        // console.log( 'push 3', clonedPath );
+        console.log( 'push 3', clonedPath );
         openAppsInThisPage.dataChooser.model.push( {
           dataChooserEntries: this.generateArrayFromLeafs.generateArrayFromLeafs(
             response[ key ]
