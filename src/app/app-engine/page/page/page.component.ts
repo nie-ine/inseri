@@ -236,6 +236,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   pathWithArray: Array<string>;
 
+  querySet = new Set();
+
   constructor(
     public route: ActivatedRoute,
     private cdr: ChangeDetectorRef,

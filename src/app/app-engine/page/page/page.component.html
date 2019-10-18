@@ -213,11 +213,11 @@
       <div *ngFor="let dataChooser of openAppsInThisPage[ 'dataChooser' ].model; let i = index;" >
         <div *ngIf="generateQueryAppPathInformation( openAppsInThisPage[ 'dataChooser' ].model[i].queryId ) !== undefined" >
           <button
-            *ngIf="openAppsInThisPage[ 'dataChooser' ].model[i].title.search( 'Depth: ' ) === -1 "
+            *ngIf=" openAppsInThisPage[ 'dataChooser' ].model[i].title && openAppsInThisPage[ 'dataChooser' ].model[i].title.search( 'Query: ' ) !== -1 "
             (click)="openQueryInformationDialog( openAppsInThisPage[ 'dataChooser' ].model[i].queryId )"
             mat-button matTooltip="{{openAppsInThisPage[ 'dataChooser' ].model[i].title}}" >
             {{ openAppsInThisPage[ 'dataChooser' ].model[i].title }}
-          </button> <br>
+          </button>
           <app-data-chooser
             [response]="openAppsInThisPage[ 'dataChooser' ].model[i].response"
             [queryId] = "openAppsInThisPage[ 'dataChooser' ].model[i].queryId"

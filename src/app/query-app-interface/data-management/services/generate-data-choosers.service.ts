@@ -9,6 +9,7 @@ import {GenerateArrayFromLeafsService} from './generate-array-from-leafs.service
 import {GeneralRequestService} from '../../../query-engine/general/general-request.service';
 import { QueryService } from '../../../user-action-engine/mongodb/query/query.service';
 import {cloneDate} from 'ngx-bootstrap/chronos/create/clone';
+import {type} from 'os';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,7 @@ export class GenerateDataChoosersService {
   data: any;
   path: Array<string>;
   query: any;
+  firstTimeQueryIsPushed = new Set();
   constructor(
     private http: HttpClient,
     private abstractJsonService: AbstractJsonService,
@@ -31,10 +33,10 @@ export class GenerateDataChoosersService {
 
   generateDataChoosers( page: any, openAppsInThisPage: any, reset: boolean ) {
     this.pathSet = new Set();
+    this.firstTimeQueryIsPushed = new Set();
     for ( const queryId of  page.queries ) {
       let queryTitle = '';
       let pathArray = [];
-      this.depth = 0;
       this.queryService.getQuery(queryId)
         .subscribe((data) => {
           queryTitle = data.query.title;
@@ -53,7 +55,6 @@ export class GenerateDataChoosersService {
                         path.splice( i, 1 );
                       }
                     }
-                    // console.log( path );
                     this.checkIfSubsetOfResultContainsArray(
                       data1.body,
                       path,
@@ -91,7 +92,6 @@ export class GenerateDataChoosersService {
           openAppsInThisPage,
           queryTitle,
           queryId,
-          this.depth,
           []
         );
         return openAppsInThisPage;
@@ -123,11 +123,11 @@ export class GenerateDataChoosersService {
 
       }
       if ( path.length === 0 ) {
-        // console.log( 'Dont generate data choosers ');
+        this.generateQueryButtonInDataChooser( queryId, openAppsInThisPage, queryTitle );
         console.log( 'Push 2', path );
         openAppsInThisPage.dataChooser.model.push( {
           dataChooserEntries: [ 'showData' ],
-          title: 'Query: ' + queryTitle,
+          title: undefined,
           response: data.body,
           queryId: queryId,
           depth: 0,
@@ -144,67 +144,70 @@ export class GenerateDataChoosersService {
     openAppsInThisPage: any,
     queryTitle: string,
     queryId: string,
-    depth: number,
     pathWithArray: Array<string>
   ) {
-    for ( const key in response ) {
-      if (
-        response[ key ].length === 1 &&
-        typeof response[ key ] !== 'string' &&
-        !this.pathSet.has( {
-          key: key,
-          queryId: queryId
-        } )
-      ) {
-        pathWithArray = [];
-      }
-      if (
-        response[ key ].length > 1 &&
-        typeof response[ key ] !== 'string' &&
-        !this.pathSet.has( {
-          key: key,
-          queryId: queryId
-        } )
-      ) {
-        this.pathSet.add( {
-          key: key,
-          queryId: queryId
-        } );
-        depth += 1;
-        pathWithArray.push( key );
-        const clonedPath = Object.assign([], pathWithArray);
-        console.log( 'push 3', clonedPath );
-        openAppsInThisPage.dataChooser.model.push( {
-          dataChooserEntries: this.generateArrayFromLeafs.generateArrayFromLeafs(
-            response[ key ]
-          ),
-          title: 'Query: ' + queryTitle + ' Depth: ' + String(depth),
-          response: this.response,
-          queryId: queryId,
-          pathWithArray: clonedPath
-        } );
-        // console.log( pathWithArray );
-        pathWithArray.splice( pathWithArray.length - 1, 1 );
-      } else {
-        // console.log( typeof response[ key ] );
-        if ( typeof response[ key ] !== 'string' && typeof response[ key ] !== 'number' ) {
-          if ( depth = 0 ) {
-            pathWithArray = [];
-          }
-          if ( isNaN( +key ) ) {
-            pathWithArray.push( key );
-
-          }
+    // console.log(pathWithArray, response);
+    if (!response.length) {
+      for (const key in response) {
+        if (
+          response[ key ].length === 1 &&
+          typeof response[ key ] !== 'string'
+        ) {
+          pathWithArray = [];
+        }
+        if (typeof response[key] !== 'string' && typeof response[key] !== 'number') {
+          const clonedPath = Object.assign([], pathWithArray);
+          clonedPath.push(key);
+          // console.log(clonedPath);
           this.generateArrayKeyValueForEachArrayInResponse(
-            response[ key ],
+            response[key],
             openAppsInThisPage,
             queryTitle,
             queryId,
-            depth + 1,
-            pathWithArray
+            clonedPath
           );
         }
       }
+    } else {
+      this.generateArrayKeyValueForEachArrayInResponse(
+        response[0],
+        openAppsInThisPage,
+        queryTitle,
+        queryId,
+        pathWithArray
+      );
+      if (
+        response.length > 1 &&
+        typeof response !== 'string' &&
+        !this.pathSet.has(pathWithArray.toString() + queryId)
+      ) {
+        this.generateQueryButtonInDataChooser( queryId, openAppsInThisPage, queryTitle );
+        this.pathSet.add(pathWithArray.toString() + queryId);
+        const clonedPath = Object.assign([], pathWithArray);
+        console.log('push 4', clonedPath);
+        openAppsInThisPage.dataChooser.model.push({
+          dataChooserEntries: this.generateArrayFromLeafs.generateArrayFromLeafs(
+            response
+          ),
+          title: undefined,
+          response: this.response,
+          queryId: queryId,
+          pathWithArray: clonedPath
+        });
+      }
+    }
+  }
+
+  generateQueryButtonInDataChooser ( queryId: string, openAppsInThisPage: any, queryTitle: string ) {
+    if ( !this.firstTimeQueryIsPushed.has( queryId ) ) {
+      this.firstTimeQueryIsPushed.add( queryId );
+      openAppsInThisPage.dataChooser.model.push({
+        dataChooserEntries: undefined,
+        title: 'Query: ' + queryTitle,
+        response: undefined,
+        queryId: queryId,
+        pathWithArray: undefined
+      });
     }
   }
 }

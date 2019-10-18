@@ -122,13 +122,14 @@ export class DataAssignmentComponent implements OnChanges {
 
           const helpArray = [];
 
-          console.log( this.appInputQueryMapping[ appHash ][ inputName ].path, this.pathWithArray );
+          // console.log( this.appInputQueryMapping[ appHash ][ inputName ].path, this.pathWithArray, this.index );
 
           for ( let i = 0; i < this.appInputQueryMapping[ appHash ][ inputName ].path.length; i++ ) {
 
             if ( typeof this.appInputQueryMapping[ appHash ][ inputName ].path[ i ] !== 'number' ) {
 
-              if ( this.appInputQueryMapping[ appHash ][ inputName ].path[ i ] === this.pathWithArray[ i - difference ] ) {
+              if ( this.pathWithArray &&
+                this.appInputQueryMapping[ appHash ][ inputName ].path[ i ] === this.pathWithArray[ i - difference ] ) {
 
                 // console.log( this.pathWithArray[ i - difference ], i, difference, this.pathWithArray.length );
                 if ( i - difference  === this.pathWithArray.length - 1 && allTheSameSegments ) {
