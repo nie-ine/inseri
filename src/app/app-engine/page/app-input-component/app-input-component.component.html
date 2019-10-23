@@ -1,4 +1,32 @@
-<p>
-  app-input-component works!
-</p>
-<button mat-button (click)="onNoClick()" i18n="@@closeDialogButton">Close Dialog</button>
+<h4>
+  Assign files to app - Inputs
+</h4>
+
+<mat-chip-list *ngFor="let input of data.inputs">
+  <mat-chip  matTooltip='Click here to map the whole Response to this input'>
+    {{ input.inputName }}
+  </mat-chip>
+  <button mat-button [matMenuTriggerFor]="menu">Open File</button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="openExistingFileDialog( input.inputName )">Open file</button>
+    <button mat-menu-item (click)="input.createNewFile = true" >Create new file</button>
+    <button
+      mat-menu-item matTooltip='To assign the input to an app to a query, please open the Data Management' (click)="onNoClick( 'openDataMGMT' )">
+      Assign to query
+    </button>
+  </mat-menu>
+  <form class="example-form" *ngIf="input.createNewFile">
+    <mat-form-field class="example-full-width" >
+      <input matInput placeholder="File Title" [(ngModel)]="input.fileTitle" name="fileTitle">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" >
+      <input matInput placeholder="File Format" [(ngModel)]="input.fileFormat" name="fileFormat">
+    </mat-form-field>
+    <button mat-menu-item (click)="createNewQueryAsFile( input.fileTitle, input.fileFormat, input.inputName )" >Assign to new file</button>
+  </form>
+</mat-chip-list>
+
+
+
+<button mat-button (click)="onNoClick()" >Close Dialog</button>

@@ -115,7 +115,7 @@ export class DataAssignmentComponent implements OnChanges {
     for ( const appHash in this.appInputQueryMapping ) {
       for ( const inputName in this.appInputQueryMapping[ appHash ] ) {
 
-        if ( this.appInputQueryMapping[ appHash ][ inputName ].query === this.queryId ) {
+        if ( this.appInputQueryMapping[ appHash ][ inputName ].query === this.queryId && this.appInputQueryMapping[ appHash ][ inputName ].path ) {
 
           let difference = 0;
           let allTheSameSegments = true;

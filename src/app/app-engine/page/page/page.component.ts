@@ -662,13 +662,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * function where the relevant variables are updated
    * */
   receivePage( pageAndAction: any ) {
-    console.log( pageAndAction );
-    if (
-      pageAndAction[ 0 ].openApps[ 'appsTiledOrFloating' ] ) {
-      this.appFramePosition = pageAndAction[ 0 ].openApps[ 'appsTiledOrFloating' ].layout;
-    }
-    this.page = pageAndAction[ 0 ];
-    this.action = pageAndAction[ 1 ];
+    this.page = pageAndAction[0];
+    this.action = pageAndAction[1];
     this.reloadVariables = false;
     this.pageIsPublished = this.page.published;
     this.showAppTitlesOnPublish = this.page.showAppTitlesOnPublish;
@@ -892,21 +887,22 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   openAssignInputDialog( input: any ) {
-    console.log(
-      this.openAppsInThisPage[input.type].inputs,
-      input.hash,
-      'next: open input assign dialog'
-    );
     const dialogRef = this.dialog.open(AppInputComponentComponent, {
-      width: '30%',
-      height: '30%',
+      width: '50%',
+      height: '50%',
       data: {
         appHash: input.hash,
-        inputs: this.openAppsInThisPage[input.type].inputs
+        inputs: this.openAppsInThisPage[input.type].inputs,
+        page: this.page
       }
     });
     dialogRef.afterClosed().subscribe((result) => {
+      console.log( result );
+      if ( result === 'openDataMGMT' ) {
+        this.openDataManagement();
+      }
       console.log( 'after closed' );
+      this.reloadVariables = true;
     });
   }
 

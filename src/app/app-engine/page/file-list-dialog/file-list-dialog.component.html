@@ -1,0 +1,45 @@
+<button mat-button (click)="onNoClick()" >Close Dialog</button> <br>
+
+<mat-form-field>
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+</mat-form-field>
+
+
+<table mat-table [dataSource]="queries">
+
+  <ng-container matColumnDef="add">
+    <th mat-header-cell *matHeaderCellDef>Add</th>
+    <td mat-cell *matCellDef="let item">
+      <button mat-icon-button (click)="onNoClick(item)" ><mat-icon>add</mat-icon></button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="title">
+    <th mat-header-cell *matHeaderCellDef>Title</th>
+    <td mat-cell *matCellDef="let item">
+      <div>{{item.title}}</div>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="description">
+    <th mat-header-cell *matHeaderCellDef>Format</th>
+    <td mat-cell *matCellDef="let item">
+      <div>{{item.description}}</div>
+    </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="delete">
+    <th mat-header-cell *matHeaderCellDef>Delete</th>
+    <td mat-cell *matCellDef="let item">
+      <div *ngIf="!deletingQueries.includes(item._id)">
+        <button *ngIf="item.isBoundToPage === 'false'" mat-button (click)="deleteQuery(item)" mat-icon-button><mat-icon>delete</mat-icon></button>
+      </div>
+      <mat-spinner [diameter]="20" *ngIf="deletingQueries.includes(item._id)"></mat-spinner>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+</table>

@@ -182,7 +182,7 @@ export class Frame implements OnInit, OnChanges {
     this.sendCoordinatesBack.height = this.height;
     this.sendCoordinatesBack.fullWidth = this.fullWidth;
     this.sendCoordinatesBack.fullHeight = this.fullHeight;
-    console.log(this.sendCoordinatesBack);
+    // console.log(this.sendCoordinatesBack);
     this.sendAppCoordinatesBack.emit(
       this.sendCoordinatesBack
     );

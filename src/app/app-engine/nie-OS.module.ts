@@ -80,6 +80,7 @@ import { RaeberNavigationComponent } from './apps/raeber-navigation/raeber-navig
 import { PdfViewerComponent } from './apps/pdf-viewer/pdf-viewer.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { AppInputComponentComponent } from './page/app-input-component/app-input-component.component';
+import { FileListDialogComponent } from './page/file-list-dialog/file-list-dialog.component';
 
 @NgModule({
   imports: [
@@ -176,7 +177,8 @@ import { AppInputComponentComponent } from './page/app-input-component/app-input
     AngularHandsometableComponent,
     RaeberNavigationComponent,
     PdfViewerComponent,
-    AppInputComponentComponent
+    AppInputComponentComponent,
+    FileListDialogComponent
   ],
   exports: [
     PageComponent,
@@ -193,7 +195,8 @@ import { AppInputComponentComponent } from './page/app-input-component/app-input
     QueryInformationDialogComponent,
     DataListViewDetailsDialogComponent,
     DataChooserComponent,
-    AppInputComponentComponent
+    AppInputComponentComponent,
+    FileListDialogComponent
   ]
 })
 export class NIEOSModule { }

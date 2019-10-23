@@ -105,6 +105,7 @@ router.get('/:id/queries', checkAuth, (req, res, next) => {
 });
 
 router.post('/:id/queries', checkAuth, (req, res, next) => {
+    console.log(req.body);
     let messages = [];
     // Tests if title is undefined, null or is empty string
     if (!Boolean(req.body.title)) messages.push('Your title is invalid!');
@@ -167,6 +168,56 @@ router.post('/:id/queries', checkAuth, (req, res, next) => {
                 error: error
             })
         });
+});
+
+router.put('/:id/addExistingQueryToPage', checkAuth, (req, res, next) => {
+  console.log( req.body );
+  let messages = [];
+  // Tests if title is undefined, null or is empty string
+  if (!Boolean(req.body.title)) messages.push('Your title is invalid!');
+
+  // Tests if server url is undefined, null or is empty string
+  // if (!Boolean(req.body.serverUrl)) messages.push('Your server URL is invalid!');
+
+  // Attaches error messages to the response
+  if (messages.length > 0) return res.status(400).json({messages: messages});
+
+  Page.findById(req.params.id)
+    .then(pageResult => {
+
+      // Checks if page ID is valid
+      if (!pageResult) {
+        return res.status(404).json({
+          message: 'Page ID is not valid'
+        })
+      }
+
+        Page.update({_id: pageResult._id}, { $push: { queries: req.body._id } })
+          .then(updatedPage => {
+            if (updatedPage.n > 0) {
+              res.status(201).json({
+                message: 'Query in page was created successfully',
+                query: updatedPage
+              });
+            } else {
+              res.status(400).json({
+                message: 'Query cannot be created'
+              })
+                .catch(error => {
+                  res.status(500).json({
+                    message: 'Fetching page failed',
+                    error: error
+                  })
+                });
+            }
+          });
+    })
+      .catch(error => {
+        res.status(500).json({
+          message: 'Fetching page failed',
+          error: error
+        })
+      });
 });
 
 router.put('/:pageID/queries/:queryID', checkAuth, (req, res, next) => {
