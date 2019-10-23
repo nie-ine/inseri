@@ -124,7 +124,7 @@ export class GenerateDataChoosersService {
       }
       if ( path.length === 0 ) {
         this.generateQueryButtonInDataChooser( queryId, openAppsInThisPage, queryTitle );
-        console.log( 'Push 2', path );
+        // console.log( 'Push 2', path );
         openAppsInThisPage.dataChooser.model.push( {
           dataChooserEntries: [ 'showData' ],
           title: undefined,

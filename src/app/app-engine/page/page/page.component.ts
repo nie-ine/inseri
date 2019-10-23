@@ -887,6 +887,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   openAssignInputDialog( input: any ) {
+    console.log( input, this.openAppsInThisPage );
     const dialogRef = this.dialog.open(AppInputComponentComponent, {
       width: '50%',
       height: '50%',
@@ -904,6 +905,11 @@ export class PageComponent implements OnInit, AfterViewChecked {
       console.log( 'after closed' );
       this.reloadVariables = true;
     });
+  }
+
+  reloadVariablesFunction() {
+    console.log('test');
+    this.reloadVariables = true;
   }
 
 }

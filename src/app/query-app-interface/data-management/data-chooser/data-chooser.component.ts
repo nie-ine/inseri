@@ -105,7 +105,7 @@ export class DataChooserComponent implements AfterViewChecked {
       depth: this.depth,
       pathWithArray: this.pathWithArray
     } );
-    if ( this.pathWithArray ) {
+    if ( this.pathWithArray && index !== 0 ) {
       this._router.navigate([], {
         queryParams: {
           [this.queryId + this.pathWithArray.toString() ]: index

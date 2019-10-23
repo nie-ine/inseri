@@ -404,7 +404,12 @@ export class OpenAppsModel {
       model: [],
       materialIcon: 'format_size',
       initialWidth: '700',
-      initialHeight: '400'
+      initialHeight: '400',
+      inputs: [
+        {
+          'inputName': 'textFile'
+        }
+      ],
     },
     spreadSheet: {
       type: 'spreadSheet',

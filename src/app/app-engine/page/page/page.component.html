@@ -467,10 +467,9 @@
 
             <app-prime-editor
               *ngIf="appType === 'primeEditor'"
-              [text]="openAppsInThisPage[ 'primeEditor' ].model[i]['text']"
-              (sendTextBack) = "updateTextOnApp( $event )"
-              [hash]="openAppsInThisPage[ 'primeEditor' ].model[i].hash"
-              [type]="openAppsInThisPage[ 'primeEditor' ].type">
+              [textFile]="openAppsInThisPage[ 'primeEditor' ].model[i]['textFile']"
+              [serverUrl]="page.appInputQueryMapping[ openAppsInThisPage[ appType ].model[i].hash ]"
+              (reloadVariables)="reloadVariablesFunction()">
 
             </app-prime-editor>
 

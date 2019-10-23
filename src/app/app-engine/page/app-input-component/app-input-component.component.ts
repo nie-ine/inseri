@@ -38,14 +38,15 @@ export class AppInputComponentComponent {
           const query = data.body.query;
           query.description = description;
           query.method = 'JSON';
-          this.updatePage( query, inputName );
           this.requestService.createJson()
             .subscribe(data3 => {
               query.serverUrl = environment.node + '/api/myOwnJson/getJson/' + String((data3 as any).result._id);
+              this.updatePage( query, inputName, query.serverUrl );
               this.queryService.updateQuery(query._id, query)
                 .subscribe((data1) => {
                   if (data1.status === 200) {
                     console.log( data1 );
+                    this.onNoClick();
                   } else {
                     console.log('Updating query failed');
                   }
@@ -56,10 +57,11 @@ export class AppInputComponentComponent {
       });
   }
 
-  updatePage( query: any, inputName: string ) {
+  updatePage( query: any, inputName: string, serverUrl: string ) {
     this.data.page.appInputQueryMapping[ this.data.appHash ] = {};
     this.data.page.appInputQueryMapping[ this.data.appHash ][ inputName ] = {};
     this.data.page.appInputQueryMapping[ this.data.appHash ][ inputName ][ 'path' ] = [ 'result', 'content', 'info' ];
+    this.data.page.appInputQueryMapping[ this.data.appHash ][ inputName ][ 'serverUrl' ] = serverUrl;
     this.data.page.appInputQueryMapping[ this.data.appHash ][ inputName ][ 'query' ] = query._id;
     this.data.page.queries.push( query._id );
     this.pageService.updatePage(this.data.page)
@@ -84,7 +86,7 @@ export class AppInputComponentComponent {
         .subscribe(
           data => {
             console.log(data);
-            this.updatePage( result, inputName );
+            this.updatePage( result, inputName, result.serverUrl );
           },
           error => {
             console.log(error);
