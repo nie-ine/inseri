@@ -18,13 +18,14 @@
           placeholder="Email" >
         <p class="help-block text-danger"></p>
         <input
+          #box
           style="width: 400px; margin-left: auto; margin-right: auto;"
           *ngIf="!forgotPassword"
           [(ngModel)]="password"
           name="password"
           type="password"
           class="form-control"
-          placeholder="Password" >
+          placeholder="Password" (keyup.enter)="onKey()">
         <p class="help-block text-danger"></p>
         <h6 *ngIf="loginError" style="color: #b05f56" class="section-subheading text-muted">Username oder Passwort ist falsch!</h6>
         <span

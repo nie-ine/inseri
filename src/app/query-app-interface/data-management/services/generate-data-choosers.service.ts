@@ -146,56 +146,63 @@ export class GenerateDataChoosersService {
     queryId: string,
     pathWithArray: Array<string>
   ) {
-    // console.log(pathWithArray, response);
-    if (!response.length) {
-      for (const key in response) {
-        if (
-          response[ key ].length === 1 &&
-          typeof response[ key ] !== 'string'
-        ) {
-          pathWithArray = [];
+    if ( response && response !== null ) {
+      console.log(pathWithArray, response);
+      if (!response.length) {
+        for (const key in response) {
+          if (
+            response[ key ] && response[ key ].length === 1 &&
+            typeof response[ key ] !== 'string'
+          ) {
+            pathWithArray = [];
+          }
+          if (typeof response[key] !== 'string' && typeof response[key] !== 'number') {
+            const clonedPath = Object.assign([], pathWithArray);
+            clonedPath.push(key);
+            // console.log(clonedPath);
+            this.generateArrayKeyValueForEachArrayInResponse(
+              response[key],
+              openAppsInThisPage,
+              queryTitle,
+              queryId,
+              clonedPath
+            );
+          }
         }
-        if (typeof response[key] !== 'string' && typeof response[key] !== 'number') {
-          const clonedPath = Object.assign([], pathWithArray);
-          clonedPath.push(key);
-          // console.log(clonedPath);
+      } else {
+        if ( typeof response !== 'string' ) {
           this.generateArrayKeyValueForEachArrayInResponse(
-            response[key],
+            response[0],
             openAppsInThisPage,
             queryTitle,
             queryId,
-            clonedPath
+            pathWithArray
           );
+        } else {
+          console.log( response );
+        }
+        if (
+          response.length > 1 &&
+          typeof response !== 'string' &&
+          !this.pathSet.has(pathWithArray.toString() + queryId)
+        ) {
+          this.generateQueryButtonInDataChooser( queryId, openAppsInThisPage, queryTitle );
+          this.pathSet.add(pathWithArray.toString() + queryId);
+          const clonedPath = Object.assign([], pathWithArray);
+          console.log('push 4', clonedPath);
+          openAppsInThisPage.dataChooser.model.push({
+            dataChooserEntries: this.generateArrayFromLeafs.generateArrayFromLeafs(
+              response
+            ),
+            title: undefined,
+            response: this.response,
+            queryId: queryId,
+            pathWithArray: clonedPath
+          });
         }
       }
-    } else {
-      this.generateArrayKeyValueForEachArrayInResponse(
-        response[0],
-        openAppsInThisPage,
-        queryTitle,
-        queryId,
-        pathWithArray
-      );
-      if (
-        response.length > 1 &&
-        typeof response !== 'string' &&
-        !this.pathSet.has(pathWithArray.toString() + queryId)
-      ) {
-        this.generateQueryButtonInDataChooser( queryId, openAppsInThisPage, queryTitle );
-        this.pathSet.add(pathWithArray.toString() + queryId);
-        const clonedPath = Object.assign([], pathWithArray);
-        console.log('push 4', clonedPath);
-        openAppsInThisPage.dataChooser.model.push({
-          dataChooserEntries: this.generateArrayFromLeafs.generateArrayFromLeafs(
-            response
-          ),
-          title: undefined,
-          response: this.response,
-          queryId: queryId,
-          pathWithArray: clonedPath
-        });
-      }
     }
+
   }
 
   generateQueryButtonInDataChooser ( queryId: string, openAppsInThisPage: any, queryTitle: string ) {

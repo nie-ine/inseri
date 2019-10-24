@@ -404,7 +404,7 @@ export class OpenAppsModel {
       model: [],
       materialIcon: 'format_size',
       initialWidth: '700',
-      initialHeight: '400',
+      initialHeight: '500',
       inputs: [
         {
           'inputName': 'textFile'
