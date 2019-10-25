@@ -1,6 +1,5 @@
-<div class="popup" *ngIf="show"  >
 
-  <div class="popup-win"
+  <mat-card class="popup-win" *ngIf="show"
        [ngStyle]="{
        'top': fullHeight ? '0' : curY + 'px',
        'left': fullWidth ? '0' : curX + 'px',
@@ -11,20 +10,51 @@
        'margin-top': fullHeight ? '70px' : '',
        'margin-left': fullWidth ? '70px' : ''
        }">
-    <div class="popup-title-bar popup-drag" (mousedown)="mousedown($event)" *ngIf="!preview" (mousedown)="setNewZIndex()">
-      <span style=" margin-right: 20px; color: blue; cursor: pointer;" (click)="assignInput()" *ngIf="!preview && showAppSettingsOnPublish" >&#x27BD;</span>
-      <span style=" margin-right: 20px; color: blue; cursor: pointer;" (click)="disappear()" *ngIf="!preview && showAppSettingsOnPublish" >-</span>
-        {{title}}
-      <span style=" margin-left: 20px; color: blue; cursor: pointer;" (click)="openSettings()" *ngIf="!preview && showAppSettingsOnPublish">*</span>
-    </div>
+<!--    <div class="popup-title-bar popup-drag"  *ngIf="!preview" (mousedown)="setNewZIndex()">-->
+<!--      <span style=" margin-right: 20px; color: blue; cursor: pointer;" (click)="assignInput()" *ngIf="!preview && showAppSettingsOnPublish" >&#x27BD;</span>-->
+<!--      <span style=" margin-right: 20px; color: blue; cursor: pointer;" (click)="disappear()" *ngIf="!preview && showAppSettingsOnPublish" >-</span>-->
+<!--        {{title}}-->
+<!--      <span style=" margin-left: 20px; color: blue; cursor: pointer;" (click)="openSettings()" *ngIf="!preview && showAppSettingsOnPublish">*</span>-->
+<!--    </div>-->
 
-    <div class="popup-content" (mousedown)="setNewZIndex()">
-      <ng-content></ng-content>
-    </div>
 
-  </div>
 <!--  <div class="popup-overlay blur-in" [ngStyle]="{'z-index': curZIndex - 1}" (click)="disappear()">
   </div>-->
-</div>
 
 
+        <mat-card-header class="popup-title-bar popup-drag" (mousedown)="mousedown($event)" *ngIf="!preview" (mousedown)="setNewZIndex()">
+
+          <button mat-button [matMenuTriggerFor]="menu" >
+            {{ title }}
+          </button>
+          <mat-menu #menu="matMenu">
+
+            <button mat-menu-item (click)="openSettings()" >
+              Change Title and size
+            </button>
+
+            <button mat-menu-item (click)="assignInput()" >
+              Open File
+            </button>
+
+            <button mat-menu-item (click)="disappear()" >
+              Minimize
+            </button>
+
+          </mat-menu>
+
+
+
+          <button mat-button><mat-icon>chevron_left</mat-icon></button>
+
+          <button mat-button><mat-icon>chevron_right</mat-icon></button>
+
+        </mat-card-header>
+
+        <mat-card-content class="popup-content" (mousedown)="setNewZIndex()">
+
+            <ng-content></ng-content>
+
+        </mat-card-content>
+
+      </mat-card>

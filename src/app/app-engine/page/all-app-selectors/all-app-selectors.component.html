@@ -1,0 +1,213 @@
+
+
+<app-textlist-viewer style="position: sticky;" *ngIf="app.type === 'textlistViewers'"
+                     [textToDisplay]="app.textlist">
+</app-textlist-viewer>
+
+
+<app-home *ngIf="app.type === 'login'" >
+
+</app-home>
+
+
+<app-image-with-overlay style="position: sticky;" *ngIf=" app.type === 'imageViewer'"
+                        [iiifImagePath]="app.fileValueAsUrl"
+                        [maxImageWidth]="app.stillImageFileValueHasDimX"
+                        [maxImageHeight]="app.stillImageFileValueHasDimY"
+                        [(hoveredRegion)]="hoveredElement">
+</app-image-with-overlay>
+
+
+<app-simple-image-app style="position: sticky;" *ngIf="app.type === 'simpleImageApp'"
+                      [imageURL]="app.imageURL">
+
+</app-simple-image-app>
+
+
+<app-html-viewer class="draggable" style="position: sticky;" *ngIf=" app.type === 'htmlViewer'"
+                 [htmlContent]="app.htmlContent"
+                 [selectiveStyleDeclarations]="app.selectiveStyleDeclarations"
+                 [styleDeclarations]="app.styleDeclarations">
+</app-html-viewer>
+
+
+<app-synopsis style="position: sticky;" *ngIf="app.type === 'synopsisViewer'" >
+
+</app-synopsis>
+
+<app-resource-form-v2 *ngIf="app.type === 'knoraV2viewer'"
+                      [backendAddress]="app.backendAddress"
+                      [resourceIRI]="app.resourceIRI"
+                      [queryParamForResourceIRI]="app.queryParamForResourceIRI"
+                      [hoverColor]="app.hoverColor"
+                      [maxDepth]="app.maxDepth"
+                      [(hoveredResource)]="hoveredElement">
+</app-resource-form-v2>
+
+<app-youtube-video *ngIf=" app.type === 'youtubeVideo'"
+                   [videoURL]="app.videoURL">
+
+</app-youtube-video>
+
+
+<app-parzival-fassung style="position: sticky;" *ngIf="app.type === 'parzivalFassung'"
+                      [textJson]="app.textJson">
+</app-parzival-fassung>
+
+
+<app-p0041-edition style="position: sticky;" *ngIf="app.type === 'avpEditionView'"
+                   [backendAddress]="app.backendAddress">
+</app-p0041-edition>
+
+
+<app-openbis-login *ngIf="app.type === 'openbisLogin'" >
+
+</app-openbis-login>
+
+
+<app-text-svg-view-wrapper style="position: sticky;" *ngIf="app.type === 'svgTranscription' "
+                           [pageTree]="app.pageTree"
+                           [imageUrl]="app.imageUrl"
+                           [width]="app.imageWidth"
+                           [height]="app.imageHeight"
+                           [(hoveredWord)]="hoveredElement">
+</app-text-svg-view-wrapper>
+
+
+<response-tree style="position: sticky;" *ngIf="app.type === 'jsonViewer'"
+               [queryResponse]="app.json">
+</response-tree>
+
+
+<app-navigation-tree *ngIf="app.type === 'treeNavigation'"
+                     [queryResponse]="app.json">
+
+</app-navigation-tree>
+
+
+<app-hierarchical-navigation-view *ngIf="app.type === 'hierarchicalNavigationView'"
+                                  [backendAddress]="app.backendAddress"
+                                  [navigationRootIri]="app.navigationRootIri"
+                                  [navigationConfiguration]="app.navigationConfiguration">
+</app-hierarchical-navigation-view>
+
+
+<data-list-view style="position: sticky;" *ngIf="app.type === 'dataListView'"
+                [queryResponse]="app.json"
+                [dataListSettings]="app.settings">
+</data-list-view>
+
+
+<app-bar-chart *ngIf=" app.type === 'barCharts' "
+               [initialised] = "app.initialized"
+               [numberOfInitialisedComponent] = " i " >
+
+</app-bar-chart>
+
+
+<app-spiral-bar-chart *ngIf=" app.type === 'spiralBarCharts' "
+                      [initialised] = "app.initialized"
+                      [numberOfInitialisedComponent] = " i " >
+
+</app-spiral-bar-chart>
+
+
+<app-multi-line-chart *ngIf="app.type === 'lineCharts'"
+                      [initialised] = "app.initialized"
+                      [numberOfInitialisedComponent] = " i " >
+
+</app-multi-line-chart>
+
+
+<app-brush-and-zoom *ngIf="app.type === 'brushZoomCharts'"
+                    [initialised] = "app.initialized"
+                    [numberOfInitialisedComponent] = " i " >
+
+</app-brush-and-zoom>
+
+
+<app-leaflet-example *ngIf=" app.type === 'leafletMaps' "
+                     [initialised] = "app.initialized"
+                     [numberOfInitialisedComponent] = " i " >
+
+</app-leaflet-example>
+
+
+<app-pie-chart *ngIf=" app.type === 'pieCharts' "
+               [initialised] = "app.initialized"
+               [numberOfInitialisedComponent] = " i " >
+</app-pie-chart>
+
+
+<app-radial-barchart *ngIf=" app.type === 'radialBarCharts' "
+                     [initialised] = "app.initialized"
+                     [numberOfInitialisedComponent] = " i " >
+</app-radial-barchart>
+
+
+<app-sankey *ngIf=" app.type === 'sankeyCharts' "
+            [initialised] = "app.initialized"
+            [numberOfInitialisedComponent] = " i " >
+</app-sankey>
+
+
+<app-stacked-bar-chart *ngIf="app.type ===  'stackedBarCharts' "
+                       [initialised] = "app.initialized"
+                       [numberOfInitialisedComponent] = " i " >
+</app-stacked-bar-chart>
+
+
+<app-chord-diagram *ngIf="app.type === 'chordDiagrams'"
+                   [initialised] = "app.initialized"
+                   [numberOfInitialisedComponent] = " i " >
+</app-chord-diagram>
+
+<app-joined-text-view *ngIf="app.type === 'joinedTextView'"
+                      [backendAddress]="app.backendAddress"
+                      [textRootIri]="app.textRootIri"
+                      [queryParamForTextRootIri]="app['queryParamForTextRootIri']"
+                      [textConfiguration]="app.textConfiguration"
+                      [styleDeclarations]="app.styleDeclarations"
+                      [selectiveStyleDeclarations]="app.selectiveStyleDeclarations"
+                      [(hoveredResource)]="hoveredElement">
+</app-joined-text-view>
+
+<app-iframe *ngIf="app.type === 'sparqlVisualizer'"
+            [url]="environment.sparqlVisualizer">
+</app-iframe>
+
+<app-iframe *ngIf="app.type === 'raeber'"
+            [url]="environment.raeber">
+</app-iframe>
+
+<app-iframe *ngIf="app.type === 'salsah2'"
+            [url]="environment.salsah2">
+
+</app-iframe>
+
+<app-prime-editor
+  *ngIf="app.type === 'primeEditor'"
+  [textFile]="app.textFile"
+  [serverUrl]="app.serverUrl"
+  (reloadVariables)="reloadVariablesFunction()">
+
+</app-prime-editor>
+
+<app-angular-handsometable *ngIf="app.type === 'spreadSheet'">
+
+</app-angular-handsometable>
+
+<app-raeber-navigation
+  *ngIf="app.type === 'urlUpdate'"
+  [actionID]="actionID"
+  [pageId]="pageIDFromURL">
+
+</app-raeber-navigation>
+
+<app-pdf-viewer
+  *ngIf="app.type === 'pdfViewer'"
+  [source]="app.source"
+  [page]="app.page"
+  [pdfLength]="app.pdfLength">
+
+</app-pdf-viewer>

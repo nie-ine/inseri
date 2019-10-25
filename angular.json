@@ -31,7 +31,8 @@
               "node_modules/quill/dist/quill.core.css",
               "node_modules/quill/dist/quill.snow.css",
               "node_modules/ag-grid/dist/styles/ag-grid.css",
-              "node_modules/ag-grid/dist/styles/ag-theme-balham.css"
+              "node_modules/ag-grid/dist/styles/ag-theme-balham.css",
+              "node_modules/primeflex/primeflex.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
@@ -116,7 +117,8 @@
               "../node_modules/quill/dist/quill.core.css",
               "../node_modules/quill/dist/quill.snow.css",
               "node_modules/ag-grid/dist/styles/ag-grid.css",
-              "node_modules/ag-grid/dist/styles/ag-theme-balham.css"
+              "node_modules/ag-grid/dist/styles/ag-theme-balham.css",
+              "node_modules/primeflex/primeflex.css"
             ],
             "assets": [
               "src/assets",

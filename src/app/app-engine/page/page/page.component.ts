@@ -3,7 +3,7 @@
  * Data for the apps are loaded with the help of the load-variables component.
  * */
 
-import {AfterViewChecked, ChangeDetectorRef, Component, NgModule, OnInit, VERSION, ViewChild} from '@angular/core';
+import {AfterViewChecked, ChangeDetectorRef, Component, HostListener, NgModule, OnInit, VERSION, ViewChild} from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
 import 'rxjs/add/operator/map';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -29,6 +29,7 @@ import {QueryService} from '../../../user-action-engine/mongodb/query/query.serv
 import { environment } from '../../../../environments/environment';
 import {DialogCreateNewPageComponent} from '../../../user-action-engine/page-set/page-set-landing-page/page-set-landing-page.component';
 import {AppInputComponentComponent} from '../app-input-component/app-input-component.component';
+import {AddAppGroupDialogComponent} from '../add-app-group-dialog/add-app-group-dialog.component';
 
 @Component({
   selector: 'nie-os',
@@ -210,6 +211,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
   showAppSettingsOnPublish = false;
   showDataBrowserOnPublish = true;
 
+  openAppArray = [];
+
   /**
    * Described if publish option expansion panel is open
    * */
@@ -237,6 +240,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
   pathWithArray: Array<string>;
 
   querySet = new Set();
+
+  innerWidth: number;
 
   constructor(
     public route: ActivatedRoute,
@@ -353,6 +358,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   ngOnInit() {
 
+    this.innerWidth = window.innerWidth;
+
     /**
      * Checks how much longer user is logged on
      * */
@@ -389,7 +396,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
       this.preview = false;
       this.openAppsInThisPage[ 'login' ].model[ 0 ].initialized = true;
       this.openAppsInThisPage[ 'login' ].model[ 0 ].x = 150;
-      this.openAppsInThisPage[ 'login' ].model[ 0 ].y = 130;
+      this.openAppsInThisPage[ 'login' ].model[ 0 ].y = 90;
+      this.openAppArray.push( this.openAppsInThisPage[ 'login' ].model[ 0 ] );
     }
 
     this.actionID = this.route.snapshot.queryParams.actionID;
@@ -672,6 +680,19 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.showDataBrowserOnPublish = this.page.showDataBrowserOnPublish;
   }
 
+  generateOpenApps( openApps: any ) {
+    this.openAppArray = [];
+    for ( const appType in openApps ) {
+      for ( const app of openApps[ appType ].model ) {
+        // console.log( app );
+        if ( app.x ) {
+          this.openAppArray.push(app);
+        }
+      }
+    }
+    console.log( this.openAppArray );
+  }
+
   /**
    * The load-variables.component emits the openApps - information loaded from mongodb to this
    * function where the relevant variables are updated
@@ -679,6 +700,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   receiveOpenAppsInThisPage( openAppsInThisPage: any ) {
     this.openAppsInThisPage = openAppsInThisPage;
     this.reloadVariables = false;
+    this.generateOpenApps( openAppsInThisPage );
   }
 
   /**
@@ -910,6 +932,30 @@ export class PageComponent implements OnInit, AfterViewChecked {
   reloadVariablesFunction() {
     console.log('test');
     this.reloadVariables = true;
+  }
+
+  addAppGroup() {
+    console.log( 'Add app group' );
+    const dialogRef = this.dialog.open(AddAppGroupDialogComponent, {
+      width: '50%',
+      height: '50%',
+      data: {
+        openAppsInThisPage: this.openAppsInThisPage,
+        appTypes: this.appTypes
+      }
+    });
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.innerWidth = window.innerWidth;
+    // console.log( this.innerWidth );
+  }
+
+  switchAppTilePosition( currentPosition: number, nextPosition: number ) {
+    const helpVariable = this.openAppArray[currentPosition];
+    this.openAppArray[ currentPosition ] = this.openAppArray[ nextPosition ];
+    this.openAppArray[ nextPosition ] = helpVariable;
   }
 
 }

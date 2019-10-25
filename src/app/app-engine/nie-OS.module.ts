@@ -81,6 +81,8 @@ import { PdfViewerComponent } from './apps/pdf-viewer/pdf-viewer.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { AppInputComponentComponent } from './page/app-input-component/app-input-component.component';
 import { FileListDialogComponent } from './page/file-list-dialog/file-list-dialog.component';
+import { AddAppGroupDialogComponent } from './page/add-app-group-dialog/add-app-group-dialog.component';
+import { AllAppSelectorsComponent } from './page/all-app-selectors/all-app-selectors.component';
 
 @NgModule({
   imports: [
@@ -178,12 +180,15 @@ import { FileListDialogComponent } from './page/file-list-dialog/file-list-dialo
     RaeberNavigationComponent,
     PdfViewerComponent,
     AppInputComponentComponent,
-    FileListDialogComponent
+    FileListDialogComponent,
+    AddAppGroupDialogComponent,
+    AllAppSelectorsComponent
   ],
   exports: [
     PageComponent,
     MatSidenavModule,
-    GrapesjsComponent
+    GrapesjsComponent,
+    AllAppSelectorsComponent
   ],
   entryComponents: [
     DataManagementComponent,
@@ -196,7 +201,8 @@ import { FileListDialogComponent } from './page/file-list-dialog/file-list-dialo
     DataListViewDetailsDialogComponent,
     DataChooserComponent,
     AppInputComponentComponent,
-    FileListDialogComponent
+    FileListDialogComponent,
+    AddAppGroupDialogComponent
   ]
 })
 export class NIEOSModule { }
