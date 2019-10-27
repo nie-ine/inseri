@@ -147,7 +147,7 @@ export class GenerateDataChoosersService {
     pathWithArray: Array<string>
   ) {
     if ( response && response !== null ) {
-      console.log(pathWithArray, response);
+      // console.log(pathWithArray, response);
       if (!response.length) {
         for (const key in response) {
           if (

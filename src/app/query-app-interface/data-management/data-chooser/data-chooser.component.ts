@@ -56,6 +56,8 @@ export class DataChooserComponent implements AfterViewChecked {
 
   @Input() pathWithArray;
 
+  @Input() page: any;
+
   /**
    * This output emits the index chosen by the user
    * */
@@ -103,7 +105,8 @@ export class DataChooserComponent implements AfterViewChecked {
       response: this.response,
       queryId: this.queryId,
       depth: this.depth,
-      pathWithArray: this.pathWithArray
+      pathWithArray: this.pathWithArray,
+      dataChooserEntries: this.dataChooserEntries
     } );
     if ( this.pathWithArray && index !== 0 ) {
       this._router.navigate([], {

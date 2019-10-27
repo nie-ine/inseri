@@ -19,6 +19,7 @@ import {
 import 'rxjs/add/operator/map';
 import {MatDialog} from '@angular/material';
 import { FrameSettingsComponent } from '../frame-settings/frame-settings.component';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'popup',
@@ -62,11 +63,14 @@ export class Frame implements OnInit, OnChanges {
   /**
    * @param position - "static" if the option "sort by appType" is chosen, "absolute" otherwise
    * */
+  @Input()pathsWithArrays: any;
   @Input() position = 'absolute';
   @Input() fullWidth: boolean;
   @Input() fullHeight: boolean;
   @Input() preview = false;
   @Input() showAppSettingsOnPublish = true;
+  @Input() page: any;
+  @Input() response: any;
   @Output() sendAppCoordinatesBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendAppSettingsBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendIndexBack: EventEmitter<any> = new EventEmitter<any>();
@@ -89,11 +93,17 @@ export class Frame implements OnInit, OnChanges {
   fatherPopup: any;
   sendCoordinatesBack: any;
   isMouseBtnOnPress: boolean;
+  paths: any;
+  index: number;
+  pathWithArray: Array<any>;
+  queryId: string;
+  dataChooserEntries: Array<string>;
 
   constructor(
     private elementRef: ElementRef,
     private renderer: Renderer2,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private _router: Router
   ) {
     this.mouseup = this.unboundMouseup.bind(this);
     this.dragging = this.unboundDragging.bind(this);
@@ -104,8 +114,51 @@ export class Frame implements OnInit, OnChanges {
    * for example updated App - Settings or updated App - Title
    * */
   ngOnChanges() {
-    // console.log('changes');
-    // console.log( this.preview, this.showAppSettingsOnPublish );
+    this.paths = [];
+    for ( const queryId in this.pathsWithArrays ) {
+      for ( const path in this.pathsWithArrays[ queryId ] ) {
+        this.paths.push(
+          {
+            queryId: queryId,
+            path: path.split(','),
+            index: this.pathsWithArrays[ queryId ][ path ].index
+          }
+        );
+        this.index = this.pathsWithArrays[ queryId ][ path ].index;
+        this.pathWithArray = path.split(',');
+        this.queryId = queryId;
+        this.dataChooserEntries = this.pathsWithArrays[ queryId ][ path ].dataChooserEntries;
+        console.log( this.dataChooserEntries  );
+      }
+    }
+    // console.log( this.paths );
+  }
+
+  moveBack() {
+    this.index -= 1;
+    this.chooseResource( this.index );
+  }
+
+  moveForward() {
+    this.index += 1;
+    this.chooseResource( this.index );
+  }
+
+  chooseResource(index: number) {
+    this.index = index;
+    if ( this.pathWithArray && index !== 0 ) {
+      this._router.navigate([], {
+        queryParams: {
+          [this.queryId + this.pathWithArray.toString() ]: index
+        },
+        queryParamsHandling: 'merge'
+      });
+    }
+  }
+
+  stopPropagation(event){
+    event.stopPropagation();
+    // console.log("Clicked!");
   }
 
   /**

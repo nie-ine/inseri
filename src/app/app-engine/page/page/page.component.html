@@ -219,6 +219,7 @@
             {{ openAppsInThisPage[ 'dataChooser' ].model[i].title }}
           </button>
           <app-data-chooser
+            [page]="page"
             [response]="openAppsInThisPage[ 'dataChooser' ].model[i].response"
             [queryId] = "openAppsInThisPage[ 'dataChooser' ].model[i].queryId"
             [openAppsInThisPage] = "openAppsInThisPage"
@@ -243,6 +244,7 @@
           </mat-menu>
         </div>
         <popup #appId *ngIf="innerWidth > 1000"
+               [pathsWithArrays]="app.pathsWithArrays"
                [showAppSettingsOnPublish]="!preview || showAppSettingsOnPublish"
                [preview]="preview && !showAppTitlesOnPublish"
                [fullWidth]="app.fullWidth"

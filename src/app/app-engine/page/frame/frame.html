@@ -45,9 +45,28 @@
 
 
 
-          <button mat-button><mat-icon>chevron_left</mat-icon></button>
+          <button mat-button *ngIf="pathsWithArrays" (click)="moveBack()"><mat-icon>chevron_left</mat-icon></button>
 
-          <button mat-button><mat-icon>chevron_right</mat-icon></button>
+          <button mat-button *ngIf="pathsWithArrays" [matMenuTriggerFor]="menu">{{index}}</button>
+
+          <mat-menu #menu="matMenu">
+            <div mat-menu-item [disableRipple]="true" (click)="$event.stopPropagation()">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Go to Number" value="index" [(ngModel)]="index" (keyup.enter)=chooseResource(index)>
+              </mat-form-field>
+            </div>
+            <button
+              mat-menu-item
+              matTooltip="{{entry}}"
+              [matTooltipPosition]="'left'"
+              *ngFor="let entry of dataChooserEntries;
+              let i = index;"
+              (click)="chooseResource(i)">
+              {{ entry }}
+            </button>
+          </mat-menu>
+
+          <button mat-button *ngIf="pathsWithArrays" (click)="moveForward()"><mat-icon>chevron_right</mat-icon></button>
 
         </mat-card-header>
 

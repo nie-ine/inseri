@@ -678,6 +678,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.showAppSettingsOnPublish = this.page.showAppSettingsOnPublish;
     this.showInseriLogoOnPublish = this.page.showInseriLogoOnPublish;
     this.showDataBrowserOnPublish = this.page.showDataBrowserOnPublish;
+    console.log( this.page );
   }
 
   generateOpenApps( openApps: any ) {
@@ -708,12 +709,41 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * after the user chooses a data entry and triggers the data assignment component
    * */
   updateMainResourceIndex( input: any ) {
-    // console.log( input );
     this.index = input.index;
     this.response = input.response;
     this.queryId = input.queryId;
     this.depth = input.depth;
     this.pathWithArray = input.pathWithArray;
+    if (  this.pathWithArray && this.pathWithArray.length > 0 ) {
+      for ( const app of this.openAppArray ) {
+        for ( const appInput in this.page.appInputQueryMapping[ app.hash ] ) {
+          if ( this.page.appInputQueryMapping[ app.hash ][ appInput ].query === this.queryId ) {
+            let allSegmentsTheSame = true;
+            for ( let i = 0; i < this.pathWithArray.length; i++ ) {
+              if ( this.pathWithArray[ i ] !== this.page.appInputQueryMapping[ app.hash ][ appInput ].path[ i ] ) {
+                allSegmentsTheSame = false;
+              }
+              if ( i === this.pathWithArray.length - 1 && allSegmentsTheSame ) {
+                if ( !app[ 'pathsWithArrays' ] ) {
+                  app[ 'pathsWithArrays' ] = {};
+                }
+                if ( !app[ 'pathsWithArrays' ][ this.queryId ] ) {
+                  app[ 'pathsWithArrays' ][ this.queryId ] = {};
+                }
+                if ( !app[ 'pathsWithArrays' ][ this.queryId ][ this.pathWithArray.toString() ] ) {
+                  app[ 'pathsWithArrays' ][ this.queryId ][ this.pathWithArray.toString() ] = {};
+                }
+                app[ 'pathsWithArrays' ][ this.queryId ][ this.pathWithArray.toString() ] = {
+                  index: this.index,
+                  dataChooserEntries: input.dataChooserEntries
+                };
+                // console.log( app );
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
   /**
