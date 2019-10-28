@@ -244,6 +244,8 @@
           </mat-menu>
         </div>
         <popup #appId *ngIf="innerWidth > 1000"
+               [response]="app.response"
+               [app]="app"
                [pathsWithArrays]="app.pathsWithArrays"
                [showAppSettingsOnPublish]="!preview || showAppSettingsOnPublish"
                [preview]="preview && !showAppTitlesOnPublish"
@@ -268,7 +270,6 @@
             <app-all-app-selectors [app]="app">
 
             </app-all-app-selectors>
-
 
           </div>
         </popup>

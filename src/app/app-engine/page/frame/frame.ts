@@ -20,6 +20,7 @@ import 'rxjs/add/operator/map';
 import {MatDialog} from '@angular/material';
 import { FrameSettingsComponent } from '../frame-settings/frame-settings.component';
 import {Router} from '@angular/router';
+import { DataAssignmentComponent } from '../../../query-app-interface/data-management/data-assignment/data-assignment.component';
 
 @Component({
   selector: 'popup',
@@ -63,14 +64,15 @@ export class Frame implements OnInit, OnChanges {
   /**
    * @param position - "static" if the option "sort by appType" is chosen, "absolute" otherwise
    * */
-  @Input()pathsWithArrays: any;
+  @Input() response: any;
+  @Input() pathsWithArrays: any;
   @Input() position = 'absolute';
   @Input() fullWidth: boolean;
   @Input() fullHeight: boolean;
   @Input() preview = false;
   @Input() showAppSettingsOnPublish = true;
   @Input() page: any;
-  @Input() response: any;
+  @Input() app: any;
   @Output() sendAppCoordinatesBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendAppSettingsBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendIndexBack: EventEmitter<any> = new EventEmitter<any>();
@@ -98,6 +100,13 @@ export class Frame implements OnInit, OnChanges {
   pathWithArray: Array<any>;
   queryId: string;
   dataChooserEntries: Array<string>;
+  dataAssignmentComponent = new DataAssignmentComponent();
+
+  panelExtended = false;
+  showContent = true;
+  searchTerm: string;
+  newDataChooserEntries = [];
+
 
   constructor(
     private elementRef: ElementRef,
@@ -115,23 +124,54 @@ export class Frame implements OnInit, OnChanges {
    * */
   ngOnChanges() {
     this.paths = [];
-    for ( const queryId in this.pathsWithArrays ) {
-      for ( const path in this.pathsWithArrays[ queryId ] ) {
+    const pathsWithArrays = this.app.pathsWithArrays;
+    for ( const queryId in pathsWithArrays ) {
+      for ( const path in pathsWithArrays[ queryId ] ) {
         this.paths.push(
           {
             queryId: queryId,
             path: path.split(','),
-            index: this.pathsWithArrays[ queryId ][ path ].index
+            index: pathsWithArrays[ queryId ][ path ].index,
+            response: pathsWithArrays[ queryId ][ path ].response,
+            dataChooserEntries: pathsWithArrays[ queryId ][ path ].dataChooserEntries,
+            pathToValueInJson: pathsWithArrays[ queryId ][ path ].pathToValueInJson
           }
         );
-        this.index = this.pathsWithArrays[ queryId ][ path ].index;
+        this.index = pathsWithArrays[ queryId ][ path ].index;
         this.pathWithArray = path.split(',');
         this.queryId = queryId;
-        this.dataChooserEntries = this.pathsWithArrays[ queryId ][ path ].dataChooserEntries;
-        console.log( this.dataChooserEntries  );
+        this.dataChooserEntries = pathsWithArrays[ queryId ][ path ].dataChooserEntries;
       }
     }
-    // console.log( this.paths );
+    this.dataAssignmentComponent = new DataAssignmentComponent();
+    this.newDataChooserEntries = [];
+    for ( const path of this.paths ) {
+      console.log( path );
+      for ( let i = 0; i < this.dataChooserEntries.length; i++ ) {
+        this.newDataChooserEntries[ i ] = this.dataAssignmentComponent.generateAppinput(
+          path.response,
+          this.getRidOfNumbersInPath(path.pathToValueInJson),
+          i,
+          0,
+          true
+        );
+      }
+      console.log( this.newDataChooserEntries );
+    }
+  }
+
+  getRidOfNumbersInPath( array: Array<any> ) {
+    for ( let i = 0; i < array.length; i++ ) {
+      if ( typeof array[ i ] === 'number' ) {
+        array.splice( i, 1 );
+        console.log( array[ i ] );
+      }
+    }
+    return array;
+  }
+
+  checkIfUrlIsImage(url: string) {
+    return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
   }
 
   moveBack() {
@@ -146,6 +186,9 @@ export class Frame implements OnInit, OnChanges {
 
   chooseResource(index: number) {
     this.index = index;
+    this.panelExtended = false;
+    this.fullWidth = false;
+    this.fullHeight = false;
     if ( this.pathWithArray && index !== 0 ) {
       this._router.navigate([], {
         queryParams: {

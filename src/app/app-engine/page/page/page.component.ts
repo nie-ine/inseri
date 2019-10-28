@@ -733,11 +733,13 @@ export class PageComponent implements OnInit, AfterViewChecked {
                 if ( !app[ 'pathsWithArrays' ][ this.queryId ][ this.pathWithArray.toString() ] ) {
                   app[ 'pathsWithArrays' ][ this.queryId ][ this.pathWithArray.toString() ] = {};
                 }
+                console.log( app, this.page.appInputQueryMapping[ app.hash ][ appInput ].path );
                 app[ 'pathsWithArrays' ][ this.queryId ][ this.pathWithArray.toString() ] = {
                   index: this.index,
-                  dataChooserEntries: input.dataChooserEntries
+                  dataChooserEntries: input.dataChooserEntries,
+                  response: this.response,
+                  pathToValueInJson: this.page.appInputQueryMapping[ app.hash ][ appInput ].path
                 };
-                // console.log( app );
               }
             }
           }
