@@ -27,10 +27,10 @@
 
           <div>
 
-            <button mat-button [matMenuTriggerFor]="menu" >
+            <button mat-button [matMenuTriggerFor]="menu1" >
               {{ title }}
             </button>
-            <mat-menu #menu="matMenu">
+            <mat-menu #menu1="matMenu">
 
               <button mat-menu-item (click)="openSettings()" >
                 Change Title and size
@@ -46,33 +46,46 @@
 
             </mat-menu>
 
-            <button mat-button *ngIf="pathsWithArrays" (click)="moveBack()"><mat-icon>chevron_left</mat-icon></button>
+            <button mat-button *ngIf="pathsWithArrays" (click)="moveBack()" [disabled]="!(index > 0)">
+              <mat-icon>chevron_left</mat-icon>
+            </button>
 
             <button
-              mat-button
-              *ngIf="pathsWithArrays"
-              (click)="panelExtended = !panelExtended"
-              (click)="fullWidth = true"
-              (click)="fullHeight = true">{{index}}</button>
+              mat-button [matMenuTriggerFor]="menu"
+              *ngIf="pathsWithArrays">
+              {{index + 1}}
+            </button>
 
-            <button mat-button *ngIf="pathsWithArrays" (click)="moveForward()"><mat-icon>chevron_right</mat-icon></button>
+            <mat-menu #menu="matMenu">
+              <div mat-menu-item [disableRipple]="true" (click)="$event.stopPropagation()">
+                <mat-form-field #chooseIndex>
+                  <input  matInput placeholder="Go to Number" (keyup.enter)=chooseResource(Number(chooseIndex.value))>
+                </mat-form-field>
+              </div>
+              <button mat-button matTooltip="Extended search"
+                      (click)="panelExtended = !panelExtended"
+                      (click)="fullWidth = true"
+                      (click)="fullHeight = true"><mat-icon>search</mat-icon>Extended Search</button>
+              <mat-divider></mat-divider>
+              <button
+                mat-menu-item
+                *ngFor="let entry of dataChooserEntries; let i = index;"
+                (click)="chooseResource(i)">
+                {{ i + 1 }}
+              </button>
+            </mat-menu>
+
+            <button mat-button *ngIf="pathsWithArrays" (click)="moveForward()" [disabled]="!(index < dataChooserEntries.length -1 )">
+              <mat-icon>chevron_right</mat-icon>
+            </button>
+
           </div>
-
-
-
-
-
-
 
         </mat-card-header>
 
         <mat-card-content class="popup-content" (mousedown)="setNewZIndex()">
 
           <div *ngIf="panelExtended" >
-
-            <mat-form-field >
-              <input matInput placeholder="Go to Number" value='' [(ngModel)]="index" (keyup.enter)=chooseResource(index)>
-            </mat-form-field>
 
             <mat-form-field >
               <input matInput placeholder="Search for word" [(ngModel)]="searchTerm" >
@@ -84,13 +97,15 @@
               mat-button
               (click)="panelExtended = !panelExtended"
               (click)="fullWidth = false"
-              (click)="fullHeight = false">Close extended search</button>
+              (click)="fullHeight = false">
+              Close extended search
+            </button>
 
             <br>
 
             <mat-expansion-panel
               *ngFor="let entry of newDataChooserEntries;  let i = index;"
-              [expanded]="showContent" [ngStyle]="{ 'width': (width / 2).toString() + 'px' }" style="display: inline-block; top: 0px;">
+              [expanded]="showContent" [ngStyle]="{ 'width': (width / 2).toString() + 'px' }" style="display: inline-block; max-height: 400px; overflow-y: auto">
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   {{ i }}

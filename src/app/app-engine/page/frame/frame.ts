@@ -14,12 +14,12 @@ import {
   ContentChildren,
   QueryList,
   ElementRef,
-  Renderer2, OnInit, OnChanges
+  Renderer2, OnInit, OnChanges, AfterViewChecked
 } from '@angular/core';
 import 'rxjs/add/operator/map';
 import {MatDialog} from '@angular/material';
 import { FrameSettingsComponent } from '../frame-settings/frame-settings.component';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { DataAssignmentComponent } from '../../../query-app-interface/data-management/data-assignment/data-assignment.component';
 
 @Component({
@@ -27,7 +27,7 @@ import { DataAssignmentComponent } from '../../../query-app-interface/data-manag
   templateUrl: 'frame.html',
   styleUrls: ['frame.css']
 })
-export class Frame implements OnInit, OnChanges {
+export class Frame implements OnInit, OnChanges, AfterViewChecked {
 
   /**
    * @param show - indicates if app is minimalized or not
@@ -96,7 +96,7 @@ export class Frame implements OnInit, OnChanges {
   sendCoordinatesBack: any;
   isMouseBtnOnPress: boolean;
   paths: any;
-  index: number;
+  index = 0;
   pathWithArray: Array<any>;
   queryId: string;
   dataChooserEntries: Array<string>;
@@ -112,7 +112,8 @@ export class Frame implements OnInit, OnChanges {
     private elementRef: ElementRef,
     private renderer: Renderer2,
     public dialog: MatDialog,
-    private _router: Router
+    private _router: Router,
+    private _route: ActivatedRoute
   ) {
     this.mouseup = this.unboundMouseup.bind(this);
     this.dragging = this.unboundDragging.bind(this);
@@ -123,6 +124,8 @@ export class Frame implements OnInit, OnChanges {
    * for example updated App - Settings or updated App - Title
    * */
   ngOnChanges() {
+    this.index = 0;
+    console.log( 'change' );
     this.paths = [];
     const pathsWithArrays = this.app.pathsWithArrays;
     for ( const queryId in pathsWithArrays ) {
@@ -137,7 +140,6 @@ export class Frame implements OnInit, OnChanges {
             pathToValueInJson: pathsWithArrays[ queryId ][ path ].pathToValueInJson
           }
         );
-        this.index = pathsWithArrays[ queryId ][ path ].index;
         this.pathWithArray = path.split(',');
         this.queryId = queryId;
         this.dataChooserEntries = pathsWithArrays[ queryId ][ path ].dataChooserEntries;
@@ -146,7 +148,7 @@ export class Frame implements OnInit, OnChanges {
     this.dataAssignmentComponent = new DataAssignmentComponent();
     this.newDataChooserEntries = [];
     for ( const path of this.paths ) {
-      console.log( path );
+      // console.log( path );
       for ( let i = 0; i < this.dataChooserEntries.length; i++ ) {
         this.newDataChooserEntries[ i ] = this.dataAssignmentComponent.generateAppinput(
           path.response,
@@ -156,7 +158,15 @@ export class Frame implements OnInit, OnChanges {
           true
         );
       }
-      console.log( this.newDataChooserEntries );
+      // console.log( this.newDataChooserEntries );
+    }
+  }
+
+  ngAfterViewChecked() {
+    if (
+      this.pathWithArray && this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ] &&
+      this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ] !== this.index ) {
+      this.index = Number ( this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ] );
     }
   }
 
@@ -175,28 +185,23 @@ export class Frame implements OnInit, OnChanges {
   }
 
   moveBack() {
-    this.index -= 1;
-    this.chooseResource( this.index );
+    this.chooseResource( this.index - 1 );
   }
 
   moveForward() {
-    this.index += 1;
-    this.chooseResource( this.index );
+    this.chooseResource( this.index + 1 );
   }
 
   chooseResource(index: number) {
-    this.index = index;
     this.panelExtended = false;
     this.fullWidth = false;
     this.fullHeight = false;
-    if ( this.pathWithArray && index !== 0 ) {
-      this._router.navigate([], {
-        queryParams: {
-          [this.queryId + this.pathWithArray.toString() ]: index
-        },
-        queryParamsHandling: 'merge'
-      });
-    }
+    this._router.navigate([], {
+      queryParams: {
+        [this.queryId + this.pathWithArray.toString() ]: Number( index )
+      },
+      queryParamsHandling: 'merge'
+    });
   }
 
   stopPropagation(event){

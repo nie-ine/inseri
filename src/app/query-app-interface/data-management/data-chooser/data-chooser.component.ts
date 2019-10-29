@@ -91,12 +91,12 @@ export class DataChooserComponent implements AfterViewChecked {
     if ( this.pathWithArray &&
       this.currentPath !== this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ] ) {
       this.currentPath = this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ];
-      const index = this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ];
-      this.chooseResource( Number(index) );
+      console.log( this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ] );
+      this.chooseResource( Number( this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ] ) );
     }
   }
   chooseResource(index: number) {
-    this.index = index;
+    console.log( 'here', index );
     if ( this.dataChooserEntries ) {
       this.chosenEntry = this.dataChooserEntries[ index ];
     }
