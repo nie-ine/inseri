@@ -239,8 +239,8 @@
         <div *ngIf="( !preview || showAppSettingsOnPublish ) && innerWidth > 1000">
           <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>{{ openApps.openApps[ app.type ].materialIcon }}</mat-icon> {{ i }}</button>
           <mat-menu #menu="matMenu" >
-            <button mat-menu-item (click)="appId.appear()" (click)="openAppsInThisPage[ app.type ].model[i].initialized = true">Show {{ app.type }} {{ i }}</button>
-            <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ app.type ].model, i ) ">Remove this app</button>
+            <button mat-menu-item (click)="appId.appear()" (click)="app.initialized = true">Show {{ app.type }} {{ i }}</button>
+            <button mat-menu-item (click)=" closeApp( app.hash, i ) ">Remove this app</button>
           </mat-menu>
         </div>
         <popup #appId *ngIf="innerWidth > 1000"

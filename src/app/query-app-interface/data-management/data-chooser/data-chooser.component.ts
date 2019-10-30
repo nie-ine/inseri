@@ -84,21 +84,30 @@ export class DataChooserComponent implements AfterViewChecked {
   ) {}
 
   ngAfterViewChecked() {
-    if ( !this.alreadyEmitted ) {
-      this.alreadyEmitted = true;
-      this.chooseResource( 0 );
-    }
     if ( this.pathWithArray &&
       this.currentPath !== this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ] ) {
       this.currentPath = this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ];
-      console.log( this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ] );
-      this.chooseResource( Number( this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ] ) );
+      setTimeout(() => {
+        console.log(  this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ] );
+        this.chooseResource( Number( this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ] ) );
+      }, 50);
+    } else if ( !this.alreadyEmitted ) {
+      this.alreadyEmitted = true;
+      this.chooseResource( 0 );
     }
   }
+
   chooseResource(index: number) {
-    console.log( 'here', index );
     if ( this.dataChooserEntries ) {
       this.chosenEntry = this.dataChooserEntries[ index ];
+    }
+    if ( this.pathWithArray && index !== 0 ) {
+      this._router.navigate([], {
+        queryParams: {
+          [this.queryId + this.pathWithArray.toString() ]: index
+        },
+        queryParamsHandling: 'merge'
+      });
     }
     this.sendIndexBack.emit( {
       index: index,
@@ -108,14 +117,6 @@ export class DataChooserComponent implements AfterViewChecked {
       pathWithArray: this.pathWithArray,
       dataChooserEntries: this.dataChooserEntries
     } );
-    if ( this.pathWithArray && index !== 0 ) {
-      this._router.navigate([], {
-        queryParams: {
-          [this.queryId + this.pathWithArray.toString() ]: index
-        },
-        queryParamsHandling: 'merge'
-      });
-    }
   }
 
   moveBack() {

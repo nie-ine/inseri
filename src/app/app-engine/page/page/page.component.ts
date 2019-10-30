@@ -30,6 +30,7 @@ import { environment } from '../../../../environments/environment';
 import {DialogCreateNewPageComponent} from '../../../user-action-engine/page-set/page-set-landing-page/page-set-landing-page.component';
 import {AppInputComponentComponent} from '../app-input-component/app-input-component.component';
 import {AddAppGroupDialogComponent} from '../add-app-group-dialog/add-app-group-dialog.component';
+import {DataAssignmentComponent} from '../../../query-app-interface/data-management/data-assignment/data-assignment.component';
 
 @Component({
   selector: 'nie-os',
@@ -594,6 +595,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     generateHash: boolean
   ): Array<any> {
     const appModel = this.openAppsInThisPage[ appType ].model;
+    console.log( this.openAppsInThisPage[ appType ] );
     const length = appModel.length;
     appModel[ length ] = {};
     if ( generateHash ) {
@@ -605,6 +607,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
       appModel[ length ].initialized = true;
       appModel[ length ].x = 100;
       appModel[ length ].y = 100;
+      appModel[ length ].initialHeight = this.openAppsInThisPage[ appType ].initialHeight;
+      appModel[ length ].initialWidth = this.openAppsInThisPage[ appType ].initialWidth;
       if (
         this.page.openApps &&
         this.page.openApps[ appModel[ length ].hash ] === null
@@ -614,6 +618,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
       if ( this.page.openApps ) {
         this.page.openApps[ appModel[ length ].hash ] = appModel[ length ];
       }
+      this.openAppArray.push(
+        appModel[ length ]
+      );
     }
     return appModel;
   }
@@ -622,11 +629,11 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * This function is used to remove an app from the page
    * */
   closeApp(
-    appModel: Array<any>,
+    appHash: string,
     i: number
   ) {
-    delete this.page.openApps[appModel[ i ].hash];
-    appModel.splice(
+    delete this.page.openApps[ appHash ];
+    this.openAppArray.splice(
       i,
       1);
   }
@@ -709,11 +716,13 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * after the user chooses a data entry and triggers the data assignment component
    * */
   updateMainResourceIndex( input: any ) {
+    console.log( input.index );
     this.index = input.index;
     this.response = input.response;
     this.queryId = input.queryId;
     this.depth = input.depth;
     this.pathWithArray = input.pathWithArray;
+    const dataAssignmentComponent = new DataAssignmentComponent();
     if (  this.pathWithArray && this.pathWithArray.length > 0 ) {
       for ( const app of this.openAppArray ) {
         for ( const appInput in this.page.appInputQueryMapping[ app.hash ] ) {
@@ -733,9 +742,14 @@ export class PageComponent implements OnInit, AfterViewChecked {
                 if ( !app[ 'pathsWithArrays' ][ this.queryId ][ this.pathWithArray.toString() ] ) {
                   app[ 'pathsWithArrays' ][ this.queryId ][ this.pathWithArray.toString() ] = {};
                 }
-                console.log( app, this.page.appInputQueryMapping[ app.hash ][ appInput ].path );
+                console.log( input );
+                dataAssignmentComponent.startPathUpdateProcess(
+                  this.queryId,
+                  this.pathWithArray,
+                  this.index
+                );
                 app[ 'pathsWithArrays' ][ this.queryId ][ this.pathWithArray.toString() ] = {
-                  index: this.index,
+                  index: input.index,
                   dataChooserEntries: input.dataChooserEntries,
                   response: this.response,
                   pathToValueInJson: this.page.appInputQueryMapping[ app.hash ][ appInput ].path

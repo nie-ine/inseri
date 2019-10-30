@@ -100,7 +100,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
   pathWithArray: Array<any>;
   queryId: string;
   dataChooserEntries: Array<string>;
-  dataAssignmentComponent = new DataAssignmentComponent();
+  dataAssignmentComponent = new DataAssignmentComponent(  );
 
   panelExtended = false;
   showContent = true;
@@ -125,40 +125,42 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
    * */
   ngOnChanges() {
     this.index = 0;
-    console.log( 'change' );
+    // console.log( 'change' );
     this.paths = [];
-    const pathsWithArrays = this.app.pathsWithArrays;
-    for ( const queryId in pathsWithArrays ) {
-      for ( const path in pathsWithArrays[ queryId ] ) {
-        this.paths.push(
-          {
-            queryId: queryId,
-            path: path.split(','),
-            index: pathsWithArrays[ queryId ][ path ].index,
-            response: pathsWithArrays[ queryId ][ path ].response,
-            dataChooserEntries: pathsWithArrays[ queryId ][ path ].dataChooserEntries,
-            pathToValueInJson: pathsWithArrays[ queryId ][ path ].pathToValueInJson
-          }
-        );
-        this.pathWithArray = path.split(',');
-        this.queryId = queryId;
-        this.dataChooserEntries = pathsWithArrays[ queryId ][ path ].dataChooserEntries;
+    if ( this.app ) {
+      const pathsWithArrays = this.app.pathsWithArrays;
+      for ( const queryId in pathsWithArrays ) {
+        for ( const path in pathsWithArrays[ queryId ] ) {
+          this.paths.push(
+            {
+              queryId: queryId,
+              path: path.split(','),
+              index: pathsWithArrays[ queryId ][ path ].index,
+              response: pathsWithArrays[ queryId ][ path ].response,
+              dataChooserEntries: pathsWithArrays[ queryId ][ path ].dataChooserEntries,
+              pathToValueInJson: pathsWithArrays[ queryId ][ path ].pathToValueInJson
+            }
+          );
+          this.pathWithArray = path.split(',');
+          this.queryId = queryId;
+          this.dataChooserEntries = pathsWithArrays[ queryId ][ path ].dataChooserEntries;
+        }
       }
-    }
-    this.dataAssignmentComponent = new DataAssignmentComponent();
-    this.newDataChooserEntries = [];
-    for ( const path of this.paths ) {
-      // console.log( path );
-      for ( let i = 0; i < this.dataChooserEntries.length; i++ ) {
-        this.newDataChooserEntries[ i ] = this.dataAssignmentComponent.generateAppinput(
-          path.response,
-          this.getRidOfNumbersInPath(path.pathToValueInJson),
-          i,
-          0,
-          true
-        );
+      this.dataAssignmentComponent = new DataAssignmentComponent(  );
+      this.newDataChooserEntries = [];
+      for ( const path of this.paths ) {
+        // console.log( path );
+        for ( let i = 0; i < this.dataChooserEntries.length; i++ ) {
+          this.newDataChooserEntries[ i ] = this.dataAssignmentComponent.generateAppinput(
+            path.response,
+            this.getRidOfNumbersInPath(path.pathToValueInJson),
+            i,
+            0,
+            true
+          );
+        }
+        // console.log( this.newDataChooserEntries );
       }
-      // console.log( this.newDataChooserEntries );
     }
   }
 

@@ -179,7 +179,7 @@ export class GenerateDataChoosersService {
             pathWithArray
           );
         } else {
-          console.log( response );
+          // console.log( response );
         }
         if (
           response.length > 1 &&
@@ -189,7 +189,7 @@ export class GenerateDataChoosersService {
           this.generateQueryButtonInDataChooser( queryId, openAppsInThisPage, queryTitle );
           this.pathSet.add(pathWithArray.toString() + queryId);
           const clonedPath = Object.assign([], pathWithArray);
-          console.log('push 4', clonedPath);
+          // console.log('push 4', clonedPath);
           openAppsInThisPage.dataChooser.model.push({
             dataChooserEntries: this.generateArrayFromLeafs.generateArrayFromLeafs(
               response

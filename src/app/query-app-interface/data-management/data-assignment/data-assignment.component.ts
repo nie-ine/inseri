@@ -7,7 +7,8 @@
  * */
 
 
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {AfterViewChecked, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-data-assignment',
@@ -73,12 +74,13 @@ export class DataAssignmentComponent implements OnChanges {
   currentIndex: any = {};
   firstChange = true;
   changes: any;
+  currentPath: any;
   constructor() { }
 
   /**
    * ngOnChages is triggered when a user chooses an entry in the data chooser
    * */
-  ngOnChanges( changes: SimpleChanges) {
+  ngOnChanges() {
     this.firstChange = true;
     this.startPathUpdateProcess();
 
@@ -92,7 +94,17 @@ export class DataAssignmentComponent implements OnChanges {
     this.checkIfPathContainsScalarAsLastEntry();
   }
 
-  startPathUpdateProcess() {
+  startPathUpdateProcess(
+    queryId?: string,
+    pathWithArray?: Array<string>,
+    index?: number
+  ) {
+
+    if ( queryId && pathWithArray && index ) {
+      this.queryId = queryId;
+      this.pathWithArray = pathWithArray;
+      this.index = index;
+    }
 
     /**
      * Initiates currentindex if not defined
@@ -115,7 +127,8 @@ export class DataAssignmentComponent implements OnChanges {
     for ( const appHash in this.appInputQueryMapping ) {
       for ( const inputName in this.appInputQueryMapping[ appHash ] ) {
 
-        if ( this.appInputQueryMapping[ appHash ][ inputName ].query === this.queryId && this.appInputQueryMapping[ appHash ][ inputName ].path ) {
+        if ( this.appInputQueryMapping[ appHash ][ inputName ].query === this.queryId &&
+          this.appInputQueryMapping[ appHash ][ inputName ].path ) {
 
           let difference = 0;
           let allTheSameSegments = true;
