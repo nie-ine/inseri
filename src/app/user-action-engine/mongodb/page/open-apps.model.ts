@@ -361,7 +361,9 @@ export class OpenAppsModel {
     pageMenu: {
       type: 'pageMenu',
       model: [],
-      materialIcon: 'settings'
+      materialIcon: 'settings',
+      initialWidth: '750',
+      initialHeight: '500'
     },
     sparqlVisualizer: {
       type: 'sparqlVisualizer',

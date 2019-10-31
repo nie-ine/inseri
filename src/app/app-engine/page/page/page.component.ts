@@ -398,7 +398,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
       this.openAppsInThisPage[ 'login' ].model[ 0 ].initialized = true;
       this.openAppsInThisPage[ 'login' ].model[ 0 ].x = 150;
       this.openAppsInThisPage[ 'login' ].model[ 0 ].y = 90;
-      this.openAppArray.push( this.openAppsInThisPage[ 'login' ].model[ 0 ] );
     }
 
     this.actionID = this.route.snapshot.queryParams.actionID;
@@ -821,11 +820,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   openPageMenu() {
-    this.openAppsInThisPage[ 'pageMenu' ].model = [];
     this.addAnotherApp( 'pageMenu', true );
-    this.openAppsInThisPage[ 'pageMenu' ].model[ 0 ].initialized = true;
-    this.openAppsInThisPage[ 'pageMenu' ].model[ 0 ].x = 600;
-    this.openAppsInThisPage[ 'pageMenu' ].model[ 0 ].y = 100;
   }
 
   checkTimeUntilLogout() {
