@@ -1,0 +1,17 @@
+
+<button mat-button (click)="onNoClick()" >Close Dialog</button>
+<h4>Add apps to group</h4>
+
+<mat-card *ngFor="let app of openAppArray">
+  <mat-card-header>
+    <div mat-card-avatar ></div>
+    <mat-card-title>{{ app.title }}</mat-card-title>
+  </mat-card-header>
+  <img *ngIf="app.imageURL" mat-card-image src="{{app.imageURL}}" >
+  <app-textlist-viewer style="position: sticky;" *ngIf="app.type === 'textlistViewers'"
+                       [textToDisplay]="app.textlist">
+  </app-textlist-viewer>
+  <mat-card-actions>
+    <button mat-button>Add to group</button>
+  </mat-card-actions>
+</mat-card>

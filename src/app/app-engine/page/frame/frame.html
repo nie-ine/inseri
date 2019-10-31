@@ -1,6 +1,5 @@
-<div class="popup" *ngIf="show"  >
 
-  <div class="popup-win"
+  <mat-card class="popup-win" *ngIf="show"
        [ngStyle]="{
        'top': fullHeight ? '0' : curY + 'px',
        'left': fullWidth ? '0' : curX + 'px',
@@ -11,20 +10,132 @@
        'margin-top': fullHeight ? '70px' : '',
        'margin-left': fullWidth ? '70px' : ''
        }">
-    <div class="popup-title-bar popup-drag" (mousedown)="mousedown($event)" *ngIf="!preview" (mousedown)="setNewZIndex()">
-      <span style=" margin-right: 20px; color: blue; cursor: pointer;" (click)="assignInput()" *ngIf="!preview && showAppSettingsOnPublish" >&#x27BD;</span>
-      <span style=" margin-right: 20px; color: blue; cursor: pointer;" (click)="disappear()" *ngIf="!preview && showAppSettingsOnPublish" >-</span>
-        {{title}}
-      <span style=" margin-left: 20px; color: blue; cursor: pointer;" (click)="openSettings()" *ngIf="!preview && showAppSettingsOnPublish">*</span>
-    </div>
+<!--    <div class="popup-title-bar popup-drag"  *ngIf="!preview" (mousedown)="setNewZIndex()">-->
+<!--      <span style=" margin-right: 20px; color: blue; cursor: pointer;" (click)="assignInput()" *ngIf="!preview && showAppSettingsOnPublish" >&#x27BD;</span>-->
+<!--      <span style=" margin-right: 20px; color: blue; cursor: pointer;" (click)="disappear()" *ngIf="!preview && showAppSettingsOnPublish" >-</span>-->
+<!--        {{title}}-->
+<!--      <span style=" margin-left: 20px; color: blue; cursor: pointer;" (click)="openSettings()" *ngIf="!preview && showAppSettingsOnPublish">*</span>-->
+<!--    </div>-->
 
-    <div class="popup-content" (mousedown)="setNewZIndex()">
-      <ng-content></ng-content>
-    </div>
 
-  </div>
 <!--  <div class="popup-overlay blur-in" [ngStyle]="{'z-index': curZIndex - 1}" (click)="disappear()">
   </div>-->
-</div>
 
 
+        <mat-card-header class="popup-title-bar popup-drag" (mousedown)="mousedown($event)" *ngIf="!preview" (mousedown)="setNewZIndex()">
+
+
+          <div>
+
+            <button mat-button [matMenuTriggerFor]="menu1" >
+              {{ title }}
+            </button>
+            <mat-menu #menu1="matMenu">
+
+              <button mat-menu-item (click)="openSettings()" >
+                Change Title and size
+              </button>
+
+              <button mat-menu-item (click)="assignInput()" >
+                Open File
+              </button>
+
+              <button mat-menu-item (click)="disappear()" >
+                Minimize
+              </button>
+
+            </mat-menu>
+
+            <button mat-button *ngIf="pathsWithArrays" (click)="moveBack()" [disabled]="!(index > 0)">
+              <mat-icon>chevron_left</mat-icon>
+            </button>
+
+            <button
+              mat-button [matMenuTriggerFor]="menu"
+              *ngIf="pathsWithArrays">
+              {{index + 1}}
+            </button>
+
+            <mat-menu #menu="matMenu">
+              <div mat-menu-item [disableRipple]="true" (click)="$event.stopPropagation()">
+                <mat-form-field #chooseIndex>
+                  <input  matInput placeholder="Go to Number" (keyup.enter)=chooseResource(Number(chooseIndex.value))>
+                </mat-form-field>
+              </div>
+              <button mat-button matTooltip="Extended search"
+                      (click)="panelExtended = !panelExtended"
+                      (click)="fullWidth = true"
+                      (click)="fullHeight = true"><mat-icon>search</mat-icon>Extended Search</button>
+              <mat-divider></mat-divider>
+              <button
+                mat-menu-item
+                *ngFor="let entry of dataChooserEntries; let i = index;"
+                (click)="chooseResource(i)">
+                {{ i + 1 }}
+              </button>
+            </mat-menu>
+
+            <button mat-button *ngIf="pathsWithArrays" (click)="moveForward()" [disabled]="!(index < dataChooserEntries.length -1 )">
+              <mat-icon>chevron_right</mat-icon>
+            </button>
+
+          </div>
+
+        </mat-card-header>
+
+        <mat-card-content class="popup-content" (mousedown)="setNewZIndex()">
+
+          <div *ngIf="panelExtended" >
+
+            <mat-form-field >
+              <input matInput placeholder="Search for word" [(ngModel)]="searchTerm" >
+            </mat-form-field>
+
+            <button mat-button (click)="showContent = !showContent" >{{ showContent ? 'Close Panels' : 'Open Panels'}}</button>
+
+            <button
+              mat-button
+              (click)="panelExtended = !panelExtended"
+              (click)="fullWidth = false"
+              (click)="fullHeight = false">
+              Close extended search
+            </button>
+
+            <br>
+
+            <mat-expansion-panel
+              *ngFor="let entry of newDataChooserEntries;  let i = index;"
+              [expanded]="showContent" [ngStyle]="{ 'width': (width / 2).toString() + 'px' }" style="display: inline-block; max-height: 400px; overflow-y: auto">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{ i }}
+                </mat-panel-title>
+                <mat-panel-description *ngIf="entry !== null && entry !== undefined">
+                  {{ entry.slice( 0, 10 ) }}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+              <div
+                *ngIf="entry !== null && entry !== undefined && !checkIfUrlIsImage(entry)"
+                [innerHtml]="entry"
+                style="cursor: pointer"
+                (click)="chooseResource( i )">
+
+              </div>
+
+              <img
+                *ngIf="entry !== null && entry !== undefined && checkIfUrlIsImage(entry)"
+                mat-card-image
+                src="{{ entry }}"
+                alt="{{ entry }}" style="cursor: pointer"
+                (click)="chooseResource( i )">
+
+            </mat-expansion-panel>
+
+          </div>
+
+            <ng-content *ngIf="!panelExtended" ></ng-content>
+
+        </mat-card-content>
+
+      </mat-card>

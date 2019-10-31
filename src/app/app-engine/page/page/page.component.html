@@ -14,6 +14,7 @@
     [response]="response"
     [queryId] = "queryId"
     [depth]="depth"
+    [pathWithArray]="pathWithArray"
     (sendAppTypesBackToNIEOS)="receiveOpenAppsInThisPage( $event )">
 
   </app-data-assignment>
@@ -212,18 +213,20 @@
       <div *ngFor="let dataChooser of openAppsInThisPage[ 'dataChooser' ].model; let i = index;" >
         <div *ngIf="generateQueryAppPathInformation( openAppsInThisPage[ 'dataChooser' ].model[i].queryId ) !== undefined" >
           <button
-            *ngIf="openAppsInThisPage[ 'dataChooser' ].model[i].title.search( 'Depth: ' ) === -1 "
+            *ngIf=" openAppsInThisPage[ 'dataChooser' ].model[i].title && openAppsInThisPage[ 'dataChooser' ].model[i].title.search( 'Query: ' ) !== -1 "
             (click)="openQueryInformationDialog( openAppsInThisPage[ 'dataChooser' ].model[i].queryId )"
             mat-button matTooltip="{{openAppsInThisPage[ 'dataChooser' ].model[i].title}}" >
-            {{ 'Query ' + i }}
-          </button> <br>
+            {{ openAppsInThisPage[ 'dataChooser' ].model[i].title }}
+          </button>
           <app-data-chooser
+            [page]="page"
             [response]="openAppsInThisPage[ 'dataChooser' ].model[i].response"
             [queryId] = "openAppsInThisPage[ 'dataChooser' ].model[i].queryId"
             [openAppsInThisPage] = "openAppsInThisPage"
             [dataChooserEntries]="openAppsInThisPage[ 'dataChooser' ].model[i].dataChooserEntries"
             [description]=" openAppsInThisPage[ 'dataChooser' ].model[i].depth "
             [depth]="openAppsInThisPage[ 'dataChooser' ].model[i].depth"
+            [pathWithArray]="openAppsInThisPage[ 'dataChooser' ].model[i].pathWithArray"
             (sendIndexBack)="updateMainResourceIndex( $event )">
           </app-data-chooser>
         </div>
@@ -231,272 +234,71 @@
     </mat-expansion-panel>
   </div>
 
-    <div *ngFor=" let appType of appTypes " >
-      <div *ngIf="appType !== 'dataChooser' && appType !== 'pageMenu'" >
-      <div *ngFor="let openApp of openAppsInThisPage[ appType ].model; let i = index;" >
-        <div *ngIf="!preview || showAppSettingsOnPublish">
-          <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>{{ openApps.openApps[ appType ].materialIcon }}</mat-icon> {{ i }}</button>
+
+      <div *ngFor="let app of openAppArray; let i = index;" >
+        <div *ngIf="( !preview || showAppSettingsOnPublish ) && innerWidth > 1000">
+          <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>{{ openApps.openApps[ app.type ].materialIcon }}</mat-icon> {{ i }}</button>
           <mat-menu #menu="matMenu" >
-            <button mat-menu-item (click)="app.appear()" (click)="openAppsInThisPage[ appType ].model[i].initialized = true">Show {{ appType }} {{ i }}</button>
-            <button mat-menu-item (click)=" closeApp( openAppsInThisPage[ appType ].model, i ) ">Remove this app</button>
+            <button mat-menu-item (click)="appId.appear()" (click)="app.initialized = true">Show {{ app.type }} {{ i }}</button>
+            <button mat-menu-item (click)=" closeApp( app.hash, i ) ">Remove this app</button>
           </mat-menu>
         </div>
-        <popup #app
+        <popup #appId *ngIf="innerWidth > 1000"
+               [response]="app.response"
+               [app]="app"
+               [pathsWithArrays]="app.pathsWithArrays"
                [showAppSettingsOnPublish]="!preview || showAppSettingsOnPublish"
                [preview]="preview && !showAppTitlesOnPublish"
-               [fullWidth]="openAppsInThisPage[ appType ].model[i].fullWidth"
-               [fullHeight]="openAppsInThisPage[ appType ].model[i].fullHeight"
+               [fullWidth]="app.fullWidth"
+               [fullHeight]="app.fullHeight"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
-               [hash]="openAppsInThisPage[ appType ].model[i].hash"
-               [title]="openAppsInThisPage[ appType ].model[i].title || appType  + i"
-               [type]="openAppsInThisPage[ appType ].type"
-               [firstPopupX]="openAppsInThisPage[ appType ].model[i].x"
-               [firstPopupY]="openAppsInThisPage[ appType ].model[i].y"
-               [height]="produceHeightAndWidth( openAppsInThisPage[ appType ].model[i].height,  openApps.openApps[ appType ].initialHeight)"
-               [width]="produceHeightAndWidth( openAppsInThisPage[ appType ].model[i].width,  openApps.openApps[ appType ].initialWidth )"
+               [hash]="app.hash"
+               [title]="app.title || app.type  + i"
+               [type]="app.type"
+               [firstPopupX]="app.x"
+               [firstPopupY]="app.y"
+               [height]="produceHeightAndWidth( app.height,  app.initialHeight)"
+               [width]="produceHeightAndWidth( app.width,  app.initialWidth )"
                (sendAppCoordinatesBack)="updateAppCoordinates($event)"
                (sendAppSettingsBack)="updateAppSettings($event)"
                (sendAssignInputCommandBack)="openAssignInputDialog($event)">
-          <div [ngStyle]="{
-          'height': openAppsInThisPage[ appType ].model[i].fullHeight ? '100%' : produceHeightAndWidth( openAppsInThisPage[ appType ].model[i].height, openApps.openApps[ appType ].initialHeight ) + 'px',
-          'width': openAppsInThisPage[ appType ].model[i].fullWidth ? '100%' : produceHeightAndWidth( openAppsInThisPage[ appType ].model[i].width, openApps.openApps[ appType ].initialWidth ) + 'px'}">
+          <div  [ngStyle]="{
+          'height': app.fullHeight ? '100%' : produceHeightAndWidth( app.height, app.initialHeight ) + 'px',
+          'width': app.fullWidth ? '100%' : produceHeightAndWidth( app.width, app.initialWidth ) + 'px'}">
 
+            <app-all-app-selectors [app]="app">
 
-            <app-textlist-viewer style="position: sticky;" *ngIf="appType === 'textlistViewers'"
-                                 [textToDisplay]="openAppsInThisPage[ appType ].model[i]['textlist']">
-            </app-textlist-viewer>
-
-
-            <app-home *ngIf="appType === 'login'" >
-
-            </app-home>
-
-
-            <app-image-with-overlay style="position: sticky;" *ngIf=" appType === 'imageViewer'"
-                                    [iiifImagePath]="openAppsInThisPage[ 'imageViewer' ].model[i][ 'fileValueAsUrl' ]"
-                                    [maxImageWidth]="openAppsInThisPage[ 'imageViewer' ].model[i][ 'stillImageFileValueHasDimX' ]"
-                                    [maxImageHeight]="openAppsInThisPage[ 'imageViewer' ].model[i][ 'stillImageFileValueHasDimY' ]"
-                                    [width]="produceHeightAndWidth( openAppsInThisPage[ 'imageViewer' ].model[i].width,  openApps.openApps[ 'imageViewer' ].initialWidth )"
-                                    [height]="produceHeightAndWidth( openAppsInThisPage[ 'imageViewer' ].model[i].height,  openApps.openApps[ 'imageViewer' ].initialHeight)"
-                                    [(hoveredRegion)]="hoveredElement">
-            </app-image-with-overlay>
-
-
-            <app-simple-image-app style="position: sticky;" *ngIf="appType === 'simpleImageApp'"
-              [imageURL]="openAppsInThisPage[ 'simpleImageApp' ].model[i]['imageURL']">
-
-            </app-simple-image-app>
-
-
-            <app-html-viewer class="draggable" style="position: sticky;" *ngIf=" appType === 'htmlViewer'"
-                             [htmlContent]="openAppsInThisPage[ 'htmlViewer' ].model[i]['htmlContent']"
-                             [selectiveStyleDeclarations]="openAppsInThisPage[ 'htmlViewer' ].model[i]['selectiveStyleDeclarations']"
-                             [styleDeclarations]="openAppsInThisPage[ 'htmlViewer' ].model[i]['styleDeclarations']">
-            </app-html-viewer>
-
-
-            <app-synopsis style="position: sticky;" *ngIf="appType === 'synopsisViewer'" >
-
-            </app-synopsis>
-
-
-            <app-create-resource style="position: sticky;" *ngIf=" appType === 'createResourceForm' "
-                                 [projectIRI]="projectIRI"
-                                 (resourceIRI)="closeApp( openAppsInThisPage[ 'createResourceForm' ].model, i )">
-            </app-create-resource>
-
-
-            <app-resource-form *ngIf="appType === 'editResourceForm'" (resourceIsDeleted)="closeApp( openAppsInThisPage[ 'createResourceForm' ].model, i )">
-
-            </app-resource-form>
-
-            <app-resource-form-v2 *ngIf="appType === 'knoraV2viewer'"
-                                  [backendAddress]="openAppsInThisPage['knoraV2viewer'].model[i]['backendAddress']"
-                                  [resourceIRI]="openAppsInThisPage['knoraV2viewer'].model[i]['resourceIRI']"
-                                  [queryParamForResourceIRI]="openAppsInThisPage['knoraV2viewer'].model[i]['queryParamForResourceIRI']"
-                                  [hoverColor]="openAppsInThisPage['knoraV2viewer'].model[i]['hoverColor']"
-                                  [maxDepth]="openAppsInThisPage['knoraV2viewer'].model[i]['maxDepth']"
-                                  [(hoveredResource)]="hoveredElement">
-            </app-resource-form-v2>
-
-            <app-youtube-video *ngIf=" appType === 'youtubeVideo'"
-              [videoURL]="openAppsInThisPage[ 'youtubeVideo' ].model[i]['videoURL']">
-
-            </app-youtube-video>
-
-
-            <app-parzival-fassung style="position: sticky;" *ngIf="appType === 'parzivalFassung'"
-                                  [textJson]="openAppsInThisPage[ 'parzivalFassung' ].model[i]['textJson']">
-            </app-parzival-fassung>
-
-
-            <app-p0041-edition style="position: sticky;" *ngIf="appType === 'avpEditionView'"
-                               [backendAddress]="openAppsInThisPage[ 'avpEditionView' ].model[i][ 'backendAddress' ]">
-            </app-p0041-edition>
-
-
-            <app-openbis-login *ngIf="appType === 'openbisLogin'" >
-
-            </app-openbis-login>
-
-
-            <app-text-svg-view-wrapper style="position: sticky;" *ngIf="appType === 'svgTranscription' "
-                                           [pageTree]="openAppsInThisPage['svgTranscription'].model[i]['pageTree']"
-                                           [imageUrl]="openAppsInThisPage['svgTranscription'].model[i]['imageUrl']"
-                                           [width]="openAppsInThisPage['svgTranscription'].model[i]['imageWidth']"
-                                           [height]="openAppsInThisPage['svgTranscription'].model[i]['imageHeight']"
-                                           [viewerWidth]="produceHeightAndWidth( openAppsInThisPage[ 'svgTranscription' ].model[i].width,  openApps.openApps[ 'svgTranscription' ].initialWidth )"
-                                           [viewerHeight]="produceHeightAndWidth( openAppsInThisPage[ 'svgTranscription' ].model[i].height,  openApps.openApps[ 'svgTranscription' ].initialHeight)"
-                                            [(hoveredWord)]="hoveredElement">
-            </app-text-svg-view-wrapper>
-
-
-            <response-tree style="position: sticky;" *ngIf="appType === 'jsonViewer'"
-                                 [queryResponse]="openAppsInThisPage[ 'jsonViewer' ].model[i]['json']">
-            </response-tree>
-
-
-            <app-navigation-tree *ngIf="appType === 'treeNavigation'"
-              [queryResponse]="openAppsInThisPage[ 'treeNavigation' ].model[i]['json']">
-
-            </app-navigation-tree>
-
-
-            <app-hierarchical-navigation-view *ngIf="appType === 'hierarchicalNavigationView'"
-                                              [backendAddress]="openAppsInThisPage['hierarchicalNavigationView'].model[i]['backendAddress']"
-                                              [navigationRootIri]="openAppsInThisPage['hierarchicalNavigationView'].model[i]['navigationRootIri']"
-                                              [navigationConfiguration]="openAppsInThisPage['hierarchicalNavigationView'].model[i]['navigationConfiguration']">
-            </app-hierarchical-navigation-view>
-
-
-            <data-list-view style="position: sticky;" *ngIf="appType === 'dataListView'"
-                           [queryResponse]="openAppsInThisPage[ 'dataListView' ].model[i]['json']"
-                            [dataListSettings]="openAppsInThisPage[ 'dataListView' ].model[i]['settings']">
-            </data-list-view>
-
-
-            <app-bar-chart *ngIf=" appType === 'barCharts' "
-              [initialised] = "openAppsInThisPage[ 'barCharts' ].model[i].initialized"
-              [numberOfInitialisedComponent] = " i " >
-
-            </app-bar-chart>
-
-
-            <app-spiral-bar-chart *ngIf=" appType === 'spiralBarCharts' "
-              [initialised] = "openAppsInThisPage[ 'spiralBarCharts' ].model[i].initialized"
-              [numberOfInitialisedComponent] = " i " >
-
-            </app-spiral-bar-chart>
-
-
-            <app-multi-line-chart *ngIf="appType === 'lineCharts'"
-              [initialised] = "openAppsInThisPage[ 'lineCharts' ].model[i].initialized"
-              [numberOfInitialisedComponent] = " i " >
-
-            </app-multi-line-chart>
-
-
-            <app-brush-and-zoom *ngIf="appType === 'brushZoomCharts'"
-              [initialised] = "openAppsInThisPage[ 'brushZoomCharts' ].model[i].initialized"
-              [numberOfInitialisedComponent] = " i " >
-
-            </app-brush-and-zoom>
-
-
-            <app-leaflet-example *ngIf=" appType === 'leafletMaps' "
-              [initialised] = "openAppsInThisPage[ 'leafletMaps' ].model[i].initialized"
-              [numberOfInitialisedComponent] = " i " >
-
-            </app-leaflet-example>
-
-
-            <app-pie-chart *ngIf=" appType === 'pieCharts' "
-              [initialised] = "openAppsInThisPage[ 'pieCharts' ].model[i].initialized"
-              [numberOfInitialisedComponent] = " i " >
-            </app-pie-chart>
-
-
-            <app-radial-barchart *ngIf=" appType === 'radialBarCharts' "
-              [initialised] = "openAppsInThisPage[ 'radialBarCharts' ].model[i].initialized"
-              [numberOfInitialisedComponent] = " i " >
-            </app-radial-barchart>
-
-
-            <app-sankey *ngIf=" appType === 'sankeyCharts' "
-              [initialised] = "openAppsInThisPage[ 'sankeyCharts' ].model[i].initialized"
-              [numberOfInitialisedComponent] = " i " >
-            </app-sankey>
-
-
-            <app-stacked-bar-chart *ngIf="appType ===  'stackedBarCharts' "
-              [initialised] = "openAppsInThisPage[ 'stackedBarCharts' ].model[i].initialized"
-              [numberOfInitialisedComponent] = " i " >
-            </app-stacked-bar-chart>
-
-
-            <app-chord-diagram *ngIf="appType === 'chordDiagrams'"
-              [initialised] = "openAppsInThisPage[ 'chordDiagrams' ].model[i].initialized"
-              [numberOfInitialisedComponent] = " i " >
-            </app-chord-diagram>
-
-            <app-joined-text-view *ngIf="appType === 'joinedTextView'"
-                                  [backendAddress]="openAppsInThisPage[ 'joinedTextView' ].model[i]['backendAddress']"
-                                  [textRootIri]="openAppsInThisPage[ 'joinedTextView' ].model[i]['textRootIri']"
-                                  [queryParamForTextRootIri]="openAppsInThisPage['joinedTextView'].model[i]['queryParamForTextRootIri']"
-                                  [textConfiguration]="openAppsInThisPage[ 'joinedTextView' ].model[i]['textConfiguration']"
-                                  [styleDeclarations]="openAppsInThisPage[ 'joinedTextView' ].model[i]['styleDeclarations']"
-                                  [selectiveStyleDeclarations]="openAppsInThisPage[ 'joinedTextView' ].model[i]['selectiveStyleDeclarations']"
-                                  [(hoveredResource)]="hoveredElement">
-            </app-joined-text-view>
-
-            <app-iframe *ngIf="appType === 'sparqlVisualizer'"
-                        [url]="environment.sparqlVisualizer">
-            </app-iframe>
-
-            <app-iframe *ngIf="appType === 'raeber'"
-                        [url]="environment.raeber">
-            </app-iframe>
-
-            <app-iframe *ngIf="appType === 'salsah2'"
-                        [url]="environment.salsah2">
-
-            </app-iframe>
-
-            <app-prime-editor
-              *ngIf="appType === 'primeEditor'"
-              [text]="openAppsInThisPage[ 'primeEditor' ].model[i]['text']"
-              (sendTextBack) = "updateTextOnApp( $event )"
-              [hash]="openAppsInThisPage[ 'primeEditor' ].model[i].hash"
-              [type]="openAppsInThisPage[ 'primeEditor' ].type">
-
-            </app-prime-editor>
-
-            <app-angular-handsometable *ngIf="appType === 'spreadSheet'">
-
-            </app-angular-handsometable>
-
-            <app-raeber-navigation
-              *ngIf="appType === 'urlUpdate'"
-              [actionID]="actionID"
-              [pageId]="pageIDFromURL">
-
-            </app-raeber-navigation>
-
-            <app-pdf-viewer
-              *ngIf="appType === 'pdfViewer'"
-              [source]="openAppsInThisPage[ 'pdfViewer' ].model[i]['source']"
-              [page]="openAppsInThisPage[ 'pdfViewer' ].model[i]['page']"
-              [pdfLength]="openAppsInThisPage[ 'pdfViewer' ].model[i]['pdfLength']">
-
-            </app-pdf-viewer>
+            </app-all-app-selectors>
 
           </div>
         </popup>
       </div>
-      </div>
-    </div>
+</div>
+
+<div *ngIf="innerWidth < 1000" >
+  <mat-card *ngFor="let app of openAppArray; let i = index;" style="display: inline-block; margin-left: 10px; margin-bottom: 10px;" >
+    <mat-card-header >
+      <mat-card-subtitle>
+
+        {{ app.title }}
 
 
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
 
+      <app-all-app-selectors [app]="app">
+
+      </app-all-app-selectors>
+
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button >
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <button mat-button><mat-icon>chevron_left</mat-icon></button>
+      <button mat-button><mat-icon>chevron_right</mat-icon></button>
+    </mat-card-actions>
+  </mat-card>
 </div>

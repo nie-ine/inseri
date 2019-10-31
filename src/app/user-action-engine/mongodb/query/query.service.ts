@@ -22,6 +22,10 @@ export class QueryService {
     return this.http.post(`${QueryService.API_BASE_URL_PAGE}/${pageId}/queries`, query, {observe: 'response'});
   }
 
+  addExistingQueryToPage(pageId: string, query: any): Observable<any> {
+    return this.http.put(`${QueryService.API_BASE_URL_PAGE}/${pageId}/addExistingQueryToPage`, query, {observe: 'response'});
+  }
+
   getAllQueries(): Observable<any> {
     return this.http.get(`${QueryService.API_BASE_URL_QUERY}`);
   }

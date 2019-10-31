@@ -92,4 +92,8 @@ export class HomeComponent implements OnInit {
     return this.forgotPassword;
   }
 
+  onKey() {
+    this.startLoginProcess();
+  }
+
 }

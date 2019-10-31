@@ -8,6 +8,8 @@ import {AbstractJsonService} from './abstract-json.service';
 import {GenerateArrayFromLeafsService} from './generate-array-from-leafs.service';
 import {GeneralRequestService} from '../../../query-engine/general/general-request.service';
 import { QueryService } from '../../../user-action-engine/mongodb/query/query.service';
+import {cloneDate} from 'ngx-bootstrap/chronos/create/clone';
+import {type} from 'os';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +22,7 @@ export class GenerateDataChoosersService {
   data: any;
   path: Array<string>;
   query: any;
+  firstTimeQueryIsPushed = new Set();
   constructor(
     private http: HttpClient,
     private abstractJsonService: AbstractJsonService,
@@ -30,10 +33,10 @@ export class GenerateDataChoosersService {
 
   generateDataChoosers( page: any, openAppsInThisPage: any, reset: boolean ) {
     this.pathSet = new Set();
+    this.firstTimeQueryIsPushed = new Set();
     for ( const queryId of  page.queries ) {
       let queryTitle = '';
       let pathArray = [];
-      this.depth = 0;
       this.queryService.getQuery(queryId)
         .subscribe((data) => {
           queryTitle = data.query.title;
@@ -44,15 +47,25 @@ export class GenerateDataChoosersService {
               if (data1.status === 200) {
                 // console.log(data.body, pathArray);
                 this.response = data1.body;
-                this.checkIfSubsetOfResultContainsArray(
-                  data1.body,
-                  pathArray,
-                  openAppsInThisPage,
-                  pathArray,
-                  queryTitle,
-                  data1,
-                  queryId
-                );
+                for ( const appHash in page.appInputQueryMapping ) {
+                  for ( const input in page.appInputQueryMapping[ appHash ] ) {
+                    const path = page.appInputQueryMapping[ appHash ][ input ].path;
+                    for ( let i = 0; i < path.length; i++ ) {
+                      if ( typeof path[ i ] === 'number' ) {
+                        path.splice( i, 1 );
+                      }
+                    }
+                    this.checkIfSubsetOfResultContainsArray(
+                      data1.body,
+                      path,
+                      openAppsInThisPage,
+                      path,
+                      queryTitle,
+                      data1,
+                      queryId
+                    );
+                  }
+                }
               }
             });
         });
@@ -68,38 +81,35 @@ export class GenerateDataChoosersService {
     data: any,
     queryId: string
   ) {
+    // console.log( path );
     if ( path ) {
-      // console.log( response, path, path.length );
-      for ( const segment of path ) {
-        // console.log( segment );
-        if ( response[ segment ] && response[ segment ].length > 1 && typeof response[ segment ] !== 'string') {
-          // console.log( 'response contains array' );
-          this.pathSet = new Set();
-          this.depth = 0;
-          openAppsInThisPage.dataChooser.model.push( {
-            dataChooserEntries: this.generateArrayFromLeafs.generateArrayFromLeafs(
-              this.response,
-              pathArray,
-              0
-            ),
-            title: 'Query: ' + queryTitle,
-            response: data.body,
-            queryId: queryId,
-            depth: 0
-          } );
-          // console.log( openAppsInThisPage.dataChooser.model );
-          this.pathSet.add( path[ 0 ] );
-          this.generateArrayKeyValueForEachArrayInResponse(
-            data.body,
+      const segment = path[ 0 ];
+      // console.log( segment, response );
+      if ( response[ segment ] && response[ segment ].length > 1 && typeof response[ segment ] !== 'string') {
+        // console.log( openAppsInThisPage.dataChooser.model );
+        this.generateArrayKeyValueForEachArrayInResponse(
+          data.body,
+          openAppsInThisPage,
+          queryTitle,
+          queryId,
+          []
+        );
+        return openAppsInThisPage;
+      } else if ( response[ segment ] && response[ segment ] !== 'string' ) {
+        const clonedPath = Object.assign([], path);
+        clonedPath.splice(0, 1);
+        // console.log( 'case 1', clonedPath, response[ segment ] );
+        if ( response[ segment ].length === 1 ) {
+          this.checkIfSubsetOfResultContainsArray(
+            response[ segment ] [ 0 ],
+            clonedPath,
             openAppsInThisPage,
+            pathArray,
             queryTitle,
-            queryId,
-            this.depth
+            data,
+            queryId
           );
-          return openAppsInThisPage;
-        } else if ( response[ segment ] && response[ segment ] !== 'string' ) {
-          const clonedPath = Object.assign([], path);
-          clonedPath.splice(0, 1);
+        } else {
           this.checkIfSubsetOfResultContainsArray(
             response[ segment ],
             clonedPath,
@@ -110,15 +120,18 @@ export class GenerateDataChoosersService {
             queryId
           );
         }
+
       }
       if ( path.length === 0 ) {
-        // console.log( 'Dont generate data choosers ');
+        this.generateQueryButtonInDataChooser( queryId, openAppsInThisPage, queryTitle );
+        // console.log( 'Push 2', path );
         openAppsInThisPage.dataChooser.model.push( {
           dataChooserEntries: [ 'showData' ],
-          title: 'Query: ' + queryTitle,
+          title: undefined,
           response: data.body,
           queryId: queryId,
-          depth: 0
+          depth: 0,
+          pathWithArray: path
         } );
         return openAppsInThisPage;
       }
@@ -131,39 +144,77 @@ export class GenerateDataChoosersService {
     openAppsInThisPage: any,
     queryTitle: string,
     queryId: string,
-    depth: number
+    pathWithArray: Array<string>
   ) {
-    // console.log( response, pathArray );
-    for ( const key in response ) {
-      if (
-        response[ key ].length > 1 &&
-        typeof response[ key ] !== 'string' &&
-        !this.pathSet.has( key )
-      ) {
-        this.pathSet.add( key );
-        depth += 1;
-        openAppsInThisPage.dataChooser.model.push( {
-          dataChooserEntries: this.generateArrayFromLeafs.generateArrayFromLeafs(
-            response[ key ],
-            undefined,
-            0
-          ),
-          title: 'Query: ' + queryTitle + ' Depth: ' + String(depth),
-          response: this.response,
-          queryId: queryId,
-          depth: depth
-        } );
+    if ( response && response !== null ) {
+      // console.log(pathWithArray, response);
+      if (!response.length) {
+        for (const key in response) {
+          if (
+            response[ key ] && response[ key ].length === 1 &&
+            typeof response[ key ] !== 'string'
+          ) {
+            pathWithArray = [];
+          }
+          if (typeof response[key] !== 'string' && typeof response[key] !== 'number') {
+            const clonedPath = Object.assign([], pathWithArray);
+            clonedPath.push(key);
+            // console.log(clonedPath);
+            this.generateArrayKeyValueForEachArrayInResponse(
+              response[key],
+              openAppsInThisPage,
+              queryTitle,
+              queryId,
+              clonedPath
+            );
+          }
+        }
+      } else {
+        if ( typeof response !== 'string' ) {
+          this.generateArrayKeyValueForEachArrayInResponse(
+            response[0],
+            openAppsInThisPage,
+            queryTitle,
+            queryId,
+            pathWithArray
+          );
+        } else {
+          // console.log( response );
+        }
+        if (
+          response.length > 1 &&
+          typeof response !== 'string' &&
+          !this.pathSet.has(pathWithArray.toString() + queryId)
+        ) {
+          this.generateQueryButtonInDataChooser( queryId, openAppsInThisPage, queryTitle );
+          this.pathSet.add(pathWithArray.toString() + queryId);
+          const clonedPath = Object.assign([], pathWithArray);
+          // console.log('push 4', clonedPath);
+          openAppsInThisPage.dataChooser.model.push({
+            dataChooserEntries: this.generateArrayFromLeafs.generateArrayFromLeafs(
+              response
+            ),
+            title: undefined,
+            response: this.response,
+            queryId: queryId,
+            pathWithArray: clonedPath
+          });
+        }
       }
-      // console.log( typeof response[ key ] );
-      if ( typeof response[ key ] !== 'string' ) {
-        this.generateArrayKeyValueForEachArrayInResponse(
-          response[ key ],
-          openAppsInThisPage,
-          queryTitle,
-          queryId,
-          depth
-        );
-      }
+    }
+
+  }
+
+  generateQueryButtonInDataChooser ( queryId: string, openAppsInThisPage: any, queryTitle: string ) {
+    if ( !this.firstTimeQueryIsPushed.has( queryId ) ) {
+      this.firstTimeQueryIsPushed.add( queryId );
+      openAppsInThisPage.dataChooser.model.push({
+        dataChooserEntries: undefined,
+        title: 'Query: ' + queryTitle,
+        response: undefined,
+        queryId: queryId,
+        pathWithArray: undefined
+      });
     }
   }
 }

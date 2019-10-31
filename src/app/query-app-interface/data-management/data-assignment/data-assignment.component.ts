@@ -7,7 +7,8 @@
  * */
 
 
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {AfterViewChecked, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-data-assignment',
@@ -57,6 +58,8 @@ export class DataAssignmentComponent implements OnChanges {
    * */
   @Input() depth: number;
 
+  @Input() pathWithArray: Array<string>;
+
   /**
    * After assigning the inputs to the app variables, this output sends back
    * the variable openAppsInThisPage
@@ -71,12 +74,13 @@ export class DataAssignmentComponent implements OnChanges {
   currentIndex: any = {};
   firstChange = true;
   changes: any;
+  currentPath: any;
   constructor() { }
 
   /**
    * ngOnChages is triggered when a user chooses an entry in the data chooser
    * */
-  ngOnChanges( changes: SimpleChanges) {
+  ngOnChanges() {
     this.firstChange = true;
     this.startPathUpdateProcess();
 
@@ -90,7 +94,17 @@ export class DataAssignmentComponent implements OnChanges {
     this.checkIfPathContainsScalarAsLastEntry();
   }
 
-  startPathUpdateProcess() {
+  startPathUpdateProcess(
+    queryId?: string,
+    pathWithArray?: Array<string>,
+    index?: number
+  ) {
+
+    if ( queryId && pathWithArray && index ) {
+      this.queryId = queryId;
+      this.pathWithArray = pathWithArray;
+      this.index = index;
+    }
 
     /**
      * Initiates currentindex if not defined
@@ -98,10 +112,13 @@ export class DataAssignmentComponent implements OnChanges {
     if ( !this.currentIndex ) {
       this.currentIndex = {};
     }
-    if ( !this.currentIndex[ this.queryId ] ) {
+    if ( !this.currentIndex[ this.queryId ] && this.queryId ) {
       this.currentIndex[ this.queryId ] = {};
     }
-    this.currentIndex[ this.queryId ][ this.depth ] = this.index;
+    if ( this.pathWithArray ) {
+      this.currentIndex[ this.queryId ][ this.pathWithArray.toString() ] = this.index;
+      // console.log( this.currentIndex );
+    }
 
     /**
      * Iterates through every input of every app and performs the updatePathWithindices
@@ -109,78 +126,58 @@ export class DataAssignmentComponent implements OnChanges {
      * */
     for ( const appHash in this.appInputQueryMapping ) {
       for ( const inputName in this.appInputQueryMapping[ appHash ] ) {
-        if ( this.appInputQueryMapping[ appHash ][ inputName ].query === this.queryId ) {
-          this.updatePathWithIndices(
-            this.appInputQueryMapping[ appHash ][ inputName ].path,
-            this.response,
-            this.currentIndex[ this.queryId ],
-            0,
-            0
-          );
+
+        if ( this.appInputQueryMapping[ appHash ][ inputName ].query === this.queryId &&
+          this.appInputQueryMapping[ appHash ][ inputName ].path ) {
+
+          let difference = 0;
+          let allTheSameSegments = true;
+
+          const helpArray = [];
+
+          // console.log( this.appInputQueryMapping[ appHash ][ inputName ].path, this.pathWithArray, this.index );
+
+          for ( let i = 0; i < this.appInputQueryMapping[ appHash ][ inputName ].path.length; i++ ) {
+
+            if ( typeof this.appInputQueryMapping[ appHash ][ inputName ].path[ i ] !== 'number' ) {
+
+              if ( this.pathWithArray &&
+                this.appInputQueryMapping[ appHash ][ inputName ].path[ i ] === this.pathWithArray[ i - difference ] ) {
+
+                // console.log( this.pathWithArray[ i - difference ], i, difference, this.pathWithArray.length );
+                if ( i - difference  === this.pathWithArray.length - 1 && allTheSameSegments ) {
+
+                  // console.log( this.appInputQueryMapping[ appHash ][ inputName ].path[ i ] );
+                  if ( typeof this.appInputQueryMapping[ appHash ][ inputName ].path[ i + 1 ] === 'number' ) {
+
+                    this.appInputQueryMapping[ appHash ][ inputName ].path[ i + 1 ] = this.index;
+
+                  } else {
+
+                    this.appInputQueryMapping[ appHash ][ inputName ].path.splice( i + 1, 0, this.index );
+
+                  }
+
+                  // console.log( this.appInputQueryMapping[ appHash ][ inputName ].path );
+
+                }
+
+              } else {
+
+                allTheSameSegments = false;
+
+              }
+
+            } else {
+              difference += 1;
+            }
+
+          }
+          // console.log( this.appInputQueryMapping[ appHash ][ inputName ].path );
         }
       }
     }
     this.goThroughAppInputs();
-  }
-
-  /**
-   * This method is recursively going through parts of the json and checks if the part of the json has
-   * been reached that the user has mapped to the app input
-   * */
-  updatePathWithIndices(
-    path: Array<string>,
-    response: any,
-    currentIndex: any,
-    indexDepth: number,
-    pathDepth: number
-  ) {
-    let deleteCount = 0;
-
-    /**
-     * This if statement if the currently treated part of the json response is and array
-     * */
-    if (
-      response && path &&
-      response[ path[ pathDepth ] ] &&
-      response[ path[ pathDepth ] ].length > 0
-    ) {
-
-      /**
-       * This if statement checks if the right depth in the json response has been reached already
-       * */
-        if ( indexDepth === this.depth ) {
-
-          /**
-           * This if statement checks if the next segment of the path is a number
-           * */
-          if ( !isNaN( Number( path[ pathDepth + 1 ] ) ) ) {
-            deleteCount = 1;
-          }
-          /**
-           * the following routine replaces the path entry which is a scalar with the
-           * entry chosen by the user, only if this path entry is not at the deepest level
-           * of the json
-           * */
-          if ( pathDepth + 1 !== path.length ) {
-            path.splice(pathDepth + 1, deleteCount, currentIndex[ indexDepth ]);
-          }
-        }
-        indexDepth += 1;
-      }
-
-    /**
-     * If the routine updatePathWithIndices has not reached the right depth, chosen by the user,
-     * it is recursively invoced again, going one depth further in the json
-     * */
-    if ( path && path.length > pathDepth + 1 && response ) {
-      this.updatePathWithIndices(
-        path,
-        response[ path[ pathDepth ] ],
-        currentIndex,
-        indexDepth,
-        pathDepth + 1
-      );
-    }
   }
 
   /**
@@ -264,6 +261,17 @@ export class DataAssignmentComponent implements OnChanges {
     firstArray: boolean
   ) {
     if ( response ) {
+
+      if ( response[ path[ depth ] ] && response[ path[ depth ] ].length === 1 ) {
+        // console.log( response[ path[ depth ] ], response, path, depth );
+        return this.generateAppinput(
+          response[ path[ depth ] ][ 0 ],
+          path,
+          index,
+          depth + 1,
+          false
+        );
+      }
 
       /**
        * If the whole json response is mapped to an app, the whole reponse is returned from this function

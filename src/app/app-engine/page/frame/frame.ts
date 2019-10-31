@@ -14,18 +14,20 @@ import {
   ContentChildren,
   QueryList,
   ElementRef,
-  Renderer2, OnInit, OnChanges
+  Renderer2, OnInit, OnChanges, AfterViewChecked
 } from '@angular/core';
 import 'rxjs/add/operator/map';
 import {MatDialog} from '@angular/material';
 import { FrameSettingsComponent } from '../frame-settings/frame-settings.component';
+import {ActivatedRoute, Router} from '@angular/router';
+import { DataAssignmentComponent } from '../../../query-app-interface/data-management/data-assignment/data-assignment.component';
 
 @Component({
   selector: 'popup',
   templateUrl: 'frame.html',
   styleUrls: ['frame.css']
 })
-export class Frame implements OnInit, OnChanges {
+export class Frame implements OnInit, OnChanges, AfterViewChecked {
 
   /**
    * @param show - indicates if app is minimalized or not
@@ -62,11 +64,15 @@ export class Frame implements OnInit, OnChanges {
   /**
    * @param position - "static" if the option "sort by appType" is chosen, "absolute" otherwise
    * */
+  @Input() response: any;
+  @Input() pathsWithArrays: any;
   @Input() position = 'absolute';
   @Input() fullWidth: boolean;
   @Input() fullHeight: boolean;
   @Input() preview = false;
   @Input() showAppSettingsOnPublish = true;
+  @Input() page: any;
+  @Input() app: any;
   @Output() sendAppCoordinatesBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendAppSettingsBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendIndexBack: EventEmitter<any> = new EventEmitter<any>();
@@ -89,11 +95,25 @@ export class Frame implements OnInit, OnChanges {
   fatherPopup: any;
   sendCoordinatesBack: any;
   isMouseBtnOnPress: boolean;
+  paths: any;
+  index = 0;
+  pathWithArray: Array<any>;
+  queryId: string;
+  dataChooserEntries: Array<string>;
+  dataAssignmentComponent = new DataAssignmentComponent(  );
+
+  panelExtended = false;
+  showContent = true;
+  searchTerm: string;
+  newDataChooserEntries = [];
+
 
   constructor(
     private elementRef: ElementRef,
     private renderer: Renderer2,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private _router: Router,
+    private _route: ActivatedRoute
   ) {
     this.mouseup = this.unboundMouseup.bind(this);
     this.dragging = this.unboundDragging.bind(this);
@@ -104,8 +124,91 @@ export class Frame implements OnInit, OnChanges {
    * for example updated App - Settings or updated App - Title
    * */
   ngOnChanges() {
-    // console.log('changes');
-    // console.log( this.preview, this.showAppSettingsOnPublish );
+    this.index = 0;
+    // console.log( 'change' );
+    this.paths = [];
+    if ( this.app ) {
+      const pathsWithArrays = this.app.pathsWithArrays;
+      for ( const queryId in pathsWithArrays ) {
+        for ( const path in pathsWithArrays[ queryId ] ) {
+          this.paths.push(
+            {
+              queryId: queryId,
+              path: path.split(','),
+              index: pathsWithArrays[ queryId ][ path ].index,
+              response: pathsWithArrays[ queryId ][ path ].response,
+              dataChooserEntries: pathsWithArrays[ queryId ][ path ].dataChooserEntries,
+              pathToValueInJson: pathsWithArrays[ queryId ][ path ].pathToValueInJson
+            }
+          );
+          this.pathWithArray = path.split(',');
+          this.queryId = queryId;
+          this.dataChooserEntries = pathsWithArrays[ queryId ][ path ].dataChooserEntries;
+        }
+      }
+      this.dataAssignmentComponent = new DataAssignmentComponent(  );
+      this.newDataChooserEntries = [];
+      for ( const path of this.paths ) {
+        // console.log( path );
+        for ( let i = 0; i < this.dataChooserEntries.length; i++ ) {
+          this.newDataChooserEntries[ i ] = this.dataAssignmentComponent.generateAppinput(
+            path.response,
+            this.getRidOfNumbersInPath(path.pathToValueInJson),
+            i,
+            0,
+            true
+          );
+        }
+        // console.log( this.newDataChooserEntries );
+      }
+    }
+  }
+
+  ngAfterViewChecked() {
+    if (
+      this.pathWithArray && this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ] &&
+      this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ] !== this.index ) {
+      this.index = Number ( this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ] );
+    }
+  }
+
+  getRidOfNumbersInPath( array: Array<any> ) {
+    for ( let i = 0; i < array.length; i++ ) {
+      if ( typeof array[ i ] === 'number' ) {
+        array.splice( i, 1 );
+        console.log( array[ i ] );
+      }
+    }
+    return array;
+  }
+
+  checkIfUrlIsImage(url: string) {
+    return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
+  }
+
+  moveBack() {
+    this.chooseResource( this.index - 1 );
+  }
+
+  moveForward() {
+    this.chooseResource( this.index + 1 );
+  }
+
+  chooseResource(index: number) {
+    this.panelExtended = false;
+    this.fullWidth = false;
+    this.fullHeight = false;
+    this._router.navigate([], {
+      queryParams: {
+        [this.queryId + this.pathWithArray.toString() ]: Number( index )
+      },
+      queryParamsHandling: 'merge'
+    });
+  }
+
+  stopPropagation(event){
+    event.stopPropagation();
+    // console.log("Clicked!");
   }
 
   /**
@@ -182,7 +285,7 @@ export class Frame implements OnInit, OnChanges {
     this.sendCoordinatesBack.height = this.height;
     this.sendCoordinatesBack.fullWidth = this.fullWidth;
     this.sendCoordinatesBack.fullHeight = this.fullHeight;
-    console.log(this.sendCoordinatesBack);
+    // console.log(this.sendCoordinatesBack);
     this.sendAppCoordinatesBack.emit(
       this.sendCoordinatesBack
     );

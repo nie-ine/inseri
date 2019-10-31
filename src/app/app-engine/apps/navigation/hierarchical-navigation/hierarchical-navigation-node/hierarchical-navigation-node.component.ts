@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { KnoraV2RequestService } from '../../../../../query-engine/knora/knora-v2-request.service';
 import { HierarchicalNavigationRequestService } from '../hierarchical-navigation-request.service';
 import { HierarchicalNavigationNodeConfiguration } from '../hierarchical-navigation-configuration';
@@ -8,7 +8,7 @@ import { HierarchicalNavigationNodeConfiguration } from '../hierarchical-navigat
   templateUrl: './hierarchical-navigation-node.component.html',
   styleUrls: ['./hierarchical-navigation-node.component.scss']
 })
-export class HierarchicalNavigationNodeComponent implements OnChanges {
+export class HierarchicalNavigationNodeComponent implements OnChanges, OnInit {
 
   /**
    * Address to the backend with the resource with the resource.
@@ -69,7 +69,21 @@ export class HierarchicalNavigationNodeComponent implements OnChanges {
     private hierarchicalNavigationRequest: HierarchicalNavigationRequestService) { }
 
   /**
-   * load new content with new input variables
+   * load load children if this node is selected
+   */
+  ngOnInit() {
+    // if this resource is in the selected path, highlight it
+    if (this.pathMap[ this.nodeConfiguration.routeKey ] === this.resource[ '@id' ]) {
+
+      // if this resource is in the selected path and has a selected child, load the children
+      if (this.nodeConfiguration.children && this.pathMap[ this.nodeConfiguration.children.routeKey ]) {
+        this.loadChildrenUntil();
+      }
+    }
+  }
+
+  /**
+   * update path information
    */
   ngOnChanges(changes: SimpleChanges) {
     if (changes[ 'pathMap' ] || changes[ 'routeKeys' ]) {
@@ -78,11 +92,6 @@ export class HierarchicalNavigationNodeComponent implements OnChanges {
       // if this resource is in the selected path, highlight it
       if (this.pathMap[ this.nodeConfiguration.routeKey ] === this.resource[ '@id' ]) {
         this.isInPath = true;
-
-        // if this resource is in the selected path and has a selected child, load the children
-        if (this.nodeConfiguration.children && this.pathMap[ this.nodeConfiguration.children.routeKey ]) {
-          this.loadChildrenUntil();
-        }
       }
     }
   }

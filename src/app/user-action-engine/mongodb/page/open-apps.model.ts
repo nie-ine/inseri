@@ -5,28 +5,13 @@ export class OpenAppsModel {
       model: [],
       inputs: [
         {
-          'inputName': '@id',
-        },
-        {
-          'inputName': '@type',
-        },
-        {
           'inputName': 'fileValueAsUrl',
-        },
-        {
-          'inputName': 'fileValueHasFilename',
-        },
-        {
-          'inputName': 'fileValueIsPreview',
         },
         {
           'inputName': 'stillImageFileValueHasDimX',
         },
         {
           'inputName': 'stillImageFileValueHasDimY',
-        },
-        {
-          'inputName': 'stillImageFileValueHasIIIFBaseUrl',
         }
       ],
       materialIcon: 'image',
@@ -419,7 +404,12 @@ export class OpenAppsModel {
       model: [],
       materialIcon: 'format_size',
       initialWidth: '700',
-      initialHeight: '400'
+      initialHeight: '500',
+      inputs: [
+        {
+          'inputName': 'textFile'
+        }
+      ],
     },
     spreadSheet: {
       type: 'spreadSheet',

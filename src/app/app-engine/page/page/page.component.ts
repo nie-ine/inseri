@@ -3,7 +3,7 @@
  * Data for the apps are loaded with the help of the load-variables component.
  * */
 
-import {AfterViewChecked, ChangeDetectorRef, Component, NgModule, OnInit, VERSION, ViewChild} from '@angular/core';
+import {AfterViewChecked, ChangeDetectorRef, Component, HostListener, NgModule, OnInit, VERSION, ViewChild} from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
 import 'rxjs/add/operator/map';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -28,6 +28,9 @@ import {AuthService} from '../../../user-action-engine/mongodb/auth/auth.service
 import {QueryService} from '../../../user-action-engine/mongodb/query/query.service';
 import { environment } from '../../../../environments/environment';
 import {DialogCreateNewPageComponent} from '../../../user-action-engine/page-set/page-set-landing-page/page-set-landing-page.component';
+import {AppInputComponentComponent} from '../app-input-component/app-input-component.component';
+import {AddAppGroupDialogComponent} from '../add-app-group-dialog/add-app-group-dialog.component';
+import {DataAssignmentComponent} from '../../../query-app-interface/data-management/data-assignment/data-assignment.component';
 
 @Component({
   selector: 'nie-os',
@@ -209,6 +212,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
   showAppSettingsOnPublish = false;
   showDataBrowserOnPublish = true;
 
+  openAppArray = [];
+
   /**
    * Described if publish option expansion panel is open
    * */
@@ -232,6 +237,12 @@ export class PageComponent implements OnInit, AfterViewChecked {
   environment = environment;
 
   selectedPageToShow: number;
+
+  pathWithArray: Array<string>;
+
+  querySet = new Set();
+
+  innerWidth: number;
 
   constructor(
     public route: ActivatedRoute,
@@ -348,6 +359,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   ngOnInit() {
 
+    this.innerWidth = window.innerWidth;
+
     /**
      * Checks how much longer user is logged on
      * */
@@ -384,7 +397,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
       this.preview = false;
       this.openAppsInThisPage[ 'login' ].model[ 0 ].initialized = true;
       this.openAppsInThisPage[ 'login' ].model[ 0 ].x = 150;
-      this.openAppsInThisPage[ 'login' ].model[ 0 ].y = 130;
+      this.openAppsInThisPage[ 'login' ].model[ 0 ].y = 90;
+      this.openAppArray.push( this.openAppsInThisPage[ 'login' ].model[ 0 ] );
     }
 
     this.actionID = this.route.snapshot.queryParams.actionID;
@@ -581,6 +595,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     generateHash: boolean
   ): Array<any> {
     const appModel = this.openAppsInThisPage[ appType ].model;
+    console.log( this.openAppsInThisPage[ appType ] );
     const length = appModel.length;
     appModel[ length ] = {};
     if ( generateHash ) {
@@ -592,6 +607,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
       appModel[ length ].initialized = true;
       appModel[ length ].x = 100;
       appModel[ length ].y = 100;
+      appModel[ length ].initialHeight = this.openAppsInThisPage[ appType ].initialHeight;
+      appModel[ length ].initialWidth = this.openAppsInThisPage[ appType ].initialWidth;
       if (
         this.page.openApps &&
         this.page.openApps[ appModel[ length ].hash ] === null
@@ -601,6 +618,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
       if ( this.page.openApps ) {
         this.page.openApps[ appModel[ length ].hash ] = appModel[ length ];
       }
+      this.openAppArray.push(
+        appModel[ length ]
+      );
     }
     return appModel;
   }
@@ -609,11 +629,11 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * This function is used to remove an app from the page
    * */
   closeApp(
-    appModel: Array<any>,
+    appHash: string,
     i: number
   ) {
-    delete this.page.openApps[appModel[ i ].hash];
-    appModel.splice(
+    delete this.page.openApps[ appHash ];
+    this.openAppArray.splice(
       i,
       1);
   }
@@ -657,19 +677,28 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * function where the relevant variables are updated
    * */
   receivePage( pageAndAction: any ) {
-    console.log( pageAndAction );
-    if (
-      pageAndAction[ 0 ].openApps[ 'appsTiledOrFloating' ] ) {
-      this.appFramePosition = pageAndAction[ 0 ].openApps[ 'appsTiledOrFloating' ].layout;
-    }
-    this.page = pageAndAction[ 0 ];
-    this.action = pageAndAction[ 1 ];
+    this.page = pageAndAction[0];
+    this.action = pageAndAction[1];
     this.reloadVariables = false;
     this.pageIsPublished = this.page.published;
     this.showAppTitlesOnPublish = this.page.showAppTitlesOnPublish;
     this.showAppSettingsOnPublish = this.page.showAppSettingsOnPublish;
     this.showInseriLogoOnPublish = this.page.showInseriLogoOnPublish;
     this.showDataBrowserOnPublish = this.page.showDataBrowserOnPublish;
+    console.log( this.page );
+  }
+
+  generateOpenApps( openApps: any ) {
+    this.openAppArray = [];
+    for ( const appType in openApps ) {
+      for ( const app of openApps[ appType ].model ) {
+        // console.log( app );
+        if ( app.x ) {
+          this.openAppArray.push(app);
+        }
+      }
+    }
+    console.log( this.openAppArray );
   }
 
   /**
@@ -679,17 +708,58 @@ export class PageComponent implements OnInit, AfterViewChecked {
   receiveOpenAppsInThisPage( openAppsInThisPage: any ) {
     this.openAppsInThisPage = openAppsInThisPage;
     this.reloadVariables = false;
+    this.generateOpenApps( openAppsInThisPage );
   }
 
   /**
    * This fuction is invoked by an emit of the data-chooser component,
-   * after the user chooses a data entry
+   * after the user chooses a data entry and triggers the data assignment component
    * */
   updateMainResourceIndex( input: any ) {
+    console.log( input.index );
     this.index = input.index;
     this.response = input.response;
     this.queryId = input.queryId;
     this.depth = input.depth;
+    this.pathWithArray = input.pathWithArray;
+    const dataAssignmentComponent = new DataAssignmentComponent();
+    if (  this.pathWithArray && this.pathWithArray.length > 0 ) {
+      for ( const app of this.openAppArray ) {
+        for ( const appInput in this.page.appInputQueryMapping[ app.hash ] ) {
+          if ( this.page.appInputQueryMapping[ app.hash ][ appInput ].query === this.queryId ) {
+            let allSegmentsTheSame = true;
+            for ( let i = 0; i < this.pathWithArray.length; i++ ) {
+              if ( this.pathWithArray[ i ] !== this.page.appInputQueryMapping[ app.hash ][ appInput ].path[ i ] ) {
+                allSegmentsTheSame = false;
+              }
+              if ( i === this.pathWithArray.length - 1 && allSegmentsTheSame ) {
+                if ( !app[ 'pathsWithArrays' ] ) {
+                  app[ 'pathsWithArrays' ] = {};
+                }
+                if ( !app[ 'pathsWithArrays' ][ this.queryId ] ) {
+                  app[ 'pathsWithArrays' ][ this.queryId ] = {};
+                }
+                if ( !app[ 'pathsWithArrays' ][ this.queryId ][ this.pathWithArray.toString() ] ) {
+                  app[ 'pathsWithArrays' ][ this.queryId ][ this.pathWithArray.toString() ] = {};
+                }
+                console.log( input );
+                dataAssignmentComponent.startPathUpdateProcess(
+                  this.queryId,
+                  this.pathWithArray,
+                  this.index
+                );
+                app[ 'pathsWithArrays' ][ this.queryId ][ this.pathWithArray.toString() ] = {
+                  index: input.index,
+                  dataChooserEntries: input.dataChooserEntries,
+                  response: this.response,
+                  pathToValueInJson: this.page.appInputQueryMapping[ app.hash ][ appInput ].path
+                };
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
   /**
@@ -885,11 +955,53 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   openAssignInputDialog( input: any ) {
-    console.log(
-      this.openAppsInThisPage[input.type].inputs,
-      input.hash,
-      'next: open input assign dialog'
-    );
+    console.log( input, this.openAppsInThisPage );
+    const dialogRef = this.dialog.open(AppInputComponentComponent, {
+      width: '50%',
+      height: '50%',
+      data: {
+        appHash: input.hash,
+        inputs: this.openAppsInThisPage[input.type].inputs,
+        page: this.page
+      }
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log( result );
+      if ( result === 'openDataMGMT' ) {
+        this.openDataManagement();
+      }
+      console.log( 'after closed' );
+      this.reloadVariables = true;
+    });
+  }
+
+  reloadVariablesFunction() {
+    console.log('test');
+    this.reloadVariables = true;
+  }
+
+  addAppGroup() {
+    console.log( 'Add app group' );
+    const dialogRef = this.dialog.open(AddAppGroupDialogComponent, {
+      width: '50%',
+      height: '50%',
+      data: {
+        openAppsInThisPage: this.openAppsInThisPage,
+        appTypes: this.appTypes
+      }
+    });
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.innerWidth = window.innerWidth;
+    // console.log( this.innerWidth );
+  }
+
+  switchAppTilePosition( currentPosition: number, nextPosition: number ) {
+    const helpVariable = this.openAppArray[currentPosition];
+    this.openAppArray[ currentPosition ] = this.openAppArray[ nextPosition ];
+    this.openAppArray[ nextPosition ] = helpVariable;
   }
 
 }

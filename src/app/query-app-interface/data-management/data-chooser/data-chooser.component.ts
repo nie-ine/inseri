@@ -11,6 +11,7 @@ import {
   Output,
   EventEmitter} from '@angular/core';
 import {MatDialog} from '@angular/material';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-data-chooser',
@@ -50,6 +51,14 @@ export class DataChooserComponent implements AfterViewChecked {
   @Input() description = '';
 
   /**
+   *
+   * */
+
+  @Input() pathWithArray;
+
+  @Input() page: any;
+
+  /**
    * This output emits the index chosen by the user
    * */
   @Output() sendIndexBack: EventEmitter<any> = new EventEmitter<any>();
@@ -63,29 +72,50 @@ export class DataChooserComponent implements AfterViewChecked {
    * This boolean prevents the data chooser to emit an already emitted index
    * */
   alreadyEmitted = false;
+
+  chosenEntry: string;
+
+  currentPath: string;
   constructor(
+    private _route: ActivatedRoute,
     public dialogSettings: MatDialog,
     private cdr: ChangeDetectorRef,
+    private _router: Router
   ) {}
 
   ngAfterViewChecked() {
-    this.cdr.detectChanges();
-    if ( this.dataChooserEntries [ 0 ] === 'showData' && !this.alreadyEmitted ) {
-      this.alreadyEmitted = true;
-      this.chooseResource( 0 );
-    }
-    if ( typeof this.dataChooserEntries [ 0 ] === 'object'  && !this.alreadyEmitted ) {
+    if ( this.pathWithArray &&
+      this.currentPath !== this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ] ) {
+      this.currentPath = this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ];
+      setTimeout(() => {
+        console.log(  this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ] );
+        this.chooseResource( Number( this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ] ) );
+      }, 50);
+    } else if ( !this.alreadyEmitted ) {
       this.alreadyEmitted = true;
       this.chooseResource( 0 );
     }
   }
+
   chooseResource(index: number) {
-    this.index = index;
+    if ( this.dataChooserEntries ) {
+      this.chosenEntry = this.dataChooserEntries[ index ];
+    }
+    if ( this.pathWithArray && index !== 0 ) {
+      this._router.navigate([], {
+        queryParams: {
+          [this.queryId + this.pathWithArray.toString() ]: index
+        },
+        queryParamsHandling: 'merge'
+      });
+    }
     this.sendIndexBack.emit( {
       index: index,
       response: this.response,
       queryId: this.queryId,
-      depth: this.depth
+      depth: this.depth,
+      pathWithArray: this.pathWithArray,
+      dataChooserEntries: this.dataChooserEntries
     } );
   }
 

@@ -97,6 +97,30 @@ router.put('/updateJson/:id', checkAuth, (req, res, next) => {
     });
 });
 
+router.put('/updateFile/:id', checkAuth, (req, res, next) => {
+  console.log(req.body);
+  MyOwnJson.findOneAndUpdate(
+    {_id: req.params.id},
+    {
+      content: {
+        info: req.body.textFile
+      }
+    }, {
+      returnNewDocument: true
+    })
+    .then((resultJSON) => {
+      res.status(200).json({
+        message: 'JSON was updated successfully',
+        JSON: resultJSON
+      });
+    })
+    .catch(error => {
+      res.status(400).json({
+        message: 'JSON cannot be updated'
+      });
+    });
+});
+
 router.put('/publishJSON/:id', checkAuth, (req, res, next) => {
   MyOwnJson.update({ _id: req.params.id}, {
     published: req.body.published

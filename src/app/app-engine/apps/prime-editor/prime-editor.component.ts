@@ -1,4 +1,5 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
+import {GeneralRequestService} from '../../../query-engine/general/general-request.service';
 
 @Component({
   selector: 'app-prime-editor',
@@ -6,23 +7,25 @@ import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angula
   styleUrls: ['./prime-editor.component.scss']
 })
 export class PrimeEditorComponent implements OnChanges {
-  @Input() text: string;
-  @Input() hash: string;
-  @Input() type: string;
-  @Output() sendTextBack: EventEmitter<any> = new EventEmitter<any>();
-  constructor() { }
+  @Input() textFile: string;
+  @Input() serverUrl: string;
+  @Output() reloadVariables: EventEmitter<any> = new EventEmitter<any>();
+  @ViewChild('editor2') editor2;
+  constructor(
+    private requestService: GeneralRequestService
+  ) { }
 
   ngOnChanges() {
   }
 
   save() {
-    this.sendTextBack.emit(
-      {
-        text: this.text,
-        hash: this.hash,
-        type: this.type
-      }
-    );
+    this.requestService.updateFile( this.serverUrl[ 'textFile' ][ 'serverUrl' ].split('/')[ 6 ], { textFile: this.textFile} )
+      .subscribe(
+        data => {
+          console.log( data );
+        }, error => console.log( error )
+      );
+    this.reloadVariables.emit();
   }
 
 }
