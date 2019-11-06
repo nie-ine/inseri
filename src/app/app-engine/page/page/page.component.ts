@@ -395,9 +395,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
     ) {
       this.addAnotherApp( 'login', true );
       this.preview = false;
-      this.openAppsInThisPage[ 'login' ].model[ 0 ].initialized = true;
-      this.openAppsInThisPage[ 'login' ].model[ 0 ].x = 150;
-      this.openAppsInThisPage[ 'login' ].model[ 0 ].y = 90;
     }
 
     this.actionID = this.route.snapshot.queryParams.actionID;

@@ -83,6 +83,7 @@ import { AppInputComponentComponent } from './page/app-input-component/app-input
 import { FileListDialogComponent } from './page/file-list-dialog/file-list-dialog.component';
 import { AddAppGroupDialogComponent } from './page/add-app-group-dialog/add-app-group-dialog.component';
 import { AllAppSelectorsComponent } from './page/all-app-selectors/all-app-selectors.component';
+import { BrowserlingComponent } from './apps/browserling/browserling.component';
 
 @NgModule({
   imports: [
@@ -137,7 +138,7 @@ import { AllAppSelectorsComponent } from './page/all-app-selectors/all-app-selec
     AgGridModule.withComponents([]),
     RouterModule.forChild([
       { path: 'page', component: PageComponent },
-      { path: 'pdf', component: PdfViewerComponent }
+      { path: 'browserling', component: BrowserlingComponent }
     ])
   ],
   providers: [
@@ -182,7 +183,8 @@ import { AllAppSelectorsComponent } from './page/all-app-selectors/all-app-selec
     AppInputComponentComponent,
     FileListDialogComponent,
     AddAppGroupDialogComponent,
-    AllAppSelectorsComponent
+    AllAppSelectorsComponent,
+    BrowserlingComponent
   ],
   exports: [
     PageComponent,

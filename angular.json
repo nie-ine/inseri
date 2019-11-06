@@ -41,7 +41,8 @@
               "node_modules/ace-builds/src-min/theme-eclipse.js",
               "node_modules/ace-builds/src-min/mode-typescript.js",
               "node_modules/ace-builds/src-min/mode-html.js",
-              "node_modules/quill/dist/quill.js"
+              "node_modules/quill/dist/quill.js",
+              "src/assets/browserling/browserling.js"
             ]
           },
           "configurations": {
@@ -109,7 +110,8 @@
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/openseadragon/build/openseadragon/openseadragon.min.js",
               "src/app/app-engine/apps/svg-overlay/openseadragon-svg-overlay.js",
-              "../node_modules/quill/dist/quill.js"
+              "../node_modules/quill/dist/quill.js",
+              "src/assets/browserling/browserling.js"
             ],
             "styles": [
               "src/styles.scss",
