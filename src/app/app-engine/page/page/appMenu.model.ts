@@ -340,6 +340,16 @@ export class AppMenuModel {
       appType: 'pdfViewer',
       description: 'pdfViewer',
       showOnHome: false
+    },
+    {
+      id: 'select_all',
+      name: 'Key Value',
+      tags: 'key value',
+      color: 'green',
+      status: 'stable',
+      appType: 'keyValue',
+      description: 'keyValue',
+      showOnHome: false
     }
   ];
 }

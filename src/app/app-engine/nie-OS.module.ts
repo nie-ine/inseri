@@ -84,6 +84,7 @@ import { FileListDialogComponent } from './page/file-list-dialog/file-list-dialo
 import { AddAppGroupDialogComponent } from './page/add-app-group-dialog/add-app-group-dialog.component';
 import { AllAppSelectorsComponent } from './page/all-app-selectors/all-app-selectors.component';
 import { BrowserlingComponent } from './apps/browserling/browserling.component';
+import { KeyValueComponent } from './apps/key-value/key-value.component';
 
 @NgModule({
   imports: [
@@ -184,7 +185,8 @@ import { BrowserlingComponent } from './apps/browserling/browserling.component';
     FileListDialogComponent,
     AddAppGroupDialogComponent,
     AllAppSelectorsComponent,
-    BrowserlingComponent
+    BrowserlingComponent,
+    KeyValueComponent
   ],
   exports: [
     PageComponent,

@@ -1,4 +1,7 @@
+<app-key-value style="position: sticky;" *ngIf="app.type === 'keyValue'"
+               [key]="app.key" [value]="app.value" >
 
+</app-key-value>
 
 <app-textlist-viewer style="position: sticky;" *ngIf="app.type === 'textlistViewers'"
                      [textToDisplay]="app.textlist">
