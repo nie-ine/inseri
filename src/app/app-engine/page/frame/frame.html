@@ -22,13 +22,17 @@
   </div>-->
 
 
-        <mat-card-header class="popup-title-bar popup-drag" (mousedown)="mousedown($event)" *ngIf="!preview" (mousedown)="setNewZIndex()">
+        <mat-card-header class=" popup-drag" (mousedown)="mousedown($event)" *ngIf="!preview" (mousedown)="setNewZIndex()"
+                         [ngClass]="{'popup-title-bar': position === 'absolute'}">
 
 
           <div>
 
-            <button mat-button [matMenuTriggerFor]="menu1" >
+            <button *ngIf="position === 'absolute'" mat-button [matMenuTriggerFor]="menu1" >
               {{ title }}
+            </button>
+            <button *ngIf="position === 'static'" mat-button [matMenuTriggerFor]="menu1" >
+              <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu1="matMenu">
 

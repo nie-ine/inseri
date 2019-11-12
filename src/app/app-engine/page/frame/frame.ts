@@ -66,7 +66,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
    * */
   @Input() response: any;
   @Input() pathsWithArrays: any;
-  @Input() position = 'absolute';
+  @Input() position: string;
   @Input() fullWidth: boolean;
   @Input() fullHeight: boolean;
   @Input() preview = false;
@@ -174,17 +174,6 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
     }
   }
 
-  getRidOfNumbersInPath( array: Array<any> ) {
-    for ( let i = 0; i < array.length; i++ ) {
-      // console.log( typeof array[ i ] );
-      if ( typeof array[ i ] === 'number' ) {
-        array.splice( i, 1 );
-        console.log( array[ i ] );
-      }
-    }
-    return array;
-  }
-
   checkIfUrlIsImage(url: string) {
     if ( url ) {
       return(
@@ -216,7 +205,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
     });
   }
 
-  stopPropagation(event){
+  stopPropagation(event) {
     event.stopPropagation();
     // console.log("Clicked!");
   }
