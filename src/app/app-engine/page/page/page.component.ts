@@ -681,7 +681,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.showAppSettingsOnPublish = this.page.showAppSettingsOnPublish;
     this.showInseriLogoOnPublish = this.page.showInseriLogoOnPublish;
     this.showDataBrowserOnPublish = this.page.showDataBrowserOnPublish;
-    console.log( this.page );
+    // console.log( this.page );
   }
 
   generateOpenApps( openApps: any ) {
@@ -694,7 +694,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
         }
       }
     }
-    console.log( this.openAppArray );
+    // console.log( this.openAppArray );
   }
 
   /**
@@ -712,7 +712,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * after the user chooses a data entry and triggers the data assignment component
    * */
   updateMainResourceIndex( input: any ) {
-    console.log( input.index );
+    // console.log( input.index );
     this.index = input.index;
     this.response = input.response;
     this.queryId = input.queryId;
@@ -738,7 +738,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
                 if ( !app[ 'pathsWithArrays' ][ this.queryId ][ this.pathWithArray.toString() ] ) {
                   app[ 'pathsWithArrays' ][ this.queryId ][ this.pathWithArray.toString() ] = {};
                 }
-                console.log( input );
+                // console.log( input );
                 dataAssignmentComponent.startPathUpdateProcess(
                   this.queryId,
                   this.pathWithArray,

@@ -148,16 +148,18 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
       }
       this.dataAssignmentComponent = new DataAssignmentComponent(  );
       this.newDataChooserEntries = [];
+      // console.log( this.dataChooserEntries );
       for ( const path of this.paths ) {
-        // console.log( path );
+        console.log( path.pathToValueInJson );
         for ( let i = 0; i < this.dataChooserEntries.length; i++ ) {
           this.newDataChooserEntries[ i ] = this.dataAssignmentComponent.generateAppinput(
             path.response,
-            this.getRidOfNumbersInPath(path.pathToValueInJson),
+            path.pathToValueInJson,
             i,
             0,
             true
           );
+          // console.log( this.newDataChooserEntries[ i ] );
         }
         // console.log( this.newDataChooserEntries );
       }
@@ -174,6 +176,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
 
   getRidOfNumbersInPath( array: Array<any> ) {
     for ( let i = 0; i < array.length; i++ ) {
+      // console.log( typeof array[ i ] );
       if ( typeof array[ i ] === 'number' ) {
         array.splice( i, 1 );
         console.log( array[ i ] );
@@ -183,7 +186,14 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
   }
 
   checkIfUrlIsImage(url: string) {
-    return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
+    if ( url ) {
+      return(
+        url.match(/\.(jpeg|jpg|gif|png)$/) != null ||
+        url.match(/(jpeg|jpg|gif|png)$/) != null
+      );
+    } else {
+      return false;
+    }
   }
 
   moveBack() {
