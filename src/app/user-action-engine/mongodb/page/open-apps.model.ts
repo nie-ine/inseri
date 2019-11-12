@@ -361,7 +361,9 @@ export class OpenAppsModel {
     pageMenu: {
       type: 'pageMenu',
       model: [],
-      materialIcon: 'settings'
+      materialIcon: 'settings',
+      initialWidth: '750',
+      initialHeight: '500'
     },
     sparqlVisualizer: {
       type: 'sparqlVisualizer',
@@ -417,8 +419,7 @@ export class OpenAppsModel {
       materialIcon: 'table_chart',
       initialWidth: '700',
       initialHeight: '600'
-    }
-    ,
+    },
     urlUpdate: {
       type: 'urlUpdate',
       model: [],
@@ -426,10 +427,25 @@ export class OpenAppsModel {
       initialWidth: '200',
       initialHeight: '200'
     },
+    keyValue: {
+      type: 'keyValue',
+      model: [],
+      materialIcon: 'horizontal_split',
+      initialWidth: '350',
+      initialHeight: '100',
+      inputs: [
+        {
+          'inputName': 'key'
+        },
+        {
+          'inputName': 'value'
+        }
+      ],
+    },
     pdfViewer: {
       type: 'pdfViewer',
       model: [],
-      materialIcon: 'horizontal_split',
+      materialIcon: 'select_all',
       initialWidth: '700',
       initialHeight: '700',
       inputs: [

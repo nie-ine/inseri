@@ -235,6 +235,7 @@ export class DataAssignmentComponent implements OnChanges {
                   /**
                    * Here, the appInput is assigned to the respective part of the json
                    * */
+                  // console.log( this.response, this.appInputQueryMapping[ app.hash ][ input ][ 'path' ], this.index );
                   app[ input ] = this.generateAppinput(
                     this.response || response,
                     this.appInputQueryMapping[ app.hash ][ input ][ 'path' ],
@@ -258,10 +259,10 @@ export class DataAssignmentComponent implements OnChanges {
     path: any,
     index: number,
     depth: number,
-    firstArray: boolean
+    firstArray: boolean // indicates, if the response as this input is the first array with length > 1
   ) {
     if ( response ) {
-
+      // console.log( path );
       if ( response[ path[ depth ] ] && response[ path[ depth ] ].length === 1 ) {
         // console.log( response[ path[ depth ] ], response, path, depth );
         return this.generateAppinput(
@@ -269,7 +270,7 @@ export class DataAssignmentComponent implements OnChanges {
           path,
           index,
           depth + 1,
-          false
+          true
         );
       }
 
@@ -296,6 +297,8 @@ export class DataAssignmentComponent implements OnChanges {
            * reponse.
            * */
           if ( !isNaN( path[ depth ] ) ) {
+            // console.log( 'path segment is number' );
+            // console.log( response[ path[ depth ] ] );
             return this.generateAppinput(
               response[ path[ depth ] ],
               path,
@@ -316,21 +319,21 @@ export class DataAssignmentComponent implements OnChanges {
             return response[ Number ( path[ depth ] ) ];
           }
           if ( typeof response === 'string' ) {
+            // console.log( response );
             return response;
           } else {
 
             /**
              * Todo: document the following to conditional statements
              * */
-            if ( firstArray ) {
-              return this.generateAppinput(
-                response[ index ],
-                path,
-                index,
-                depth + 1,
-                false
-              );
-            }
+            // console.log( response, index, path, depth, path[ depth ] );
+            return this.generateAppinput(
+              response[ index ],
+              path,
+              index,
+              depth,
+              false
+            );
           }
         } else if ( depth !== path.length && response[ path[ depth ] ] ) {
           /**
@@ -346,6 +349,8 @@ export class DataAssignmentComponent implements OnChanges {
             /**
              * otherwise you recursively invoke the current method to go one step further in the current json
              * */
+            // console.log( 'here1' );
+            // console.log( response, index, path, depth, path[ depth ] );
             return this.generateAppinput(
               response[ path[ depth ] ],
               path,
@@ -359,6 +364,7 @@ export class DataAssignmentComponent implements OnChanges {
         } else if ( path.length - 1 === depth && Number( path[ depth ] ) ) {
           return response[ path[ depth - 1 ] ][ Number( path[ depth ] ) ];
         } else {
+          // console.log( 'here2' );
           return this.generateAppinput(
             response[ path[ depth ] ],
             path, index,

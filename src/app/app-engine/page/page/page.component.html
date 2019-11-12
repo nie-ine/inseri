@@ -236,14 +236,14 @@
 
 
       <div *ngFor="let app of openAppArray; let i = index;" >
-        <div *ngIf="( !preview || showAppSettingsOnPublish ) && innerWidth > 1000">
+        <div *ngIf="( !preview || showAppSettingsOnPublish ) && innerWidth > 1000 && app.type !== 'pageMenu'">
           <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>{{ openApps.openApps[ app.type ].materialIcon }}</mat-icon> {{ i }}</button>
           <mat-menu #menu="matMenu" >
-            <button mat-menu-item (click)="appId.appear()" (click)="app.initialized = true">Show {{ app.type }} {{ i }}</button>
+            <button mat-menu-item (click)="appId.appear()" (click)="app.initialized = true">Show {{ app.title || app.type  + i }}</button>
             <button mat-menu-item (click)=" closeApp( app.hash, i ) ">Remove this app</button>
           </mat-menu>
         </div>
-        <popup #appId *ngIf="innerWidth > 1000"
+        <popup #appId *ngIf="innerWidth > 1000 && app.type !== 'pageMenu'"
                [response]="app.response"
                [app]="app"
                [pathsWithArrays]="app.pathsWithArrays"
@@ -294,11 +294,28 @@
 
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button >
-        <mat-icon>more_vert</mat-icon>
-      </button>
-      <button mat-button><mat-icon>chevron_left</mat-icon></button>
-      <button mat-button><mat-icon>chevron_right</mat-icon></button>
+
+      <popup #appId *ngIf="app.type !== 'pageMenu'"
+             [response]="app.response"
+             [app]="app"
+             [pathsWithArrays]="app.pathsWithArrays"
+             [showAppSettingsOnPublish]="!preview || showAppSettingsOnPublish"
+             [preview]="preview && !showAppTitlesOnPublish"
+             [fullWidth]="app.fullWidth"
+             [fullHeight]="app.fullHeight"
+             (sendTiledPositionBack) = "updateTiledPosition( $event )"
+             [position]="'static'"
+             [hash]="app.hash"
+             [title]="app.title || app.type  + i"
+             [type]="app.type"
+             [firstPopupX]="app.x"
+             [firstPopupY]="app.y"
+             (sendAppCoordinatesBack)="updateAppCoordinates($event)"
+             (sendAppSettingsBack)="updateAppSettings($event)"
+             (sendAssignInputCommandBack)="openAssignInputDialog($event)">
+
+      </popup>
+
     </mat-card-actions>
   </mat-card>
 </div>
