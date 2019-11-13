@@ -350,6 +350,16 @@ export class AppMenuModel {
       appType: 'keyValue',
       description: 'keyValue',
       showOnHome: false
+    },
+    {
+      id: 'open_in_browser',
+      name: 'Browserling',
+      tags: 'browser virtualisation',
+      color: 'green',
+      status: 'stable',
+      appType: 'browserling',
+      description: 'browserling',
+      showOnHome: false
     }
   ];
 }

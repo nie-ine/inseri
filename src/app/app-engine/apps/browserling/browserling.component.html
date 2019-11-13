@@ -1,3 +1,11 @@
-<div id="browserling">
 
-</div>
+<mat-form-field class="example-full-width">
+  <input matInput placeholder="Api Key" [(ngModel)]="apiKey" >
+</mat-form-field>
+
+
+<button (click)="alreadySet=false"  (click)="generateUrl()" mat-button style="display: inline-block">Start Session</button>
+
+<iframe [src]="sanitizedUrl" style="width: 100%; height: 1000px;">
+
+</iframe>

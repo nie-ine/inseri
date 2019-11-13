@@ -459,6 +459,42 @@ export class OpenAppsModel {
           'inputName': 'pdfLength'
         }
       ],
+    },
+    browserling: {
+      type: 'browserling',
+      model: [],
+      materialIcon: 'open_in_browser',
+      initialWidth: '1000',
+      initialHeight: '1000',
+      inputs: [
+        {
+          'inputName': 'platform_name'
+        },
+        {
+          'inputName': 'platform_version'
+        },
+        {
+          'inputName': 'browser'
+        },
+        {
+          'inputName': 'version'
+        },
+        {
+          'inputName': 'url'
+        },
+        {
+          'inputName': 'my_cursor'
+        },
+        {
+          'inputName': 'idle_timeout'
+        },
+        {
+          'inputName': 'session_timeout'
+        },
+        {
+          'inputName': 'resolution'
+        }
+      ],
     }
   };
 }
