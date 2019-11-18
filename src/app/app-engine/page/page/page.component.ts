@@ -244,6 +244,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   innerWidth: number;
 
+  tiles = false;
+
   constructor(
     public route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
@@ -565,6 +567,17 @@ export class PageComponent implements OnInit, AfterViewChecked {
      * otherwise this.page will be rewritten by the routine pageService.updatePage
      * during its execution!
      * */
+    let openAppArrayIndex = 0;
+    for ( let i = 0; i < this.openAppArray.length; i++ ) {
+      if (
+        this.page.openApps[ this.openAppArray[ i ].hash ].type !== 'pageMenu' &&
+        this.page.openApps[ this.openAppArray[ i ].hash ].type !== 'dataChooser'
+      ) {
+        this.page.openApps[ this.openAppArray[ i ].hash ].openAppArrayIndex = openAppArrayIndex;
+        openAppArrayIndex += 1;
+      }
+    }
+    console.log( this.page, this.openAppArray );
     this.pageService.updatePage(
       { ...this.page }
       )
@@ -605,6 +618,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
       appModel[ length ].y = 100;
       appModel[ length ].initialHeight = this.openAppsInThisPage[ appType ].initialHeight;
       appModel[ length ].initialWidth = this.openAppsInThisPage[ appType ].initialWidth;
+      appModel[ length ].openAppArrayIndex = length;
       if (
         this.page.openApps &&
         this.page.openApps[ appModel[ length ].hash ] === null
@@ -686,15 +700,24 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   generateOpenApps( openApps: any ) {
     this.openAppArray = [];
+    console.log( this.page );
     for ( const appType in openApps ) {
       for ( const app of openApps[ appType ].model ) {
-        // console.log( app );
+        console.log( app );
         if ( app.x ) {
-          this.openAppArray.push(app);
+            this.openAppArray.push( app );
         }
       }
     }
-    // console.log( this.openAppArray );
+    let j = 0;
+    for ( const app of this.openAppArray ) {
+      if ( this.page.openApps[ app.hash ].openAppArrayIndex ) {
+        const switchHelp = this.openAppArray[this.page.openApps[app.hash].openAppArrayIndex];
+        this.openAppArray[this.page.openApps[app.hash].openAppArrayIndex] = app;
+        this.openAppArray[ j ] = switchHelp;
+      }
+      j++;
+    }
   }
 
   /**
@@ -970,18 +993,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
   reloadVariablesFunction() {
     console.log('test');
     this.reloadVariables = true;
-  }
-
-  addAppGroup() {
-    console.log( 'Add app group' );
-    const dialogRef = this.dialog.open(AddAppGroupDialogComponent, {
-      width: '50%',
-      height: '50%',
-      data: {
-        openAppsInThisPage: this.openAppsInThisPage,
-        appTypes: this.appTypes
-      }
-    });
   }
 
   @HostListener('window:resize', ['$event'])

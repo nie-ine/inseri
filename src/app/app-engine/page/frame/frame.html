@@ -20,6 +20,9 @@
             <button *ngIf="position === 'absolute'" mat-button [matMenuTriggerFor]="menu1" >
               {{ title }}
             </button>
+            <button *ngIf="position === 'static'" mat-button [matMenuTriggerFor]="menu1" >
+              <mat-icon>minimize</mat-icon>
+            </button>
             <mat-menu #menu1="matMenu">
 
               <button mat-menu-item (click)="openSettings()" >
