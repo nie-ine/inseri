@@ -96,8 +96,11 @@
           <button mat-menu-item *ngIf=" (!pageAsDemo) && !preview" (click)="openDataManagement()" >
             <mat-icon matTooltip="page data manager">zoom_out_map</mat-icon> Data management
           </button>
-          <button mat-menu-item *ngIf=" (!pageAsDemo) && !preview" (click)="tiles = !tiles" >
+          <button mat-menu-item *ngIf=" (!pageAsDemo) && !preview" (click)="updateTilePage()" >
             <mat-icon matTooltip="page data manager">dashboard</mat-icon> Windows or Tiles
+          </button>
+          <button mat-menu-item *ngIf=" (!pageAsDemo) && !preview" (click)="showResponsiveWidthMenu = !showResponsiveWidthMenu" >
+            <mat-icon matTooltip="page data manager">linear_scale</mat-icon> Tiles - Width: {{ page.chosenWidth }} px
           </button>
           <button mat-menu-item *ngIf=" (!pageAsDemo) && !preview" (click)="logout()" >
             <mat-icon matTooltip="{{ 'click to logout - ' + userInfo }}">lock_open</mat-icon> Log out
@@ -170,14 +173,14 @@
 
 
       <div *ngFor="let app of openAppArray; let i = index;" >
-        <div *ngIf="( !preview || showAppSettingsOnPublish ) && innerWidth > 800 && app.type !== 'pageMenu' && !tiles">
+        <div *ngIf="( !preview || showAppSettingsOnPublish ) && innerWidth > page.chosenWidth && app.type !== 'pageMenu' && !page.tiles">
           <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>{{ openApps.openApps[ app.type ].materialIcon }}</mat-icon> {{ i }}</button>
           <mat-menu #menu="matMenu" >
             <button mat-menu-item (click)="appId.appear()" (click)="app.initialized = true">Show {{ app.title || app.type  + i }}</button>
             <button mat-menu-item (click)=" closeApp( app.hash, i ) ">Remove this app</button>
           </mat-menu>
         </div>
-        <popup #appId *ngIf="innerWidth > 800 && !tiles"
+        <popup #appId *ngIf="innerWidth > page.chosenWidth && !page.tiles"
                [response]="app.response"
                [app]="app"
                [pathsWithArrays]="app.pathsWithArrays"
@@ -263,9 +266,9 @@
 
 
 
-<div *ngIf="innerWidth < 800 || tiles" >
-  <mat-card *ngFor="let app of openAppArray; let i = index;" style="display: inline-block; margin-left: 10px; margin-bottom: 10px;" >
-    <mat-card-header >
+<div *ngIf="innerWidth < page.chosenWidth || page.tiles" >
+  <mat-card *ngFor="let app of openAppArray; let i = index;" style="display: inline-block; margin-left: 10px; margin-bottom: 10px;" (click)="app.minimized = false" matTooltip="{{ app.minimized ? app.title : '' }}">
+    <mat-card-header *ngIf=" !app.minimized ">
       <mat-card-subtitle>
 
         {{ app.title }}
@@ -280,7 +283,7 @@
 
       </mat-card-subtitle>
     </mat-card-header>
-    <mat-card-content>
+    <mat-card-content *ngIf=" !app.minimized ">
 
       <app-all-app-selectors [app]="app">
 
@@ -333,7 +336,7 @@
       </div>
 
     </mat-card-content>
-    <mat-card-actions>
+    <mat-card-actions *ngIf=" !app.minimized " >
 
       <popup #appId
              [response]="app.response"
@@ -350,12 +353,30 @@
              [type]="app.type"
              [firstPopupX]="app.x"
              [firstPopupY]="app.y"
+             [openAppArrayIndex]="i"
+             (minimizeApp)="minimizeApp($event)"
              (sendAppCoordinatesBack)="updateAppCoordinates($event)"
              (sendAppSettingsBack)="updateAppSettings($event)"
-             (sendAssignInputCommandBack)="openAssignInputDialog($event)">
+             (sendAssignInputCommandBack)="openAssignInputDialog($event)"
+             (closeAppEmitter)="closeApp( app.hash, i )">
 
       </popup>
 
     </mat-card-actions>
   </mat-card>
 </div>
+
+<div
+  [ngStyle]="{'border-left': '3px solid', 'height': '500px', 'margin-left': page.chosenWidth + 'px', 'color': 'C9D6FF'}"
+  *ngIf="showResponsiveWidthMenu">
+
+</div>
+
+<mat-slider *ngIf="showResponsiveWidthMenu"
+            style="width: 100%"
+            [max]="innerWidth"
+            [min]="0"
+            [step]="10"
+            [thumbLabel]="true"
+            [(ngModel)]="page.chosenWidth">
+</mat-slider>

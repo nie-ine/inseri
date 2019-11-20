@@ -73,11 +73,14 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
   @Input() showAppSettingsOnPublish = true;
   @Input() page: any;
   @Input() app: any;
+  @Input() openAppArrayIndex: number;
   @Output() sendAppCoordinatesBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendAppSettingsBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendIndexBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendTiledPositionBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendAssignInputCommandBack: EventEmitter<any> = new EventEmitter<any>();
+  @Output() minimizeApp: EventEmitter<any> = new EventEmitter<any>();
+  @Output() closeAppEmitter: EventEmitter<any> = new EventEmitter<any>();
 
   mousemoveEvent: any;
   mouseupEvent: any;
@@ -233,6 +236,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
 
   disappear() {
     this.show = false;
+    this.minimizeApp.emit( this.openAppArrayIndex );
   }
 
   setPos() {
@@ -351,6 +355,10 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
   assignInput() {
     console.log( 'assign input' );
     this.sendAssignInputCommandBack.emit( {hash: this.hash, type: this.type} );
+  }
+
+  closeApp() {
+    this.closeAppEmitter.emit();
   }
 
 }

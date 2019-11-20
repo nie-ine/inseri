@@ -37,6 +37,10 @@
                 Minimize
               </button>
 
+              <button mat-menu-item (click)="closeApp()" >
+                Close
+              </button>
+
             </mat-menu>
 
             <button mat-button *ngIf="pathsWithArrays" (click)="moveBack()" [disabled]="!(index > 0)">

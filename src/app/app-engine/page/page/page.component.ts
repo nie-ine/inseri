@@ -244,7 +244,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   innerWidth: number;
 
-  tiles = false;
+  showResponsiveWidthMenu = false;
 
   constructor(
     public route: ActivatedRoute,
@@ -628,9 +628,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
       if ( this.page.openApps ) {
         this.page.openApps[ appModel[ length ].hash ] = appModel[ length ];
       }
-      this.openAppArray.push(
-        appModel[ length ]
-      );
+      this.openAppArray = [ appModel[ length ] ].concat( this.openAppArray );
     }
     return appModel;
   }
@@ -688,6 +686,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * */
   receivePage( pageAndAction: any ) {
     this.page = pageAndAction[0];
+    console.log( pageAndAction[0] );
     this.action = pageAndAction[1];
     this.reloadVariables = false;
     this.pageIsPublished = this.page.published;
@@ -695,7 +694,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.showAppSettingsOnPublish = this.page.showAppSettingsOnPublish;
     this.showInseriLogoOnPublish = this.page.showInseriLogoOnPublish;
     this.showDataBrowserOnPublish = this.page.showDataBrowserOnPublish;
-    // console.log( this.page );
+    console.log( this.page );
   }
 
   generateOpenApps( openApps: any ) {
@@ -1005,6 +1004,14 @@ export class PageComponent implements OnInit, AfterViewChecked {
     const helpVariable = this.openAppArray[currentPosition];
     this.openAppArray[ currentPosition ] = this.openAppArray[ nextPosition ];
     this.openAppArray[ nextPosition ] = helpVariable;
+  }
+
+  updateTilePage() {
+    this.page.tiles = !this.page.tiles;
+  }
+
+  minimizeApp( openAppArrayIndex: number ) {
+    this.openAppArray[ openAppArrayIndex ].minimized = true;
   }
 
 }
