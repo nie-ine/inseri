@@ -106,7 +106,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
   dataAssignmentComponent = new DataAssignmentComponent(  );
 
   panelExtended = false;
-  showContent = true;
+  @Input () showContent = true;
   searchTerm: string;
   newDataChooserEntries = [];
 
@@ -128,7 +128,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
    * */
   ngOnChanges() {
     this.index = 0;
-    // console.log( 'change' );
+    console.log( 'change' );
     this.paths = [];
     if ( this.app ) {
       const pathsWithArrays = this.app.pathsWithArrays;
@@ -235,7 +235,6 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
   }
 
   disappear() {
-    this.show = false;
     this.minimizeApp.emit( this.openAppArrayIndex );
   }
 

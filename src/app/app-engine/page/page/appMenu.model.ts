@@ -1,5 +1,14 @@
 export class AppMenuModel {
-  appMenu = [
+  appMenu = [    {
+      id: 'lock_open',
+      name: 'Login | Sign up',
+      tags: 'for an inseri account',
+      color: 'green',
+      status: 'stable',
+      appType: 'login',
+      description: 'Login or create an account',
+      showOnHome: true
+    },
     {
       id: 'aspect_ratio',
       name: 'HTML Viewer ',
@@ -28,7 +37,7 @@ export class AppMenuModel {
       status: 'under development',
       appType: 'svgTranscription',
       description: ' SVG transcription with exact word positions',
-      showOnHome: true
+      showOnHome: false
     },
     {
       id: 'view_week',
@@ -68,7 +77,7 @@ export class AppMenuModel {
       status: 'stable',
       appType: 'imageViewer',
       description: 'Display and zoom in images',
-      showOnHome: true
+      showOnHome: false
     },
     {
       id: 'add_photo_alternate',

@@ -8,4 +8,4 @@
 <br>
 
 
-<button mat-button (click)="save()" >Save Text  and update Page</button>
+<button mat-button (click)="save()" *ngIf="route.snapshot.url[0].path !== 'home'" >Save Text  and update Page</button>

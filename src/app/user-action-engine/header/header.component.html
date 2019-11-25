@@ -1,48 +1,8 @@
 <nav id="mainNav" class="navbar navbar-default  navbar-fixed-top" *ngIf="router.url.search( 'home' ) === -1">
-  <div  class="container">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header page-scroll">
-
-      <a class="navbar-brand page-scroll" href="dashboard#top" *ngIf="isAuthenticated() && (!isOnDashboard())" style="color: #4cae4c !important"><mat-icon matTooltip="back to dashboard">home</mat-icon></a>
-      <a class="navbar-brand page-scroll" > {{ generateLeftHeaderString() }}</a>
-      <a class="navbar-brand page-scroll" href="{{'page-set?actionID=' + actionID}}" *ngIf="hashOfThisPage" style="color: #4cae4c !important"><mat-icon matTooltip="back to pageSet">filter_none</mat-icon></a>
-    </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div  >
-      <ul class="nav navbar-nav navbar-right" >
-        <li class="hidden">
-          <a href="#page-top"></a>
-        </li>
-
-        <li *ngIf="hashOfThisPage" style=" overflow-x:auto; width: 500px; height: 40px;">
-
-          <mat-chip-list *ngFor="let page of pagesOfThisActtion; let i = index;" style="margin-top: 8px; margin-left: 2px; display: inline-block;">
-            <mat-chip matTooltip="{{ page.description }}" selected [color]="'primary'"  *ngIf="checkIfSelected( i )">
-              {{ page.title }}
-            </mat-chip>
-            <mat-chip matTooltip="{{ page.description }}" *ngIf="!checkIfSelected( i )" (click)="selectPage( i, page )">
-              {{ page.title }}
-            </mat-chip>
-          </mat-chip-list>
-
-        </li>
-        <li class="navbar-list">
-          <a href="home#funktionen" >{{ generateFunctionsHomeLink() }}</a>
-        </li>
-        <li class="navbar-list">
-          <a (click)="openSnackBar()" >Sprache</a>
-        </li>
-        <li class="navbar-list" *ngIf="isAuthenticated() && isOnDashboard()">
-          <a (click)="openSettingsDialog()">Einstellungen</a>
-        </li>
-        <li class="navbar-list" *ngIf="isAuthenticated()" matTooltip='{{ userInfo }}'>
-          <a (click)="loginOrLogout()">{{ loginOrLogoutButton() }}</a>
-        </li>
-        <li class="navbar-list" *ngIf="!isAuthenticated()">
-          <a href="home#login">Login</a>
-        </li>
-      </ul>
-    </div>
-  </div>
+        <button mat-button [matMenuTriggerFor]="menu" style="margin-top: 10px; float: right;">Dashboard Menu</button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="openSnackBar()">Language</button>
+          <button mat-menu-item (click)="openSettingsDialog()">Einstellungen</button>
+          <button mat-menu-item (click)="loginOrLogout()">{{ loginOrLogoutButton() }}</button>
+        </mat-menu>
 </nav>

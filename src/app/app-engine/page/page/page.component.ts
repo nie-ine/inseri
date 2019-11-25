@@ -44,6 +44,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * */
   displayedColumns: string[] = ['id', 'name', 'tags', 'status'];
 
+  responsiveColumns: string[] = ['id', 'name'];
+
   /**
    * this variable instantiates the MatTableDataSource used for the inseri app menu
    * */
@@ -395,7 +397,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
       this.route.snapshot.url[0].path === 'home' &&
       this.route.snapshot.queryParams.actionID === undefined
     ) {
-      this.addAnotherApp( 'login', true );
+      this.page.chosenWidth = 800;
+      // this.addAnotherApp( 'login', true );
       this.preview = false;
     }
 
@@ -548,17 +551,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   /**
-   * This function returns the tooltip of the page selector of a pageSet Navigation chips
-   * */
-  createTooltip() {
-    if ( this.action ) {
-      return 'Page: ' + this.action.title + ', Description: ' + this.action.description;
-    } else {
-      return null;
-    }
-  }
-
-  /**
    * This function updates the page in MongoDB
    * */
   updatePage() {
@@ -619,6 +611,10 @@ export class PageComponent implements OnInit, AfterViewChecked {
       appModel[ length ].initialHeight = this.openAppsInThisPage[ appType ].initialHeight;
       appModel[ length ].initialWidth = this.openAppsInThisPage[ appType ].initialWidth;
       appModel[ length ].openAppArrayIndex = length;
+      appModel[ length ].showContent = true;
+      if ( !this.page.openApps ) {
+        this.page.openApps = {};
+      }
       if (
         this.page.openApps &&
         this.page.openApps[ appModel[ length ].hash ] === null
@@ -628,7 +624,12 @@ export class PageComponent implements OnInit, AfterViewChecked {
       if ( this.page.openApps ) {
         this.page.openApps[ appModel[ length ].hash ] = appModel[ length ];
       }
-      this.openAppArray = [ appModel[ length ] ].concat( this.openAppArray );
+      console.log( this.openAppArray );
+      if ( this.openAppArray.length === 0 ) {
+        this.openAppArray.push( appModel[ length ] );
+      } else {
+        this.openAppArray = [ appModel[ length ] ].concat( this.openAppArray );
+      }
     }
     return appModel;
   }
@@ -640,10 +641,13 @@ export class PageComponent implements OnInit, AfterViewChecked {
     appHash: string,
     i: number
   ) {
-    delete this.page.openApps[ appHash ];
+    console.log( this.page );
     this.openAppArray.splice(
       i,
       1);
+    if ( this.page.openApps ) {
+      delete this.page.openApps[ appHash ];
+    }
   }
 
   /**
@@ -702,9 +706,10 @@ export class PageComponent implements OnInit, AfterViewChecked {
     console.log( this.page );
     for ( const appType in openApps ) {
       for ( const app of openApps[ appType ].model ) {
-        console.log( app );
+        // console.log( app );
         if ( app.x ) {
-            this.openAppArray.push( app );
+          app.showContent = true;
+          this.openAppArray.push( app );
         }
       }
     }

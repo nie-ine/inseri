@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
 import {GeneralRequestService} from '../../../query-engine/general/general-request.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-prime-editor',
@@ -12,7 +13,8 @@ export class PrimeEditorComponent implements OnChanges {
   @Output() reloadVariables: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('editor2') editor2;
   constructor(
-    private requestService: GeneralRequestService
+    private requestService: GeneralRequestService,
+    public route: ActivatedRoute
   ) { }
 
   ngOnChanges() {

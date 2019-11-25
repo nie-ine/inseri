@@ -174,13 +174,13 @@
 
       <div *ngFor="let app of openAppArray; let i = index;" >
         <div *ngIf="( !preview || showAppSettingsOnPublish ) && innerWidth > page.chosenWidth && app.type !== 'pageMenu' && !page.tiles">
-          <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" ><mat-icon>{{ openApps.openApps[ app.type ].materialIcon }}</mat-icon> {{ i }}</button>
+          <button mat-button [matMenuTriggerFor]="menu" style="vertical-align: bottom;" *ngIf="!app.showContent"><mat-icon>{{ openApps.openApps[ app.type ].materialIcon }}</mat-icon> {{ i }}</button>
           <mat-menu #menu="matMenu" >
-            <button mat-menu-item (click)="appId.appear()" (click)="app.initialized = true">Show {{ app.title || app.type  + i }}</button>
+            <button mat-menu-item (click)="app.showContent = true" (click)="app.initialized = true">Show {{ app.title || app.type  + i }}</button>
             <button mat-menu-item (click)=" closeApp( app.hash, i ) ">Remove this app</button>
           </mat-menu>
         </div>
-        <popup #appId *ngIf="innerWidth > page.chosenWidth && !page.tiles"
+        <popup #appId *ngIf="innerWidth > page.chosenWidth && !page.tiles && app.showContent"
                [response]="app.response"
                [app]="app"
                [pathsWithArrays]="app.pathsWithArrays"
@@ -199,7 +199,8 @@
                [width]="produceHeightAndWidth( app.width,  app.initialWidth )"
                (sendAppCoordinatesBack)="updateAppCoordinates($event)"
                (sendAppSettingsBack)="updateAppSettings($event)"
-               (sendAssignInputCommandBack)="openAssignInputDialog($event)">
+               (sendAssignInputCommandBack)="openAssignInputDialog($event)"
+               (closeAppEmitter)="closeApp( app.hash, i )" (minimizeApp)="app.showContent = false;">
           <div  [ngStyle]="{
           'height': app.fullHeight ? '100%' : produceHeightAndWidth( app.height, app.initialHeight ) + 'px',
           'width': app.fullWidth ? '100%' : produceHeightAndWidth( app.width, app.initialWidth ) + 'px'}">
@@ -224,7 +225,7 @@
                 <!-- ID Column -->
                 <ng-container matColumnDef="id"  >
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Icon </th>
-                  <td mat-cell *matCellDef="let row" (click)="addAnotherApp(row.appType, true)" style="cursor: pointer; width: 25%;"> <mat-icon>{{row.id}}</mat-icon> </td>
+                  <td mat-cell *matCellDef="let row" (click)="addAnotherApp(row.appType, true)" style="cursor: pointer; width: 25%;"> <button mat-button><mat-icon>{{row.id}}</mat-icon> </button></td>
                 </ng-container>
 
                 <!-- Tag Column -->
@@ -251,7 +252,6 @@
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;" style="width: 100%;"></tr>
               </table>
 
-              <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
             </div>
 
           </div>
@@ -267,7 +267,7 @@
 
 
 <div *ngIf="innerWidth < page.chosenWidth || page.tiles" >
-  <mat-card *ngFor="let app of openAppArray; let i = index;" style="display: inline-block; margin-left: 10px; margin-bottom: 10px;" (click)="app.minimized = false" matTooltip="{{ app.minimized ? app.title : '' }}">
+  <mat-card *ngFor="let app of openAppArray; let i = index;" style="display: inline-block; margin-left: 30px; margin-bottom: 10px;" (click)="app.minimized = false" matTooltip="{{ app.minimized ? app.title : '' }}">
     <mat-card-header *ngIf=" !app.minimized ">
       <mat-card-subtitle>
 
@@ -305,34 +305,26 @@
           <!-- ID Column -->
           <ng-container matColumnDef="id"  >
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Icon </th>
-            <td mat-cell *matCellDef="let row" (click)="addAnotherApp(row.appType, true)" style="cursor: pointer; width: 25%;"> <mat-icon>{{row.id}}</mat-icon> </td>
+            <td mat-cell *matCellDef="let row" (click)="addAnotherApp(row.appType, true)" style="cursor: pointer; width: 25%;">
+              <button mat-button >
+                <mat-icon>{{row.id}}</mat-icon>
+              </button> </td>
           </ng-container>
 
-          <!-- Tag Column -->
-          <ng-container matColumnDef="tags"  >
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Tags </th>
-            <td mat-cell *matCellDef="let row" (click)="addAnotherApp(row.appType, true)" style="cursor: pointer; width: 25%;"> {{row.tags}} </td>
-          </ng-container>
 
           <!-- Name Column -->
           <ng-container matColumnDef="name" >
             <th mat-header-cell *matHeaderCellDef mat-sort-header > Name </th>
             <td mat-cell *matCellDef="let row"
                 (click)="addAnotherApp(row.appType, true)"
-                style="cursor: pointer; width: 25%;" > {{row.name}} </td>
+                style="cursor: pointer; width: 25%;" > <button mat-button >{{row.name}} </button></td>
           </ng-container>
 
-          <!-- Color Column -->
-          <ng-container matColumnDef="status"  >
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-            <td mat-cell *matCellDef="let row" [style.color]="row.color" (click)="addAnotherApp(row.appType, true)" style="cursor: pointer; width: 25%;" matTooltip="{{row.description}}"> {{row.status}} </td>
-          </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns" style="width: 100%;"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;" style="width: 100%;"></tr>
+          <tr mat-header-row *matHeaderRowDef="responsiveColumns" style="width: 100%;"></tr>
+          <tr mat-row *matRowDef="let row; columns: responsiveColumns;" style="width: 100%;"></tr>
         </table>
 
-        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
       </div>
 
     </mat-card-content>
