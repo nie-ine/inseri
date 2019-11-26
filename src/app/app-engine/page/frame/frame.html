@@ -14,14 +14,8 @@
         <mat-card-header class=" popup-drag" (mousedown)="mousedown($event)" *ngIf="!preview" (mousedown)="setNewZIndex()"
                          [ngClass]="{'popup-title-bar': position === 'absolute'}">
 
-
-          <div>
-
             <button *ngIf="position === 'absolute'" mat-button [matMenuTriggerFor]="menu1" >
               {{ title }}
-            </button>
-            <button *ngIf="position === 'static'" mat-button [matMenuTriggerFor]="menu1" >
-              <mat-icon>minimize</mat-icon>
             </button>
             <mat-menu #menu1="matMenu">
 
@@ -76,7 +70,9 @@
               <mat-icon>chevron_right</mat-icon>
             </button>
 
-          </div>
+          <button *ngIf="position === 'static'" mat-button [matMenuTriggerFor]="menu1" style="float: right!important;">
+            <mat-icon>minimize</mat-icon>
+          </button>
 
         </mat-card-header>
 

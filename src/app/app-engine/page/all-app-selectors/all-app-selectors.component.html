@@ -204,7 +204,7 @@
 <app-prime-editor
   *ngIf="app.type === 'primeEditor'"
   [textFile]="app.textFile"
-  [serverUrl]="app.serverUrl"
+  [appInputQueryMapping]="appInputQueryMapping[ app.hash ]"
   (reloadVariables)="reloadVariablesFunction()">
 
 </app-prime-editor>

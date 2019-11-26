@@ -74,7 +74,7 @@ export class LoadVariablesComponent implements OnInit, OnChanges {
       .subscribe(
         data => {
           this.page = ( data as any).page;
-          console.log( this.page );
+          // console.log( this.page );
           this.convertMappingsBackFromJson( this.page );
           const appHelperArray = [];
           if ( this.page.tiles === undefined ) {

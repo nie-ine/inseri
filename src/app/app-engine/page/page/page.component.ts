@@ -690,7 +690,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * */
   receivePage( pageAndAction: any ) {
     this.page = pageAndAction[0];
-    console.log( pageAndAction[0] );
+    // console.log( pageAndAction[0] );
     this.action = pageAndAction[1];
     this.reloadVariables = false;
     this.pageIsPublished = this.page.published;
@@ -698,7 +698,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.showAppSettingsOnPublish = this.page.showAppSettingsOnPublish;
     this.showInseriLogoOnPublish = this.page.showInseriLogoOnPublish;
     this.showDataBrowserOnPublish = this.page.showDataBrowserOnPublish;
-    console.log( this.page );
   }
 
   generateOpenApps( openApps: any ) {
@@ -708,7 +707,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
       for ( const app of openApps[ appType ].model ) {
         // console.log( app );
         if ( app.x ) {
-          app.showContent = true;
           this.openAppArray.push( app );
         }
       }
