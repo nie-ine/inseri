@@ -127,7 +127,12 @@ export class OpenAppsModel {
       model: [],
       materialIcon: 'bar_chart',
       initialWidth: '1200',
-      initialHeight: '500'
+      initialHeight: '500',
+      inputs: [
+        {
+          'inputName': 'data'
+        }
+      ],
     },
     spiralBarCharts: {
       type: 'spiralBarCharts',
@@ -162,14 +167,24 @@ export class OpenAppsModel {
       model: [],
       materialIcon: 'pie_chart',
       initialWidth: '700',
-      initialHeight: '500'
+      initialHeight: '500',
+      inputs: [
+        {
+          'inputName': 'data'
+        }
+      ],
     },
     radialBarCharts: {
       type: 'radialBarCharts',
       model: [],
       materialIcon: 'multiline_chart',
       initialWidth: '500',
-      initialHeight: '500'
+      initialHeight: '500',
+      inputs: [
+        {
+          'inputName': 'data'
+        }
+      ],
     },
     sankeyCharts: {
       type: 'sankeyCharts',

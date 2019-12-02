@@ -116,7 +116,8 @@
 
 <app-bar-chart *ngIf=" app.type === 'barCharts' "
                [initialised] = "app.initialized"
-               [numberOfInitialisedComponent] = " i " >
+               [numberOfInitialisedComponent] = " i "
+               [data]="app.data">
 
 </app-bar-chart>
 
@@ -151,13 +152,15 @@
 
 <app-pie-chart *ngIf=" app.type === 'pieCharts' "
                [initialised] = "app.initialized"
-               [numberOfInitialisedComponent] = " i " >
+               [numberOfInitialisedComponent] = " i "
+               [data]="app.data">
 </app-pie-chart>
 
 
 <app-radial-barchart *ngIf=" app.type === 'radialBarCharts' "
                      [initialised] = "app.initialized"
-                     [numberOfInitialisedComponent] = " i " >
+                     [numberOfInitialisedComponent] = " i "
+                     [data]="app.data">
 </app-radial-barchart>
 
 

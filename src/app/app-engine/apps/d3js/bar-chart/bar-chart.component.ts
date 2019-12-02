@@ -28,6 +28,8 @@ export class BarChartComponent implements AfterViewChecked {
    */
   @Input() numberOfInitialisedComponent: number;
 
+  @Input() data: any;
+
   /**
    * Title of the component
    */
@@ -73,6 +75,8 @@ export class BarChartComponent implements AfterViewChecked {
    */
   alreadyInitialised = false;
 
+  imageWidth = 1000;
+
   /**
    * written by angular-cli
    */
@@ -82,15 +86,21 @@ export class BarChartComponent implements AfterViewChecked {
    * After initializing the component, initialize the SVG image.
    */
   ngAfterViewChecked() {
-    if( this.initialised && !this.alreadyInitialised ) {
-      setTimeout(() => {
+    if( this.initialised && !this.alreadyInitialised && this.data ) {
       this.alreadyInitialised = true;
-      this.initSvg();
-      this.initAxis();
-      this.drawAxis();
-      this.drawBars();
+      setTimeout(() => {
+        this.drawBarchChart();
       }, 100);
     }
+  }
+
+  drawBarchChart() {
+    this.g = undefined;
+    this.svg = undefined;
+    this.initSvg();
+    this.initAxis();
+    this.drawAxis();
+    this.drawBars();
   }
 
   generateComponentDivClass() {
@@ -100,7 +110,7 @@ export class BarChartComponent implements AfterViewChecked {
   private initSvg() {
     this.svg = d3.select('.' + this.generateComponentDivClass())
       .append('svg')
-      .attr('width', 1000) // Change here for size of the bars
+      .attr('width', this.imageWidth) // Change here for size of the bars
       .attr('height', 500);
     this.width = +this.svg.attr('width') - this.margin.left - this.margin.right;
     this.height = +this.svg.attr('height') - this.margin.top - this.margin.bottom;
@@ -114,8 +124,8 @@ export class BarChartComponent implements AfterViewChecked {
   private initAxis() {
     this.x = d3Scale.scaleBand().rangeRound([0, this.width]).padding(0.1);
     this.y = d3Scale.scaleLinear().rangeRound([this.height, 0]);
-    this.x.domain(STATISTICS.map((d) => d.letter));
-    this.y.domain([0, d3Array.max(STATISTICS, (d) => d.frequency)]);
+    this.x.domain(this.data.data.map((d) => d.label));
+    this.y.domain([0, d3Array.max(this.data.data, (d) => d.value)]);
   }
 
   /**
@@ -135,7 +145,7 @@ export class BarChartComponent implements AfterViewChecked {
       .attr('y', 6)
       .attr('dy', '0.71em')
       .attr('text-anchor', 'end')
-      .text('Frequency');
+      .text('value');
   }
 
   /**
@@ -143,13 +153,13 @@ export class BarChartComponent implements AfterViewChecked {
    */
   private drawBars() {
     this.g.selectAll('.bar')
-      .data(STATISTICS)
+      .data(this.data.data)
       .enter().append('rect')
       .attr('class', 'bar')
-      .attr('x', (d) => this.x(d.letter) )
-      .attr('y', (d) => this.y(d.frequency) )
+      .attr('x', (d) => this.x(d.label) )
+      .attr('y', (d) => this.y(d.value) )
       .attr('width', this.x.bandwidth())
-      .attr('height', (d) => this.height - this.y(d.frequency) );
+      .attr('height', (d) => this.height - this.y(d.value) );
   }
 
 }

@@ -85,6 +85,8 @@ import { AddAppGroupDialogComponent } from './page/add-app-group-dialog/add-app-
 import { AllAppSelectorsComponent } from './page/all-app-selectors/all-app-selectors.component';
 import { BrowserlingComponent } from './apps/browserling/browserling.component';
 import { KeyValueComponent } from './apps/key-value/key-value.component';
+import { CanvasWhiteboardComponent } from './apps/canvas-whiteboard/canvas-whiteboard.component';
+import {CanvasWhiteboardModule} from 'ng2-canvas-whiteboard';
 
 @NgModule({
   imports: [
@@ -137,9 +139,11 @@ import { KeyValueComponent } from './apps/key-value/key-value.component';
     PdfViewerModule,
     // KnoraJsonldSimplify,
     AgGridModule.withComponents([]),
+    CanvasWhiteboardModule,
     RouterModule.forChild([
       { path: 'page', component: PageComponent },
-      { path: 'browserling', component: BrowserlingComponent }
+      { path: 'browserling', component: BrowserlingComponent },
+      { path: 'canvas', component: CanvasWhiteboardComponent },
     ])
   ],
   providers: [
@@ -147,7 +151,8 @@ import { KeyValueComponent } from './apps/key-value/key-value.component';
     OpenAppsModel,
     AbstractJsonService,
     FileDatabase,
-    FileDatabaseForApp
+    FileDatabaseForApp,
+    CanvasWhiteboardComponent
   ],
   declarations: [
     PageComponent,
@@ -186,7 +191,8 @@ import { KeyValueComponent } from './apps/key-value/key-value.component';
     AddAppGroupDialogComponent,
     AllAppSelectorsComponent,
     BrowserlingComponent,
-    KeyValueComponent
+    KeyValueComponent,
+    CanvasWhiteboardComponent
   ],
   exports: [
     PageComponent,

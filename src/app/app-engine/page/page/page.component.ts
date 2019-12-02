@@ -246,7 +246,20 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   innerWidth: number;
 
+  alreadyGenerated = false;
+
   showResponsiveWidthMenu = false;
+
+  slogans = [
+    'Where you can gather information',
+    'It\'s pretty cloudy in the cloud',
+    'If you like it less cloudy in the cloud',
+    'Your web application environment',
+    'Save RESTFul-Queries and visualise responses',
+    'Your appshore in the cloud'
+  ];
+
+  slogan: string;
 
   constructor(
     public route: ActivatedRoute,
@@ -362,6 +375,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnInit() {
+
+    this.slogan = this.slogans[Math.floor(Math.random() * this.slogans.length)]
 
     this.innerWidth = window.innerWidth;
 

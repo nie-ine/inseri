@@ -14,6 +14,7 @@ import { POPULATION } from './population';
 export class PieChartComponent implements AfterViewChecked {
   @Input() initialised = false;
   @Input() numberOfInitialisedComponent: number;
+  @Input() data: any;
   alreadyInitialised = false;
   title = 'Pie Chart';
 
@@ -35,9 +36,13 @@ export class PieChartComponent implements AfterViewChecked {
   }
 
   ngAfterViewChecked() {
-    if ( this.initialised && !this.alreadyInitialised ) {
-      setTimeout(() => {
+    if (
+      this.initialised &&
+      !this.alreadyInitialised &&
+      this.data ) {
       this.alreadyInitialised = true;
+      console.log( this.data );
+      setTimeout(() => {
       this.initSvg();
       this.drawPie();
       }, 100);
@@ -59,7 +64,7 @@ export class PieChartComponent implements AfterViewChecked {
       .innerRadius(this.radius - 40);
     this.pie = d3Shape.pie()
       .sort(null)
-      .value((d: any) => d.population);
+      .value((d: any) => d.value);
     this.svg = d3.select('.' + this.generateComponentDivClass())
       .append('svg')
       .attr('width', 1000) // Change here for size of the bars
@@ -70,14 +75,14 @@ export class PieChartComponent implements AfterViewChecked {
 
   private drawPie() {
     let g = this.svg.selectAll('.arc')
-      .data(this.pie(POPULATION))
+      .data(this.pie(this.data.data))
       .enter().append('g')
       .attr('class', 'arc');
     g.append('path').attr('d', this.arc)
-      .style('fill', (d: any) => this.color(d.data.age) );
+      .style('fill', (d: any) => this.color(d.data.label) );
     g.append('text').attr('transform', (d: any) => 'translate(' + this.labelArc.centroid(d) + ')')
       .attr('dy', '.35em')
-      .text((d: any) => d.data.age);
+      .text((d: any) => d.data.label);
   }
 
 
