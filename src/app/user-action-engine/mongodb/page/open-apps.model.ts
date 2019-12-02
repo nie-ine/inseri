@@ -127,7 +127,12 @@ export class OpenAppsModel {
       model: [],
       materialIcon: 'bar_chart',
       initialWidth: '1200',
-      initialHeight: '500'
+      initialHeight: '500',
+      inputs: [
+        {
+          'inputName': 'data'
+        }
+      ],
     },
     spiralBarCharts: {
       type: 'spiralBarCharts',
@@ -162,14 +167,24 @@ export class OpenAppsModel {
       model: [],
       materialIcon: 'pie_chart',
       initialWidth: '700',
-      initialHeight: '500'
+      initialHeight: '500',
+      inputs: [
+        {
+          'inputName': 'data'
+        }
+      ],
     },
     radialBarCharts: {
       type: 'radialBarCharts',
       model: [],
       materialIcon: 'multiline_chart',
       initialWidth: '500',
-      initialHeight: '500'
+      initialHeight: '500',
+      inputs: [
+        {
+          'inputName': 'data'
+        }
+      ],
     },
     sankeyCharts: {
       type: 'sankeyCharts',
@@ -355,13 +370,15 @@ export class OpenAppsModel {
       type: 'login',
       model: [],
       materialIcon: 'lock_open',
-      initialWidth: '750',
+      initialWidth: '400',
       initialHeight: '500'
     },
     pageMenu: {
       type: 'pageMenu',
       model: [],
-      materialIcon: 'settings'
+      materialIcon: 'settings',
+      initialWidth: '750',
+      initialHeight: '500'
     },
     sparqlVisualizer: {
       type: 'sparqlVisualizer',
@@ -417,8 +434,7 @@ export class OpenAppsModel {
       materialIcon: 'table_chart',
       initialWidth: '700',
       initialHeight: '600'
-    }
-    ,
+    },
     urlUpdate: {
       type: 'urlUpdate',
       model: [],
@@ -426,10 +442,25 @@ export class OpenAppsModel {
       initialWidth: '200',
       initialHeight: '200'
     },
+    keyValue: {
+      type: 'keyValue',
+      model: [],
+      materialIcon: 'horizontal_split',
+      initialWidth: '350',
+      initialHeight: '100',
+      inputs: [
+        {
+          'inputName': 'key'
+        },
+        {
+          'inputName': 'value'
+        }
+      ],
+    },
     pdfViewer: {
       type: 'pdfViewer',
       model: [],
-      materialIcon: 'horizontal_split',
+      materialIcon: 'select_all',
       initialWidth: '700',
       initialHeight: '700',
       inputs: [
@@ -441,6 +472,42 @@ export class OpenAppsModel {
         },
         {
           'inputName': 'pdfLength'
+        }
+      ],
+    },
+    browserling: {
+      type: 'browserling',
+      model: [],
+      materialIcon: 'open_in_browser',
+      initialWidth: '1000',
+      initialHeight: '1000',
+      inputs: [
+        {
+          'inputName': 'platform_name'
+        },
+        {
+          'inputName': 'platform_version'
+        },
+        {
+          'inputName': 'browser'
+        },
+        {
+          'inputName': 'version'
+        },
+        {
+          'inputName': 'url'
+        },
+        {
+          'inputName': 'my_cursor'
+        },
+        {
+          'inputName': 'idle_timeout'
+        },
+        {
+          'inputName': 'session_timeout'
+        },
+        {
+          'inputName': 'resolution'
         }
       ],
     }

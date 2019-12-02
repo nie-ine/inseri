@@ -339,7 +339,9 @@ router.put('/:id', checkAuth, (req, res, next) => {
         showAppTitlesOnPublish: req.body.showAppTitlesOnPublish,
         showAppSettingsOnPublish: req.body.showAppSettingsOnPublish,
         showInseriLogoOnPublish: req.body.showInseriLogoOnPublish,
-        showDataBrowserOnPublish: req.body.showDataBrowserOnPublish
+        showDataBrowserOnPublish: req.body.showDataBrowserOnPublish,
+        tiles: req.body.tiles,
+        chosenWidth: req.body.chosenWidth
     }, {new:true})
         .then(resultPage => {
             res.status(200).json({

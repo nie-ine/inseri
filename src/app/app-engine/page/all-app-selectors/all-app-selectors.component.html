@@ -1,4 +1,20 @@
+<app-browserling *ngIf="app.type === 'browserling'"
+                 [platform_name]="app.platform_name"
+                 [platform_version]="app.platform_version"
+                 [browser]="app.browser"
+                 [version]="app.version"
+                 [url]="app.url"
+                 [my_cursor]="app.my_cursor"
+                 [idle_timeout]="app.idle_timeout"
+                 [session_timeout]="app.session_timeout"
+                 [resolution]="app.resolution">
 
+</app-browserling>
+
+<app-key-value style="position: sticky;" *ngIf="app.type === 'keyValue'"
+               [key]="app.key" [value]="app.value" >
+
+</app-key-value>
 
 <app-textlist-viewer style="position: sticky;" *ngIf="app.type === 'textlistViewers'"
                      [textToDisplay]="app.textlist">
@@ -100,7 +116,8 @@
 
 <app-bar-chart *ngIf=" app.type === 'barCharts' "
                [initialised] = "app.initialized"
-               [numberOfInitialisedComponent] = " i " >
+               [numberOfInitialisedComponent] = " i "
+               [data]="app.data">
 
 </app-bar-chart>
 
@@ -135,13 +152,15 @@
 
 <app-pie-chart *ngIf=" app.type === 'pieCharts' "
                [initialised] = "app.initialized"
-               [numberOfInitialisedComponent] = " i " >
+               [numberOfInitialisedComponent] = " i "
+               [data]="app.data">
 </app-pie-chart>
 
 
 <app-radial-barchart *ngIf=" app.type === 'radialBarCharts' "
                      [initialised] = "app.initialized"
-                     [numberOfInitialisedComponent] = " i " >
+                     [numberOfInitialisedComponent] = " i "
+                     [data]="app.data">
 </app-radial-barchart>
 
 
@@ -188,7 +207,7 @@
 <app-prime-editor
   *ngIf="app.type === 'primeEditor'"
   [textFile]="app.textFile"
-  [serverUrl]="app.serverUrl"
+  [appInputQueryMapping]="appInputQueryMapping[ app.hash ]"
   (reloadVariables)="reloadVariablesFunction()">
 
 </app-prime-editor>

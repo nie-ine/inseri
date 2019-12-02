@@ -66,18 +66,21 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
    * */
   @Input() response: any;
   @Input() pathsWithArrays: any;
-  @Input() position = 'absolute';
+  @Input() position: string;
   @Input() fullWidth: boolean;
   @Input() fullHeight: boolean;
   @Input() preview = false;
   @Input() showAppSettingsOnPublish = true;
   @Input() page: any;
   @Input() app: any;
+  @Input() openAppArrayIndex: number;
   @Output() sendAppCoordinatesBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendAppSettingsBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendIndexBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendTiledPositionBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendAssignInputCommandBack: EventEmitter<any> = new EventEmitter<any>();
+  @Output() minimizeApp: EventEmitter<any> = new EventEmitter<any>();
+  @Output() closeAppEmitter: EventEmitter<any> = new EventEmitter<any>();
 
   mousemoveEvent: any;
   mouseupEvent: any;
@@ -103,7 +106,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
   dataAssignmentComponent = new DataAssignmentComponent(  );
 
   panelExtended = false;
-  showContent = true;
+  @Input () showContent = true;
   searchTerm: string;
   newDataChooserEntries = [];
 
@@ -125,7 +128,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
    * */
   ngOnChanges() {
     this.index = 0;
-    // console.log( 'change' );
+    console.log( 'change' );
     this.paths = [];
     if ( this.app ) {
       const pathsWithArrays = this.app.pathsWithArrays;
@@ -148,16 +151,18 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
       }
       this.dataAssignmentComponent = new DataAssignmentComponent(  );
       this.newDataChooserEntries = [];
+      // console.log( this.dataChooserEntries );
       for ( const path of this.paths ) {
-        // console.log( path );
+        console.log( path.pathToValueInJson );
         for ( let i = 0; i < this.dataChooserEntries.length; i++ ) {
           this.newDataChooserEntries[ i ] = this.dataAssignmentComponent.generateAppinput(
             path.response,
-            this.getRidOfNumbersInPath(path.pathToValueInJson),
+            path.pathToValueInJson,
             i,
             0,
             true
           );
+          // console.log( this.newDataChooserEntries[ i ] );
         }
         // console.log( this.newDataChooserEntries );
       }
@@ -172,18 +177,15 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
     }
   }
 
-  getRidOfNumbersInPath( array: Array<any> ) {
-    for ( let i = 0; i < array.length; i++ ) {
-      if ( typeof array[ i ] === 'number' ) {
-        array.splice( i, 1 );
-        console.log( array[ i ] );
-      }
-    }
-    return array;
-  }
-
   checkIfUrlIsImage(url: string) {
-    return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
+    if ( url ) {
+      return(
+        url.match(/\.(jpeg|jpg|gif|png)$/) != null ||
+        url.match(/(jpeg|jpg|gif|png)$/) != null
+      );
+    } else {
+      return false;
+    }
   }
 
   moveBack() {
@@ -206,7 +208,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
     });
   }
 
-  stopPropagation(event){
+  stopPropagation(event) {
     event.stopPropagation();
     // console.log("Clicked!");
   }
@@ -233,7 +235,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
   }
 
   disappear() {
-    this.show = false;
+    this.minimizeApp.emit( this.openAppArrayIndex );
   }
 
   setPos() {
@@ -352,6 +354,10 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
   assignInput() {
     console.log( 'assign input' );
     this.sendAssignInputCommandBack.emit( {hash: this.hash, type: this.type} );
+  }
+
+  closeApp() {
+    this.closeAppEmitter.emit();
   }
 
 }

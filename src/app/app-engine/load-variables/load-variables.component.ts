@@ -74,8 +74,15 @@ export class LoadVariablesComponent implements OnInit, OnChanges {
       .subscribe(
         data => {
           this.page = ( data as any).page;
+          // console.log( this.page );
           this.convertMappingsBackFromJson( this.page );
           const appHelperArray = [];
+          if ( this.page.tiles === undefined ) {
+            this.page.tiles = false;
+          }
+          if ( !this.page.chosenWidth ) {
+            this.page.chosenWidth = 800;
+          }
           /**
            * @remarks - the data for each app is stored as a string in
            * ( data as any).page and can be parsed to an object with JSON.parse.
@@ -203,5 +210,6 @@ export class LoadVariablesComponent implements OnInit, OnChanges {
     appModel[ length ].type = appType;
     appModel[ length ].initialized = true;
     appModel[ length ].text = appFromViewModel.text;
+    appModel[ length ].showContent = true;
   }
 }

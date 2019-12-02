@@ -19,10 +19,11 @@ export class RadialBarchartComponent implements AfterViewChecked {
 
   @Input() initialised = false;
   @Input() numberOfInitialisedComponent: number;
+  @Input() data;
   alreadyInitialised = false;
 
-  width = 500;
-  height = 500;
+  width = 800;
+  height = 800;
   barHeight = this.height / 2 - 40;
   formatNumber: any;
   color: any;
@@ -42,13 +43,14 @@ export class RadialBarchartComponent implements AfterViewChecked {
   labelRadius: any;
   labels: any;
   centreOfTheImage = 300;
+  data: any;
 
   constructor() { }
 
   ngAfterViewChecked() {
-    if (this.initialised && !this.alreadyInitialised) {
-      setTimeout(() => {
+    if (this.initialised && !this.alreadyInitialised && this.data) {
       this.alreadyInitialised = true;
+      setTimeout(() => {
       // this.formatNumber = d3Format.format('s');
       this.color = d3Scale.scaleOrdinal()
         .range([
@@ -85,12 +87,12 @@ export class RadialBarchartComponent implements AfterViewChecked {
   }
 
   private initAxis() {
-    this.extent = d3Array.extent(STATISTICS, (d) => d.frequency );
+    this.extent = d3Array.extent(this.data.data, (d) => d.value );
     this.barscale = d3Scale.scaleLinear()
       .domain( this.extent )
       .range([0, this.barHeight]
       );
-    this.keys = STATISTICS.map((d) => d.letter);
+    this.keys = this.data.data.map((d) => d.label);
     this.numBars = this.keys.length;
     this.x = d3Scale.scaleLinear()
       .domain(this.extent)
@@ -112,10 +114,10 @@ export class RadialBarchartComponent implements AfterViewChecked {
       .innerRadius(0);
     // how long the radius is of each segment
     this.segments = this.svg.selectAll('path')
-      .data(STATISTICS)
+      .data(this.data.data)
       .enter().append('path')
-      .each( (d) => d.outerRadius = 2000 * d.frequency)
-      .style('fill',  (d) =>  this.color(d.letter) )
+      .each( (d) => d.outerRadius = 2.5 * d.value)
+      .style('fill',  (d) =>  this.color(d.label) )
       .attr('d', this.arc);
     // this.segments
     //   .transition()

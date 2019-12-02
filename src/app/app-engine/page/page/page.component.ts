@@ -44,6 +44,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * */
   displayedColumns: string[] = ['id', 'name', 'tags', 'status'];
 
+  responsiveColumns: string[] = ['id', 'name'];
+
   /**
    * this variable instantiates the MatTableDataSource used for the inseri app menu
    * */
@@ -244,6 +246,21 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   innerWidth: number;
 
+  alreadyGenerated = false;
+
+  showResponsiveWidthMenu = false;
+
+  slogans = [
+    'Where you can gather information',
+    'It\'s pretty cloudy in the cloud',
+    'If you like it less cloudy in the cloud',
+    'Your web application environment',
+    'Save RESTFul-Queries and visualise responses',
+    'Your appshore in the cloud'
+  ];
+
+  slogan: string;
+
   constructor(
     public route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
@@ -359,6 +376,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   ngOnInit() {
 
+    this.slogan = this.slogans[Math.floor(Math.random() * this.slogans.length)]
+
     this.innerWidth = window.innerWidth;
 
     /**
@@ -393,12 +412,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
       this.route.snapshot.url[0].path === 'home' &&
       this.route.snapshot.queryParams.actionID === undefined
     ) {
-      this.addAnotherApp( 'login', true );
+      this.page.chosenWidth = 800;
+      // this.addAnotherApp( 'login', true );
       this.preview = false;
-      this.openAppsInThisPage[ 'login' ].model[ 0 ].initialized = true;
-      this.openAppsInThisPage[ 'login' ].model[ 0 ].x = 150;
-      this.openAppsInThisPage[ 'login' ].model[ 0 ].y = 90;
-      this.openAppArray.push( this.openAppsInThisPage[ 'login' ].model[ 0 ] );
     }
 
     this.actionID = this.route.snapshot.queryParams.actionID;
@@ -550,17 +566,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   /**
-   * This function returns the tooltip of the page selector of a pageSet Navigation chips
-   * */
-  createTooltip() {
-    if ( this.action ) {
-      return 'Page: ' + this.action.title + ', Description: ' + this.action.description;
-    } else {
-      return null;
-    }
-  }
-
-  /**
    * This function updates the page in MongoDB
    * */
   updatePage() {
@@ -569,6 +574,17 @@ export class PageComponent implements OnInit, AfterViewChecked {
      * otherwise this.page will be rewritten by the routine pageService.updatePage
      * during its execution!
      * */
+    let openAppArrayIndex = 0;
+    for ( let i = 0; i < this.openAppArray.length; i++ ) {
+      if (
+        this.page.openApps[ this.openAppArray[ i ].hash ].type !== 'pageMenu' &&
+        this.page.openApps[ this.openAppArray[ i ].hash ].type !== 'dataChooser'
+      ) {
+        this.page.openApps[ this.openAppArray[ i ].hash ].openAppArrayIndex = openAppArrayIndex;
+        openAppArrayIndex += 1;
+      }
+    }
+    console.log( this.page, this.openAppArray );
     this.pageService.updatePage(
       { ...this.page }
       )
@@ -609,6 +625,11 @@ export class PageComponent implements OnInit, AfterViewChecked {
       appModel[ length ].y = 100;
       appModel[ length ].initialHeight = this.openAppsInThisPage[ appType ].initialHeight;
       appModel[ length ].initialWidth = this.openAppsInThisPage[ appType ].initialWidth;
+      appModel[ length ].openAppArrayIndex = length;
+      appModel[ length ].showContent = true;
+      if ( !this.page.openApps ) {
+        this.page.openApps = {};
+      }
       if (
         this.page.openApps &&
         this.page.openApps[ appModel[ length ].hash ] === null
@@ -618,9 +639,12 @@ export class PageComponent implements OnInit, AfterViewChecked {
       if ( this.page.openApps ) {
         this.page.openApps[ appModel[ length ].hash ] = appModel[ length ];
       }
-      this.openAppArray.push(
-        appModel[ length ]
-      );
+      console.log( this.openAppArray );
+      if ( this.openAppArray.length === 0 ) {
+        this.openAppArray.push( appModel[ length ] );
+      } else {
+        this.openAppArray = [ appModel[ length ] ].concat( this.openAppArray );
+      }
     }
     return appModel;
   }
@@ -632,10 +656,13 @@ export class PageComponent implements OnInit, AfterViewChecked {
     appHash: string,
     i: number
   ) {
-    delete this.page.openApps[ appHash ];
+    console.log( this.page );
     this.openAppArray.splice(
       i,
       1);
+    if ( this.page.openApps ) {
+      delete this.page.openApps[ appHash ];
+    }
   }
 
   /**
@@ -678,6 +705,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * */
   receivePage( pageAndAction: any ) {
     this.page = pageAndAction[0];
+    // console.log( pageAndAction[0] );
     this.action = pageAndAction[1];
     this.reloadVariables = false;
     this.pageIsPublished = this.page.published;
@@ -685,20 +713,28 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.showAppSettingsOnPublish = this.page.showAppSettingsOnPublish;
     this.showInseriLogoOnPublish = this.page.showInseriLogoOnPublish;
     this.showDataBrowserOnPublish = this.page.showDataBrowserOnPublish;
-    console.log( this.page );
   }
 
   generateOpenApps( openApps: any ) {
     this.openAppArray = [];
+    console.log( this.page );
     for ( const appType in openApps ) {
       for ( const app of openApps[ appType ].model ) {
         // console.log( app );
         if ( app.x ) {
-          this.openAppArray.push(app);
+          this.openAppArray.push( app );
         }
       }
     }
-    console.log( this.openAppArray );
+    let j = 0;
+    for ( const app of this.openAppArray ) {
+      if ( this.page.openApps[ app.hash ].openAppArrayIndex ) {
+        const switchHelp = this.openAppArray[this.page.openApps[app.hash].openAppArrayIndex];
+        this.openAppArray[this.page.openApps[app.hash].openAppArrayIndex] = app;
+        this.openAppArray[ j ] = switchHelp;
+      }
+      j++;
+    }
   }
 
   /**
@@ -716,7 +752,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * after the user chooses a data entry and triggers the data assignment component
    * */
   updateMainResourceIndex( input: any ) {
-    console.log( input.index );
+    // console.log( input.index );
     this.index = input.index;
     this.response = input.response;
     this.queryId = input.queryId;
@@ -742,7 +778,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
                 if ( !app[ 'pathsWithArrays' ][ this.queryId ][ this.pathWithArray.toString() ] ) {
                   app[ 'pathsWithArrays' ][ this.queryId ][ this.pathWithArray.toString() ] = {};
                 }
-                console.log( input );
+                // console.log( input );
                 dataAssignmentComponent.startPathUpdateProcess(
                   this.queryId,
                   this.pathWithArray,
@@ -821,11 +857,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   openPageMenu() {
-    this.openAppsInThisPage[ 'pageMenu' ].model = [];
     this.addAnotherApp( 'pageMenu', true );
-    this.openAppsInThisPage[ 'pageMenu' ].model[ 0 ].initialized = true;
-    this.openAppsInThisPage[ 'pageMenu' ].model[ 0 ].x = 600;
-    this.openAppsInThisPage[ 'pageMenu' ].model[ 0 ].y = 100;
   }
 
   checkTimeUntilLogout() {
@@ -980,18 +1012,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.reloadVariables = true;
   }
 
-  addAppGroup() {
-    console.log( 'Add app group' );
-    const dialogRef = this.dialog.open(AddAppGroupDialogComponent, {
-      width: '50%',
-      height: '50%',
-      data: {
-        openAppsInThisPage: this.openAppsInThisPage,
-        appTypes: this.appTypes
-      }
-    });
-  }
-
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.innerWidth = window.innerWidth;
@@ -1002,6 +1022,14 @@ export class PageComponent implements OnInit, AfterViewChecked {
     const helpVariable = this.openAppArray[currentPosition];
     this.openAppArray[ currentPosition ] = this.openAppArray[ nextPosition ];
     this.openAppArray[ nextPosition ] = helpVariable;
+  }
+
+  updateTilePage() {
+    this.page.tiles = !this.page.tiles;
+  }
+
+  minimizeApp( openAppArrayIndex: number ) {
+    this.openAppArray[ openAppArrayIndex ].minimized = true;
   }
 
 }

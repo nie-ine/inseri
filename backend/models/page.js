@@ -10,7 +10,9 @@ const pageSchema = mongoose.Schema({
     showAppTitlesOnPublish: { type: Boolean },
     showAppSettingsOnPublish: { type: Boolean },
     showInseriLogoOnPublish: { type: Boolean },
-    showDataBrowserOnPublish: { type: Boolean }
+    showDataBrowserOnPublish: { type: Boolean },
+    tiles: { type: Boolean },
+    chosenWidth: { type: Number }
 });
 
 module.exports = mongoose.model('Page', pageSchema);
