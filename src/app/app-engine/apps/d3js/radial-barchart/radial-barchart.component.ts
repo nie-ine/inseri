@@ -43,7 +43,6 @@ export class RadialBarchartComponent implements AfterViewChecked {
   labelRadius: any;
   labels: any;
   centreOfTheImage = 300;
-  data: any;
 
   constructor() { }
 
