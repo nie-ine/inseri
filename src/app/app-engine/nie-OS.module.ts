@@ -86,7 +86,6 @@ import { AllAppSelectorsComponent } from './page/all-app-selectors/all-app-selec
 import { BrowserlingComponent } from './apps/browserling/browserling.component';
 import { KeyValueComponent } from './apps/key-value/key-value.component';
 import { CanvasWhiteboardComponent } from './apps/canvas-whiteboard/canvas-whiteboard.component';
-import {CanvasWhiteboardModule} from 'ng2-canvas-whiteboard';
 
 @NgModule({
   imports: [
@@ -139,11 +138,10 @@ import {CanvasWhiteboardModule} from 'ng2-canvas-whiteboard';
     PdfViewerModule,
     // KnoraJsonldSimplify,
     AgGridModule.withComponents([]),
-    CanvasWhiteboardModule,
     RouterModule.forChild([
       { path: 'page', component: PageComponent },
       { path: 'browserling', component: BrowserlingComponent },
-      { path: 'canvas', component: CanvasWhiteboardComponent },
+      { path: 'canvas', component: CanvasWhiteboardComponent }
     ])
   ],
   providers: [

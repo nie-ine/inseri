@@ -33,8 +33,8 @@ export class GeneralRequestService {
             case 'DELETE':
               return this.delete(query.serverUrl, data.query.params, query.header);
             case 'JSON':
-              // console.log( environment.node + query.serverUrl.split( '3000' )[ 1 ] );
-              return this.get(environment.node + query.serverUrl.split( '3000' )[ 1 ], data.query.params, query.header);
+              // console.log( environment.node +  '/api' + query.serverUrl.split( 'api' )[ 1 ] );
+              return this.get(environment.node +  '/api' + query.serverUrl.split( 'api' )[ 1 ], data.query.params, query.header);
           }
       });
   }

@@ -110,6 +110,18 @@ export class OpenAppsModel {
       initialWidth: '250',
       initialHeight: '150'
     },
+    paint: {
+      type: 'paint',
+      model: [],
+      inputs: [
+        {
+          'inputName': 'textFile'
+        }
+      ],
+      materialIcon: 'format_paint',
+      initialWidth: '500',
+      initialHeight: '500'
+    },
     youtubeVideo: {
       type: 'youtubeVideo',
       model: [],
