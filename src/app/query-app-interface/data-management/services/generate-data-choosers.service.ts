@@ -50,9 +50,11 @@ export class GenerateDataChoosersService {
                 for ( const appHash in page.appInputQueryMapping ) {
                   for ( const input in page.appInputQueryMapping[ appHash ] ) {
                     const path = page.appInputQueryMapping[ appHash ][ input ].path;
-                    for ( let i = 0; i < path.length; i++ ) {
-                      if ( typeof path[ i ] === 'number' ) {
-                        path.splice( i, 1 );
+                    if ( path ) {
+                      for ( let i = 0; i < path.length; i++ ) {
+                        if ( typeof path[ i ] === 'number' ) {
+                          path.splice( i, 1 );
+                        }
                       }
                     }
                     this.checkIfSubsetOfResultContainsArray(

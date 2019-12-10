@@ -166,13 +166,15 @@
 
 <app-sankey *ngIf=" app.type === 'sankeyCharts' "
             [initialised] = "app.initialized"
-            [numberOfInitialisedComponent] = " i " >
+            [numberOfInitialisedComponent] = " i "
+            [data]="app.data">
 </app-sankey>
 
 
 <app-stacked-bar-chart *ngIf="app.type ===  'stackedBarCharts' "
                        [initialised] = "app.initialized"
-                       [numberOfInitialisedComponent] = " i " >
+                       [numberOfInitialisedComponent] = " i "
+                       [data]="app.data">
 </app-stacked-bar-chart>
 
 
