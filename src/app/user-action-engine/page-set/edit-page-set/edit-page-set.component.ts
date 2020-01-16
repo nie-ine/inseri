@@ -29,7 +29,7 @@ export class EditPageSetComponent implements OnInit {
 
   save() {
     this.isLoading = true;
-    const pageSet = new PageSetModel();
+    const pageSet = this.data.pageSet;
     pageSet.id = this.data.id;
     pageSet.title = this.form.get('title').value;
     pageSet.description = this.form.get('description').value;

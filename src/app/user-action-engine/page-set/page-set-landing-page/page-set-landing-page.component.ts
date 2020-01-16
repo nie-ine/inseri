@@ -129,7 +129,8 @@ export class PageSetLandingPageComponent implements OnInit {
         id: this.action.hasPageSet['_id'],
         title: this.pageSet.title,
         description: this.pageSet.description,
-        linkToImage: this.pageSet.linkToImage
+        linkToImage: this.pageSet.linkToImage,
+        pageSet: this.pageSet
       }
     });
     dialogRef.afterClosed().subscribe(result => {

@@ -30,6 +30,16 @@ export class AppMenuModel {
       showOnHome: false
     },
     {
+      id: 'format_paint',
+      name: 'PaintCanvas',
+      tags: 'draw your notes',
+      color: 'green',
+      status: 'stable',
+      appType: 'paint',
+      description: undefined,
+      showOnHome: true
+    },
+    {
       id: 'line_style',
       name: 'SVG-Transcription',
       tags: 'diplomatic transcription, text',

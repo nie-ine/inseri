@@ -13,69 +13,18 @@ import * as d3ScaleChromatic from 'd3-scale-chromatic';
 export class SankeyComponent implements AfterViewChecked {
   @Input() initialised = false;
   @Input() numberOfInitialisedComponent: number;
+  @Input() data: any;
   alreadyInitialised = false;
 
-  energy: DAG = {
-    nodes: [{
-      nodeId: 0,
-      name: "node0"
-    }, {
-      nodeId: 1,
-      name: "node1"
-    }, {
-      nodeId: 2,
-      name: "node2"
-    }, {
-      nodeId: 3,
-      name: "node3"
-    }, {
-      nodeId: 4,
-      name: "node4"
-    }],
-    links: [{
-      source: 0,
-      target: 2,
-      value: 2,
-      uom: 'Widget(s)'
-    }, {
-      source: 1,
-      target: 2,
-      value: 2,
-      uom: 'Widget(s)'
-    }, {
-      source: 1,
-      target: 3,
-      value: 2,
-      uom: 'Widget(s)'
-    }, {
-      source: 0,
-      target: 4,
-      value: 2,
-      uom: 'Widget(s)'
-    }, {
-      source: 2,
-      target: 3,
-      value: 2,
-      uom: 'Widget(s)'
-    }, {
-      source: 2,
-      target: 4,
-      value: 2,
-      uom: 'Widget(s)'
-    }, {
-      source: 3,
-      target: 4,
-      value: 4,
-      uom: 'Widget(s)'
-    }]
-  };
+  energy: DAG;
 
   constructor() { }
 
   ngAfterViewChecked() {
-    if ( this.initialised && !this.alreadyInitialised ) {
-      setTimeout(() => {
+    if ( this.initialised && !this.alreadyInitialised && this.data ) {
+      this.energy = this.data.DAG;
       this.alreadyInitialised = true;
+      setTimeout(() => {
       this.DrawChart();
       }, 100);
     }

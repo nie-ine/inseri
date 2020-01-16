@@ -10,6 +10,7 @@ import {ActivatedRoute} from '@angular/router';
 export class PrimeEditorComponent implements OnChanges {
   @Input() textFile: string;
   @Input() appInputQueryMapping: string;
+  @Input() hash: string;
   @Output() reloadVariables: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('editor2') editor2;
   constructor(
@@ -21,7 +22,7 @@ export class PrimeEditorComponent implements OnChanges {
   }
 
   save() {
-    this.requestService.updateFile( this.appInputQueryMapping[ 'textFile' ][ 'serverUrl' ].split('/')[ 6 ], { textFile: this.textFile} )
+    this.requestService.updateFile( this.appInputQueryMapping[ this.hash ][ 'textFile' ][ 'serverUrl' ].split('/')[ 6 ], { textFile: this.textFile} )
       .subscribe(
         data => {
           console.log( data );

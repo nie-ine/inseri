@@ -166,13 +166,15 @@
 
 <app-sankey *ngIf=" app.type === 'sankeyCharts' "
             [initialised] = "app.initialized"
-            [numberOfInitialisedComponent] = " i " >
+            [numberOfInitialisedComponent] = " i "
+            [data]="app.data">
 </app-sankey>
 
 
 <app-stacked-bar-chart *ngIf="app.type ===  'stackedBarCharts' "
                        [initialised] = "app.initialized"
-                       [numberOfInitialisedComponent] = " i " >
+                       [numberOfInitialisedComponent] = " i "
+                       [data]="app.data">
 </app-stacked-bar-chart>
 
 
@@ -207,7 +209,8 @@
 <app-prime-editor
   *ngIf="app.type === 'primeEditor'"
   [textFile]="app.textFile"
-  [appInputQueryMapping]="appInputQueryMapping[ app.hash ]"
+  [appInputQueryMapping]="appInputQueryMapping"
+  [hash]="app.hash"
   (reloadVariables)="reloadVariablesFunction()">
 
 </app-prime-editor>
@@ -230,3 +233,12 @@
   [pdfLength]="app.pdfLength">
 
 </app-pdf-viewer>
+
+<app-canvas-whiteboard
+  *ngIf="app.type === 'paint'"
+  [textFile]="app.textFile"
+  [appInputQueryMapping]="appInputQueryMapping"
+  [hash]="app.hash"
+  (reloadVariables)="reloadVariablesFunction()">
+
+</app-canvas-whiteboard>

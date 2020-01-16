@@ -110,6 +110,18 @@ export class OpenAppsModel {
       initialWidth: '250',
       initialHeight: '150'
     },
+    paint: {
+      type: 'paint',
+      model: [],
+      inputs: [
+        {
+          'inputName': 'textFile'
+        }
+      ],
+      materialIcon: 'format_paint',
+      initialWidth: '500',
+      initialHeight: '500'
+    },
     youtubeVideo: {
       type: 'youtubeVideo',
       model: [],
@@ -191,14 +203,24 @@ export class OpenAppsModel {
       model: [],
       materialIcon: 'linear_scale',
       initialWidth: '900',
-      initialHeight: '150'
+      initialHeight: '150',
+      inputs: [
+        {
+          'inputName': 'data'
+        }
+      ]
     },
     stackedBarCharts: {
       type: 'stackedBarCharts',
       model: [],
       materialIcon: 'subtitles',
       initialWidth: '800',
-      initialHeight: '500'
+      initialHeight: '500',
+      inputs: [
+        {
+          'inputName': 'data'
+        }
+      ],
     },
     chordDiagrams: {
       type: 'chordDiagrams',

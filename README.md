@@ -2,7 +2,7 @@ Contact and info about the organisation NIE-INE | NATIONAL INFRASTRUCTURE FOR ED
 
 Mandated by [swissuniversities](https://www.swissuniversities.ch/)
 
-# nieOS
+# inseri
 
 [![Build Status](https://travis-ci.org/nie-ine/NIE-OS.svg?branch=devel)](https://travis-ci.org/nie-ine/NIE-OS)
 ![Docker pulls](https://img.shields.io/docker/pulls/nieine/nieos.svg)

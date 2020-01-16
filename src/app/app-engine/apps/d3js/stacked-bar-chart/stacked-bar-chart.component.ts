@@ -6,8 +6,6 @@ import * as d3Shape from 'd3-shape';
 import * as d3Axis from 'd3-axis';
 import * as d3Array from 'd3-array';
 
-import { SAMPLE_DATA } from './data04';
-
 export interface Margin {
   top: number;
   right: number;
@@ -24,6 +22,7 @@ export interface Margin {
 export class StackedBarChartComponent implements AfterViewChecked {
   @Input() initialised = false;
   @Input() numberOfInitialisedComponent: number;
+  @Input() data: any;
   alreadyInitialised = false;
 
   title = 'Stacked Bar Chart';
@@ -42,12 +41,12 @@ export class StackedBarChartComponent implements AfterViewChecked {
   constructor() {}
 
   ngAfterViewChecked() {
-    if ( this.initialised && !this.alreadyInitialised ) {
-      setTimeout(() => {
+    if ( this.initialised && !this.alreadyInitialised && this.data ) {
       this.alreadyInitialised = true;
+      setTimeout(() => {
       this.initMargins();
       this.initSvg();
-      this.drawChart(SAMPLE_DATA);
+      this.drawChart(this.data);
       }, 100);
     }
   }
@@ -63,7 +62,7 @@ export class StackedBarChartComponent implements AfterViewChecked {
   private initSvg() {
     this.svg = d3.select('.' + this.generateComponentDivClass())
       .append('svg')
-      .attr('width', 960) // Change here for size of the bars
+      .attr('width', 7000) // Change here for size of the bars
       .attr('height', 500);
 
     this.width = +this.svg.attr('width') - this.margin.left - this.margin.right;
@@ -90,7 +89,7 @@ export class StackedBarChartComponent implements AfterViewChecked {
     });
     data.sort((a: any, b: any) => b.total - a.total);
 
-    this.x.domain(data.map((d: any) => d.State));
+    this.x.domain(data.map((d: any) => d.xValue));
     this.y.domain([0, d3Array.max(data, (d: any) => d.total)]).nice();
     this.z.domain(keys);
 
@@ -102,7 +101,7 @@ export class StackedBarChartComponent implements AfterViewChecked {
       .selectAll('rect')
       .data(d => d)
       .enter().append('rect')
-      .attr('x', d => this.x(d.data.State))
+      .attr('x', d => this.x(d.data.xValue))
       .attr('y', d => this.y(d[1]))
       .attr('height', d => this.y(d[0]) - this.y(d[1]))
       .attr('width', this.x.bandwidth());
