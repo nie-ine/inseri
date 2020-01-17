@@ -464,7 +464,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * Youtube utorial videos are added with this function
    * */
   addVideoApp( url: string ) {
-    this.addAnotherApp( 'youtubeVideo', true );
+    this.addAnotherApp( 'youtubeVideo', true, 'Youtube Video' );
     const length = this.openAppsInThisPage[ 'youtubeVideo' ].model.length - 1;
     this.openAppsInThisPage[ 'youtubeVideo' ].model[ length ].initialized = true;
     this.openAppsInThisPage[ 'youtubeVideo' ].model[ length ].x = 100;
@@ -608,7 +608,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * */
   addAnotherApp (
     appType: string,
-    generateHash: boolean
+    generateHash: boolean,
+    title: string
   ): Array<any> {
     const appModel = this.openAppsInThisPage[ appType ].model;
     console.log( this.openAppsInThisPage[ appType ] );
@@ -617,7 +618,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     if ( generateHash ) {
       appModel[ length ].hash = this.generateHashService.generateHash();
       appModel[ length ].type = appType;
-      appModel[ length ].title = appType + ' ' + length;
+      appModel[ length ].title = title;
       appModel[ length ].fullWidth = false;
       appModel[ length ].fullHeight = false;
       appModel[ length ].initialized = true;
@@ -857,7 +858,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   openPageMenu() {
-    this.addAnotherApp( 'pageMenu', true );
+    this.addAnotherApp( 'pageMenu', true, 'inseri Appshore' );
   }
 
   checkTimeUntilLogout() {
