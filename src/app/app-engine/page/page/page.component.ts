@@ -31,6 +31,7 @@ import {DialogCreateNewPageComponent} from '../../../user-action-engine/page-set
 import {AppInputComponentComponent} from '../app-input-component/app-input-component.component';
 import {AddAppGroupDialogComponent} from '../add-app-group-dialog/add-app-group-dialog.component';
 import {DataAssignmentComponent} from '../../../query-app-interface/data-management/data-assignment/data-assignment.component';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'nie-os',
@@ -640,14 +641,84 @@ export class PageComponent implements OnInit, AfterViewChecked {
       if ( this.page.openApps ) {
         this.page.openApps[ appModel[ length ].hash ] = appModel[ length ];
       }
-      console.log( this.openAppArray );
       if ( this.openAppArray.length === 0 ) {
         this.openAppArray.push( appModel[ length ] );
       } else {
         this.openAppArray = [ appModel[ length ] ].concat( this.openAppArray );
       }
+      console.log( 'add another app - add new myOwnJsonQuery', appType, appModel[ length ].hash );
+      if ( appType !== 'pageMenu' ) {
+        this.createDefaultInputAndMappToAppInput(
+          appType,
+          appModel[ length ]
+        );
+      }
     }
     return appModel;
+  }
+
+  createDefaultInputAndMappToAppInput(
+    appType: string,
+    app: any
+  ) {
+    for ( const input of this.openAppsInThisPage[ app.type ].inputs ) {
+    this.queryService.createQueryOfPage(this.page._id, {title: appType + '-' + app.hash })
+      .subscribe(data => {
+        if (data.status === 201) {
+          const query = data.body.query;
+          this.requestService.createJson()
+            .subscribe(myOwnJson => {
+                const jsonId = (myOwnJson as any).result._id;
+                const serverURL = environment.node + '/api/myOwnJson/getJson/' + String((myOwnJson as any).result._id);
+                query.serverUrl = serverURL;
+                query.method = 'JSON';
+                query.description = Date.now();
+                console.log( 'Query to be updated' );
+                console.log( query );
+                console.log( 'app that inputs need to be linked to' );
+                console.log( app );
+                console.log( this.openAppsInThisPage[ app.type ].inputs );
+                this.queryService.updateQueryOfPage(this.page._id, query._id, query)
+                  .subscribe((data3) => {
+                    if (data3.status === 200) {
+                    } else {
+                      console.log('Updating query failed');
+                    }
+                  }, error1 => console.log(error1));
+                console.log( input );
+                if ( this.page.appInputQueryMapping[ app.hash ] === undefined ) {
+                  this.page.appInputQueryMapping[ app.hash ] = {};
+                }
+                this.page.appInputQueryMapping[ app.hash ][ input.inputName ] = {};
+                this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'path' ] = [ 'result', 'content', 'info' ];
+                this.page.appInputQueryMapping[ app.hash ][ input.inputName ].query = query._id;
+                this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'serverUrl' ] = query.serverUrl;
+                this.page.appInputQueryMapping[ app.hash ].app = app.hash;
+                console.log( this.page.appInputQueryMapping );
+                this.updatePage();
+                this.reloadVariables = true;
+                this.requestService.updateJson(
+                  jsonId,
+                  {
+                    _id: '5e26f93905dee90e3dcea8ea',
+                    creator: '5bf6823c9ec116a6fee7431d',
+                    content: {
+                      info: input.default
+                    },
+                    __v: 0
+                  }
+                )
+                  .subscribe(updatedJson => {
+                      console.log(updatedJson);
+                    }, error => console.log(error)
+                  );
+              }, error => console.log(error)
+            );
+        }
+      }, error1 => {
+        console.log( error1 );
+      });
+    }
   }
 
   /**

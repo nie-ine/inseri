@@ -103,7 +103,8 @@ export class OpenAppsModel {
       model: [],
       inputs: [
         {
-          'inputName': 'textlist'
+          'inputName': 'textlist',
+          default: 'this is an app to visualize html'
         }
       ],
       materialIcon: 'short_text',
@@ -115,7 +116,8 @@ export class OpenAppsModel {
       model: [],
       inputs: [
         {
-          'inputName': 'textFile'
+          'inputName': 'textFile',
+          default: {}
         }
       ],
       materialIcon: 'format_paint',
@@ -127,7 +129,8 @@ export class OpenAppsModel {
       model: [],
       inputs: [
         {
-          'inputName': 'videoURL'
+          'inputName': 'videoURL',
+          default: 'https://www.youtube.com/embed/9An1cGPrv9Q'
         }
       ],
       materialIcon: 'video_library',
@@ -142,7 +145,27 @@ export class OpenAppsModel {
       initialHeight: '500',
       inputs: [
         {
-          'inputName': 'data'
+          'inputName': 'data',
+          default: {
+            data: [
+              {
+                'label': 'first bar',
+                'value': 0.3
+              },
+              {
+                'label': 'second bar',
+                'value': 0.6
+              },
+              {
+                'label': 'third bar',
+                'value': 0.9
+              },
+              {
+                'label': 'fourth bar',
+                'value': 1.2
+              }
+            ]
+          }
         }
       ],
     },
@@ -446,7 +469,8 @@ export class OpenAppsModel {
       initialHeight: '500',
       inputs: [
         {
-          'inputName': 'textFile'
+          'inputName': 'textFile',
+          default: ''
         }
       ],
     },

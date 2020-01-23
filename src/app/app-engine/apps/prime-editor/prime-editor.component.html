@@ -6,6 +6,8 @@
       [style]="{'height':'320px'}"
       (keyup)="updateAce()"
       (click)="updateAce()" *ngIf="!hidden"></p-editor>
+    <button mat-button (click)="save()" *ngIf="route.snapshot.url[0].path !== 'home'" >Save Text and update Page</button>
+
   </mat-tab>
   <mat-tab label="Code">
     <ace-editor #editor
