@@ -673,11 +673,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
                 query.serverUrl = serverURL;
                 query.method = 'JSON';
                 query.description = Date.now();
-                console.log( 'Query to be updated' );
-                console.log( query );
-                console.log( 'app that inputs need to be linked to' );
-                console.log( app );
-                console.log( this.openAppsInThisPage[ app.type ].inputs );
                 this.queryService.updateQueryOfPage(this.page._id, query._id, query)
                   .subscribe((data3) => {
                     if (data3.status === 200) {
@@ -685,7 +680,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
                       console.log('Updating query failed');
                     }
                   }, error1 => console.log(error1));
-                console.log( input );
                 if ( this.page.appInputQueryMapping[ app.hash ] === undefined ) {
                   this.page.appInputQueryMapping[ app.hash ] = {};
                 }
@@ -694,9 +688,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
                 this.page.appInputQueryMapping[ app.hash ][ input.inputName ].query = query._id;
                 this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'serverUrl' ] = query.serverUrl;
                 this.page.appInputQueryMapping[ app.hash ].app = app.hash;
-                console.log( this.page.appInputQueryMapping );
                 this.updatePage();
-                this.reloadVariables = true;
                 this.requestService.updateJson(
                   jsonId,
                   {
@@ -710,6 +702,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
                 )
                   .subscribe(updatedJson => {
                       console.log(updatedJson);
+                      this.reloadVariables = true;
                     }, error => console.log(error)
                   );
               }, error => console.log(error)

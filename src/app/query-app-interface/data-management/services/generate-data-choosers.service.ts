@@ -44,7 +44,7 @@ export class GenerateDataChoosersService {
             queryTitle = queryTitle + ' (file / own query)';
           }
           pathArray = data.query.path;       // path array is the path chosen for the entries to be displayed in the data chooser dropdown
-          console.log( data.query );
+          // console.log( data.query );
           this.query = data;
           this.requestService.request(queryId)
             .subscribe((data1) => {
