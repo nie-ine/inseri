@@ -30,7 +30,7 @@
                         [iiifImagePath]="app.fileValueAsUrl"
                         [maxImageWidth]="app.stillImageFileValueHasDimX"
                         [maxImageHeight]="app.stillImageFileValueHasDimY"
-                        [height]="app.y" [width]="app.x"
+                        [height]="app.initialHeight || app.height" [width]="app.initialWidth || app.width"
                         [(hoveredRegion)]="hoveredElement">
 </app-image-with-overlay>
 

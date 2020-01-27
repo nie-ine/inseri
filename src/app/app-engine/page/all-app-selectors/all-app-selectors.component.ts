@@ -11,6 +11,16 @@ export class AllAppSelectorsComponent implements OnInit {
   @Input() appInputQueryMapping: any;
   @Output() reloadVariables: EventEmitter<any> = new EventEmitter<any>();
 
+  /**
+   * The unique id of the element the mouse is hovering on.
+   */
+  @Input() hoveredElement: string;
+
+  /**
+   * Give an event containing the unique word id if the mouse hovers on an app's element (e.g. a word in the page description)
+   */
+  @Output() hoveredElementChange: EventEmitter<string> = new EventEmitter<string>();
+
   constructor(
 
   ) { }
