@@ -64,7 +64,7 @@ export class TextSvgViewWrapperComponent implements OnInit, OnChanges {
   showHighlightedWord = true;
 
   /**
-   * The image can be whited out. 1 means that the image is fully visible. 0 means that it's hidden.
+   * The image can be whited out. 0 means that the image is fully visible. 1 means that it's hidden.
    */
   imageOpacity = 0.4;
 

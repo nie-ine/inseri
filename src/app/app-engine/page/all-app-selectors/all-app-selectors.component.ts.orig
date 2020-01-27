@@ -10,8 +10,12 @@ export class AllAppSelectorsComponent implements OnInit {
   @Input() app: any;
   @Input() appInputQueryMapping: any;
   @Output() reloadVariables: EventEmitter<any> = new EventEmitter<any>();
+<<<<<<< HEAD
   environment = environment;
-   /** The unique id of the element the mouse is hovering on.
+=======
+
+  /**
+   * The unique id of the element the mouse is hovering on.
    */
   @Input() hoveredElement: string;
 
@@ -20,6 +24,7 @@ export class AllAppSelectorsComponent implements OnInit {
    */
   @Output() hoveredElementChange: EventEmitter<string> = new EventEmitter<string>();
 
+>>>>>>> 5715107a1f4e0cf812c9ba44584ce1ec5cc5ecd5
   constructor(
 
   ) { }

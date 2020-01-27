@@ -31,7 +31,7 @@ export class TextSvgViewComponent implements OnInit, OnChanges, OnDestroy {
   @Input() showHighlightedWord = true;
 
   /**
-   * The image can be whited out. 1 means that the image is fully visible. 0 means that it's hidden.
+   * The image can be whited out. 0 means that the image is fully visible. 1 means that it's hidden.
    */
   @Input() imageOpacity = 0.4;
 
@@ -290,7 +290,7 @@ export class TextSvgViewComponent implements OnInit, OnChanges, OnDestroy {
   private changeOpacity() {
     const paceOpacityRect = document.getElementById('text-page--' + this.pageTree.pageId);
     if (paceOpacityRect) {
-      paceOpacityRect.setAttribute('style', 'fill: white; fill-opacity:' + (1 - this.imageOpacity).toString());
+      paceOpacityRect.setAttribute('style', 'fill: white; fill-opacity:' + (this.imageOpacity).toString());
     }
   }
 
@@ -337,7 +337,7 @@ export class TextSvgViewComponent implements OnInit, OnChanges, OnDestroy {
 
     // Color of the image blur box and set opacity if defined. Default is no visible blur box.
     if (this.imageOpacity) {
-      imageRect.setAttribute('style', 'fill: white; fill-opacity: ' + (1 - this.imageOpacity).toString());
+      imageRect.setAttribute('style', 'fill: white; fill-opacity: ' + (this.imageOpacity).toString());
     } else {
       imageRect.setAttribute('style', 'fill: white; fill-opacity: 0' );
     }
