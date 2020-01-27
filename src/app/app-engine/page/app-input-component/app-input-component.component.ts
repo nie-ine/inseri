@@ -6,6 +6,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {GeneralRequestService} from '../../../query-engine/general/general-request.service';
 import {PageService} from '../../../user-action-engine/mongodb/page/page.service';
 import {FileListDialogComponent} from '../file-list-dialog/file-list-dialog.component';
+import {QueryEntryComponent} from '../../../query-engine/query-entry/query-entry.component';
 
 @Component({
   selector: 'app-app-input-component',
@@ -93,4 +94,29 @@ export class AppInputComponentComponent {
           });
     });
   }
+
+  openQueryEntry(inputName: string) {
+    console.log( this.data );
+    console.log( this.data.page.appInputQueryMapping[ this.data.appHash ][ inputName ].query );
+    const queryId = this.data.page.appInputQueryMapping[ this.data.appHash ][ inputName ].query;
+    this.queryService.getQuery(queryId)
+      .subscribe((response) => {
+        console.log( response );
+        const dialogRef = this.dialog.open(QueryEntryComponent, {
+          width: '100%',
+          height: '100%',
+          data: {
+            query: response.query,
+            pageID: this.data.page._id
+          }
+        });
+        dialogRef.afterClosed().subscribe((result) => {
+          console.log('Abstract tree from query entry');
+          console.log(result);
+        });
+      }, error1 => {
+        console.log( error1 );
+      });
+  }
+
 }

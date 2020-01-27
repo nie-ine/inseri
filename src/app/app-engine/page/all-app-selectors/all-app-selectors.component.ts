@@ -10,7 +10,7 @@ export class AllAppSelectorsComponent implements OnInit {
   @Input() app: any;
   @Input() appInputQueryMapping: any;
   @Output() reloadVariables: EventEmitter<any> = new EventEmitter<any>();
-
+  environment = environment;
   constructor(
 
   ) { }

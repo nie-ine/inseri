@@ -323,10 +323,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
           dialogRef.afterClosed().subscribe((result) => {
             this.resetPage = true;
             this.reloadVariables = true;
-          //   this.spinner.show();
-          //   setTimeout(() => {
-          //     this.spinner.hide();
-          //   }, 1000); // TODO: bind end of spinner to event that all queries have been loaded instead of setTimeout!
           });
         },
         error => {
@@ -1053,23 +1049,32 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   openAssignInputDialog( input: any ) {
     console.log( input, this.openAppsInThisPage );
-    const dialogRef = this.dialog.open(AppInputComponentComponent, {
-      width: '50%',
-      height: '50%',
-      data: {
-        appHash: input.hash,
-        inputs: this.openAppsInThisPage[input.type].inputs,
-        page: this.page
-      }
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log( result );
-      if ( result === 'openDataMGMT' ) {
-        this.openDataManagement();
-      }
-      console.log( 'after closed' );
-      this.reloadVariables = true;
-    });
+    this.pageService.updatePage(
+      { ...this.page }
+    )
+      .subscribe(
+        data => {
+          this.updateOpenAppsInThisPage();
+          const dialogRef = this.dialog.open(AppInputComponentComponent, {
+            width: '50%',
+            height: '50%',
+            data: {
+              appHash: input.hash,
+              inputs: this.openAppsInThisPage[input.type].inputs,
+              page: this.page
+            }
+          });
+          dialogRef.afterClosed().subscribe((result) => {
+            console.log( result );
+            if ( result === 'openDataMGMT' ) {
+              this.openDataManagement();
+            } else if ( result === 'reload' ) {
+              window.location.reload();
+            }
+          });
+        }, error1 => console.log(error1)
+      );
+
   }
 
   reloadVariablesFunction() {

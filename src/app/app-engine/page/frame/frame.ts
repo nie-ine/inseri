@@ -21,6 +21,7 @@ import {MatDialog} from '@angular/material';
 import { FrameSettingsComponent } from '../frame-settings/frame-settings.component';
 import {ActivatedRoute, Router} from '@angular/router';
 import { DataAssignmentComponent } from '../../../query-app-interface/data-management/data-assignment/data-assignment.component';
+import {QueryEntryComponent} from '../../../query-engine/query-entry/query-entry.component';
 
 @Component({
   selector: 'popup',
