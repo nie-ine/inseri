@@ -565,6 +565,18 @@ export class OpenAppsModel {
         }
       ],
     },
+  webern: {
+    type: 'webern',
+    model: [],
+    materialIcon: 'book',
+    initialWidth: '900',
+    initialHeight: '700',
+    inputs: [
+      {
+        'inputName': 'url'
+      }
+      ],
+  },
     primeEditor: {
       type: 'primeEditor',
       model: [],

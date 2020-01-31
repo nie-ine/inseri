@@ -12,5 +12,6 @@ export const environment = {
   node: 'http://localhost:3000',
   sparqlVisualizer: 'http://localhost:5200',
   salsah2: 'http://salsah2.nie-ine.ch/',
-  raeber: 'http://raeber.nie-ine.ch/'
+  raeber: 'http://raeber.nie-ine.ch/',
+  webern: 'https://edition.anton-webern.ch/'
 };

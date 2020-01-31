@@ -198,6 +198,10 @@
             [url]="environment.sparqlVisualizer">
 </app-iframe>
 
+<app-iframe *ngIf="app.type === 'webern'"
+            [url]="environment.webern">
+</app-iframe>
+
 <app-iframe *ngIf="app.type === 'raeber'"
             [url]="environment.raeber">
 </app-iframe>

@@ -332,6 +332,16 @@ export class AppMenuModel {
     },
     {
       id: 'book',
+      name: 'Anton Webern Gesamtausgabe',
+      tags: 'Anton Webern',
+      color: 'green',
+      status: 'stable',
+      appType: 'webern',
+      description: 'Anton Webern App',
+      showOnHome: true
+    },
+    {
+      id: 'book',
       name: 'Kuno Raeber Online Eition',
       tags: 'raeber',
       color: 'green',
