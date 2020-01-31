@@ -117,7 +117,7 @@ export class CanvasWhiteboardComponent implements AfterViewInit, OnChanges {
           x: res[1].clientX - rect.left,
           y: res[1].clientY - rect.top
         };
-        console.log( this.textFile, typeof this.textFile );
+        // console.log( this.textFile, typeof this.textFile );
         if ( typeof this.textFile === 'string' || this.textFile === undefined ) {
           this.textFile = [];
           this.textFile.push( {

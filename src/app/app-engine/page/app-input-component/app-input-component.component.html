@@ -2,13 +2,18 @@
   Assign files to app - Inputs
 </h4>
 
+<div>
+  One app can have more than one kind of inputs. A text editor for example could have one file that the user wants to edit,
+  and one configuration file for the editor, which configures which buttons should be shown by default.
+</div>
+
 <mat-chip-list *ngFor="let input of data.inputs">
-  <mat-chip  matTooltip='Click here to map the whole Response to this input'>
-    {{ input.inputName }}
+  <mat-chip  style="margin-top: 20px" [matMenuTriggerFor]="menu">
+    {{ 'Options for input: \"' + input.inputName + "\"" }}
   </mat-chip>
-  <button mat-button [matMenuTriggerFor]="menu">Open File</button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="openExistingFileDialog( input.inputName )">Open file</button>
+    <button mat-menu-item (click)="openQueryEntry( input.inputName )" > Change current data </button>
+    <button mat-menu-item (click)="openExistingFileDialog( input.inputName )">Open other file</button>
     <button mat-menu-item (click)="input.createNewFile = true" >Create new file</button>
     <button
       mat-menu-item matTooltip='To assign the input to an app to a query, please open the Data Management' (click)="onNoClick( 'openDataMGMT' )">
@@ -27,6 +32,11 @@
   </form>
 </mat-chip-list>
 
+<br>
 
 
-<button mat-button (click)="onNoClick()" >Close Dialog</button>
+
+
+<button mat-button (click)="onNoClick()" >Close without reloading</button> <br>
+
+<button mat-button (click)="onNoClick( 'reload' )" >Close and reload page to see changes</button>

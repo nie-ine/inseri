@@ -31,6 +31,7 @@ import {DialogCreateNewPageComponent} from '../../../user-action-engine/page-set
 import {AppInputComponentComponent} from '../app-input-component/app-input-component.component';
 import {AddAppGroupDialogComponent} from '../add-app-group-dialog/add-app-group-dialog.component';
 import {DataAssignmentComponent} from '../../../query-app-interface/data-management/data-assignment/data-assignment.component';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'nie-os',
@@ -322,10 +323,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
           dialogRef.afterClosed().subscribe((result) => {
             this.resetPage = true;
             this.reloadVariables = true;
-          //   this.spinner.show();
-          //   setTimeout(() => {
-          //     this.spinner.hide();
-          //   }, 1000); // TODO: bind end of spinner to event that all queries have been loaded instead of setTimeout!
           });
         },
         error => {
@@ -464,7 +461,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * Youtube utorial videos are added with this function
    * */
   addVideoApp( url: string ) {
-    this.addAnotherApp( 'youtubeVideo', true );
+    this.addAnotherApp( 'youtubeVideo', true, 'Youtube Video' );
     const length = this.openAppsInThisPage[ 'youtubeVideo' ].model.length - 1;
     this.openAppsInThisPage[ 'youtubeVideo' ].model[ length ].initialized = true;
     this.openAppsInThisPage[ 'youtubeVideo' ].model[ length ].x = 100;
@@ -608,7 +605,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * */
   addAnotherApp (
     appType: string,
-    generateHash: boolean
+    generateHash: boolean,
+    title: string
   ): Array<any> {
     const appModel = this.openAppsInThisPage[ appType ].model;
     console.log( this.openAppsInThisPage[ appType ] );
@@ -617,7 +615,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     if ( generateHash ) {
       appModel[ length ].hash = this.generateHashService.generateHash();
       appModel[ length ].type = appType;
-      appModel[ length ].title = appType + ' ' + length;
+      appModel[ length ].title = title;
       appModel[ length ].fullWidth = false;
       appModel[ length ].fullHeight = false;
       appModel[ length ].initialized = true;
@@ -639,14 +637,77 @@ export class PageComponent implements OnInit, AfterViewChecked {
       if ( this.page.openApps ) {
         this.page.openApps[ appModel[ length ].hash ] = appModel[ length ];
       }
-      console.log( this.openAppArray );
       if ( this.openAppArray.length === 0 ) {
         this.openAppArray.push( appModel[ length ] );
       } else {
         this.openAppArray = [ appModel[ length ] ].concat( this.openAppArray );
       }
+      console.log( 'add another app - add new myOwnJsonQuery', appType, appModel[ length ].hash );
+      if ( appType !== 'pageMenu' ) {
+        this.createDefaultInputAndMappToAppInput(
+          appType,
+          appModel[ length ]
+        );
+      }
     }
     return appModel;
+  }
+
+  createDefaultInputAndMappToAppInput(
+    appType: string,
+    app: any
+  ) {
+    for ( const input of this.openAppsInThisPage[ app.type ].inputs ) {
+    this.queryService.createQueryOfPage(this.page._id, {title: appType + '-' + app.hash })
+      .subscribe(data => {
+        if (data.status === 201) {
+          const query = data.body.query;
+          this.requestService.createJson()
+            .subscribe(myOwnJson => {
+                const jsonId = (myOwnJson as any).result._id;
+                const serverURL = environment.node + '/api/myOwnJson/getJson/' + String((myOwnJson as any).result._id);
+                query.serverUrl = serverURL;
+                query.method = 'JSON';
+                query.description = Date.now();
+                this.queryService.updateQueryOfPage(this.page._id, query._id, query)
+                  .subscribe((data3) => {
+                    if (data3.status === 200) {
+                    } else {
+                      console.log('Updating query failed');
+                    }
+                  }, error1 => console.log(error1));
+                if ( this.page.appInputQueryMapping[ app.hash ] === undefined ) {
+                  this.page.appInputQueryMapping[ app.hash ] = {};
+                }
+                this.page.appInputQueryMapping[ app.hash ][ input.inputName ] = {};
+                this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'path' ] = [ 'result', 'content', 'info' ];
+                this.page.appInputQueryMapping[ app.hash ][ input.inputName ].query = query._id;
+                this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'serverUrl' ] = query.serverUrl;
+                this.page.appInputQueryMapping[ app.hash ].app = app.hash;
+                this.updatePage();
+                this.requestService.updateJson(
+                  jsonId,
+                  {
+                    _id: '5e26f93905dee90e3dcea8ea',
+                    creator: '5bf6823c9ec116a6fee7431d',
+                    content: {
+                      info: input.default
+                    },
+                    __v: 0
+                  }
+                )
+                  .subscribe(updatedJson => {
+                      console.log(updatedJson);
+                      this.reloadVariables = true;
+                    }, error => console.log(error)
+                  );
+              }, error => console.log(error)
+            );
+        }
+      }, error1 => {
+        console.log( error1 );
+      });
+    }
   }
 
   /**
@@ -857,7 +918,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   openPageMenu() {
-    this.addAnotherApp( 'pageMenu', true );
+    this.addAnotherApp( 'pageMenu', true, 'inseri Appshore' );
   }
 
   checkTimeUntilLogout() {
@@ -988,23 +1049,32 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   openAssignInputDialog( input: any ) {
     console.log( input, this.openAppsInThisPage );
-    const dialogRef = this.dialog.open(AppInputComponentComponent, {
-      width: '50%',
-      height: '50%',
-      data: {
-        appHash: input.hash,
-        inputs: this.openAppsInThisPage[input.type].inputs,
-        page: this.page
-      }
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log( result );
-      if ( result === 'openDataMGMT' ) {
-        this.openDataManagement();
-      }
-      console.log( 'after closed' );
-      this.reloadVariables = true;
-    });
+    this.pageService.updatePage(
+      { ...this.page }
+    )
+      .subscribe(
+        data => {
+          this.updateOpenAppsInThisPage();
+          const dialogRef = this.dialog.open(AppInputComponentComponent, {
+            width: '50%',
+            height: '50%',
+            data: {
+              appHash: input.hash,
+              inputs: this.openAppsInThisPage[input.type].inputs,
+              page: this.page
+            }
+          });
+          dialogRef.afterClosed().subscribe((result) => {
+            console.log( result );
+            if ( result === 'openDataMGMT' ) {
+              this.openDataManagement();
+            } else if ( result === 'reload' ) {
+              window.location.reload();
+            }
+          });
+        }, error1 => console.log(error1)
+      );
+
   }
 
   reloadVariablesFunction() {

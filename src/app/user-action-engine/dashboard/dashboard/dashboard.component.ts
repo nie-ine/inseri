@@ -9,6 +9,9 @@ import {EditActionComponent} from './edit-action/edit-action.component';
 import { DeleteActionComponent } from './delete-action/delete-action.component';
 import { QueryListComponent } from '../../../query-engine/query-list/query-list.component';
 import {PageService} from '../../mongodb/page/page.service';
+import {Observable} from 'rxjs';
+import {AuthService} from '../../mongodb/auth/auth.service';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -24,12 +27,18 @@ export class DashboardComponent implements OnInit {
   successfullySendMessage = false;
   showArchivedDocuments = false;
 
+  /**
+   * Describes if user is logged in
+   * */
+  loggedIn = true;
+
   constructor(
     public dialog: MatDialog,
     private router: Router,
     private actionService: ActionService,
     private contactService: ContactService,
-    private pageService: PageService
+    private pageService: PageService,
+    private authService: AuthService
   ) {
 
     router.events.subscribe(s => {
@@ -47,6 +56,13 @@ export class DashboardComponent implements OnInit {
     this.userFirstName = localStorage.getItem('firstName');
     this.userID = localStorage.getItem('userId');
     this.updateActions();
+
+    /**
+     * If not logged in, preview instatiates the published page options.
+     * */
+    if ( !this.authService.getIsAuth() ) {
+      this.loggedIn = false;
+    }
   }
 
   private updateActions() {

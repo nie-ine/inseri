@@ -165,28 +165,34 @@ export class ImageWithOverlayComponent implements OnInit, OnChanges, OnDestroy {
    * @param changes  changes by Angular change detection
    */
   ngOnChanges(changes: { [key: string]: SimpleChange }) {
+    console.log( 'Changes image with overlay', this.iiifImagePath, this.maxImageHeight, this.maxImageWidth );
     if (this.maxImageHeight === undefined && this.maxImageWidth === undefined && this.iiifImagePath === undefined) {
       // default image for demonstration purpose
-      this.iiifImagePath = 'https://www.e-manuscripta.ch/zuz/i3f/v20/1510618/full/full/0/default.jpg';
-      this.maxImageWidth = 3062;
-      this.maxImageHeight = 4034;
+      // this.iiifImagePath = 'https://www.e-manuscripta.ch/zuz/i3f/v20/1510618/full/full/50/default.jpg';
+      // this.maxImageWidth = 3062;
+      // this.maxImageHeight = 4034;
       // as regions are optional, no default can be given
     }
 
-    if (changes['iiifImagePath'] && changes['iiifImagePath'].isFirstChange()) {
-      this.setupViewer();
-    }
-    if (changes['width'] || changes['height']) {
-      if (this.width > this.height) {
-        this.maxSide = this.width;
-      } else {
-        this.maxSide = this.height;
+    if( this.maxImageHeight !== undefined && this.maxImageWidth !== undefined && this.iiifImagePath !== undefined ) {
+      console.log( 'set up viewer' );
+      // if (changes['iiifImagePath'] && changes['iiifImagePath'].isFirstChange()) {
+        this.setupViewer();
+      // }
+      if (changes['width'] || changes['height']) {
+        if (this.width > this.height) {
+          this.maxSide = this.width;
+        } else {
+          this.maxSide = this.height;
+        }
       }
+      // if (changes['iiifImagePath']) {
+        this.openImage();
+        this.drawRegions();
+      // }
     }
-    if (changes['iiifImagePath']) {
-      this.openImage();
-      this.drawRegions();
-    }
+
+
   }
 
   /**

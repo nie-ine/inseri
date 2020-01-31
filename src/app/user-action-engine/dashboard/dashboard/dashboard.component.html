@@ -1,7 +1,11 @@
-<app-header></app-header>
+<app-header *ngIf="loggedIn"></app-header>
+
+<h3 *ngIf="!loggedIn">You have been logged out!</h3>
+
+<a href="/home" *ngIf="!loggedIn">Go to landing collage</a>
 
 <!-- Services Section -->
-<section id="top">
+<section id="top" *ngIf="loggedIn">
 
   <div class="container">
 
@@ -82,7 +86,7 @@
 </section>
 
 <!-- Contact Section -->
-<section id="contact">
+<section id="contact" *ngIf="loggedIn">
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">
@@ -107,7 +111,7 @@
 </section>
 
 
-<footer>
+<footer *ngIf="loggedIn">
   <div class="container">
     <div class="row">
       <div class="col-md-4">

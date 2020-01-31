@@ -30,6 +30,7 @@
                         [iiifImagePath]="app.fileValueAsUrl"
                         [maxImageWidth]="app.stillImageFileValueHasDimX"
                         [maxImageHeight]="app.stillImageFileValueHasDimY"
+                        [height]="app.initialHeight || app.height" [width]="app.initialWidth || app.width"
                         [(hoveredRegion)]="hoveredElement">
 </app-image-with-overlay>
 
@@ -195,6 +196,10 @@
 
 <app-iframe *ngIf="app.type === 'sparqlVisualizer'"
             [url]="environment.sparqlVisualizer">
+</app-iframe>
+
+<app-iframe *ngIf="app.type === 'webern'"
+            [url]="environment.webern">
 </app-iframe>
 
 <app-iframe *ngIf="app.type === 'raeber'"

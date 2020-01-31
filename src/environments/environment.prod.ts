@@ -7,5 +7,6 @@ export const environment = {
   node: 'https://node.nie-ine.ch',
   sparqlVisualizer: 'http://sparqlvisualizer.nie-ine.ch/',
   salsah2: 'http://salsah2.nie-ine.ch/',
-  raeber: 'http://raeber.nie-ine.ch/'
+  raeber: 'http://raeber.nie-ine.ch/',
+  webern: 'https://edition.anton-webern.ch/'
 };

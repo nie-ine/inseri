@@ -1,3 +1,5 @@
+import {environment} from '../../../../environments/environment';
+
 export class OpenAppsModel {
   openApps = {
     imageViewer: {
@@ -6,12 +8,15 @@ export class OpenAppsModel {
       inputs: [
         {
           'inputName': 'fileValueAsUrl',
+          default: 'https://www.e-manuscripta.ch/zuz/i3f/v20/1510618/full/full/0/default.jpg'
         },
         {
           'inputName': 'stillImageFileValueHasDimX',
+          default: 3062
         },
         {
           'inputName': 'stillImageFileValueHasDimY',
+          default: 4034
         }
       ],
       materialIcon: 'image',
@@ -103,7 +108,8 @@ export class OpenAppsModel {
       model: [],
       inputs: [
         {
-          'inputName': 'textlist'
+          'inputName': 'textlist',
+          default: 'this is an app to visualize html'
         }
       ],
       materialIcon: 'short_text',
@@ -115,7 +121,8 @@ export class OpenAppsModel {
       model: [],
       inputs: [
         {
-          'inputName': 'textFile'
+          'inputName': 'textFile',
+          default: {}
         }
       ],
       materialIcon: 'format_paint',
@@ -127,7 +134,8 @@ export class OpenAppsModel {
       model: [],
       inputs: [
         {
-          'inputName': 'videoURL'
+          'inputName': 'videoURL',
+          default: 'https://www.youtube.com/embed/9An1cGPrv9Q'
         }
       ],
       materialIcon: 'video_library',
@@ -142,7 +150,27 @@ export class OpenAppsModel {
       initialHeight: '500',
       inputs: [
         {
-          'inputName': 'data'
+          'inputName': 'data',
+          default: {
+            data: [
+              {
+                'label': 'first bar',
+                'value': 0.3
+              },
+              {
+                'label': 'second bar',
+                'value': 0.6
+              },
+              {
+                'label': 'third bar',
+                'value': 0.9
+              },
+              {
+                'label': 'fourth bar',
+                'value': 1.2
+              }
+            ]
+          }
         }
       ],
     },
@@ -182,7 +210,27 @@ export class OpenAppsModel {
       initialHeight: '500',
       inputs: [
         {
-          'inputName': 'data'
+          'inputName': 'data',
+          default: {
+            'data': [
+              {
+                'label': 'Part One',
+                'value': 12
+              },
+              {
+                'label': 'Part Two',
+                'value': 5
+              },
+              {
+                'label': 'Part Three',
+                'value': 7
+              },
+              {
+                'label': 'Part Four',
+                'value': 6
+              }
+            ]
+          }
         }
       ],
     },
@@ -194,7 +242,39 @@ export class OpenAppsModel {
       initialHeight: '500',
       inputs: [
         {
-          'inputName': 'data'
+          'inputName': 'data',
+          default: {
+            'data': [
+              {
+                'label': '1',
+                'value': 20
+              },
+              {
+                'label': '2',
+                'value': 40
+              },
+              {
+                'label': '3',
+                'value': 30
+              },
+              {
+                'label': '4',
+                'value': 50
+              },
+              {
+                'label': '5',
+                'value': 40
+              },
+              {
+                'label': '6',
+                'value': 60
+              },
+              {
+                'label': '7',
+                'value': 50
+              }
+            ]
+          }
         }
       ],
     },
@@ -218,7 +298,53 @@ export class OpenAppsModel {
       initialHeight: '500',
       inputs: [
         {
-          'inputName': 'data'
+          'inputName': 'data',
+          default: {
+            'data': [
+              {
+                'xValue': '1',
+                'Before 1800': 0,
+                '1800-1813': 3,
+                '1814-1850': 1,
+                '1851 and later': 0
+              },
+              {
+                'xValue': '2',
+                'Before 1800': 0,
+                '1800-1813': 3,
+                '1814-1850': 1,
+                '1851 and later': 0
+              },
+              {
+                'xValue': '3',
+                'Before 1800': 0,
+                '1800-1813': 3,
+                '1814-1850': 3,
+                '1851 and later': 0
+              },
+              {
+                'xValue': '4',
+                'Before 1800': 0,
+                '1800-1813': 3,
+                '1814-1850': 3,
+                '1851 and later': 0
+              },
+              {
+                'xValue': '5',
+                'Before 1800': 0,
+                '1800-1813': 4,
+                '1814-1850': 3,
+                '1851 and later': 0
+              },
+              {
+                'xValue': '6',
+                'Before 1800': 0,
+                '1800-1813': 3,
+                '1814-1850': 3,
+                '1851 and later': 0
+              }
+            ]
+          }
         }
       ],
     },
@@ -234,7 +360,8 @@ export class OpenAppsModel {
       model: [],
       inputs: [
           {
-            'inputName': 'imageURL'
+            'inputName': 'imageURL',
+            default: environment.app + '/assets/img/logo_transparent.png'
           }
         ],
       materialIcon: 'add_photo_alternate',
@@ -438,6 +565,18 @@ export class OpenAppsModel {
         }
       ],
     },
+  webern: {
+    type: 'webern',
+    model: [],
+    materialIcon: 'book',
+    initialWidth: '900',
+    initialHeight: '700',
+    inputs: [
+      {
+        'inputName': 'url'
+      }
+      ],
+  },
     primeEditor: {
       type: 'primeEditor',
       model: [],
@@ -446,7 +585,8 @@ export class OpenAppsModel {
       initialHeight: '500',
       inputs: [
         {
-          'inputName': 'textFile'
+          'inputName': 'textFile',
+          default: ''
         }
       ],
     },
