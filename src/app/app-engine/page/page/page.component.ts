@@ -286,6 +286,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
       this.actionID = params.actionID;
       this.generateNavigation(params.actionID);
     });
+    // route
     if ( this.route.snapshot.queryParams.page ) {
       this.dataSource = new MatTableDataSource(
         new AppMenuModel().appMenu
