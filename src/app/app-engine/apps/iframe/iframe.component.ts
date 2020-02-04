@@ -39,4 +39,8 @@ export class IframeComponent implements OnInit, AfterViewChecked {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
+  checkIframeObject() {
+    console.log( document.getElementById('iframe'));
+  }
+
 }
