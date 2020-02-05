@@ -86,6 +86,7 @@ import { AllAppSelectorsComponent } from './page/all-app-selectors/all-app-selec
 import { BrowserlingComponent } from './apps/browserling/browserling.component';
 import { KeyValueComponent } from './apps/key-value/key-value.component';
 import { CanvasWhiteboardComponent } from './apps/canvas-whiteboard/canvas-whiteboard.component';
+import { OurNewComponentComponent } from './apps/our-new-component/our-new-component.component';
 
 @NgModule({
   imports: [
@@ -141,7 +142,8 @@ import { CanvasWhiteboardComponent } from './apps/canvas-whiteboard/canvas-white
     RouterModule.forChild([
       { path: 'page', component: PageComponent },
       { path: 'browserling', component: BrowserlingComponent },
-      { path: 'canvas', component: CanvasWhiteboardComponent }
+      { path: 'canvas', component: CanvasWhiteboardComponent },
+      { path: 'app-our-new-component', component: OurNewComponentComponent }
     ])
   ],
   providers: [
@@ -190,7 +192,8 @@ import { CanvasWhiteboardComponent } from './apps/canvas-whiteboard/canvas-white
     AllAppSelectorsComponent,
     BrowserlingComponent,
     KeyValueComponent,
-    CanvasWhiteboardComponent
+    CanvasWhiteboardComponent,
+    OurNewComponentComponent
   ],
   exports: [
     PageComponent,
