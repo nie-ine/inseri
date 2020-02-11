@@ -1,4 +1,4 @@
-import {AfterViewChecked, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {AfterViewChecked, Component, HostListener, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import {ActivatedRoute} from '@angular/router';
 
@@ -9,6 +9,10 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class IframeComponent implements OnInit, AfterViewChecked {
   @Input() url: string;
+  @HostListener('window:message', ['$event'])
+  onMessage(e) {
+    console.log( e );
+  }
   sanitized = false;
   sanitizedUrl: SafeUrl;
   alreadySet = false;
@@ -21,7 +25,19 @@ export class IframeComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnInit() {
-    console.log( this.url );
+
+    setTimeout(() => {
+      console.log( 'send message' );
+      const iframe = document.getElementById('iframe');
+      const iWindow = (<HTMLIFrameElement>iframe).contentWindow;
+
+      iWindow.postMessage({
+        'for': 'user',
+        'data': 'anything'
+      }, 'http://localhost:4201');
+    }, 2000);
+
+
   }
 
   ngAfterViewChecked(): void {
@@ -37,10 +53,6 @@ export class IframeComponent implements OnInit, AfterViewChecked {
 
   public getSantizeUrl(url: string) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
-  }
-
-  checkIframeObject() {
-    console.log( document.getElementById('iframe'));
   }
 
 }

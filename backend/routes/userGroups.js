@@ -9,7 +9,7 @@ const checkAuth2 = require('../middleware/check-auth-without-immediate-response'
 
 const router = express.Router();
 
-router.post('', (req, res, next) => {
+router.post('', checkAuth, (req, res, next) => {
 console.log(req.body);
   UserGroup.find({title: req.body.title, owner:req.userData.userId})
     .then((result) => {

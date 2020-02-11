@@ -1,9 +1,8 @@
-<p>
-  we changed sth here! pure html
-</p>
 
-{{ ourFirstVariable }}
+<input mat-input [(ngModel)]="name">
 
-<br>
+<input mat-input [(ngModel)]="description" >
 
-{{ secondVariable }}
+<button mat-button (click)="createNewUserGroup()">
+  Create new user group
+</button>
