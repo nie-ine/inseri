@@ -624,6 +624,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
       appModel[ length ].y = 100;
       appModel[ length ].initialHeight = this.openAppsInThisPage[ appType ].initialHeight;
       appModel[ length ].initialWidth = this.openAppsInThisPage[ appType ].initialWidth;
+      appModel[ length ].width = this.openAppsInThisPage[ appType ].initialWidth;
+      appModel[ length ].height = this.openAppsInThisPage[ appType ].initialHeight;
       appModel[ length ].openAppArrayIndex = length;
       appModel[ length ].showContent = true;
       if ( !this.page.openApps ) {
