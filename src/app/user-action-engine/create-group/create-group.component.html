@@ -1,0 +1,24 @@
+<div class="col-md-6 col-md-offset-3" style="margin-top: 30px" *ngIf="!userCreated && environment.search('test') === -1">
+  <h2>Create Group</h2>
+  <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
+
+    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !groupName.valid }">
+      <label for="groupName">Group name</label>
+      <input type="text" class="form-control" name="groupName" [(ngModel)]="model.groupName" #groupName="ngModel" required />
+      <div *ngIf="f.submitted && !groupName.valid" class="help-block">Group name is required</div>
+    </div>
+
+    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !description.valid }">
+      <label for="description">Last Name</label>
+      <input type="text" class="form-control" name="description" [(ngModel)]="model.description" #description="ngModel" required />
+      <div *ngIf="f.submitted && !description.valid" class="help-block">Description is required</div>
+    </div>
+
+  </form>
+</div>
+
+<div *ngIf="groupCreated" style="margin-top: 40px"> Greetings {{ model.groupName }} <br> Your user has been created in nieOS! Have fun! <a href="home#login" class="btn btn-link">Go to your Dashboard</a></div>
+
+<div *ngIf="environment.search('test') !== -1" > This is the test - instance, please go to the
+  <a href="https://nieos.nie-ine.ch">production instance.</a>
+</div>

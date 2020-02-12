@@ -28,6 +28,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {MatChipsModule} from '@angular/material/chips';
 import { DevelopmentViewsModule } from '../app-engine/apps/development-views/development-views.module';
 import {MatIconModule} from '@angular/material/icon';
+import { CreateGroupComponent } from './create-group/create-group.component';
 
 @NgModule({
   imports: [
@@ -60,7 +61,8 @@ import {MatIconModule} from '@angular/material/icon';
     DialogUserSettingsDialog,
     InitPopupComponent,
     PizzaPartyComponent,
-    ExtendSessionComponent],
+    ExtendSessionComponent,
+    CreateGroupComponent],
   entryComponents: [
     DialogUserSettingsDialog,
     InitPopupComponent,
