@@ -9,7 +9,7 @@
     </div>
 
     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !description.valid }">
-      <label for="description">Last Name</label>
+      <label for="description">Description</label>
       <input type="text" class="form-control" name="description" [(ngModel)]="model.description" #description="ngModel" required />
       <div *ngIf="f.submitted && !description.valid" class="help-block">Description is required</div>
     </div>
@@ -17,8 +17,5 @@
   </form>
 </div>
 
-<div *ngIf="groupCreated" style="margin-top: 40px"> Greetings {{ model.groupName }} <br> Your user has been created in nieOS! Have fun! <a href="home#login" class="btn btn-link">Go to your Dashboard</a></div>
+<div *ngIf="groupCreated" style="margin-top: 40px"> Greetings {{ model.groupName }} <br> Group has been created successfully! <a href="home#login" class="btn btn-link">Go to your Dashboard</a></div>
 
-<div *ngIf="environment.search('test') !== -1" > This is the test - instance, please go to the
-  <a href="https://nieos.nie-ine.ch">production instance.</a>
-</div>
