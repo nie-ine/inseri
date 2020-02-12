@@ -1,19 +1,14 @@
 const express = require('express');
-
 const User = require('../models/user');
 const UserGroup=require('../models/userGroups');
-
 const checkAuth = require('../middleware/check-auth');
 const checkAuth2 = require('../middleware/check-auth-without-immediate-response');
 //const generatedHash = require('../middleware/hash-generator');
-
 const router = express.Router();
-
-router.post('/creategroup',checkAuth, (req, res, next) => {
-console.log(req.body);
+router.post('',checkAuth, (req, res, next) => {
+  console.log(req.body);
   UserGroup.find({title: req.body.title, owner:req.userData.userId})
     .then((result) => {
-
       // Checks if other owner has the same group name
       if (result.length > 0) {
         return res.status(409).json({
@@ -26,7 +21,6 @@ console.log(req.body);
         users:req.body.users,
         owner:req.userData.userId
       });
-
       newGroup.save()
         .then (resultQuery => {
           res.status(201).json({
@@ -42,9 +36,7 @@ console.log(req.body);
         });
     });
 });
-
-
-router.get('/:id/userGroups', checkAuth2, (req, res, next) => {
+router.get('', checkAuth, (req, res, next) => {
   UserGroup.find({$or: [
       {owner: req.userData.userId},
       {owner: {$in: UserGroup.users}}
@@ -70,10 +62,8 @@ router.get('/:id/userGroups', checkAuth2, (req, res, next) => {
     })
 });
 router.post('', (req, res, next) => {
-
   res.status(200).json({
     message: 'next step: create the first user group'
   });
 });
-
 module.exports = router;
