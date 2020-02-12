@@ -779,7 +779,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   generateOpenApps( openApps: any ) {
     this.openAppArray = [];
-    console.log( this.page );
     for ( const appType in openApps ) {
       for ( const app of openApps[ appType ].model ) {
         // console.log( app );
