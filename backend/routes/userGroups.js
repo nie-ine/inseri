@@ -61,9 +61,31 @@ router.get('', checkAuth, (req, res, next) => {
       })
     })
 });
-router.post('', (req, res, next) => {
+
+router.get('/:email', (req, res, next) => {
+  User.findOne({email: req.params.email})
+    .then(result => {
+      let message;
+      if (result.length === 0) {
+        message = 'User not found'
+      } else {
+        message = 'User has been found'
+      }
+      res.status(200).json({
+        message: message,
+        result: result
+      });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Error while retrieving the user',
+        error: error
+      })
+    })
+});
+/*router.post('', (req, res, next) => {
   res.status(200).json({
     message: 'next step: create the first user group'
   });
-});
+});*/
 module.exports = router;
