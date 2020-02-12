@@ -41,12 +41,13 @@ export class StackedBarChartComponent implements AfterViewChecked {
   constructor() {}
 
   ngAfterViewChecked() {
-    if ( this.initialised && !this.alreadyInitialised && this.data ) {
+    console.log( this.data.data );
+    if ( this.initialised && !this.alreadyInitialised && this.data !== undefined && this.data.data.length > 0 ) {
       this.alreadyInitialised = true;
       setTimeout(() => {
       this.initMargins();
       this.initSvg();
-      this.drawChart(this.data);
+      this.drawChart(this.data.data);
       }, 100);
     }
   }
@@ -62,7 +63,7 @@ export class StackedBarChartComponent implements AfterViewChecked {
   private initSvg() {
     this.svg = d3.select('.' + this.generateComponentDivClass())
       .append('svg')
-      .attr('width', 7000) // Change here for size of the bars
+      .attr('width', 400) // Change here for size of the bars
       .attr('height', 500);
 
     this.width = +this.svg.attr('width') - this.margin.left - this.margin.right;
