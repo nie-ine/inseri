@@ -14,6 +14,7 @@ export class OurNewComponentComponent implements OnInit {
   secondVariable: string;
   name: string;
   description: string;
+  newGroupMemberEmail: string;
   ngOnInit() {
     this.ourFirstVariable = 'Hello, this is our first classwide variable';
     this.secondVariable = this.ourFirstVariable + ' and sth added to the first string';
@@ -39,6 +40,22 @@ export class OurNewComponentComponent implements OnInit {
         response => {
           console.log( response );
           this.userGroups = (response as any).groups;
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+  assignUserToGroup( group: any ) {
+    console.log( 'assign user to group: ', group );
+    this.http.post(
+      'http://localhost:3000/api/userGroups/addMember',
+      {
+        groupId: group._id,
+        memberToAdd: group.memberToAdd
+      },  )
+      .subscribe(
+        response => {
+          console.log( response );
         }, error => {
           console.log( error );
         }
