@@ -61,5 +61,17 @@ export class OurNewComponentComponent implements OnInit {
         }
       );
   }
+  listGroupMembers( group: any) {
+    this.http.get(
+      'http://localhost:3000/api/userGroups/listGroupMembers',
+    )
+      .subscribe(
+        response => {
+          console.log(response);
+        }, error => {
+          console.log( error);
+        }
+      );
+  }
 }
 
