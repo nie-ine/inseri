@@ -143,7 +143,7 @@ import { OurNewComponentComponent } from './apps/our-new-component/our-new-compo
       { path: 'page', component: PageComponent },
       { path: 'browserling', component: BrowserlingComponent },
       { path: 'canvas', component: CanvasWhiteboardComponent },
-      { path: 'app-our-new-component', component: OurNewComponentComponent }
+      { path: 'our-new-component', component: OurNewComponentComponent }
     ])
   ],
   providers: [

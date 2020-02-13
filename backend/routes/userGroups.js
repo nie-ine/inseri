@@ -62,26 +62,38 @@ router.get('', checkAuth, (req, res, next) => {
     })
 });
 
-router.get('/:email', (req, res, next) => {
-  User.findOne({email: req.params.email})
-    .then(result => {
+router.post('/addMember', (req, res, next) => {
+  console.log(req.body);
+
+  User.findOne({email: req.body.memberToAdd})
+    .then((result) => {
       let message;
       if (result.length === 0) {
         message = 'User not found'
+        console.log(message);
       } else {
         message = 'User has been found'
+        console.log(req.body.memberToAdd);
+        UserGroup.update({_id: req.body.groupId}, {$push: {users: req.body.memberToAdd}})
+          .then(result => {
+            res.status(201).json({
+              message: 'User group updated',
+            });
+          })
+          .catch(error => {
+            res.status(500).json({
+              message: 'Error while retrieving the user',
+              error: error
+            });
+          })
       }
-      res.status(200).json({
-        message: message,
-        result: result
-      });
     })
     .catch(error => {
       res.status(500).json({
         message: 'Error while retrieving the user',
         error: error
-      })
-    })
+      });
+    });
 });
 /*router.post('', (req, res, next) => {
   res.status(200).json({
