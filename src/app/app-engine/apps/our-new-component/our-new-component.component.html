@@ -1,4 +1,4 @@
-<input mat-input [(ngModel)]="name">
+<input mat-input [(ngModel)]="name" xmlns="http://www.w3.org/1999/html">
 <input mat-input [(ngModel)]="description" >
 <button mat-button (click)="createNewUserGroup()">
   Create new user group
@@ -18,5 +18,13 @@
   <button mat-button  (click)="assignUserToGroup( group )" >
     {{ group.title }}
   </button>
+
+  <br>
+
+  <input mat-input [(ngModel)]="group.title" >
+  <button mat-button  (click)="listGroupMembers( group )" >
+    {{ group.title }}
+  </button>
+
 </div>
 
