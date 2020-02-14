@@ -356,10 +356,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
     if ( this.pageIDFromURL !==  this.route.snapshot.queryParams.page ) {
       this.pageIDFromURL = this.route.snapshot.queryParams.page;
       this.reloadVariables = true;
-      // this.spinner.show();
-      // setTimeout(() => {
-      //   this.spinner.hide();
-      // }, 1000); // TODO: bind end of spinner to event that all queries have been loaded instead of setTimeout!
     }
     this.cdr.detectChanges();
   }
@@ -660,56 +656,58 @@ export class PageComponent implements OnInit, AfterViewChecked {
     appType: string,
     app: any
   ) {
-    for ( const input of this.openAppsInThisPage[ app.type ].inputs ) {
-    this.queryService.createQueryOfPage(this.page._id, {title: appType + '-' + app.hash })
-      .subscribe(data => {
-        if (data.status === 201) {
-          const query = data.body.query;
-          this.requestService.createJson()
-            .subscribe(myOwnJson => {
-                const jsonId = (myOwnJson as any).result._id;
-                const serverURL = environment.node + '/api/myOwnJson/getJson/' + String((myOwnJson as any).result._id);
-                query.serverUrl = serverURL;
-                query.method = 'JSON';
-                query.description = Date.now();
-                this.queryService.updateQueryOfPage(this.page._id, query._id, query)
-                  .subscribe((data3) => {
-                    if (data3.status === 200) {
-                    } else {
-                      console.log('Updating query failed');
+    if ( this.openAppsInThisPage[ app.type ].inputs ) {
+      for ( const input of this.openAppsInThisPage[ app.type ].inputs ) {
+        this.queryService.createQueryOfPage(this.page._id, {title: appType + '-' + app.hash })
+          .subscribe(data => {
+            if (data.status === 201) {
+              const query = data.body.query;
+              this.requestService.createJson()
+                .subscribe(myOwnJson => {
+                    const jsonId = (myOwnJson as any).result._id;
+                    const serverURL = environment.node + '/api/myOwnJson/getJson/' + String((myOwnJson as any).result._id);
+                    query.serverUrl = serverURL;
+                    query.method = 'JSON';
+                    query.description = Date.now();
+                    this.queryService.updateQueryOfPage(this.page._id, query._id, query)
+                      .subscribe((data3) => {
+                        if (data3.status === 200) {
+                        } else {
+                          console.log('Updating query failed');
+                        }
+                      }, error1 => console.log(error1));
+                    if ( this.page.appInputQueryMapping[ app.hash ] === undefined ) {
+                      this.page.appInputQueryMapping[ app.hash ] = {};
                     }
-                  }, error1 => console.log(error1));
-                if ( this.page.appInputQueryMapping[ app.hash ] === undefined ) {
-                  this.page.appInputQueryMapping[ app.hash ] = {};
-                }
-                this.page.appInputQueryMapping[ app.hash ][ input.inputName ] = {};
-                this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'path' ] = [ 'result', 'content', 'info' ];
-                this.page.appInputQueryMapping[ app.hash ][ input.inputName ].query = query._id;
-                this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'serverUrl' ] = query.serverUrl;
-                this.page.appInputQueryMapping[ app.hash ].app = app.hash;
-                this.updatePage();
-                this.requestService.updateJson(
-                  jsonId,
-                  {
-                    _id: '5e26f93905dee90e3dcea8ea',
-                    creator: '5bf6823c9ec116a6fee7431d',
-                    content: {
-                      info: input.default
-                    },
-                    __v: 0
-                  }
-                )
-                  .subscribe(updatedJson => {
-                      console.log(updatedJson);
-                      this.reloadVariables = true;
-                    }, error => console.log(error)
-                  );
-              }, error => console.log(error)
-            );
-        }
-      }, error1 => {
-        console.log( error1 );
-      });
+                    this.page.appInputQueryMapping[ app.hash ][ input.inputName ] = {};
+                    this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'path' ] = [ 'result', 'content', 'info' ];
+                    this.page.appInputQueryMapping[ app.hash ][ input.inputName ].query = query._id;
+                    this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'serverUrl' ] = query.serverUrl;
+                    this.page.appInputQueryMapping[ app.hash ].app = app.hash;
+                    this.updatePage();
+                    this.requestService.updateJson(
+                      jsonId,
+                      {
+                        _id: '5e26f93905dee90e3dcea8ea',
+                        creator: '5bf6823c9ec116a6fee7431d',
+                        content: {
+                          info: input.default
+                        },
+                        __v: 0
+                      }
+                    )
+                      .subscribe(updatedJson => {
+                          console.log(updatedJson);
+                          this.reloadVariables = true;
+                        }, error => console.log(error)
+                      );
+                  }, error => console.log(error)
+                );
+            }
+          }, error1 => {
+            console.log( error1 );
+          });
+      }
     }
   }
 

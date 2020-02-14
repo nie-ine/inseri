@@ -87,6 +87,7 @@ import { BrowserlingComponent } from './apps/browserling/browserling.component';
 import { KeyValueComponent } from './apps/key-value/key-value.component';
 import { CanvasWhiteboardComponent } from './apps/canvas-whiteboard/canvas-whiteboard.component';
 import { OurNewComponentComponent } from './apps/our-new-component/our-new-component.component';
+import {FileDatabaseForAppGND, FileFlatNodeGnd, GndLobidComponent} from './apps/gnd-lobid/gnd-lobid.component';
 
 @NgModule({
   imports: [
@@ -143,7 +144,8 @@ import { OurNewComponentComponent } from './apps/our-new-component/our-new-compo
       { path: 'page', component: PageComponent },
       { path: 'browserling', component: BrowserlingComponent },
       { path: 'canvas', component: CanvasWhiteboardComponent },
-      { path: 'app-our-new-component', component: OurNewComponentComponent }
+      { path: 'app-our-new-component', component: OurNewComponentComponent },
+      { path: 'gnd', component: GndLobidComponent }
     ])
   ],
   providers: [
@@ -152,7 +154,8 @@ import { OurNewComponentComponent } from './apps/our-new-component/our-new-compo
     AbstractJsonService,
     FileDatabase,
     FileDatabaseForApp,
-    CanvasWhiteboardComponent
+    CanvasWhiteboardComponent,
+    FileDatabaseForAppGND
   ],
   declarations: [
     PageComponent,
@@ -193,7 +196,8 @@ import { OurNewComponentComponent } from './apps/our-new-component/our-new-compo
     BrowserlingComponent,
     KeyValueComponent,
     CanvasWhiteboardComponent,
-    OurNewComponentComponent
+    OurNewComponentComponent,
+    GndLobidComponent
   ],
   exports: [
     PageComponent,

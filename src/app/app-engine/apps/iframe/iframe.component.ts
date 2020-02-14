@@ -1,6 +1,6 @@
 import {AfterViewChecked, Component, HostListener, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-iframe',
@@ -12,6 +12,12 @@ export class IframeComponent implements OnInit, AfterViewChecked {
   @HostListener('window:message', ['$event'])
   onMessage(e) {
     console.log( e );
+    this.router.navigate( [], {
+      queryParams: {
+        'gnd': e.data.key
+      },
+      queryParamsHandling: 'merge'
+    } );
   }
   sanitized = false;
   sanitizedUrl: SafeUrl;
@@ -19,7 +25,8 @@ export class IframeComponent implements OnInit, AfterViewChecked {
 
   constructor(
     private sanitizer: DomSanitizer,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    private router: Router
   ) {
     this.sanitizedUrl = this.getSantizeUrl( this.url );
   }

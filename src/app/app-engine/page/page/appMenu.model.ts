@@ -389,6 +389,16 @@ export class AppMenuModel {
       appType: 'browserling',
       description: 'browserling',
       showOnHome: false
+    },
+    {
+      id: 'book',
+      name: 'GND Subscriber',
+      tags: 'gnd url param subscriber',
+      color: 'green',
+      status: 'stable',
+      appType: 'gndSubscriber',
+      description: 'gnd',
+      showOnHome: false
     }
   ];
 }

@@ -58,6 +58,13 @@ export class OpenAppsModel {
       initialWidth: '900',
       initialHeight: '400'
     },
+    gndSubscriber: {
+      type: 'gndSubscriber',
+      model: [],
+      materialIcon: 'book',
+      initialWidth: '500',
+      initialHeight: '1000'
+    },
     createResourceForm: {
       type: 'createResourceForm',
       model: [],
