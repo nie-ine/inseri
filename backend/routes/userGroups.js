@@ -95,15 +95,11 @@ router.post('/addMember', (req, res, next) => {
       });
     });
 });
-/*router.post('', (req, res, next) => {
-  res.status(200).json({
-    message: 'next step: create the first user group'
-  });
-});*/
-router.get('/groupMembers', (req, res, next) => {
+router.get('/:title/listGroupMembers',checkAuth, (req, res, next) => {
+
   UserGroup.find({
-      owner: req.query.userId,
-      title: req.query.title
+      owner: req.userData.userId,
+      title: req.params.title
     },
     {users: 1, _id: 0})
     .then(result => {
@@ -114,26 +110,6 @@ router.get('/groupMembers', (req, res, next) => {
       } else {
         message = 'Group has members'
 
-        /*User.find({email: {$in: emailResult.users}}, {_id: 0, email: 1})
-          .then(result => {
-            console.log(result);
-            if (result.length === 0) {
-              message = ' Members are not found, may be deleted from the system'
-            } else {
-              message = 'Members were found'
-              res.status(200).json({
-                message: message,
-                result: result
-              });
-            }
-          })
-          .catch(error => {
-            res.status(500).json({
-              message: 'Fetching all group Members failed',
-              error: error
-            })
-          })
-        }*/
         res.status(200).json({
           message: message,
           result: result
