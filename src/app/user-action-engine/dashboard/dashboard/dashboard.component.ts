@@ -288,4 +288,16 @@ export class DialogOverviewExampleDialog {
         }
       );
   }
+  assignUserToGroup() {
+    this.usergroupService.assignUserToGroup(
+      this.usergroup)
+      .subscribe(
+        response => {
+          console.log(response);
+        },
+      error => {
+          console.log( error );
+        }
+      );
+  }
 }

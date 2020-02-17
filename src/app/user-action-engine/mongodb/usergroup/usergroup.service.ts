@@ -21,5 +21,9 @@ export class UsergroupService {
     return this.http.get(
       `${UsergroupService.API_BASE_URL_USERGROUP}`, {observe: 'response'});
   }
-
+  assignUserToGroup( group: any ): Observable<any> {
+      return this.http.post(
+        `${UsergroupService.API_BASE_URL_USERGROUP + '/addMember'}`,
+        {groupId: group._id, memberToAdd: group.member}, {observe: 'response'});
+  }
 }

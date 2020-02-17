@@ -1,29 +1,35 @@
 <input mat-input [(ngModel)]="name" xmlns="http://www.w3.org/1999/html">
 <input mat-input [(ngModel)]="description" >
+
 <button mat-button (click)="createNewUserGroup()">
   Create new user group
 </button>
-
-<br>
 
 <button mat-button (click)="listUserGroups()">
   List user groups
 </button>
 
 <br>
-
 <div *ngFor="let group of userGroups">
-  Enter Email of new user that you'd like to add to the group:
-  <input mat-input [(ngModel)]="group.memberToAdd" >
-  <button mat-button  (click)="assignUserToGroup( group )" >
-    {{ group.title }}
-  </button>
 
+  Enter Email of new user that you'd like to add to the group:
+  <input mat-input [(ngModel)]="group.member" >
+  <button mat-button  (click)="assignUserToGroup( group )" >
+   <!-- {{ group.title }}-->
+    Add
+  </button>
+  <button mat-button  (click)="removeUserFromGroup( group.member,group.title)" >
+    <!-- {{ group.title }}-->
+    Remove
+  </button>
   <br>
 
   <input mat-input [(ngModel)]="group.title" >
   <button mat-button  (click)="listGroupMembers( group )" >
-    {{ group.title }}
+     List Group Members
+  </button>
+  <button mat-button (click)="removeGroup( group )">
+    Remove group
   </button>
 
 </div>

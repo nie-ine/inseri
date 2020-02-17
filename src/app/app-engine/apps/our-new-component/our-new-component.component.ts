@@ -35,6 +35,7 @@ export class OurNewComponentComponent implements OnInit {
       );
   }
   listUserGroups() {
+    // console.log( "list user groups" );
     this.http.get('http://localhost:3000/api/userGroups' )
       .subscribe(
         response => {
@@ -51,7 +52,7 @@ export class OurNewComponentComponent implements OnInit {
       'http://localhost:3000/api/userGroups/addMember',
       {
         groupId: group._id,
-        memberToAdd: group.memberToAdd
+        memberToAdd: group.member
       },  )
       .subscribe(
         response => {
@@ -62,8 +63,9 @@ export class OurNewComponentComponent implements OnInit {
       );
   }
   listGroupMembers( group: any) {
+    console.log( group );
     this.http.get(
-      'http://localhost:3000/api/userGroups/listGroupMembers',
+      'http://localhost:3000/api/userGroups/' + group.title + '/listGroupMembers'
     )
       .subscribe(
         response => {
@@ -72,6 +74,12 @@ export class OurNewComponentComponent implements OnInit {
           console.log( error);
         }
       );
+  }
+  removeGroup(group: any) {
+    console.log(' remove group');
+  }
+  removeUserFromGroup(memberToRemove: any, group: any) {
+  console.log(' remove user from a group');
   }
 }
 
