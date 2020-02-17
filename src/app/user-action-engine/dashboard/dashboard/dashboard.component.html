@@ -16,8 +16,21 @@
         <h2 class="section-heading">Guten Tag, {{ userFirstName }}</h2>
 
         <h3 class="section-subheading text-muted">Arbeite an einer Aktion weiter oder fange eine neue Aktion an <br>
-          <button mat-button style="margin-top: 30px;" (click)="showArchivedDocuments = !showArchivedDocuments" *ngIf="!showArchivedDocuments" > Show archived inseri documents</button>
-          <button mat-button style="margin-top: 30px;" (click)="showArchivedDocuments = !showArchivedDocuments" *ngIf="showArchivedDocuments"> Show non archived inseri documents</button>
+
+          <mat-form-field style="margin-top: 30px" >
+            <mat-label>Show...</mat-label>
+            <mat-select>
+              <mat-option (click)="showArchivedDocuments = false" (click)="showUserGroups = false" [value]="'Non archived inseri collages'" >
+                Non archived inseri collages
+              </mat-option>
+              <mat-option (click)="showArchivedDocuments = true" (click)="showUserGroups = false" [value]="'Archived inseri collages'" >
+                Archived inseri collages
+              </mat-option>
+              <mat-option (click)="showUserGroups = true" [value]="'User groups'">
+                User groups
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </h3>
 
 
@@ -36,15 +49,15 @@
           <a (click)="openDialog()" ><i class="fa fa-plus fa-stack-1x fa-inverse" style="background-color: #4cae4c !important;"></i></a>
         </span>
 
-        <h4 class="service-heading">New Site</h4>
+        <h4 class="service-heading">New Action</h4>
 
-        <p class="text-muted">Starten Sie eine neue Aktion</p>
+        <p class="text-muted">Start a new action</p>
 
       </div>
 
 
     <div *ngFor="let action of actions.slice().reverse(); let i = index">
-      <div class="col-md-4" href="#portfolioModal1" *ngIf="!action.deleted && !action.isFinished && !showArchivedDocuments" [ngStyle]="{'color': action.isFinished ? 'green' : 'black'}" style=" width: 230px; height: 300px; display: inline-block;" >
+      <div class="col-md-4" href="#portfolioModal1" *ngIf="!action.deleted && !action.isFinished && !showArchivedDocuments && !showUserGroups" [ngStyle]="{'color': action.isFinished ? 'green' : 'black'}" style=" width: 230px; height: 300px; display: inline-block;" >
                     <span class="fa-stack fa-4x" [matMenuTriggerFor]="appMenu" [ngSwitch]="action.type" style="cursor: pointer">
                       <i class="fa fa-circle fa-stack-2x text-primary"></i>
                       <i *ngSwitchCase="'page-set'" class="fa fa-files-o fa-stack-1x fa-inverse" ></i>
@@ -61,7 +74,7 @@
         <h4 class="service-heading">{{ action.title }}</h4>
         <p class="text-muted">{{ action.description }}</p>
       </div>
-      <div class="col-md-4" href="#portfolioModal1" *ngIf="!action.deleted && action.isFinished && showArchivedDocuments && action.hasPage" [ngStyle]="{'color': action.isFinished ? 'green' : 'black'}" style=" width: 230px; height: 300px; display: inline-block;" >
+      <div class="col-md-4" href="#portfolioModal1" *ngIf="!action.deleted && action.isFinished && showArchivedDocuments && action.hasPage && !showUserGroups" [ngStyle]="{'color': action.isFinished ? 'green' : 'black'}" style=" width: 230px; height: 300px; display: inline-block;" >
                     <span class="fa-stack fa-4x" [matMenuTriggerFor]="appMenu" [ngSwitch]="action.type" style="cursor: pointer">
                       <i class="fa fa-circle fa-stack-2x text-primary"></i>
                       <i *ngSwitchCase="'page-set'" class="fa fa-files-o fa-stack-1x fa-inverse" ></i>
@@ -79,6 +92,20 @@
         <p class="text-muted">{{ action.description }}</p>
       </div>
     </div>
+
+      <div *ngFor="let usergroup of userGroups.slice().reverse(); let i = index">
+        <div class="col-md-4" href="#portfolioModal1" *ngIf="showUserGroups" style=" width: 230px; height: 300px; display: inline-block;" >
+                    <span class="fa-stack fa-4x" [matMenuTriggerFor]="appMenu" style="cursor: pointer">
+                      <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                      <i class="fa fa-users fa-stack-1x fa-inverse" ></i>
+                    </span>
+          <mat-menu #appMenu="matMenu">
+            <button mat-menu-item >Change Usergroup</button>
+          </mat-menu>
+          <h4 class="service-heading">{{ usergroup.title }}</h4>
+          <p class="text-muted">{{ usergroup.description }}</p>
+        </div>
+      </div>
 
 
     </div>

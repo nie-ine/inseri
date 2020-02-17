@@ -20,6 +20,8 @@ import {StaticPagesModule} from '../static-pages.module';
 import { HeaderComponent } from '../header/header.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {MatChipsModule} from '@angular/material/chips';
+import {MatSelectModule} from '@angular/material/select';
+
 
 @NgModule({
   imports: [
@@ -39,6 +41,7 @@ import {MatChipsModule} from '@angular/material/chips';
     StaticPagesModule,
     MatTooltipModule,
     MatChipsModule,
+    MatSelectModule,
     RouterModule.forRoot([
       {path: 'dashboard', component: DashboardComponent},
       {path: 'impressum', component: ImpressumComponent}

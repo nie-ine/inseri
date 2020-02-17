@@ -11,6 +11,7 @@ import { QueryListComponent } from '../../../query-engine/query-list/query-list.
 import {PageService} from '../../mongodb/page/page.service';
 import {Observable} from 'rxjs';
 import {AuthService} from '../../mongodb/auth/auth.service';
+import { UsergroupService } from '../../mongodb/usergroup/usergroup.service';
 
 
 @Component({
@@ -26,6 +27,8 @@ export class DashboardComponent implements OnInit {
   message: string;
   successfullySendMessage = false;
   showArchivedDocuments = false;
+  showUserGroups = false;
+  userGroups: Array<any> = [];
 
   /**
    * Describes if user is logged in
@@ -38,7 +41,8 @@ export class DashboardComponent implements OnInit {
     private actionService: ActionService,
     private contactService: ContactService,
     private pageService: PageService,
-    private authService: AuthService
+    private authService: AuthService,
+    private usergroupService: UsergroupService
   ) {
 
     router.events.subscribe(s => {
@@ -63,6 +67,15 @@ export class DashboardComponent implements OnInit {
     if ( !this.authService.getIsAuth() ) {
       this.loggedIn = false;
     }
+
+    this.usergroupService.getAllUserGroups()
+      .subscribe(
+        usergroupresponse => {
+          console.log( usergroupresponse );
+          this.userGroups = ( usergroupresponse as any).body.groups;
+        },
+        error => console.log( error )
+      );
   }
 
   private updateActions() {
@@ -226,12 +239,14 @@ export class DialogOverviewExampleDialog {
   loading = false;
   chooseNewAction: string;
   pageSet: [string, string];
+  usergroup: any = {};
 
   constructor(public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               public dialog: MatDialog,
               private router: Router,
-              private actionService: ActionService ) {
+              private actionService: ActionService,
+              private usergroupService: UsergroupService) {
   }
 
   close() {
@@ -258,5 +273,19 @@ export class DialogOverviewExampleDialog {
         }
         this.dialogRef.close(this.pageSet);
       });
+  }
+
+  createUserGroup() {
+    console.log( this.usergroup.title, this.usergroup.description );
+    this.usergroupService.createGroup(
+      this.usergroup.title,
+      this.usergroup.description )
+      .subscribe(
+        data => {
+          console.log( data );
+        }, error => {
+          console.log( error );
+        }
+      );
   }
 }
