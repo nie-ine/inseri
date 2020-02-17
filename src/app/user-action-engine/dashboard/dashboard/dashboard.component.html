@@ -13,21 +13,24 @@
 
       <div class="col-lg-12 text-center">
 
-        <h2 class="section-heading">Guten Tag, {{ userFirstName }}</h2>
+        <h2 class="section-heading">Welcome, {{ userFirstName }}</h2>
 
-        <h3 class="section-subheading text-muted">Arbeite an einer Aktion weiter oder fange eine neue Aktion an <br>
+        <h3 class="section-subheading text-muted">Use <span class=" i i:before " >i</span>nser<span class=" i i:before ">i</span>, the online collaborative work and publish environment for your purposes. <br>
 
           <mat-form-field style="margin-top: 30px" >
             <mat-label>Show...</mat-label>
             <mat-select>
               <mat-option (click)="showArchivedDocuments = false" (click)="showUserGroups = false" [value]="'Non archived inseri collages'" >
-                Non archived inseri collages
-              </mat-option>
-              <mat-option (click)="showArchivedDocuments = true" (click)="showUserGroups = false" [value]="'Archived inseri collages'" >
-                Archived inseri collages
+                inseri collages
               </mat-option>
               <mat-option (click)="showUserGroups = true" [value]="'User groups'">
                 User groups
+              </mat-option>
+              <mat-option (click)="openQueryList()">
+                RESTFul Queries
+              </mat-option>
+              <mat-option (click)="showArchivedDocuments = true" (click)="showUserGroups = false" [value]="'Archived inseri collages'" >
+                Archived inseri collages
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -49,9 +52,9 @@
           <a (click)="openDialog()" ><i class="fa fa-plus fa-stack-1x fa-inverse" style="background-color: #4cae4c !important;"></i></a>
         </span>
 
-        <h4 class="service-heading">New Action</h4>
+        <h4 class="service-heading">Create New</h4>
 
-        <p class="text-muted">Start a new action</p>
+        <p class="text-muted">Collages and User Groups</p>
 
       </div>
 
@@ -65,11 +68,11 @@
                       <i *ngSwitchDefault class="fa fa-question fa-stack-1x fa-inverse" ></i>
                     </span>
                     <mat-menu #appMenu="matMenu">
-                      <button mat-menu-item (click)="continueAction( action )" >Go to document</button>
+                      <button mat-menu-item (click)="continueAction( action )" >Go to Collage</button>
                       <button mat-menu-item (click)="goToDocumentIndex( action )" *ngIf="action.type === 'page-set'">Go to document index</button>
                       <button mat-menu-item (click)="editAction( action )" >Change title or description</button>
-                      <button mat-menu-item (click)="deleteAction( action )" >Delete document</button>
-                      <button mat-menu-item (click)="markAsDone( action )" >Archive document</button>
+                      <button mat-menu-item (click)="deleteAction( action )" >Delete Collage</button>
+                      <button mat-menu-item (click)="markAsDone( action )" >Archive Collage</button>
                     </mat-menu>
         <h4 class="service-heading">{{ action.title }}</h4>
         <p class="text-muted">{{ action.description }}</p>
@@ -82,11 +85,11 @@
                       <i *ngSwitchDefault class="fa fa-question fa-stack-1x fa-inverse" ></i>
                     </span>
         <mat-menu #appMenu="matMenu">
-          <button mat-menu-item (click)="continueAction( action )" >Go to document</button>
-          <button mat-menu-item (click)="goToDocumentIndex( action )" *ngIf="action.type === 'page-set'">Go to document index</button>
+          <button mat-menu-item (click)="continueAction( action )" >Go to Collage</button>
+          <button mat-menu-item (click)="goToDocumentIndex( action )" *ngIf="action.type === 'page-set'">Go to Collage index</button>
           <button mat-menu-item (click)="editAction( action )" >Change title or description</button>
-          <button mat-menu-item (click)="deleteAction( action )" >Delete document</button>
-          <button mat-menu-item (click)="markAsDone( action )" >Archive document</button>
+          <button mat-menu-item (click)="deleteAction( action )" >Delete Collage</button>
+          <button mat-menu-item (click)="markAsDone( action )" >Archive Collage</button>
         </mat-menu>
         <h4 class="service-heading">{{ action.title }}</h4>
         <p class="text-muted">{{ action.description }}</p>
@@ -100,7 +103,9 @@
                       <i class="fa fa-users fa-stack-1x fa-inverse" ></i>
                     </span>
           <mat-menu #appMenu="matMenu">
-            <button mat-menu-item >Change Usergroup</button>
+            <button mat-menu-item >Show group members</button>
+            <button mat-menu-item >Change title or description</button>
+            <button mat-menu-item >Delete user group</button>
           </mat-menu>
           <h4 class="service-heading">{{ usergroup.title }}</h4>
           <p class="text-muted">{{ usergroup.description }}</p>

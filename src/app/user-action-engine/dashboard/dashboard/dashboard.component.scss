@@ -1,0 +1,9 @@
+.i {
+  color: #f7d336;
+  position: relative;
+}
+.i:before {
+  content: "ı";
+  position: absolute;
+  color: black;
+}

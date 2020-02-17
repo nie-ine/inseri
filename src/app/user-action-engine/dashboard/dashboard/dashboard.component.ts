@@ -67,7 +67,10 @@ export class DashboardComponent implements OnInit {
     if ( !this.authService.getIsAuth() ) {
       this.loggedIn = false;
     }
+    this.getUserGroups();
+  }
 
+  getUserGroups() {
     this.usergroupService.getAllUserGroups()
       .subscribe(
         usergroupresponse => {
@@ -79,7 +82,6 @@ export class DashboardComponent implements OnInit {
   }
 
   private updateActions() {
-    console.log('Next: iterate through existing actions');
     this.actionService.getAllActionsOfUser(this.userID)
       .pipe(
         map((response) => {
@@ -117,10 +119,13 @@ export class DashboardComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
       width: '700px',
-      data: {}
+      data: {
+        showUserGroups: this.showUserGroups
+      }
     });
     dialogRef.afterClosed().subscribe((result) => {
       this.updateActions();
+      this.getUserGroups();
       if (result) {
         console.log( result );
         const newPage: any = {};
@@ -218,6 +223,16 @@ export class DashboardComponent implements OnInit {
       });
   }
 
+  openQueryList() {
+    const dialogRef = this.dialog.open(QueryListComponent, {
+      width: '100%',
+      height: '100%',
+      data: {
+        enableAdd: false
+      }
+    });
+  }
+
 }
 
 @Component({
@@ -253,16 +268,6 @@ export class DialogOverviewExampleDialog {
     this.dialogRef.close(this.pageSet);
   }
 
-  openQueryList() {
-    const dialogRef = this.dialog.open(QueryListComponent, {
-      width: '100%',
-      height: '100%',
-      data: {
-        enableAdd: false
-      }
-    });
-  }
-
   register() {
     this.loading = true;
     this.action.type = 'page-set';
@@ -283,6 +288,7 @@ export class DialogOverviewExampleDialog {
       .subscribe(
         data => {
           console.log( data );
+          this.dialogRef.close(data);
         }, error => {
           console.log( error );
         }
