@@ -124,5 +124,41 @@ router.get('/:title/listGroupMembers',checkAuth, (req, res, next) => {
     });
   });
 
+router.post('/:memberToDelete',checkAuth, (req, res, next) => {
+
+  UserGroup.find({
+      owner: req.userData.userId,
+      title: req.params.title,
+      users: {$in: req.params.memberToDelete}
+    },
+    {_id: 1})
+    .then(result => {
+      let message;
+      console.log(result);
+      if (result.length === 0) {
+        message = 'User is not one of the group members.'
+      } else {
+        message = 'User has been found.'
+        UserGroup.update({_id: result._id}, {pull: {users: req.params.memberToDelete}})
+          .then(updateResult => {
+            res.status(201).json({
+              message : 'User has been successfully removed from the group.'
+            });
+          })
+          .catch(error => {
+            res.status(500).json({
+              message: 'Retrieving all members failed',
+              error: error
+            })
+          });
+      }
+    }).catch(error => {
+    res.status(500).json({
+      message: 'Error while retrieving the user',
+      error: error
+    });
+  });
+});
+
 module.exports = router;
 

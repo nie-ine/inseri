@@ -256,6 +256,7 @@ export class DialogOverviewExampleDialog {
   chooseNewAction: string;
   pageSet: [string, string];
   usergroup: any = {};
+  groupMembers: Array<any> = [];
 
   constructor(public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
               @Inject(MAT_DIALOG_DATA) public data: any,
@@ -307,4 +308,15 @@ export class DialogOverviewExampleDialog {
         }
       );
   }
+  showGroupMembers() {
+    this.usergroupService.showGroupMembers()
+      .subscribe(
+        groupMembers => {
+          console.log( groupMembers );
+          this.groupMembers = ( groupMembers as any).body.result.users;
+        },
+        error => {
+          console.log( error );
+        });
+    }
 }
