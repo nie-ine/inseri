@@ -32,11 +32,13 @@ export class DashboardComponent implements OnInit {
   selected = 'option1';
   usergroup: any = {};
   groupMembers: Array<any> = [];
+  email: string;
 
   /**
    * Describes if user is logged in
    * */
   loggedIn = true;
+
 
   constructor(
     public dialog: MatDialog,
@@ -238,7 +240,7 @@ export class DashboardComponent implements OnInit {
 
   assignUserToGroup() {
     this.usergroupService.assignUserToGroup(
-      this.usergroup)
+      this.usergroup, this.email)
       .subscribe(
         response => {
           console.log(response);
