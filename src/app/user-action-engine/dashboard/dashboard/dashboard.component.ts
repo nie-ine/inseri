@@ -33,11 +33,13 @@ export class DashboardComponent implements OnInit {
   selected = 'option1';
   usergroup: any = {};
   groupMembers: Array<any> = [];
+  email: string;
 
   /**
    * Describes if user is logged in
    * */
   loggedIn = true;
+
 
   constructor(
     public dialog: MatDialog,
@@ -239,7 +241,7 @@ export class DashboardComponent implements OnInit {
 
   assignUserToGroup() {
     this.usergroupService.assignUserToGroup(
-      this.usergroup)
+      this.usergroup, this.email)
       .subscribe(
         response => {
           console.log(response);
@@ -332,6 +334,18 @@ export class DialogOverviewExampleDialog {
           console.log( data );
           this.dialogRef.close(data);
         }, error => {
+          console.log( error );
+        }
+      );
+  }
+  deleteUserGroup(title: string) {
+    console.log( 'show group members' );
+    this.usergroupService.deleteGroup( title )
+      .subscribe(
+        response => {
+          console.log(response);
+        },
+        error => {
           console.log( error );
         }
       );

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {error} from 'util';
 @Component({
   selector: 'app-our-new-component',
   templateUrl: './our-new-component.component.html',
@@ -15,6 +16,7 @@ export class OurNewComponentComponent implements OnInit {
   name: string;
   description: string;
   newGroupMemberEmail: string;
+  member: string;
   ngOnInit() {
     this.ourFirstVariable = 'Hello, this is our first classwide variable';
     this.secondVariable = this.ourFirstVariable + ' and sth added to the first string';
@@ -46,22 +48,7 @@ export class OurNewComponentComponent implements OnInit {
         }
       );
   }
-  assignUserToGroup( group: any ) {
-    console.log( 'assign user to group: ', group );
-    this.http.post(
-      'http://localhost:3000/api/userGroups/addMember',
-      {
-        groupId: group._id,
-        memberToAdd: group.member
-      },  )
-      .subscribe(
-        response => {
-          console.log( response );
-        }, error => {
-          console.log( error );
-        }
-      );
-  }
+
   listGroupMembers( group: any) {
     console.log( group );
     this.http.get(
@@ -75,11 +62,50 @@ export class OurNewComponentComponent implements OnInit {
         }
       );
   }
-  removeGroup(group: any) {
+  removeGroup(groupTitle: string) {
     console.log(' remove group');
+    this.http.post('http://localhost:3000/api/userGroups/' + groupTitle ,
+      {title: groupTitle},
+      )
+      .subscribe(
+        response => {
+          console.log(response);
+        }, error => {
+          console.log(error);
+        }
+      );
   }
-  removeUserFromGroup(memberToRemove: any, group: any) {
+  assignUserToGroup( group: any, email: string ) {
+    console.log( 'assign user to group: ', group );
+    this.http.post(
+      'http://localhost:3000/api/userGroups/addMember',
+      {
+        groupId: group._id,
+        memberToAdd: email
+      },  )
+      .subscribe(
+        response => {
+          console.log( response );
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+  removeUserFromGroup( group: any, email: any) {
   console.log(' remove user from a group');
+    this.http.post(
+      'http://localhost:3000/api/userGroups/removeMember',
+      {
+        groupId: group._id,
+        memberToRemove: email
+      },  )
+      .subscribe(
+        response => {
+          console.log( response );
+        }, error => {
+          console.log( error );
+        }
+      );
   }
 }
 

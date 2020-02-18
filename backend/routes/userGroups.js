@@ -5,6 +5,7 @@ const checkAuth = require('../middleware/check-auth');
 const checkAuth2 = require('../middleware/check-auth-without-immediate-response');
 //const generatedHash = require('../middleware/hash-generator');
 const router = express.Router();
+
 router.post('',checkAuth, (req, res, next) => {
   console.log(req.body);
   UserGroup.find({title: req.body.title, owner:req.userData.userId})
@@ -36,6 +37,7 @@ router.post('',checkAuth, (req, res, next) => {
         });
     });
 });
+
 router.get('', checkAuth, (req, res, next) => {
   UserGroup.find({$or: [
       {owner: req.userData.userId},
@@ -62,39 +64,6 @@ router.get('', checkAuth, (req, res, next) => {
     })
 });
 
-router.post('/addMember', (req, res, next) => {
-  console.log(req.body);
-
-  User.findOne({email: req.body.memberToAdd})
-    .then((result) => {
-      let message;
-      if (result.length === 0) {
-        message = 'User not found'
-        console.log(message);
-      } else {
-        message = 'User has been found'
-        console.log(req.body.memberToAdd);
-        UserGroup.update({_id: req.body.groupId}, {$push: {users: req.body.memberToAdd}})
-          .then(result => {
-            res.status(201).json({
-              message: 'User group updated',
-            });
-          })
-          .catch(error => {
-            res.status(500).json({
-              message: 'Error while updating the group',
-              error: error
-            });
-          })
-      }
-    })
-    .catch(error => {
-      res.status(500).json({
-        message: 'Error while retrieving the user',
-        error: error
-      });
-    });
-});
 router.get('/:title/listGroupMembers',checkAuth, (req, res, next) => {
 
   UserGroup.find({
@@ -122,9 +91,44 @@ router.get('/:title/listGroupMembers',checkAuth, (req, res, next) => {
         error: error
       })
     });
-  });
+});
 
-router.post('/:memberToDelete',checkAuth, (req, res, next) => {
+router.post('/addMember', (req, res, next) => {
+  console.log(req.body);
+
+  User.findOne({email: req.body.memberToAdd})
+    .then((result) => {
+      let message;
+      if (result.length === 0) {
+        message = 'User not found'
+        console.log(message);
+      } else {
+        message = 'User has been found'
+        console.log(req.body.memberToAdd);
+        UserGroup.update({_id: req.body.groupId}, {$addToSet: {users: req.body.memberToAdd}})
+          .then(result => {
+            res.status(201).json({
+              message: 'User group updated',
+            });
+          })
+          .catch(error => {
+            res.status(500).json({
+              message: 'Error while updating the group',
+              error: error
+            });
+          })
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Error while retrieving the user',
+        error: error
+      });
+    });
+});
+
+
+router.post('/:memberToDelete/listGroupMembers',checkAuth, (req, res, next) => {
 
   UserGroup.find({
       owner: req.userData.userId,
@@ -159,6 +163,32 @@ router.post('/:memberToDelete',checkAuth, (req, res, next) => {
     });
   });
 });
+
+router.post('/:groupToDelete',checkAuth, (req, res, next) => {
+
+  UserGroup.deleteOne({
+      owner: req.userData.userId,
+      title: req.params.groupToDelete
+    })
+    .then((deletedGroup) => {
+      if (deletedGroup.n === 0) {
+        return res.status(400).json({
+          message: 'Group cannot be deleted'
+        });
+      } else {
+        res.status(200).json({
+          message: 'Group has been deleted successfully.'
+        });
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Deleting group failed',
+        error: error
+      })
+    });
+});
+
 
 module.exports = router;
 

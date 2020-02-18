@@ -13,12 +13,12 @@
 <div *ngFor="let group of userGroups">
 
   Enter Email of new user that you'd like to add to the group:
-  <input mat-input [(ngModel)]="group.member" >
-  <button mat-button  (click)="assignUserToGroup( group )" >
+  <input mat-input [(ngModel)]="member" >
+  <button mat-button  (click)="assignUserToGroup( group, member )" >
    <!-- {{ group.title }}-->
     Add
   </button>
-  <button mat-button  (click)="removeUserFromGroup( group.member,group.title)" >
+  <button mat-button  (click)="removeUserFromGroup( member,group.title)" >
     <!-- {{ group.title }}-->
     Remove
   </button>
@@ -28,7 +28,7 @@
   <button mat-button  (click)="listGroupMembers( group )" >
      List Group Members
   </button>
-  <button mat-button (click)="removeGroup( group )">
+  <button mat-button (click)="removeGroup( group.title )">
     Remove group
   </button>
 

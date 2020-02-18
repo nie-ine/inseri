@@ -21,13 +21,18 @@ export class UsergroupService {
     return this.http.get(
       `${UsergroupService.API_BASE_URL_USERGROUP}`, {observe: 'response'});
   }
-  assignUserToGroup( group: any ): Observable<any> {
-      return this.http.post(
-        `${UsergroupService.API_BASE_URL_USERGROUP + '/addMember'}`,
-        {groupId: group._id, memberToAdd: group.member}, {observe: 'response'});
-  }
   showGroupMembers( title: string ) {
     return this.http.get(
       `${UsergroupService.API_BASE_URL_USERGROUP + '/' + title + '/listGroupMembers'}`, {observe: 'response'});
+  }
+  assignUserToGroup( group: any, email: string ): Observable<any> {
+      return this.http.post(
+        `${UsergroupService.API_BASE_URL_USERGROUP + '/addMember'}`,
+        { groupId: group._id, memberToAdd: email}, {observe: 'response'});
+  }
+  deleteGroup(groupTitle: string) {
+    return this.http.post(
+      'http://localhost:3000/api/userGroups/' + groupTitle,
+      {title: groupTitle}, {observe: 'response'});
   }
 }
