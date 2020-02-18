@@ -103,7 +103,7 @@
                       <i class="fa fa-users fa-stack-1x fa-inverse" ></i>
                     </span>
           <mat-menu #appMenu="matMenu">
-            <button mat-menu-item >Show group members</button>
+            <button mat-menu-item (click)="showGroupMembers( usergroup.title )">Show group members</button>
             <button mat-menu-item >Change title or description</button>
             <button mat-menu-item >Delete user group</button>
           </mat-menu>

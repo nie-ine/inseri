@@ -30,6 +30,8 @@ export class DashboardComponent implements OnInit {
   showUserGroups = false;
   userGroups: Array<any> = [];
   selected = 'option1';
+  usergroup: any = {};
+  groupMembers: Array<any> = [];
 
   /**
    * Describes if user is logged in
@@ -234,6 +236,31 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  assignUserToGroup() {
+    this.usergroupService.assignUserToGroup(
+      this.usergroup)
+      .subscribe(
+        response => {
+          console.log(response);
+        },
+        error => {
+          console.log( error );
+        }
+      );
+  }
+  showGroupMembers( title: string ) {
+    console.log( 'show group members' );
+    this.usergroupService.showGroupMembers( title )
+      .subscribe(
+        groupMembers => {
+          console.log( groupMembers );
+          this.groupMembers = ( groupMembers as any).body.result.users;
+        },
+        error => {
+          console.log( error );
+        });
+  }
+
 }
 
 @Component({
@@ -256,7 +283,6 @@ export class DialogOverviewExampleDialog {
   chooseNewAction: string;
   pageSet: [string, string];
   usergroup: any = {};
-  groupMembers: Array<any> = [];
 
   constructor(public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
               @Inject(MAT_DIALOG_DATA) public data: any,
@@ -296,27 +322,4 @@ export class DialogOverviewExampleDialog {
         }
       );
   }
-  assignUserToGroup() {
-    this.usergroupService.assignUserToGroup(
-      this.usergroup)
-      .subscribe(
-        response => {
-          console.log(response);
-        },
-      error => {
-          console.log( error );
-        }
-      );
-  }
-  showGroupMembers() {
-    this.usergroupService.showGroupMembers()
-      .subscribe(
-        groupMembers => {
-          console.log( groupMembers );
-          this.groupMembers = ( groupMembers as any).body.result.users;
-        },
-        error => {
-          console.log( error );
-        });
-    }
 }
