@@ -53,7 +53,19 @@
             (click)="selectPage( i, page )">{{ page.title }}</button>
           <button
             *ngIf=" (!pageAsDemo) && !preview && loggedIn" mat-button
-            (click)="addNewPage()" matTooltip="'add new page tho this pageSet'"><mat-icon>add</mat-icon></button>
+            (click)="addNewPage()" matTooltip="'Add new page'">
+            <mat-icon>add</mat-icon>
+          </button> <br>
+          <button
+            *ngIf=" (!pageAsDemo) && !preview && loggedIn" mat-button
+            matTooltip="'Add duplicated existing page'">
+            <mat-icon>add</mat-icon>
+          </button> <br>
+          <button
+            *ngIf=" (!pageAsDemo) && !preview && loggedIn" mat-button
+            matTooltip="'Add existing page'">
+            <mat-icon>add</mat-icon>
+          </button>
         </mat-menu>
         <button [disabled]="selectedPage === pagesOfThisActtion.length - 1"
                 *ngIf="pagesOfThisActtion"

@@ -29,6 +29,9 @@ export class DashboardComponent implements OnInit {
   showArchivedDocuments = false;
   showUserGroups = false;
   userGroups: Array<any> = [];
+  selected = 'option1';
+  usergroup: any = {};
+  groupMembers: Array<any> = [];
 
   /**
    * Describes if user is logged in
@@ -233,6 +236,31 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  assignUserToGroup() {
+    this.usergroupService.assignUserToGroup(
+      this.usergroup)
+      .subscribe(
+        response => {
+          console.log(response);
+        },
+        error => {
+          console.log( error );
+        }
+      );
+  }
+  showGroupMembers( title: string ) {
+    console.log( 'show group members' );
+    this.usergroupService.showGroupMembers( title )
+      .subscribe(
+        groupMembers => {
+          console.log( groupMembers );
+          this.groupMembers = ( groupMembers as any).body.result.users;
+        },
+        error => {
+          console.log( error );
+        });
+  }
+
 }
 
 @Component({
@@ -290,18 +318,6 @@ export class DialogOverviewExampleDialog {
           console.log( data );
           this.dialogRef.close(data);
         }, error => {
-          console.log( error );
-        }
-      );
-  }
-  assignUserToGroup() {
-    this.usergroupService.assignUserToGroup(
-      this.usergroup)
-      .subscribe(
-        response => {
-          console.log(response);
-        },
-      error => {
           console.log( error );
         }
       );
