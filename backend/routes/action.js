@@ -11,30 +11,30 @@ const generatedHash = require('../middleware/hash-generator');
 
 const router = express.Router();
 
-router.get('', checkAuth, (req, res, next) => {
-    Action.find()
-      .populate('creator')
-        .then(actions => {
-            let message;
-            if (actions.length === 0) {
-                message = 'No actions were found'
-            } else if (actions.length === 1) {
-                message = 'One action was found'
-            } else {
-                message = 'All actions were found'
-            }
-            res.status(200).json({
-                message: message,
-                actions: actions
-            });
-        })
-        .catch(error => {
-            res.status(500).json({
-                message: 'Fetching all actions failed',
-                error: error
-            })
-        })
-});
+// router.get('', checkAuth, (req, res, next) => {
+//     Action.find()
+//       .populate('creator')
+//         .then(actions => {
+//             let message;
+//             if (actions.length === 0) {
+//                 message = 'No actions were found'
+//             } else if (actions.length === 1) {
+//                 message = 'One action was found'
+//             } else {
+//                 message = 'All actions were found'
+//             }
+//             res.status(200).json({
+//                 message: message,
+//                 actions: actions
+//             });
+//         })
+//         .catch(error => {
+//             res.status(500).json({
+//                 message: 'Fetching all actions failed',
+//                 error: error
+//             })
+//         })
+// });
 
 router.get('/:id', checkAuth2, (req, res, next) => {
     // Authorisation (only if user is also the creator of the action)

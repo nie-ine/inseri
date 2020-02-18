@@ -88,6 +88,7 @@ import { KeyValueComponent } from './apps/key-value/key-value.component';
 import { CanvasWhiteboardComponent } from './apps/canvas-whiteboard/canvas-whiteboard.component';
 import { OurNewComponentComponent } from './apps/our-new-component/our-new-component.component';
 import {FileDatabaseForAppGND, FileFlatNodeGnd, GndLobidComponent} from './apps/gnd-lobid/gnd-lobid.component';
+import { PageListDialogComponent } from './page/page-list-dialog/page-list-dialog.component';
 
 @NgModule({
   imports: [
@@ -197,7 +198,8 @@ import {FileDatabaseForAppGND, FileFlatNodeGnd, GndLobidComponent} from './apps/
     KeyValueComponent,
     CanvasWhiteboardComponent,
     OurNewComponentComponent,
-    GndLobidComponent
+    GndLobidComponent,
+    PageListDialogComponent
   ],
   exports: [
     PageComponent,
@@ -217,7 +219,8 @@ import {FileDatabaseForAppGND, FileFlatNodeGnd, GndLobidComponent} from './apps/
     DataChooserComponent,
     AppInputComponentComponent,
     FileListDialogComponent,
-    AddAppGroupDialogComponent
+    AddAppGroupDialogComponent,
+    PageListDialogComponent
   ]
 })
 export class NIEOSModule { }

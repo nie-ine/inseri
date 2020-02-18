@@ -7,24 +7,24 @@ const checkAuth = require('../middleware/check-auth');
 const checkAuth2 = require('../middleware/check-auth-without-immediate-response');
 const router = express.Router();
 
-// Nur zum TESTEN
-router.get('', checkAuth, (req, res, next) => {
-    Page.find()
-        .then(pages => {
-            let message;
-            if (pages.length === 0) {
-                message = 'No pages were found'
-            } else if (pages.length === 1) {
-                message = 'One pages was found'
-            } else {
-                message = 'All pages were found'
-            }
-            res.status(200).json({
-                message: message,
-                pages: pages
-            });
-        });
-});
+// // Nur zum TESTEN
+// router.get('', checkAuth, (req, res, next) => {
+//     Page.find( )
+//         .then(pages => {
+//             let message;
+//             if (pages.length === 0) {
+//                 message = 'No pages were found'
+//             } else if (pages.length === 1) {
+//                 message = 'One pages was found'
+//             } else {
+//                 message = 'All pages were found'
+//             }
+//             res.status(200).json({
+//                 message: message,
+//                 pages: pages
+//             });
+//         });
+// });
 
 router.get('/:id', checkAuth2, (req, res, next) => {
 
