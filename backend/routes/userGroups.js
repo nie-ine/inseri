@@ -124,7 +124,7 @@ router.get('/:title/listGroupMembers',checkAuth, (req, res, next) => {
     });
   });
 
-router.post('/:memberToDelete',checkAuth, (req, res, next) => {
+router.post('/:memberToDelete/listGroupMembers',checkAuth, (req, res, next) => {
 
   UserGroup.find({
       owner: req.userData.userId,
@@ -159,6 +159,32 @@ router.post('/:memberToDelete',checkAuth, (req, res, next) => {
     });
   });
 });
+
+router.post('/:groupToDelete',checkAuth, (req, res, next) => {
+
+  UserGroup.deleteOne({
+      owner: req.userData.userId,
+      title: req.params.groupToDelete
+    })
+    .then((deletedGroup) => {
+      if (deletedGroup.n === 0) {
+        return res.status(400).json({
+          message: 'Group cannot be deleted'
+        });
+      } else {
+        res.status(200).json({
+          message: 'Group has been deleted successfully.'
+        });
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Deleting group failed',
+        error: error
+      })
+    });
+});
+
 
 module.exports = router;
 

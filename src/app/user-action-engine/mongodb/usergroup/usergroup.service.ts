@@ -30,4 +30,9 @@ export class UsergroupService {
     return this.http.get(
       `${UsergroupService.API_BASE_URL_USERGROUP + '/' + title + '/listGroupMembers'}`, {observe: 'response'});
   }
+  deleteGroup(groupTitle: string) {
+    return this.http.post(
+      'http://localhost:3000/api/userGroups/' + groupTitle,
+      {title: groupTitle}, {observe: 'response'});
+  }
 }

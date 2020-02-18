@@ -322,4 +322,16 @@ export class DialogOverviewExampleDialog {
         }
       );
   }
+  deleteUserGroup(title: string) {
+    console.log( 'show group members' );
+    this.usergroupService.deleteGroup( title )
+      .subscribe(
+        response => {
+          console.log(response);
+        },
+        error => {
+          console.log( error );
+        }
+      );
+  }
 }

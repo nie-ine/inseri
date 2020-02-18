@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {error} from 'util';
 @Component({
   selector: 'app-our-new-component',
   templateUrl: './our-new-component.component.html',
@@ -75,8 +76,18 @@ export class OurNewComponentComponent implements OnInit {
         }
       );
   }
-  removeGroup(group: any) {
+  removeGroup(groupTitle: string) {
     console.log(' remove group');
+    this.http.post('http://localhost:3000/api/userGroups/' + groupTitle ,
+      {title: groupTitle},
+      )
+      .subscribe(
+        response => {
+          console.log(response);
+        }, error => {
+          console.log(error);
+        }
+      );
   }
   removeUserFromGroup(memberToRemove: any, group: any) {
   console.log(' remove user from a group');
