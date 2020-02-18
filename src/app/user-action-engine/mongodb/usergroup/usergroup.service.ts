@@ -26,4 +26,8 @@ export class UsergroupService {
         `${UsergroupService.API_BASE_URL_USERGROUP + '/addMember'}`,
         {groupId: group._id, memberToAdd: group.member}, {observe: 'response'});
   }
+  showGroupMembers() {
+    return this.http.get(
+      `${UsergroupService.API_BASE_URL_USERGROUP + '/:title/listGroupMembers'}`, {observe: 'response'});
+  }
 }
