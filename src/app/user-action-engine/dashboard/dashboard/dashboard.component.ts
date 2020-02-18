@@ -252,6 +252,18 @@ export class DashboardComponent implements OnInit {
         }
       );
   }
+  removeUserFromGroup() {
+    this.usergroupService.removeUserFromGroup(
+      this.usergroup, this.email)
+      .subscribe(
+        response => {
+          console.log(response);
+        },
+        error => {
+          console.log( error );
+        }
+      );
+  }
   showGroupMembers( title: string ) {
     console.log( 'show group members' );
     this.usergroupService.showGroupMembers( title )
