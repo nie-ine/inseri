@@ -32,6 +32,7 @@ import {AppInputComponentComponent} from '../app-input-component/app-input-compo
 import {AddAppGroupDialogComponent} from '../add-app-group-dialog/add-app-group-dialog.component';
 import {DataAssignmentComponent} from '../../../query-app-interface/data-management/data-assignment/data-assignment.component';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {PageListDialogComponent} from '../page-list-dialog/page-list-dialog.component';
 
 @Component({
   selector: 'nie-os',
@@ -1100,6 +1101,20 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   minimizeApp( openAppArrayIndex: number ) {
     this.openAppArray[ openAppArrayIndex ].minimized = true;
+  }
+
+  addDuplicatedPage() {
+    const dialogRef = this.dialog.open(PageListDialogComponent, {
+      width: '100%',
+      height: '40%',
+      data: {
+        showDuplicateButton: true
+      }
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log( 'Duplicate the following page and add it to this collage' );
+      console.log( result );
+    });
   }
 
 }

@@ -15,7 +15,7 @@
 
         <h2 class="section-heading">Welcome, {{ userFirstName }}</h2>
 
-        <h3 class="section-subheading text-muted">Use <span class=" i i:before " >i</span>nser<span class=" i i:before ">i</span>, the online collaborative work and publish environment for your purposes. <br>
+        <h3 class="section-subheading text-muted">Use inseri, the online collaborative work and publish environment for your purposes. <br>
 
           <mat-form-field style="margin-top: 30px" >
             <mat-label>Show...</mat-label>
@@ -28,6 +28,9 @@
               </mat-option>
               <mat-option (click)="openQueryList()">
                 RESTFul Queries
+              </mat-option>
+              <mat-option (click)="openAllPagesDialog()">
+                All canvases
               </mat-option>
               <mat-option (click)="showArchivedDocuments = true" (click)="showUserGroups = false"  value="option3">
                 Archived inseri collages

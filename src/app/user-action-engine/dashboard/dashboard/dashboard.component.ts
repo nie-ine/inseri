@@ -12,6 +12,7 @@ import {PageService} from '../../mongodb/page/page.service';
 import {Observable} from 'rxjs';
 import {AuthService} from '../../mongodb/auth/auth.service';
 import { UsergroupService } from '../../mongodb/usergroup/usergroup.service';
+import {PageListDialogComponent} from '../../../app-engine/page/page-list-dialog/page-list-dialog.component';
 
 
 @Component({
@@ -273,6 +274,19 @@ export class DashboardComponent implements OnInit {
         error => {
           console.log( error );
         });
+  }
+
+  openAllPagesDialog() {
+    const dialogRef = this.dialog.open(PageListDialogComponent, {
+      width: '100%',
+      height: '80%',
+      data: {
+        showDuplicateButton: false
+      }
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log( result );
+    });
   }
 
 }
