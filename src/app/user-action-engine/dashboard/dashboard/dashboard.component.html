@@ -19,17 +19,17 @@
 
           <mat-form-field style="margin-top: 30px" >
             <mat-label>Show...</mat-label>
-            <mat-select>
-              <mat-option (click)="showArchivedDocuments = false" (click)="showUserGroups = false" [value]="'Non archived inseri collages'" >
+            <mat-select [(value)]="selected">
+              <mat-option (click)="showArchivedDocuments = false" (click)="showUserGroups = false"  value="option1">
                 inseri collages
               </mat-option>
-              <mat-option (click)="showUserGroups = true" [value]="'User groups'">
+              <mat-option (click)="showUserGroups = true" value="option2">
                 User groups
               </mat-option>
               <mat-option (click)="openQueryList()">
                 RESTFul Queries
               </mat-option>
-              <mat-option (click)="showArchivedDocuments = true" (click)="showUserGroups = false" [value]="'Archived inseri collages'" >
+              <mat-option (click)="showArchivedDocuments = true" (click)="showUserGroups = false"  value="option3">
                 Archived inseri collages
               </mat-option>
             </mat-select>

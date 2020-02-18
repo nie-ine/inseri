@@ -29,6 +29,7 @@ export class DashboardComponent implements OnInit {
   showArchivedDocuments = false;
   showUserGroups = false;
   userGroups: Array<any> = [];
+  selected = 'option1';
 
   /**
    * Describes if user is logged in
