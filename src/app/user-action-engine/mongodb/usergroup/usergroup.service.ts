@@ -35,4 +35,9 @@ export class UsergroupService {
       'http://localhost:3000/api/userGroups/' + groupTitle,
       {title: groupTitle}, {observe: 'response'});
   }
+  removeUserFromGroup( group: any, email: string ): Observable<any> {
+    return this.http.post(
+      `${UsergroupService.API_BASE_URL_USERGROUP + '/removeMember'}`,
+      { groupId: group._id, memberToRemove: email}, {observe: 'response'});
+  }
 }

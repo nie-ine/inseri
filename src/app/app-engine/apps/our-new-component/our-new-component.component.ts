@@ -92,7 +92,6 @@ export class OurNewComponentComponent implements OnInit {
       );
   }
   removeUserFromGroup( group: any, email: any) {
-  console.log(' remove user from a group');
     this.http.post(
       'http://localhost:3000/api/userGroups/removeMember',
       {
