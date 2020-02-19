@@ -212,5 +212,42 @@ router.post('/removeCurrentUserFromGroup/:groupId',checkAuth, (req, res, next) =
       })
     });
 });
+
+router.post('/assignNewOwner/:groupId&:email',checkAuth, (req, res, next) => {
+  console.log(req.userData.userId);
+  console.log(req.params.groupId||" "|| req.params.email);
+  User.find({email: req.params.email})
+    .then((result) => {
+      let message;
+      if (result.length === 0) {
+        message = 'User not found'
+
+      } else {
+        message = 'User has been found'
+        console.log(message);
+        UserGroup.updateOne(
+          {_id: req.params.groupId},
+          {$set: {owner: result[0]._id}, $addToSet: {users: req.params.email}})
+          .then(updateResult => {
+            res.status(201).json({
+
+              message: 'User group updated' //+ result[0]._id,
+            });
+          })
+          .catch(error => {
+            res.status(500).json({
+              message: 'Error while updating the group',
+              error: error
+            });
+          })
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Error while retrieving the user',
+        error: error
+      });
+    });
+});
 module.exports = router;
 

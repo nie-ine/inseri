@@ -27,6 +27,11 @@
     Remove me
   </button>
 
+  <button mat-button  (click)="assignNewOwner( group, member)" >
+    <!-- {{ group.title }}-->
+    Assign new owner to group
+  </button>
+
   <br>
 
   <input mat-input [(ngModel)]="group.title" >

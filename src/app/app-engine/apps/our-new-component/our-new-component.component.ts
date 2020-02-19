@@ -107,9 +107,9 @@ export class OurNewComponentComponent implements OnInit {
       );
   }
   removeMeFromGroup(group: any ) {
-    console.log('Remove me from group');
+    /*console.log('Remove me from group');
     console.log(group);
-    alert(group.title);
+    alert(group.title);*/
     this.http.post(
       'http://localhost:3000/api/userGroups/removeCurrentUserFromGroup/' + group._id,
       {title: group.title}
@@ -117,11 +117,23 @@ export class OurNewComponentComponent implements OnInit {
       .subscribe(
         response => {
           console.log( response );
-          //this.listGroupMembers( group );
         }, error => {
           console.log( error );
         }
       );
+  }
+  assignNewOwner(group: any, email: string) {
+    this.http.post(
+      'http://localhost:3000/api/userGroups/assignNewOwner/' + group._id + '&' + email,
+    {title: group.title}
+  ,  )
+  .subscribe(
+      response => {
+        console.log( response );
+      }, error => {
+        console.log( error );
+      }
+    );
   }
 }
 
