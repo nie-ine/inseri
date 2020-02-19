@@ -41,7 +41,7 @@ router.post('',checkAuth, (req, res, next) => {
 router.get('', checkAuth, (req, res, next) => {
   UserGroup.find({$or: [
       {owner: req.userData.userId},
-      {owner: {$in: UserGroup.users}}
+      {users: {$in: req.userData.email}}
     ]
   })
     .then(groups => {
