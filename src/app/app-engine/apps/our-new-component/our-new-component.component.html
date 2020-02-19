@@ -22,6 +22,11 @@
     <!-- {{ group.title }}-->
     Remove
   </button>
+  <button mat-button  (click)="removeMeFromGroup( group)" >
+    <!-- {{ group.title }}-->
+    Remove me
+  </button>
+
   <br>
 
   <input mat-input [(ngModel)]="group.title" >

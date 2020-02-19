@@ -19,7 +19,7 @@ router.post('',checkAuth, (req, res, next) => {
       const newGroup = new UserGroup({
         title: req.body.title,
         description: req.body.description,
-        users:req.body.users,
+        users:[req.userData.email],
         owner:req.userData.userId
       });
       newGroup.save()
@@ -127,7 +127,6 @@ router.post('/addMember', (req, res, next) => {
     });
 });
 
-
 router.post('/removeMember',checkAuth, (req, res, next) => {
 
   UserGroup.find({
@@ -187,6 +186,31 @@ router.post('/:groupToDelete',checkAuth, (req, res, next) => {
     });
 });
 
-
+router.post('/removeCurrentUserFromGroup/:groupId',checkAuth, (req, res, next) => {
+  console.log(req.userData.userId);
+  UserGroup.updateOne({$and:[
+    {owner: {$ne: req.userData.userId}},
+    {_id: req.params.groupId}
+    ]},
+    {$pull: {users: req.userData.email}})
+    .then((updatedDocument) => {
+      if (updatedDocument.n === 0) {
+        res.status(400).json({
+          message: 'User cannot be removed from the group.'
+        });
+      } else {
+        return res.status(200).json({
+          message: 'User has been removed successfully from the group.',
+          updatedGroup: updatedDocument
+        });
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Updating group failed.',
+        error: error
+      })
+    });
+});
 module.exports = router;
 

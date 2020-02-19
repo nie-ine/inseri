@@ -106,5 +106,22 @@ export class OurNewComponentComponent implements OnInit {
         }
       );
   }
+  removeMeFromGroup(group: any ) {
+    console.log('Remove me from group');
+    console.log(group);
+    alert(group.title);
+    this.http.post(
+      'http://localhost:3000/api/userGroups/removeCurrentUserFromGroup/' + group._id,
+      {title: group.title}
+      ,  )
+      .subscribe(
+        response => {
+          console.log( response );
+          //this.listGroupMembers( group );
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
 }
 

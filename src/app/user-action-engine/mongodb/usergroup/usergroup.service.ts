@@ -40,4 +40,10 @@ export class UsergroupService {
       `${UsergroupService.API_BASE_URL_USERGROUP + '/removeMember'}`,
       { groupId: group._id, memberToRemove: email}, {observe: 'response'});
   }
+  removeCurrentUserFromGroup(group: any) {
+    return this.http.post(
+      `${UsergroupService.API_BASE_URL_USERGROUP + '/removeCurrentUserFromGroup/' + group._id}`,
+      {title: group.title}, {observe: 'response'}
+      );
+  }
 }
