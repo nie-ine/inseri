@@ -249,5 +249,23 @@ router.post('/assignNewOwner/:groupId&:email',checkAuth, (req, res, next) => {
       });
     });
 });
+router.post('/updateUserGroup',checkAuth, (req, res, next) => {
+
+  UserGroup.updateOne(
+          {_id: req.body.groupId},
+          {$set: {title: req.body.title}, $set: {description: req.body.description}})
+          .then(updateResult => {
+            res.status(201).json({
+
+              message: 'User group updated' //+ result[0]._id,
+            });
+          })
+          .catch(error => {
+            res.status(500).json({
+              message: 'Error while updating the group',
+              error: error
+            });
+          })
+      });
 module.exports = router;
 

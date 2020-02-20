@@ -135,5 +135,20 @@ export class OurNewComponentComponent implements OnInit {
       }
     );
   }
+  updateUserGroupDetails(groupId: string, title: string, description:string) {
+    this.http.post('http://localhost:3000/api/userGroups/updateUserGroup',
+      {
+        groupId: groupId,
+        title: title,
+        description: description
+      }, )
+      .subscribe(
+        response => {
+          console.log( response );
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
 }
 
