@@ -34,14 +34,52 @@
                    <div class="content-data">
 
 <p>Contact and info about the organisation NIE-INE | NATIONAL INFRASTRUCTURE FOR EDITIONS | A swiss-wide organisation for the infrastructure of editions: <a href="https://www.nie-ine.ch/">https://www.nie-ine.ch/</a></p>
-<p>Powered by <a href="http://www.fee.unibas.ch/">FEE</a>, mandated by <a href="https://www.swissuniversities.ch/">swissuniversities</a></p>
-<h1 id="nieos">nieOS</h1>
-<p><a href="https://travis-ci.org/nie-ine/NIE-OS"><img src="https://travis-ci.org/nie-ine/NIE-OS.svg?branch=devel" alt="Build Status" class="img-responsive"></a>
+<p>Mandated by <a href="https://www.swissuniversities.ch/">swissuniversities</a></p>
+<h1 id="what-can-i-do-with-inseri-">What can I do with inseri?</h1>
+<p>inseri is an online collaborative work and publish environment.</p>
+<h2 id="what-can-i-publish-with-inseri-">What can I publish with inseri?</h2>
+<ul>
+<li>You can create websites with inseri<ul>
+<li>Websites consist of collages that display your data.</li>
+<li>This data can be text you entered directly in inseri, but also data from your database</li>
+</ul>
+</li>
+<li>You can create online presentations with inseri<ul>
+<li>Like in powerpoint, you can create online presentations in inseri. Slides are called collages in inseri and can visualise data from your database in d3.js data visualisations.</li>
+<li>Users can comment on each collage, which is helpful for instance in lectures that professors hold in front of 1000 students who might have further questions especially related to one collage.</li>
+<li>You can store each collage in a central way and integrate it in different presentations, thus no more copy and pasting slides with the same content, you can maintain everything in a central way!</li>
+</ul>
+</li>
+<li>You can publish own frontend components in inseri<ul>
+<li>If you wish to write own frontend components, for instance to enter data in your database or to create an individual d3.js data visualisations, you can do this very fast in inseri. Any npm - module can be integrated in inseri without any needed changes of the npm module you would like to integrate.</li>
+</ul>
+</li>
+</ul>
+<h2 id="how-can-i-work-with-inseri-">How can I work with inseri?</h2>
+<ul>
+<li>inseri can be used to work collaboratively<ul>
+<li>If somebody in your team needs to enter data and another team member needs to review it, you can create a site with 2 collages in inseri, exactly tailored to your team-specific workflow</li>
+</ul>
+</li>
+<li>Your can upload any of your data to inseri and always access it whereever you are, also over your phone. inseri also provides pdf readers and other apps that enable you to work with your data.</li>
+<li>You can display for example one pdf, one spreadsheet, and one texteditor on one collage and save this constellation. You can then come back to this collage and keep on working on your task, also collaboratively with colleagues.</li>
+</ul>
+<h2 id="who-is-inseri-for-">Who is inseri for?</h2>
+<ul>
+<li>Universities who would like to centrally maintain project and research specific online presentations of data and research output. Since maintaining thousands of different websites is too labor intensive for many IT departments, inseri offers projects to create websites in inseri which can be centrally maintained by the respective insitution.</li>
+<li>Online developers who would like to publish combineable frontend components. If a frontend developer for instance needs a SQL-entry-frontend-component fast, he/she is much faster adding it to inseri than creating a whole new project. He/She is able to maintain everything he/she does in a central, reusable and combineable way.</li>
+<li>Companies who write internal and external business applications can create their frontend components in inseri. This way the components are instantly reusable by other users and clients if desired.</li>
+<li>Universities who would like to create research specific data visualisations in a central way. A researcher or phd student who creates his/her data visualisations in inseri enables future researchers and phd students to reuse the visualisations for their research.</li>
+<li>Researchers and phd students who would like to visualise and publish their data online as part of their research publication.</li>
+<li>University projects who would like to publish their data and enable the user to visualise and create interesting subsets of the published data. For instance, a user can visualise data from one Library which published a RestFul API, visualise on the same collage data from another Library RestFul API, visualise on the same collage data from a University project, and add his/her own notes, thus working on his/her research.</li>
+</ul>
+<h1 id="get-it-up-and-running">Get it up and running</h1>
+<p><a href="https://travis-ci.org/nie-ine/inseri"><img src="https://travis-ci.org/nie-ine/NIE-OS.svg?branch=devel" alt="Build Status" class="img-responsive"></a>
 <img src="https://img.shields.io/docker/pulls/nieine/nieos.svg" alt="Docker pulls" class="img-responsive"></p>
 <h2 id="get-it-up-and-running-to-use-it-locally-with-docker">Get it up and running to use it locally with docker</h2>
 <ul>
-<li><code>git clone https://github.com/nie-ine/NIE-OS.git</code></li>
-<li><code>cd NIE-OS</code></li>
+<li><code>git clone https://github.com/nie-ine/inseri.git</code></li>
+<li><code>cd inseri</code></li>
 </ul>
 <ol>
 <li><code>mv ./backend/settings_default ./backend/.settings</code></li>
@@ -52,13 +90,13 @@
 <p><code>docker ps</code> to find out the &lt; container id &gt; of nieine/mean</p>
 <p><code>docker restart &lt; container id &gt;</code></p>
 <p>You can find the software on the following ports:</p>
-<p>NIE-OS:  <a href="http://localhost:4200">http://localhost:4200</a></p>
+<p>Inseri:  <a href="http://localhost:4200">http://localhost:4200</a></p>
 <p>MongoDB - Admin - Interface: <a href="http://localhost:8081">http://localhost:8081</a></p>
 <h2 id="get-it-up-and-running-for-development">Get it up and running for development</h2>
-<h3 id="clone-nieos">Clone nieOS</h3>
+<h3 id="clone-inseri">Clone inseri</h3>
 <ul>
-<li><code>git clone https://github.com/nie-ine/NIE-OS.git</code></li>
-<li><code>cd NIE-OS</code></li>
+<li><code>git clone https://github.com/nie-ine/inseri.git</code></li>
+<li><code>cd inseri</code></li>
 </ul>
 <h2 id="1-create-mongodb-instance-">1. Create MongoDB instance:</h2>
 <h3 id="alternative-1-create-your-own-mongodb-instance-">Alternative 1: Create your own MongoDB instance:</h3>
@@ -68,7 +106,7 @@
 <li>Get the server-connect string, similiar to this: <code>mongodb+srv://user:dfgsdbdtrgr@cluster567-7kilp.mongodb.net/node-angular</code> via klick on Connect, klick on connect your application, klick one nodejs</li>
 </ul>
 <h3 id="alternative-2-contact-jan-stoffregen-uzh-ch">Alternative 2: Contact <a href="mailto:jan.stoffregen@uzh.ch">jan.stoffregen@uzh.ch</a></h3>
-<h2 id="2-connect-nieos-to-mongodb-">2. Connect nieOS to MongoDB:</h2>
+<h2 id="2-connect-inseri-to-mongodb-">2. Connect inseri to MongoDB:</h2>
 <ul>
 <li>Create a folder .settings</li>
 <li>In the folder settings, create the file mongodbServer.js Your file should look similiar to the following:</li>
@@ -117,27 +155,27 @@ module.exports = {
 <h2 id="running-unit-tests">Running unit tests</h2>
 <p>Run <code>ng test</code> to execute the unit tests via <a href="https://karma-runner.github.io">Karma</a>.</p>
 <h2 id="technical-documentation-">Technical Documentation:</h2>
-<p><a href="https://nie-ine.github.io/NIE-OS/">https://nie-ine.github.io/NIE-OS/</a></p>
-<h2 id="how-can-i-use-nie-os-to-create-websites-and-components-of-websites-">How can I use NIE-OS to create websites and components of websites?</h2>
-<p>The following graph illustrates how you can use NIE-OS:</p>
-<p>--&gt; 1. You can create your entire website in NIE-OS with the help of pageSets. While this is suitable and you have the option to create your own,
+<p><a href="https://nie-ine.github.io/inseri/">https://nie-ine.github.io/inseri/</a></p>
+<h2 id="how-can-i-use-inseri-to-create-websites-and-components-of-websites-">How can I use Inseri to create websites and components of websites?</h2>
+<p>The following graph illustrates how you can use Inseri:</p>
+<p>--&gt; 1. You can create your entire website in Inseri with the help of pageSets. While this is suitable and you have the option to create your own,
 project specific design, you don&#39;t have the option to design all parts of the design of your website. </p>
-<p>--&gt; 2.1.1 &quot;I design my own website and I use iframe to include apps that I host on my own webserver&quot;: You can host an NIE-OS instance on your 
+<p>--&gt; 2.1.1 &quot;I design my own website and I use iframe to include apps that I host on my own webserver&quot;: You can host an Inseri instance on your 
 webserver, create a page, open the desired app with the option to display it as a full - screen - app, publish this app and include it in
 your own website with iframe</p>
-<p>--&gt; 2.1.2 &quot;I design my own website and I use iframe to include pages that I host on my own webserver&quot;: You can host an NIE-OS instance on your 
+<p>--&gt; 2.1.2 &quot;I design my own website and I use iframe to include pages that I host on my own webserver&quot;: You can host an Inseri instance on your 
 webserver, create a page, open the desired apps, publish this app and include it in your own website with iframe</p>
-<p>--&gt; 2.1.3 &quot;I design my own website and I use iframe to include apps that I host on the NIE-OS productive instance&quot;: You can create an account,
-on our productive NIE-OS instance, create a page, open the desired app with the option to display it as a full - screen - app, publish this app and include it in
+<p>--&gt; 2.1.3 &quot;I design my own website and I use iframe to include apps that I host on the Inseri productive instance&quot;: You can create an account,
+on our productive Inseri instance, create a page, open the desired app with the option to display it as a full - screen - app, publish this app and include it in
 your own website with iframe</p>
-<p>--&gt; 2.1.4 &quot;I design my own website and I use iframe to include pages that I host on the NIE-OS productive instance&quot;: You can create an account,
-on our productive NIE-OS instance, create a page, open the desired app with the option to display it as a full - screen - app, publish this app and include it in
+<p>--&gt; 2.1.4 &quot;I design my own website and I use iframe to include pages that I host on the Inseri productive instance&quot;: You can create an account,
+on our productive Inseri instance, create a page, open the desired app with the option to display it as a full - screen - app, publish this app and include it in
 your own website with iframe</p>
-<p>--&gt; 2.2.1 &quot;I&#39;d like to use apps from NIE-OS in my own website&quot;: Each app will bee available as an own npm - module that you can use in your
+<p>--&gt; 2.2.1 &quot;I&#39;d like to use apps from Inseri in my own website&quot;: Each app will bee available as an own npm - module that you can use in your
 Javascript - Based Website, for instance using Angular, pure Javascript, Vue.js, etc.</p>
-<p>--&gt; 2.2.2 &quot;I&#39;d like to use pages from NIE-OS in my own website&quot;: You can create a page in NIE-OS and export it. Then you can include NIE-OS
+<p>--&gt; 2.2.2 &quot;I&#39;d like to use pages from Inseri in my own website&quot;: You can create a page in Inseri and export it. Then you can include Inseri
 as an npm - module in your code with the page - export - file as an input. This feature is still under development:
-<a href="https://github.com/nie-ine/NIE-OS/issues/273">https://github.com/nie-ine/NIE-OS/issues/273</a></p>
+<a href="https://github.com/nie-ine/inseri/issues/273">https://github.com/nie-ine/inseri/issues/273</a></p>
 <img src="./src/assets/img/NIE-OS_publication_process.png" alt="NIE-OS publication options" width="1000"/>
 
 <h2 id="generate-documentation">Generate documentation</h2>

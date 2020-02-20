@@ -1,0 +1,1451 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>nie-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">nie-frontend documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search">
+</div>
+            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>JoinedTextLinepartComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/app-engine/apps/joined-text-view/joined-text-linepart/joined-text-linepart.component.ts</code>
+</p>
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>A horizontal text element with the options of left and right columns for marginals or metadata</p>
+
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code><a href="https://angular.io/api/core/OnChanges" target="_blank" >OnChanges</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-joined-text-linepart</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>joined-text-linepart.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./joined-text-linepart.component.html</code></td>
+            </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#lineparts">lineparts</a>
+                            </li>
+                            <li>
+                                <a href="#namespaces">namespaces</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#clickChange">clickChange</a>
+                            </li>
+                            <li>
+                                <a href="#clickLinepart">clickLinepart</a>
+                            </li>
+                            <li>
+                                <a href="#getStyleDict">getStyleDict</a>
+                            </li>
+                            <li>
+                                <a href="#hoverChange">hoverChange</a>
+                            </li>
+                            <li>
+                                <a href="#hoverOntoLinepart">hoverOntoLinepart</a>
+                            </li>
+                            <li>
+                                <a href="#hoverOutOfLinepart">hoverOutOfLinepart</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnChanges">ngOnChanges</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#backendAddress">backendAddress</a>
+                            </li>
+                            <li>
+                                <a href="#clickedResource">clickedResource</a>
+                            </li>
+                            <li>
+                                <a href="#highlighted">highlighted</a>
+                            </li>
+                            <li>
+                                <a href="#hoveredResource">hoveredResource</a>
+                            </li>
+                            <li>
+                                <a href="#linepartConfiguration">linepartConfiguration</a>
+                            </li>
+                            <li>
+                                <a href="#parentIri">parentIri</a>
+                            </li>
+                            <li>
+                                <a href="#selectiveStyleDeclarations">selectiveStyleDeclarations</a>
+                            </li>
+                            <li>
+                                <a href="#styleDeclarations">styleDeclarations</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#clickedResourceChange">clickedResourceChange</a>
+                            </li>
+                            <li>
+                                <a href="#hoveredResourceChange">hoveredResourceChange</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(knoraV2Request: <a href="../injectables/RequestService.html">KnoraV2RequestService</a>, joinedTextViewKnoraRequest: <a href="../injectables/RequestService.html">JoinedTextViewKnoraRequestService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="72" class="link-to-prism">src/app/app-engine/apps/joined-text-view/joined-text-linepart/joined-text-linepart.component.ts:72</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>default written by angular-cli</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>knoraV2Request</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../injectables/RequestService.html" target="_self" >KnoraV2RequestService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>joinedTextViewKnoraRequest</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../injectables/RequestService.html" target="_self" >JoinedTextViewKnoraRequestService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="backendAddress"></a>
+                        <code>backendAddress</code>
+                    </td>
+                    <td class="col-md-10">
+                        <div><p>Address to the Knora instance with the data</p>
+</div>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/app-engine/apps/joined-text-view/joined-text-linepart/joined-text-linepart.component.ts:25</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="clickedResource"></a>
+                        <code>clickedResource</code>
+                    </td>
+                    <td class="col-md-10">
+                        <div><p>The unique id of the word that was last clicked and counts as activated. Only one word can be counted as activated at a time.</p>
+</div>
+                            <p>
+                            <em>Type :</em>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                            </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/app-engine/apps/joined-text-view/joined-text-linepart/joined-text-linepart.component.ts:50</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="highlighted"></a>
+                        <code>highlighted</code>
+                    </td>
+                    <td class="col-md-10">
+                        <div><p>Keys of selected selectiveStyleDeclarations.</p>
+</div>
+                            <p>
+                            <em>Type :</em>    <code>Array&lt;string&gt;</code>
+
+                            </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/app-engine/apps/joined-text-view/joined-text-linepart/joined-text-linepart.component.ts:45</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="hoveredResource"></a>
+                        <code>hoveredResource</code>
+                    </td>
+                    <td class="col-md-10">
+                        <div><p>The unique id of the word the mouse is hovering on.</p>
+</div>
+                            <p>
+                            <em>Type :</em>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                            </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/app-engine/apps/joined-text-view/joined-text-linepart/joined-text-linepart.component.ts:60</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="linepartConfiguration"></a>
+                        <code>linepartConfiguration</code>
+                    </td>
+                    <td class="col-md-10">
+                        <div><p>The parameters for the line part behaviour.</p>
+</div>
+                            <p>
+                            <em>Type :</em>    <code><a href="../interfaces/JoinedTextLinepart.html" target="_self" >JoinedTextLinepart</a></code>
+
+                            </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/app-engine/apps/joined-text-view/joined-text-linepart/joined-text-linepart.component.ts:30</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="parentIri"></a>
+                        <code>parentIri</code>
+                    </td>
+                    <td class="col-md-10">
+                        <div><p>Identifier of the parent of the line parts.</p>
+</div>
+                            <p>
+                            <em>Type :</em>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                            </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/app-engine/apps/joined-text-view/joined-text-linepart/joined-text-linepart.component.ts:20</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="selectiveStyleDeclarations"></a>
+                        <code>selectiveStyleDeclarations</code>
+                    </td>
+                    <td class="col-md-10">
+                        <div><p>Dynamic style declarations.</p>
+</div>
+                            <p>
+                            <em>Type :</em>    <code><a href="../interfaces/SelectableEnvironments.html" target="_self" >SelectableEnvironments</a></code>
+
+                            </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/app-engine/apps/joined-text-view/joined-text-linepart/joined-text-linepart.component.ts:40</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="styleDeclarations"></a>
+                        <code>styleDeclarations</code>
+                    </td>
+                    <td class="col-md-10">
+                        <div><p>Default style declarations.</p>
+</div>
+                            <p>
+                            <em>Type :</em>    <code><a href="../interfaces/StyleDeclaration.html" target="_self" >Array&lt;StyleDeclaration&gt;</a></code>
+
+                            </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/app-engine/apps/joined-text-view/joined-text-linepart/joined-text-linepart.component.ts:35</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+    <section>
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="clickedResourceChange"></a>
+                        <code>clickedResourceChange</code>
+                    </td>
+                    <td class="col-md-10">
+                        <div><p>Give an event containing the unique word id if a word on the page description is clicked</p>
+</div>
+                        <em><code>$event</code> Type:</em>    <code>EventEmitter&lt;string&gt;</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/app-engine/apps/joined-text-view/joined-text-linepart/joined-text-linepart.component.ts:55</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="hoveredResourceChange"></a>
+                        <code>hoveredResourceChange</code>
+                    </td>
+                    <td class="col-md-10">
+                        <div><p>Give an event containing the unique word id if the mouse hovers on a word in the page description</p>
+</div>
+                        <em><code>$event</code> Type:</em>    <code>EventEmitter&lt;string&gt;</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">src/app/app-engine/apps/joined-text-view/joined-text-linepart/joined-text-linepart.component.ts:65</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section>
+    
+        <h3 id="methods">
+            Methods
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="clickChange"></a>
+                        <span class="name">
+                            <b>
+                            clickChange
+                            </b>
+                            <a href="#clickChange"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>clickChange(resIri: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="104" class="link-to-prism">src/app/app-engine/apps/joined-text-view/joined-text-linepart/joined-text-linepart.component.ts:104</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Give an event containing the unique word id if a word on the page description is clicked</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>resIri</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="clickLinepart"></a>
+                        <span class="name">
+                            <b>
+                            clickLinepart
+                            </b>
+                            <a href="#clickLinepart"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>clickLinepart(resIri: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="120" class="link-to-prism">src/app/app-engine/apps/joined-text-view/joined-text-linepart/joined-text-linepart.component.ts:120</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>When a line part is clicked, set the variable clickedResource to a parts unique identifier
+and communicate this as output clickedResourceChange.</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>resIri</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p>: the unique identifier of a text element that is clicked</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="getStyleDict"></a>
+                        <span class="name">
+                            <b>
+                            getStyleDict
+                            </b>
+                            <a href="#getStyleDict"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>getStyleDict(paramKey: , resId: )</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="151" class="link-to-prism">src/app/app-engine/apps/joined-text-view/joined-text-linepart/joined-text-linepart.component.ts:151</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Using an external style definition, get all the CSS definition for this element, depending on keys.</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>paramKey</td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p>The key of the definitions of the style environment for this element.</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>resId</td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p>The identifier of the element for specific highlighting.</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code>{}</code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="hoverChange"></a>
+                        <span class="name">
+                            <b>
+                            hoverChange
+                            </b>
+                            <a href="#hoverChange"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>hoverChange(resIri: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="111" class="link-to-prism">src/app/app-engine/apps/joined-text-view/joined-text-linepart/joined-text-linepart.component.ts:111</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Give an event containing the unique word id if a word on the page description is clicked</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>resIri</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="hoverOntoLinepart"></a>
+                        <span class="name">
+                            <b>
+                            hoverOntoLinepart
+                            </b>
+                            <a href="#hoverOntoLinepart"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>hoverOntoLinepart(resIri: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="131" class="link-to-prism">src/app/app-engine/apps/joined-text-view/joined-text-linepart/joined-text-linepart.component.ts:131</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>When the mouse hovers on a line part, set the variable hoveredResource to a part&#39;s unique identifier and communicate this as output
+hoveredResourceChange.</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>resIri</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p>: the unique identifier of a text element that is clicked</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="hoverOutOfLinepart"></a>
+                        <span class="name">
+                            <b>
+                            hoverOutOfLinepart
+                            </b>
+                            <a href="#hoverOutOfLinepart"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>hoverOutOfLinepart()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="140" class="link-to-prism">src/app/app-engine/apps/joined-text-view/joined-text-linepart/joined-text-linepart.component.ts:140</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>When the mouse leaves from a line part, reset the variable hoveredResource and communicate this as output hoveredResourceChange.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ngOnChanges"></a>
+                        <span class="name">
+                            <b>
+                            ngOnChanges
+                            </b>
+                            <a href="#ngOnChanges"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>ngOnChanges(changes: <a href="https://angular.io/api/core/SimpleChanges" target="_blank">SimpleChanges</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="82" class="link-to-prism">src/app/app-engine/apps/joined-text-view/joined-text-linepart/joined-text-linepart.component.ts:82</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>load content with changing input variables</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>changes</td>
+                                                        <td>
+                                                                    <code><a href="https://angular.io/api/core/SimpleChanges" target="_blank" >SimpleChanges</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="lineparts"></a>
+                        <span class="name">
+                            <b>
+                            lineparts
+                            </b>
+                            <a href="#lineparts"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>lineparts:     <code>Array&lt;any&gt;</code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Array&lt;any&gt;</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="67" class="link-to-prism">src/app/app-engine/apps/joined-text-view/joined-text-linepart/joined-text-linepart.component.ts:67</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="namespaces"></a>
+                        <span class="name">
+                            <b>
+                            namespaces
+                            </b>
+                            <a href="#namespaces"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>namespaces:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="72" class="link-to-prism">src/app/app-engine/apps/joined-text-view/joined-text-linepart/joined-text-linepart.component.ts:72</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Namespaces around this this resource.</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from &#x27;@angular/core&#x27;;
+import { KnoraV2RequestService } from &#x27;../../../../query-engine/knora/knora-v2-request.service&#x27;;
+import { JoinedTextViewKnoraRequestService } from &#x27;../joined-text-view-knora-request.service&#x27;;
+import { SelectableEnvironments, StyleDeclaration } from &#x27;../../shared/rich-text/text-rich-innerhtml/text-rich-innerhtml.component&#x27;;
+import { JoinedTextLinepart } from &#x27;./joined-text-linepart&#x27;;
+
+/**
+ * A horizontal text element with the options of left and right columns for marginals or metadata
+ */
+@Component({
+  selector: &#x27;app-joined-text-linepart&#x27;,
+  templateUrl: &#x27;./joined-text-linepart.component.html&#x27;,
+  styleUrls: [&#x27;./joined-text-linepart.component.scss&#x27;]
+})
+export class JoinedTextLinepartComponent implements OnChanges {
+
+  /**
+   * Identifier of the parent of the line parts.
+   */
+  @Input() parentIri: string;
+
+  /**
+   * Address to the Knora instance with the data
+   */
+  @Input() backendAddress;
+
+  /**
+   * The parameters for the line part behaviour.
+   */
+  @Input() linepartConfiguration: JoinedTextLinepart;
+
+  /**
+   * Default style declarations.
+   */
+  @Input() styleDeclarations: Array&lt;StyleDeclaration&gt;;
+
+  /**
+   * Dynamic style declarations.
+   */
+  @Input() selectiveStyleDeclarations: SelectableEnvironments;
+
+  /**
+   * Keys of selected selectiveStyleDeclarations.
+   */
+  @Input() highlighted: Array&lt;string&gt;;
+
+  /**
+   * The unique id of the word that was last clicked and counts as activated. Only one word can be counted as activated at a time.
+   */
+  @Input() clickedResource: string;
+
+  /**
+   * Give an event containing the unique word id if a word on the page description is clicked
+   */
+  @Output() clickedResourceChange: EventEmitter&lt;string&gt; &#x3D; new EventEmitter&lt;string&gt;();
+
+  /**
+   * The unique id of the word the mouse is hovering on.
+   */
+  @Input() hoveredResource: string;
+
+  /**
+   * Give an event containing the unique word id if the mouse hovers on a word in the page description
+   */
+  @Output() hoveredResourceChange: EventEmitter&lt;string&gt; &#x3D; new EventEmitter&lt;string&gt;();
+
+  lineparts: Array&lt;any&gt;;
+
+  /**
+   * Namespaces around this this resource.
+   */
+  namespaces: any;
+
+  /**
+   * default written by angular-cli
+   */
+  constructor(private knoraV2Request: KnoraV2RequestService, private joinedTextViewKnoraRequest: JoinedTextViewKnoraRequestService) { }
+
+  /**
+   * load content with changing input variables
+   */
+  ngOnChanges(changes: SimpleChanges) {
+
+    if ((this.backendAddress &amp;&amp; this.linepartConfiguration &amp;&amp; this.parentIri) &amp;&amp; (changes[&#x27;parentIri&#x27;] || changes[&#x27;backendAddress&#x27;] || changes[&#x27;linepartConfiguration&#x27;])) {
+      const gravSearchRequest &#x3D; this.joinedTextViewKnoraRequest.getGravSearch(this.linepartConfiguration, this.parentIri);
+
+      this.knoraV2Request.extendedSearchFromSpecificInstance(gravSearchRequest, this.backendAddress)
+        .subscribe(d &#x3D;&gt; {
+          if (d[ &#x27;@graph&#x27; ]) {
+            this.lineparts &#x3D; d[ &#x27;@graph&#x27; ];
+          } else {
+            this.lineparts &#x3D; [ d ];
+          }
+          this.namespaces &#x3D; d[ &#x27;@context&#x27; ];
+        }, error1 &#x3D;&gt; {
+          console.log(error1);
+        });
+    }
+  }
+
+  /**
+   * Give an event containing the unique word id if a word on the page description is clicked
+   */
+  clickChange(resIri: string) {
+    this.clickedResourceChange.emit(resIri);
+  }
+
+  /**
+   * Give an event containing the unique word id if a word on the page description is clicked
+   */
+  hoverChange(resIri: string) {
+    this.hoveredResourceChange.emit(resIri);
+  }
+
+  /**
+   * When a line part is clicked, set the variable clickedResource to a parts unique identifier
+   * and communicate this as output clickedResourceChange.
+   * @param resIri: the unique identifier of a text element that is clicked
+   */
+  clickLinepart(resIri: string) {
+    if (this.linepartConfiguration.clickable) {
+      this.clickedResourceChange.emit(resIri);
+    }
+  }
+
+  /**
+   * When the mouse hovers on a line part, set the variable hoveredResource to a part&#x27;s unique identifier and communicate this as output
+   * hoveredResourceChange.
+   * @param resIri: the unique identifier of a text element that is clicked
+   */
+  hoverOntoLinepart(resIri: string) {
+    if (this.linepartConfiguration.hoverable) {
+      this.hoveredResourceChange.emit(resIri);
+    }
+  }
+
+  /**
+   * When the mouse leaves from a line part, reset the variable hoveredResource and communicate this as output hoveredResourceChange.
+   */
+  hoverOutOfLinepart() {
+    if (this.linepartConfiguration.hoverable) {
+      this.hoveredResourceChange.emit(null);
+    }
+  }
+
+  /**
+   * Using an external style definition, get all the CSS definition for this element, depending on keys.
+   * @param paramKey  The key of the definitions of the style environment for this element.
+   * @param resId  The identifier of the element for specific highlighting.
+   */
+  getStyleDict(paramKey, resId) {
+    const styles &#x3D; {};
+
+    if (this.styleDeclarations &amp;&amp; this.linepartConfiguration[paramKey]) {
+      for (const b of this.styleDeclarations) {
+        if (b[ &#x27;type&#x27; ] &#x3D;&#x3D;&#x3D; &#x27;component&#x27;) {
+          if (this.linepartConfiguration[paramKey].indexOf(b[&#x27;name&#x27;]) &gt; -1) {
+            for (const [key, value] of Object.entries((b[&#x27;styles&#x27;]))) {
+              styles[key] &#x3D; value;
+            }
+          }
+        }
+      }
+    }
+    if (this.highlighted &amp;&amp; this.selectiveStyleDeclarations &amp;&amp; this.linepartConfiguration[paramKey]) {
+      for (const s of this.highlighted ) {
+        const z &#x3D; this.selectiveStyleDeclarations[s];
+        for (const b of z) {
+          if (b[ &#x27;type&#x27; ] &#x3D;&#x3D;&#x3D; &#x27;component&#x27;) {
+            if (this.linepartConfiguration[paramKey].indexOf(b[&#x27;name&#x27;]) &gt; -1) {
+              for (const [key, value] of Object.entries((b[&#x27;styles&#x27;]))) {
+                styles[key] &#x3D; value;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    if (resId &amp;&amp; resId &#x3D;&#x3D;&#x3D; this.hoveredResource) {
+      styles[&#x27;background-color&#x27;] &#x3D; this.linepartConfiguration.hoverColor;
+    }
+
+    if (resId &amp;&amp; resId &#x3D;&#x3D;&#x3D; this.clickedResource) {
+      styles[&#x27;background-color&#x27;] &#x3D; this.linepartConfiguration.clickColor;
+    }
+
+    return styles;
+  }
+
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;span *ngIf&#x3D;&quot;linepartConfiguration.prefix&quot;
+      [ngStyle]&#x3D;&quot;getStyleDict(&#x27;prefixStyleKeys&#x27;, null)&quot;&gt;{{ linepartConfiguration.prefix }}&lt;/span&gt;&lt;span
+  *ngFor&#x3D;&quot;let l of lineparts; let i &#x3D; index&quot;
+  [ngStyle]&#x3D;&quot;getStyleDict(&#x27;styleKeys&#x27;, l[&#x27;@id&#x27;])&quot;
+  (click)&#x3D;&quot;clickLinepart(l[&#x27;@id&#x27;])&quot;
+  (mouseenter)&#x3D;&quot;hoverOntoLinepart(l[&#x27;@id&#x27;])&quot;
+  (mouseleave)&#x3D;&quot;hoverOutOfLinepart()&quot;&gt;&lt;span
+  *ngIf&#x3D;&quot;linepartConfiguration.interfix &amp;&amp; i !&#x3D;&#x3D; 0&quot;
+  [ngStyle]&#x3D;&quot;getStyleDict(&#x27;interfixStyleKeys&#x27;, null)&quot;&gt;{{ linepartConfiguration.interfix }}&lt;/span&gt;
+
+  &lt;app-joined-text-linepart
+    *ngIf&#x3D;&quot;linepartConfiguration.lineparts&quot;
+    [parentIri]&#x3D;&quot;l[&#x27;@id&#x27;]&quot;
+    [backendAddress]&#x3D;&quot;backendAddress&quot;
+    [linepartConfiguration]&#x3D;&quot;linepartConfiguration.lineparts&quot;
+    [highlighted]&#x3D;&quot;highlighted&quot;
+    [styleDeclarations]&#x3D;&quot;styleDeclarations&quot;
+    [selectiveStyleDeclarations]&#x3D;&quot;selectiveStyleDeclarations&quot;
+    [clickedResource]&#x3D;&quot;clickedResource&quot; (clickedResourceChange)&#x3D;&quot;clickChange($event)&quot;
+    [hoveredResource]&#x3D;&quot;hoveredResource&quot; (hoveredResourceChange)&#x3D;&quot;hoverChange($event)&quot;&gt;
+  &lt;/app-joined-text-linepart&gt;
+
+  &lt;app-joined-text-textwrapper
+    *ngIf&#x3D;&quot;linepartConfiguration.contentPropertyIri&quot;
+    [namespaces]&#x3D;&quot;namespaces&quot;
+    [propertyIri]&#x3D;&quot;linepartConfiguration.contentPropertyIri&quot;
+    [resource]&#x3D;&quot;l&quot;
+    [highlighted]&#x3D;&quot;highlighted&quot;
+    [styleDeclarations]&#x3D;&quot;styleDeclarations&quot;
+    [selectiveStyleDeclarations]&#x3D;&quot;selectiveStyleDeclarations&quot;&gt;
+  &lt;/app-joined-text-textwrapper&gt;
+
+  &lt;ng-container *ngIf&#x3D;&quot;linepartConfiguration.contentProperty&quot;&gt;
+    &lt;ng-container *ngIf&#x3D;&quot;linepartConfiguration.contentProperty &#x3D;&#x3D;&#x3D; &#x27;self&#x27;&quot;&gt;
+      &lt;app-joined-text-textwrapper
+        *ngIf&#x3D;&quot;linepartConfiguration.propertyIri&quot;
+        [namespaces]&#x3D;&quot;namespaces&quot;
+        [propertyIri]&#x3D;&quot;linepartConfiguration.propertyIri&quot;
+        [resource]&#x3D;&quot;l&quot;
+        [highlighted]&#x3D;&quot;highlighted&quot;
+        [styleDeclarations]&#x3D;&quot;styleDeclarations&quot;
+        [selectiveStyleDeclarations]&#x3D;&quot;selectiveStyleDeclarations&quot;&gt;
+      &lt;/app-joined-text-textwrapper&gt;
+    &lt;/ng-container&gt;
+  &lt;/ng-container&gt;
+
+&lt;/span&gt;&lt;span
+  *ngIf&#x3D;&quot;linepartConfiguration.suffix&quot;
+  [ngStyle]&#x3D;&quot;getStyleDict(&#x27;suffixStyleKeys&#x27;, null)&quot;&gt;{{ linepartConfiguration.suffix }}&lt;/span&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><span *ngIf="linepartConfiguration.prefix"      [ngStyle]="getStyleDict(\'prefixStyleKeys\', null)">{{ linepartConfiguration.prefix }}</span><span  *ngFor="let l of lineparts; let i = index"  [ngStyle]="getStyleDict(\'styleKeys\', l[\'@id\'])"  (click)="clickLinepart(l[\'@id\'])"  (mouseenter)="hoverOntoLinepart(l[\'@id\'])"  (mouseleave)="hoverOutOfLinepart()"><span  *ngIf="linepartConfiguration.interfix && i !== 0"  [ngStyle]="getStyleDict(\'interfixStyleKeys\', null)">{{ linepartConfiguration.interfix }}</span>  <app-joined-text-linepart    *ngIf="linepartConfiguration.lineparts"    [parentIri]="l[\'@id\']"    [backendAddress]="backendAddress"    [linepartConfiguration]="linepartConfiguration.lineparts"    [highlighted]="highlighted"    [styleDeclarations]="styleDeclarations"    [selectiveStyleDeclarations]="selectiveStyleDeclarations"    [clickedResource]="clickedResource" (clickedResourceChange)="clickChange($event)"    [hoveredResource]="hoveredResource" (hoveredResourceChange)="hoverChange($event)">  </app-joined-text-linepart>  <app-joined-text-textwrapper    *ngIf="linepartConfiguration.contentPropertyIri"    [namespaces]="namespaces"    [propertyIri]="linepartConfiguration.contentPropertyIri"    [resource]="l"    [highlighted]="highlighted"    [styleDeclarations]="styleDeclarations"    [selectiveStyleDeclarations]="selectiveStyleDeclarations">  </app-joined-text-textwrapper>  <ng-container *ngIf="linepartConfiguration.contentProperty">    <ng-container *ngIf="linepartConfiguration.contentProperty === \'self\'">      <app-joined-text-textwrapper        *ngIf="linepartConfiguration.propertyIri"        [namespaces]="namespaces"        [propertyIri]="linepartConfiguration.propertyIri"        [resource]="l"        [highlighted]="highlighted"        [styleDeclarations]="styleDeclarations"        [selectiveStyleDeclarations]="selectiveStyleDeclarations">      </app-joined-text-textwrapper>    </ng-container>  </ng-container></span><span  *ngIf="linepartConfiguration.suffix"  [ngStyle]="getStyleDict(\'suffixStyleKeys\', null)">{{ linepartConfiguration.suffix }}</span></div>'
+    var COMPONENTS = [{'name': 'AddAppGroupDialogComponent', 'selector': 'app-add-app-group-dialog'},{'name': 'AllAppSelectorsComponent', 'selector': 'app-all-app-selectors'},{'name': 'AngularHandsometableComponent', 'selector': 'app-angular-handsometable'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppInputComponentComponent', 'selector': 'app-app-input-component'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'BooleanValueEditorComponent', 'selector': 'app-boolean-value-editor'},{'name': 'BrowserlingComponent', 'selector': 'app-browserling'},{'name': 'BrushAndZoomComponent', 'selector': 'app-brush-and-zoom'},{'name': 'CanvasWhiteboardComponent', 'selector': 'app-canvas-whiteboard'},{'name': 'ChordDiagramComponent', 'selector': 'app-chord-diagram'},{'name': 'CreateResourceComponent', 'selector': 'app-create-resource'},{'name': 'D3tutorialComponent', 'selector': 'app-d3tutorial'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataAssignmentComponent', 'selector': 'app-data-assignment'},{'name': 'DataChooserComponent', 'selector': 'app-data-chooser'},{'name': 'DataListView', 'selector': 'data-list-view'},{'name': 'DataListViewDetailsDialogComponent', 'selector': 'app-data-list-view-details-dialog'},{'name': 'DataListViewSettings', 'selector': 'data-list-view-settings'},{'name': 'DataListViewTableComponent', 'selector': 'data-list-view-table'},{'name': 'DataManagementComponent', 'selector': 'app-data-management'},{'name': 'DateValueEditorComponent', 'selector': 'app-date-value-editor'},{'name': 'DateValueViewerComponent', 'selector': 'app-date-value-viewer'},{'name': 'DeactivateNewsletterComponent', 'selector': 'app-deactivate-newsletter'},{'name': 'DecimalValueEditorComponent', 'selector': 'app-decimal-value-editor'},{'name': 'DeleteActionComponent', 'selector': 'app-delete-action'},{'name': 'DeletePageComponent', 'selector': 'app-delete-page'},{'name': 'DialogCreateNewPageComponent', 'selector': 'dialog-create-new-page'},{'name': 'DialogOverviewExampleDialog', 'selector': 'dialog-overview-example-dialog'},{'name': 'DialogUserSettingsDialog', 'selector': 'dialog-user-settings-dialog'},{'name': 'DictionaryComponent', 'selector': 'app-dictionary'},{'name': 'DuplicatePageComponent', 'selector': 'app-duplicate-page'},{'name': 'EditActionComponent', 'selector': 'app-edit-action'},{'name': 'EditPageComponent', 'selector': 'app-edit-page'},{'name': 'EditPageSetComponent', 'selector': 'app-update-page-set'},{'name': 'ExtendSessionComponent', 'selector': 'session-component'},{'name': 'FactSheetComponent', 'selector': 'app-fact-sheet'},{'name': 'FileListDialogComponent', 'selector': 'app-file-list-dialog'},{'name': 'FloatLightTableComponent', 'selector': 'app-float-light-table'},{'name': 'FloatingImageObjectComponent', 'selector': 'app-floating-image-object'},{'name': 'FloatingTextObjectComponent', 'selector': 'app-floating-text-object'},{'name': 'Frame', 'selector': 'popup'},{'name': 'FrameSettingsComponent', 'selector': 'app-frame-settings'},{'name': 'GndLobidComponent', 'selector': 'app-gnd-lobid'},{'name': 'GrapesjsComponent', 'selector': 'app-grapesjs'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HierarchicalNavigationNodeComponent', 'selector': 'app-hierarchical-navigation-node'},{'name': 'HierarchicalNavigationRootComponent', 'selector': 'app-hierarchical-navigation-root'},{'name': 'HierarchicalNavigationViewComponent', 'selector': 'app-hierarchical-navigation-view'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HtmlViewerComponent', 'selector': 'app-html-viewer'},{'name': 'IframeComponent', 'selector': 'app-iframe'},{'name': 'ImageFrameOldComponent', 'selector': 'app-image-old-frame'},{'name': 'ImageFrameSizesComponent', 'selector': 'app-image-frame-sizes'},{'name': 'ImageViewComponent', 'selector': 'app-image-view'},{'name': 'ImageWithOverlayComponent', 'selector': 'app-image-with-overlay'},{'name': 'ImpressumComponent', 'selector': 'app-impressum'},{'name': 'InitPopupComponent', 'selector': 'app-init-popup'},{'name': 'IntValueEditorComponent', 'selector': 'app-int-value-editor'},{'name': 'InterlinearGlossingComponent', 'selector': 'app-interlinear-glossing'},{'name': 'JoinedTextBlockComponent', 'selector': 'app-joined-text-block'},{'name': 'JoinedTextLineComponent', 'selector': 'app-joined-text-line'},{'name': 'JoinedTextLinepartComponent', 'selector': 'app-joined-text-linepart'},{'name': 'JoinedTextMarginComponent', 'selector': 'app-joined-text-margin'},{'name': 'JoinedTextTextwrapperComponent', 'selector': 'app-joined-text-textwrapper'},{'name': 'JoinedTextViewComponent', 'selector': 'app-joined-text-view'},{'name': 'KeyValueComponent', 'selector': 'app-key-value'},{'name': 'KeyValueFormComponent', 'selector': 'app-key-value-form'},{'name': 'LeafletExampleComponent', 'selector': 'app-leaflet-example'},{'name': 'LightTableComponent', 'selector': 'app-light-table'},{'name': 'LightTableMenuComponent', 'selector': 'app-light-table-menu'},{'name': 'LinkValueEditorComponent', 'selector': 'app-link-value-editor'},{'name': 'LinkValueLabelViewerComponent', 'selector': 'app-link-value-label-viewer'},{'name': 'LoadLightTableComponent', 'selector': 'app-load-light-table'},{'name': 'LoadVariablesComponent', 'selector': 'app-load-variables'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MetadataViewComponent', 'selector': 'app-metadata-view'},{'name': 'MultiLineChartComponent', 'selector': 'app-multi-line-chart'},{'name': 'MyMainComponentComponent', 'selector': 'app-my-main-component'},{'name': 'MyPractiseComponentComponent', 'selector': 'app-my-practise-component'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationTreeComponent', 'selector': 'app-navigation-tree'},{'name': 'NewGjsBoxDialogComponent', 'selector': 'app-new-gjs-box-dialog'},{'name': 'OpenbisLoginComponent', 'selector': 'app-openbis-login'},{'name': 'OurNewComponentComponent', 'selector': 'app-our-new-component'},{'name': 'P0041EditionComponent', 'selector': 'app-p0041-edition'},{'name': 'P0041KandaComponent', 'selector': 'app-p0041-kanda'},{'name': 'P0041StropheComponent', 'selector': 'app-p0041-strophe'},{'name': 'P0041SuktaComponent', 'selector': 'app-p0041-sukta'},{'name': 'P0062TranscriptionFrameComponent', 'selector': 'app-p0062-transcription-frame'},{'name': 'PageComponent', 'selector': 'nie-os'},{'name': 'PageListDialogComponent', 'selector': 'app-page-list-dialog'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'PageSetLandingPageComponent', 'selector': 'app-page-set-landing-page'},{'name': 'ParzivalFassungComponent', 'selector': 'app-parzival-fassung'},{'name': 'PdfViewerComponent', 'selector': 'app-pdf-viewer'},{'name': 'PieChartComponent', 'selector': 'app-pie-chart'},{'name': 'PizzaPartyComponent', 'selector': 'snack-bar-component-example-snack'},{'name': 'PrimeEditorComponent', 'selector': 'app-prime-editor'},{'name': 'QueryAppInputMapComponent', 'selector': 'app-query-app-input-map'},{'name': 'QueryEntryComponent', 'selector': 'app-query-entry'},{'name': 'QueryInformationDialogComponent', 'selector': 'app-query-information-dialog'},{'name': 'QueryListComponent', 'selector': 'app-query-list'},{'name': 'RadialBarchartComponent', 'selector': 'app-radial-barchart'},{'name': 'RaeberNavigationComponent', 'selector': 'app-raeber-navigation'},{'name': 'ReactivateAccountComponent', 'selector': 'app-reactivate-account'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'RemoveObjectsByIdComponent', 'selector': 'app-remove-objects-by-id'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'ResourceFormComponent', 'selector': 'app-resource-form'},{'name': 'ResourceFormV2Component', 'selector': 'app-resource-form-v2'},{'name': 'ResourceValueHistoryComponent', 'selector': 'app-resource-value-history'},{'name': 'ResourceValueHistoryValueComponent', 'selector': 'app-resource-value-history-value'},{'name': 'ResponseTreeAppComponent', 'selector': 'response-tree'},{'name': 'ResponseTreeComponent', 'selector': 'app-response-tree'},{'name': 'RichTextByIriComponent', 'selector': 'app-spa-text'},{'name': 'SankeyComponent', 'selector': 'app-sankey'},{'name': 'SaveLightTableComponent', 'selector': 'app-save-light-table'},{'name': 'ShareLightTableComponent', 'selector': 'app-share-light-table'},{'name': 'SimpleImageAppComponent', 'selector': 'app-simple-image-app'},{'name': 'SpiralBarChartComponent', 'selector': 'app-spiral-bar-chart'},{'name': 'StackedBarChartComponent', 'selector': 'app-stacked-bar-chart'},{'name': 'SynopsisComponent', 'selector': 'app-synopsis'},{'name': 'SynopsisObjectManagerComponent', 'selector': 'app-synopsis-object-manager'},{'name': 'SynopsisObjectToolboxComponent', 'selector': 'app-synopsis-object-toolbox'},{'name': 'TagChipsComponent', 'selector': 'app-tag-chips'},{'name': 'TextDevViewComponent', 'selector': 'app-text-dev-view'},{'name': 'TextDisplayComponent', 'selector': 'app-text-display'},{'name': 'TextDisplayComponent', 'selector': 'app-text-display'},{'name': 'TextLineComponent', 'selector': 'app-text-line'},{'name': 'TextLineGroupComponent', 'selector': 'app-text-line-group'},{'name': 'TextLineMarginComponent', 'selector': 'app-text-line-margin'},{'name': 'TextLineNumberComponent', 'selector': 'app-text-line-number'},{'name': 'TextPageOfWordsComponent', 'selector': 'app-text-page-of-words'},{'name': 'TextRichInnerhtmlComponent', 'selector': 'app-text-rich-innerhtml'},{'name': 'TextSvgViewComponent', 'selector': 'app-text-svg-view'},{'name': 'TextSvgViewWrapperComponent', 'selector': 'app-text-svg-view-wrapper'},{'name': 'TextValueEditorComponent', 'selector': 'app-text-value-editor'},{'name': 'TextViewCanvasComponent', 'selector': 'app-text-view-canvas'},{'name': 'TextViewComponent', 'selector': 'app-text-view'},{'name': 'TextViewMetadataComponent', 'selector': 'app-text-view-metadata'},{'name': 'TextViewStructureComponent', 'selector': 'app-text-view-structure'},{'name': 'TextViewToolsComponent', 'selector': 'app-text-view-tools'},{'name': 'TextlistViewerComponent', 'selector': 'app-textlist-viewer'},{'name': 'ThumbnailbarComponent', 'selector': 'app-thumbnailbar'},{'name': 'TiledImageObjectComponent', 'selector': 'app-tiled-image-object'},{'name': 'TiledLightTableComponent', 'selector': 'app-tiled-light-table'},{'name': 'TiledTextObjectComponent', 'selector': 'app-tiled-text-object'},{'name': 'YoutubeVideoComponent', 'selector': 'app-youtube-video'}];
+    var DIRECTIVES = [{'name': 'DraggableDirective', 'selector': '[appDraggable]'},{'name': 'DraggableStubDirective', 'selector': '[appDraggable]'},{'name': 'FloatDropTargetDirective', 'selector': '[appDropTarget]'},{'name': 'ModifiableDirective', 'selector': '[appModifiable]'},{'name': 'ModifiableStubDirective', 'selector': '[appModifiable]'},{'name': 'SelectableDirective', 'selector': '[appSelectable]'},{'name': 'SelectableStubDirective', 'selector': '[appSelectable]'},{'name': 'SynopsisObjectAnchorDirective', 'selector': '[appSynopsisObjectAnchor]'},{'name': 'TileDropTargetDirective', 'selector': '[appTileDropTarget]'}];
+    var ACTUAL_COMPONENT = {'name': 'JoinedTextLinepartComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'JoinedTextLinepartComponent.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <script src="../js/menu-wc.js"></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

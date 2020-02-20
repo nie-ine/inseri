@@ -316,6 +316,8 @@ import {StaticPagesModule} from &#x27;../static-pages.module&#x27;;
 import { HeaderComponent } from &#x27;../header/header.component&#x27;;
 import { MatTooltipModule } from &#x27;@angular/material/tooltip&#x27;;
 import {MatChipsModule} from &#x27;@angular/material/chips&#x27;;
+import {MatSelectModule} from &#x27;@angular/material/select&#x27;;
+
 
 @NgModule({
   imports: [
@@ -335,6 +337,7 @@ import {MatChipsModule} from &#x27;@angular/material/chips&#x27;;
     StaticPagesModule,
     MatTooltipModule,
     MatChipsModule,
+    MatSelectModule,
     RouterModule.forRoot([
       {path: &#x27;dashboard&#x27;, component: DashboardComponent},
       {path: &#x27;impressum&#x27;, component: ImpressumComponent}

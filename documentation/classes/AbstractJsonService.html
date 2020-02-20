@@ -66,6 +66,15 @@
             <code>src/app/query-app-interface/data-management/services/abstract-json.service.ts</code>
         </p>
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>This service generates an abstract representation of a json.
+The json that is returned by this function is the abstrac representation
+of the input json which is the response of a query.</p>
+
+            </p>
 
 
 
@@ -135,7 +144,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="4" class="link-to-prism">src/app/query-app-interface/data-management/services/abstract-json.service.ts:4</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/query-app-interface/data-management/services/abstract-json.service.ts:10</a></div>
                             </td>
                         </tr>
 
@@ -180,7 +189,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="3" class="link-to-prism">src/app/query-app-interface/data-management/services/abstract-json.service.ts:3</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/app/query-app-interface/data-management/services/abstract-json.service.ts:9</a></div>
                             </td>
                         </tr>
 
@@ -213,7 +222,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="4" class="link-to-prism">src/app/query-app-interface/data-management/services/abstract-json.service.ts:4</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/query-app-interface/data-management/services/abstract-json.service.ts:10</a></div>
                             </td>
                         </tr>
 
@@ -246,7 +255,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="2" class="link-to-prism">src/app/query-app-interface/data-management/services/abstract-json.service.ts:2</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/app/query-app-interface/data-management/services/abstract-json.service.ts:8</a></div>
                             </td>
                         </tr>
 
@@ -282,13 +291,16 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/app/query-app-interface/data-management/services/abstract-json.service.ts:56</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="67" class="link-to-prism">src/app/query-app-interface/data-management/services/abstract-json.service.ts:67</a></div>
                             </td>
                         </tr>
 
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>This service generates a random 5 digit long hash needed to identify
+the individual leaf of the abstract tree</p>
+</div>
 
                             <div class="io-description">
                                 <b>Returns : </b>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
@@ -320,7 +332,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/app/query-app-interface/data-management/services/abstract-json.service.ts:8</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/query-app-interface/data-management/services/abstract-json.service.ts:14</a></div>
                             </td>
                         </tr>
 
@@ -389,13 +401,15 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/query-app-interface/data-management/services/abstract-json.service.ts:15</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/query-app-interface/data-management/services/abstract-json.service.ts:25</a></div>
                             </td>
                         </tr>
 
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>This is a recursive function.</p>
+</div>
 
                             <div class="io-description">
                                     <b>Parameters :</b>
@@ -480,14 +494,18 @@
 
   json2abstract( json: any ) {
     this.leafLoop( json, {}, undefined );
-
-    // console.log( this.abstractTree );
     return this.abstractTree;
   }
 
+  /**
+   * This is a recursive function.
+   * @input leaflayer: the currently treated json
+   * @input abstractTree: abstract representation of the input json of the function json2Abstract
+   * @input parent: parent of the respective leaf
+   * */
   leafLoop ( leafLayer: any, abstractTree: any, parent: string ) {
     for ( const leaf in leafLayer ) {
-      if ( isNaN( +leaf ) ) {
+      if ( isNaN( +leaf ) ) {                                                               // if the leaf is not a number
         abstractTree[ leaf ] &#x3D; {};
         abstractTree[ leaf ].type &#x3D; typeof leafLayer[ leaf ];
         abstractTree[ leaf ].hash &#x3D; this.generateHash();
@@ -501,11 +519,8 @@
             );
           }
           for ( const subLeaf in leafLayer[ leaf ] ) {
-            if ( isNaN( +subLeaf ) ) {
-              // console.log(Number(leaf));
-              // console.log( leaf );
+            if ( isNaN( +subLeaf ) ) {                                                       // if the leaf is not a number
               const subLeafValue &#x3D; leafLayer[leaf][subLeaf];
-              // console.log( leaf, subLeafValue );
               if (typeof subLeafValue &#x3D;&#x3D;&#x3D; &#x27;string&#x27;) {
                 abstractTree[ leaf ][ subLeaf ] &#x3D; {};
                 abstractTree[ leaf ][ subLeaf ].type &#x3D; typeof subLeafValue;
@@ -526,8 +541,11 @@
     this.abstractTree &#x3D; abstractTree;
   }
 
+  /**
+   * This service generates a random 5 digit long hash needed to identify
+   * the individual leaf of the abstract tree
+   * */
   generateHash(): string {
-    // console.log(&#x27;generate Hash&#x27;);
     let text &#x3D; &#x27;&#x27;;
     const possible &#x3D; &#x27;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&#x27;;
 
@@ -538,9 +556,7 @@
     }
     return text;
   }
-
 }
-
 </code></pre>
     </div>
 </div>

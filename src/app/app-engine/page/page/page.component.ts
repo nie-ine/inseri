@@ -658,6 +658,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     app: any
   ) {
     if ( this.openAppsInThisPage[ app.type ].inputs ) {
+      this.spinner.show();
       for ( const input of this.openAppsInThisPage[ app.type ].inputs ) {
         this.queryService.createQueryOfPage(this.page._id, {title: appType + '-' + app.hash })
           .subscribe(data => {
@@ -796,6 +797,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
         this.openAppArray[ j ] = switchHelp;
       }
       j++;
+      if ( j === this.openAppArray.length ) {
+        this.spinner.hide();
+      }
     }
   }
 
