@@ -59,7 +59,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/app-engine/apps/response-tree/response-tree.component.ts</code>
+            <code>src/app/query-app-interface/data-management/response-tree/response-tree.component.ts</code>
         </p>
 
             <p class="comment">
@@ -145,7 +145,7 @@ structure.</p>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/app-engine/apps/response-tree/response-tree.component.ts:37</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/query-app-interface/data-management/response-tree/response-tree.component.ts:43</a></div>
                             </td>
                         </tr>
 
@@ -180,7 +180,7 @@ structure.</p>
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">src/app/app-engine/apps/response-tree/response-tree.component.ts:65</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">src/app/query-app-interface/data-management/response-tree/response-tree.component.ts:71</a></div>
                             </td>
                         </tr>
 
@@ -264,7 +264,7 @@ The return value is the list of <code>FileNode</code>.</p>
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/app-engine/apps/response-tree/response-tree.component.ts:42</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/query-app-interface/data-management/response-tree/response-tree.component.ts:48</a></div>
                             </td>
                         </tr>
 
@@ -344,7 +344,7 @@ The return value is the list of <code>FileNode</code>.</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/app-engine/apps/response-tree/response-tree.component.ts:33</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/query-app-interface/data-management/response-tree/response-tree.component.ts:39</a></div>
                             </td>
                         </tr>
 
@@ -373,7 +373,7 @@ The return value is the list of <code>FileNode</code>.</p>
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/app-engine/apps/response-tree/response-tree.component.ts:35</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/query-app-interface/data-management/response-tree/response-tree.component.ts:41</a></div>
                                 </td>
                             </tr>
 
@@ -389,7 +389,7 @@ import {FlatTreeControl} from &#x27;@angular/cdk/tree&#x27;;
 import {Component, Injectable} from &#x27;@angular/core&#x27;;
 import {MatTreeFlatDataSource, MatTreeFlattener} from &#x27;@angular/material/tree&#x27;;
 import {BehaviorSubject, Observable, of as observableOf} from &#x27;rxjs&#x27;;
-import {GeneratePathService} from &#x27;../../../query-app-interface/data-management/response-tree/generate-path.service&#x27;;
+import {GeneratePathService} from &#x27;./generate-path.service&#x27;;
 
 /**
  * File node data with nested structure.
@@ -467,12 +467,17 @@ export class FileDatabase {
   }
 }
 
+export interface Food {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
-  selector: &#x27;response-tree&#x27;,
+  selector: &#x27;app-response-tree&#x27;,
   templateUrl: &#x27;./response-tree.component.html&#x27;
 })
 export class ResponseTreeComponent implements OnChanges {
+
   treeControl: FlatTreeControl&lt;FileFlatNode&gt;;
   treeFlattener: MatTreeFlattener&lt;FileNode, FileFlatNode&gt;;
   dataSource: MatTreeFlatDataSource&lt;FileNode, FileFlatNode&gt;;
@@ -507,17 +512,7 @@ export class ResponseTreeComponent implements OnChanges {
   ngOnChanges() {
     // console.log(&#x27;Query Response:&#x27;);
     // console.log( this.queryResponse );
-    if ( this.queryResponse &#x3D;&#x3D;&#x3D; undefined ) {
-      this.queryResponse &#x3D; {
-        &#x27;no&#x27;: {
-          &#x27;input&#x27;: &#x27;given&#x27;,
-          &#x27;for&#x27;: [&#x27;this&#x27;, &#x27;app&#x27;]
-        }
-      };
-    }
-    if ( this.queryResponse ) {
-      this.database.initialize( this.queryResponse );
-    }
+    this.database.initialize( this.queryResponse );
   }
 
   transformer &#x3D; (node: FileNode, level: number) &#x3D;&gt; {
@@ -532,7 +527,7 @@ export class ResponseTreeComponent implements OnChanges {
   chooseChip( hash: string, input: string ) {
     this.mapping[ input ] &#x3D; this.generatePathService.generatePath( hash , this.queryResponse );
     this.mapping[ input ].hash &#x3D; hash;
-    console.log( this.mapping, input );
+    // console.log( this.mapping, input );
     this.sendMappingBackToQueryAppInputMap.emit( this.mapping );
   }
 

@@ -233,8 +233,6 @@ import * as d3Shape from &#x27;d3-shape&#x27;;
 import * as d3Axis from &#x27;d3-axis&#x27;;
 import * as d3Array from &#x27;d3-array&#x27;;
 
-import { SAMPLE_DATA } from &#x27;./data04&#x27;;
-
 export interface Margin {
   top: number;
   right: number;
@@ -251,6 +249,7 @@ export interface Margin {
 export class StackedBarChartComponent implements AfterViewChecked {
   @Input() initialised &#x3D; false;
   @Input() numberOfInitialisedComponent: number;
+  @Input() data: any;
   alreadyInitialised &#x3D; false;
 
   title &#x3D; &#x27;Stacked Bar Chart&#x27;;
@@ -269,11 +268,14 @@ export class StackedBarChartComponent implements AfterViewChecked {
   constructor() {}
 
   ngAfterViewChecked() {
-    if ( this.initialised &amp;&amp; !this.alreadyInitialised ) {
+    console.log( this.data.data );
+    if ( this.initialised &amp;&amp; !this.alreadyInitialised &amp;&amp; this.data !&#x3D;&#x3D; undefined &amp;&amp; this.data.data.length &gt; 0 ) {
       this.alreadyInitialised &#x3D; true;
+      setTimeout(() &#x3D;&gt; {
       this.initMargins();
       this.initSvg();
-      this.drawChart(SAMPLE_DATA);
+      this.drawChart(this.data.data);
+      }, 100);
     }
   }
 
@@ -288,7 +290,7 @@ export class StackedBarChartComponent implements AfterViewChecked {
   private initSvg() {
     this.svg &#x3D; d3.select(&#x27;.&#x27; + this.generateComponentDivClass())
       .append(&#x27;svg&#x27;)
-      .attr(&#x27;width&#x27;, 960) // Change here for size of the bars
+      .attr(&#x27;width&#x27;, 400) // Change here for size of the bars
       .attr(&#x27;height&#x27;, 500);
 
     this.width &#x3D; +this.svg.attr(&#x27;width&#x27;) - this.margin.left - this.margin.right;
@@ -315,7 +317,7 @@ export class StackedBarChartComponent implements AfterViewChecked {
     });
     data.sort((a: any, b: any) &#x3D;&gt; b.total - a.total);
 
-    this.x.domain(data.map((d: any) &#x3D;&gt; d.State));
+    this.x.domain(data.map((d: any) &#x3D;&gt; d.xValue));
     this.y.domain([0, d3Array.max(data, (d: any) &#x3D;&gt; d.total)]).nice();
     this.z.domain(keys);
 
@@ -327,7 +329,7 @@ export class StackedBarChartComponent implements AfterViewChecked {
       .selectAll(&#x27;rect&#x27;)
       .data(d &#x3D;&gt; d)
       .enter().append(&#x27;rect&#x27;)
-      .attr(&#x27;x&#x27;, d &#x3D;&gt; this.x(d.data.State))
+      .attr(&#x27;x&#x27;, d &#x3D;&gt; this.x(d.data.xValue))
       .attr(&#x27;y&#x27;, d &#x3D;&gt; this.y(d[1]))
       .attr(&#x27;height&#x27;, d &#x3D;&gt; this.y(d[0]) - this.y(d[1]))
       .attr(&#x27;width&#x27;, this.x.bandwidth());

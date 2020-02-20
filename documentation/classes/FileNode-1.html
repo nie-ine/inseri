@@ -63,7 +63,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/query-app-interface/data-management/response-tree/response-tree.component.ts</code>
+            <code>src/app/app-engine/apps/response-tree/response-tree.component.ts</code>
         </p>
 
             <p class="comment">
@@ -145,7 +145,7 @@ Each node has a filename, and a type or a list of children.</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/query-app-interface/data-management/response-tree/response-tree.component.ts:13</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/app-engine/apps/response-tree/response-tree.component.ts:13</a></div>
                             </td>
                         </tr>
 
@@ -179,7 +179,7 @@ Each node has a filename, and a type or a list of children.</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/query-app-interface/data-management/response-tree/response-tree.component.ts:14</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/app-engine/apps/response-tree/response-tree.component.ts:14</a></div>
                             </td>
                         </tr>
 
@@ -213,7 +213,7 @@ Each node has a filename, and a type or a list of children.</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/query-app-interface/data-management/response-tree/response-tree.component.ts:15</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/app-engine/apps/response-tree/response-tree.component.ts:15</a></div>
                             </td>
                         </tr>
 
@@ -237,7 +237,7 @@ import {FlatTreeControl} from &#x27;@angular/cdk/tree&#x27;;
 import {Component, Injectable} from &#x27;@angular/core&#x27;;
 import {MatTreeFlatDataSource, MatTreeFlattener} from &#x27;@angular/material/tree&#x27;;
 import {BehaviorSubject, Observable, of as observableOf} from &#x27;rxjs&#x27;;
-import {GeneratePathService} from &#x27;./generate-path.service&#x27;;
+import {GeneratePathService} from &#x27;../../../query-app-interface/data-management/response-tree/generate-path.service&#x27;;
 
 /**
  * File node data with nested structure.
@@ -263,7 +263,7 @@ export class FileFlatNode {
  * structure.
  */
 @Injectable()
-export class FileDatabase {
+export class FileDatabaseForApp {
   dataChange &#x3D; new BehaviorSubject&lt;FileNode[]&gt;([]);
 
   get data(): FileNode[] {
@@ -315,17 +315,12 @@ export class FileDatabase {
   }
 }
 
-export interface Food {
-  value: string;
-  viewValue: string;
-}
 
 @Component({
-  selector: &#x27;app-response-tree&#x27;,
+  selector: &#x27;response-tree&#x27;,
   templateUrl: &#x27;./response-tree.component.html&#x27;
 })
-export class ResponseTreeComponent implements OnChanges {
-
+export class ResponseTreeAppComponent implements OnChanges {
   treeControl: FlatTreeControl&lt;FileFlatNode&gt;;
   treeFlattener: MatTreeFlattener&lt;FileNode, FileFlatNode&gt;;
   dataSource: MatTreeFlatDataSource&lt;FileNode, FileFlatNode&gt;;
@@ -337,7 +332,7 @@ export class ResponseTreeComponent implements OnChanges {
   index: number;
   indiceEntered &#x3D; false;
   constructor(
-    database: FileDatabase,
+    database: FileDatabaseForApp,
     private generatePathService: GeneratePathService) {
     this.database &#x3D; database;
     this.treeFlattener &#x3D; new MatTreeFlattener(
@@ -360,7 +355,17 @@ export class ResponseTreeComponent implements OnChanges {
   ngOnChanges() {
     // console.log(&#x27;Query Response:&#x27;);
     // console.log( this.queryResponse );
-    this.database.initialize( this.queryResponse );
+    if ( this.queryResponse &#x3D;&#x3D;&#x3D; undefined ) {
+      this.queryResponse &#x3D; {
+        &#x27;no&#x27;: {
+          &#x27;input&#x27;: &#x27;given&#x27;,
+          &#x27;for&#x27;: [&#x27;this&#x27;, &#x27;app&#x27;]
+        }
+      };
+    }
+    if ( this.queryResponse ) {
+      this.database.initialize( this.queryResponse );
+    }
   }
 
   transformer &#x3D; (node: FileNode, level: number) &#x3D;&gt; {
@@ -375,7 +380,7 @@ export class ResponseTreeComponent implements OnChanges {
   chooseChip( hash: string, input: string ) {
     this.mapping[ input ] &#x3D; this.generatePathService.generatePath( hash , this.queryResponse );
     this.mapping[ input ].hash &#x3D; hash;
-    // console.log( this.mapping, input );
+    console.log( this.mapping, input );
     this.sendMappingBackToQueryAppInputMap.emit( this.mapping );
   }
 

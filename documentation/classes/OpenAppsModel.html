@@ -137,129 +137,373 @@
       model: [],
       inputs: [
         {
-          &#x27;inputName&#x27;: &#x27;@id&#x27;,
-        },
-        {
-          &#x27;inputName&#x27;: &#x27;@type&#x27;,
-        },
-        {
           &#x27;inputName&#x27;: &#x27;fileValueAsUrl&#x27;,
-        },
-        {
-          &#x27;inputName&#x27;: &#x27;fileValueHasFilename&#x27;,
-        },
-        {
-          &#x27;inputName&#x27;: &#x27;fileValueIsPreview&#x27;,
+          default: &#x27;https://www.e-manuscripta.ch/zuz/i3f/v20/1510618/full/full/0/default.jpg&#x27;
         },
         {
           &#x27;inputName&#x27;: &#x27;stillImageFileValueHasDimX&#x27;,
+          default: 3062
         },
         {
           &#x27;inputName&#x27;: &#x27;stillImageFileValueHasDimY&#x27;,
-        },
-        {
-          &#x27;inputName&#x27;: &#x27;stillImageFileValueHasIIIFBaseUrl&#x27;,
+          default: 4034
         }
-      ]
+      ],
+      materialIcon: &#x27;image&#x27;,
+      initialWidth: &#x27;500&#x27;,
+      initialHeight: &#x27;700&#x27;
     },
     textViewer: {
       type: &#x27;textViewer&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;short_text&#x27;,
+      initialWidth: &#x27;500&#x27;,
+      initialHeight: &#x27;700&#x27;
     },
     openbisLogin: {
       type: &#x27;openbisLogin&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;album&#x27;,
+      initialWidth: &#x27;500&#x27;,
+      initialHeight: &#x27;350&#x27;
     },
     searchViewer: {
       type: &#x27;searchViewer&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;album&#x27;,
+      initialWidth: &#x27;500&#x27;,
+      initialHeight: &#x27;700&#x27;
     },
     grapesJSViewer: {
       type: &#x27;grapesJSViewer&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;album&#x27;,
+      initialWidth: &#x27;500&#x27;,
+      initialHeight: &#x27;700&#x27;
     },
     synopsisViewer: {
       type: &#x27;synopsisViewer&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;art_track&#x27;,
+      initialWidth: &#x27;900&#x27;,
+      initialHeight: &#x27;400&#x27;
+    },
+    gndSubscriber: {
+      type: &#x27;gndSubscriber&#x27;,
+      model: [],
+      materialIcon: &#x27;book&#x27;,
+      initialWidth: &#x27;500&#x27;,
+      initialHeight: &#x27;1000&#x27;
     },
     createResourceForm: {
       type: &#x27;createResourceForm&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;add_to_queue&#x27;,
+      initialWidth: &#x27;900&#x27;,
+      initialHeight: &#x27;400&#x27;
     },
     editResourceForm: {
-      type: &#x27;createResourceForm&#x27;,
-      model: []
+      type: &#x27;editResourceForm&#x27;,
+      model: [],
+      materialIcon: &#x27;web&#x27;,
+      initialWidth: &#x27;900&#x27;,
+      initialHeight: &#x27;400&#x27;
+    },
+    knoraV2viewer: {
+      type: &#x27;knoraV2viewer&#x27;,
+      model: [],
+      inputs: [
+        {
+          &#x27;inputName&#x27;: &#x27;backendAddress&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;resourceIRI&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;queryParamForResourceIRI&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;hoverColor&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;maxDepth&#x27;
+        }
+      ],
+      materialIcon: &#x27;web&#x27;,
+      initialWidth: &#x27;900&#x27;,
+      initialHeight: &#x27;400&#x27;
     },
     dataChooser: {
       type: &#x27;dataChooser&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;web&#x27;,
+      initialWidth: &#x27;900&#x27;,
+      initialHeight: &#x27;400&#x27;
     },
     textlistViewers: {
       type: &#x27;textlistViewers&#x27;,
       model: [],
       inputs: [
         {
-          &#x27;inputName&#x27;: &#x27;textlist&#x27;
+          &#x27;inputName&#x27;: &#x27;textlist&#x27;,
+          default: &#x27;this is an app to visualize html&#x27;
         }
-      ]
+      ],
+      materialIcon: &#x27;short_text&#x27;,
+      initialWidth: &#x27;250&#x27;,
+      initialHeight: &#x27;150&#x27;
+    },
+    paint: {
+      type: &#x27;paint&#x27;,
+      model: [],
+      inputs: [
+        {
+          &#x27;inputName&#x27;: &#x27;textFile&#x27;,
+          default: {}
+        }
+      ],
+      materialIcon: &#x27;format_paint&#x27;,
+      initialWidth: &#x27;500&#x27;,
+      initialHeight: &#x27;500&#x27;
     },
     youtubeVideo: {
       type: &#x27;youtubeVideo&#x27;,
       model: [],
       inputs: [
         {
-          &#x27;inputName&#x27;: &#x27;videoURL&#x27;
+          &#x27;inputName&#x27;: &#x27;videoURL&#x27;,
+          default: &#x27;https://www.youtube.com/embed/9An1cGPrv9Q&#x27;
         }
-      ]
+      ],
+      materialIcon: &#x27;video_library&#x27;,
+      initialWidth: &#x27;600&#x27;,
+      initialHeight: &#x27;400&#x27;
     },
     barCharts: {
       type: &#x27;barCharts&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;bar_chart&#x27;,
+      initialWidth: &#x27;1200&#x27;,
+      initialHeight: &#x27;500&#x27;,
+      inputs: [
+        {
+          &#x27;inputName&#x27;: &#x27;data&#x27;,
+          default: {
+            data: [
+              {
+                &#x27;label&#x27;: &#x27;first bar&#x27;,
+                &#x27;value&#x27;: 0.3
+              },
+              {
+                &#x27;label&#x27;: &#x27;second bar&#x27;,
+                &#x27;value&#x27;: 0.6
+              },
+              {
+                &#x27;label&#x27;: &#x27;third bar&#x27;,
+                &#x27;value&#x27;: 0.9
+              },
+              {
+                &#x27;label&#x27;: &#x27;fourth bar&#x27;,
+                &#x27;value&#x27;: 1.2
+              }
+            ]
+          }
+        }
+      ],
     },
     spiralBarCharts: {
       type: &#x27;spiralBarCharts&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;bar_chart&#x27;,
+      initialWidth: &#x27;500&#x27;,
+      initialHeight: &#x27;500&#x27;
     },
     lineCharts: {
       type: &#x27;lineCharts&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;show_chart&#x27;,
+      initialWidth: &#x27;600&#x27;,
+      initialHeight: &#x27;400&#x27;
     },
     brushZoomCharts: {
       type: &#x27;brushZoomCharts&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;insert_chart_outlined&#x27;,
+      initialWidth: &#x27;900&#x27;,
+      initialHeight: &#x27;500&#x27;
     },
     leafletMaps: {
       type: &#x27;leafletMaps&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;add_location&#x27;,
+      initialWidth: &#x27;500&#x27;,
+      initialHeight: &#x27;500&#x27;
     },
     pieCharts: {
       type: &#x27;pieCharts&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;pie_chart&#x27;,
+      initialWidth: &#x27;700&#x27;,
+      initialHeight: &#x27;500&#x27;,
+      inputs: [
+        {
+          &#x27;inputName&#x27;: &#x27;data&#x27;,
+          default: {
+            &#x27;data&#x27;: [
+              {
+                &#x27;label&#x27;: &#x27;Part One&#x27;,
+                &#x27;value&#x27;: 12
+              },
+              {
+                &#x27;label&#x27;: &#x27;Part Two&#x27;,
+                &#x27;value&#x27;: 5
+              },
+              {
+                &#x27;label&#x27;: &#x27;Part Three&#x27;,
+                &#x27;value&#x27;: 7
+              },
+              {
+                &#x27;label&#x27;: &#x27;Part Four&#x27;,
+                &#x27;value&#x27;: 6
+              }
+            ]
+          }
+        }
+      ],
     },
     radialBarCharts: {
       type: &#x27;radialBarCharts&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;multiline_chart&#x27;,
+      initialWidth: &#x27;500&#x27;,
+      initialHeight: &#x27;500&#x27;,
+      inputs: [
+        {
+          &#x27;inputName&#x27;: &#x27;data&#x27;,
+          default: {
+            &#x27;data&#x27;: [
+              {
+                &#x27;label&#x27;: &#x27;1&#x27;,
+                &#x27;value&#x27;: 20
+              },
+              {
+                &#x27;label&#x27;: &#x27;2&#x27;,
+                &#x27;value&#x27;: 40
+              },
+              {
+                &#x27;label&#x27;: &#x27;3&#x27;,
+                &#x27;value&#x27;: 30
+              },
+              {
+                &#x27;label&#x27;: &#x27;4&#x27;,
+                &#x27;value&#x27;: 50
+              },
+              {
+                &#x27;label&#x27;: &#x27;5&#x27;,
+                &#x27;value&#x27;: 40
+              },
+              {
+                &#x27;label&#x27;: &#x27;6&#x27;,
+                &#x27;value&#x27;: 60
+              },
+              {
+                &#x27;label&#x27;: &#x27;7&#x27;,
+                &#x27;value&#x27;: 50
+              }
+            ]
+          }
+        }
+      ],
     },
     sankeyCharts: {
       type: &#x27;sankeyCharts&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;linear_scale&#x27;,
+      initialWidth: &#x27;900&#x27;,
+      initialHeight: &#x27;150&#x27;,
+      inputs: [
+        {
+          &#x27;inputName&#x27;: &#x27;data&#x27;
+        }
+      ]
     },
     stackedBarCharts: {
       type: &#x27;stackedBarCharts&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;subtitles&#x27;,
+      initialWidth: &#x27;800&#x27;,
+      initialHeight: &#x27;500&#x27;,
+      inputs: [
+        {
+          &#x27;inputName&#x27;: &#x27;data&#x27;,
+          default: {
+            &#x27;data&#x27;: [
+              {
+                &#x27;xValue&#x27;: &#x27;1&#x27;,
+                &#x27;Before 1800&#x27;: 0,
+                &#x27;1800-1813&#x27;: 3,
+                &#x27;1814-1850&#x27;: 1,
+                &#x27;1851 and later&#x27;: 0
+              },
+              {
+                &#x27;xValue&#x27;: &#x27;2&#x27;,
+                &#x27;Before 1800&#x27;: 0,
+                &#x27;1800-1813&#x27;: 3,
+                &#x27;1814-1850&#x27;: 1,
+                &#x27;1851 and later&#x27;: 0
+              },
+              {
+                &#x27;xValue&#x27;: &#x27;3&#x27;,
+                &#x27;Before 1800&#x27;: 0,
+                &#x27;1800-1813&#x27;: 3,
+                &#x27;1814-1850&#x27;: 3,
+                &#x27;1851 and later&#x27;: 0
+              },
+              {
+                &#x27;xValue&#x27;: &#x27;4&#x27;,
+                &#x27;Before 1800&#x27;: 0,
+                &#x27;1800-1813&#x27;: 3,
+                &#x27;1814-1850&#x27;: 3,
+                &#x27;1851 and later&#x27;: 0
+              },
+              {
+                &#x27;xValue&#x27;: &#x27;5&#x27;,
+                &#x27;Before 1800&#x27;: 0,
+                &#x27;1800-1813&#x27;: 4,
+                &#x27;1814-1850&#x27;: 3,
+                &#x27;1851 and later&#x27;: 0
+              },
+              {
+                &#x27;xValue&#x27;: &#x27;6&#x27;,
+                &#x27;Before 1800&#x27;: 0,
+                &#x27;1800-1813&#x27;: 3,
+                &#x27;1814-1850&#x27;: 3,
+                &#x27;1851 and later&#x27;: 0
+              }
+            ]
+          }
+        }
+      ],
     },
     chordDiagrams: {
       type: &#x27;chordDiagrams&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;all_out&#x27;,
+      initialWidth: &#x27;600&#x27;,
+      initialHeight: &#x27;500&#x27;
     },
     simpleImageApp: {
       type: &#x27;simpleImageApp&#x27;,
       model: [],
       inputs: [
           {
-            &#x27;inputName&#x27;: &#x27;imageURL&#x27;
+            &#x27;inputName&#x27;: &#x27;imageURL&#x27;,
+            default: environment.app + &#x27;/assets/img/logo_transparent.png&#x27;
           }
-        ]
+        ],
+      materialIcon: &#x27;add_photo_alternate&#x27;,
+      initialWidth: &#x27;500&#x27;,
+      initialHeight: &#x27;500&#x27;
     },
     jsonViewer: {
       type: &#x27;jsonViewer&#x27;,
@@ -268,7 +512,10 @@
         {
           &#x27;inputName&#x27;: &#x27;json&#x27;
         }
-      ]
+      ],
+      materialIcon: &#x27;spa&#x27;,
+      initialWidth: &#x27;500&#x27;,
+      initialHeight: &#x27;500&#x27;
     },
     treeNavigation: {
       type: &#x27;treeNavigation&#x27;,
@@ -277,7 +524,28 @@
         {
           &#x27;inputName&#x27;: &#x27;json&#x27;
         }
-      ]
+      ],
+      materialIcon: &#x27;subdirectory_arrow_right&#x27;,
+      initialWidth: &#x27;400&#x27;,
+      initialHeight: &#x27;600&#x27;
+    },
+    hierarchicalNavigationView: {
+      type: &#x27;hierarchicalNavigationView&#x27;,
+      model: [],
+      inputs: [
+        {
+          &#x27;inputName&#x27;: &#x27;backendAddress&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;navigationRootIri&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;navigationConfiguration&#x27;
+        }
+      ],
+      materialIcon: &#x27;subdirectory_arrow_right&#x27;,
+      initialWidth: &#x27;400&#x27;,
+      initialHeight: &#x27;600&#x27;
     },
     dataListView: {
       type: &#x27;dataListView&#x27;,
@@ -289,7 +557,10 @@
         {
           &#x27;inputName&#x27;: &#x27;settings&#x27;
         }
-      ]
+      ],
+      materialIcon: &#x27;view_list&#x27;,
+      initialWidth: &#x27;700&#x27;,
+      initialHeight: &#x27;500&#x27;
     },
     parzivalFassung: {
       type: &#x27;parzivalFassung&#x27;,
@@ -298,7 +569,10 @@
         {
           &#x27;inputName&#x27;: &#x27;textJson&#x27;
         }
-      ]
+      ],
+      materialIcon: &#x27;view_week&#x27;,
+      initialWidth: &#x27;350&#x27;,
+      initialHeight: &#x27;250&#x27;
     },
     avpEditionView: {
       type: &#x27;avpEditionView&#x27;,
@@ -307,7 +581,10 @@
         {
           &#x27;inputName&#x27;: &#x27;backendAddress&#x27;
         }
-      ]
+      ],
+      materialIcon: &#x27;turned_in&#x27;,
+      initialWidth: &#x27;350&#x27;,
+      initialHeight: &#x27;500&#x27;
     },
     svgTranscription: {
       type: &#x27;svgTranscription&#x27;,
@@ -325,7 +602,10 @@
         {
           &#x27;inputName&#x27;: &#x27;imageHeight&#x27;
         }
-      ]
+      ],
+      materialIcon: &#x27;line_style&#x27;,
+      initialWidth: &#x27;350&#x27;,
+      initialHeight: &#x27;500&#x27;
     },
     htmlViewer: {
       type: &#x27;htmlViewer&#x27;,
@@ -340,22 +620,202 @@
         {
           &#x27;inputName&#x27;: &#x27;styleDeclarations&#x27;
         }
-      ]
+      ],
+      materialIcon: &#x27;aspect_ratio&#x27;,
+      initialWidth: &#x27;500&#x27;,
+      initialHeight: &#x27;500&#x27;
+    },
+    joinedTextView: {
+      type: &#x27;joinedTextView&#x27;,
+      model: [],
+      inputs: [
+        {
+          &#x27;inputName&#x27;: &#x27;textConfiguration&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;selectiveStyleDeclarations&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;styleDeclarations&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;backendAddress&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;textRootIri&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;queryParamForTextRootIri&#x27;
+        }
+      ],
+      materialIcon: &#x27;aspect_ratio&#x27;,
+      initialWidth: &#x27;500&#x27;,
+      initialHeight: &#x27;500&#x27;
     },
     login: {
       type: &#x27;login&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;lock_open&#x27;,
+      initialWidth: &#x27;400&#x27;,
+      initialHeight: &#x27;500&#x27;
     },
     pageMenu: {
       type: &#x27;pageMenu&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;settings&#x27;,
+      initialWidth: &#x27;750&#x27;,
+      initialHeight: &#x27;500&#x27;
+    },
+    sparqlVisualizer: {
+      type: &#x27;sparqlVisualizer&#x27;,
+      model: [],
+      materialIcon: &#x27;drag_indicator&#x27;,
+    initialWidth: &#x27;750&#x27;,
+    initialHeight: &#x27;900&#x27;,
+      inputs: [
+        {
+          &#x27;inputName&#x27;: &#x27;url&#x27;
+        }
+      ],
+    },
+    salsah2: {
+      type: &#x27;salsah2&#x27;,
+      model: [],
+      materialIcon: &#x27;camera_enhance&#x27;,
+      initialWidth: &#x27;700&#x27;,
+      initialHeight: &#x27;1200&#x27;,
+      inputs: [
+        {
+          &#x27;inputName&#x27;: &#x27;url&#x27;
+        }
+      ],
+    },
+    raeber: {
+      type: &#x27;raeber&#x27;,
+      model: [],
+      materialIcon: &#x27;book&#x27;,
+      initialWidth: &#x27;900&#x27;,
+      initialHeight: &#x27;700&#x27;,
+      inputs: [
+        {
+          &#x27;inputName&#x27;: &#x27;url&#x27;
+        }
+      ],
+    },
+  webern: {
+    type: &#x27;webern&#x27;,
+    model: [],
+    materialIcon: &#x27;book&#x27;,
+    initialWidth: &#x27;900&#x27;,
+    initialHeight: &#x27;700&#x27;,
+    inputs: [
+      {
+        &#x27;inputName&#x27;: &#x27;url&#x27;
+      }
+      ],
+  },
+    primeEditor: {
+      type: &#x27;primeEditor&#x27;,
+      model: [],
+      materialIcon: &#x27;format_size&#x27;,
+      initialWidth: &#x27;700&#x27;,
+      initialHeight: &#x27;500&#x27;,
+      inputs: [
+        {
+          &#x27;inputName&#x27;: &#x27;textFile&#x27;,
+          default: &#x27;&#x27;
+        }
+      ],
+    },
+    spreadSheet: {
+      type: &#x27;spreadSheet&#x27;,
+      model: [],
+      materialIcon: &#x27;table_chart&#x27;,
+      initialWidth: &#x27;700&#x27;,
+      initialHeight: &#x27;600&#x27;
+    },
+    urlUpdate: {
+      type: &#x27;urlUpdate&#x27;,
+      model: [],
+      materialIcon: &#x27;horizontal_split&#x27;,
+      initialWidth: &#x27;200&#x27;,
+      initialHeight: &#x27;200&#x27;
+    },
+    keyValue: {
+      type: &#x27;keyValue&#x27;,
+      model: [],
+      materialIcon: &#x27;horizontal_split&#x27;,
+      initialWidth: &#x27;350&#x27;,
+      initialHeight: &#x27;100&#x27;,
+      inputs: [
+        {
+          &#x27;inputName&#x27;: &#x27;key&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;value&#x27;
+        }
+      ],
+    },
+    pdfViewer: {
+      type: &#x27;pdfViewer&#x27;,
+      model: [],
+      materialIcon: &#x27;select_all&#x27;,
+      initialWidth: &#x27;700&#x27;,
+      initialHeight: &#x27;700&#x27;,
+      inputs: [
+        {
+          &#x27;inputName&#x27;: &#x27;source&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;page&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;pdfLength&#x27;
+        }
+      ],
+    },
+    browserling: {
+      type: &#x27;browserling&#x27;,
+      model: [],
+      materialIcon: &#x27;open_in_browser&#x27;,
+      initialWidth: &#x27;1000&#x27;,
+      initialHeight: &#x27;1000&#x27;,
+      inputs: [
+        {
+          &#x27;inputName&#x27;: &#x27;platform_name&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;platform_version&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;browser&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;version&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;url&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;my_cursor&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;idle_timeout&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;session_timeout&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;resolution&#x27;
+        }
+      ],
     }
   }</code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="2" class="link-to-prism">src/app/user-action-engine/mongodb/page/open-apps.model.ts:2</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="4" class="link-to-prism">src/app/user-action-engine/mongodb/page/open-apps.model.ts:4</a></div>
                             </td>
                         </tr>
 
@@ -374,136 +834,382 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export class OpenAppsModel {
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {environment} from &#x27;../../../../environments/environment&#x27;;
+
+export class OpenAppsModel {
   openApps &#x3D; {
     imageViewer: {
       type: &#x27;imageViewer&#x27;,
       model: [],
       inputs: [
         {
-          &#x27;inputName&#x27;: &#x27;@id&#x27;,
-        },
-        {
-          &#x27;inputName&#x27;: &#x27;@type&#x27;,
-        },
-        {
           &#x27;inputName&#x27;: &#x27;fileValueAsUrl&#x27;,
-        },
-        {
-          &#x27;inputName&#x27;: &#x27;fileValueHasFilename&#x27;,
-        },
-        {
-          &#x27;inputName&#x27;: &#x27;fileValueIsPreview&#x27;,
+          default: &#x27;https://www.e-manuscripta.ch/zuz/i3f/v20/1510618/full/full/0/default.jpg&#x27;
         },
         {
           &#x27;inputName&#x27;: &#x27;stillImageFileValueHasDimX&#x27;,
+          default: 3062
         },
         {
           &#x27;inputName&#x27;: &#x27;stillImageFileValueHasDimY&#x27;,
-        },
-        {
-          &#x27;inputName&#x27;: &#x27;stillImageFileValueHasIIIFBaseUrl&#x27;,
+          default: 4034
         }
-      ]
+      ],
+      materialIcon: &#x27;image&#x27;,
+      initialWidth: &#x27;500&#x27;,
+      initialHeight: &#x27;700&#x27;
     },
     textViewer: {
       type: &#x27;textViewer&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;short_text&#x27;,
+      initialWidth: &#x27;500&#x27;,
+      initialHeight: &#x27;700&#x27;
     },
     openbisLogin: {
       type: &#x27;openbisLogin&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;album&#x27;,
+      initialWidth: &#x27;500&#x27;,
+      initialHeight: &#x27;350&#x27;
     },
     searchViewer: {
       type: &#x27;searchViewer&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;album&#x27;,
+      initialWidth: &#x27;500&#x27;,
+      initialHeight: &#x27;700&#x27;
     },
     grapesJSViewer: {
       type: &#x27;grapesJSViewer&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;album&#x27;,
+      initialWidth: &#x27;500&#x27;,
+      initialHeight: &#x27;700&#x27;
     },
     synopsisViewer: {
       type: &#x27;synopsisViewer&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;art_track&#x27;,
+      initialWidth: &#x27;900&#x27;,
+      initialHeight: &#x27;400&#x27;
+    },
+    gndSubscriber: {
+      type: &#x27;gndSubscriber&#x27;,
+      model: [],
+      materialIcon: &#x27;book&#x27;,
+      initialWidth: &#x27;500&#x27;,
+      initialHeight: &#x27;1000&#x27;
     },
     createResourceForm: {
       type: &#x27;createResourceForm&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;add_to_queue&#x27;,
+      initialWidth: &#x27;900&#x27;,
+      initialHeight: &#x27;400&#x27;
     },
     editResourceForm: {
-      type: &#x27;createResourceForm&#x27;,
-      model: []
+      type: &#x27;editResourceForm&#x27;,
+      model: [],
+      materialIcon: &#x27;web&#x27;,
+      initialWidth: &#x27;900&#x27;,
+      initialHeight: &#x27;400&#x27;
+    },
+    knoraV2viewer: {
+      type: &#x27;knoraV2viewer&#x27;,
+      model: [],
+      inputs: [
+        {
+          &#x27;inputName&#x27;: &#x27;backendAddress&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;resourceIRI&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;queryParamForResourceIRI&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;hoverColor&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;maxDepth&#x27;
+        }
+      ],
+      materialIcon: &#x27;web&#x27;,
+      initialWidth: &#x27;900&#x27;,
+      initialHeight: &#x27;400&#x27;
     },
     dataChooser: {
       type: &#x27;dataChooser&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;web&#x27;,
+      initialWidth: &#x27;900&#x27;,
+      initialHeight: &#x27;400&#x27;
     },
     textlistViewers: {
       type: &#x27;textlistViewers&#x27;,
       model: [],
       inputs: [
         {
-          &#x27;inputName&#x27;: &#x27;textlist&#x27;
+          &#x27;inputName&#x27;: &#x27;textlist&#x27;,
+          default: &#x27;this is an app to visualize html&#x27;
         }
-      ]
+      ],
+      materialIcon: &#x27;short_text&#x27;,
+      initialWidth: &#x27;250&#x27;,
+      initialHeight: &#x27;150&#x27;
+    },
+    paint: {
+      type: &#x27;paint&#x27;,
+      model: [],
+      inputs: [
+        {
+          &#x27;inputName&#x27;: &#x27;textFile&#x27;,
+          default: {}
+        }
+      ],
+      materialIcon: &#x27;format_paint&#x27;,
+      initialWidth: &#x27;500&#x27;,
+      initialHeight: &#x27;500&#x27;
     },
     youtubeVideo: {
       type: &#x27;youtubeVideo&#x27;,
       model: [],
       inputs: [
         {
-          &#x27;inputName&#x27;: &#x27;videoURL&#x27;
+          &#x27;inputName&#x27;: &#x27;videoURL&#x27;,
+          default: &#x27;https://www.youtube.com/embed/9An1cGPrv9Q&#x27;
         }
-      ]
+      ],
+      materialIcon: &#x27;video_library&#x27;,
+      initialWidth: &#x27;600&#x27;,
+      initialHeight: &#x27;400&#x27;
     },
     barCharts: {
       type: &#x27;barCharts&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;bar_chart&#x27;,
+      initialWidth: &#x27;1200&#x27;,
+      initialHeight: &#x27;500&#x27;,
+      inputs: [
+        {
+          &#x27;inputName&#x27;: &#x27;data&#x27;,
+          default: {
+            data: [
+              {
+                &#x27;label&#x27;: &#x27;first bar&#x27;,
+                &#x27;value&#x27;: 0.3
+              },
+              {
+                &#x27;label&#x27;: &#x27;second bar&#x27;,
+                &#x27;value&#x27;: 0.6
+              },
+              {
+                &#x27;label&#x27;: &#x27;third bar&#x27;,
+                &#x27;value&#x27;: 0.9
+              },
+              {
+                &#x27;label&#x27;: &#x27;fourth bar&#x27;,
+                &#x27;value&#x27;: 1.2
+              }
+            ]
+          }
+        }
+      ],
     },
     spiralBarCharts: {
       type: &#x27;spiralBarCharts&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;bar_chart&#x27;,
+      initialWidth: &#x27;500&#x27;,
+      initialHeight: &#x27;500&#x27;
     },
     lineCharts: {
       type: &#x27;lineCharts&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;show_chart&#x27;,
+      initialWidth: &#x27;600&#x27;,
+      initialHeight: &#x27;400&#x27;
     },
     brushZoomCharts: {
       type: &#x27;brushZoomCharts&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;insert_chart_outlined&#x27;,
+      initialWidth: &#x27;900&#x27;,
+      initialHeight: &#x27;500&#x27;
     },
     leafletMaps: {
       type: &#x27;leafletMaps&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;add_location&#x27;,
+      initialWidth: &#x27;500&#x27;,
+      initialHeight: &#x27;500&#x27;
     },
     pieCharts: {
       type: &#x27;pieCharts&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;pie_chart&#x27;,
+      initialWidth: &#x27;700&#x27;,
+      initialHeight: &#x27;500&#x27;,
+      inputs: [
+        {
+          &#x27;inputName&#x27;: &#x27;data&#x27;,
+          default: {
+            &#x27;data&#x27;: [
+              {
+                &#x27;label&#x27;: &#x27;Part One&#x27;,
+                &#x27;value&#x27;: 12
+              },
+              {
+                &#x27;label&#x27;: &#x27;Part Two&#x27;,
+                &#x27;value&#x27;: 5
+              },
+              {
+                &#x27;label&#x27;: &#x27;Part Three&#x27;,
+                &#x27;value&#x27;: 7
+              },
+              {
+                &#x27;label&#x27;: &#x27;Part Four&#x27;,
+                &#x27;value&#x27;: 6
+              }
+            ]
+          }
+        }
+      ],
     },
     radialBarCharts: {
       type: &#x27;radialBarCharts&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;multiline_chart&#x27;,
+      initialWidth: &#x27;500&#x27;,
+      initialHeight: &#x27;500&#x27;,
+      inputs: [
+        {
+          &#x27;inputName&#x27;: &#x27;data&#x27;,
+          default: {
+            &#x27;data&#x27;: [
+              {
+                &#x27;label&#x27;: &#x27;1&#x27;,
+                &#x27;value&#x27;: 20
+              },
+              {
+                &#x27;label&#x27;: &#x27;2&#x27;,
+                &#x27;value&#x27;: 40
+              },
+              {
+                &#x27;label&#x27;: &#x27;3&#x27;,
+                &#x27;value&#x27;: 30
+              },
+              {
+                &#x27;label&#x27;: &#x27;4&#x27;,
+                &#x27;value&#x27;: 50
+              },
+              {
+                &#x27;label&#x27;: &#x27;5&#x27;,
+                &#x27;value&#x27;: 40
+              },
+              {
+                &#x27;label&#x27;: &#x27;6&#x27;,
+                &#x27;value&#x27;: 60
+              },
+              {
+                &#x27;label&#x27;: &#x27;7&#x27;,
+                &#x27;value&#x27;: 50
+              }
+            ]
+          }
+        }
+      ],
     },
     sankeyCharts: {
       type: &#x27;sankeyCharts&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;linear_scale&#x27;,
+      initialWidth: &#x27;900&#x27;,
+      initialHeight: &#x27;150&#x27;,
+      inputs: [
+        {
+          &#x27;inputName&#x27;: &#x27;data&#x27;
+        }
+      ]
     },
     stackedBarCharts: {
       type: &#x27;stackedBarCharts&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;subtitles&#x27;,
+      initialWidth: &#x27;800&#x27;,
+      initialHeight: &#x27;500&#x27;,
+      inputs: [
+        {
+          &#x27;inputName&#x27;: &#x27;data&#x27;,
+          default: {
+            &#x27;data&#x27;: [
+              {
+                &#x27;xValue&#x27;: &#x27;1&#x27;,
+                &#x27;Before 1800&#x27;: 0,
+                &#x27;1800-1813&#x27;: 3,
+                &#x27;1814-1850&#x27;: 1,
+                &#x27;1851 and later&#x27;: 0
+              },
+              {
+                &#x27;xValue&#x27;: &#x27;2&#x27;,
+                &#x27;Before 1800&#x27;: 0,
+                &#x27;1800-1813&#x27;: 3,
+                &#x27;1814-1850&#x27;: 1,
+                &#x27;1851 and later&#x27;: 0
+              },
+              {
+                &#x27;xValue&#x27;: &#x27;3&#x27;,
+                &#x27;Before 1800&#x27;: 0,
+                &#x27;1800-1813&#x27;: 3,
+                &#x27;1814-1850&#x27;: 3,
+                &#x27;1851 and later&#x27;: 0
+              },
+              {
+                &#x27;xValue&#x27;: &#x27;4&#x27;,
+                &#x27;Before 1800&#x27;: 0,
+                &#x27;1800-1813&#x27;: 3,
+                &#x27;1814-1850&#x27;: 3,
+                &#x27;1851 and later&#x27;: 0
+              },
+              {
+                &#x27;xValue&#x27;: &#x27;5&#x27;,
+                &#x27;Before 1800&#x27;: 0,
+                &#x27;1800-1813&#x27;: 4,
+                &#x27;1814-1850&#x27;: 3,
+                &#x27;1851 and later&#x27;: 0
+              },
+              {
+                &#x27;xValue&#x27;: &#x27;6&#x27;,
+                &#x27;Before 1800&#x27;: 0,
+                &#x27;1800-1813&#x27;: 3,
+                &#x27;1814-1850&#x27;: 3,
+                &#x27;1851 and later&#x27;: 0
+              }
+            ]
+          }
+        }
+      ],
     },
     chordDiagrams: {
       type: &#x27;chordDiagrams&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;all_out&#x27;,
+      initialWidth: &#x27;600&#x27;,
+      initialHeight: &#x27;500&#x27;
     },
     simpleImageApp: {
       type: &#x27;simpleImageApp&#x27;,
       model: [],
       inputs: [
           {
-            &#x27;inputName&#x27;: &#x27;imageURL&#x27;
+            &#x27;inputName&#x27;: &#x27;imageURL&#x27;,
+            default: environment.app + &#x27;/assets/img/logo_transparent.png&#x27;
           }
-        ]
+        ],
+      materialIcon: &#x27;add_photo_alternate&#x27;,
+      initialWidth: &#x27;500&#x27;,
+      initialHeight: &#x27;500&#x27;
     },
     jsonViewer: {
       type: &#x27;jsonViewer&#x27;,
@@ -512,7 +1218,10 @@
         {
           &#x27;inputName&#x27;: &#x27;json&#x27;
         }
-      ]
+      ],
+      materialIcon: &#x27;spa&#x27;,
+      initialWidth: &#x27;500&#x27;,
+      initialHeight: &#x27;500&#x27;
     },
     treeNavigation: {
       type: &#x27;treeNavigation&#x27;,
@@ -521,7 +1230,28 @@
         {
           &#x27;inputName&#x27;: &#x27;json&#x27;
         }
-      ]
+      ],
+      materialIcon: &#x27;subdirectory_arrow_right&#x27;,
+      initialWidth: &#x27;400&#x27;,
+      initialHeight: &#x27;600&#x27;
+    },
+    hierarchicalNavigationView: {
+      type: &#x27;hierarchicalNavigationView&#x27;,
+      model: [],
+      inputs: [
+        {
+          &#x27;inputName&#x27;: &#x27;backendAddress&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;navigationRootIri&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;navigationConfiguration&#x27;
+        }
+      ],
+      materialIcon: &#x27;subdirectory_arrow_right&#x27;,
+      initialWidth: &#x27;400&#x27;,
+      initialHeight: &#x27;600&#x27;
     },
     dataListView: {
       type: &#x27;dataListView&#x27;,
@@ -533,7 +1263,10 @@
         {
           &#x27;inputName&#x27;: &#x27;settings&#x27;
         }
-      ]
+      ],
+      materialIcon: &#x27;view_list&#x27;,
+      initialWidth: &#x27;700&#x27;,
+      initialHeight: &#x27;500&#x27;
     },
     parzivalFassung: {
       type: &#x27;parzivalFassung&#x27;,
@@ -542,7 +1275,10 @@
         {
           &#x27;inputName&#x27;: &#x27;textJson&#x27;
         }
-      ]
+      ],
+      materialIcon: &#x27;view_week&#x27;,
+      initialWidth: &#x27;350&#x27;,
+      initialHeight: &#x27;250&#x27;
     },
     avpEditionView: {
       type: &#x27;avpEditionView&#x27;,
@@ -551,7 +1287,10 @@
         {
           &#x27;inputName&#x27;: &#x27;backendAddress&#x27;
         }
-      ]
+      ],
+      materialIcon: &#x27;turned_in&#x27;,
+      initialWidth: &#x27;350&#x27;,
+      initialHeight: &#x27;500&#x27;
     },
     svgTranscription: {
       type: &#x27;svgTranscription&#x27;,
@@ -569,7 +1308,10 @@
         {
           &#x27;inputName&#x27;: &#x27;imageHeight&#x27;
         }
-      ]
+      ],
+      materialIcon: &#x27;line_style&#x27;,
+      initialWidth: &#x27;350&#x27;,
+      initialHeight: &#x27;500&#x27;
     },
     htmlViewer: {
       type: &#x27;htmlViewer&#x27;,
@@ -584,15 +1326,195 @@
         {
           &#x27;inputName&#x27;: &#x27;styleDeclarations&#x27;
         }
-      ]
+      ],
+      materialIcon: &#x27;aspect_ratio&#x27;,
+      initialWidth: &#x27;500&#x27;,
+      initialHeight: &#x27;500&#x27;
+    },
+    joinedTextView: {
+      type: &#x27;joinedTextView&#x27;,
+      model: [],
+      inputs: [
+        {
+          &#x27;inputName&#x27;: &#x27;textConfiguration&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;selectiveStyleDeclarations&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;styleDeclarations&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;backendAddress&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;textRootIri&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;queryParamForTextRootIri&#x27;
+        }
+      ],
+      materialIcon: &#x27;aspect_ratio&#x27;,
+      initialWidth: &#x27;500&#x27;,
+      initialHeight: &#x27;500&#x27;
     },
     login: {
       type: &#x27;login&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;lock_open&#x27;,
+      initialWidth: &#x27;400&#x27;,
+      initialHeight: &#x27;500&#x27;
     },
     pageMenu: {
       type: &#x27;pageMenu&#x27;,
-      model: []
+      model: [],
+      materialIcon: &#x27;settings&#x27;,
+      initialWidth: &#x27;750&#x27;,
+      initialHeight: &#x27;500&#x27;
+    },
+    sparqlVisualizer: {
+      type: &#x27;sparqlVisualizer&#x27;,
+      model: [],
+      materialIcon: &#x27;drag_indicator&#x27;,
+    initialWidth: &#x27;750&#x27;,
+    initialHeight: &#x27;900&#x27;,
+      inputs: [
+        {
+          &#x27;inputName&#x27;: &#x27;url&#x27;
+        }
+      ],
+    },
+    salsah2: {
+      type: &#x27;salsah2&#x27;,
+      model: [],
+      materialIcon: &#x27;camera_enhance&#x27;,
+      initialWidth: &#x27;700&#x27;,
+      initialHeight: &#x27;1200&#x27;,
+      inputs: [
+        {
+          &#x27;inputName&#x27;: &#x27;url&#x27;
+        }
+      ],
+    },
+    raeber: {
+      type: &#x27;raeber&#x27;,
+      model: [],
+      materialIcon: &#x27;book&#x27;,
+      initialWidth: &#x27;900&#x27;,
+      initialHeight: &#x27;700&#x27;,
+      inputs: [
+        {
+          &#x27;inputName&#x27;: &#x27;url&#x27;
+        }
+      ],
+    },
+  webern: {
+    type: &#x27;webern&#x27;,
+    model: [],
+    materialIcon: &#x27;book&#x27;,
+    initialWidth: &#x27;900&#x27;,
+    initialHeight: &#x27;700&#x27;,
+    inputs: [
+      {
+        &#x27;inputName&#x27;: &#x27;url&#x27;
+      }
+      ],
+  },
+    primeEditor: {
+      type: &#x27;primeEditor&#x27;,
+      model: [],
+      materialIcon: &#x27;format_size&#x27;,
+      initialWidth: &#x27;700&#x27;,
+      initialHeight: &#x27;500&#x27;,
+      inputs: [
+        {
+          &#x27;inputName&#x27;: &#x27;textFile&#x27;,
+          default: &#x27;&#x27;
+        }
+      ],
+    },
+    spreadSheet: {
+      type: &#x27;spreadSheet&#x27;,
+      model: [],
+      materialIcon: &#x27;table_chart&#x27;,
+      initialWidth: &#x27;700&#x27;,
+      initialHeight: &#x27;600&#x27;
+    },
+    urlUpdate: {
+      type: &#x27;urlUpdate&#x27;,
+      model: [],
+      materialIcon: &#x27;horizontal_split&#x27;,
+      initialWidth: &#x27;200&#x27;,
+      initialHeight: &#x27;200&#x27;
+    },
+    keyValue: {
+      type: &#x27;keyValue&#x27;,
+      model: [],
+      materialIcon: &#x27;horizontal_split&#x27;,
+      initialWidth: &#x27;350&#x27;,
+      initialHeight: &#x27;100&#x27;,
+      inputs: [
+        {
+          &#x27;inputName&#x27;: &#x27;key&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;value&#x27;
+        }
+      ],
+    },
+    pdfViewer: {
+      type: &#x27;pdfViewer&#x27;,
+      model: [],
+      materialIcon: &#x27;select_all&#x27;,
+      initialWidth: &#x27;700&#x27;,
+      initialHeight: &#x27;700&#x27;,
+      inputs: [
+        {
+          &#x27;inputName&#x27;: &#x27;source&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;page&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;pdfLength&#x27;
+        }
+      ],
+    },
+    browserling: {
+      type: &#x27;browserling&#x27;,
+      model: [],
+      materialIcon: &#x27;open_in_browser&#x27;,
+      initialWidth: &#x27;1000&#x27;,
+      initialHeight: &#x27;1000&#x27;,
+      inputs: [
+        {
+          &#x27;inputName&#x27;: &#x27;platform_name&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;platform_version&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;browser&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;version&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;url&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;my_cursor&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;idle_timeout&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;session_timeout&#x27;
+        },
+        {
+          &#x27;inputName&#x27;: &#x27;resolution&#x27;
+        }
+      ],
     }
   };
 }

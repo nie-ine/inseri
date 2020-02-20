@@ -103,7 +103,8 @@
         <div class="col-md-4" href="#portfolioModal1" *ngIf="showUserGroups" style=" width: 230px; height: 300px; display: inline-block;" >
                     <span class="fa-stack fa-4x" [matMenuTriggerFor]="appMenu" style="cursor: pointer">
                       <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                      <i class="fa fa-users fa-stack-1x fa-inverse" ></i>
+                      <i class="fa fa-user fa-stack-1x fa-inverse" *ngIf="usergroup.owner === userID"></i>
+                      <i class="fa fa-users fa-stack-1x fa-inverse" *ngIf="usergroup.owner !== userID"></i>
                     </span>
           <mat-menu #appMenu="matMenu">
             <button mat-menu-item (click)="showGroupMembers( usergroup.title )">Show group members</button>

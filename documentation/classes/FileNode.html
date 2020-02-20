@@ -63,7 +63,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/app-engine/apps/response-tree/response-tree.component.ts</code>
+            <code>src/app/app-engine/apps/gnd-lobid/gnd-lobid.component.ts</code>
         </p>
 
             <p class="comment">
@@ -145,7 +145,7 @@ Each node has a filename, and a type or a list of children.</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/app-engine/apps/response-tree/response-tree.component.ts:13</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/app-engine/apps/gnd-lobid/gnd-lobid.component.ts:15</a></div>
                             </td>
                         </tr>
 
@@ -179,7 +179,7 @@ Each node has a filename, and a type or a list of children.</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/app-engine/apps/response-tree/response-tree.component.ts:14</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/app-engine/apps/gnd-lobid/gnd-lobid.component.ts:16</a></div>
                             </td>
                         </tr>
 
@@ -213,7 +213,7 @@ Each node has a filename, and a type or a list of children.</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/app-engine/apps/response-tree/response-tree.component.ts:15</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/app-engine/apps/gnd-lobid/gnd-lobid.component.ts:17</a></div>
                             </td>
                         </tr>
 
@@ -232,12 +232,14 @@ Each node has a filename, and a type or a list of children.</p>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {Input, OnInit, OnChanges, EventEmitter, Output} from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {HttpClient} from &#x27;@angular/common/http&#x27;;
+import {Input, OnInit, OnChanges, EventEmitter, Output, ChangeDetectorRef, AfterViewChecked} from &#x27;@angular/core&#x27;;
 import {FlatTreeControl} from &#x27;@angular/cdk/tree&#x27;;
 import {Component, Injectable} from &#x27;@angular/core&#x27;;
 import {MatTreeFlatDataSource, MatTreeFlattener} from &#x27;@angular/material/tree&#x27;;
 import {BehaviorSubject, Observable, of as observableOf} from &#x27;rxjs&#x27;;
 import {GeneratePathService} from &#x27;../../../query-app-interface/data-management/response-tree/generate-path.service&#x27;;
+import {ActivatedRoute} from &#x27;@angular/router&#x27;;
 
 /**
  * File node data with nested structure.
@@ -250,7 +252,7 @@ export class FileNode {
 }
 
 /** Flat node with expandable and level information */
-export class FileFlatNode {
+export class FileFlatNodeGnd {
   constructor(
     public expandable: boolean, public filename: string, public level: number, public type: any) {}
 }
@@ -263,7 +265,7 @@ export class FileFlatNode {
  * structure.
  */
 @Injectable()
-export class FileDatabase {
+export class FileDatabaseForAppGND {
   dataChange &#x3D; new BehaviorSubject&lt;FileNode[]&gt;([]);
 
   get data(): FileNode[] {
@@ -317,22 +319,27 @@ export class FileDatabase {
 
 
 @Component({
-  selector: &#x27;response-tree&#x27;,
-  templateUrl: &#x27;./response-tree.component.html&#x27;
+  selector: &#x27;app-gnd-lobid&#x27;,
+  templateUrl: &#x27;./gnd-lobid.component.html&#x27;,
+  styleUrls: [&#x27;./gnd-lobid.component.scss&#x27;]
 })
-export class ResponseTreeComponent implements OnChanges {
-  treeControl: FlatTreeControl&lt;FileFlatNode&gt;;
-  treeFlattener: MatTreeFlattener&lt;FileNode, FileFlatNode&gt;;
-  dataSource: MatTreeFlatDataSource&lt;FileNode, FileFlatNode&gt;;
+export class GndLobidComponent implements AfterViewChecked {
+  treeControl: FlatTreeControl&lt;FileFlatNodeGnd&gt;;
+  treeFlattener: MatTreeFlattener&lt;FileNode, FileFlatNodeGnd&gt;;
+  dataSource: MatTreeFlatDataSource&lt;FileNode, FileFlatNodeGnd&gt;;
   mapping: any &#x3D; {};
-  @Input() queryResponse: any;
+  queryResponse: any;
   @Input() chosenInputs: Array&lt;any&gt;;
   @Output() sendMappingBackToQueryAppInputMap: EventEmitter&lt;any&gt; &#x3D; new EventEmitter&lt;any&gt;();
   database: any;
   index: number;
   indiceEntered &#x3D; false;
+  gnd: string;
   constructor(
-    database: FileDatabase,
+    private cdr: ChangeDetectorRef,
+    public route: ActivatedRoute,
+    private http: HttpClient,
+    database: FileDatabaseForAppGND,
     private generatePathService: GeneratePathService) {
     this.database &#x3D; database;
     this.treeFlattener &#x3D; new MatTreeFlattener(
@@ -341,7 +348,7 @@ export class ResponseTreeComponent implements OnChanges {
       this._isExpandable,
       this._getChildren
     );
-    this.treeControl &#x3D; new FlatTreeControl&lt;FileFlatNode&gt;(
+    this.treeControl &#x3D; new FlatTreeControl&lt;FileFlatNodeGnd&gt;(
       this._getLevel,
       this._isExpandable
     );
@@ -352,24 +359,27 @@ export class ResponseTreeComponent implements OnChanges {
 
     database.dataChange.subscribe(data &#x3D;&gt; this.dataSource.data &#x3D; data);
   }
-  ngOnChanges() {
-    // console.log(&#x27;Query Response:&#x27;);
-    // console.log( this.queryResponse );
-    if ( this.queryResponse &#x3D;&#x3D;&#x3D; undefined ) {
-      this.queryResponse &#x3D; {
-        &#x27;no&#x27;: {
-          &#x27;input&#x27;: &#x27;given&#x27;,
-          &#x27;for&#x27;: [&#x27;this&#x27;, &#x27;app&#x27;]
-        }
-      };
+
+  ngAfterViewChecked() {
+    // console.log( &#x27;check&#x27; );
+    this.cdr.detectChanges();
+    if ( this.gnd !&#x3D;&#x3D;  this.route.snapshot.queryParams.gnd ) {
+      this.gnd &#x3D; this.route.snapshot.queryParams.gnd;
+      this.http.get( &#x27;http://lobid.org/gnd/&#x27; + this.gnd + &#x27;.json&#x27; )
+        .subscribe(
+          data &#x3D;&gt; {
+            console.log( data );
+            this.queryResponse &#x3D; data;
+            this.database.initialize( this.queryResponse );
+          }, error &#x3D;&gt; {
+            console.log( error );
+          });
     }
-    if ( this.queryResponse ) {
-      this.database.initialize( this.queryResponse );
-    }
+    this.cdr.detectChanges();
   }
 
   transformer &#x3D; (node: FileNode, level: number) &#x3D;&gt; {
-    return new FileFlatNode(
+    return new FileFlatNodeGnd(
       !!node.children,
       node.filename,
       level,
@@ -384,13 +394,13 @@ export class ResponseTreeComponent implements OnChanges {
     this.sendMappingBackToQueryAppInputMap.emit( this.mapping );
   }
 
-  private _getLevel &#x3D; (node: FileFlatNode) &#x3D;&gt; node.level;
+  private _getLevel &#x3D; (node: FileFlatNodeGnd) &#x3D;&gt; node.level;
 
-  private _isExpandable &#x3D; (node: FileFlatNode) &#x3D;&gt; node.expandable;
+  private _isExpandable &#x3D; (node: FileFlatNodeGnd) &#x3D;&gt; node.expandable;
 
   private _getChildren &#x3D; (node: FileNode): Observable&lt;FileNode[]&gt; &#x3D;&gt; observableOf(node.children);
 
-  hasChild &#x3D; (_: number, _nodeData: FileFlatNode) &#x3D;&gt; _nodeData.expandable;
+  hasChild &#x3D; (_: number, _nodeData: FileFlatNodeGnd) &#x3D;&gt; _nodeData.expandable;
 
   checkIfNotTrue(mapping: any, input: string, nodeType: string) {
     console.log( &#x27;checkIfNottrue&#x27;, mapping, input, nodeType );

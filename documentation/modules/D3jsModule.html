@@ -482,11 +482,17 @@ import { LeafletExampleComponent } from &#x27;./leaflet-example/leaflet-example.
 import { LeafletModule } from &#x27;@asymmetrik/ngx-leaflet&#x27;;
 import { ChordDiagramComponent } from &#x27;./chord-diagram/chord-diagram.component&#x27;;
 import { SpiralBarChartComponent } from &#x27;./spiral-bar-chart/spiral-bar-chart.component&#x27;;
+import {MatButtonModule, MatFormFieldModule, MatInputModule} from &#x27;@angular/material&#x27;;
+import {FormsModule} from &#x27;@angular/forms&#x27;;
 
 @NgModule({
   imports: [
     CommonModule,
     LeafletModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
     RouterModule.forChild([
       { path: &#x27;bar-chart&#x27;, component: BarChartComponent },
       { path: &#x27;d3-tutorial&#x27;, component: D3tutorialComponent },

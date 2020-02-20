@@ -77,6 +77,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getUserGroups() {
+    console.log( 'get user groups' );
     this.usergroupService.getAllUserGroups()
       .subscribe(
         usergroupresponse => {

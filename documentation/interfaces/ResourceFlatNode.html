@@ -334,6 +334,96 @@ export class NavigationTreeComponent implements OnChanges, OnInit {
   constructor(private _route: ActivatedRoute, private _router: Router) { }
 
   ngOnChanges() {
+    if (this.queryResponse &#x3D;&#x3D;&#x3D; undefined) {
+      this.queryResponse &#x3D; {
+        &quot;@graph&quot; : [ {
+          &quot;@id&quot; : &quot;http://rdfh.ch/0041/07GyRR1fQLSjaIlAjRTq_Q&quot;,
+          &quot;knora-api:hasIncomingLinkValue&quot; : [ {
+            &quot;@id&quot; : &quot;http://rdfh.ch/0041/CEdPhqFoRqa4JMrLokpwHw/values/UggSvRfhQ2eCYrdD56TTJg&quot;,
+            &quot;knora-api:linkValueHasSource&quot; : {
+              &quot;@id&quot; : &quot;http://rdfh.ch/0041/CEdPhqFoRqa4JMrLokpwHw&quot;,
+              &quot;knora-api:hasIncomingLinkValue&quot; : [ {
+                &quot;@id&quot; : &quot;http://rdfh.ch/0041/Gm5PgeLGSRigeey7qQdLPQ/values/fSsQheDbQjW884yWYzbwAg&quot;,
+                &quot;knora-api:linkValueHasSource&quot; : {
+                  &quot;@id&quot; : &quot;http://rdfh.ch/0041/Gm5PgeLGSRigeey7qQdLPQ&quot;,
+                  &quot;rdf-any:isPartOfValue&quot; : {
+                    &quot;@id&quot; : &quot;http://rdfh.ch/0041/Gm5PgeLGSRigeey7qQdLPQ/values/fSsQheDbQjW884yWYzbwAg&quot;,
+                    &quot;knora-api:linkValueHasTargetIri&quot; : {
+                      &quot;@id&quot; : &quot;http://rdfh.ch/0041/CEdPhqFoRqa4JMrLokpwHw&quot;
+                    }
+                  },
+                  &quot;rdfs:label&quot; : &quot;1.1.2&quot;
+                }
+              }, {
+                &quot;@id&quot; : &quot;http://rdfh.ch/0041/WA9dphq9RpmXkq5nSo6q3Q/values/hCPW4zkMQ1qzP-dm9H4OJg&quot;,
+                &quot;knora-api:linkValueHasSource&quot; : {
+                  &quot;@id&quot; : &quot;http://rdfh.ch/0041/WA9dphq9RpmXkq5nSo6q3Q&quot;,
+                  &quot;rdf-any:isPartOfValue&quot; : {
+                    &quot;@id&quot; : &quot;http://rdfh.ch/0041/WA9dphq9RpmXkq5nSo6q3Q/values/hCPW4zkMQ1qzP-dm9H4OJg&quot;,
+                    &quot;knora-api:linkValueHasTargetIri&quot; : {
+                      &quot;@id&quot; : &quot;http://rdfh.ch/0041/CEdPhqFoRqa4JMrLokpwHw&quot;
+                    }
+                  },
+                  &quot;rdfs:label&quot; : &quot;1.1.1&quot;
+                }
+              } ],
+              &quot;http://api.knora.org/ontology/shared/literature/v2#isPartOfVerseSongbookValue&quot; : {
+                &quot;@id&quot; : &quot;http://rdfh.ch/0041/CEdPhqFoRqa4JMrLokpwHw/values/UggSvRfhQ2eCYrdD56TTJg&quot;,
+                &quot;knora-api:linkValueHasTargetIri&quot; : {
+                  &quot;@id&quot; : &quot;http://rdfh.ch/0041/07GyRR1fQLSjaIlAjRTq_Q&quot;
+                }
+              },
+              &quot;rdfs:label&quot; : &quot;1.1 Preface&quot;
+            }
+          }, {
+            &quot;@id&quot; : &quot;http://rdfh.ch/0041/wGhv_G4WRY6oFheTUKfe0g/values/4DnXHLSrTQ-GISigvqI61w&quot;,
+            &quot;knora-api:linkValueHasSource&quot; : {
+              &quot;@id&quot; : &quot;http://rdfh.ch/0041/wGhv_G4WRY6oFheTUKfe0g&quot;,
+              &quot;knora-api:hasIncomingLinkValue&quot; : [ {
+                &quot;@id&quot; : &quot;http://rdfh.ch/0041/DjQku61RQqSw0pb6v0wubg/values/AMLosisfT2es99L_glnEpg&quot;,
+                &quot;knora-api:linkValueHasSource&quot; : {
+                  &quot;@id&quot; : &quot;http://rdfh.ch/0041/DjQku61RQqSw0pb6v0wubg&quot;,
+                  &quot;rdf-any:isPartOfValue&quot; : {
+                    &quot;@id&quot; : &quot;http://rdfh.ch/0041/DjQku61RQqSw0pb6v0wubg/values/AMLosisfT2es99L_glnEpg&quot;
+                  },
+                  &quot;rdfs:label&quot; : &quot;1.2.1&quot;
+                }
+              }, {
+                &quot;@id&quot; : &quot;http://rdfh.ch/0041/pPyHJDIiQIm-t1GJtdd_KQ/values/BGNpnIcrTP6qEWOQjsKEUw&quot;,
+                &quot;knora-api:linkValueHasSource&quot; : {
+                  &quot;@id&quot; : &quot;http://rdfh.ch/0041/pPyHJDIiQIm-t1GJtdd_KQ&quot;,
+                  &quot;rdf-any:isPartOfValue&quot; : {
+                    &quot;@id&quot; : &quot;http://rdfh.ch/0041/pPyHJDIiQIm-t1GJtdd_KQ/values/BGNpnIcrTP6qEWOQjsKEUw&quot;,
+                    &quot;knora-api:linkValueHasTargetIri&quot; : {
+                      &quot;@id&quot; : &quot;http://rdfh.ch/0041/wGhv_G4WRY6oFheTUKfe0g&quot;
+                    }
+                  },
+                  &quot;rdfs:label&quot; : &quot;1.2.2&quot;
+                }
+              } ],
+              &quot;http://api.knora.org/ontology/shared/literature/v2#isPartOfVerseSongbookValue&quot; : {
+                &quot;@id&quot; : &quot;http://rdfh.ch/0041/wGhv_G4WRY6oFheTUKfe0g/values/4DnXHLSrTQ-GISigvqI61w&quot;,
+                &quot;knora-api:linkValueHasTargetIri&quot; : {
+                  &quot;@id&quot; : &quot;http://rdfh.ch/0041/07GyRR1fQLSjaIlAjRTq_Q&quot;
+                }
+              },
+              &quot;rdfs:label&quot; : &quot;1.2 Introduction&quot;
+            }
+          } ],
+          &quot;rdfs:label&quot; : &quot;1 First Part&quot;
+        }, {
+          &quot;@id&quot; : &quot;http://rdfh.ch/0041/KJ7tU9IwSZyFL90cLp0-dQ&quot;,
+          &quot;rdfs:label&quot; : &quot;2 Second Part&quot;
+        } ],
+        &quot;@context&quot; : {
+          &quot;rdf&quot; : &quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;,
+          &quot;knora-api&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#&quot;,
+          &quot;rdfs&quot; : &quot;http://www.w3.org/2000/01/rdf-schema#&quot;,
+          &quot;xsd&quot; : &quot;http://www.w3.org/2001/XMLSchema#&quot;
+        }
+      };
+    }
+
     this._route.queryParams.subscribe(params &#x3D;&gt; {
       this.qParams &#x3D; JSON.parse(JSON.stringify(params));
     });
