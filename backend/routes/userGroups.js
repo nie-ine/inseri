@@ -19,7 +19,7 @@ router.post('',checkAuth, (req, res, next) => {
       const newGroup = new UserGroup({
         title: req.body.title,
         description: req.body.description,
-        users:req.body.users,
+        users:[req.userData.email],
         owner:req.userData.userId
       });
       newGroup.save()
@@ -127,7 +127,6 @@ router.post('/addMember', (req, res, next) => {
     });
 });
 
-
 router.post('/removeMember',checkAuth, (req, res, next) => {
 
   UserGroup.find({
@@ -187,6 +186,86 @@ router.post('/:groupToDelete',checkAuth, (req, res, next) => {
     });
 });
 
+router.post('/removeCurrentUserFromGroup/:groupId',checkAuth, (req, res, next) => {
+  console.log(req.userData.userId);
+  UserGroup.updateOne({$and:[
+    {owner: {$ne: req.userData.userId}},
+    {_id: req.params.groupId}
+    ]},
+    {$pull: {users: req.userData.email}})
+    .then((updatedDocument) => {
+      if (updatedDocument.n === 0) {
+        res.status(400).json({
+          message: 'User cannot be removed from the group.'
+        });
+      } else {
+        return res.status(200).json({
+          message: 'User has been removed successfully from the group.',
+          updatedGroup: updatedDocument
+        });
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Updating group failed.',
+        error: error
+      })
+    });
+});
 
+router.post('/assignNewOwner/:groupId&:email',checkAuth, (req, res, next) => {
+  console.log(req.userData.userId);
+  console.log(req.params.groupId||" "|| req.params.email);
+  User.find({email: req.params.email})
+    .then((result) => {
+      let message;
+      if (result.length === 0) {
+        message = 'User not found'
+
+      } else {
+        message = 'User has been found'
+        console.log(message);
+        UserGroup.updateOne(
+          {_id: req.params.groupId},
+          {$set: {owner: result[0]._id}, $addToSet: {users: req.params.email}})
+          .then(updateResult => {
+            res.status(201).json({
+
+              message: 'User group updated' //+ result[0]._id,
+            });
+          })
+          .catch(error => {
+            res.status(500).json({
+              message: 'Error while updating the group',
+              error: error
+            });
+          })
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Error while retrieving the user',
+        error: error
+      });
+    });
+});
+router.post('/updateUserGroup',checkAuth, (req, res, next) => {
+
+  UserGroup.updateOne(
+          {_id: req.body.groupId},
+          {$set: {title: req.body.title}, $set: {description: req.body.description}})
+          .then(updateResult => {
+            res.status(201).json({
+
+              message: 'User group updated' //+ result[0]._id,
+            });
+          })
+          .catch(error => {
+            res.status(500).json({
+              message: 'Error while updating the group',
+              error: error
+            });
+          })
+      });
 module.exports = router;
 
