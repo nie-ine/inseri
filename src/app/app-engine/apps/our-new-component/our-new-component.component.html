@@ -5,10 +5,6 @@
   Create new user group
 </button>
 
-
-
-
-
 <button mat-button (click)="listUserGroups()">
   List user groups
 </button>
@@ -16,9 +12,14 @@
 <br>
 <div *ngFor="let group of userGroups">
 
-  <button mat-button (click)="updateUserGroupDetails(group._id, name, description)">
+  <button mat-button (click)="showUserGroupDetails(group._id)">
+    Show user group Details
+  </button>
+
+  <button mat-button (click)="updateUserGroupDetails(group._id,this.name ,this.description)">
     Update user group
   </button>
+  <br>
 
   Enter Email of new user that you'd like to add to the group:
   <input mat-input [(ngModel)]="member" >
@@ -43,6 +44,7 @@
   <br>
 
   <input mat-input [(ngModel)]="group.title" >
+
   <button mat-button  (click)="listGroupMembers( group )" >
      List Group Members
   </button>

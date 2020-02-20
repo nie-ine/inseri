@@ -250,9 +250,9 @@ router.post('/assignNewOwner/:groupId&:email',checkAuth, (req, res, next) => {
     });
 });
 router.post('/updateUserGroup',checkAuth, (req, res, next) => {
-
+console.log(req.body);
   UserGroup.updateOne(
-          {_id: req.body.groupId},
+          {_id: req.body.groupId, owner: req.userData.userId},
           {$set: {title: req.body.title}, $set: {description: req.body.description}})
           .then(updateResult => {
             res.status(201).json({
@@ -267,5 +267,30 @@ router.post('/updateUserGroup',checkAuth, (req, res, next) => {
             });
           })
       });
+router.get('/showUserGroupDetails/:groupId',checkAuth, (req, res, next) => {
+console.log(req.params.groupId);
+console.log(req.userData._id);
+  UserGroup.findOne({$and: [{_id: req.params.groupId, owner: req.userData.userId}]}
+    )
+    .then(result => {
+      if(result.length===0) {
+        message: 'Group not found, or you are not the owner of the group.'
+      }
+      else {
+          message = 'Group is found'
+          res.status(200).json({
+            message: message,
+            result: result
+          });
+        }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Error while retrieving the group',
+        error: error
+      });
+    })
+});
+
 module.exports = router;
 

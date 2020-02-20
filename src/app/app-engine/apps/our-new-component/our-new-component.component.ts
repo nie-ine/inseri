@@ -17,6 +17,7 @@ export class OurNewComponentComponent implements OnInit {
   description: string;
   newGroupMemberEmail: string;
   member: string;
+
   ngOnInit() {
     this.ourFirstVariable = 'Hello, this is our first classwide variable';
     this.secondVariable = this.ourFirstVariable + ' and sth added to the first string';
@@ -135,16 +136,31 @@ export class OurNewComponentComponent implements OnInit {
       }
     );
   }
-  updateUserGroupDetails(groupId: string, title: string, description:string) {
+  updateUserGroupDetails(groupId: string , title: string, description: string) {
+    alert(groupId || ' ' || this.name || ' ' || this.description);
     this.http.post('http://localhost:3000/api/userGroups/updateUserGroup',
       {
         groupId: groupId,
-        title: title,
-        description: description
+        title: this.name,
+        description: this.description
       }, )
       .subscribe(
         response => {
           console.log( response );
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+  showUserGroupDetails(groupId: string) {
+
+    this.http.get('http://localhost:3000/api/userGroups/showUserGroupDetails/' + groupId,
+       )
+      .subscribe(
+        response => {
+          console.log( response );
+          this.name = (response as any).result.title;
+          this.description = (response as any).result.description;
         }, error => {
           console.log( error );
         }
