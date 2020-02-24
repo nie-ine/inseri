@@ -136,17 +136,19 @@ export class OurNewComponentComponent implements OnInit {
       }
     );
   }
-  updateUserGroupDetails(groupId: string , title: string, description: string) {
-    alert(groupId || ' ' || this.name || ' ' || this.description);
-    this.http.post('http://localhost:3000/api/userGroups/updateUserGroup',
+  updateUserGroupDetails(groupId: string, title: string, description: string) {
+    /*alert(title);
+    alert(description);
+    console.log(groupId, title, description);*/
+    this.http.post('http://localhost:3000/api/userGroups/updateUserGroup/' + title + '&' + description,
       {
-        groupId: groupId,
-        title: this.name,
-        description: this.description
+        groupId: groupId/*,
+        title: title,
+        description: description*/
       }, )
       .subscribe(
         response => {
-          console.log( response );
+          console.log( (response as any).result);
         }, error => {
           console.log( error );
         }

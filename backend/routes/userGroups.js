@@ -249,15 +249,17 @@ router.post('/assignNewOwner/:groupId&:email',checkAuth, (req, res, next) => {
       });
     });
 });
-router.post('/updateUserGroup',checkAuth, (req, res, next) => {
-console.log(req.body);
-  UserGroup.updateOne(
-          {_id: req.body.groupId, owner: req.userData.userId},
-          {$set: {title: req.body.title}, $set: {description: req.body.description}})
+router.post('/updateUserGroup/:title&:description',checkAuth, (req, res, next) => {
+/*console.log('groupId='||req.body.groupId);
+console.log('title='||req.body.title);
+console.log('description='||req.body.description);*/
+  UserGroup.update(
+          {owner: req.userData.userId,_id: req.body.groupId},
+          {$set: {title: req.params.title, description: req.params.description}})
           .then(updateResult => {
             res.status(201).json({
-
-              message: 'User group updated' //+ result[0]._id,
+              message: 'User group updated', //+ result[0]._id,
+              result: updateResult
             });
           })
           .catch(error => {
@@ -269,8 +271,8 @@ console.log(req.body);
       });
 router.get('/showUserGroupDetails/:groupId',checkAuth, (req, res, next) => {
 console.log(req.params.groupId);
-console.log(req.userData._id);
-  UserGroup.findOne({$and: [{_id: req.params.groupId, owner: req.userData.userId}]}
+console.log(req.userData.userId);
+  UserGroup.findOne({$and: [{_id: req.params.groupId}, {owner: req.userData.userId}]}
     )
     .then(result => {
       if(result.length===0) {
@@ -286,7 +288,7 @@ console.log(req.userData._id);
     })
     .catch(error => {
       res.status(500).json({
-        message: 'Error while retrieving the group',
+        message: 'You are not the owner of the group',
         error: error
       });
     })
