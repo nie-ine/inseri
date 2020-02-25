@@ -17,6 +17,8 @@ export class OurNewComponentComponent implements OnInit {
   description: string;
   newGroupMemberEmail: string;
   member: string;
+  pageId: string;
+  subPageId: string;
 
   ngOnInit() {
     this.ourFirstVariable = 'Hello, this is our first classwide variable';
@@ -168,5 +170,68 @@ export class OurNewComponentComponent implements OnInit {
         }
       );
   }
+  createNewSubPage(pageId: string, title: string, description: string) {
+    this.http.post('http://localhost:3000/api/sub-page/New/' + pageId,
+      {
+        title: title,
+        description: description
+      }, )
+      .subscribe(
+        response => {
+          console.log( (response as any).result);
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+  showSubPageDetails(subPage: string) {
+    this.http.get('http://localhost:3000/api/sub-page/New/' + subPage,
+    )
+      .subscribe(
+        response => {
+          console.log( response );
+          this.name = (response as any).result.title;
+          this.description = (response as any).result.description;
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+  showAllSubPages(pageId: string) {
+    this.http.get('http://localhost:3000/api/sub-page/sub-pages/' + pageId,
+    )
+      .subscribe(
+        response => {
+          console.log( response );
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+  deleteSubPage(subPageId: string) {
+    this.http.post('http://localhost:3000/api/sub-page/' + subPageId,
+      {subPageId: subPageId }
+      , )
+      .subscribe(
+        response => {
+          console.log( (response as any).result);
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+  updateSubPageDetails(subPageId: string) {
+    this.http.post('http://localhost:3000/api/sub-page/update/' + subPageId,
+      {subPageId: subPageId }
+      , )
+      .subscribe(
+        response => {
+          console.log( (response as any).result);
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+
 }
 
