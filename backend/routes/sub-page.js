@@ -14,6 +14,8 @@ router.post('/New/:pageId',checkAuth, (req, res, next) => {
       Page.update({_id: req.params.pageId}, { $push: { hasSubPages: resultQuery._id } })
         .then(updatedPage => {
           if (updatedPage.n > 0) {
+            console.log(newSubPage);
+            console.log(updatedPage);
             res.status(201).json({
               message: 'Sub-page was created successfully and linked to the page',
               subpage: newSubPage
@@ -40,19 +42,19 @@ router.post('/New/:pageId',checkAuth, (req, res, next) => {
 });
 
 //return subPage details'
-router.get('/subPage/:subPageId', checkAuth, (req, res, next) => {
+router.get('/:subPageId', checkAuth, (req, res, next) => {
 
   SubPage.find({_id: req.params.subPageId})
-    .then(subPages => {
+    .then(subPage => {
       let message;
-      if (subPages.length === 0) {
+      if (subPage.length === 0) {
         message = 'No sub-page was found'
       } else {
         message = 'Sub-page details was found'
       }
       res.status(200).json({
         message: message,
-        subPages: subPages
+        subPage: subPage
       });
     })
     .catch(error => {
@@ -68,11 +70,13 @@ router.get('/sub-pages/:pageId', checkAuth, (req, res, next) => {
   Page.find({_id: req.params.pageId}, {_id: 0, hasSubPages: 1})
     .then(subPagesIds => {
       let message;
+      console.log(subPagesIds);
       if (subPagesIds.length === 0) {
         message = 'No sub-pages were found'
       } else {
-        SubPage.find({_id: {$in: subPagesIds}})
+        SubPage.find({_id: {$in: subPagesIds[0].hasSubPages}})
           .then(subPagesDetails => {
+            console.log(subPagesDetails);
             if (subPagesDetails.length === 0) {
               message = 'No sub-pages were found'
             } else {
@@ -132,6 +136,7 @@ router.post('/:subPageId&:pageId',checkAuth, (req, res, next) => {
 
 //updating sub-page details
 router.post('/update/:subPageId',checkAuth, (req, res, next) => {
+  console.log(req.body);
   SubPage.updateOne({_id: req.params.subPageId},
     {$set: {title: req.body.title, description: req.body.description}})
     .then(updateResult => {
@@ -148,3 +153,4 @@ router.post('/update/:subPageId',checkAuth, (req, res, next) => {
     })
 });
 
+module.exports = router;

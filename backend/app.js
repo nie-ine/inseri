@@ -11,6 +11,7 @@ const messageRoutes = require('./routes/message');
 const queryRoutes = require('./routes/query');
 const myOwnJsonRoutes = require('./routes/myOwnJson');
 const userGroupRoutes = require('./routes/userGroups');
+const subPageRoutes = require('./routes/sub-page');
 
 const app = express();
 
@@ -68,5 +69,7 @@ app.use("/api/message", messageRoutes);
 app.use("/api/queries", queryRoutes);
 app.use("/api/myOwnJson", myOwnJsonRoutes);
 app.use("/api/userGroups", userGroupRoutes);
+app.use("/api/sub-page", subPageRoutes);
+
 
 module.exports = app;

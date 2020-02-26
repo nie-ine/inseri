@@ -1,3 +1,4 @@
+
 <input mat-input [(ngModel)]="name" xmlns="http://www.w3.org/1999/html">
 <input mat-input [(ngModel)]="description" >
 <input mat-input [(ngModel)]="pageId" >
@@ -10,9 +11,9 @@
   Show current sub-pages
 </button>
 <button mat-button (click)="showAllSubPages(pageId)">
-  Update current sub-pages
+  Show all sub-pages
 </button>
-<button mat-button (click)="deleteSubPage(subPageId)">
+<button mat-button (click)="deleteSubPage( subPageId , pageId )">
   Delete sub-page
 </button>
 <button mat-button (click)="updateSubPageDetails(subPageId)">
@@ -20,6 +21,11 @@
 </button>
 
 <br>
+
+<div *ngFor="let subpage of subPages">
+
+  <br>
+
 <button mat-button (click)="createNewUserGroup()">
   Create new user group
 </button>

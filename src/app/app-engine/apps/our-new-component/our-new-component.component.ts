@@ -19,6 +19,7 @@ export class OurNewComponentComponent implements OnInit {
   member: string;
   pageId: string;
   subPageId: string;
+  subPages: Array<any>;
 
   ngOnInit() {
     this.ourFirstVariable = 'Hello, this is our first classwide variable';
@@ -178,20 +179,20 @@ export class OurNewComponentComponent implements OnInit {
       }, )
       .subscribe(
         response => {
-          console.log( (response as any).result);
+          console.log( (response as any).result[0]);
         }, error => {
           console.log( error );
         }
       );
   }
   showSubPageDetails(subPage: string) {
-    this.http.get('http://localhost:3000/api/sub-page/New/' + subPage,
+    this.http.get('http://localhost:3000/api/sub-page/' + subPage,
     )
       .subscribe(
         response => {
           console.log( response );
-          this.name = (response as any).result.title;
-          this.description = (response as any).result.description;
+          this.name = (response as any).subPage[0].title;
+          this.description = (response as any).subPage[0].description;
         }, error => {
           console.log( error );
         }
@@ -202,14 +203,14 @@ export class OurNewComponentComponent implements OnInit {
     )
       .subscribe(
         response => {
-          console.log( response );
+          console.log( (response as any).subPages);//an array of subPages details'
         }, error => {
           console.log( error );
         }
       );
   }
-  deleteSubPage(subPageId: string) {
-    this.http.post('http://localhost:3000/api/sub-page/' + subPageId,
+  deleteSubPage(subPageId: string, pageId: string) {
+    this.http.post('http://localhost:3000/api/sub-page/' + subPageId + '&' + pageId,
       {subPageId: subPageId }
       , )
       .subscribe(
@@ -222,7 +223,9 @@ export class OurNewComponentComponent implements OnInit {
   }
   updateSubPageDetails(subPageId: string) {
     this.http.post('http://localhost:3000/api/sub-page/update/' + subPageId,
-      {subPageId: subPageId }
+      {subPageId: subPageId,
+      title: this.name,
+      description: this.description}
       , )
       .subscribe(
         response => {
