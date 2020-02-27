@@ -20,6 +20,15 @@ export class OurNewComponentComponent implements OnInit {
   pageId: string;
   subPageId: string;
   subPages: Array<any>;
+  pages: Array<any>;
+  pageSets: Array<any>;
+  pageSetId: string;
+  userGroupParams: false;
+  subPageParams: false;
+  sharePageSetParams: true;
+  sharePageParams: true;
+  groupId: string;
+
 
   ngOnInit() {
     this.ourFirstVariable = 'Hello, this is our first classwide variable';
@@ -203,7 +212,7 @@ export class OurNewComponentComponent implements OnInit {
     )
       .subscribe(
         response => {
-          console.log( (response as any).subPages);//an array of subPages details'
+          console.log( (response as any).subPages); // an array of subPages details'
         }, error => {
           console.log( error );
         }
@@ -236,5 +245,53 @@ export class OurNewComponentComponent implements OnInit {
       );
   }
 
+  sharePageSet(pageSetId: string, groupId: string) {
+    this.http.post('http://localhost:3000/api/userGroups/sharePageSet/' + pageSetId + '&' + groupId,
+      {pageSetId: pageSetId}
+      , )
+      .subscribe(
+        response => {
+          console.log( (response as any).result);
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+  sharePage(pageId: string, groupId: string) {
+    this.http.post('http://localhost:3000/api/userGroups/sharePage/' + pageId + '&' + groupId,
+      {pageId: pageId}
+      , )
+      .subscribe(
+        response => {
+          console.log( (response as any).result);
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+  showPageSets(groupId: string) {
+    this.http.get('http://localhost:3000/api/userGroups/showPageSets/' + groupId,
+    )
+      .subscribe(
+        response => {
+          console.log( (response as any).PageSets); // an array of subPages details'
+          this.pageSets = (response as any).PageSets.hasPageSets;
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+  showPages(groupId: string) {
+    this.http.get('http://localhost:3000/api/userGroups/showPages/' + groupId,
+    )
+      .subscribe(
+        response => {
+          console.log( (response as any).Pages); // an array of subPages details'
+          this.pages = (response as any).Pages.hasPages;
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
 }
 
