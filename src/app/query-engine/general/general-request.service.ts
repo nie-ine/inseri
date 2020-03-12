@@ -22,7 +22,7 @@ export class GeneralRequestService {
     return this.queryService.getQuery(queryID)
       .mergeMap(data => {
           const query = data.query;
-
+          console.log( query );
           switch (query.method) {
             case 'GET':
               return this.get(query.serverUrl, data.query.params, query.header);
@@ -48,12 +48,20 @@ export class GeneralRequestService {
   }
 
   transformHeader( header: any ) {
+    console.log( header );
     let headerTransformed = new HttpHeaders();
-    for (const i in header) {
-      headerTransformed = headerTransformed.append(i, header[ i ]);
+    if ( header.length ) {
+      for (const i of header) {
+        headerTransformed = headerTransformed.append(i.key, i.value);
+        return headerTransformed;
+      }
+    } else {
+      for (const i in header) {
+        headerTransformed = headerTransformed.append(i, header[ i ]);
+      }
+      // console.log( headerTransformed );
+      return headerTransformed;
     }
-    // console.log( headerTransformed );
-    return headerTransformed;
   }
 
   get(url: string, parameter?: any, header?: any): Observable<any> {
@@ -62,18 +70,18 @@ export class GeneralRequestService {
   }
 
   post(url: string, parameter?: any, header?: any, body?: string): Observable<any> {
-    // console.log('POST Request', url, parameter, header, body);
-    return this.http.post(url, body, {params: this.transformParam(parameter), headers: header, observe: 'response'});
+    // console.log('POST Request', header, this.transformHeader(header));
+    return this.http.post(url, body, {params: this.transformParam(parameter), headers: this.transformHeader(header), observe: 'response'});
   }
 
   put(url: string, parameter?: any, header?: any, body?: string): Observable<any> {
     // console.log('PUT Request', url, parameter, header, body);
-    return this.http.put(url, body, {params: this.transformParam(parameter), headers: header, observe: 'response'});
+    return this.http.put(url, body, {params: this.transformParam(parameter), headers: this.transformHeader(header), observe: 'response'});
   }
 
   delete(url: string, parameter?: any, header?: any): Observable<any> {
     // console.log('DELETE Request', url, parameter, header);
-    return this.http.delete(url, {params: this.transformParam(parameter), headers: header, observe: 'response'});
+    return this.http.delete(url, {params: this.transformParam(parameter), headers: this.transformHeader(header), observe: 'response'});
   }
 
   createJson() {
