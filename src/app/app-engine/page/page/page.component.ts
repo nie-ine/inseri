@@ -593,6 +593,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
         },
         error => {
           console.log(error);
+          this.spinner.hide();
           this.snackBar.open( 'Sth went wrong, page has not been saved' );
         });
   }
@@ -658,9 +659,18 @@ export class PageComponent implements OnInit, AfterViewChecked {
     app: any
   ) {
     if ( this.openAppsInThisPage[ app.type ].inputs ) {
-      this.spinner.show();
+      if ( this.loggedIn ) {
+        this.spinner.show();
+      }
       for ( const input of this.openAppsInThisPage[ app.type ].inputs ) {
-        this.queryService.createQueryOfPage(this.page._id, {title: appType + '-' + app.hash })
+        const now = new Date();
+        this.queryService.createQueryOfPage(this.page._id,
+          {title: appType +
+              '-' + now.getFullYear() +
+              ':' + now.getDate() +
+              ':' + now.getHours() +
+              ':' + now.getMinutes() +
+              ':' + now.getSeconds() })
           .subscribe(data => {
             if (data.status === 201) {
               const query = data.body.query;
@@ -670,7 +680,11 @@ export class PageComponent implements OnInit, AfterViewChecked {
                     const serverURL = environment.node + '/api/myOwnJson/getJson/' + String((myOwnJson as any).result._id);
                     query.serverUrl = serverURL;
                     query.method = 'JSON';
-                    query.description = Date.now();
+                    query.description = now.getFullYear() +
+                      ':' + now.getDate() +
+                      ':' + now.getHours() +
+                      ':' + now.getMinutes() +
+                      ':' + now.getSeconds();
                     this.queryService.updateQueryOfPage(this.page._id, query._id, query)
                       .subscribe((data3) => {
                         if (data3.status === 200) {
@@ -703,10 +717,13 @@ export class PageComponent implements OnInit, AfterViewChecked {
                           this.reloadVariables = true;
                         }, error => console.log(error)
                       );
-                  }, error => console.log(error)
+                  }, error => {
+                  console.log(error);
+                }
                 );
             }
           }, error1 => {
+            this.spinner.hide();
             console.log( error1 );
           });
       }

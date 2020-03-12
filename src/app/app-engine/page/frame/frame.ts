@@ -234,6 +234,8 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
           this.width = document.getElementById('app').offsetWidth;
         }
       });
+    this.curZIndex += 1;
+    localStorage.setItem( 'curZIndex', this.curZIndex + 1 );
   }
 
   appear() {

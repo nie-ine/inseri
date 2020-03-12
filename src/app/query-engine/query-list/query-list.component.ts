@@ -51,7 +51,7 @@ export class QueryListComponent implements OnInit {
 
   updateQueryList() {
     this.queryService.getAllQueriesOfUser(localStorage.getItem('userId')).subscribe(data => {
-      this.queries = new MatTableDataSource(data.queries);
+      this.queries = new MatTableDataSource( data.queries.slice().reverse() );
     });
   }
 
