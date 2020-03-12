@@ -4,6 +4,8 @@ const UserGroup=require('../models/userGroups');
 const checkAuth = require('../middleware/check-auth');
 const checkAuth2 = require('../middleware/check-auth-without-immediate-response');
 //const generatedHash = require('../middleware/hash-generator');
+const Page = require('../models/page');
+const PageSet = require('../models/page-set');
 const router = express.Router();
 
 router.post('',checkAuth, (req, res, next) => {
@@ -20,7 +22,9 @@ router.post('',checkAuth, (req, res, next) => {
         title: req.body.title,
         description: req.body.description,
         users:[req.userData.email],
-        owner:req.userData.userId
+        owner:req.userData.userId,
+        hasPages:[],
+        hasPageSets:[]
       });
       newGroup.save()
         .then (resultQuery => {
@@ -65,7 +69,6 @@ router.get('', checkAuth, (req, res, next) => {
 });
 
 router.get('/:title/listGroupMembers',checkAuth, (req, res, next) => {
-
   UserGroup.find({
       owner: req.userData.userId,
       title: req.params.title
@@ -128,7 +131,6 @@ router.post('/addMember', (req, res, next) => {
 });
 
 router.post('/removeMember',checkAuth, (req, res, next) => {
-
   UserGroup.find({
       _id: req.body.groupId,
       users: {$in: req.body.memberToRemove}
@@ -162,7 +164,6 @@ router.post('/removeMember',checkAuth, (req, res, next) => {
 });
 
 router.post('/:groupToDelete',checkAuth, (req, res, next) => {
-
   UserGroup.deleteOne({
       owner: req.userData.userId,
       title: req.params.groupToDelete
@@ -249,15 +250,14 @@ router.post('/assignNewOwner/:groupId&:email',checkAuth, (req, res, next) => {
       });
     });
 });
-router.post('/updateUserGroup',checkAuth, (req, res, next) => {
-
-  UserGroup.updateOne(
-          {_id: req.body.groupId},
-          {$set: {title: req.body.title}, $set: {description: req.body.description}})
+router.post('/updateUserGroup/:title&:description',checkAuth, (req, res, next) => {
+  UserGroup.update(
+          {owner: req.userData.userId,_id: req.body.groupId},
+          {$set: {title: req.params.title, description: req.params.description}})
           .then(updateResult => {
             res.status(201).json({
-
-              message: 'User group updated' //+ result[0]._id,
+              message: 'User group updated', //+ result[0]._id,
+              result: updateResult
             });
           })
           .catch(error => {
@@ -267,5 +267,156 @@ router.post('/updateUserGroup',checkAuth, (req, res, next) => {
             });
           })
       });
+router.get('/showUserGroupDetails/:groupId',checkAuth, (req, res, next) => {
+  console.log(req.params.groupId);
+console.log(req.userData.userId);
+  UserGroup.findOne({$and: [{_id: req.params.groupId}, {owner: req.userData.userId}]}
+    )
+    .then(result => {
+      if(result.length===0) {
+        message: 'Group not found, or you are not the owner of the group.'
+      }
+      else {
+          message = 'Group is found'
+          res.status(200).json({
+            message: message,
+            result: result
+          });
+        }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'You are not the owner of the group',
+        error: error
+      });
+    })
+});
+//should we add the logic, if we found some shared pages that belongs to the pageSet to remove them as well as sharing the whole pageSet.
+router.post('/sharePageSet/:pageSetId&:groupId'/*,checkAuth*/, (req, res, next) => {
+  PageSet.find({_id:req.params.pageSetId})
+    .then((result) => {
+      let message;
+      if (result.length === 0) {
+        message = 'PageSet not found'
+      } else {
+        message = 'PageSet has been found'
+        console.log(message);
+        UserGroup.updateOne(
+          {_id: req.params.groupId},
+          {$addToSet: {hasPageSets: req.params.pageSetId}})//, $pull: {hasPages: result[0].hasPages}})
+          .then(updateResult => {
+            res.status(201).json({
+              message: 'User group updated',
+              result: updateResult//+ result[0]._id,
+            });
+          })
+          .catch(error => {
+            res.status(500).json({
+              message: 'Error while updating the group',
+              error: error
+            });
+          })
+      }
+    })
+      .catch(error => {
+        res.status(500).json({
+          message: 'Error while retrieving the PageSet',
+          error: error
+        });
+      });
+  })
+////Should we add a validation to check whether the user has a pageset that contains this specific page and then if not to be added otherwise not?
+router.post('/sharePage/:pageId&:groupId'/*,checkAuth*/, (req, res, next) => {
+ /*PageSet.find({hasPages: {$in: req.param.pageId}})
+   .then((pageSetResult) => {
+     //check the user group if it has the pageSet, if not, we can add the page safely
+     UserGroup.find({hasPageSets: {$in: pageSetResult}})
+       .then((userGroupHasPageSetContainsTheRequiredPage) => {
+         if (userGroupHasPageSetContainsTheRequiredPage.length === 0) {
+           /////add the below logic
+         } else {
+           message = 'Page cannot be added as the user group share the whole page set'
+         }
+       })
+       .catch(error => {
+         res.status(500).json({
+           message: 'Error while retrieving the userGroup',
+           error: error
+         })
+       })
+   }).catch(error =>{
+   res.status(500).json({
+     message: 'Error while retrieving the PageSet',
+     error: error
+   });
+ });*/
+
+  Page.find({_id:req.params.pageId})
+    .then((result) => {
+      let message;
+      if (result.length === 0) {
+        message = 'Page not found'
+      } else {
+        message = 'Page has been found'
+        console.log(message);
+        UserGroup.updateOne(
+          {_id: req.params.groupId},
+          {$addToSet: {hasPages: req.params.pageId}})
+          .then(updateResult => {
+            res.status(201).json({
+              message: 'User group updated' ,//+ result[0]._id,
+              result: updateResult
+            });
+          })
+          .catch(error => {
+            res.status(500).json({
+              message: 'Error while updating the group',
+              error: error
+            });
+          })
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Error while retrieving the Page',
+        error: error
+      });
+    });
+})
+
+
+router.get('/showPageSets/:groupId'/*,checkAuth*/, (req, res, next) => {
+  UserGroup.find(
+    {_id: req.params.groupId}, {_id:0, hasPageSets:1})
+    .then(updateResult => {
+      res.status(201).json({
+        message: 'PageSets retrieved',
+        PageSets: updateResult[0]//+ result[0]._id,
+      });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Error while retrieving the pageSets',
+        error: error
+      });
+    })
+})
+
+router.get('/showPages/:groupId'/*,checkAuth*/, (req, res, next) => {
+  UserGroup.find(
+    {_id: req.params.groupId}, {_id:0, hasPages:1})
+    .then(updateResult => {
+      res.status(201).json({
+        message: 'Pages retrieved',
+        Pages: updateResult[0]//+ result[0]._id,
+      });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Error while retrieving the pages',
+        error: error
+      });
+    })
+})
 module.exports = router;
 

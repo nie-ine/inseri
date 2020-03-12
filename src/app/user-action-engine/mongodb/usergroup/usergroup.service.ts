@@ -59,4 +59,15 @@ export class UsergroupService {
       `${UsergroupService.API_BASE_URL_USERGROUP + '/assignNewOwner/' + group._id + '&' + email}`,
       {title: group.title}, {observe: 'response'});
   }
+
+  updateUserGroupDetails(groupId: string, title: string, description: string) {
+    return this.http.post(
+      `${UsergroupService.API_BASE_URL_USERGROUP + '/updateUserGroup/' + title + '&' + description}`,
+      {groupId: groupId}, {observe: 'response'});
+  }
+  showUserGroupDetails(groupId: string) {
+    return this.http.get(`${UsergroupService.API_BASE_URL_USERGROUP + '/showUserGroupDetails/' + groupId}`,
+      {observe: 'response'}
+      );
+  }
 }

@@ -17,6 +17,22 @@ export class OurNewComponentComponent implements OnInit {
   description: string;
   newGroupMemberEmail: string;
   member: string;
+  pageId: string;
+  subPageId: string;
+  subPages: Array<any>;
+  pages: Array<any>;
+  pageSets: Array<any>;
+  pageSetId: string;
+  userGroupParams: false;
+  subPageParams: false;
+  sharePageSetParams: true;
+  sharePageParams: true;
+  groupId: string;
+  folder: string;
+  mainFolder_id: string;
+  foldersArray: Array<string>;
+
+
   ngOnInit() {
     this.ourFirstVariable = 'Hello, this is our first classwide variable';
     this.secondVariable = this.ourFirstVariable + ' and sth added to the first string';
@@ -135,20 +151,241 @@ export class OurNewComponentComponent implements OnInit {
       }
     );
   }
-  updateUserGroupDetails(groupId: string, title: string, description:string) {
-    this.http.post('http://localhost:3000/api/userGroups/updateUserGroup',
+  updateUserGroupDetails(groupId: string, title: string, description: string) {
+    /*alert(title);
+    alert(description);
+    console.log(groupId, title, description);*/
+    this.http.post('http://localhost:3000/api/userGroups/updateUserGroup/' + title + '&' + description,
       {
-        groupId: groupId,
+        groupId: groupId/*,
         title: title,
-        description: description
+        description: description*/
       }, )
       .subscribe(
         response => {
-          console.log( response );
+          console.log( (response as any).result);
         }, error => {
           console.log( error );
         }
       );
   }
+  showUserGroupDetails(groupId: string) {
+
+    this.http.get('http://localhost:3000/api/userGroups/showUserGroupDetails/' + groupId,
+       )
+      .subscribe(
+        response => {
+          console.log( response );
+          this.name = (response as any).result.title;
+          this.description = (response as any).result.description;
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+  createNewSubPage(pageId: string, title: string, description: string) {
+    this.http.post('http://localhost:3000/api/sub-page/New/' + pageId,
+      {
+        title: title,
+        description: description
+      }, )
+      .subscribe(
+        response => {
+          console.log( (response as any).result[0]);
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+  showSubPageDetails(subPage: string) {
+    this.http.get('http://localhost:3000/api/sub-page/' + subPage,
+    )
+      .subscribe(
+        response => {
+          console.log( response );
+          this.name = (response as any).subPage[0].title;
+          this.description = (response as any).subPage[0].description;
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+  showAllSubPages(pageId: string) {
+    this.http.get('http://localhost:3000/api/sub-page/sub-pages/' + pageId,
+    )
+      .subscribe(
+        response => {
+          console.log( (response as any).subPages); // an array of subPages details'
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+  deleteSubPage(subPageId: string, pageId: string) {
+    this.http.post('http://localhost:3000/api/sub-page/' + subPageId + '&' + pageId,
+      {subPageId: subPageId }
+      , )
+      .subscribe(
+        response => {
+          console.log( (response as any).result);
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+  updateSubPageDetails(subPageId: string) {
+    this.http.post('http://localhost:3000/api/sub-page/update/' + subPageId,
+      {subPageId: subPageId,
+      title: this.name,
+      description: this.description}
+      , )
+      .subscribe(
+        response => {
+          console.log( (response as any).result);
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+
+  sharePageSet(pageSetId: string, groupId: string) {
+    this.http.post('http://localhost:3000/api/userGroups/sharePageSet/' + pageSetId + '&' + groupId,
+      {pageSetId: pageSetId}
+      , )
+      .subscribe(
+        response => {
+          console.log( (response as any).result);
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+  sharePage(pageId: string, groupId: string) {
+    this.http.post('http://localhost:3000/api/userGroups/sharePage/' + pageId + '&' + groupId,
+      {pageId: pageId}
+      , )
+      .subscribe(
+        response => {
+          console.log( (response as any).result);
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+  showPageSets(groupId: string) {
+    this.http.get('http://localhost:3000/api/userGroups/showPageSets/' + groupId,
+    )
+      .subscribe(
+        response => {
+          console.log( (response as any).PageSets); // an array of subPages details'
+          this.pageSets = (response as any).PageSets.hasPageSets;
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+  showPages(groupId: string) {
+    this.http.get('http://localhost:3000/api/userGroups/showPages/' + groupId,
+    )
+      .subscribe(
+        response => {
+          console.log( (response as any).Pages); // an array of subPages details'
+          this.pages = (response as any).Pages.hasPages;
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+  createSubFolder(title: string, mainFolderId: string) {
+    alert(title + mainFolderId);
+    this.mainFolder_id = mainFolderId;
+    this.http.post('http://localhost:3000/api/folder/' + this.mainFolder_id,
+      {title: title}
+      , )
+      .subscribe(
+        response => {
+          console.log( (response as any).query);
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+
+  createNewFolder(title: string) {
+    alert(title );
+    this.http.post('http://localhost:3000/api/folder/' + '-1',
+      {title: title}
+      , )
+      .subscribe(
+        response => {
+          console.log( (response as any).query);
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+
+  showFolders (mainFolderId: string) {
+    this.http.get('http://localhost:3000/api/folder/' + mainFolderId,
+    )
+      .subscribe(
+        response => {
+          console.log( (response as any).folders); // an array of subPages details'
+          this.foldersArray = (response as any).folders;
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+  updateFolderTitle(folderId: string, title: string) {
+    alert(folderId + title);
+    this.http.post('http://localhost:3000/api/folder/update/title/' + folderId,
+      {title: title}
+      , )
+      .subscribe(
+        response => {
+          console.log( (response as any).updatedDocument);
+        }, error => {
+          console.log( error );
+        }
+      );
+}
+  addPageSetsToFolder(folderId: string, pageSetId: string) {
+    this.http.post('http://localhost:3000/api/folder/update/addPageSet/' + folderId + '&' + pageSetId,
+      {}
+      , )
+      .subscribe(
+        response => {
+          console.log( (response as any).updatedDocument);
+        }, error => {
+          console.log( error );
+        }
+      );
+}
+  deletePageSetsFromFolder(folderId: string, pageSetId: string){
+    this.http.post('http://localhost:3000/api/folder/update/removePageSet/' + folderId + '&' + pageSetId,
+      {}
+      , )
+      .subscribe(
+        response => {
+          console.log( (response as any).updatedDocument);
+        }, error => {
+          console.log( error );
+        }
+      );
+}
+  deleteFolder(folderId: string) {
+    this.http.post('http://localhost:3000/api/folder/delete/' + folderId ,
+      {}
+      , )
+      .subscribe(
+        response => {
+          console.log( (response as any).deletedGroup);
+        }, error => {
+          console.log( error );
+        }
+      );
+}
+
 }
 

@@ -1,41 +1,154 @@
-<input mat-input [(ngModel)]="name" xmlns="http://www.w3.org/1999/html">
-<input mat-input [(ngModel)]="description" >
+<div class="div">
+  <div class="row">
+    <div class="col-xs-12">
+      <label for="folder">Folder Name </label>
+      <input [(ngModel)]="folder" type="text" id="folder">
+      <button mat-button (click)="createNewFolder(folder)">
+        Create New Folder --> title
+      </button>
+      <button mat-button (click)="showFolders('-1')">
+        Show main folders
+      </button>
+    </div>
+  </div>
+</div>
 
-<button mat-button (click)="createNewUserGroup()">
-  Create new user group
+<div class="div">
+  <div class="row">
+    <div class="col-xs-12">
+      <label for="folder_id">Main Folder Id </label>
+      <input [(ngModel)]="mainFolder_id" type="text" id="folder_id">
+      <button mat-button (click)="createSubFolder(folder,mainFolder_id)">
+        Create New Subfolder --> title, main Folder id
+      </button>
+    </div>
+  </div>
+</div>
+<div class="div">
+  <div class="row">
+    <div class="col-xs-12">
+      <div *ngFor="let folderInstance of foldersArray">
+        <input mat-input [(ngModel)]="folderInstance.title" >
+        <!--label for={{folderInstance._id}}>{{folderInstance.title}} </label-->
+        <button mat-button (click)="showFolders(folderInstance._id)">
+          Show subfolders
+        </button>
+        <button mat-button (click)="updateFolderTitle(folderInstance._id, folderInstance.title)">
+          Update folder title
+        </button>
+        <button mat-button (click)="addPageSetsToFolder(folderInstance._id, pageSetId)">
+          Add a Pageset
+        </button>
+        <button mat-button (click)="deletePageSetsFromFolder(folderInstance._id, pageSetId)">
+          Delete a Pageset
+        </button>
+        <button mat-button (click)="deleteFolder(folderInstance._id)">
+          Delete Folder
+        </button>
+      </div>
+      </div>
+  </div>
+</div>
+<hr>
+<hr>
+
+<label>name</label>
+<input [disabled]="userGroupParams" mat-input [(ngModel)]="name" xmlns="http://www.w3.org/1999/html">
+<label>description</label>
+<input [disabled]="userGroupParams" mat-input [(ngModel)]="description" >
+<label>Page Set Id</label>
+<input [disabled]="sharePageSetParams" mat-input [(ngModel)]="pageSetId" >
+<label>Page Id</label>
+<input [disabled]="sharePageParams" mat-input [(ngModel)]="pageId" >
+<label>Sub Page Id</label>
+<input [disabled]="subPageParams" mat-input [(ngModel)]="subPageId" >
+<label>Group Id</label>
+<input [disabled]="subPageParams" mat-input [(ngModel)]="groupId" >
+<div *ngFor="let page of pages">
+  <textarea [placeholder]="page"></textarea>
+</div>
+<div *ngFor="let pageSet of pageSets">
+  <textarea [placeholder]="pageSet"></textarea>
+</div>
+
+
+<button [disabled]="sharePageSetParams" mat-button (click)="sharePage(pageId,groupId)">
+  Share Page -- pageId, groupId
+</button>
+<button [disabled]="sharePageSetParams" mat-button (click)="showPages(groupId)">
+  Show Pages -- groupId
+</button>
+<button [disabled]="sharePageParams" mat-button (click)="sharePageSet(pageSetId,groupId)">
+  Share Page Set -- pageSetId, groupId
+</button>
+<button [disabled]="sharePageParams" mat-button (click)="showPageSets(groupId )">
+  Show PageSets -- groupId
 </button>
 
 
 
 
 
-<button mat-button (click)="listUserGroups()">
-  List user groups
+
+
+<button [disabled]="subPageParams" mat-button (click)="createNewSubPage(pageId,name,description)">
+  Create new sub-page
+</button>
+<button [disabled]="subPageParams" mat-button (click)="showSubPageDetails(subPageId)">
+  Show current sub-pages
+</button>
+<button [disabled]="subPageParams" mat-button (click)="showAllSubPages(pageId)">
+  Show all sub-pages
+</button>
+<button [disabled]="subPageParams" mat-button (click)="deleteSubPage( subPageId , pageId )">
+  Delete sub-page
+</button>
+<button [disabled]="subPageParams" mat-button (click)="updateSubPageDetails(subPageId)">
+  Update sub-page details
 </button>
 
 <br>
+
+<div *ngFor="let subpage of subPages">
+
+  <br>
+
+<button [disabled]="userGroupParams" mat-button (click)="createNewUserGroup()">
+  Create new user group
+</button>
+
+<button [disabled]="userGroupParams" mat-button (click)="listUserGroups()">
+  List user groups
+</button>
+</div>
+<br>
 <div *ngFor="let group of userGroups">
 
-  <button mat-button (click)="updateUserGroupDetails(group._id, name, description)">
+  <button [disabled]="userGroupParams" mat-button (click)="showUserGroupDetails(group._id)">
+    Show user group Details
+  </button>
+
+  <button [disabled]="userGroupParams" mat-button (click)="updateUserGroupDetails(group._id, this.name, this.description)">
     Update user group
   </button>
+  <br>
 
   Enter Email of new user that you'd like to add to the group:
   <input mat-input [(ngModel)]="member" >
-  <button mat-button  (click)="assignUserToGroup( group, member )" >
+  <button [disabled]="userGroupParams" mat-button  (click)="assignUserToGroup( group, member )" >
    <!-- {{ group.title }}-->
     Add
   </button>
-  <button mat-button  (click)="removeUserFromGroup( group,member)" >
+  <button [disabled]="userGroupParams" mat-button  (click)="removeUserFromGroup( group,member)" >
     <!-- {{ group.title }}-->
     Remove
   </button>
-  <button mat-button  (click)="removeMeFromGroup( group)" >
+  <button [disabled]="userGroupParams" mat-button  (click)="removeMeFromGroup( group)" >
     <!-- {{ group.title }}-->
     Remove me
   </button>
 
-  <button mat-button  (click)="assignNewOwner( group, member)" >
+  <button [disabled]="userGroupParams" mat-button  (click)="assignNewOwner( group, member)" >
     <!-- {{ group.title }}-->
     Assign new owner to group
   </button>
@@ -43,10 +156,11 @@
   <br>
 
   <input mat-input [(ngModel)]="group.title" >
-  <button mat-button  (click)="listGroupMembers( group )" >
+
+  <button [disabled]="userGroupParams" mat-button  (click)="listGroupMembers( group )" >
      List Group Members
   </button>
-  <button mat-button (click)="removeGroup( group.title )">
+  <button [disabled]="userGroupParams" mat-button (click)="removeGroup( group.title )">
     Remove group
   </button>
 
