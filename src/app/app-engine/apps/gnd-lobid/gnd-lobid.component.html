@@ -1,0 +1,54 @@
+<h5>GND information {{  queryResponse?.preferredName }}</h5>
+
+<mat-tree *ngIf="queryResponse" [dataSource]="dataSource" [treeControl]="treeControl" style="margin-top: 30px">
+
+
+  <mat-tree-node
+    *matTreeNodeDef="let node;"
+    matTreeNodeToggle
+    matTreeNodePadding>
+
+    <button mat-icon-button disabled></button>
+
+    {{node.filename}} : {{node.type}}
+
+    <div *ngIf="node.filename === 'hash'">
+      <mat-chip-list *ngFor="let input of chosenInputs; let i = index;" style="margin-left: 2px; display: inline-block;">
+        <mat-chip (click)="chooseChip( node.type, input )" *ngIf="!mapping[ input ] || (mapping[ input ].hash != node.type)">
+          {{input}}
+        </mat-chip>
+        <mat-chip
+          [color]="'primary'" selected
+          *ngIf="mapping[ input ] && mapping[ input ].hash === node.type">
+          {{input}}
+        </mat-chip>
+        <mat-form-field *ngIf="mapping[ input ] && mapping[ input ].hash === node.type" >
+          <input matInput placeholder="If array optional index:"  [(ngModel)]="index" (keyup)="addIndexToMappin( index, input )" >
+        </mat-form-field>
+      </mat-chip-list>
+    </div>
+
+  </mat-tree-node>
+
+  <mat-tree-node
+    *matTreeNodeDef=" let node; when: hasChild"
+    matTreeNodePadding>
+
+    <button
+      mat-icon-button
+      matTreeNodeToggle
+      [attr.aria-label]="'toggle ' + node.filename">
+
+      <mat-icon
+        class="mat-icon-rtl-mirror">
+        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+      </mat-icon>
+
+    </button>
+
+    {{node.filename}} : {{node.type}}
+
+  </mat-tree-node>
+
+
+</mat-tree>

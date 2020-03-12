@@ -118,7 +118,7 @@ export class DataManagementComponent implements OnInit {
     this.appInputQueryMapping = this.page.appInputQueryMapping;
     this.queryService.getAllQueriesOfPage(this.page._id)
       .subscribe((data) => {
-        this.queries = data.queries;
+        this.queries = data.queries.slice().reverse();
         for ( const app in this.appInputQueryMapping ) {
           for ( const input in this.appInputQueryMapping[app] ) {
             for ( const query of this.queries ) {

@@ -51,9 +51,20 @@
             matTooltip="{{ page.description }}"
             mat-button
             (click)="selectPage( i, page )">{{ page.title }}</button>
+          <mat-divider></mat-divider>
           <button
             *ngIf=" (!pageAsDemo) && !preview && loggedIn" mat-button
-            (click)="addNewPage()" matTooltip="'add new page tho this pageSet'"><mat-icon>add</mat-icon></button>
+            (click)="addNewPage()">
+            Add new page
+          </button> <br>
+          <button
+            *ngIf=" (!pageAsDemo) && !preview && loggedIn" mat-button (click)="addDuplicatedPage()">
+            Add duplicate from an existing page
+          </button> <br>
+          <button
+            *ngIf=" (!pageAsDemo) && !preview && loggedIn" mat-button>
+            Link existing page
+          </button>
         </mat-menu>
         <button [disabled]="selectedPage === pagesOfThisActtion.length - 1"
                 *ngIf="pagesOfThisActtion"
@@ -388,7 +399,7 @@
   }
 </style>
 
-<div style=" position: fixed; top: 50%; left: 50%; margin-top: -100px; margin-left: -100px; z-index: -10000" class="text-center">
+<div style=" position: fixed; top: 50%; left: 50%; margin-top: -100px; margin-left: -100px; z-index: -10000" class="text-center" *ngIf="!loggedIn">
   <h1  style="text-transform: none!important; font-size: 45px" >
     <span class=" i i:before " >i</span>nser<span class=" i i:before ">i</span>
   </h1>

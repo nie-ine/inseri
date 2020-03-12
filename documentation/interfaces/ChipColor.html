@@ -163,7 +163,6 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {Component, OnInit, OnDestroy, Inject, AfterViewChecked, ChangeDetectorRef} from &#x27;@angular/core&#x27;;
 import {Router, ActivatedRoute} from &#x27;@angular/router&#x27;;
-import {AuthenticationService} from &#x27;../../query-engine/fake-backend/auth/authentication.service&#x27;;
 import {AuthService} from &#x27;../mongodb/auth/auth.service&#x27;;
 import {Subscription} from &#x27;rxjs&#x27;;
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from &#x27;@angular/material&#x27;;
@@ -216,11 +215,10 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   constructor(
     private initService: InitService,
-    private router: Router,
+    public router: Router,
     private dialog: MatDialog,
     private dialog2: MatDialog,
     private activatedRoute: ActivatedRoute,
-    private authenticationService: AuthenticationService,
     private authService: AuthService,
     public cdr: ChangeDetectorRef,
     public snackBar: MatSnackBar,
@@ -336,7 +334,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   generateLeftHeaderString(): string {
     return (
-      this.routeMapping( &#x27;dashboard&#x27;, &#x27;Inseri - Dashboard&#x27; ) ||
+      this.routeMapping( &#x27;dashboard&#x27;, &#x27;inseri - Dashboard&#x27; ) ||
       this.routeMapping( &#x27;home&#x27;, &#x27;Inseri&#x27; ) ||
       this.routeMapping( &#x27;page&#x27;, &#x27;Inseri - Page&#x27; ) ||
       this.routeMapping( &#x27;&#x27;, &#x27;Inseri&#x27; )

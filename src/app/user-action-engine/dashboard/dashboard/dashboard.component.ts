@@ -11,6 +11,8 @@ import { QueryListComponent } from '../../../query-engine/query-list/query-list.
 import {PageService} from '../../mongodb/page/page.service';
 import {Observable} from 'rxjs';
 import {AuthService} from '../../mongodb/auth/auth.service';
+import { UsergroupService } from '../../mongodb/usergroup/usergroup.service';
+import {PageListDialogComponent} from '../../../app-engine/page/page-list-dialog/page-list-dialog.component';
 
 
 @Component({
@@ -26,11 +28,18 @@ export class DashboardComponent implements OnInit {
   message: string;
   successfullySendMessage = false;
   showArchivedDocuments = false;
+  showUserGroups = false;
+  userGroups: Array<any> = [];
+  selected = 'option1';
+  usergroup: any = {};
+  groupMembers: Array<any> = [];
+  email: string;
 
   /**
    * Describes if user is logged in
    * */
   loggedIn = true;
+
 
   constructor(
     public dialog: MatDialog,
@@ -38,7 +47,8 @@ export class DashboardComponent implements OnInit {
     private actionService: ActionService,
     private contactService: ContactService,
     private pageService: PageService,
-    private authService: AuthService
+    private authService: AuthService,
+    private usergroupService: UsergroupService
   ) {
 
     router.events.subscribe(s => {
@@ -63,10 +73,22 @@ export class DashboardComponent implements OnInit {
     if ( !this.authService.getIsAuth() ) {
       this.loggedIn = false;
     }
+    this.getUserGroups();
+  }
+
+  getUserGroups() {
+    console.log( 'get user groups' );
+    this.usergroupService.getAllUserGroups()
+      .subscribe(
+        usergroupresponse => {
+          console.log( usergroupresponse );
+          this.userGroups = ( usergroupresponse as any).body.groups;
+        },
+        error => console.log( error )
+      );
   }
 
   private updateActions() {
-    console.log('Next: iterate through existing actions');
     this.actionService.getAllActionsOfUser(this.userID)
       .pipe(
         map((response) => {
@@ -104,10 +126,13 @@ export class DashboardComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
       width: '700px',
-      data: {}
+      data: {
+        showUserGroups: this.showUserGroups
+      }
     });
     dialogRef.afterClosed().subscribe((result) => {
       this.updateActions();
+      this.getUserGroups();
       if (result) {
         console.log( result );
         const newPage: any = {};
@@ -205,6 +230,66 @@ export class DashboardComponent implements OnInit {
       });
   }
 
+  openQueryList() {
+    const dialogRef = this.dialog.open(QueryListComponent, {
+      width: '100%',
+      height: '100%',
+      data: {
+        enableAdd: false
+      }
+    });
+  }
+
+  assignUserToGroup() {
+    this.usergroupService.assignUserToGroup(
+      this.usergroup, this.email)
+      .subscribe(
+        response => {
+          console.log(response);
+        },
+        error => {
+          console.log( error );
+        }
+      );
+  }
+  removeUserFromGroup() {
+    this.usergroupService.removeUserFromGroup(
+      this.usergroup, this.email)
+      .subscribe(
+        response => {
+          console.log(response);
+        },
+        error => {
+          console.log( error );
+        }
+      );
+  }
+  showGroupMembers( title: string ) {
+    console.log( 'show group members' );
+    this.usergroupService.showGroupMembers( title )
+      .subscribe(
+        groupMembers => {
+          console.log( groupMembers );
+          this.groupMembers = ( groupMembers as any).body.result.users;
+        },
+        error => {
+          console.log( error );
+        });
+  }
+
+  openAllPagesDialog() {
+    const dialogRef = this.dialog.open(PageListDialogComponent, {
+      width: '100%',
+      height: '80%',
+      data: {
+        showDuplicateButton: false
+      }
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log( result );
+    });
+  }
+
 }
 
 @Component({
@@ -226,26 +311,18 @@ export class DialogOverviewExampleDialog {
   loading = false;
   chooseNewAction: string;
   pageSet: [string, string];
+  usergroup: any = {};
 
   constructor(public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               public dialog: MatDialog,
               private router: Router,
-              private actionService: ActionService ) {
+              private actionService: ActionService,
+              private usergroupService: UsergroupService) {
   }
 
   close() {
     this.dialogRef.close(this.pageSet);
-  }
-
-  openQueryList() {
-    const dialogRef = this.dialog.open(QueryListComponent, {
-      width: '100%',
-      height: '100%',
-      data: {
-        enableAdd: false
-      }
-    });
   }
 
   register() {
@@ -258,5 +335,32 @@ export class DialogOverviewExampleDialog {
         }
         this.dialogRef.close(this.pageSet);
       });
+  }
+
+  createUserGroup() {
+    console.log( this.usergroup.title, this.usergroup.description );
+    this.usergroupService.createGroup(
+      this.usergroup.title,
+      this.usergroup.description )
+      .subscribe(
+        data => {
+          console.log( data );
+          this.dialogRef.close(data);
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+  deleteUserGroup(title: string) {
+    console.log( 'show group members' );
+    this.usergroupService.deleteGroup( title )
+      .subscribe(
+        response => {
+          console.log(response);
+        },
+        error => {
+          console.log( error );
+        }
+      );
   }
 }

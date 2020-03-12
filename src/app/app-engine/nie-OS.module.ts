@@ -86,6 +86,9 @@ import { AllAppSelectorsComponent } from './page/all-app-selectors/all-app-selec
 import { BrowserlingComponent } from './apps/browserling/browserling.component';
 import { KeyValueComponent } from './apps/key-value/key-value.component';
 import { CanvasWhiteboardComponent } from './apps/canvas-whiteboard/canvas-whiteboard.component';
+import { OurNewComponentComponent } from './apps/our-new-component/our-new-component.component';
+import {FileDatabaseForAppGND, FileFlatNodeGnd, GndLobidComponent} from './apps/gnd-lobid/gnd-lobid.component';
+import { PageListDialogComponent } from './page/page-list-dialog/page-list-dialog.component';
 
 @NgModule({
   imports: [
@@ -141,7 +144,9 @@ import { CanvasWhiteboardComponent } from './apps/canvas-whiteboard/canvas-white
     RouterModule.forChild([
       { path: 'page', component: PageComponent },
       { path: 'browserling', component: BrowserlingComponent },
-      { path: 'canvas', component: CanvasWhiteboardComponent }
+      { path: 'canvas', component: CanvasWhiteboardComponent },
+      { path: 'app-our-new-component', component: OurNewComponentComponent },
+      { path: 'gnd', component: GndLobidComponent }
     ])
   ],
   providers: [
@@ -150,7 +155,8 @@ import { CanvasWhiteboardComponent } from './apps/canvas-whiteboard/canvas-white
     AbstractJsonService,
     FileDatabase,
     FileDatabaseForApp,
-    CanvasWhiteboardComponent
+    CanvasWhiteboardComponent,
+    FileDatabaseForAppGND
   ],
   declarations: [
     PageComponent,
@@ -190,7 +196,10 @@ import { CanvasWhiteboardComponent } from './apps/canvas-whiteboard/canvas-white
     AllAppSelectorsComponent,
     BrowserlingComponent,
     KeyValueComponent,
-    CanvasWhiteboardComponent
+    CanvasWhiteboardComponent,
+    OurNewComponentComponent,
+    GndLobidComponent,
+    PageListDialogComponent
   ],
   exports: [
     PageComponent,
@@ -210,7 +219,8 @@ import { CanvasWhiteboardComponent } from './apps/canvas-whiteboard/canvas-white
     DataChooserComponent,
     AppInputComponentComponent,
     FileListDialogComponent,
-    AddAppGroupDialogComponent
+    AddAppGroupDialogComponent,
+    PageListDialogComponent
   ]
 })
 export class NIEOSModule { }

@@ -249,19 +249,21 @@ export class TextRichInnerhtmlComponent implements OnInit, OnChanges, AfterViewI
     if (this.selectedEnvironmentKeys &amp;&amp; this.selectableEnvironments) {
       for (const s of this.selectedEnvironmentKeys ) {
         const z &#x3D; this.selectableEnvironments[s];
-        for (const b of z) {
-          if (b[ &#x27;type&#x27; ] &#x3D;&#x3D;&#x3D; &#x27;tag&#x27;) {
-            const elements &#x3D; this.elementRef.nativeElement.getElementsByTagName(b[ &#x27;name&#x27; ]);
-            for (const e of elements) {
-              for (const [key, value] of Object.entries((b[&#x27;styles&#x27;]))) {
-                this.renderer.setStyle(e, key, value);
+        if ( z ) {
+          for (const b of z) {
+            if (b[ &#x27;type&#x27; ] &#x3D;&#x3D;&#x3D; &#x27;tag&#x27;) {
+              const elements &#x3D; this.elementRef.nativeElement.getElementsByTagName(b[ &#x27;name&#x27; ]);
+              for (const e of elements) {
+                for (const [key, value] of Object.entries((b[&#x27;styles&#x27;]))) {
+                  this.renderer.setStyle(e, key, value);
+                }
               }
-            }
-          } else if (b[ &#x27;type&#x27; ] &#x3D;&#x3D;&#x3D; &#x27;class&#x27;) {
-            const elements &#x3D; this.elementRef.nativeElement.getElementsByClassName(b[ &#x27;name&#x27; ]);
-            for (const e of elements) {
-              for (const [key, value] of Object.entries((b[&#x27;styles&#x27;]))) {
-                this.renderer.setStyle(e, key, value);
+            } else if (b[ &#x27;type&#x27; ] &#x3D;&#x3D;&#x3D; &#x27;class&#x27;) {
+              const elements &#x3D; this.elementRef.nativeElement.getElementsByClassName(b[ &#x27;name&#x27; ]);
+              for (const e of elements) {
+                for (const [key, value] of Object.entries((b[&#x27;styles&#x27;]))) {
+                  this.renderer.setStyle(e, key, value);
+                }
               }
             }
           }

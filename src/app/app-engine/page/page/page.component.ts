@@ -32,6 +32,7 @@ import {AppInputComponentComponent} from '../app-input-component/app-input-compo
 import {AddAppGroupDialogComponent} from '../add-app-group-dialog/add-app-group-dialog.component';
 import {DataAssignmentComponent} from '../../../query-app-interface/data-management/data-assignment/data-assignment.component';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {PageListDialogComponent} from '../page-list-dialog/page-list-dialog.component';
 
 @Component({
   selector: 'nie-os',
@@ -286,6 +287,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
       this.actionID = params.actionID;
       this.generateNavigation(params.actionID);
     });
+    // route
     if ( this.route.snapshot.queryParams.page ) {
       this.dataSource = new MatTableDataSource(
         new AppMenuModel().appMenu
@@ -355,10 +357,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
     if ( this.pageIDFromURL !==  this.route.snapshot.queryParams.page ) {
       this.pageIDFromURL = this.route.snapshot.queryParams.page;
       this.reloadVariables = true;
-      // this.spinner.show();
-      // setTimeout(() => {
-      //   this.spinner.hide();
-      // }, 1000); // TODO: bind end of spinner to event that all queries have been loaded instead of setTimeout!
     }
     this.cdr.detectChanges();
   }
@@ -595,6 +593,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
         },
         error => {
           console.log(error);
+          this.spinner.hide();
           this.snackBar.open( 'Sth went wrong, page has not been saved' );
         });
   }
@@ -623,6 +622,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
       appModel[ length ].y = 100;
       appModel[ length ].initialHeight = this.openAppsInThisPage[ appType ].initialHeight;
       appModel[ length ].initialWidth = this.openAppsInThisPage[ appType ].initialWidth;
+      appModel[ length ].width = this.openAppsInThisPage[ appType ].initialWidth;
+      appModel[ length ].height = this.openAppsInThisPage[ appType ].initialHeight;
       appModel[ length ].openAppArrayIndex = length;
       appModel[ length ].showContent = true;
       if ( !this.page.openApps ) {
@@ -657,56 +658,75 @@ export class PageComponent implements OnInit, AfterViewChecked {
     appType: string,
     app: any
   ) {
-    for ( const input of this.openAppsInThisPage[ app.type ].inputs ) {
-    this.queryService.createQueryOfPage(this.page._id, {title: appType + '-' + app.hash })
-      .subscribe(data => {
-        if (data.status === 201) {
-          const query = data.body.query;
-          this.requestService.createJson()
-            .subscribe(myOwnJson => {
-                const jsonId = (myOwnJson as any).result._id;
-                const serverURL = environment.node + '/api/myOwnJson/getJson/' + String((myOwnJson as any).result._id);
-                query.serverUrl = serverURL;
-                query.method = 'JSON';
-                query.description = Date.now();
-                this.queryService.updateQueryOfPage(this.page._id, query._id, query)
-                  .subscribe((data3) => {
-                    if (data3.status === 200) {
-                    } else {
-                      console.log('Updating query failed');
+    if ( this.openAppsInThisPage[ app.type ].inputs ) {
+      if ( this.loggedIn ) {
+        this.spinner.show();
+      }
+      for ( const input of this.openAppsInThisPage[ app.type ].inputs ) {
+        const now = new Date();
+        this.queryService.createQueryOfPage(this.page._id,
+          {title: appType +
+              '-' + now.getFullYear() +
+              ':' + now.getDate() +
+              ':' + now.getHours() +
+              ':' + now.getMinutes() +
+              ':' + now.getSeconds() })
+          .subscribe(data => {
+            if (data.status === 201) {
+              const query = data.body.query;
+              this.requestService.createJson()
+                .subscribe(myOwnJson => {
+                    const jsonId = (myOwnJson as any).result._id;
+                    const serverURL = environment.node + '/api/myOwnJson/getJson/' + String((myOwnJson as any).result._id);
+                    query.serverUrl = serverURL;
+                    query.method = 'JSON';
+                    query.description = now.getFullYear() +
+                      ':' + now.getDate() +
+                      ':' + now.getHours() +
+                      ':' + now.getMinutes() +
+                      ':' + now.getSeconds();
+                    this.queryService.updateQueryOfPage(this.page._id, query._id, query)
+                      .subscribe((data3) => {
+                        if (data3.status === 200) {
+                        } else {
+                          console.log('Updating query failed');
+                        }
+                      }, error1 => console.log(error1));
+                    if ( this.page.appInputQueryMapping[ app.hash ] === undefined ) {
+                      this.page.appInputQueryMapping[ app.hash ] = {};
                     }
-                  }, error1 => console.log(error1));
-                if ( this.page.appInputQueryMapping[ app.hash ] === undefined ) {
-                  this.page.appInputQueryMapping[ app.hash ] = {};
+                    this.page.appInputQueryMapping[ app.hash ][ input.inputName ] = {};
+                    this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'path' ] = [ 'result', 'content', 'info' ];
+                    this.page.appInputQueryMapping[ app.hash ][ input.inputName ].query = query._id;
+                    this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'serverUrl' ] = query.serverUrl;
+                    this.page.appInputQueryMapping[ app.hash ].app = app.hash;
+                    this.updatePage();
+                    this.requestService.updateJson(
+                      jsonId,
+                      {
+                        _id: '5e26f93905dee90e3dcea8ea',
+                        creator: '5bf6823c9ec116a6fee7431d',
+                        content: {
+                          info: input.default
+                        },
+                        __v: 0
+                      }
+                    )
+                      .subscribe(updatedJson => {
+                          console.log(updatedJson);
+                          this.reloadVariables = true;
+                        }, error => console.log(error)
+                      );
+                  }, error => {
+                  console.log(error);
                 }
-                this.page.appInputQueryMapping[ app.hash ][ input.inputName ] = {};
-                this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'path' ] = [ 'result', 'content', 'info' ];
-                this.page.appInputQueryMapping[ app.hash ][ input.inputName ].query = query._id;
-                this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'serverUrl' ] = query.serverUrl;
-                this.page.appInputQueryMapping[ app.hash ].app = app.hash;
-                this.updatePage();
-                this.requestService.updateJson(
-                  jsonId,
-                  {
-                    _id: '5e26f93905dee90e3dcea8ea',
-                    creator: '5bf6823c9ec116a6fee7431d',
-                    content: {
-                      info: input.default
-                    },
-                    __v: 0
-                  }
-                )
-                  .subscribe(updatedJson => {
-                      console.log(updatedJson);
-                      this.reloadVariables = true;
-                    }, error => console.log(error)
-                  );
-              }, error => console.log(error)
-            );
-        }
-      }, error1 => {
-        console.log( error1 );
-      });
+                );
+            }
+          }, error1 => {
+            this.spinner.hide();
+            console.log( error1 );
+          });
+      }
     }
   }
 
@@ -778,7 +798,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   generateOpenApps( openApps: any ) {
     this.openAppArray = [];
-    console.log( this.page );
     for ( const appType in openApps ) {
       for ( const app of openApps[ appType ].model ) {
         // console.log( app );
@@ -795,6 +814,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
         this.openAppArray[ j ] = switchHelp;
       }
       j++;
+      if ( j === this.openAppArray.length ) {
+        this.spinner.hide();
+      }
     }
   }
 
@@ -1100,6 +1122,20 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   minimizeApp( openAppArrayIndex: number ) {
     this.openAppArray[ openAppArrayIndex ].minimized = true;
+  }
+
+  addDuplicatedPage() {
+    const dialogRef = this.dialog.open(PageListDialogComponent, {
+      width: '100%',
+      height: '40%',
+      data: {
+        showDuplicateButton: true
+      }
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log( 'Duplicate the following page and add it to this collage' );
+      console.log( result );
+    });
   }
 
 }

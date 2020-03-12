@@ -12,7 +12,8 @@ const pageSchema = mongoose.Schema({
     showInseriLogoOnPublish: { type: Boolean },
     showDataBrowserOnPublish: { type: Boolean },
     tiles: { type: Boolean },
-    chosenWidth: { type: Number }
+    chosenWidth: { type: Number },
+    hasSubPages: [{ type: mongoose.Schema.Types.ObjectId, ref: 'SubPage'  }]
 });
 
 module.exports = mongoose.model('Page', pageSchema);

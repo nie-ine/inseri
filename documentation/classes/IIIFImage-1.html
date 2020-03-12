@@ -671,7 +671,8 @@ export class ImageWithOverlayComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * ID of the region, the mouse is over.
    */
-  @Output() hoveredRegion &#x3D; new EventEmitter();
+  @Output() hoveredRegionChange &#x3D; new EventEmitter&lt;string&gt;();
+  @Input() hoveredRegion: string;
 
   /**
    * Length of longer side of the viewer in pixels.
@@ -696,20 +697,34 @@ export class ImageWithOverlayComponent implements OnInit, OnChanges, OnDestroy {
    * @param changes  changes by Angular change detection
    */
   ngOnChanges(changes: { [key: string]: SimpleChange }) {
-    if (changes[&#x27;iiifImagePath&#x27;] &amp;&amp; changes[&#x27;iiifImagePath&#x27;].isFirstChange()) {
-      this.setupViewer();
+    console.log( &#x27;Changes image with overlay&#x27;, this.iiifImagePath, this.maxImageHeight, this.maxImageWidth );
+    if (this.maxImageHeight &#x3D;&#x3D;&#x3D; undefined &amp;&amp; this.maxImageWidth &#x3D;&#x3D;&#x3D; undefined &amp;&amp; this.iiifImagePath &#x3D;&#x3D;&#x3D; undefined) {
+      // default image for demonstration purpose
+      // this.iiifImagePath &#x3D; &#x27;https://www.e-manuscripta.ch/zuz/i3f/v20/1510618/full/full/50/default.jpg&#x27;;
+      // this.maxImageWidth &#x3D; 3062;
+      // this.maxImageHeight &#x3D; 4034;
+      // as regions are optional, no default can be given
     }
-    if (changes[&#x27;width&#x27;] || changes[&#x27;height&#x27;]) {
-      if (this.width &gt; this.height) {
-        this.maxSide &#x3D; this.width;
-      } else {
-        this.maxSide &#x3D; this.height;
+
+    if( this.maxImageHeight !&#x3D;&#x3D; undefined &amp;&amp; this.maxImageWidth !&#x3D;&#x3D; undefined &amp;&amp; this.iiifImagePath !&#x3D;&#x3D; undefined ) {
+      console.log( &#x27;set up viewer&#x27; );
+      // if (changes[&#x27;iiifImagePath&#x27;] &amp;&amp; changes[&#x27;iiifImagePath&#x27;].isFirstChange()) {
+        this.setupViewer();
+      // }
+      if (changes[&#x27;width&#x27;] || changes[&#x27;height&#x27;]) {
+        if (this.width &gt; this.height) {
+          this.maxSide &#x3D; this.width;
+        } else {
+          this.maxSide &#x3D; this.height;
+        }
       }
+      // if (changes[&#x27;iiifImagePath&#x27;]) {
+        this.openImage();
+        this.drawRegions();
+      // }
     }
-    if (changes[&#x27;iiifImagePath&#x27;]) {
-      this.openImage();
-      this.drawRegions();
-    }
+
+
   }
 
   /**
@@ -744,7 +759,7 @@ export class ImageWithOverlayComponent implements OnInit, OnChanges, OnDestroy {
         const id &#x3D; element.id;
 
         element.addEventListener(&#x27;mouseover&#x27;, (e) &#x3D;&gt; {
-          this.hoveredRegion.emit(id);
+          this.hoveredRegionChange.emit(id);
         });
         svgGroup.appendChild(element);
       }

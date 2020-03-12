@@ -342,7 +342,7 @@ export class AppMenuModel {
     },
     {
       id: 'book',
-      name: 'Kuno Raeber Online Eition',
+      name: 'Kuno Raeber Online Edition',
       tags: 'raeber',
       color: 'green',
       status: 'stable',
@@ -388,6 +388,16 @@ export class AppMenuModel {
       status: 'stable',
       appType: 'browserling',
       description: 'browserling',
+      showOnHome: false
+    },
+    {
+      id: 'book',
+      name: 'GND Subscriber',
+      tags: 'gnd url param subscriber',
+      color: 'green',
+      status: 'stable',
+      appType: 'gndSubscriber',
+      description: 'gnd',
       showOnHome: false
     }
   ];

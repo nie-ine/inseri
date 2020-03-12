@@ -1,6 +1,6 @@
-import {AfterViewChecked, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {AfterViewChecked, Component, HostListener, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-iframe',
@@ -9,19 +9,42 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class IframeComponent implements OnInit, AfterViewChecked {
   @Input() url: string;
+  @HostListener('window:message', ['$event'])
+  onMessage(e) {
+    console.log( e );
+    this.router.navigate( [], {
+      queryParams: {
+        'gnd': e.data.key
+      },
+      queryParamsHandling: 'merge'
+    } );
+  }
   sanitized = false;
   sanitizedUrl: SafeUrl;
   alreadySet = false;
 
   constructor(
     private sanitizer: DomSanitizer,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    private router: Router
   ) {
     this.sanitizedUrl = this.getSantizeUrl( this.url );
   }
 
   ngOnInit() {
-    console.log( this.url );
+
+    setTimeout(() => {
+      console.log( 'send message' );
+      const iframe = document.getElementById('iframe');
+      const iWindow = (<HTMLIFrameElement>iframe).contentWindow;
+
+      iWindow.postMessage({
+        'for': 'user',
+        'data': 'anything'
+      }, 'http://localhost:4201');
+    }, 2000);
+
+
   }
 
   ngAfterViewChecked(): void {

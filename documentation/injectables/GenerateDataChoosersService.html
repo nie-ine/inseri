@@ -86,6 +86,9 @@
                                 <a href="#depth">depth</a>
                             </li>
                             <li>
+                                <a href="#firstTimeQueryIsPushed">firstTimeQueryIsPushed</a>
+                            </li>
+                            <li>
                                 <a href="#path">path</a>
                             </li>
                             <li>
@@ -96,9 +99,6 @@
                             </li>
                             <li>
                                 <a href="#response">response</a>
-                            </li>
-                            <li>
-                                <a href="#y">y</a>
                             </li>
                         </ul>
                     </td>
@@ -120,6 +120,9 @@
                             </li>
                             <li>
                                 <a href="#generateDataChoosers">generateDataChoosers</a>
+                            </li>
+                            <li>
+                                <a href="#generateQueryButtonInDataChooser">generateQueryButtonInDataChooser</a>
                             </li>
                         </ul>
                     </td>
@@ -144,7 +147,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts:19</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts:25</a></div>
                             </td>
                         </tr>
 
@@ -257,7 +260,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts:63</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="81" class="link-to-prism">src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts:81</a></div>
                             </td>
                         </tr>
 
@@ -391,14 +394,14 @@
                 </tr>
                 <tr>
                     <td class="col-md-4">
-<code>generateArrayKeyValueForEachArrayInResponse(response: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, openAppsInThisPage: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, queryTitle: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, queryId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, depth: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+<code>generateArrayKeyValueForEachArrayInResponse(response: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, openAppsInThisPage: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, queryTitle: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, queryId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, pathWithArray: Array<string>)</code>
                     </td>
                 </tr>
 
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="134" class="link-to-prism">src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts:134</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="148" class="link-to-prism">src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts:148</a></div>
                             </td>
                         </tr>
 
@@ -466,9 +469,9 @@
 
                                                 </tr>
                                                 <tr>
-                                                        <td>depth</td>
+                                                        <td>pathWithArray</td>
                                                         <td>
-                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                                                    <code>Array&lt;string&gt;</code>
                                                         </td>
                                                     
                                                     <td>
@@ -515,7 +518,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts:28</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts:34</a></div>
                             </td>
                         </tr>
 
@@ -586,6 +589,99 @@
                 </tr>
             </tbody>
         </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="generateQueryButtonInDataChooser"></a>
+                        <span class="name">
+                            <b>
+                            generateQueryButtonInDataChooser
+                            </b>
+                            <a href="#generateQueryButtonInDataChooser"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>generateQueryButtonInDataChooser(queryId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, openAppsInThisPage: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, queryTitle: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="214" class="link-to-prism">src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts:214</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>queryId</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>openAppsInThisPage</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>queryTitle</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 </section>
 
             <section>
@@ -620,7 +716,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts:17</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts:22</a></div>
                             </td>
                         </tr>
 
@@ -659,7 +755,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts:13</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts:19</a></div>
                             </td>
                         </tr>
 
@@ -698,7 +794,40 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts:16</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts:21</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="firstTimeQueryIsPushed"></a>
+                        <span class="name">
+                            <b>
+                            firstTimeQueryIsPushed
+                            </b>
+                            <a href="#firstTimeQueryIsPushed"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>firstTimeQueryIsPushed:     <code></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new Set()</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts:25</a></div>
                             </td>
                         </tr>
 
@@ -732,7 +861,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts:18</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts:23</a></div>
                             </td>
                         </tr>
 
@@ -765,7 +894,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts:15</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts:20</a></div>
                             </td>
                         </tr>
 
@@ -799,7 +928,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts:19</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts:24</a></div>
                             </td>
                         </tr>
 
@@ -833,40 +962,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts:12</a></div>
-                            </td>
-                        </tr>
-
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="y"></a>
-                        <span class="name">
-                            <b>
-                            y
-                            </b>
-                            <a href="#y"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <code>y:     <code></code>
-</code>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>-50</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts:14</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/query-app-interface/data-management/services/generate-data-choosers.service.ts:18</a></div>
                             </td>
                         </tr>
 
@@ -885,6 +981,8 @@ import {AbstractJsonService} from &#x27;./abstract-json.service&#x27;;
 import {GenerateArrayFromLeafsService} from &#x27;./generate-array-from-leafs.service&#x27;;
 import {GeneralRequestService} from &#x27;../../../query-engine/general/general-request.service&#x27;;
 import { QueryService } from &#x27;../../../user-action-engine/mongodb/query/query.service&#x27;;
+import {cloneDate} from &#x27;ngx-bootstrap/chronos/create/clone&#x27;;
+import {type} from &#x27;os&#x27;;
 
 @Injectable({
   providedIn: &#x27;root&#x27;
@@ -892,12 +990,12 @@ import { QueryService } from &#x27;../../../user-action-engine/mongodb/query/que
 export class GenerateDataChoosersService {
   response: any;
   dataChooserEntries &#x3D; [];
-  y &#x3D; -50;
   pathSet &#x3D; new Set();
   depth &#x3D; 0;
   data: any;
   path: Array&lt;string&gt;;
-  query: any
+  query: any;
+  firstTimeQueryIsPushed &#x3D; new Set();
   constructor(
     private http: HttpClient,
     private abstractJsonService: AbstractJsonService,
@@ -908,33 +1006,45 @@ export class GenerateDataChoosersService {
 
   generateDataChoosers( page: any, openAppsInThisPage: any, reset: boolean ) {
     this.pathSet &#x3D; new Set();
-    if ( reset ) {
-      this.y &#x3D; -50;
-    }
+    this.firstTimeQueryIsPushed &#x3D; new Set();
     for ( const queryId of  page.queries ) {
       let queryTitle &#x3D; &#x27;&#x27;;
       let pathArray &#x3D; [];
-      this.depth &#x3D; 0;
       this.queryService.getQuery(queryId)
         .subscribe((data) &#x3D;&gt; {
-          // console.log( data );
           queryTitle &#x3D; data.query.title;
+          if ( data.query.method &#x3D;&#x3D;&#x3D; &#x27;JSON&#x27; ) {
+            queryTitle &#x3D; queryTitle + &#x27; (file / own query)&#x27;;
+          }
           pathArray &#x3D; data.query.path;       // path array is the path chosen for the entries to be displayed in the data chooser dropdown
+          // console.log( data.query );
           this.query &#x3D; data;
           this.requestService.request(queryId)
             .subscribe((data1) &#x3D;&gt; {
               if (data1.status &#x3D;&#x3D;&#x3D; 200) {
                 // console.log(data.body, pathArray);
                 this.response &#x3D; data1.body;
-                this.checkIfSubsetOfResultContainsArray(
-                  data1.body,
-                  pathArray,
-                  openAppsInThisPage,
-                  pathArray,
-                  queryTitle,
-                  data1,
-                  queryId
-                );
+                for ( const appHash in page.appInputQueryMapping ) {
+                  for ( const input in page.appInputQueryMapping[ appHash ] ) {
+                    const path &#x3D; page.appInputQueryMapping[ appHash ][ input ].path;
+                    if ( path ) {
+                      for ( let i &#x3D; 0; i &lt; path.length; i++ ) {
+                        if ( typeof path[ i ] &#x3D;&#x3D;&#x3D; &#x27;number&#x27; ) {
+                          path.splice( i, 1 );
+                        }
+                      }
+                    }
+                    this.checkIfSubsetOfResultContainsArray(
+                      data1.body,
+                      path,
+                      openAppsInThisPage,
+                      path,
+                      queryTitle,
+                      data1,
+                      queryId
+                    );
+                  }
+                }
               }
             });
         });
@@ -950,40 +1060,35 @@ export class GenerateDataChoosersService {
     data: any,
     queryId: string
   ) {
+    // console.log( path );
     if ( path ) {
-      // console.log( response, path, path.length );
-      for ( const segment of path ) {
-        // console.log( segment );
-        if ( response[ segment ] &amp;&amp; response[ segment ].length &gt; 1 &amp;&amp; typeof response[ segment ] !&#x3D;&#x3D; &#x27;string&#x27;) {
-          // console.log( &#x27;response contains array&#x27; );
-          this.pathSet &#x3D; new Set();
-          this.depth &#x3D; 0;
-          openAppsInThisPage.dataChooser.model.push( {
-            x: 150,
-            y: this.y,
-            dataChooserEntries: this.generateArrayFromLeafs.generateArrayFromLeafs(
-              this.response,
-              pathArray,
-              0
-            ),
-            title: &#x27;Query: &#x27; + queryTitle,
-            response: data.body,
-            queryId: queryId,
-            depth: 0
-          } );
-          // console.log( openAppsInThisPage.dataChooser.model );
-          this.pathSet.add( path[ 0 ] );
-          this.generateArrayKeyValueForEachArrayInResponse(
-            data.body,
+      const segment &#x3D; path[ 0 ];
+      // console.log( segment, response );
+      if ( response[ segment ] &amp;&amp; response[ segment ].length &gt; 1 &amp;&amp; typeof response[ segment ] !&#x3D;&#x3D; &#x27;string&#x27;) {
+        // console.log( openAppsInThisPage.dataChooser.model );
+        this.generateArrayKeyValueForEachArrayInResponse(
+          data.body,
+          openAppsInThisPage,
+          queryTitle,
+          queryId,
+          []
+        );
+        return openAppsInThisPage;
+      } else if ( response[ segment ] &amp;&amp; response[ segment ] !&#x3D;&#x3D; &#x27;string&#x27; ) {
+        const clonedPath &#x3D; Object.assign([], path);
+        clonedPath.splice(0, 1);
+        // console.log( &#x27;case 1&#x27;, clonedPath, response[ segment ] );
+        if ( response[ segment ].length &#x3D;&#x3D;&#x3D; 1 ) {
+          this.checkIfSubsetOfResultContainsArray(
+            response[ segment ] [ 0 ],
+            clonedPath,
             openAppsInThisPage,
+            pathArray,
             queryTitle,
-            queryId,
-            this.depth
+            data,
+            queryId
           );
-          return openAppsInThisPage;
-        } else if ( response[ segment ] &amp;&amp; response[ segment ] !&#x3D;&#x3D; &#x27;string&#x27; ) {
-          const clonedPath &#x3D; Object.assign([], path);
-          clonedPath.splice(0, 1);
+        } else {
           this.checkIfSubsetOfResultContainsArray(
             response[ segment ],
             clonedPath,
@@ -994,17 +1099,18 @@ export class GenerateDataChoosersService {
             queryId
           );
         }
+
       }
       if ( path.length &#x3D;&#x3D;&#x3D; 0 ) {
-        // console.log( &#x27;Dont generate data choosers &#x27;);
+        this.generateQueryButtonInDataChooser( queryId, openAppsInThisPage, queryTitle );
+        // console.log( &#x27;Push 2&#x27;, path );
         openAppsInThisPage.dataChooser.model.push( {
-          x: 150,
-          y: this.y,
           dataChooserEntries: [ &#x27;showData&#x27; ],
-          title: &#x27;Query: &#x27; + queryTitle,
+          title: undefined,
           response: data.body,
           queryId: queryId,
-          depth: 0
+          depth: 0,
+          pathWithArray: path
         } );
         return openAppsInThisPage;
       }
@@ -1017,41 +1123,77 @@ export class GenerateDataChoosersService {
     openAppsInThisPage: any,
     queryTitle: string,
     queryId: string,
-    depth: number
+    pathWithArray: Array&lt;string&gt;
   ) {
-    // console.log( response, pathArray );
-    for ( const key in response ) {
-      if (
-        response[ key ].length &gt; 1 &amp;&amp;
-        typeof response[ key ] !&#x3D;&#x3D; &#x27;string&#x27; &amp;&amp;
-        !this.pathSet.has( key )
-      ) {
-        this.pathSet.add( key );
-        depth +&#x3D; 1;
-        openAppsInThisPage.dataChooser.model.push( {
-          x: 150,
-          y: this.y,
-          dataChooserEntries: this.generateArrayFromLeafs.generateArrayFromLeafs(
-            response[ key ],
-            undefined,
-            0
-          ),
-          title: &#x27;Query: &#x27; + queryTitle + &#x27; Depth: &#x27; + String(depth),
-          response: this.response,
-          queryId: queryId,
-          depth: depth
-        } );
+    if ( response &amp;&amp; response !&#x3D;&#x3D; null ) {
+      // console.log(pathWithArray, response);
+      if (!response.length) {
+        for (const key in response) {
+          if (
+            response[ key ] &amp;&amp; response[ key ].length &#x3D;&#x3D;&#x3D; 1 &amp;&amp;
+            typeof response[ key ] !&#x3D;&#x3D; &#x27;string&#x27;
+          ) {
+            pathWithArray &#x3D; [];
+          }
+          if (typeof response[key] !&#x3D;&#x3D; &#x27;string&#x27; &amp;&amp; typeof response[key] !&#x3D;&#x3D; &#x27;number&#x27;) {
+            const clonedPath &#x3D; Object.assign([], pathWithArray);
+            clonedPath.push(key);
+            // console.log(clonedPath);
+            this.generateArrayKeyValueForEachArrayInResponse(
+              response[key],
+              openAppsInThisPage,
+              queryTitle,
+              queryId,
+              clonedPath
+            );
+          }
+        }
+      } else {
+        if ( typeof response !&#x3D;&#x3D; &#x27;string&#x27; ) {
+          this.generateArrayKeyValueForEachArrayInResponse(
+            response[0],
+            openAppsInThisPage,
+            queryTitle,
+            queryId,
+            pathWithArray
+          );
+        } else {
+          // console.log( response );
+        }
+        if (
+          response.length &gt; 1 &amp;&amp;
+          typeof response !&#x3D;&#x3D; &#x27;string&#x27; &amp;&amp;
+          !this.pathSet.has(pathWithArray.toString() + queryId)
+        ) {
+          this.generateQueryButtonInDataChooser( queryId, openAppsInThisPage, queryTitle );
+          this.pathSet.add(pathWithArray.toString() + queryId);
+          const clonedPath &#x3D; Object.assign([], pathWithArray);
+          // console.log(&#x27;push 4&#x27;, clonedPath);
+          openAppsInThisPage.dataChooser.model.push({
+            dataChooserEntries: this.generateArrayFromLeafs.generateArrayFromLeafs(
+              response
+            ),
+            title: undefined,
+            response: this.response,
+            queryId: queryId,
+            pathWithArray: clonedPath
+          });
+        }
       }
-      // console.log( typeof response[ key ] );
-      if ( typeof response[ key ] !&#x3D;&#x3D; &#x27;string&#x27; ) {
-        this.generateArrayKeyValueForEachArrayInResponse(
-          response[ key ],
-          openAppsInThisPage,
-          queryTitle,
-          queryId,
-          depth
-        );
-      }
+    }
+
+  }
+
+  generateQueryButtonInDataChooser ( queryId: string, openAppsInThisPage: any, queryTitle: string ) {
+    if ( !this.firstTimeQueryIsPushed.has( queryId ) ) {
+      this.firstTimeQueryIsPushed.add( queryId );
+      openAppsInThisPage.dataChooser.model.push({
+        dataChooserEntries: undefined,
+        title: &#x27;Query: &#x27; + queryTitle,
+        response: undefined,
+        queryId: queryId,
+        pathWithArray: undefined
+      });
     }
   }
 }

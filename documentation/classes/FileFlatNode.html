@@ -391,7 +391,7 @@ export class FileFlatNode {
  * structure.
  */
 @Injectable()
-export class FileDatabase {
+export class FileDatabaseForApp {
   dataChange &#x3D; new BehaviorSubject&lt;FileNode[]&gt;([]);
 
   get data(): FileNode[] {
@@ -448,7 +448,7 @@ export class FileDatabase {
   selector: &#x27;response-tree&#x27;,
   templateUrl: &#x27;./response-tree.component.html&#x27;
 })
-export class ResponseTreeComponent implements OnChanges {
+export class ResponseTreeAppComponent implements OnChanges {
   treeControl: FlatTreeControl&lt;FileFlatNode&gt;;
   treeFlattener: MatTreeFlattener&lt;FileNode, FileFlatNode&gt;;
   dataSource: MatTreeFlatDataSource&lt;FileNode, FileFlatNode&gt;;
@@ -460,7 +460,7 @@ export class ResponseTreeComponent implements OnChanges {
   index: number;
   indiceEntered &#x3D; false;
   constructor(
-    database: FileDatabase,
+    database: FileDatabaseForApp,
     private generatePathService: GeneratePathService) {
     this.database &#x3D; database;
     this.treeFlattener &#x3D; new MatTreeFlattener(

@@ -131,7 +131,16 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Default value : </i><code>[
+                            <i>Default value : </i><code>[    {
+      id: &#x27;lock_open&#x27;,
+      name: &#x27;Login | Sign up&#x27;,
+      tags: &#x27;for an inseri account&#x27;,
+      color: &#x27;green&#x27;,
+      status: &#x27;stable&#x27;,
+      appType: &#x27;login&#x27;,
+      description: &#x27;Login or create an account&#x27;,
+      showOnHome: true
+    },
     {
       id: &#x27;aspect_ratio&#x27;,
       name: &#x27;HTML Viewer &#x27;,
@@ -139,7 +148,8 @@
       color: &#x27;green&#x27;,
       status: &#x27;stable&#x27;,
       appType: &#x27;htmlViewer&#x27;,
-      description: &#x27;It displays HTML snippets and applies externally defined styles to the view.&#x27;
+      description: &#x27;It displays HTML snippets and applies externally defined styles to the view.&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;short_text&#x27;,
@@ -148,7 +158,18 @@
       color: &#x27;green&#x27;,
       status: &#x27;stable&#x27;,
       appType: &#x27;textlistViewers&#x27;,
-      description: undefined
+      description: undefined,
+      showOnHome: false
+    },
+    {
+      id: &#x27;format_paint&#x27;,
+      name: &#x27;PaintCanvas&#x27;,
+      tags: &#x27;draw your notes&#x27;,
+      color: &#x27;green&#x27;,
+      status: &#x27;stable&#x27;,
+      appType: &#x27;paint&#x27;,
+      description: undefined,
+      showOnHome: true
     },
     {
       id: &#x27;line_style&#x27;,
@@ -157,7 +178,8 @@
       color: &#x27;orange&#x27;,
       status: &#x27;under development&#x27;,
       appType: &#x27;svgTranscription&#x27;,
-      description: &#x27; SVG transcription with exact word positions&#x27;
+      description: &#x27; SVG transcription with exact word positions&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;view_week&#x27;,
@@ -166,7 +188,8 @@
       color: &#x27;green&#x27;,
       status: &#x27;stable&#x27;,
       appType: &#x27;parzivalFassung&#x27;,
-      description: &#x27;Project specific App for the Parzival Project - Open more than one app of this type to test it!&#x27;
+      description: &#x27;Project specific App for the Parzival Project - Open more than one app of this type to test it!&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;turned_in&#x27;,
@@ -175,7 +198,8 @@
       color: &#x27;orange&#x27;,
       status: &#x27;under development&#x27;,
       appType: &#x27;avpEditionView&#x27;,
-      description: &#x27;Project specific App for the AVP Project&#x27;
+      description: &#x27;Project specific App for the AVP Project&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;album&#x27;,
@@ -184,7 +208,8 @@
       color: &#x27;green&#x27;,
       status: &#x27;stable&#x27;,
       appType: &#x27;openbisLogin&#x27;,
-      description: &#x27;Set token for OpenBis&#x27;
+      description: &#x27;Set token for OpenBis&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;image&#x27;,
@@ -193,7 +218,8 @@
       color: &#x27;green&#x27;,
       status: &#x27;stable&#x27;,
       appType: &#x27;imageViewer&#x27;,
-      description: &#x27;Display and zoom in images&#x27;
+      description: &#x27;Display and zoom in images&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;add_photo_alternate&#x27;,
@@ -202,7 +228,8 @@
       color: &#x27;green&#x27;,
       status: &#x27;stable&#x27;,
       appType: &#x27;simpleImageApp&#x27;,
-      description: &#x27;Display simple images&#x27;
+      description: &#x27;Display simple images&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;view_list&#x27;,
@@ -211,7 +238,8 @@
       color: &#x27;green&#x27;,
       status: &#x27;stable&#x27;,
       appType: &#x27;dataListView&#x27;,
-      description: &#x27;Display simple images&#x27;
+      description: &#x27;Display simple images&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;subdirectory_arrow_right&#x27;,
@@ -220,7 +248,8 @@
       color: &#x27;green&#x27;,
       status: &#x27;stable&#x27;,
       appType: &#x27;treeNavigation&#x27;,
-      description: &#x27; This app can be combined with apps for resource view.&#x27;
+      description: &#x27; This app can be combined with apps for resource view.&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;video_library&#x27;,
@@ -229,7 +258,8 @@
       color: &#x27;green&#x27;,
       status: &#x27;stable&#x27;,
       appType: &#x27;youtubeVideo&#x27;,
-      description: &#x27; You can embed youtube - videos in this app.&#x27;
+      description: &#x27; You can embed youtube - videos in this app.&#x27;,
+      showOnHome: true
     },
     {
       id: &#x27;art_track&#x27;,
@@ -238,7 +268,8 @@
       color: &#x27;orange&#x27;,
       status: &#x27;under development&#x27;,
       appType: &#x27;synopsisViewer&#x27;,
-      description: &#x27;Open and compare different images and text&#x27;
+      description: &#x27;Open and compare different images and text&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;spa&#x27;,
@@ -247,7 +278,8 @@
       color: &#x27;green&#x27;,
       status: &#x27;stable&#x27;,
       appType: &#x27;jsonViewer&#x27;,
-      description: &#x27;This app visualizes json objects as a tree.&#x27;
+      description: &#x27;This app visualizes json objects as a tree.&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;bar_chart&#x27;,
@@ -256,7 +288,8 @@
       color: &#x27;orange&#x27;,
       status: &#x27;under development&#x27;,
       appType: &#x27;barCharts&#x27;,
-      description: &#x27;To define data with two dimensions&#x27;
+      description: &#x27;To define data with two dimensions&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;show_chart&#x27;,
@@ -265,7 +298,8 @@
       color: &#x27;orange&#x27;,
       status: &#x27;under development&#x27;,
       appType: &#x27;lineCharts&#x27;,
-      description: &#x27;To define data with two dimensions&#x27;
+      description: &#x27;To define data with two dimensions&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;insert_chart_outlined&#x27;,
@@ -274,7 +308,8 @@
       color: &#x27;orange&#x27;,
       status: &#x27;under development&#x27;,
       appType: &#x27;brushZoomCharts&#x27;,
-      description: &#x27;To define data with two dimensions&#x27;
+      description: &#x27;To define data with two dimensions&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;add_location&#x27;,
@@ -283,7 +318,8 @@
       color: &#x27;orange&#x27;,
       status: &#x27;under development&#x27;,
       appType: &#x27;leafletMaps&#x27;,
-      description: &#x27;Visualize data on maps&#x27;
+      description: &#x27;Visualize data on maps&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;pie_chart&#x27;,
@@ -292,7 +328,8 @@
       color: &#x27;orange&#x27;,
       status: &#x27;under development&#x27;,
       appType: &#x27;pieCharts&#x27;,
-      description: &#x27;To visualise subsets&#x27;
+      description: &#x27;To visualise subsets&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;multiline_chart&#x27;,
@@ -301,7 +338,8 @@
       color: &#x27;orange&#x27;,
       status: &#x27;under development&#x27;,
       appType: &#x27;radialBarCharts&#x27;,
-      description: &#x27;For two dimensional data&#x27;
+      description: &#x27;For two dimensional data&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;linear_scale&#x27;,
@@ -310,7 +348,8 @@
       color: &#x27;orange&#x27;,
       status: &#x27;under development&#x27;,
       appType: &#x27;sankeyCharts&#x27;,
-      description: &#x27; To display dependent data&#x27;
+      description: &#x27; To display dependent data&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;subtitles&#x27;,
@@ -319,7 +358,8 @@
       color: &#x27;orange&#x27;,
       status: &#x27;under development&#x27;,
       appType: &#x27;stackedBarCharts&#x27;,
-      description: &#x27;To display grouped sets&#x27;
+      description: &#x27;To display grouped sets&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;all_out&#x27;,
@@ -328,7 +368,8 @@
       color: &#x27;orange&#x27;,
       status: &#x27;under development&#x27;,
       appType: &#x27;chordDiagrams&#x27;,
-      description: &#x27;To compare intensity of connections&#x27;
+      description: &#x27;To compare intensity of connections&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;add_to_queue&#x27;,
@@ -337,7 +378,8 @@
       color: &#x27;orange&#x27;,
       status: &#x27;under development&#x27;,
       appType: &#x27;createResourceForm&#x27;,
-      description: &#x27;With this app you can create data in Knora.&#x27;
+      description: &#x27;With this app you can create data in Knora.&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;web&#x27;,
@@ -346,7 +388,149 @@
       color: &#x27;orange&#x27;,
       status: &#x27;under development&#x27;,
       appType: &#x27;editResourceForm&#x27;,
-      description: &#x27;With this app you can change data in Knora and see the history of given properties.&#x27;
+      description: &#x27;With this app you can change data in Knora and see the history of given properties.&#x27;,
+      showOnHome: false
+    },
+    {
+      id: &#x27;web&#x27;,
+      name: &#x27;Nested Resource Viewer&#x27;,
+      tags: &#x27;knora&#x27;,
+      color: &#x27;orange&#x27;,
+      status: &#x27;under development&#x27;,
+      appType: &#x27;knoraV2viewer&#x27;,
+      description: &#x27;With this app you can easily look at a Knora resource.&#x27;,
+      showOnHome: false
+    },
+    {
+      id: &#x27;aspect_ratio&#x27;,
+      name: &#x27;Joined Text View&#x27;,
+      tags: &#x27;knora, text, html&#x27;,
+      color: &#x27;orange&#x27;,
+      status: &#x27;under development&#x27;,
+      appType: &#x27;joinedTextView&#x27;,
+      description: &#x27;Map text resources to blocks, lines and words and show them as HTML&#x27;,
+      showOnHome: false
+    },
+    {
+      id: &#x27;drag_indicator&#x27;,
+      name: &#x27;Sparql - Visualiser&#x27;,
+      tags: &#x27;sparql, rdf, rdfs, owl&#x27;,
+      color: &#x27;green&#x27;,
+      status: &#x27;stable&#x27;,
+      appType: &#x27;sparqlVisualizer&#x27;,
+      description: &#x27;Visualize Ontologies and RDF/RDFS/Owl data&#x27;,
+      showOnHome: true
+    },
+    {
+      id: &#x27;camera_enhance&#x27;,
+      name: &#x27;Salsah 2&#x27;,
+      tags: &#x27;DaSCH&#x27;,
+      color: &#x27;orange&#x27;,
+      status: &#x27;deprecated&#x27;,
+      appType: &#x27;salsah2&#x27;,
+      description: &#x27;Predecessor of Kuirl / SUID&#x27;,
+      showOnHome: true
+    }
+    ,
+    {
+      id: &#x27;format_size&#x27;,
+      name: &#x27;Text Editor&#x27;,
+      tags: &#x27;primefaces, quill&#x27;,
+      color: &#x27;green&#x27;,
+      status: &#x27;stable&#x27;,
+      appType: &#x27;primeEditor&#x27;,
+      description: &#x27;Write and Save text on a page&#x27;,
+      showOnHome: true
+    },
+    {
+      id: &#x27;subdirectory_arrow_right&#x27;,
+      name: &#x27;Hierarchical navigation with dynamic loading&#x27;,
+      tags: &#x27;knora, navigation&#x27;,
+      color: &#x27;orange&#x27;,
+      status: &#x27;under development&#x27;,
+      appType: &#x27;hierarchicalNavigationView&#x27;,
+      description: &#x27;Map resources in a graph to a navigation tree.&#x27;,
+      showOnHome: false
+    },
+    {
+      id: &#x27;table_chart&#x27;,
+      name: &#x27;Spreadsheet&#x27;,
+      tags: &#x27;spreadsheet you will love&#x27;,
+      color: &#x27;orange&#x27;,
+      status: &#x27;under development&#x27;,
+      appType: &#x27;spreadSheet&#x27;,
+      description: &#x27;Your spreadsheet&#x27;,
+      showOnHome: true
+    },
+    {
+      id: &#x27;book&#x27;,
+      name: &#x27;Anton Webern Gesamtausgabe&#x27;,
+      tags: &#x27;Anton Webern&#x27;,
+      color: &#x27;green&#x27;,
+      status: &#x27;stable&#x27;,
+      appType: &#x27;webern&#x27;,
+      description: &#x27;Anton Webern App&#x27;,
+      showOnHome: true
+    },
+    {
+      id: &#x27;book&#x27;,
+      name: &#x27;Kuno Raeber Online Edition&#x27;,
+      tags: &#x27;raeber&#x27;,
+      color: &#x27;green&#x27;,
+      status: &#x27;stable&#x27;,
+      appType: &#x27;raeber&#x27;,
+      description: &#x27;raeber app&#x27;,
+      showOnHome: true
+    },
+    {
+      id: &#x27;horizontal_split&#x27;,
+      name: &#x27;Url update app&#x27;,
+      tags: &#x27;url&#x27;,
+      color: &#x27;green&#x27;,
+      status: &#x27;stable&#x27;,
+      appType: &#x27;urlUpdate&#x27;,
+      description: &#x27;urlUpdate&#x27;,
+      showOnHome: false
+    },
+    {
+      id: &#x27;horizontal_split&#x27;,
+      name: &#x27;pdf viewer&#x27;,
+      tags: &#x27;pdf&#x27;,
+      color: &#x27;green&#x27;,
+      status: &#x27;stable&#x27;,
+      appType: &#x27;pdfViewer&#x27;,
+      description: &#x27;pdfViewer&#x27;,
+      showOnHome: false
+    },
+    {
+      id: &#x27;select_all&#x27;,
+      name: &#x27;Key Value&#x27;,
+      tags: &#x27;key value&#x27;,
+      color: &#x27;green&#x27;,
+      status: &#x27;stable&#x27;,
+      appType: &#x27;keyValue&#x27;,
+      description: &#x27;keyValue&#x27;,
+      showOnHome: false
+    },
+    {
+      id: &#x27;open_in_browser&#x27;,
+      name: &#x27;Browserling&#x27;,
+      tags: &#x27;browser virtualisation&#x27;,
+      color: &#x27;green&#x27;,
+      status: &#x27;stable&#x27;,
+      appType: &#x27;browserling&#x27;,
+      description: &#x27;browserling&#x27;,
+      showOnHome: false
+    },
+    {
+      id: &#x27;book&#x27;,
+      name: &#x27;GND Subscriber&#x27;,
+      tags: &#x27;gnd url param subscriber&#x27;,
+      color: &#x27;green&#x27;,
+      status: &#x27;stable&#x27;,
+      appType: &#x27;gndSubscriber&#x27;,
+      description: &#x27;gnd&#x27;,
+      showOnHome: false
     }
   ]</code>
                         </td>
@@ -373,7 +557,16 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export class AppMenuModel {
-  appMenu &#x3D; [
+  appMenu &#x3D; [    {
+      id: &#x27;lock_open&#x27;,
+      name: &#x27;Login | Sign up&#x27;,
+      tags: &#x27;for an inseri account&#x27;,
+      color: &#x27;green&#x27;,
+      status: &#x27;stable&#x27;,
+      appType: &#x27;login&#x27;,
+      description: &#x27;Login or create an account&#x27;,
+      showOnHome: true
+    },
     {
       id: &#x27;aspect_ratio&#x27;,
       name: &#x27;HTML Viewer &#x27;,
@@ -381,7 +574,8 @@
       color: &#x27;green&#x27;,
       status: &#x27;stable&#x27;,
       appType: &#x27;htmlViewer&#x27;,
-      description: &#x27;It displays HTML snippets and applies externally defined styles to the view.&#x27;
+      description: &#x27;It displays HTML snippets and applies externally defined styles to the view.&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;short_text&#x27;,
@@ -390,7 +584,18 @@
       color: &#x27;green&#x27;,
       status: &#x27;stable&#x27;,
       appType: &#x27;textlistViewers&#x27;,
-      description: undefined
+      description: undefined,
+      showOnHome: false
+    },
+    {
+      id: &#x27;format_paint&#x27;,
+      name: &#x27;PaintCanvas&#x27;,
+      tags: &#x27;draw your notes&#x27;,
+      color: &#x27;green&#x27;,
+      status: &#x27;stable&#x27;,
+      appType: &#x27;paint&#x27;,
+      description: undefined,
+      showOnHome: true
     },
     {
       id: &#x27;line_style&#x27;,
@@ -399,7 +604,8 @@
       color: &#x27;orange&#x27;,
       status: &#x27;under development&#x27;,
       appType: &#x27;svgTranscription&#x27;,
-      description: &#x27; SVG transcription with exact word positions&#x27;
+      description: &#x27; SVG transcription with exact word positions&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;view_week&#x27;,
@@ -408,7 +614,8 @@
       color: &#x27;green&#x27;,
       status: &#x27;stable&#x27;,
       appType: &#x27;parzivalFassung&#x27;,
-      description: &#x27;Project specific App for the Parzival Project - Open more than one app of this type to test it!&#x27;
+      description: &#x27;Project specific App for the Parzival Project - Open more than one app of this type to test it!&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;turned_in&#x27;,
@@ -417,7 +624,8 @@
       color: &#x27;orange&#x27;,
       status: &#x27;under development&#x27;,
       appType: &#x27;avpEditionView&#x27;,
-      description: &#x27;Project specific App for the AVP Project&#x27;
+      description: &#x27;Project specific App for the AVP Project&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;album&#x27;,
@@ -426,7 +634,8 @@
       color: &#x27;green&#x27;,
       status: &#x27;stable&#x27;,
       appType: &#x27;openbisLogin&#x27;,
-      description: &#x27;Set token for OpenBis&#x27;
+      description: &#x27;Set token for OpenBis&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;image&#x27;,
@@ -435,7 +644,8 @@
       color: &#x27;green&#x27;,
       status: &#x27;stable&#x27;,
       appType: &#x27;imageViewer&#x27;,
-      description: &#x27;Display and zoom in images&#x27;
+      description: &#x27;Display and zoom in images&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;add_photo_alternate&#x27;,
@@ -444,7 +654,8 @@
       color: &#x27;green&#x27;,
       status: &#x27;stable&#x27;,
       appType: &#x27;simpleImageApp&#x27;,
-      description: &#x27;Display simple images&#x27;
+      description: &#x27;Display simple images&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;view_list&#x27;,
@@ -453,7 +664,8 @@
       color: &#x27;green&#x27;,
       status: &#x27;stable&#x27;,
       appType: &#x27;dataListView&#x27;,
-      description: &#x27;Display simple images&#x27;
+      description: &#x27;Display simple images&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;subdirectory_arrow_right&#x27;,
@@ -462,7 +674,8 @@
       color: &#x27;green&#x27;,
       status: &#x27;stable&#x27;,
       appType: &#x27;treeNavigation&#x27;,
-      description: &#x27; This app can be combined with apps for resource view.&#x27;
+      description: &#x27; This app can be combined with apps for resource view.&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;video_library&#x27;,
@@ -471,7 +684,8 @@
       color: &#x27;green&#x27;,
       status: &#x27;stable&#x27;,
       appType: &#x27;youtubeVideo&#x27;,
-      description: &#x27; You can embed youtube - videos in this app.&#x27;
+      description: &#x27; You can embed youtube - videos in this app.&#x27;,
+      showOnHome: true
     },
     {
       id: &#x27;art_track&#x27;,
@@ -480,7 +694,8 @@
       color: &#x27;orange&#x27;,
       status: &#x27;under development&#x27;,
       appType: &#x27;synopsisViewer&#x27;,
-      description: &#x27;Open and compare different images and text&#x27;
+      description: &#x27;Open and compare different images and text&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;spa&#x27;,
@@ -489,7 +704,8 @@
       color: &#x27;green&#x27;,
       status: &#x27;stable&#x27;,
       appType: &#x27;jsonViewer&#x27;,
-      description: &#x27;This app visualizes json objects as a tree.&#x27;
+      description: &#x27;This app visualizes json objects as a tree.&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;bar_chart&#x27;,
@@ -498,7 +714,8 @@
       color: &#x27;orange&#x27;,
       status: &#x27;under development&#x27;,
       appType: &#x27;barCharts&#x27;,
-      description: &#x27;To define data with two dimensions&#x27;
+      description: &#x27;To define data with two dimensions&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;show_chart&#x27;,
@@ -507,7 +724,8 @@
       color: &#x27;orange&#x27;,
       status: &#x27;under development&#x27;,
       appType: &#x27;lineCharts&#x27;,
-      description: &#x27;To define data with two dimensions&#x27;
+      description: &#x27;To define data with two dimensions&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;insert_chart_outlined&#x27;,
@@ -516,7 +734,8 @@
       color: &#x27;orange&#x27;,
       status: &#x27;under development&#x27;,
       appType: &#x27;brushZoomCharts&#x27;,
-      description: &#x27;To define data with two dimensions&#x27;
+      description: &#x27;To define data with two dimensions&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;add_location&#x27;,
@@ -525,7 +744,8 @@
       color: &#x27;orange&#x27;,
       status: &#x27;under development&#x27;,
       appType: &#x27;leafletMaps&#x27;,
-      description: &#x27;Visualize data on maps&#x27;
+      description: &#x27;Visualize data on maps&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;pie_chart&#x27;,
@@ -534,7 +754,8 @@
       color: &#x27;orange&#x27;,
       status: &#x27;under development&#x27;,
       appType: &#x27;pieCharts&#x27;,
-      description: &#x27;To visualise subsets&#x27;
+      description: &#x27;To visualise subsets&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;multiline_chart&#x27;,
@@ -543,7 +764,8 @@
       color: &#x27;orange&#x27;,
       status: &#x27;under development&#x27;,
       appType: &#x27;radialBarCharts&#x27;,
-      description: &#x27;For two dimensional data&#x27;
+      description: &#x27;For two dimensional data&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;linear_scale&#x27;,
@@ -552,7 +774,8 @@
       color: &#x27;orange&#x27;,
       status: &#x27;under development&#x27;,
       appType: &#x27;sankeyCharts&#x27;,
-      description: &#x27; To display dependent data&#x27;
+      description: &#x27; To display dependent data&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;subtitles&#x27;,
@@ -561,7 +784,8 @@
       color: &#x27;orange&#x27;,
       status: &#x27;under development&#x27;,
       appType: &#x27;stackedBarCharts&#x27;,
-      description: &#x27;To display grouped sets&#x27;
+      description: &#x27;To display grouped sets&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;all_out&#x27;,
@@ -570,7 +794,8 @@
       color: &#x27;orange&#x27;,
       status: &#x27;under development&#x27;,
       appType: &#x27;chordDiagrams&#x27;,
-      description: &#x27;To compare intensity of connections&#x27;
+      description: &#x27;To compare intensity of connections&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;add_to_queue&#x27;,
@@ -579,7 +804,8 @@
       color: &#x27;orange&#x27;,
       status: &#x27;under development&#x27;,
       appType: &#x27;createResourceForm&#x27;,
-      description: &#x27;With this app you can create data in Knora.&#x27;
+      description: &#x27;With this app you can create data in Knora.&#x27;,
+      showOnHome: false
     },
     {
       id: &#x27;web&#x27;,
@@ -588,7 +814,149 @@
       color: &#x27;orange&#x27;,
       status: &#x27;under development&#x27;,
       appType: &#x27;editResourceForm&#x27;,
-      description: &#x27;With this app you can change data in Knora and see the history of given properties.&#x27;
+      description: &#x27;With this app you can change data in Knora and see the history of given properties.&#x27;,
+      showOnHome: false
+    },
+    {
+      id: &#x27;web&#x27;,
+      name: &#x27;Nested Resource Viewer&#x27;,
+      tags: &#x27;knora&#x27;,
+      color: &#x27;orange&#x27;,
+      status: &#x27;under development&#x27;,
+      appType: &#x27;knoraV2viewer&#x27;,
+      description: &#x27;With this app you can easily look at a Knora resource.&#x27;,
+      showOnHome: false
+    },
+    {
+      id: &#x27;aspect_ratio&#x27;,
+      name: &#x27;Joined Text View&#x27;,
+      tags: &#x27;knora, text, html&#x27;,
+      color: &#x27;orange&#x27;,
+      status: &#x27;under development&#x27;,
+      appType: &#x27;joinedTextView&#x27;,
+      description: &#x27;Map text resources to blocks, lines and words and show them as HTML&#x27;,
+      showOnHome: false
+    },
+    {
+      id: &#x27;drag_indicator&#x27;,
+      name: &#x27;Sparql - Visualiser&#x27;,
+      tags: &#x27;sparql, rdf, rdfs, owl&#x27;,
+      color: &#x27;green&#x27;,
+      status: &#x27;stable&#x27;,
+      appType: &#x27;sparqlVisualizer&#x27;,
+      description: &#x27;Visualize Ontologies and RDF/RDFS/Owl data&#x27;,
+      showOnHome: true
+    },
+    {
+      id: &#x27;camera_enhance&#x27;,
+      name: &#x27;Salsah 2&#x27;,
+      tags: &#x27;DaSCH&#x27;,
+      color: &#x27;orange&#x27;,
+      status: &#x27;deprecated&#x27;,
+      appType: &#x27;salsah2&#x27;,
+      description: &#x27;Predecessor of Kuirl / SUID&#x27;,
+      showOnHome: true
+    }
+    ,
+    {
+      id: &#x27;format_size&#x27;,
+      name: &#x27;Text Editor&#x27;,
+      tags: &#x27;primefaces, quill&#x27;,
+      color: &#x27;green&#x27;,
+      status: &#x27;stable&#x27;,
+      appType: &#x27;primeEditor&#x27;,
+      description: &#x27;Write and Save text on a page&#x27;,
+      showOnHome: true
+    },
+    {
+      id: &#x27;subdirectory_arrow_right&#x27;,
+      name: &#x27;Hierarchical navigation with dynamic loading&#x27;,
+      tags: &#x27;knora, navigation&#x27;,
+      color: &#x27;orange&#x27;,
+      status: &#x27;under development&#x27;,
+      appType: &#x27;hierarchicalNavigationView&#x27;,
+      description: &#x27;Map resources in a graph to a navigation tree.&#x27;,
+      showOnHome: false
+    },
+    {
+      id: &#x27;table_chart&#x27;,
+      name: &#x27;Spreadsheet&#x27;,
+      tags: &#x27;spreadsheet you will love&#x27;,
+      color: &#x27;orange&#x27;,
+      status: &#x27;under development&#x27;,
+      appType: &#x27;spreadSheet&#x27;,
+      description: &#x27;Your spreadsheet&#x27;,
+      showOnHome: true
+    },
+    {
+      id: &#x27;book&#x27;,
+      name: &#x27;Anton Webern Gesamtausgabe&#x27;,
+      tags: &#x27;Anton Webern&#x27;,
+      color: &#x27;green&#x27;,
+      status: &#x27;stable&#x27;,
+      appType: &#x27;webern&#x27;,
+      description: &#x27;Anton Webern App&#x27;,
+      showOnHome: true
+    },
+    {
+      id: &#x27;book&#x27;,
+      name: &#x27;Kuno Raeber Online Edition&#x27;,
+      tags: &#x27;raeber&#x27;,
+      color: &#x27;green&#x27;,
+      status: &#x27;stable&#x27;,
+      appType: &#x27;raeber&#x27;,
+      description: &#x27;raeber app&#x27;,
+      showOnHome: true
+    },
+    {
+      id: &#x27;horizontal_split&#x27;,
+      name: &#x27;Url update app&#x27;,
+      tags: &#x27;url&#x27;,
+      color: &#x27;green&#x27;,
+      status: &#x27;stable&#x27;,
+      appType: &#x27;urlUpdate&#x27;,
+      description: &#x27;urlUpdate&#x27;,
+      showOnHome: false
+    },
+    {
+      id: &#x27;horizontal_split&#x27;,
+      name: &#x27;pdf viewer&#x27;,
+      tags: &#x27;pdf&#x27;,
+      color: &#x27;green&#x27;,
+      status: &#x27;stable&#x27;,
+      appType: &#x27;pdfViewer&#x27;,
+      description: &#x27;pdfViewer&#x27;,
+      showOnHome: false
+    },
+    {
+      id: &#x27;select_all&#x27;,
+      name: &#x27;Key Value&#x27;,
+      tags: &#x27;key value&#x27;,
+      color: &#x27;green&#x27;,
+      status: &#x27;stable&#x27;,
+      appType: &#x27;keyValue&#x27;,
+      description: &#x27;keyValue&#x27;,
+      showOnHome: false
+    },
+    {
+      id: &#x27;open_in_browser&#x27;,
+      name: &#x27;Browserling&#x27;,
+      tags: &#x27;browser virtualisation&#x27;,
+      color: &#x27;green&#x27;,
+      status: &#x27;stable&#x27;,
+      appType: &#x27;browserling&#x27;,
+      description: &#x27;browserling&#x27;,
+      showOnHome: false
+    },
+    {
+      id: &#x27;book&#x27;,
+      name: &#x27;GND Subscriber&#x27;,
+      tags: &#x27;gnd url param subscriber&#x27;,
+      color: &#x27;green&#x27;,
+      status: &#x27;stable&#x27;,
+      appType: &#x27;gndSubscriber&#x27;,
+      description: &#x27;gnd&#x27;,
+      showOnHome: false
     }
   ];
 }

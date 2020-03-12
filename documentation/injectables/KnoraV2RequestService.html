@@ -105,6 +105,9 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                <a href="#countExtendedSearchFromSpecificInstance">countExtendedSearchFromSpecificInstance</a>
+                            </li>
+                            <li>
                                 <a href="#extendedSearch">extendedSearch</a>
                             </li>
                             <li>
@@ -186,109 +189,32 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="extendedSearch"></a>
+                        <a name="countExtendedSearchFromSpecificInstance"></a>
                         <span class="name">
                             <b>
-                            extendedSearch
+                            countExtendedSearchFromSpecificInstance
                             </b>
-                            <a href="#extendedSearch"><span class="icon ion-ios-link"></span></a>
+                            <a href="#countExtendedSearchFromSpecificInstance"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
                 <tr>
                     <td class="col-md-4">
-<code>extendedSearch(graveSearchRequest: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+<code>countExtendedSearchFromSpecificInstance(graveSearchRequest: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, databaseAddress: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                     </td>
                 </tr>
 
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/query-engine/knora/knora-v2-request.service.ts:50</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="70" class="link-to-prism">src/app/query-engine/knora/knora-v2-request.service.ts:70</a></div>
                             </td>
                         </tr>
 
 
                 <tr>
                     <td class="col-md-4">
-                            <div class="io-description"><p>Get a JSON representation of a resource</p>
-</div>
-
-                            <div class="io-description">
-                                    <b>Parameters :</b>
-                                    <table class="params">
-                                        <thead>
-                                            <tr>
-                                                <td>Name</td>
-                                                    <td>Type</td>
-                                                <td>Optional</td>
-                                                    <td>Description</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                                <tr>
-                                                        <td>graveSearchRequest</td>
-                                                        <td>
-                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                                        </td>
-                                                    
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-
-                                                        <td>
-                                                                <code><p>A SPARQL like request</p>
-</code>
-                                                        </td>
-                                                </tr>
-                                        </tbody>
-                                    </table>
-                            </div>
-                            <div>
-                            </div>
-                            <div class="io-description">
-                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-
-                            </div>
-                                <div class="io-description">
-                                    <p>The Knora V1 response for this resource</p>
-
-                                </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="extendedSearchFromSpecificInstance"></a>
-                        <span class="name">
-                            <b>
-                            extendedSearchFromSpecificInstance
-                            </b>
-                            <a href="#extendedSearchFromSpecificInstance"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-<code>extendedSearchFromSpecificInstance(graveSearchRequest: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, databaseAddress: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
-                    </td>
-                </tr>
-
-
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/query-engine/knora/knora-v2-request.service.ts:60</a></div>
-                            </td>
-                        </tr>
-
-
-                <tr>
-                    <td class="col-md-4">
-                            <div class="io-description"><p>Get a JSON representation of a resource</p>
+                            <div class="io-description"><p>Get the number of main resources defined by a gravesearch query</p>
 </div>
 
                             <div class="io-description">
@@ -345,7 +271,177 @@
 
                             </div>
                                 <div class="io-description">
-                                    <p>The Knora V1 response for this resource</p>
+                                    <p>The Knora V2 response for this resource</p>
+
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="extendedSearch"></a>
+                        <span class="name">
+                            <b>
+                            extendedSearch
+                            </b>
+                            <a href="#extendedSearch"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>extendedSearch(graveSearchRequest: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/query-engine/knora/knora-v2-request.service.ts:50</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Get a JSON representation of a tree defined by a gravesearch query</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>graveSearchRequest</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p>A SPARQL like request</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    <p>The Knora V2 response for this resource</p>
+
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="extendedSearchFromSpecificInstance"></a>
+                        <span class="name">
+                            <b>
+                            extendedSearchFromSpecificInstance
+                            </b>
+                            <a href="#extendedSearchFromSpecificInstance"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>extendedSearchFromSpecificInstance(graveSearchRequest: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, databaseAddress: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/query-engine/knora/knora-v2-request.service.ts:60</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Get a JSON representation of a tree defined by a gravesearch query</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>graveSearchRequest</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p>A SPARQL like request</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>databaseAddress</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p>The domain of the Knora instance</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    <p>The Knora V2 response for this resource</p>
 
                                 </div>
                     </td>
@@ -422,7 +518,7 @@
 
                             </div>
                                 <div class="io-description">
-                                    <p>The Knora V1 response for this resource</p>
+                                    <p>The Knora V2 response for this resource</p>
 
                                 </div>
                     </td>
@@ -515,7 +611,7 @@
 
                             </div>
                                 <div class="io-description">
-                                    <p>The Knora V1 response for this resource</p>
+                                    <p>The Knora V2 response for this resource</p>
 
                                 </div>
                     </td>
@@ -672,7 +768,7 @@ export class KnoraV2RequestService {
   /**
    * Get a JSON representation of a resource
    * @param {string} resourceIRI  The uniqe IRI of the requested resource
-   * @returns {Observable&lt;Object&gt;}  The Knora V1 response for this resource
+   * @returns {Observable&lt;Object&gt;}  The Knora V2 response for this resource
    */
   getResource(resourceIRI: string) {
     return this.httpClient.get(this.instanceAddress + &#x27;/v2/resources/&#x27;
@@ -684,7 +780,7 @@ export class KnoraV2RequestService {
    * Get a JSON representation of a resource
    * @param {string} resourceIRI  The uniqe IRI of the requested resource
    * @param {string} databaseAddress  The domain of the Knora instance
-   * @returns {Observable&lt;Object&gt;}  The Knora V1 response for this resource
+   * @returns {Observable&lt;Object&gt;}  The Knora V2 response for this resource
    */
   getResourceFromSpecificInstance(resourceIRI: string, databaseAddress: string) {
     return this.httpClient.get(databaseAddress + &#x27;/v2/resources/&#x27;
@@ -693,22 +789,32 @@ export class KnoraV2RequestService {
   }
 
   /**
-   * Get a JSON representation of a resource
+   * Get a JSON representation of a tree defined by a gravesearch query
    * @param {string} graveSearchRequest  A SPARQL like request
-   * @returns {Observable&lt;Object&gt;}  The Knora V1 response for this resource
+   * @returns {Observable&lt;Object&gt;}  The Knora V2 response for this resource
    */
   extendedSearch(graveSearchRequest: string) {
     return this.httpClient.post(this.instanceAddress + &#x27;/v2/searchextended?&#x27; + this.basicAuthentication, graveSearchRequest);
   }
 
   /**
-   * Get a JSON representation of a resource
+   * Get a JSON representation of a tree defined by a gravesearch query
    * @param {string} graveSearchRequest  A SPARQL like request
    * @param {string} databaseAddress  The domain of the Knora instance
-   * @returns {Observable&lt;Object&gt;}  The Knora V1 response for this resource
+   * @returns {Observable&lt;Object&gt;}  The Knora V2 response for this resource
    */
   extendedSearchFromSpecificInstance(graveSearchRequest: string, databaseAddress: string) {
     return this.httpClient.post(databaseAddress + &#x27;/v2/searchextended?&#x27; + this.basicAuthentication, graveSearchRequest);
+  }
+
+  /**
+   * Get the number of main resources defined by a gravesearch query
+   * @param {string} graveSearchRequest  A SPARQL like request
+   * @param {string} databaseAddress  The domain of the Knora instance
+   * @returns {Observable&lt;Object&gt;}  The Knora V2 response for this resource
+   */
+  countExtendedSearchFromSpecificInstance(graveSearchRequest: string, databaseAddress: string) {
+    return this.httpClient.post(databaseAddress + &#x27;/v2/searchextended/count?&#x27; + this.basicAuthentication, graveSearchRequest);
   }
 
 }

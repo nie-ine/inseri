@@ -1,12 +1,12 @@
 FROM teracy/angular-cli as builder
 
-COPY ../.. ./nieOS
+COPY . ./nieOS
 
 WORKDIR ./nieOS
 
 RUN rm -R ./backend/.settings || true
 
-RUN npm install --global yarn
+RUN npm install --global --force yarn
 
 RUN chown -R node:node .
 USER node

@@ -22,6 +22,7 @@ import { FrameSettingsComponent } from '../frame-settings/frame-settings.compone
 import {ActivatedRoute, Router} from '@angular/router';
 import { DataAssignmentComponent } from '../../../query-app-interface/data-management/data-assignment/data-assignment.component';
 import {QueryEntryComponent} from '../../../query-engine/query-entry/query-entry.component';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'popup',
@@ -105,6 +106,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
   queryId: string;
   dataChooserEntries: Array<string>;
   dataAssignmentComponent = new DataAssignmentComponent(  );
+  sub: any;
 
   panelExtended = false;
   @Input () showContent = true;
@@ -225,6 +227,15 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
       this.firstPopupX = 100;
       this.firstPopupY = 100;
     }
+    Observable.interval(1000)
+      .subscribe((val) => {
+        if ( document.getElementById('app') !== null ) {
+          this.height = document.getElementById('app').offsetHeight;
+          this.width = document.getElementById('app').offsetWidth;
+        }
+      });
+    this.curZIndex += 1;
+    localStorage.setItem( 'curZIndex', this.curZIndex + 1 );
   }
 
   appear() {

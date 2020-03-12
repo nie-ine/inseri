@@ -711,7 +711,7 @@ export class PageService {
   }
 
   updatePage(page: any): Observable&lt;any&gt; {
-    // console.log(page);
+    console.log(page);
     const openAppAsStringArray &#x3D; [];
     for ( const openApp in page.openApps) {
       if( page.openApps[openApp].type !&#x3D;&#x3D; &#x27;dataChooser&#x27; &amp;&amp; page.openApps[openApp].type !&#x3D;&#x3D; &#x27;pageMenu&#x27; ) {
