@@ -50,7 +50,7 @@ export class GeneralRequestService {
   transformHeader( header: any ) {
     console.log( header );
     let headerTransformed = new HttpHeaders();
-    if ( header.length ) {
+    if ( header && header.length ) {
       for (const i of header) {
         headerTransformed = headerTransformed.append(i.key, i.value);
         return headerTransformed;
