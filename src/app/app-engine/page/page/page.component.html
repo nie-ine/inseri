@@ -51,21 +51,27 @@
             matTooltip="{{ page.description }}"
             mat-button
             (click)="selectPage( i, page )">{{ page.title }}</button>
-          <mat-divider></mat-divider>
-          <button
-            *ngIf=" (!pageAsDemo) && !preview && loggedIn" mat-button
-            (click)="addNewPage()">
-            Add new page
-          </button> <br>
-          <button
-            *ngIf=" (!pageAsDemo) && !preview && loggedIn" mat-button (click)="addDuplicatedPage()">
-            Add duplicate from an existing page
-          </button> <br>
-          <button
-            *ngIf=" (!pageAsDemo) && !preview && loggedIn" mat-button>
-            Link existing page
-          </button>
+          <mat-button-toggle-group
+            name="fontStyle"
+            *ngIf=" (!pageAsDemo) && !preview && loggedIn"
+            style="margin-left: 10px; margin-right: 10px; margin-top: 10px;">
+
+            <mat-button-toggle (click)="addNewPage()" matTooltip="Add new page">
+              <mat-icon>add</mat-icon>
+            </mat-button-toggle>
+
+            <mat-button-toggle (click)="addDuplicatedPage()" matTooltip="Copy and add existing page">
+              <mat-icon>file_copy</mat-icon>
+            </mat-button-toggle>
+
+            <mat-button-toggle matTooltip="Link existing page" >
+              <mat-icon>link</mat-icon>
+            </mat-button-toggle>
+
+          </mat-button-toggle-group>
+
         </mat-menu>
+
         <button [disabled]="selectedPage === pagesOfThisActtion.length - 1"
                 *ngIf="pagesOfThisActtion"
                 mat-button

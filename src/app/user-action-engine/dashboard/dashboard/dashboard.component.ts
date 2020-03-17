@@ -13,6 +13,7 @@ import {Observable} from 'rxjs';
 import {AuthService} from '../../mongodb/auth/auth.service';
 import { UsergroupService } from '../../mongodb/usergroup/usergroup.service';
 import {PageListDialogComponent} from '../../../app-engine/page/page-list-dialog/page-list-dialog.component';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 
 @Component({
@@ -35,6 +36,7 @@ export class DashboardComponent implements OnInit {
   groupMembers: Array<any> = [];
   email: string;
 
+
   /**
    * Describes if user is logged in
    * */
@@ -48,7 +50,8 @@ export class DashboardComponent implements OnInit {
     private contactService: ContactService,
     private pageService: PageService,
     private authService: AuthService,
-    private usergroupService: UsergroupService
+    private usergroupService: UsergroupService,
+    private spinner: NgxSpinnerService
   ) {
 
     router.events.subscribe(s => {
@@ -106,9 +109,8 @@ export class DashboardComponent implements OnInit {
           });
         }))
       .subscribe( transformedActions => {
-        console.log(transformedActions);
         this.actions = transformedActions;
-        for ( const action of this.actions ) {
+        for ( const action of this.actions.slice().reverse() ) {
           if ( action.type === 'page-set' ) {
             this.actionService.getAction(action.id)
               .subscribe(data => {
@@ -122,6 +124,8 @@ export class DashboardComponent implements OnInit {
         }
       });
   }
+
+  createHasPage() {}
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {

@@ -63,7 +63,11 @@
 
 
     <div *ngFor="let action of actions.slice().reverse(); let i = index">
-      <div class="col-md-4" href="#portfolioModal1" *ngIf="!action.deleted && !action.isFinished && !showArchivedDocuments && !showUserGroups" [ngStyle]="{'color': action.isFinished ? 'green' : 'black'}" style=" width: 230px; height: 300px; display: inline-block;" >
+      <div
+        class="col-md-4"
+        href="#portfolioModal1"
+        *ngIf="!action.deleted && !action.isFinished && !showArchivedDocuments && !showUserGroups && action.hasPage"
+        [ngStyle]="{'color': action.isFinished ? 'green' : 'black'}" style=" width: 230px; height: 300px; display: inline-block;" >
                     <span class="fa-stack fa-4x" [matMenuTriggerFor]="appMenu" [ngSwitch]="action.type" style="cursor: pointer">
                       <i class="fa fa-circle fa-stack-2x text-primary"></i>
                       <i *ngSwitchCase="'page-set'" class="fa fa-files-o fa-stack-1x fa-inverse" ></i>

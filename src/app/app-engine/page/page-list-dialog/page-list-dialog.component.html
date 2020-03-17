@@ -18,7 +18,9 @@
   <ng-container matColumnDef="goToPage"  >
     <th mat-header-cell *matHeaderCellDef>Go to page</th>
     <td mat-cell *matCellDef="let item">
-      <button mat-button mat-icon-button (click)="continueAction( item )"><mat-icon>trending_up</mat-icon></button>
+      <a target=”_blank” [routerLink]="['/page']" [queryParams]="{actionID: item.actionId, page: item._id }">
+        <mat-icon>trending_up</mat-icon>
+      </a>
     </td>
   </ng-container>
 

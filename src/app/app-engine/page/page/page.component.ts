@@ -1126,7 +1126,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   addDuplicatedPage() {
     const dialogRef = this.dialog.open(PageListDialogComponent, {
-      width: '100%',
+      width: '90%',
       height: '40%',
       data: {
         showDuplicateButton: true
