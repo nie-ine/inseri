@@ -28,7 +28,7 @@ export class PageService {
     console.log(page);
     const openAppAsStringArray = [];
     for ( const openApp in page.openApps) {
-      if( page.openApps[openApp].type !== 'dataChooser' && page.openApps[openApp].type !== 'pageMenu' ) {
+      if ( page.openApps[openApp].type !== 'dataChooser' && page.openApps[openApp].type !== 'pageMenu' ) {
         openAppAsStringArray[ openAppAsStringArray.length ] = JSON.stringify(page.openApps[openApp]);
       }
     }
@@ -49,6 +49,10 @@ export class PageService {
 
   deletePageOfPageSet(pageSetID: string, pageID: string): Observable<any> {
     return this.http.delete(`${PageService.API_BASE_URL_PAGE_SET}/${pageSetID}/pages/${pageID}`, {observe: 'response'});
+  }
+
+  duplicatePage( pageID: string ): Observable<any> {
+    return this.http.get(`${PageService.API_BASE_URL_PAGE}/${pageID}/duplicate`);
   }
 
 }

@@ -1135,6 +1135,12 @@ export class PageComponent implements OnInit, AfterViewChecked {
     dialogRef.afterClosed().subscribe((result) => {
       console.log( 'Duplicate the following page and add it to this collage' );
       console.log( result );
+      this.pageService.duplicatePage( result )
+        .subscribe(
+          data => {
+            console.log( data );
+          }, error => console.log( error )
+        );
     });
   }
 
