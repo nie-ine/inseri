@@ -105,7 +105,7 @@
             <mat-icon matTooltip="back to dashboard">home</mat-icon> Dashboard
           </button>
           <button mat-menu-item (click)="goToPageSet()" *ngIf="route.snapshot.queryParams.page" >
-            <mat-icon matTooltip="document index">list</mat-icon> Document index
+            <mat-icon matTooltip="Table of content">list</mat-icon> Table of content
           </button>
           <button mat-menu-item *ngIf=" (!pageAsDemo) && !preview" (click)="updatePage()" >
             <mat-icon  matTooltip="save page">save</mat-icon> Save Page

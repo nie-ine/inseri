@@ -370,6 +370,27 @@ router.get('/:pageId/duplicate/:pageSetId', checkAuth, (req, res, next) => {
           message: 'Page ID is not valid'
         })
       } else {
+
+        console.log( pageResult.queries );
+
+        for ( const queryId of pageResult.queries ) {
+          console.log( queryId );
+          Query.findById( queryId )
+            .then( query => {
+              console.log( query );
+              let queryCopy = new Query({
+                title: query.title,
+                description: query.description,
+                serverUrl: query.serverUrl,
+                method: query.method,
+                params: query.params,
+                header: query.header,
+                body: query.body,
+                path: query.chosenPath
+              });
+            } )
+        }
+
         const duplicate = new Page({
           title: pageResult.title + '_Copy',
           description: pageResult.description,

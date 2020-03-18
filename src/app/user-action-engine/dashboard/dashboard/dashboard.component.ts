@@ -110,18 +110,6 @@ export class DashboardComponent implements OnInit {
         }))
       .subscribe( transformedActions => {
         this.actions = transformedActions;
-        for ( const action of this.actions.slice().reverse() ) {
-          if ( action.type === 'page-set' ) {
-            this.actionService.getAction(action.id)
-              .subscribe(data => {
-                if ( data.body.action.hasPageSet.hasPages !== null && data.body.action.hasPageSet.hasPages[ 0 ]._id ) {
-                  action.hasPage = data.body.action.hasPageSet.hasPages[ 0 ]._id;
-                }
-              }, error => {
-                console.log(error);
-              });
-          }
-        }
       });
   }
 
@@ -203,13 +191,23 @@ export class DashboardComponent implements OnInit {
   }
 
   continueAction( action: any ) {
-    this.router.navigate( [ '/page' ],
-      {
-        queryParams: {
-          'actionID': action.id,
-          'page': action.hasPage
-        },
-      });
+    if ( action.type === 'page-set' ) {
+      this.actionService.getAction(action.id)
+        .subscribe(data => {
+          if ( data.body.action.hasPageSet.hasPages !== null && data.body.action.hasPageSet.hasPages[ 0 ]._id ) {
+            action.hasPage = data.body.action.hasPageSet.hasPages[ 0 ]._id;
+            this.router.navigate( [ '/page' ],
+              {
+                queryParams: {
+                  'actionID': action.id,
+                  'page': action.hasPage
+                },
+              });
+          }
+        }, error => {
+          console.log(error);
+        });
+    }
   }
 
   goToDocumentIndex( action: any ) {
