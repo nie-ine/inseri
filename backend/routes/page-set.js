@@ -145,7 +145,7 @@ router.post('/:id/pages', checkAuth, (req, res, next) => {
                 message: 'Fetching pageset failed',
                 error: errorPageSet
             });
-        })
+        });
 });
 
 router.put('/:id/pages/:pageID', checkAuth, (req, res, next) => {

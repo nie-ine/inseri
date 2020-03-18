@@ -2,10 +2,12 @@ const express = require('express');
 
 const Page = require('../models/page');
 const Query = require('../models/query');
-
+const mongoose = require('mongoose');
 const checkAuth = require('../middleware/check-auth');
 const checkAuth2 = require('../middleware/check-auth-without-immediate-response');
 const router = express.Router();
+const PageSet = require('../models/page-set');
+
 
 // // Nur zum TESTEN
 // router.get('', checkAuth, (req, res, next) => {
@@ -355,6 +357,72 @@ router.put('/:id', checkAuth, (req, res, next) => {
                 error: error
             });
         });
+});
+
+router.get('/:pageId/duplicate/:pageSetId', checkAuth, (req, res, next) => {
+
+  console.log( 'duplicate', req.params.pageId );
+
+  Page.findById(req.params.pageId)
+    .then(pageResult => {
+      if (!pageResult) {
+        return res.status(404).json({
+          message: 'Page ID is not valid'
+        })
+      } else {
+        const duplicate = new Page({
+          title: pageResult.title + '_Copy',
+          description: pageResult.description,
+          appInputQueryMapping: pageResult.appInputQueryMapping,
+          queries: pageResult.queries,
+          hasSubPages: pageResult.hasSubPages,
+          chosenWidth: pageResult.chosenWidth,
+          published: pageResult.published,
+          showAppSettingsOnPublish: pageResult.showAppSettingsOnPublish,
+          showAppTitlesOnPublish: pageResult.showAppTitlesOnPublish,
+          showDataBrowserOnPublish: pageResult.showDataBrowserOnPublish,
+          showInseriLogoOnPublish: pageResult.showInseriLogoOnPublish,
+          openApps: pageResult.openApps
+        });
+        duplicate.save()
+          .then(
+            copiedPage => {
+              PageSet.update({_id: req.params.pageSetId}, { $push: { hasPages: copiedPage._id } })
+                .then(updatedPageSet => {
+                  console.log( updatedPageSet );
+                  if (updatedPageSet.n > 0) {
+                    res.status(201).json({
+                      message: 'Page in pageset was created successfully',
+                      page: copiedPage
+                    });
+                  } else {
+                    res.status(400).json({
+                      message: 'Page cannot be created'
+                    });
+                  }
+                })
+                .catch(errorUpdatePageSet => {
+                  res.status(500).json({
+                    message: 'Creating page in pageset failed',
+                    error: errorUpdatePageSet
+                  });
+                });
+            }
+          )
+          .catch(error => {
+            res.status(500).json({
+              message: 'Page cannot be copied',
+              error: error
+            });
+          });
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Fetching page failed',
+        error: error
+      })
+    });
 });
 
 module.exports = router;
