@@ -222,7 +222,10 @@
           'height': app.fullHeight ? '100%' : produceHeightAndWidth( app.height, app.initialHeight ) + 'px',
           'width': app.fullWidth ? '100%' : produceHeightAndWidth( app.width, app.initialWidth ) + 'px'}">
 
-            <app-all-app-selectors [app]="app" (reloadVariables)="reloadVariablesFunction()" [appInputQueryMapping]="page.appInputQueryMapping" [(hoveredElement)]="hoveredElement">
+            <app-all-app-selectors
+              [app]="app" (reloadVariables)="reloadVariablesFunction()"
+              [appInputQueryMapping]="page.appInputQueryMapping"
+              [(hoveredElement)]="hoveredElement">
 
             </app-all-app-selectors>
 

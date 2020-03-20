@@ -52,6 +52,7 @@ export class PrimeEditorComponent implements OnChanges {
       this.appInputQueryMapping[ this.hash ][ 'textFile' ][ 'serverUrl' ].split('/')[ 6 ], { textFile: this.textFile} )
       .subscribe(
         data => {
+          this.textFile = undefined;
           console.log( data );
         }, error => console.log( error )
       );

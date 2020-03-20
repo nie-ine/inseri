@@ -368,6 +368,9 @@ router.get('/:pageId/duplicate/:pageSetId', checkAuth, (req, res, next) => {
 
         let newQueries = [];
         let i = 0;
+        let oldQueries = pageResult.queries;
+        let oldServerUrls = [];
+        let newServerUrls = [];
         for ( const queryId of pageResult.queries ) {
 
 
@@ -387,6 +390,8 @@ router.get('/:pageId/duplicate/:pageSetId', checkAuth, (req, res, next) => {
                   path: query.chosenPath
                 });
 
+                oldServerUrls.push(query.serverUrl);
+
                 MyOwnJson.findById( query.serverUrl.split('/')[6] )
                   .then(myOwnJson => {
 
@@ -398,14 +403,13 @@ router.get('/:pageId/duplicate/:pageSetId', checkAuth, (req, res, next) => {
                         .then(copiedMyOwnJson => {
 
                           queryCopy.serverUrl = 'http://localhost:3000/api/myOwnJson/getJson/' + copiedMyOwnJson._id;
+                          newServerUrls.push( queryCopy.serverUrl );
                           queryCopy.save()
                             .then(resultQuery => {
-                              console.log( 'saved successfully',  resultQuery );
                               newQueries.push( resultQuery._id );
                               i += 1;
                               if ( i == pageResult.queries.length ) {
-                                console.log( 'continue!', newQueries );
-                                updatePage( pageResult, newQueries, res, req )
+                                updatePage( pageResult, newQueries, res, req, oldQueries, oldServerUrls, newServerUrls )
                               }
                             })
                             .catch(error => {
@@ -431,8 +435,7 @@ router.get('/:pageId/duplicate/:pageSetId', checkAuth, (req, res, next) => {
               } else {
                 i += 1;
                 if ( i == pageResult.queries.length ) {
-                  console.log( 'continue!', newQueries );
-                  updatePage( pageResult, pageResult.queries, res, req );
+                  updatePage( pageResult, pageResult.queries, res, req, oldQueries, oldServerUrls, newServerUrls );
                 }
               }
             } );
@@ -446,7 +449,23 @@ router.get('/:pageId/duplicate/:pageSetId', checkAuth, (req, res, next) => {
     });
 });
 
-function updatePage( pageResult, queries, res, req ) {
+function updatePage( pageResult, queries, res, req, oldQueries, oldServerUrls, newServerUrls ) {
+
+  console.log( oldServerUrls, newServerUrls );
+
+  for ( let i = 0; i < pageResult.appInputQueryMapping.length; i++ ) {
+    for ( let j = 0; j < oldQueries.length; j++ ) {
+      // console.log( 'before', JSON.parse(pageResult.appInputQueryMapping[ i ]) );
+      pageResult.appInputQueryMapping[ i ] = pageResult.appInputQueryMapping[ i ].replace( oldQueries[j], queries[ j ] );
+      // console.log( 'after', JSON.parse(pageResult.appInputQueryMapping[ i ]) );
+    }
+    for ( let k = 0; k < oldServerUrls.length; k++ ) {
+      console.log( 'before', JSON.parse(pageResult.appInputQueryMapping[ k ]) );
+      pageResult.appInputQueryMapping[ k ] = pageResult.appInputQueryMapping[ k ].replace( oldServerUrls[ k ], newServerUrls[ k ] );
+      console.log( 'after', JSON.parse(pageResult.appInputQueryMapping[ k ]) );
+    }
+  }
+
   const duplicate = new Page({
     title: pageResult.title + '_Copy',
     description: pageResult.description,
@@ -461,7 +480,6 @@ function updatePage( pageResult, queries, res, req ) {
     showInseriLogoOnPublish: pageResult.showInseriLogoOnPublish,
     openApps: pageResult.openApps
   });
-  console.log( duplicate );
   duplicate.save()
     .then(
       copiedPage => {

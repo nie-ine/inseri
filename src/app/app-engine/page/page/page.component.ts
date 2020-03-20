@@ -355,6 +355,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
   ngAfterViewChecked() {
     this.cdr.detectChanges();
     if ( this.pageIDFromURL !==  this.route.snapshot.queryParams.page ) {
+      this.openAppArray = [];
+      this.page = {};
       this.pageIDFromURL = this.route.snapshot.queryParams.page;
       this.reloadVariables = true;
     }
