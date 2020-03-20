@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {error} from 'util';
+import {mimeType} from './mimeType.validator';
+import {FormControl, FormGroup , Validators} from '@angular/forms';
 @Component({
   selector: 'app-our-new-component',
   templateUrl: './our-new-component.component.html',
@@ -33,9 +35,27 @@ export class OurNewComponentComponent implements OnInit {
   foldersArray: Array<string>;
 
 
+
+  form: FormGroup;
+  imagePreview: string;
+
+  onImagePicked(event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    this.form.patchValue({image: file});
+    this.form.get('image').updateValueAndValidity();
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result as string;
+    };
+    // tslint:disable-next-line:comment-format
+    reader.readAsDataURL(file);
+  }
   ngOnInit() {
     this.ourFirstVariable = 'Hello, this is our first classwide variable';
     this.secondVariable = this.ourFirstVariable + ' and sth added to the first string';
+    this.form = new FormGroup({
+      'image': new FormControl('null', {validators: [Validators.required], asyncValidators: [mimeType]})
+    });
   }
   createNewUserGroup() {
     this.http.post(
@@ -362,7 +382,7 @@ export class OurNewComponentComponent implements OnInit {
         }
       );
 }
-  deletePageSetsFromFolder(folderId: string, pageSetId: string){
+  deletePageSetsFromFolder(folderId: string, pageSetId: string) {
     this.http.post('http://localhost:3000/api/folder/update/removePageSet/' + folderId + '&' + pageSetId,
       {}
       , )

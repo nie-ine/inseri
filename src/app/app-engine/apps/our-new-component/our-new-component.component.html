@@ -1,10 +1,18 @@
-<div class="div">
+<div>
+  <button mat-stroked-button type="button"(click)="filePicker.click()">Pick a file</button>
+  <input type="file" #filePicker style="visibility: hidden" (change)="onImagePicked($event)">
+</div>
+<div class="image-preview" *ngIf="imagePreview!=='' && imagePreview && form.get('image').valid">
+  <img [src]="imagePreview" alt="The Image" style="height: 5rem; margin: 1rem 0;" img="height: 100%;">
+</div>
+
+<!--div class="div">
   <div class="row">
     <div class="col-xs-12">
       <label for="folder">Folder Name </label>
       <input [(ngModel)]="folder" type="text" id="folder">
       <button mat-button (click)="createNewFolder(folder)">
-        Create New Folder --> title
+        Create New Folder( title)
       </button>
       <button mat-button (click)="showFolders('-1')">
         Show main folders
@@ -19,7 +27,7 @@
       <label for="folder_id">Main Folder Id </label>
       <input [(ngModel)]="mainFolder_id" type="text" id="folder_id">
       <button mat-button (click)="createSubFolder(folder,mainFolder_id)">
-        Create New Subfolder --> title, main Folder id
+        Create New Subfolder( title, main Folder id)
       </button>
     </div>
   </div>
@@ -29,7 +37,7 @@
     <div class="col-xs-12">
       <div *ngFor="let folderInstance of foldersArray">
         <input mat-input [(ngModel)]="folderInstance.title" >
-        <!--label for={{folderInstance._id}}>{{folderInstance.title}} </label-->
+        <label for={{folderInstance._id}}>{{folderInstance.title}} </label>
         <button mat-button (click)="showFolders(folderInstance._id)">
           Show subfolders
         </button>
@@ -136,20 +144,20 @@
   Enter Email of new user that you'd like to add to the group:
   <input mat-input [(ngModel)]="member" >
   <button [disabled]="userGroupParams" mat-button  (click)="assignUserToGroup( group, member )" >
-   <!-- {{ group.title }}-->
+   {{ group.title }}
     Add
   </button>
   <button [disabled]="userGroupParams" mat-button  (click)="removeUserFromGroup( group,member)" >
-    <!-- {{ group.title }}-->
+     {{ group.title }}
     Remove
   </button>
   <button [disabled]="userGroupParams" mat-button  (click)="removeMeFromGroup( group)" >
-    <!-- {{ group.title }}-->
+     {{ group.title }
     Remove me
   </button>
 
   <button [disabled]="userGroupParams" mat-button  (click)="assignNewOwner( group, member)" >
-    <!-- {{ group.title }}-->
+     {{ group.title }}
     Assign new owner to group
   </button>
 
@@ -164,5 +172,6 @@
     Remove group
   </button>
 
-</div>
+</div-->
+
 
