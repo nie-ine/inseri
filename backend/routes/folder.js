@@ -6,13 +6,14 @@ const Folder = require('../models/folder');
 const router = express.Router();
 
 //creating a new folder --> mainFolderId should be null if it is on the root folder otherwise it is the value of the Parent folder ID
+//folder CRUD operations.
 router.post('/:mainFolderId',checkAuth, (req, res, next) => {
   console.log(req.body);
   console.log(req.params);
   let newFolder;
   Folder.find({title: req.body.title, owner:req.userData.userId})
     .then((result) => {
-      // Checks if other owner has the same group name
+      // Checks if other owner has the same folder name
       if (result.length > 0 && req.params.mainFolderId ==='-1'){
         return res.status(409).json({
           message: 'Folder already exists!'
@@ -21,7 +22,7 @@ router.post('/:mainFolderId',checkAuth, (req, res, next) => {
       else if(req.params.mainFolderId !== '-1') {
         Folder.find({title: req.body.title, owner: req.userData.userId, hasParent: req.params.mainFolderId})
           .then((result) => {
-            // Checks if other owner has the same group name
+            // Checks if other owner has sub folder with the same name for the  current parent folder
             if (result.length > 0) {
               return res.status(409).json({
                 message: 'Subfolder already exists for the same main folder!'
@@ -32,19 +33,16 @@ router.post('/:mainFolderId',checkAuth, (req, res, next) => {
       if(req.params.mainFolderId==='-1') {
         newFolder = new Folder({
         title: req.body.title,
-        hasPageSets:[],
         owner: req.userData.userId
         });
       }
       else {
         newFolder = new Folder({
           title: req.body.title,
-          hasPageSets:[],
           owner: req.userData.userId,
           hasParent: req.params.mainFolderId
         });
       }
-      console.log(req.body.title);
       console.log(req.params.mainFolderId);
       newFolder.save()
         .then (resultQuery => {
@@ -136,7 +134,7 @@ router.post('/update/title/:folderId',checkAuth, (req, res, next) => {
       })
     });
 });
-
+///add and delete an existing PageSet and create a new PageSet in a folder
 router.post('/update/addPageSet/:folderId&:pageSetId',checkAuth, (req, res, next) => {
   Folder.updateOne({$and:[
         {owner:  req.userData.userId},
@@ -163,12 +161,291 @@ router.post('/update/addPageSet/:folderId&:pageSetId',checkAuth, (req, res, next
     });
 });
 
+//return an array of PageSetIds
+router.get('getPageSets/:folderId', checkAuth, (req, res, next) => {
+    Folder.find({owner: req.userData.userId, _id: req.params.folderId},{hasPageSets:1,_id:0})
+      .then(pageSets => {
+        let message;
+        if (pageSets.length === 0) {
+          message = 'The Folder has no PageSets'
+        } else {
+          message = 'All PageSets were found'
+        }
+        res.status(200).json({
+          message: message,
+          pageSets: pageSets[0]
+        });
+      })
+      .catch(error => {
+        res.status(500).json({
+          message: 'Fetching all PageSets failed',
+          error: error
+        })
+      })
+  });
+
 router.post('/update/removePageSet/:folderId&:pageSetId',checkAuth, (req, res, next) => {
   Folder.updateOne({$and:[
         {owner: req.userData.userId},
         {_id: req.params.folderId}
       ]},
     {$pull: {hasPageSets: req.params.pageSetId}})
+    .then((updatedDocument) => {
+      if (updatedDocument.n === 0) {
+        res.status(400).json({
+          message: 'Folder cannot be updated.'
+        });
+      } else {
+        return res.status(200).json({
+          message: 'Folder has been updated successfully',
+          updatedDocument: updatedDocument
+        });
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Updating Folder failed.',
+        error: error
+      })
+    });
+});
+
+//router.post('/update/createPageSet/:folderId',checkAuth, (req, res, next) => {
+//  //PageSet.save
+//  Folder.updateOne({$and:[
+//        {owner:  req.userData.userId},
+//        {_id: req.params.folderId}
+//      ]},
+//    {$addToSet: {hasPageSets: req.params.pageSetId}})
+//    .then((updatedDocument) => {
+//      if (updatedDocument.n === 0) {
+//        res.status(400).json({
+//          message: 'Folder cannot be updated.'
+//        });
+//      } else {
+//        return res.status(200).json({
+//          message: 'Folder has been updated successfully',
+//          updatedDocument: updatedDocument
+//        });
+//      }
+//    })
+//    .catch(error => {
+//      res.status(500).json({
+//        message: 'Updating Folder failed.',
+//        error: error
+//      })
+//    });
+//});
+
+///add and delete Page
+router.post('/update/addPage/:folderId&:pageId',checkAuth, (req, res, next) => {
+  Folder.updateOne({$and:[
+        {owner:  req.userData.userId},
+        {_id: req.params.folderId}
+      ]},
+    {$addToSet: {hasPages: req.params.pageId}})
+    .then((updatedDocument) => {
+      if (updatedDocument.n === 0) {
+        res.status(400).json({
+          message: 'Folder cannot be updated.'
+        });
+      } else {
+        return res.status(200).json({
+          message: 'Folder has been updated successfully',
+          updatedDocument: updatedDocument
+        });
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Updating Folder failed.',
+        error: error
+      })
+    });
+});
+
+//return an array of PagesIds
+router.get('getPages/:folderId', checkAuth, (req, res, next) => {
+  Folder.find({owner: req.userData.userId, _id: req.params.folderId},{hasPages:1,_id:0})
+    .then(pages => {
+      let message;
+      if (pages.length === 0) {
+        message = 'The Folder has no Pages'
+      } else {
+        message = 'All Pages were found'
+      }
+      res.status(200).json({
+        message: message,
+        pages: pages[0]
+      });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Fetching all Pages failed',
+        error: error
+      })
+    })
+});
+
+router.post('/update/removePage/:folderId&:pageId',checkAuth, (req, res, next) => {
+  Folder.updateOne({$and:[
+        {owner: req.userData.userId},
+        {_id: req.params.folderId}
+      ]},
+    {$pull: {hasPages: req.params.pageId}})
+    .then((updatedDocument) => {
+      if (updatedDocument.n === 0) {
+        res.status(400).json({
+          message: 'Folder cannot be updated.'
+        });
+      } else {
+        return res.status(200).json({
+          message: 'Folder has been updated successfully',
+          updatedDocument: updatedDocument
+        });
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Updating Folder failed.',
+        error: error
+      })
+    });
+});
+
+///add and delete Query
+router.post('/update/addQuery/:folderId&:queryId',checkAuth, (req, res, next) => {
+  Folder.updateOne({$and:[
+        {owner:  req.userData.userId},
+        {_id: req.params.folderId}
+      ]},
+    {$addToSet: {hasQueries: req.params.queryId}})
+    .then((updatedDocument) => {
+      if (updatedDocument.n === 0) {
+        res.status(400).json({
+          message: 'Folder cannot be updated.'
+        });
+      } else {
+        return res.status(200).json({
+          message: 'Folder has been updated successfully',
+          updatedDocument: updatedDocument
+        });
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Updating Folder failed.',
+        error: error
+      })
+    });
+});
+
+//return an array of Queries
+router.get('getQueries/:folderId', checkAuth, (req, res, next) => {
+  Folder.find({owner: req.userData.userId, _id: req.params.folderId},{hasQueries:1,_id:0})
+    .then(queries => {
+      let message;
+      if (pageSets.length === 0) {
+        message = 'The Folder has no Queries'
+      } else {
+        message = 'All Queries were found'
+      }
+      res.status(200).json({
+        message: message,
+        queries: queries[0]
+      });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Fetching all queries failed',
+        error: error
+      })
+    })
+});
+
+router.post('/update/removeQuery/:folderId&:queryId',checkAuth, (req, res, next) => {
+  Folder.updateOne({$and:[
+        {owner: req.userData.userId},
+        {_id: req.params.folderId}
+      ]},
+    {$pull: {hasQueries: req.params.queryId}})
+    .then((updatedDocument) => {
+      if (updatedDocument.n === 0) {
+        res.status(400).json({
+          message: 'Folder cannot be updated.'
+        });
+      } else {
+        return res.status(200).json({
+          message: 'Folder has been updated successfully',
+          updatedDocument: updatedDocument
+        });
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Updating Folder failed.',
+        error: error
+      })
+    });
+});
+
+
+///add and delete Files
+router.post('/update/addFile/:folderId&:fileId',checkAuth, (req, res, next) => {
+  Folder.updateOne({$and:[
+        {owner:  req.userData.userId},
+        {_id: req.params.folderId}
+      ]},
+    {$addToSet: {hasFiles: req.params.fileId}})
+    .then((updatedDocument) => {
+      if (updatedDocument.n === 0) {
+        res.status(400).json({
+          message: 'Folder cannot be updated.'
+        });
+      } else {
+        return res.status(200).json({
+          message: 'Folder has been updated successfully',
+          updatedDocument: updatedDocument
+        });
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Updating Folder failed.',
+        error: error
+      })
+    });
+});
+
+//return an array of Files
+router.get('getFiles/:folderId', checkAuth, (req, res, next) => {
+  Folder.find({owner: req.userData.userId, _id: req.params.folderId},{hasFiles:1,_id:0})
+    .then(files => {
+      let message;
+      if (files.length === 0) {
+        message = 'The Folder has no Files'
+      } else {
+        message = 'All Files were found'
+      }
+      res.status(200).json({
+        message: message,
+        files: files[0]
+      });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Fetching all files failed',
+        error: error
+      })
+    })
+});
+
+router.post('/update/removeFile/:folderId&:fileId',checkAuth, (req, res, next) => {
+  Folder.updateOne({$and:[
+        {owner: req.userData.userId},
+        {_id: req.params.folderId}
+      ]},
+    {$pull: {hasFiles: req.params.fileId}})
     .then((updatedDocument) => {
       if (updatedDocument.n === 0) {
         res.status(400).json({
