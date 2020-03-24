@@ -2,7 +2,7 @@
 
 In the end of this tutorial, the user will have and idea about the workflow areas in INSERI.
 
-<p>This is a collection of tutorials that will allow the scholar to start and suffessfully finish their academic project from A to Z within INSERI framework.</p>
+<p>This is a collection of tutorials that will allow the scholar to start and successfully finish their academic project from A to Z within INSERI framework.</p>
 
 <p>The whole workflow is divided into 7 distinct areas, as below. The project might need all 7 or only a few. These areas conceived in such a way as to cover the totality of the academic work, from raw data collection to analysis, and, finally, to publication. The framework should be sufficient for the scholar to have all the project data in a single place, and to need no other applications to be able to complete the project.</p>
 
