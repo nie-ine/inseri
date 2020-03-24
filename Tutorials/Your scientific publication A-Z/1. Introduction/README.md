@@ -6,7 +6,7 @@ In the end of this tutorial, the user will have and idea about the workflow area
 
 <p>The whole workflow is divided into 7 distinct areas, as below. The project might need all 7 or only a few. These areas conceived in such a way as to cover the totality of the academic work, from raw data collection to analysis, and, finally, to publication. The framework should be sufficient for the scholar to have all the project data in a single place, and to need no other applications to be able to complete the project.</p>
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/1.png" alt="7 project areas"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/1.png" alt="7 project areas" width="500"></p>
 
 <ol>
 <li>The <strong>&quot;Add&quot;</strong> part covers the workflow from the raw data upload, via adding metadata, managing bibliography, to the formulation of hypothesis and methods. Some parts are already stable in INSERI, others are under development.</li>
@@ -28,9 +28,9 @@ In the end of this tutorial, the user will have and idea about the workflow area
 
 <p>By clicking on the lighthouse image in the top left corner, one opens a list of applications, as below.</p>
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/2.png" alt="Applications, state 2020.03.24"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/2.png" alt="Applications, state 2020.03.24" width="500"></p>
 
 <p>Clicking on "Log in" in Inseri Test version opens the login form, which is here:</p>
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/3.png" alt="Login, state 2020.03.24"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/3.png" alt="Login, state 2020.03.24" width="500"></p>
 
