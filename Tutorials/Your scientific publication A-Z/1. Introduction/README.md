@@ -18,4 +18,19 @@ In the end of this tutorial, the user will have and idea about the workflow area
 <li>Finally, the <strong>&quot;Publish&quot;</strong> area provides various options for generating the output that can be immediately used for producing online or print books and articles.</li>
 </ol>
 
+<h1 id="toc_0">Creating your academic project</h1>
+
+<p>The users can already create their project page in INSERI, describe it, obtain and change the access information, as well as add the texts, tables, and pictures. </p>
+
+<p>To get started, one should access INSERI here:
+<a href="http://test-nieos.nie-ine.ch/home">Inseri Test Version</a>
+[Inseri Prod Version] Only prod version allows creating an account.</p>
+
+<p>By clicking on the lighthouse image in the top left corner, one opens a list of applications, as below.</p>
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/2.png" alt="Applications, state 2020.03.24"></p>
+
+<p>Inseri Test version opens the login form, which is here:</p>
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/3.png" alt="Login, state 2020.03.24"></p>
 
