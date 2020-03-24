@@ -1,3 +1,20 @@
 # Introduction
 
-In the end of this tutorial, the user will have.....
+In the end of this tutorial, the user will have and idea about the workflow areas in INSERI.
+
+<p>This is a collection of tutorials that will allow the scholar to start and suffessfully finish their academic project from A to Z within INSERI framework.</p>
+
+<p>The whole workflow is divided into 7 distinct areas, as below. The project might need all 7 or only a few. These areas conceived in such a way as to cover the totality of the academic work, from raw data collection to analysis, and, finally, to publication. The framework should be sufficient for the scholar to have all the project data in a single place, and to need no other applications to be able to complete the project.</p>
+
+<p>![7 Workflow Areas]<a href="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/1.png">https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/1.png</a></p>
+
+<ol>
+<li>The <strong>&quot;Add&quot;</strong> part covers the workflow from the raw data upload, via adding metadata, managing bibliography, to the formulation of hypothesis and methods. Some parts are already stable in INSERI, others are under development.</li>
+<li>The <strong>&quot;Admin&quot;</strong> part covers various aspects of administering the project, it is UNDER DEVELOPMENT, and will include such tools as adding users, project planning, a selection of online communication tools, etc.</li>
+<li>The <strong>&quot;Enrich&quot;</strong> part essecially covers various kids of TEI/XML tagging and annotation of the raw data, which becomes transformed to texts and numbers. The information is saved as triples.</li>
+<li>The <strong>&quot;Analyse&quot;</strong> block consists of various tools made for human and computer-assisted analysis, such as the comparison of two or more images, text versions comparison, finding textual parallels, colliding variants in a view to produce a diplomatic/critical edition.</li>
+<li>The <strong>&quot;Visual&quot;</strong> part is already well-developed in INSERI which has not less than 8 different visualization applications, all of them can directly reuse the RDF data created at the previous steps.</li>
+<li>The <strong>&quot;SWT&quot;</strong> part stands for &quot;Semantic Web Technology&quot;, and this module offers the scholars the possibility to formulate very complexe queries, that are beyond the capacities provided by complex search queries in relational detabases, for example.</li>
+<li>Finally, the <strong>&quot;Publish&quot;</strong> area provides various options for generating the output that can be immediately used for producing online or print books and articles.</li>
+</ol>
+
