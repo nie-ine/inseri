@@ -7,7 +7,7 @@ In the end of this tutorial, the user will have and idea about the workflow area
 <p>The whole workflow is divided into 7 distinct areas, as below. The project might need all 7 or only a few. These areas conceived in such a way as to cover the totality of the academic work, from raw data collection to analysis, and, finally, to publication. The framework should be sufficient for the scholar to have all the project data in a single place, and to need no other applications to be able to complete the project.</p>
 
 <p>![7 Workflow Areas]</p>
- inseri/Tutorials/Your scientific publication A-Z/1. Introduction/1.png 
+Tutorials/Your scientific publication A-Z/1. Introduction/1.png
 
 <ol>
 <li>The <strong>&quot;Add&quot;</strong> part covers the workflow from the raw data upload, via adding metadata, managing bibliography, to the formulation of hypothesis and methods. Some parts are already stable in INSERI, others are under development.</li>
