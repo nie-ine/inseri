@@ -28,9 +28,9 @@ In the end of this tutorial, the user will have and idea about the workflow area
 
 <p>By clicking on the lighthouse image in the top left corner, one opens a list of applications, as below.</p>
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/2.png" alt="Applications, state 2020.03.24" width="500"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/2.png" alt="Applications, state 2020.03.24" width="600"></p>
 
 <p>Clicking on "Log in" in Inseri Test version opens the login form, which is here:</p>
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/3.png" alt="Login, state 2020.03.24" width="500"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/3.png" alt="Login, state 2020.03.24" width="300"></p>
 
