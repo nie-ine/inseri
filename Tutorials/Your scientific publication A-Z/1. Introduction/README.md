@@ -19,7 +19,7 @@ In the end of this tutorial, the user will have and idea about the workflow area
 </ol>
 
 <h1 id="toc_0">Creating your academic project</h1>
-<h1 id="toc_0">Step 0.1: Login, setting up project "space", creating project title and a short description.</h1>
+<h3 id="toc_0">Step 0.1: Login, setting up project "space", creating project title and a short description.</h3>
 
 <h2>Login</h2>
 <p>The users can already create their project page in INSERI, describe it, obtain and change the access information, as well as add the texts, tables, and pictures. </p>
