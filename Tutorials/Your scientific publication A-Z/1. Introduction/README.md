@@ -19,7 +19,9 @@ In the end of this tutorial, the user will have and idea about the workflow area
 </ol>
 
 <h1 id="toc_0">Creating your academic project</h1>
+<h1 id="toc_0">Step 0.1: Login, setting up project "space", creating project title and a short description.</h1>
 
+<h2>Login</h2>
 <p>The users can already create their project page in INSERI, describe it, obtain and change the access information, as well as add the texts, tables, and pictures. </p>
 
 <p>To get started, one should access INSERI here:
@@ -34,6 +36,7 @@ In the end of this tutorial, the user will have and idea about the workflow area
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/3.png" alt="Login, state 2020.03.24" width="300"></p>
 
+<h2>Setting up project "space"</h2>
 <p>Having logged in, first of all, the user should create a &quot;project space&quot;. For that, in the Dashboard, which opens in INSERI from the top right-hand corner, and, in order to do this, one should click on the green button, as below:</p>
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/4.png" alt="Create New" width="200"></p>
@@ -53,6 +56,7 @@ Another important point, is that there often (but not always) 2 applications for
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/7.png" alt="Collage creation" width="400"></p>
 
+<h2>Creating project title and a short description</h2>
 <p>The user can proceed with setting up of the first page of the project. This page will contain the title of the project and a brief description.</p>
 
 <p>There are two applications in INSERI that allow to do it:</p>
