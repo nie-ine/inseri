@@ -118,12 +118,12 @@ We can create a &quot;Tile&quot; covering only a part of the visible screen, or 
 
 <p><strong>&quot;File Options&quot;</strong> shall open another menu, as below:</p>
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8d.png" alt="Plaintext Viewer File Options" width="200"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8d.png" alt="Plaintext Viewer File Options" width="400"></p>
 
 <p>What we need is the &quot;Option for input: &quot;textlist&quot;&quot;. 
 It will open the following possiblities:</p>
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8e.png" alt="Further Options" width="400"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8e.png" alt="Further Options" width="200"></p>
 
 <p>&quot;Change current data&quot; will open JSON object, which can be modified by hand.
 &quot;Open other file&quot;, will open a directory with INSERI where the Project files are stored.</p>
