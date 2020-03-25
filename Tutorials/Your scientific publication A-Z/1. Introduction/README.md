@@ -36,11 +36,11 @@ In the end of this tutorial, the user will have and idea about the workflow area
 
 <p>Having logged in, first of all, the user should create a &quot;project space&quot;. For that, in the Dashboard, which opens in INSERI from the top right-hand corner, and, in order to do this, one should click on the green button, as below:</p>
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/4.png" alt="Create New" width="100"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/4.png" alt="Create New" width="200"></p>
 
 <p>It will open a frame for creating a new &quot;Collage&quot;, which the user should imagine as a separate webpage, which will contain multiple elements.</p>
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5.png" alt="Collage creation" width="200"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5.png" alt="Collage creation" width="400"></p>
 
 <p>The information set in here won&#39;t be visible to public, but only to the creator and the members of the groups that are set (more on groupd in the Admin section below). What is being created here is a &quot;storage&quot; that will contain finished and unfinished parts of the online project, that are not visible to public until they are &quot;published&quot;. 
 Another important point, is that there often (but not always) 2 applications for entering each piece of data. One serves for uploading and editing, and the other - for viewing.</p>
@@ -51,7 +51,7 @@ Another important point, is that there often (but not always) 2 applications for
 
 <p>When one clicks on this sign, the empty page with the name of the collage opens:</p>
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/7.png" alt="Collage creation" width="200"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/7.png" alt="Collage creation" width="400"></p>
 
 <p>The user can proceed with setting up of the first page of the project. This page will contain the title of the project and a brief description.</p>
 
@@ -65,4 +65,4 @@ Plaintext Viewer, the app which displays the result on the webpage.</p>
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8.png" alt="Collage creation" width="600"></p>
 
 <p>Here are the two applications together:
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/9.png" alt="Plaintext Editor and Plaintext Viewer="800"></p></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/9.png" alt="Plaintext Editor and Plaintext Viewer="900"></p></p>
