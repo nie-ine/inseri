@@ -90,11 +90,11 @@ The <strong>Export</strong> area [has another Save button, export options are UN
 
 <p>It opens as a seemingly empty frame, as below:</p>
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8a.png" alt="Plaintext Viewer width="300"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8a.png" alt="Plaintext Viewer" width="300"></p>
 
 <p>In order to generate the view of the text that the user has just entered, all we need is to recall the file. For that, the user should click on the texts &quot;Plain text viewer&quot; itself, and it will open an &quot;options&quot; menu, as below:</p>
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8b.png" alt="Plaintext Viewer Options width="300"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8b.png" alt="Plaintext Viewer Options" width="300"></p>
 
 <p>Let us briefly go through all the options, because the same exist in the absolute majority of the INSERI applications.</p>
 
@@ -111,7 +111,7 @@ The <strong>Export</strong> area [has another Save button, export options are UN
 
 <p><strong>&quot;Change Title and Size&quot;</strong> opens the following option window:</p>
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8c.png" alt="Plaintext Editor and Plaintext Viewer width="500"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8c.png" alt="Plaintext Editor and Plaintext Viewer" width="500"></p>
 
 <p>What we are setting up here is the size of the textual block that we have just entered in the &quot;Text Editor&quot; how it will be visible to public in the &quot;Viewer&quot;.
 We can create a &quot;Tile&quot; covering only a part of the visible screen, or to make the text occupy the whole screen. More over, the user can also change the headline, holding the name of the application, i.e. &quot;Plaintext Viewer&quot; into something different, or even delete it altogether. &quot;Save&quot; and &quot;Close&quot;.</p>
