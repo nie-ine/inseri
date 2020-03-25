@@ -90,11 +90,11 @@ The <strong>Export</strong> area [has another Save button, export options are UN
 
 <p>It opens as a seemingly empty frame, as below:</p>
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8a.png" alt="Plaintext Viewer="200"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8a.png" alt="Plaintext Viewer width="300"></p>
 
 <p>In order to generate the view of the text that the user has just entered, all we need is to recall the file. For that, the user should click on the texts &quot;Plain text viewer&quot; itself, and it will open an &quot;options&quot; menu, as below:</p>
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8b.png" alt="Plaintext Viewer Options="100"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8b.png" alt="Plaintext Viewer Options width="300"></p>
 
 <p>Let us briefly go through all the options, because the same exist in the absolute majority of the INSERI applications.</p>
 
@@ -111,33 +111,33 @@ The <strong>Export</strong> area [has another Save button, export options are UN
 
 <p><strong>&quot;Change Title and Size&quot;</strong> opens the following option window:</p>
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8c.png" alt="Plaintext Editor and Plaintext Viewer="200"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8c.png" alt="Plaintext Editor and Plaintext Viewer width="500"></p>
 
 <p>What we are setting up here is the size of the textual block that we have just entered in the &quot;Text Editor&quot; how it will be visible to public in the &quot;Viewer&quot;.
 We can create a &quot;Tile&quot; covering only a part of the visible screen, or to make the text occupy the whole screen. More over, the user can also change the headline, holding the name of the application, i.e. &quot;Plaintext Viewer&quot; into something different, or even delete it altogether. &quot;Save&quot; and &quot;Close&quot;.</p>
 
 <p><strong>&quot;File Options&quot;</strong> shall open another menu, as below:</p>
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8d.png" alt="Plaintext Viewer File Options="100"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8d.png" alt="Plaintext Viewer File Options" width="200"></p>
 
 <p>What we need is the &quot;Option for input: &quot;textlist&quot;&quot;. 
 It will open the following possiblities:</p>
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8e.png" alt="Plaintext Viewer File Options="100"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8e.png" alt="Further Options" width="500"></p>
 
 <p>&quot;Change current data&quot; will open JSON object, which can be modified by hand.
 &quot;Open other file&quot;, will open a directory with INSERI where the Project files are stored.</p>
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8f.png" alt="INSERI file directory="200"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8f.png" alt="INSERI file directory" width="500"></p>
 
 <p>All we need is to select the file we have just created (most recent are up by default), and click on &quot;+&quot; sign. By doing so we have have created a link between the file done in &quot;Editor&quot; and its visualization in the &quot;Viewer&quot;. Having clicked on &quot;+&quot; we shall be back to a form we have seen already, click on &quot;Close and reload page to see changes&quot; in order to validate the established link:</p>
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8d.png" alt="Plaintext Viewer File Options="200"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8d.png" alt="Plaintext Viewer File Options" width="500"></p>
 
 <p>Other options from the area above include:
 &quot;Create new file&quot; with do create a new file, that can be further opened in the &quot;Text editor&quot; as we have done above in another direction, i.e. from &quot;Editor&quot; to &quot;Viewer&quot;.
 &quot;Assign to query&quot; shall be dealt with further down.</p>
 
 <p>Here are the two applications together:
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/9.png" alt="Plaintext Editor and Plaintext Viewer="1000"></p></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/9.png" alt="Plaintext Editor and Plaintext Viewer" width="1000"></p></p>
 
