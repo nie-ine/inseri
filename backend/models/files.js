@@ -2,8 +2,10 @@ const mongoose = require('mongoose');
 
 const file = mongoose.Schema({
   title: { type: String, required: true },
+  description: { type: String, required: true },
+  urlPath: { type: String, required: true },
   //owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User', require: true },
-  normalizedFileName: {type: String, required: true},
+  //normalizedFileName: {type: String, required: true},
   uploadedOn: {type: Date, default: Date.now},
 });
 

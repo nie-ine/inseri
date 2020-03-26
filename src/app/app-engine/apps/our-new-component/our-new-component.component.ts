@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {error} from 'util';
 import {mimeType} from './mimeType.validator';
-import {FormControl, FormGroup , Validators} from '@angular/forms';
+import { FormControl, FormGroup , Validators} from '@angular/forms';
+import {ActivatedRoute, ParamMap} from '@angular/router';
+import {FileModel} from '../../../user-action-engine/file/file.model';
+import {FileService} from '../../../user-action-engine/file/file.service';
 @Component({
   selector: 'app-our-new-component',
   templateUrl: './our-new-component.component.html',
@@ -10,9 +13,7 @@ import {FormControl, FormGroup , Validators} from '@angular/forms';
 })
 export class OurNewComponentComponent implements OnInit {
   userGroups: Array<any>;
-  constructor(
-    private http: HttpClient
-  ) { }
+
   ourFirstVariable: string;
   secondVariable: string;
   name: string;
@@ -38,11 +39,21 @@ export class OurNewComponentComponent implements OnInit {
 
   form: FormGroup;
   imagePreview: string;
+  file: FileModel;
+  isLoading = false;
+  private mode = 'add';
+  private  fileId: string;
+  constructor(
+    private http: HttpClient,
+    public fileService: FileService,
+    public route: ActivatedRoute
+  ) { }
 
-  onImagePicked(event: Event) {
+  onFileSelected(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
-    this.form.patchValue({image: file});
-    this.form.get('image').updateValueAndValidity();
+    this.form.patchValue({file: file});
+    console.log( 'On File Selected : ' + file.name);
+    this.form.get('file').updateValueAndValidity();
     const reader = new FileReader();
     reader.onload = () => {
       this.imagePreview = reader.result as string;
@@ -54,9 +65,42 @@ export class OurNewComponentComponent implements OnInit {
     this.ourFirstVariable = 'Hello, this is our first classwide variable';
     this.secondVariable = this.ourFirstVariable + ' and sth added to the first string';
     this.form = new FormGroup({
-      'image': new FormControl('null', {validators: [Validators.required], asyncValidators: [mimeType]})
+      'title': new FormControl(null, {validators: [Validators.required]}), // Validators.minLength(3)
+      'description': new FormControl(null, {validators: [Validators.required]}),
+      'file': new FormControl(null, {validators: [Validators.required]})//, asyncValidators: [mimeType]})
+    });
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      if (paramMap.has('fileId')) {
+        this.mode = 'edit';
+        this.fileId = paramMap.get('fileId');
+        this.isLoading = true;
+        this.fileService.getFile(this.fileId).subscribe(fileData => {
+          this.isLoading = false;
+          this.file = {id: fileData._id, title: fileData.title, description: fileData.description, urlPath: null};
+          this.form.setValue({'title': this.file.title, 'description': this.file.description});
+          console.log( 'ngOnInit: ' + this.file.title );
+        });
+      } else {
+        this.mode = 'add';
+        this.fileId = null;
+      }
     });
   }
+  // tslint:disable-next-line:max-line-length
+    // this.form.setValue({'title': this.form.value.title,'description': this.form.value.description });// to set the value if we retrieve the doc from the db.
+  onSaveFile() {
+    /*if (this.form.invalid) {
+      return;
+    }*/
+    this.isLoading = true;
+    if (this.mode = 'add') {
+      this.fileService.addFile(this.form.value.file.name, this.form.value.description, this.form.value.file);
+      console.log( 'On Save File: ' + this.form.value.file.name );
+    } else {
+      this.fileService.updateFile(this.fileId, this.form.value.title, this.form.value.description);
+    }
+    this.form.reset();
+ }
   createNewUserGroup() {
     this.http.post(
       'http://localhost:3000/api/userGroups',
