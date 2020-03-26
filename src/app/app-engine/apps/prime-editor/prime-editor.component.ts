@@ -24,6 +24,7 @@ export class PrimeEditorComponent implements OnChanges {
 
   ngOnChanges() {
     this.editor.text = this.textFile;
+    this.safeHtml = this.domSanitizer.bypassSecurityTrustHtml(this.textFile);
   }
 
   updateAce() {
