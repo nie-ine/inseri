@@ -19,9 +19,6 @@
   <mat-tab label="Output">
     <div [innerHtml]="safeHtml" ></div>
   </mat-tab>
-  <mat-tab label="Save, export,...">
-    <button mat-button (click)="save()" *ngIf="route.snapshot.url[0].path !== 'home'" >Save Text and update Page</button>
-  </mat-tab>
 </mat-tab-group>
 
 <span style="margin-top: 10px"></span>

@@ -109,6 +109,7 @@ export class DashboardComponent implements OnInit {
           });
         }))
       .subscribe( transformedActions => {
+        console.log( transformedActions );
         this.actions = transformedActions;
       });
   }

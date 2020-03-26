@@ -1147,4 +1147,17 @@ export class PageComponent implements OnInit, AfterViewChecked {
     });
   }
 
+  linkExistingPage() {
+    const dialogRef = this.dialog.open(PageListDialogComponent, {
+      width: '90%',
+      height: '40%',
+      data: {
+        showDuplicateButton: true
+      }
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log( 'Link existing ' + result );
+    });
+  }
+
 }
