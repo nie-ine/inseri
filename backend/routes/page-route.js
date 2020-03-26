@@ -359,6 +359,30 @@ router.put('/:id', checkAuth, (req, res, next) => {
         });
 });
 
+router.get('/:pageId/link/:pageSetId', checkAuth, (req, res, next) => {
+  console.log( req.params.pageSetId, req.params.pageId );
+  PageSet.update({_id: req.params.pageSetId}, { $push: { hasPages: req.params.pageId } })
+    .then(updatedPageSet => {
+      if (updatedPageSet.n > 0) {
+        res.status(201).json({
+          message: 'Page in pageset was created successfully',
+          page: updatedPageSet
+        });
+      } else {
+        res.status(400).json({
+          message: 'Page cannot be created'
+        });
+      }
+    })
+    .catch(errorUpdatePageSet => {
+      res.status(500).json({
+        message: 'Creating page in pageset failed',
+        error: errorUpdatePageSet
+      });
+    });
+});
+
+
 router.get('/:pageId/duplicate/:pageSetId', checkAuth, (req, res, next) => {
 
   console.log( 'duplicate', req.params.pageId );

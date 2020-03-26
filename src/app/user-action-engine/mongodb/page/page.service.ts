@@ -54,6 +54,10 @@ export class PageService {
     return this.http.get(`${PageService.API_BASE_URL_PAGE}/${pageID}/duplicate/${pageSetId}`);
   }
 
+  linkExistingPage( pageID: string, pageSetId: string ): Observable<any> {
+    return this.http.get(`${PageService.API_BASE_URL_PAGE}/${pageID}/link/${pageSetId}`);
+  }
+
   getPublishedPages(): Observable<any> {
     return this.http.get(`${PageService.API_BASE_URL_PAGE}/published`);
   }

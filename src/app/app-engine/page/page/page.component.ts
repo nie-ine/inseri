@@ -1157,6 +1157,15 @@ export class PageComponent implements OnInit, AfterViewChecked {
     });
     dialogRef.afterClosed().subscribe((result) => {
       console.log( 'Link existing ' + result );
+      this.pageService.linkExistingPage( result, this.action.hasPageSet._id )
+        .subscribe(
+          data => {
+            this.alreadyLoaded = false;
+            this.generateNavigation(
+              this.actionID
+            );
+          }, error => console.log( error )
+        );
     });
   }
 
