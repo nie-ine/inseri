@@ -10,7 +10,7 @@
   </mat-tab>
   <mat-tab label="Code">
     <ace-editor #editor
-                style="height: 320px; width:100%; overflow: auto;"
+                style="height: 320px; width:100%; overflow: auto; color: "
                 [mode]="'html'" (keyup)="updatePrimeEditor()">
     </ace-editor>
   </mat-tab>
@@ -20,7 +20,7 @@
 
 <br>
 
-<span style="margin-top: 10px; margin-bottom: 10px;">Output:</span>
+<mat-divider></mat-divider>
 
 <br>
 
