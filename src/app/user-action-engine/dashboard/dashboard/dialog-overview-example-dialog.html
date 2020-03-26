@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Create Collages and Usergroups</h1>
+<h1 mat-dialog-title>Create inseri folios and Usergroups</h1>
 
 <div>
   <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
@@ -6,25 +6,25 @@
       <mat-expansion-panel [expanded]="!data.showUserGroups" >
         <mat-expansion-panel-header>
           <mat-panel-title>
-            Collages
+            inseri folio
           </mat-panel-title>
           <mat-panel-description>
-            Create new collage
+            Create new inseri folio
           </mat-panel-description>
         </mat-expansion-panel-header>
 
         <div class="form-group" >
-          <label for="firstName">Title of collage</label>
+          <label for="firstName">Title of inseri folio</label>
           <input type="text" class="form-control" name="firstName" [(ngModel)]="action.title" #firstName="ngModel" required />
-          <div *ngIf="f.submitted && !firstName.valid" class="help-block">Bitte geben Sie einen Titel ein</div>
+          <div *ngIf="f.submitted && !firstName.valid" class="help-block">Please enter the title</div>
         </div>
         <div class="form-group" >
           <label for="lastName">Description</label>
           <input type="text" class="form-control" name="lastName" [(ngModel)]="action.description" #lastName="ngModel" required />
-          <div *ngIf="f.submitted && !lastName.valid" class="help-block">Bitte geben Sie eine Beschreibung der Aktion ein</div>
+          <div *ngIf="f.submitted && !lastName.valid" class="help-block">Please enter the description for the folio</div>
         </div>
 
-        <button [disabled]="loading" class="btn btn-primary" style="margin-top: 20px">Create Collage</button>
+        <button [disabled]="loading" class="btn btn-primary" style="margin-top: 20px">Create inseri folio</button>
         <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
 
       </mat-expansion-panel>
@@ -43,12 +43,12 @@
         <div class="form-group" >
           <label for="firstName">Title</label>
           <input type="text" class="form-control" name="firstName" [(ngModel)]="usergroup.title" #firstName="ngModel" required />
-          <div *ngIf="f.submitted && !firstName.valid" class="help-block">Bitte geben Sie einen Titel ein</div>
+          <div *ngIf="f.submitted && !firstName.valid" class="help-block">Please enter the title</div>
         </div>
         <div class="form-group" >
           <label for="lastName">Description</label>
           <input type="text" class="form-control" name="lastName" [(ngModel)]="usergroup.description" #lastName="ngModel" required />
-          <div *ngIf="f.submitted && !lastName.valid" class="help-block">Bitte geben Sie eine Beschreibung der Aktion ein</div>
+          <div *ngIf="f.submitted && !lastName.valid" class="help-block">Please enter the description</div>
         </div>
 
         <button [disabled]="loading" class="btn btn-primary" style="margin-top: 20px" (click)="createUserGroup()" >Create User Group</button>
@@ -57,7 +57,7 @@
     </mat-accordion>
 
     <div>
-      <button  type="button" mat-button (click)="close()">Schliesse dieses Menü</button>
+      <button  type="button" mat-button (click)="close()">Close</button>
     </div>
   </form>
 
