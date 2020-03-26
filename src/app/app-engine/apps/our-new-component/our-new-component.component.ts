@@ -34,6 +34,7 @@ export class OurNewComponentComponent implements OnInit {
   folder: string;
   mainFolder_id: string;
   foldersArray: Array<string>;
+  showAddFolderForm = false;
 
 
 
@@ -62,6 +63,7 @@ export class OurNewComponentComponent implements OnInit {
     reader.readAsDataURL(file);
   }
   ngOnInit() {
+    this.showFolders( '-1' );
     this.ourFirstVariable = 'Hello, this is our first classwide variable';
     this.secondVariable = this.ourFirstVariable + ' and sth added to the first string';
     this.form = new FormGroup({

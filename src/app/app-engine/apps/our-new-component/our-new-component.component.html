@@ -1,4 +1,4 @@
-<form [formGroup]="form" (submit)="onSaveFile()" *ngIf="!isLoading" >
+<!--form [formGroup]="form" (submit)="onSaveFile()" *ngIf="!isLoading" >
   <mat-form-field>
     <input
       matInput
@@ -26,13 +26,24 @@
       type="submit">Save File</button>
   </div>
 
-</form>
+</form-->
 
-<!--div class="div">
+<button mat-button matTooltip="Create new Folder" (click)="showAddFolderForm = true">
+  <mat-icon>
+    add
+  </mat-icon>
+</button>
+
+<div class="div" style="margin-top: 50px" *ngIf="showAddFolderForm" >
   <div class="row">
     <div class="col-xs-12">
-      <label for="folder">Folder Name </label>
-      <input [(ngModel)]="folder" type="text" id="folder">
+      <mat-form-field class="example-form-field">
+        <mat-label>Folder Name</mat-label>
+        <input matInput type="text" [(ngModel)]="folder">
+        <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
       <button mat-button (click)="createNewFolder(folder)">
         Create New Folder( title)
       </button>
@@ -43,7 +54,7 @@
   </div>
 </div>
 
-<div class="div">
+<div class="div" style="margin-top: 100px" *ngIf="showAddFolderForm">
   <div class="row">
     <div class="col-xs-12">
       <label for="folder_id">Main Folder Id </label>
@@ -58,23 +69,30 @@
   <div class="row">
     <div class="col-xs-12">
       <div *ngFor="let folderInstance of foldersArray">
-        <input mat-input [(ngModel)]="folderInstance.title" >
-        <label for={{folderInstance._id}}>{{folderInstance.title}} </label>
         <button mat-button (click)="showFolders(folderInstance._id)">
-          Show subfolders
+           <mat-icon>folder</mat-icon> {{ folderInstance.title }}
         </button>
-        <button mat-button (click)="updateFolderTitle(folderInstance._id, folderInstance.title)">
+        <button mat-button [matMenuTriggerFor]="menu"><mat-icon>settings</mat-icon></button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="folderInstance.updateTitle = true">
+            Update folder title
+          </button>
+          <button mat-menu-item (click)="addPageSetsToFolder(folderInstance._id, pageSetId)">
+            Add a Pageset
+          </button>
+          <button mat-menu-item (click)="deletePageSetsFromFolder(folderInstance._id, pageSetId)">
+            Delete a Pageset
+          </button>
+          <button mat-menu-item (click)="deleteFolder(folderInstance._id)">
+            Delete Folder
+          </button>
+        </mat-menu>
+        <input mat-input [(ngModel)]="folderInstance.title" *ngIf="folderInstance.updateTitle === true">
+        <button mat-menu-item (click)="updateFolderTitle(folderInstance._id, folderInstance.title)" *ngIf="folderInstance.updateTitle === true">
           Update folder title
         </button>
-        <button mat-button (click)="addPageSetsToFolder(folderInstance._id, pageSetId)">
-          Add a Pageset
-        </button>
-        <button mat-button (click)="deletePageSetsFromFolder(folderInstance._id, pageSetId)">
-          Delete a Pageset
-        </button>
-        <button mat-button (click)="deleteFolder(folderInstance._id)">
-          Delete Folder
-        </button>
+
+
       </div>
       </div>
   </div>
@@ -82,6 +100,8 @@
 <hr>
 <hr>
 
+
+ <!--
 <label>name</label>
 <input [disabled]="userGroupParams" mat-input [(ngModel)]="name" xmlns="http://www.w3.org/1999/html">
 <label>description</label>
