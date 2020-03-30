@@ -6,6 +6,7 @@ import { FormControl, FormGroup , Validators} from '@angular/forms';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {FileModel} from '../../../user-action-engine/file/file.model';
 import {FileService} from '../../../user-action-engine/file/file.service';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-our-new-component',
   templateUrl: './our-new-component.component.html',
@@ -39,11 +40,15 @@ export class OurNewComponentComponent implements OnInit {
 
 
   form: FormGroup;
-  imagePreview: string;
+  filePreview: string;
   file: FileModel;
   isLoading = false;
   private mode = 'add';
   private  fileId: string;
+  files: FileModel[] = [];
+  private fileSub: Subscription;
+  showUploadedFiles = false;
+
   constructor(
     private http: HttpClient,
     public fileService: FileService,
@@ -57,19 +62,22 @@ export class OurNewComponentComponent implements OnInit {
     this.form.get('file').updateValueAndValidity();
     const reader = new FileReader();
     reader.onload = () => {
-      this.imagePreview = reader.result as string;
+      this.filePreview = reader.result as string;
     };
     // tslint:disable-next-line:comment-format
     reader.readAsDataURL(file);
   }
   ngOnInit() {
-    this.showFolders( '-1' );
-    this.ourFirstVariable = 'Hello, this is our first classwide variable';
-    this.secondVariable = this.ourFirstVariable + ' and sth added to the first string';
+    //this.fileService.getFiles();
+    this.fileSub = this.fileService.getFileUpdateListener()
+      .subscribe((files: FileModel[]) => {
+        this.showUploadedFiles = false;
+        this.files = files;
+      });
     this.form = new FormGroup({
-      'title': new FormControl(null, {validators: [Validators.required]}), // Validators.minLength(3)
-      'description': new FormControl(null, {validators: [Validators.required]}),
-      'file': new FormControl(null, {validators: [Validators.required]})//, asyncValidators: [mimeType]})
+      'title': new FormControl(null),// {validators: [Validators.required]}), // Validators.minLength(3)
+      'description': new FormControl(null),// {validators: [Validators.required]}),
+      'file': new FormControl(null),// {validators: [Validators.required]})// , asyncValidators: [mimeType]})
     });
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('fileId')) {
@@ -87,6 +95,15 @@ export class OurNewComponentComponent implements OnInit {
         this.fileId = null;
       }
     });
+
+
+    this.showFolders( '-1' );
+    this.ourFirstVariable = 'Hello, this is our first classwide variable';
+    this.secondVariable = this.ourFirstVariable + ' and sth added to the first string';
+  }
+
+  onDelete(fileId: string) {
+    this.fileService.deleteFile(fileId);
   }
   // tslint:disable-next-line:max-line-length
     // this.form.setValue({'title': this.form.value.title,'description': this.form.value.description });// to set the value if we retrieve the doc from the db.
@@ -94,8 +111,8 @@ export class OurNewComponentComponent implements OnInit {
     /*if (this.form.invalid) {
       return;
     }*/
-    this.isLoading = true;
-    if (this.mode = 'add') {
+    //this.isLoading = true;
+    if (this.mode === 'add') {
       this.fileService.addFile(this.form.value.file.name, this.form.value.description, this.form.value.file);
       console.log( 'On Save File: ' + this.form.value.file.name );
     } else {

@@ -2,6 +2,8 @@ const express = require("express");
 const File = require("../models/files");
 const router=express.Router();
 const multer=require("multer");
+const checkAuth = require('../middleware/check-auth');
+const fs=require('fs');
 
 const storage= multer.diskStorage({
   destination: (req,file, cb) => {
@@ -17,12 +19,13 @@ const storage= multer.diskStorage({
   }
 });
 
-router.post('',multer({storage: storage}).single("file") ,(req, res, next) => { ///multer fn that expect a single file from the incoming req and will try to find an file property in the req body
+router.post('',checkAuth,multer({storage: storage}).single("file") ,(req, res, next) => { ///multer fn that expect a single file from the incoming req and will try to find an file property in the req body
   const url=req.protocol +"://"+req.get("host");
   const file = new File({
     title: req.body.title,
     description: req.body.description,
-    urlPath: url+"/files/"+req.file.filename
+    urlPath: url+"/files/"+req.file.filename,
+    owner:req.userData.userId
   });
   //console.log("Router post " + storage.getDestination + storage.getFilename());
   file.save().then(createdFile => {
@@ -39,27 +42,38 @@ router.post('',multer({storage: storage}).single("file") ,(req, res, next) => { 
       }
     });
     //console.log(storage.getFilename());
+  })
+    .catch(error => {
+    res.status(500).json({
+      message: 'Creating file failed',
+      error: error
+    })
   });
 });
 
-router.put("/:id", (req, res, next) => {
+router.put("/:id",checkAuth, (req, res, next) => {
   const file = new File({
     _id: req.body.id,
     title: req.body.title,
     description: req.body.description
   });
-  File.updateOne({ _id: req.params.id }, file).then(result => {
+  File.updateOne({ _id: req.params.id, owner: req.userData.userId }, file).then(result => {
     res.status(200).json({ message: "Update successful!" });
   });
 });
 
-router.get("", (req, res, next) => {
-  File.find().then(documents => {
+router.get("",checkAuth, (req, res, next) => {
+  File.find({owner: req.userData.userId}).then(documents => {
     res.status(200).json({
       message: "Files fetched successfully!",
-      file: documents
+      files: documents
     });
-  });
+  }).catch(error => {
+    res.status(500).json({
+      message: 'Fetching files failed',
+      error: error
+    })
+  })
 });
 
 router.get("/:id", (req, res, next) => {
@@ -73,10 +87,22 @@ router.get("/:id", (req, res, next) => {
 });
 
 router.delete("/:id", (req, res, next) => {
-  File.deleteOne({ _id: req.params.id }).then(result => {
+  File.findById(req.params.id).then(file => {
+    if (file){
+      console.log("file. filePath =  "+file.urlPath);
+      //console.log("new generated path ="+ req.protocol +"://"+req.get("host")+"/files/"+file.title);
+      fs.unlink(file.urlPath,(err)=>{if(err) console.log(err); else console.log("file deleted from the server successfully.");});
+      File.deleteOne({ _id: req.params.id }).then(result => {
+        console.log(result);
+        res.status(200).json({ message: "file deleted!" });
+      });
+    }
+  });
+
+  /*File.deleteOne({ _id: req.params.id }).then(result => {
     console.log(result);
     res.status(200).json({ message: "file deleted!" });
-  });
+  });*/
 });
 
 module.exports = router;

@@ -4,6 +4,7 @@
     title: string;
     description: string;
     urlPath: string;
+    // owner: string;
   }
 
 
