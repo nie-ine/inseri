@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SubjectTag } from '../../../tag-chips/tag-chips/tag';
+import { SubjectTag } from '../../obsolete/tag-chips/tag-chips/tag';
 import { HierarchicalNavigationConfiguration } from '../../../navigation/hierarchical-navigation/hierarchical-navigation-configuration';
 
 /**
