@@ -1,4 +1,4 @@
-# Introduction
+# 0.Introduction
 
 In the end of this tutorial, the user will have and idea about the workflow areas in INSERI.
 
@@ -142,3 +142,5 @@ It will open the following possiblities:</p>
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/9.png" alt="Plaintext Editor and Plaintext Viewer" width="1000"></p></p>
 
 Having created and viewed the Title and brief description of the Project, we shall learn next how to upload primary data, starting with images. TO BE CONTINUED....
+
+# 5. Data Visualisations
