@@ -191,4 +191,41 @@ A new frame will open, which includes the file name (as in Inseri storage), date
 In the empty frame a modifiable JSON code appears.
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.05.png" alt="Accessing JSON 2" width="500"></p>
 
+Suppose we need to add some real project data, for that we shall use (with Project permission) the data of the "Drawings of Gods" project, from the University of Lausanne, state 2020.03.31, and that data is from [www.ddd.unil.ch]()
+
+We shall create a Bar Chart representing visually how many images were collected in each country, and the data is a follows:
+
+1. Argentina, 82 images
+2. Brazil, 139 images
+3. Iran, 3032 images
+4. Japan, 142 images
+5. Nepal, 13 images
+6. Netherlands, 195 images
+7. Romania, 756 images
+8. Russia, 753 images
+9. Switzerland, 1031 images
+10. USA, 982 images
+
+In order to do that, we need to do 3 things:
+
+* update the number of columns, by copy-pasting the part of code for a single column.
+* we need to update the labels, by replacing the "first bar", etc. with a name of the country.
+* Finally, we need to update the values with the real numbers of images.
+
+The modified part of Json is now as follows:
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.06.png" alt="Modified JSON" width="500"></p>
+
+Before closing, it is an absolute must to click on "Save and update Json object."
+
+Having clicked on save and reload, we obtain the following result:
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.07.png" alt="Number of images per country" width="900"></p>
+
+Finally, the user can try to find better scale options by simply modifying the number in Scale. And to rename the whole, so it is not called a "Bar Chart". In order to to this, the user should click on the "Bar Chart", and select the first option "Title and size", and simple type the new name and save it.
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.08.png" alt="Options frame with the Bar Chart as name selected" width="900"></p>
+
+Resulting name modification:
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.09.png" alt="Name of Bar Chart modified" width="900"></p>
+
 ## 5.2. Apps which are external, but useful
