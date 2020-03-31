@@ -132,7 +132,7 @@ It will open the following possiblities:</p>
 
 <p>All we need is to select the file we have just created (most recent are up by default), and click on &quot;+&quot; sign. By doing so we have have created a link between the file done in &quot;Editor&quot; and its visualization in the &quot;Viewer&quot;. Having clicked on &quot;+&quot; we shall be back to a form we have seen already, click on &quot;Close and reload page to see changes&quot; in order to validate the established link:</p>
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8d.png" alt="Plaintext Viewer File Options" width="500"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8d.png" alt="Plaintext Viewer File Options" width="700"></p>
 
 <p>Other options from the area above include:
 &quot;Create new file&quot; with do create a new file, that can be further opened in the &quot;Text editor&quot; as we have done above in another direction, i.e. from &quot;Editor&quot; to &quot;Viewer&quot;.
