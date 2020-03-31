@@ -221,11 +221,11 @@ Before closing, it is an absolute must to click on "Save and update Json object.
 Having clicked on save and reload, we obtain the following result:
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.07.png" alt="Number of images per country" width="900"></p>
 
-Finally, the user can try to find better scale options by simply modifying the number in Scale. And to rename the whole, so it is not called a "Bar Chart". In order to to this, the user should click on the "Bar Chart", and select the first option "Title and size", and simple type the new name and save it.
+Finally, the user can try to find better scale options by simply modifying the number in "Scale Bar Chart" above. It is also possible  to rename the whole, so it is not called a "Bar Chart", but a real name. In order to to this, the user should click on the "Bar Chart", and select the first option, which is "Title and size", and simply give the Chart a new name and save it.
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.08.png" alt="Options frame with the Bar Chart as name selected" width="900"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.08.png" alt="Options frame with the Bar Chart as name selected" width="700"></p>
 
 Resulting name modification:
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.09.png" alt="Name of Bar Chart modified" width="900"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.09.png" alt="Name of Bar Chart modified" width="700"></p>
 
 ## 5.2. Apps which are external, but useful
