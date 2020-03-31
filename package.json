@@ -68,6 +68,7 @@
     "moment": "^2.24.0",
     "mongoose": "^5.7.5",
     "mongoose-unique-validator": "^2.0.2",
+    "multer": "^1.4.2",
     "n3": "^1.1.1",
     "ng-whiteboard": "^1.2.2",
     "ng2-ace-editor": "^0.3.9",

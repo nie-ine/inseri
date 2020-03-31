@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { QueryService } from '../../user-action-engine/mongodb/query/query.service';
 import 'rxjs/add/operator/mergeMap';
 import { environment } from '../../../environments/environment';
+import {ActivatedRoute} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -16,13 +17,27 @@ import { environment } from '../../../environments/environment';
 export class GeneralRequestService {
   params: any;
   private static API_BASE_URL_MY_OWN_JSON = environment.node + '/api/myOwnJson';
-  constructor(private http: HttpClient, private queryService: QueryService) { }
+  constructor(
+    private http: HttpClient,
+    private queryService: QueryService,
+    public route: ActivatedRoute
+  ) { }
 
   request(queryID) {
     return this.queryService.getQuery(queryID)
       .mergeMap(data => {
           const query = data.query;
-
+          // console.log( query );
+          for ( const param in this.route.snapshot.queryParams ) {
+            // console.log( param );
+            if ( query.serverUrl.search( 'inseriParam---' + param + '---' ) !== -1 ) {
+              const replaced = query.serverUrl.replace(
+                'inseriParam---' + param + '---',
+                this.route.snapshot.queryParams[ param ]
+              );
+              query.serverUrl = replaced;
+            }
+          }
           switch (query.method) {
             case 'GET':
               return this.get(query.serverUrl, data.query.params, query.header);
@@ -48,12 +63,20 @@ export class GeneralRequestService {
   }
 
   transformHeader( header: any ) {
+    console.log( header );
     let headerTransformed = new HttpHeaders();
-    for (const i in header) {
-      headerTransformed = headerTransformed.append(i, header[ i ]);
+    if ( header && header.length ) {
+      for (const i of header) {
+        headerTransformed = headerTransformed.append(i.key, i.value);
+        return headerTransformed;
+      }
+    } else {
+      for (const i in header) {
+        headerTransformed = headerTransformed.append(i, header[ i ]);
+      }
+      // console.log( headerTransformed );
+      return headerTransformed;
     }
-    // console.log( headerTransformed );
-    return headerTransformed;
   }
 
   get(url: string, parameter?: any, header?: any): Observable<any> {
@@ -62,18 +85,18 @@ export class GeneralRequestService {
   }
 
   post(url: string, parameter?: any, header?: any, body?: string): Observable<any> {
-    // console.log('POST Request', url, parameter, header, body);
-    return this.http.post(url, body, {params: this.transformParam(parameter), headers: header, observe: 'response'});
+    // console.log('POST Request', header, this.transformHeader(header));
+    return this.http.post(url, body, {params: this.transformParam(parameter), headers: this.transformHeader(header), observe: 'response'});
   }
 
   put(url: string, parameter?: any, header?: any, body?: string): Observable<any> {
     // console.log('PUT Request', url, parameter, header, body);
-    return this.http.put(url, body, {params: this.transformParam(parameter), headers: header, observe: 'response'});
+    return this.http.put(url, body, {params: this.transformParam(parameter), headers: this.transformHeader(header), observe: 'response'});
   }
 
   delete(url: string, parameter?: any, header?: any): Observable<any> {
     // console.log('DELETE Request', url, parameter, header);
-    return this.http.delete(url, {params: this.transformParam(parameter), headers: header, observe: 'response'});
+    return this.http.delete(url, {params: this.transformParam(parameter), headers: this.transformHeader(header), observe: 'response'});
   }
 
   createJson() {

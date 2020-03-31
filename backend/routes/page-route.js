@@ -2,29 +2,31 @@ const express = require('express');
 
 const Page = require('../models/page');
 const Query = require('../models/query');
-
+const mongoose = require('mongoose');
 const checkAuth = require('../middleware/check-auth');
 const checkAuth2 = require('../middleware/check-auth-without-immediate-response');
 const router = express.Router();
+const PageSet = require('../models/page-set');
+const MyOwnJson = require('../models/myOwnJson');
 
-// // Nur zum TESTEN
-// router.get('', checkAuth, (req, res, next) => {
-//     Page.find( )
-//         .then(pages => {
-//             let message;
-//             if (pages.length === 0) {
-//                 message = 'No pages were found'
-//             } else if (pages.length === 1) {
-//                 message = 'One pages was found'
-//             } else {
-//                 message = 'All pages were found'
-//             }
-//             res.status(200).json({
-//                 message: message,
-//                 pages: pages
-//             });
-//         });
-// });
+
+router.get('/published', (req, res, next) => {
+    Page.find( { published: true } )
+        .then(pages => {
+            let message;
+            if (pages.length === 0) {
+                message = 'No pages were found'
+            } else if (pages.length === 1) {
+                message = 'One published page was found'
+            } else {
+                message = 'All published pages were found'
+            }
+            res.status(200).json({
+                message: message,
+                pages: pages
+            });
+        });
+});
 
 router.get('/:id', checkAuth2, (req, res, next) => {
 
@@ -356,5 +358,182 @@ router.put('/:id', checkAuth, (req, res, next) => {
             });
         });
 });
+
+router.get('/:pageId/link/:pageSetId', checkAuth, (req, res, next) => {
+  console.log( req.params.pageSetId, req.params.pageId );
+  PageSet.update({_id: req.params.pageSetId}, { $push: { hasPages: req.params.pageId } })
+    .then(updatedPageSet => {
+      if (updatedPageSet.n > 0) {
+        res.status(201).json({
+          message: 'Page in pageset was created successfully',
+          page: updatedPageSet
+        });
+      } else {
+        res.status(400).json({
+          message: 'Page cannot be created'
+        });
+      }
+    })
+    .catch(errorUpdatePageSet => {
+      res.status(500).json({
+        message: 'Creating page in pageset failed',
+        error: errorUpdatePageSet
+      });
+    });
+});
+
+
+router.get('/:pageId/duplicate/:pageSetId', checkAuth, (req, res, next) => {
+
+  console.log( 'duplicate', req.params.pageId );
+
+  Page.findById(req.params.pageId)
+    .then(pageResult => {
+
+        let newQueries = [];
+        let i = 0;
+        let oldQueries = pageResult.queries;
+        let oldServerUrls = [];
+        let newServerUrls = [];
+        for ( const queryId of pageResult.queries ) {
+
+
+          Query.findById( queryId )
+            .then( query => {
+
+              if ( query.method == 'JSON' ) {
+
+                let queryCopy = new Query({
+                  title: query.title + '_Copy',
+                  description: query.description,
+                  serverUrl: query.serverUrl,
+                  method: query.method,
+                  params: query.params,
+                  header: query.header,
+                  body: query.body,
+                  path: query.chosenPath
+                });
+
+                oldServerUrls.push(query.serverUrl);
+
+                MyOwnJson.findById( query.serverUrl.split('/')[6] )
+                  .then(myOwnJson => {
+
+                      const newJson = new MyOwnJson({
+                        creator: req.userData.userId,
+                        content: myOwnJson.content
+                      });
+                      newJson.save()
+                        .then(copiedMyOwnJson => {
+
+                          queryCopy.serverUrl = 'http://localhost:3000/api/myOwnJson/getJson/' + copiedMyOwnJson._id;
+                          newServerUrls.push( queryCopy.serverUrl );
+                          queryCopy.save()
+                            .then(resultQuery => {
+                              newQueries.push( resultQuery._id );
+                              i += 1;
+                              if ( i == pageResult.queries.length ) {
+                                updatePage( pageResult, newQueries, res, req, oldQueries, oldServerUrls, newServerUrls )
+                              }
+                            })
+                            .catch(error => {
+                              res.status(500).json({
+                                message: 'Query cannot be copied',
+                                error: error
+                              });
+                            });
+
+                        })
+                        .catch(err => {
+                          res.status(500).json({
+                            error: err
+                          })
+                        });
+                  })
+                  .catch(error => {
+                    res.status(500).json({
+                      message: 'Fetching MyOwnJson failed',
+                      error: error
+                    })
+                  })
+              } else {
+                i += 1;
+                if ( i == pageResult.queries.length ) {
+                  updatePage( pageResult, pageResult.queries, res, req, oldQueries, oldServerUrls, newServerUrls );
+                }
+              }
+            } );
+        }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Fetching page failed',
+        error: error
+      })
+    });
+});
+
+function updatePage( pageResult, queries, res, req, oldQueries, oldServerUrls, newServerUrls ) {
+
+  console.log( oldServerUrls, newServerUrls );
+
+  for ( let i = 0; i < pageResult.appInputQueryMapping.length; i++ ) {
+    for ( let j = 0; j < oldQueries.length; j++ ) {
+      // console.log( 'before', JSON.parse(pageResult.appInputQueryMapping[ i ]) );
+      pageResult.appInputQueryMapping[ i ] = pageResult.appInputQueryMapping[ i ].replace( oldQueries[j], queries[ j ] );
+      // console.log( 'after', JSON.parse(pageResult.appInputQueryMapping[ i ]) );
+    }
+    for ( let k = 0; k < oldServerUrls.length; k++ ) {
+      console.log( 'before', JSON.parse(pageResult.appInputQueryMapping[ k ]) );
+      pageResult.appInputQueryMapping[ k ] = pageResult.appInputQueryMapping[ k ].replace( oldServerUrls[ k ], newServerUrls[ k ] );
+      console.log( 'after', JSON.parse(pageResult.appInputQueryMapping[ k ]) );
+    }
+  }
+
+  const duplicate = new Page({
+    title: pageResult.title + '_Copy',
+    description: pageResult.description,
+    appInputQueryMapping: pageResult.appInputQueryMapping,
+    queries: queries,
+    hasSubPages: pageResult.hasSubPages,
+    chosenWidth: pageResult.chosenWidth,
+    published: false,
+    showAppSettingsOnPublish: pageResult.showAppSettingsOnPublish,
+    showAppTitlesOnPublish: pageResult.showAppTitlesOnPublish,
+    showDataBrowserOnPublish: pageResult.showDataBrowserOnPublish,
+    showInseriLogoOnPublish: pageResult.showInseriLogoOnPublish,
+    openApps: pageResult.openApps
+  });
+  duplicate.save()
+    .then(
+      copiedPage => {
+        PageSet.update({_id: req.params.pageSetId}, { $push: { hasPages: copiedPage._id } })
+          .then(updatedPageSet => {
+            if (updatedPageSet.n > 0) {
+              res.status(201).json({
+                message: 'Page in pageset was created successfully',
+                page: copiedPage
+              });
+            } else {
+              res.status(400).json({
+                message: 'Page cannot be created'
+              });
+            }
+          })
+          .catch(errorUpdatePageSet => {
+            res.status(500).json({
+              message: 'Creating page in pageset failed',
+              error: errorUpdatePageSet
+            });
+          });
+      }
+    )
+    .catch(error => {
+      res.status(500).json({
+        message: 'Page cannot be copied',
+        error: error
+      });
+    });
+}
 
 module.exports = router;

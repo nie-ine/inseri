@@ -1,57 +1,57 @@
-<div class="div">
-  <div class="row">
-    <div class="col-xs-12">
-      <label for="folder">Folder Name </label>
-      <input [(ngModel)]="folder" type="text" id="folder">
-      <button mat-button (click)="createNewFolder(folder)">
-        Create New Folder --> title
-      </button>
-      <button mat-button (click)="showFolders('-1')">
-        Show main folders
-      </button>
-    </div>
+<form [formGroup]="form" (submit)="onSaveFile()" *ngIf="!isLoading" >
+  <mat-form-field>
+    <input
+      matInput
+      type="text"
+      formControlName="title"
+      placeholder="File Title"
+    >
+  </mat-form-field>
+  <mat-form-field>
+      <textarea
+        matInput
+        rows="4"
+        formControlName="description"
+        placeholder="Description"
+      ></textarea>
+    <mat-error *ngIf="form.get('description').invalid">Please enter a post title.</mat-error>
+  </mat-form-field>
+  <div>
+    <button mat-stroked-button type="button"(click)="filePicker.click()">Pick a file</button>
+    <input type="file" #filePicker (change)="onFileSelected($event)" style="visibility: hidden">
   </div>
-</div>
+  <div>
+    <button
+      mat-raised-button
+      type="submit">Save File</button>
+  </div>
+  <div>
+    <button mat-stroked-button type="button"(click)="showUploadedFiles=true; fileService.getFiles()">Show Files</button>
+  </div>
 
-<div class="div">
-  <div class="row">
-    <div class="col-xs-12">
-      <label for="folder_id">Main Folder Id </label>
-      <input [(ngModel)]="mainFolder_id" type="text" id="folder_id">
-      <button mat-button (click)="createSubFolder(folder,mainFolder_id)">
-        Create New Subfolder --> title, main Folder id
-      </button>
-    </div>
-  </div>
-</div>
-<div class="div">
-  <div class="row">
-    <div class="col-xs-12">
-      <div *ngFor="let folderInstance of foldersArray">
-        <input mat-input [(ngModel)]="folderInstance.title" >
-        <!--label for={{folderInstance._id}}>{{folderInstance.title}} </label-->
-        <button mat-button (click)="showFolders(folderInstance._id)">
-          Show subfolders
-        </button>
-        <button mat-button (click)="updateFolderTitle(folderInstance._id, folderInstance.title)">
-          Update folder title
-        </button>
-        <button mat-button (click)="addPageSetsToFolder(folderInstance._id, pageSetId)">
-          Add a Pageset
-        </button>
-        <button mat-button (click)="deletePageSetsFromFolder(folderInstance._id, pageSetId)">
-          Delete a Pageset
-        </button>
-        <button mat-button (click)="deleteFolder(folderInstance._id)">
-          Delete Folder
-        </button>
-      </div>
-      </div>
-  </div>
-</div>
+</form>
+
+<mat-spinner *ngIf="showUploadedFiles"></mat-spinner>
+<mat-accordion multi="true" *ngIf="files.length > 0 && !showUploadedFiles">
+  <mat-expansion-panel *ngFor="let file of files">
+    <mat-expansion-panel-header>
+      {{ file.title }}
+    </mat-expansion-panel-header>
+    <p>{{ file.description }}</p>
+    <mat-action-row>
+      <a mat-button color="primary" [routerLink]="['/edit', file.id]">EDIT</a>
+      <button mat-button color="warn" (click)="onDelete(file.id)">DELETE</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+<p class="info-text mat-body-1" *ngIf="files.length <= 0 && !showUploadedFiles">No files added yet!</p>
+
+
 <hr>
 <hr>
 
+
+ <!--
 <label>name</label>
 <input [disabled]="userGroupParams" mat-input [(ngModel)]="name" xmlns="http://www.w3.org/1999/html">
 <label>description</label>
@@ -136,20 +136,20 @@
   Enter Email of new user that you'd like to add to the group:
   <input mat-input [(ngModel)]="member" >
   <button [disabled]="userGroupParams" mat-button  (click)="assignUserToGroup( group, member )" >
-   <!-- {{ group.title }}-->
+   {{ group.title }}
     Add
   </button>
   <button [disabled]="userGroupParams" mat-button  (click)="removeUserFromGroup( group,member)" >
-    <!-- {{ group.title }}-->
+     {{ group.title }}
     Remove
   </button>
   <button [disabled]="userGroupParams" mat-button  (click)="removeMeFromGroup( group)" >
-    <!-- {{ group.title }}-->
+     {{ group.title }
     Remove me
   </button>
 
   <button [disabled]="userGroupParams" mat-button  (click)="assignNewOwner( group, member)" >
-    <!-- {{ group.title }}-->
+     {{ group.title }}
     Assign new owner to group
   </button>
 
@@ -164,5 +164,6 @@
     Remove group
   </button>
 
-</div>
+</div-->
+
 

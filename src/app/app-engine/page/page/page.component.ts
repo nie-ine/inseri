@@ -355,6 +355,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
   ngAfterViewChecked() {
     this.cdr.detectChanges();
     if ( this.pageIDFromURL !==  this.route.snapshot.queryParams.page ) {
+      this.openAppArray = [];
+      this.page = {};
       this.pageIDFromURL = this.route.snapshot.queryParams.page;
       this.reloadVariables = true;
     }
@@ -1126,15 +1128,44 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   addDuplicatedPage() {
     const dialogRef = this.dialog.open(PageListDialogComponent, {
-      width: '100%',
+      width: '90%',
       height: '40%',
       data: {
         showDuplicateButton: true
       }
     });
     dialogRef.afterClosed().subscribe((result) => {
-      console.log( 'Duplicate the following page and add it to this collage' );
-      console.log( result );
+      this.pageService.duplicatePage( result, this.action.hasPageSet._id )
+        .subscribe(
+          data => {
+            this.alreadyLoaded = false;
+            this.generateNavigation(
+              this.actionID
+            );
+          }, error => console.log( error )
+        );
+    });
+  }
+
+  linkExistingPage() {
+    const dialogRef = this.dialog.open(PageListDialogComponent, {
+      width: '90%',
+      height: '40%',
+      data: {
+        showDuplicateButton: true
+      }
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log( 'Link existing ' + result );
+      this.pageService.linkExistingPage( result, this.action.hasPageSet._id )
+        .subscribe(
+          data => {
+            this.alreadyLoaded = false;
+            this.generateNavigation(
+              this.actionID
+            );
+          }, error => console.log( error )
+        );
     });
   }
 

@@ -1,6 +1,17 @@
+<app-my-files *ngIf="app.type === 'myFiles'">
+
+</app-my-files>
+
 <app-gnd-lobid *ngIf="app.type === 'gndSubscriber'">
 
 </app-gnd-lobid>
+
+<app-url-param-updater
+  *ngIf="app.type === 'urlParamUpdater'"
+  [param]="app.param"
+  (reloadVariables)="reloadVariablesFunction()">
+
+</app-url-param-updater>
 
 <app-browserling *ngIf="app.type === 'browserling'"
                  [platform_name]="app.platform_name"

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TagChipsComponent } from './tag-chips/tag-chips.component';
-import { MaterialModule } from '../../../material.module';
+import { MaterialModule } from '../../../../../material.module';
 import { RouterModule } from '@angular/router';
 
 @NgModule({

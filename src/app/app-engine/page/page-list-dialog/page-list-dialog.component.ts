@@ -17,6 +17,9 @@ export class PageListDialogComponent implements OnInit {
   displayedColumns = ['goToPage', 'actionTitle', 'title', 'description', 'duplicate'];
   allPageIdsOfUser = [];
   allPagesOfUser = [];
+  publishedPages: any;
+  publishedPagesLength = 0;
+  allPagesLength = 0;
 
   constructor(
     public dialogRef: MatDialogRef<PageListDialogComponent>,
@@ -30,13 +33,13 @@ export class PageListDialogComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.pageService.getAllPages()
-    //   .subscribe(
-    //     data => {
-    //       console.log( data );
-    //       this.pages = new MatTableDataSource(( data as any ).pages.slice().reverse());
-    //     }, error => console.log( error )
-    //   );
+    this.pageService.getPublishedPages()
+      .subscribe(
+        data => {
+          this.publishedPages = new MatTableDataSource(( data as any ).pages.slice().reverse());
+          this.publishedPagesLength = ( data as any ).pages.length;
+        }, error => console.log( error )
+      );
     if ( !this.data.showDuplicateButton ) {
       this.displayedColumns = ['goToPage', 'actionTitle', 'title', 'description'];
     }

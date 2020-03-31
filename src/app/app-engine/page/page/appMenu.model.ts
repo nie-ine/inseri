@@ -20,6 +20,16 @@ export class AppMenuModel {
       showOnHome: false
     },
     {
+      id: 'folder',
+      name: 'My Files',
+      tags: 'files, folders and queries',
+      color: 'yellow',
+      status: 'under development',
+      appType: 'myFiles',
+      description: 'files, folders and queries',
+      showOnHome: false
+    },
+    {
       id: 'short_text',
       name: 'Plaintext Viewer ',
       tags: 'plaintext, html without css ',
@@ -397,6 +407,16 @@ export class AppMenuModel {
       color: 'green',
       status: 'stable',
       appType: 'gndSubscriber',
+      description: 'gnd',
+      showOnHome: false
+    },
+    {
+      id: 'leak_add',
+      name: 'Url Param Updater',
+      tags: 'generic url updater',
+      color: 'red',
+      status: 'under development',
+      appType: 'urlParamUpdater',
       description: 'gnd',
       showOnHome: false
     }

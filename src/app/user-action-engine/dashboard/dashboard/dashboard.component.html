@@ -2,7 +2,7 @@
 
 <h3 *ngIf="!loggedIn">You have been logged out!</h3>
 
-<a href="/home" *ngIf="!loggedIn">Go to landing collage</a>
+<a href="/home" *ngIf="!loggedIn">Go to landing inseri folio</a>
 
 <!-- Services Section -->
 <section id="top" *ngIf="loggedIn">
@@ -21,7 +21,7 @@
             <mat-label>Show...</mat-label>
             <mat-select [(value)]="selected">
               <mat-option (click)="showArchivedDocuments = false" (click)="showUserGroups = false"  value="option1">
-                inseri collages
+                inseri folios
               </mat-option>
               <mat-option (click)="showUserGroups = true" value="option2">
                 User groups
@@ -30,10 +30,10 @@
                 RESTFul Queries
               </mat-option>
               <mat-option (click)="openAllPagesDialog()">
-                All canvases
+                All pages
               </mat-option>
               <mat-option (click)="showArchivedDocuments = true" (click)="showUserGroups = false"  value="option3">
-                Archived inseri collages
+                Archived inseri folios
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -57,13 +57,17 @@
 
         <h4 class="service-heading">Create New</h4>
 
-        <p class="text-muted">Collages and User Groups</p>
+        <p class="text-muted">inseri folios and User Groups</p>
 
       </div>
 
 
     <div *ngFor="let action of actions.slice().reverse(); let i = index">
-      <div class="col-md-4" href="#portfolioModal1" *ngIf="!action.deleted && !action.isFinished && !showArchivedDocuments && !showUserGroups" [ngStyle]="{'color': action.isFinished ? 'green' : 'black'}" style=" width: 230px; height: 300px; display: inline-block;" >
+      <div
+        class="col-md-4"
+        href="#portfolioModal1"
+        *ngIf="!action.deleted && !action.isFinished && !showArchivedDocuments && !showUserGroups"
+        [ngStyle]="{'color': action.isFinished ? 'green' : 'black'}" style=" width: 230px; height: 300px; display: inline-block;" >
                     <span class="fa-stack fa-4x" [matMenuTriggerFor]="appMenu" [ngSwitch]="action.type" style="cursor: pointer">
                       <i class="fa fa-circle fa-stack-2x text-primary"></i>
                       <i *ngSwitchCase="'page-set'" class="fa fa-files-o fa-stack-1x fa-inverse" ></i>
@@ -71,16 +75,20 @@
                       <i *ngSwitchDefault class="fa fa-question fa-stack-1x fa-inverse" ></i>
                     </span>
                     <mat-menu #appMenu="matMenu">
-                      <button mat-menu-item (click)="continueAction( action )" >Go to Collage</button>
+                      <button mat-menu-item (click)="continueAction( action )" >Go to inseri folio</button>
                       <button mat-menu-item (click)="goToDocumentIndex( action )" *ngIf="action.type === 'page-set'">Go to document index</button>
                       <button mat-menu-item (click)="editAction( action )" >Change title or description</button>
-                      <button mat-menu-item (click)="deleteAction( action )" >Delete Collage</button>
-                      <button mat-menu-item (click)="markAsDone( action )" >Archive Collage</button>
+                      <button mat-menu-item (click)="deleteAction( action )" >Delete inseri folio</button>
+                      <button mat-menu-item (click)="markAsDone( action )" >Archive inseri folio</button>
                     </mat-menu>
         <h4 class="service-heading">{{ action.title }}</h4>
         <p class="text-muted">{{ action.description }}</p>
       </div>
-      <div class="col-md-4" href="#portfolioModal1" *ngIf="!action.deleted && action.isFinished && showArchivedDocuments && action.hasPage && !showUserGroups" [ngStyle]="{'color': action.isFinished ? 'green' : 'black'}" style=" width: 230px; height: 300px; display: inline-block;" >
+      <div
+        class="col-md-4"
+        href="#portfolioModal1"
+        *ngIf="!action.deleted && action.isFinished && showArchivedDocuments && !showUserGroups"
+        [ngStyle]="{'color': action.isFinished ? 'green' : 'black'}" style=" width: 230px; height: 300px; display: inline-block;" >
                     <span class="fa-stack fa-4x" [matMenuTriggerFor]="appMenu" [ngSwitch]="action.type" style="cursor: pointer">
                       <i class="fa fa-circle fa-stack-2x text-primary"></i>
                       <i *ngSwitchCase="'page-set'" class="fa fa-files-o fa-stack-1x fa-inverse" ></i>
@@ -88,11 +96,11 @@
                       <i *ngSwitchDefault class="fa fa-question fa-stack-1x fa-inverse" ></i>
                     </span>
         <mat-menu #appMenu="matMenu">
-          <button mat-menu-item (click)="continueAction( action )" >Go to Collage</button>
-          <button mat-menu-item (click)="goToDocumentIndex( action )" *ngIf="action.type === 'page-set'">Go to Collage index</button>
+          <button mat-menu-item (click)="continueAction( action )" >Go to inseri folio</button>
+          <button mat-menu-item (click)="goToDocumentIndex( action )" *ngIf="action.type === 'page-set'">Go to inseri folio index</button>
           <button mat-menu-item (click)="editAction( action )" >Change title or description</button>
-          <button mat-menu-item (click)="deleteAction( action )" >Delete Collage</button>
-          <button mat-menu-item (click)="markAsDone( action )" >Archive Collage</button>
+          <button mat-menu-item (click)="deleteAction( action )" >Delete inseri folio</button>
+          <button mat-menu-item (click)="markAsDone( action )" >Archive inseri folio</button>
         </mat-menu>
         <h4 class="service-heading">{{ action.title }}</h4>
         <p class="text-muted">{{ action.description }}</p>

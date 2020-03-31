@@ -51,21 +51,27 @@
             matTooltip="{{ page.description }}"
             mat-button
             (click)="selectPage( i, page )">{{ page.title }}</button>
-          <mat-divider></mat-divider>
-          <button
-            *ngIf=" (!pageAsDemo) && !preview && loggedIn" mat-button
-            (click)="addNewPage()">
-            Add new page
-          </button> <br>
-          <button
-            *ngIf=" (!pageAsDemo) && !preview && loggedIn" mat-button (click)="addDuplicatedPage()">
-            Add duplicate from an existing page
-          </button> <br>
-          <button
-            *ngIf=" (!pageAsDemo) && !preview && loggedIn" mat-button>
-            Link existing page
-          </button>
+          <mat-button-toggle-group
+            name="fontStyle"
+            *ngIf=" (!pageAsDemo) && !preview && loggedIn"
+            style="margin-left: 10px; margin-right: 10px; margin-top: 10px;">
+
+            <mat-button-toggle (click)="addNewPage()" matTooltip="Add new page">
+              <mat-icon>add</mat-icon>
+            </mat-button-toggle>
+
+            <mat-button-toggle (click)="addDuplicatedPage()" matTooltip="Copy and add existing page">
+              <mat-icon>file_copy</mat-icon>
+            </mat-button-toggle>
+
+            <mat-button-toggle matTooltip="Link existing page" (click)="linkExistingPage()" >
+              <mat-icon>link</mat-icon>
+            </mat-button-toggle>
+
+          </mat-button-toggle-group>
+
         </mat-menu>
+
         <button [disabled]="selectedPage === pagesOfThisActtion.length - 1"
                 *ngIf="pagesOfThisActtion"
                 mat-button
@@ -99,7 +105,7 @@
             <mat-icon matTooltip="back to dashboard">home</mat-icon> Dashboard
           </button>
           <button mat-menu-item (click)="goToPageSet()" *ngIf="route.snapshot.queryParams.page" >
-            <mat-icon matTooltip="document index">list</mat-icon> Document index
+            <mat-icon matTooltip="Table of content">list</mat-icon> Table of content
           </button>
           <button mat-menu-item *ngIf=" (!pageAsDemo) && !preview" (click)="updatePage()" >
             <mat-icon  matTooltip="save page">save</mat-icon> Save Page
@@ -216,7 +222,10 @@
           'height': app.fullHeight ? '100%' : produceHeightAndWidth( app.height, app.initialHeight ) + 'px',
           'width': app.fullWidth ? '100%' : produceHeightAndWidth( app.width, app.initialWidth ) + 'px'}">
 
-            <app-all-app-selectors [app]="app" (reloadVariables)="reloadVariablesFunction()" [appInputQueryMapping]="page.appInputQueryMapping" [(hoveredElement)]="hoveredElement">
+            <app-all-app-selectors
+              [app]="app" (reloadVariables)="reloadVariablesFunction()"
+              [appInputQueryMapping]="page.appInputQueryMapping"
+              [(hoveredElement)]="hoveredElement">
 
             </app-all-app-selectors>
 

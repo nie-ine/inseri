@@ -13,6 +13,7 @@ const myOwnJsonRoutes = require('./routes/myOwnJson');
 const userGroupRoutes = require('./routes/userGroups');
 const subPageRoutes = require('./routes/sub-page');
 const folderRoutes = require('./routes/folder');
+const fileRoutes = require('./routes/file');
 
 const app = express();
 
@@ -46,7 +47,7 @@ app.use(function(req, res, next) {
 });
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use("/images", express.static(path.join("backend/images")));
+app.use("/files", express.static(path.join("backend/files")));
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -72,6 +73,7 @@ app.use("/api/myOwnJson", myOwnJsonRoutes);
 app.use("/api/userGroups", userGroupRoutes);
 app.use("/api/sub-page", subPageRoutes);
 app.use("/api/folder", folderRoutes);
+app.use("/api/files", fileRoutes);
 
 
 module.exports = app;

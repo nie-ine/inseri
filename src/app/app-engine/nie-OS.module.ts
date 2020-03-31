@@ -89,6 +89,8 @@ import { CanvasWhiteboardComponent } from './apps/canvas-whiteboard/canvas-white
 import { OurNewComponentComponent } from './apps/our-new-component/our-new-component.component';
 import {FileDatabaseForAppGND, FileFlatNodeGnd, GndLobidComponent} from './apps/gnd-lobid/gnd-lobid.component';
 import { PageListDialogComponent } from './page/page-list-dialog/page-list-dialog.component';
+import { UrlParamUpdaterComponent } from './apps/url-param-updater/url-param-updater.component';
+import { MyFilesComponent } from './apps/my-files/my-files.component';
 
 @NgModule({
   imports: [
@@ -199,7 +201,9 @@ import { PageListDialogComponent } from './page/page-list-dialog/page-list-dialo
     CanvasWhiteboardComponent,
     OurNewComponentComponent,
     GndLobidComponent,
-    PageListDialogComponent
+    PageListDialogComponent,
+    UrlParamUpdaterComponent,
+    MyFilesComponent
   ],
   exports: [
     PageComponent,

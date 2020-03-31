@@ -13,6 +13,7 @@ import {Observable} from 'rxjs';
 import {AuthService} from '../../mongodb/auth/auth.service';
 import { UsergroupService } from '../../mongodb/usergroup/usergroup.service';
 import {PageListDialogComponent} from '../../../app-engine/page/page-list-dialog/page-list-dialog.component';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 
 @Component({
@@ -35,6 +36,7 @@ export class DashboardComponent implements OnInit {
   groupMembers: Array<any> = [];
   email: string;
 
+
   /**
    * Describes if user is logged in
    * */
@@ -48,7 +50,8 @@ export class DashboardComponent implements OnInit {
     private contactService: ContactService,
     private pageService: PageService,
     private authService: AuthService,
-    private usergroupService: UsergroupService
+    private usergroupService: UsergroupService,
+    private spinner: NgxSpinnerService
   ) {
 
     router.events.subscribe(s => {
@@ -106,22 +109,12 @@ export class DashboardComponent implements OnInit {
           });
         }))
       .subscribe( transformedActions => {
-        console.log(transformedActions);
+        console.log( transformedActions );
         this.actions = transformedActions;
-        for ( const action of this.actions ) {
-          if ( action.type === 'page-set' ) {
-            this.actionService.getAction(action.id)
-              .subscribe(data => {
-                if ( data.body.action.hasPageSet.hasPages !== null && data.body.action.hasPageSet.hasPages[ 0 ]._id ) {
-                  action.hasPage = data.body.action.hasPageSet.hasPages[ 0 ]._id;
-                }
-              }, error => {
-                console.log(error);
-              });
-          }
-        }
       });
   }
+
+  createHasPage() {}
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
@@ -199,13 +192,23 @@ export class DashboardComponent implements OnInit {
   }
 
   continueAction( action: any ) {
-    this.router.navigate( [ '/page' ],
-      {
-        queryParams: {
-          'actionID': action.id,
-          'page': action.hasPage
-        },
-      });
+    if ( action.type === 'page-set' ) {
+      this.actionService.getAction(action.id)
+        .subscribe(data => {
+          if ( data.body.action.hasPageSet.hasPages !== null && data.body.action.hasPageSet.hasPages[ 0 ]._id ) {
+            action.hasPage = data.body.action.hasPageSet.hasPages[ 0 ]._id;
+            this.router.navigate( [ '/page' ],
+              {
+                queryParams: {
+                  'actionID': action.id,
+                  'page': action.hasPage
+                },
+              });
+          }
+        }, error => {
+          console.log(error);
+        });
+    }
   }
 
   goToDocumentIndex( action: any ) {
