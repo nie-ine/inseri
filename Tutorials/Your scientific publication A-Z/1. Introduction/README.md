@@ -168,5 +168,12 @@ The applications that can be used as per 2020.03.31 include:
 7. Chord diagram 	d3.js, data visualisation
 
 ### 5.1.1. Bar Chart 
+This visualisation format fits best to visualize the simpliest data sets, which are unform and flat. For example, we have collected images from many different countries, and we would like to see how many images do we have per each country. 
+(If we would need to add the year of collect, or the gender of the author of the image, for example, the Salcked Bar Chart is more appropriate.)
+
+Click on the "Lighthouse" and select Bar Chart from the list of applications.
+It will open a form with a predefined visualisation, which is very useful as the beginners can modify it directly.
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.01.png" alt="Preconfigured Bar Chart upon opening of the app" width="500"></p>
 
 ## 5.2. Apps which are external, but useful
