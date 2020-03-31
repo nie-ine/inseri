@@ -73,7 +73,7 @@ export class FileService {
         console.log('subscribe data' + file.title + ' ' + file.description);
         this.files.push(file);
         this.filesUpdated.next([...this.files]);
-        this.router.navigate(['app-our-new-component']);
+        // this.router.navigate(['app-our-new-component']);
       });
   }
 

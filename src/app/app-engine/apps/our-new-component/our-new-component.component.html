@@ -1,4 +1,4 @@
-<!--form [formGroup]="form" (submit)="onSaveFile()" *ngIf="!isLoading" >
+<form [formGroup]="form" (submit)="onSaveFile()" *ngIf="!isLoading" >
   <mat-form-field>
     <input
       matInput
@@ -25,8 +25,27 @@
       mat-raised-button
       type="submit">Save File</button>
   </div>
+  <div>
+    <button mat-stroked-button type="button"(click)="showUploadedFiles=true; fileService.getFiles()">Show Files</button>
+  </div>
 
-</form-->
+</form>
+
+<mat-spinner *ngIf="showUploadedFiles"></mat-spinner>
+<mat-accordion multi="true" *ngIf="files.length > 0 && !showUploadedFiles">
+  <mat-expansion-panel *ngFor="let file of files">
+    <mat-expansion-panel-header>
+      {{ file.title }}
+    </mat-expansion-panel-header>
+    <p>{{ file.description }}</p>
+    <mat-action-row>
+      <a mat-button color="primary" [routerLink]="['/edit', file.id]">EDIT</a>
+      <button mat-button color="warn" (click)="onDelete(file.id)">DELETE</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+<p class="info-text mat-body-1" *ngIf="files.length <= 0 && !showUploadedFiles">No files added yet!</p>
+
 
 <button mat-button matTooltip="Create new Folder" (click)="showAddFolderForm = true">
   <mat-icon>

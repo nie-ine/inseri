@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TagChipsComponent } from './tag-chips.component';
-import { MaterialModule } from '../../../../material.module';
+import { MaterialModule } from '../../../../../../material.module';
 import { RouterModule } from '@angular/router';
 
 describe('TagChipsComponent', () => {

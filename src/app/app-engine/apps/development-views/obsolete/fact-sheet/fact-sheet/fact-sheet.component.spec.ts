@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FactSheetComponent } from './fact-sheet.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { BaseTypeFormsModule } from '../../shared/base-type-forms/base-type-forms.module';
+import { BaseTypeFormsModule } from '../../../../shared/base-type-forms/base-type-forms.module';
 
 describe('FactSheetComponent', () => {
   let component: FactSheetComponent;

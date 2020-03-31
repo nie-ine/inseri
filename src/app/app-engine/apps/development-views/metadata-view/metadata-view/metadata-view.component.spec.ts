@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MetadataViewComponent } from './metadata-view.component';
-import { FactSheetModule } from '../../../fact-sheet/fact-sheet.module';
+import { FactSheetModule } from '../../obsolete/fact-sheet/fact-sheet.module';
 import { MaterialModule } from '../../../../../material.module';
-import { TagChipsModule } from '../../../tag-chips/tag-chips.module';
+import { TagChipsModule } from '../../obsolete/tag-chips/tag-chips.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
 import { KnoraV1RequestService } from '../../../../../query-engine/knora/knora-v1-request.service';
