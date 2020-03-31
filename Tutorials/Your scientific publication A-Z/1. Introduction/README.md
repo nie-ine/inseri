@@ -180,7 +180,7 @@ Following the same procedure as we learn in O. Introduction, the user should cli
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.02.png" alt="Bar Chart input data options" width="500"></p>
 
-Within that frame, the user should select "Change currect data". Other options shall be explained later, i.e. for queries, there will be a special block of Tutorials.
+Within that frame, the user should select "Change current data". Other options shall be explained later, i.e. for queries, there will be a special block of Tutorials.
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.03.png" alt="Bar Chart input data options 2" width="200"></p>
 
