@@ -144,3 +144,29 @@ It will open the following possiblities:</p>
 Having created and viewed the Title and brief description of the Project, we shall learn next how to upload primary data, starting with images. TO BE CONTINUED....
 
 # 5. Data Visualisations
+## 5.1. Apps already existing in Inseri
+
+Data visualisation is a very important aspect of the academic data presentation, and it allows the reader grasping the logic of the presentation in a matter of seconds. 
+For the scholar, this block is of importance because visualisation helps in all of the 7 areas of academic work listed in the introduction. For example,
+
+1. It allows to control raw data, for example, "how many images from Japan from 2005 do I have?"
+2. It allows to correct the metadata, as the faults become visible.
+3. It is the most basic tool helping the comparison of the data subsets.
+4. The visualisation of the data model and the SWT results can even lead to the unexpected academic discoveries.
+5. Finally, it helps the reader to understand the data.
+
+There is a multitude of applications to visualise data that have been already incorporated into Inseri and are stable.
+Let us make a list of them and explore them one by one via modifying data in JSON. (Other options, such as direct addressing the RDF data and the desktop upload are under development.)
+The applications that can be used as per 2020.03.31 include:
+				
+1. Bar Chart 	d3.js, interactive			
+2. Line Chart 	d3.js, interactive		
+3. Pie Chart 	d3.js, data visualisation
+4. Radial Bar Chart 	d3.js, data visualisation
+5. Sankey 	d3.js, data visualisation	
+6. Stacked Bar Chart 	d3.js, data visualisation
+7. Chord diagram 	d3.js, data visualisation
+
+### 5.1.1. Bar Chart 
+
+## 5.2. Apps which are external, but useful
