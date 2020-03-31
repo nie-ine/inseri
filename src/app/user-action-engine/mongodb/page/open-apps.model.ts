@@ -30,6 +30,13 @@ export class OpenAppsModel {
       initialWidth: '500',
       initialHeight: '700'
     },
+    myFiles: {
+      type: 'myFiles',
+      model: [],
+      materialIcon: 'folder',
+      initialWidth: '500',
+      initialHeight: '600'
+    },
     urlParamUpdater: {
       type: 'urlParamUpdater',
       model: [],

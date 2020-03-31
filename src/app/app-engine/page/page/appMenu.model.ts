@@ -20,6 +20,16 @@ export class AppMenuModel {
       showOnHome: false
     },
     {
+      id: 'folder',
+      name: 'My Files',
+      tags: 'files, folders and queries',
+      color: 'yellow',
+      status: 'under development',
+      appType: 'myFiles',
+      description: 'files, folders and queries',
+      showOnHome: false
+    },
+    {
       id: 'short_text',
       name: 'Plaintext Viewer ',
       tags: 'plaintext, html without css ',
