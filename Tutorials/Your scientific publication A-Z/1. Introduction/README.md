@@ -229,5 +229,38 @@ Resulting name modification:
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.09.png" alt="Name of Bar Chart modified" width="700"></p>
 
 ### 5.1.2. Stacked Bar Chart 
+The Stacked Bar Chart is a perfect visualisation tool for those cases, when the dataset are uniform, all like in the Bar Chart above, but what is important, is to also make the viewer aware of the subgroups of data withing each single data set. 
+
+Addressing again the data from Bar Chart example, we would need the Stacked Bar Chart if we would like to see during which years the images where collected in each country, or who drew those images (gender), of what was the age of the participants. Let us visualise the 2nd proposal, in which we shall add 3 genders to the existing data: female, male and unknown. 
+
+1. Argentina, 82 images: F: M: U:
+2. Brazil, 139 images: F: M: U:
+3. Iran, 3032 images: F: M: U:
+4. Japan, 142 images: F: M: U:
+5. Nepal, 13 images: F: M: U:
+6. Netherlands, 195 images: F: M: U:
+7. Romania, 756 images: F: M: U:
+8. Russia, 753 images: F: M: U:
+9. Switzerland, 1031 images: F: M: U:
+10. USA, 982 images: F: M: U:
+
+Let us open a Stacked Bar Chart, as before (see Bar Chart above.)
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.10.png" alt="Stacked Bar Chart, view on the first opening" width="700"></p>
+
+Let us modify the Json by the same steps as we did in Bar Chart above.
+Here is the preset Json:
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.11.png" alt="Stacked Bar Chart, view on the first opening" width="700"></p>
+
+Here we need to 
+* add missing columns
+* delete unnecessary subcolumns
+* rename the columns
+* add the numerical data to each of the subpart of each column.
+
+Resulting Json (part):
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.12.png" alt="Stacked Bar Chart, modified Jason" width="600"></p>
+
+And here is the resulting Stacked Bar Chart after renaming:
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.13.png" alt="Stacked Bar Chart, with DDD project data" width="600"></p>
 
 ## 5.2. Apps which are external, but useful
