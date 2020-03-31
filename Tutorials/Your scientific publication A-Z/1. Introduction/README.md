@@ -245,11 +245,11 @@ Addressing again the data from Bar Chart example, we would need the Stacked Bar 
 10. USA, 982 images: F: M: U:
 
 Let us open a Stacked Bar Chart, as before (see Bar Chart above.)
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.10.png" alt="Stacked Bar Chart, view on the first opening" width="700"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.10.png" alt="Stacked Bar Chart, view on opening" width="500"></p>
 
 Let us modify the Json by the same steps as we did in Bar Chart above.
 Here is the preset Json:
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.11.png" alt="Stacked Bar Chart, view on the first opening" width="700"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.11.png" alt="Original Json" width="500"></p>
 
 Here we need to 
 * add missing columns
@@ -258,9 +258,9 @@ Here we need to
 * add the numerical data to each of the subpart of each column.
 
 Resulting Json (part):
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.12.png" alt="Stacked Bar Chart, modified Jason" width="600"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.12.png" alt="Modified Json (aprt)" width="500"></p>
 
 And here is the resulting Stacked Bar Chart after renaming:
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.13.png" alt="Stacked Bar Chart, with DDD project data" width="600"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.13.png" alt="Final Stacked Bar Chart" width="500"></p>
 
 ## 5.2. Apps which are external, but useful
