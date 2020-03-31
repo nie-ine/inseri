@@ -399,6 +399,16 @@ export class AppMenuModel {
       appType: 'gndSubscriber',
       description: 'gnd',
       showOnHome: false
+    },
+    {
+      id: 'leak_add',
+      name: 'Url Param Updater',
+      tags: 'generic url updater',
+      color: 'red',
+      status: 'under development',
+      appType: 'urlParamUpdater',
+      description: 'gnd',
+      showOnHome: false
     }
   ];
 }

@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { QueryService } from '../../user-action-engine/mongodb/query/query.service';
 import 'rxjs/add/operator/mergeMap';
 import { environment } from '../../../environments/environment';
+import {ActivatedRoute} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -16,13 +17,27 @@ import { environment } from '../../../environments/environment';
 export class GeneralRequestService {
   params: any;
   private static API_BASE_URL_MY_OWN_JSON = environment.node + '/api/myOwnJson';
-  constructor(private http: HttpClient, private queryService: QueryService) { }
+  constructor(
+    private http: HttpClient,
+    private queryService: QueryService,
+    public route: ActivatedRoute
+  ) { }
 
   request(queryID) {
     return this.queryService.getQuery(queryID)
       .mergeMap(data => {
           const query = data.query;
-          console.log( query );
+          // console.log( query );
+          for ( const param in this.route.snapshot.queryParams ) {
+            // console.log( param );
+            if ( query.serverUrl.search( 'inseriParam---' + param + '---' ) !== -1 ) {
+              const replaced = query.serverUrl.replace(
+                'inseriParam---' + param + '---',
+                this.route.snapshot.queryParams[ param ]
+              );
+              query.serverUrl = replaced;
+            }
+          }
           switch (query.method) {
             case 'GET':
               return this.get(query.serverUrl, data.query.params, query.header);

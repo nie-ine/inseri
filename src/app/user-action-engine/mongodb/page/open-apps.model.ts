@@ -30,6 +30,23 @@ export class OpenAppsModel {
       initialWidth: '500',
       initialHeight: '700'
     },
+    urlParamUpdater: {
+      type: 'urlParamUpdater',
+      model: [],
+      inputs: [
+        {
+          'inputName': 'param',
+          default: 'defaultParam'
+        },
+        {
+          'inputName': 'paramValue',
+          default: 'defaultParamValue'
+        }
+      ],
+      materialIcon: 'lead_add',
+      initialWidth: '700',
+      initialHeight: '100'
+    },
     openbisLogin: {
       type: 'openbisLogin',
       model: [],

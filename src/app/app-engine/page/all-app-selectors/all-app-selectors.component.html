@@ -2,6 +2,13 @@
 
 </app-gnd-lobid>
 
+<app-url-param-updater
+  *ngIf="app.type === 'urlParamUpdater'"
+  [param]="app.param"
+  (reloadVariables)="reloadVariablesFunction()">
+
+</app-url-param-updater>
+
 <app-browserling *ngIf="app.type === 'browserling'"
                  [platform_name]="app.platform_name"
                  [platform_version]="app.platform_version"
