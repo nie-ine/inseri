@@ -261,6 +261,6 @@ Resulting Json (part):
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.12.png" alt="Modified Json (aprt)" width="500"></p>
 
 And here is the resulting Stacked Bar Chart after renaming:
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.13.png" alt="Final Stacked Bar Chart" width="500"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.13.png" alt="Final Stacked Bar Chart" width="900"></p>
 
 ## 5.2. Apps which are external, but useful
