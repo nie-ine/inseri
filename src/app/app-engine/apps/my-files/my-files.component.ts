@@ -20,6 +20,7 @@ export class MyFilesComponent implements OnInit {
     this.showFolders( '-1' );
   }
 
+  // please move those restfull routines to a service, like for usergroup
   showFolders (mainFolderId: string) {
     this.http.get('http://localhost:3000/api/folder/' + mainFolderId,
     )
