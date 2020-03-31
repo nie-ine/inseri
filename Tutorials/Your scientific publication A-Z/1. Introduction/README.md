@@ -176,4 +176,19 @@ It will open a form with a predefined visualisation, which is very useful as the
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.01.png" alt="Preconfigured Bar Chart upon opening of the app" width="500"></p>
 
+Following the same procedure as we learn in O. Introduction, the user should click on the name of the application to access the options. What we need, is an option for Input data.
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.02.png" alt="Bar Chart input data options" width="500"></p>
+
+Within that frame, the user should select "Change currect data". Other options shall be explained later, i.e. for queries, there will be a special block of Tutorials.
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.03.png" alt="Bar Chart input data options 2" width="200"></p>
+
+A new frame will open, which includes the file name (as in Inseri storage), date of modification, and the server URL. The user should click on "Get JSON object".
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.04.png" alt="Accessing JSON" width="500"></p>
+
+In the empty frame a modifiable JSON code appears.
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.05.png" alt="Accessing JSON 2" width="500"></p>
+
 ## 5.2. Apps which are external, but useful
