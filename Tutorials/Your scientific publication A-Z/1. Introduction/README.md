@@ -160,11 +160,11 @@ Let us make a list of them and explore them one by one via modifying data in JSO
 The applications that can be used as per 2020.03.31 include:
 				
 1. Bar Chart 	d3.js, interactive			
-2. Line Chart 	d3.js, interactive		
+2. Stacked Bar Chart 	d3.js, data visualisation
 3. Pie Chart 	d3.js, data visualisation
 4. Radial Bar Chart 	d3.js, data visualisation
 5. Sankey 	d3.js, data visualisation	
-6. Stacked Bar Chart 	d3.js, data visualisation
+6. Line Chart 	d3.js, interactive		
 7. Chord diagram 	d3.js, data visualisation
 
 ### 5.1.1. Bar Chart 
@@ -227,5 +227,7 @@ Finally, the user can try to find better scale options by simply modifying the n
 
 Resulting name modification:
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.09.png" alt="Name of Bar Chart modified" width="700"></p>
+
+### 5.1.2. Stacked Bar Chart 
 
 ## 5.2. Apps which are external, but useful
