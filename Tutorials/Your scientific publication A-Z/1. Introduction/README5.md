@@ -17,10 +17,10 @@ The applications that can be used as per 2020.03.31 include:
 				
 1. Bar Chart 	d3.js, interactive			
 2. Stacked Bar Chart 	d3.js, data visualisation
-3. Pie Chart 	d3.js, data visualisation
+3. Line Chart 	d3.js, interactive	
 4. Radial Bar Chart 	d3.js, data visualisation
 5. Sankey 	d3.js, data visualisation	
-6. Line Chart 	d3.js, interactive		
+6. Pie Chart 	d3.js, data visualisation
 7. Chord diagram 	d3.js, data visualisation
 
 ### 5.1.1. Bar Chart 
