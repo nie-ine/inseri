@@ -141,5 +141,7 @@ It will open the following possiblities:</p>
 <p>Here are the two applications together:
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/9.png" alt="Plaintext Editor and Plaintext Viewer" width="1000"></p></p>
 
+As some pieces of information, such as title of the project and its description can occur in many different places, Inseri allows to modify/update them all centrally.
+
 Having created and viewed the Title and brief description of the Project, we shall learn next how to upload primary data, starting with images. TO BE CONTINUED....
 
