@@ -145,7 +145,7 @@ The final Pie Chart, after renaming and some rearrangements of the parts of the 
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.17.png" alt="Pie Chart with DDD prject data" width="700"></p>
 
-The tric to make parts visible, if they are of very unequal size, like in our example, is the following. Let us imaginge the Pie Chart as a clock, and the first part of the pie that we script in Json starts at midnight. Knowing that, the user should arrange the slices of the data in such a way, that the smallest are places between 2 and 4 a.m. Then their labels are better visible.
+The tric to make parts visible, if they are of very unequal size, like in our example, is the following. Let us imaginge the Pie Chart as a clock, and the first part of the pie that we script in Json starts at midnight. Knowing that, the user should arrange the slices of the data in such a way, that the smallest are placed between 2 and 4 a.m. Then their labels are better visible.
 Another suggestion, is to alternate the bigger and the smaller slices in that 2-4 a.m. range.
 
 
