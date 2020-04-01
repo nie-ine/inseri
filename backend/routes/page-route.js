@@ -107,7 +107,7 @@ router.get('/:id/queries', checkAuth, (req, res, next) => {
 });
 
 router.post('/:id/queries', checkAuth, (req, res, next) => {
-    console.log(req.body);
+    // console.log(req.body);
     let messages = [];
     // Tests if title is undefined, null or is empty string
     if (!Boolean(req.body.title)) messages.push('Your title is invalid!');
@@ -173,7 +173,7 @@ router.post('/:id/queries', checkAuth, (req, res, next) => {
 });
 
 router.put('/:id/addExistingQueryToPage', checkAuth, (req, res, next) => {
-  console.log( req.body );
+  // console.log( req.body );
   let messages = [];
   // Tests if title is undefined, null or is empty string
   if (!Boolean(req.body.title)) messages.push('Your title is invalid!');
@@ -333,7 +333,7 @@ router.delete('/:pageID/queries/:queryID', checkAuth, (req, res, next) => {
 });
 
 router.put('/:id', checkAuth, (req, res, next) => {
-    console.log( 'arriving page:', req.body );
+    // console.log( 'arriving page:', req.body );
     Page.findByIdAndUpdate({_id: req.params.id}, {
         openApps: req.body.openApps,
         appInputQueryMapping: req.body.appInputQueryMapping,
@@ -360,7 +360,7 @@ router.put('/:id', checkAuth, (req, res, next) => {
 });
 
 router.get('/:pageId/link/:pageSetId', checkAuth, (req, res, next) => {
-  console.log( req.params.pageSetId, req.params.pageId );
+  // console.log( req.params.pageSetId, req.params.pageId );
   PageSet.update({_id: req.params.pageSetId}, { $push: { hasPages: req.params.pageId } })
     .then(updatedPageSet => {
       if (updatedPageSet.n > 0) {
@@ -385,7 +385,7 @@ router.get('/:pageId/link/:pageSetId', checkAuth, (req, res, next) => {
 
 router.get('/:pageId/duplicate/:pageSetId', checkAuth, (req, res, next) => {
 
-  console.log( 'duplicate', req.params.pageId );
+  // console.log( 'duplicate', req.params.pageId );
 
   Page.findById(req.params.pageId)
     .then(pageResult => {
@@ -414,8 +414,6 @@ router.get('/:pageId/duplicate/:pageSetId', checkAuth, (req, res, next) => {
                   path: query.chosenPath
                 });
 
-                oldServerUrls.push(query.serverUrl);
-
                 MyOwnJson.findById( query.serverUrl.split('/')[6] )
                   .then(myOwnJson => {
 
@@ -423,9 +421,11 @@ router.get('/:pageId/duplicate/:pageSetId', checkAuth, (req, res, next) => {
                         creator: req.userData.userId,
                         content: myOwnJson.content
                       });
+
                       newJson.save()
                         .then(copiedMyOwnJson => {
 
+                          oldServerUrls.push(queryCopy.serverUrl);
                           queryCopy.serverUrl = 'http://localhost:3000/api/myOwnJson/getJson/' + copiedMyOwnJson._id;
                           newServerUrls.push( queryCopy.serverUrl );
                           queryCopy.save()
@@ -458,8 +458,9 @@ router.get('/:pageId/duplicate/:pageSetId', checkAuth, (req, res, next) => {
                   })
               } else {
                 i += 1;
+                newQueries.push( queryId );
                 if ( i == pageResult.queries.length ) {
-                  updatePage( pageResult, pageResult.queries, res, req, oldQueries, oldServerUrls, newServerUrls );
+                  updatePage( pageResult, newQueries, res, req, oldQueries, oldServerUrls, newServerUrls );
                 }
               }
             } );
@@ -475,7 +476,7 @@ router.get('/:pageId/duplicate/:pageSetId', checkAuth, (req, res, next) => {
 
 function updatePage( pageResult, queries, res, req, oldQueries, oldServerUrls, newServerUrls ) {
 
-  console.log( oldServerUrls, newServerUrls );
+  // console.log( oldServerUrls, newServerUrls );
 
   for ( let i = 0; i < pageResult.appInputQueryMapping.length; i++ ) {
     for ( let j = 0; j < oldQueries.length; j++ ) {
@@ -484,9 +485,9 @@ function updatePage( pageResult, queries, res, req, oldQueries, oldServerUrls, n
       // console.log( 'after', JSON.parse(pageResult.appInputQueryMapping[ i ]) );
     }
     for ( let k = 0; k < oldServerUrls.length; k++ ) {
-      console.log( 'before', JSON.parse(pageResult.appInputQueryMapping[ k ]) );
+      // console.log( 'before', JSON.parse(pageResult.appInputQueryMapping[ k ]) );
       pageResult.appInputQueryMapping[ k ] = pageResult.appInputQueryMapping[ k ].replace( oldServerUrls[ k ], newServerUrls[ k ] );
-      console.log( 'after', JSON.parse(pageResult.appInputQueryMapping[ k ]) );
+      // console.log( 'after', JSON.parse(pageResult.appInputQueryMapping[ k ]) );
     }
   }
 
