@@ -430,7 +430,7 @@ router.get('/:pageId/duplicate/:pageSetId', checkAuth, (req, res, next) => {
                           newServerUrls.push( queryCopy.serverUrl );
                           queryCopy.save()
                             .then(resultQuery => {
-                              newQueries.push( resultQuery._id );
+                              newQueries[ i ] = resultQuery._id ;
                               i += 1;
                               if ( i == pageResult.queries.length ) {
                                 updatePage( pageResult, newQueries, res, req, oldQueries, oldServerUrls, newServerUrls )
@@ -457,8 +457,9 @@ router.get('/:pageId/duplicate/:pageSetId', checkAuth, (req, res, next) => {
                     })
                   })
               } else {
+                console.log( queryId );
+                newQueries[ i ] = queryId;
                 i += 1;
-                newQueries.push( queryId );
                 if ( i == pageResult.queries.length ) {
                   updatePage( pageResult, newQueries, res, req, oldQueries, oldServerUrls, newServerUrls );
                 }
@@ -477,6 +478,8 @@ router.get('/:pageId/duplicate/:pageSetId', checkAuth, (req, res, next) => {
 function updatePage( pageResult, queries, res, req, oldQueries, oldServerUrls, newServerUrls ) {
 
   // console.log( oldServerUrls, newServerUrls );
+
+  console.log( queries );
 
   for ( let i = 0; i < pageResult.appInputQueryMapping.length; i++ ) {
     for ( let j = 0; j < oldQueries.length; j++ ) {
