@@ -17,10 +17,10 @@ The applications that can be used as per 2020.03.31 include:
 				
 1. Bar Chart 	d3.js, interactive			
 2. Stacked Bar Chart 	d3.js, data visualisation
-3. Line Chart 	d3.js, interactive	
+3. Pie Chart 	d3.js, data visualisation
 4. Radial Bar Chart 	d3.js, data visualisation
 5. Sankey 	d3.js, data visualisation	
-6. Pie Chart 	d3.js, data visualisation
+6. Line Chart 	d3.js, interactive	
 7. Chord diagram 	d3.js, data visualisation
 
 ### 5.1.1. Bar Chart 
@@ -118,5 +118,35 @@ Resulting Json (part):
 
 And here is the resulting Stacked Bar Chart after renaming:
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.13.png" alt="Final Stacked Bar Chart" width="900"></p>
+
+### 5.1.3 Pie Chart
+
+This visualisation tool is a good choice when we need to represent the overlapping parts constituting whole. The app comes with a preset example, below:
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.14.png" alt="Preset Pie Chart" width="700"></p>
+
+Following the procedure described in 5.1.1, in the Bar Chart, please get the Json object:
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.15.png" alt="Preset Pie Chart Json" width="500"></p>
+
+We shall use the same example from DDD project, namely, how many images do we have by country, from the set of 7125 images, addressed in the Bar Chart, 5.1.1.
+
+All we need to do, is 
+
+* to add more parts
+* to rename the labels by countries
+* to change the numerical values.
+
+The resulting Json looks like this:
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.16.png" alt="Modified Json" width="500"></p>
+
+The final Pie Chart, after renaming and some rearrangements of the parts of the pie, looks as follows:
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.17.png" alt="Pie Chart with DDD prject data" width="700"></p>
+
+The tric to make parts visible, if they are of very unequal size, like in our example, is the following. Let us imaginge the Pie Chart as a clock, and the first part of the pie that we script in Json starts at midnight. Knowing that, the user should arrange the slices of the data in such a way, that the smallest are places between 2 and 4 a.m. Then their labels are better visible.
+Another suggestion, is to alternate the bigger and the smaller slices in that 2-4 a.m. range.
+
 
 ## 5.2. Apps which are external, but useful
