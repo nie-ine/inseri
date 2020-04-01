@@ -47,7 +47,7 @@ A new frame will open, which includes the file name (as in Inseri storage), date
 In the empty frame a modifiable JSON code appears.
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.05.png" alt="Accessing JSON 2" width="500"></p>
 
-Suppose we need to add some real project data, for that we shall use (with Project permission) the data of the "Drawings of Gods" project, from the University of Lausanne, state 2020.03.31, and that data is from [https://ddd.unil.ch/]()
+Suppose we need to add some real project data, for that we shall use (with Project permission) the data of the "Drawings of Gods" project, from the University of Lausanne, state 2020.03.31, and that data is from [https://ddd.unil.ch/](https://ddd.unil.ch/)
 
 We shall create a Bar Chart representing visually how many images were collected in each country, and the data is a follows:
 
