@@ -85,7 +85,7 @@ Resulting name modification:
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.09.png" alt="Name of Bar Chart modified" width="700"></p>
 
 ### 5.1.2. Stacked Bar Chart 
-The Stacked Bar Chart is a perfect visualisation tool for those cases, when the dataset are uniform, all like in the Bar Chart above, but what is important, is to also make the viewer aware of the subgroups of data withing each single data set. 
+The Stacked Bar Chart is a perfect visualisation tool for those cases, when the datasets are uniform, all like in the Bar Chart above, but what is important, is to also make the viewer aware of the subgroups of data within each single data set. 
 
 Addressing again the data from Bar Chart example, we would need the Stacked Bar Chart if we would like to see during which years the images where collected in each country, or who drew those images (gender), of what was the age of the participants. Let us visualise the 2nd proposal, in which we shall add 3 genders to the existing data: female, male and unknown. 
 
@@ -114,7 +114,7 @@ Here we need to
 * add the numerical data to each of the subpart of each column.
 
 Resulting Json (part):
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.12.png" alt="Modified Json (aprt)" width="500"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.12.png" alt="Modified Json (part)" width="500"></p>
 
 And here is the resulting Stacked Bar Chart after renaming:
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.13.png" alt="Final Stacked Bar Chart" width="900"></p>
