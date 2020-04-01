@@ -121,7 +121,7 @@ And here is the resulting Stacked Bar Chart after renaming:
 
 ### 5.1.3 Pie Chart
 
-This visualisation tool is a good choice when we need to represent the overlapping parts constituting whole. The app comes with a preset example, below:
+This visualisation tool is a good choice when we need to represent the non-overlapping parts constituting whole. The app comes with a preset example, below:
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.14.png" alt="Preset Pie Chart" width="700"></p>
 
@@ -133,7 +133,7 @@ We shall use the same example from DDD project, namely, how many images do we ha
 
 All we need to do, is 
 
-* to add more parts
+* to add more parts of the pie
 * to rename the labels by countries
 * to change the numerical values.
 
@@ -145,8 +145,8 @@ The final Pie Chart, after renaming and some rearrangements of the parts of the 
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.17.png" alt="Pie Chart with DDD prject data" width="700"></p>
 
-The tric to make parts visible, if they are of very unequal size, like in our example, is the following. Let us imaginge the Pie Chart as a clock, and the first part of the pie that we script in Json starts at midnight. Knowing that, the user should arrange the slices of the data in such a way, that the smallest are placed between 2 and 4 a.m. Then their labels are better visible.
-Another suggestion, is to alternate the bigger and the smaller slices in that 2-4 a.m. range.
+The tric to make parts visible, if they are of very unequal size, like in our example, is the following. Let us imagine the Pie Chart as a clock, and the first part of the pie that we script in Json starts at midnight. Knowing that, the user should arrange the slices of the data in such a way, that the smallest are placed between 2 and 4 a.m. Then their labels are better visible.
+Another suggestion, is to alternate the slightly bigger and the smaller slices in that 2-4 a.m. range.
 
 
 ## 5.2. Apps which are external, but useful
