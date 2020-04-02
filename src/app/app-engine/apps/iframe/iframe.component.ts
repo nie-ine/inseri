@@ -9,19 +9,22 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class IframeComponent implements OnInit, AfterViewChecked {
   @Input() url: string;
-  @HostListener('window:message', ['$event'])
-  onMessage(e) {
-    console.log( e );
-    this.router.navigate( [], {
-      queryParams: {
-        'gnd': e.data.key
-      },
-      queryParamsHandling: 'merge'
-    } );
-  }
   sanitized = false;
   sanitizedUrl: SafeUrl;
   alreadySet = false;
+  @HostListener('window:message', ['$event'])
+  onMessage(e) {
+    console.log( e );
+    for ( const key in  e.data ) {
+      console.log( key, e.data[ key ] );
+      this.router.navigate( [], {
+        queryParams: {
+          [ key ]: e.data[ key ]
+        },
+        queryParamsHandling: 'merge'
+      } );
+    }
+  }
 
   constructor(
     private sanitizer: DomSanitizer,

@@ -30,6 +30,7 @@ export class MyFilesComponent implements OnInit {
   form: FormGroup;
   private mode = 'add';
   isLoading = false;
+  chosenPathArray = [];
 
   constructor(
     private http: HttpClient,
@@ -145,8 +146,8 @@ export class MyFilesComponent implements OnInit {
         .subscribe(
           response => {
             console.log( ' Create New Folder Response ' + (response as any).body.folder);
-            this.mainFolder_id = (response as any).body.folder._id;
             this.showFolders();
+            // this.mainFolder_id = (response as any).body.folder._id;
           }, error => {
             console.log( error );
           }
@@ -155,8 +156,8 @@ export class MyFilesComponent implements OnInit {
       this.folderService.createSubFolder(title, this.mainFolder_id)
         .subscribe(
           response => {
-            this.mainFolder_id = (response as any).body.folder._id;
             this.showFolders();
+            // this.mainFolder_id = (response as any).body.folder._id;
           }, error => {
             console.log( error );
           }

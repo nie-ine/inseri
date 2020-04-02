@@ -391,12 +391,11 @@ router.get('/:pageId/duplicate/:pageSetId', checkAuth, (req, res, next) => {
     .then(pageResult => {
 
         let newQueries = [];
-        let i = 0;
-        let oldQueries = pageResult.queries;
-        let oldServerUrls = [];
-        let newServerUrls = [];
-        for ( const queryId of pageResult.queries ) {
+        let m = 0;
+        let oldAndNewServerUrls = [];
+        let oldAndNewQueries = [];
 
+        for ( const queryId of pageResult.queries ) {
 
           Query.findById( queryId )
             .then( query => {
@@ -425,15 +424,30 @@ router.get('/:pageId/duplicate/:pageSetId', checkAuth, (req, res, next) => {
                       newJson.save()
                         .then(copiedMyOwnJson => {
 
-                          oldServerUrls.push(queryCopy.serverUrl);
-                          queryCopy.serverUrl = 'http://localhost:3000/api/myOwnJson/getJson/' + copiedMyOwnJson._id;
-                          newServerUrls.push( queryCopy.serverUrl );
+                          let newServerUrl = 'http://localhost:3000/api/myOwnJson/getJson/' + copiedMyOwnJson._id;
+                          oldAndNewServerUrls.push(
+                            {
+                              oldUrl: queryCopy.serverUrl,
+                              newUrl: newServerUrl
+                            }
+                          );
+                          queryCopy.serverUrl = newServerUrl;
+
                           queryCopy.save()
                             .then(resultQuery => {
-                              newQueries[ i ] = resultQuery._id ;
-                              i += 1;
-                              if ( i == pageResult.queries.length ) {
-                                updatePage( pageResult, newQueries, res, req, oldQueries, oldServerUrls, newServerUrls )
+                              newQueries[ m ] = resultQuery._id;
+                              m += 1;
+                              oldAndNewQueries.push(
+                                {
+                                  oldQuery: queryId,
+                                  newQuery: resultQuery._id
+                                }
+                              );
+
+                              if ( m === pageResult.queries.length ) {
+                                updatePage(
+                                  pageResult,
+                                  newQueries, res, req, oldAndNewServerUrls, oldAndNewQueries )
                               }
                             })
                             .catch(error => {
@@ -457,11 +471,16 @@ router.get('/:pageId/duplicate/:pageSetId', checkAuth, (req, res, next) => {
                     })
                   })
               } else {
-                console.log( queryId );
-                newQueries[ i ] = queryId;
-                i += 1;
-                if ( i == pageResult.queries.length ) {
-                  updatePage( pageResult, newQueries, res, req, oldQueries, oldServerUrls, newServerUrls );
+                newQueries[ m ] = queryId;
+                m += 1;
+                oldAndNewQueries.push(
+                  {
+                    oldQuery: queryId,
+                    newQuery: queryId
+                  }
+                );
+                if ( m === pageResult.queries.length ) {
+                  updatePage( pageResult, newQueries, res, req, oldAndNewServerUrls, oldAndNewQueries );
                 }
               }
             } );
@@ -475,22 +494,18 @@ router.get('/:pageId/duplicate/:pageSetId', checkAuth, (req, res, next) => {
     });
 });
 
-function updatePage( pageResult, queries, res, req, oldQueries, oldServerUrls, newServerUrls ) {
+function updatePage( pageResult, queries, res, req, oldAndNewServerUrls, oldAndNewQueries ) {
 
   // console.log( oldServerUrls, newServerUrls );
 
-  console.log( queries );
-
   for ( let i = 0; i < pageResult.appInputQueryMapping.length; i++ ) {
-    for ( let j = 0; j < oldQueries.length; j++ ) {
-      // console.log( 'before', JSON.parse(pageResult.appInputQueryMapping[ i ]) );
-      pageResult.appInputQueryMapping[ i ] = pageResult.appInputQueryMapping[ i ].replace( oldQueries[j], queries[ j ] );
-      // console.log( 'after', JSON.parse(pageResult.appInputQueryMapping[ i ]) );
+    for ( let j = 0; j < oldAndNewQueries.length; j++ ) {
+      pageResult.appInputQueryMapping[ i ] = pageResult.appInputQueryMapping[ i ]
+        .replace( oldAndNewQueries[ j ].oldQuery, oldAndNewQueries[ j ].newQuery );
     }
-    for ( let k = 0; k < oldServerUrls.length; k++ ) {
-      // console.log( 'before', JSON.parse(pageResult.appInputQueryMapping[ k ]) );
-      pageResult.appInputQueryMapping[ k ] = pageResult.appInputQueryMapping[ k ].replace( oldServerUrls[ k ], newServerUrls[ k ] );
-      // console.log( 'after', JSON.parse(pageResult.appInputQueryMapping[ k ]) );
+    for ( let k = 0; k < oldAndNewServerUrls.length; k++ ) {
+      pageResult.appInputQueryMapping[ i ] = pageResult.appInputQueryMapping[ i ]
+        .replace( oldAndNewServerUrls[ k ].oldUrl, oldAndNewServerUrls[ k ].newUrl );
     }
   }
 
