@@ -9,6 +9,9 @@
 <app-url-param-updater
   *ngIf="app.type === 'urlParamUpdater'"
   [param]="app.param"
+  [appInputQueryMapping]="appInputQueryMapping"
+  [textFile]="app.textFile"
+  [hash]="app.hash"
   (reloadVariables)="reloadVariablesFunction()">
 
 </app-url-param-updater>

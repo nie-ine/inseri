@@ -55,9 +55,9 @@ export class PrimeEditorComponent implements OnChanges {
         data => {
           this.textFile = undefined;
           console.log( data );
+          this.reloadVariables.emit();
         }, error => console.log( error )
       );
-    this.reloadVariables.emit();
   }
 
 }

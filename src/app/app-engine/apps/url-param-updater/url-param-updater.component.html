@@ -1,5 +1,9 @@
 <form >
   <mat-form-field style="width: 100%" >
-    <input matInput (keyup)="updateParam()" name="paramValue" [(ngModel)]="paramValue">
+    <input matInput (keyup)="updateParam()" name="paramValue" [(ngModel)]="textFile">
   </mat-form-field>
 </form>
+
+<button mat-button (click)="save()" >
+  Save
+</button>
