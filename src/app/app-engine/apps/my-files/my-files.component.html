@@ -1,8 +1,15 @@
+<button mat-button matTooltip="Go to My Files App" (click)="this.mainFolder_id='-1';showFolders(); showAddFolderForm=false">
+  <mat-icon>home</mat-icon>
+</button>
 <button mat-button matTooltip="Create new Folder" (click)="showAddFolderForm = true">
   <mat-icon>
     add
   </mat-icon>
 </button>
+<button mat-button matTooltip="Add a file" (click)="filePicker.click();" *ngIf="mainFolder_id!='-1'">
+  <mat-icon>note_add</mat-icon>
+</button>
+<input type="file" #filePicker (change)="onFileSelected($event)" style="visibility: hidden">
 
 <div class="div" style="margin-top: 50px" *ngIf="showAddFolderForm" >
   <div class="row">
@@ -14,33 +21,28 @@
           <mat-icon>close</mat-icon>
         </button>
       </mat-form-field>
-      <button mat-button (click)="createNewFolder(folder)">
-        Create New Folder( title)
-      </button>
-      <button mat-button (click)="showFolders('-1')">
-        Show main folders
+      <button mat-button (click)="createNewFolder(folder); showFolders() ;showAddFolderForm=false; folder='' ">
+        Create
       </button>
     </div>
   </div>
 </div>
 
-<div class="div" style="margin-top: 100px" *ngIf="showAddFolderForm">
+<!--div class="div" style="margin-top: 100px" *ngIf="showAddFolderForm">
   <div class="row">
     <div class="col-xs-12">
       <label for="folder_id">Main Folder Id </label>
       <input [(ngModel)]="mainFolder_id" type="text" id="folder_id">
-      <button mat-button (click)="createSubFolder(folder,mainFolder_id)">
-        Create New Subfolder( title, main Folder id)
-      </button>
     </div>
   </div>
-</div>
+</div-->
 
 <div class="div">
   <div class="row">
     <div class="col-xs-12">
       <div *ngFor="let folderInstance of foldersArray">
-        <button mat-button (click)="showFolders(folderInstance._id)">
+
+        <button mat-button (click)="this.mainFolder_id=folderInstance._id;showFolders()">
           <mat-icon>folder</mat-icon> {{ folderInstance.title }}
         </button>
         <button mat-button [matMenuTriggerFor]="menu"><mat-icon>settings</mat-icon></button>
@@ -65,6 +67,10 @@
           Update folder title
         </button>
 
+        <!--div>
+          <button mat-stroked-button type="submit"(click)="filePicker.click()">Pick a file</button>
+          <input type="file" #filePicker (change)="onFileSelected($event)" style="visibility: hidden">
+        </div-->
 
       </div>
     </div>

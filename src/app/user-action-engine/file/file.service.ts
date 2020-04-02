@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
@@ -49,14 +49,39 @@ export class FileService {
     );
   }
 
-  addFile(title: string, description: string, uploadedFile: File) {
+  /*addFiles(uploadedFiles: File[]) {
+    const fileData = new FormData(); // formData is a data format which allows us to combine txt values and blob
+    for (let i = 0; i < uploadedFiles.length; i++) {
+      fileData.append('files[]', uploadedFiles[i]);
+    }
+    return this.http.post(
+      `${FileService.API_BASE_URL_FILES} + '/files'}`,
+      {files: fileData}, {observe: 'response'});
+        // console.log('subscribe data' + file.title + ' ' + file.description);
+        //this.files.push(uploadedFiles);
+        this.filesUpdated.next([...this.files]);
+        // this.router.navigate(['app-our-new-component']);
+  }*/
+
+
+
+  addFile(title: string, description: string, uploadedFile: File): Observable<any> {
     // tslint:disable-next-line:max-line-length
     // const file: File = { id: null, title: title, description: description }; // we send an obj here in the body that will be auto converted to json, but json cannot include a file
     const fileData = new FormData(); // formData is a data format which allows us to combine txt values and blob
     fileData.append('title', title); // we append fields to it
     fileData.append('description', description);
     // tslint:disable-next-line:max-line-length
-    fileData.append('file', uploadedFile, title); // the property we added in the files routes, the title is the file name I provide to the backend, which is the title the user entered for the file
+    fileData.append('file', uploadedFile, uploadedFile.name); // the property we added in the files routes, the title is the file name I provide to the backend, which is the title the user entered for the file
+    console.log(' add file ' + title + description + uploadedFile.name);
+    return  this.http.post(`${FileService.API_BASE_URL_FILES}`,
+      {fileData}
+      );
+    /*const fileData = new FormData(); // formData is a data format which allows us to combine txt values and blob
+    fileData.append('title', title); // we append fields to it
+    fileData.append('description', description);
+    // tslint:disable-next-line:max-line-length
+    fileData.append('file', uploadedFile, uploadedFile.name); // the property we added in the files routes, the title is the file name I provide to the backend, which is the title the user entered for the file
     console.log(' add file ' + title + description + uploadedFile.name);
     this.http
       .post<{ message: string; file: FileModel }>(
@@ -74,7 +99,7 @@ export class FileService {
         this.files.push(file);
         this.filesUpdated.next([...this.files]);
         // this.router.navigate(['app-our-new-component']);
-      });
+      });*/
   }
 
   updateFile(id: string, title: string, description: string) {
@@ -102,3 +127,4 @@ export class FileService {
       });
   }
 }
+

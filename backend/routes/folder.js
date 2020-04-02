@@ -3,6 +3,7 @@ const User = require('../models/user');
 const checkAuth = require('../middleware/check-auth');
 const PageSet = require('../models/page-set');
 const Folder = require('../models/folder');
+const FileModel=require('..//models/files');
 const router = express.Router();
 
 //creating a new folder --> mainFolderId should be null if it is on the root folder otherwise it is the value of the Parent folder ID
@@ -46,10 +47,10 @@ router.post('/:mainFolderId',checkAuth, (req, res, next) => {
       console.log(req.params.mainFolderId);
       newFolder.save()
         .then (resultQuery => {
-          console.log(resultQuery);
+          console.log("new Folder: "+ newFolder._id);
             res.status(201).json({
               message: 'Folder was created successfully',
-              query: resultQuery
+              folder: newFolder
             });
         })
         .catch(error => {
@@ -134,6 +135,8 @@ router.post('/update/title/:folderId',checkAuth, (req, res, next) => {
       })
     });
 });
+
+
 ///add and delete an existing PageSet and create a new PageSet in a folder
 router.post('/update/addPageSet/:folderId&:pageSetId',checkAuth, (req, res, next) => {
   Folder.updateOne({$and:[
@@ -486,6 +489,32 @@ router.post('/delete/:folderId',checkAuth, (req, res, next) => {
     .catch(error => {
       res.status(500).json({
         message: 'Deleting Folder failed',
+        error: error
+      })
+    });
+});
+//upload a file to a folder
+router.post('/update/uploadFile/:folderId&:fileId',checkAuth, (req, res, next) => {
+  Folder.updateOne({$and:[
+        {owner:  req.userData.userId},
+        {_id: req.params.folderId}
+      ]},
+    {$addToSet: {hasFiles: req.params.fileId}})
+    .then((updatedDocument) => {
+      if (updatedDocument.n === 0) {
+        res.status(400).json({
+          message: 'Folder cannot be updated.'
+        });
+      } else {
+        return res.status(200).json({
+          message: 'Folder has been updated successfully',
+          updatedDocument: updatedDocument
+        });
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Updating Folder failed.',
         error: error
       })
     });

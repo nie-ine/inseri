@@ -35,7 +35,7 @@ export class OurNewComponentComponent implements OnInit {
   folder: string;
   foldersArray: Array<string>;
   showAddFolderForm = false;
-
+  mainFolder_id: string;
 
 
   form: FormGroup;
@@ -54,6 +54,18 @@ export class OurNewComponentComponent implements OnInit {
     public route: ActivatedRoute
   ) { }
 
+  /*onMultipleFileSelected( event: Event) {
+      const filesArray = (event.target as HTMLInputElement).files;
+      this.form.patchValue({file: file});
+      //console.log( 'On File Selected : ' + file.name);
+      this.form.get('file').updateValueAndValidity();
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.filePreview = reader.result as string;
+      };
+      // tslint:disable-next-line:comment-format
+      reader.readAsDataURL(file);
+  }*/
   onFileSelected(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
     this.form.patchValue({file: file});
@@ -67,16 +79,16 @@ export class OurNewComponentComponent implements OnInit {
     reader.readAsDataURL(file);
   }
   ngOnInit() {
-    //this.fileService.getFiles();
+    // this.fileService.getFiles();
     this.fileSub = this.fileService.getFileUpdateListener()
       .subscribe((files: FileModel[]) => {
         this.showUploadedFiles = false;
         this.files = files;
       });
     this.form = new FormGroup({
-      'title': new FormControl(null),// {validators: [Validators.required]}), // Validators.minLength(3)
-      'description': new FormControl(null),// {validators: [Validators.required]}),
-      'file': new FormControl(null),// {validators: [Validators.required]})// , asyncValidators: [mimeType]})
+      'title': new FormControl(null), // {validators: [Validators.required]}), // Validators.minLength(3)
+      'description': new FormControl(null), // {validators: [Validators.required]}),
+      'file': new FormControl(null), // {validators: [Validators.required]})// , asyncValidators: [mimeType]})
     });
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('fileId')) {
@@ -110,7 +122,7 @@ export class OurNewComponentComponent implements OnInit {
     /*if (this.form.invalid) {
       return;
     }*/
-    //this.isLoading = true;
+    // this.isLoading = true;
     if (this.mode === 'add') {
       this.fileService.addFile(this.form.value.file.name, this.form.value.description, this.form.value.file);
       console.log( 'On Save File: ' + this.form.value.file.name );
@@ -387,6 +399,86 @@ export class OurNewComponentComponent implements OnInit {
         response => {
           console.log( (response as any).folders); // an array of subPages details'
           this.foldersArray = (response as any).folders;
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+
+  createNewFolder(title: string) {
+    alert(title );
+    this.http.post('http://localhost:3000/api/folder/' + '-1',
+      {title: title}
+      , )
+      .subscribe(
+        response => {
+          this.showFolders( '-1' );
+          console.log( (response as any).query);
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+
+  updateFolderTitle(folderId: string, title: string) {
+    alert(folderId + title);
+    this.http.post('http://localhost:3000/api/folder/update/title/' + folderId,
+      {title: title}
+      , )
+      .subscribe(
+        response => {
+          console.log( (response as any).updatedDocument);
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+  addPageSetsToFolder(folderId: string, pageSetId: string) {
+    this.http.post('http://localhost:3000/api/folder/update/addPageSet/' + folderId + '&' + pageSetId,
+      {}
+      , )
+      .subscribe(
+        response => {
+          console.log( (response as any).updatedDocument);
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+  deletePageSetsFromFolder(folderId: string, pageSetId: string) {
+    this.http.post('http://localhost:3000/api/folder/update/removePageSet/' + folderId + '&' + pageSetId,
+      {}
+      , )
+      .subscribe(
+        response => {
+          console.log( (response as any).updatedDocument);
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+  deleteFolder(folderId: string) {
+    this.http.post('http://localhost:3000/api/folder/delete/' + folderId ,
+      {}
+      , )
+      .subscribe(
+        response => {
+          console.log( (response as any).deletedGroup);
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+
+  createSubFolder(title: string, mainFolderId: string) {
+    alert(title + mainFolderId);
+    this.mainFolder_id = mainFolderId;
+    this.http.post('http://localhost:3000/api/folder/' + this.mainFolder_id,
+      {title: title}
+      , )
+      .subscribe(
+        response => {
+          console.log( (response as any).query);
         }, error => {
           console.log( error );
         }
