@@ -21,6 +21,7 @@ export class MyFilesComponent implements OnInit {
   folder: string;
   foldersArray: Array<string>;
   mainFolder_id = '-1';
+  subFolder_id: string;
   file: FileModel;
   filePreview: string;
   private  fileId: string;
@@ -68,8 +69,25 @@ export class MyFilesComponent implements OnInit {
       }
     });
   }
-  onDelete(fileId: string) {
-    this.fileService.deleteFile(fileId);
+
+  updateChosenPath() {
+    for (let i = this.chosenPathArray.length - 1; i > 0 ; i--) {
+      if (this.chosenPathArray[i].id === this.mainFolder_id) {
+        break;
+      } else {
+        this.chosenPathArray.pop();
+      }
+    }
+    console.log(this.chosenPathArray);
+  }
+  onDelete(fileId: string, folderId: string) {
+    this.fileService.deleteFile(fileId, folderId).subscribe(() => {
+      console.log(this.files);
+      const updatedFiles = this.files.filter(file => file.id !== fileId);
+      this.files = updatedFiles;
+      console.log(this.files);
+      this.filesUpdated.next([...this.files]);
+    });
   }
   // tslint:disable-next-line:max-line-length
   // this.form.setValue({'title': this.form.value.title,'description': this.form.value.description });// to set the value if we retrieve the doc from the db.
@@ -111,7 +129,7 @@ export class MyFilesComponent implements OnInit {
   }
 
   addFile(title: string, description: string, uploadedFile: File ) {
-    this.fileService.addFile(title, description, uploadedFile)
+    this.fileService.addFile(title, description, uploadedFile, this.mainFolder_id)
       .subscribe(responseData => {
         const file: FileModel = {
           id: responseData.file.id,
@@ -120,7 +138,7 @@ export class MyFilesComponent implements OnInit {
           urlPath: responseData.file.urlPath
         };
         this.uploadFileToFolder(file.id);
-        console.log('subscribe data' + file.title + ' ' + file.description);
+        console.log('subscribe data after add file ' + file.title + ' ' + file.description);
         this.files.push(file);
         this.filesUpdated.next([...this.files]);
         // this.router.navigate(['app-our-new-component']);
@@ -137,6 +155,23 @@ export class MyFilesComponent implements OnInit {
           console.log( error );
         }
       );
+    this.files = [];
+    this.showFiles(this.mainFolder_id);
+  }
+
+  showFiles(folderId: string) {
+    if (folderId === '-1') {
+      this.files = [];
+    } else {
+      console.log(folderId);
+      this.fileService.getFiles(folderId)
+        .subscribe(transformedFiles => {
+          console.log('transformed files: ' || transformedFiles);
+          this.files = transformedFiles;
+          this.filesUpdated.next([...this.files]);
+        });
+    }
+    console.log(this.files);
   }
 
   createNewFolder(title: string) {

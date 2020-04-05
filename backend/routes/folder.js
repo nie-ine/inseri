@@ -189,21 +189,21 @@ router.get('getPageSets/:folderId', checkAuth, (req, res, next) => {
 
 router.post('/update/removePageSet/:folderId&:pageSetId',checkAuth, (req, res, next) => {
   Folder.updateOne({$and:[
-        {owner: req.userData.userId},
-        {_id: req.params.folderId}
-      ]},
-    {$pull: {hasPageSets: req.params.pageSetId}})
-    .then((updatedDocument) => {
-      if (updatedDocument.n === 0) {
-        res.status(400).json({
-          message: 'Folder cannot be updated.'
-        });
-      } else {
-        return res.status(200).json({
-          message: 'Folder has been updated successfully',
-          updatedDocument: updatedDocument
-        });
-      }
+            {owner: req.userData.userId},
+            {_id: req.params.folderId}
+          ]},
+        {$pull: {hasPageSets: req.params.pageSetId}})
+        .then((updatedDocument) => {
+          if (updatedDocument.n === 0) {
+            res.status(400).json({
+              message: 'Folder cannot be updated.'
+            });
+          } else {
+            return res.status(200).json({
+              message: 'Folder has been updated successfully',
+              updatedDocument: updatedDocument
+            });
+          }
     })
     .catch(error => {
       res.status(500).json({
@@ -348,7 +348,7 @@ router.get('getQueries/:folderId', checkAuth, (req, res, next) => {
   Folder.find({owner: req.userData.userId, _id: req.params.folderId},{hasQueries:1,_id:0})
     .then(queries => {
       let message;
-      if (pageSets.length === 0) {
+      if (queries.length === 0) {
         message = 'The Folder has no Queries'
       } else {
         message = 'All Queries were found'

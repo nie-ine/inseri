@@ -1,5 +1,6 @@
 const express = require("express");
 const FileModel = require("../models/files");
+const Folder=require("../models/folder");
 const router=express.Router();
 const multer=require("multer");
 const checkAuth = require('../middleware/check-auth');
@@ -20,30 +21,54 @@ const storage= multer.diskStorage({
   }
 });
 
-router.post('',checkAuth,multer({storage: storage}).single("file") ,(req, res, next) => { ///multer fn that expect a single file from the incoming req and will try to find an file property in the req body
+router.post('/:folderId',checkAuth,multer({storage: storage}).single("file") ,(req, res, next) => { ///multer fn that expect a single file from the incoming req and will try to find an file property in the req body
   const url=req.protocol +"://"+req.get("host");
-  //console.log("printing the req "+req.body.storage);
+  console.log(url);
+  //console.log("printing the req filename "+req.body);
   const file = new FileModel({
     title: req.body.title,
     description: req.body.description,
-    urlPath: url+"/files/"+req.body.fileData.file.filename,
+    urlPath: url+"/files/"+req.file.filename,
     owner:req.userData.userId
   });
   //console.log("Router post " + storage.getDestination + storage.getFilename());
   file.save().then(createdFile => {
     //console.log("post route" + file._id + " "+ storage.getFilename());
-    res.status(201).json({
-      message: "File added successfully",
-      file:{
-        id: createdFile._id,
-        title: createdFile.title,
-        description: createdFile.description,
-        urlPath: createdFile.urlPath
-        // ...createdFile, // spread opr to copy all properties of an obj and add/override some selected properties
-        // id: createdFile._id,
-      }
-    });
-    //console.log(storage.getFilename());
+    Folder.updateOne({$and:[
+          {owner:  req.userData.userId},
+          {_id: req.params.folderId}
+        ]},
+      {$addToSet: {hasFiles: createdFile._id}})
+      .then((updatedDocument) => {
+        res.status(201).json({
+          message: "File added successfully",
+          file:{
+            id: createdFile._id,
+            title: createdFile.title,
+            description: createdFile.description,
+            urlPath: createdFile.urlPath
+            // ...createdFile, // spread opr to copy all properties of an obj and add/override some selected properties
+            // id: createdFile._id,
+          }
+        });
+
+        /*if (updatedDocument.n === 0) {
+          res.status(400).json({
+            message: 'Folder cannot be updated.'
+          });
+        } else {
+          return res.status(200).json({
+            message: 'Folder has been updated successfully',
+            updatedDocument: updatedDocument
+          });
+        }*/
+      })
+      .catch(error => {
+        res.status(500).json({
+          message: 'Updating Folder failed.',
+          error: error
+        })
+      });
   })
     .catch(error => {
     res.status(500).json({
@@ -84,8 +109,50 @@ router.put("/:id",checkAuth, (req, res, next) => {
   });
 });
 
-router.get("",checkAuth, (req, res, next) => {
-  FileModel.find({owner: req.userData.userId}).then(documents => {
+router.get("/files/:folderId",checkAuth, (req, res, next) => {
+  Folder.find({owner: req.userData.userId, _id: req.params.folderId}, {hasFiles: 1, _id: 0})
+    .then(filesIds => {
+      let message;
+      if (filesIds.length === 0) {
+        message = 'The Folder has no files'
+        console.log(message);
+      } else {
+        message = 'All files were found'
+        console.log(message+"-"+filesIds[0].hasFiles);
+        FileModel.find({
+          _id: {$in: filesIds[0].hasFiles}
+        })
+          .then(files => {
+            let message;
+            if (files.length === 0) {
+              message = 'Files may be deleted accidentally';
+              console.log(message);
+            } else {
+              message = 'Files have been found.'
+              console.log(message);
+              console.log(files);
+              res.status(200).json({
+                message: message,
+                files: files
+              });
+            }
+          })
+          .catch(error => {
+            res.status(500).json({
+              message: 'Fetching Files failed',
+              error: error
+            })
+          })
+      }
+    })
+    .catch(error => {
+    res.status(500).json({
+      message: 'Folder has no files',
+      error: error
+    })
+  });
+});
+ /* FileModel.find({owner: req.userData.userId}).then(documents => {
     res.status(200).json({
       message: "Files fetched successfully!",
       files: documents
@@ -96,7 +163,7 @@ router.get("",checkAuth, (req, res, next) => {
       error: error
     })
   })
-});
+});*/
 
 router.get("/:id", (req, res, next) => {
   FileModel.findById(req.params.id).then(file => {
@@ -108,23 +175,50 @@ router.get("/:id", (req, res, next) => {
   });
 });
 
-router.delete("/:id", (req, res, next) => {
-  FileModel.findById(req.params.id).then(file => {
-    if (file){
-      console.log("file. filePath =  "+file.urlPath);
+router.post("/deleteFiles/:fileId&:folderId", (req, res, next) => {
+  FileModel.find({_id: req.params.fileId}).then(file => {
+    console.log(req.params);
+    console.log(file);
+    /*if (file) {
+      console.log("file. filePath =  " + file.urlPath);
       //console.log("new generated path ="+ req.protocol +"://"+req.get("host")+"/files/"+file.title);
-      fs.unlink(file.urlPath,(err)=>{if(err) console.log(err); else console.log("file deleted from the server successfully.");});
-      FileModel.deleteOne({ _id: req.params.id }).then(result => {
+      fs.unlink(file.urlPath, (err) => {
+        if (err) console.log(err); else console.log("file deleted from the server successfully.");
+      });*/
+      FileModel.deleteOne({_id: req.params.fileId}).then(result => {
         console.log(result);
-        res.status(200).json({ message: "file deleted!" });
+        Folder.updateOne({_id: req.params.folderId},
+          {$pull: {hasFiles: req.params.fileId}})
+          .then((updatedDocument) => {
+            if (updatedDocument.n === 0) {
+              res.status(400).json({
+                message: 'Folder cannot be updated.'
+              });
+            } else {
+              return res.status(200).json({
+                message: 'Folder has been updated successfully',
+                updatedDocument: updatedDocument
+              });
+            }
+          })
+          .catch(error => {
+            res.status(500).json({
+              message: 'Updating Folder failed.',
+              error: error
+            })
+          });
+      }).catch(error => {
+        res.status(500).json({
+          message: 'Deleting File failed.',
+          error: error
+        });
       });
-    }
+    //}
+  }).catch(error => {
+    res.status(404).json({
+      message: 'File not found',
+      error: error
+    });
   });
-
-  /*FileModel.deleteOne({ _id: req.params.id }).then(result => {
-    console.log(result);
-    res.status(200).json({ message: "file deleted!" });
-  });*/
 });
-
 module.exports = router;

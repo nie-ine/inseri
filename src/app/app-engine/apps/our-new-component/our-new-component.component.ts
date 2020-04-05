@@ -47,6 +47,7 @@ export class OurNewComponentComponent implements OnInit {
   files: FileModel[] = [];
   private fileSub: Subscription;
   showUploadedFiles = false;
+  folderId: string;
 
   constructor(
     private http: HttpClient,
@@ -124,7 +125,7 @@ export class OurNewComponentComponent implements OnInit {
     }*/
     // this.isLoading = true;
     if (this.mode === 'add') {
-      this.fileService.addFile(this.form.value.file.name, this.form.value.description, this.form.value.file);
+      this.fileService.addFile(this.form.value.file.name, this.form.value.description, this.form.value.file, this.folderId);
       console.log( 'On Save File: ' + this.form.value.file.name );
     } else {
       this.fileService.updateFile(this.fileId, this.form.value.title, this.form.value.description);

@@ -1,32 +1,43 @@
-<button mat-button matTooltip="Create new Folder" (click)="showAddFolderForm = true">
-  <mat-icon>
-    add
-  </mat-icon>
-</button>
-<button mat-button matTooltip="Add a file" (click)="filePicker.click();" *ngIf="mainFolder_id!='-1'" style="display: inline-block">
-  <mat-icon>note_add</mat-icon>
-</button>
-<input type="file" #filePicker (change)="onFileSelected($event)" style="visibility: hidden">
-
 <button mat-button matTooltip="Go to My Files App" style="display: inline-block"
         (click)="this.mainFolder_id='-1';showFolders(); showAddFolderForm=false; chosenPathArray=[];">
   <mat-icon>home</mat-icon>
 </button>
 
+<button mat-button [matMenuTriggerFor]="menu"><mat-icon>folder</mat-icon></button>
+<mat-menu #menu="matMenu">
+  <button  mat-menu-item matTooltip="Create new Folder" (click)="showAddFolderForm = true">
+    <mat-icon>
+      create_new_folder
+    </mat-icon>
+  </button>
+  <button  mat-menu-item matTooltip="Add a file" (click)="filePicker.click();" *ngIf="mainFolder_id!='-1'" >
+    <mat-icon>note_add</mat-icon>
+  </button>
+  <input type="file" #filePicker (change)="onFileSelected($event)" style="visibility: hidden">
+
+  <button mat-menu-item (click)="folderInstance.updateTitle = true">
+    Update folder title
+  </button>
+  <button mat-menu-item (click)="addPageSetsToFolder(folderInstance._id, pageSetId)">
+    Add a Pageset
+  </button>
+  <button mat-menu-item (click)="deletePageSetsFromFolder(folderInstance._id, pageSetId)">
+    Delete a Pageset
+  </button>
+  <button mat-menu-item (click)="deleteFolder(this.mainFolder_id)">
+    Delete Folder
+  </button>
+</mat-menu>
+<br>
 <div *ngFor="let folder of chosenPathArray" style="display: inline-block">
 
   <button
     mat-button
-    (click)="this.mainFolder_id = folder.id; showFolders(); showAddFolderForm=false">
+    (click)="this.mainFolder_id = folder.id; updateChosenPath();showFolders(); showAddFolderForm=false;">
     <mat-icon>arrow_right</mat-icon> {{ folder.title }}
   </button>
 
 </div>
-
-
-
-
-
 
 <div *ngIf="showAddFolderForm" style="margin-left: 15px">
       <mat-form-field class="example-form-field">
@@ -41,52 +52,37 @@
       </button>
 </div>
 
-<!--div class="div" style="margin-top: 100px" *ngIf="showAddFolderForm">
-  <div class="row">
-    <div class="col-xs-12">
-      <label for="folder_id">Main Folder Id </label>
-      <input [(ngModel)]="mainFolder_id" type="text" id="folder_id">
-    </div>
-  </div>
-</div-->
-
 <div class="div">
   <div class="row">
     <div class="col-xs-12">
       <div *ngFor="let folderInstance of foldersArray">
-
         <button
           mat-button
-          (click)="this.mainFolder_id=folderInstance._id; showFolders(); chosenPathArray.push( { title: folderInstance.title, id: folderInstance._id } )">
+          (click)=" this.mainFolder_id=folderInstance._id; showFolders(); chosenPathArray.push( { title: folderInstance.title, id: folderInstance._id } ); console.log(chosenPathArray);">
           <mat-icon>folder</mat-icon> {{ folderInstance.title }}
         </button>
-        <button mat-button [matMenuTriggerFor]="menu"><mat-icon>settings</mat-icon></button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="folderInstance.updateTitle = true">
-            Update folder title
-          </button>
-          <button mat-menu-item (click)="addPageSetsToFolder(folderInstance._id, pageSetId)">
-            Add a Pageset
-          </button>
-          <button mat-menu-item (click)="deletePageSetsFromFolder(folderInstance._id, pageSetId)">
-            Delete a Pageset
-          </button>
-          <button mat-menu-item (click)="deleteFolder(folderInstance._id)">
-            Delete Folder
-          </button>
-        </mat-menu>
         <input mat-input [(ngModel)]="folderInstance.title" *ngIf="folderInstance.updateTitle === true">
         <button
           mat-menu-item
           (click)="updateFolderTitle(folderInstance._id, folderInstance.title)" *ngIf="folderInstance.updateTitle === true">
           Update folder title
         </button>
+      </div>
+    </div>
+  </div>
+</div>
 
-        <!--div>
-          <button mat-stroked-button type="submit"(click)="filePicker.click()">Pick a file</button>
-          <input type="file" #filePicker (change)="onFileSelected($event)" style="visibility: hidden">
-        </div-->
-
+<div class="div">
+  <div class="row">
+    <div class="col-xs-12">
+      <div *ngFor="let file of files" style="margin-left: 15px">
+        <mat-icon> insert_drive_file</mat-icon>
+        {{ file.title }}
+        <button mat-button matTooltip="Delete File" (click)="onDelete(file.id, this.mainFolder_id);">
+          <mat-icon>
+            delete
+          </mat-icon>
+        </button>
       </div>
     </div>
   </div>
