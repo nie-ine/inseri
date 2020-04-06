@@ -1,45 +1,49 @@
 <button mat-button matTooltip="Go to My Files App" style="display: inline-block"
-        (click)="this.mainFolder_id='-1';showFolders(); showAddFolderForm=false; chosenPathArray=[];">
+        (click)="this.mainFolder_id='-1';showFolders(); showForm('',false); deleteFromBreadCrumb();">
   <mat-icon>home</mat-icon>
 </button>
 
 <button mat-button [matMenuTriggerFor]="menu"><mat-icon>folder</mat-icon></button>
 <mat-menu #menu="matMenu">
-  <button  mat-menu-item matTooltip="Create new Folder" (click)="showAddFolderForm = true">
+  <button  mat-menu-item matTooltip="Create new Folder" (click)="showForm('AddFolder',true);">
     <mat-icon>
       create_new_folder
     </mat-icon>
   </button>
-  <button  mat-menu-item matTooltip="Add a file" (click)="filePicker.click();" *ngIf="mainFolder_id!='-1'" >
-    <mat-icon>note_add</mat-icon>
+  <button *ngIf="this.mainFolder_id!='-1'" mat-menu-item matTooltip="Update folder title" (click)="showForm('UpdateFolderTitle',true);">
+    <mat-icon>edit</mat-icon>
   </button>
-  <input type="file" #filePicker (change)="onFileSelected($event)" style="visibility: hidden">
-
-  <button mat-menu-item (click)="folderInstance.updateTitle = true">
-    Update folder title
-  </button>
-  <button mat-menu-item (click)="addPageSetsToFolder(folderInstance._id, pageSetId)">
+  <!--button mat-menu-item (click)="addPageSetsToFolder(folderInstance._id, pageSetId)">
     Add a Pageset
   </button>
   <button mat-menu-item (click)="deletePageSetsFromFolder(folderInstance._id, pageSetId)">
     Delete a Pageset
-  </button>
-  <button mat-menu-item (click)="deleteFolder(this.mainFolder_id)">
-    Delete Folder
+  </button-->
+  <button *ngIf="this.mainFolder_id!='-1'" mat-menu-item  matTooltip="Delete folder" (click)="deleteFolder(this.mainFolder_id);">
+    <mat-icon>delete</mat-icon>
   </button>
 </mat-menu>
+
+<button *ngIf="mainFolder_id!='-1'" mat-button [matMenuTriggerFor]="menuMore"><mat-icon>more_horiz</mat-icon></button>
+<mat-menu #menuMore="matMenu">
+  <button   mat-menu-item matTooltip="Add a file" (click)="filePicker.click();" >
+    <mat-icon>note_add</mat-icon>
+  </button>
+  <input type="file" #filePicker (change)="onFileSelected($event)" style="visibility: hidden">
+</mat-menu>
+
 <br>
-<div *ngFor="let folder of chosenPathArray" style="display: inline-block">
+<div *ngFor="let folder of breadCrumbArray" style="display: inline-block">
 
   <button
     mat-button
-    (click)="this.mainFolder_id = folder.id; updateChosenPath();showFolders(); showAddFolderForm=false;">
+    (click)="this.mainFolder_id = folder.id; deleteFromBreadCrumb();showFolders(); showForm('',false);">
     <mat-icon>arrow_right</mat-icon> {{ folder.title }}
   </button>
 
 </div>
 
-<div *ngIf="showAddFolderForm" style="margin-left: 15px">
+<div *ngIf="addFolderForm" style="margin-left: 15px">
       <mat-form-field class="example-form-field">
         <mat-label>Folder Name</mat-label>
         <input matInput type="text" [(ngModel)]="folder">
@@ -47,10 +51,24 @@
           <mat-icon>close</mat-icon>
         </button>
       </mat-form-field>
-      <button mat-button (click)="createNewFolder(folder); showAddFolderForm=false; folder='' ">
+      <button mat-button (click)="createNewFolder(folder); showForm('',false); folder='' ">
         Create
       </button>
 </div>
+
+<div *ngIf="updateFolderTitleForm" style="margin-left: 15px">
+  <mat-form-field class="example-form-field">
+    <mat-label>Folder Name</mat-label>
+    <input matInput type="text" [(ngModel)]="folder">
+    <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+  <button mat-button (click)="updateFolderTitle(this.mainFolder_id,folder); updateBreadCrumb(this.mainFolder_id,folder); showForm('',false); folder='' ">
+    Update
+  </button>
+</div>
+
 
 <div class="div">
   <div class="row">
@@ -58,10 +76,11 @@
       <div *ngFor="let folderInstance of foldersArray">
         <button
           mat-button
-          (click)=" this.mainFolder_id=folderInstance._id; showFolders(); chosenPathArray.push( { title: folderInstance.title, id: folderInstance._id } ); console.log(chosenPathArray);">
+          (click)=" this.mainFolder_id=folderInstance._id; showFolders();
+          addToBreadCrumb(folderInstance._id, folderInstance.title);">
           <mat-icon>folder</mat-icon> {{ folderInstance.title }}
         </button>
-        <input mat-input [(ngModel)]="folderInstance.title" *ngIf="folderInstance.updateTitle === true">
+        <input mat-input [(ngModel)]="folderInstance.title" *ngIf="updateFolderTitleForm">
         <button
           mat-menu-item
           (click)="updateFolderTitle(folderInstance._id, folderInstance.title)" *ngIf="folderInstance.updateTitle === true">
