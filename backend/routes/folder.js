@@ -474,11 +474,11 @@ router.post('/delete/:folderId',checkAuth, (req, res, next) => {
     owner: req.userData.userId,
     _id: req.params.folderId
   })
-    .then((deletedGroup) => {
-      if (deletedGroup.n === 0) {
+    .then((deletedFolder) => {
+      if (deletedFolder.n === 0) {
         return res.status(400).json({
           message: 'Folder cannot be deleted',
-          deletedGroup:deletedGroup
+          deletedGroup:deletedFolder
         });
       } else {
         res.status(200).json({

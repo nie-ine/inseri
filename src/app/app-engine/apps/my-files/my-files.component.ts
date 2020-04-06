@@ -17,7 +17,8 @@ import {ActivatedRoute, ParamMap} from '@angular/router';
 export class MyFilesComponent implements OnInit {
   // private static API_BASE_URL_FILES = environment.node + '/api/files';
   private filesUpdated = new Subject<FileModel[]>();
-  showAddFolderForm = false;
+  addFolderForm = false;
+  updateFolderTitleForm = false;
   folder: string;
   foldersArray: Array<string>;
   mainFolder_id = '-1';
@@ -31,7 +32,7 @@ export class MyFilesComponent implements OnInit {
   form: FormGroup;
   private mode = 'add';
   isLoading = false;
-  chosenPathArray = [];
+  breadCrumbArray = [];
 
   constructor(
     private http: HttpClient,
@@ -70,16 +71,38 @@ export class MyFilesComponent implements OnInit {
     });
   }
 
-  updateChosenPath() {
-    for (let i = this.chosenPathArray.length - 1; i > 0 ; i--) {
-      if (this.chosenPathArray[i].id === this.mainFolder_id) {
+  showForm(form: string, visibility: boolean) {
+    switch (form) {
+      case 'AddFolder':
+        this.addFolderForm = visibility;
+        break;
+      case 'UpdateFolderTitle':
+        this.updateFolderTitleForm = visibility;
+        break;
+      default:
+        this.addFolderForm = false;
+        this.updateFolderTitleForm = false;
+    }
+  }
+  deleteFromBreadCrumb() {
+    for (let i = this.breadCrumbArray.length - 1; i >= 0 ; i--) {
+      if (this.breadCrumbArray[i].id === this.mainFolder_id) {
         break;
       } else {
-        this.chosenPathArray.pop();
+        this.breadCrumbArray.pop();
       }
     }
-    console.log(this.chosenPathArray);
+    console.log('current breadcrumb array is ');
+    console.log(this.breadCrumbArray);
   }
+  addToBreadCrumb(id: string, title: string) {
+    this.breadCrumbArray.push({ id: id, title: title } );
+    console.log(this.breadCrumbArray);
+  }
+  updateBreadCrumb(folder_id: string, title: string) {
+    const index = this.breadCrumbArray.findIndex((obj => obj.id === folder_id));
+    this.breadCrumbArray[index].title = title;
+}
   onDelete(fileId: string, folderId: string) {
     this.fileService.deleteFile(fileId, folderId).subscribe(() => {
       console.log(this.files);
@@ -242,5 +265,12 @@ export class MyFilesComponent implements OnInit {
           console.log( error );
         }
       );
+    this.breadCrumbArray.pop();
+    if (this.breadCrumbArray.length === 0) {
+      this.mainFolder_id = '-1';
+    } else {
+      this.mainFolder_id = this.breadCrumbArray[this.breadCrumbArray.length - 1].id;
+    }
+    this.showFolders();
   }
 }
