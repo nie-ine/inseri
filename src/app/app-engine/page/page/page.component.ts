@@ -279,6 +279,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     private actionService: ActionService,
     private router: Router,
     public snackBar: MatSnackBar,
+    public snackBar2: MatSnackBar,
     private authService: AuthService,
     private queryService: QueryService
   ) {
@@ -560,6 +561,22 @@ export class PageComponent implements OnInit, AfterViewChecked {
       this.page.openApps[ app.hash ] = [];
     }
     this.page.openApps[ app.hash ] = app;
+    // console.log( this.openAppArray );
+    // for ( const appToCompare of this.openAppArray ) {
+    //   for ( const otherApp of this.openAppArray ) {
+    //     console.log(
+    //       appToCompare.x < otherApp.x + otherApp.width && appToCompare.y + appToCompare.height < otherApp.y,
+    //       appToCompare.x + appToCompare.width < otherApp.x && appToCompare.y < otherApp.y + otherApp.height
+    //     );
+    //     const overlap = !(
+    //       appToCompare.x < otherApp.x + otherApp.width ||
+    //       appToCompare.x + appToCompare.width < otherApp.x ||
+    //       appToCompare.y + appToCompare.height < otherApp.y ||
+    //       appToCompare.y < otherApp.y + otherApp.height
+    //     );
+    //       console.log( 'overlap: ' + overlap );
+    //   }
+    // }
   }
 
   /**
@@ -587,16 +604,19 @@ export class PageComponent implements OnInit, AfterViewChecked {
       )
       .subscribe(
         data => {
-          console.log(data);
-          this.snackBar.open( 'Page successfully saved', 'ok',
+          this.snackBarOpen = true;
+          setTimeout(() => {
+            this.snackBarOpen = false;
+          }, 2000);
+          this.snackBar2.open( 'Page successfully saved', 'ok',
             {
-              duration: 1500
+              duration: 2000
             });
         },
         error => {
           console.log(error);
           this.spinner.hide();
-          this.snackBar.open( 'Sth went wrong, page has not been saved' );
+          this.snackBar2.open( 'Sth went wrong, page has not been saved' );
         });
   }
 
@@ -953,12 +973,25 @@ export class PageComponent implements OnInit, AfterViewChecked {
     const seconds = Math.floor(secondsTotal - minutes * 60);
     this.userInfo = 'Session expires in ' + minutes + ' min and ' + seconds + ' sec';
     if ( expirationDate && new Date(expirationDate).getTime() - now.getTime() > 0) {
+
+      if ( minutes === 59 && seconds === 59 ) {
+        this.snackBarOpen = true;
+        setTimeout(() => {
+          this.snackBarOpen = false;
+        }, 2000);
+        this.snackBar2.open( 'Session extended successfully', 'ok',
+          {
+            duration: 2000
+          });
+      }
+
       if ( minutes < 5 && !this.snackBarOpen) {
         this.snackBarOpen = true;
         this.openExtendSessionBar();
-      } else if ( minutes > 5 ) {
+      } else if ( minutes > 5 && !this.snackBarOpen ) {
         this.snackBar.dismiss();
       }
+
     }
   }
 

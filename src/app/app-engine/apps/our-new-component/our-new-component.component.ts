@@ -115,7 +115,7 @@ export class OurNewComponentComponent implements OnInit {
   }
 
   onDelete(fileId: string) {
-    this.fileService.deleteFile(fileId);
+    // this.fileService.deleteFile(fileId);
   }
   // tslint:disable-next-line:max-line-length
     // this.form.setValue({'title': this.form.value.title,'description': this.form.value.description });// to set the value if we retrieve the doc from the db.

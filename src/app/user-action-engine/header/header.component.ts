@@ -435,7 +435,6 @@ export class ExtendSessionComponent {
   }
   extendSession() {
     this.loginError = false;
-    console.log( 'Extend Session - get request with user ID', this.email, this.password );
     this.authService.logout( true );
     this.authService.login(
       this.email,
@@ -443,7 +442,6 @@ export class ExtendSessionComponent {
       false
     );
     setTimeout(() => {
-      console.log( 'Indicate that sth is wrong' );
       this.loginError = true;
       this.cdr.detectChanges();
     }, 4000);

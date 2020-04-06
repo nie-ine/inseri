@@ -266,6 +266,19 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
   mouseup: (event: any) => void;
   unboundMouseup(event: any) {
     // Remove listeners
+    this.sendCoordinatesBack = {};
+    this.sendCoordinatesBack.x = this.curX;
+    this.sendCoordinatesBack.y = this.curY;
+    this.sendCoordinatesBack.type = this.type;
+    this.sendCoordinatesBack.hash = this.hash;
+    this.sendCoordinatesBack.title = this.title;
+    this.sendCoordinatesBack.width = this.width;
+    this.sendCoordinatesBack.height = this.height;
+    this.sendCoordinatesBack.fullWidth = this.fullWidth;
+    this.sendCoordinatesBack.fullHeight = this.fullHeight;
+    this.sendAppCoordinatesBack.emit(
+      this.sendCoordinatesBack
+    );
     this.mousemoveEvent();
     this.mouseupEvent();
   }
@@ -289,20 +302,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
   }
   dragging: (event: any) => void;
   unboundDragging(event: any) {
-    this.sendCoordinatesBack = {};
-    this.sendCoordinatesBack.x = this.curX;
-    this.sendCoordinatesBack.y = this.curY;
-    this.sendCoordinatesBack.type = this.type;
-    this.sendCoordinatesBack.hash = this.hash;
-    this.sendCoordinatesBack.title = this.title;
-    this.sendCoordinatesBack.width = this.width;
-    this.sendCoordinatesBack.height = this.height;
-    this.sendCoordinatesBack.fullWidth = this.fullWidth;
-    this.sendCoordinatesBack.fullHeight = this.fullHeight;
     // console.log(this.sendCoordinatesBack);
-    this.sendAppCoordinatesBack.emit(
-      this.sendCoordinatesBack
-    );
     this.curX = this.xStartElementPoint + (event.pageX - this.xStartMousePoint);
     this.curY = this.yStartElementPoint + (event.pageY - this.yStartMousePoint);
   }
