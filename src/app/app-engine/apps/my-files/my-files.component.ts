@@ -2,11 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../../environments/environment';
 import {FolderService} from '../../../user-action-engine/mongodb/folder/folder.service';
+import {PageService} from '../../../user-action-engine/mongodb/page/page.service';
 import {FileModel} from '../../../user-action-engine/file/file.model';
 import {FileService} from '../../../user-action-engine/file/file.service';
-import {Subject, Subscription} from 'rxjs';
+import {Observable, Subject, Subscription} from 'rxjs';
 import {FormControl, FormGroup} from '@angular/forms';
 import {ActivatedRoute, ParamMap} from '@angular/router';
+import {ActionService} from '../../../user-action-engine/mongodb/action/action.service';
+import {PageSetService} from '../../../user-action-engine/mongodb/pageset/page-set.service';
+import {MatTableDataSource} from '@angular/material';
 
 
 @Component({
@@ -19,6 +23,7 @@ export class MyFilesComponent implements OnInit {
   private filesUpdated = new Subject<FileModel[]>();
   addFolderForm = false;
   updateFolderTitleForm = false;
+  pageSetForm = false;
   folder: string;
   foldersArray: Array<string>;
   mainFolder_id = '-1';
@@ -33,10 +38,18 @@ export class MyFilesComponent implements OnInit {
   private mode = 'add';
   isLoading = false;
   breadCrumbArray = [];
+  pageSetsTitles: string[] = [];
+  allPageSetsOfUser = [];
+  allPagesOfUser = [];
+  pages: any;
+   addedPageSets = [];
 
   constructor(
     private http: HttpClient,
     private folderService: FolderService,
+    private actionService: ActionService,
+    private pageSetService: PageSetService,
+    private pageService: PageService,
     public fileService: FileService,
     public route: ActivatedRoute
   ) { }
@@ -71,17 +84,21 @@ export class MyFilesComponent implements OnInit {
     });
   }
 
-  showForm(form: string, visibility: boolean) {
+  showForm(form: string) {
     switch (form) {
       case 'AddFolder':
-        this.addFolderForm = visibility;
+        this.addFolderForm = true;
         break;
       case 'UpdateFolderTitle':
-        this.updateFolderTitleForm = visibility;
+        this.updateFolderTitleForm = true;
+        break;
+      case 'PageSet':
+        this.pageSetForm = true;
         break;
       default:
         this.addFolderForm = false;
         this.updateFolderTitleForm = false;
+        this.pageSetForm = false;
     }
   }
   deleteFromBreadCrumb() {
@@ -234,7 +251,10 @@ export class MyFilesComponent implements OnInit {
       );
   }
 
-  addPageSetsToFolder(folderId: string, pageSetId: string) {
+  addPageSetToFolder(folderId: string, pageSetId: string, title: string) {
+    console.log(pageSetId, title);
+    this.addedPageSets.push({id: pageSetId, title: title});
+    console.log(this.addedPageSets);
     this.folderService.addPageSetsToFolder(folderId, pageSetId)
       .subscribe(
         response => {
@@ -272,5 +292,45 @@ export class MyFilesComponent implements OnInit {
       this.mainFolder_id = this.breadCrumbArray[this.breadCrumbArray.length - 1].id;
     }
     this.showFolders();
+  }
+
+  getAllPageSetForUser() {
+    this.actionService.getAllActionsOfUser( localStorage.getItem('userId') )
+      .subscribe(
+        data => {
+          // console.log( data );
+          for ( const action of data.actions ) {
+            if ( action.hasPageSet !== null ) {
+              this.pageSetService.getPageSet( action.hasPageSet )
+                .subscribe(
+                  pageSets => {
+                    console.log(pageSets.pageset);
+                    console.log(pageSets.pageset._id, action.title);
+                    this.allPageSetsOfUser.push({id: pageSets.pageset._id, title: action.title});
+                   /* if ( pageSets.pageset.hasPages ) {
+                      this.goThroughPageIdArray( pageSets.pageset.hasPages, action );
+                    }*/
+                  }, error1 => console.log( error1 )
+                );
+            }
+          }
+        }, error => console.log( error )
+      );
+  }
+  goThroughPageIdArray( hasPages: Array<any>, action: any ) {
+    // console.log( action );
+    for ( const pageId of hasPages ) {
+      this.pageService.getPage( pageId )
+        .subscribe(
+          pageResponse => {
+            // console.log( pageResponse );
+            const page = pageResponse.page;
+            page.actionTitle = action.title;
+            page.actionId = action._id;
+            this.allPagesOfUser.push( pageResponse.page );
+            this.pages = new MatTableDataSource( this.allPagesOfUser.slice().reverse());
+          }, error => console.log( error )
+        );
+    }
   }
 }
