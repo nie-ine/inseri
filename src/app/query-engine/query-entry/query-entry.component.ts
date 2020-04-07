@@ -59,6 +59,9 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log(this.data);
     if (this.data.query.method === 'JSON') {
       this.activateJsonButton = true;
+      setTimeout(() => {
+        this.initiateQuery();
+      }, 1000);
     }
   }
 
@@ -118,6 +121,10 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dialogRef.close(
       output
     );
+  }
+
+  closeWithoutSaving() {
+    this.dialogRef.close();
   }
 
   onTabChange(e: MatTabChangeEvent) {

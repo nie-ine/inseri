@@ -34,7 +34,24 @@ export class GenerateDataChoosersService {
   generateDataChoosers( page: any, openAppsInThisPage: any, reset: boolean ) {
     this.pathSet = new Set();
     this.firstTimeQueryIsPushed = new Set();
-    for ( const queryId of  page.queries ) {
+    const mappedQueries = new Set();
+    const queriesToPerform = [];
+    // console.log( openAppsInThisPage );
+    for ( const appType in openAppsInThisPage ) {
+      if ( openAppsInThisPage[ appType ].model.length > 0 ) {
+        for ( const app of openAppsInThisPage[ appType ].model ) {
+          for ( const appInput in page.appInputQueryMapping[ app.hash ] ) {
+            // console.log( page.appInputQueryMapping[ appHash ][ appInput ].query );
+            if ( !mappedQueries.has( page.appInputQueryMapping[ app.hash ][ appInput ].query ) ) {
+              mappedQueries.add( page.appInputQueryMapping[ app.hash ][ appInput ].query );
+              queriesToPerform.push( page.appInputQueryMapping[ app.hash ][ appInput ].query );
+            }
+          }
+        }
+      }
+    }
+    console.log( queriesToPerform );
+    for ( const queryId of queriesToPerform ) {
       let queryTitle = '';
       let pathArray = [];
       this.queryService.getQuery(queryId)
