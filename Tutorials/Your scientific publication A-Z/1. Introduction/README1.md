@@ -29,7 +29,7 @@ We create a new Query, and call it "My query to E-codices". In the frame that op
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/1Ad.png" alt="New Query frame" width="700"></p>
 
-In the field "Server URL" we paste the URL copied from E-codices.
+in the field "Server URL" we paste the URL copied from E-codices.
 Save and try query. Below the frame the data tree of the selected manuscript in E-codices will appear.
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/1Ae.png" alt="New Query frame" width="500"></p>
@@ -41,10 +41,10 @@ Let us start with the images.
 Click again on "Data Management" as above, you will see the names of the called application in the query frame. Under "Simple Image App." click on the "map" button. The same data tree that we saw when we first tried the query opens.
 The most tricky thing is now to find what exactly we need to be displayed.
 The human way to access it is to first click on "show tree with data", and then follow the same steps in "Show abstract tree structure" which contains the linkage buttons.
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/1Af.png" alt="Show data options="400"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/1Af.png" alt="Show data options="300"></p>
 
 The steps are mapped above in the following way automatically:
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/1Ag.png" alt="Mapping" width="400"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/1Ag.png" alt="Mapping" width="500"></p>
 
 Save, close and reaload the page to see if the "Simple Image App." displays what is really needed. Repeat the steps if it does not display the correct data.
 
