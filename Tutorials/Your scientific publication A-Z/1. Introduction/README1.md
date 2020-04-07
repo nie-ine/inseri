@@ -11,7 +11,6 @@ Suppose we would like to work on a manuscript that has been photographed and upl
 1. to get images of the manuscript
 2. get metadata of the whole text (description)
 3. get page identifiers
-4. transcribe some of the text in Inseri.
 
 Below is a short description of the chosen manuscript:
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/1Aa.png" alt="Guhyaṣoḍha, starting page" width="900"></p>
@@ -41,7 +40,7 @@ Let us start with the images.
 Click again on "Data Management" as above, you will see the names of the called application in the query frame. Under "Simple Image App." click on the "map" button. The same data tree that we saw when we first tried the query opens.
 The most tricky thing is now to find what exactly we need to be displayed.
 The human way to access it is to first click on "show tree with data", and then follow the same steps in "Show abstract tree structure" which contains the linkage buttons.
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/1Af.png" alt="Show data options="300"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/1Af.png" alt="Show data options" width="400"></p>
 
 The steps are mapped above in the following way automatically:
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/1Ag.png" alt="Mapping" width="500"></p>
@@ -60,12 +59,15 @@ The resulting view in "Plain text viewer":
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/1Aj.png" alt="Linked text in Plain Text viewer" width="500"></p>
 
-Now to get the maximum from INSERI capacities, we shall open another "Plain text viewer", and make it display the folio id of each "page" of the manuscript.
+Now to get the maximum from Inseri capacities, we shall open another "Plain text viewer", and make it display the folio id of each "page" of the manuscript.
 The map is as follows:
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/1Ak.png" alt="Linked text in Plain Text viewer" width="500"></p>
 
-The final result is below. One can navigate from one folio to another both from the manuscript images and the folio id because these have already been correctly linked in e-codices, and Inseri is able to address that structure!
+The final result is below. One can navigate from one folio to another both from the manuscript images and the folio id because these have already been correctly linked in the E-codices, and Inseri is able to address that structure! We have reproduced the primary data we might need for the project in no time from within Inseri.
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/1Al.png" alt="Linked text in Plain Text viewer" width="700"></p>
+
 For those who are not that lucky, and had to scan the project data by themselves, the following options shall be further addressed:
 
 ## 1.2. Adding images and data from desktop to Inseri
