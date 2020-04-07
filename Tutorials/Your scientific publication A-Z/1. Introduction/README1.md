@@ -25,7 +25,7 @@ Before calling any application, we click on the "wheel" and go to "Data Manageme
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/1Ac.png" alt="Data Management" width="300"></p>
 
-We create a new Query, and call it "My query to E-codices". In the frae that opens, as below,
+We create a new Query, and call it "My query to E-codices". In the frame that opens, as below,
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/1Ad.png" alt="New Query frame" width="700"></p>
 
