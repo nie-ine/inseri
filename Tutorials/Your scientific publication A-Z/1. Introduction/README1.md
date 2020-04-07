@@ -18,7 +18,7 @@ Below is a short description of the chosen manuscript:
 
 What we need is the URL of the JSON data:
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/1Aa.png" alt="Guhyaṣoḍha, URL" width="600"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/1Ab.png" alt="Guhyaṣoḍha, URL" width="600"></p>
 
 Having copied that URL, we open a new page in INSERI, as explained in "0. Introduction".
 Before calling any application, we click on the "wheel" and go to "Data Management":
