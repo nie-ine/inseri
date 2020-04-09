@@ -138,12 +138,12 @@ router.post('/update/title/:folderId',checkAuth, (req, res, next) => {
 
 
 ///add and delete an existing PageSet and create a new PageSet in a folder
-router.post('/update/addPageSet/:folderId&:pageSetId',checkAuth, (req, res, next) => {
+router.post('/update/addPageSet/:folderId&:pageSetId&:pageSetTitle',checkAuth, (req, res, next) => {
   Folder.updateOne({$and:[
         {owner:  req.userData.userId},
         {_id: req.params.folderId}
       ]},
-    {$addToSet: {hasPageSets: req.params.pageSetId}})
+    {$addToSet: {hasPageSets: {id: req.params.pageSetId, title: req.params.pageSetTitle}}})
     .then((updatedDocument) => {
       if (updatedDocument.n === 0) {
         res.status(400).json({
@@ -165,7 +165,7 @@ router.post('/update/addPageSet/:folderId&:pageSetId',checkAuth, (req, res, next
 });
 
 //return an array of PageSetIds
-router.get('getPageSets/:folderId', checkAuth, (req, res, next) => {
+router.get('/getPageSets/:folderId', checkAuth, (req, res, next) => {
     Folder.find({owner: req.userData.userId, _id: req.params.folderId},{hasPageSets:1,_id:0})
       .then(pageSets => {
         let message;
@@ -174,9 +174,10 @@ router.get('getPageSets/:folderId', checkAuth, (req, res, next) => {
         } else {
           message = 'All PageSets were found'
         }
+       // console.log("pageSet from route"); console.log(pageSets[0].hasPageSets);
         res.status(200).json({
           message: message,
-          pageSets: pageSets[0]
+          pageSets: pageSets[0].hasPageSets
         });
       })
       .catch(error => {
@@ -192,7 +193,7 @@ router.post('/update/removePageSet/:folderId&:pageSetId',checkAuth, (req, res, n
             {owner: req.userData.userId},
             {_id: req.params.folderId}
           ]},
-        {$pull: {hasPageSets: req.params.pageSetId}})
+        {$pull: {hasPageSets: {id: req.params.pageSetId, title: req.body.pageSetTitle}}})
         .then((updatedDocument) => {
           if (updatedDocument.n === 0) {
             res.status(400).json({

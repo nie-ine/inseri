@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {environment} from '../../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -26,14 +27,14 @@ export class FolderService {
       {title: title}, {observe: 'response'});
   }
 
-  addPageSetsToFolder(folderId: string, pageSetId: string): Observable<any> {
-    return this.http.post(`${FolderService.API_BASE_URL_FOLDER}` + '/update/addPageSet/' + folderId + '&' + pageSetId,
+  addPageSetsToFolder(folderId: string, pageSetId: string, pageSetTitle: string ): Observable<any> {
+    return this.http.post(`${FolderService.API_BASE_URL_FOLDER}` + '/update/addPageSet/' + folderId + '&' + pageSetId + '&' + pageSetTitle,
       {} , {observe: 'response'});
   }
 
-  deletePageSetsFromFolder(folderId: string, pageSetId: string): Observable<any> {
-    return this.http.post(`${FolderService.API_BASE_URL_FOLDER}` + '/update/removePageSet/' + folderId + '&' + pageSetId,
-      {} , {observe: 'response'});
+  deletePageSetsFromFolder(folderId: string, pageSet: {id: string, title: string}): Observable<any> {
+    return this.http.post(`${FolderService.API_BASE_URL_FOLDER}` + '/update/removePageSet/' + folderId + '&' + pageSet.id,
+      {pageSetTitle: pageSet.title} , {observe: 'response'});
   }
 
   deleteFolder(folderId: string): Observable<any> {
@@ -51,4 +52,19 @@ export class FolderService {
       {}, {observe: 'response'});
   }
 
+  getPageSets(mainFolder_id: string): Observable<any> {
+    return this.http
+      .get<{ message: string; pageSets: any }>(
+      `${FolderService.API_BASE_URL_FOLDER}` + '/getPageSets/' + mainFolder_id)
+      .pipe(
+      map(response => {
+        return response.pageSets.map(pageSet => {
+          return {
+            id: pageSet.id,
+            title: pageSet.title
+          };
+        });
+      })
+    );
   }
+}

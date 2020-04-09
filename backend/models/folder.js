@@ -5,7 +5,7 @@ const folder = mongoose.Schema({
   owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User', require: true },
   hasParent: { type: mongoose.Schema.Types.ObjectId, ref: 'Folder' },
   hasQueries: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Query' }],
-  hasPageSets: [{ type: mongoose.Schema.Types.ObjectId, ref: 'PageSet' }],
+  hasPageSets: [{id: { type: mongoose.Schema.Types.ObjectId, ref: 'PageSet' },title: {type: String}}],
   hasPages: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Page' }],
   hasFiles: [{ type: mongoose.Schema.Types.ObjectId, ref: 'File' }],
 });

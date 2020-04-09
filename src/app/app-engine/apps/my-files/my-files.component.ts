@@ -109,18 +109,15 @@ export class MyFilesComponent implements OnInit {
         this.breadCrumbArray.pop();
       }
     }
-    console.log('current breadcrumb array is ');
-    console.log(this.breadCrumbArray);
   }
   addToBreadCrumb(id: string, title: string) {
     this.breadCrumbArray.push({ id: id, title: title } );
-    console.log(this.breadCrumbArray);
   }
   updateBreadCrumb(folder_id: string, title: string) {
     const index = this.breadCrumbArray.findIndex((obj => obj.id === folder_id));
     this.breadCrumbArray[index].title = title;
 }
-  onDelete(fileId: string, folderId: string) {
+  deleteFile(fileId: string, folderId: string) {
     this.fileService.deleteFile(fileId, folderId).subscribe(() => {
       console.log(this.files);
       const updatedFiles = this.files.filter(file => file.id !== fileId);
@@ -129,16 +126,9 @@ export class MyFilesComponent implements OnInit {
       this.filesUpdated.next([...this.files]);
     });
   }
-  // tslint:disable-next-line:max-line-length
-  // this.form.setValue({'title': this.form.value.title,'description': this.form.value.description });// to set the value if we retrieve the doc from the db.
   onSaveFile() {
-    /*if (this.form.invalid) {
-      return;
-    }*/
-    // this.isLoading = true;
     if (this.mode === 'add') {
       this.addFile(this.form.value.file.name, this.form.value.description, this.form.value.file);
-      console.log( 'On Save File: ' + this.form.value.file.name );
     } else {
       this.fileService.updateFile(this.fileId, this.form.value.title, this.form.value.description);
     }
@@ -147,13 +137,11 @@ export class MyFilesComponent implements OnInit {
   onFileSelected(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
     this.form.patchValue({file: file});
-    console.log( 'On File Selected : ' + file.name);
     this.form.get('file').updateValueAndValidity();
     const reader = new FileReader();
     reader.onload = () => {
       this.filePreview = reader.result as string;
     };
-    // tslint:disable-next-line:comment-format
     reader.readAsDataURL(file);
     this.onSaveFile();
   }
@@ -178,10 +166,8 @@ export class MyFilesComponent implements OnInit {
           urlPath: responseData.file.urlPath
         };
         this.uploadFileToFolder(file.id);
-        console.log('subscribe data after add file ' + file.title + ' ' + file.description);
         this.files.push(file);
         this.filesUpdated.next([...this.files]);
-        // this.router.navigate(['app-our-new-component']);
       });
   }
 
@@ -196,7 +182,9 @@ export class MyFilesComponent implements OnInit {
         }
       );
     this.files = [];
+    this.addedPageSets = [];
     this.showFiles(this.mainFolder_id);
+    this.showPageSetsForFolder(this.mainFolder_id);
   }
 
   showFiles(folderId: string) {
@@ -251,11 +239,11 @@ export class MyFilesComponent implements OnInit {
       );
   }
 
-  addPageSetToFolder(folderId: string, pageSetId: string, title: string) {
-    console.log(pageSetId, title);
-    this.addedPageSets.push({id: pageSetId, title: title});
+  addPageSetToFolder(folderId: string, pageSetId: string, pageSetTitle: string) {
+    console.log(pageSetId, pageSetTitle);
+    this.addedPageSets.push({id: pageSetId, title: pageSetTitle});
     console.log(this.addedPageSets);
-    this.folderService.addPageSetsToFolder(folderId, pageSetId)
+    this.folderService.addPageSetsToFolder(folderId, pageSetId, pageSetTitle )
       .subscribe(
         response => {
           console.log( (response as any).updatedDocument);
@@ -265,11 +253,15 @@ export class MyFilesComponent implements OnInit {
       );
   }
 
-  deletePageSetsFromFolder(folderId: string, pageSetId: string) {
-    this.folderService.deletePageSetsFromFolder(folderId, pageSetId)
+  deletePageSetsFromFolder(folderId: string, pageSet: {id: string, title: string}) {
+    console.log('pageSet Id : ' + pageSet.id);
+    this.folderService.deletePageSetsFromFolder(folderId, pageSet)
       .subscribe(
-        response => {
-          console.log( (response as any).updatedDocument);
+        () => {
+          console.log(this.addedPageSets);
+          const updatedPageSets = this.addedPageSets.filter(v_pageSet => v_pageSet.id !== pageSet.id);
+          this.addedPageSets = updatedPageSets;
+          console.log(this.addedPageSets);
         }, error => {
           console.log( error );
         }
@@ -330,6 +322,23 @@ export class MyFilesComponent implements OnInit {
             this.allPagesOfUser.push( pageResponse.page );
             this.pages = new MatTableDataSource( this.allPagesOfUser.slice().reverse());
           }, error => console.log( error )
+        );
+    }
+  }
+
+  showPageSetsForFolder(mainFolder_id: string) {
+    if (mainFolder_id === '-1') {
+      this.addedPageSets = [];
+    } else {
+      console.log(mainFolder_id);
+      this.folderService.getPageSets(mainFolder_id)
+        .subscribe(response => {
+            console.log( response); // an array of subPages details'
+            this.addedPageSets = [...response];
+          console.log(this.addedPageSets);
+          }, error => {
+            console.log( error );
+          }
         );
     }
   }
