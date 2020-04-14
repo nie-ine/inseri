@@ -81,32 +81,6 @@ export class FileService {
         `${FileService.API_BASE_URL_FILES}` + '/' + folderId,
         fileData
       );
-    /*return  this.http.post(`${FileService.API_BASE_URL_FILES}`,
-      {fileData}
-      );*/
-    /*const fileData = new FormData(); // formData is a data format which allows us to combine txt values and blob
-    fileData.append('title', title); // we append fields to it
-    fileData.append('description', description);
-    // tslint:disable-next-line:max-line-length
-    fileData.append('file', uploadedFile, uploadedFile.name); // the property we added in the files routes, the title is the file name I provide to the backend, which is the title the user entered for the file
-    console.log(' add file ' + title + description + uploadedFile.name);
-    this.http
-      .post<{ message: string; file: FileModel }>(
-        `${FileService.API_BASE_URL_FILES}`,
-        fileData
-      )
-      .subscribe(responseData => {
-        const file: FileModel = {
-          id: responseData.file.id,
-          title: title,
-          description: description,
-          urlPath: responseData.file.urlPath
-        };
-        console.log('subscribe data' + file.title + ' ' + file.description);
-        this.files.push(file);
-        this.filesUpdated.next([...this.files]);
-        // this.router.navigate(['app-our-new-component']);
-      });*/
   }
 
   updateFile(id: string, title: string, description: string) {
