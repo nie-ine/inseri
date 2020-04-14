@@ -11,6 +11,7 @@ import {ActivatedRoute, ParamMap} from '@angular/router';
 import {ActionService} from '../../../user-action-engine/mongodb/action/action.service';
 import {PageSetService} from '../../../user-action-engine/mongodb/pageset/page-set.service';
 import {MatTableDataSource} from '@angular/material';
+import {QueryService} from '../../../user-action-engine/mongodb/query/query.service';
 
 
 @Component({
@@ -19,6 +20,17 @@ import {MatTableDataSource} from '@angular/material';
   styleUrls: ['./my-files.component.scss']
 })
 export class MyFilesComponent implements OnInit {
+
+  constructor(
+    private http: HttpClient,
+    private folderService: FolderService,
+    private actionService: ActionService,
+    private queriesService: QueryService,
+    private pageSetService: PageSetService,
+    private pageService: PageService,
+    public fileService: FileService,
+    public route: ActivatedRoute
+  ) { }
   // private static API_BASE_URL_FILES = environment.node + '/api/files';
   private filesUpdated = new Subject<FileModel[]>();
   addFolderForm = false;
@@ -43,17 +55,8 @@ export class MyFilesComponent implements OnInit {
   allPagesOfUser = [];
   pages: any;
    addedPageSets = [];
-
-  constructor(
-    private http: HttpClient,
-    private folderService: FolderService,
-    private actionService: ActionService,
-    private pageSetService: PageSetService,
-    private pageService: PageService,
-    public fileService: FileService,
-    public route: ActivatedRoute
-  ) { }
-
+   allQueriesOfUser = [];
+   addedQueries = [];
   ngOnInit() {
     this.showFolders();
     this.fileSub = this.fileService.getFileUpdateListener()
@@ -110,15 +113,15 @@ export class MyFilesComponent implements OnInit {
       }
     }
   }
-  addToBreadCrumb(id: string, title: string) {
-    this.breadCrumbArray.push({ id: id, title: title } );
+  addToBreadCrumb(title: string) {
+    this.breadCrumbArray.push({ id: this.mainFolder_id, title: title } );
   }
-  updateBreadCrumb(folder_id: string, title: string) {
-    const index = this.breadCrumbArray.findIndex((obj => obj.id === folder_id));
+  updateBreadCrumb( title: string) {
+    const index = this.breadCrumbArray.findIndex((obj => obj.id === this.mainFolder_id));
     this.breadCrumbArray[index].title = title;
 }
-  deleteFile(fileId: string, folderId: string) {
-    this.fileService.deleteFile(fileId, folderId).subscribe(() => {
+  deleteFile(fileId: string) {
+    this.fileService.deleteFile(fileId, this.mainFolder_id).subscribe(() => {
       console.log(this.files);
       const updatedFiles = this.files.filter(file => file.id !== fileId);
       this.files = updatedFiles;
@@ -183,16 +186,18 @@ export class MyFilesComponent implements OnInit {
       );
     this.files = [];
     this.addedPageSets = [];
-    this.showFiles(this.mainFolder_id);
-    this.showPageSetsForFolder(this.mainFolder_id);
+    this.addedQueries = [];
+    this.showFiles();
+    this.showPageSetsForFolder();
+    this.showQueriesForFolder();
   }
 
-  showFiles(folderId: string) {
-    if (folderId === '-1') {
+  showFiles() {
+    if (this.mainFolder_id === '-1') {
       this.files = [];
     } else {
-      console.log(folderId);
-      this.fileService.getFiles(folderId)
+      console.log(this.mainFolder_id);
+      this.fileService.getFiles(this.mainFolder_id)
         .subscribe(transformedFiles => {
           console.log('transformed files: ' || transformedFiles);
           this.files = transformedFiles;
@@ -228,8 +233,8 @@ export class MyFilesComponent implements OnInit {
     }
   }
 
-  updateFolderTitle(folderId: string, title: string) {
-    this.folderService.updateFolderTitle(folderId, title)
+  updateFolderTitle( title: string) {
+    this.folderService.updateFolderTitle(this.mainFolder_id, title)
       .subscribe(
         response => {
           console.log( (response as any).updatedDocument);
@@ -239,11 +244,13 @@ export class MyFilesComponent implements OnInit {
       );
   }
 
-  addPageSetToFolder(folderId: string, pageSetId: string, pageSetTitle: string) {
-    console.log(pageSetId, pageSetTitle);
-    this.addedPageSets.push({id: pageSetId, title: pageSetTitle});
-    console.log(this.addedPageSets);
-    this.folderService.addPageSetsToFolder(folderId, pageSetId, pageSetTitle )
+  addPageSetToFolder( pageSet: {id: string, title: string}) {
+    console.log(pageSet.id, pageSet.title);
+    const updatedPageSets = this.addedPageSets.filter(v_pageSet => v_pageSet.id !== pageSet.id);
+    this.addedPageSets = updatedPageSets;
+    this.addedPageSets.push(pageSet);
+    // console.log(this.addedPageSets);
+    this.folderService.addPageSetsToFolder(this.mainFolder_id, pageSet )
       .subscribe(
         response => {
           console.log( (response as any).updatedDocument);
@@ -253,9 +260,9 @@ export class MyFilesComponent implements OnInit {
       );
   }
 
-  deletePageSetsFromFolder(folderId: string, pageSet: {id: string, title: string}) {
+  deletePageSetsFromFolder( pageSet: {id: string, title: string}) {
     console.log('pageSet Id : ' + pageSet.id);
-    this.folderService.deletePageSetsFromFolder(folderId, pageSet)
+    this.folderService.deletePageSetsFromFolder(this.mainFolder_id, pageSet)
       .subscribe(
         () => {
           console.log(this.addedPageSets);
@@ -267,8 +274,8 @@ export class MyFilesComponent implements OnInit {
         }
       );
   }
-  deleteFolder(folderId: string) {
-    this.folderService.deleteFolder(folderId)
+  deleteFolder() {
+    this.folderService.deleteFolder(this.mainFolder_id)
       .subscribe(
         response => {
           this.showFolders();
@@ -309,7 +316,7 @@ export class MyFilesComponent implements OnInit {
         }, error => console.log( error )
       );
   }
-  goThroughPageIdArray( hasPages: Array<any>, action: any ) {
+  /*goThroughPageIdArray( hasPages: Array<any>, action: any ) {
     // console.log( action );
     for ( const pageId of hasPages ) {
       this.pageService.getPage( pageId )
@@ -324,14 +331,14 @@ export class MyFilesComponent implements OnInit {
           }, error => console.log( error )
         );
     }
-  }
+  }*/
 
-  showPageSetsForFolder(mainFolder_id: string) {
-    if (mainFolder_id === '-1') {
+  showPageSetsForFolder() {
+    if (this.mainFolder_id === '-1') {
       this.addedPageSets = [];
     } else {
-      console.log(mainFolder_id);
-      this.folderService.getPageSets(mainFolder_id)
+      console.log(this.mainFolder_id);
+      this.folderService.getPageSets(this.mainFolder_id)
         .subscribe(response => {
             console.log( response); // an array of subPages details'
             this.addedPageSets = [...response];
@@ -342,4 +349,57 @@ export class MyFilesComponent implements OnInit {
         );
     }
   }
+  getAllQueriesForUser() {
+    this.queriesService.getAllQueriesOfUser(localStorage.getItem('userId')).subscribe(
+      (response) => {
+        this.allQueriesOfUser = response.queries;
+        console.log(this.allQueriesOfUser);
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+  addQueryToFolder(query: {id: string, title: string}) {
+    console.log(this.addedQueries);
+    this.folderService.addQueryToFolder(this.mainFolder_id, query)
+      .subscribe(
+        response => {
+          console.log( (response as any).updatedDocument);
+          const updatedQueries = this.addedQueries.filter(v_query => v_query.id !== query.id);
+          this.addedQueries = updatedQueries;
+          this.addedQueries.push(query);
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+  showQueriesForFolder() {
+     if (this.mainFolder_id === '-1') {
+      this.addedQueries = [];
+     } else {
+       console.log(this.mainFolder_id);
+       this.folderService.getQueries(this.mainFolder_id)
+         .subscribe(response => {
+             console.log(response);
+             this.addedQueries = [...response];
+             console.log(this.addedQueries);
+           }, error => {
+             console.log(error);
+           }
+         );
+     }
+    }
+  deleteQueryFromFolder( query: {id: string, title: string}) {
+  this.folderService.deleteQueryFromFolder(this.mainFolder_id, query)
+      .subscribe(
+        () => {
+          const updatedQueries = this.addedQueries.filter(v_query => v_query.id !== query.id);
+          this.addedQueries = updatedQueries;
+          console.log(this.addedQueries);
+        }, error => {
+          console.log( error );
+        }
+      );
+}
 }

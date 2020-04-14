@@ -51,17 +51,6 @@ router.post('/:folderId',checkAuth,multer({storage: storage}).single("file") ,(r
             // id: createdFile._id,
           }
         });
-
-        /*if (updatedDocument.n === 0) {
-          res.status(400).json({
-            message: 'Folder cannot be updated.'
-          });
-        } else {
-          return res.status(200).json({
-            message: 'Folder has been updated successfully',
-            updatedDocument: updatedDocument
-          });
-        }*/
       })
       .catch(error => {
         res.status(500).json({
@@ -78,11 +67,11 @@ router.post('/:folderId',checkAuth,multer({storage: storage}).single("file") ,(r
   });
 });
 
-/*router.post('/files',checkAuth,multer({storage: storage}).array("file",10) ,(req, res, next) => { ///multer fn that expect a single file from the incoming req and will try to find an file property in the req body
+/*router.post('/files',checkAuth,multer({storage: storage}).array("file",10) ,(req, res, next) => {
   const url=req.protocol +"://"+req.get("host");
   const files: FileModel[]=req.body.files;
   //console.log("Router post " + storage.getDestination + storage.getFilename());
-  file.insertMany(req.files, function(err, docs){
+  file.save(req.files, function(err, docs){
     if(err){
       res.status(500).json({
         message: 'Adding multiple files failed',

@@ -13,7 +13,7 @@
   <button *ngIf="this.mainFolder_id!='-1'" mat-menu-item matTooltip="Update folder title" (click)="showForm('UpdateFolderTitle');">
     <mat-icon>edit</mat-icon>
   </button>
-  <button *ngIf="this.mainFolder_id!='-1'" mat-menu-item  matTooltip="Delete folder" (click)="deleteFolder(this.mainFolder_id);">
+  <button *ngIf="this.mainFolder_id!='-1'" mat-menu-item  matTooltip="Delete folder" (click)="deleteFolder();">
     <mat-icon>delete</mat-icon>
   </button>
 </mat-menu>
@@ -55,7 +55,7 @@
 
   <mat-menu #menuPageSetItems="matMenu">
   <div *ngFor="let pageSet of allPageSetsOfUser" style="display: inline-block">
-      <button   mat-menu-item (click)="addPageSetToFolder(this.mainFolder_id, pageSet.id , pageSet.title);" >
+      <button   mat-menu-item (click)="addPageSetToFolder(pageSet);" >
         <mat-icon>add</mat-icon>
         {{pageSet.title}}
       </button>
@@ -72,12 +72,21 @@
 </mat-menu>
 
 <mat-menu #menuQuery="matMenu">
-  <button   mat-menu-item matTooltip="Create New Query" >
+  <button   mat-menu-item matTooltip="Create New Query"  (click)="this.getAllQueriesForUser()">
     <mat-icon>add</mat-icon>
   </button>
-  <button   mat-menu-item matTooltip="Add an Existing Query" >
+  <button   mat-menu-item matTooltip="Add an Existing Query" [matMenuTriggerFor]="menuQueriesItems" (click)="getAllQueriesForUser();">
     <mat-icon>link</mat-icon>
   </button>
+</mat-menu>
+
+<mat-menu #menuQueriesItems="matMenu">
+  <div *ngFor="let query of allQueriesOfUser" style="display: inline-block">
+    <button mat-menu-item (click)="addQueryToFolder( {id: query._id, title: query.title});" >
+      <mat-icon>add</mat-icon>
+      {{query.title}}
+    </button>
+  </div>
 </mat-menu>
 
 <br>
@@ -112,7 +121,7 @@
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
-  <button mat-button (click)="updateFolderTitle(this.mainFolder_id,folder); updateBreadCrumb(this.mainFolder_id,folder); showForm(''); folder='' ">
+  <button mat-button (click)="updateFolderTitle(folder); updateBreadCrumb(folder); showForm(''); folder='' ">
     Update
   </button>
 </div>
@@ -125,7 +134,7 @@
         <button
           mat-button
           (click)=" this.mainFolder_id=folderInstance._id; showFolders();
-          addToBreadCrumb(folderInstance._id, folderInstance.title);">
+          addToBreadCrumb(folderInstance.title);">
           <mat-icon>folder</mat-icon> {{ folderInstance.title }}
         </button>
         <!--input mat-input [(ngModel)]="folderInstance.title" *ngIf="updateFolderTitleForm">
@@ -145,7 +154,7 @@
       <div *ngFor="let file of files" style="margin-left: 15px">
         <mat-icon> insert_drive_file</mat-icon>
         {{ file.title }}
-        <button mat-button matTooltip="Delete File" (click)="deleteFile(file.id, this.mainFolder_id);">
+        <button mat-button matTooltip="Delete File" (click)="deleteFile(file.id);">
           <mat-icon>
             delete
           </mat-icon>
@@ -161,7 +170,23 @@
       <div *ngFor="let pageSet of addedPageSets" style="margin-left: 15px">
         <mat-icon> file_copy</mat-icon>
         {{ pageSet.title }}
-        <button mat-button matTooltip="Unlink PageSet from Folder" (click)="deletePageSetsFromFolder(this.mainFolder_id,pageSet);">
+        <button mat-button matTooltip="Unlink PageSet from Folder" (click)="deletePageSetsFromFolder(pageSet);">
+          <mat-icon>
+            delete
+          </mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="div">
+  <div class="row">
+    <div class="col-xs-12">
+      <div *ngFor="let query of addedQueries" style="margin-left: 15px">
+        <mat-icon> receipt</mat-icon>
+        {{ query.title }}
+        <button mat-button matTooltip="Unlink Query from Folder" (click)="deleteQueryFromFolder(query);">
           <mat-icon>
             delete
           </mat-icon>
