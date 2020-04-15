@@ -24,8 +24,8 @@ The applications that can be used as per 2020.03.31 include:
 7. Chord diagram 	d3.js, data visualisation
 
 ### 5.1.1. Bar Chart 
-This visualisation format fits best to visualize the simpliest data sets, which are unform and flat. For example, we have collected images from many different countries, and we would like to see how many images do we have per each country. 
-(If we would need to add the year of collect, or the gender of the author of the image, for example, the Salcked Bar Chart is more appropriate.)
+This visualisation format fits best to visualize the simplest data sets, which are uniform and flat. For example, we have collected images from many different countries, and we would like to see how many images do we have per each country. 
+(If we would need to add the year of collect, or the gender of the author of the image, for example, the Stacked Bar Chart is more appropriate.)
 
 Click on the "Lighthouse" and select Bar Chart from the list of applications.
 It will open a form with a predefined visualisation, which is very useful as the beginners can modify it directly.
@@ -49,7 +49,7 @@ In the empty frame a modifiable JSON code appears.
 
 Suppose we need to add some real project data, for that we shall use (with Project permission) the data of the "Drawings of Gods" project, from the University of Lausanne, state 2020.03.31, and that data is from [https://ddd.unil.ch/](https://ddd.unil.ch/)
 
-We shall create a Bar Chart representing visually how many images were collected in each country, and the data is a follows:
+We shall create a Bar Chart representing visually how many images were collected in each country, and the data is as follows:
 
 1. Argentina, 82 images
 2. Brazil, 139 images
@@ -77,7 +77,7 @@ Before closing, it is an absolute must to click on "Save and update Json object.
 Having clicked on save and reload, we obtain the following result:
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.07.png" alt="Number of images per country" width="900"></p>
 
-Finally, the user can try to find better scale options by simply modifying the number in "Scale Bar Chart" above. It is also possible  to rename the whole, so it is not called a "Bar Chart", but a real name. In order to to this, the user should click on the "Bar Chart", and select the first option, which is "Title and size", and simply give the Chart a new name and save it.
+Finally, the user can try to find better scale options by simply modifying the number in "Scale Bar Chart" above. It is also possible  to rename the whole, so it is not called a "Bar Chart", but a real name. In order to do this, the user should click on the "Bar Chart", and select the first option, which is "Title and size", and simply give the Chart a new name and save it.
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.08.png" alt="Options frame with the Bar Chart as name selected" width="700"></p>
 
@@ -143,9 +143,9 @@ The resulting Json looks like this:
 
 The final Pie Chart, after renaming and some rearrangements of the parts of the pie, looks as follows:
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.17.png" alt="Pie Chart with DDD prject data" width="700"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.17.png" alt="Pie Chart with DDD project data" width="700"></p>
 
-The tric to make parts visible, if they are of very unequal size, like in our example, is the following. Let us imagine the Pie Chart as a clock, and the first part of the pie that we script in Json starts at midnight. Knowing that, the user should arrange the slices of the data in such a way, that the smallest are placed between 2 and 4 a.m. Then their labels are better visible.
+The trick to make parts visible, if they are of very unequal size, like in our example, is the following. Let us imagine the Pie Chart as a clock, and the first part of the pie that we script in Json starts at midnight. Knowing that, the user should arrange the slices of the data in such a way, that the smallest are placed between 2 and 4 a.m. Then their labels are better visible.
 Another suggestion, is to alternate the slightly bigger and the smaller slices in that 2-4 a.m. range.
 
 
