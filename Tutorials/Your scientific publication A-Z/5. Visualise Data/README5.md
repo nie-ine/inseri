@@ -101,11 +101,11 @@ Addressing again the data from Bar Chart example, we would need the Stacked Bar 
 10. USA, 982 images: F: M: U:
 
 Let us open a Stacked Bar Chart, as before (see Bar Chart above.)
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.10.png" alt="Stacked Bar Chart, view on opening" width="500"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/5.%20Visualise%20Data/5V.10.png" alt="Stacked Bar Chart, view on opening" width="500"></p>
 
 Let us modify the Json by the same steps as we did in Bar Chart above.
 Here is the preset Json:
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.11.png" alt="Original Json" width="500"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/5.%20Visualise%20Data/5V.11.png" alt="Original Json" width="500"></p>
 
 Here we need to 
 * add missing columns
@@ -114,20 +114,20 @@ Here we need to
 * add the numerical data to each of the subpart of each column.
 
 Resulting Json (part):
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.12.png" alt="Modified Json (part)" width="500"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/5.%20Visualise%20Data/5V.12.png" alt="Modified Json (part)" width="500"></p>
 
 And here is the resulting Stacked Bar Chart after renaming:
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.13.png" alt="Final Stacked Bar Chart" width="900"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/5.%20Visualise%20Data/5V.13.png" alt="Final Stacked Bar Chart" width="900"></p>
 
 ### 5.1.3 Pie Chart
 
 This visualisation tool is a good choice when we need to represent the non-overlapping parts constituting whole. The app comes with a preset example, below:
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.14.png" alt="Preset Pie Chart" width="700"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/5.%20Visualise%20Data/5V.14.png" alt="Preset Pie Chart" width="700"></p>
 
 Following the procedure described in 5.1.1, in the Bar Chart, please get the Json object:
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.15.png" alt="Preset Pie Chart Json" width="500"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/5.%20Visualise%20Data/5V.15.png" alt="Preset Pie Chart Json" width="500"></p>
 
 We shall use the same example from DDD project, namely, how many images do we have by country, from the set of 7125 images, addressed in the Bar Chart, 5.1.1.
 
@@ -139,11 +139,11 @@ All we need to do, is
 
 The resulting Json looks like this:
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.16.png" alt="Modified Json" width="500"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/5.%20Visualise%20Data/5V.16.png" alt="Modified Json" width="500"></p>
 
 The final Pie Chart, after renaming and some rearrangements of the parts of the pie, looks as follows:
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.17.png" alt="Pie Chart with DDD project data" width="700"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/5.%20Visualise%20Data/5V.17.png" alt="Pie Chart with DDD project data" width="700"></p>
 
 The trick to make parts visible, if they are of very unequal size, like in our example, is the following. Let us imagine the Pie Chart as a clock, and the first part of the pie that we script in Json starts at midnight. Knowing that, the user should arrange the slices of the data in such a way, that the smallest are placed between 2 and 4 a.m. Then their labels are better visible.
 Another suggestion, is to alternate the slightly bigger and the smaller slices in that 2-4 a.m. range.
