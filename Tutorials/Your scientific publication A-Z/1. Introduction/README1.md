@@ -4,10 +4,10 @@ Adding simple texts and images has already been discussed in "0. Introduction".
 Below we shall discuss the case when the data exists already in some publicly available databank/webpage.
 
 ## 1.1. Addressing existing webpages in INSERI
-One of the great aspects of INSERI is the "economical" approach towards the data that exists already somewhere as a publicly available ressources. Instead of downloading the things and republishing them somewhere else (which also might be  a copyright problem), Inseri proposes an option to call only those parts of data (for example, images and their respective descriptions) by using the existing internal linkage of a webpage via JSON. Let us learn how to do it.
+One of the great aspects of INSERI is the "economical" approach towards the data that exists already somewhere as a publicly available resource. Instead of downloading the things and republishing them somewhere else (which also might be  a copyright problem), Inseri proposes an option to call only those parts of data (for example, images and their respective descriptions) by using the existing internal linkage of a webpage via JSON. Let us learn how to do it.
 
 As our first example we shall take E-codices, the most important swiss online collection of the manuscripts. [https://www.e-codices.unifr.ch/en](https://www.e-codices.unifr.ch/en)
-Suppose we would like to work on a manuscript that has been photographed and uploaded already, but has not been transcribed page by page, and out aim would be 
+Suppose we would like to work on a manuscript that has been photographed and uploaded already, but has not been transcribed page by page, and our aim would be 
 1. to get images of the manuscript
 2. get metadata of the whole text (description)
 3. get page identifiers
@@ -33,7 +33,7 @@ Save and try query. Below the frame the data tree of the selected manuscript in 
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/1Ae.png" alt="New Query frame" width="500"></p>
 
-We have just created a link between that e-codices data and the page that we are creating. We can close the frame and call now the applications. We do not want to reproduce the whole dataset of e-codices, but only the images and the ids of the pages, plus a brief decsription of the manuscript. We thus need to link the application "window" and the material in the json tree structure it will display.
+We have just created a link between that e-codices data and the page that we are creating. We can close the frame and call now the applications. We do not want to reproduce the whole dataset of e-codices, but only the images and the ids of the pages, plus a brief description of the manuscript. We thus need to link the application "window" and the material in the json tree structure it will display.
 For that, we open a "Plain text viewer" and "Simple image application".
 Let us start with the images.
 
@@ -45,7 +45,7 @@ The human way to access it is to first click on "show tree with data", and then 
 The steps are mapped above in the following way automatically:
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/1Ag.png" alt="Mapping" width="500"></p>
 
-Save, close and reaload the page to see if the "Simple Image App." displays what is really needed. Repeat the steps if it does not display the correct data.
+Save, close and reload the page to see if the "Simple Image App." displays what is really needed. Repeat the steps if it does not display the correct data.
 
 Result: 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/1Ah.png" alt="Images from E-codices displayed in Inseri" width="400"></p>
@@ -72,4 +72,4 @@ For those who are not that lucky, and had to scan the project data by themselves
 
 ## 1.2. Adding images and data from desktop to Inseri
 
-## 1.3. Addressing protected ressources from Inseri
+## 1.3. Addressing protected resources from Inseri
