@@ -124,6 +124,7 @@ export class DashboardComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
       this.updateActions();
       this.getUserGroups();
       if (result) {

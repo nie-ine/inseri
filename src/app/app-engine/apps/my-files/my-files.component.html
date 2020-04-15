@@ -45,7 +45,7 @@
 </mat-menu>
 
 <mat-menu #menuPageSet="matMenu">
-  <button mat-menu-item matTooltip="Create New PageSet" >
+  <button mat-menu-item matTooltip="Create New PageSet" (click)="showForm('createPageSetForm')" >
    <mat-icon>add</mat-icon>
   </button>
   <button mat-menu-item [matMenuTriggerFor]="menuPageSetItems" matTooltip="Add an Existing PageSet" (click)="getAllPageSetForUser();" >
@@ -195,3 +195,21 @@
     </div>
   </div>
 </div>
+
+
+<div *ngIf="createPageSetForm" style="margin-left: 15px">
+  <div class="form-group" >
+    <label for="title">Title of studio</label>
+    <input type="text" class="form-control" name="title" [(ngModel)]="action.title" #title="ngModel" required />
+    <div *ngIf="!title.valid" class="help-block">Please enter the title</div>
+  </div>
+  <div class="form-group" >
+    <label for="desc">Description</label>
+    <input type="text" class="form-control" name="desc" [(ngModel)]="action.description" #desc="ngModel" required />
+    <div *ngIf="!desc.valid" class="help-block">Please enter the description for the studio</div>
+  </div>
+  <button mat-button (click)="createPageSet(title.value,desc.value); showForm(''); ">
+    Create
+  </button>
+</div>
+

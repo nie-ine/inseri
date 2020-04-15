@@ -7,11 +7,12 @@ import {FileModel} from '../../../user-action-engine/file/file.model';
 import {FileService} from '../../../user-action-engine/file/file.service';
 import {Observable, Subject, Subscription} from 'rxjs';
 import {FormControl, FormGroup} from '@angular/forms';
-import {ActivatedRoute, ParamMap} from '@angular/router';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {ActionService} from '../../../user-action-engine/mongodb/action/action.service';
 import {PageSetService} from '../../../user-action-engine/mongodb/pageset/page-set.service';
-import {MatTableDataSource} from '@angular/material';
+import {MatDialog, MatTableDataSource} from '@angular/material';
 import {QueryService} from '../../../user-action-engine/mongodb/query/query.service';
+import {Action} from '../../../user-action-engine/mongodb/action/action.model';
 
 
 @Component({
@@ -29,13 +30,16 @@ export class MyFilesComponent implements OnInit {
     private pageSetService: PageSetService,
     private pageService: PageService,
     public fileService: FileService,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    public dialog: MatDialog,
+    private router: Router
   ) { }
   // private static API_BASE_URL_FILES = environment.node + '/api/files';
   private filesUpdated = new Subject<FileModel[]>();
   addFolderForm = false;
   updateFolderTitleForm = false;
   pageSetForm = false;
+  createPageSetForm = false;
   folder: string;
   foldersArray: Array<string>;
   mainFolder_id = '-1';
@@ -57,6 +61,59 @@ export class MyFilesComponent implements OnInit {
    addedPageSets = [];
    allQueriesOfUser = [];
    addedQueries = [];
+  action: Action = {
+    id: undefined,
+    title: '',
+    description: '',
+    isFinished: false,
+    deleted: false,
+    type: undefined,
+    hasPageSet: undefined,
+    hasPage: undefined,
+    creator: undefined
+  };
+  pageSet: [string, string];
+
+  createPageSet(title: string, description: string) {
+    this.action.type = 'page-set';
+    this.action.title = title;
+    this.action.description = description;
+    this.actionService.createAction(this.action)
+      .subscribe((result) => {
+        console.log('actionService-createAction: result = ');
+        console.log(result);
+        if (this.action.type === 'page-set') {
+          this.pageSet = ['pageSet', result.action._id];
+          const newPage: any = {};
+          this.actionService.getAction(this.pageSet[1])
+            .subscribe(
+              actionResult => {
+                console.log('actionService-getAction: actionResult = ');
+                console.log(actionResult);
+                newPage.title = title;
+                newPage.description = description;
+                this.pageService.createPage(actionResult.body.action.hasPageSet._id, newPage)
+                  .subscribe((result2) => {
+                    console.log('pageService-createPage: result2 = ');
+                    console.log(result2);
+                    this.addPageSetToFolder({id: result2.page._id, title: title});
+                    // this.addedPageSets.push({id: result2.page._id, title: title});
+                   /* this.router.navigate(['/page'],
+                      { queryParams:
+                          { actionID: actionResult.body.action._id,
+                            page: result2.page._id
+                          }
+                      });*/
+                  }, error => {
+                    console.log( error );
+                  });
+              }, error => {
+                console.log( error );
+              }
+            );
+        }
+      });
+  }
   ngOnInit() {
     this.showFolders();
     this.fileSub = this.fileService.getFileUpdateListener()
@@ -98,10 +155,14 @@ export class MyFilesComponent implements OnInit {
       case 'PageSet':
         this.pageSetForm = true;
         break;
+      case 'createPageSetForm':
+        this.createPageSetForm = true;
+        break;
       default:
         this.addFolderForm = false;
         this.updateFolderTitleForm = false;
         this.pageSetForm = false;
+        this.createPageSetForm = false;
     }
   }
   deleteFromBreadCrumb() {
@@ -401,5 +462,5 @@ export class MyFilesComponent implements OnInit {
           console.log( error );
         }
       );
-}
+  }
 }
