@@ -138,12 +138,12 @@ router.post('/update/title/:folderId',checkAuth, (req, res, next) => {
 
 
 ///add and delete an existing PageSet and create a new PageSet in a folder
-router.post('/update/addPageSet/:folderId&:pageSetId&:pageSetTitle',checkAuth, (req, res, next) => {
+router.post('/update/addPageSet/:folderId',checkAuth, (req, res, next) => {
   Folder.updateOne({$and:[
         {owner:  req.userData.userId},
         {_id: req.params.folderId}
       ]},
-    {$addToSet: {hasPageSets: {_id: req.params.pageSetId, title: req.params.pageSetTitle}}})
+    {$addToSet: {hasPageSets: {_id: req.body.pageSet.id, title: req.body.pageSet.title, actionId: req.body.pageSet.actionId}}})
     .then((updatedDocument) => {
       if (updatedDocument.n === 0) {
         res.status(400).json({
@@ -188,12 +188,12 @@ router.get('/getPageSets/:folderId', checkAuth, (req, res, next) => {
       })
   });
 
-router.post('/update/removePageSet/:folderId&:pageSetId',checkAuth, (req, res, next) => {
+router.post('/update/removePageSet/:folderId',checkAuth, (req, res, next) => {
   Folder.updateOne({$and:[
             {owner: req.userData.userId},
             {_id: req.params.folderId}
           ]},
-        {$pull: {hasPageSets: {_id: req.params.pageSetId, title: req.body.pageSetTitle}}})
+        {$pull: {hasPageSets: {_id: req.body.pageSet.id, title: req.body.pageSet.title, actionId: req.body.pageSet.actionId}}})
         .then((updatedDocument) => {
           if (updatedDocument.n === 0) {
             res.status(400).json({

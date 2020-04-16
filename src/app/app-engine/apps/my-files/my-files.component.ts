@@ -34,7 +34,8 @@ export class MyFilesComponent implements OnInit {
     public fileService: FileService,
     public route: ActivatedRoute,
     public dialog: MatDialog,
-    public pageComponent: PageComponent
+    public pageComponent: PageComponent,
+    private router: Router
   ) { }
   // private static API_BASE_URL_FILES = environment.node + '/api/files';
   private filesUpdated = new Subject<FileModel[]>();
@@ -57,7 +58,6 @@ export class MyFilesComponent implements OnInit {
   private mode = 'add';
   isLoading = false;
   breadCrumbArray = [];
-  pageSetsTitles: string[] = [];
   allPageSetsOfUser = [];
   allPagesOfUser = [];
   pages: any;
@@ -75,10 +75,12 @@ export class MyFilesComponent implements OnInit {
     hasPage: undefined,
     creator: undefined
   };
-  pageSet: [string, string];
+  pageSet: [string, string, string];
   dataSource: MatTableDataSource<any>;
   appMenuModel: AppMenuModel;
   displayedColumns: string[] = ['id', 'name'];
+  pageId: string;
+  actionId: string;
 
   createPageSet(title: string, description: string) {
     this.action.type = 'page-set';
@@ -95,7 +97,8 @@ export class MyFilesComponent implements OnInit {
                   .subscribe((result2) => {
                     console.log('pageService-createPage: result2 = ');
                     console.log(result2);
-                    this.addPageSetToFolder({id: result.action.hasPageSet, title: title});
+                    console.log('id: ' + result.action.hasPageSet + '\t title: ' + title + '\t actionId: ' + result.action._id);
+                    this.addPageSetToFolder({id: result.action.hasPageSet, title: title, actionId: result.action._id});
                    /* this.router.navigate(['/page'],
                       { queryParams:
                           { actionID: actionResult.body.action._id,
@@ -302,12 +305,12 @@ export class MyFilesComponent implements OnInit {
       );
   }
 
-  addPageSetToFolder( pageSet: {id: string, title: string}) {
-    console.log(pageSet.id, pageSet.title);
+  addPageSetToFolder( pageSet: {id: string, title: string, actionId: string}) {
+    console.log(pageSet);
     const updatedPageSets = this.addedPageSets.filter(v_pageSet => v_pageSet.id !== pageSet.id);
     this.addedPageSets = updatedPageSets;
     this.addedPageSets.push(pageSet);
-    // console.log(this.addedPageSets);
+     console.log(this.addedPageSets);
     this.folderService.addPageSetsToFolder(this.mainFolder_id, pageSet )
       .subscribe(
         response => {
@@ -318,7 +321,7 @@ export class MyFilesComponent implements OnInit {
       );
   }
 
-  deletePageSetsFromFolder( pageSet: {id: string, title: string}) {
+  deletePageSetsFromFolder( pageSet: {id: string, title: string, actionId: string}) {
     console.log('pageSet Id : ' + pageSet.id);
     this.folderService.deletePageSetsFromFolder(this.mainFolder_id, pageSet)
       .subscribe(
@@ -363,7 +366,8 @@ export class MyFilesComponent implements OnInit {
                   pageSets => {
                     console.log(pageSets.pageset);
                     console.log(pageSets.pageset._id, action.title);
-                    this.allPageSetsOfUser.push({id: pageSets.pageset._id, title: action.title});
+                    this.allPageSetsOfUser.push({id: pageSets.pageset._id, title: action.title, actionId: action._id});
+                    console.log(this.allPageSetsOfUser);
                    /* if ( pageSets.pageset.hasPages ) {
                       this.goThroughPageIdArray( pageSets.pageset.hasPages, action );
                     }*/
@@ -470,5 +474,26 @@ export class MyFilesComponent implements OnInit {
       inseriAppsMenu
     );
     this.showForm('appMenuForm');
+  }
+
+  navigateToPageSet(pageSet: any) {
+    console.log(pageSet);
+    this.pageSetService.getPageSet( pageSet.id )
+      .subscribe(
+        data => {
+          console.log(pageSet.actionId);
+          this.router.navigate(['/page'],
+            { queryParams:
+                { actionID: pageSet.actionId,
+                  page: data.pageset.hasPages[0]
+                }
+            });
+         console.log(data.pageset.hasPages[0]);
+        }, error1 => {
+          console.log( error1 );
+        }
+      );
+
+
   }
 }

@@ -170,8 +170,10 @@
   <div class="row">
     <div class="col-xs-12">
       <div *ngFor="let pageSet of addedPageSets" style="margin-left: 15px">
-        <mat-icon> file_copy</mat-icon>
-        {{ pageSet.title }}
+        <button mat-button (click)="navigateToPageSet(pageSet)">
+          <mat-icon> file_copy</mat-icon>
+          {{ pageSet.title }}
+        </button>
         <button mat-button matTooltip="Unlink PageSet from Folder" (click)="deletePageSetsFromFolder(pageSet);">
           <mat-icon>
             delete
