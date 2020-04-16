@@ -80,24 +80,16 @@ export class MyFilesComponent implements OnInit {
     this.action.description = description;
     this.actionService.createAction(this.action)
       .subscribe((result) => {
-        console.log('actionService-createAction: result = ');
+        console.log('create Action result: ')  ;
         console.log(result);
-        if (this.action.type === 'page-set') {
-          this.pageSet = ['pageSet', result.action._id];
-          const newPage: any = {};
-          this.actionService.getAction(this.pageSet[1])
-            .subscribe(
-              actionResult => {
-                console.log('actionService-getAction: actionResult = ');
-                console.log(actionResult);
+         const newPage: any = {};
                 newPage.title = title;
                 newPage.description = description;
-                this.pageService.createPage(actionResult.body.action.hasPageSet._id, newPage)
+                this.pageService.createPage(result.action.hasPageSet, newPage)
                   .subscribe((result2) => {
                     console.log('pageService-createPage: result2 = ');
                     console.log(result2);
-                    this.addPageSetToFolder({id: result2.page._id, title: title});
-                    // this.addedPageSets.push({id: result2.page._id, title: title});
+                    this.addPageSetToFolder({id: result.action.hasPageSet, title: title});
                    /* this.router.navigate(['/page'],
                       { queryParams:
                           { actionID: actionResult.body.action._id,
@@ -107,11 +99,6 @@ export class MyFilesComponent implements OnInit {
                   }, error => {
                     console.log( error );
                   });
-              }, error => {
-                console.log( error );
-              }
-            );
-        }
       });
   }
   ngOnInit() {

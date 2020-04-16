@@ -133,6 +133,8 @@ export class DashboardComponent implements OnInit {
         this.actionService.getAction( result[ 1 ] )
           .subscribe(
             actionResult => {
+              console.log('actionService - get Action: ');
+              console.log(actionResult);
               newPage.title = actionResult.body.action.title;
               newPage.description = actionResult.body.action.description;
               this.pageService.createPage(actionResult.body.action.hasPageSet._id, newPage)
