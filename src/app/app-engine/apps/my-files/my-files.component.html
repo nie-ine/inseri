@@ -152,8 +152,10 @@
   <div class="row">
     <div class="col-xs-12">
       <div *ngFor="let file of files" style="margin-left: 15px">
-        <mat-icon> insert_drive_file</mat-icon>
-        {{ file.title }}
+        <button mat-button (click)="showAvailableInseriApps()">
+          <mat-icon> insert_drive_file</mat-icon>
+          {{ file.title }}
+        </button>
         <button mat-button matTooltip="Delete File" (click)="deleteFile(file.id);">
           <mat-icon>
             delete
@@ -211,5 +213,26 @@
   <button mat-button (click)="createPageSet(title.value,desc.value); showForm(''); ">
     Create
   </button>
+</div>
+
+
+<div style="width: 100%" *ngIf="appMenuForm">
+  <table mat-table [dataSource]="dataSource" matSort>
+    <!-- ID Column -->
+    <ng-container matColumnDef="id"  >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Icon </th>
+      <td mat-cell *matCellDef="let row" (click)="this.pageComponent.addAnotherApp(row.appType, true, row.name)" style="cursor: pointer; width: 25%;"> <button mat-button><mat-icon>{{row.id}}</mat-icon> </button></td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header > Name </th>
+      <td mat-cell *matCellDef="let row"
+          (click)="this.pageComponent.addAnotherApp(row.appType, true, row.name)"
+          style="cursor: pointer; width: 25%;" > {{row.name}} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns" style="width: 100%;"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" style="width: 100%;"></tr>
+  </table>
 </div>
 

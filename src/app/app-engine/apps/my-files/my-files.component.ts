@@ -13,6 +13,8 @@ import {PageSetService} from '../../../user-action-engine/mongodb/pageset/page-s
 import {MatDialog, MatTableDataSource} from '@angular/material';
 import {QueryService} from '../../../user-action-engine/mongodb/query/query.service';
 import {Action} from '../../../user-action-engine/mongodb/action/action.model';
+import { AppMenuModel } from '../../../app-engine/page/page/appMenu.model';
+import {PageComponent} from '../../page/page/page.component';
 
 
 @Component({
@@ -32,13 +34,14 @@ export class MyFilesComponent implements OnInit {
     public fileService: FileService,
     public route: ActivatedRoute,
     public dialog: MatDialog,
-    private router: Router
+    public pageComponent: PageComponent
   ) { }
   // private static API_BASE_URL_FILES = environment.node + '/api/files';
   private filesUpdated = new Subject<FileModel[]>();
   addFolderForm = false;
   updateFolderTitleForm = false;
   pageSetForm = false;
+  appMenuForm = false;
   createPageSetForm = false;
   folder: string;
   foldersArray: Array<string>;
@@ -73,6 +76,9 @@ export class MyFilesComponent implements OnInit {
     creator: undefined
   };
   pageSet: [string, string];
+  dataSource: MatTableDataSource<any>;
+  appMenuModel: AppMenuModel;
+  displayedColumns: string[] = ['id', 'name'];
 
   createPageSet(title: string, description: string) {
     this.action.type = 'page-set';
@@ -145,11 +151,15 @@ export class MyFilesComponent implements OnInit {
       case 'createPageSetForm':
         this.createPageSetForm = true;
         break;
+      case 'appMenuForm':
+        this.appMenuForm = true;
+        break;
       default:
         this.addFolderForm = false;
         this.updateFolderTitleForm = false;
         this.pageSetForm = false;
         this.createPageSetForm = false;
+        this.appMenuForm = false;
     }
   }
   deleteFromBreadCrumb() {
@@ -449,5 +459,16 @@ export class MyFilesComponent implements OnInit {
           console.log( error );
         }
       );
+  }
+
+  showAvailableInseriApps() {
+    const inseriAppsMenu = [];
+    for ( const app of new AppMenuModel().appMenu.filter(item => item.name) ) {
+        inseriAppsMenu.push(app);
+    }
+    this.dataSource = new MatTableDataSource(
+      inseriAppsMenu
+    );
+    this.showForm('appMenuForm');
   }
 }
