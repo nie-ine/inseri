@@ -15,6 +15,7 @@ import {QueryService} from '../../../user-action-engine/mongodb/query/query.serv
 import {Action} from '../../../user-action-engine/mongodb/action/action.model';
 import { AppMenuModel } from '../../../app-engine/page/page/appMenu.model';
 import {PageComponent} from '../../page/page/page.component';
+import {QueryEntryComponent} from '../../../query-engine/query-entry/query-entry.component';
 
 
 @Component({
@@ -44,6 +45,7 @@ export class MyFilesComponent implements OnInit {
   pageSetForm = false;
   appMenuForm = false;
   createPageSetForm = false;
+  createQueryForm = false;
   folder: string;
   foldersArray: Array<string>;
   mainFolder_id = '-1';
@@ -81,6 +83,7 @@ export class MyFilesComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name'];
   pageId: string;
   actionId: string;
+  queryTitle: string;
 
   createPageSet(title: string, description: string) {
     this.action.type = 'page-set';
@@ -157,12 +160,16 @@ export class MyFilesComponent implements OnInit {
       case 'appMenuForm':
         this.appMenuForm = true;
         break;
+      case 'createQueryForm':
+        this.createQueryForm = true;
+        break;
       default:
         this.addFolderForm = false;
         this.updateFolderTitleForm = false;
         this.pageSetForm = false;
         this.createPageSetForm = false;
         this.appMenuForm = false;
+        this.createQueryForm = false;
     }
   }
   deleteFromBreadCrumb() {
@@ -493,7 +500,25 @@ export class MyFilesComponent implements OnInit {
           console.log( error1 );
         }
       );
-
-
+  }
+  createNewQuery(queryTitle: string) {
+    this.queriesService.createQuery({title: queryTitle})
+      .subscribe(data => {
+        console.log(data);
+        if (data.status === 201) {
+          this.addQueryToFolder({id: data.body.query._id, title: queryTitle});
+          this.showForm('');
+        }
+      });
+  }
+  editQuery(query: any) {
+    const dialogRef = this.dialog.open(QueryEntryComponent, {
+      width: '100%',
+      height: '100%',
+      data: {
+        query: query,
+        pageID: null
+      }
+    });
   }
 }

@@ -39,9 +39,6 @@
   <button mat-menu-item matTooltip="Add New File"(click)="filePicker.click();" >
     <mat-icon>add</mat-icon>
   </button>
-  <button mat-menu-item matTooltip="Open with inseri app" >
-    <mat-icon>open_with</mat-icon>
-  </button>
 </mat-menu>
 
 <mat-menu #menuPageSet="matMenu">
@@ -72,7 +69,7 @@
 </mat-menu>
 
 <mat-menu #menuQuery="matMenu">
-  <button   mat-menu-item matTooltip="Create New Query"  (click)="this.getAllQueriesForUser()">
+  <button   mat-menu-item matTooltip="Create New Query"  (click)="showForm('createQueryForm')">
     <mat-icon>add</mat-icon>
   </button>
   <button   mat-menu-item matTooltip="Add an Existing Query" [matMenuTriggerFor]="menuQueriesItems" (click)="getAllQueriesForUser();">
@@ -104,7 +101,7 @@
       <mat-form-field class="example-form-field">
         <mat-label>Folder Name</mat-label>
         <input matInput type="text" [(ngModel)]="folder">
-        <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''; showForm('');">
+        <button mat-button *ngIf="folder" matSuffix mat-icon-button aria-label="Clear" (click)="folder=''; showForm('');">
           <mat-icon>close</mat-icon>
         </button>
       </mat-form-field>
@@ -117,7 +114,7 @@
   <mat-form-field class="example-form-field">
     <mat-label>Folder Name</mat-label>
     <input matInput type="text" [(ngModel)]="folder">
-    <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+    <button mat-button *ngIf="folder" matSuffix mat-icon-button aria-label="Clear" (click)="folder=''">
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
@@ -188,8 +185,12 @@
   <div class="row">
     <div class="col-xs-12">
       <div *ngFor="let query of addedQueries" style="margin-left: 15px">
-        <mat-icon> receipt</mat-icon>
-        {{ query.title }}
+        <button mat-button (click)="editQuery(query)">
+          <mat-icon> receipt</mat-icon>
+          {{ query.title }}
+        </button>
+
+
         <button mat-button matTooltip="Unlink Query from Folder" (click)="deleteQueryFromFolder(query);">
           <mat-icon>
             delete
@@ -236,5 +237,14 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns" style="width: 100%;"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" style="width: 100%;"></tr>
   </table>
+</div>
+
+<div *ngIf="createQueryForm" style="margin-left: 15px">
+  <mat-form-field class="example-form-field" >
+    <input matInput type="text" placeholder="Add New Query" [(ngModel)]="queryTitle">
+  </mat-form-field>
+  <button *ngIf="queryTitle" mat-button mat-icon-button (click)="createNewQuery(queryTitle)">
+    <mat-icon>arrow_downwards</mat-icon>
+  </button>
 </div>
 
