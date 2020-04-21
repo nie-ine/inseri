@@ -5,6 +5,11 @@ Below we shall discuss the case when the data exists already in some publicly av
 
 ## 1.1. Addressing existing webpages in INSERI
 ### 1.1.1. Without a template
+
+The steps, taking Europeana as example, have been explained by Jan Stoffregen in the video:
+
+[https://www.youtube.com/embed/9An1cGPrv9Q](https://www.youtube.com/embed/9An1cGPrv9Q)
+
 One of the great aspects of INSERI is the "economical" approach towards the data that exists already somewhere as a publicly available resource. Instead of downloading the things and republishing them somewhere else (which also might be  a copyright problem), Inseri proposes an option to call only those parts of data (for example, images and their respective descriptions) by using the existing internal linkage of a webpage via JSON. Let us learn how to do it.
 
 As our first example we shall take E-codices, the most important swiss online collection of the manuscripts. [https://www.e-codices.unifr.ch/en](https://www.e-codices.unifr.ch/en)
