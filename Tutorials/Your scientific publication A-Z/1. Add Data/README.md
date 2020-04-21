@@ -72,7 +72,7 @@ The map is as follows:
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/1Ak.png" alt="Linked text in Plain Text viewer" width="500"></p>
 
-The final result is below. One can navigate from one folio to another both from the manuscript images and the folio id because these have already been correctly linked in the E-codices, and Inseri is able to address that structure! We have reproduced the primary data we might need for the project in no time from within Inseri.
+The final result is below. One can navigate from one folio to another both from the manuscript images and the folio id because these have already been correctly linked in the E-codices, and Inseri is able to address that structure! I.e. if you navigate to the folio 4, both the image, and the field displaying the page number, will display the information related to the page 4. We have reproduced the primary data we might need for the project in no time from within Inseri.
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/1Al.png" alt="Linked text in Plain Text viewer" width="700"></p>
 
