@@ -783,6 +783,15 @@ export class PageComponent implements OnInit, AfterViewChecked {
         app.fullHeight = settings.fullHeight;
       }
     }
+    for ( const app of this.openAppArray ) {
+      if ( settings.hash === app.hash ) {
+        app.title = settings.title;
+        app.width = settings.width;
+        app.height = settings.height;
+        app.fullWidth = settings.fullWidth;
+        app.fullHeight = settings.fullHeight;
+      }
+    }
     this.page.openApps[ settings.hash ].title = settings.title;
     this.page.openApps[ settings.hash ].width = settings.width;
     this.page.openApps[ settings.hash ].height = settings.height;

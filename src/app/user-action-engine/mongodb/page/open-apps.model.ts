@@ -47,7 +47,7 @@ export class OpenAppsModel {
         },
         {
           'inputName': 'textFile',
-          default: ''
+          default: 'Please paste variable here and click save afterwards'
         }
       ],
       materialIcon: 'lead_add',
