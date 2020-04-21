@@ -4,7 +4,7 @@ Adding simple texts and images has already been discussed in "0. Introduction".
 Below we shall discuss the case when the data exists already in some publicly available databank/webpage.
 
 ## 1.1. Addressing existing webpages in INSERI
-### 1.1.1 Without a template
+### 1.1.1. Without a template
 One of the great aspects of INSERI is the "economical" approach towards the data that exists already somewhere as a publicly available resource. Instead of downloading the things and republishing them somewhere else (which also might be  a copyright problem), Inseri proposes an option to call only those parts of data (for example, images and their respective descriptions) by using the existing internal linkage of a webpage via JSON. Let us learn how to do it.
 
 As our first example we shall take E-codices, the most important swiss online collection of the manuscripts. [https://www.e-codices.unifr.ch/en](https://www.e-codices.unifr.ch/en)
@@ -68,6 +68,14 @@ The map is as follows:
 The final result is below. One can navigate from one folio to another both from the manuscript images and the folio id because these have already been correctly linked in the E-codices, and Inseri is able to address that structure! We have reproduced the primary data we might need for the project in no time from within Inseri.
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/1Al.png" alt="Linked text in Plain Text viewer" width="700"></p>
+
+Besides navigating from one page to the next, one can use the "extended search option". One should click on the page number of the resource, and the list of all available pages opens:
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/1Am.png" alt="Linked text in Plain Text viewer" width="400"></p>
+
+If one clicks on the "Extended search", the overview of the whole document opens which includes the pages' miniatures, so that one can easily go to any desired page:
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/1An.png" alt="Linked text in Plain Text viewer" width="700"></p>
 
 ### 1.1.2. With a template
 The process above has been simplified and automatised, and all what the user needs to address and online resource from within Inseri, is just to change the URL, while the complicated "mapping" has been simplified to the most commonly used fields, as above (picture of a page, page id, commentary, etc.) The details are demonstrated in the video created by Jan Stoffregen here:
