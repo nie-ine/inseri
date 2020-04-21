@@ -10,6 +10,8 @@ The steps, taking Europeana as example, have been explained by Jan Stoffregen in
 
 [https://www.youtube.com/embed/9An1cGPrv9Q](https://www.youtube.com/embed/9An1cGPrv9Q)
 
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/1video1.png" alt="Guhyaṣoḍha, starting page" width="900"></p>
+
 One of the great aspects of INSERI is the "economical" approach towards the data that exists already somewhere as a publicly available resource. Instead of downloading the things and republishing them somewhere else (which also might be  a copyright problem), Inseri proposes an option to call only those parts of data (for example, images and their respective descriptions) by using the existing internal linkage of a webpage via JSON. Let us learn how to do it.
 
 As our first example we shall take E-codices, the most important swiss online collection of the manuscripts. [https://www.e-codices.unifr.ch/en](https://www.e-codices.unifr.ch/en)
@@ -86,6 +88,8 @@ If one clicks on the "Extended search", the overview of the whole document opens
 The process above has been simplified and automatised, and all what the user needs to address and online resource from within Inseri, is just to change the URL, while the complicated "mapping" has been simplified to the most commonly used fields, as above (picture of a page, page id, commentary, etc.) The details are demonstrated in the video created by Jan Stoffregen here:
 
 [https://www.youtube.com/watch?v=TuUyhrwGbKQ&feature=youtu.be](https://www.youtube.com/watch?v=TuUyhrwGbKQ&feature=youtu.be)
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/1video2.png" alt="Guhyaṣoḍha, starting page" width="900"></p>
 
 For those who are not that lucky, and had to scan the project data by themselves, the following options shall be further addressed:
 
