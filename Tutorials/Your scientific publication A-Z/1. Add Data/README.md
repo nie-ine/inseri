@@ -124,7 +124,7 @@ The path is as follows:
 
 While the text data linkages are more evident. Here is the example of "label", i.e. image code:
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/1Knora4.png" alt="Linking Images" width="400"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/1Knora4.png" alt="Linking Images" width="300"></p>
 
 And here is the X-dimension in pixels:
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/1Knora2.png" alt="Linking Text Data" width="500"></p>
