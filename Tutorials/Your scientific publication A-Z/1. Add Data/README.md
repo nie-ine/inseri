@@ -133,6 +133,6 @@ Having saved and reloaded the page we obtain a simplified webpage, in which the 
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/1Knora5.png" alt="Resulting Page" width="700"></p>
 
-As in the 1.1.1. example, the images and their data maintain their original structure and linkages, and thus when one navigates in any of the windows via < > signs, the data fits the corresponding image. If one clicks on the number of the resource, it will open the extended serach options, here, for example, we can see the preview of the whole selection of images:
+As in the 1.1.1. example, the images and their data maintain their original structure and linkages, and thus when one navigates in any of the windows via < > signs, the data fits the corresponding image. If one clicks on the number of the resource, it will open the extended search options, here, for example, we can see the preview of the whole selection of images:
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/1Knora6.png" alt="Preview of all pages" width="700"></p>
