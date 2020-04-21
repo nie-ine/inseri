@@ -27,10 +27,10 @@ export class FolderService {
       {title: title}, {observe: 'response'});
   }
 
-  addPageSetsToFolder(folderId: string, pageSet: {id: string, title: string} ): Observable<any> {
+  addPageSetsToFolder(folderId: string, pageSet: {id: string, title: string, actionId: string} ): Observable<any> {
     // tslint:disable-next-line:max-line-length
-    return this.http.post(`${FolderService.API_BASE_URL_FOLDER}` + '/update/addPageSet/' + folderId + '&' + pageSet.id + '&' + pageSet.title,
-      {} , {observe: 'response'});
+    return this.http.post(`${FolderService.API_BASE_URL_FOLDER}` + '/update/addPageSet/' + folderId,
+      {pageSet: pageSet} , {observe: 'response'});
   }
 
   addQueryToFolder(folderId: string, query: {id: string, title: string} ): Observable<any> {
@@ -38,9 +38,9 @@ export class FolderService {
     return this.http.post(`${FolderService.API_BASE_URL_FOLDER}` + '/update/addQuery/' + folderId + '&' + query.id,
       {queryTitle: query.title} , {observe: 'response'});
   }
-  deletePageSetsFromFolder(folderId: string, pageSet: {id: string, title: string}): Observable<any> {
-    return this.http.post(`${FolderService.API_BASE_URL_FOLDER}` + '/update/removePageSet/' + folderId + '&' + pageSet.id,
-      {pageSetTitle: pageSet.title} , {observe: 'response'});
+  deletePageSetsFromFolder(folderId: string, pageSet: {id: string, title: string, actionId: string}): Observable<any> {
+    return this.http.post(`${FolderService.API_BASE_URL_FOLDER}` + '/update/removePageSet/' + folderId,
+      {pageSet: pageSet} , {observe: 'response'});
   }
 
   deleteQueryFromFolder(folderId: string, query: {id: string, title: string}): Observable<any> {
@@ -72,7 +72,8 @@ export class FolderService {
         return response.pageSets.map(pageSet => {
           return {
             id: pageSet._id,
-            title: pageSet.title
+            title: pageSet.title,
+            actionId: pageSet.actionId
           };
         });
       })

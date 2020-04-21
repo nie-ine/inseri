@@ -1,6 +1,6 @@
-# 0.Introduction
+# 0. Introduction
 
-In the end of this tutorial, the user will have and idea about the workflow areas in INSERI.
+In the end of this tutorial, the user will have an idea about the workflow areas in INSERI.
 
 <p>This is a collection of tutorials that will allow the scholar to start and successfully finish their academic project from A to Z within INSERI framework.</p>
 
@@ -11,7 +11,7 @@ In the end of this tutorial, the user will have and idea about the workflow area
 <ol>
 <li>The <strong>&quot;Add&quot;</strong> part covers the workflow from the raw data upload, via adding metadata, managing bibliography, to the formulation of hypothesis and methods. Some parts are already stable in INSERI, others are under development.</li>
 <li>The <strong>&quot;Admin&quot;</strong> part covers various aspects of administering the project, it is UNDER DEVELOPMENT, and will include such tools as adding users, project planning, a selection of online communication tools, etc.</li>
-<li>The <strong>&quot;Enrich&quot;</strong> part essecially covers various kids of TEI/XML tagging and annotation of the raw data, which becomes transformed into texts and numbers. The information is saved as triples.</li>
+<li>The <strong>&quot;Enrich&quot;</strong> part covers various kids of TEI/XML tagging and annotation of the raw data, which becomes transformed into texts and numbers. The information is saved as triples.</li>
 <li>The <strong>&quot;Analyse&quot;</strong> block consists of various tools made for human and computer-assisted analysis, such as the comparison of two or more images, text versions comparison, finding textual parallels, colliding variants in a view to produce a diplomatic/critical edition.</li>
 <li>The <strong>&quot;Visual&quot;</strong> part is already well-developed in INSERI, which has not less than 8 different visualization applications, all of them can directly reuse the RDF data created at the previous steps.</li>
 <li>The <strong>&quot;SWT&quot;</strong> part stands for &quot;Semantic Web Technology&quot;, and this module offers the scholars the possibility to formulate very complex queries, that are beyond the capacities provided by complex search queries in relational databases, for example.</li>
@@ -45,10 +45,11 @@ In the end of this tutorial, the user will have and idea about the workflow area
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5.png" alt="Collage creation" width="400"></p>
 
-<p>The information set in here won&#39;t be visible to public, but only to the creator and the members of the groups that are set (more on groupd in the Admin section below). What is being created here is a &quot;storage&quot; that will contain finished and unfinished parts of the online project, that are not visible to public until they are &quot;published&quot;. 
+<p>The information set in here won&#39;t be visible to public, but only to the creator and the members of the groups that are set (
+more on groups in the Admin section below). What is being created here is a &quot;storage&quot; that will contain finished and unfinished parts of the online project, that are not visible to public until they are &quot;published&quot;. 
 Another important point, is that there often (but not always) 2 applications for entering each piece of data. One serves for uploading and editing, and the other - for viewing.</p>
 
-<p>Once collage is created, it will be visible with its assignd name in the Dashboard, as below:</p>
+<p>Once collage is created, it will be visible with its assigned name in the Dashboard, as below:</p>
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/6.png" alt="Collage creation" width="200"></p>
 
@@ -78,8 +79,8 @@ There are 4 major areas in the app:</p>
 <li>Export</li>
 </ol>
 
-<p>In the <strong>Editor</strong> one can enter the text, select what degree of highlights (i.e. size, color, background) the text should have; align the text, include the images (upload from desktop is possible and easy), and set up a link to another page, via a link sign.
-The saving is not automatical, and one need to click on the &quot;Save&quot; button down the page often.
+<p>In the <strong>Editor</strong> one can enter the text, select what degree of highlights (i.e. size, colour, background) the text should have; align the text, include the images (upload from desktop is possible and easy), and set up a link to another page, via a link sign.
+The saving is not automatic, and one need to click on the &quot;Save&quot; button down the page often.
 The <strong>Code</strong> area shows all typed and set up in the editor in HTML. This code can be conveniently copied and pasted to any other webpage editor, and is used to visualize the result in the set of &quot;viewer&quot; applications.
 The <strong>Output</strong> should show the result in real time, how it will be visible to the outside viewers.
 The <strong>Export</strong> area [has another Save button, export options are UNDER DEVELOPMENT].</p>
@@ -121,7 +122,7 @@ We can create a &quot;Tile&quot; covering only a part of the visible screen, or 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8d.png" alt="Plaintext Viewer File Options" width="400"></p>
 
 <p>What we need is the &quot;Option for input: &quot;textlist&quot;&quot;. 
-It will open the following possiblities:</p>
+It will open the following possibilities:</p>
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8e.png" alt="Further Options" width="200"></p>
 
@@ -130,7 +131,7 @@ It will open the following possiblities:</p>
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8f.png" alt="INSERI file directory" width="500"></p>
 
-<p>All we need is to select the file we have just created (most recent are up by default), and click on &quot;+&quot; sign. By doing so we have have created a link between the file done in &quot;Editor&quot; and its visualization in the &quot;Viewer&quot;. Having clicked on &quot;+&quot; we shall be back to a form we have seen already, click on &quot;Close and reload page to see changes&quot; in order to validate the established link:</p>
+<p>All we need is to select the file we have just created (most recent are up by default), and click on &quot;+&quot; sign. By doing so we have created a link between the file done in &quot;Editor&quot; and its visualization in the &quot;Viewer&quot;. Having clicked on &quot;+&quot; we shall be back to a form we have seen already, click on &quot;Close and reload page to see changes&quot; in order to validate the established link:</p>
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8d.png" alt="Plaintext Viewer File Options" width="700"></p>
 

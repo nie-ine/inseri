@@ -7,11 +7,19 @@ import {FileModel} from '../../../user-action-engine/file/file.model';
 import {FileService} from '../../../user-action-engine/file/file.service';
 import {Observable, Subject, Subscription} from 'rxjs';
 import {FormControl, FormGroup} from '@angular/forms';
-import {ActivatedRoute, ParamMap} from '@angular/router';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {ActionService} from '../../../user-action-engine/mongodb/action/action.service';
 import {PageSetService} from '../../../user-action-engine/mongodb/pageset/page-set.service';
-import {MatTableDataSource} from '@angular/material';
+import {MatDialog, MatTableDataSource} from '@angular/material';
 import {QueryService} from '../../../user-action-engine/mongodb/query/query.service';
+import {Action} from '../../../user-action-engine/mongodb/action/action.model';
+import { AppMenuModel } from '../../../app-engine/page/page/appMenu.model';
+import {PageComponent} from '../../page/page/page.component';
+import {QueryEntryComponent} from '../../../query-engine/query-entry/query-entry.component';
+import {OpenAppsModel} from '../../../user-action-engine/mongodb/page/open-apps.model';
+import {RequestService} from '../../../query-engine/knora/request.service';
+import {GeneralRequestService} from '../../../query-engine/general/general-request.service';
+import {GenerateHashService} from '../../../user-action-engine/other/generateHash.service';
 
 
 @Component({
@@ -29,13 +37,21 @@ export class MyFilesComponent implements OnInit {
     private pageSetService: PageSetService,
     private pageService: PageService,
     public fileService: FileService,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    public dialog: MatDialog,
+    public pageComponent: PageComponent,
+    private router: Router,
+    private generateHashService: GenerateHashService,
+    private requestService: GeneralRequestService
   ) { }
   // private static API_BASE_URL_FILES = environment.node + '/api/files';
   private filesUpdated = new Subject<FileModel[]>();
   addFolderForm = false;
   updateFolderTitleForm = false;
   pageSetForm = false;
+  appMenuForm = false;
+  createPageSetForm = false;
+  createQueryForm = false;
   folder: string;
   foldersArray: Array<string>;
   mainFolder_id = '-1';
@@ -50,13 +66,61 @@ export class MyFilesComponent implements OnInit {
   private mode = 'add';
   isLoading = false;
   breadCrumbArray = [];
-  pageSetsTitles: string[] = [];
   allPageSetsOfUser = [];
   allPagesOfUser = [];
   pages: any;
    addedPageSets = [];
    allQueriesOfUser = [];
    addedQueries = [];
+  action: Action = {
+    id: undefined,
+    title: '',
+    description: '',
+    isFinished: false,
+    deleted: false,
+    type: undefined,
+    hasPageSet: undefined,
+    hasPage: undefined,
+    creator: undefined
+  };
+  pageSet: [string, string, string];
+  dataSource: MatTableDataSource<any>;
+  appMenuModel: AppMenuModel;
+  displayedColumns: string[] = ['id', 'name'];
+  pageId: string;
+  actionId: string;
+  queryTitle: string;
+  openAppsInThisPage: any = (new OpenAppsModel).openApps;
+  page: any = {};
+
+  createPageSet(title: string, description: string) {
+    this.action.type = 'page-set';
+    this.action.title = title;
+    this.action.description = description;
+    this.actionService.createAction(this.action)
+      .subscribe((result) => {
+        console.log('create Action result: ')  ;
+        console.log(result);
+         const newPage: any = {};
+                newPage.title = title;
+                newPage.description = description;
+                this.pageService.createPage(result.action.hasPageSet, newPage)
+                  .subscribe((result2) => {
+                    console.log('pageService-createPage: result2 = ');
+                    console.log(result2);
+                    console.log('id: ' + result.action.hasPageSet + '\t title: ' + title + '\t actionId: ' + result.action._id);
+                    this.addPageSetToFolder({id: result.action.hasPageSet, title: title, actionId: result.action._id});
+                   /* this.router.navigate(['/page'],
+                      { queryParams:
+                          { actionID: actionResult.body.action._id,
+                            page: result2.page._id
+                          }
+                      });*/
+                  }, error => {
+                    console.log( error );
+                  });
+      });
+  }
   ngOnInit() {
     this.showFolders();
     this.fileSub = this.fileService.getFileUpdateListener()
@@ -98,10 +162,22 @@ export class MyFilesComponent implements OnInit {
       case 'PageSet':
         this.pageSetForm = true;
         break;
+      case 'createPageSetForm':
+        this.createPageSetForm = true;
+        break;
+      case 'appMenuForm':
+        this.appMenuForm = true;
+        break;
+      case 'createQueryForm':
+        this.createQueryForm = true;
+        break;
       default:
         this.addFolderForm = false;
         this.updateFolderTitleForm = false;
         this.pageSetForm = false;
+        this.createPageSetForm = false;
+        this.appMenuForm = false;
+        this.createQueryForm = false;
     }
   }
   deleteFromBreadCrumb() {
@@ -244,12 +320,12 @@ export class MyFilesComponent implements OnInit {
       );
   }
 
-  addPageSetToFolder( pageSet: {id: string, title: string}) {
-    console.log(pageSet.id, pageSet.title);
+  addPageSetToFolder( pageSet: {id: string, title: string, actionId: string}) {
+    console.log(pageSet);
     const updatedPageSets = this.addedPageSets.filter(v_pageSet => v_pageSet.id !== pageSet.id);
     this.addedPageSets = updatedPageSets;
     this.addedPageSets.push(pageSet);
-    // console.log(this.addedPageSets);
+     console.log(this.addedPageSets);
     this.folderService.addPageSetsToFolder(this.mainFolder_id, pageSet )
       .subscribe(
         response => {
@@ -260,7 +336,7 @@ export class MyFilesComponent implements OnInit {
       );
   }
 
-  deletePageSetsFromFolder( pageSet: {id: string, title: string}) {
+  deletePageSetsFromFolder( pageSet: {id: string, title: string, actionId: string}) {
     console.log('pageSet Id : ' + pageSet.id);
     this.folderService.deletePageSetsFromFolder(this.mainFolder_id, pageSet)
       .subscribe(
@@ -305,7 +381,8 @@ export class MyFilesComponent implements OnInit {
                   pageSets => {
                     console.log(pageSets.pageset);
                     console.log(pageSets.pageset._id, action.title);
-                    this.allPageSetsOfUser.push({id: pageSets.pageset._id, title: action.title});
+                    this.allPageSetsOfUser.push({id: pageSets.pageset._id, title: action.title, actionId: action._id});
+                    console.log(this.allPageSetsOfUser);
                    /* if ( pageSets.pageset.hasPages ) {
                       this.goThroughPageIdArray( pageSets.pageset.hasPages, action );
                     }*/
@@ -401,5 +478,172 @@ export class MyFilesComponent implements OnInit {
           console.log( error );
         }
       );
-}
+  }
+
+  showAvailableInseriApps(file: any) {
+    console.log(file);
+    this.file = file;
+    const inseriAppsMenu = [];
+    for ( const app of new AppMenuModel().appMenu.filter(item => item.name) ) {
+        inseriAppsMenu.push(app);
+    }
+    this.dataSource = new MatTableDataSource(
+      inseriAppsMenu
+    );
+    console.log('this.dataSource has been filled');
+    console.log(this.dataSource);
+    this.showForm('appMenuForm');
+  }
+
+
+  openApp(appType: string, name: string) {
+    // this.pageComponent.addAnotherApp(appType, true, name);
+    /*if ( this.openAppsInThisPage[ appType ].inputs ) {
+      if ( this.loggedIn ) {
+        this.spinner.show();
+      }*/
+    const appModel = this.openAppsInThisPage[ appType ].model;
+    console.log( this.openAppsInThisPage[ appType ] );
+    const length = appModel.length;
+    appModel[ length ] = {};
+      appModel[ length ].hash = this.generateHashService.generateHash();
+      appModel[ length ].type = appType;
+      appModel[ length ].title = name;
+      appModel[ length ].fullWidth = false;
+      appModel[ length ].fullHeight = false;
+      appModel[ length ].initialized = true;
+      appModel[ length ].x = 100;
+      appModel[ length ].y = 100;
+      appModel[ length ].initialHeight = this.openAppsInThisPage[ appType ].initialHeight;
+      appModel[ length ].initialWidth = this.openAppsInThisPage[ appType ].initialWidth;
+      appModel[ length ].width = this.openAppsInThisPage[ appType ].initialWidth;
+      appModel[ length ].height = this.openAppsInThisPage[ appType ].initialHeight;
+      appModel[ length ].openAppArrayIndex = length;
+      appModel[ length ].showContent = true;
+      console.log(appModel[length]);
+      for ( const input of this.openAppsInThisPage[ appType].inputs ) {
+        const now = new Date();
+        this.queriesService.createQuery(
+          {title: appType +
+              '-' + now.getFullYear() +
+              ':' + now.getDate() +
+              ':' + now.getHours() +
+              ':' + now.getMinutes() +
+              ':' + now.getSeconds() })
+          .subscribe(data => {
+            if (data.status === 201) {
+              const query = data.body.query;
+              this.requestService.createJson()
+                .subscribe(myOwnJson => {
+                    const jsonId = (myOwnJson as any).result._id;
+                  // tslint:disable-next-line:max-line-length
+                    const serverURL =  environment.node + '/api/myOwnJson/getJson/' + String((myOwnJson as any).result._id);
+                    query.serverUrl = this.file.urlPath; // serverURL;
+                    query.method = 'GET';
+                    query.description = now.getFullYear() +
+                      ':' + now.getDate() +
+                      ':' + now.getHours() +
+                      ':' + now.getMinutes() +
+                      ':' + now.getSeconds();
+                    this.queriesService.updateQuery(query._id, query)
+                      .subscribe((data3) => {
+                        if (data3.status === 200) {
+                        } else {
+                          console.log('Updating query failed');
+                        }
+                      }, error1 => console.log(error1));
+                    const app = appModel[ length ];
+                    if ( this.page.appInputQueryMapping[ app.hash ] === undefined ) {
+                      this.page.appInputQueryMapping[ app.hash ] = {};
+                    }
+                    this.page.appInputQueryMapping[ app.hash ][ input.inputName ] = {};
+                    this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'path' ] = [ 'result', 'content', 'info' ];
+                    this.page.appInputQueryMapping[ app.hash ][ input.inputName ].query = query._id;
+                    this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'serverUrl' ] = this.file.urlPath; // query.serverUrl;
+                    this.page.appInputQueryMapping[ app.hash ].app = app.hash;
+                    // this.pageComponent.updatePage();
+                    console.log(this.page);
+                    this.requestService.updateJson(
+                      jsonId,
+                      {
+                        _id: '5e26f93905dee90e3dcea8ea',
+                        creator: '5bf6823c9ec116a6fee7431d',
+                        content: {
+                          info: input.default
+                        },
+                        __v: 0
+                      }
+                    )
+                      .subscribe(updatedJson => {
+                          console.log(updatedJson);
+                          // this.reloadVariables = true;
+                        }, error => console.log(error)
+                      );
+                  }, error => {
+                    console.log(error);
+                  }
+                );
+            }
+          }, error1 => {
+            // this.spinner.hide();
+            console.log( error1 );
+          });
+      }
+      console.log(this.openAppsInThisPage);
+      this.pageComponent.generateOpenApps(this.openAppsInThisPage);
+    }
+
+  navigateToPageSet(pageSet: any) {
+    console.log(pageSet);
+    this.pageSetService.getPageSet( pageSet.id )
+      .subscribe(
+        data => {
+          console.log(pageSet.actionId);
+          this.router.navigate(['/page'],
+            { queryParams:
+                { actionID: pageSet.actionId,
+                  page: data.pageset.hasPages[0]
+                }
+            });
+         console.log(data.pageset.hasPages[0]);
+        }, error1 => {
+          console.log( error1 );
+        }
+      );
+  }
+  createNewQuery(queryTitle: string) {
+    this.queriesService.createQuery({title: queryTitle})
+      .subscribe(data => {
+        console.log(data);
+        if (data.status === 201) {
+          this.addQueryToFolder({id: data.body.query._id, title: queryTitle});
+          this.showForm('');
+        }
+      });
+  }
+  editQuery(query: any) {
+    const dialogRef = this.dialog.open(QueryEntryComponent, {
+      width: '100%',
+      height: '100%',
+      data: {
+        query: query,
+        pageID: null
+      }
+    });
+  }
+
+  receiveOpenAppsInThisPage(openAppsInThisPage: any) {
+    this.openAppsInThisPage = openAppsInThisPage;
+  }
+    receivePage( pageAndAction: any ) {
+      this.page = pageAndAction[0];
+      // console.log( pageAndAction[0] );
+      this.action = pageAndAction[1];
+      /*this.reloadVariables = false;
+      this.pageIsPublished = this.page.published;
+      this.showAppTitlesOnPublish = this.page.showAppTitlesOnPublish;
+      this.showAppSettingsOnPublish = this.page.showAppSettingsOnPublish;
+      this.showInseriLogoOnPublish = this.page.showInseriLogoOnPublish;
+      this.showDataBrowserOnPublish = this.page.showDataBrowserOnPublish;*/
+    }
 }
