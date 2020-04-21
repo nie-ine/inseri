@@ -95,4 +95,44 @@ For those who are not that lucky, and had to scan the project data by themselves
 
 ## 1.2. Adding images and data from desktop to Inseri
 
-## 1.3. Addressing protected resources from Inseri
+## 1.3. Addressing protected or partially available resources from Inseri
+
+Here we shall take DDD project data (Drawings of Gods, University of Lausanne) in Knora as example. 
+Project description on the old webpage can be found here:
+[https://ddd.unil.ch/](https://ddd.unil.ch/)
+
+The project data has been imported into Knora, and below you can see a link to one of the images:
+[https://kv.unil.ch/resource/http:%2F%2Frdfh.ch%2F0105%2F-0XOy-sFSbeojbIsTwmVPw?version=20180702T153543856Z](https://kv.unil.ch/resource/http:%2F%2Frdfh.ch%2F0105%2F-0XOy-sFSbeojbIsTwmVPw?version=20180702T153543856Z)
+
+Knora displays the data that has been made publicly available by the DDD project. The data that is not in public domain can be reached only with admin level of access. We shall thus try to resolve the real problem here, namely, the absence of the possibility to make an easy to use webpage of the project imported into Knora from within Knora. We shall do it from Inseri.
+
+First of all, all like above in 1.1.1. example, we shall create a new set of pages and a new query.
+It is very difficult to find the proper URL to be posted into the query. The easy way involves searching for a non-existent entry in the project data in the link above, which gives an error message.
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/1Knora0.png" alt="Knora Search Error" width="600"></p>
+
+We shall use a part of the first URL, and just replace the search with the "searchextended".
+Then we shall post a ready URL into our query. Having tried the query, we can see that 25 images with data are available.
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/1Knora1.png" alt="Knora Search Error" width="600"></p>
+
+Now, we can close it all and open the applications that we shall use for our example. We shall need one "Image Viewer" to be able to display the images, and 3 "Plain text viewers" in order to display image code, and its dimensions in pixels (x, y).
+The data mapping is a puzzle, it is particularly difficult to find which link would display the image.
+
+The path is as follows:
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/1Knora2.png" alt="Linking Images" width="600"></p>
+
+While the text data linkages are more evident. Here is the example of "label", i.e. image code:
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/1Knora4.png" alt="Linking Images" width="400"></p>
+
+And here is the X-dimension in pixels:
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/1Knora2.png" alt="Linking Text Data" width="500"></p>
+
+Having saved and reloaded the page we obtain a simplified webpage, in which the user can see the image, and zoom into it, and find out its code and the dimensions:
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/1Knora5.png" alt="Resulting Page" width="700"></p>
+
+As in the 1.1.1. example, the images and their data maintain their original structure and linkages, and thus when one navigates in any of the windows via < > signs, the data fits the corresponding image. If one clicks on the number of the resource, it will open the extended serach options, here, for example, we can see the preview of the whole selection of images:
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/1Knora6.png" alt="Preview of all pages" width="700"></p>
