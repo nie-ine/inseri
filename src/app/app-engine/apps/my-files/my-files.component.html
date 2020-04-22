@@ -228,7 +228,8 @@
     <!-- ID Column -->
     <ng-container matColumnDef="id"  >
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Icon </th>
-      <td mat-cell *matCellDef="let row" (click)="openApp(row.appType, row.name)" style="cursor: pointer; width: 25%;"> <button mat-button><mat-icon>{{row.id}}</mat-icon> </button></td>
+      <td mat-cell *matCellDef="let row" (click)="openApp(row.appType, row.name)" style="cursor: pointer; width: 25%;">
+        <button mat-button><mat-icon>{{row.id}}</mat-icon> </button></td>
     </ng-container>
 
     <!-- Name Column -->
