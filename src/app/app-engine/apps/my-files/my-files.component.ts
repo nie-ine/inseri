@@ -50,7 +50,7 @@ export class MyFilesComponent implements OnInit {
   addFolderForm = false;
   updateFolderTitleForm = false;
   pageSetForm = false;
-  appMenuForm = false;
+  // appMenuForm = false;
   createPageSetForm = false;
   createQueryForm = false;
   folder: string;
@@ -93,6 +93,7 @@ export class MyFilesComponent implements OnInit {
   queryTitle: string;
   openAppsInThisPage: any = (new OpenAppsModel).openApps;
   page: any = {};
+  inseriAppsMenu = [];
 
   createPageSet(title: string, description: string) {
     this.action.type = 'page-set';
@@ -166,9 +167,9 @@ export class MyFilesComponent implements OnInit {
       case 'createPageSetForm':
         this.createPageSetForm = true;
         break;
-      case 'appMenuForm':
+      /*case 'appMenuForm':
         this.appMenuForm = true;
-        break;
+        break;*/
       case 'createQueryForm':
         this.createQueryForm = true;
         break;
@@ -177,7 +178,7 @@ export class MyFilesComponent implements OnInit {
         this.updateFolderTitleForm = false;
         this.pageSetForm = false;
         this.createPageSetForm = false;
-        this.appMenuForm = false;
+        // this.appMenuForm = false;
         this.createQueryForm = false;
     }
   }
@@ -482,18 +483,19 @@ export class MyFilesComponent implements OnInit {
   }
 
   showAvailableInseriApps(file: any) {
+    this.inseriAppsMenu = [];
     console.log(file);
     this.file = file;
-    const inseriAppsMenu = [];
+
     for ( const app of new AppMenuModel().appMenu.filter(item => item.name) ) {
-        inseriAppsMenu.push(app);
+        this.inseriAppsMenu.push(app);
     }
-    this.dataSource = new MatTableDataSource(
+    /*this.dataSource = new MatTableDataSource(
       inseriAppsMenu
-    );
+    );*/
     console.log('this.dataSource has been filled');
-    console.log(this.dataSource);
-    this.showForm('appMenuForm');
+    console.log(this.inseriAppsMenu);
+    // this.showForm('appMenuForm');
   }
 
   navigateToPageSet(pageSet: any) {

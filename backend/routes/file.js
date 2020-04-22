@@ -141,18 +141,6 @@ router.get("/files/:folderId",checkAuth, (req, res, next) => {
     })
   });
 });
- /* FileModel.find({owner: req.userData.userId}).then(documents => {
-    res.status(200).json({
-      message: "Files fetched successfully!",
-      files: documents
-    });
-  }).catch(error => {
-    res.status(500).json({
-      message: 'Fetching files failed',
-      error: error
-    })
-  })
-});*/
 
 router.get("/:id", (req, res, next) => {
   FileModel.findById(req.params.id).then(file => {
