@@ -28,6 +28,7 @@ import {GenerateHashService} from '../../../user-action-engine/other/generateHas
   styleUrls: ['./my-files.component.scss']
 })
 export class MyFilesComponent implements OnInit {
+  openAppArray = [];
 
   constructor(
     private http: HttpClient,
@@ -495,104 +496,6 @@ export class MyFilesComponent implements OnInit {
     this.showForm('appMenuForm');
   }
 
-
-  openApp(appType: string, name: string) {
-    // this.pageComponent.addAnotherApp(appType, true, name);
-    /*if ( this.openAppsInThisPage[ appType ].inputs ) {
-      if ( this.loggedIn ) {
-        this.spinner.show();
-      }*/
-    const appModel = this.openAppsInThisPage[ appType ].model;
-    console.log( this.openAppsInThisPage[ appType ] );
-    const length = appModel.length;
-    appModel[ length ] = {};
-      appModel[ length ].hash = this.generateHashService.generateHash();
-      appModel[ length ].type = appType;
-      appModel[ length ].title = name;
-      appModel[ length ].fullWidth = false;
-      appModel[ length ].fullHeight = false;
-      appModel[ length ].initialized = true;
-      appModel[ length ].x = 100;
-      appModel[ length ].y = 100;
-      appModel[ length ].initialHeight = this.openAppsInThisPage[ appType ].initialHeight;
-      appModel[ length ].initialWidth = this.openAppsInThisPage[ appType ].initialWidth;
-      appModel[ length ].width = this.openAppsInThisPage[ appType ].initialWidth;
-      appModel[ length ].height = this.openAppsInThisPage[ appType ].initialHeight;
-      appModel[ length ].openAppArrayIndex = length;
-      appModel[ length ].showContent = true;
-      console.log(appModel[length]);
-      for ( const input of this.openAppsInThisPage[ appType].inputs ) {
-        const now = new Date();
-        this.queriesService.createQuery(
-          {title: appType +
-              '-' + now.getFullYear() +
-              ':' + now.getDate() +
-              ':' + now.getHours() +
-              ':' + now.getMinutes() +
-              ':' + now.getSeconds() })
-          .subscribe(data => {
-            if (data.status === 201) {
-              const query = data.body.query;
-              this.requestService.createJson()
-                .subscribe(myOwnJson => {
-                    const jsonId = (myOwnJson as any).result._id;
-                  // tslint:disable-next-line:max-line-length
-                    const serverURL =  environment.node + '/api/myOwnJson/getJson/' + String((myOwnJson as any).result._id);
-                    query.serverUrl = this.file.urlPath; // serverURL;
-                    query.method = 'GET';
-                    query.description = now.getFullYear() +
-                      ':' + now.getDate() +
-                      ':' + now.getHours() +
-                      ':' + now.getMinutes() +
-                      ':' + now.getSeconds();
-                    this.queriesService.updateQuery(query._id, query)
-                      .subscribe((data3) => {
-                        if (data3.status === 200) {
-                        } else {
-                          console.log('Updating query failed');
-                        }
-                      }, error1 => console.log(error1));
-                    const app = appModel[ length ];
-                    if ( this.page.appInputQueryMapping[ app.hash ] === undefined ) {
-                      this.page.appInputQueryMapping[ app.hash ] = {};
-                    }
-                    this.page.appInputQueryMapping[ app.hash ][ input.inputName ] = {};
-                    this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'path' ] = [ 'result', 'content', 'info' ];
-                    this.page.appInputQueryMapping[ app.hash ][ input.inputName ].query = query._id;
-                    this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'serverUrl' ] = this.file.urlPath; // query.serverUrl;
-                    this.page.appInputQueryMapping[ app.hash ].app = app.hash;
-                    // this.pageComponent.updatePage();
-                    console.log(this.page);
-                    this.requestService.updateJson(
-                      jsonId,
-                      {
-                        _id: '5e26f93905dee90e3dcea8ea',
-                        creator: '5bf6823c9ec116a6fee7431d',
-                        content: {
-                          info: input.default
-                        },
-                        __v: 0
-                      }
-                    )
-                      .subscribe(updatedJson => {
-                          console.log(updatedJson);
-                          // this.reloadVariables = true;
-                        }, error => console.log(error)
-                      );
-                  }, error => {
-                    console.log(error);
-                  }
-                );
-            }
-          }, error1 => {
-            // this.spinner.hide();
-            console.log( error1 );
-          });
-      }
-      console.log(this.openAppsInThisPage);
-      this.pageComponent.generateOpenApps(this.openAppsInThisPage);
-    }
-
   navigateToPageSet(pageSet: any) {
     console.log(pageSet);
     this.pageSetService.getPageSet( pageSet.id )
@@ -634,10 +537,11 @@ export class MyFilesComponent implements OnInit {
 
   receiveOpenAppsInThisPage(openAppsInThisPage: any) {
     this.openAppsInThisPage = openAppsInThisPage;
+    console.log(this.openAppsInThisPage);
   }
     receivePage( pageAndAction: any ) {
       this.page = pageAndAction[0];
-      // console.log( pageAndAction[0] );
+       console.log( pageAndAction[0] );
       this.action = pageAndAction[1];
       /*this.reloadVariables = false;
       this.pageIsPublished = this.page.published;
@@ -646,4 +550,155 @@ export class MyFilesComponent implements OnInit {
       this.showInseriLogoOnPublish = this.page.showInseriLogoOnPublish;
       this.showDataBrowserOnPublish = this.page.showDataBrowserOnPublish;*/
     }
+
+  openApp(appType: string, name: string) {
+    this.pageComponent.addAnotherApp(appType, true, name);
+    const appModel = this.openAppsInThisPage[appType].model;
+    console.log(this.openAppsInThisPage[appType]);
+    const length = appModel.length;
+    appModel[length] = {};
+    appModel[length].hash = this.generateHashService.generateHash();
+    appModel[length].type = appType;
+    appModel[length].title = name;
+    appModel[length].fullWidth = false;
+    appModel[length].fullHeight = false;
+    appModel[length].initialized = true;
+    appModel[length].x = 100;
+    appModel[length].y = 100;
+    appModel[length].initialHeight = this.openAppsInThisPage[appType].initialHeight;
+    appModel[length].initialWidth = this.openAppsInThisPage[appType].initialWidth;
+    appModel[length].width = this.openAppsInThisPage[appType].initialWidth;
+    appModel[length].height = this.openAppsInThisPage[appType].initialHeight;
+    appModel[length].openAppArrayIndex = length;
+    appModel[length].showContent = true;
+    if (!this.page.openApps) {
+      this.page.openApps = {};
+    }
+    if (
+      this.page.openApps &&
+      this.page.openApps[appModel[length].hash] === null
+    ) {
+      this.page.openApps[appModel[length].hash] = [];
+    }
+    if (this.page.openApps) {
+      this.page.openApps[appModel[length].hash] = appModel[length];
+    }
+    if (this.openAppArray.length === 0) {
+      this.openAppArray.push(appModel[length]);
+    } else {
+      this.openAppArray = [appModel[length]].concat(this.openAppArray);
+    }
+    console.log('add another app - add new myOwnJsonQuery', appType, appModel[length].hash);
+    if (appType !== 'pageMenu') {
+      this.createDefaultInputAndMapToAppInput(
+        appType,
+        appModel[length]
+      );
+    }
+  }
+
+  private createDefaultInputAndMapToAppInput( appType: string, app: any) {
+  if ( this.openAppsInThisPage[ app.type ].inputs ) {
+for ( const input of this.openAppsInThisPage[ app.type ].inputs ) {
+  const now = new Date();
+  this.queriesService.createQueryOfPage(this.page._id,
+    {title: appType +
+        '-' + now.getFullYear() +
+        ':' + now.getDate() +
+        ':' + now.getHours() +
+        ':' + now.getMinutes() +
+        ':' + now.getSeconds() })
+    .subscribe(data => {
+      if (data.status === 201) {
+        const query = data.body.query;
+        this.requestService.createJson()
+          .subscribe(myOwnJson => {
+              const jsonId = (myOwnJson as any).result._id;
+              const serverURL = environment.node + '/api/myOwnJson/getJson/' + String((myOwnJson as any).result._id);
+              query.serverUrl = serverURL;
+              query.method = 'JSON';
+              query.description = now.getFullYear() +
+                ':' + now.getDate() +
+                ':' + now.getHours() +
+                ':' + now.getMinutes() +
+                ':' + now.getSeconds();
+              this.queriesService.updateQueryOfPage(this.page._id, query._id, query)
+                .subscribe((data3) => {
+                  if (data3.status === 200) {
+                  } else {
+                    console.log('Updating query failed');
+                  }
+                }, error1 => console.log(error1));
+              if ( this.page.appInputQueryMapping[ app.hash ] === undefined ) {
+                this.page.appInputQueryMapping[ app.hash ] = {};
+              }
+              this.page.appInputQueryMapping[ app.hash ][ input.inputName ] = {};
+              this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'path' ] = [ 'result', 'content', 'info' ];
+              this.page.appInputQueryMapping[ app.hash ][ input.inputName ].query = query._id;
+              this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'serverUrl' ] = query.serverUrl;
+              this.page.appInputQueryMapping[ app.hash ].app = app.hash;
+              this.updatePage();
+              this.requestService.updateJson(
+                jsonId,
+                {
+                  _id: '5e26f93905dee90e3dcea8ea',
+                  creator: '5bf6823c9ec116a6fee7431d',
+                  content: {
+                    info: input.default
+                  },
+                  __v: 0
+                }
+              )
+                .subscribe(updatedJson => {
+                    console.log(updatedJson);
+                    // this.reloadVariables = true;
+                  }, error => console.log(error)
+                );
+            }, error => {
+              console.log(error);
+            }
+          );
+      }
+    }, error1 => {
+      // this.spinner.hide();
+      console.log( error1 );
+    });
+}
+}
+}
+
+  private updatePage() {
+    let openAppArrayIndex = 0;
+    for (let i = 0; i < this.openAppArray.length; i++) {
+      if (
+        this.page.openApps[this.openAppArray[i].hash].type !== 'pageMenu' &&
+        this.page.openApps[this.openAppArray[i].hash].type !== 'dataChooser'
+      ) {
+        this.page.openApps[this.openAppArray[i].hash].openAppArrayIndex = openAppArrayIndex;
+        openAppArrayIndex += 1;
+      }
+    }
+    console.log(this.page, this.openAppArray);
+    this.pageService.updatePage(
+      {...this.page}
+    )
+      .subscribe(
+        data => {
+          console.log(data);
+        }
+          /*this.snackBarOpen = true;
+          setTimeout(() => {
+            this.snackBarOpen = false;
+          }, 2000);
+          this.snackBar2.open('Page successfully saved', 'ok',
+            {
+              duration: 2000
+            });
+        }*/,
+        error => {
+          console.log(error);
+          /*this.spinner.hide();
+          this.snackBar2.open('Sth went wrong, page has not been saved');*/
+        });
+  }
 }
