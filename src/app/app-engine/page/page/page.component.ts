@@ -627,7 +627,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
   addAnotherApp (
     appType: string,
     generateHash: boolean,
-    title: string
+    title: string,
+    fileUrlPath?: string
   ): Array<any> {
     const appModel = this.openAppsInThisPage[ appType ].model;
     console.log( this.openAppsInThisPage[ appType ] );
@@ -669,7 +670,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
       if ( appType !== 'pageMenu' ) {
         this.createDefaultInputAndMappToAppInput(
           appType,
-          appModel[ length ]
+          appModel[ length ],
+          fileUrlPath
         );
       }
     }
@@ -678,8 +680,10 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   createDefaultInputAndMappToAppInput(
     appType: string,
-    app: any
+    app: any,
+    fileUrlPath?: string
   ) {
+    console.log(fileUrlPath);
     if ( this.openAppsInThisPage[ app.type ].inputs ) {
       if ( this.loggedIn ) {
         this.spinner.show();
@@ -729,7 +733,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
                         _id: '5e26f93905dee90e3dcea8ea',
                         creator: '5bf6823c9ec116a6fee7431d',
                         content: {
-                          info: input.default
+                          info: fileUrlPath || input.default
                         },
                         __v: 0
                       }
