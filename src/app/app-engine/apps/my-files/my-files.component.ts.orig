@@ -496,6 +496,105 @@ export class MyFilesComponent implements OnInit {
     this.showForm('appMenuForm');
   }
 
+<<<<<<< HEAD
+
+  openApp(appType: string, name: string, input?: any) {
+    // this.pageComponent.addAnotherApp(appType, true, name);
+    /*if ( this.openAppsInThisPage[ appType ].inputs ) {
+      if ( this.loggedIn ) {
+        this.spinner.show();
+      }*/
+    const appModel = this.openAppsInThisPage[ appType ].model;
+    console.log( this.openAppsInThisPage[ appType ] );
+    const length = appModel.length;
+    appModel[ length ] = {};
+      appModel[ length ].hash = this.generateHashService.generateHash();
+      appModel[ length ].type = appType;
+      appModel[ length ].title = name;
+      appModel[ length ].fullWidth = false;
+      appModel[ length ].fullHeight = false;
+      appModel[ length ].initialized = true;
+      appModel[ length ].x = 100;
+      appModel[ length ].y = 100;
+      appModel[ length ].initialHeight = this.openAppsInThisPage[ appType ].initialHeight;
+      appModel[ length ].initialWidth = this.openAppsInThisPage[ appType ].initialWidth;
+      appModel[ length ].width = this.openAppsInThisPage[ appType ].initialWidth;
+      appModel[ length ].height = this.openAppsInThisPage[ appType ].initialHeight;
+      appModel[ length ].openAppArrayIndex = length;
+      appModel[ length ].showContent = true;
+      console.log(appModel[length]);
+        const now = new Date();
+        this.queriesService.createQuery(
+          {title: appType +
+              '-' + now.getFullYear() +
+              ':' + now.getDate() +
+              ':' + now.getHours() +
+              ':' + now.getMinutes() +
+              ':' + now.getSeconds() })
+          .subscribe(data => {
+            if (data.status === 201) {
+              const query = data.body.query;
+              this.requestService.createJson()
+                .subscribe(myOwnJson => {
+                    const jsonId = (myOwnJson as any).result._id;
+                    console.log( myOwnJson );
+                    const serverURL =  environment.node + '/api/myOwnJson/getJson/' + String((myOwnJson as any).result._id);
+                    query.serverUrl = serverURL; // serverURL;
+                    query.method = 'JSON';
+                    query.description = now.getFullYear() +
+                      ':' + now.getDate() +
+                      ':' + now.getHours() +
+                      ':' + now.getMinutes() +
+                      ':' + now.getSeconds();
+                    this.queriesService.updateQuery(query._id, query)
+                      .subscribe((data3) => {
+                        if (data3.status === 200) {
+                        } else {
+                          console.log('Updating query failed');
+                        }
+                      }, error1 => console.log(error1));
+                    const app = appModel[ length ];
+                    if ( this.page.appInputQueryMapping[ app.hash ] === undefined ) {
+                      this.page.appInputQueryMapping[ app.hash ] = {};
+                    }
+                    this.page.appInputQueryMapping[ app.hash ][ input.inputName ] = {};
+                    this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'path' ] = [ 'result', 'content', 'info' ];
+                    this.page.appInputQueryMapping[ app.hash ][ input.inputName ].query = query._id;
+                    this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'serverUrl' ] = this.file.urlPath; // query.serverUrl;
+                    this.page.appInputQueryMapping[ app.hash ].app = app.hash;
+                    // this.pageComponent.updatePage();
+                    console.log(this.page);
+                    this.requestService.updateJson(
+                      jsonId,
+                      {
+                        _id: '5e26f93905dee90e3dcea8ea',
+                        creator: '5bf6823c9ec116a6fee7431d',
+                        content: {
+                          info: this.file.urlPath
+                        },
+                        __v: 0
+                      }
+                    )
+                      .subscribe(updatedJson => {
+                          console.log(updatedJson);
+                          // this.reloadVariables = true;
+                        }, error => console.log(error)
+                      );
+                  }, error => {
+                    console.log(error);
+                  }
+                );
+            }
+          }, error1 => {
+            // this.spinner.hide();
+            console.log( error1 );
+          });
+      console.log(this.openAppsInThisPage);
+      this.pageComponent.generateOpenApps(this.openAppsInThisPage);
+    }
+
+=======
+>>>>>>> 3c8eb918deded401f8d72ee46895ed6ef0274980
   navigateToPageSet(pageSet: any) {
     console.log(pageSet);
     this.pageSetService.getPageSet( pageSet.id )
