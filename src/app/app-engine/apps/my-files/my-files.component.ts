@@ -496,7 +496,7 @@ export class MyFilesComponent implements OnInit {
   }
 
 
-  openApp(appType: string, name: string) {
+  openApp(appType: string, name: string, input?: any) {
     // this.pageComponent.addAnotherApp(appType, true, name);
     /*if ( this.openAppsInThisPage[ appType ].inputs ) {
       if ( this.loggedIn ) {
@@ -521,7 +521,6 @@ export class MyFilesComponent implements OnInit {
       appModel[ length ].openAppArrayIndex = length;
       appModel[ length ].showContent = true;
       console.log(appModel[length]);
-      for ( const input of this.openAppsInThisPage[ appType].inputs ) {
         const now = new Date();
         this.queriesService.createQuery(
           {title: appType +
@@ -536,10 +535,10 @@ export class MyFilesComponent implements OnInit {
               this.requestService.createJson()
                 .subscribe(myOwnJson => {
                     const jsonId = (myOwnJson as any).result._id;
-                  // tslint:disable-next-line:max-line-length
+                    console.log( myOwnJson );
                     const serverURL =  environment.node + '/api/myOwnJson/getJson/' + String((myOwnJson as any).result._id);
-                    query.serverUrl = this.file.urlPath; // serverURL;
-                    query.method = 'GET';
+                    query.serverUrl = serverURL; // serverURL;
+                    query.method = 'JSON';
                     query.description = now.getFullYear() +
                       ':' + now.getDate() +
                       ':' + now.getHours() +
@@ -569,7 +568,7 @@ export class MyFilesComponent implements OnInit {
                         _id: '5e26f93905dee90e3dcea8ea',
                         creator: '5bf6823c9ec116a6fee7431d',
                         content: {
-                          info: input.default
+                          info: this.file.urlPath
                         },
                         __v: 0
                       }
@@ -588,7 +587,6 @@ export class MyFilesComponent implements OnInit {
             // this.spinner.hide();
             console.log( error1 );
           });
-      }
       console.log(this.openAppsInThisPage);
       this.pageComponent.generateOpenApps(this.openAppsInThisPage);
     }
