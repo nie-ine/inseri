@@ -41,13 +41,13 @@ export class StackedBarChartComponent implements AfterViewChecked {
   constructor() {}
 
   ngAfterViewChecked() {
-    console.log( this.data.data );
-    if ( this.initialised && !this.alreadyInitialised && this.data !== undefined && this.data.data.length > 0 ) {
+    // console.log( this.data );
+    if ( this.initialised && !this.alreadyInitialised && this.data !== undefined && this.data.length > 0 ) {
       this.alreadyInitialised = true;
       setTimeout(() => {
       this.initMargins();
       this.initSvg();
-      this.drawChart(this.data.data);
+      this.drawChart(this.data);
       }, 100);
     }
   }
@@ -81,7 +81,6 @@ export class StackedBarChartComponent implements AfterViewChecked {
   }
 
   private drawChart(data: any[]) {
-
     let keys = Object.getOwnPropertyNames(data[0]).slice(1);
 
     data = data.map(v => {

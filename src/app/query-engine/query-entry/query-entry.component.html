@@ -14,6 +14,10 @@
   <button mat-button (click)="saveAndClose()" >
     <mat-icon>clear</mat-icon> Save and Close
   </button>
+  <button mat-button (click)="closeWithoutSaving()">
+  <mat-icon>clear</mat-icon>
+    Close without saving
+  </button>
 </div>
 
 <form [formGroup]="form" class="example-form" style="margin-top: 40px" >
@@ -65,10 +69,6 @@
 
 <button mat-button *ngIf="activateJsonButton && form.get('serverURL').value && jsonObjectHasArrived" (click)="updateJsonObject()">
   <mat-icon>save</mat-icon> Save or Update Json Object
-</button>
-
-<button mat-button (click)="initiateQuery()" *ngIf="activateJsonButton && form.get('serverURL').value && !jsonObjectHasArrived">
-  <mat-icon>label</mat-icon> Get Json Object
 </button>
 
 <ace-editor class="url-extension"

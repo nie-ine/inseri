@@ -551,7 +551,7 @@ export class MyFilesComponent implements OnInit {
       this.showDataBrowserOnPublish = this.page.showDataBrowserOnPublish;*/
     }
 
-    openApp(appType: string, name: string) {
-      this.pageComponent.addAnotherApp(appType, true, name, this.file.urlPath);
-    }
+  openApp(appType: string, name: string) {
+    this.pageComponent.addAnotherApp(appType, true, name, this.file.urlPath);
+  }
 }
