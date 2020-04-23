@@ -20,12 +20,7 @@
   </app-data-assignment>
 
 
-<ngx-spinner
-  bdColor = "rgba(51, 51, 51, 0.8)"
-  size = "large"
-  color = "#fff"
-  type = "cube-transition"
-></ngx-spinner>
+
 
       <!-- Publish Option Expansion Panel -->
       <div style="vertical-align: bottom; ">
@@ -212,22 +207,14 @@
 
       <div *ngFor="let app of openAppArray; let i = index;" >
         <popup #appId *ngIf="innerWidth > page.chosenWidth && !page.tiles && app.showContent"
-               [response]="app.response"
                [app]="app"
-               [pathsWithArrays]="app.pathsWithArrays"
                [showAppSettingsOnPublish]="!preview || showAppSettingsOnPublish"
                [preview]="preview && !showAppTitlesOnPublish"
-               [fullWidth]="app.fullWidth"
-               [fullHeight]="app.fullHeight"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"
                [position]="appFramePosition"
-               [hash]="app.hash"
-               [title]="app.title || app.type  + i"
-               [type]="app.type"
-               [firstPopupX]="app.x"
-               [firstPopupY]="app.y"
                [height]="produceHeightAndWidth( app.height,  app.initialHeight)"
                [width]="produceHeightAndWidth( app.width,  app.initialWidth )"
+               [spinnerIsShowing] = "app.spinnerIsShowing"
                (sendAppCoordinatesBack)="updateAppCoordinates($event)"
                (sendAppSettingsBack)="updateAppSettings($event)"
                (sendAssignInputCommandBack)="openAssignInputDialog($event)"
@@ -365,21 +352,13 @@
     <mat-card-actions *ngIf=" !app.minimized " >
 
       <popup #appId
-             [response]="app.response"
              [app]="app"
-             [pathsWithArrays]="app.pathsWithArrays"
              [showAppSettingsOnPublish]="!preview || showAppSettingsOnPublish"
              [preview]="preview && !showAppTitlesOnPublish"
-             [fullWidth]="app.fullWidth"
-             [fullHeight]="app.fullHeight"
              (sendTiledPositionBack) = "updateTiledPosition( $event )"
              [position]="'static'"
-             [hash]="app.hash"
-             [title]="app.title || app.type  + i"
-             [type]="app.type"
-             [firstPopupX]="app.x"
-             [firstPopupY]="app.y"
              [openAppArrayIndex]="i"
+             [spinnerIsShowing] = "app.spinnerIsShowing"
              (minimizeApp)="minimizeApp($event)"
              (sendAppCoordinatesBack)="updateAppCoordinates($event)"
              (sendAppSettingsBack)="updateAppSettings($event)"

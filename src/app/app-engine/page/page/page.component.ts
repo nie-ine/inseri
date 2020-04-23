@@ -99,11 +99,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
   pageAsDemo = false;
 
   /**
-   * isLoading - indicates if spinner is displayed or not
-   * */
-  isLoading = true;
-
-  /**
    * resetPage - gets rid of all open apps
    * */
   resetPage = false;
@@ -272,7 +267,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
     private pageService: PageService,
     public dialog: MatDialog,
     public queryInfoDialog: MatDialog,
-    private spinner: NgxSpinnerService,
     private requestService: GeneralRequestService,
     public sanitizer: DomSanitizer,
     private stylemapping: StyleMappingService,
@@ -311,7 +305,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * Opens the data managment dialog where users can add queries to the page
    * */
   openDataManagement() {
-    // this.spinner.show();
     this.pageService.updatePage(
       { ...this.page }
     )
@@ -423,15 +416,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
      * */
     if ( !this.actionID ) {
       this.pageAsDemo = true;
-      this.isLoading = false;
       this.lightHouse = false;
     }
-
-    // this.spinner.show();
-    //
-    // setTimeout(() => {
-    //   this.spinner.hide();
-    // }, 1000); // TODO: bind end of spinner to event that all queries have been loaded instead of setTimeout!
 
     /**
      * The key value pair curZindex is reset, it is incremented by one every time the user clicks on the app frame title bar
@@ -582,7 +568,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   /**
    * This function updates the page in MongoDB
    * */
-  updatePage() {
+  updatePage( reload?: boolean ) {
     /**
      *  - it is important to give a COPY of this.page as an input, thus { ...this.page },
      * otherwise this.page will be rewritten by the routine pageService.updatePage
@@ -598,7 +584,12 @@ export class PageComponent implements OnInit, AfterViewChecked {
         openAppArrayIndex += 1;
       }
     }
-    console.log( this.page, this.openAppArray );
+    for ( const mapping in this.page.appInputQueryMapping ) {
+      if ( !this.page.openApps[ mapping ] ) {
+        console.log( mapping );
+        delete this.page.appInputQueryMapping[ mapping ];
+      }
+    }
     this.pageService.updatePage(
       { ...this.page }
       )
@@ -612,10 +603,12 @@ export class PageComponent implements OnInit, AfterViewChecked {
             {
               duration: 2000
             });
+          if ( reload ) {
+            this.reloadVariables = true;
+          }
         },
         error => {
           console.log(error);
-          this.spinner.hide();
           this.snackBar2.open( 'Sth went wrong, page has not been saved' );
         });
   }
@@ -685,7 +678,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   ) {
     if ( this.openAppsInThisPage[ app.type ].inputs ) {
       if ( this.loggedIn ) {
-        this.spinner.show();
+        app.spinnerIsShowing = true;
       }
       for ( const input of this.openAppsInThisPage[ app.type ].inputs ) {
         const now = new Date();
@@ -748,7 +741,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
                 );
             }
           }, error1 => {
-            this.spinner.hide();
+            app.spinnerIsShowing = false;
             console.log( error1 );
           });
       }
@@ -848,9 +841,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
         this.openAppArray[ j ] = switchHelp;
       }
       j++;
-      if ( j === this.openAppArray.length ) {
-        this.spinner.hide();
-      }
+      app.spinnerIsShowing = false;
     }
   }
 
@@ -1148,7 +1139,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   reloadVariablesFunction() {
     console.log('test');
-    this.reloadVariables = true;
+    this.updatePage( true );
   }
 
   @HostListener('window:resize', ['$event'])
