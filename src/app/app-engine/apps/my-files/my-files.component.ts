@@ -559,4 +559,11 @@ export class MyFilesComponent implements OnInit {
     console.log( appType, this.openAppsInThisPage[ appType ].inputs, inputName );
     // this.pageComponent.addAnotherApp(appType, true, name, this.file.urlPath);
   }
+
+  showAllFolderStructure() {
+    this.folderService.getAllFoldersAndFiles(this.mainFolder_id)
+      .subscribe(data => {
+        console.log(data);
+      });
+  }
 }

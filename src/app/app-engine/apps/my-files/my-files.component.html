@@ -14,6 +14,11 @@
       create_new_folder
     </mat-icon>
   </button>
+  <button *ngIf="this.mainFolder_id!='-1'" mat-menu-item matTooltip="Show Folder Structure" (click)="showAllFolderStructure()">
+    <mat-icon>
+      my_location
+    </mat-icon>
+  </button>
   <button *ngIf="this.mainFolder_id!='-1'" mat-menu-item matTooltip="Update folder title" (click)="showForm('UpdateFolderTitle');">
     <mat-icon>edit</mat-icon>
   </button>
