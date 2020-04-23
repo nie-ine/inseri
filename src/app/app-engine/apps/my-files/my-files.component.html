@@ -233,9 +233,17 @@
 
 <mat-menu #menuOpenFileApps="matMenu">
   <div *ngFor="let app of inseriAppsMenu" style="display: inline-block">
-    <button mat-menu-item (click)="openApp(app.appType, app.name)" >
+    <button mat-menu-item   (click)="choseApp = app" >
       <mat-icon>{{app.id}}</mat-icon>
       {{app.name}}
     </button>
   </div>
 </mat-menu>
+
+<!--<mat-menu #menuOpenFileAppsItems="matMenu" >-->
+<!--  <div *ngFor="let input of openAppsInThisPage[ choseApp.appType ].inputs" style="display: inline-block">-->
+<!--    <button mat-menu-item (click)="openApp(choseApp.appType, choseApp.name, input.inputName)" >-->
+<!--      {{input.inputName}}-->
+<!--    </button>-->
+<!--  </div>-->
+<!--</mat-menu>-->

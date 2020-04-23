@@ -73,6 +73,7 @@ export class MyFilesComponent implements OnInit {
    addedPageSets = [];
    allQueriesOfUser = [];
    addedQueries = [];
+  choseApp: any = {};
   action: Action = {
     id: undefined,
     title: '',
@@ -94,6 +95,7 @@ export class MyFilesComponent implements OnInit {
   openAppsInThisPage: any = (new OpenAppsModel).openApps;
   page: any = {};
   inseriAppsMenu = [];
+
 
   createPageSet(title: string, description: string) {
     this.action.type = 'page-set';
@@ -553,7 +555,8 @@ export class MyFilesComponent implements OnInit {
       this.showDataBrowserOnPublish = this.page.showDataBrowserOnPublish;*/
     }
 
-  openApp(appType: string, name: string) {
-    this.pageComponent.addAnotherApp(appType, true, name, this.file.urlPath);
+  openApp(appType: string, name: string, inputName: string) {
+    console.log( appType, this.openAppsInThisPage[ appType ].inputs, inputName );
+    // this.pageComponent.addAnotherApp(appType, true, name, this.file.urlPath);
   }
 }
