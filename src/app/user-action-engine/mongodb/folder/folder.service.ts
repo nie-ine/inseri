@@ -93,4 +93,9 @@ export class FolderService {
         })
       );
   }
+  getAllFoldersAndFiles(mainFolderId: string): Observable<any> {
+    return this.http.get(
+      `${FolderService.API_BASE_URL_FOLDER}` + '/getAllFilesAndFolders/' + mainFolderId,
+      {});
+  }
 }

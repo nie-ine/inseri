@@ -497,29 +497,80 @@ router.post('/update/uploadFile/:folderId&:fileId',checkAuth, (req, res, next) =
     });
 });
 
-/*router.get('/getAllFilesAndFolders/:folderId', checkAuth, (req, res, next) => {
+router.get('/getAllFilesAndFolders/:folderId', checkAuth, (req, res, next) => {
   console.log(req.userData.userId+'\n'+req.params.folderId+'\n');
-  Folder.find({owner: req.userData.userId, _id: req.params.folderId},{hasQueries:1,_id:0})
-    .then(results => {
-      let message;
-      console.log(results[0].hasQueries);
-      if (results.length === 0) {
-        message = 'The Folder has no Queries'
-      } else {
-        message = 'All Queries were found'
-      }
-      console.log(message);
-      res.status(200).json({
-        message: message,
-        queries: results[0].hasQueries
-      });
-    })
-    .catch(error => {
+  let parentId=req.params.folderId;
+  let foldersArray=[];
+  let subFolderTempArray=[parentId];
+    for(let j=0;j<subFolderTempArray.length;j++){
+      console.log('subFolder ['+ j+'] = '+subFolderTempArray[j]);
+      Folder.find({owner: req.userData.userId, _id: subFolderTempArray[j]},{hasFiles: 1, title: 1})
+        .then(subFolders => {
+          let message;
+          if (subFolders.length === 0) {
+            message = 'The Folder has no childs'
+            console.log(message);
+          } else {
+            message = 'All files were found'
+            /*console.log(subFolders);
+
+              //subFolderTempArray.push(subFolders[i]._id);
+              console.log("subFolderTempArray: "+ subFolderTempArray);
+              //parentId=subFolders[i]._id;
+              console.log(subFolders[i]);
+              console.log(message+"- subFolderId= "+subFolders[i]._id+"subFolders Files are:  "+subFolders[i].hasFiles);
+              */
+              FileModel.find({
+                _id: {$in: subFolders[0].hasFiles}
+              })
+                .then(files => {
+                  let message;
+                  if (files.length === 0) {
+                    message = 'Files may be deleted accidentally';
+                    console.log(message);
+                  } else {
+                    foldersArray.push({folderTitle: subFolders[0].title, files: files});
+                    message = 'Files have been found.'
+                    console.log(message);
+                    console.log(files);
+                    res.status(200).json({
+                      message: message,
+                      files: files
+                    });
+                  }
+                })
+                .catch(error => {
+                  res.status(500).json({
+                    message: 'Fetching Files failed',
+                    error: error
+                  })
+                });
+            Folder.find({owner: req.userData.userId, hasParent: subFolderTempArray[j]},{_id:1})
+              .then(subFolders => {
+                let message;
+                if (subFolders.length === 0) {
+                  message = 'The Folder has no childs'
+                  console.log(message);
+                } else {
+                  message = 'All files were found'
+                  console.log(subFolders);
+                  for(let l=0;l<subFolders.length;l++){
+                    subFolderTempArray.push(subFolders[l]._id);
+                  }
+                  console.log("subFolderTempArray: "+ subFolderTempArray);
+                  }
+                });
+
+
+          }
+        })
+      .catch(error => {
       res.status(500).json({
-        message: 'Fetching all queries failed',
-        error: error
+      message: 'Folder has no files',
+      error: error
       })
-    })
-});*/
+      });
+}
+});
 module.exports = router;
 
