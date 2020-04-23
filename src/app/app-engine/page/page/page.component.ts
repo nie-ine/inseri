@@ -359,6 +359,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+    console.log( this.dataSource.filter );
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
@@ -623,6 +624,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     title: string,
     fileUrlPath?: string
   ): Array<any> {
+    this.dataSource.filter = undefined;
     const appModel = this.openAppsInThisPage[ appType ].model;
     console.log( this.openAppsInThisPage[ appType ] );
     const length = appModel.length;

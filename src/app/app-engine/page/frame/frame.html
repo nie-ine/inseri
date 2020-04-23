@@ -1,14 +1,14 @@
 
   <mat-card class="popup-win custom" *ngIf="show" id="app"
        [ngStyle]="{
-       'top': fullHeight ? '0' : curY + 'px',
-       'left': fullWidth ? '0' : curX + 'px',
+       'top': app.fullHeight ? '0' : curY + 'px',
+       'left': app.fullWidth ? '0' : curX + 'px',
        'z-index': curZIndex,
        'position': position,
-       width: fullWidth ? 'calc(100% - 70px)' : '',
-       height: fullHeight ? 'calc(100% - 70px)' : '',
-       'margin-top': fullHeight ? '70px' : '',
-       'margin-left': fullWidth ? '70px' : ''
+       width: app.fullWidth ? 'calc(100% - 70px)' : '',
+       height: app.fullHeight ? 'calc(100% - 70px)' : '',
+       'margin-top': app.fullHeight ? '70px' : '',
+       'margin-left': app.fullWidth ? '70px' : ''
        }">
 
         <mat-card-header class=" popup-drag" (mousedown)="mousedown($event)" *ngIf="!preview" (mousedown)="setNewZIndex()"
