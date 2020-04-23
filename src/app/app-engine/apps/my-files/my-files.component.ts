@@ -50,7 +50,7 @@ export class MyFilesComponent implements OnInit {
   addFolderForm = false;
   updateFolderTitleForm = false;
   pageSetForm = false;
-  appMenuForm = false;
+  // appMenuForm = false;
   createPageSetForm = false;
   createQueryForm = false;
   folder: string;
@@ -93,6 +93,7 @@ export class MyFilesComponent implements OnInit {
   queryTitle: string;
   openAppsInThisPage: any = (new OpenAppsModel).openApps;
   page: any = {};
+  inseriAppsMenu = [];
 
   createPageSet(title: string, description: string) {
     this.action.type = 'page-set';
@@ -166,9 +167,9 @@ export class MyFilesComponent implements OnInit {
       case 'createPageSetForm':
         this.createPageSetForm = true;
         break;
-      case 'appMenuForm':
+      /*case 'appMenuForm':
         this.appMenuForm = true;
-        break;
+        break;*/
       case 'createQueryForm':
         this.createQueryForm = true;
         break;
@@ -177,7 +178,7 @@ export class MyFilesComponent implements OnInit {
         this.updateFolderTitleForm = false;
         this.pageSetForm = false;
         this.createPageSetForm = false;
-        this.appMenuForm = false;
+        // this.appMenuForm = false;
         this.createQueryForm = false;
     }
   }
@@ -482,18 +483,19 @@ export class MyFilesComponent implements OnInit {
   }
 
   showAvailableInseriApps(file: any) {
+    this.inseriAppsMenu = [];
     console.log(file);
     this.file = file;
-    const inseriAppsMenu = [];
+
     for ( const app of new AppMenuModel().appMenu.filter(item => item.name) ) {
-        inseriAppsMenu.push(app);
+        this.inseriAppsMenu.push(app);
     }
-    this.dataSource = new MatTableDataSource(
+    /*this.dataSource = new MatTableDataSource(
       inseriAppsMenu
-    );
+    );*/
     console.log('this.dataSource has been filled');
-    console.log(this.dataSource);
-    this.showForm('appMenuForm');
+    console.log(this.inseriAppsMenu);
+    // this.showForm('appMenuForm');
   }
 
   navigateToPageSet(pageSet: any) {
@@ -553,40 +555,5 @@ export class MyFilesComponent implements OnInit {
 
   openApp(appType: string, name: string) {
     this.pageComponent.addAnotherApp(appType, true, name, this.file.urlPath);
-  }
-
-  private updatePage() {
-    let openAppArrayIndex = 0;
-    for (let i = 0; i < this.openAppArray.length; i++) {
-      if (
-        this.page.openApps[this.openAppArray[i].hash].type !== 'pageMenu' &&
-        this.page.openApps[this.openAppArray[i].hash].type !== 'dataChooser'
-      ) {
-        this.page.openApps[this.openAppArray[i].hash].openAppArrayIndex = openAppArrayIndex;
-        openAppArrayIndex += 1;
-      }
-    }
-    console.log(this.page, this.openAppArray);
-    this.pageService.updatePage(
-      {...this.page}
-    )
-      .subscribe(
-        data => {
-          console.log(data);
-        }
-          /*this.snackBarOpen = true;
-          setTimeout(() => {
-            this.snackBarOpen = false;
-          }, 2000);
-          this.snackBar2.open('Page successfully saved', 'ok',
-            {
-              duration: 2000
-            });
-        }*/,
-        error => {
-          console.log(error);
-          /*this.spinner.hide();
-          this.snackBar2.open('Sth went wrong, page has not been saved');*/
-        });
   }
 }

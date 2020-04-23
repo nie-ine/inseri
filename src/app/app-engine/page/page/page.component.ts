@@ -676,6 +676,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     app: any,
     fileUrlPath?: string
   ) {
+    console.log(fileUrlPath);
     if ( this.openAppsInThisPage[ app.type ].inputs ) {
       if ( this.loggedIn ) {
         app.spinnerIsShowing = true;

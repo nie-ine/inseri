@@ -214,33 +214,6 @@ router.post('/update/removePageSet/:folderId',checkAuth, (req, res, next) => {
     });
 });
 
-//router.post('/update/createPageSet/:folderId',checkAuth, (req, res, next) => {
-//  //PageSet.save
-//  Folder.updateOne({$and:[
-//        {owner:  req.userData.userId},
-//        {_id: req.params.folderId}
-//      ]},
-//    {$addToSet: {hasPageSets: req.params.pageSetId}})
-//    .then((updatedDocument) => {
-//      if (updatedDocument.n === 0) {
-//        res.status(400).json({
-//          message: 'Folder cannot be updated.'
-//        });
-//      } else {
-//        return res.status(200).json({
-//          message: 'Folder has been updated successfully',
-//          updatedDocument: updatedDocument
-//        });
-//      }
-//    })
-//    .catch(error => {
-//      res.status(500).json({
-//        message: 'Updating Folder failed.',
-//        error: error
-//      })
-//    });
-//});
-
 ///add, update and delete Query
 router.post('/update/addQuery/:folderId&:queryId',checkAuth, (req, res, next) => {
   console.log(req.userData.userId+'\n'+req.params.folderId+'\n'+req.params.queryId+'\n'+req.body.queryTitle);
@@ -322,7 +295,7 @@ router.post('/update/removeQuery/:folderId&:queryId',checkAuth, (req, res, next)
 });
 
 ///add and delete Page
-router.post('/update/addPage/:folderId&:pageId',checkAuth, (req, res, next) => {
+/*router.post('/update/addPage/:folderId&:pageId',checkAuth, (req, res, next) => {
   Folder.updateOne({$and:[
         {owner:  req.userData.userId},
         {_id: req.params.folderId}
@@ -396,7 +369,7 @@ router.post('/update/removePage/:folderId&:pageId',checkAuth, (req, res, next) =
       })
     });
 });
-
+*/
 ///add and delete Files
 router.post('/update/addFile/:folderId&:fileId',checkAuth, (req, res, next) => {
   Folder.updateOne({$and:[
@@ -425,7 +398,7 @@ router.post('/update/addFile/:folderId&:fileId',checkAuth, (req, res, next) => {
 });
 
 //return an array of Files
-router.get('getFiles/:folderId', checkAuth, (req, res, next) => {
+/*router.get('getFiles/:folderId', checkAuth, (req, res, next) => {
   Folder.find({owner: req.userData.userId, _id: req.params.folderId},{hasFiles:1,_id:0})
     .then(files => {
       let message;
@@ -445,7 +418,7 @@ router.get('getFiles/:folderId', checkAuth, (req, res, next) => {
         error: error
       })
     })
-});
+});*/
 
 router.post('/update/removeFile/:folderId&:fileId',checkAuth, (req, res, next) => {
   Folder.updateOne({$and:[
@@ -524,5 +497,29 @@ router.post('/update/uploadFile/:folderId&:fileId',checkAuth, (req, res, next) =
     });
 });
 
+/*router.get('/getAllFilesAndFolders/:folderId', checkAuth, (req, res, next) => {
+  console.log(req.userData.userId+'\n'+req.params.folderId+'\n');
+  Folder.find({owner: req.userData.userId, _id: req.params.folderId},{hasQueries:1,_id:0})
+    .then(results => {
+      let message;
+      console.log(results[0].hasQueries);
+      if (results.length === 0) {
+        message = 'The Folder has no Queries'
+      } else {
+        message = 'All Queries were found'
+      }
+      console.log(message);
+      res.status(200).json({
+        message: message,
+        queries: results[0].hasQueries
+      });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Fetching all queries failed',
+        error: error
+      })
+    })
+});*/
 module.exports = router;
 
