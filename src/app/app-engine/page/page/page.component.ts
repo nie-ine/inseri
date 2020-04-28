@@ -624,6 +624,12 @@ export class PageComponent implements OnInit, AfterViewChecked {
     title: string,
     fileUrlPath?: string
   ): Array<any> {
+    console.log( this.openAppArray );
+    for ( let i = 0; i < this.openAppArray.length; i++ ) {
+      if ( this.openAppArray[ i ].type === 'pageMenu' ) {
+        this.openAppArray.splice( i, 1 );
+      }
+    }
     this.dataSource.filter = undefined;
     const appModel = this.openAppsInThisPage[ appType ].model;
     console.log( this.openAppsInThisPage[ appType ] );

@@ -107,6 +107,7 @@ router.post('/:id/pages', checkAuth, (req, res, next) => {
             const newPage = new Page({
                 title: req.body.title,
                 description: req.body.description,
+                tiles: true,
                 openApps: []
             });
 

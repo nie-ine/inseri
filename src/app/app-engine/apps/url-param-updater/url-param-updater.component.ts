@@ -25,9 +25,6 @@ export class UrlParamUpdaterComponent implements OnChanges {
     console.log( this.textFile );
     if ( this.param && this.textFile ) {
       this.updateParam();
-      if ( this.route.snapshot.queryParams[ this.param ] !== this.textFile ) {
-        this.reloadVariables.emit();
-      }
     }
   }
 
@@ -41,13 +38,12 @@ export class UrlParamUpdaterComponent implements OnChanges {
   }
 
   save() {
-    console.log( this.textFile );
+    console.log( this.textFile, this.appInputQueryMapping[ this.hash ] );
     this.requestService.updateFile(
       this.appInputQueryMapping[ this.hash ][ 'textFile' ][ 'serverUrl' ]
         .split('/')[ 6 ], { textFile: this.textFile} )
       .subscribe(
         data => {
-          this.textFile = undefined;
           console.log( data );
           this.reloadVariables.emit();
         }, error => console.log( error )
