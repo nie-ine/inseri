@@ -8,7 +8,7 @@ First of all, the user should decide how each page already created should look l
 
 In order to remove an app from a collage one should click on the title, where there is an option "minimize". 
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/7.%20Publish/7A1.png" alt="Minimize App" width="200"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/7.%20Publish/7A1.png" alt="Minimize App" width="300"></p>
 
 One will only see a tiny sign of application under Inseri button:
 
@@ -16,7 +16,7 @@ One will only see a tiny sign of application under Inseri button:
 
 By clicking on this sign one gets to the option "Remove application", without removing the created data.
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/7.%20Publish/7A3.png" alt="Remove App" width="200"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/7.%20Publish/7A3.png" alt="Remove App" width="300"></p>
 
 By this method one can remove the text editor, but leave the text view app with the text created by the text editor.
 
@@ -24,7 +24,7 @@ By this method one can remove the text editor, but leave the text view app with 
 Second, the user should decide how many pages and in which order the webpage shall have in total.
 From the page which is to be the first, the user should click on the name of this page, and select "add new page" if the following one is not yet ready, or "link" the page, if one has already created it.
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/7.%20Publish/7A4.png" alt="Link pages" width="200"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/7.%20Publish/7A4.png" alt="Link pages" width="300"></p>
 
 "Link" will open the Inseri page storage, where the user can select other pages that have already been created. 
 
