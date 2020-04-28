@@ -32,9 +32,9 @@ From the page which is to be the first, the user should click on the name of thi
 
 As soon as you click on the "+" sign, the next page becomes linked and you can navigate between with the help of "<" and ">" signs.
 
-Now, suppose you would like to set the pages in a different order. For that one should click on Dashboard in the top right corner, select the first page of the project and click on "Go to document Index":
+Now, suppose you would like to set the pages in a different order. For that one should click on Dashboard in the top right corner, select the first page of the project and click on "Go to studio Index":
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/7.%20Publish/7A6.png" alt="Document index" width="300"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/7.%20Publish/7A6.png" alt="Studio index" width="300"></p>
 
 The following frame will open:
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/7.%20Publish/7A7.png" alt="Document index rearrangement" width="300"></p>
