@@ -208,6 +208,7 @@
       <div *ngFor="let app of openAppArray; let i = index;" >
         <popup #appId *ngIf="innerWidth > page.chosenWidth && !page.tiles && app.showContent"
                [app]="app"
+               [pathsWithArrays]="app.pathsWithArrays"
                [showAppSettingsOnPublish]="!preview || showAppSettingsOnPublish"
                [preview]="preview && !showAppTitlesOnPublish"
                (sendTiledPositionBack) = "updateTiledPosition( $event )"

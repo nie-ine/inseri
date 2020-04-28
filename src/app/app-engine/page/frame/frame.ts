@@ -51,6 +51,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
   @Input() page: any;
   @Input() app: any;
   @Input() openAppArrayIndex: number;
+  @Input() pathsWithArrays: Array<any>;
   @Output() sendAppCoordinatesBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendAppSettingsBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendIndexBack: EventEmitter<any> = new EventEmitter<any>();
@@ -115,7 +116,6 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
    * for example updated App - Settings or updated App - Title
    * */
   ngOnChanges( changes: SimpleChanges ) {
-    console.log( this.app );
     this.index = 0;
     this.width = this.produceHeightAndWidth( this.app.height,  this.app.initialHeight);
     this.height = this.produceHeightAndWidth( this.app.height,  this.app.initialHeight);
@@ -125,8 +125,10 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
       this.spinner.hide();
       this.app.spinnerIsShowing = false;
     }
+    console.log( this.pathsWithArrays );
     this.paths = [];
-    if ( this.app ) {
+    if ( this.app &&  this.pathsWithArrays ) {
+      this.app.pathsWithArrays = this.pathsWithArrays;
       const pathsWithArrays = this.app.pathsWithArrays;
       for ( const queryId in pathsWithArrays ) {
         for ( const path in pathsWithArrays[ queryId ] ) {
@@ -167,7 +169,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
 
   ngAfterViewChecked() {
     if (
-      this.app.pathWithArray && this._route.snapshot.queryParams[ this.queryId + this.app.Array.toString() ] &&
+      this.app.pathWithArray && this._route.snapshot.queryParams[ this.queryId + this.app.pathWithArray.toString() ] &&
       this._route.snapshot.queryParams[ this.queryId + this.app.pathWithArray.toString() ] !== this.index ) {
       this.index = Number ( this._route.snapshot.queryParams[ this.queryId + this.app.pathWithArray.toString() ] );
     }
