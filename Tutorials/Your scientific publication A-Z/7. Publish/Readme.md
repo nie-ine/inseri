@@ -28,7 +28,7 @@ From the page which is to be the first, the user should click on the name of thi
 
 "Link" will open the Inseri page storage, where the user can select other pages that have already been created. 
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/7.%20Publish/7A5.png" alt="Inseri Pages storage" width="700"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/7.%20Publish/7A5.png" alt="Inseri Pages storage" width="900"></p>
 
 As soon as you click on the "+" sign, the next page becomes linked and you can navigate between with the help of "<" and ">" signs.
 
@@ -37,7 +37,7 @@ Now, suppose you would like to set the pages in a different order. For that one 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/7.%20Publish/7A6.png" alt="Studio index" width="300"></p>
 
 The following frame will open:
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/7.%20Publish/7A7.png" alt="Document index rearrangement" width="300"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/7.%20Publish/7A7.png" alt="Document index rearrangement" width="900"></p>
 
 Here, with the help of provided buttons, one can easy move the pages up and down by order or delete them.
 
@@ -57,6 +57,6 @@ Once the "Publish" button is clicked, the page goes publish and can be accessed 
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/7.%20Publish/7A11.png" alt="Published sign" width="200"></p>
 
-To make the page private again, one should open the publish option as explained above, and insted of "publish" button, one will find there "make private again":
+To make the page private again, one should open the publish option as explained above, and instead of "publish" button, one will find there "make private again":
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/7.%20Publish/7A12.png" alt="Make private" width="300"></p>
