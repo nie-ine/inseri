@@ -583,7 +583,8 @@ function getFolderHierarchy(folder_id, targetParent_id, result, folderMap)
         console.log("folderDetails at the beginning after adding empty files field: ")
         console.log(folderDetails)
         const newFilesArrayTemp=folderDetails.map((obj)=>(obj.hasFiles));
-        let fileIds=newFilesArrayTemp;
+        let fileIds=newFilesArrayTemp.flat();
+        console.log("fileIds: ",fileIds);
         //for(let f=0;f<folderDetails.length;f++){
           ///console.log("folderDetails[f]:");
           //console.log(folderDetails[f]);
@@ -599,10 +600,11 @@ function getFolderHierarchy(folder_id, targetParent_id, result, folderMap)
                 for(let k=0;k<folderDetails.length;k++) {
                   console.log("folderDetails[k]",folderDetails[k]);
                   console.log("fileDetails: ",filesDetails)
-                  const filesIds=folderDetails[k].hasFiles;
-                  console.log("fileIds:",filesIds);
-                  for (let i = 0; i < filesIds.length; i++) {
-                    const file= getFileDetails(filesIds[i],filesDetails);
+                  const filesIdsArray=folderDetails[k].hasFiles;
+                  console.log("folderDetails[k].hasFiles: ",folderDetails[k].hasFiles);
+                  console.log("fileIds:",filesIdsArray);
+                  for (let i = 0; i < filesIdsArray.length; i++) {
+                    const file= getFileDetails(filesIdsArray[i],filesDetails);
                     console.log("file: ",file);
                       let lastDotPos = file.title.lastIndexOf('.');
                       const ext = file.title.substr(lastDotPos + 1, file.title.length - lastDotPos);
@@ -629,8 +631,6 @@ function getFolderHierarchy(folder_id, targetParent_id, result, folderMap)
                       console.log(folderDetails[k])
                     }
                   }
-
-
                 }
               console.log("before sending the results : ",folderDetails)
               message = 'All files were found'
