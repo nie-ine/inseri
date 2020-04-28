@@ -500,77 +500,160 @@ router.post('/update/uploadFile/:folderId&:fileId',checkAuth, (req, res, next) =
 router.get('/getAllFilesAndFolders/:folderId', checkAuth, (req, res, next) => {
   console.log(req.userData.userId+'\n'+req.params.folderId+'\n');
   let parentId=req.params.folderId;
-  let foldersArray=[];
-  let subFolderTempArray=[parentId];
-    for(let j=0;j<subFolderTempArray.length;j++){
-      console.log('subFolder ['+ j+'] = '+subFolderTempArray[j]);
-      Folder.find({owner: req.userData.userId, _id: subFolderTempArray[j]},{hasFiles: 1, title: 1})
-        .then(subFolders => {
-          let message;
-          if (subFolders.length === 0) {
-            message = 'The Folder has no childs'
-            console.log(message);
-          } else {
-            message = 'All files were found'
-            /*console.log(subFolders);
+  let targetFolders=[];
+  Folder.find({owner: req.userData.userId})
+    .then(AllFolders =>
+    {
+      let message;
+      if (AllFolders.length === 0) {
+        message = 'No folders were found'
+      }
+      else {
+        let tempFolderMap = new Map();
+        AllFolders.forEach(folder=>{ tempFolderMap.set(folder._id.toHexString(),folder)});
+        for(let i=0; i<AllFolders.length;i++)
+        {
+          getFolderHierarchy(AllFolders[i]._id, parentId, targetFolders,tempFolderMap );
+        }
+        const newFoldersArrayTemp=targetFolders.map((obj)=>({...obj._doc,['files']:[]}));
+        targetFolders=newFoldersArrayTemp;
 
-              //subFolderTempArray.push(subFolders[i]._id);
-              console.log("subFolderTempArray: "+ subFolderTempArray);
-              //parentId=subFolders[i]._id;
-              console.log(subFolders[i]);
-              console.log(message+"- subFolderId= "+subFolders[i]._id+"subFolders Files are:  "+subFolders[i].hasFiles);
-              */
-              FileModel.find({
-                _id: {$in: subFolders[0].hasFiles}
-              })
-                .then(files => {
-                  let message;
-                  if (files.length === 0) {
-                    message = 'Files may be deleted accidentally';
-                    console.log(message);
-                  } else {
-                    foldersArray.push({folderTitle: subFolders[0].title, files: files});
-                    message = 'Files have been found.'
-                    console.log(message);
-                    console.log(files);
-                    res.status(200).json({
-                      message: message,
-                      files: files
-                    });
-                  }
-                })
-                .catch(error => {
-                  res.status(500).json({
-                    message: 'Fetching Files failed',
-                    error: error
-                  })
-                });
-            Folder.find({owner: req.userData.userId, hasParent: subFolderTempArray[j]},{_id:1})
-              .then(subFolders => {
-                let message;
-                if (subFolders.length === 0) {
-                  message = 'The Folder has no childs'
-                  console.log(message);
-                } else {
-                  message = 'All files were found'
-                  console.log(subFolders);
-                  for(let l=0;l<subFolders.length;l++){
-                    subFolderTempArray.push(subFolders[l]._id);
-                  }
-                  console.log("subFolderTempArray: "+ subFolderTempArray);
-                  }
-                });
+        const targetFolderIds=targetFolders.map((obj)=>obj._id);
+        //console.log("targetFolderIds", targetFolderIds)
+          message = 'All folders were found'
 
-
-          }
-        })
-      .catch(error => {
+          getAllFiles(req.userData.userId,res,targetFolderIds);
+        //console.log("targetFolders after get All Files: ")
+        //console.log(targetFolders);
+      }
+    })
+    .catch(error => {
+      console.log(error);
       res.status(500).json({
-      message: 'Folder has no files',
-      error: error
+        message: 'Fetching all folders failed',
+        error: error
       })
-      });
-}
+    });
 });
+function getFolder ( id, map)
+{
+  return map.get(id.toHexString())
+}
+function checkFolderHierarchy(folder_id, targetParent_id, folderMap)
+{
+  if(folder_id  == targetParent_id)
+  {
+    return true;
+  }
+  else if(!folder_id) {
+    return false;
+  }
+  else
+  {
+    let currentFolder=getFolder(folder_id, folderMap);
+    if(!currentFolder) {
+      return false;
+    }
+    let parent_id= currentFolder.hasParent;
+    return checkFolderHierarchy(parent_id, targetParent_id, folderMap);
+  }
+}
+function getFolderHierarchy(folder_id, targetParent_id, result, folderMap)
+{
+  let currentFolder=getFolder(folder_id, folderMap);
+  if(checkFolderHierarchy(folder_id,targetParent_id, folderMap))
+  {
+    let folder = getFolder(folder_id,folderMap);
+    result.push(folder);
+  }
+}
+
+ function getAllFiles(owner, res, targetFolderIds){
+  let sortedFiles=[];
+  let extensions=[];
+  Folder.find({owner: owner, _id:{$in: targetFolderIds}}, {hasFiles: 1, title: 1})
+    .then(folderDetails => {
+      let message;
+      if (folderDetails.length === 0) {
+        message = 'The Folder has no files'
+        console.log(message);
+      } else {
+        const newFoldersArrayTemp=folderDetails.map((obj)=>({...obj._doc,['files']:[]}));
+        folderDetails=newFoldersArrayTemp;
+        console.log("folderDetails at the beginning after adding empty files field: ")
+        console.log(folderDetails)
+        const newFilesArrayTemp=folderDetails.map((obj)=>(obj.hasFiles));
+        let fileIds=newFilesArrayTemp;
+        //for(let f=0;f<folderDetails.length;f++){
+          ///console.log("folderDetails[f]:");
+          //console.log(folderDetails[f]);
+          FileModel.find({
+            _id: {$in: fileIds}//folderDetails[f].hasFiles}
+          })
+            .then(filesDetails => {
+              let message;
+              if (filesDetails.length === 0) {
+                message = 'Folder has no files';
+                console.log(message);
+              } else {
+                for(let k=0;k<folderDetails.length;k++) {
+                  console.log("folderDetails[k]",folderDetails[k]);
+                  console.log("fileDetails: ",filesDetails)
+                  const filesIds=folderDetails[k].hasFiles;
+                  console.log("fileIds:",filesIds);
+                  for (let i = 0; i < filesIds.length; i++) {
+                    const file= getFileDetails(filesIds[i],filesDetails);
+                    console.log("file: ",file);
+                      let lastDotPos = file.title.lastIndexOf('.');
+                      const ext = file.title.substr(lastDotPos + 1, file.title.length - lastDotPos);
+                      if (!extensions.includes(ext)) {
+                        extensions.push(ext);
+                      }
+                      for (let j = 0; j < extensions.length; j++) {
+                        let files = [];
+                        for (let i = 0; i < filesDetails.length; i++) {
+                          let lastDotPos = file.title.lastIndexOf('.');
+                          const ext = file.title.substr(lastDotPos + 1, file.title.length - lastDotPos);
+                          if (ext === extensions[j]) {
+                            files.push(file.title);
+                          }
+                          console.log("files: ", files);
+                          sortedFiles.push({fileType: extensions[j], files: files});
+                          console.log("sortedFiles:", sortedFiles);
+                        }
+                      }
+                      console.log("before: ");
+                      console.log(folderDetails[k])
+                      folderDetails[k].files = sortedFiles;
+                      console.log("after: ");
+                      console.log(folderDetails[k])
+                    }
+                  }
+
+
+                }
+              console.log("before sending the results : ",folderDetails)
+              message = 'All files were found'
+              res.status(200).json({
+                message: message,
+                folders: folderDetails
+              });
+
+            })
+       // }
+
+      }
+
+    })
+
+}
+function getFileDetails(fileId, filesArray){
+  for(let i=0;i<filesArray.length;i++){
+    console.log(filesArray[i]._id,fileId)
+    if(filesArray[i]._id.toString()===fileId.toString()){
+      return filesArray[i];
+    }
+  }
+}
 module.exports = router;
 

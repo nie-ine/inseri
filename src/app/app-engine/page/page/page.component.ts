@@ -367,7 +367,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   ngOnInit() {
 
-    this.slogan = this.slogans[Math.floor(Math.random() * this.slogans.length)]
+    this.slogan = this.slogans[Math.floor(Math.random() * this.slogans.length)];
 
     this.innerWidth = window.innerWidth;
 
@@ -726,7 +726,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
                         _id: '5e26f93905dee90e3dcea8ea',
                         creator: '5bf6823c9ec116a6fee7431d',
                         content: {
-                          info: fileUrlPath || input.default
+                          info: fileUrlPath || input.default // ((fileUrlPath && input.inputName.toString().toLowerCase().search('url')) ? fileUrlPath : input.default)
                         },
                         __v: 0
                       }

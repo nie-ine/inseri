@@ -52,21 +52,21 @@
 
 <mat-menu #menuPageSet="matMenu">
   <button mat-menu-item matTooltip="Create New PageSet" (click)="showForm('createPageSetForm')" >
-   <mat-icon>add</mat-icon>
+    <mat-icon>add</mat-icon>
   </button>
   <button mat-menu-item [matMenuTriggerFor]="menuPageSetItems" matTooltip="Add an Existing PageSet" (click)="getAllPageSetForUser();" >
     <mat-icon>link</mat-icon>
   </button>
 </mat-menu>
 
-  <mat-menu #menuPageSetItems="matMenu">
+<mat-menu #menuPageSetItems="matMenu">
   <div *ngFor="let pageSet of allPageSetsOfUser" style="display: inline-block">
-      <button   mat-menu-item (click)="addPageSetToFolder(pageSet);" >
-        <mat-icon>add</mat-icon>
-        {{pageSet.title}}
-      </button>
+    <button   mat-menu-item (click)="addPageSetToFolder(pageSet);" >
+      <mat-icon>add</mat-icon>
+      {{pageSet.title}}
+    </button>
   </div>
-  </mat-menu>
+</mat-menu>
 
 <mat-menu #menuPage="matMenu">
   <button   mat-menu-item matTooltip="Create New Page" >
@@ -158,7 +158,7 @@
   <div class="row">
     <div class="col-xs-12">
       <div *ngFor="let file of files" style="margin-left: 15px">
-        <button mat-button [matMenuTriggerFor]="menuOpenFileApps" (click)="showAvailableInseriApps(file)">
+        <button mat-button [matMenuTriggerFor]="menuOpenFileApps" (click)="showAvailableInseriApps(file);">
           <mat-icon> insert_drive_file</mat-icon>
           {{ file.title }}
         </button>
@@ -171,6 +171,23 @@
     </div>
   </div>
 </div>
+
+<mat-menu #menuOpenFileApps="matMenu" >
+  <div *ngFor="let app of inseriAppsMenu" style="display: inline-block">
+    <button mat-menu-item [matMenuTriggerFor]="menuOpenFileAppsItems" (mouseover)="selectChosenApp(app);" ><!--(click)="openApp(chosenApp.appType, chosenApp.name)"-->
+      <mat-icon>{{app.id}}</mat-icon>
+      {{app.name}}
+    </button>
+  </div>
+</mat-menu>
+
+<mat-menu #menuOpenFileAppsItems="matMenu">
+    <div *ngFor="let input of appInputsArray" style="display: inline-block">
+      <button mat-menu-item (click)="openApp(chosenApp.appType, chosenApp.name, input.inputName)" >
+        {{input.inputName}}
+      </button>
+    </div>
+</mat-menu>
 
 <div class="div">
   <div class="row">
@@ -236,19 +253,3 @@
   </button>
 </div>
 
-<mat-menu #menuOpenFileApps="matMenu">
-  <div *ngFor="let app of inseriAppsMenu" style="display: inline-block">
-    <button mat-menu-item   (click)="choseApp = app" >
-      <mat-icon>{{app.id}}</mat-icon>
-      {{app.name}}
-    </button>
-  </div>
-</mat-menu>
-
-<!--<mat-menu #menuOpenFileAppsItems="matMenu" >-->
-<!--  <div *ngFor="let input of openAppsInThisPage[ choseApp.appType ].inputs" style="display: inline-block">-->
-<!--    <button mat-menu-item (click)="openApp(choseApp.appType, choseApp.name, input.inputName)" >-->
-<!--      {{input.inputName}}-->
-<!--    </button>-->
-<!--  </div>-->
-<!--</mat-menu>-->

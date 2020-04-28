@@ -73,7 +73,7 @@ export class MyFilesComponent implements OnInit {
    addedPageSets = [];
    allQueriesOfUser = [];
    addedQueries = [];
-  choseApp: any = {};
+  chosenApp: any = {};
   action: Action = {
     id: undefined,
     title: '',
@@ -95,7 +95,8 @@ export class MyFilesComponent implements OnInit {
   openAppsInThisPage: any = (new OpenAppsModel).openApps;
   page: any = {};
   inseriAppsMenu = [];
-
+  menu = false;
+appInputsArray=[];
 
   createPageSet(title: string, description: string) {
     this.action.type = 'page-set';
@@ -555,15 +556,20 @@ export class MyFilesComponent implements OnInit {
       this.showDataBrowserOnPublish = this.page.showDataBrowserOnPublish;*/
     }
 
-  openApp(appType: string, name: string, inputName: string) {
+  openApp(appType: string, name: string, inputName?: string) {
     console.log( appType, this.openAppsInThisPage[ appType ].inputs, inputName );
-    // this.pageComponent.addAnotherApp(appType, true, name, this.file.urlPath);
+     this.pageComponent.addAnotherApp(appType, true, name, this.file.urlPath);
   }
 
   showAllFolderStructure() {
+    alert(environment.node + '/api/folder/getAllFilesAndFolders/' + this.mainFolder_id);
     this.folderService.getAllFoldersAndFiles(this.mainFolder_id)
       .subscribe(data => {
         console.log(data);
       });
+  }
+  selectChosenApp(app: any) {
+    this.chosenApp = app;
+    this.appInputsArray = this.openAppsInThisPage[app.appType].inputs;
   }
 }
