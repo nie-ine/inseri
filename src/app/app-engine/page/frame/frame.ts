@@ -37,22 +37,21 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
    * @param show - indicates if app is minimalized or not
    * */
   show = false;
-  @Input() width: number;
+  width: number;
   /**
    * @param width, height - width and height of the open app
    * */
-  @Input() height: number;
+  height: number;
   /**
    * @param position - "static" if the option "sort by appType" is chosen, "absolute" otherwise
    * */
-  @Input() pathsWithArrays: any;
   @Input() position: string;
   @Input() preview = false;
   @Input() showAppSettingsOnPublish = true;
   @Input() page: any;
   @Input() app: any;
   @Input() openAppArrayIndex: number;
-  @Input() spinnerIsShowing: boolean;
+  @Input() pathsWithArrays: Array<any>;
   @Output() sendAppCoordinatesBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendAppSettingsBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendIndexBack: EventEmitter<any> = new EventEmitter<any>();
@@ -101,22 +100,35 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
     this.mouseup = this.unboundMouseup.bind(this);
     this.dragging = this.unboundDragging.bind(this);
   }
-
+  /**
+   * This function produces the height and the width of
+   * each open app
+   * */
+  produceHeightAndWidth( appValue: string, defaultHeight: string ) {
+    if ( appValue ) {
+      return +appValue;
+    } else {
+      return +defaultHeight;
+    }
+  }
   /**
    * This is necessary for the app to be able to react onChanges regarding the input data for the apps,
    * for example updated App - Settings or updated App - Title
    * */
   ngOnChanges( changes: SimpleChanges ) {
-    console.log( this.app );
     this.index = 0;
-    if ( this.spinnerIsShowing ) {
+    this.width = this.produceHeightAndWidth( this.app.height,  this.app.initialHeight);
+    this.height = this.produceHeightAndWidth( this.app.height,  this.app.initialHeight);
+    if ( this.app.spinnerIsShowing ) {
       this.spinner.show();
     } else {
       this.spinner.hide();
-      this.spinnerIsShowing = false;
+      this.app.spinnerIsShowing = false;
     }
+    console.log( this.pathsWithArrays );
     this.paths = [];
-    if ( this.app ) {
+    if ( this.app &&  this.pathsWithArrays ) {
+      this.app.pathsWithArrays = this.pathsWithArrays;
       const pathsWithArrays = this.app.pathsWithArrays;
       for ( const queryId in pathsWithArrays ) {
         for ( const path in pathsWithArrays[ queryId ] ) {
@@ -157,7 +169,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
 
   ngAfterViewChecked() {
     if (
-      this.app.pathWithArray && this._route.snapshot.queryParams[ this.queryId + this.app.Array.toString() ] &&
+      this.app.pathWithArray && this._route.snapshot.queryParams[ this.queryId + this.app.pathWithArray.toString() ] &&
       this._route.snapshot.queryParams[ this.queryId + this.app.pathWithArray.toString() ] !== this.index ) {
       this.index = Number ( this._route.snapshot.queryParams[ this.queryId + this.app.pathWithArray.toString() ] );
     }
