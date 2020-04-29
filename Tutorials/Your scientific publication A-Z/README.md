@@ -150,20 +150,20 @@ Having created and viewed the Title and brief description of the Project, we sha
 
 There are are two basic page layout options. One is a "natural" one, in which the applications windows will have shape and size as set by the user, example below:
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/LV1.png" alt="Natural layout" width="800"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/LV1.png" alt="Natural layout" width="800"></p>
 
-The second option is called "Windows or tiles" and ir can be accessed from the "options" button in the top righthand corner:
+The second option is called "Windows or tiles" and it can be accessed from the "options" button in the top righthand corner:
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/LV2.png" alt="Windows/tiles button" width="300"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/LV2.png" alt="Windows/tiles button" width="300"></p>
 
 When one clicks on the "windows/tiles", the page is rearranged in the following manner: the images are shown in full, the smaller applications windows are rearranged to fit better the screen, and there is a same-size space between all application windows.
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/LV3.png" alt="Image with zoom in Windows mode" width="700"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/LV3.png" alt="Image with zoom in Windows mode" width="700"></p>
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/LV4.png" alt="Smaller applications in Windows mode" width="700"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/LV4.png" alt="Smaller applications in Windows mode" width="700"></p>
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/LV5.png" alt="Image Viewer in Windows mode" width="700"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/LV5.png" alt="Image Viewer in Windows mode" width="700"></p>
 
 If you resize manually the browser window size, the applications will rearrange themselves automatically on the page again, to fit it best, thus providing the best viewing option regardless of support (phone/pad/computer).
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/LV6.png" alt="Reduced browser window in Windows mode" width="700"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/LV6.png" alt="Reduced browser window in Windows mode" width="700"></p>
