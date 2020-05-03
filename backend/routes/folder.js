@@ -515,16 +515,11 @@ router.get('/getAllFilesAndFolders/:folderId', checkAuth, (req, res, next) => {
         {
           getFolderHierarchy(AllFolders[i]._id, parentId, targetFolders,tempFolderMap );
         }
+        const targetFolderIds=targetFolders.map((obj)=>obj._id);
         const newFoldersArrayTemp=targetFolders.map((obj)=>({...obj._doc,['files']:[]}));
         targetFolders=newFoldersArrayTemp;
-
-        const targetFolderIds=targetFolders.map((obj)=>obj._id);
-        //console.log("targetFolderIds", targetFolderIds)
           message = 'All folders were found'
-
-          getAllFiles(req.userData.userId,res,targetFolderIds);
-        //console.log("targetFolders after get All Files: ")
-        //console.log(targetFolders);
+          getAllFiles(req.userData.userId,res,targetFolderIds,parentId);
       }
     })
     .catch(error => {
@@ -560,7 +555,6 @@ function checkFolderHierarchy(folder_id, targetParent_id, folderMap)
 }
 function getFolderHierarchy(folder_id, targetParent_id, result, folderMap)
 {
-  let currentFolder=getFolder(folder_id, folderMap);
   if(checkFolderHierarchy(folder_id,targetParent_id, folderMap))
   {
     let folder = getFolder(folder_id,folderMap);
@@ -568,88 +562,132 @@ function getFolderHierarchy(folder_id, targetParent_id, result, folderMap)
   }
 }
 
- function getAllFiles(owner, res, targetFolderIds){
-  let sortedFiles=[];
-  let extensions=[];
-  Folder.find({owner: owner, _id:{$in: targetFolderIds}}, {hasFiles: 1, title: 1})
+  function constructFolderTree(folderDetails,parentId,output ) {
+    console.log(folderDetails.length);
+    //output=(folderDetails.filter(obj=> {if(obj._id==parentId) return obj;}));
+    let tempQueueToCheck= new Array();
+    const temp = folderDetails.map((obj) => ({...obj, ['folders']: []}));
+    folderDetails = temp;
+
+    console.log('output '+folderDetails[0].title);
+    tempQueueToCheck.push(folderDetails[0]);
+    while (tempQueueToCheck.length>0)
+    {
+      let current = tempQueueToCheck.shift();
+      console.log('get new '+current.title);
+      for (let i = 0; i < folderDetails.length; i++)
+      {
+        if(!folderDetails[i].hasParent)
+          continue;
+        if (folderDetails[i].hasParent.toHexString() == current._id.toHexString())
+        {
+          tempQueueToCheck.push(folderDetails[i]);
+          current.folders.push(folderDetails[i]);
+          console.log('added new '+folderDetails[i].title);
+        }
+      }
+    }
+    return output=folderDetails[0];
+}
+
+function getAllFiles(owner, res, targetFolderIds,parentId){
+  let sortedFiles=new Map();
+  let folderTree={};
+  Folder.find({owner: owner, _id:{$in: targetFolderIds}}, {hasFiles: 1, title: 1, hasParent:1})
     .then(folderDetails => {
       let message;
       if (folderDetails.length === 0) {
-        message = 'The Folder has no files'
+        message = 'The Folder has no files';
         console.log(message);
       } else {
-        const newFoldersArrayTemp=folderDetails.map((obj)=>({...obj._doc,['files']:[]}));
+        const newFoldersArrayTemp=folderDetails.map((obj)=>({...obj._doc,['files']:new Map()}));
         folderDetails=newFoldersArrayTemp;
-        console.log("folderDetails at the beginning after adding empty files field: ")
-        console.log(folderDetails)
         const newFilesArrayTemp=folderDetails.map((obj)=>(obj.hasFiles));
         let fileIds=newFilesArrayTemp.flat();
-        console.log("fileIds: ",fileIds);
-        //for(let f=0;f<folderDetails.length;f++){
-          ///console.log("folderDetails[f]:");
-          //console.log(folderDetails[f]);
           FileModel.find({
-            _id: {$in: fileIds}//folderDetails[f].hasFiles}
+            _id: {$in: fileIds}
           })
             .then(filesDetails => {
               let message;
               if (filesDetails.length === 0) {
                 message = 'Folder has no files';
                 console.log(message);
-              } else {
+              } else
+                {
                 for(let k=0;k<folderDetails.length;k++) {
-                  console.log("folderDetails[k]",folderDetails[k]);
-                  console.log("fileDetails: ",filesDetails)
                   const filesIdsArray=folderDetails[k].hasFiles;
-                  console.log("folderDetails[k].hasFiles: ",folderDetails[k].hasFiles);
-                  console.log("fileIds:",filesIdsArray);
+                  sortedFiles.clear();
                   for (let i = 0; i < filesIdsArray.length; i++) {
                     const file= getFileDetails(filesIdsArray[i],filesDetails);
-                    console.log("file: ",file);
                       let lastDotPos = file.title.lastIndexOf('.');
-                      const ext = file.title.substr(lastDotPos + 1, file.title.length - lastDotPos);
-                      if (!extensions.includes(ext)) {
-                        extensions.push(ext);
+                       let ext = file.title.substr(lastDotPos + 1, file.title.length - lastDotPos);
+                      if(sortedFiles.get(ext)){
+                        let files=sortedFiles.get(ext);
+                        files.push({fileName: file.title, fileUrlPath: file.urlPath});
+                        sortedFiles.set(ext,files);
                       }
-                      for (let j = 0; j < extensions.length; j++) {
-                        let files = [];
-                        for (let i = 0; i < filesDetails.length; i++) {
-                          let lastDotPos = file.title.lastIndexOf('.');
-                          const ext = file.title.substr(lastDotPos + 1, file.title.length - lastDotPos);
-                          if (ext === extensions[j]) {
-                            files.push(file.title);
-                          }
-                          console.log("files: ", files);
-                          sortedFiles.push({fileType: extensions[j], files: files});
-                          console.log("sortedFiles:", sortedFiles);
-                        }
+                      else{
+                        sortedFiles.set(ext, [{ fileName: file.title, fileUrlPath: file.urlPath}])
                       }
-                      console.log("before: ");
-                      console.log(folderDetails[k])
-                      folderDetails[k].files = sortedFiles;
-                      console.log("after: ");
-                      console.log(folderDetails[k])
+                      folderDetails[k].files =[...sortedFiles];//JSON.stringify([...sortedFiles]);// serializeFiles(sortedFiles);//new Map(sortedFiles);
+                      //to map again --> new Map(JSON.parse(folderDetails[k].files));
+                    console.log("after: ");
                     }
                   }
+                folderTree=constructFolderTree(folderDetails,parentId);
+
+                console.log('from inside the loop');
+                console.log(folderTree);
                 }
-              console.log("before sending the results : ",folderDetails)
-              message = 'All files were found'
+
+              /*setTimeout(() => {
+                console.log("after timeout : ",folderDetails)
+              }, 10000);*/
+              /*if(folderDetails.length!=0)
+              {
+                constructHierarchy(folderDetails,parentId);
+              }*/
+              console.log("before sending the results : ",folderDetails);
+              message = 'All files were found';
               res.status(200).json({
                 message: message,
-                folders: folderDetails
+                folders: folderTree//JSON.stringify(folderDetails)
               });
-
             })
-       // }
-
-      }
+          }
 
     })
+}
 
+function serializeFiles (inputFileMap)
+{
+  let newMap =[];
+  let files=[];
+  //let file={fileName:"",fileUrlPath:""};
+  for (const [key, value] of inputFileMap.entries()) {
+    //let fileType=key;
+    //newMap+="#"+key;
+    console.log(value);
+    files=[];
+     for (let i=0; i<value.length;i++)
+     {
+       files.push(value[i]);
+       //console.log(file);
+       //let clonedFileObject = {fileName:"",fileUrlPath:""};
+       //clonedFileObject.fileName=  fileObject.fileName;
+       //clonedFileObject.fileUrlPath= fileObject.fileUrlPath;
+       //clonedValues.push(clonedFileObject);
+       console.log('from clone '+value[i].fileName);
+       //newMap+="|"+value[i].fileName+","+value[i].fileUrlPath;
+     }
+     newMap.push({fileType: key,files:files});
+    //newMap.key, clonedValues);
+    //console.log('from clone '+key+' '+clonedValues);
+  }
+return newMap;
 }
 function getFileDetails(fileId, filesArray){
   for(let i=0;i<filesArray.length;i++){
-    console.log(filesArray[i]._id,fileId)
     if(filesArray[i]._id.toString()===fileId.toString()){
       return filesArray[i];
     }

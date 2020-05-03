@@ -20,6 +20,7 @@ import {OpenAppsModel} from '../../../user-action-engine/mongodb/page/open-apps.
 import {RequestService} from '../../../query-engine/knora/request.service';
 import {GeneralRequestService} from '../../../query-engine/general/general-request.service';
 import {GenerateHashService} from '../../../user-action-engine/other/generateHash.service';
+import {map} from 'rxjs/operators';
 
 
 @Component({
@@ -96,7 +97,7 @@ export class MyFilesComponent implements OnInit {
   page: any = {};
   inseriAppsMenu = [];
   menu = false;
-appInputsArray=[];
+appInputsArray = [];
 
   createPageSet(title: string, description: string) {
     this.action.type = 'page-set';
@@ -567,6 +568,7 @@ appInputsArray=[];
       .subscribe(data => {
         console.log(data);
       });
+
   }
   selectChosenApp(app: any) {
     this.chosenApp = app;
