@@ -35,7 +35,7 @@ export class OurNewComponentComponent implements OnInit {
   folder: string;
   foldersArray: Array<string>;
   showAddFolderForm = false;
-
+  mainFolder_id: string;
 
 
   form: FormGroup;
@@ -47,6 +47,7 @@ export class OurNewComponentComponent implements OnInit {
   files: FileModel[] = [];
   private fileSub: Subscription;
   showUploadedFiles = false;
+  folderId: string;
 
   constructor(
     private http: HttpClient,
@@ -54,46 +55,21 @@ export class OurNewComponentComponent implements OnInit {
     public route: ActivatedRoute
   ) { }
 
-  onFileSelected(event: Event) {
-    const file = (event.target as HTMLInputElement).files[0];
-    this.form.patchValue({file: file});
-    console.log( 'On File Selected : ' + file.name);
-    this.form.get('file').updateValueAndValidity();
-    const reader = new FileReader();
-    reader.onload = () => {
-      this.filePreview = reader.result as string;
-    };
-    // tslint:disable-next-line:comment-format
-    reader.readAsDataURL(file);
-  }
+  /*onMultipleFileSelected( event: Event) {
+      const filesArray = (event.target as HTMLInputElement).files;
+      this.form.patchValue({file: file});
+      //console.log( 'On File Selected : ' + file.name);
+      this.form.get('file').updateValueAndValidity();
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.filePreview = reader.result as string;
+      };
+      // tslint:disable-next-line:comment-format
+      reader.readAsDataURL(file);
+  }*/
+
   ngOnInit() {
-    //this.fileService.getFiles();
-    this.fileSub = this.fileService.getFileUpdateListener()
-      .subscribe((files: FileModel[]) => {
-        this.showUploadedFiles = false;
-        this.files = files;
-      });
-    this.form = new FormGroup({
-      'title': new FormControl(null),// {validators: [Validators.required]}), // Validators.minLength(3)
-      'description': new FormControl(null),// {validators: [Validators.required]}),
-      'file': new FormControl(null),// {validators: [Validators.required]})// , asyncValidators: [mimeType]})
-    });
-    this.route.paramMap.subscribe((paramMap: ParamMap) => {
-      if (paramMap.has('fileId')) {
-        this.mode = 'edit';
-        this.fileId = paramMap.get('fileId');
-        this.isLoading = true;
-        this.fileService.getFile(this.fileId).subscribe(fileData => {
-          this.isLoading = false;
-          this.file = {id: fileData._id, title: fileData.title, description: fileData.description, urlPath: null};
-          this.form.setValue({'title': this.file.title, 'description': this.file.description});
-          console.log( 'ngOnInit: ' + this.file.title );
-        });
-      } else {
-        this.mode = 'add';
-        this.fileId = null;
-      }
-    });
+    // this.fileService.getFiles();
 
 
     this.showFolders( '-1' );
@@ -101,24 +77,6 @@ export class OurNewComponentComponent implements OnInit {
     this.secondVariable = this.ourFirstVariable + ' and sth added to the first string';
   }
 
-  onDelete(fileId: string) {
-    this.fileService.deleteFile(fileId);
-  }
-  // tslint:disable-next-line:max-line-length
-    // this.form.setValue({'title': this.form.value.title,'description': this.form.value.description });// to set the value if we retrieve the doc from the db.
-  onSaveFile() {
-    /*if (this.form.invalid) {
-      return;
-    }*/
-    //this.isLoading = true;
-    if (this.mode === 'add') {
-      this.fileService.addFile(this.form.value.file.name, this.form.value.description, this.form.value.file);
-      console.log( 'On Save File: ' + this.form.value.file.name );
-    } else {
-      this.fileService.updateFile(this.fileId, this.form.value.title, this.form.value.description);
-    }
-    this.form.reset();
- }
   createNewUserGroup() {
     this.http.post(
       'http://localhost:3000/api/userGroups',
@@ -379,7 +337,6 @@ export class OurNewComponentComponent implements OnInit {
       );
   }
 
-
   showFolders (mainFolderId: string) {
     this.http.get('http://localhost:3000/api/folder/' + mainFolderId,
     )
@@ -387,6 +344,86 @@ export class OurNewComponentComponent implements OnInit {
         response => {
           console.log( (response as any).folders); // an array of subPages details'
           this.foldersArray = (response as any).folders;
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+
+  createNewFolder(title: string) {
+    alert(title );
+    this.http.post('http://localhost:3000/api/folder/' + '-1',
+      {title: title}
+      , )
+      .subscribe(
+        response => {
+          this.showFolders( '-1' );
+          console.log( (response as any).query);
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+
+  updateFolderTitle(folderId: string, title: string) {
+    alert(folderId + title);
+    this.http.post('http://localhost:3000/api/folder/update/title/' + folderId,
+      {title: title}
+      , )
+      .subscribe(
+        response => {
+          console.log( (response as any).updatedDocument);
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+  addPageSetsToFolder(folderId: string, pageSetId: string) {
+    this.http.post('http://localhost:3000/api/folder/update/addPageSet/' + folderId + '&' + pageSetId,
+      {}
+      , )
+      .subscribe(
+        response => {
+          console.log( (response as any).updatedDocument);
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+  deletePageSetsFromFolder(folderId: string, pageSetId: string) {
+    this.http.post('http://localhost:3000/api/folder/update/removePageSet/' + folderId + '&' + pageSetId,
+      {}
+      , )
+      .subscribe(
+        response => {
+          console.log( (response as any).updatedDocument);
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+  deleteFolder(folderId: string) {
+    this.http.post('http://localhost:3000/api/folder/delete/' + folderId ,
+      {}
+      , )
+      .subscribe(
+        response => {
+          console.log( (response as any).deletedGroup);
+        }, error => {
+          console.log( error );
+        }
+      );
+  }
+
+  createSubFolder(title: string, mainFolderId: string) {
+    alert(title + mainFolderId);
+    this.mainFolder_id = mainFolderId;
+    this.http.post('http://localhost:3000/api/folder/' + this.mainFolder_id,
+      {title: title}
+      , )
+      .subscribe(
+        response => {
+          console.log( (response as any).query);
         }, error => {
           console.log( error );
         }

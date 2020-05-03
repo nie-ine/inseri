@@ -99,11 +99,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
   pageAsDemo = false;
 
   /**
-   * isLoading - indicates if spinner is displayed or not
-   * */
-  isLoading = true;
-
-  /**
    * resetPage - gets rid of all open apps
    * */
   resetPage = false;
@@ -272,13 +267,13 @@ export class PageComponent implements OnInit, AfterViewChecked {
     private pageService: PageService,
     public dialog: MatDialog,
     public queryInfoDialog: MatDialog,
-    private spinner: NgxSpinnerService,
     private requestService: GeneralRequestService,
     public sanitizer: DomSanitizer,
     private stylemapping: StyleMappingService,
     private actionService: ActionService,
     private router: Router,
     public snackBar: MatSnackBar,
+    public snackBar2: MatSnackBar,
     private authService: AuthService,
     private queryService: QueryService
   ) {
@@ -310,7 +305,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * Opens the data managment dialog where users can add queries to the page
    * */
   openDataManagement() {
-    // this.spinner.show();
     this.pageService.updatePage(
       { ...this.page }
     )
@@ -365,6 +359,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+    console.log( this.dataSource.filter );
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
@@ -373,7 +368,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   ngOnInit() {
 
-    this.slogan = this.slogans[Math.floor(Math.random() * this.slogans.length)]
+    this.slogan = this.slogans[Math.floor(Math.random() * this.slogans.length)];
 
     this.innerWidth = window.innerWidth;
 
@@ -422,15 +417,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
      * */
     if ( !this.actionID ) {
       this.pageAsDemo = true;
-      this.isLoading = false;
       this.lightHouse = false;
     }
-
-    // this.spinner.show();
-    //
-    // setTimeout(() => {
-    //   this.spinner.hide();
-    // }, 1000); // TODO: bind end of spinner to event that all queries have been loaded instead of setTimeout!
 
     /**
      * The key value pair curZindex is reset, it is incremented by one every time the user clicks on the app frame title bar
@@ -560,12 +548,28 @@ export class PageComponent implements OnInit, AfterViewChecked {
       this.page.openApps[ app.hash ] = [];
     }
     this.page.openApps[ app.hash ] = app;
+    // console.log( this.openAppArray );
+    // for ( const appToCompare of this.openAppArray ) {
+    //   for ( const otherApp of this.openAppArray ) {
+    //     console.log(
+    //       appToCompare.x < otherApp.x + otherApp.width && appToCompare.y + appToCompare.height < otherApp.y,
+    //       appToCompare.x + appToCompare.width < otherApp.x && appToCompare.y < otherApp.y + otherApp.height
+    //     );
+    //     const overlap = !(
+    //       appToCompare.x < otherApp.x + otherApp.width ||
+    //       appToCompare.x + appToCompare.width < otherApp.x ||
+    //       appToCompare.y + appToCompare.height < otherApp.y ||
+    //       appToCompare.y < otherApp.y + otherApp.height
+    //     );
+    //       console.log( 'overlap: ' + overlap );
+    //   }
+    // }
   }
 
   /**
    * This function updates the page in MongoDB
    * */
-  updatePage() {
+  updatePage( reload?: boolean ) {
     /**
      *  - it is important to give a COPY of this.page as an input, thus { ...this.page },
      * otherwise this.page will be rewritten by the routine pageService.updatePage
@@ -581,22 +585,32 @@ export class PageComponent implements OnInit, AfterViewChecked {
         openAppArrayIndex += 1;
       }
     }
-    console.log( this.page, this.openAppArray );
+    for ( const mapping in this.page.appInputQueryMapping ) {
+      if ( !this.page.openApps[ mapping ] ) {
+        console.log( mapping );
+        delete this.page.appInputQueryMapping[ mapping ];
+      }
+    }
     this.pageService.updatePage(
       { ...this.page }
       )
       .subscribe(
         data => {
-          console.log(data);
-          this.snackBar.open( 'Page successfully saved', 'ok',
+          this.snackBarOpen = true;
+          setTimeout(() => {
+            this.snackBarOpen = false;
+          }, 2000);
+          this.snackBar2.open( 'Page successfully saved', 'ok',
             {
-              duration: 1500
+              duration: 2000
             });
+          if ( reload ) {
+            this.reloadVariables = true;
+          }
         },
         error => {
           console.log(error);
-          this.spinner.hide();
-          this.snackBar.open( 'Sth went wrong, page has not been saved' );
+          this.snackBar2.open( 'Sth went wrong, page has not been saved' );
         });
   }
 
@@ -607,8 +621,16 @@ export class PageComponent implements OnInit, AfterViewChecked {
   addAnotherApp (
     appType: string,
     generateHash: boolean,
-    title: string
+    title: string,
+    fileUrlPath?: string
   ): Array<any> {
+    console.log( this.openAppArray );
+    for ( let i = 0; i < this.openAppArray.length; i++ ) {
+      if ( this.openAppArray[ i ].type === 'pageMenu' ) {
+        this.openAppArray.splice( i, 1 );
+      }
+    }
+    this.dataSource.filter = undefined;
     const appModel = this.openAppsInThisPage[ appType ].model;
     console.log( this.openAppsInThisPage[ appType ] );
     const length = appModel.length;
@@ -649,7 +671,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
       if ( appType !== 'pageMenu' ) {
         this.createDefaultInputAndMappToAppInput(
           appType,
-          appModel[ length ]
+          appModel[ length ],
+          fileUrlPath
         );
       }
     }
@@ -658,11 +681,13 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   createDefaultInputAndMappToAppInput(
     appType: string,
-    app: any
+    app: any,
+    fileUrlPath?: string
   ) {
+    console.log(fileUrlPath);
     if ( this.openAppsInThisPage[ app.type ].inputs ) {
       if ( this.loggedIn ) {
-        this.spinner.show();
+        app.spinnerIsShowing = true;
       }
       for ( const input of this.openAppsInThisPage[ app.type ].inputs ) {
         const now = new Date();
@@ -709,7 +734,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
                         _id: '5e26f93905dee90e3dcea8ea',
                         creator: '5bf6823c9ec116a6fee7431d',
                         content: {
-                          info: input.default
+                          info: fileUrlPath || input.default // ((fileUrlPath && input.inputName.toString().toLowerCase().search('url')) ? fileUrlPath : input.default)
                         },
                         __v: 0
                       }
@@ -725,7 +750,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
                 );
             }
           }, error1 => {
-            this.spinner.hide();
+            app.spinnerIsShowing = false;
             console.log( error1 );
           });
       }
@@ -755,6 +780,15 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * */
   updateAppSettings( settings: any ) {
     for ( const app of this.openAppsInThisPage[ settings.type ].model ) {
+      if ( settings.hash === app.hash ) {
+        app.title = settings.title;
+        app.width = settings.width;
+        app.height = settings.height;
+        app.fullWidth = settings.fullWidth;
+        app.fullHeight = settings.fullHeight;
+      }
+    }
+    for ( const app of this.openAppArray ) {
       if ( settings.hash === app.hash ) {
         app.title = settings.title;
         app.width = settings.width;
@@ -816,9 +850,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
         this.openAppArray[ j ] = switchHelp;
       }
       j++;
-      if ( j === this.openAppArray.length ) {
-        this.spinner.hide();
-      }
+      app.spinnerIsShowing = false;
     }
   }
 
@@ -953,12 +985,25 @@ export class PageComponent implements OnInit, AfterViewChecked {
     const seconds = Math.floor(secondsTotal - minutes * 60);
     this.userInfo = 'Session expires in ' + minutes + ' min and ' + seconds + ' sec';
     if ( expirationDate && new Date(expirationDate).getTime() - now.getTime() > 0) {
+
+      if ( minutes === 59 && seconds === 59 ) {
+        this.snackBarOpen = true;
+        setTimeout(() => {
+          this.snackBarOpen = false;
+        }, 2000);
+        this.snackBar2.open( 'Session extended successfully', 'ok',
+          {
+            duration: 2000
+          });
+      }
+
       if ( minutes < 5 && !this.snackBarOpen) {
         this.snackBarOpen = true;
         this.openExtendSessionBar();
-      } else if ( minutes > 5 ) {
+      } else if ( minutes > 5 && !this.snackBarOpen ) {
         this.snackBar.dismiss();
       }
+
     }
   }
 
@@ -1103,7 +1148,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   reloadVariablesFunction() {
     console.log('test');
-    this.reloadVariables = true;
+    this.updatePage( true );
   }
 
   @HostListener('window:resize', ['$event'])

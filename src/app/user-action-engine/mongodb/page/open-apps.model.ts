@@ -46,8 +46,8 @@ export class OpenAppsModel {
           default: 'defaultParam'
         },
         {
-          'inputName': 'paramValue',
-          default: 'defaultParamValue'
+          'inputName': 'textFile',
+          default: 'Please paste variable here and click save afterwards'
         }
       ],
       materialIcon: 'lead_add',

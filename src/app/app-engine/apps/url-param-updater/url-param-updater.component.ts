@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {GeneralRequestService} from '../../../query-engine/general/general-request.service';
 
 @Component({
   selector: 'app-url-param-updater',
@@ -8,24 +9,45 @@ import {Router} from '@angular/router';
 })
 export class UrlParamUpdaterComponent implements OnChanges {
   @Input() param: string;
-  paramValue: string;
+  @Input() textFile: string;
+  @Input() appInputQueryMapping: string;
   @Output() reloadVariables: EventEmitter<any> = new EventEmitter<any>();
+  @Input() hash: string;
+  alreadyEmitted = false;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private requestService: GeneralRequestService,
+    public route: ActivatedRoute
   ) { }
 
   ngOnChanges() {
+    console.log( this.textFile );
+    if ( this.param && this.textFile ) {
+      this.updateParam();
+    }
   }
 
   updateParam() {
     this.router.navigate([], {
       queryParams: {
-        [ this.param ]: this.paramValue
+        [ this.param ]: this.textFile
       },
       queryParamsHandling: 'merge'
     });
-    this.reloadVariables.emit();
+  }
+
+  save() {
+    console.log( this.textFile, this.appInputQueryMapping[ this.hash ] );
+    this.requestService.updateFile(
+      this.appInputQueryMapping[ this.hash ][ 'textFile' ][ 'serverUrl' ]
+        .split('/')[ 6 ], { textFile: this.textFile} )
+      .subscribe(
+        data => {
+          console.log( data );
+          this.reloadVariables.emit();
+        }, error => console.log( error )
+      );
   }
 
 }

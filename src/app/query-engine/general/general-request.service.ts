@@ -63,7 +63,7 @@ export class GeneralRequestService {
   }
 
   transformHeader( header: any ) {
-    console.log( header );
+    // console.log( header );
     let headerTransformed = new HttpHeaders();
     if ( header && header.length ) {
       for (const i of header) {

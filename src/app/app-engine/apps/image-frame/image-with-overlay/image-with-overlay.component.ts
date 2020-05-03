@@ -166,19 +166,30 @@ export class ImageWithOverlayComponent implements OnInit, OnChanges, OnDestroy {
    */
   ngOnChanges(changes: { [key: string]: SimpleChange }) {
     console.log( 'Changes image with overlay', this.iiifImagePath, this.maxImageHeight, this.maxImageWidth );
-    if (this.maxImageHeight === undefined && this.maxImageWidth === undefined && this.iiifImagePath === undefined) {
-      // default image for demonstration purpose
-      // this.iiifImagePath = 'https://www.e-manuscripta.ch/zuz/i3f/v20/1510618/full/full/50/default.jpg';
-      // this.maxImageWidth = 3062;
-      // this.maxImageHeight = 4034;
-      // as regions are optional, no default can be given
-    }
+    // if (this.maxImageHeight === undefined && this.maxImageWidth === undefined && this.iiifImagePath === undefined) {
+    //   // default image for demonstration purpose
+    //   // this.iiifImagePath = 'https://www.e-manuscripta.ch/zuz/i3f/v20/1510618/full/full/50/default.jpg';
+    //   // this.maxImageWidth = 3062;
+    //   // this.maxImageHeight = 4034;
+    //   // as regions are optional, no default can be given
+    // }
 
-    if( this.maxImageHeight !== undefined && this.maxImageWidth !== undefined && this.iiifImagePath !== undefined ) {
-      console.log( 'set up viewer' );
-      // if (changes['iiifImagePath'] && changes['iiifImagePath'].isFirstChange()) {
-        this.setupViewer();
-      // }
+    if ( this.maxImageHeight !== undefined && this.maxImageWidth !== undefined && this.iiifImagePath !== undefined ) {
+
+      if ( this.viewer ) {
+        this.viewer.destroy();
+        this.viewer = undefined;
+      }
+
+      if ( this.iiifImagePath.search( '.j2k' ) !== -1 && this.iiifImagePath.search( 'jpg' ) === -1 ) {
+
+        this.iiifImagePath =
+          'https://ub-sipi.ub.unibas.ch/dizas/' +
+          this.iiifImagePath.split( '/' )[ 5 ] +
+          '/full/,800/0/default.jpg';
+        console.log( this.iiifImagePath );
+      }
+
       if (changes['width'] || changes['height']) {
         if (this.width > this.height) {
           this.maxSide = this.width;
@@ -186,10 +197,12 @@ export class ImageWithOverlayComponent implements OnInit, OnChanges, OnDestroy {
           this.maxSide = this.height;
         }
       }
-      // if (changes['iiifImagePath']) {
+
+      this.setupViewer();
+
         this.openImage();
         this.drawRegions();
-      // }
+
     }
 
 

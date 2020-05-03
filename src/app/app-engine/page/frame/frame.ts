@@ -14,7 +14,7 @@ import {
   ContentChildren,
   QueryList,
   ElementRef,
-  Renderer2, OnInit, OnChanges, AfterViewChecked
+  Renderer2, OnInit, OnChanges, AfterViewChecked, SimpleChanges
 } from '@angular/core';
 import 'rxjs/add/operator/map';
 import {MatDialog} from '@angular/material';
@@ -23,6 +23,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import { DataAssignmentComponent } from '../../../query-app-interface/data-management/data-assignment/data-assignment.component';
 import {QueryEntryComponent} from '../../../query-engine/query-entry/query-entry.component';
 import {Observable} from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
+
 
 @Component({
   selector: 'popup',
@@ -35,47 +37,21 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
    * @param show - indicates if app is minimalized or not
    * */
   show = false;
-  /**
-   * @param title - title of the app
-   * */
-  @Input() title: string;
-  /**
-   * @param type - type of the app
-   * */
-  @Input() type: string;
-  /**
-   * @param firstPopupX - if app is opened for the first time, this variable indicates where it should disappear vertically
-   * */
-  @Input() firstPopupX: number;
-  /**
-   * @param firstPopupY - if app is opened for the first time, this variable indicates where it should disappear horizontally
-   * */
-  @Input() firstPopupY: number;
-  /**
-   * @param hash - hash of the open app, this has to be emitted for the page so that the page knows which app is emmitting the information
-   * */
-  @Input() hash: string;
+  width: number;
   /**
    * @param width, height - width and height of the open app
    * */
-  @Input() width: number;
-  /**
-   * @param width, height - width and height of the open app
-   * */
-  @Input() height: number;
+  height: number;
   /**
    * @param position - "static" if the option "sort by appType" is chosen, "absolute" otherwise
    * */
-  @Input() response: any;
-  @Input() pathsWithArrays: any;
   @Input() position: string;
-  @Input() fullWidth: boolean;
-  @Input() fullHeight: boolean;
   @Input() preview = false;
   @Input() showAppSettingsOnPublish = true;
   @Input() page: any;
   @Input() app: any;
   @Input() openAppArrayIndex: number;
+  @Input() pathsWithArrays: Array<any>;
   @Output() sendAppCoordinatesBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendAppSettingsBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendIndexBack: EventEmitter<any> = new EventEmitter<any>();
@@ -102,7 +78,6 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
   isMouseBtnOnPress: boolean;
   paths: any;
   index = 0;
-  pathWithArray: Array<any>;
   queryId: string;
   dataChooserEntries: Array<string>;
   dataAssignmentComponent = new DataAssignmentComponent(  );
@@ -119,21 +94,41 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
     private renderer: Renderer2,
     public dialog: MatDialog,
     private _router: Router,
-    private _route: ActivatedRoute
-  ) {
+    private _route: ActivatedRoute,
+    private spinner: NgxSpinnerService
+) {
     this.mouseup = this.unboundMouseup.bind(this);
     this.dragging = this.unboundDragging.bind(this);
   }
-
+  /**
+   * This function produces the height and the width of
+   * each open app
+   * */
+  produceHeightAndWidth( appValue: string, defaultHeight: string ) {
+    if ( appValue ) {
+      return +appValue;
+    } else {
+      return +defaultHeight;
+    }
+  }
   /**
    * This is necessary for the app to be able to react onChanges regarding the input data for the apps,
    * for example updated App - Settings or updated App - Title
    * */
-  ngOnChanges() {
+  ngOnChanges( changes: SimpleChanges ) {
     this.index = 0;
-    console.log( 'change' );
+    this.width = this.produceHeightAndWidth( this.app.height,  this.app.initialHeight);
+    this.height = this.produceHeightAndWidth( this.app.height,  this.app.initialHeight);
+    if ( this.app.spinnerIsShowing ) {
+      this.spinner.show();
+    } else {
+      this.spinner.hide();
+      this.app.spinnerIsShowing = false;
+    }
+    console.log( this.pathsWithArrays );
     this.paths = [];
-    if ( this.app ) {
+    if ( this.app &&  this.pathsWithArrays ) {
+      this.app.pathsWithArrays = this.pathsWithArrays;
       const pathsWithArrays = this.app.pathsWithArrays;
       for ( const queryId in pathsWithArrays ) {
         for ( const path in pathsWithArrays[ queryId ] ) {
@@ -147,7 +142,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
               pathToValueInJson: pathsWithArrays[ queryId ][ path ].pathToValueInJson
             }
           );
-          this.pathWithArray = path.split(',');
+          this.app.pathWithArray = path.split(',');
           this.queryId = queryId;
           this.dataChooserEntries = pathsWithArrays[ queryId ][ path ].dataChooserEntries;
         }
@@ -174,9 +169,9 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
 
   ngAfterViewChecked() {
     if (
-      this.pathWithArray && this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ] &&
-      this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ] !== this.index ) {
-      this.index = Number ( this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ] );
+      this.app.pathWithArray && this._route.snapshot.queryParams[ this.queryId + this.app.pathWithArray.toString() ] &&
+      this._route.snapshot.queryParams[ this.queryId + this.app.pathWithArray.toString() ] !== this.index ) {
+      this.index = Number ( this._route.snapshot.queryParams[ this.queryId + this.app.pathWithArray.toString() ] );
     }
   }
 
@@ -201,11 +196,11 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
 
   chooseResource(index: number) {
     this.panelExtended = false;
-    this.fullWidth = false;
-    this.fullHeight = false;
+    this.app.fullWidth = false;
+    this.app.fullHeight = false;
     this._router.navigate([], {
       queryParams: {
-        [this.queryId + this.pathWithArray.toString() ]: Number( index )
+        [this.queryId + this.app.pathWithArray.toString() ]: Number( index )
       },
       queryParamsHandling: 'merge'
     });
@@ -221,11 +216,11 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
    * */
   ngOnInit() {
     // If coordinates of window are set through input, let it appear
-    if ( this.firstPopupX && this.firstPopupY ) {
+    if ( this.app.x && this.app.y ) {
       this.appear();
     } else {
-      this.firstPopupX = 100;
-      this.firstPopupY = 100;
+      this.app.x = 100;
+      this.app.y = 100;
     }
     Observable.interval(1000)
       .subscribe((val) => {
@@ -252,8 +247,8 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
 
   setPos() {
     if (this.fatherPopup == undefined ) {
-      this.curX = this.firstPopupX;
-      this.curY = this.firstPopupY;
+      this.curX = this.app.x;
+      this.curY = this.app.y;
       this.curZIndex = this.firstPopupZ;
     }
     else {
@@ -266,6 +261,19 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
   mouseup: (event: any) => void;
   unboundMouseup(event: any) {
     // Remove listeners
+    this.sendCoordinatesBack = {};
+    this.sendCoordinatesBack.x = this.curX;
+    this.sendCoordinatesBack.y = this.curY;
+    this.sendCoordinatesBack.type = this.app.type;
+    this.sendCoordinatesBack.hash = this.app.hash;
+    this.sendCoordinatesBack.title = this.app.title;
+    this.sendCoordinatesBack.width = this.width;
+    this.sendCoordinatesBack.height = this.height;
+    this.sendCoordinatesBack.fullWidth = this.app.fullWidth;
+    this.sendCoordinatesBack.fullHeight = this.app.fullHeight;
+    this.sendAppCoordinatesBack.emit(
+      this.sendCoordinatesBack
+    );
     this.mousemoveEvent();
     this.mouseupEvent();
   }
@@ -289,20 +297,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
   }
   dragging: (event: any) => void;
   unboundDragging(event: any) {
-    this.sendCoordinatesBack = {};
-    this.sendCoordinatesBack.x = this.curX;
-    this.sendCoordinatesBack.y = this.curY;
-    this.sendCoordinatesBack.type = this.type;
-    this.sendCoordinatesBack.hash = this.hash;
-    this.sendCoordinatesBack.title = this.title;
-    this.sendCoordinatesBack.width = this.width;
-    this.sendCoordinatesBack.height = this.height;
-    this.sendCoordinatesBack.fullWidth = this.fullWidth;
-    this.sendCoordinatesBack.fullHeight = this.fullHeight;
     // console.log(this.sendCoordinatesBack);
-    this.sendAppCoordinatesBack.emit(
-      this.sendCoordinatesBack
-    );
     this.curX = this.xStartElementPoint + (event.pageX - this.xStartMousePoint);
     this.curY = this.yStartElementPoint + (event.pageY - this.yStartMousePoint);
   }
@@ -313,11 +308,11 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
       width: '50%',
       height: '50%',
       data: [
-        this.title,
-        this.width,
-        this.height,
-        this.fullWidth,
-        this.fullHeight
+        this.app.title,
+        this.app.width,
+        this.app.height,
+        this.app.fullWidth,
+        this.app.fullHeight
       ]
     });
     /**
@@ -335,8 +330,8 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
             title: result[ 0 ],
             width: result[ 1 ],
             height: result[ 2 ],
-            hash: this.hash,
-            type: this.type,
+            hash: this.app.hash,
+            type: this.app.type,
             fullWidth: result[ 3 ],
             fullHeight: result[ 4 ]
           }
@@ -365,7 +360,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
 
   assignInput() {
     console.log( 'assign input' );
-    this.sendAssignInputCommandBack.emit( {hash: this.hash, type: this.type} );
+    this.sendAssignInputCommandBack.emit( {hash: this.app.hash, type: this.app.type} );
   }
 
   closeApp() {

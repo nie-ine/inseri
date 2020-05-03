@@ -148,9 +148,11 @@ export class DataManagementComponent implements OnInit {
    * after the load-variables.component emits the loaded variables
    * */
   receiveOpenAppsInThisPage( openAppsInThisPage: any ) {
+    console.log( openAppsInThisPage );
+    this.reloadVariables = false;
     this.openAppsInThisPage = openAppsInThisPage;
     this.resetTable();
-    this.reloadVariables = false;
+    let i = 0;
     for (const appType in this.openAppsInThisPage) {
       if (this.openAppsInThisPage[appType].model.length !== 0) {
         for (const appOfSameType of this.openAppsInThisPage[appType].model) {
@@ -163,13 +165,13 @@ export class DataManagementComponent implements OnInit {
             this.columnsToDisplay.push(appOfSameType.hash);
           }
         }
+      }
+      if ( i === this.openAppsInThisPage.length - 1 ) {
         if (this.table) {
           this.table.renderRows();
         }
       }
-      if (this.table) {
-        this.table.renderRows();
-      }
+      i += 1;
     }
   }
 

@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 import { FileModel } from './file.model';
 import {environment} from '../../../environments/environment';
+import {consoleTestResultHandler} from 'tslint/lib/test';
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +19,9 @@ export class FileService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  getFiles() {
-    this.http
-      .get<{ message: string; files: any }>(`${FileService.API_BASE_URL_FILES}`)
+  getFiles(folderId: string): Observable<any> {
+    return this.http
+      .get<{ message: string; files: any }>(`${FileService.API_BASE_URL_FILES}` + '/files/' + folderId)
       .pipe(
         map(fileData => {
           return fileData.files.map(file => {
@@ -32,11 +33,12 @@ export class FileService {
             };
           });
         })
-      )
-      .subscribe(transformedFiles => {
+      );
+
+     /* .subscribe(transformedFiles => {
         this.files = transformedFiles;
         this.filesUpdated.next([...this.files]);
-      });
+      });*/
   }
 
   getFileUpdateListener() {
@@ -49,32 +51,36 @@ export class FileService {
     );
   }
 
-  addFile(title: string, description: string, uploadedFile: File) {
+  /*addFiles(uploadedFiles: File[]) {
+    const fileData = new FormData(); // formData is a data format which allows us to combine txt values and blob
+    for (let i = 0; i < uploadedFiles.length; i++) {
+      fileData.append('files[]', uploadedFiles[i]);
+    }
+    return this.http.post(
+      `${FileService.API_BASE_URL_FILES} + '/files'}`,
+      {files: fileData}, {observe: 'response'});
+        // console.log('subscribe data' + file.title + ' ' + file.description);
+        //this.files.push(uploadedFiles);
+        this.filesUpdated.next([...this.files]);
+        // this.router.navigate(['app-our-new-component']);
+  }*/
+
+
+
+  addFile(title: string, description: string, uploadedFile: File, folderId: string): Observable<any> {
     // tslint:disable-next-line:max-line-length
     // const file: File = { id: null, title: title, description: description }; // we send an obj here in the body that will be auto converted to json, but json cannot include a file
     const fileData = new FormData(); // formData is a data format which allows us to combine txt values and blob
     fileData.append('title', title); // we append fields to it
     fileData.append('description', description);
     // tslint:disable-next-line:max-line-length
-    fileData.append('file', uploadedFile, title); // the property we added in the files routes, the title is the file name I provide to the backend, which is the title the user entered for the file
+    fileData.append('file', uploadedFile, uploadedFile.name); // the property we added in the files routes, the title is the file name I provide to the backend, which is the title the user entered for the file
     console.log(' add file ' + title + description + uploadedFile.name);
-    this.http
+    return this.http
       .post<{ message: string; file: FileModel }>(
-        `${FileService.API_BASE_URL_FILES}`,
+        `${FileService.API_BASE_URL_FILES}` + '/' + folderId,
         fileData
-      )
-      .subscribe(responseData => {
-        const file: FileModel = {
-          id: responseData.file.id,
-          title: title,
-          description: description,
-          urlPath: responseData.file.urlPath
-        };
-        console.log('subscribe data' + file.title + ' ' + file.description);
-        this.files.push(file);
-        this.filesUpdated.next([...this.files]);
-        // this.router.navigate(['app-our-new-component']);
-      });
+      );
   }
 
   updateFile(id: string, title: string, description: string) {
@@ -92,13 +98,9 @@ export class FileService {
       });
   }
 
-  deleteFile(fileId: string) {
-    this.http
-      .delete(`${FileService.API_BASE_URL_FILES}` + '/' + fileId)
-      .subscribe(() => {
-        const updatedFiles = this.files.filter(file => file.id !== fileId);
-        this.files = updatedFiles;
-        this.filesUpdated.next([...this.files]);
-      });
+  deleteFile(fileId: string, folderId: string): Observable<any> {
+    return this.http
+      .post(`${FileService.API_BASE_URL_FILES}` + '/deleteFiles/' + fileId + '&' + folderId, {});
   }
 }
+
