@@ -600,8 +600,10 @@ function getAllFiles(owner, res, targetFolderIds,parentId){
         message = 'The Folder has no files';
         console.log(message);
       } else {
-        const newFoldersArrayTemp=folderDetails.map((obj)=>({...obj._doc,['files']:new Map()}));
+        const newFoldersArrayTemp=folderDetails.map((obj)=>({...obj._doc}));
         folderDetails=newFoldersArrayTemp;
+        const temp=folderDetails.map((obj)=>({...obj,['files']:sortedFiles}));
+        folderDetails=temp;
         const newFilesArrayTemp=folderDetails.map((obj)=>(obj.hasFiles));
         let fileIds=newFilesArrayTemp.flat();
           FileModel.find({
@@ -629,10 +631,20 @@ function getAllFiles(owner, res, targetFolderIds,parentId){
                       else{
                         sortedFiles.set(ext, [{ fileName: file.title, fileUrlPath: file.urlPath}])
                       }
-                      folderDetails[k].files =[...sortedFiles];//JSON.stringify([...sortedFiles]);// serializeFiles(sortedFiles);//new Map(sortedFiles);
+                      //JSON.stringify([...sortedFiles]);// serializeFiles(sortedFiles);//new Map(sortedFiles);
                       //to map again --> new Map(JSON.parse(folderDetails[k].files));
-                    console.log("after: ");
                     }
+                  console.log(sortedFiles);
+                  //const temp=folderDetails[k].map((obj)=>({...obj,['files']:sortedFiles}));
+                  //folderDetails[k]=temp;
+
+
+
+                 // f = [...sortedFiles];
+                  const obj = Array.from(sortedFiles.entries()).reduce((main, [key, value]) => ({...main, [key]: value}), {});
+                  folderDetails[k].files=obj;
+                  console.log("after: ");
+                  console.log(folderDetails[k]);
                   }
                 folderTree=constructFolderTree(folderDetails,parentId);
 
@@ -647,11 +659,13 @@ function getAllFiles(owner, res, targetFolderIds,parentId){
               {
                 constructHierarchy(folderDetails,parentId);
               }*/
-              console.log("before sending the results : ",folderDetails);
+              console.log("before sending the results : ",folderTree);
+
+              //console.log(obj);
               message = 'All files were found';
               res.status(200).json({
                 message: message,
-                folders: folderTree//JSON.stringify(folderDetails)
+                folders: JSON.parse(JSON.stringify(folderTree))
               });
             })
           }
@@ -659,33 +673,6 @@ function getAllFiles(owner, res, targetFolderIds,parentId){
     })
 }
 
-function serializeFiles (inputFileMap)
-{
-  let newMap =[];
-  let files=[];
-  //let file={fileName:"",fileUrlPath:""};
-  for (const [key, value] of inputFileMap.entries()) {
-    //let fileType=key;
-    //newMap+="#"+key;
-    console.log(value);
-    files=[];
-     for (let i=0; i<value.length;i++)
-     {
-       files.push(value[i]);
-       //console.log(file);
-       //let clonedFileObject = {fileName:"",fileUrlPath:""};
-       //clonedFileObject.fileName=  fileObject.fileName;
-       //clonedFileObject.fileUrlPath= fileObject.fileUrlPath;
-       //clonedValues.push(clonedFileObject);
-       console.log('from clone '+value[i].fileName);
-       //newMap+="|"+value[i].fileName+","+value[i].fileUrlPath;
-     }
-     newMap.push({fileType: key,files:files});
-    //newMap.key, clonedValues);
-    //console.log('from clone '+key+' '+clonedValues);
-  }
-return newMap;
-}
 function getFileDetails(fileId, filesArray){
   for(let i=0;i<filesArray.length;i++){
     if(filesArray[i]._id.toString()===fileId.toString()){
