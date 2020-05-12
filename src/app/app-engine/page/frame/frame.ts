@@ -39,10 +39,6 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
   show = false;
   width: number;
   /**
-   * @param width, height - width and height of the open app
-   * */
-  height: number;
-  /**
    * @param position - "static" if the option "sort by appType" is chosen, "absolute" otherwise
    * */
   @Input() position: string;
@@ -52,6 +48,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
   @Input() app: any;
   @Input() openAppArrayIndex: number;
   @Input() pathsWithArrays: Array<any>;
+  @Input() height: number;
   @Output() sendAppCoordinatesBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendAppSettingsBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendIndexBack: EventEmitter<any> = new EventEmitter<any>();
@@ -116,6 +113,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
    * for example updated App - Settings or updated App - Title
    * */
   ngOnChanges( changes: SimpleChanges ) {
+    console.log( 'change' );
     this.index = 0;
     this.width = this.produceHeightAndWidth( this.app.height,  this.app.initialHeight);
     this.height = this.produceHeightAndWidth( this.app.height,  this.app.initialHeight);
@@ -324,6 +322,10 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
      * */
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
+      this.app.width = result[ 1 ];
+      this.app.height = result[ 2 ];
+      this.app.fullWidth = result[ 3 ];
+      this.app.fullHeight = result[ 4 ];
       if ( result ) {
         this.sendAppSettingsBack.emit(
           {
