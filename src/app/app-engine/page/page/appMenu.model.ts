@@ -352,6 +352,16 @@ export class AppMenuModel {
     },
     {
       id: 'book',
+      name: 'iframe',
+      tags: 'iframe',
+      color: 'green',
+      status: 'stable',
+      appType: 'iframe',
+      description: 'iframe',
+      showOnHome: false
+    },
+    {
+      id: 'book',
       name: 'Kuno Raeber Online Edition',
       tags: 'raeber',
       color: 'green',

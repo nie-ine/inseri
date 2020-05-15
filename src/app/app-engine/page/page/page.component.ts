@@ -587,7 +587,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
     }
     for ( const mapping in this.page.appInputQueryMapping ) {
       if ( !this.page.openApps[ mapping ] ) {
-        console.log( mapping );
         delete this.page.appInputQueryMapping[ mapping ];
       }
     }
@@ -833,6 +832,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   generateOpenApps( openApps: any ) {
+    console.log( openApps );
     this.openAppArray = [];
     for ( const appType in openApps ) {
       for ( const app of openApps[ appType ].model ) {
@@ -844,6 +844,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     }
     let j = 0;
     for ( const app of this.openAppArray ) {
+      // console.log( app );
       if ( this.page.openApps[ app.hash ].openAppArrayIndex ) {
         const switchHelp = this.openAppArray[this.page.openApps[app.hash].openAppArrayIndex];
         this.openAppArray[this.page.openApps[app.hash].openAppArrayIndex] = app;

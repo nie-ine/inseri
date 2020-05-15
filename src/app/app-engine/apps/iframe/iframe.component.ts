@@ -7,7 +7,7 @@ import {ActivatedRoute, Router} from '@angular/router';
   templateUrl: './iframe.component.html',
   styleUrls: ['./iframe.component.scss']
 })
-export class IframeComponent implements OnInit, AfterViewChecked {
+export class IframeComponent implements OnInit, AfterViewChecked, OnChanges {
   @Input() url: string;
   sanitized = false;
   sanitizedUrl: SafeUrl;
@@ -48,6 +48,11 @@ export class IframeComponent implements OnInit, AfterViewChecked {
     }, 2000);
 
 
+  }
+
+  ngOnChanges() {
+    console.log( this.url );
+    this.sanitizedUrl = this.getSantizeUrl( this.url );
   }
 
   ngAfterViewChecked(): void {

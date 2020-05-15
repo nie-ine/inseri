@@ -220,6 +220,10 @@
             [url]="environment.webern">
 </app-iframe>
 
+<app-iframe *ngIf="app.type === 'iframe'"
+            [url]="app.url">
+</app-iframe>
+
 <app-iframe *ngIf="app.type === 'raeber'"
             [url]="environment.raeber">
 </app-iframe>

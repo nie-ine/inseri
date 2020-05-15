@@ -113,7 +113,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
    * for example updated App - Settings or updated App - Title
    * */
   ngOnChanges( changes: SimpleChanges ) {
-    console.log( 'change' );
+    // console.log( 'change' );
     this.index = 0;
     this.width = this.produceHeightAndWidth( this.app.height,  this.app.initialHeight);
     this.height = this.produceHeightAndWidth( this.app.height,  this.app.initialHeight);
@@ -123,7 +123,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
       this.spinner.hide();
       this.app.spinnerIsShowing = false;
     }
-    console.log( this.pathsWithArrays );
+    // console.log( this.pathsWithArrays );
     this.paths = [];
     if ( this.app &&  this.pathsWithArrays ) {
       this.app.pathsWithArrays = this.pathsWithArrays;

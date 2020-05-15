@@ -608,6 +608,19 @@ export class OpenAppsModel {
       }
       ],
   },
+    iframe: {
+      type: 'iframe',
+      model: [],
+      materialIcon: 'book',
+      initialWidth: '900',
+      initialHeight: '700',
+      inputs: [
+        {
+          'inputName': 'url',
+          default: 'https://www.nie-ine.ch/'
+        }
+      ],
+    },
     primeEditor: {
       type: 'primeEditor',
       model: [],
