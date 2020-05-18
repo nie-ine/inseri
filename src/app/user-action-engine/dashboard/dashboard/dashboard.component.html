@@ -68,7 +68,7 @@
         [ngStyle]="{'color': action.isFinished ? 'green' : 'black'}" style=" width: 230px; height: 300px; display: inline-block;" >
                     <span class="fa-stack fa-4x" [matMenuTriggerFor]="appMenu" [ngSwitch]="action.type" style="cursor: pointer">
                       <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                      <i *ngSwitchCase="'page-set'" class="fa fa-delicious fa-stack-1x fa-inverse" ></i>
+                      <i *ngSwitchCase="'page-set'" class="fa fa-lightbulb-o fa-stack-1x fa-inverse" ></i>
                       <i *ngSwitchCase="'page'" class="fa fa-file-o fa-stack-1x fa-inverse" ></i>
                       <i *ngSwitchDefault class="fa fa-question fa-stack-1x fa-inverse" ></i>
                     </span>

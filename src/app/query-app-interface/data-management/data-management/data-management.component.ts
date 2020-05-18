@@ -23,7 +23,7 @@ import { QueryService } from '../../../user-action-engine/mongodb/query/query.se
   templateUrl: './data-management.component.html',
   styleUrls: ['./data-management.component.scss']
 })
-export class DataManagementComponent implements OnInit {
+export class DataManagementComponent {
 
   /**
    * The table displays the mapping between the queries and the
@@ -119,26 +119,6 @@ export class DataManagementComponent implements OnInit {
     this.queryService.getAllQueriesOfPage(this.page._id)
       .subscribe((data) => {
         this.queries = data.queries.slice().reverse();
-        for ( const app in this.appInputQueryMapping ) {
-          for ( const input in this.appInputQueryMapping[app] ) {
-            for ( const query of this.queries ) {
-              if (
-                query._id === this.appInputQueryMapping[app][input][ 'query' ] &&
-                this.appInputQueryMapping[app][input][ 'path' ] ) {
-                if ( !query.paths ) {
-                  query.paths = [];
-                }
-                const path = this.appInputQueryMapping[app][input][ 'path' ];
-                for ( let i = 0; i < path.length; i++ ) {
-                  if ( !isNaN( Number( path[ i ] ) ) ) {
-                    path.splice( i, 1 );
-                  }
-                }
-                query.paths.push( path );
-              }
-            }
-          }
-        }
       });
   }
 
@@ -154,18 +134,16 @@ export class DataManagementComponent implements OnInit {
     this.resetTable();
     let i = 0;
     for (const appType in this.openAppsInThisPage) {
-      if (this.openAppsInThisPage[appType].model.length !== 0) {
         for (const appOfSameType of this.openAppsInThisPage[appType].model) {
           if( this.appModel.openApps[ appOfSameType.type ] && this.appModel.openApps[ appOfSameType.type ].inputs ) {
             appOfSameType.inputs =  this.appModel.openApps[ appOfSameType.type ].inputs;
             this.openApps.push(appOfSameType);
-            for (const query in this.queries) {
+/*            for (const query in this.queries) {
               this.queries[query][appOfSameType.hash] = appOfSameType.hash;
-            }
+            }*/
             this.columnsToDisplay.push(appOfSameType.hash);
           }
         }
-      }
       if ( i === this.openAppsInThisPage.length - 1 ) {
         if (this.table) {
           this.table.renderRows();
@@ -173,9 +151,6 @@ export class DataManagementComponent implements OnInit {
       }
       i += 1;
     }
-  }
-
-  ngOnInit() {
   }
 
   checkIfPathIsDefined( appHash: string ) {
@@ -244,6 +219,23 @@ export class DataManagementComponent implements OnInit {
 
   close( ) {
       this.dialogRef.close();
+  }
+
+  showThisQueryMapping( query: any ) {
+    query.display = true;
+    console.log( query );
+    for ( const app in this.appInputQueryMapping ) {
+      for ( const input in this.appInputQueryMapping[app] ) {
+          if (
+            query._id === this.appInputQueryMapping[app][input][ 'query' ] &&
+            this.appInputQueryMapping[app][input][ 'path' ] ) {
+            if ( !query.paths ) {
+              query.paths = [];
+            }
+            query.paths.push( this.appInputQueryMapping[app][input][ 'path' ] );
+          }
+      }
+    }
   }
 
   openQueryEntry(query: any) {
