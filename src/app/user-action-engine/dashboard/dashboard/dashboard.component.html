@@ -19,7 +19,7 @@
             <mat-label>Show...</mat-label>
             <mat-select [(value)]="selected">
               <mat-option (click)="showArchivedDocuments = false" (click)="showUserGroups = false"  value="option1">
-                studios
+                projects
               </mat-option>
               <mat-option (click)="showUserGroups = true" value="option2">
                 User groups
@@ -31,7 +31,7 @@
                 All pages
               </mat-option>
               <mat-option (click)="showArchivedDocuments = true" (click)="showUserGroups = false"  value="option3">
-                Archived studios
+                Archived projects
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -55,7 +55,7 @@
 
         <h4 class="service-heading">Create New</h4>
 
-        <p class="text-muted">studios and User Groups</p>
+        <p class="text-muted">projects and User Groups</p>
 
       </div>
 
@@ -73,11 +73,11 @@
                       <i *ngSwitchDefault class="fa fa-question fa-stack-1x fa-inverse" ></i>
                     </span>
                     <mat-menu #appMenu="matMenu">
-                      <button mat-menu-item (click)="continueAction( action )" >Go to studio</button>
-                      <button mat-menu-item (click)="goToDocumentIndex( action )" *ngIf="action.type === 'page-set'">Go to studio index</button>
+                      <button mat-menu-item (click)="continueAction( action )" >Go to project</button>
+                      <button mat-menu-item (click)="goToDocumentIndex( action )" *ngIf="action.type === 'page-set'">Go to project index</button>
                       <button mat-menu-item (click)="editAction( action )" >Change title or description</button>
-                      <button mat-menu-item (click)="deleteAction( action )" >Delete studio</button>
-                      <button mat-menu-item (click)="markAsDone( action )" >Archive studio</button>
+                      <button mat-menu-item (click)="deleteAction( action )" >Delete project</button>
+                      <button mat-menu-item (click)="markAsDone( action )" >Archive project</button>
                     </mat-menu>
         <h4 class="service-heading">{{ action.title }}</h4>
         <p class="text-muted">{{ action.description }}</p>
@@ -94,11 +94,11 @@
                       <i *ngSwitchDefault class="fa fa-question fa-stack-1x fa-inverse" ></i>
                     </span>
         <mat-menu #appMenu="matMenu">
-          <button mat-menu-item (click)="continueAction( action )" >Go to studio</button>
-          <button mat-menu-item (click)="goToDocumentIndex( action )" *ngIf="action.type === 'page-set'">Go to studio index</button>
+          <button mat-menu-item (click)="continueAction( action )" >Go to project</button>
+          <button mat-menu-item (click)="goToDocumentIndex( action )" *ngIf="action.type === 'page-set'">Go to project index</button>
           <button mat-menu-item (click)="editAction( action )" >Change title or description</button>
-          <button mat-menu-item (click)="deleteAction( action )" >Delete studio</button>
-          <button mat-menu-item (click)="markAsDone( action )" >Archive studio</button>
+          <button mat-menu-item (click)="deleteAction( action )" >Delete project</button>
+          <button mat-menu-item (click)="markAsDone( action )" >Archive project</button>
         </mat-menu>
         <h4 class="service-heading">{{ action.title }}</h4>
         <p class="text-muted">{{ action.description }}</p>
