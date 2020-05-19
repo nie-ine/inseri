@@ -95,6 +95,29 @@ For those who are not that lucky, and had to scan the project data by themselves
 
 ## 1.2. Adding images and data from desktop to Inseri
 
+### 1.2.1. Uploading images and addressing them
+
+In order to upload images to Inseri, the user should first navigate to a desired page, and then open an application called "My Files" in the applications list.
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-05/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/B1.png" alt="My Files" width="500"></p>
+
+By clicking on the sign of file in the opening window, the user can create a new file, for example, "pics".
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-05/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/B2.png" alt="My Files" width="500"></p>
+
+Having clicked on the newly created file, the user should now click on the dots, and the file options will open. We shall describe here only the first one, allowing to upload the images (upmost option). The names of the images should not have any spaces of special signs, but they can be in any language. The names of uploaded images will appear in the created file, as below.
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-05/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/B3.png" alt="My Files" width="500"></p>
+
+In order to address the image, the user should right-click on the name of the chose image, it will open the list of applications. The user should click on "Simple Image" and further on "Image URL". 
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-05/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/B4.png" alt="My Files" width="500"></p>
+
+The link between the app and the image is saved automatically, and the image is displayed on the screen.
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-05/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/B5.png" alt="My Files" width="800"></p>
+
+
 ## 1.3. Addressing protected or partially available resources from Inseri
 
 Here we shall take DDD project data (Drawings of Gods, University of Lausanne) in Knora as example. 
