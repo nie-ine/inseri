@@ -98,59 +98,43 @@ export class DataManagementComponent {
     private route: ActivatedRoute,
     private appModel: OpenAppsModel,
     private spinner1: NgxSpinnerService
-  ) { }
-
-  resetTable() {
-    this.columnsToDisplay = this.displayedColumns.slice();
-    this.displayedColumns = ['query'];
-    this.openApps = [];
-    this.table.renderRows();
-  }
-
-  /**
-   * This function is invoked by the load-variables.component
-   * instatiated in the data-management.html. It is invoked
-   * after the load-variables.component emits the loaded variables
-   * */
-  receivePage( pageAndAction: any ) {
-    this.reloadVariables = false;
-    this.page = pageAndAction[ 0 ];
+  ) {
+    const openAppArray: Array<any> = data[ 2 ];
+    console.log( data );
+    // console.log( data );
+    if (this.table) {
+      this.resetTable();
+    }
+    let i = 0;
+    this.page = data[ 1 ];
     this.appInputQueryMapping = this.page.appInputQueryMapping;
     this.queryService.getAllQueriesOfPage(this.page._id)
-      .subscribe((data) => {
-        this.queries = data.queries.slice().reverse();
+      .subscribe((queryResponse) => {
+        this.queries = queryResponse.queries.slice().reverse();
       });
-  }
-
-  /**
-   * This function is invoked by the load-variables.component
-   * instatiated in the data-management.html. It is invoked
-   * after the load-variables.component emits the loaded variables
-   * */
-  receiveOpenAppsInThisPage( openAppsInThisPage: any ) {
-    console.log( openAppsInThisPage );
-    this.reloadVariables = false;
-    this.openAppsInThisPage = openAppsInThisPage;
-    this.resetTable();
-    let i = 0;
-    for (const appType in this.openAppsInThisPage) {
-        for (const appOfSameType of this.openAppsInThisPage[appType].model) {
-          if( this.appModel.openApps[ appOfSameType.type ] && this.appModel.openApps[ appOfSameType.type ].inputs ) {
-            appOfSameType.inputs =  this.appModel.openApps[ appOfSameType.type ].inputs;
-            this.openApps.push(appOfSameType);
-/*            for (const query in this.queries) {
-              this.queries[query][appOfSameType.hash] = appOfSameType.hash;
-            }*/
-            this.columnsToDisplay.push(appOfSameType.hash);
-          }
+    for (const app of openAppArray) {
+        if( this.appModel.openApps[ app.type ] && this.appModel.openApps[ app.type ].inputs ) {
+          app.inputs =  this.appModel.openApps[ app.type ].inputs;
+          this.openApps.push(app);
+          /*            for (const query in this.queries) {
+                        this.queries[query][appOfSameType.hash] = appOfSameType.hash;
+                      }*/
+          this.columnsToDisplay.push(app.hash);
         }
-      if ( i === this.openAppsInThisPage.length - 1 ) {
+      if ( i === openAppArray.length - 1 ) {
         if (this.table) {
           this.table.renderRows();
         }
       }
       i += 1;
     }
+  }
+
+  resetTable() {
+    this.columnsToDisplay = this.displayedColumns.slice();
+    this.displayedColumns = ['query'];
+    this.openApps = [];
+    this.table.renderRows();
   }
 
   checkIfPathIsDefined( appHash: string ) {

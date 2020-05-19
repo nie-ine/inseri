@@ -247,6 +247,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   showResponsiveWidthMenu = false;
 
+  nothAlreadyQueryAppPathGenerated = new Set();
+
   slogans = [
     'Where you can gather information',
     'It\'s pretty cloudy in the cloud',
@@ -310,11 +312,11 @@ export class PageComponent implements OnInit, AfterViewChecked {
     )
       .subscribe(
         data => {
-          this.updateOpenAppsInThisPage();
+          // this.updateOpenAppsInThisPage();
           const dialogRef = this.dialog.open(DataManagementComponent, {
             width: '100%',
             height: '100%',
-            data: [ this.openAppsInThisPage, this.page ]
+            data: [ this.openAppsInThisPage, this.page, this.openAppArray, this.querySet ]
           });
           dialogRef.afterClosed().subscribe((result) => {
             this.resetPage = true;
@@ -330,15 +332,15 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * updates variable openAppsInThisPage
    * */
   updateOpenAppsInThisPage() {
-    for ( const app in this.page.openApps ) {
-      if ( app && this.openAppsInThisPage[ this.page.openApps[ app ].type ] ) {
-        for ( const openApp of this.openAppsInThisPage[ this.page.openApps[ app ].type ].model ) {
-          if ( openApp['hash'] === app ) {
-            openApp.type = this.page.openApps[ app ].type;
-          }
-        }
-      }
-    }
+    // for ( const app in this.page.openApps ) {
+    //   if ( app && this.openAppsInThisPage[ this.page.openApps[ app ].type ] ) {
+    //     for ( const openApp of this.openAppsInThisPage[ this.page.openApps[ app ].type ].model ) {
+    //       if ( openApp['hash'] === app ) {
+    //         openApp.type = this.page.openApps[ app ].type;
+    //       }
+    //     }
+    //   }
+    // }
   }
 
   /**
@@ -922,6 +924,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * generate the information in the the generated dialog.
    * */
   generateQueryAppPathInformation( queryId: string ): any {
+      console.log( this.openAppArray );
       let queryAppPathInformation;
       for ( const appHash in this.page.appInputQueryMapping ) {
         for ( const appType in this.openAppsInThisPage ) {
@@ -1105,18 +1108,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
     }, 2000);
   }
 
-  updateTextOnApp( textAndHash: any ) {
-    console.log( textAndHash );
-    for ( const app of this.openAppsInThisPage[ textAndHash.type ].model ) {
-      if ( textAndHash.hash === app.hash ) {
-        app.text = textAndHash.text;
-      }
-    }
-    this.page.openApps[ textAndHash.hash ].text = textAndHash.text;
-    console.log( this.page.openApps, this.openAppsInThisPage );
-    this.updatePage();
-  }
-
   openAssignInputDialog( input: any ) {
     console.log( input, this.openAppsInThisPage );
     this.pageService.updatePage(
@@ -1124,13 +1115,12 @@ export class PageComponent implements OnInit, AfterViewChecked {
     )
       .subscribe(
         data => {
-          this.updateOpenAppsInThisPage();
+          // this.updateOpenAppsInThisPage();
           const dialogRef = this.dialog.open(AppInputComponentComponent, {
             width: '50%',
             height: '50%',
             data: {
               appHash: input.hash,
-              inputs: this.openAppsInThisPage[input.type].inputs,
               page: this.page
             }
           });

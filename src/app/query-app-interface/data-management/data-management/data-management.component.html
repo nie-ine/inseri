@@ -1,11 +1,4 @@
-<!--<mat-spinner *ngIf="isLoading"></mat-spinner>-->
 
-<app-load-variables
-  (sendPageBack)="receivePage( $event )"
-  (sendOpenAppsInThisPageBack)="receiveOpenAppsInThisPage( $event )"
-  [reload]="reloadVariables">
-
-</app-load-variables>
 
     <button mat-button (click)="close()">
       <mat-icon>clear</mat-icon> Close
@@ -17,7 +10,6 @@
       <th mat-header-cell *matHeaderCellDef> Query </th>
       <td mat-cell *matCellDef="let item">
         <button mat-button (click)="delete(item)" mat-icon-button><mat-icon>close</mat-icon></button>
-        <button mat-button (click)="showThisQueryMapping(item)" mat-icon-button><mat-icon>visibility</mat-icon></button>
         <button mat-button (click)="openQueryEntry(item)"> {{item.title}} </button>
       </td>
     </ng-container>
@@ -25,16 +17,13 @@
     <ng-container matColumnDef="{{app.hash}}" *ngFor="let app of openApps; let i = index">
         <th mat-header-cell *matHeaderCellDef> {{ app.type + ' ' + i }} </th>
         <td mat-cell *matCellDef="let item">
-          <div *ngIf="item.serverUrl && item.display === true">
+          <div *ngIf="item.serverUrl">
             <mat-chip-list *ngFor="let input of app.inputs; let i = index;" style="margin-left: 2px; display: inline-block;">
               <mat-chip
                 (click)="assignInputToQuery( input.inputName, app.hash, item._id, item )"
                 *ngIf="!checkIfChosen( input.inputName, app.hash, item._id )">
                 {{input.inputName}}
               </mat-chip>
-              <!--<button mat-icon-button *ngIf="checkIfChosen( input.inputName, app.hash, item._id )" (click)="assignInputToLabel( input, item )">-->
-                <!--<mat-icon aria-label="Example icon-button with a heart icon">label</mat-icon>-->
-              <!--</button>-->
               <mat-chip
                 [color]="'primary'" selected
                 *ngIf="checkIfChosen( input.inputName, app.hash, item._id )" (click)="unSelectChip( input.inputName, app.hash, item._id )">

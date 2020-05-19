@@ -181,7 +181,7 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
       <div *ngFor="let dataChooser of openAppsInThisPage[ 'dataChooser' ].model; let i = index;" >
-        <div *ngIf="generateQueryAppPathInformation( openAppsInThisPage[ 'dataChooser' ].model[i].queryId ) !== undefined" >
+        <div *ngIf="openAppsInThisPage[ 'dataChooser' ].model[i].queryId !== undefined" >
           <button
             *ngIf=" openAppsInThisPage[ 'dataChooser' ].model[i].title && openAppsInThisPage[ 'dataChooser' ].model[i].title.search( 'Query: ' ) !== -1 "
             (click)="openQueryInformationDialog( openAppsInThisPage[ 'dataChooser' ].model[i].queryId )"
