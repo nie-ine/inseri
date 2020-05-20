@@ -82,7 +82,19 @@ export class FileService {
         fileData
       );
   }
-
+  addFiles(description: string, files:  File[], folderId: string): Observable<any> {
+    console.log('from FileService.addFiles:');
+    console.log(files);
+    const fileData = new FormData();
+    fileData.append('description', description);
+    Array.from(files).forEach(file => fileData.append('file', file, file.name));
+    console.log(fileData);
+    return this.http
+      .post<{ message: string; file: FileModel[] }>(
+        `${FileService.API_BASE_URL_FILES}` + '/files/' + folderId,
+        fileData
+      );
+  }
   updateFile(id: string, title: string, description: string) {
     const file: FileModel = { id: id, title: title, description: description, urlPath: null };
     this.http

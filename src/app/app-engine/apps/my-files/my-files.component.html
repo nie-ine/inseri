@@ -42,12 +42,16 @@
     <mat-icon>receipt</mat-icon>
   </button>
   <input type="file" #filePicker (change)="onFileSelected($event)" style="visibility: hidden">
+
+    <input type="file" #filePicker2 id="files" multiple style="visibility: hidden" (change)="detectFiles($event)" ><!--accept="image/x-png,image/jpeg"-->
 </mat-menu>
 
 <mat-menu #menuFile="matMenu">
-  <button mat-menu-item matTooltip="Add New File"(click)="filePicker.click();" >
+  <button mat-menu-item matTooltip="Add a File"(click)="filePicker.click();" >
     <mat-icon>add</mat-icon>
   </button>
+  <button mat-menu-item matTooltip="Add Multiple Files"(click)="filePicker2.click();" >
+    <mat-icon>library_add</mat-icon></button>
 </mat-menu>
 
 <mat-menu #menuPageSet="matMenu">
