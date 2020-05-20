@@ -343,7 +343,9 @@ router.put('/:id', checkAuth, (req, res, next) => {
         showInseriLogoOnPublish: req.body.showInseriLogoOnPublish,
         showDataBrowserOnPublish: req.body.showDataBrowserOnPublish,
         tiles: req.body.tiles,
-        chosenWidth: req.body.chosenWidth
+        chosenWidth: req.body.chosenWidth,
+        jsonId: req.body.jsonId,
+        ownQuery: req.body.ownQuery
     }, {new:true})
         .then(resultPage => {
             res.status(200).json({
