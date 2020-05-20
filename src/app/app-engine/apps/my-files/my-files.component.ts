@@ -6,7 +6,7 @@ import {PageService} from '../../../user-action-engine/mongodb/page/page.service
 import {FileModel} from '../../../user-action-engine/file/file.model';
 import {FileService} from '../../../user-action-engine/file/file.service';
 import {Observable, Subject, Subscription} from 'rxjs';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {ActionService} from '../../../user-action-engine/mongodb/action/action.service';
 import {PageSetService} from '../../../user-action-engine/mongodb/pageset/page-set.service';
@@ -30,7 +30,7 @@ import {map} from 'rxjs/operators';
 })
 export class MyFilesComponent implements OnInit {
   openAppArray = [];
-
+  public demoForm: FormGroup;
   constructor(
     private http: HttpClient,
     private folderService: FolderService,
@@ -44,8 +44,14 @@ export class MyFilesComponent implements OnInit {
     public pageComponent: PageComponent,
     private router: Router,
     private generateHashService: GenerateHashService,
-    private requestService: GeneralRequestService
-  ) { }
+    private requestService: GeneralRequestService,
+    private formBuilder: FormBuilder
+  ) {
+    this.demoForm = this.formBuilder.group({
+      text_input: ['', Validators.required],
+      files: this.formBuilder.array([])
+    });
+  }
   // private static API_BASE_URL_FILES = environment.node + '/api/files';
   private filesUpdated = new Subject<FileModel[]>();
   addFolderForm = false;
@@ -98,6 +104,7 @@ export class MyFilesComponent implements OnInit {
   inseriAppsMenu = [];
   menu = false;
 appInputsArray = [];
+  filesToUpload: Array<File> = [];
 
   createPageSet(title: string, description: string) {
     this.action.type = 'page-set';
@@ -221,6 +228,7 @@ appInputsArray = [];
   }
   onFileSelected(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
+    console.log(typeof file);
     this.form.patchValue({file: file});
     this.form.get('file').updateValueAndValidity();
     const reader = new FileReader();
@@ -229,6 +237,41 @@ appInputsArray = [];
     };
     reader.readAsDataURL(file);
     this.onSaveFile();
+  }
+
+  detectFiles(event) {
+    //const inFiles = event.target.files;
+    const files = event.target.files;
+    console.log(typeof files);
+    if (files.length > 10) {
+      alert('Max limit exceeded, You can only upload upto 10 files at once.');
+      return false;
+    }
+    this.form.patchValue({ file: files });
+    if (files) {
+      for (const file of files) {
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          this.allFiles.push(this.createItem({
+            file,
+            url: e.target.result  // Base64 string for preview image
+          }));
+        };
+        reader.readAsDataURL(<Blob>file);
+      }
+      console.log('calling add files from detect files');
+      this.addFiles(this.form.value.description, this.form.value.file );
+      this.form.reset();
+    }
+  }
+
+  createItem(data): FormGroup {
+    return this.formBuilder.group(data);
+  }
+
+// Help to get all photos controls as form array.
+  get allFiles(): FormArray {
+    return this.demoForm.get('files') as FormArray;
   }
 
   uploadFileToFolder( fileId: string) {
@@ -241,6 +284,25 @@ appInputsArray = [];
       );
   }
 
+  addFiles( description: string, uploadedFiles: File[]) {
+    for (let i = 0; i < this.allFiles.length; i++) {
+      console.log(this.allFiles.controls[i].value.file.name);
+    }
+    console.log(this.allFiles);
+    console.log('calling filesService.addFiles');
+    console.log(description, uploadedFiles);
+    this.fileService.addFiles(
+      description, uploadedFiles, this.mainFolder_id
+// this.form.value.description,
+      // this.form.value.file,
+
+    ).subscribe(responseData => {
+      this.files.push(responseData.file);
+      this.filesUpdated.next([...this.files]);
+      this.showFiles();
+    });
+
+  }
   addFile(title: string, description: string, uploadedFile: File ) {
     this.fileService.addFile(title, description, uploadedFile, this.mainFolder_id)
       .subscribe(responseData => {
@@ -574,4 +636,5 @@ appInputsArray = [];
     this.chosenApp = app;
     this.appInputsArray = this.openAppsInThisPage[app.appType].inputs;
   }
+
 }

@@ -498,7 +498,7 @@ router.post('/update/uploadFile/:folderId&:fileId',checkAuth, (req, res, next) =
 });
 
 router.get('/getAllFilesAndFolders/:folderId', checkAuth, (req, res, next) => {
-  console.log(req.userData.userId+'\n'+req.params.folderId+'\n');
+  //console.log(req.userData.userId+'\n'+req.params.folderId+'\n');
   let parentId=req.params.folderId;
   let targetFolders=[];
   Folder.find({owner: req.userData.userId})
@@ -563,18 +563,18 @@ function getFolderHierarchy(folder_id, targetParent_id, result, folderMap)
 }
 
   function constructFolderTree(folderDetails,parentId,output ) {
-    console.log(folderDetails.length);
+    //console.log(folderDetails.length);
     //output=(folderDetails.filter(obj=> {if(obj._id==parentId) return obj;}));
     let tempQueueToCheck= new Array();
     const temp = folderDetails.map((obj) => ({...obj, ['folders']: []}));
     folderDetails = temp;
 
-    console.log('output '+folderDetails[0].title);
+    //console.log('output '+folderDetails[0].title);
     tempQueueToCheck.push(folderDetails[0]);
     while (tempQueueToCheck.length>0)
     {
       let current = tempQueueToCheck.shift();
-      console.log('get new '+current.title);
+      //console.log('get new '+current.title);
       for (let i = 0; i < folderDetails.length; i++)
       {
         if(!folderDetails[i].hasParent)
@@ -583,7 +583,7 @@ function getFolderHierarchy(folder_id, targetParent_id, result, folderMap)
         {
           tempQueueToCheck.push(folderDetails[i]);
           current.folders.push(folderDetails[i]);
-          console.log('added new '+folderDetails[i].title);
+          //console.log('added new '+folderDetails[i].title);
         }
       }
     }
@@ -634,7 +634,7 @@ function getAllFiles(owner, res, targetFolderIds,parentId){
                       //JSON.stringify([...sortedFiles]);// serializeFiles(sortedFiles);//new Map(sortedFiles);
                       //to map again --> new Map(JSON.parse(folderDetails[k].files));
                     }
-                  console.log(sortedFiles);
+                  //console.log(sortedFiles);
                   //const temp=folderDetails[k].map((obj)=>({...obj,['files']:sortedFiles}));
                   //folderDetails[k]=temp;
 
@@ -643,13 +643,13 @@ function getAllFiles(owner, res, targetFolderIds,parentId){
                  // f = [...sortedFiles];
                   const obj = Array.from(sortedFiles.entries()).reduce((main, [key, value]) => ({...main, [key]: value}), {});
                   folderDetails[k].files=obj;
-                  console.log("after: ");
-                  console.log(folderDetails[k]);
+                  //console.log("after: ");
+                  //console.log(folderDetails[k]);
                   }
                 folderTree=constructFolderTree(folderDetails,parentId);
 
-                console.log('from inside the loop');
-                console.log(folderTree);
+                //console.log('from inside the loop');
+                //console.log(folderTree);
                 }
 
               /*setTimeout(() => {
@@ -659,7 +659,7 @@ function getAllFiles(owner, res, targetFolderIds,parentId){
               {
                 constructHierarchy(folderDetails,parentId);
               }*/
-              console.log("before sending the results : ",folderTree);
+              //console.log("before sending the results : ",folderTree);
 
               //console.log(obj);
               message = 'All files were found';
