@@ -76,6 +76,7 @@ router.get('/:id', checkAuth2, (req, res, next) => {
 });
 
 router.put('/:id', checkAuth, (req, res, next) => {
+  console.log( req.body );
     Query.update({ _id: req.params.id}, {
       title: req.body.title,
       description: req.body.description,

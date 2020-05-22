@@ -20,7 +20,7 @@
   </button>
 </div>
 
-<form [formGroup]="form" class="example-form" style="margin-top: 40px" >
+<form *ngIf="form" [formGroup]="form" class="example-form" style="margin-top: 40px" >
   <mat-form-field>
     <input formControlName="title" matInput placeholder="Title">
   </mat-form-field>
@@ -52,8 +52,7 @@
         DELETE
       </mat-option>
       <mat-option
-        [value]="'JSON'"
-        (click)="activateJsonButton = true">
+        [value]="'JSON'" (click)="generateNewJsonObject()">
         JSON Object
       </mat-option>
     </mat-select>
@@ -62,10 +61,6 @@
     <input formControlName="serverURL" matInput placeholder="Server URL">
   </mat-form-field>
 </form>
-
-<button mat-button *ngIf="activateJsonButton && !form.get('serverURL').value" (click)="generateNewJsonObject()">
-  <mat-icon>add_circle</mat-icon> Generate new JSON Object
-</button>
 
 <button mat-button *ngIf="activateJsonButton && form.get('serverURL').value && jsonObjectHasArrived" (click)="updateJsonObject()">
   <mat-icon>save</mat-icon> Save or Update Json Object
@@ -78,7 +73,7 @@
             *ngIf="activateJsonButton">
 </ace-editor>
 
-<mat-tab-group style="margin-top: 50px" >
+<mat-tab-group style="margin-top: 50px" *ngIf="form">
   <mat-tab label="General Query Editor" >
 
     <div style="margin-top: 30px">

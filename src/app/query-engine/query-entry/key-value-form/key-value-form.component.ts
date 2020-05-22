@@ -30,13 +30,15 @@ export class KeyValueFormComponent implements OnInit {
   }
 
   fillParams() {
+    if ( this.param ) {
       for (let i = 0; i < this.param.length; i++) {
-          if (i === 0) {
-              (this.form.get('param') as FormArray).controls[i].setValue({key: this.param[i].key, value: this.param[i].value});
-          } else {
-              this.addRow(this.param[i].key, this.param[i].value);
-          }
+        if (i === 0) {
+          (this.form.get('param') as FormArray).controls[i].setValue({key: this.param[i].key, value: this.param[i].value});
+        } else {
+          this.addRow(this.param[i].key, this.param[i].value);
+        }
       }
+    }
   }
 
   addRow(key: string, value: string) {

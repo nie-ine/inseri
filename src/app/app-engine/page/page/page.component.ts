@@ -1102,7 +1102,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
             height: '50%',
             data: {
               appHash: input.hash,
-              page: this.page
+              page: this.page,
+              inputs: this.openAppsInThisPage[ input.type ].inputs
             }
           });
           dialogRef.afterClosed().subscribe((result) => {

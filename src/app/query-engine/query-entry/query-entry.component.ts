@@ -50,19 +50,26 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.form = new FormGroup({
-      title: new FormControl(this.data.query.title, [Validators.required]),
-      description: new FormControl(this.data.query.description, []),
-      serverURL: new FormControl(this.data.query.serverUrl, []),
-      method: new FormControl(this.data.query.method ? this.data.query.method : 'GET', [Validators.required])
-    });
     console.log(this.data);
-    if (this.data.query.method === 'JSON') {
-      this.activateJsonButton = true;
-      setTimeout(() => {
-        this.initiateQuery();
-      }, 1000);
-    }
+    this.queryService.getQuery(this.data.query._id || this.data.query.id)
+      .subscribe(
+        data => {
+          console.log(data);
+          this.data.query = data.query;
+          this.form = new FormGroup({
+            title: new FormControl(this.data.query.title, [Validators.required]),
+            description: new FormControl(this.data.query.description, []),
+            serverURL: new FormControl(this.data.query.serverUrl, []),
+            method: new FormControl(this.data.query.method ? this.data.query.method : 'GET', [Validators.required])
+          });
+          if (this.data.query.method === 'JSON') {
+            this.activateJsonButton = true;
+            setTimeout(() => {
+              this.initiateQuery();
+            }, 1000);
+          }
+        }
+      ), error => console.log(error);
   }
 
   ngOnDestroy() {
@@ -74,8 +81,10 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setBodyInEditor() {
-    if ((this.form.get('method').value === 'POST') || (this.form.get('method').value === 'PUT')) {
-      this.editor.text = this.data.query.body;
+    if ( this.form ) {
+      if ((this.form.get('method').value === 'POST') || (this.form.get('method').value === 'PUT')) {
+        this.editor.text = this.data.query.body;
+      }
     }
   }
 
@@ -102,10 +111,14 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
           }
         }, error1 => console.log(error1));
     } else {
-      console.log('pageID is not there', this.data.query._id);
+      console.log('pageID is not there', this.data);
+      if ( !this.data.query._id ) {
+        this.data.query._id = this.data.query.id;
+      }
       this.queryService.updateQuery(this.data.query._id, this.data.query)
         .subscribe((data) => {
           if (data.status === 200) {
+            console.log( 'query saved', data );
           } else {
             console.log('Updating query failed');
           }
@@ -228,21 +241,24 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   generateNewJsonObject() {
-    console.log('Generate new JSON object');
-    this.requestService.createJson()
-      .subscribe(data => {
-          console.log(data);
-          this.editor2.text = JSON.stringify((data as any).result, null, 2);
-          this.jsonObjectHasArrived = true;
-          this.jsonId = (data as any).result._id;
-          this.form = new FormGroup({
-            title: new FormControl(this.data.query.title, [Validators.required]),
-            description: new FormControl(this.data.query.description, []),
-            serverURL: new FormControl(environment.node + '/api/myOwnJson/getJson/' + String((data as any).result._id), []),
-            method: new FormControl('JSON', [Validators.required])
-          });
-        }, error => console.log(error)
-      );
+    this.activateJsonButton = true;
+    if ( !this.data.query.serverUrl ) {
+      console.log('Generate new JSON object');
+      this.requestService.createJson()
+        .subscribe(data => {
+            console.log(data);
+            this.editor2.text = JSON.stringify((data as any).result, null, 2);
+            this.jsonObjectHasArrived = true;
+            this.jsonId = (data as any).result._id;
+            this.form = new FormGroup({
+              title: new FormControl(this.data.query.title, [Validators.required]),
+              description: new FormControl(this.data.query.description, []),
+              serverURL: new FormControl(environment.node + '/api/myOwnJson/getJson/' + String((data as any).result._id), []),
+              method: new FormControl('JSON', [Validators.required])
+            });
+          }, error => console.log(error)
+        );
+    }
   }
 
   updateJsonObject() {
