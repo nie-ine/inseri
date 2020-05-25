@@ -91,6 +91,9 @@ import {FileDatabaseForAppGND, FileFlatNodeGnd, GndLobidComponent} from './apps/
 import { PageListDialogComponent } from './page/page-list-dialog/page-list-dialog.component';
 import { UrlParamUpdaterComponent } from './apps/url-param-updater/url-param-updater.component';
 import { MyFilesComponent } from './apps/my-files/my-files.component';
+import { AudioPlayerComponent } from './apps/audio-player/audio-player.component';
+import { NgxAudioPlayerModule } from 'ngx-audio-player';
+
 
 @NgModule({
   imports: [
@@ -143,12 +146,14 @@ import { MyFilesComponent } from './apps/my-files/my-files.component';
     PdfViewerModule,
     // KnoraJsonldSimplify,
     AgGridModule.withComponents([]),
+    NgxAudioPlayerModule,
     RouterModule.forChild([
       { path: 'page', component: PageComponent },
       { path: 'browserling', component: BrowserlingComponent },
       { path: 'canvas', component: CanvasWhiteboardComponent },
       { path: 'app-our-new-component', component: OurNewComponentComponent },
-      { path: 'gnd', component: GndLobidComponent }
+      { path: 'gnd', component: GndLobidComponent },
+      { path: 'audio', component: AudioPlayerComponent }
     ])
   ],
   providers: [
@@ -203,7 +208,8 @@ import { MyFilesComponent } from './apps/my-files/my-files.component';
     GndLobidComponent,
     PageListDialogComponent,
     UrlParamUpdaterComponent,
-    MyFilesComponent
+    MyFilesComponent,
+    AudioPlayerComponent
   ],
   exports: [
     PageComponent,

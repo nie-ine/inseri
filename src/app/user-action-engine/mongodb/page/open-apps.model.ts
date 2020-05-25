@@ -147,6 +147,21 @@ export class OpenAppsModel {
       initialWidth: '250',
       initialHeight: '150'
     },
+    audioPlayer: {
+      type: 'audioPlayer',
+      model: [],
+      inputs: [
+        {
+          'inputName': 'audioURL',
+          default: 'https://www.dl.dropboxusercontent.com' +
+            '/s/xu94g81pb6czpqm/' +
+            '7.%20Schubert%20-%203%20Piano%20Pieces%20D.946%20No%201%20-%20Allegro%20Assai%20E%20flat%20minor.wav?dl=0'
+        }
+      ],
+      materialIcon: 'audiotrack',
+      initialWidth: '800',
+      initialHeight: '150'
+    },
     paint: {
       type: 'paint',
       model: [],

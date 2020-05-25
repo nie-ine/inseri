@@ -20,6 +20,16 @@ export class AppMenuModel {
       showOnHome: false
     },
     {
+      id: 'audiotrack',
+      name: 'Audio Payer',
+      tags: 'wav, mp3, etc',
+      color: 'green',
+      status: 'stable',
+      appType: 'audioPlayer',
+      description: 'Play your audiofiles',
+      showOnHome: false
+    },
+    {
       id: 'folder',
       name: 'My Files',
       tags: 'files, folders and queries',
