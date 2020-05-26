@@ -136,6 +136,26 @@
   </button>
 </div>
 
+<div *ngIf="updateFileForm" style="margin-left: 15px">
+  <mat-form-field class="example-form-field">
+    <mat-label>File Name</mat-label>
+    <input matInput type="text" [(ngModel)]="fileName">
+  </mat-form-field>
+  <mat-form-field class="example-form-field">
+    <!--mat-label>File Extension</mat-label-->
+    <input matInput type="text" disabled value={{fileExtension}} />
+  </mat-form-field>
+  <br>
+  <mat-form-field class="example-form-field">
+    <mat-label>File Description</mat-label>
+    <input matInput type="text" [(ngModel)]="fileDescription">
+  </mat-form-field>
+  <br>
+  <button mat-button (click)="updateFile(); showForm('');">
+    Update
+  </button>
+</div>
+
 
 <div class="div">
   <div class="row">
@@ -169,6 +189,11 @@
         <button mat-button matTooltip="Delete File" (click)="deleteFile(file.id);">
           <mat-icon>
             delete
+          </mat-icon>
+        </button>
+        <button mat-button matTooltip="Edit File Details" (click)="showForm('UpdateFileForm'); getFileDetails(file);">
+          <mat-icon>
+            edit
           </mat-icon>
         </button>
       </div>

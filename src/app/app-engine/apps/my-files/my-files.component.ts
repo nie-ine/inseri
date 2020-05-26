@@ -22,7 +22,6 @@ import {GeneralRequestService} from '../../../query-engine/general/general-reque
 import {GenerateHashService} from '../../../user-action-engine/other/generateHash.service';
 import {map} from 'rxjs/operators';
 
-
 @Component({
   selector: 'app-my-files',
   templateUrl: './my-files.component.html',
@@ -31,6 +30,8 @@ import {map} from 'rxjs/operators';
 export class MyFilesComponent implements OnInit {
   openAppArray = [];
   public demoForm: FormGroup;
+  private fileUrlPath: string;
+  fileExtension: any;
   constructor(
     private http: HttpClient,
     private folderService: FolderService,
@@ -54,8 +55,10 @@ export class MyFilesComponent implements OnInit {
   }
   // private static API_BASE_URL_FILES = environment.node + '/api/files';
   private filesUpdated = new Subject<FileModel[]>();
+  oldFileName: string;
   addFolderForm = false;
   updateFolderTitleForm = false;
+  updateFileForm = false;
   pageSetForm = false;
   // appMenuForm = false;
   createPageSetForm = false;
@@ -105,6 +108,10 @@ export class MyFilesComponent implements OnInit {
   menu = false;
 appInputsArray = [];
   filesToUpload: Array<File> = [];
+    fileDetailsId: any;
+    fileName: string;
+    fileDescription: string;
+
 
   createPageSet(title: string, description: string) {
     this.action.type = 'page-set';
@@ -184,6 +191,9 @@ appInputsArray = [];
       case 'createQueryForm':
         this.createQueryForm = true;
         break;
+      case 'UpdateFileForm':
+        this.updateFileForm = true;
+        break;
       default:
         this.addFolderForm = false;
         this.updateFolderTitleForm = false;
@@ -191,6 +201,7 @@ appInputsArray = [];
         this.createPageSetForm = false;
         // this.appMenuForm = false;
         this.createQueryForm = false;
+        this.updateFileForm = false;
     }
   }
   deleteFromBreadCrumb() {
@@ -219,11 +230,11 @@ appInputsArray = [];
     });
   }
   onSaveFile() {
-    if (this.mode === 'add') {
+    // if (this.mode === 'add') {
       this.addFile(this.form.value.file.name, this.form.value.description, this.form.value.file);
-    } else {
-      this.fileService.updateFile(this.fileId, this.form.value.title, this.form.value.description);
-    }
+    // } else {
+     // this.fileService.updateFile(this.fileId, this.form.value.title, this.form.value.description);
+   // }
     this.form.reset();
   }
   onFileSelected(event: Event) {
@@ -236,11 +247,11 @@ appInputsArray = [];
       this.filePreview = reader.result as string;
     };
     reader.readAsDataURL(file);
-    this.onSaveFile();
+   this.onSaveFile();
   }
 
   detectFiles(event) {
-    //const inFiles = event.target.files;
+    // const inFiles = event.target.files;
     const files = event.target.files;
     console.log(typeof files);
     if (files.length > 10) {
@@ -478,6 +489,7 @@ appInputsArray = [];
     }
   }*/
 
+
   showPageSetsForFolder() {
     if (this.mainFolder_id === '-1') {
       this.addedPageSets = [];
@@ -637,4 +649,42 @@ appInputsArray = [];
     this.appInputsArray = this.openAppsInThisPage[app.appType].inputs;
   }
 
+  updateFile() {
+    const newFileTitle = this.fileName + '.' + this.fileExtension;
+    if (this.searchFiles(newFileTitle, this.files, this.file)) {
+      alert('You cannot rename a file with a name already in the file List, try changing it with another name.');
+      return;
+    }
+    this.fileService.updateFile(this.fileDetailsId, newFileTitle, this.fileDescription)
+      .subscribe(response => {
+        const file = response.file;
+        console.log(file);
+        const updatedFiles = [...this.files];
+        const oldFileIndex = updatedFiles.findIndex(p => p.id === this.fileDetailsId);
+        updatedFiles[oldFileIndex] = file;
+        this.files = updatedFiles;
+        this.filesUpdated.next([...this.files]);
+      this.fileDetailsId = '';
+      this.fileName = '';
+      this.fileDescription = '';
+        this.fileExtension = '';
+      this.showFiles();
+    });
+  }
+  getFileDetails(file: any) {
+    this.file = file;
+    this.oldFileName = file.title;
+    this.fileDetailsId = file.id;
+    this.fileExtension = file.title.substring(file.title.lastIndexOf('.') + 1);
+    console.log(this.fileExtension);
+  }
+  searchFiles(fileName: string, files: FileModel[], file: FileModel) {
+    for (let i = 0; i < files.length; i++) {
+      if (files[i].title === fileName && files[i].id !== file.id) {
+        return true;
+      }
+    }
+    return false; ///not found
+
+  }
 }

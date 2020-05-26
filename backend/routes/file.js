@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
   }
 });
 
-router.post('/:folderId', checkAuth, multer({storage: storage}).single("file"), (req, res, next) => { ///multer fn that expect a single file from the incoming req and will try to find an file property in the req body
+router.post('/singleFileUpload/:folderId', checkAuth, multer({storage: storage}).single("file"), (req, res, next) => { ///multer fn that expect a single file from the incoming req and will try to find an file property in the req body
   const url = req.protocol + "://" + req.get("host");
   console.log(url);
   //console.log("printing the req filename "+req.body);
@@ -119,14 +119,29 @@ router.post('/files/:folderId', checkAuth,multer({ storage: storage }).array("fi
         });
     });
   });
-router.put("/:id", checkAuth, (req, res, next) => {
-  const file = new FileModel({
-    _id: req.body.id,
-    title: req.body.title,
-    description: req.body.description
-  });
-  FileModel.updateOne({_id: req.params.id, owner: req.userData.userId}, file).then(result => {
-    res.status(200).json({message: "Update successful!"});
+router.post("/:id", checkAuth, (req, res, next) => {
+  //let url = req.protocol + "://" + req.get("host")+"/";
+  //url += "/files/" ;
+  FileModel.updateOne({_id: req.params.id, owner: req.userData.userId},
+    {$set: {title: req.body.title, description: req.body.description}})
+    .then(result => {
+      //const fileUploadedOn=req.body.oldFileName.substring(0,req.body.oldFileName.indexOf('-'));
+      /*console.log(fileUploadedOn);
+       fs.rename(url+req.body.oldFileName, url+fileUploadedOn+'-'+req.body.title, function (err) {
+        if (err) throw err;
+        console.log('File Renamed.');
+      });*/
+      console.log(result);
+      console.log(req.params.id, req.body.title, req.body.description);
+    res.status(200).json({
+      message: "Update successful!",
+      file:result
+    });
+  }).catch(error => {
+    res.status(500).json({
+      message: 'Updating File failed',
+      error: error
+    })
   });
 });
 
