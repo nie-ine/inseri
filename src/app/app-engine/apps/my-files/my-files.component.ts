@@ -212,13 +212,20 @@ appInputsArray = [];
         this.breadCrumbArray.pop();
       }
     }
+    console.log('The Folder Path is: ' );
+    this.printFolderTitle();
   }
   addToBreadCrumb(title: string) {
     this.breadCrumbArray.push({ id: this.mainFolder_id, title: title } );
+    //console.log(this.breadCrumbArray[this.breadCrumbArray.length-1].title);
+    console.log('The Folder Path is: ' );
+    this.printFolderTitle();
   }
   updateBreadCrumb( title: string) {
     const index = this.breadCrumbArray.findIndex((obj => obj.id === this.mainFolder_id));
     this.breadCrumbArray[index].title = title;
+    console.log('The Folder Path is: ' );
+    this.printFolderTitle();
 }
   deleteFile(fileId: string) {
     this.fileService.deleteFile(fileId, this.mainFolder_id).subscribe(() => {
@@ -333,7 +340,7 @@ appInputsArray = [];
     this.folderService.showFolders(this.mainFolder_id)
       .subscribe(
         response => {
-          console.log( (response as any).folders); // an array of subPages details'
+          //console.log( (response as any).folders); // an array of subPages details'
           this.foldersArray = (response as any).folders;
         }, error => {
           console.log( error );
@@ -351,15 +358,15 @@ appInputsArray = [];
     if (this.mainFolder_id === '-1') {
       this.files = [];
     } else {
-      console.log(this.mainFolder_id);
+      //console.log(this.mainFolder_id);
       this.fileService.getFiles(this.mainFolder_id)
         .subscribe(transformedFiles => {
-          console.log('transformed files: ' || transformedFiles);
+          //console.log('transformed files: ' || transformedFiles);
           this.files = transformedFiles;
           this.filesUpdated.next([...this.files]);
         });
     }
-    console.log(this.files);
+   // console.log(this.files);
   }
 
   createNewFolder(title: string) {
@@ -494,12 +501,12 @@ appInputsArray = [];
     if (this.mainFolder_id === '-1') {
       this.addedPageSets = [];
     } else {
-      console.log(this.mainFolder_id);
+     // console.log(this.mainFolder_id);
       this.folderService.getPageSets(this.mainFolder_id)
         .subscribe(response => {
-            console.log( response); // an array of subPages details'
+            //console.log( response); // an array of subPages details'
             this.addedPageSets = [...response];
-          console.log(this.addedPageSets);
+          //console.log(this.addedPageSets);
           }, error => {
             console.log( error );
           }
@@ -535,12 +542,12 @@ appInputsArray = [];
      if (this.mainFolder_id === '-1') {
       this.addedQueries = [];
      } else {
-       console.log(this.mainFolder_id);
+       //console.log(this.mainFolder_id);
        this.folderService.getQueries(this.mainFolder_id)
          .subscribe(response => {
-             console.log(response);
+             //console.log(response);
              this.addedQueries = [...response];
-             console.log(this.addedQueries);
+             //console.log(this.addedQueries);
            }, error => {
              console.log(error);
            }
@@ -617,11 +624,11 @@ appInputsArray = [];
 
   receiveOpenAppsInThisPage(openAppsInThisPage: any) {
     this.openAppsInThisPage = openAppsInThisPage;
-    console.log(this.openAppsInThisPage);
+    //console.log(this.openAppsInThisPage);
   }
     receivePage( pageAndAction: any ) {
       this.page = pageAndAction[0];
-       console.log( pageAndAction[0] );
+      // console.log( pageAndAction[0] );
       this.action = pageAndAction[1];
       /*this.reloadVariables = false;
       this.pageIsPublished = this.page.published;
@@ -684,7 +691,17 @@ appInputsArray = [];
         return true;
       }
     }
-    return false; ///not found
+    return false; /// not found
 
+  }
+  printFolderTitle() {
+    let folderPath = '';
+    for (let i = 0; i < this.breadCrumbArray.length; i++) {
+      folderPath += this.breadCrumbArray[i].title;
+      if (i < this.breadCrumbArray.length - 1) {
+        folderPath += '->';
+      }
+    }
+    console.log(folderPath);
   }
 }
