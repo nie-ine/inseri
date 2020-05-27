@@ -212,20 +212,16 @@ appInputsArray = [];
         this.breadCrumbArray.pop();
       }
     }
-    console.log('The Folder Path is: ' );
-    this.printFolderTitle();
+    this.printFoldersTitle();
   }
   addToBreadCrumb(title: string) {
     this.breadCrumbArray.push({ id: this.mainFolder_id, title: title } );
-    //console.log(this.breadCrumbArray[this.breadCrumbArray.length-1].title);
-    console.log('The Folder Path is: ' );
-    this.printFolderTitle();
+    this.printFoldersTitle();
   }
   updateBreadCrumb( title: string) {
     const index = this.breadCrumbArray.findIndex((obj => obj.id === this.mainFolder_id));
     this.breadCrumbArray[index].title = title;
-    console.log('The Folder Path is: ' );
-    this.printFolderTitle();
+    this.printFoldersTitle();
 }
   deleteFile(fileId: string) {
     this.fileService.deleteFile(fileId, this.mainFolder_id).subscribe(() => {
@@ -694,14 +690,10 @@ appInputsArray = [];
     return false; /// not found
 
   }
-  printFolderTitle() {
-    let folderPath = '';
-    for (let i = 0; i < this.breadCrumbArray.length; i++) {
-      folderPath += this.breadCrumbArray[i].title;
-      if (i < this.breadCrumbArray.length - 1) {
-        folderPath += '->';
-      }
-    }
-    console.log(folderPath);
+  printFoldersTitle() {
+    console.log('The Folder Path is: ', this.breadCrumbArray.length );
+    let titles = new Array();
+    this.breadCrumbArray.forEach(item => titles.push(item.title));
+    console.log(titles);
   }
 }
