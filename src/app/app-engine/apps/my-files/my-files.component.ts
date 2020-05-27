@@ -111,7 +111,7 @@ appInputsArray = [];
     fileDetailsId: any;
     fileName: string;
     fileDescription: string;
-
+  multipleFileUpload = false;
 
   createPageSet(title: string, description: string) {
     this.action.type = 'page-set';
@@ -255,15 +255,17 @@ appInputsArray = [];
 
   detectFiles(event) {
     // const inFiles = event.target.files;
+    this.multipleFileUpload = true;
     const files = event.target.files;
     console.log(typeof files);
-    if (files.length > 10) {
+    /*if (files.length > 10) {
       alert('Max limit exceeded, You can only upload upto 10 files at once.');
       return false;
-    }
+    }*/
     this.form.patchValue({ file: files });
     if (files) {
       for (const file of files) {
+
         const reader = new FileReader();
         reader.onload = (e: any) => {
           this.allFiles.push(this.createItem({
@@ -276,6 +278,7 @@ appInputsArray = [];
       console.log('calling add files from detect files');
       this.addFiles(this.form.value.description, this.form.value.file );
       this.form.reset();
+      this.multipleFileUpload = false;
     }
   }
 
@@ -653,6 +656,10 @@ appInputsArray = [];
   }
 
   updateFile() {
+    this.oldFileName = this.file.title;
+    this.fileDetailsId = this.file.id;
+    this.fileExtension = this.file.title.substring(this.file.title.lastIndexOf('.') + 1);
+    console.log(this.fileExtension);
     const newFileTitle = this.fileName + '.' + this.fileExtension;
     if (this.searchFiles(newFileTitle, this.files, this.file)) {
       alert('You cannot rename a file with a name already in the file List, try changing it with another name.');
@@ -676,10 +683,11 @@ appInputsArray = [];
   }
   getFileDetails(file: any) {
     this.file = file;
-    this.oldFileName = file.title;
-    this.fileDetailsId = file.id;
-    this.fileExtension = file.title.substring(file.title.lastIndexOf('.') + 1);
-    console.log(this.fileExtension);
+    this.fileService.getFile(file.id).subscribe(fileData => {
+      this.fileDescription = fileData.description;
+      this.fileName = fileData.title.substring(0, fileData.title.lastIndexOf('.'));
+      this.fileExtension = fileData.title.substring(fileData.title.lastIndexOf('.') + 1);
+    });
   }
   searchFiles(fileName: string, files: FileModel[], file: FileModel) {
     for (let i = 0; i < files.length; i++) {
@@ -692,7 +700,7 @@ appInputsArray = [];
   }
   printFoldersTitle() {
     console.log('The Folder Path is: ', this.breadCrumbArray.length );
-    let titles = new Array();
+    let titles = [];
     this.breadCrumbArray.forEach(item => titles.push(item.title));
     console.log(titles);
   }

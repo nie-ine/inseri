@@ -45,7 +45,7 @@
 
     <input type="file" #filePicker2 id="files" multiple style="visibility: hidden" (change)="detectFiles($event)" ><!--accept="image/x-png,image/jpeg"-->
 </mat-menu>
-
+<mat-spinner *ngIf="multipleFileUpload"></mat-spinner>
 <mat-menu #menuFile="matMenu">
   <button mat-menu-item matTooltip="Add a File"(click)="filePicker.click();" >
     <mat-icon>add</mat-icon>
@@ -153,6 +153,9 @@
   <br>
   <button mat-button (click)="updateFile(); showForm('');">
     Update
+  </button>
+  <button mat-button (click)="showForm('');">
+    Cancel
   </button>
 </div>
 
