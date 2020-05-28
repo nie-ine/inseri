@@ -69,7 +69,7 @@ router.post('/singleFileUpload/:folderId', checkAuth, multer({storage: storage})
     });
 });
 
-router.post('/files/:folderId', checkAuth,multer({ storage: storage }).array("file",10),
+router.post('/files/:folderId', checkAuth,multer({ storage: storage }).array("file"),
   (req, res, next) => {
     console.log(req.files);
     const url = req.protocol + "://" + req.get("host");

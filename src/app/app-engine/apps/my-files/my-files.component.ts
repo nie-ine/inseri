@@ -111,7 +111,7 @@ appInputsArray = [];
     fileDetailsId: any;
     fileName: string;
     fileDescription: string;
-
+  multipleFileUpload = false;
 
   createPageSet(title: string, description: string) {
     this.action.type = 'page-set';
@@ -212,13 +212,16 @@ appInputsArray = [];
         this.breadCrumbArray.pop();
       }
     }
+    this.printFoldersTitle();
   }
   addToBreadCrumb(title: string) {
     this.breadCrumbArray.push({ id: this.mainFolder_id, title: title } );
+    this.printFoldersTitle();
   }
   updateBreadCrumb( title: string) {
     const index = this.breadCrumbArray.findIndex((obj => obj.id === this.mainFolder_id));
     this.breadCrumbArray[index].title = title;
+    this.printFoldersTitle();
 }
   deleteFile(fileId: string) {
     this.fileService.deleteFile(fileId, this.mainFolder_id).subscribe(() => {
@@ -252,15 +255,17 @@ appInputsArray = [];
 
   detectFiles(event) {
     // const inFiles = event.target.files;
+    this.multipleFileUpload = true;
     const files = event.target.files;
     console.log(typeof files);
-    if (files.length > 10) {
+    /*if (files.length > 10) {
       alert('Max limit exceeded, You can only upload upto 10 files at once.');
       return false;
-    }
+    }*/
     this.form.patchValue({ file: files });
     if (files) {
       for (const file of files) {
+
         const reader = new FileReader();
         reader.onload = (e: any) => {
           this.allFiles.push(this.createItem({
@@ -273,6 +278,7 @@ appInputsArray = [];
       console.log('calling add files from detect files');
       this.addFiles(this.form.value.description, this.form.value.file );
       this.form.reset();
+      this.multipleFileUpload = false;
     }
   }
 
@@ -333,7 +339,7 @@ appInputsArray = [];
     this.folderService.showFolders(this.mainFolder_id)
       .subscribe(
         response => {
-          console.log( (response as any).folders); // an array of subPages details'
+          //console.log( (response as any).folders); // an array of subPages details'
           this.foldersArray = (response as any).folders;
         }, error => {
           console.log( error );
@@ -351,15 +357,16 @@ appInputsArray = [];
     if (this.mainFolder_id === '-1') {
       this.files = [];
     } else {
-      console.log(this.mainFolder_id);
+      //console.log(this.mainFolder_id);
       this.fileService.getFiles(this.mainFolder_id)
         .subscribe(transformedFiles => {
-          console.log('transformed files: ' || transformedFiles);
+          //console.log('transformed files: ' || transformedFiles);
           this.files = transformedFiles;
           this.filesUpdated.next([...this.files]);
+          this.dataSource = new MatTableDataSource(this.files);
         });
     }
-    console.log(this.files);
+   // console.log(this.files);
   }
 
   createNewFolder(title: string) {
@@ -494,12 +501,12 @@ appInputsArray = [];
     if (this.mainFolder_id === '-1') {
       this.addedPageSets = [];
     } else {
-      console.log(this.mainFolder_id);
+     // console.log(this.mainFolder_id);
       this.folderService.getPageSets(this.mainFolder_id)
         .subscribe(response => {
-            console.log( response); // an array of subPages details'
+            //console.log( response); // an array of subPages details'
             this.addedPageSets = [...response];
-          console.log(this.addedPageSets);
+          //console.log(this.addedPageSets);
           }, error => {
             console.log( error );
           }
@@ -535,12 +542,12 @@ appInputsArray = [];
      if (this.mainFolder_id === '-1') {
       this.addedQueries = [];
      } else {
-       console.log(this.mainFolder_id);
+       //console.log(this.mainFolder_id);
        this.folderService.getQueries(this.mainFolder_id)
          .subscribe(response => {
-             console.log(response);
+             //console.log(response);
              this.addedQueries = [...response];
-             console.log(this.addedQueries);
+             //console.log(this.addedQueries);
            }, error => {
              console.log(error);
            }
@@ -617,11 +624,11 @@ appInputsArray = [];
 
   receiveOpenAppsInThisPage(openAppsInThisPage: any) {
     this.openAppsInThisPage = openAppsInThisPage;
-    console.log(this.openAppsInThisPage);
+    //console.log(this.openAppsInThisPage);
   }
     receivePage( pageAndAction: any ) {
       this.page = pageAndAction[0];
-       console.log( pageAndAction[0] );
+      // console.log( pageAndAction[0] );
       this.action = pageAndAction[1];
       /*this.reloadVariables = false;
       this.pageIsPublished = this.page.published;
@@ -650,6 +657,10 @@ appInputsArray = [];
   }
 
   updateFile() {
+    this.oldFileName = this.file.title;
+    this.fileDetailsId = this.file.id;
+    this.fileExtension = this.file.title.substring(this.file.title.lastIndexOf('.') + 1);
+    console.log(this.fileExtension);
     const newFileTitle = this.fileName + '.' + this.fileExtension;
     if (this.searchFiles(newFileTitle, this.files, this.file)) {
       alert('You cannot rename a file with a name already in the file List, try changing it with another name.');
@@ -673,10 +684,11 @@ appInputsArray = [];
   }
   getFileDetails(file: any) {
     this.file = file;
-    this.oldFileName = file.title;
-    this.fileDetailsId = file.id;
-    this.fileExtension = file.title.substring(file.title.lastIndexOf('.') + 1);
-    console.log(this.fileExtension);
+    this.fileService.getFile(file.id).subscribe(fileData => {
+      this.fileDescription = fileData.description;
+      this.fileName = fileData.title.substring(0, fileData.title.lastIndexOf('.'));
+      this.fileExtension = fileData.title.substring(fileData.title.lastIndexOf('.') + 1);
+    });
   }
   searchFiles(fileName: string, files: FileModel[], file: FileModel) {
     for (let i = 0; i < files.length; i++) {
@@ -684,7 +696,13 @@ appInputsArray = [];
         return true;
       }
     }
-    return false; ///not found
+    return false; /// not found
 
+  }
+  printFoldersTitle() {
+    console.log('The Folder Path is: ', this.breadCrumbArray.length );
+    let titles = [];
+    this.breadCrumbArray.forEach(item => titles.push(item.title));
+    console.log(titles);
   }
 }
