@@ -6,6 +6,7 @@ import {FakeBackendInterceptor} from './query-engine/fake-backend/fake-backend';
 import {environment} from '../environments/environment';
 import {HttpClientModule, HTTP_INTERCEPTORS, HttpClient} from '@angular/common/http';
 import {AuthService} from './user-action-engine/mongodb/auth/auth.service';
+import { JsonEnvironmentComponent } from './app-engine/apps/json-environment/json-environment.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import {AuthService} from './user-action-engine/mongodb/auth/auth.service';
   ],
   providers: [
     // provider used to create fake backend
-    { provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: JsonEnvironmentComponent, multi: true }
   ],
   bootstrap: [AppComponent]
 })

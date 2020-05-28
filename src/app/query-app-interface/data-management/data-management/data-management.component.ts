@@ -224,8 +224,8 @@ export class DataManagementComponent {
 
   openQueryEntry(query: any) {
     const dialogRef = this.dialog.open(QueryEntryComponent, {
-      width: '100%',
-      height: '100%',
+      width: '80%',
+      height: '80%',
       data: {
         query: query,
         pageID: this.page._id

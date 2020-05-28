@@ -308,8 +308,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * */
   openDataManagement() {
     const dialogRef = this.dialog.open(DataManagementComponent, {
-      width: '100%',
-      height: '100%',
+      width: '80%',
+      height: '80%',
       data: [ this.openAppsInThisPage, this.page, this.openAppArray, this.querySet ]
     });
     dialogRef.afterClosed().subscribe((result) => {

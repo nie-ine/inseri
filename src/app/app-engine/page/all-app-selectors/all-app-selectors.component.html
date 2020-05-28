@@ -1,3 +1,8 @@
+<app-json-environment *ngIf="app.type === 'jsonEnvironment'"
+                      [json]="app.json" [hash]="app.hash">
+
+</app-json-environment>
+
 <app-audio-player *ngIf="app.type === 'audioPlayer'"
                   [msbapAudioUrl]="app.audioURL">
 

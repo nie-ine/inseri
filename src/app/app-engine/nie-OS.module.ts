@@ -93,6 +93,7 @@ import { UrlParamUpdaterComponent } from './apps/url-param-updater/url-param-upd
 import { MyFilesComponent } from './apps/my-files/my-files.component';
 import { AudioPlayerComponent } from './apps/audio-player/audio-player.component';
 import { NgxAudioPlayerModule } from 'ngx-audio-player';
+import { JsonEnvironmentComponent } from './apps/json-environment/json-environment.component';
 
 
 @NgModule({
@@ -209,7 +210,8 @@ import { NgxAudioPlayerModule } from 'ngx-audio-player';
     PageListDialogComponent,
     UrlParamUpdaterComponent,
     MyFilesComponent,
-    AudioPlayerComponent
+    AudioPlayerComponent,
+    JsonEnvironmentComponent
   ],
   exports: [
     PageComponent,

@@ -20,6 +20,16 @@ export class AppMenuModel {
       showOnHome: false
     },
     {
+      id: 'input',
+      name: 'Json Environment ',
+      tags: 'json, python ',
+      color: 'green',
+      status: 'stable',
+      appType: 'jsonEnvironment',
+      description: 'Microservice for json manipulations',
+      showOnHome: false
+    },
+    {
       id: 'audiotrack',
       name: 'Audio Payer',
       tags: 'wav, mp3, etc',

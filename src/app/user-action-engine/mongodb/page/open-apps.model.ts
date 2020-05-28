@@ -147,6 +147,26 @@ export class OpenAppsModel {
       initialWidth: '250',
       initialHeight: '150'
     },
+    jsonEnvironment: {
+      type: 'jsonEnvironment',
+      model: [],
+      inputs: [
+        {
+          'inputName': 'json',
+          default: {
+            defaultKey: 'defaultValue'
+          }
+        }
+      ],
+    outputs: [
+      {
+        'outputName': 'json'
+      }
+    ],
+      materialIcon: 'input',
+      initialWidth: '400',
+      initialHeight: '400'
+    },
     audioPlayer: {
       type: 'audioPlayer',
       model: [],
