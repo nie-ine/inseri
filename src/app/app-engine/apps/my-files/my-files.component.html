@@ -118,9 +118,10 @@
           <mat-icon>close</mat-icon>
         </button>
       </mat-form-field>
-      <button mat-button (click)="createNewFolder(folder); showForm(''); folder='' ">
+      <button mat-button *ngIf="folder" (click)="createNewFolder(folder); showForm(''); folder='' ">
         Create
       </button>
+  <button mat-button (click)="showForm('');"> Cancel</button>
 </div>
 
 <div *ngIf="updateFolderTitleForm" style="margin-left: 15px">
@@ -131,9 +132,10 @@
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
-  <button mat-button (click)="updateFolderTitle(folder); updateBreadCrumb(folder); showForm(''); folder='' ">
+  <button mat-button *ngIf="folder" (click)="updateFolderTitle(folder); updateBreadCrumb(folder); showForm(''); folder='' ">
     Update
   </button>
+  <button mat-button (click)="showForm('');"> Cancel</button>
 </div>
 
 <div *ngIf="updateFileForm" style="margin-left: 15px">
@@ -180,6 +182,42 @@
     </div>
   </div>
 </div>
+
+<div style="width: 50%" *ngIf="dataSource">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header > File name </th>
+      <td mat-cell *matCellDef="let row"
+          (click)="showAvailableInseriApps(row);" [matMenuTriggerFor]="menuOpenFileApps"> <button mat-button >{{row.title}} </button>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="edit">
+      <td mat-cell *matCellDef="let row"
+           style="cursor: pointer; width: 10%;" > <button style="cursor: pointer; width: 10%;" mat-button matTooltip="Edit File Details" (click)="showForm('UpdateFileForm'); getFileDetails(file);">
+        <mat-icon>
+          edit
+        </mat-icon>
+      </button>
+    </td>
+    </ng-container>
+    <ng-container matColumnDef="delete">
+      <td mat-cell *matCellDef="let row"
+          style="cursor: pointer; width: 10%;" > <button style="cursor: pointer; width: 10%;" mat-button matTooltip="Delete File" (click)="deleteFile(file.id);">
+        <mat-icon>
+          delete
+        </mat-icon>
+      </button>
+      </td>
+    </ng-container>
+
+    <!--tr mat-header-row *matHeaderRowDef="responsiveColumns" style="width: 100%;"></tr-->
+    <tr mat-row *matRowDef="let row; columns: ['name','edit','delete'];" style="width: 70%;"></tr>
+  </table>
+
+</div>
+
 
 <div class="div">
   <div class="row">
@@ -274,6 +312,7 @@
   <button mat-button (click)="createPageSet(title.value,desc.value); showForm(''); ">
     Create
   </button>
+  <button mat-button (click)="showForm('');"> Cancel</button>
 </div>
 
 <div *ngIf="createQueryForm" style="margin-left: 15px">
@@ -283,5 +322,6 @@
   <button *ngIf="queryTitle" mat-button mat-icon-button (click)="createNewQuery(queryTitle)">
     <mat-icon>arrow_downwards</mat-icon>
   </button>
+  <button mat-button (click)="showForm('');">Cancel</button>
 </div>
 

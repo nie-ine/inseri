@@ -363,6 +363,7 @@ appInputsArray = [];
           //console.log('transformed files: ' || transformedFiles);
           this.files = transformedFiles;
           this.filesUpdated.next([...this.files]);
+          this.dataSource = new MatTableDataSource(this.files);
         });
     }
    // console.log(this.files);
