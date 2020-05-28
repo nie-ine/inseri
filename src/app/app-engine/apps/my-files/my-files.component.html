@@ -183,14 +183,14 @@
   </div>
 </div>
 
-<div style="width: 50%" *ngIf="dataSource">
+<div style="width: 100%" *ngIf="dataSource">
   <table mat-table [dataSource]="dataSource" matSort>
 
     <!-- Name Column -->
     <ng-container matColumnDef="name" >
       <th mat-header-cell *matHeaderCellDef mat-sort-header > File name </th>
       <td mat-cell *matCellDef="let row"
-          (click)="showAvailableInseriApps(row);" [matMenuTriggerFor]="menuOpenFileApps"> <button mat-button >{{row.title}} </button>
+          (click)="showAvailableInseriApps(row);" [matMenuTriggerFor]="menuOpenFileApps"> <button mat-button > <mat-icon> insert_drive_file</mat-icon> {{row.title}} </button>
       </td>
     </ng-container>
     <ng-container matColumnDef="edit">
