@@ -27,13 +27,14 @@ export class JsonEnvironmentComponent implements OnChanges, HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const jsonEnvironmentInstances = JSON.parse( localStorage.getItem( this.serivceId ) );
     const jsonEnvironmentSet = new Set();
-    for ( const hash in jsonEnvironmentInstances ) {
-      jsonEnvironmentSet.add( hash );
+    for ( const service in jsonEnvironmentInstances ) {
+      jsonEnvironmentSet.add( jsonEnvironmentInstances[ 'hash' ] );
     }
+    console.log( jsonEnvironmentInstances[ 'json' ]);
     return Observable.of(null).mergeMap(() => {
       if ( jsonEnvironmentSet.has( request.url ) ) {
 
-        const body = jsonEnvironmentInstances[ request.url ].json;
+        const body = jsonEnvironmentInstances;
 
         return Observable.of(new HttpResponse({ status: 200, body: body }));
       } else {
