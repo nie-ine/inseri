@@ -56,8 +56,10 @@ export class GeneralRequestService {
 
   transformParam(parameter: any[]) {
     let param = new HttpParams();
-    for (const i of parameter) {
-      param = param.append(i.key, i.value);
+    if ( parameter !== undefined ) {
+      for (const i of parameter) {
+        param = param.append(i.key, i.value);
+      }
     }
     return param;
   }

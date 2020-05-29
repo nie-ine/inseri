@@ -6,7 +6,7 @@ import {PageService} from '../../../user-action-engine/mongodb/page/page.service
 import {FileModel} from '../../../user-action-engine/file/file.model';
 import {FileService} from '../../../user-action-engine/file/file.service';
 import {Observable, Subject, Subscription} from 'rxjs';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {ActionService} from '../../../user-action-engine/mongodb/action/action.service';
 import {PageSetService} from '../../../user-action-engine/mongodb/pageset/page-set.service';
@@ -22,7 +22,6 @@ import {GeneralRequestService} from '../../../query-engine/general/general-reque
 import {GenerateHashService} from '../../../user-action-engine/other/generateHash.service';
 import {map} from 'rxjs/operators';
 
-
 @Component({
   selector: 'app-my-files',
   templateUrl: './my-files.component.html',
@@ -30,7 +29,9 @@ import {map} from 'rxjs/operators';
 })
 export class MyFilesComponent implements OnInit {
   openAppArray = [];
-
+  public demoForm: FormGroup;
+  private fileUrlPath: string;
+  fileExtension: any;
   constructor(
     private http: HttpClient,
     private folderService: FolderService,
@@ -44,12 +45,20 @@ export class MyFilesComponent implements OnInit {
     public pageComponent: PageComponent,
     private router: Router,
     private generateHashService: GenerateHashService,
-    private requestService: GeneralRequestService
-  ) { }
+    private requestService: GeneralRequestService,
+    private formBuilder: FormBuilder
+  ) {
+    this.demoForm = this.formBuilder.group({
+      text_input: ['', Validators.required],
+      files: this.formBuilder.array([])
+    });
+  }
   // private static API_BASE_URL_FILES = environment.node + '/api/files';
   private filesUpdated = new Subject<FileModel[]>();
+  oldFileName: string;
   addFolderForm = false;
   updateFolderTitleForm = false;
+  updateFileForm = false;
   pageSetForm = false;
   // appMenuForm = false;
   createPageSetForm = false;
@@ -98,6 +107,11 @@ export class MyFilesComponent implements OnInit {
   inseriAppsMenu = [];
   menu = false;
 appInputsArray = [];
+  filesToUpload: Array<File> = [];
+    fileDetailsId: any;
+    fileName: string;
+    fileDescription: string;
+  multipleFileUpload = false;
 
   createPageSet(title: string, description: string) {
     this.action.type = 'page-set';
@@ -177,6 +191,9 @@ appInputsArray = [];
       case 'createQueryForm':
         this.createQueryForm = true;
         break;
+      case 'UpdateFileForm':
+        this.updateFileForm = true;
+        break;
       default:
         this.addFolderForm = false;
         this.updateFolderTitleForm = false;
@@ -184,6 +201,7 @@ appInputsArray = [];
         this.createPageSetForm = false;
         // this.appMenuForm = false;
         this.createQueryForm = false;
+        this.updateFileForm = false;
     }
   }
   deleteFromBreadCrumb() {
@@ -194,13 +212,16 @@ appInputsArray = [];
         this.breadCrumbArray.pop();
       }
     }
+    this.printFoldersTitle();
   }
   addToBreadCrumb(title: string) {
     this.breadCrumbArray.push({ id: this.mainFolder_id, title: title } );
+    this.printFoldersTitle();
   }
   updateBreadCrumb( title: string) {
     const index = this.breadCrumbArray.findIndex((obj => obj.id === this.mainFolder_id));
     this.breadCrumbArray[index].title = title;
+    this.printFoldersTitle();
 }
   deleteFile(fileId: string) {
     this.fileService.deleteFile(fileId, this.mainFolder_id).subscribe(() => {
@@ -212,15 +233,16 @@ appInputsArray = [];
     });
   }
   onSaveFile() {
-    if (this.mode === 'add') {
+    // if (this.mode === 'add') {
       this.addFile(this.form.value.file.name, this.form.value.description, this.form.value.file);
-    } else {
-      this.fileService.updateFile(this.fileId, this.form.value.title, this.form.value.description);
-    }
+    // } else {
+     // this.fileService.updateFile(this.fileId, this.form.value.title, this.form.value.description);
+   // }
     this.form.reset();
   }
   onFileSelected(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
+    console.log(typeof file);
     this.form.patchValue({file: file});
     this.form.get('file').updateValueAndValidity();
     const reader = new FileReader();
@@ -228,7 +250,45 @@ appInputsArray = [];
       this.filePreview = reader.result as string;
     };
     reader.readAsDataURL(file);
-    this.onSaveFile();
+   this.onSaveFile();
+  }
+
+  detectFiles(event) {
+    // const inFiles = event.target.files;
+    this.multipleFileUpload = true;
+    const files = event.target.files;
+    console.log(typeof files);
+    /*if (files.length > 10) {
+      alert('Max limit exceeded, You can only upload upto 10 files at once.');
+      return false;
+    }*/
+    this.form.patchValue({ file: files });
+    if (files) {
+      for (const file of files) {
+
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          this.allFiles.push(this.createItem({
+            file,
+            url: e.target.result  // Base64 string for preview image
+          }));
+        };
+        reader.readAsDataURL(<Blob>file);
+      }
+      console.log('calling add files from detect files');
+      this.addFiles(this.form.value.description, this.form.value.file );
+      this.form.reset();
+      this.multipleFileUpload = false;
+    }
+  }
+
+  createItem(data): FormGroup {
+    return this.formBuilder.group(data);
+  }
+
+// Help to get all photos controls as form array.
+  get allFiles(): FormArray {
+    return this.demoForm.get('files') as FormArray;
   }
 
   uploadFileToFolder( fileId: string) {
@@ -241,6 +301,25 @@ appInputsArray = [];
       );
   }
 
+  addFiles( description: string, uploadedFiles: File[]) {
+    for (let i = 0; i < this.allFiles.length; i++) {
+      console.log(this.allFiles.controls[i].value.file.name);
+    }
+    console.log(this.allFiles);
+    console.log('calling filesService.addFiles');
+    console.log(description, uploadedFiles);
+    this.fileService.addFiles(
+      description, uploadedFiles, this.mainFolder_id
+// this.form.value.description,
+      // this.form.value.file,
+
+    ).subscribe(responseData => {
+      this.files.push(responseData.file);
+      this.filesUpdated.next([...this.files]);
+      this.showFiles();
+    });
+
+  }
   addFile(title: string, description: string, uploadedFile: File ) {
     this.fileService.addFile(title, description, uploadedFile, this.mainFolder_id)
       .subscribe(responseData => {
@@ -260,7 +339,7 @@ appInputsArray = [];
     this.folderService.showFolders(this.mainFolder_id)
       .subscribe(
         response => {
-          console.log( (response as any).folders); // an array of subPages details'
+          //console.log( (response as any).folders); // an array of subPages details'
           this.foldersArray = (response as any).folders;
         }, error => {
           console.log( error );
@@ -278,15 +357,16 @@ appInputsArray = [];
     if (this.mainFolder_id === '-1') {
       this.files = [];
     } else {
-      console.log(this.mainFolder_id);
+      //console.log(this.mainFolder_id);
       this.fileService.getFiles(this.mainFolder_id)
         .subscribe(transformedFiles => {
-          console.log('transformed files: ' || transformedFiles);
+          //console.log('transformed files: ' || transformedFiles);
           this.files = transformedFiles;
           this.filesUpdated.next([...this.files]);
+          this.dataSource = new MatTableDataSource(this.files);
         });
     }
-    console.log(this.files);
+   // console.log(this.files);
   }
 
   createNewFolder(title: string) {
@@ -416,16 +496,17 @@ appInputsArray = [];
     }
   }*/
 
+
   showPageSetsForFolder() {
     if (this.mainFolder_id === '-1') {
       this.addedPageSets = [];
     } else {
-      console.log(this.mainFolder_id);
+     // console.log(this.mainFolder_id);
       this.folderService.getPageSets(this.mainFolder_id)
         .subscribe(response => {
-            console.log( response); // an array of subPages details'
+            //console.log( response); // an array of subPages details'
             this.addedPageSets = [...response];
-          console.log(this.addedPageSets);
+          //console.log(this.addedPageSets);
           }, error => {
             console.log( error );
           }
@@ -461,12 +542,12 @@ appInputsArray = [];
      if (this.mainFolder_id === '-1') {
       this.addedQueries = [];
      } else {
-       console.log(this.mainFolder_id);
+       //console.log(this.mainFolder_id);
        this.folderService.getQueries(this.mainFolder_id)
          .subscribe(response => {
-             console.log(response);
+             //console.log(response);
              this.addedQueries = [...response];
-             console.log(this.addedQueries);
+             //console.log(this.addedQueries);
            }, error => {
              console.log(error);
            }
@@ -543,11 +624,11 @@ appInputsArray = [];
 
   receiveOpenAppsInThisPage(openAppsInThisPage: any) {
     this.openAppsInThisPage = openAppsInThisPage;
-    console.log(this.openAppsInThisPage);
+    //console.log(this.openAppsInThisPage);
   }
     receivePage( pageAndAction: any ) {
       this.page = pageAndAction[0];
-       console.log( pageAndAction[0] );
+      // console.log( pageAndAction[0] );
       this.action = pageAndAction[1];
       /*this.reloadVariables = false;
       this.pageIsPublished = this.page.published;
@@ -573,5 +654,55 @@ appInputsArray = [];
   selectChosenApp(app: any) {
     this.chosenApp = app;
     this.appInputsArray = this.openAppsInThisPage[app.appType].inputs;
+  }
+
+  updateFile() {
+    this.oldFileName = this.file.title;
+    this.fileDetailsId = this.file.id;
+    this.fileExtension = this.file.title.substring(this.file.title.lastIndexOf('.') + 1);
+    console.log(this.fileExtension);
+    const newFileTitle = this.fileName + '.' + this.fileExtension;
+    if (this.searchFiles(newFileTitle, this.files, this.file)) {
+      alert('You cannot rename a file with a name already in the file List, try changing it with another name.');
+      return;
+    }
+    this.fileService.updateFile(this.fileDetailsId, newFileTitle, this.fileDescription)
+      .subscribe(response => {
+        const file = response.file;
+        console.log(file);
+        const updatedFiles = [...this.files];
+        const oldFileIndex = updatedFiles.findIndex(p => p.id === this.fileDetailsId);
+        updatedFiles[oldFileIndex] = file;
+        this.files = updatedFiles;
+        this.filesUpdated.next([...this.files]);
+      this.fileDetailsId = '';
+      this.fileName = '';
+      this.fileDescription = '';
+        this.fileExtension = '';
+      this.showFiles();
+    });
+  }
+  getFileDetails(file: any) {
+    this.file = file;
+    this.fileService.getFile(file.id).subscribe(fileData => {
+      this.fileDescription = fileData.description;
+      this.fileName = fileData.title.substring(0, fileData.title.lastIndexOf('.'));
+      this.fileExtension = fileData.title.substring(fileData.title.lastIndexOf('.') + 1);
+    });
+  }
+  searchFiles(fileName: string, files: FileModel[], file: FileModel) {
+    for (let i = 0; i < files.length; i++) {
+      if (files[i].title === fileName && files[i].id !== file.id) {
+        return true;
+      }
+    }
+    return false; /// not found
+
+  }
+  printFoldersTitle() {
+    console.log('The Folder Path is: ', this.breadCrumbArray.length );
+    let titles = [];
+    this.breadCrumbArray.forEach(item => titles.push(item.title));
+    console.log(titles);
   }
 }

@@ -23,7 +23,7 @@ import { QueryService } from '../../../user-action-engine/mongodb/query/query.se
   templateUrl: './data-management.component.html',
   styleUrls: ['./data-management.component.scss']
 })
-export class DataManagementComponent implements OnInit {
+export class DataManagementComponent {
 
   /**
    * The table displays the mapping between the queries and the
@@ -98,75 +98,30 @@ export class DataManagementComponent implements OnInit {
     private route: ActivatedRoute,
     private appModel: OpenAppsModel,
     private spinner1: NgxSpinnerService
-  ) { }
-
-  resetTable() {
-    this.columnsToDisplay = this.displayedColumns.slice();
-    this.displayedColumns = ['query'];
-    this.openApps = [];
-    this.table.renderRows();
-  }
-
-  /**
-   * This function is invoked by the load-variables.component
-   * instatiated in the data-management.html. It is invoked
-   * after the load-variables.component emits the loaded variables
-   * */
-  receivePage( pageAndAction: any ) {
-    this.reloadVariables = false;
-    this.page = pageAndAction[ 0 ];
+  ) {
+    const openAppArray: Array<any> = data[ 2 ];
+    console.log( data );
+    // console.log( data );
+    if (this.table) {
+      this.resetTable();
+    }
+    let i = 0;
+    this.page = data[ 1 ];
     this.appInputQueryMapping = this.page.appInputQueryMapping;
     this.queryService.getAllQueriesOfPage(this.page._id)
-      .subscribe((data) => {
-        this.queries = data.queries.slice().reverse();
-        for ( const app in this.appInputQueryMapping ) {
-          for ( const input in this.appInputQueryMapping[app] ) {
-            for ( const query of this.queries ) {
-              if (
-                query._id === this.appInputQueryMapping[app][input][ 'query' ] &&
-                this.appInputQueryMapping[app][input][ 'path' ] ) {
-                if ( !query.paths ) {
-                  query.paths = [];
-                }
-                const path = this.appInputQueryMapping[app][input][ 'path' ];
-                for ( let i = 0; i < path.length; i++ ) {
-                  if ( !isNaN( Number( path[ i ] ) ) ) {
-                    path.splice( i, 1 );
-                  }
-                }
-                query.paths.push( path );
-              }
-            }
-          }
-        }
+      .subscribe((queryResponse) => {
+        this.queries = queryResponse.queries.slice().reverse();
       });
-  }
-
-  /**
-   * This function is invoked by the load-variables.component
-   * instatiated in the data-management.html. It is invoked
-   * after the load-variables.component emits the loaded variables
-   * */
-  receiveOpenAppsInThisPage( openAppsInThisPage: any ) {
-    console.log( openAppsInThisPage );
-    this.reloadVariables = false;
-    this.openAppsInThisPage = openAppsInThisPage;
-    this.resetTable();
-    let i = 0;
-    for (const appType in this.openAppsInThisPage) {
-      if (this.openAppsInThisPage[appType].model.length !== 0) {
-        for (const appOfSameType of this.openAppsInThisPage[appType].model) {
-          if( this.appModel.openApps[ appOfSameType.type ] && this.appModel.openApps[ appOfSameType.type ].inputs ) {
-            appOfSameType.inputs =  this.appModel.openApps[ appOfSameType.type ].inputs;
-            this.openApps.push(appOfSameType);
-            for (const query in this.queries) {
-              this.queries[query][appOfSameType.hash] = appOfSameType.hash;
-            }
-            this.columnsToDisplay.push(appOfSameType.hash);
-          }
+    for (const app of openAppArray) {
+        if( this.appModel.openApps[ app.type ] && this.appModel.openApps[ app.type ].inputs ) {
+          app.inputs =  this.appModel.openApps[ app.type ].inputs;
+          this.openApps.push(app);
+          /*            for (const query in this.queries) {
+                        this.queries[query][appOfSameType.hash] = appOfSameType.hash;
+                      }*/
+          this.columnsToDisplay.push(app.hash);
         }
-      }
-      if ( i === this.openAppsInThisPage.length - 1 ) {
+      if ( i === openAppArray.length - 1 ) {
         if (this.table) {
           this.table.renderRows();
         }
@@ -175,7 +130,11 @@ export class DataManagementComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
+  resetTable() {
+    this.columnsToDisplay = this.displayedColumns.slice();
+    this.displayedColumns = ['query'];
+    this.openApps = [];
+    this.table.renderRows();
   }
 
   checkIfPathIsDefined( appHash: string ) {
@@ -246,10 +205,27 @@ export class DataManagementComponent implements OnInit {
       this.dialogRef.close();
   }
 
+  showThisQueryMapping( query: any ) {
+    query.display = true;
+    console.log( query );
+    for ( const app in this.appInputQueryMapping ) {
+      for ( const input in this.appInputQueryMapping[app] ) {
+          if (
+            query._id === this.appInputQueryMapping[app][input][ 'query' ] &&
+            this.appInputQueryMapping[app][input][ 'path' ] ) {
+            if ( !query.paths ) {
+              query.paths = [];
+            }
+            query.paths.push( this.appInputQueryMapping[app][input][ 'path' ] );
+          }
+      }
+    }
+  }
+
   openQueryEntry(query: any) {
     const dialogRef = this.dialog.open(QueryEntryComponent, {
-      width: '100%',
-      height: '100%',
+      width: '80%',
+      height: '80%',
       data: {
         query: query,
         pageID: this.page._id

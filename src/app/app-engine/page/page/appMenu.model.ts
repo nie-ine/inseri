@@ -20,6 +20,26 @@ export class AppMenuModel {
       showOnHome: false
     },
     {
+      id: 'input',
+      name: 'Json Environment ',
+      tags: 'json, python ',
+      color: 'green',
+      status: 'stable',
+      appType: 'jsonEnvironment',
+      description: 'Microservice for json manipulations',
+      showOnHome: false
+    },
+    {
+      id: 'audiotrack',
+      name: 'Audio Payer',
+      tags: 'wav, mp3, etc',
+      color: 'green',
+      status: 'stable',
+      appType: 'audioPlayer',
+      description: 'Play your audiofiles',
+      showOnHome: false
+    },
+    {
       id: 'folder',
       name: 'My Files',
       tags: 'files, folders and queries',
@@ -349,6 +369,16 @@ export class AppMenuModel {
       appType: 'webern',
       description: 'Anton Webern App',
       showOnHome: true
+    },
+    {
+      id: 'book',
+      name: 'iframe',
+      tags: 'iframe',
+      color: 'green',
+      status: 'stable',
+      appType: 'iframe',
+      description: 'iframe',
+      showOnHome: false
     },
     {
       id: 'book',

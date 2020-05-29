@@ -6,10 +6,9 @@ WORKDIR ./nieOS
 
 RUN rm -R ./backend/.settings || true
 
-RUN npm install --global --force yarn
+RUN rm -R ./backend/files || true
 
-RUN chown -R node:node .
-USER node
+RUN npm install --global --force yarn
 
 # RUN npm install --save bcrypt-nodejs
 RUN yarn --no-lockfile

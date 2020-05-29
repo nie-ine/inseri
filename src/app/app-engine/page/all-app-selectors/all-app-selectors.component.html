@@ -1,3 +1,13 @@
+<app-json-environment *ngIf="app.type === 'jsonEnvironment'"
+                      [json]="app.json" [hash]="app.hash">
+
+</app-json-environment>
+
+<app-audio-player *ngIf="app.type === 'audioPlayer'"
+                  [msbapAudioUrl]="app.audioURL">
+
+</app-audio-player>
+
 <app-my-files *ngIf="app.type === 'myFiles'">
 
 </app-my-files>
@@ -218,6 +228,10 @@
 
 <app-iframe *ngIf="app.type === 'webern'"
             [url]="environment.webern">
+</app-iframe>
+
+<app-iframe *ngIf="app.type === 'iframe'"
+            [url]="app.url">
 </app-iframe>
 
 <app-iframe *ngIf="app.type === 'raeber'"

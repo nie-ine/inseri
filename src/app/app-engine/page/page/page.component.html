@@ -45,7 +45,7 @@
           <mat-menu #menu3="matMenu" >
             <button
               style="display: block"
-              [color]=" checkIfSelected( i ) ? 'primary' : 'null'"
+              [color]=" i === selectedPage ? 'primary' : 'null'"
               *ngFor="let page of pagesOfThisActtion; let i = index;"
               matTooltip="{{ page.description }}"
               mat-button
@@ -181,7 +181,7 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
       <div *ngFor="let dataChooser of openAppsInThisPage[ 'dataChooser' ].model; let i = index;" >
-        <div *ngIf="generateQueryAppPathInformation( openAppsInThisPage[ 'dataChooser' ].model[i].queryId ) !== undefined" >
+        <div *ngIf="openAppsInThisPage[ 'dataChooser' ].model[i].queryId !== undefined" >
           <button
             *ngIf=" openAppsInThisPage[ 'dataChooser' ].model[i].title && openAppsInThisPage[ 'dataChooser' ].model[i].title.search( 'Query: ' ) !== -1 "
             (click)="openQueryInformationDialog( openAppsInThisPage[ 'dataChooser' ].model[i].queryId )"
@@ -218,8 +218,8 @@
                (sendAssignInputCommandBack)="openAssignInputDialog($event)"
                (closeAppEmitter)="closeApp( app.hash, i )" (minimizeApp)="app.showContent = false;">
           <div  [ngStyle]="{
-          'height': app.fullHeight ? '100%' : produceHeightAndWidth( app.height, app.initialHeight ) + 'px',
-          'width': app.fullWidth ? '100%' : produceHeightAndWidth( app.width, app.initialWidth ) + 'px'}">
+          'height': app.fullHeight ? '100%' :  app.height + 'px',
+          'width': app.fullWidth ? '100%' : app.width + 'px'}">
 
             <app-all-app-selectors
               [app]="app" (reloadVariables)="reloadVariablesFunction()"
@@ -264,7 +264,7 @@
                 <!-- Color Column -->
                 <ng-container matColumnDef="status"  >
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-                  <td mat-cell *matCellDef="let row" [style.color]="row.color" (click)="addAnotherApp(row.appType, true)" style="cursor: pointer; width: 25%;" matTooltip="{{row.description}}"> {{row.status}} </td>
+                  <td mat-cell *matCellDef="let row" [style.color]="row.color" (click)="addAnotherApp(row.appType, true, row.name)" style="cursor: pointer; width: 25%;" matTooltip="{{row.description}}"> {{row.status}} </td>
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns" style="width: 100%;"></tr>
@@ -290,7 +290,7 @@
     *ngFor="let app of openAppArray.slice(); let i = index;"
     style="display: inline-block; margin-bottom: 10px; margin-left: 60px; margin-top: 70px;"
     (click)="app.minimized = false" matTooltip="{{ app.minimized ? app.title : '' }}"
-    [ngStyle]="{ 'width': app.width ?  app.width + 'px': undefined}">
+    [ngStyle]="{ 'width': app.fullWidth ? '100%' : app.width + 'px'}">
     <mat-card-header *ngIf=" !app.minimized ">
       <mat-card-subtitle>
 

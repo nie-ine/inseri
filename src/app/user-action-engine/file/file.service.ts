@@ -78,24 +78,27 @@ export class FileService {
     console.log(' add file ' + title + description + uploadedFile.name);
     return this.http
       .post<{ message: string; file: FileModel }>(
-        `${FileService.API_BASE_URL_FILES}` + '/' + folderId,
+        `${FileService.API_BASE_URL_FILES}` + '/singleFileUpload/' + folderId,
         fileData
       );
   }
-
-  updateFile(id: string, title: string, description: string) {
-    const file: FileModel = { id: id, title: title, description: description, urlPath: null };
-    this.http
-      .put(`${FileService.API_BASE_URL_FILES}` + '/' + id, file)
-      .subscribe(response => {
-        const updatedFiles = [...this.files];
-        const oldFileIndex = updatedFiles.findIndex(p => p.id === file.id);
-        updatedFiles[oldFileIndex] = file;
-        this.files = updatedFiles;
-        this.filesUpdated.next([...this.files]);
-        this.router.navigate(['app-our-new-component']);
-        // this.router.navigate(['/']);
-      });
+  addFiles(description: string, files:  File[], folderId: string): Observable<any> {
+    console.log('from FileService.addFiles:');
+    console.log(files);
+    const fileData = new FormData();
+    fileData.append('description', description);
+    Array.from(files).forEach(file => fileData.append('file', file, file.name));
+    console.log(fileData);
+    return this.http
+      .post<{ message: string; file: FileModel[] }>(
+        `${FileService.API_BASE_URL_FILES}` + '/files/' + folderId,
+        fileData
+      );
+  }
+  updateFile(id: string, title: string, description: string): Observable<any> {
+    console.log(id, title, description);
+    return this.http
+      .post(`${FileService.API_BASE_URL_FILES}` + '/' + id, {title: title, description: description});
   }
 
   deleteFile(fileId: string, folderId: string): Observable<any> {

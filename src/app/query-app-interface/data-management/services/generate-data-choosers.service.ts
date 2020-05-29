@@ -50,7 +50,7 @@ export class GenerateDataChoosersService {
         }
       }
     }
-    console.log( queriesToPerform );
+    // console.log( queriesToPerform );
     for ( const queryId of queriesToPerform ) {
       let queryTitle = '';
       let pathArray = [];

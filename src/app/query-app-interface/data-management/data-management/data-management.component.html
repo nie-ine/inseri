@@ -1,10 +1,4 @@
-<!--<mat-spinner *ngIf="isLoading"></mat-spinner>-->
 
-<app-load-variables
-  (sendPageBack)="receivePage( $event )"
-  (sendOpenAppsInThisPageBack)="receiveOpenAppsInThisPage( $event )" [reload]="reloadVariables">
-
-</app-load-variables>
 
     <button mat-button (click)="close()">
       <mat-icon>clear</mat-icon> Close
@@ -30,9 +24,6 @@
                 *ngIf="!checkIfChosen( input.inputName, app.hash, item._id )">
                 {{input.inputName}}
               </mat-chip>
-              <!--<button mat-icon-button *ngIf="checkIfChosen( input.inputName, app.hash, item._id )" (click)="assignInputToLabel( input, item )">-->
-                <!--<mat-icon aria-label="Example icon-button with a heart icon">label</mat-icon>-->
-              <!--</button>-->
               <mat-chip
                 [color]="'primary'" selected
                 *ngIf="checkIfChosen( input.inputName, app.hash, item._id )" (click)="unSelectChip( input.inputName, app.hash, item._id )">
@@ -40,12 +31,7 @@
               </mat-chip>
             </mat-chip-list>
             <mat-chip
-              *ngIf="checkIfRowIsChosen( app.hash, item._id ) && !checkIfPathIsDefined( app.hash )"
-              selected
-              [color]="'accent'" (click)="openQueryAppInputMapDialog( app, item )">
-              map
-            </mat-chip>
-            <mat-chip
+              [ngStyle]="{ 'color': checkIfPathIsDefined( app.hash ) ? '#81e482 !important' : null }"
               style="color: #81e482 !important"
               *ngIf="checkIfRowIsChosen( app.hash, item._id ) && checkIfPathIsDefined( app.hash )"
               selected

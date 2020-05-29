@@ -247,6 +247,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   showResponsiveWidthMenu = false;
 
+  nothAlreadyQueryAppPathGenerated = new Set();
+
   slogans = [
     'Where you can gather information',
     'It\'s pretty cloudy in the cloud',
@@ -305,40 +307,15 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * Opens the data managment dialog where users can add queries to the page
    * */
   openDataManagement() {
-    this.pageService.updatePage(
-      { ...this.page }
-    )
-      .subscribe(
-        data => {
-          this.updateOpenAppsInThisPage();
-          const dialogRef = this.dialog.open(DataManagementComponent, {
-            width: '100%',
-            height: '100%',
-            data: [ this.openAppsInThisPage, this.page ]
-          });
-          dialogRef.afterClosed().subscribe((result) => {
-            this.resetPage = true;
-            this.reloadVariables = true;
-          });
-        },
-        error => {
-          console.log(error);
-        });
-  }
-
-  /**
-   * updates variable openAppsInThisPage
-   * */
-  updateOpenAppsInThisPage() {
-    for ( const app in this.page.openApps ) {
-      if ( app && this.openAppsInThisPage[ this.page.openApps[ app ].type ] ) {
-        for ( const openApp of this.openAppsInThisPage[ this.page.openApps[ app ].type ].model ) {
-          if ( openApp['hash'] === app ) {
-            openApp.type = this.page.openApps[ app ].type;
-          }
-        }
-      }
-    }
+    const dialogRef = this.dialog.open(DataManagementComponent, {
+      width: '80%',
+      height: '80%',
+      data: [ this.openAppsInThisPage, this.page, this.openAppArray, this.querySet ]
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      this.resetPage = true;
+      this.reloadVariables = true;
+    });
   }
 
   /**
@@ -354,7 +331,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
       this.pageIDFromURL = this.route.snapshot.queryParams.page;
       this.reloadVariables = true;
     }
-    this.cdr.detectChanges();
   }
 
   applyFilter(filterValue: string) {
@@ -459,14 +435,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.openAppsInThisPage[ 'youtubeVideo' ].model[ length ].height = 400;
   }
 
-  /**
-   * This function returns the index of the currently displayed page
-   * referring to the page - Array of the action
-   * */
-  checkIfSelected( index: number ) {
-    return (index === this.selectedPage);
-  }
-
   goToPageSet() {
     this.router.navigate(['/page-set'],
       { queryParams:
@@ -548,22 +516,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
       this.page.openApps[ app.hash ] = [];
     }
     this.page.openApps[ app.hash ] = app;
-    // console.log( this.openAppArray );
-    // for ( const appToCompare of this.openAppArray ) {
-    //   for ( const otherApp of this.openAppArray ) {
-    //     console.log(
-    //       appToCompare.x < otherApp.x + otherApp.width && appToCompare.y + appToCompare.height < otherApp.y,
-    //       appToCompare.x + appToCompare.width < otherApp.x && appToCompare.y < otherApp.y + otherApp.height
-    //     );
-    //     const overlap = !(
-    //       appToCompare.x < otherApp.x + otherApp.width ||
-    //       appToCompare.x + appToCompare.width < otherApp.x ||
-    //       appToCompare.y + appToCompare.height < otherApp.y ||
-    //       appToCompare.y < otherApp.y + otherApp.height
-    //     );
-    //       console.log( 'overlap: ' + overlap );
-    //   }
-    // }
   }
 
   /**
@@ -587,7 +539,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
     }
     for ( const mapping in this.page.appInputQueryMapping ) {
       if ( !this.page.openApps[ mapping ] ) {
-        console.log( mapping );
         delete this.page.appInputQueryMapping[ mapping ];
       }
     }
@@ -624,7 +575,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
     title: string,
     fileUrlPath?: string
   ): Array<any> {
-    console.log( this.openAppArray );
     for ( let i = 0; i < this.openAppArray.length; i++ ) {
       if ( this.openAppArray[ i ].type === 'pageMenu' ) {
         this.openAppArray.splice( i, 1 );
@@ -632,7 +582,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
     }
     this.dataSource.filter = undefined;
     const appModel = this.openAppsInThisPage[ appType ].model;
-    console.log( this.openAppsInThisPage[ appType ] );
     const length = appModel.length;
     appModel[ length ] = {};
     if ( generateHash ) {
@@ -667,7 +616,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
       } else {
         this.openAppArray = [ appModel[ length ] ].concat( this.openAppArray );
       }
-      console.log( 'add another app - add new myOwnJsonQuery', appType, appModel[ length ].hash );
       if ( appType !== 'pageMenu' ) {
         this.createDefaultInputAndMappToAppInput(
           appType,
@@ -684,57 +632,61 @@ export class PageComponent implements OnInit, AfterViewChecked {
     app: any,
     fileUrlPath?: string
   ) {
-    console.log(fileUrlPath);
     if ( this.openAppsInThisPage[ app.type ].inputs ) {
       if ( this.loggedIn ) {
         app.spinnerIsShowing = true;
       }
       for ( const input of this.openAppsInThisPage[ app.type ].inputs ) {
         const now = new Date();
-        this.queryService.createQueryOfPage(this.page._id,
-          {title: appType +
-              '-' + now.getFullYear() +
-              ':' + now.getDate() +
-              ':' + now.getHours() +
-              ':' + now.getMinutes() +
-              ':' + now.getSeconds() })
-          .subscribe(data => {
-            if (data.status === 201) {
-              const query = data.body.query;
-              this.requestService.createJson()
-                .subscribe(myOwnJson => {
-                    const jsonId = (myOwnJson as any).result._id;
-                    const serverURL = environment.node + '/api/myOwnJson/getJson/' + String((myOwnJson as any).result._id);
-                    query.serverUrl = serverURL;
-                    query.method = 'JSON';
-                    query.description = now.getFullYear() +
-                      ':' + now.getDate() +
-                      ':' + now.getHours() +
-                      ':' + now.getMinutes() +
-                      ':' + now.getSeconds();
-                    this.queryService.updateQueryOfPage(this.page._id, query._id, query)
-                      .subscribe((data3) => {
-                        if (data3.status === 200) {
-                        } else {
-                          console.log('Updating query failed');
-                        }
-                      }, error1 => console.log(error1));
-                    if ( this.page.appInputQueryMapping[ app.hash ] === undefined ) {
-                      this.page.appInputQueryMapping[ app.hash ] = {};
-                    }
-                    this.page.appInputQueryMapping[ app.hash ][ input.inputName ] = {};
-                    this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'path' ] = [ 'result', 'content', 'info' ];
-                    this.page.appInputQueryMapping[ app.hash ][ input.inputName ].query = query._id;
-                    this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'serverUrl' ] = query.serverUrl;
-                    this.page.appInputQueryMapping[ app.hash ].app = app.hash;
-                    this.updatePage();
+        console.log(!this.page.serverUrl);
+        if ( !this.page.jsonId ) {
+          this.queryService.createQueryOfPage(this.page._id,
+            {title: 'page:' + this.page.title + ' | data stored in inseri'})
+            .subscribe(data => {
+              if (data.status === 201) {
+                const query = data.body.query;
+                this.requestService.createJson()
+                  .subscribe(myOwnJson => {
+                      const jsonId = (myOwnJson as any).result._id;
+                      const serverURL = environment.node + '/api/myOwnJson/getJson/' + String((myOwnJson as any).result._id);
+                      this.page.jsonId = jsonId;
+                      this.page.ownQuery = query._id;
+                      query.serverUrl = serverURL;
+                      query.method = 'JSON';
+                      query.description = now.getFullYear() +
+                        ':' + now.getDate() +
+                        ':' + now.getHours() +
+                        ':' + now.getMinutes() +
+                        ':' + now.getSeconds();
+                      this.queryService.updateQueryOfPage(this.page._id, query._id, query)
+                        .subscribe((data3) => {
+                          if (data3.status === 200) {
+                          } else {
+                            console.log('Updating query failed');
+                          }
+                        }, error1 => console.log(error1));
+                      if ( this.page.appInputQueryMapping[ app.hash ] === undefined ) {
+                        this.page.appInputQueryMapping[ app.hash ] = {};
+                      }
+                      this.page.appInputQueryMapping[ app.hash ][ input.inputName ] = {};
+                      this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'path' ] =
+                        [ 'result', 'content', 'info', app.hash, input.inputName ];
+                      this.page.appInputQueryMapping[ app.hash ][ input.inputName ].query = this.page.ownQuery;
+                      this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'serverUrl' ] =
+                        environment.node + '/api/myOwnJson/getJson/' + this.page.jsonId;
+                      this.page.appInputQueryMapping[ app.hash ].app = app.hash;
+                      this.updatePage();
                     this.requestService.updateJson(
-                      jsonId,
+                      this.page.jsonId,
                       {
-                        _id: '5e26f93905dee90e3dcea8ea',
-                        creator: '5bf6823c9ec116a6fee7431d',
+                        _id: this.page.jsonId,
+                        creator: this.page.creator,
                         content: {
-                          info: fileUrlPath || input.default // ((fileUrlPath && input.inputName.toString().toLowerCase().search('url')) ? fileUrlPath : input.default)
+                          info: {
+                            [app.hash]: {
+                              [input.inputName]: fileUrlPath || input.default
+                            }
+                          }
                         },
                         __v: 0
                       }
@@ -744,15 +696,57 @@ export class PageComponent implements OnInit, AfterViewChecked {
                           this.reloadVariables = true;
                         }, error => console.log(error)
                       );
-                  }, error => {
-                  console.log(error);
+                    }, error => {
+                      console.log(error);
+                    }
+                  );
+              }
+            }, error1 => {
+              app.spinnerIsShowing = false;
+              console.log( error1 );
+            });
+        } else {
+          console.log( 'update existing query', input );
+          let existingInputs: any;
+          this.requestService.get(  environment.node + '/api/myOwnJson/getJson/' + this.page.jsonId, undefined, undefined )
+            .subscribe(
+              myOwnJsonResponse => {
+                existingInputs = myOwnJsonResponse.body.result.content.info;
+                console.log( existingInputs );
+                if ( existingInputs[app.hash] === undefined ) {
+                  existingInputs[app.hash] = {};
                 }
-                );
-            }
-          }, error1 => {
-            app.spinnerIsShowing = false;
-            console.log( error1 );
-          });
+                existingInputs[app.hash][input.inputName] = fileUrlPath || input.default;
+                this.requestService.updateJson(
+                  this.page.jsonId,
+                  {
+                    _id: this.page.jsonId,
+                    creator: this.page.creator,
+                    content: {
+                      info: existingInputs
+                    },
+                    __v: 0
+                  }
+                )
+                  .subscribe(updatedJson => {
+                      console.log(updatedJson);
+                    if ( this.page.appInputQueryMapping[ app.hash ] === undefined ) {
+                      this.page.appInputQueryMapping[ app.hash ] = {};
+                    }
+                    this.page.appInputQueryMapping[ app.hash ][ input.inputName ] = {};
+                    this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'path' ] =
+                      [ 'result', 'content', 'info', app.hash, input.inputName ];
+                    this.page.appInputQueryMapping[ app.hash ][ input.inputName ].query = this.page.ownQuery;
+                    this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'serverUrl' ] =
+                      environment.node + '/api/myOwnJson/getJson/' + this.page.jsonId;
+                    this.page.appInputQueryMapping[ app.hash ].app = app.hash;
+                    this.updatePage();
+                      this.reloadVariables = true;
+                    }, error => console.log(error)
+                  );
+              }, error => console.log( error )
+            );
+        }
       }
     }
   }
@@ -805,18 +799,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   /**
-   * This function produces the height and the width of
-   * each open app
-   * */
-  produceHeightAndWidth( appValue: string, defaultHeight: string ) {
-    if ( appValue ) {
-      return appValue ;
-    } else {
-      return defaultHeight;
-    }
-  }
-
-  /**
    * The load-variables.component emits the page and the action loaded from mongodb to this
    * function where the relevant variables are updated
    * */
@@ -833,6 +815,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   generateOpenApps( openApps: any ) {
+    console.log( openApps );
     this.openAppArray = [];
     for ( const appType in openApps ) {
       for ( const app of openApps[ appType ].model ) {
@@ -844,6 +827,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     }
     let j = 0;
     for ( const app of this.openAppArray ) {
+      // console.log( app );
       if ( this.page.openApps[ app.hash ].openAppArrayIndex ) {
         const switchHelp = this.openAppArray[this.page.openApps[app.hash].openAppArrayIndex];
         this.openAppArray[this.page.openApps[app.hash].openAppArrayIndex] = app;
@@ -921,6 +905,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * generate the information in the the generated dialog.
    * */
   generateQueryAppPathInformation( queryId: string ): any {
+      console.log( this.openAppArray );
       let queryAppPathInformation;
       for ( const appHash in this.page.appInputQueryMapping ) {
         for ( const appType in this.openAppsInThisPage ) {
@@ -1104,18 +1089,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
     }, 2000);
   }
 
-  updateTextOnApp( textAndHash: any ) {
-    console.log( textAndHash );
-    for ( const app of this.openAppsInThisPage[ textAndHash.type ].model ) {
-      if ( textAndHash.hash === app.hash ) {
-        app.text = textAndHash.text;
-      }
-    }
-    this.page.openApps[ textAndHash.hash ].text = textAndHash.text;
-    console.log( this.page.openApps, this.openAppsInThisPage );
-    this.updatePage();
-  }
-
   openAssignInputDialog( input: any ) {
     console.log( input, this.openAppsInThisPage );
     this.pageService.updatePage(
@@ -1123,14 +1096,14 @@ export class PageComponent implements OnInit, AfterViewChecked {
     )
       .subscribe(
         data => {
-          this.updateOpenAppsInThisPage();
+          // this.updateOpenAppsInThisPage();
           const dialogRef = this.dialog.open(AppInputComponentComponent, {
             width: '50%',
             height: '50%',
             data: {
               appHash: input.hash,
-              inputs: this.openAppsInThisPage[input.type].inputs,
-              page: this.page
+              page: this.page,
+              inputs: this.openAppsInThisPage[ input.type ].inputs
             }
           });
           dialogRef.afterClosed().subscribe((result) => {

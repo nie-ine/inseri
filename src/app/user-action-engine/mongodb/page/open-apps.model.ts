@@ -147,6 +147,41 @@ export class OpenAppsModel {
       initialWidth: '250',
       initialHeight: '150'
     },
+    jsonEnvironment: {
+      type: 'jsonEnvironment',
+      model: [],
+      inputs: [
+        {
+          'inputName': 'json',
+          default: {
+            defaultKey: 'defaultValue'
+          }
+        }
+      ],
+    outputs: [
+      {
+        'outputName': 'json'
+      }
+    ],
+      materialIcon: 'input',
+      initialWidth: '400',
+      initialHeight: '400'
+    },
+    audioPlayer: {
+      type: 'audioPlayer',
+      model: [],
+      inputs: [
+        {
+          'inputName': 'audioURL',
+          default: 'https://www.dl.dropboxusercontent.com' +
+            '/s/xu94g81pb6czpqm/' +
+            '7.%20Schubert%20-%203%20Piano%20Pieces%20D.946%20No%201%20-%20Allegro%20Assai%20E%20flat%20minor.wav?dl=0'
+        }
+      ],
+      materialIcon: 'audiotrack',
+      initialWidth: '800',
+      initialHeight: '150'
+    },
     paint: {
       type: 'paint',
       model: [],
@@ -608,6 +643,19 @@ export class OpenAppsModel {
       }
       ],
   },
+    iframe: {
+      type: 'iframe',
+      model: [],
+      materialIcon: 'book',
+      initialWidth: '900',
+      initialHeight: '700',
+      inputs: [
+        {
+          'inputName': 'url',
+          default: 'https://www.nie-ine.ch/'
+        }
+      ],
+    },
     primeEditor: {
       type: 'primeEditor',
       model: [],

@@ -70,6 +70,7 @@ export class LoadVariablesComponent implements OnInit, OnChanges {
   }
 
   updateAppsInView(viewHash: string, actionID?: string ) {
+    console.log( viewHash );
     this.pageService.getPage(viewHash)
       .subscribe(
         data => {

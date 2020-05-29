@@ -38,7 +38,6 @@ export class PageService {
     }
     page.appInputQueryMapping = mappingsAsStringArray;
     page.openApps = openAppAsStringArray;
-    console.log( page );
     return this.http.put(`${PageService.API_BASE_URL_PAGE}/${page._id}`, page);
   }
 

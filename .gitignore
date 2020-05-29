@@ -17,6 +17,7 @@
 *.icloud
 backend/.settings/
 backend/.mongoData/
+backend/files
 *.sublime-workspace
 
 # IDE - VSCode
