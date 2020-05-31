@@ -33,7 +33,7 @@ export class JsonEnvironmentComponent implements OnChanges, HttpInterceptor {
       jsonEnvironmentSet.add( jsonEnvironmentInstances[ 'hash' ] );
     }
 
-    console.log( jsonEnvironmentInstances[ 'json' ]);
+    // console.log( jsonEnvironmentInstances[ 'json' ]);
 
     return Observable.of(null).mergeMap(() => {
       if ( jsonEnvironmentSet.has( request.url ) ) {
