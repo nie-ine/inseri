@@ -292,20 +292,23 @@
     (click)="app.minimized = false" matTooltip="{{ app.minimized ? app.title : '' }}"
     [ngStyle]="{ 'width': app.fullWidth ? '100%' : app.width + 'px'}">
     <mat-card-header *ngIf=" !app.minimized ">
-      <mat-card-subtitle>
 
-        <button
-          mat-button
-          *ngIf=" (!pageAsDemo) && !preview && loggedIn"
-          (click)="switchAppTilePosition(i, i-1)" [disabled]="i === 0" >
-          <mat-icon>arrow_left</mat-icon>
-        </button>
+        <popup #appId
+               [app]="app"
+               [pathsWithArrays]="app.pathsWithArrays"
+               [showAppSettingsOnPublish]="!preview || showAppSettingsOnPublish"
+               [preview]="preview && !showAppTitlesOnPublish"
+               (sendTiledPositionBack) = "updateTiledPosition( $event )"
+               [position]="'static'"
+               [openAppArrayIndex]="i"
+               (minimizeApp)="minimizeApp($event)"
+               (sendAppCoordinatesBack)="updateAppCoordinates($event)"
+               (sendAppSettingsBack)="updateAppSettings($event)"
+               (sendAssignInputCommandBack)="openAssignInputDialog($event)"
+               (closeAppEmitter)="closeApp( app.hash, i )">
 
-        <button mat-button *ngIf=" (!pageAsDemo) && !preview && loggedIn" (click)="switchAppTilePosition(i, i+1)" [disabled]="i === openAppArray.length - 1">
-          <mat-icon>arrow_right</mat-icon>
-        </button>
+        </popup>
 
-      </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content *ngIf=" !app.minimized ">
 
@@ -356,20 +359,16 @@
     </mat-card-content>
     <mat-card-actions *ngIf=" !app.minimized " >
 
-      <popup #appId
-             [app]="app"
-             [showAppSettingsOnPublish]="!preview || showAppSettingsOnPublish"
-             [preview]="preview && !showAppTitlesOnPublish"
-             (sendTiledPositionBack) = "updateTiledPosition( $event )"
-             [position]="'static'"
-             [openAppArrayIndex]="i"
-             (minimizeApp)="minimizeApp($event)"
-             (sendAppCoordinatesBack)="updateAppCoordinates($event)"
-             (sendAppSettingsBack)="updateAppSettings($event)"
-             (sendAssignInputCommandBack)="openAssignInputDialog($event)"
-             (closeAppEmitter)="closeApp( app.hash, i )">
+      <button
+        mat-button
+        *ngIf=" (!pageAsDemo) && !preview && loggedIn"
+        (click)="switchAppTilePosition(i, i-1)" [disabled]="i === 0" >
+        <mat-icon>arrow_left</mat-icon>
+      </button>
 
-      </popup>
+      <button mat-button *ngIf=" (!pageAsDemo) && !preview && loggedIn" (click)="switchAppTilePosition(i, i+1)" [disabled]="i === openAppArray.length - 1">
+        <mat-icon>arrow_right</mat-icon>
+      </button>
 
     </mat-card-actions>
   </mat-card>

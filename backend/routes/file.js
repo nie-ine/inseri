@@ -22,18 +22,18 @@ const storage = multer.diskStorage({
 });
 
 router.post('/singleFileUpload/:folderId', checkAuth, multer({storage: storage}).single("file"), (req, res, next) => { ///multer fn that expect a single file from the incoming req and will try to find an file property in the req body
-  const url = req.protocol + "://" + req.get("host");
-  console.log(url);
   //console.log("printing the req filename "+req.body);
   const file = new FileModel({
     title: req.body.title,
     description: req.body.description,
-    urlPath: url + "/files/" + req.file.filename,
+    urlPath: req.protocol + "://" + req.get("host") + "/files/" + req.file.filename,
     owner: req.userData.userId
   });
-  //console.log("Router post " + storage.getDestination + storage.getFilename());
+  console.log( file );
+  // console.log("Router post " + storage.getDestination + storage.getFilename());
   file.save().then(createdFile => {
     //console.log("post route" + file._id + " "+ storage.getFilename());
+    console.log( 'here', req.userData.userId, req.params.folderId );
     Folder.updateOne({
         $and: [
           {owner: req.userData.userId},
@@ -42,6 +42,7 @@ router.post('/singleFileUpload/:folderId', checkAuth, multer({storage: storage})
       },
       {$addToSet: {hasFiles: createdFile._id}})
       .then((updatedDocument) => {
+        console.log( updatedDocument );
         res.status(201).json({
           message: "File added successfully",
           file: {

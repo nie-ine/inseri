@@ -37,7 +37,7 @@ export class JsonEnvironmentComponent implements OnChanges, HttpInterceptor {
 
     return Observable.of(null).mergeMap(() => {
       if ( jsonEnvironmentSet.has( request.url ) ) {
-
+        console.log( 'interceptor is triggered' );
         const body = jsonEnvironmentInstances;
 
         return Observable.of(new HttpResponse({ status: 200, body: body }));

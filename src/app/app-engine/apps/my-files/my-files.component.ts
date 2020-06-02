@@ -323,6 +323,7 @@ appInputsArray = [];
   addFile(title: string, description: string, uploadedFile: File ) {
     this.fileService.addFile(title, description, uploadedFile, this.mainFolder_id)
       .subscribe(responseData => {
+        console.log( responseData );
         const file: FileModel = {
           id: responseData.file.id,
           title: title,
@@ -332,7 +333,7 @@ appInputsArray = [];
         this.uploadFileToFolder(file.id);
         this.files.push(file);
         this.filesUpdated.next([...this.files]);
-      });
+      }, error => console.log( error ));
   }
 
   showFolders () {
@@ -639,7 +640,7 @@ appInputsArray = [];
     }
 
   openApp(appType: string, name: string, inputName?: string) {
-    console.log( appType, this.openAppsInThisPage[ appType ].inputs, inputName );
+    console.log( this.file, appType, this.openAppsInThisPage[ appType ].inputs, inputName );
      this.pageComponent.addAnotherApp(appType, true, name, this.file.urlPath);
   }
 

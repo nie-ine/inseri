@@ -194,8 +194,6 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
 
   chooseResource(index: number) {
     this.panelExtended = false;
-    this.app.fullWidth = false;
-    this.app.fullHeight = false;
     this._router.navigate([], {
       queryParams: {
         [this.queryId + this.app.pathWithArray.toString() ]: Number( index )
