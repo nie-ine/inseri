@@ -79,7 +79,7 @@ router.post('/files/:folderId', checkAuth,multer({ storage: storage }).array("fi
       filesArr.push({
         title: req.files[i].originalname,
         description: req.body.description,
-        urlPath: req.files[i].path,
+        urlPath: req.protocol + "://" + req.get("host") + "/files/" + req.files[i].filename,
         owner: req.userData.userId
       });
     }

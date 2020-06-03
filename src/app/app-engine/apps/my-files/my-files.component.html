@@ -195,7 +195,7 @@
     </ng-container>
     <ng-container matColumnDef="edit">
       <td mat-cell *matCellDef="let row"
-           style="cursor: pointer; width: 10%;" > <button style="cursor: pointer; width: 10%;" mat-button matTooltip="Edit File Details" (click)="showForm('UpdateFileForm'); getFileDetails(file);">
+           style="cursor: pointer; width: 10%;" > <button style="cursor: pointer; width: 10%;" mat-button matTooltip="Edit File Details" (click)="showForm('UpdateFileForm'); getFileDetails(row);">
         <mat-icon>
           edit
         </mat-icon>
@@ -204,7 +204,7 @@
     </ng-container>
     <ng-container matColumnDef="delete">
       <td mat-cell *matCellDef="let row"
-          style="cursor: pointer; width: 10%;" > <button style="cursor: pointer; width: 10%;" mat-button matTooltip="Delete File" (click)="deleteFile(file.id);">
+          style="cursor: pointer; width: 10%;" > <button style="cursor: pointer; width: 10%;" mat-button matTooltip="Delete File" (click)="deleteFile(row.id);">
         <mat-icon>
           delete
         </mat-icon>

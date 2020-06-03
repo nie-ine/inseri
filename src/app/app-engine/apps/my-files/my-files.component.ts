@@ -230,6 +230,7 @@ appInputsArray = [];
       this.files = updatedFiles;
       console.log(this.files);
       this.filesUpdated.next([...this.files]);
+      this.showFiles();
     });
   }
   onSaveFile() {
@@ -355,6 +356,7 @@ appInputsArray = [];
   }
 
   showFiles() {
+    this.dataSource = null;
     if (this.mainFolder_id === '-1') {
       this.files = [];
     } else {

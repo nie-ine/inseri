@@ -296,6 +296,9 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  downloadProject(action: Action) {
+    alert('Not implemented Yet !');
+  }
 }
 
 @Component({
