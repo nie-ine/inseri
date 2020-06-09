@@ -5,6 +5,30 @@ const router = express.Router();
 const multer = require("multer");
 const checkAuth = require('../middleware/check-auth');
 const fs = require('fs');
+const Action = require("../models/action");
+const PageSet = require("../models/page-set");
+const Page = require("../models/page");
+const Query = require("../models/query");
+const SubPage = require("../models/sub-page");
+let JSZip = require("jszip");
+let FileSaver = require('file-saver');
+
+// let MyBlobBuilder = function () {
+//   this.parts = [];
+// }
+//
+// MyBlobBuilder.prototype.append = function (part) {
+//   this.parts.push(part);
+//   this.blob = undefined; // Invalidate the blob
+// };
+//
+// MyBlobBuilder.prototype.getBlob = function () {
+//   if (!this.blob) {
+//     this.blob = new Blob(this.parts, {type: "text/plain"});
+//   }
+//   return this.blob;
+// };
+
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -21,19 +45,28 @@ const storage = multer.diskStorage({
   }
 });
 
+router.post('/uploadZipFile', multer({storage: storage}).single("zip"), (req, res, next) => {
+  console.log(req.protocol + "://" + req.get("host") + "/files/" + req.file.filename,);
+  res.status(201).json({
+    message: "File added successfully",
+    fileUrlPath: req.protocol + "://" + req.get("host") + "/files/" + req.file.filename,
+    fileName: req.file.fileName
+  });
+});
+
 router.post('/singleFileUpload/:folderId', checkAuth, multer({storage: storage}).single("file"), (req, res, next) => { ///multer fn that expect a single file from the incoming req and will try to find an file property in the req body
-  //console.log("printing the req filename "+req.body);
+                                                                                                                       //console.log("printing the req filename "+req.body);
   const file = new FileModel({
     title: req.body.title,
     description: req.body.description,
     urlPath: req.protocol + "://" + req.get("host") + "/files/" + req.file.filename,
     owner: req.userData.userId
   });
-  console.log( file );
+  console.log(file);
   // console.log("Router post " + storage.getDestination + storage.getFilename());
   file.save().then(createdFile => {
     //console.log("post route" + file._id + " "+ storage.getFilename());
-    console.log( 'here', req.userData.userId, req.params.folderId );
+    console.log('here', req.userData.userId, req.params.folderId);
     Folder.updateOne({
         $and: [
           {owner: req.userData.userId},
@@ -42,7 +75,7 @@ router.post('/singleFileUpload/:folderId', checkAuth, multer({storage: storage})
       },
       {$addToSet: {hasFiles: createdFile._id}})
       .then((updatedDocument) => {
-        console.log( updatedDocument );
+        console.log(updatedDocument);
         res.status(201).json({
           message: "File added successfully",
           file: {
@@ -70,7 +103,7 @@ router.post('/singleFileUpload/:folderId', checkAuth, multer({storage: storage})
     });
 });
 
-router.post('/files/:folderId', checkAuth,multer({ storage: storage }).array("file"),
+router.post('/files/:folderId', checkAuth, multer({storage: storage}).array("file"),
   (req, res, next) => {
     console.log(req.files);
     const url = req.protocol + "://" + req.get("host");
@@ -85,8 +118,10 @@ router.post('/files/:folderId', checkAuth,multer({ storage: storage }).array("fi
     }
     console.log(filesArr);
     FileModel.insertMany(filesArr, function (error, docs) {
-      console.log("line 87"+docs);
-      console.log(docs.map(file => {return file._id;}));
+      console.log("line 87" + docs);
+      console.log(docs.map(file => {
+        return file._id;
+      }));
       Folder.updateOne({
           $and: [
             {owner: req.userData.userId},
@@ -101,7 +136,7 @@ router.post('/files/:folderId', checkAuth,multer({ storage: storage }).array("fi
           }
         })
         .then((updatedDocument) => {
-          console.log("line 103"+updatedDocument);
+          console.log("line 103" + updatedDocument);
           res.status(201).json({
             message: "Files added successfully",
             file: docs
@@ -134,11 +169,11 @@ router.post("/:id", checkAuth, (req, res, next) => {
       });*/
       console.log(result);
       console.log(req.params.id, req.body.title, req.body.description);
-    res.status(200).json({
-      message: "Update successful!",
-      file:result
-    });
-  }).catch(error => {
+      res.status(200).json({
+        message: "Update successful!",
+        file: result
+      });
+    }).catch(error => {
     res.status(500).json({
       message: 'Updating File failed',
       error: error
@@ -246,4 +281,98 @@ router.post("/deleteFiles/:fileId&:folderId", (req, res, next) => {
     });
   });
 });
+
+router.get("/downloadProject/:actionId", checkAuth, (req, res, next) => {
+  let queryIds = [];
+  let returnedObj={action: {}, pageSet: {}, pages:{}, queries: []};
+  Action.find({creator: req.userData.userId, _id: req.params.actionId})
+    .populate('hasPage')
+    .populate({
+      path: 'hasPageSet',
+      populate: {
+        path: 'hasPages'
+      }
+    }).then(actionResults => {
+    let message;
+    let action = actionResults[0];
+    if (actionResults.length === 0) {
+      message = 'The action couldn\'t be found';
+      console.log(message);
+    } else {
+      if (actionResults[0].hasPageSet.hasPages !== null && actionResults[0].hasPageSet.hasPages[0]._id) {
+        action.hasPage = actionResults[0].hasPageSet.hasPages[0]._id;
+        action.hasPageSet=actionResults[0].hasPageSet._id;
+        returnedObj.action=JSON.stringify(action);
+        PageSet.find({_id: action.hasPageSet}).then(pageSetResult => {
+          let pageSet=JSON.stringify(pageSetResult[0]);
+          if (pageSetResult.length === 0) {
+            message = 'PageSet not found';
+            console.log(message);
+          } else {
+            returnedObj.pageSet=pageSet;
+            let pages=[];
+            Page.find({_id: {$in: pageSetResult[0].hasPages}}).then(pagesResult => {
+              for (let i = 0; i < pagesResult.length; i++) {
+                pages.push(pagesResult[i]);
+                if (pagesResult[i].queries.length != 0) {
+                  pagesResult[i].queries.forEach(item => {queryIds.push(item)});
+                }
+              }
+              returnedObj.pages=(JSON.stringify(pages));
+              if (queryIds.length === 0) {
+                return res.status(200).json({
+                  message: 'Created Zip File successfully that has no queries',
+                  returnedObj: returnedObj
+                });
+              }
+              getQueriesFromPages(queryIds, returnedObj, res);
+
+            }).catch(error => {
+              console.log(error);
+              res.status(500).json({
+                message: 'Pages not found',
+                error: error,
+                returnedObj: returnedObj
+              })
+            })
+          }
+        })
+          .catch(error => {
+            res.status(500).json({
+              message: 'PageSet not found',
+              error: error,
+              returnedObj: returnedObj
+            })
+          })
+      }
+    }
+  })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Action not found',
+        error: error,
+        returnedObj: returnedObj
+      })
+    });
+});
+
+function getQueriesFromPages(queryIds, returnedObj, res) {
+  let queries=[];
+  Query.find({_id: {$in: queryIds}}).then(queriesResult => {
+    for (let i = 0; i < queriesResult.length; i++) {
+      queries.push(JSON.stringify(queriesResult[i]));
+    }
+    returnedObj.queries=JSON.stringify(queries);
+    return res.status(200).json({
+      message: 'Created Zip File successfully',
+      returnedObj: returnedObj
+    });
+  }).catch(error => {
+    res.status(500).json({
+      message: 'Queries not found',
+      error: error,
+      returnedObj: returnedObj
+    })
+  })
+}
 module.exports = router;

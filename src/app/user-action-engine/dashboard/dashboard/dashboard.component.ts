@@ -1,19 +1,23 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Router, NavigationEnd } from '@angular/router';
-import { ActionService } from '../../mongodb/action/action.service';
-import { Action } from '../../mongodb/action/action.model';
-import { map } from 'rxjs/operators';
+import {Component, OnInit, Inject} from '@angular/core';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {Router, NavigationEnd} from '@angular/router';
+import {ActionService} from '../../mongodb/action/action.service';
+import {Action} from '../../mongodb/action/action.model';
+import {map} from 'rxjs/operators';
 import {ContactService} from '../../mongodb/contact/contact.service';
 import {EditActionComponent} from './edit-action/edit-action.component';
-import { DeleteActionComponent } from './delete-action/delete-action.component';
-import { QueryListComponent } from '../../../query-engine/query-list/query-list.component';
+import {DeleteActionComponent} from './delete-action/delete-action.component';
+import {QueryListComponent} from '../../../query-engine/query-list/query-list.component';
 import {PageService} from '../../mongodb/page/page.service';
 import {Observable} from 'rxjs';
 import {AuthService} from '../../mongodb/auth/auth.service';
-import { UsergroupService } from '../../mongodb/usergroup/usergroup.service';
+import {UsergroupService} from '../../mongodb/usergroup/usergroup.service';
 import {PageListDialogComponent} from '../../../app-engine/page/page-list-dialog/page-list-dialog.component';
 import {NgxSpinnerService} from 'ngx-spinner';
+import * as JSZip from 'jszip';
+import * as FileSaver from 'file-saver';
+import {HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
+import {FileService} from '../../file/file.service';
 
 
 @Component({
@@ -22,6 +26,11 @@ import {NgxSpinnerService} from 'ngx-spinner';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  jsonHeader = 'application/json; odata=verbose';
+  headersOld = new Headers({'Content-Type': this.jsonHeader, Accept: this.jsonHeader});
+  headers = {'Content-Type': this.jsonHeader, Accept: this.jsonHeader};
+  filesArray: [];
+  showFileArray: [];
   user: any[] = JSON.parse(localStorage.getItem('currentUser')) || [];
   userFirstName: string;
   userID: string;
@@ -43,6 +52,7 @@ export class DashboardComponent implements OnInit {
   loggedIn = true;
 
 
+
   constructor(
     public dialog: MatDialog,
     private router: Router,
@@ -51,7 +61,9 @@ export class DashboardComponent implements OnInit {
     private pageService: PageService,
     private authService: AuthService,
     private usergroupService: UsergroupService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private httpClient: HttpClient,
+    private fileService: FileService
   ) {
 
     router.events.subscribe(s => {
@@ -59,7 +71,9 @@ export class DashboardComponent implements OnInit {
         const tree = router.parseUrl(router.url);
         if (tree.fragment) {
           const element = document.querySelector('#' + tree.fragment);
-          if (element) { element.scrollIntoView(true); }
+          if (element) {
+            element.scrollIntoView(true);
+          }
         }
       }
     });
@@ -73,21 +87,21 @@ export class DashboardComponent implements OnInit {
     /**
      * If not logged in, preview instatiates the published page options.
      * */
-    if ( !this.authService.getIsAuth() ) {
+    if (!this.authService.getIsAuth()) {
       this.loggedIn = false;
     }
     this.getUserGroups();
   }
 
   getUserGroups() {
-    console.log( 'get user groups' );
+    console.log('get user groups');
     this.usergroupService.getAllUserGroups()
       .subscribe(
         usergroupresponse => {
-          console.log( usergroupresponse );
-          this.userGroups = ( usergroupresponse as any).body.groups;
+          console.log(usergroupresponse);
+          this.userGroups = (usergroupresponse as any).body.groups;
         },
-        error => console.log( error )
+        error => console.log(error)
       );
   }
 
@@ -108,13 +122,14 @@ export class DashboardComponent implements OnInit {
             };
           });
         }))
-      .subscribe( transformedActions => {
-        console.log( transformedActions );
+      .subscribe(transformedActions => {
+        console.log(transformedActions);
         this.actions = transformedActions;
       });
   }
 
-  createHasPage() {}
+  createHasPage() {
+  }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
@@ -128,9 +143,9 @@ export class DashboardComponent implements OnInit {
       this.updateActions();
       this.getUserGroups();
       if (result) {
-        console.log( result );
+        console.log(result);
         const newPage: any = {};
-        this.actionService.getAction( result[ 1 ] )
+        this.actionService.getAction(result[1])
           .subscribe(
             actionResult => {
               console.log('actionService - get Action: ');
@@ -140,18 +155,20 @@ export class DashboardComponent implements OnInit {
               this.pageService.createPage(actionResult.body.action.hasPageSet._id, newPage)
                 .subscribe((result2) => {
                   this.router.navigate(['/page'],
-                    { queryParams:
-                        { actionID: actionResult.body.action._id,
+                    {
+                      queryParams:
+                        {
+                          actionID: actionResult.body.action._id,
                           page: result2.page._id
                         }
                     });
                 }, error => {
-                  console.log( error );
+                  console.log(error);
                 });
             }, error => {
-              console.log( error );
+              console.log(error);
             }
-        );
+          );
       }
     });
   }
@@ -178,29 +195,29 @@ export class DashboardComponent implements OnInit {
       });
   }
 
-  markAsDone( action: any ) {
-    if ( action.isFinished === true ) {
+  markAsDone(action: any) {
+    if (action.isFinished === true) {
       action.isFinished = false;
     } else {
       action.isFinished = true;
     }
-    this.actionService.updateAction( action )
+    this.actionService.updateAction(action)
       .subscribe(
         data => {
-          console.log( data );
+          console.log(data);
         }, error => {
-          console.log( error );
+          console.log(error);
         }
       );
   }
 
-  continueAction( action: any ) {
-    if ( action.type === 'page-set' ) {
+  continueAction(action: any) {
+    if (action.type === 'page-set') {
       this.actionService.getAction(action.id)
         .subscribe(data => {
-          if ( data.body.action.hasPageSet.hasPages !== null && data.body.action.hasPageSet.hasPages[ 0 ]._id ) {
-            action.hasPage = data.body.action.hasPageSet.hasPages[ 0 ]._id;
-            this.router.navigate( [ '/page' ],
+          if (data.body.action.hasPageSet.hasPages !== null && data.body.action.hasPageSet.hasPages[0]._id) {
+            action.hasPage = data.body.action.hasPageSet.hasPages[0]._id;
+            this.router.navigate(['/page'],
               {
                 queryParams: {
                   'actionID': action.id,
@@ -214,8 +231,8 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  goToDocumentIndex( action: any ) {
-    this.router.navigate( [ '/page-set' ],
+  goToDocumentIndex(action: any) {
+    this.router.navigate(['/page-set'],
       {
         queryParams: {
           'actionID': action.id
@@ -226,8 +243,8 @@ export class DashboardComponent implements OnInit {
   sendMessage() {
     console.log('Send Message');
     console.log(this.message);
-    this.contactService.sendMessage( this.message )
-      .subscribe( response => {
+    this.contactService.sendMessage(this.message)
+      .subscribe(response => {
         console.log(response);
         this.successfullySendMessage = true;
         this.message = '';
@@ -254,10 +271,11 @@ export class DashboardComponent implements OnInit {
           console.log(response);
         },
         error => {
-          console.log( error );
+          console.log(error);
         }
       );
   }
+
   removeUserFromGroup() {
     this.usergroupService.removeUserFromGroup(
       this.usergroup, this.email)
@@ -266,20 +284,21 @@ export class DashboardComponent implements OnInit {
           console.log(response);
         },
         error => {
-          console.log( error );
+          console.log(error);
         }
       );
   }
-  showGroupMembers( title: string ) {
-    console.log( 'show group members' );
-    this.usergroupService.showGroupMembers( title )
+
+  showGroupMembers(title: string) {
+    console.log('show group members');
+    this.usergroupService.showGroupMembers(title)
       .subscribe(
         groupMembers => {
-          console.log( groupMembers );
-          this.groupMembers = ( groupMembers as any).body.result.users;
+          console.log(groupMembers);
+          this.groupMembers = (groupMembers as any).body.result.users;
         },
         error => {
-          console.log( error );
+          console.log(error);
         });
   }
 
@@ -292,12 +311,59 @@ export class DashboardComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe((result) => {
-      console.log( result );
+      console.log(result);
     });
   }
 
+  downloadFile(action: Action) {
+    if (action.type === 'page-set') {
+      this.actionService.getAction(action.id)
+        .subscribe(data => {
+          if (data.body.action.hasPageSet.hasPages !== null && data.body.action.hasPageSet.hasPages[0]._id) {
+            action.hasPage = data.body.action.hasPageSet.hasPages[0]._id;
+            const a = document.createElement('a');
+            document.body.appendChild(a);
+
+            a.setAttribute('display', 'none'); // = 'display: none';
+            const json = JSON.stringify(action),
+              blob = new Blob([json], {type: 'octet/stream'}),
+              url = window.URL.createObjectURL(blob);
+            // const binaryData = [];
+            // binaryData.push(zip);
+            // const url  = window.URL.createObjectURL(new Blob(binaryData, {type: 'application/zip'}));
+            //
+            console.log(json.indexOf('id'));
+            a.href = url;
+            a.download = 'action_' + action.title + '.json';
+            a.click();
+            window.URL.revokeObjectURL(url);
+          }
+        });
+    }
+  }
+
   downloadProject(action: Action) {
-    alert('Not implemented Yet !');
+    console.log(action.id);
+    if (action.type === 'page-set') {
+      this.fileService.downloadProject(action.id)
+        .subscribe(data => {
+          console.log(data);
+          const a = document.createElement('a');
+          document.body.appendChild(a);
+          a.setAttribute('display', 'none');
+          const zip = new JSZip();
+          zip.file( 'action.json', data.returnedObj.action);
+          zip.file('pageSet.json', data.returnedObj.pageSet);
+          zip.file('pages.json', data.returnedObj.pages);
+          if (data.returnedObj.queries) {
+            zip.file('queries.json', data.returnedObj.queries);
+          }
+          zip.generateAsync({type: 'blob'}).then(function(content) {
+            FileSaver.saveAs(content, 'Project_' + action.title + '.zip');
+          });
+
+        });
+    }
   }
 }
 
@@ -327,7 +393,8 @@ export class DialogOverviewExampleDialog {
               public dialog: MatDialog,
               private router: Router,
               private actionService: ActionService,
-              private usergroupService: UsergroupService) {
+              private usergroupService: UsergroupService,
+              private fileService: FileService) {
   }
 
   close() {
@@ -347,29 +414,39 @@ export class DialogOverviewExampleDialog {
   }
 
   createUserGroup() {
-    console.log( this.usergroup.title, this.usergroup.description );
+    console.log(this.usergroup.title, this.usergroup.description);
     this.usergroupService.createGroup(
       this.usergroup.title,
-      this.usergroup.description )
+      this.usergroup.description)
       .subscribe(
         data => {
-          console.log( data );
+          console.log(data);
           this.dialogRef.close(data);
         }, error => {
-          console.log( error );
+          console.log(error);
         }
       );
   }
+
   deleteUserGroup(title: string) {
-    console.log( 'show group members' );
-    this.usergroupService.deleteGroup( title )
+    console.log('show group members');
+    this.usergroupService.deleteGroup(title)
       .subscribe(
         response => {
           console.log(response);
         },
         error => {
-          console.log( error );
+          console.log(error);
         }
       );
+  }
+  importProject($event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    this.fileService.addZipFileToSrvr(file).subscribe(responseData => {
+      console.log(responseData);
+      const path = './backend/files/' + responseData.fileName;
+      console.log(path);
+    });
+
   }
 }
