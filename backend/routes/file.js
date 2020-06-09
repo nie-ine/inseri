@@ -13,21 +13,22 @@ const SubPage = require("../models/sub-page");
 let JSZip = require("jszip");
 let FileSaver = require('file-saver');
 
-let MyBlobBuilder = function () {
-  this.parts = [];
-}
+// let MyBlobBuilder = function () {
+//   this.parts = [];
+// }
+//
+// MyBlobBuilder.prototype.append = function (part) {
+//   this.parts.push(part);
+//   this.blob = undefined; // Invalidate the blob
+// };
+//
+// MyBlobBuilder.prototype.getBlob = function () {
+//   if (!this.blob) {
+//     this.blob = new Blob(this.parts, {type: "text/plain"});
+//   }
+//   return this.blob;
+// };
 
-MyBlobBuilder.prototype.append = function (part) {
-  this.parts.push(part);
-  this.blob = undefined; // Invalidate the blob
-};
-
-MyBlobBuilder.prototype.getBlob = function () {
-  if (!this.blob) {
-    this.blob = new Blob(this.parts, {type: "text/plain"});
-  }
-  return this.blob;
-};
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -42,6 +43,15 @@ const storage = multer.diskStorage({
     console.log("The expected filename form the multer package = " + Date.now() + "-" + name);
     cb(null, Date.now() + "-" + name);
   }
+});
+
+router.post('/uploadZipFile', multer({storage: storage}).single("zip"), (req, res, next) => {
+  console.log(req.protocol + "://" + req.get("host") + "/files/" + req.file.filename,);
+  res.status(201).json({
+    message: "File added successfully",
+    fileUrlPath: req.protocol + "://" + req.get("host") + "/files/" + req.file.filename,
+    fileName: req.file.fileName
+  });
 });
 
 router.post('/singleFileUpload/:folderId', checkAuth, multer({storage: storage}).single("file"), (req, res, next) => { ///multer fn that expect a single file from the incoming req and will try to find an file property in the req body
@@ -302,20 +312,20 @@ router.get("/downloadProject/:actionId", checkAuth, (req, res, next) => {
             returnedObj.pageSet=pageSet;
             let pages=[];
             Page.find({_id: {$in: pageSetResult[0].hasPages}}).then(pagesResult => {
-                for (let i = 0; i < pagesResult.length; i++) {
-                  pages.push(pagesResult[i]);
-                  if (pagesResult[i].queries.length != 0) {
-                    pagesResult[i].queries.forEach(item => {queryIds.push(item)});
-                  }
+              for (let i = 0; i < pagesResult.length; i++) {
+                pages.push(pagesResult[i]);
+                if (pagesResult[i].queries.length != 0) {
+                  pagesResult[i].queries.forEach(item => {queryIds.push(item)});
                 }
+              }
               returnedObj.pages=(JSON.stringify(pages));
-                if (queryIds.length === 0) {
-                  return res.status(200).json({
-                    message: 'Created Zip File successfully that has no queries',
-                    returnedObj: returnedObj
-                  });
-                }
-                getQueriesFromPages(queryIds, returnedObj, res);
+              if (queryIds.length === 0) {
+                return res.status(200).json({
+                  message: 'Created Zip File successfully that has no queries',
+                  returnedObj: returnedObj
+                });
+              }
+              getQueriesFromPages(queryIds, returnedObj, res);
 
             }).catch(error => {
               console.log(error);
@@ -365,5 +375,4 @@ function getQueriesFromPages(queryIds, returnedObj, res) {
     })
   })
 }
-
 module.exports = router;

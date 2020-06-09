@@ -31,6 +31,7 @@
     "@types/d3-time-format": "^2.1.1",
     "@types/file-saver": "^2.0.1",
     "@types/leaflet": "1.4",
+    "adm-zip": "^0.4.14",
     "ag-grid": "^18.1.2",
     "ag-grid-angular": "^21.1.0",
     "ag-grid-community": "^21.1.1",
@@ -96,6 +97,7 @@
     "screenfull": "^4.2.1",
     "stardog": "^1.4.0",
     "uglifyjs": "^2.4.11",
+    "unzip": "^0.1.11",
     "zone.js": "^0.8.29"
   },
   "devDependencies": {

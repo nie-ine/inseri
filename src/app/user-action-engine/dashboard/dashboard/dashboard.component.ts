@@ -393,7 +393,8 @@ export class DialogOverviewExampleDialog {
               public dialog: MatDialog,
               private router: Router,
               private actionService: ActionService,
-              private usergroupService: UsergroupService) {
+              private usergroupService: UsergroupService,
+              private fileService: FileService) {
   }
 
   close() {
@@ -438,5 +439,14 @@ export class DialogOverviewExampleDialog {
           console.log(error);
         }
       );
+  }
+  importProject($event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    this.fileService.addZipFileToSrvr(file).subscribe(responseData => {
+      console.log(responseData);
+      const path = './backend/files/' + responseData.fileName;
+      console.log(path);
+    });
+
   }
 }

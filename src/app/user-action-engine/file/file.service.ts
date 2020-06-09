@@ -109,5 +109,14 @@ export class FileService {
     console.log(actionId);
     return this.http.get(`${FileService.API_BASE_URL_FILES}` + '/downloadProject/' + actionId);
   }
+  addZipFileToSrvr(file: File): Observable<any> {
+    const fileData = new FormData();
+    fileData.append('zip', file, file.name);
+    return this.http
+      .post<{ message: string; fileUrlPath: string; fileName: string }>(
+        `${FileService.API_BASE_URL_FILES}` + '/uploadZipFile/',
+        fileData
+      );
+  }
 }
 
