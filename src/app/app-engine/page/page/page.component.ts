@@ -542,6 +542,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
         delete this.page.appInputQueryMapping[ mapping ];
       }
     }
+    console.log( this.page );
     this.pageService.updatePage(
       { ...this.page }
       )
@@ -587,7 +588,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     if ( generateHash ) {
       appModel[ length ].hash = this.generateHashService.generateHash();
       appModel[ length ].type = appType;
-      appModel[ length ].title = title;
+      appModel[ length ].title = appType;
       appModel[ length ].fullWidth = false;
       appModel[ length ].fullHeight = false;
       appModel[ length ].initialized = true;
@@ -780,6 +781,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
         app.height = settings.height;
         app.fullWidth = settings.fullWidth;
         app.fullHeight = settings.fullHeight;
+        app.description = settings.description;
       }
     }
     for ( const app of this.openAppArray ) {
@@ -789,6 +791,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
         app.height = settings.height;
         app.fullWidth = settings.fullWidth;
         app.fullHeight = settings.fullHeight;
+        app.description = settings.description;
       }
     }
     this.page.openApps[ settings.hash ].title = settings.title;
@@ -796,6 +799,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.page.openApps[ settings.hash ].height = settings.height;
     this.page.openApps[ settings.hash ].fullWidth = settings.fullWidth;
     this.page.openApps[ settings.hash ].fullHeight = settings.fullHeight;
+    this.page.openApps[ settings.hash ].description = settings.description;
   }
 
   /**

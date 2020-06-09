@@ -24,6 +24,8 @@ import { DataAssignmentComponent } from '../../../query-app-interface/data-manag
 import {QueryEntryComponent} from '../../../query-engine/query-entry/query-entry.component';
 import {Observable} from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
+import {HttpClient} from '@angular/common/http';
+import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 
 
 @Component({
@@ -41,6 +43,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
   /**
    * @param position - "static" if the option "sort by appType" is chosen, "absolute" otherwise
    * */
+  @Input() appIndex: number;
   @Input() position: string;
   @Input() preview = false;
   @Input() showAppSettingsOnPublish = true;
@@ -56,6 +59,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
   @Output() sendAssignInputCommandBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() minimizeApp: EventEmitter<any> = new EventEmitter<any>();
   @Output() closeAppEmitter: EventEmitter<any> = new EventEmitter<any>();
+  safeHtml: SafeHtml;
 
   mousemoveEvent: any;
   mouseupEvent: any;
@@ -79,6 +83,8 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
   dataChooserEntries: Array<string>;
   dataAssignmentComponent = new DataAssignmentComponent(  );
   sub: any;
+  showAppDescriptionEditor = false;
+  appDescription: string;
 
   panelExtended = false;
   @Input () showContent = true;
@@ -92,8 +98,10 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
     public dialog: MatDialog,
     private _router: Router,
     private _route: ActivatedRoute,
-    private spinner: NgxSpinnerService
-) {
+    private spinner: NgxSpinnerService,
+    private http: HttpClient,
+    private domSanitizer: DomSanitizer,
+  ) {
     this.mouseup = this.unboundMouseup.bind(this);
     this.dragging = this.unboundDragging.bind(this);
   }
@@ -205,6 +213,19 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
   stopPropagation(event) {
     event.stopPropagation();
     // console.log("Clicked!");
+  }
+
+  checkIfUrl(entry: string) {
+    this.http.get( entry, { responseType: 'text' } )
+      .subscribe(
+        data => {
+          this.safeHtml = this.domSanitizer.bypassSecurityTrustHtml( data );
+          return this.safeHtml;
+        }, error => {
+          return entry;
+          // console.log( error );
+        }
+      );
   }
 
   /**
@@ -333,12 +354,27 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
             hash: this.app.hash,
             type: this.app.type,
             fullWidth: result[ 3 ],
-            fullHeight: result[ 4 ]
+            fullHeight: result[ 4 ],
+            description: this.app.description
           }
         );
-
       }
     });
+  }
+
+  sendAppSettingsBackToPage() {
+    this.sendAppSettingsBack.emit(
+      {
+        title: this.app.title,
+        width: this.app.width,
+        height: this.app.height,
+        hash: this.app.hash,
+        type: this.app.type,
+        fullWidth: this.app.fullWidth,
+        fullHeight: this.app.fullHeight,
+        description: this.app.description
+      }
+    );
   }
 
   /**
@@ -365,6 +401,11 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
 
   closeApp() {
     this.closeAppEmitter.emit();
+  }
+
+  addAppDescription() {
+    console.log( 'add app description' );
+    this.showAppDescriptionEditor = true;
   }
 
 }
