@@ -117,6 +117,8 @@ The <strong>Export</strong> area [has another Save button, export options are UN
 <p>What we are setting up here is the size of the textual block that we have just entered in the &quot;Text Editor&quot; how it will be visible to public in the &quot;Viewer&quot;.
 We can create a &quot;Tile&quot; covering only a part of the visible screen, or to make the text occupy the whole screen. More over, the user can also change the headline, holding the name of the application, i.e. &quot;Plaintext Viewer&quot; into something different, or even delete it altogether. &quot;Save&quot; and &quot;Close&quot;.</p>
 
+<p>In June 2020 a new option has been added: the user can now not only change the title, but also add a commentary, describing, for example, how the data was collected in the visualisation applications, or simply describing how to use the application for a given project.</p>
+
 <p><strong>&quot;File Options&quot;</strong> shall open another menu, as below:</p>
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8d.png" alt="Plaintext Viewer File Options" width="400"></p>
