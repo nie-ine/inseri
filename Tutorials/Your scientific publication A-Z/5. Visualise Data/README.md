@@ -85,11 +85,12 @@ Resulting name modification:
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.09.png" alt="Name of Bar Chart modified" width="700"></p>
 
 <p>As of June 2020, there is a new option, allowing to add a short description either of the application itself or of the data being presented. One should first click on the "options" bar under the application</p>
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-06/Tutorials/Your%20scientific%20publication%20A-Z/5.%20Visualise%20Data/5V.10a.png" alt="Adding commentary to an application" width="400"></p>
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-06/Tutorials/Your%20scientific%20publication%20A-Z/5.%20Visualise%20Data/5V.10a.png" alt="Adding commentary to an application" width="200"></p>
 
 And then to select "Change app description", this opens a text-editor, allowing to provide a well-structures description to the displayed data.
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-06/Tutorials/Your%20scientific%20publication%20A-Z/5.%20Visualise%20Data/5V.10b.png" alt="Adding commentary to an application, editor" width="700"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-06/Tutorials/Your%20scientific%20publication%20A-Z/5.%20Visualise%20Data/5V.10b.png" alt="Adding commentary to an application, editor" width="500"></p>
 
 ### 5.1.2. Stacked Bar Chart 
 The Stacked Bar Chart is a perfect visualisation tool for those cases, when the datasets are uniform, all like in the Bar Chart above, but what is important, is to also make the viewer aware of the subgroups of data within each single data set. 
