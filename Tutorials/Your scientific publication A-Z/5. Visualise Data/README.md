@@ -84,6 +84,8 @@ Finally, the user can try to find better scale options by simply modifying the n
 Resulting name modification:
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.09.png" alt="Name of Bar Chart modified" width="700"></p>
 
+<p>As of June 2020, there is a new option, allowing to add a short description either of the application itself or of the data being presented. (Under implementation)</p>
+
 ### 5.1.2. Stacked Bar Chart 
 The Stacked Bar Chart is a perfect visualisation tool for those cases, when the datasets are uniform, all like in the Bar Chart above, but what is important, is to also make the viewer aware of the subgroups of data within each single data set. 
 
