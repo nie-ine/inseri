@@ -362,6 +362,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     if ( !this.authService.getIsAuth() ) {
       this.preview = true;
       this.loggedIn = false;
+      this.page.tiles = true;
     }
 
     /**
