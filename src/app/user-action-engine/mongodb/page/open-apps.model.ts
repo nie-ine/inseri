@@ -152,17 +152,26 @@ export class OpenAppsModel {
       model: [],
       inputs: [
         {
-          'inputName': 'json',
+          'inputName': 'assignedJson',
           default: {
-            defaultKey: 'defaultValue'
+            default: 'defaultValue'
           }
+        },
+        {
+          'inputName': 'pythonFile',
+          default: '# Your python 3 code goes here\n' +
+            'import json\n' +
+            '\n' +
+            'def show_message(json_file):\n' +
+            '    with open(json_file, \'r\') as f:\n' +
+            '        content = json.load(f)\n' +
+            '\n' +
+            '    return content[\'message\']\n' +
+            '\n' +
+            'if __name__ == "__main__":\n' +
+            '    print(show_message("yourData.json"))'
         }
       ],
-    outputs: [
-      {
-        'outputName': 'json'
-      }
-    ],
       materialIcon: 'input',
       initialWidth: '375',
       initialHeight: '350'

@@ -79,12 +79,12 @@
           </button>
           <button style="float: right; margin-top: 4px;"
             mat-button [matMenuTriggerFor]="menu1"
-            *ngIf=" (!pageAsDemo) && !preview"><mat-icon>settings</mat-icon></button>
+            *ngIf=" (!pageAsDemo)"><mat-icon>settings</mat-icon></button>
           <mat-menu #menu1="matMenu">
             <button mat-menu-item (click)="goToDashBoard()" *ngIf=" (!pageAsDemo) && !preview">
               <mat-icon matTooltip="back to dashboard">home</mat-icon> Dashboard
             </button>
-            <button mat-menu-item (click)="goToPageSet()" *ngIf="route.snapshot.queryParams.page" >
+            <button mat-menu-item (click)="goToPageSet()" *ngIf="route.snapshot.queryParams.page && !preview" >
               <mat-icon matTooltip="Table of content">list</mat-icon> Table of content
             </button>
             <button mat-menu-item *ngIf=" (!pageAsDemo) && !preview" (click)="updatePage()" >
@@ -99,6 +99,11 @@
             <button mat-menu-item *ngIf=" (!pageAsDemo) && !preview" (click)="showResponsiveWidthMenu = !showResponsiveWidthMenu" >
               <mat-icon matTooltip="page data manager">linear_scale</mat-icon> Tiles - Width: {{ page.chosenWidth }} px
             </button>
+            <button
+              mat-menu-item style="float: right; margin-top: 4px;"
+              *ngIf=" (!pageAsDemo) && loggedIn"
+              matTooltip='Preview of published page'
+              (click)="preview = !preview" ><mat-icon matTooltip="page data manager">nature_people</mat-icon>  {{!preview ? 'Publish Preview' : 'Edit view'}}</button>
             <button mat-menu-item *ngIf=" (!pageAsDemo) && !preview" (click)="logout()" >
               <mat-icon matTooltip="{{ 'click to logout - ' + userInfo }}">lock_open</mat-icon> Log out
             </button>
@@ -108,16 +113,6 @@
                   matTooltip='Page is published'>
             <mat-icon>public</mat-icon>
           </button>
-          <button
-            mat-button style="float: right; margin-top: 4px;"
-            *ngIf=" (!pageAsDemo) && !preview && loggedIn"
-            matTooltip='Preview of published page'
-            (click)="preview = !preview" ><mat-icon>nature_people</mat-icon></button>
-          <button style="float: right; margin-top: 4px;"
-            mat-button
-            *ngIf=" (!pageAsDemo) && preview && loggedIn"
-            matTooltip='Back to page editor' style=" cursor: pointer;"
-            (click)="preview = !preview" ><mat-icon>nature</mat-icon></button>
           <div *ngFor="let app of openAppArray; let i = index;" >
             <div *ngIf="( !preview || showAppSettingsOnPublish ) && innerWidth > page.chosenWidth && app.type !== 'pageMenu' && !page.tiles">
               <button

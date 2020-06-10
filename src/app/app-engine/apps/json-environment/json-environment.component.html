@@ -1,3 +1,33 @@
-<p>
-  json-environment works!
-</p>
+<div style="display: inline-block; width: 40%;" >
+  <h3>
+    Input
+  </h3>
+
+  <pre style="min-height: 20rem; width: 400px;">{{display | json}}</pre>
+</div>
+
+<div style="display: inline-block; float: right; width: 40%;" >
+  <h3 >
+    Python code
+  </h3>
+
+  <ace-editor class="url-extension"
+              #editor
+              style="min-height: 20rem; overflow: auto; width: 400px;"
+              [mode]="'typescript'">
+  </ace-editor>
+
+  <button mat-button>
+    Save Python Code
+  </button>
+
+</div>
+
+<h3>
+  Output:
+</h3>
+
+<button mat-button>
+  Submit
+</button>
+

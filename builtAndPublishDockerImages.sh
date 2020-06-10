@@ -16,5 +16,5 @@ docker push nieine/nieos-production-instance:${DATE}
 
 ng build --optimization=false --configuration=test
 docker build -t nieos-test-instance .
-docker tag nieos-test-instance:latest nieine/nieos-test-instance:${DATE}
+ddocker tag nieos-test-instance:latest nieine/nieos-test-instance:${DATE}
 docker push nieine/nieos-test-instance:${DATE}

@@ -18,7 +18,7 @@ export class TextlistViewerComponent implements OnChanges {
   ) {
   }
   ngOnChanges() {
-    console.log( 'Changes', this.textToDisplay );
+    // console.log( 'Changes', this.textToDisplay );
     this.http.get( this.textToDisplay, { responseType: 'text' } )
       .subscribe(
         data => {

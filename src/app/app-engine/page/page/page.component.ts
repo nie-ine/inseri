@@ -575,7 +575,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
     appType: string,
     generateHash: boolean,
     title: string,
-    fileUrlPath?: string
+    fileUrlPath?: string,
+    chosenInput?: string
   ): Array<any> {
     for ( let i = 0; i < this.openAppArray.length; i++ ) {
       if ( this.openAppArray[ i ].type === 'pageMenu' ) {
@@ -618,12 +619,15 @@ export class PageComponent implements OnInit, AfterViewChecked {
       } else {
         this.openAppArray = [ appModel[ length ] ].concat( this.openAppArray );
       }
-      if ( appType !== 'pageMenu' ) {
-        this.createDefaultInputAndMappToAppInput(
-          appType,
-          appModel[ length ],
-          fileUrlPath
-        );
+      if ( appType !== 'pageMenu' &&  this.openAppsInThisPage[ appModel[ length ].type ].inputs ) {
+        for ( const input of this.openAppsInThisPage[ appModel[ length ].type ].inputs ) {
+          this.createDefaultInputAndMappToAppInput(
+            appType,
+            appModel[ length ],
+            input,
+            chosenInput === input.inputName ? fileUrlPath : input.default
+          );
+        }
       }
     }
     return appModel;
@@ -632,15 +636,15 @@ export class PageComponent implements OnInit, AfterViewChecked {
   createDefaultInputAndMappToAppInput(
     appType: string,
     app: any,
-    fileUrlPath?: string
+    input: any,
+    valueToAssign: string
   ) {
-    if ( this.openAppsInThisPage[ app.type ].inputs ) {
       if ( this.loggedIn ) {
         app.spinnerIsShowing = true;
       }
-      for ( const input of this.openAppsInThisPage[ app.type ].inputs ) {
+      // for ( const input of this.openAppsInThisPage[ app.type ].inputs ) {
         const now = new Date();
-        console.log(!this.page.serverUrl);
+        // console.log(!this.page.serverUrl);
         if ( !this.page.jsonId ) {
           this.queryService.createQueryOfPage(this.page._id,
             {title: 'page:' + this.page.title + ' | data stored in inseri'})
@@ -664,7 +668,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
                         .subscribe((data3) => {
                           if (data3.status === 200) {
                           } else {
-                            console.log('Updating query failed');
+                            // console.log('Updating query failed');
                           }
                         }, error1 => console.log(error1));
                       if ( this.page.appInputQueryMapping[ app.hash ] === undefined ) {
@@ -686,7 +690,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
                         content: {
                           info: {
                             [app.hash]: {
-                              [input.inputName]: fileUrlPath || input.default
+                              [input.inputName]: valueToAssign
                             }
                           }
                         },
@@ -694,7 +698,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
                       }
                     )
                       .subscribe(updatedJson => {
-                          console.log(updatedJson);
+                          // console.log(updatedJson);
                           this.reloadVariables = true;
                         }, error => console.log(error)
                       );
@@ -708,17 +712,17 @@ export class PageComponent implements OnInit, AfterViewChecked {
               console.log( error1 );
             });
         } else {
-          console.log( 'update existing query', input );
+          // console.log( 'update existing query', input );
           let existingInputs: any;
           this.requestService.get(  environment.node + '/api/myOwnJson/getJson/' + this.page.jsonId, undefined, undefined )
             .subscribe(
               myOwnJsonResponse => {
                 existingInputs = myOwnJsonResponse.body.result.content.info;
-                console.log( existingInputs );
+                // console.log( existingInputs );
                 if ( existingInputs[app.hash] === undefined ) {
                   existingInputs[app.hash] = {};
                 }
-                existingInputs[app.hash][input.inputName] = fileUrlPath || input.default;
+                existingInputs[app.hash][input.inputName] = valueToAssign;
                 this.requestService.updateJson(
                   this.page.jsonId,
                   {
@@ -731,7 +735,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
                   }
                 )
                   .subscribe(updatedJson => {
-                      console.log(updatedJson);
+                      // console.log(updatedJson);
                     if ( this.page.appInputQueryMapping[ app.hash ] === undefined ) {
                       this.page.appInputQueryMapping[ app.hash ] = {};
                     }
@@ -749,8 +753,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
               }, error => console.log( error )
             );
         }
-      }
-    }
+      // }
   }
 
   /**
@@ -820,7 +823,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   generateOpenApps( openApps: any ) {
-    console.log( openApps );
+    // console.log( openApps );
     this.openAppArray = [];
     for ( const appType in openApps ) {
       for ( const app of openApps[ appType ].model ) {
@@ -910,7 +913,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * generate the information in the the generated dialog.
    * */
   generateQueryAppPathInformation( queryId: string ): any {
-      console.log( this.openAppArray );
+      // console.log( this.openAppArray );
       let queryAppPathInformation;
       for ( const appHash in this.page.appInputQueryMapping ) {
         for ( const appType in this.openAppsInThisPage ) {

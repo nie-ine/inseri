@@ -643,7 +643,7 @@ appInputsArray = [];
 
   openApp(appType: string, name: string, inputName?: string) {
     console.log( this.file, appType, this.openAppsInThisPage[ appType ].inputs, inputName );
-     this.pageComponent.addAnotherApp(appType, true, name, this.file.urlPath);
+     this.pageComponent.addAnotherApp(appType, true, name, this.file.urlPath, inputName);
   }
 
   showAllFolderStructure() {
