@@ -1,8 +1,11 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Query} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Action } from './action.model';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
+import {Page} from '../page/page.model';
+import {PageSetModel} from '../pageset/page-set.model';
+import {QueryModel} from '../query/query.model';
 
 @Injectable({ providedIn: 'root' })
 export class ActionService {
@@ -13,10 +16,13 @@ export class ActionService {
     private http: HttpClient,
   ) {}
 
-  createAction(action: Action): Observable<any> {
+  createAction(action: Action, pageSet?: PageSetModel, pages?: [Page]): Observable<any> {
     return this.http.post(`${ActionService.API_BASE_URL_ACTION}/`, action);
   }
 
+  createProject(action: Action, pageSet: PageSetModel, pages: [Page], queries: [QueryModel]): Observable<any> {
+    return this.http.post(`${ActionService.API_BASE_URL_ACTION}/createProject/`, {action: action, pageSet: pageSet, pages: pages, queries: queries});
+  }
   getAction(id: string): Observable<any> {
     return this.http.get(`${ActionService.API_BASE_URL_ACTION}/${id}`, {observe: 'response'});
   }
