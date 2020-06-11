@@ -4,7 +4,6 @@ const Folder = require("../models/folder");
 const router = express.Router();
 const multer = require("multer");
 const checkAuth = require('../middleware/check-auth');
-const fs = require('fs');
 const Action = require("../models/action");
 const PageSet = require("../models/page-set");
 const Page = require("../models/page");
@@ -12,6 +11,7 @@ const Query = require("../models/query");
 const SubPage = require("../models/sub-page");
 let JSZip = require("jszip");
 let FileSaver = require('file-saver');
+const fs = require('fs');
 
 // let MyBlobBuilder = function () {
 //   this.parts = [];
@@ -46,11 +46,12 @@ const storage = multer.diskStorage({
 });
 
 router.post('/uploadZipFile', multer({storage: storage}).single("zip"), (req, res, next) => {
-  console.log(req.protocol + "://" + req.get("host") + "/files/" + req.file.filename,);
+  console.log(req.protocol + "://" + req.get("host") + "/files/" + req.file.filename);
   res.status(201).json({
     message: "File added successfully",
     fileUrlPath: req.protocol + "://" + req.get("host") + "/files/" + req.file.filename,
-    fileName: req.file.fileName
+    fileName: req.file.filename,
+    srvrPath: "./backend/files/" + req.file.filename
   });
 });
 
@@ -360,7 +361,7 @@ function getQueriesFromPages(queryIds, returnedObj, res) {
   let queries=[];
   Query.find({_id: {$in: queryIds}}).then(queriesResult => {
     for (let i = 0; i < queriesResult.length; i++) {
-      queries.push(JSON.stringify(queriesResult[i]));
+      queries.push(queriesResult[i]);
     }
     returnedObj.queries=JSON.stringify(queries);
     return res.status(200).json({
