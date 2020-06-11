@@ -80,31 +80,57 @@ export class DataAssignmentComponent implements OnChanges {
   /**
    * ngOnChages is triggered when a user chooses an entry in the data chooser
    * */
-  ngOnChanges() {
+  ngOnChanges( changes: SimpleChanges ) {
+    // console.log( this.openAppsInThisPage );
     this.firstChange = true;
-    this.startPathUpdateProcess();
+    // console.log( changes );
+      this.startPathUpdateProcess();
 
-    /**
-     * the path is the path through the json response of the respective query.
-     * if the deepest layer of the json response is an array with strings as values,
-     * the user can choose in the appInputQueryMapping GUI to define an entry of the
-     * array that should be mapped to an app input. The following routine checks if
-     * the last segment of the path defined by the user is a scalar which deinfe
-     * */
-    this.checkIfPathContainsScalarAsLastEntry();
+      /**
+       * the path is the path through the json response of the respective query.
+       * if the deepest layer of the json response is an array with strings as values,
+       * the user can choose in the appInputQueryMapping GUI to define an entry of the
+       * array that should be mapped to an app input. The following routine checks if
+       * the last segment of the path defined by the user is a scalar which deinfe
+       * */
+      this.checkIfPathContainsScalarAsLastEntry();
   }
 
   startPathUpdateProcess(
     queryId?: string,
     pathWithArray?: Array<string>,
-    index?: number
+    index?: number,
+    response?: any,
+    depth?: number,
+    appInputQueryMapping?: any,
+    openAppsInThisPage?: any
   ) {
 
-    if ( queryId && pathWithArray && index ) {
+    if ( queryId ) {
       this.queryId = queryId;
-      this.pathWithArray = pathWithArray;
-      this.index = index;
     }
+
+    if ( pathWithArray ) {
+      this.pathWithArray = pathWithArray;
+    }
+
+    // this.pathWithArray = this.pathWithArray !== undefined ? this.pathWithArray : [];
+
+    this.index = index !== undefined ? index : 0;
+
+    if ( response ) {
+      this.response = response;
+    }
+
+    if ( openAppsInThisPage ) {
+      this.openAppsInThisPage = openAppsInThisPage;
+    }
+
+    this.depth = depth !== undefined ? depth : 0;
+
+    this.appInputQueryMapping = appInputQueryMapping !== undefined ? appInputQueryMapping : this.appInputQueryMapping;
+
+    // console.log( this.queryId, this.depth, this.pathWithArray );
 
     /**
      * Initiates currentindex if not defined
@@ -124,11 +150,15 @@ export class DataAssignmentComponent implements OnChanges {
      * Iterates through every input of every app and performs the updatePathWithindices
      * method for each input
      * */
+    // console.log( this.appInputQueryMapping, appInputQueryMapping );
     for ( const appHash in this.appInputQueryMapping ) {
       for ( const inputName in this.appInputQueryMapping[ appHash ] ) {
 
+        // console.log( this.appInputQueryMapping[ appHash ][ inputName ].query, this.queryId );
+
         if ( this.appInputQueryMapping[ appHash ][ inputName ].query === this.queryId &&
           this.appInputQueryMapping[ appHash ][ inputName ].path ) {
+          // console.log( appHash );
 
           let difference = 0;
           let allTheSameSegments = true;
@@ -140,6 +170,8 @@ export class DataAssignmentComponent implements OnChanges {
           for ( let i = 0; i < this.appInputQueryMapping[ appHash ][ inputName ].path.length; i++ ) {
 
             if ( typeof this.appInputQueryMapping[ appHash ][ inputName ].path[ i ] !== 'number' ) {
+
+              // console.log( this.pathWithArray );
 
               if ( this.pathWithArray &&
                 this.appInputQueryMapping[ appHash ][ inputName ].path[ i ] === this.pathWithArray[ i - difference ] ) {
@@ -176,6 +208,7 @@ export class DataAssignmentComponent implements OnChanges {
           // console.log( this.appInputQueryMapping[ appHash ][ inputName ].path );
         }
       }
+      // console.log( this.appInputQueryMapping[ appHash ] );
     }
     this.goThroughAppInputs();
   }
@@ -197,7 +230,7 @@ export class DataAssignmentComponent implements OnChanges {
             const path = this.appInputQueryMapping[ appHash ][ inputName ].path;
             if ( path && !isNaN( Number ( path[ path.length - 1 ] ) ) ) {
               for ( const dataChooser of this.openAppsInThisPage[ 'dataChooser' ].model ) {
-                // console.log('Go through app input');
+                console.log('Go through app input');
                 this.goThroughAppInputs(
                   dataChooser.response,
                   dataChooser.queryId
@@ -218,9 +251,12 @@ export class DataAssignmentComponent implements OnChanges {
    * data chooser
    * */
   goThroughAppInputs( response?: any, queryId?: string ) {
+    // console.log( this.openAppsInThisPage );
+    // console.log( 'goThroughAppInputs' );
     for ( const type in this.openAppsInThisPage ) {
       if (  this.openAppsInThisPage[ type ].model.length && type !== 'dataChooser' ) {
         for ( const app of this.openAppsInThisPage[ type ].model ) {
+          // console.log( this.openAppsInThisPage );
           if ( this.appInputQueryMapping && this.appInputQueryMapping[ app.hash ] ) {
             for ( const input in this.appInputQueryMapping[ app.hash ] ) {
               // console.log( 'hier', this.queryId, queryId );
@@ -235,7 +271,7 @@ export class DataAssignmentComponent implements OnChanges {
                   /**
                    * Here, the appInput is assigned to the respective part of the json
                    * */
-                  // console.log( this.response, this.appInputQueryMapping[ app.hash ][ input ][ 'path' ], this.index );
+                  // console.log( this.queryId, this.response, this.appInputQueryMapping[ app.hash ][ input ][ 'path' ], this.index );
                   app[ input ] = this.generateAppinput(
                     this.response || response,
                     this.appInputQueryMapping[ app.hash ][ input ][ 'path' ],
@@ -262,7 +298,7 @@ export class DataAssignmentComponent implements OnChanges {
     firstArray: boolean // indicates, if the response as this input is the first array with length > 1
   ) {
     if ( response ) {
-      // console.log( path );
+      // console.log( path, response );
       if ( response[ path[ depth ] ] && response[ path[ depth ] ].length === 1 ) {
         // console.log( response[ path[ depth ] ], response, path, depth );
         return this.generateAppinput(

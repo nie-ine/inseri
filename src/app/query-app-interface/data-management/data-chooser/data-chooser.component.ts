@@ -89,6 +89,7 @@ export class DataChooserComponent implements AfterViewChecked {
       this.currentPath = this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ];
       setTimeout(() => {
         console.log(  this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ] );
+        // console.log(this.pathWithArray);
         this.chooseResource( Number( this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ] ) );
       }, 50);
     } else if ( !this.alreadyEmitted ) {
@@ -109,14 +110,17 @@ export class DataChooserComponent implements AfterViewChecked {
         queryParamsHandling: 'merge'
       });
     }
-    this.sendIndexBack.emit( {
-      index: index,
-      response: this.response,
-      queryId: this.queryId,
-      depth: this.depth,
-      pathWithArray: this.pathWithArray,
-      dataChooserEntries: this.dataChooserEntries
-    } );
+    if ( this.response ) {
+      // console.log( 'send index back', this.queryId, this.pathWithArray );
+      this.sendIndexBack.emit( {
+        index: index,
+        response: this.response,
+        queryId: this.queryId,
+        depth: this.depth,
+        pathWithArray: this.pathWithArray,
+        dataChooserEntries: this.dataChooserEntries
+      } );
+    }
   }
 
   moveBack() {

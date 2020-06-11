@@ -833,6 +833,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
         }
       }
     }
+    // console.log( this.openAppArray );
     let j = 0;
     for ( const app of this.openAppArray ) {
       // console.log( app );
@@ -861,16 +862,34 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * after the user chooses a data entry and triggers the data assignment component
    * */
   updateMainResourceIndex( input: any ) {
-    // console.log( input.index );
+    // console.log( input );
     this.index = input.index;
     this.response = input.response;
     this.queryId = input.queryId;
     this.depth = input.depth;
     this.pathWithArray = input.pathWithArray;
     const dataAssignmentComponent = new DataAssignmentComponent();
+    // console.log( this.openAppsInThisPage );
+    if ( this.page && this.openAppsInThisPage ) {
+      // console.log( this.page );
+      dataAssignmentComponent.startPathUpdateProcess(
+        input.queryId,
+        input.pathWithArray,
+        input.index,
+        input.response,
+        input.depth,
+        this.page.appInputQueryMapping,
+        this.openAppsInThisPage
+      );
+    } else {
+      setTimeout(() => {
+        console.log( this.page, 'page was loaded to late' );
+      }, 1000);
+    }
     if (  this.pathWithArray && this.pathWithArray.length > 0 ) {
       for ( const app of this.openAppArray ) {
         for ( const appInput in this.page.appInputQueryMapping[ app.hash ] ) {
+          console.log( 'here' );
           if ( this.page.appInputQueryMapping[ app.hash ][ appInput ].query === this.queryId ) {
             let allSegmentsTheSame = true;
             for ( let i = 0; i < this.pathWithArray.length; i++ ) {
@@ -887,7 +906,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
                 if ( !app[ 'pathsWithArrays' ][ this.queryId ][ this.pathWithArray.toString() ] ) {
                   app[ 'pathsWithArrays' ][ this.queryId ][ this.pathWithArray.toString() ] = {};
                 }
-                // console.log( input );
+                console.log( input );
                 dataAssignmentComponent.startPathUpdateProcess(
                   this.queryId,
                   this.pathWithArray,

@@ -219,6 +219,7 @@
             <app-all-app-selectors
               [app]="app" (reloadVariables)="reloadVariablesFunction()"
               [appInputQueryMapping]="page.appInputQueryMapping"
+              [i]="i"
               [(hoveredElement)]="hoveredElement">
 
             </app-all-app-selectors>
@@ -303,8 +304,11 @@
     <mat-card-content *ngIf=" !app.minimized " [style.overflow]="'auto'" [style.height.px]="app.height">
 
       <app-all-app-selectors
-        [app]="app" (reloadVariables)="reloadVariablesFunction()"
-        [appInputQueryMapping]="page.appInputQueryMapping" [(hoveredElement)]="hoveredElement">
+        [i]="i"
+        [app]="app"
+        (reloadVariables)="reloadVariablesFunction()"
+        [appInputQueryMapping]="page.appInputQueryMapping"
+        [(hoveredElement)]="hoveredElement">
 
       </app-all-app-selectors>
 

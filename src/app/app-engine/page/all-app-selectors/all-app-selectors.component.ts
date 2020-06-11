@@ -9,6 +9,7 @@ export class AllAppSelectorsComponent implements OnInit {
 
   @Input() app: any;
   @Input() appInputQueryMapping: any;
+  @Input() i: number;
   @Output() reloadVariables: EventEmitter<any> = new EventEmitter<any>();
   environment = environment;
    /** The unique id of the element the mouse is hovering on.
