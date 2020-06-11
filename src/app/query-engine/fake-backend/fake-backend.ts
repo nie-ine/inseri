@@ -630,7 +630,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         // call materialize and dematerialize to ensure delay even if an error is thrown
         // (https://github.com/Reactive-Extensions/RxJS/issues/648)
         .materialize()
-        .delay(500)
         .dematerialize();
     }
 }

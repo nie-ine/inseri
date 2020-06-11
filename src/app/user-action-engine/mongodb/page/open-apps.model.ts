@@ -20,22 +20,22 @@ export class OpenAppsModel {
         }
       ],
       materialIcon: 'image',
-      initialWidth: '500',
-      initialHeight: '700'
+      initialWidth: '375',
+      initialHeight: '350'
     },
     textViewer: {
       type: 'textViewer',
       model: [],
       materialIcon: 'short_text',
-      initialWidth: '500',
-      initialHeight: '700'
+      initialWidth: '375',
+      initialHeight: '350'
     },
     myFiles: {
       type: 'myFiles',
       model: [],
       materialIcon: 'folder',
-      initialWidth: '500',
-      initialHeight: '600'
+      initialWidth: '375',
+      initialHeight: '350'
     },
     urlParamUpdater: {
       type: 'urlParamUpdater',
@@ -51,57 +51,57 @@ export class OpenAppsModel {
         }
       ],
       materialIcon: 'lead_add',
-      initialWidth: '700',
-      initialHeight: '100'
+      initialWidth: '375',
+      initialHeight: '350'
     },
     openbisLogin: {
       type: 'openbisLogin',
       model: [],
       materialIcon: 'album',
-      initialWidth: '500',
+      initialWidth: '375',
       initialHeight: '350'
     },
     searchViewer: {
       type: 'searchViewer',
       model: [],
       materialIcon: 'album',
-      initialWidth: '500',
-      initialHeight: '700'
+      initialWidth: '375',
+      initialHeight: '350'
     },
     grapesJSViewer: {
       type: 'grapesJSViewer',
       model: [],
       materialIcon: 'album',
-      initialWidth: '500',
-      initialHeight: '700'
+      initialWidth: '375',
+      initialHeight: '350'
     },
     synopsisViewer: {
       type: 'synopsisViewer',
       model: [],
       materialIcon: 'art_track',
-      initialWidth: '900',
-      initialHeight: '400'
+      initialWidth: '375',
+      initialHeight: '350'
     },
     gndSubscriber: {
       type: 'gndSubscriber',
       model: [],
       materialIcon: 'book',
-      initialWidth: '500',
-      initialHeight: '1000'
+      initialWidth: '375',
+      initialHeight: '350'
     },
     createResourceForm: {
       type: 'createResourceForm',
       model: [],
       materialIcon: 'add_to_queue',
-      initialWidth: '900',
-      initialHeight: '400'
+      initialWidth: '375',
+      initialHeight: '350'
     },
     editResourceForm: {
       type: 'editResourceForm',
       model: [],
       materialIcon: 'web',
-      initialWidth: '900',
-      initialHeight: '400'
+      initialWidth: '375',
+      initialHeight: '350'
     },
     knoraV2viewer: {
       type: 'knoraV2viewer',
@@ -124,15 +124,15 @@ export class OpenAppsModel {
         }
       ],
       materialIcon: 'web',
-      initialWidth: '900',
-      initialHeight: '400'
+      initialWidth: '375',
+      initialHeight: '350'
     },
     dataChooser: {
       type: 'dataChooser',
       model: [],
       materialIcon: 'web',
-      initialWidth: '900',
-      initialHeight: '400'
+      initialWidth: '375',
+      initialHeight: '350'
     },
     textlistViewers: {
       type: 'textlistViewers',
@@ -152,20 +152,29 @@ export class OpenAppsModel {
       model: [],
       inputs: [
         {
-          'inputName': 'json',
+          'inputName': 'assignedJson',
           default: {
-            defaultKey: 'defaultValue'
+            default: 'defaultValue'
           }
+        },
+        {
+          'inputName': 'pythonFile',
+          default: '# Your python 3 code goes here\n' +
+            'import json\n' +
+            '\n' +
+            'def show_message(json_file):\n' +
+            '    with open(json_file, \'r\') as f:\n' +
+            '        content = json.load(f)\n' +
+            '\n' +
+            '    return content[\'message\']\n' +
+            '\n' +
+            'if __name__ == "__main__":\n' +
+            '    print(show_message("yourData.json"))'
         }
       ],
-    outputs: [
-      {
-        'outputName': 'json'
-      }
-    ],
       materialIcon: 'input',
-      initialWidth: '400',
-      initialHeight: '400'
+      initialWidth: '375',
+      initialHeight: '350'
     },
     audioPlayer: {
       type: 'audioPlayer',
@@ -179,8 +188,8 @@ export class OpenAppsModel {
         }
       ],
       materialIcon: 'audiotrack',
-      initialWidth: '800',
-      initialHeight: '150'
+      initialWidth: '375',
+      initialHeight: '350'
     },
     paint: {
       type: 'paint',
@@ -192,8 +201,8 @@ export class OpenAppsModel {
         }
       ],
       materialIcon: 'format_paint',
-      initialWidth: '500',
-      initialHeight: '500'
+      initialWidth: '375',
+      initialHeight: '350'
     },
     youtubeVideo: {
       type: 'youtubeVideo',
@@ -205,15 +214,15 @@ export class OpenAppsModel {
         }
       ],
       materialIcon: 'video_library',
-      initialWidth: '600',
-      initialHeight: '400'
+      initialWidth: '375',
+      initialHeight: '350'
     },
     barCharts: {
       type: 'barCharts',
       model: [],
       materialIcon: 'bar_chart',
-      initialWidth: '1200',
-      initialHeight: '500',
+      initialWidth: '375',
+      initialHeight: '350',
       inputs: [
         {
           'inputName': 'data',
@@ -244,36 +253,36 @@ export class OpenAppsModel {
       type: 'spiralBarCharts',
       model: [],
       materialIcon: 'bar_chart',
-      initialWidth: '500',
-      initialHeight: '500'
+      initialWidth: '375',
+      initialHeight: '350'
     },
     lineCharts: {
       type: 'lineCharts',
       model: [],
       materialIcon: 'show_chart',
-      initialWidth: '600',
-      initialHeight: '400'
+      initialWidth: '375',
+      initialHeight: '350'
     },
     brushZoomCharts: {
       type: 'brushZoomCharts',
       model: [],
       materialIcon: 'insert_chart_outlined',
-      initialWidth: '900',
-      initialHeight: '500'
+      initialWidth: '375',
+      initialHeight: '350'
     },
     leafletMaps: {
       type: 'leafletMaps',
       model: [],
       materialIcon: 'add_location',
-      initialWidth: '500',
-      initialHeight: '500'
+      initialWidth: '375',
+      initialHeight: '350'
     },
     pieCharts: {
       type: 'pieCharts',
       model: [],
       materialIcon: 'pie_chart',
-      initialWidth: '700',
-      initialHeight: '500',
+      initialWidth: '375',
+      initialHeight: '350',
       inputs: [
         {
           'inputName': 'data',
@@ -304,8 +313,8 @@ export class OpenAppsModel {
       type: 'radialBarCharts',
       model: [],
       materialIcon: 'multiline_chart',
-      initialWidth: '500',
-      initialHeight: '500',
+      initialWidth: '375',
+      initialHeight: '350',
       inputs: [
         {
           'inputName': 'data',
@@ -348,8 +357,8 @@ export class OpenAppsModel {
       type: 'sankeyCharts',
       model: [],
       materialIcon: 'linear_scale',
-      initialWidth: '900',
-      initialHeight: '150',
+      initialWidth: '375',
+      initialHeight: '350',
       inputs: [
         {
           'inputName': 'data'
@@ -360,8 +369,8 @@ export class OpenAppsModel {
       type: 'stackedBarCharts',
       model: [],
       materialIcon: 'subtitles',
-      initialWidth: '800',
-      initialHeight: '500',
+      initialWidth: '375',
+      initialHeight: '350',
       inputs: [
         {
           'inputName': 'data',
@@ -369,43 +378,43 @@ export class OpenAppsModel {
             'data': [
               {
                 'xValue': '1',
-                'Before 1800': 0,
-                '1800-1813': 3,
+                'Before 1350': 0,
+                '1350-1813': 3,
                 '1814-1850': 1,
                 '1851 and later': 0
               },
               {
                 'xValue': '2',
-                'Before 1800': 0,
-                '1800-1813': 3,
+                'Before 1350': 0,
+                '1350-1813': 3,
                 '1814-1850': 1,
                 '1851 and later': 0
               },
               {
                 'xValue': '3',
-                'Before 1800': 0,
-                '1800-1813': 3,
+                'Before 1350': 0,
+                '1350-1813': 3,
                 '1814-1850': 3,
                 '1851 and later': 0
               },
               {
                 'xValue': '4',
-                'Before 1800': 0,
-                '1800-1813': 3,
+                'Before 1350': 0,
+                '1350-1813': 3,
                 '1814-1850': 3,
                 '1851 and later': 0
               },
               {
                 'xValue': '5',
-                'Before 1800': 0,
-                '1800-1813': 4,
+                'Before 1350': 0,
+                '1350-1813': 4,
                 '1814-1850': 3,
                 '1851 and later': 0
               },
               {
                 'xValue': '6',
-                'Before 1800': 0,
-                '1800-1813': 3,
+                'Before 1350': 0,
+                '1350-1813': 3,
                 '1814-1850': 3,
                 '1851 and later': 0
               }
@@ -418,8 +427,8 @@ export class OpenAppsModel {
       type: 'chordDiagrams',
       model: [],
       materialIcon: 'all_out',
-      initialWidth: '600',
-      initialHeight: '500'
+      initialWidth: '375',
+      initialHeight: '350'
     },
     simpleImageApp: {
       type: 'simpleImageApp',
@@ -431,8 +440,8 @@ export class OpenAppsModel {
           }
         ],
       materialIcon: 'add_photo_alternate',
-      initialWidth: '500',
-      initialHeight: '500'
+      initialWidth: '375',
+      initialHeight: '350'
     },
     jsonViewer: {
       type: 'jsonViewer',
@@ -443,8 +452,8 @@ export class OpenAppsModel {
         }
       ],
       materialIcon: 'spa',
-      initialWidth: '500',
-      initialHeight: '500'
+      initialWidth: '375',
+      initialHeight: '350'
     },
     treeNavigation: {
       type: 'treeNavigation',
@@ -455,8 +464,8 @@ export class OpenAppsModel {
         }
       ],
       materialIcon: 'subdirectory_arrow_right',
-      initialWidth: '400',
-      initialHeight: '600'
+      initialWidth: '375',
+      initialHeight: '350'
     },
     hierarchicalNavigationView: {
       type: 'hierarchicalNavigationView',
@@ -473,8 +482,8 @@ export class OpenAppsModel {
         }
       ],
       materialIcon: 'subdirectory_arrow_right',
-      initialWidth: '400',
-      initialHeight: '600'
+      initialWidth: '375',
+      initialHeight: '350'
     },
     dataListView: {
       type: 'dataListView',
@@ -488,8 +497,8 @@ export class OpenAppsModel {
         }
       ],
       materialIcon: 'view_list',
-      initialWidth: '700',
-      initialHeight: '500'
+      initialWidth: '375',
+      initialHeight: '350'
     },
     parzivalFassung: {
       type: 'parzivalFassung',
@@ -500,8 +509,8 @@ export class OpenAppsModel {
         }
       ],
       materialIcon: 'view_week',
-      initialWidth: '350',
-      initialHeight: '250'
+      initialWidth: '375',
+      initialHeight: '350'
     },
     avpEditionView: {
       type: 'avpEditionView',
@@ -512,8 +521,8 @@ export class OpenAppsModel {
         }
       ],
       materialIcon: 'turned_in',
-      initialWidth: '350',
-      initialHeight: '500'
+      initialWidth: '375',
+      initialHeight: '350'
     },
     svgTranscription: {
       type: 'svgTranscription',
@@ -533,8 +542,8 @@ export class OpenAppsModel {
         }
       ],
       materialIcon: 'line_style',
-      initialWidth: '350',
-      initialHeight: '500'
+      initialWidth: '375',
+      initialHeight: '350'
     },
     htmlViewer: {
       type: 'htmlViewer',
@@ -551,8 +560,8 @@ export class OpenAppsModel {
         }
       ],
       materialIcon: 'aspect_ratio',
-      initialWidth: '500',
-      initialHeight: '500'
+      initialWidth: '375',
+      initialHeight: '350'
     },
     joinedTextView: {
       type: 'joinedTextView',
@@ -578,29 +587,29 @@ export class OpenAppsModel {
         }
       ],
       materialIcon: 'aspect_ratio',
-      initialWidth: '500',
-      initialHeight: '500'
+      initialWidth: '375',
+      initialHeight: '350'
     },
     login: {
       type: 'login',
       model: [],
       materialIcon: 'lock_open',
-      initialWidth: '400',
-      initialHeight: '500'
+      initialWidth: '375',
+      initialHeight: '350'
     },
     pageMenu: {
       type: 'pageMenu',
       model: [],
       materialIcon: 'settings',
-      initialWidth: '750',
-      initialHeight: '500'
+      initialWidth: '375',
+      initialHeight: '350'
     },
     sparqlVisualizer: {
       type: 'sparqlVisualizer',
       model: [],
       materialIcon: 'drag_indicator',
-    initialWidth: '750',
-    initialHeight: '900',
+    initialWidth: '375',
+    initialHeight: '350',
       inputs: [
         {
           'inputName': 'url'
@@ -611,8 +620,8 @@ export class OpenAppsModel {
       type: 'salsah2',
       model: [],
       materialIcon: 'camera_enhance',
-      initialWidth: '700',
-      initialHeight: '1200',
+      initialWidth: '375',
+      initialHeight: '350',
       inputs: [
         {
           'inputName': 'url'
@@ -623,8 +632,8 @@ export class OpenAppsModel {
       type: 'raeber',
       model: [],
       materialIcon: 'book',
-      initialWidth: '900',
-      initialHeight: '700',
+      initialWidth: '375',
+      initialHeight: '350',
       inputs: [
         {
           'inputName': 'url'
@@ -635,8 +644,8 @@ export class OpenAppsModel {
     type: 'webern',
     model: [],
     materialIcon: 'book',
-    initialWidth: '900',
-    initialHeight: '700',
+    initialWidth: '375',
+    initialHeight: '350',
     inputs: [
       {
         'inputName': 'url'
@@ -647,8 +656,8 @@ export class OpenAppsModel {
       type: 'iframe',
       model: [],
       materialIcon: 'book',
-      initialWidth: '900',
-      initialHeight: '700',
+      initialWidth: '375',
+      initialHeight: '350',
       inputs: [
         {
           'inputName': 'url',
@@ -660,8 +669,8 @@ export class OpenAppsModel {
       type: 'primeEditor',
       model: [],
       materialIcon: 'format_size',
-      initialWidth: '700',
-      initialHeight: '500',
+      initialWidth: '375',
+      initialHeight: '350',
       inputs: [
         {
           'inputName': 'textFile',
@@ -673,22 +682,22 @@ export class OpenAppsModel {
       type: 'spreadSheet',
       model: [],
       materialIcon: 'table_chart',
-      initialWidth: '700',
-      initialHeight: '600'
+      initialWidth: '375',
+      initialHeight: '350'
     },
     urlUpdate: {
       type: 'urlUpdate',
       model: [],
       materialIcon: 'horizontal_split',
-      initialWidth: '200',
-      initialHeight: '200'
+      initialWidth: '375',
+      initialHeight: '350'
     },
     keyValue: {
       type: 'keyValue',
       model: [],
       materialIcon: 'horizontal_split',
-      initialWidth: '350',
-      initialHeight: '100',
+      initialWidth: '375',
+      initialHeight: '350',
       inputs: [
         {
           'inputName': 'key'
@@ -702,8 +711,8 @@ export class OpenAppsModel {
       type: 'pdfViewer',
       model: [],
       materialIcon: 'select_all',
-      initialWidth: '700',
-      initialHeight: '700',
+      initialWidth: '375',
+      initialHeight: '350',
       inputs: [
         {
           'inputName': 'source'
@@ -720,8 +729,8 @@ export class OpenAppsModel {
       type: 'browserling',
       model: [],
       materialIcon: 'open_in_browser',
-      initialWidth: '1000',
-      initialHeight: '1000',
+      initialWidth: '375',
+      initialHeight: '350',
       inputs: [
         {
           'inputName': 'platform_name'

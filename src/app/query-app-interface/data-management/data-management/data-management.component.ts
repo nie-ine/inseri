@@ -233,6 +233,14 @@ export class DataManagementComponent {
     });
     dialogRef.afterClosed().subscribe((result) => {
       console.log('Abstract tree from query entry');
+      console.log( this.queries );
+
+      for ( const queryEntry of this.queries ) {
+        if ( result[ 1 ]._id === queryEntry._id ) {
+          queryEntry.serverUrl = result[ 1 ].serverUrl;
+        }
+      }
+
       console.log(result);
     });
   }

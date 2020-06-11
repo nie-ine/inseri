@@ -88,7 +88,11 @@ export class GeneralRequestService {
 
   post(url: string, parameter?: any, header?: any, body?: string): Observable<any> {
     // console.log('POST Request', header, this.transformHeader(header));
-    return this.http.post(url, body, {params: this.transformParam(parameter), headers: this.transformHeader(header), observe: 'response'});
+    return this.http.post(
+      url,
+      body,
+      {params: this.transformParam(parameter), headers: this.transformHeader(header),
+        observe: 'response' } );
   }
 
   put(url: string, parameter?: any, header?: any, body?: string): Observable<any> {

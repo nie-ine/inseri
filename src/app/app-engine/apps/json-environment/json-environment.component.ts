@@ -1,5 +1,5 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
-import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
+import {Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {HttpClient, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {environment} from '../../../../environments/environment';
 import {GenerateHashService} from '../../../user-action-engine/other/generateHash.service';
@@ -12,15 +12,34 @@ import {GenerateHashService} from '../../../user-action-engine/other/generateHas
 export class JsonEnvironmentComponent implements OnChanges, HttpInterceptor {
 
   @Input() hash: string;
-  @Input() json: any;
+  @Input() assignedJson: any;
+  @Input() pythonFile: any;
+  @ViewChild('editor') editor;
   serivceId = 'jsonEnvironment';
+  display = JSON.parse( localStorage.getItem( this.serivceId ) );
   constructor(
+    private http: HttpClient
   ) {
   }
 
-  ngOnChanges() {
-    if ( this.hash && this.json ) {
-      localStorage.setItem( this.serivceId, JSON.stringify({ hash: this.hash, json: this.json } ) );
+  ngOnChanges( changes: SimpleChanges ) {
+    console.log( 'changes', this.hash, this.assignedJson, this.pythonFile );
+    if ( this.hash && this.assignedJson ) {
+      localStorage.setItem( this.serivceId, JSON.stringify({ hash: this.hash, json: this.assignedJson } ) );
+    }
+    if ( this.pythonFile && this.pythonFile.search( 'http' ) !== -1 ) {
+      this.http.get( this.pythonFile, { responseType: 'text' } )
+        .subscribe(
+          data => {
+            console.log( data );
+            this.editor.text = data;
+          }, error => {
+            console.log( error );
+          }
+        );
+    }
+    else {
+      this.editor.text = this.pythonFile;
     }
   }
 
@@ -39,14 +58,13 @@ export class JsonEnvironmentComponent implements OnChanges, HttpInterceptor {
       if ( jsonEnvironmentSet.has( request.url ) ) {
         console.log( 'interceptor is triggered' );
         const body = jsonEnvironmentInstances;
-
+        // localStorage.removeItem( this.serivceId );
         return Observable.of(new HttpResponse({ status: 200, body: body }));
       } else {
         return next.handle(request);
       }
     })
       .materialize()
-      .delay(500)
       .dematerialize();
   }
 }

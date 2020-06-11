@@ -206,6 +206,7 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
         this.abstractJson = this.abstractJsonService.json2abstract(data.body);
         this.error = false;
       }, error => {
+        console.log( error );
         this.response = error;
         this.tree = error;
         this.error = true;

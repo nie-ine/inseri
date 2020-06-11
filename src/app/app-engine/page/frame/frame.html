@@ -27,6 +27,10 @@
                 File Options
               </button>
 
+              <button mat-menu-item (click)="addAppDescription()" >
+                Change app description
+              </button>
+
               <button mat-menu-item (click)="disappear()" >
                 Minimize
               </button>
@@ -70,8 +74,13 @@
               <mat-icon>chevron_right</mat-icon>
             </button>
 
+
           <button *ngIf="position === 'static'" mat-button [matMenuTriggerFor]="menu1" style="float: right!important;">
             <mat-icon>minimize</mat-icon>
+          </button>
+
+          <button  *ngIf="showAppDescriptionEditor" (click)="showAppDescriptionEditor = false" (click)="sendAppSettingsBackToPage()" mat-button >
+            <mat-icon>close</mat-icon>
           </button>
 
         </mat-card-header>
@@ -143,4 +152,16 @@
 
         </mat-card-content>
 
+    <div  *ngIf="app.description !== undefined" >
+      <strong>{{ app.hash + ' | '}} {{ app.title || app.type }}</strong>
+      <div [innerHTML]="app.description" style="height: 60px;">
+      </div>
+    </div>
+
       </mat-card>
+
+
+  <p-editor
+    [(ngModel)]="app.description"
+    [style]="{'height':'320px'}"
+    *ngIf="showAppDescriptionEditor"></p-editor>
