@@ -110,13 +110,13 @@ export class DataAssignmentComponent implements OnChanges {
       this.queryId = queryId;
     }
 
-    if ( pathWithArray ) {
-      this.pathWithArray = pathWithArray;
-    }
+    // if ( pathWithArray ) {
+    //   this.pathWithArray = pathWithArray;
+    // }
 
     // this.pathWithArray = this.pathWithArray !== undefined ? this.pathWithArray : [];
 
-    this.index = index !== undefined ? index : 0;
+    // this.index = index !== undefined ? index : 0;
 
     if ( response ) {
       this.response = response;
@@ -126,7 +126,7 @@ export class DataAssignmentComponent implements OnChanges {
       this.openAppsInThisPage = openAppsInThisPage;
     }
 
-    this.depth = depth !== undefined ? depth : 0;
+    // this.depth = depth !== undefined ? depth : 0;
 
     this.appInputQueryMapping = appInputQueryMapping !== undefined ? appInputQueryMapping : this.appInputQueryMapping;
 

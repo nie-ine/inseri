@@ -869,8 +869,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.depth = input.depth;
     this.pathWithArray = input.pathWithArray;
     const dataAssignmentComponent = new DataAssignmentComponent();
-    // console.log( this.openAppsInThisPage );
-    if ( this.page && this.openAppsInThisPage ) {
+    console.log( this.index );
+    if ( this.page && this.openAppsInThisPage && this.pathWithArray !== [] && this.index === 0 ) {
       // console.log( this.page );
       dataAssignmentComponent.startPathUpdateProcess(
         input.queryId,
