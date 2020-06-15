@@ -98,55 +98,55 @@ router.post('/createProject/', checkAuth, (req, res, next) => {
     let pageSetExported = new PageSet(req.body.pageSet);
     let pagesExported = req.body.pages;
     let queriesExported = req.body.queries;
+    //console.log(actionExported);
+    //console.log(pageSetExported);
+    //console.log(pagesExported);
 
-    console.log(actionExported);
-    console.log(pageSetExported);
-    console.log(pagesExported);
-    console.log(queriesExported);
     actionExported.save()
       .then((resultAction) => {
-        pageSetExported.save().then(pageSetResult => {
-          Page.insertMany(pagesExported, function (error, docs) {
-            if (error) {
-              return res.status(500).json({
-                message: 'Something happened while creating the pages',
-                error: error
+        Action.updateOne({_id: resultAction._id},{$set:{creator:req.userData.userId}}).then(updatedAction=>{
+          pageSetExported.save().then(pageSetResult => {
+            Page.insertMany(pagesExported, function (error, docs) {
+              if (error) {
+                return res.status(500).json({
+                  message: 'Something happened while creating the pages',
+                  error: error
+                });
+              }
+              if(queriesExported) {
+                console.log(queriesExported);
+                Query.insertMany(queriesExported, function (error2, docs) {
+                  if (error2) {
+                    return res.status(500).json({
+                      message: 'Something happened while creating the queries',
+                      error: error2
+                    });
+                  }
+                    // return res.status(201).json({
+                    //   message: 'Project created successfully',
+                    // });
+                });
+              }
+              return res.status(201).json({
+                message: 'Project created successfully without queries',
               });
-            }
-            if(queriesExported){
-              Query.insertMany(queriesExported, function (error2, docs) {
-                if (error2) {
-                  return res.status(500).json({
-                    message: 'Something happened while creating the queries',
-                    error: error2
-                  });
-                }
-                else{
-                  return res.status(201).json({
-                    message: 'Project created successfully',
-                  });
-                }
 
-              });
-            }
-            return res.status(201).json({
-              message: 'Project created successfully without queries',
             });
+          }).catch(errorPageSet => {
+            res.status(500).json({
+              message: 'Something happened while creating the pageSet',
+              error: errorPageSet
+            });
+          });
+        })
 
-          });
-        }).catch(errorPageSet => {
-          res.status(500).json({
-            message: 'Something happened while creating the pageSet',
-            error: errorPageSet
-          });
-        });
-      })
-      .catch(errorAction => {
-        res.status(500).json({
-          message: 'Action cannot be created',
-          error: errorAction
-        });
-      })
+      }).catch(errorAction => {
+      res.status(500).json({
+        message: 'Action cannot be created',
+        error: errorAction
+      });
+    })
+
 });
 
 router.post('', checkAuth, (req, res, next) => {
@@ -177,39 +177,7 @@ router.post('', checkAuth, (req, res, next) => {
   });
 
   // Case 1: action has a page set
-  if (req.body._id) {
-    // let stringVal=JSON.stringify(req.body);
-    // stringVal=stringVal.substring(0, (stringVal.indexOf('"_id":')+6))+'"111",'+stringVal.substring(stringVal.indexOf(',')+1);
-    // console.log('req.body._id is not empty');
-    // let obj= JSON.parse(stringVal);
-    let actionExported = new Action(req.body);//{
-    /*_id: 123,
-    title: obj.title,
-    description: obj.description,
-    isFinished: obj.isFinished,
-    deleted: obj.deleted,
-    type: obj.type,
-    hasPage: obj.hasPage,
-    hasPageSet: obj.hasPageSet,
-    creator: obj.creator,
-    published: obj.published
-  });
-  actionExported._id=123 instanceof mongoose.Types.ObjectId;*/
-    console.log(actionExported);
-    actionExported.save()
-      .then((resultAction) => {
-        res.status(201).json({
-          message: 'Action created successfully',
-          action: resultAction
-        });
-      })
-      .catch(errorAction => {
-        res.status(500).json({
-          message: 'Action cannot be created',
-          error: errorAction
-        });
-      })
-  } else if (req.body.type === 'page-set') {
+ if (req.body.type === 'page-set') {
     console.log('else if req.body.type === page-set');
     // Default values for the pageset
     const defaultTitle = 'document index';

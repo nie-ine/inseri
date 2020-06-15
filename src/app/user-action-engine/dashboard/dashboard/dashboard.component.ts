@@ -20,6 +20,7 @@ import {HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
 import {FileService} from '../../file/file.service';
 import {forEach} from '@angular/router/src/utils/collection';
 import {PageSetService} from '../../mongodb/pageset/page-set.service';
+import {user} from 'stardog';
 
 // import * as Fs from 'fs';
 
@@ -318,7 +319,7 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  downloadProjectAsFile(action: Action) {
+  exportProjectAsFile(action: Action) {
         this.fileService.downloadProject(action.id)
           .subscribe(data => {
             console.log(data);
@@ -339,7 +340,7 @@ export class DashboardComponent implements OnInit {
           });
     }
 
-  downloadProject(action: Action) {
+  exportProjectAsZip(action: Action) {
     console.log(action.id);
     if (action.type === 'page-set') {
       this.fileService.downloadProject(action.id)
@@ -440,6 +441,15 @@ export class DialogOverviewExampleDialog {
       );
   }
 
+  importProjectAsZip($event: Event) {
+    const zipFile = (event.target as HTMLInputElement).files[0];
+    JSZip.loadAsync(zipFile)
+      .then(function(zip) {
+        zip.forEach(function (relativePath, zipEntry) {
+          console.log(zipEntry);
+        });
+      });
+  }
   importProject($event: Event) {
     let project = {};
     const file = (event.target as HTMLInputElement).files[0];
@@ -455,6 +465,7 @@ export class DialogOverviewExampleDialog {
         // console.log(detailsArray);
         // console.log('the action is');
         // console.log(this.action);
+
         let action, pageSet, pages, queries;
         for (let i = 0; i < detailsArray.length; i++) {
           console.log(detailsArray[i]);

@@ -104,7 +104,7 @@
 
   <button
     mat-button
-    (click)="this.mainFolder_id = folder.id; deleteFromBreadCrumb();showFolders(); showForm('');">
+    (click)="this.mainFolder_id = folder.id; deleteFromBreadCrumb(); showFolders(); showForm('');">
     <mat-icon>arrow_right</mat-icon> {{ folder.title }}
   </button>
 
@@ -113,12 +113,12 @@
 <div *ngIf="addFolderForm" style="margin-left: 15px">
       <mat-form-field class="example-form-field">
         <mat-label>Folder Name</mat-label>
-        <input matInput type="text" [(ngModel)]="folder">
-        <button mat-button *ngIf="folder" matSuffix mat-icon-button aria-label="Clear" (click)="folder=''; showForm('');">
+        <input matInput type="text" [(ngModel)]="folderTitle">
+        <button mat-button *ngIf="folderTitle" matSuffix mat-icon-button aria-label="Clear" (click)="folderTitle=''; showForm('');">
           <mat-icon>close</mat-icon>
         </button>
       </mat-form-field>
-      <button mat-button *ngIf="folder" (click)="createNewFolder(folder); showForm(''); folder='' ">
+      <button mat-button *ngIf="folderTitle" (click)="createNewFolder(folderTitle); showForm(''); folderTitle='' ">
         Create
       </button>
   <button mat-button (click)="showForm('');"> Cancel</button>
@@ -127,12 +127,12 @@
 <div *ngIf="updateFolderTitleForm" style="margin-left: 15px">
   <mat-form-field class="example-form-field">
     <mat-label>Folder Name</mat-label>
-    <input matInput type="text" [(ngModel)]="folder">
-    <button mat-button *ngIf="folder" matSuffix mat-icon-button aria-label="Clear" (click)="folder=''">
+    <input matInput type="text" [(ngModel)]="folderTitle">
+    <button mat-button *ngIf="folderTitle" matSuffix mat-icon-button aria-label="Clear" (click)="folderTitle=''">
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
-  <button mat-button *ngIf="folder" (click)="updateFolderTitle(folder); updateBreadCrumb(folder); showForm(''); folder='' ">
+  <button mat-button *ngIf="folderTitle" (click)="updateFolderTitle(folderTitle); updateBreadCrumb(folderTitle); showForm(''); folderTitle='' ">
     Update
   </button>
   <button mat-button (click)="showForm('');"> Cancel</button>
@@ -168,16 +168,10 @@
       <div *ngFor="let folderInstance of foldersArray">
         <button
           mat-button
-          (click)=" this.mainFolder_id=folderInstance._id; showFolders();
+          (click)=" this.mainFolder_id=folderInstance._id; showFolders(); folderTitle=folderInstance.title;
           addToBreadCrumb(folderInstance.title);">
           <mat-icon>folder</mat-icon> {{ folderInstance.title }}
         </button>
-        <!--input mat-input [(ngModel)]="folderInstance.title" *ngIf="updateFolderTitleForm">
-        <button
-          mat-menu-item
-          (click)="updateFolderTitle(folderInstance._id, folderInstance.title)" *ngIf="folderInstance.updateTitle === true">
-          Update folder title
-        </button-->
       </div>
     </div>
   </div>
@@ -217,30 +211,6 @@
   </table>
 
 </div>
-
-
-<!--div class="div">
-  <div class="row">
-    <div class="col-xs-12">
-      <div *ngFor="let file of files" style="margin-left: 15px">
-        <button mat-button [matMenuTriggerFor]="menuOpenFileApps" (click)="showAvailableInseriApps(file);">
-          <mat-icon> insert_drive_file</mat-icon>
-          {{ file.title }}
-        </button>
-        <button mat-button matTooltip="Delete File" (click)="deleteFile(file.id);">
-          <mat-icon>
-            delete
-          </mat-icon>
-        </button>
-        <button mat-button matTooltip="Edit File Details" (click)="showForm('UpdateFileForm'); getFileDetails(file);">
-          <mat-icon>
-            edit
-          </mat-icon>
-        </button>
-      </div>
-    </div>
-  </div>
-</div-->
 
 <mat-menu #menuOpenFileApps="matMenu" >
   <div *ngFor="let app of inseriAppsMenu" style="display: inline-block">

@@ -67,6 +67,9 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
             setTimeout(() => {
               this.initiateQuery();
             }, 1000);
+          } else if (this.data.query.method === 'GET') {
+            console.log('display query result');
+              this.getRequest(this.data.query.serverUrl);
           }
         }
       ), error => console.log(error);
@@ -147,9 +150,11 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   initiateQuery() {
-    // console.log( 'Initiate Query' );
+     console.log( 'Initiate Query' );
+
     const url = this.form.get('serverURL').value;
     const method = this.form.get('method').value;
+    console.log(method);
     let header, param2;
     header = this.header.getValidParams().length > 0 ? this.header.getValidParams()
       .reduce(((acc, param) => ({...acc, [param.key]: param.value})), {}) : null;
@@ -173,7 +178,7 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  getRequest(url: string, parameter: any, header: any) {
+  getRequest(url: string, parameter?: any, header?: any) {
     // console.log( 'Get Request' );
     this.requestService.get(url, parameter, header)
       .subscribe(data => {
