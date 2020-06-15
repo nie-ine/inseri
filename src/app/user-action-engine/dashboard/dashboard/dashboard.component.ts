@@ -443,12 +443,53 @@ export class DialogOverviewExampleDialog {
 
   importProjectAsZip($event: Event) {
     const zipFile = (event.target as HTMLInputElement).files[0];
+    // const fileReader = new FileReader();
+    let action, pageSet, pages, queries;
+    let counter=0;
     JSZip.loadAsync(zipFile)
       .then(function(zip) {
         zip.forEach(function (relativePath, zipEntry) {
           console.log(zipEntry);
+          console.log(relativePath);
+          zip.file(relativePath).async('text').then(function(content) {
+            if (relativePath === 'action.json') {
+              action = JSON.parse(JSON.parse(JSON.stringify(content)));
+              console.log(action);
+              counter++;
+            } else if (relativePath === 'pageSet.json') {
+              pageSet = JSON.parse(JSON.parse(JSON.stringify(content)));
+              console.log(pageSet);
+              counter++;
+            } else if (relativePath === 'pages.json') {
+              pages = JSON.parse(JSON.parse(JSON.stringify(content)));
+              console.log(pages);
+              counter++;
+            } else if (relativePath === 'queries.json' ) {
+              if(content.length>0) {
+                queries = JSON.parse(JSON.parse(JSON.stringify(content)));
+                console.log(queries);
+              }
+              counter++;
+            }
+          });
         });
       });
+    let isFinished = false;
+    const mainObject = this;
+    const timeout = setInterval(function() {
+      console.log(counter);
+      if (!isFinished && counter === 4) {
+        clearInterval(timeout);
+        isFinished = true;
+        mainObject.actionService.createProject(action, pageSet, pages, queries)
+          .subscribe((actionResult) => {
+            if (action.type === 'page-set') {
+              mainObject.pageSet = ['pageSet', action._id];
+            }
+            mainObject.dialogRef.close(mainObject.pageSet);
+          });
+      }
+    }, 100);
   }
   importProject($event: Event) {
     let project = {};
