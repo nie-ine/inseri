@@ -46,7 +46,7 @@ export class FileService {
   }
 
   getFile(id: string) {
-    return this.http.get<{ _id: string; title: string; description: string }>(
+    return this.http.get<{ _id: string; title: string; description: string, content: string, urlPath: string }>(
       `${FileService.API_BASE_URL_FILES}` + '/' + id
     );
   }
@@ -95,10 +95,10 @@ export class FileService {
         fileData
       );
   }
-  updateFile(id: string, title: string, description: string): Observable<any> {
-    console.log(id, title, description);
+  updateFile(id: string, title: string, description: string, content: string, urlPath: string): Observable<any> {
+    console.log(id, title, description, content, urlPath);
     return this.http
-      .post(`${FileService.API_BASE_URL_FILES}` + '/' + id, {title: title, description: description});
+      .post(`${FileService.API_BASE_URL_FILES}` + '/' + id, {title: title, description: description, content: content, urlPath: urlPath});
   }
 
   deleteFile(fileId: string, folderId: string): Observable<any> {

@@ -33,6 +33,7 @@ export class MyFilesComponent implements OnInit {
   public demoForm: FormGroup;
   private fileUrlPath: string;
   fileExtension: any;
+  private fileContent: string;
   constructor(
     private http: HttpClient,
     private folderService: FolderService,
@@ -68,7 +69,7 @@ export class MyFilesComponent implements OnInit {
   foldersArray: Array<string>;
   mainFolder_id = '-1';
   subFolder_id: string;
-  file: FileModel;
+  file: {id: string, title: string, description: string, urlPath: string, content: string};
   filePreview: string;
   private  fileId: string;
   files: FileModel[] = [];
@@ -118,6 +119,7 @@ appInputsArray = [];
     serverUrl: '',
     method: ''
   };
+  showFileContent = false;
   createPageSet(title: string, description: string) {
     this.action.type = 'page-set';
     this.action.title = title;
@@ -156,6 +158,7 @@ appInputsArray = [];
     this.form = new FormGroup({
       'title': new FormControl(null), // {validators: [Validators.required]}), // Validators.minLength(3)
       'description': new FormControl(null), // {validators: [Validators.required]}),
+      'content': new FormControl(null),
       'file': new FormControl(null), // {validators: [Validators.required]})// , asyncValidators: [mimeType]})
     });
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
@@ -164,9 +167,12 @@ appInputsArray = [];
         this.fileId = paramMap.get('fileId');
         this.isLoading = true;
         this.fileService.getFile(this.fileId).subscribe(fileData => {
+          console.log('ngOninit');
+          console.log(fileData);
           this.isLoading = false;
-          this.file = {id: fileData._id, title: fileData.title, description: fileData.description, urlPath: null};
-          this.form.setValue({'title': this.file.title, 'description': this.file.description});
+          this.file = {id: fileData._id, title: fileData.title, description: fileData.description,
+            urlPath: fileData.urlPath, content: fileData.content};
+          this.form.setValue({'title': this.file.title, 'description': this.file.description, 'content': this.file.content});
           console.log( 'ngOnInit: ' + this.file.title );
         });
       } else {
@@ -684,13 +690,18 @@ appInputsArray = [];
     this.oldFileName = this.file.title;
     this.fileDetailsId = this.file.id;
     this.fileExtension = this.file.title.substring(this.file.title.lastIndexOf('.') + 1);
+    console.log('update File');
+    console.log(this.fileUrlPath);
+    //this.fileContent = this.file.content;
+    console.log('printing the file content: ' + this.fileContent);
     console.log(this.fileExtension);
     const newFileTitle = this.fileName + '.' + this.fileExtension;
     if (this.searchFiles(newFileTitle, this.files, this.file)) {
       alert('You cannot rename a file with a name already in the file List, try changing it with another name.');
       return;
     }
-    this.fileService.updateFile(this.fileDetailsId, newFileTitle, this.fileDescription)
+    console.log(this.fileDetailsId, newFileTitle, this.fileDescription, this.fileContent);
+    this.fileService.updateFile(this.fileDetailsId, newFileTitle, this.fileDescription, this.fileContent, this.fileUrlPath)
       .subscribe(response => {
         const file = response.file;
         console.log(file);
@@ -703,15 +714,23 @@ appInputsArray = [];
       this.fileName = '';
       this.fileDescription = '';
         this.fileExtension = '';
+        this.fileContent = '';
+        this.showFileContent=false;
       this.showFiles();
     });
   }
   getFileDetails(file: any) {
     this.file = file;
     this.fileService.getFile(file.id).subscribe(fileData => {
+      console.log('getFileDetails');
+      console.log(fileData);
       this.fileDescription = fileData.description;
       this.fileName = fileData.title.substring(0, fileData.title.lastIndexOf('.'));
       this.fileExtension = fileData.title.substring(fileData.title.lastIndexOf('.') + 1);
+      this.fileContent = fileData.content;
+      this.fileUrlPath = fileData.urlPath;
+      this.showFileContent = (this.fileExtension.match(/(txt)|(py)|(json)$/)) ? true : false;
+      console.log(this.fileUrlPath);
     });
   }
   searchFiles(fileName: string, files: FileModel[], file: FileModel) {
@@ -728,5 +747,9 @@ appInputsArray = [];
     const titles = [];
     this.breadCrumbArray.forEach(item => titles.push(item.title));
     console.log(titles);
+  }
+
+  updateFileOnServer(urlPath: string, fileContent: string) {
+
   }
 }

@@ -153,6 +153,11 @@
     <input matInput type="text" [(ngModel)]="fileDescription">
   </mat-form-field>
   <br>
+  <mat-form-field *ngIf="showFileContent" class="example-form-field">
+    <textarea  matInput rows="15" cols="200" placeholder="text" [(ngModel)]="fileContent"> <!--(change)="updateFileOnServer(file.urlPath,fileContent)"-->
+    </textarea>
+  </mat-form-field>
+  <br>
   <button mat-button (click)="updateFile(); showForm('');">
     Update
   </button>

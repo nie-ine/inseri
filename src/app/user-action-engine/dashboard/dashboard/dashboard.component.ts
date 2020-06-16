@@ -491,7 +491,7 @@ export class DialogOverviewExampleDialog {
       }
     }, 100);
   }
-  importProject($event: Event) {
+  importProjectAsFile($event: Event) {
     let project = {};
     const file = (event.target as HTMLInputElement).files[0];
     this.fileService.addZipFileToSrvr(file).subscribe(responseData => {
