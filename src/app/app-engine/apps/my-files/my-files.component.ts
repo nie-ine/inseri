@@ -21,6 +21,7 @@ import {RequestService} from '../../../query-engine/knora/request.service';
 import {GeneralRequestService} from '../../../query-engine/general/general-request.service';
 import {GenerateHashService} from '../../../user-action-engine/other/generateHash.service';
 import {map} from 'rxjs/operators';
+import {QueryModel} from '../../../user-action-engine/mongodb/query/query.model';
 
 @Component({
   selector: 'app-my-files',
@@ -46,7 +47,7 @@ export class MyFilesComponent implements OnInit {
     private router: Router,
     private generateHashService: GenerateHashService,
     private requestService: GeneralRequestService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
   ) {
     this.demoForm = this.formBuilder.group({
       text_input: ['', Validators.required],
@@ -63,7 +64,7 @@ export class MyFilesComponent implements OnInit {
   // appMenuForm = false;
   createPageSetForm = false;
   createQueryForm = false;
-  folder: string;
+  folderTitle: string;
   foldersArray: Array<string>;
   mainFolder_id = '-1';
   subFolder_id: string;
@@ -112,7 +113,11 @@ appInputsArray = [];
     fileName: string;
     fileDescription: string;
   multipleFileUpload = false;
-
+  folderQuery: any = {
+    title: '',
+    serverUrl: '',
+    method: ''
+  };
   createPageSet(title: string, description: string) {
     this.action.type = 'page-set';
     this.action.title = title;
@@ -341,7 +346,7 @@ appInputsArray = [];
     this.folderService.showFolders(this.mainFolder_id)
       .subscribe(
         response => {
-          //console.log( (response as any).folders); // an array of subPages details'
+          // console.log( (response as any).folders); // an array of subPages details'
           this.foldersArray = (response as any).folders;
         }, error => {
           console.log( error );
@@ -360,10 +365,10 @@ appInputsArray = [];
     if (this.mainFolder_id === '-1') {
       this.files = [];
     } else {
-      //console.log(this.mainFolder_id);
+      // console.log(this.mainFolder_id);
       this.fileService.getFiles(this.mainFolder_id)
         .subscribe(transformedFiles => {
-          //console.log('transformed files: ' || transformedFiles);
+          // console.log('transformed files: ' || transformedFiles);
           this.files = transformedFiles;
           this.filesUpdated.next([...this.files]);
           this.dataSource = new MatTableDataSource(this.files);
@@ -507,9 +512,9 @@ appInputsArray = [];
      // console.log(this.mainFolder_id);
       this.folderService.getPageSets(this.mainFolder_id)
         .subscribe(response => {
-            //console.log( response); // an array of subPages details'
+            // console.log( response); // an array of subPages details'
             this.addedPageSets = [...response];
-          //console.log(this.addedPageSets);
+          // console.log(this.addedPageSets);
           }, error => {
             console.log( error );
           }
@@ -545,12 +550,12 @@ appInputsArray = [];
      if (this.mainFolder_id === '-1') {
       this.addedQueries = [];
      } else {
-       //console.log(this.mainFolder_id);
+       // console.log(this.mainFolder_id);
        this.folderService.getQueries(this.mainFolder_id)
          .subscribe(response => {
-             //console.log(response);
+             // console.log(response);
              this.addedQueries = [...response];
-             //console.log(this.addedQueries);
+             // console.log(this.addedQueries);
            }, error => {
              console.log(error);
            }
@@ -625,9 +630,33 @@ appInputsArray = [];
     });
   }
 
+  showAllFolderStructure() {
+    this.folderQuery.title = this.folderTitle;
+    this.folderQuery.serverUrl = environment.node + '/api/folder/getAllFilesAndFolders/' + this.mainFolder_id;
+    this.folderQuery.method = 'GET';
+    this.folderService.getAllFoldersAndFiles(this.mainFolder_id)
+      .subscribe(data => {
+        this.queriesService.createQuery(this.folderQuery).subscribe(result => {
+          console.log(result);
+          console.log(result.body.query);
+          console.log(this.folderTitle);
+          console.log(this.mainFolder_id);
+          this.editQuery(result.body.query);
+          this.addQueryToFolder({id: result.body.query._id, title: this.folderTitle});
+
+        });
+      });
+
+    // this.folderService.getAllFoldersAndFiles(this.mainFolder_id)
+    //   .subscribe(data => {
+    //     console.log(data);
+    //   });
+
+  }
+
   receiveOpenAppsInThisPage(openAppsInThisPage: any) {
     this.openAppsInThisPage = openAppsInThisPage;
-    //console.log(this.openAppsInThisPage);
+    // console.log(this.openAppsInThisPage);
   }
     receivePage( pageAndAction: any ) {
       this.page = pageAndAction[0];
@@ -646,14 +675,6 @@ appInputsArray = [];
      this.pageComponent.addAnotherApp(appType, true, name, this.file.urlPath, inputName);
   }
 
-  showAllFolderStructure() {
-    alert(environment.node + '/api/folder/getAllFilesAndFolders/' + this.mainFolder_id);
-    this.folderService.getAllFoldersAndFiles(this.mainFolder_id)
-      .subscribe(data => {
-        console.log(data);
-      });
-
-  }
   selectChosenApp(app: any) {
     this.chosenApp = app;
     this.appInputsArray = this.openAppsInThisPage[app.appType].inputs;
@@ -704,7 +725,7 @@ appInputsArray = [];
   }
   printFoldersTitle() {
     console.log('The Folder Path is: ', this.breadCrumbArray.length );
-    let titles = [];
+    const titles = [];
     this.breadCrumbArray.forEach(item => titles.push(item.title));
     console.log(titles);
   }

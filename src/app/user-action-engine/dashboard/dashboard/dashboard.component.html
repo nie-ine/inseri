@@ -78,7 +78,7 @@
                       <button mat-menu-item (click)="editAction( action )" >Change title or description</button>
                       <button mat-menu-item (click)="deleteAction( action )" >Delete project</button>
                       <button mat-menu-item (click)="markAsDone( action )" >Archive project</button>
-                      <button mat-menu-item (click)="downloadProjectAsFile( action )" >Export project</button>
+                      <button mat-menu-item (click)="exportProjectAsFile( action )" >Export project</button>
                     </mat-menu>
         <h4 class="service-heading">{{ action.title }}</h4>
         <p class="text-muted">{{ action.description }}</p>
@@ -100,7 +100,7 @@
           <button mat-menu-item (click)="editAction( action )" >Change title or description</button>
           <button mat-menu-item (click)="deleteAction( action )" >Delete project</button>
           <button mat-menu-item (click)="markAsDone( action )" >Archive project</button>
-          <button mat-menu-item (click)="downloadProjectAsFile( action )" >Export project</button>
+          <button mat-menu-item (click)="exportProjectAsFile( action )" >Export project</button>
         </mat-menu>
         <h4 class="service-heading">{{ action.title }}</h4>
         <p class="text-muted">{{ action.description }}</p>
