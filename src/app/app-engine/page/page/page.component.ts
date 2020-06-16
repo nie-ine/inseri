@@ -307,6 +307,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * Opens the data managment dialog where users can add queries to the page
    * */
   openDataManagement() {
+    // console.log( this.quer )
     const dialogRef = this.dialog.open(DataManagementComponent, {
       width: '80%',
       height: '80%',
@@ -651,6 +652,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
             .subscribe(data => {
               if (data.status === 201) {
                 const query = data.body.query;
+                this.page.queries.push( query._id );
                 this.requestService.createJson()
                   .subscribe(myOwnJson => {
                       const jsonId = (myOwnJson as any).result._id;
@@ -681,7 +683,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
                       this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'serverUrl' ] =
                         environment.node + '/api/myOwnJson/getJson/' + this.page.jsonId;
                       this.page.appInputQueryMapping[ app.hash ].app = app.hash;
-                      this.updatePage();
                     this.requestService.updateJson(
                       this.page.jsonId,
                       {
@@ -698,8 +699,11 @@ export class PageComponent implements OnInit, AfterViewChecked {
                       }
                     )
                       .subscribe(updatedJson => {
-                          // console.log(updatedJson);
+                        this.updatePage();
+                        setTimeout(() => {
+                          console.log( 'reload 702' );
                           this.reloadVariables = true;
+                        }, 200);
                         }, error => console.log(error)
                       );
                     }, error => {
@@ -747,7 +751,10 @@ export class PageComponent implements OnInit, AfterViewChecked {
                       environment.node + '/api/myOwnJson/getJson/' + this.page.jsonId;
                     this.page.appInputQueryMapping[ app.hash ].app = app.hash;
                     this.updatePage();
+                    setTimeout(() => {
+                      console.log( 'reload 753' );
                       this.reloadVariables = true;
+                    }, 200);
                     }, error => console.log(error)
                   );
               }, error => console.log( error )
@@ -869,7 +876,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.depth = input.depth;
     this.pathWithArray = input.pathWithArray;
     const dataAssignmentComponent = new DataAssignmentComponent();
-    console.log( this.index );
+    // console.log( this.index, input );
     if ( this.page && this.openAppsInThisPage && this.pathWithArray !== [] && this.index === 0 ) {
       // console.log( this.page );
       dataAssignmentComponent.startPathUpdateProcess(

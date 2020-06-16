@@ -3,6 +3,7 @@ import {HttpClient, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpRe
 import {Observable} from 'rxjs/Observable';
 import {environment} from '../../../../environments/environment';
 import {GenerateHashService} from '../../../user-action-engine/other/generateHash.service';
+import {MicroserviceService} from '../../../user-action-engine/mongodb/microservice/microservice.service';
 
 @Component({
   selector: 'app-json-environment',
@@ -17,13 +18,16 @@ export class JsonEnvironmentComponent implements OnChanges, HttpInterceptor {
   @ViewChild('editor') editor;
   serivceId = 'jsonEnvironment';
   display = JSON.parse( localStorage.getItem( this.serivceId ) );
+  output: any;
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private microserviceService: MicroserviceService
   ) {
   }
 
   ngOnChanges( changes: SimpleChanges ) {
-    console.log( 'changes', this.hash, this.assignedJson, this.pythonFile );
+    console.log( 'changes', this.hash, this.assignedJson );
+    localStorage.removeItem( this.serivceId );
     if ( this.hash && this.assignedJson ) {
       localStorage.setItem( this.serivceId, JSON.stringify({ hash: this.hash, json: this.assignedJson } ) );
     }
@@ -38,8 +42,7 @@ export class JsonEnvironmentComponent implements OnChanges, HttpInterceptor {
           }
         );
     }
-    else {
-      this.editor.text = this.pythonFile;
+    else { this.editor.text = this.pythonFile;
     }
   }
 
@@ -58,7 +61,7 @@ export class JsonEnvironmentComponent implements OnChanges, HttpInterceptor {
       if ( jsonEnvironmentSet.has( request.url ) ) {
         console.log( 'interceptor is triggered' );
         const body = jsonEnvironmentInstances;
-        // localStorage.removeItem( this.serivceId );
+        localStorage.removeItem( this.serivceId );
         return Observable.of(new HttpResponse({ status: 200, body: body }));
       } else {
         return next.handle(request);
@@ -67,4 +70,22 @@ export class JsonEnvironmentComponent implements OnChanges, HttpInterceptor {
       .materialize()
       .dematerialize();
   }
+
+  submitToMicroservice() {
+    // console.log( 'Submit to Microservice' );
+    const formData = new FormData();
+    formData.append( 'data', localStorage.getItem( this.serivceId ) );
+    formData.append( 'code', this.editor.text );
+    formData.append( 'd_name', 'yourData.json' );
+    formData.append( 'c_name', 'yourCode.py' );
+    this.microserviceService.postToMicroservice( this.serivceId, formData)
+      .subscribe(
+        data => {
+          // console.log( data );
+          this.output = data.body.output;
+        }
+        , error => console.log( error )
+      );
+  }
 }
+ // NOqTY

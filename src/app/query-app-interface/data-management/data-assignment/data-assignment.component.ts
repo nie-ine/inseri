@@ -81,7 +81,7 @@ export class DataAssignmentComponent implements OnChanges {
    * ngOnChages is triggered when a user chooses an entry in the data chooser
    * */
   ngOnChanges( changes: SimpleChanges ) {
-    // console.log( this.openAppsInThisPage );
+    // console.log( changes);
     this.firstChange = true;
     // console.log( changes );
       this.startPathUpdateProcess();
@@ -313,6 +313,7 @@ export class DataAssignmentComponent implements OnChanges {
       /**
        * If the whole json response is mapped to an app, the whole reponse is returned from this function
        * */
+        // console.log( path );
         if ( path[ 0 ] === 'wholeJsonResponseAssignedToThisAppInput' ) {
           return response;
         }

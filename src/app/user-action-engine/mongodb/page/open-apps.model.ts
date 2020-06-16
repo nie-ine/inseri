@@ -152,10 +152,7 @@ export class OpenAppsModel {
       model: [],
       inputs: [
         {
-          'inputName': 'assignedJson',
-          default: {
-            default: 'defaultValue'
-          }
+          'inputName': 'assignedJson'
         },
         {
           'inputName': 'pythonFile',
@@ -166,14 +163,14 @@ export class OpenAppsModel {
             '    with open(json_file, \'r\') as f:\n' +
             '        content = json.load(f)\n' +
             '\n' +
-            '    return content[\'message\']\n' +
+            '    return content\n' +
             '\n' +
             'if __name__ == "__main__":\n' +
             '    print(show_message("yourData.json"))'
         }
       ],
       materialIcon: 'input',
-      initialWidth: '375',
+      initialWidth: '800',
       initialHeight: '350'
     },
     audioPlayer: {

@@ -3,7 +3,7 @@
     Input
   </h3>
 
-  <pre style="min-height: 20rem; width: 400px;">{{display | json}}</pre>
+  <pre style="height: 20rem; width: 400px;">{{display | json}}</pre>
 </div>
 
 <div style="display: inline-block; float: right; width: 40%;" >
@@ -27,7 +27,9 @@
   Output:
 </h3>
 
-<button mat-button>
+<button mat-button (click)="submitToMicroservice()">
   Submit
 </button>
+
+<pre style="height: 20rem; width: 700px;">{{output | json}}</pre>
 
