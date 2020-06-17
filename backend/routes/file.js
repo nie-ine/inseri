@@ -55,18 +55,32 @@ router.post('/uploadZipFile', multer({storage: storage}).single("zip"), (req, re
   });
 });
 
-router.post('/singleFileUpload/:folderId', checkAuth, multer({storage: storage}).single("file"), (req, res, next) => { ///multer fn that expect a single file from the incoming req and will try to find an file property in the req body
-                                                                                                                       //console.log("printing the req filename "+req.body);
-  const file = new FileModel({
-    title: req.body.title,
-    description: req.body.description,
-    urlPath: req.protocol + "://" + req.get("host") + "/files/" + req.file.filename,
-    owner: req.userData.userId
-  });
-  console.log(file);
+router.post('/singleFileUpload/:folderId/:newFile', checkAuth, multer({storage: storage}).single("file"), (req, res, next) => { ///multer fn that expect a single file from the incoming req and will try to find an file property in the req body
+  let file = {};
+  console.log(req.body);
+  console.log(req.params);
+  console.log(req.file);
+  if (req.params.newFile==='false') {
+    file = new FileModel({
+      title: req.body.title,
+      description: req.body.description,
+      urlPath: req.protocol + "://" + req.get("host") + "/files/" + req.file.filename,
+      owner: req.userData.userId
+    });
+    console.log(file);
+  } else {
+    file = new FileModel({
+      title: req.body.title,
+      description: req.body.description,
+      urlPath: req.protocol + "://" + req.get("host") + "/files/" + Date.now() + "-" + req.body.title,
+      owner: req.userData.userId
+    });
+  }
+  //console.log("printing the req filename "+req.body);
   // console.log("Router post " + storage.getDestination + storage.getFilename());
   file.save().then(createdFile => {
     //console.log("post route" + file._id + " "+ storage.getFilename());
+    console.log(createdFile);
     console.log('here', req.userData.userId, req.params.folderId);
     Folder.updateOne({
         $and: [
@@ -77,17 +91,45 @@ router.post('/singleFileUpload/:folderId', checkAuth, multer({storage: storage})
       {$addToSet: {hasFiles: createdFile._id}})
       .then((updatedDocument) => {
         console.log(updatedDocument);
-        res.status(201).json({
-          message: "File added successfully",
-          file: {
-            id: createdFile._id,
-            title: createdFile.title,
-            description: createdFile.description,
-            urlPath: createdFile.urlPath
-            // ...createdFile, // spread opr to copy all properties of an obj and add/override some selected properties
-            // id: createdFile._id,
-          }
-        });
+        if (req.params.newFile==='true') {
+          let urlPath='backend'+file.urlPath.substring(file.urlPath.indexOf('/files/'));
+           //urlPath= req.protocol + "://" + req.get("host") + "/files/" + Date.now() + "-" + req.body.title+"backend/files/" + Date.now() + "-" + req.body.title;
+          fs.writeFile(urlPath, req.body.content, function (err) {
+            if (err) {
+              console.log(err);
+              res.status(500).json({
+                message: 'Creating File on Server failed',
+                error: error
+              });
+            }
+            console.log('File Created');
+            res.status(201).json({
+              message: "File created successfully",
+              file: {
+                id: createdFile._id,
+                title: createdFile.title,
+                description: createdFile.description,
+                urlPath: createdFile.urlPath
+                // ...createdFile, // spread opr to copy all properties of an obj and add/override some selected properties
+                // id: createdFile._id,
+              }
+            });
+          });
+        }
+        else{
+          console.log('File added');
+          res.status(201).json({
+            message: "File added successfully",
+            file: {
+              id: createdFile._id,
+              title: createdFile.title,
+              description: createdFile.description,
+              urlPath: createdFile.urlPath
+              // ...createdFile, // spread opr to copy all properties of an obj and add/override some selected properties
+              // id: createdFile._id,
+            }
+          });
+        }
       })
       .catch(error => {
         res.status(500).json({

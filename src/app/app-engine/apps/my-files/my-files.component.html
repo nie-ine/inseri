@@ -30,7 +30,7 @@
 <button *ngIf="mainFolder_id!='-1'" mat-button [matMenuTriggerFor]="menuMore"><mat-icon>more_horiz</mat-icon></button>
 <mat-menu #menuMore="matMenu">
   <button mat-menu-item [matMenuTriggerFor]="menuFile" matTooltip="File" >
-    <mat-icon>note_add</mat-icon>
+    <mat-icon>insert_drive_file</mat-icon>
   </button>
   <button mat-menu-item [matMenuTriggerFor]="menuPageSet" matTooltip="PageSet" >
     <mat-icon>file_copy</mat-icon>
@@ -47,8 +47,11 @@
 </mat-menu>
 <mat-spinner *ngIf="multipleFileUpload"></mat-spinner>
 <mat-menu #menuFile="matMenu">
-  <button mat-menu-item matTooltip="Add a File"(click)="filePicker.click();" >
+  <button mat-menu-item matTooltip="Create New File"(click)="showForm('UpdateFileForm'); createNewFileForm = true; showFileContent = true;" >
     <mat-icon>add</mat-icon>
+  </button>
+  <button mat-menu-item matTooltip="Add a File"(click)="filePicker.click();" >
+    <mat-icon>note_add</mat-icon>
   </button>
   <button mat-menu-item matTooltip="Add Multiple Files"(click)="filePicker2.click();" >
     <mat-icon>library_add</mat-icon></button>
@@ -143,7 +146,7 @@
     <mat-label>File Name</mat-label>
     <input matInput type="text" [(ngModel)]="fileName">
   </mat-form-field>
-  <mat-form-field class="example-form-field">
+  <mat-form-field *ngIf="!createNewFileForm" class="example-form-field">
     <!--mat-label>File Extension</mat-label-->
     <input matInput type="text" disabled value={{fileExtension}} />
   </mat-form-field>
@@ -158,8 +161,11 @@
     </textarea>
   </mat-form-field>
   <br>
-  <button mat-button (click)="updateFile(); showForm('');">
+  <button *ngIf="!createNewFileForm" mat-button (click)="updateFile(); showForm('');">
     Update
+  </button>
+  <button *ngIf="createNewFileForm" mat-button (click)="createNewFile(); showForm('');">
+    Create
   </button>
   <button mat-button (click)="showForm('');">
     Cancel

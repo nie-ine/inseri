@@ -120,6 +120,7 @@ appInputsArray = [];
     method: ''
   };
   showFileContent = false;
+  createNewFileForm = false;
   createPageSet(title: string, description: string) {
     this.action.type = 'page-set';
     this.action.title = title;
@@ -213,6 +214,7 @@ appInputsArray = [];
         // this.appMenuForm = false;
         this.createQueryForm = false;
         this.updateFileForm = false;
+        this.createNewFileForm = false;
     }
   }
   deleteFromBreadCrumb() {
@@ -311,41 +313,6 @@ appInputsArray = [];
           console.log( error );
         }
       );
-  }
-
-  addFiles( description: string, uploadedFiles: File[]) {
-    for (let i = 0; i < this.allFiles.length; i++) {
-      console.log(this.allFiles.controls[i].value.file.name);
-    }
-    console.log(this.allFiles);
-    console.log('calling filesService.addFiles');
-    console.log(description, uploadedFiles);
-    this.fileService.addFiles(
-      description, uploadedFiles, this.mainFolder_id
-// this.form.value.description,
-      // this.form.value.file,
-
-    ).subscribe(responseData => {
-      this.files.push(responseData.file);
-      this.filesUpdated.next([...this.files]);
-      this.showFiles();
-    });
-
-  }
-  addFile(title: string, description: string, uploadedFile: File ) {
-    this.fileService.addFile(title, description, uploadedFile, this.mainFolder_id)
-      .subscribe(responseData => {
-        console.log( responseData );
-        const file: FileModel = {
-          id: responseData.file.id,
-          title: title,
-          description: description,
-          urlPath: responseData.file.urlPath
-        };
-        this.uploadFileToFolder(file.id);
-        this.files.push(file);
-        this.filesUpdated.next([...this.files]);
-      }, error => console.log( error ));
   }
 
   showFolders () {
@@ -509,6 +476,7 @@ appInputsArray = [];
         );
     }
   }*/
+
 
 
   showPageSetsForFolder() {
@@ -692,7 +660,7 @@ appInputsArray = [];
     this.fileExtension = this.file.title.substring(this.file.title.lastIndexOf('.') + 1);
     console.log('update File');
     console.log(this.fileUrlPath);
-    //this.fileContent = this.file.content;
+    // this.fileContent = this.file.content;
     console.log('printing the file content: ' + this.fileContent);
     console.log(this.fileExtension);
     const newFileTitle = this.fileName + '.' + this.fileExtension;
@@ -715,7 +683,7 @@ appInputsArray = [];
       this.fileDescription = '';
         this.fileExtension = '';
         this.fileContent = '';
-        this.showFileContent=false;
+        this.showFileContent = false;
       this.showFiles();
     });
   }
@@ -733,6 +701,59 @@ appInputsArray = [];
       console.log(this.fileUrlPath);
     });
   }
+
+  addFiles( description: string, uploadedFiles: File[]) {
+    for (let i = 0; i < this.allFiles.length; i++) {
+      console.log(this.allFiles.controls[i].value.file.name);
+    }
+    console.log(this.allFiles);
+    console.log('calling filesService.addFiles');
+    console.log(description, uploadedFiles);
+    this.fileService.addFiles(
+      description, uploadedFiles, this.mainFolder_id
+// this.form.value.description,
+      // this.form.value.file,
+
+    ).subscribe(responseData => {
+      this.files.push(responseData.file);
+      this.filesUpdated.next([...this.files]);
+      this.showFiles();
+    });
+
+  }
+
+  addFile(title: string, description: string, uploadedFile: File ) {
+    this.fileService.addFile(title, description, this.mainFolder_id, uploadedFile )
+      .subscribe(responseData => {
+        console.log( responseData );
+        const file: FileModel = {
+          id: responseData.file.id,
+          title: title,
+          description: description,
+          urlPath: responseData.file.urlPath
+        };
+        this.uploadFileToFolder(file.id);
+        this.files.push(file);
+        this.filesUpdated.next([...this.files]);
+        this.showFiles();
+      }, error => console.log( error ));
+  }
+  createNewFile() {
+    this.fileService.addFile(this.fileName, this.fileDescription, this.mainFolder_id, null, this.fileContent)
+      .subscribe(responseData => {
+        console.log( responseData );
+        const file: FileModel = {
+          id: responseData.file.id,
+          title: this.fileName,
+          description: this.fileDescription,
+          urlPath: responseData.file.urlPath
+        };
+        this.uploadFileToFolder(file.id);
+        this.files.push(file);
+        this.filesUpdated.next([...this.files]);
+        this.showFiles();
+      }, error => console.log( error ));
+  }
   searchFiles(fileName: string, files: FileModel[], file: FileModel) {
     for (let i = 0; i < files.length; i++) {
       if (files[i].title === fileName && files[i].id !== file.id) {
@@ -747,9 +768,5 @@ appInputsArray = [];
     const titles = [];
     this.breadCrumbArray.forEach(item => titles.push(item.title));
     console.log(titles);
-  }
-
-  updateFileOnServer(urlPath: string, fileContent: string) {
-
   }
 }

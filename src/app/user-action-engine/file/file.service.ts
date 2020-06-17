@@ -65,21 +65,28 @@ export class FileService {
         // this.router.navigate(['app-our-new-component']);
   }*/
 
-
-
-  addFile(title: string, description: string, uploadedFile: File, folderId: string): Observable<any> {
+  addFile(title: string, description: string, folderId: string, uploadedFile?: File, content?: string): Observable<any> {
+    let newFile = false;
     // tslint:disable-next-line:max-line-length
     // const file: File = { id: null, title: title, description: description }; // we send an obj here in the body that will be auto converted to json, but json cannot include a file
     const fileData = new FormData(); // formData is a data format which allows us to combine txt values and blob
     fileData.append('title', title); // we append fields to it
     fileData.append('description', description);
+
     // tslint:disable-next-line:max-line-length
-    fileData.append('file', uploadedFile, uploadedFile.name); // the property we added in the files routes, the title is the file name I provide to the backend, which is the title the user entered for the file
-    console.log(' add file ' + title + description + uploadedFile.name);
+    // the property we added in the files routes, the title is the file name I provide to the backend, which is the title the user entered for the file
+    if (content) {
+      fileData.append('content', content);
+      newFile = true;
+    } else {
+      fileData.append('file', uploadedFile, uploadedFile.name);
+      console.log(' add file ' + title + description + uploadedFile.name);
+    }
     return this.http
       .post<{ message: string; file: FileModel }>(
-        `${FileService.API_BASE_URL_FILES}` + '/singleFileUpload/' + folderId,
+        `${FileService.API_BASE_URL_FILES}` + '/singleFileUpload/' + folderId + '/' + newFile, // false mean it is not a new file
         fileData
+        // {fileData: {fileData}, newFile: false, content: content}
       );
   }
   addFiles(description: string, files:  File[], folderId: string): Observable<any> {
