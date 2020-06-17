@@ -366,8 +366,8 @@ export class OpenAppsModel {
       type: 'stackedBarCharts',
       model: [],
       materialIcon: 'subtitles',
-      initialWidth: '375',
-      initialHeight: '350',
+      initialWidth: '700',
+      initialHeight: '400',
       inputs: [
         {
           'inputName': 'data',

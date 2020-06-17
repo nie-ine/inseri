@@ -52,6 +52,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
   @Input() openAppArrayIndex: number;
   @Input() pathsWithArrays: Array<any>;
   @Input() height: number;
+  @Input() openAppArray: Array<any>;
   @Output() sendAppCoordinatesBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendAppSettingsBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendIndexBack: EventEmitter<any> = new EventEmitter<any>();
@@ -121,7 +122,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
    * for example updated App - Settings or updated App - Title
    * */
   ngOnChanges( changes: SimpleChanges ) {
-    // console.log( 'change' );
+    // console.log( this.app );
     this.index = 0;
     this.width = this.produceHeightAndWidth( this.app.height,  this.app.initialHeight);
     this.height = this.produceHeightAndWidth( this.app.height,  this.app.initialHeight);
@@ -157,13 +158,21 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
       this.newDataChooserEntries = [];
       // console.log( this.dataChooserEntries );
       for ( const path of this.paths ) {
-        console.log( path.pathToValueInJson );
+        // console.log( path.pathToValueInJson );
         for ( let i = 0; i < this.dataChooserEntries.length; i++ ) {
+          // console.log( i );
+          for ( let j = 0; j < path.pathToValueInJson.length; j++ ) {
+            if ( typeof path.pathToValueInJson[ j ] === 'number' ) {
+              path.pathToValueInJson[ j ] = i;
+            }
+          }
+          // console.log( path.pathToValueInJson );
           this.newDataChooserEntries[ i ] = this.dataAssignmentComponent.generateAppinput(
             path.response,
             path.pathToValueInJson,
             i,
             0,
+            true,
             true
           );
           // console.log( this.newDataChooserEntries[ i ] );
@@ -182,7 +191,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
   }
 
   checkIfUrlIsImage(url: string) {
-    if ( url ) {
+    if ( url && typeof url === 'string') {
       return(
         url.match(/\.(jpeg|jpg|gif|png)$/) != null ||
         url.match(/(jpeg|jpg|gif|png)$/) != null

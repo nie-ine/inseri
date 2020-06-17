@@ -111,7 +111,7 @@ export class DataChooserComponent implements AfterViewChecked {
       });
     }
     if ( this.response ) {
-      console.log( 'send index back', this.response);
+      // console.log( 'send index back', this.response);
       this.sendIndexBack.emit( {
         index: index,
         response: this.response,

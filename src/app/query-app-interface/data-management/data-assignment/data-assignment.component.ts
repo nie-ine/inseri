@@ -295,10 +295,11 @@ export class DataAssignmentComponent implements OnChanges {
     path: any,
     index: number,
     depth: number,
-    firstArray: boolean // indicates, if the response as this input is the first array with length > 1
+    firstArray: boolean, // indicates, if the response as this input is the first array with length > 1
+    forExtendedSearch?: boolean
   ) {
     if ( response ) {
-      // console.log( path, response );
+      // console.log( index );
       if ( response[ path[ depth ] ] && response[ path[ depth ] ].length === 1 ) {
         // console.log( response[ path[ depth ] ], response, path, depth );
         return this.generateAppinput(
@@ -306,7 +307,8 @@ export class DataAssignmentComponent implements OnChanges {
           path,
           index,
           depth + 1,
-          true
+          true,
+          forExtendedSearch
         );
       }
 
@@ -341,7 +343,8 @@ export class DataAssignmentComponent implements OnChanges {
               path,
               index,
               depth + 1,
-              false
+              false,
+              forExtendedSearch
             );
           }
 
@@ -369,7 +372,8 @@ export class DataAssignmentComponent implements OnChanges {
               path,
               index,
               depth,
-              false
+              false,
+              forExtendedSearch
             );
           }
         } else if ( depth !== path.length && response[ path[ depth ] ] ) {
@@ -381,7 +385,19 @@ export class DataAssignmentComponent implements OnChanges {
            * if you have reached the right depth of the json, you can return the response
            * */
           if ( response[ path[ depth + 1 ] ] === undefined && depth === path.length - 1 ) {
-            return response[ path[ depth ] ];
+            // console.log( response['@id'] );
+            if (
+              response.height !== undefined &&
+              response.width !== undefined &&
+              forExtendedSearch &&
+              response['@id'].search('jp2') !== -1 ) {
+              // if you open extended search, display the iif images
+              const iiif = response['@id'] + '/full/full/0/default.jpg';
+              // console.log( iiif );
+              return iiif;
+            } else {
+              return response[ path[ depth ] ];
+            }
           } else {
             /**
              * otherwise you recursively invoke the current method to go one step further in the current json
@@ -393,7 +409,8 @@ export class DataAssignmentComponent implements OnChanges {
               path,
               index,
               depth + 1,
-              firstArray
+              firstArray,
+              forExtendedSearch
             );
           }
         } else if ( depth === path.length ) {
@@ -406,7 +423,8 @@ export class DataAssignmentComponent implements OnChanges {
             response[ path[ depth ] ],
             path, index,
             depth + 1,
-            firstArray
+            firstArray,
+            forExtendedSearch
           );
       }
     }

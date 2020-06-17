@@ -896,7 +896,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     if (  this.pathWithArray && this.pathWithArray.length > 0 ) {
       for ( const app of this.openAppArray ) {
         for ( const appInput in this.page.appInputQueryMapping[ app.hash ] ) {
-          console.log( 'here' );
+          // console.log( 'here' );
           if ( this.page.appInputQueryMapping[ app.hash ][ appInput ].query === this.queryId ) {
             let allSegmentsTheSame = true;
             for ( let i = 0; i < this.pathWithArray.length; i++ ) {
@@ -913,7 +913,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
                 if ( !app[ 'pathsWithArrays' ][ this.queryId ][ this.pathWithArray.toString() ] ) {
                   app[ 'pathsWithArrays' ][ this.queryId ][ this.pathWithArray.toString() ] = {};
                 }
-                console.log( input );
+                // console.log( input );
                 dataAssignmentComponent.startPathUpdateProcess(
                   this.queryId,
                   this.pathWithArray,

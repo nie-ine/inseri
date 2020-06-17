@@ -48,7 +48,7 @@ export class StackedBarChartComponent implements AfterViewChecked {
       this.initMargins();
       this.initSvg();
       this.drawChart(this.data.data);
-      }, 100);
+      }, 300);
     }
   }
 
