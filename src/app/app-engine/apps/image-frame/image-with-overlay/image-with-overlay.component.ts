@@ -168,9 +168,9 @@ export class ImageWithOverlayComponent implements OnInit, OnChanges, OnDestroy {
     console.log( 'Changes image with overlay', this.iiifImagePath, this.maxImageHeight, this.maxImageWidth );
     // if (this.maxImageHeight === undefined && this.maxImageWidth === undefined && this.iiifImagePath === undefined) {
     //   // default image for demonstration purpose
-    //   // this.iiifImagePath = 'https://www.e-manuscripta.ch/zuz/i3f/v20/1510618/full/full/50/default.jpg';
-    //   // this.maxImageWidth = 3062;
-    //   // this.maxImageHeight = 4034;
+    //   this.iiifImagePath = 'https://www.e-manuscripta.ch/zuz/i3f/v20/1510618/full/full/50/default.jpg';
+    //   this.maxImageWidth = 3062;
+    //   this.maxImageHeight = 4034;
     //   // as regions are optional, no default can be given
     // }
 
@@ -180,6 +180,8 @@ export class ImageWithOverlayComponent implements OnInit, OnChanges, OnDestroy {
         this.viewer.destroy();
         this.viewer = undefined;
       }
+
+      this.iiifImagePath += '/' + this.maxImageWidth + '/' + this.maxImageHeight + '/0/default.jpg';
 
       if ( this.iiifImagePath.search( '.j2k' ) !== -1 && this.iiifImagePath.search( 'jpg' ) === -1 ) {
 
