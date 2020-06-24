@@ -120,7 +120,7 @@ router.put('/:id', checkAuth, (req, res, next) => {
                         });
                     res.status(200).json({
                         token: token,
-                        expiresIn: '10800',
+                        expiresIn: '3600',
                         firstName: req.body.firstName,
                         userId: req.body.userId
                     });
@@ -549,7 +549,7 @@ router.post('/login', (req, res, next) => {
                 });
             res.status(200).json({
                 token: token,
-                expiresIn: '10800',
+                expiresIn: '3600',
                 firstName: fetchedUser.firstName,
                 userId: fetchedUser._id
             });

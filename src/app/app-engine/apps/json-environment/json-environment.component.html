@@ -14,11 +14,11 @@
   <ace-editor class="url-extension"
               #editor
               style="min-height: 20rem; overflow: auto; width: 400px;"
-              [mode]="'typescript'">
+              [mode]="'typescript'" (keyup)="updateCodeInLocalStorage()">
   </ace-editor>
 
-  <button mat-button>
-    Save Python Code
+  <button mat-button (click)="savePythonFile()" (click)="submitToMicroservice( true )" >
+    Save Python Code and Update dependent apps
   </button>
 
 </div>
@@ -27,7 +27,7 @@
   Output:
 </h3>
 
-<button mat-button (click)="submitToMicroservice()">
+<button mat-button (click)="submitToMicroservice( false )">
   Submit
 </button>
 

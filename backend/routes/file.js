@@ -225,6 +225,22 @@ router.get("/:id", (req, res, next) => {
   });
 });
 
+router.get("/getFileByUrl/:url", checkAuth, (req, res, next) => {
+  // console.log( 'here' );
+  FileModel.find({urlPath: req.params.url}).then(file => {
+    if (file) {
+      // console.log(file);
+      res.status(200).json(
+        {
+          message: "file found",
+          file: file[0]
+      });
+    } else {
+      res.status(404).json({message: "file not found!"});
+    }
+  });
+});
+
 router.post("/:id", checkAuth, (req, res, next) => {
   //let url = req.protocol + "://" + req.get("host")+"/";
   //url += "/files/" ;

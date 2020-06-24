@@ -13,7 +13,7 @@
   </mat-chip>
   <mat-menu #menu="matMenu">
     <button mat-menu-item (click)="openQueryEntry( input.inputName )" > Change current data </button>
-    <button mat-menu-item (click)="openExistingFileDialog( input.inputName )">Open other file</button>
+<!--    <button mat-menu-item (click)="openExistingFileDialog( input.inputName )">Open other file</button>-->
     <button mat-menu-item (click)="input.createNewFile = true" >Create new file</button>
     <button
       mat-menu-item matTooltip='To assign the input to an app to a query, please open the Data Management' (click)="onNoClick( 'openDataMGMT' )">

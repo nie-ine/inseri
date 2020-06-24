@@ -51,6 +51,12 @@ export class FileService {
     );
   }
 
+  getFileByUrl(url: string) {
+    return this.http.get<{ _id: string; title: string; description: string, content: string, urlPath: string }>(
+      `${FileService.API_BASE_URL_FILES}` + '/getFileByUrl/' + encodeURIComponent(url)
+    );
+  }
+
   /*addFiles(uploadedFiles: File[]) {
     const fileData = new FormData(); // formData is a data format which allows us to combine txt values and blob
     for (let i = 0; i < uploadedFiles.length; i++) {
