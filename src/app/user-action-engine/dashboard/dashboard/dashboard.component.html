@@ -13,12 +13,13 @@
 
         <h2 class="section-heading">Welcome, {{ userFirstName }}</h2>
 
-        <h3 class="section-subheading text-muted">Use inseri, the online collaborative work and publish environment for your purposes. <br>
+        <h3 class="section-subheading text-muted">Use inseri, the online collaborative work and publish environment for
+          your purposes. <br>
 
-          <mat-form-field style="margin-top: 30px" >
+          <mat-form-field style="margin-top: 30px">
             <mat-label>Show...</mat-label>
             <mat-select [(value)]="selected">
-              <mat-option (click)="showArchivedDocuments = false" (click)="showUserGroups = false"  value="option1">
+              <mat-option (click)="showArchivedDocuments = false" (click)="showUserGroups = false" value="option1">
                 projects
               </mat-option>
               <mat-option (click)="showUserGroups = true" value="option2">
@@ -30,13 +31,12 @@
               <mat-option (click)="openAllPagesDialog()">
                 All pages
               </mat-option>
-              <mat-option (click)="showArchivedDocuments = true" (click)="showUserGroups = false"  value="option3">
+              <mat-option (click)="showArchivedDocuments = true" (click)="showUserGroups = false" value="option3">
                 Archived projects
               </mat-option>
             </mat-select>
           </mat-form-field>
         </h3>
-
 
 
       </div>
@@ -49,8 +49,9 @@
       <div class="col-md-4" href="#portfolioModal1" style=" width: 230px; height: 300px; display: inline-block;">
 
         <span class="fa-stack fa-4x" style="cursor: pointer">
-         <i class="fa fa-circle fa-stack-2x text-primary" ></i>
-          <a (click)="openDialog()" ><i class="fa fa-plus fa-stack-1x fa-inverse" style="background-color: #4cae4c !important;"></i></a>
+         <i class="fa fa-circle fa-stack-2x text-primary"></i>
+          <a (click)="openDialog()"><i class="fa fa-plus fa-stack-1x fa-inverse"
+                                       style="background-color: #4cae4c !important;"></i></a>
         </span>
 
         <h4 class="service-heading">Create New</h4>
@@ -60,52 +61,60 @@
       </div>
 
 
-    <div *ngFor="let action of actions.slice().reverse(); let i = index">
-      <div
-        class="col-md-4"
-        href="#portfolioModal1"
-        *ngIf="!action.deleted && !action.isFinished && !showArchivedDocuments && !showUserGroups"
-        [ngStyle]="{'color': action.isFinished ? 'green' : 'black'}" style=" width: 230px; height: 300px; display: inline-block;" >
-                    <span class="fa-stack fa-4x" [matMenuTriggerFor]="appMenu" [ngSwitch]="action.type" style="cursor: pointer">
+      <div *ngFor="let action of actions.slice().reverse(); let i = index">
+        <div
+          class="col-md-4"
+          href="#portfolioModal1"
+          *ngIf="!action.deleted && !action.isFinished && !showArchivedDocuments && !showUserGroups"
+          [ngStyle]="{'color': action.isFinished ? 'green' : 'black'}"
+          style=" width: 230px; height: 300px; display: inline-block;">
+                    <span class="fa-stack fa-4x" [matMenuTriggerFor]="appMenu" [ngSwitch]="action.type"
+                          style="cursor: pointer">
                       <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                      <i *ngSwitchCase="'page-set'" class="fa fa-lightbulb-o fa-stack-1x fa-inverse" ></i>
-                      <i *ngSwitchCase="'page'" class="fa fa-file-o fa-stack-1x fa-inverse" ></i>
-                      <i *ngSwitchDefault class="fa fa-question fa-stack-1x fa-inverse" ></i>
+                      <i *ngSwitchCase="'page-set'" class="fa fa-lightbulb-o fa-stack-1x fa-inverse"></i>
+                      <i *ngSwitchCase="'page'" class="fa fa-file-o fa-stack-1x fa-inverse"></i>
+                      <i *ngSwitchDefault class="fa fa-question fa-stack-1x fa-inverse"></i>
                     </span>
-                    <mat-menu #appMenu="matMenu">
-                      <button mat-menu-item (click)="continueAction( action )" >Go to project</button>
-                      <button mat-menu-item (click)="goToDocumentIndex( action )" *ngIf="action.type === 'page-set'">Go to project index</button>
-                      <button mat-menu-item (click)="editAction( action )" >Change title or description</button>
-                      <button mat-menu-item (click)="deleteAction( action )" >Delete project</button>
-                      <button mat-menu-item (click)="markAsDone( action )" >Archive project</button>
-                      <button mat-menu-item (click)="exportProjectAsZip( action )" >Export project</button>
-                    </mat-menu>
-        <h4 class="service-heading">{{ action.title }}</h4>
-        <p class="text-muted">{{ action.description }}</p>
-      </div>
-      <div
-        class="col-md-4"
-        href="#portfolioModal1"
-        *ngIf="!action.deleted && action.isFinished && showArchivedDocuments && !showUserGroups"
-        [ngStyle]="{'color': action.isFinished ? 'green' : 'black'}" style=" width: 230px; height: 300px; display: inline-block;" >
-                    <span class="fa-stack fa-4x" [matMenuTriggerFor]="appMenu" [ngSwitch]="action.type" style="cursor: pointer">
+          <mat-menu #appMenu="matMenu">
+            <button mat-menu-item (click)="continueAction( action )">Go to project</button>
+            <button mat-menu-item (click)="goToDocumentIndex( action )" *ngIf="action.type === 'page-set'">Go to project
+              index
+            </button>
+            <button mat-menu-item (click)="editAction( action )">Change title or description</button>
+            <button mat-menu-item (click)="deleteAction( action )">Delete project</button>
+            <button mat-menu-item (click)="markAsDone( action )">Archive project</button>
+            <button mat-menu-item (click)="exportProjectAsZip( action )">Export project</button>
+          </mat-menu>
+          <h4 class="service-heading">{{ action.title }}</h4>
+          <p class="text-muted">{{ action.description }}</p>
+        </div>
+        <div
+          class="col-md-4"
+          href="#portfolioModal1"
+          *ngIf="!action.deleted && action.isFinished && showArchivedDocuments && !showUserGroups"
+          [ngStyle]="{'color': action.isFinished ? 'green' : 'black'}"
+          style=" width: 230px; height: 300px; display: inline-block;">
+                    <span class="fa-stack fa-4x" [matMenuTriggerFor]="appMenu" [ngSwitch]="action.type"
+                          style="cursor: pointer">
                       <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                      <i *ngSwitchCase="'page-set'" class="fa fa-lightbulb-o fa-stack-1x fa-inverse" ></i>
-                      <i *ngSwitchCase="'page'" class="fa fa-file-o fa-stack-1x fa-inverse" ></i>
-                      <i *ngSwitchDefault class="fa fa-question fa-stack-1x fa-inverse" ></i>
+                      <i *ngSwitchCase="'page-set'" class="fa fa-lightbulb-o fa-stack-1x fa-inverse"></i>
+                      <i *ngSwitchCase="'page'" class="fa fa-file-o fa-stack-1x fa-inverse"></i>
+                      <i *ngSwitchDefault class="fa fa-question fa-stack-1x fa-inverse"></i>
                     </span>
-        <mat-menu #appMenu="matMenu">
-          <button mat-menu-item (click)="continueAction( action )" >Go to project</button>
-          <button mat-menu-item (click)="goToDocumentIndex( action )" *ngIf="action.type === 'page-set'">Go to project index</button>
-          <button mat-menu-item (click)="editAction( action )" >Change title or description</button>
-          <button mat-menu-item (click)="deleteAction( action )" >Delete project</button>
-          <button mat-menu-item (click)="markAsDone( action )" >Archive project</button>
-          <button mat-menu-item (click)="exportProjectAsZip( action )" >Export project</button>
-        </mat-menu>
-        <h4 class="service-heading">{{ action.title }}</h4>
-        <p class="text-muted">{{ action.description }}</p>
+          <mat-menu #appMenu="matMenu">
+            <button mat-menu-item (click)="continueAction( action )">Go to project</button>
+            <button mat-menu-item (click)="goToDocumentIndex( action )" *ngIf="action.type === 'page-set'">Go to project
+              index
+            </button>
+            <button mat-menu-item (click)="editAction( action )">Change title or description</button>
+            <button mat-menu-item (click)="deleteAction( action )">Delete project</button>
+            <button mat-menu-item (click)="markAsDone( action )">Archive project</button>
+            <button mat-menu-item (click)="exportProjectAsZip( action )">Export project</button>
+          </mat-menu>
+          <h4 class="service-heading">{{ action.title }}</h4>
+          <p class="text-muted">{{ action.description }}</p>
+        </div>
       </div>
-    </div>
 
       <div *ngFor="let usergroup of userGroups.slice().reverse(); let i = index">
         <div
@@ -120,8 +129,8 @@
                     </span>
           <mat-menu #appMenu="matMenu">
             <button mat-menu-item (click)="showGroupMembers( usergroup.title )">Show group members</button>
-            <button mat-menu-item >Change title or description</button>
-            <button mat-menu-item >Delete user group</button>
+            <button mat-menu-item>Change title or description</button>
+            <button mat-menu-item>Delete user group</button>
           </mat-menu>
           <h4 class="service-heading">{{ usergroup.title }}</h4>
           <p class="text-muted">{{ usergroup.description }}</p>
@@ -139,20 +148,23 @@
     <div class="row">
       <div class="col-lg-12 text-center">
         <h2 class="section-heading">Fragen Sie uns</h2>
-        <h3 class="section-subheading text-muted">Wenn Sie Hilfe bei der Benutzung brauchen oder auch bei Rückmeldungen aller Art.</h3>
+        <h3 class="section-subheading text-muted">Wenn Sie Hilfe bei der Benutzung brauchen oder auch bei Rückmeldungen
+          aller Art.</h3>
       </div>
     </div>
     <div class="row">
       <div class="col-lg-12">
-          <div class="row">
-            <div class="form-group">
-              <textarea class="form-control" placeholder="Ihre Nachricht" [(ngModel)]="message" name="message"></textarea>
-            </div>
-            <div class="col-lg-12 text-center">
-              <button class="btn btn-xl" (click)="sendMessage()">Nachricht abschicken</button> <br>
-              <h5 style="color: #4dc71f !important; margin-top: 20px" *ngIf="successfullySendMessage">Vielen Dank für die Nachricht! Die Rückmeldung erfolgt in Kürze per Email.</h5>
-            </div>
+        <div class="row">
+          <div class="form-group">
+            <textarea class="form-control" placeholder="Ihre Nachricht" [(ngModel)]="message" name="message"></textarea>
           </div>
+          <div class="col-lg-12 text-center">
+            <button class="btn btn-xl" (click)="sendMessage()">Nachricht abschicken</button>
+            <br>
+            <h5 style="color: #4dc71f !important; margin-top: 20px" *ngIf="successfullySendMessage">Vielen Dank für die
+              Nachricht! Die Rückmeldung erfolgt in Kürze per Email.</h5>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -168,7 +180,8 @@
       <div class="col-md-4">
         <ul class="list-inline social-buttons">
           <li><a href="http://www.nie-ine.ch"><i class="fa fa-users"></i></a>
-          </li> - About us
+          </li>
+          - About us
         </ul>
       </div>
       <div class="col-md-4">

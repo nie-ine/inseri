@@ -477,8 +477,6 @@ appInputsArray = [];
     }
   }*/
 
-
-
   showPageSetsForFolder() {
     if (this.mainFolder_id === '-1') {
       this.addedPageSets = [];
