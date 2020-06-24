@@ -103,7 +103,7 @@ router.put('/updateFile/:id', checkAuth, (req, res, next) => {
     {_id: req.params.id},
     {
       content: {
-        info: req.body.textFile
+        info: req.body
       }
     }, {
       returnNewDocument: true

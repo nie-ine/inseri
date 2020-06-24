@@ -163,7 +163,9 @@ export class CanvasWhiteboardComponent implements AfterViewInit, OnChanges {
   save() {
     this.requestService.updateFile(
       this.appInputQueryMapping[ this.hash ][ 'textFile' ][ 'serverUrl' ].split('/')[ 6 ], {
-        textFile: JSON.stringify(this.textFile)
+        [this.hash]: {
+          textFile: JSON.stringify(this.textFile)
+        }
       }
       ).subscribe(
         data => {

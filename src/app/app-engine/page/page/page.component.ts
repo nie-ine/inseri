@@ -721,7 +721,12 @@ export class PageComponent implements OnInit, AfterViewChecked {
           this.requestService.get(  environment.node + '/api/myOwnJson/getJson/' + this.page.jsonId, undefined, undefined )
             .subscribe(
               myOwnJsonResponse => {
-                existingInputs = myOwnJsonResponse.body.result.content.info;
+                console.log( myOwnJsonResponse );
+                if ( myOwnJsonResponse.body.result.content ) {
+                  existingInputs = myOwnJsonResponse.body.result.content.info;
+                } else {
+                  existingInputs = {};
+                }
                 // console.log( existingInputs );
                 if ( existingInputs[app.hash] === undefined ) {
                   existingInputs[app.hash] = {};

@@ -23,6 +23,7 @@ export class PrimeEditorComponent implements OnChanges {
   ) { }
 
   ngOnChanges() {
+    console.log( this.textFile );
     this.editor.text = this.textFile;
     this.safeHtml = this.domSanitizer.bypassSecurityTrustHtml(this.textFile);
   }
@@ -50,7 +51,13 @@ export class PrimeEditorComponent implements OnChanges {
 
   save() {
     this.requestService.updateFile(
-      this.appInputQueryMapping[ this.hash ][ 'textFile' ][ 'serverUrl' ].split('/')[ 6 ], { textFile: this.textFile} )
+      this.appInputQueryMapping[ this.hash ][ 'textFile' ][ 'serverUrl' ].split('/')[ 6 ],
+      {
+        [this.hash]: {
+          textFile: this.textFile
+        }
+      }
+        )
       .subscribe(
         data => {
           console.log( data );
