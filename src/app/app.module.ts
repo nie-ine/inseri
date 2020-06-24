@@ -7,6 +7,8 @@ import {environment} from '../environments/environment';
 import {HttpClientModule, HTTP_INTERCEPTORS, HttpClient} from '@angular/common/http';
 import {AuthService} from './user-action-engine/mongodb/auth/auth.service';
 import { JsonEnvironmentComponent } from './app-engine/apps/json-environment/json-environment.component';
+import { FormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -16,7 +18,9 @@ import { JsonEnvironmentComponent } from './app-engine/apps/json-environment/jso
   imports: [
     BrowserModule,
     CoreModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    MatSelectModule
   ],
   providers: [
     // provider used to create fake backend
