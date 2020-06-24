@@ -12,6 +12,7 @@ const SubPage = require("../models/sub-page");
 let JSZip = require("jszip");
 let FileSaver = require('file-saver');
 const fs = require('fs');
+let MyOwnJson = require("../models/myOwnJson");
 
 // let MyBlobBuilder = function () {
 //   this.parts = [];
@@ -378,6 +379,8 @@ router.get("/downloadProject/:actionId", checkAuth, (req, res, next) => {
     }).then(actionResults => {
     let message;
     let action = actionResults[0];
+   // console.log("actionResults");
+   // console.log(actionResults);
     if (actionResults.length === 0) {
       message = 'The action couldn\'t be found';
       console.log(message);
@@ -388,6 +391,7 @@ router.get("/downloadProject/:actionId", checkAuth, (req, res, next) => {
         returnedObj.action=JSON.stringify(action);
         PageSet.find({_id: action.hasPageSet}).then(pageSetResult => {
           let pageSet=JSON.stringify(pageSetResult[0]);
+        //  console.log(pageSetResult);
           if (pageSetResult.length === 0) {
             message = 'PageSet not found';
             console.log(message);
@@ -401,6 +405,7 @@ router.get("/downloadProject/:actionId", checkAuth, (req, res, next) => {
                   pagesResult[i].queries.forEach(item => {queryIds.push(item)});
                 }
               }
+            //  console.log(pages);
               returnedObj.pages=(JSON.stringify(pages));
               if (queryIds.length === 0) {
                 return res.status(200).json({
@@ -439,10 +444,56 @@ router.get("/downloadProject/:actionId", checkAuth, (req, res, next) => {
     });
 });
 
+function getFiles(arrayOfFilePaths, returnedObj, res, req) {
+  let fileUrlPaths=[];
+  arrayOfFilePaths.forEach(x=>{ x= x.substring(1).substring(0,x.length-2);
+                                fileUrlPaths.push(x);});
+  returnedObj.arrayOfFilePaths=arrayOfFilePaths;
+  FileModel.find({urlPath: {$in: fileUrlPaths}}).then(filesResult => {
+    console.log(filesResult);
+    returnedObj.files=JSON.stringify(filesResult);
+    //if (arrayOfFilePaths.length === 0) {
+      return res.status(200).json({
+        message: 'Created Zip File successfully that has JSON results',
+        returnedObj: returnedObj
+      });
+    //}
+  }).catch(error => {
+    res.status(500).json({
+      message: 'MyOwnJson is not found',
+      error: error,
+      returnedObj: returnedObj
+    })
+  })
+}
+
+function getJsonIds(filesJsonIds, returnedObj, res, req) {
+  let regexString = '"'+req.protocol+'://'+req.get("host")+'/files/'+'[^"]+"';
+  let regex= new RegExp(regexString,"g");
+  MyOwnJson.find({_id: {$in: filesJsonIds}}).then(jsonResults => {
+    returnedObj.jsonIds=JSON.stringify(jsonResults);
+    let arrayOfFilePaths = returnedObj.jsonIds.match(regex);
+    if (arrayOfFilePaths.length === 0) {
+      return res.status(200).json({
+        message: 'Created Zip File successfully that has JSON results',
+        returnedObj: returnedObj
+      });
+    }
+      getFiles(arrayOfFilePaths, returnedObj,res,req);
+  }).catch(error => {
+    res.status(500).json({
+      message: 'MyOwnJson is not found',
+      error: error,
+      returnedObj: returnedObj
+    })
+  })
+}
+
 function getQueriesFromPages(queryIds, returnedObj, res,req) {
   let queries=[];
   Query.find({_id: {$in: queryIds}}).then(queriesResult => {
     let filesJsonIds=[];
+   // console.log(queriesResult);
     for (let i = 0; i < queriesResult.length; i++) {
       queries.push(queriesResult[i]);
       const path = req.protocol + "://" + req.get("host")+'/api/myOwnJson/getJson/';
@@ -454,10 +505,13 @@ function getQueriesFromPages(queryIds, returnedObj, res,req) {
       }
     }
     returnedObj.queries=JSON.stringify(queries);
-    return res.status(200).json({
-      message: 'Created Zip File successfully',
-      returnedObj: returnedObj
-    });
+    if (filesJsonIds.length === 0) {
+      return res.status(200).json({
+        message: 'Created Zip File successfully that has no files',
+        returnedObj: returnedObj
+      });
+    }
+    getJsonIds(filesJsonIds, returnedObj, res,req);
   }).catch(error => {
     res.status(500).json({
       message: 'Queries not found',
