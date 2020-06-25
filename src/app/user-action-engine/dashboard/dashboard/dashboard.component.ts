@@ -21,6 +21,7 @@ import {FileService} from '../../file/file.service';
 import {forEach} from '@angular/router/src/utils/collection';
 import {PageSetService} from '../../mongodb/pageset/page-set.service';
 import * as JSZipUtils from 'jszip-utils';
+
 // import * as Fs from 'fs';
 
 @Component({
@@ -53,8 +54,6 @@ export class DashboardComponent implements OnInit {
    * Describes if user is logged in
    * */
   loggedIn = true;
-
-
 
 
   constructor(
@@ -321,25 +320,26 @@ export class DashboardComponent implements OnInit {
   }
 
   exportProjectAsFile(action: Action) {
-        this.fileService.downloadProject(action.id)
-          .subscribe(data => {
-            console.log(data);
-            const a = document.createElement('a');
-            document.body.appendChild(a);
-            a.setAttribute('display', 'none');
-            const projectElementsArray = JSON.stringify({
-                                                                action: data.returnedObj.action,
-                                                                pageSet: data.returnedObj.pageSet,
-                                                                pages: data.returnedObj.pages,
-                                                                queries: data.returnedObj.queries});
-            const blob = new Blob([projectElementsArray], {type: 'octet/stream'}),
-              url = window.URL.createObjectURL(blob);
-            a.href = url;
-            a.download = 'project_' + action.title + '.txt';
-            a.click();
-            window.URL.revokeObjectURL(url);
-          });
-    }
+    this.fileService.downloadProject(action.id)
+      .subscribe(data => {
+        console.log(data);
+        const a = document.createElement('a');
+        document.body.appendChild(a);
+        a.setAttribute('display', 'none');
+        const projectElementsArray = JSON.stringify({
+          action: data.returnedObj.action,
+          pageSet: data.returnedObj.pageSet,
+          pages: data.returnedObj.pages,
+          queries: data.returnedObj.queries
+        });
+        const blob = new Blob([projectElementsArray], {type: 'octet/stream'}),
+          url = window.URL.createObjectURL(blob);
+        a.href = url;
+        a.download = 'project_' + action.title + '.txt';
+        a.click();
+        window.URL.revokeObjectURL(url);
+      });
+  }
 
   exportProjectAsZip(action: Action) {
     console.log(action.id);
@@ -351,9 +351,8 @@ export class DashboardComponent implements OnInit {
           document.body.appendChild(a);
           a.setAttribute('display', 'none');
           const zip = new JSZip();
-          let count =0;
-          // zip.file('http:/localhost:3000/files/1590578841729-download%20(2)%20copy.jpeg');
-          zip.file( 'action.json', data.returnedObj.action);
+          let numOfFiles = 0;
+          zip.file('action.json', data.returnedObj.action);
           zip.file('pageSet.json', data.returnedObj.pageSet);
           zip.file('pages.json', data.returnedObj.pages);
           if (data.returnedObj.queries) {
@@ -362,61 +361,34 @@ export class DashboardComponent implements OnInit {
               zip.file('JSONFile.json', data.returnedObj.jsonIds);
               if (data.returnedObj.files) {
                 zip.file('files.json', data.returnedObj.files);
-                count= data.returnedObj.arrayOfFilePaths.length;
-                console.log(count);
+                numOfFiles = data.returnedObj.arrayOfFilePaths.length;
                 if (data.returnedObj.arrayOfFilePaths) {
                   const files = zip.folder('files');
-                  // let jszipUtils = new JSZipUtils();
-                  for (let index = 0; index < data.returnedObj.arrayOfFilePaths.length; index++) {
-                    let url = data.returnedObj.arrayOfFilePaths[index];
-                    // data.returnedObj.arrayOfFilePaths.forEach(url => {
-                      console.log(url);
-                      // let filePath  = './backend' + url.substring(url.indexOf('/files/' ));
-                      // console.log(filePath);
-                      // filePath = filePath.split(' ').join('%20');
-                      url = url.split(' ').join('%20');
-                      url = url.split('"').join('');
-                      console.log(url);
-                      // console.log(filePath);
-                      // loading a file and add it in a zip file
-                      // filePath = 'http://localhost:3000/files/1592478472673-Second%20File%20test.txt';
-                      // console.log(filePath);
-                    //files.file('test.txt', 'helloworld');
-                    console.log(files);
-                      JSZipUtils.getBinaryContent(url, function (err, data) {
-                        if (err) {
-                          throw err; // or handle the error
-                        }
-
-                        console.log(data);
-                        let filename = url.substr(url.indexOf('-') + 1);
-                        filename = filename.split('%20').join(' ');
-                        console.log(filename);
-                        // zip.file('files/' + filename, data, {binary: true});
-
-                         files.file(filename, data, {binary: true});
-                        console.log(files);
-                        count--;
-                        console.log(count);
-                        // if (count === 0) {
-                        //  // const zipFile = zip.generate({type: 'blob'});
-                        //  // saveAs(zipFile, zipFilename);
-                        //   zip.generateAsync({type: 'blob'}).then(function(content) {
-                        //     FileSaver.saveAs(content, 'Project_' + action.title + '.zip');
-                        //   });
-                        // }
-                      });
+                  for (let i = 0; i < data.returnedObj.arrayOfFilePaths.length; i++) {
+                    let url = data.returnedObj.arrayOfFilePaths[i];
+                    url = url.split(' ').join('%20');
+                    url = url.split('"').join('');
+                    JSZipUtils.getBinaryContent(url, function (err, data) {
+                      if (err) {
+                        throw err; // or handle the error
+                      }
+                      let filename = url.substr(url.indexOf('-') + 1);
+                      filename = filename.split('%20').join(' ');
+                      files.file(filename, data, {binary: true});
+                      //console.log(files);
+                      numOfFiles--;
+                    });
                   }
                 }
               }
             }
           }
 
-          const timeout = setInterval(function() {
-            console.log(count);
-            if ( count === 0) {
+          const timeout = setInterval(function () {
+            console.log(numOfFiles);
+            if (numOfFiles === 0) {
               clearInterval(timeout);
-              zip.generateAsync({type: 'blob'}).then(function(content) {
+              zip.generateAsync({type: 'blob'}).then(function (content) {
                 FileSaver.saveAs(content, 'Project_' + action.title + '.zip');
               });
             }
@@ -510,11 +482,11 @@ export class DialogOverviewExampleDialog {
     let action, pageSet, pages, queries;
     let counter = 0;
     JSZip.loadAsync(zipFile)
-      .then(function(zip) {
+      .then(function (zip) {
         zip.forEach(function (relativePath, zipEntry) {
           console.log(zipEntry);
           console.log(relativePath);
-          zip.file(relativePath).async('text').then(function(content) {
+          zip.file(relativePath).async('text').then(function (content) {
             if (relativePath === 'action.json') {
               action = JSON.parse(JSON.parse(JSON.stringify(content)));
               console.log(action);
@@ -527,7 +499,7 @@ export class DialogOverviewExampleDialog {
               pages = JSON.parse(JSON.parse(JSON.stringify(content)));
               console.log(pages);
               counter++;
-            } else if (relativePath === 'queries.json' ) {
+            } else if (relativePath === 'queries.json') {
               if (content.length > 0) {
                 queries = JSON.parse(JSON.parse(JSON.stringify(content)));
                 console.log(queries);
@@ -539,7 +511,7 @@ export class DialogOverviewExampleDialog {
       });
     let isFinished = false;
     const mainObject = this;
-    const timeout = setInterval(function() {
+    const timeout = setInterval(function () {
       console.log(counter);
       if (!isFinished && counter === 4) {
         clearInterval(timeout);
@@ -554,6 +526,7 @@ export class DialogOverviewExampleDialog {
       }
     }, 100);
   }
+
   importProjectAsFile($event: Event) {
     let project = {};
     const file = (event.target as HTMLInputElement).files[0];
@@ -565,7 +538,7 @@ export class DialogOverviewExampleDialog {
       fileReader.onload = (e) => {
         this.action = JSON.parse(fileReader.result.toString());
         project = JSON.parse(fileReader.result.toString());
-        const detailsArray = Object.entries(project).map((e) => ( { [e[0]]: e[1] } ));
+        const detailsArray = Object.entries(project).map((e) => ({[e[0]]: e[1]}));
         // console.log(detailsArray);
         // console.log('the action is');
         // console.log(this.action);
@@ -585,14 +558,14 @@ export class DialogOverviewExampleDialog {
           // console.log(detailsArray['action']);
         }
         console.log(action, pageSet, pages, queries);
-        console.log( 'calling the create Project function');
+        console.log('calling the create Project function');
         this.actionService.createProject(action, pageSet, pages, queries)
           .subscribe((actionResult) => {
             if (action.type === 'page-set') {
               this.pageSet = ['pageSet', action._id];
             }
-             this.dialogRef.close(this.pageSet);
-           });
+            this.dialogRef.close(this.pageSet);
+          });
 
         // console.log(fileReader.result);
       };
