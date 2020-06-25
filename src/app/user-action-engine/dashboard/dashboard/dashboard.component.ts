@@ -21,7 +21,7 @@ import {FileService} from '../../file/file.service';
 import {forEach} from '@angular/router/src/utils/collection';
 import {PageSetService} from '../../mongodb/pageset/page-set.service';
 import * as JSZipUtils from 'jszip-utils';
-// import * as Fs from 'fs';
+import * as Fs from 'fs';
 
 @Component({
   selector: 'app-dashboard',
