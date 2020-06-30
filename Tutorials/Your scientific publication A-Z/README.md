@@ -175,8 +175,8 @@ Since June 2020, the applications in Inseri are arranged into the categories fol
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-06/Tutorials/Your%20scientific%20publication%20A-Z/0.%20Introduction/LV7.png" alt="Logic of Inseri Applications" width="700"></p>
 
-<p>The Admin group is self-explantory.</p>
-<p>The "Add" and "Enrich" steps have two linked groups of applications, in which WebApps, linked to the step "Add" allow to play the web content or address the data from the existing webpages. The templates for adressing E-codices or KNORA are further to be found here.
+<p>The Admin group is self-explanatory.</p>
+<p>The "Add" and "Enrich" steps have two linked groups of applications, in which WebApps, linked to the step "Add" allow to play the web content or address the data from the existing webpages. The templates for adressing E-codices or KNORA or other RESTful APIS are further to be found here.
 Group of applications called "Add, Enrich and manage Data" is linked to to both steps "Add" and "Enrich", and it includes uploading files from the desktop, commenting upon them, tagging and working with spreadsheets.</p>
 <p>Various kinds of Data analysis, including SWT and Machine Reasoning sessions will be possible to do "live" via "Microservices" group of applications.</p>
 <p>The results of "Analysis" can be directly visualised in "Visualise" group, including some 19 apps.</p>
