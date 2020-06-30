@@ -33,6 +33,7 @@ import {AddAppGroupDialogComponent} from '../add-app-group-dialog/add-app-group-
 import {DataAssignmentComponent} from '../../../query-app-interface/data-management/data-assignment/data-assignment.component';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {PageListDialogComponent} from '../page-list-dialog/page-list-dialog.component';
+import {OverlayContainer} from '@angular/cdk/overlay';
 
 @Component({
   selector: 'nie-os',
@@ -46,7 +47,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * */
   displayedColumns: string[] = ['id', 'name', 'tags', 'status'];
 
-  responsiveColumns: string[] = ['id', 'name'];
+  responsiveColumns: string[] = ['id'];
 
   /**
    * this variable instantiates the MatTableDataSource used for the inseri app menu
@@ -210,6 +211,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   showInseriLogoOnPublish = false;
   showAppSettingsOnPublish = false;
   showDataBrowserOnPublish = true;
+  theme = 'none';
 
   openAppArray = [];
 
@@ -249,6 +251,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   nothAlreadyQueryAppPathGenerated = new Set();
 
+
+  appMenuModel= new AppMenuModel().appMenu
+
   slogans = [
     'Where you can gather information',
     'It\'s pretty cloudy in the cloud',
@@ -277,7 +282,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
     public snackBar: MatSnackBar,
     public snackBar2: MatSnackBar,
     private authService: AuthService,
-    private queryService: QueryService
+    private queryService: QueryService,
+    private overlayContainer: OverlayContainer
   ) {
     this.route.queryParams.subscribe(params => {
       this.hashOfThisPage = params.page;
@@ -374,6 +380,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
     }
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+
+    this.overlayContainer.getContainerElement().classList.add(this.theme); // overlay so dropdown of themes is not affected by styles
+
 
     /**
      * Creates home page
@@ -1224,6 +1233,12 @@ export class PageComponent implements OnInit, AfterViewChecked {
           }, error => console.log( error )
         );
     });
+  }
+
+  onThemeChange() {
+    const chosenTheme = this.theme === 'none' ? 'dark-theme' : 'none';
+    this.theme = chosenTheme;
+    localStorage.setItem( 'theme', chosenTheme );
   }
 
 }

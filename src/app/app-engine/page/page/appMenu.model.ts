@@ -7,7 +7,8 @@ export class AppMenuModel {
       status: 'stable',
       appType: 'login',
       description: 'Login or create an account',
-      showOnHome: true
+      showOnHome: true,
+      appGroup: 'admin'
     },
     {
       id: 'aspect_ratio',
@@ -17,7 +18,8 @@ export class AppMenuModel {
       status: 'stable',
       appType: 'htmlViewer',
       description: 'It displays HTML snippets and applies externally defined styles to the view.',
-      showOnHome: false
+      showOnHome: false,
+      appGroup: 'visualise'
     },
     {
       id: 'input',
@@ -27,7 +29,8 @@ export class AppMenuModel {
       status: 'stable',
       appType: 'jsonEnvironment',
       description: 'Microservice for json manipulations',
-      showOnHome: false
+      showOnHome: false,
+      appGroup: 'microservice'
     },
     {
       id: 'audiotrack',
@@ -37,7 +40,8 @@ export class AppMenuModel {
       status: 'stable',
       appType: 'audioPlayer',
       description: 'Play your audiofiles',
-      showOnHome: false
+      showOnHome: false,
+      appGroup: 'application'
     },
     {
       id: 'folder',
@@ -47,7 +51,19 @@ export class AppMenuModel {
       status: 'under development',
       appType: 'myFiles',
       description: 'files, folders and queries',
-      showOnHome: false
+      showOnHome: false,
+      appGroup: 'add'
+    },
+    {
+      id: 'format_size',
+      name: 'Text Editor',
+      tags: 'primefaces, quill',
+      color: 'green',
+      status: 'stable',
+      appType: 'primeEditor',
+      description: 'Write and Save text on a page',
+      showOnHome: true,
+      appGroup: 'add'
     },
     {
       id: 'short_text',
@@ -57,7 +73,8 @@ export class AppMenuModel {
       status: 'stable',
       appType: 'textlistViewers',
       description: undefined,
-      showOnHome: false
+      showOnHome: false,
+      appGroup: 'visualise'
     },
     {
       id: 'format_paint',
@@ -67,38 +84,42 @@ export class AppMenuModel {
       status: 'stable',
       appType: 'paint',
       description: undefined,
-      showOnHome: true
+      showOnHome: true,
+      appGroup: 'visualise'
     },
-    {
-      id: 'line_style',
-      name: 'SVG-Transcription',
-      tags: 'diplomatic transcription, text',
-      color: 'orange',
-      status: 'under development',
-      appType: 'svgTranscription',
-      description: ' SVG transcription with exact word positions',
-      showOnHome: false
-    },
-    {
-      id: 'view_week',
-      name: 'Parzival - Fassung',
-      tags: 'synopsis, text, version',
-      color: 'green',
-      status: 'stable',
-      appType: 'parzivalFassung',
-      description: 'Project specific App for the Parzival Project - Open more than one app of this type to test it!',
-      showOnHome: false
-    },
-    {
-      id: 'turned_in',
-      name: 'AVP-Edition',
-      tags: 'synopsis, text, version',
-      color: 'orange',
-      status: 'under development',
-      appType: 'avpEditionView',
-      description: 'Project specific App for the AVP Project',
-      showOnHome: false
-    },
+    // {
+    //   id: 'line_style',
+    //   name: 'SVG-Transcription',
+    //   tags: 'diplomatic transcription, text',
+    //   color: 'orange',
+    //   status: 'under development',
+    //   appType: 'svgTranscription',
+    //   description: ' SVG transcription with exact word positions',
+    //   showOnHome: false,
+    //   appGroup: 'visualise'
+    // },
+    // {
+    //   id: 'view_week',
+    //   name: 'Parzival - Fassung',
+    //   tags: 'synopsis, text, version',
+    //   color: 'green',
+    //   status: 'stable',
+    //   appType: 'parzivalFassung',
+    //   description: 'Project specific App for the Parzival Project - Open more than one app of this type to test it!',
+    //   showOnHome: false,
+    //   appGroup: 'visualise'
+    // },
+    // {
+    //   id: 'turned_in',
+    //   name: 'AVP-Edition',
+    //   tags: 'synopsis, text, version',
+    //   color: 'orange',
+    //   status: 'under development',
+    //   appType: 'avpEditionView',
+    //   description: 'Project specific App for the AVP Project',
+    //   showOnHome: false,
+    //   appGroup: 'visualise'
+    // },
     {
       id: 'album',
       name: 'OpenBis Login',
@@ -107,7 +128,8 @@ export class AppMenuModel {
       status: 'stable',
       appType: 'openbisLogin',
       description: 'Set token for OpenBis',
-      showOnHome: false
+      showOnHome: false,
+      appGroup: 'admin'
     },
     {
       id: 'image',
@@ -117,7 +139,8 @@ export class AppMenuModel {
       status: 'stable',
       appType: 'imageViewer',
       description: 'Display and zoom in images',
-      showOnHome: false
+      showOnHome: false,
+      appGroup: 'visualise'
     },
     {
       id: 'add_photo_alternate',
@@ -127,7 +150,8 @@ export class AppMenuModel {
       status: 'stable',
       appType: 'simpleImageApp',
       description: 'Display simple images',
-      showOnHome: false
+      showOnHome: false,
+      appGroup: 'visualise'
     },
     {
       id: 'view_list',
@@ -137,7 +161,8 @@ export class AppMenuModel {
       status: 'stable',
       appType: 'dataListView',
       description: 'Display simple images',
-      showOnHome: false
+      showOnHome: false,
+      appGroup: 'visualise'
     },
     {
       id: 'subdirectory_arrow_right',
@@ -147,7 +172,8 @@ export class AppMenuModel {
       status: 'stable',
       appType: 'treeNavigation',
       description: ' This app can be combined with apps for resource view.',
-      showOnHome: false
+      showOnHome: false,
+      appGroup: 'visualise'
     },
     {
       id: 'video_library',
@@ -157,7 +183,8 @@ export class AppMenuModel {
       status: 'stable',
       appType: 'youtubeVideo',
       description: ' You can embed youtube - videos in this app.',
-      showOnHome: true
+      showOnHome: true,
+      appGroup: 'application'
     },
     {
       id: 'art_track',
@@ -167,7 +194,8 @@ export class AppMenuModel {
       status: 'under development',
       appType: 'synopsisViewer',
       description: 'Open and compare different images and text',
-      showOnHome: false
+      showOnHome: false,
+      appGroup: 'application'
     },
     {
       id: 'spa',
@@ -177,7 +205,8 @@ export class AppMenuModel {
       status: 'stable',
       appType: 'jsonViewer',
       description: 'This app visualizes json objects as a tree.',
-      showOnHome: false
+      showOnHome: false,
+      appGroup: 'visualise'
     },
     {
       id: 'bar_chart',
@@ -187,7 +216,8 @@ export class AppMenuModel {
       status: 'under development',
       appType: 'barCharts',
       description: 'To define data with two dimensions',
-      showOnHome: false
+      showOnHome: false,
+      appGroup: 'visualise'
     },
     {
       id: 'show_chart',
@@ -197,7 +227,8 @@ export class AppMenuModel {
       status: 'under development',
       appType: 'lineCharts',
       description: 'To define data with two dimensions',
-      showOnHome: false
+      showOnHome: false,
+      appGroup: 'visualise'
     },
     {
       id: 'insert_chart_outlined',
@@ -207,7 +238,8 @@ export class AppMenuModel {
       status: 'under development',
       appType: 'brushZoomCharts',
       description: 'To define data with two dimensions',
-      showOnHome: false
+      showOnHome: false,
+      appGroup: 'visualisation'
     },
     {
       id: 'add_location',
@@ -217,7 +249,8 @@ export class AppMenuModel {
       status: 'under development',
       appType: 'leafletMaps',
       description: 'Visualize data on maps',
-      showOnHome: false
+      showOnHome: false,
+      appGroup: 'visualise'
     },
     {
       id: 'pie_chart',
@@ -227,7 +260,8 @@ export class AppMenuModel {
       status: 'under development',
       appType: 'pieCharts',
       description: 'To visualise subsets',
-      showOnHome: false
+      showOnHome: false,
+      appGroup: 'visualise'
     },
     {
       id: 'multiline_chart',
@@ -237,7 +271,8 @@ export class AppMenuModel {
       status: 'under development',
       appType: 'radialBarCharts',
       description: 'For two dimensional data',
-      showOnHome: false
+      showOnHome: false,
+      appGroup: 'visualise'
     },
     {
       id: 'linear_scale',
@@ -247,7 +282,8 @@ export class AppMenuModel {
       status: 'under development',
       appType: 'sankeyCharts',
       description: ' To display dependent data',
-      showOnHome: false
+      showOnHome: false,
+      appGroup: 'visualise'
     },
     {
       id: 'subtitles',
@@ -257,7 +293,8 @@ export class AppMenuModel {
       status: 'under development',
       appType: 'stackedBarCharts',
       description: 'To display grouped sets',
-      showOnHome: false
+      showOnHome: false,
+      appGroup: 'visualise'
     },
     {
       id: 'all_out',
@@ -267,38 +304,42 @@ export class AppMenuModel {
       status: 'under development',
       appType: 'chordDiagrams',
       description: 'To compare intensity of connections',
-      showOnHome: false
+      showOnHome: false,
+      appGroup: 'visualise'
     },
-    {
-      id: 'add_to_queue',
-      name: 'Resource Creation',
-      tags: 'knora, data entry',
-      color: 'orange',
-      status: 'under development',
-      appType: 'createResourceForm',
-      description: 'With this app you can create data in Knora.',
-      showOnHome: false
-    },
-    {
-      id: 'web',
-      name: 'Edit Resource',
-      tags: 'knora, data manipulation',
-      color: 'orange',
-      status: 'under development',
-      appType: 'editResourceForm',
-      description: 'With this app you can change data in Knora and see the history of given properties.',
-      showOnHome: false
-    },
-    {
-      id: 'web',
-      name: 'Nested Resource Viewer',
-      tags: 'knora',
-      color: 'orange',
-      status: 'under development',
-      appType: 'knoraV2viewer',
-      description: 'With this app you can easily look at a Knora resource.',
-      showOnHome: false
-    },
+    // {
+    //   id: 'add_to_queue',
+    //   name: 'Knora Resource Creation',
+    //   tags: 'knora, data entry',
+    //   color: 'orange',
+    //   status: 'under development',
+    //   appType: 'createResourceForm',
+    //   description: 'With this app you can create data in Knora.',
+    //   showOnHome: false,
+    //   appGroup: 'add'
+    // },
+    // {
+    //   id: 'web',
+    //   name: 'Knora Edit Resource',
+    //   tags: 'knora, data manipulation',
+    //   color: 'orange',
+    //   status: 'under development',
+    //   appType: 'editResourceForm',
+    //   description: 'With this app you can change data in Knora and see the history of given properties.',
+    //   showOnHome: false,
+    //   appGroup: 'add'
+    // },
+    // {
+    //   id: 'web',
+    //   name: 'Nested Resource Viewer',
+    //   tags: 'knora',
+    //   color: 'orange',
+    //   status: 'under development',
+    //   appType: 'knoraV2viewer',
+    //   description: 'With this app you can easily look at a Knora resource.',
+    //   showOnHome: false,
+    //   appGroup: 'visualise'
+    // },
     {
       id: 'aspect_ratio',
       name: 'Joined Text View',
@@ -307,7 +348,8 @@ export class AppMenuModel {
       status: 'under development',
       appType: 'joinedTextView',
       description: 'Map text resources to blocks, lines and words and show them as HTML',
-      showOnHome: false
+      showOnHome: false,
+      appGroup: 'visualise'
     },
     {
       id: 'drag_indicator',
@@ -317,7 +359,8 @@ export class AppMenuModel {
       status: 'stable',
       appType: 'sparqlVisualizer',
       description: 'Visualize Ontologies and RDF/RDFS/Owl data',
-      showOnHome: true
+      showOnHome: true,
+      appGroup: 'application'
     },
     {
       id: 'camera_enhance',
@@ -327,28 +370,19 @@ export class AppMenuModel {
       status: 'deprecated',
       appType: 'salsah2',
       description: 'Predecessor of Kuirl / SUID',
-      showOnHome: true
-    }
-    ,
-    {
-      id: 'format_size',
-      name: 'Text Editor',
-      tags: 'primefaces, quill',
-      color: 'green',
-      status: 'stable',
-      appType: 'primeEditor',
-      description: 'Write and Save text on a page',
-      showOnHome: true
+      showOnHome: true,
+      appGroup: 'application'
     },
     {
       id: 'subdirectory_arrow_right',
-      name: 'Hierarchical navigation with dynamic loading',
+      name: 'Hierarchical navigation',
       tags: 'knora, navigation',
       color: 'orange',
       status: 'under development',
       appType: 'hierarchicalNavigationView',
       description: 'Map resources in a graph to a navigation tree.',
-      showOnHome: false
+      showOnHome: false,
+      appGroup: 'visualise'
     },
     {
       id: 'table_chart',
@@ -358,7 +392,8 @@ export class AppMenuModel {
       status: 'under development',
       appType: 'spreadSheet',
       description: 'Your spreadsheet',
-      showOnHome: true
+      showOnHome: true,
+      appGroup: 'add'
     },
     {
       id: 'book',
@@ -368,7 +403,8 @@ export class AppMenuModel {
       status: 'stable',
       appType: 'webern',
       description: 'Anton Webern App',
-      showOnHome: true
+      showOnHome: true,
+      appGroup: 'application'
     },
     {
       id: 'book',
@@ -378,7 +414,8 @@ export class AppMenuModel {
       status: 'stable',
       appType: 'iframe',
       description: 'iframe',
-      showOnHome: false
+      showOnHome: false,
+      appGroup: 'application'
     },
     {
       id: 'book',
@@ -388,7 +425,8 @@ export class AppMenuModel {
       status: 'stable',
       appType: 'raeber',
       description: 'raeber app',
-      showOnHome: true
+      showOnHome: true,
+      appGroup: 'application'
     },
     {
       id: 'horizontal_split',
@@ -398,7 +436,8 @@ export class AppMenuModel {
       status: 'stable',
       appType: 'urlUpdate',
       description: 'urlUpdate',
-      showOnHome: false
+      showOnHome: false,
+      appGroup: 'application'
     },
     {
       id: 'horizontal_split',
@@ -408,7 +447,8 @@ export class AppMenuModel {
       status: 'stable',
       appType: 'pdfViewer',
       description: 'pdfViewer',
-      showOnHome: false
+      showOnHome: false,
+      appGroup: 'application'
     },
     {
       id: 'select_all',
@@ -418,7 +458,8 @@ export class AppMenuModel {
       status: 'stable',
       appType: 'keyValue',
       description: 'keyValue',
-      showOnHome: false
+      showOnHome: false,
+      appGroup: 'visualise'
     },
     {
       id: 'open_in_browser',
@@ -428,7 +469,8 @@ export class AppMenuModel {
       status: 'stable',
       appType: 'browserling',
       description: 'browserling',
-      showOnHome: false
+      showOnHome: false,
+      appGroup: 'application'
     },
     {
       id: 'book',
@@ -438,7 +480,8 @@ export class AppMenuModel {
       status: 'stable',
       appType: 'gndSubscriber',
       description: 'gnd',
-      showOnHome: false
+      showOnHome: false,
+      appGroup: 'application'
     },
     {
       id: 'leak_add',
@@ -448,7 +491,8 @@ export class AppMenuModel {
       status: 'under development',
       appType: 'urlParamUpdater',
       description: 'gnd',
-      showOnHome: false
+      showOnHome: false,
+      appGroup: 'application'
     }
   ];
 }

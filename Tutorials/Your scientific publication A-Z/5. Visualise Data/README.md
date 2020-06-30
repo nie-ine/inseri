@@ -74,7 +74,7 @@ The modified part of Json is now as follows:
 
 Before closing, it is an absolute must to click on "Save and update Json object."
 
-Having clicked on save and reload, we obtain the following result:
+Having clicked on "Save and reload", we obtain the following result:
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/5V.07.png" alt="Number of images per country" width="900"></p>
 
 Finally, the user can try to find better scale options by simply modifying the number in "Scale Bar Chart" above. It is also possible  to rename the whole, so it is not called a "Bar Chart", but a real name. In order to do this, the user should click on the "Bar Chart", and select the first option, which is "Title and size", and simply give the Chart a new name and save it.
@@ -112,7 +112,7 @@ Let us open a Stacked Bar Chart, as before (see Bar Chart above.)
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/5.%20Visualise%20Data/5V.10.png" alt="Stacked Bar Chart, view on opening" width="500"></p>
 
 Let us modify the Json by the same steps as we did in Bar Chart above.
-Here is the preset Json:
+Here is the pre-set Json:
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/5.%20Visualise%20Data/5V.11.png" alt="Original Json" width="500"></p>
 
 Here we need to 
@@ -122,10 +122,12 @@ Here we need to
 * add the numerical data to each of the subpart of each column.
 
 Resulting Json (part):
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/5.%20Visualise%20Data/5V.12.png" alt="Modified Json (part)" width="500"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-06/Tutorials/Your%20scientific%20publication%20A-Z/5.%20Visualise%20Data/5V.12.png" alt="Modified Json (part)" width="500"></p>
 
 And here is the resulting Stacked Bar Chart after renaming:
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/5.%20Visualise%20Data/5V.13.png" alt="Final Stacked Bar Chart" width="900"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-06/Tutorials/Your%20scientific%20publication%20A-Z/5.%20Visualise%20Data/5V.13.png" alt="Final Stacked Bar Chart" width="900"></p>
+
+Please note that Stacked Bar Chart rearranges the data as of 2020.06.30, from the biggest to the smallest automatically. I.e. whatever is given first in JSON, the Inseri will display the column with the biggest numbers/biggest number of subsections.
 
 ### 5.1.3 Pie Chart
 
@@ -156,5 +158,6 @@ The final Pie Chart, after renaming and some rearrangements of the parts of the 
 The trick to make parts visible, if they are of very unequal size, like in our example, is the following. Let us imagine the Pie Chart as a clock, and the first part of the pie that we script in Json starts at midnight. Knowing that, the user should arrange the slices of the data in such a way, that the smallest are placed between 2 and 4 a.m. Then their labels are better visible.
 Another suggestion, is to alternate the slightly bigger and the smaller slices in that 2-4 a.m. range.
 
+As of June 2020, if a page uses more than one visualisation app, all of them can be updated via the modification of one and the same JSON file, i.e. in JSON the user will see a single JSON including all trees used on the page, which also makes definitely easier to copy-paste the pieces of repeating information.
 
 ## 5.2. Apps which are external, but useful

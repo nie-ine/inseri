@@ -20,11 +20,9 @@ export class AppComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.overlayContainer.getContainerElement().classList.add(this.theme); // overlay so dropdown of themes is not affected by styles
+    // console.log( localStorage.getItem( 'theme' ) );
+    // this.overlayContainer.getContainerElement()
+    //   .classList.add( localStorage.getItem( 'theme' ) ); // overlay so dropdown of themes is not affected by styles
     this.authService.autoAuthUser();
-  }
-
-  onThemeChange() {
-    this.overlayContainer.getContainerElement().classList.add(this.theme);
   }
 }

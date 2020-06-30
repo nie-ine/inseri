@@ -5130,6 +5130,11 @@ jsprim@^1.2.2:
     json-schema "0.2.3"
     verror "1.10.0"
 
+jszip-utils@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/jszip-utils/-/jszip-utils-0.1.0.tgz#8c04cdedcdb291e83f055f5b261b3a3188ceca0b"
+  integrity sha512-tBNe0o3HAf8vo0BrOYnLPnXNo5A3KsRMnkBFYjh20Y3GPYGfgyoclEMgvVchx0nnL+mherPi74yLPIusHUQpZg==
+
 jszip@^3.1.3:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/jszip/-/jszip-3.2.2.tgz#b143816df7e106a9597a94c77493385adca5bd1d"

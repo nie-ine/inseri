@@ -12,6 +12,7 @@ export class PdfViewerComponent implements OnChanges {
   constructor() { }
 
   ngOnChanges() {
+    this.page = 0;
     console.log( this.page, this.source, this.pdfLength );
   }
 
