@@ -171,7 +171,13 @@ If you resize manually the browser window size, the applications will rearrange 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/0.%20Introduction/LV6.png" alt="Reduced browser window in Windows mode" width="700"></p>
 
 <h2>0.1.5. Applications in Inseri</h2>
-Since June 2020, the application in Inseri are arranged into the categories, following the logic of the major steps within a research project. These steps have been outlined above, at the beginning of the Introduction. Here we shall simply bring together the steps and a group or groups of applications.
+Since June 2020, the application in Inseri are arranged into the categories, following the logic of the major steps within a research project. These steps have been outlined above, at the beginning of the Introduction. Here we shall simply bring together the steps and a group or groups of applications, because the scholar point of view and developer's one arrange data in slightly different logic.
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-06/Tutorials/Your%20scientific%20publication%20A-Z/0.%20Introduction/LV7.png" alt="Logic of Inseri Applications" width="700"></p>
 
+<p>The Admin group is self-explantory.</p>
+<p>The "Add" and "Enrich" steps have two linked groups of applications, in which WebApps, linked to "Add" allow to play the web content or address the data from the existing webpages. The templates for addessing e-codices or KNORA are further to be found here.
+Groups "Add, Enrich and manage Data" is linked to to both "Add" and "Enrich", and it includes uploading files from the desktop, commenting upon them, tagging and working with spreadsheets.</p>
+<p>Various kind of Data analysis, including SWT and Machine Reasoning sessions will be possible to do "live" via "Microservices" group of applications.</p>
+<p>The results of "Analysis" can be directly visualised in some "Visualise" group, including some 19 apps.</p>
+<p>The "Publish" step with a corresponding group of application enables the  Web publishing, with other kinds of output being under development.</p>
