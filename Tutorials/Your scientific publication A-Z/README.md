@@ -171,7 +171,7 @@ If you resize manually the browser window size, the applications will rearrange 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/0.%20Introduction/LV6.png" alt="Reduced browser window in Windows mode" width="700"></p>
 
 <h2>0.1.5. Applications in Inseri</h2>
-Since June 2020, the application in Inseri are arranged into the categories, following the logic of the major steps within a research project. These steps have been outlined above, at the beginning of introduction. Here we shall simply bring together the steps and a group or groups of applications.
+Since June 2020, the application in Inseri are arranged into the categories, following the logic of the major steps within a research project. These steps have been outlined above, at the beginning of the Introduction. Here we shall simply bring together the steps and a group or groups of applications.
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-06/Tutorials/Your%20scientific%20publication%20A-Z/0.%20Introduction/LV7.png" alt="Logic of Inseri Applications" width="700"></p>
 
