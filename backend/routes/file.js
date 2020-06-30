@@ -384,7 +384,7 @@ router.post("/deleteFiles/:fileId&:folderId", (req, res, next) => {
 
 router.get("/downloadProject/:actionId", checkAuth, (req, res, next) => {
   let queryIds = [];
-  let returnedObj={action: {}, pageSet: {}, pages:{}, queries: []};
+  let returnedObj={};//{action: {}, pageSet: {}, pages:{}, queries: []};
   Action.find({creator: req.userData.userId, _id: req.params.actionId})
     .populate('hasPage')
     .populate({
@@ -423,6 +423,7 @@ router.get("/downloadProject/:actionId", checkAuth, (req, res, next) => {
               }
             //  console.log(pages);
               returnedObj.pages=(JSON.stringify(pages));
+              returnedObj.oldHostUrl=req.protocol+'://'+req.get('host');
               if (queryIds.length === 0) {
                 return res.status(200).json({
                   message: 'Created Zip File successfully that has no queries',
@@ -484,7 +485,7 @@ function getFiles(arrayOfFilePaths, returnedObj, res, req) {
 }
 
 function getJsonIds(filesJsonIds, returnedObj, res, req) {
-  let regexString = '"'+req.protocol+'://'+req.get("host")+'/files/'+'[^"]+"';
+  let regexString = '"'+returnedObj.oldHostUrl+'/files/'+'[^"]+"';
   let regex= new RegExp(regexString,"g");
   MyOwnJson.find({_id: {$in: filesJsonIds}}).then(jsonResults => {
     returnedObj.jsonIds=JSON.stringify(jsonResults);
@@ -512,7 +513,7 @@ function getQueriesFromPages(queryIds, returnedObj, res,req) {
    // console.log(queriesResult);
     for (let i = 0; i < queriesResult.length; i++) {
       queries.push(queriesResult[i]);
-      const path = req.protocol + "://" + req.get("host")+'/api/myOwnJson/getJson/';
+      const path = returnedObj.oldHostUrl+'/api/myOwnJson/getJson/';
 
       ////{"content.info": {$regex: /http:\/\/localhost:3000\/.*/, $options: 'i'}}
       if(queriesResult[i].serverUrl.startsWith(path)){

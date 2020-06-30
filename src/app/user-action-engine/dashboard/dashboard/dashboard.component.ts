@@ -355,6 +355,7 @@ export class DashboardComponent implements OnInit {
           zip.file('action.json', data.returnedObj.action);
           zip.file('pageSet.json', data.returnedObj.pageSet);
           zip.file('pages.json', data.returnedObj.pages);
+          zip.file('oldHostUrl.txt', data.returnedObj.oldHostUrl );
           if (data.returnedObj.queries) {
             zip.file('queries.json', data.returnedObj.queries);
             if (data.returnedObj.jsonIds) {
@@ -362,6 +363,7 @@ export class DashboardComponent implements OnInit {
               if (data.returnedObj.files) {
                 zip.file('files.json', data.returnedObj.files);
                 numOfFiles = data.returnedObj.arrayOfFilePaths.length;
+
                 if (data.returnedObj.arrayOfFilePaths) {
                   const files = zip.folder('files');
                   for (let i = 0; i < data.returnedObj.arrayOfFilePaths.length; i++) {
@@ -372,13 +374,16 @@ export class DashboardComponent implements OnInit {
                       if (err) {
                         throw err; // or handle the error
                       }
-                      let filename = url.substr(url.indexOf('-') + 1);
+                      console.log(url);
+                      let filename = url.substr(url.indexOf('/files/') + 7);
+                      console.log(filename);
                       filename = filename.split('%20').join(' ');
                       files.file(filename, data, {binary: true});
-                      //console.log(files);
+                      // console.log(files);
                       numOfFiles--;
                     });
                   }
+
                 }
               }
             }
@@ -388,7 +393,9 @@ export class DashboardComponent implements OnInit {
             console.log(numOfFiles);
             if (numOfFiles === 0) {
               clearInterval(timeout);
+              console.log(zip);
               zip.generateAsync({type: 'blob'}).then(function (content) {
+
                 FileSaver.saveAs(content, 'Project_' + action.title + '.zip');
               });
             }
@@ -399,6 +406,7 @@ export class DashboardComponent implements OnInit {
     }
   }
 }
+
 
 @Component({
   selector: 'dialog-overview-example-dialog',
@@ -478,45 +486,80 @@ export class DialogOverviewExampleDialog {
 
   importProjectAsZip($event: Event) {
     const zipFile = (event.target as HTMLInputElement).files[0];
-    // const fileReader = new FileReader();
-    let action, pageSet, pages, queries;
+    let action, pageSet, pages, queries, allFiles, jsonQueries, oldHostUrl;
+    let projectFiles = [];
     let counter = 0;
     JSZip.loadAsync(zipFile)
       .then(function (zip) {
+        console.log(zip.files);
+        allFiles = Object.entries(zip.files);
+        console.log(allFiles);
+        counter = allFiles.length - 1;
         zip.forEach(function (relativePath, zipEntry) {
           console.log(zipEntry);
           console.log(relativePath);
-          zip.file(relativePath).async('text').then(function (content) {
-            if (relativePath === 'action.json') {
-              action = JSON.parse(JSON.parse(JSON.stringify(content)));
-              console.log(action);
-              counter++;
-            } else if (relativePath === 'pageSet.json') {
-              pageSet = JSON.parse(JSON.parse(JSON.stringify(content)));
-              console.log(pageSet);
-              counter++;
-            } else if (relativePath === 'pages.json') {
-              pages = JSON.parse(JSON.parse(JSON.stringify(content)));
-              console.log(pages);
-              counter++;
-            } else if (relativePath === 'queries.json') {
-              if (content.length > 0) {
-                queries = JSON.parse(JSON.parse(JSON.stringify(content)));
-                console.log(queries);
+          if (!zipEntry.dir) {
+            zip.file(relativePath).async('text').then(function (content) {
+              if (relativePath === 'action.json') {
+                action = JSON.parse(JSON.parse(JSON.stringify(content)));
+                console.log(action);
+                counter--;
+                console.log(' action ' + counter);
+              } else if (relativePath === 'pageSet.json') {
+                pageSet = JSON.parse(JSON.parse(JSON.stringify(content)));
+                console.log(pageSet);
+                counter--;
+                console.log('pageSet ' + counter);
+              } else if (relativePath === 'pages.json') {
+                pages = JSON.parse(JSON.parse(JSON.stringify(content)));
+                console.log(pages);
+                counter--;
+                console.log('pages ' + counter);
+              } else if (relativePath === 'queries.json') {
+                if (content.length > 0) {
+                  queries = JSON.parse(JSON.parse(JSON.stringify(content)));
+                  console.log(queries);
+                }
+                counter--;
+                console.log('queries ' + counter);
+              } else if (relativePath === 'JSONFile.json') {
+                if (content.length > 0) {
+                  jsonQueries = JSON.parse(JSON.parse(JSON.stringify(content)));
+                  console.log(jsonQueries);
+                }
+                counter--;
+                console.log(' JSON File ' + counter);
+              } else if (relativePath === 'oldHostUrl.txt') {
+                if (content.length > 0) {
+                  oldHostUrl = content;
+                  console.log(oldHostUrl);
+                  counter--;
+                  console.log('old host url ' + counter);
+                }
+              } else {
+                zip.file(relativePath).async('blob').then(function (content) {
+                  console.log(relativePath);
+                  projectFiles.push(new File([content], relativePath.substr(6)));
+                  console.log(projectFiles);
+                });
+                counter--;
+                console.log('project Files ' + relativePath.substr(6) + ' ' + counter);
               }
-              counter++;
-            }
-          });
+            });
+          } else {
+            counter--;
+            console.log(counter);
+          }
         });
       });
     let isFinished = false;
     const mainObject = this;
     const timeout = setInterval(function () {
       console.log(counter);
-      if (!isFinished && counter === 4) {
+      if (!isFinished && counter === 0) {
         clearInterval(timeout);
         isFinished = true;
-        mainObject.actionService.createProject(action, pageSet, pages, queries)
+        mainObject.actionService.createProject(action, pageSet, pages, queries, jsonQueries, oldHostUrl, projectFiles)
           .subscribe((actionResult) => {
             if (action.type === 'page-set') {
               mainObject.pageSet = ['pageSet', action._id];
@@ -527,52 +570,53 @@ export class DialogOverviewExampleDialog {
     }, 100);
   }
 
-  importProjectAsFile($event: Event) {
-    let project = {};
-    const file = (event.target as HTMLInputElement).files[0];
-    this.fileService.addZipFileToSrvr(file).subscribe(responseData => {
-      console.log(responseData);
-      const path = './backend/files/' + responseData.fileName;
-      console.log(path);
-      const fileReader = new FileReader();
-      fileReader.onload = (e) => {
-        this.action = JSON.parse(fileReader.result.toString());
-        project = JSON.parse(fileReader.result.toString());
-        const detailsArray = Object.entries(project).map((e) => ({[e[0]]: e[1]}));
-        // console.log(detailsArray);
-        // console.log('the action is');
-        // console.log(this.action);
 
-        let action, pageSet, pages, queries;
-        for (let i = 0; i < detailsArray.length; i++) {
-          console.log(detailsArray[i]);
-          if (detailsArray[i]['action']) {
-            action = JSON.parse(JSON.parse(JSON.stringify(detailsArray[i]))['action']);
-          } else if (detailsArray[i]['pageSet']) {
-            pageSet = JSON.parse(JSON.parse(JSON.stringify(detailsArray[i]))['pageSet']);
-          } else if (detailsArray[i]['pages']) {
-            pages = JSON.parse(JSON.parse(JSON.stringify(detailsArray[i]))['pages']);
-          } else if (detailsArray[i]['queries']) {
-            queries = JSON.parse(JSON.parse(JSON.stringify(detailsArray[i]))['queries']);
-          }
-          // console.log(detailsArray['action']);
-        }
-        console.log(action, pageSet, pages, queries);
-        console.log('calling the create Project function');
-        this.actionService.createProject(action, pageSet, pages, queries)
-          .subscribe((actionResult) => {
-            if (action.type === 'page-set') {
-              this.pageSet = ['pageSet', action._id];
-            }
-            this.dialogRef.close(this.pageSet);
-          });
-
-        // console.log(fileReader.result);
-      };
-      fileReader.readAsText(file);
-      //
-      // console.log(readStream);
-    });
-
-  }
+  // importProjectAsFile($event: Event) {
+  //   let project = {};
+  //   const file = (event.target as HTMLInputElement).files[0];
+  //   this.fileService.addZipFileToSrvr(file).subscribe(responseData => {
+  //     console.log(responseData);
+  //     const path = './backend/files/' + responseData.fileName;
+  //     console.log(path);
+  //     const fileReader = new FileReader();
+  //     fileReader.onload = (e) => {
+  //       this.action = JSON.parse(fileReader.result.toString());
+  //       project = JSON.parse(fileReader.result.toString());
+  //       const detailsArray = Object.entries(project).map((e) => ({[e[0]]: e[1]}));
+  //       // console.log(detailsArray);
+  //       // console.log('the action is');
+  //       // console.log(this.action);
+  //
+  //       let action, pageSet, pages, queries;
+  //       for (let i = 0; i < detailsArray.length; i++) {
+  //         console.log(detailsArray[i]);
+  //         if (detailsArray[i]['action']) {
+  //           action = JSON.parse(JSON.parse(JSON.stringify(detailsArray[i]))['action']);
+  //         } else if (detailsArray[i]['pageSet']) {
+  //           pageSet = JSON.parse(JSON.parse(JSON.stringify(detailsArray[i]))['pageSet']);
+  //         } else if (detailsArray[i]['pages']) {
+  //           pages = JSON.parse(JSON.parse(JSON.stringify(detailsArray[i]))['pages']);
+  //         } else if (detailsArray[i]['queries']) {
+  //           queries = JSON.parse(JSON.parse(JSON.stringify(detailsArray[i]))['queries']);
+  //         }
+  //         // console.log(detailsArray['action']);
+  //       }
+  //       console.log(action, pageSet, pages, queries);
+  //       console.log('calling the create Project function');
+  //       this.actionService.createProject(action, pageSet, pages, queries)
+  //         .subscribe((actionResult) => {
+  //           if (action.type === 'page-set') {
+  //             this.pageSet = ['pageSet', action._id];
+  //           }
+  //           this.dialogRef.close(this.pageSet);
+  //         });
+  //
+  //       // console.log(fileReader.result);
+  //     };
+  //     fileReader.readAsText(file);
+  //     //
+  //     // console.log(readStream);
+  //   });
+  //
+  // }
 }

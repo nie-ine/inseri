@@ -6,6 +6,7 @@ import { environment } from '../../../../environments/environment';
 import {Page} from '../page/page.model';
 import {PageSetModel} from '../pageset/page-set.model';
 import {QueryModel} from '../query/query.model';
+import {MyOwnJson} from '../myOwnJSON/myOwnJson';
 
 @Injectable({ providedIn: 'root' })
 export class ActionService {
@@ -20,8 +21,16 @@ export class ActionService {
     return this.http.post(`${ActionService.API_BASE_URL_ACTION}/`, action);
   }
 
-  createProject(action: Action, pageSet: PageSetModel, pages: [Page], queries: [QueryModel]): Observable<any> {
-    return this.http.post(`${ActionService.API_BASE_URL_ACTION}/createProject/`, {action: action, pageSet: pageSet, pages: pages, queries: queries});
+  createProject(action: Action, pageSet: PageSetModel, pages: [Page], queries: [QueryModel],
+                jsonQueries: [MyOwnJson], oldHostUrl: string, projectFiles: [File]): Observable<any> {
+    return this.http.post(`${ActionService.API_BASE_URL_ACTION}/createProject/`,
+      {action: action,
+              pageSet: pageSet,
+              pages: pages,
+              queries: queries,
+              jsonQueries: jsonQueries,
+              oldHostUrl: oldHostUrl,
+              projectFiles: projectFiles });
   }
   getAction(id: string): Observable<any> {
     return this.http.get(`${ActionService.API_BASE_URL_ACTION}/${id}`, {observe: 'response'});

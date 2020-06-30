@@ -237,14 +237,16 @@ appInputsArray = [];
     this.printFoldersTitle();
 }
   deleteFile(fileId: string) {
-    this.fileService.deleteFile(fileId, this.mainFolder_id).subscribe(() => {
-      console.log(this.files);
-      const updatedFiles = this.files.filter(file => file.id !== fileId);
-      this.files = updatedFiles;
-      console.log(this.files);
-      this.filesUpdated.next([...this.files]);
-      this.showFiles();
-    });
+    if(confirm('Would you really delete this file')){
+      this.fileService.deleteFile(fileId, this.mainFolder_id).subscribe(() => {
+        console.log(this.files);
+        const updatedFiles = this.files.filter(file => file.id !== fileId);
+        this.files = updatedFiles;
+        console.log(this.files);
+        this.filesUpdated.next([...this.files]);
+        this.showFiles();
+      });
+    }
   }
   onSaveFile() {
     // if (this.mode === 'add') {
@@ -730,7 +732,7 @@ appInputsArray = [];
           description: description,
           urlPath: responseData.file.urlPath
         };
-        this.uploadFileToFolder(file.id);
+        //this.uploadFileToFolder(file.id);
         this.files.push(file);
         this.filesUpdated.next([...this.files]);
         this.showFiles();
@@ -746,7 +748,7 @@ appInputsArray = [];
           description: this.fileDescription,
           urlPath: responseData.file.urlPath
         };
-        this.uploadFileToFolder(file.id);
+        //this.uploadFileToFolder(file.id);
         this.files.push(file);
         this.filesUpdated.next([...this.files]);
         this.showFiles();
