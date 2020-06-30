@@ -127,6 +127,8 @@ Resulting Json (part):
 And here is the resulting Stacked Bar Chart after renaming:
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-06/Tutorials/Your%20scientific%20publication%20A-Z/5.%20Visualise%20Data/5V.13.png" alt="Final Stacked Bar Chart" width="900"></p>
 
+Please note that Stacked Bar Chart rearranges the data as of 2020.06.30, from the biggest to the smallest automatically. I.e. whatever is given first in JSON, the Inseri will display the column with the biggest numbers/biggest number of subsections.
+
 ### 5.1.3 Pie Chart
 
 This visualisation tool is a good choice when we need to represent the non-overlapping parts constituting whole. The app comes with a preset example, below:
