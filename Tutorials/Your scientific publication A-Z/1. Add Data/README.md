@@ -12,7 +12,7 @@ The steps, taking Europeana as example, have been explained by Jan Stoffregen in
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/1video1.png" alt="Guhyaṣoḍha, starting page" width="900"></p>
 
-One of the great aspects of INSERI is the "economical" approach towards the data that exists already somewhere as a publicly available resource. Instead of downloading the things and republishing them somewhere else (which also might be  a copyright problem), Inseri proposes an option to call only those parts of data (for example, images and their respective descriptions) by using the existing internal linkage of a webpage via JSON. Let us learn how to do it.
+One of the great aspects of INSERI is the "economical" approach towards the data that exists already somewhere as a publicly available resource. Instead of downloading the things and republishing them somewhere else (which also might be  a copyright problem), Inseri proposes an option to call only needed parts of data (for example, images and their respective descriptions) by using the existing internal linkage of a webpage via JSON. Let us learn how to do it.
 
 As our first example we shall take E-codices, the most important swiss online collection of the manuscripts. [https://www.e-codices.unifr.ch/en](https://www.e-codices.unifr.ch/en)
 Suppose we would like to work on a manuscript that has been photographed and uploaded already, but has not been transcribed page by page, and our aim would be 
@@ -37,15 +37,15 @@ We create a new Query, and call it "My query to E-codices". In the frame that op
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/1Ad.png" alt="New Query frame" width="700"></p>
 
 in the field "Server URL" we paste the URL copied from E-codices.
-Save and try query. Below the frame the data tree of the selected manuscript in E-codices will appear.
+Save and try query. Below the frame, the data tree of the selected manuscript in E-codices will appear.
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/1Ae.png" alt="New Query frame" width="500"></p>
 
-We have just created a link between that e-codices data and the page that we are creating. We can close the frame and call now the applications. We do not want to reproduce the whole dataset of e-codices, but only the images and the ids of the pages, plus a brief description of the manuscript. We thus need to link the application "window" and the material in the json tree structure it will display.
+We have just created a link between the e-codices data and the page that we are creating. We can close the frame and call now the applications. We do not want to reproduce the whole dataset of e-codices, but only the images and the ids of the pages, plus a brief description of the manuscript itself. We thus need to link the application "window" and the material in the json tree structure it will display.
 For that, we open a "Plain text viewer" and "Simple image application".
 Let us start with the images.
 
-Click again on "Data Management" as above, you will see the names of the called application in the query frame. Under "Simple Image App." click on the "map" button. The same data tree that we saw when we first tried the query opens.
+Click again on "Data Management" as above, you will see the names of the called application in the query frame. Under "SimpleImageApp" click on the "map" button. The same data tree that we saw when we first tried the query opens.
 The most tricky thing is now to find what exactly we need to be displayed.
 The human way to access it is to first click on "show tree with data", and then follow the same steps in "Show abstract tree structure" which contains the linkage buttons.
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/1Af.png" alt="Show data options" width="400"></p>
@@ -53,21 +53,21 @@ The human way to access it is to first click on "show tree with data", and then 
 The steps are mapped above in the following way automatically:
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/1Ag.png" alt="Mapping" width="500"></p>
 
-Save, close and reload the page to see if the "Simple Image App." displays what is really needed. Repeat the steps if it does not display the correct data.
+Save, close and reload the page to see if the "SimpleImageApp" displays what is really needed. Repeat the steps if it does not display the correct data.
 
 Result: 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/1Ah.png" alt="Images from E-codices displayed in Inseri" width="400"></p>
 
-Note also the navigation button "< 1 >". That is, by a single link we can access all image of a chose manuscript, without any copy-paste (well, except URL).
+Note also the navigation button "< 1 >". That is, by a single link we can access all images of a chose manuscript, without any copy-paste (well, except URL).
 
 We shall now do the same with the textual data, here is the description of the whole manuscript.
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/1Ai.png" alt="Linking text" width="400"></p>
 
-The resulting view in "Plain text viewer":
+The resulting view in "PlainTextViewer":
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/1Aj.png" alt="Linked text in Plain Text viewer" width="500"></p>
 
-Now to get the maximum from Inseri capacities, we shall open another "Plain text viewer", and make it display the folio id of each "page" of the manuscript.
+Now to get the maximum from Inseri capacities, we shall open another "PlainTextViewer", and make it display the folio id of each "page" of the manuscript.
 The map is as follows:
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/1Ak.png" alt="Linked text in Plain Text viewer" width="500"></p>
@@ -145,7 +145,7 @@ The data mapping is a puzzle, it is particularly difficult to find which link wo
 The path is as follows:
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/1Knora2.png" alt="Linking Images" width="600"></p>
 
-While the text data linkages are more evident. Here is the example of "label", i.e. image code:
+The text data linkages are more evident. Here is the example of "label", i.e. image code:
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/1Knora4.png" alt="Linking Images" width="300"></p>
 
@@ -156,6 +156,6 @@ Having saved and reloaded the page we obtain a simplified webpage, in which the 
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/1Knora5.png" alt="Resulting Page" width="700"></p>
 
-As in the 1.1.1. example, the images and their data maintain their original structure and linkages, and thus when one navigates in any of the windows via < > signs, the data fits the corresponding image. If one clicks on the number of the resource, it will open the extended search options, here, for example, we can see the preview of the whole selection of images:
+As in the 1.1.1. example, the images and their data maintain their original structure and linkages, and thus when one navigates in any of the windows via < > signs, the data fits the corresponding image. If one clicks on the number of the resource, i.e. page, it will open the extended search options, here, for example, we can see the preview of the whole selection of images:
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/1Knora6.png" alt="Preview of all pages" width="700"></p>
