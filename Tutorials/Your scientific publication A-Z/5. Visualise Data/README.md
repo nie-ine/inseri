@@ -122,10 +122,10 @@ Here we need to
 * add the numerical data to each of the subpart of each column.
 
 Resulting Json (part):
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/5.%20Visualise%20Data/5V.12.png" alt="Modified Json (part)" width="500"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-06/Tutorials/Your%20scientific%20publication%20A-Z/5.%20Visualise%20Data/5V.12.png" alt="Modified Json (part)" width="500"></p>
 
 And here is the resulting Stacked Bar Chart after renaming:
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/5.%20Visualise%20Data/5V.13.png" alt="Final Stacked Bar Chart" width="900"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-06/Tutorials/Your%20scientific%20publication%20A-Z/5.%20Visualise%20Data/5V.13.png" alt="Final Stacked Bar Chart" width="900"></p>
 
 ### 5.1.3 Pie Chart
 
