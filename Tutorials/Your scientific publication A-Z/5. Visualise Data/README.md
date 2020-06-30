@@ -156,5 +156,6 @@ The final Pie Chart, after renaming and some rearrangements of the parts of the 
 The trick to make parts visible, if they are of very unequal size, like in our example, is the following. Let us imagine the Pie Chart as a clock, and the first part of the pie that we script in Json starts at midnight. Knowing that, the user should arrange the slices of the data in such a way, that the smallest are placed between 2 and 4 a.m. Then their labels are better visible.
 Another suggestion, is to alternate the slightly bigger and the smaller slices in that 2-4 a.m. range.
 
+As of June 2020, if a page uses more than one visualisation app, all of them can be updated via the modification of one and the same JSON file, which also makes definitely easier to copy-paste the pieces of repeating information.
 
 ## 5.2. Apps which are external, but useful
