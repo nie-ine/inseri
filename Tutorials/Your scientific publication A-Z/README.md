@@ -18,10 +18,10 @@ In the end of this tutorial, the user will have an idea about the workflow areas
 <li>Finally, the <strong>&quot;Publish&quot;</strong> area provides various options for generating the output that can be immediately used for producing online or print books and articles.</li>
 </ol>
 
-<h1 id="toc_0">Creating your academic project</h1>
-<h3 id="toc_0">Step 0.1: Login, setting up project "space", creating project title and a short description.</h3>
+<h1 id="toc_0">0.1. Creating your academic project</h1>
+<h3 id="toc_0">Login, setting up project "space", creating project title and a short description</h3>
 
-<h2>Login</h2>
+<h2>0.1.1. Login</h2>
 <p>The users can immediately create their project page in INSERI, describe it, obtain and change the access information, as well as add the texts, tables, and pictures. </p>
 
 <p>To get started, one should access INSERI here:
@@ -36,7 +36,7 @@ In the end of this tutorial, the user will have an idea about the workflow areas
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/3.png" alt="Login, state 2020.03.24" width="300"></p>
 
-<h2>Setting up project "space"</h2>
+<h2>0.1.2. Setting up project "space"</h2>
 <p>Having logged in, first of all, the user should create a &quot;project space&quot;. For that, in the Dashboard, which opens in INSERI from the top right-hand corner,  one should click on the green button, as below:</p>
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/4.png" alt="Create New" width="200"></p>
@@ -57,7 +57,7 @@ Another important point, is that there are often (but not always) two applicatio
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/7.png" alt="Collage creation" width="400"></p>
 
-<h2>Creating project title and a short description</h2>
+<h2>0.1.3. Creating project title and a short description</h2>
 <p>The user can proceed with setting up of the first page of the project. This page will contain the title of the project and a brief description.</p>
 
 <p>There are two applications in INSERI that allow to do it:</p>
@@ -148,7 +148,7 @@ As some pieces of information, such as title of the project and its description 
 
 Having created and viewed the Title and brief description of the Project, we shall learn next how to upload primary data, starting with images in the part called "Add Data".
 
-## Layout options
+<h2>0.1.4. Layout options</h2>
 
 There are are two basic page layout options. One is a "natural" one, in which the applications windows will have shape and size as set by the user, example below:
 
@@ -169,3 +169,6 @@ When one clicks on the "windows/tiles", the page is rearranged in the following 
 If you resize manually the browser window size, the applications will rearrange themselves automatically on the page again, to fit it, thus providing the best viewing option regardless of support (phone/pad/computer).
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/0.%20Introduction/LV6.png" alt="Reduced browser window in Windows mode" width="700"></p>
+
+<h2>0.1.5. Applications in Inseri</h2>
+Since June 2020, the application in Inseri are arranged into the categories, following the logic of the major steps within a research project. These steps have been outlined above, at the beginning of introduction. Here we shall simply bring together the steps and a group or groups of applications.
