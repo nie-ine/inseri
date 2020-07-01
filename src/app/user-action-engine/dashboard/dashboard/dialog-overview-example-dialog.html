@@ -56,6 +56,22 @@
         <button [disabled]="loading" class="btn btn-primary" style="margin-top: 20px" (click)="createUserGroup()" >Create User Group</button>
 
       </mat-expansion-panel>
+
+
+      <mat-expansion-panel [expanded]="!data.showUserGroups">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Reload Project
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="form-group" >
+          <label for="pageSetId">PageSet Id </label>
+          <input type="text" class="form-control" name="pageSetId" [(ngModel)]="p_pageSetId" required />
+        </div>
+        <button [disabled]="loading" class="btn btn-primary" style="margin-top: 20px" (click)="reloadProject(p_pageSetId)" >Reload Project</button>
+
+      </mat-expansion-panel>
     </mat-accordion>
 
     <div>

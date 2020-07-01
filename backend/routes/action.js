@@ -4,6 +4,10 @@ const Action = require('../models/action');
 const Page = require('../models/page');
 const PageSet = require('../models/page-set');
 const Query = require('../models/query');
+const MyOwnJSON = require('../models/myOwnJson');
+const Files = require('../models/files');
+const fs = require('fs');
+const ObjectId = require('mongoose');
 
 const checkAuth = require('../middleware/check-auth');
 const checkAuth2 = require('../middleware/check-auth-without-immediate-response');
@@ -49,7 +53,8 @@ router.get('/:id', checkAuth2, (req, res, next) => {
       })
       .then(result => {
         if (result.length === 1) {
-          // console.log( result );
+          console.log('get action id');
+          console.log(result[0]);
           res.status(200).json({
             message: 'Action was found',
             action: result[0]
@@ -93,61 +98,184 @@ router.get('/:id', checkAuth2, (req, res, next) => {
 
 });
 
+function insertQueries(req, res) {
+
+}
+
 router.post('/createProject/', checkAuth, (req, res, next) => {
-    let actionExported = new Action(req.body.action);
-    let pageSetExported = new PageSet(req.body.pageSet);
-    let pagesExported = req.body.pages;
-    let queriesExported = req.body.queries;
-    //console.log(actionExported);
-    //console.log(pageSetExported);
-    //console.log(pagesExported);
-
-    actionExported.save()
-      .then((resultAction) => {
-        Action.updateOne({_id: resultAction._id},{$set:{creator:req.userData.userId}}).then(updatedAction=>{
-          pageSetExported.save().then(pageSetResult => {
-            Page.insertMany(pagesExported, function (error, docs) {
-              if (error) {
-                return res.status(500).json({
-                  message: 'Something happened while creating the pages',
-                  error: error
-                });
-              }
-              if(queriesExported) {
-                console.log(queriesExported);
-                Query.insertMany(queriesExported, function (error2, docs) {
-                  if (error2) {
-                    return res.status(500).json({
-                      message: 'Something happened while creating the queries',
-                      error: error2
+  let oldHostUrl = req.body.oldHostUrl;
+  let newHostUrl = req.protocol + "://" + req.get("host");
+  let actionExported = new Action(JSON.parse(JSON.parse(JSON.stringify(req.body.action.split(oldHostUrl).join(newHostUrl)))));
+  let pageSetExported = new PageSet(JSON.parse(JSON.parse(JSON.stringify(req.body.pageSet.split(oldHostUrl).join(newHostUrl)))));
+  let pagesExported = JSON.parse(JSON.parse(JSON.stringify(req.body.pages.split(oldHostUrl).join(newHostUrl))));
+  let queriesExported = JSON.parse(JSON.parse(JSON.stringify(req.body.queries.split(oldHostUrl).join(newHostUrl))));
+  let myOwnJsonExported = JSON.parse(JSON.parse(JSON.stringify(req.body.jsonQueries.split(oldHostUrl).join(newHostUrl))));
+  let filesJsonExported = JSON.parse(JSON.parse(JSON.stringify(req.body.filesJson.split(oldHostUrl).join(newHostUrl))));
+  let projectFiles = req.body.projectFiles;
+  actionExported.save()
+    .then((resultAction) => {
+      //console.log(resultAction);
+      Action.updateOne({_id: resultAction._id}, {$set: {creator: req.userData.userId}}).then(updatedAction => {
+        pageSetExported.save().then(pageSetResult => {
+          Page.insertMany(pagesExported).then(pagesInserted => {
+            if (queriesExported) {
+              //console.log(queriesExported);
+              Query.insertMany(queriesExported).then(queriesInserted => {
+                if (myOwnJsonExported) {
+                  //console.log(myOwnJsonExported);
+                  MyOwnJSON.insertMany(myOwnJsonExported).then(myOwnJsonResults => {
+                    if (projectFiles.length != 0 || filesJsonExported) {
+                     // console.log(filesJsonExported);
+                      Files.insertMany(filesJsonExported).then(filesInserted => {
+                        let counter = projectFiles.length;
+                        projectFiles.forEach(file => {
+                          let path = 'backend/files/' + file.fileName;
+                          //console.log(path);
+                          //console.log(file);
+                          fs.writeFile(path, file.fileContent, function (err) {
+                            if (err) {
+                              console.log('printing the error:  ' + err);
+                              res.status(500).json({
+                                message: 'Adding file ' + file.filename + " failed",
+                                error: err
+                              })
+                            }
+                            counter--;
+                          });
+                        });
+                        const timeout = setInterval(function () {
+                          if (counter === 0) {
+                            clearInterval(timeout);
+                          }
+                        }, 100);
+                      }).catch(filesError => {
+                        res.status(500).json({
+                          message: 'Something happened while Adding the Files to the database',
+                          error: filesError
+                        });
+                      });
+                    }
+                  }).catch(myOwnJsonError => {
+                    res.status(500).json({
+                      message: 'Something happened while Adding the MyOwnJson',
+                      error: myOwnJsonError
                     });
-                  }
-                    // return res.status(201).json({
-                    //   message: 'Project created successfully',
-                    // });
+                  });
+                }
+              })
+                .catch(queriesError => {
+                  res.status(500).json({
+                    message: 'Something happened while creating the queries',
+                    error: queriesError
+                  });
                 });
-              }
-              return res.status(201).json({
-                message: 'Project created successfully without queries',
-              });
-
+            }
+            return res.status(201).json({
+              message: 'Project created successfully',
             });
-          }).catch(errorPageSet => {
+          }).catch(pagesError => {
             res.status(500).json({
-              message: 'Something happened while creating the pageSet',
-              error: errorPageSet
+              message: 'Something happened while creating the pages',
+              error: pagesError
             });
           });
-        })
-
-      }).catch(errorAction => {
-      res.status(500).json({
-        message: 'Action cannot be created',
-        error: errorAction
+        }).catch(errorPageSet => {
+          res.status(500).json({
+            message: 'Something happened while creating the pageSet',
+            error: errorPageSet
+          });
+        });
+      }).catch(updateActionError => {
+        res.status(500).json({
+          message: 'Action cannot be updated with the pageSet',
+          error: updateActionError
+        });
       });
-    })
-
+    }).catch(createActionError => {
+    res.status(500).json({
+      message: 'Action cannot be created ',
+      error: createActionError
+    });
+  });
 });
+
+router.post('/reloadProject/', checkAuth, (req, res, next) => {
+  console.log(req.body.pageSetId);
+  let pageSet_id= req.body.pageSetId;
+  const newAction = new Action({
+    title: '',
+    description: '',
+    type: 'page-set',
+    creator: '',
+    isFinished: false,
+    deleted: false
+  });
+  PageSet.find({_id: pageSet_id}).then(pageSet => {
+    console.log(pageSet);
+    Page.findOne({_id: pageSet[0].hasPages[0]}).then(mainPage=>{
+      console.log(mainPage);
+      newAction.title=mainPage.title;
+      newAction.description=mainPage.description;
+      newAction.hasPageSet= pageSet[0]._id;
+      newAction.hasPage=mainPage._id;
+      Page.find({_id: {$in: pageSet[0].hasPages}}).then(allPages =>{
+        let queries=[];
+        if(allPages){
+          console.log(allPages);
+          for(let i=0;i<allPages.length;i++){
+            allPages[i].queries.forEach(query=>{
+              queries.push(query);
+            });
+          }
+          console.log(queries);
+          if(queries.length !=0){
+            Query.find({_id:{$in: queries}},{creator:1}).then(creatorResults =>{
+              console.log(creatorResults);
+              newAction.creator=creatorResults[0].creator;
+              newAction.save().then(newActionCreated=>{
+                res.status(201).json({
+                  message: 'Action created successfully',
+                  action: newActionCreated
+                });
+              }).catch(newActionError => {
+                console.log(newActionError);
+                res.status(500).json({
+                  message: 'Error while saving new Action',
+                  error: newActionError
+                });
+              })
+            }).catch(creatorError =>{
+              console.log(creatorError);
+              res.status(500).json({
+                message: 'Error retrieving Creator',
+                error: creatorError
+              });
+            });
+          }
+        }
+      }).catch(allPagesError=>{
+        console.log(allPagesError);
+        res.status(500).json({
+          message: 'Error retrieving All Pages',
+          error: allPagesError
+        });
+      });
+    }).catch(mainPageError =>{
+      console.log(mainPageError);
+      res.status(500).json({
+        message: 'Error retrieving main Page',
+        error: mainPageError
+      });
+    });
+  }).catch(pageSetErr =>{
+    console.log(pageSetErr);
+    res.status(500).json({
+      message: 'Error retrieving PageSet',
+      error: pageSetErr
+    });
+  });
+});
+
 
 router.post('', checkAuth, (req, res, next) => {
   // Checks if type is valid
@@ -156,7 +284,7 @@ router.post('', checkAuth, (req, res, next) => {
       message: 'Type is invalid'
     })
   }
-  console.log('printing the action: ' + req.body);
+  //console.log('printing the action: ' + req.body);
   let messages = [];
   // Tests if title is undefined, null or is empty string
   if (!Boolean(req.body.title)) messages.push('Your title is invalid!');
@@ -177,8 +305,8 @@ router.post('', checkAuth, (req, res, next) => {
   });
 
   // Case 1: action has a page set
- if (req.body.type === 'page-set') {
-    console.log('else if req.body.type === page-set');
+  if (req.body.type === 'page-set') {
+    console.log('if req.body.type === page-set');
     // Default values for the pageset
     const defaultTitle = 'document index';
     const defaultDescription = 'You can change the title of this inseri document ' +
