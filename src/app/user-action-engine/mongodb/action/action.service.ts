@@ -21,7 +21,9 @@ export class ActionService {
   }
 
   createProject(action: Action, pageSet: PageSetModel, pages: [Page], queries: [QueryModel]): Observable<any> {
-    return this.http.post(`${ActionService.API_BASE_URL_ACTION}/createProject/`, {action: action, pageSet: pageSet, pages: pages, queries: queries});
+    return this.http.post(
+      `${ActionService.API_BASE_URL_ACTION}/createProject/`,
+      {action: action, pageSet: pageSet, pages: pages, queries: queries});
   }
   getAction(id: string): Observable<any> {
     return this.http.get(`${ActionService.API_BASE_URL_ACTION}/${id}`, {observe: 'response'});

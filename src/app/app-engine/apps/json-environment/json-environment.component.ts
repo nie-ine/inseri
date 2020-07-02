@@ -29,9 +29,9 @@ export class JsonEnvironmentComponent implements OnChanges, HttpInterceptor {
   }
 
   ngOnChanges( changes: SimpleChanges ) {
-    console.log( 'changes', this.hash, this.assignedJson, this.pythonFile );
+    // console.log( 'changes', this.hash, this.assignedJson, this.pythonFile );
     localStorage.removeItem( this.serivceId );
-    if ( this.hash && this.assignedJson && this.pythonFile ) {
+    if ( this.hash && this.pythonFile ) {
       this.display = { hash: this.hash, json: this.assignedJson };
       if ( this.pythonFile.search( 'http' ) !== -1 ) {
         this.http.get( this.pythonFile, { responseType: 'text' } )

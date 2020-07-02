@@ -87,6 +87,12 @@ export class BarChartComponent implements AfterViewChecked {
    */
   ngAfterViewChecked() {
     if( this.initialised && !this.alreadyInitialised && this.data ) {
+      console.log( this.data );
+      if ( typeof this.data === 'string') {
+        console.log( this.data );
+        // const parsedData = JSON.parse( this.data );
+      }
+
       this.alreadyInitialised = true;
       setTimeout(() => {
         this.drawBarchChart();
