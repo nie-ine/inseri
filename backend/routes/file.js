@@ -149,7 +149,7 @@ router.post('/singleFileUpload/:folderId/:newFile', checkAuth, multer({storage: 
 
 router.post('/files/:folderId', checkAuth, multer({storage: storage}).array("file"),
   (req, res, next) => {
-    console.log(req.files);
+    //console.log(req.files);
     const url = req.protocol + "://" + req.get("host");
     let filesArr = [];
     for (let i = 0; i < req.files.length; i++) {
@@ -160,7 +160,7 @@ router.post('/files/:folderId', checkAuth, multer({storage: storage}).array("fil
         owner: req.userData.userId
       });
     }
-    console.log(filesArr);
+    //console.log(filesArr);
     FileModel.insertMany(filesArr, function (error, docs) {
       console.log("line 87" + docs);
       console.log(docs.map(file => {
@@ -203,8 +203,8 @@ router.post('/files/:folderId', checkAuth, multer({storage: storage}).array("fil
 router.get("/:id", (req, res, next) => {
   FileModel.findById(req.params.id).then(file => {
     if (file) {
-      console.log(file);
-      console.log(file.urlPath);
+      //console.log(file);
+      //console.log(file.urlPath);
       let content='', path='backend'+file.urlPath.substring(file.urlPath.indexOf('/files/'));
       fs.readFile(path, function (err, data) {
         if (err) {
@@ -245,21 +245,21 @@ router.get("/getFileByUrl/:url", checkAuth, (req, res, next) => {
 router.post("/:id", checkAuth, (req, res, next) => {
   //let url = req.protocol + "://" + req.get("host")+"/";
   //url += "/files/" ;
-  console.log(req.params.id);
-  console.log(req.body.urlPath);
+  //console.log(req.params.id);
+  //console.log(req.body.urlPath);
   FileModel.updateOne({_id: req.params.id, owner: req.userData.userId},
     {$set: {title: req.body.title, description: req.body.description}})
     .then(result => {
-      console.log('printing the result '+result);
+      //console.log('printing the result '+result);
       //const fileUploadedOn=req.body.oldFileName.substring(0,req.body.oldFileName.indexOf('-'));
       /*console.log(fileUploadedOn);
        fs.rename(url+req.body.oldFileName, url+fileUploadedOn+'-'+req.body.title, function (err) {
         if (err) throw err;
         console.log('File Renamed.');
       });*/
-      console.log('starting writing to the file');
+      //console.log('starting writing to the file');
       let path= 'backend'+req.body.urlPath.substring(req.body.urlPath.indexOf('/files/'));
-      console.log(path);
+      //console.log(path);
       if(path.match(/.*\.(txt)|(py)|(json)$/)){
         fs.writeFile(path, req.body.content, function (err) {
           if (err) {
@@ -384,7 +384,8 @@ router.post("/deleteFiles/:fileId&:folderId", (req, res, next) => {
 
 router.get("/downloadProject/:actionId", checkAuth, (req, res, next) => {
   let queryIds = [];
-  let returnedObj={action: {}, pageSet: {}, pages:{}, queries: []};
+  let returnedObj={};//{action: {}, pageSet: {}, pages:{}, queries: []};
+  //console.log(req.userData.userId);
   Action.find({creator: req.userData.userId, _id: req.params.actionId})
     .populate('hasPage')
     .populate({
@@ -395,8 +396,8 @@ router.get("/downloadProject/:actionId", checkAuth, (req, res, next) => {
     }).then(actionResults => {
     let message;
     let action = actionResults[0];
-   // console.log("actionResults");
-   // console.log(actionResults);
+    // console.log("actionResults");
+    // console.log(actionResults);
     if (actionResults.length === 0) {
       message = 'The action couldn\'t be found';
       console.log(message);
@@ -405,6 +406,8 @@ router.get("/downloadProject/:actionId", checkAuth, (req, res, next) => {
         action.hasPage = actionResults[0].hasPageSet.hasPages[0]._id;
         action.hasPageSet=actionResults[0].hasPageSet._id;
         returnedObj.action=JSON.stringify(action);
+        // console.log('download project action ');
+        // console.log(returnedObj.action);
         PageSet.find({_id: action.hasPageSet}).then(pageSetResult => {
           let pageSet=JSON.stringify(pageSetResult[0]);
         //  console.log(pageSetResult);
@@ -423,6 +426,7 @@ router.get("/downloadProject/:actionId", checkAuth, (req, res, next) => {
               }
             //  console.log(pages);
               returnedObj.pages=(JSON.stringify(pages));
+              returnedObj.oldHostUrl=req.protocol+'://'+req.get('host');
               if (queryIds.length === 0) {
                 return res.status(200).json({
                   message: 'Created Zip File successfully that has no queries',
@@ -466,14 +470,11 @@ function getFiles(arrayOfFilePaths, returnedObj, res, req) {
                                 fileUrlPaths.push(x);});
   returnedObj.arrayOfFilePaths=arrayOfFilePaths;
   FileModel.find({urlPath: {$in: fileUrlPaths}}).then(filesResult => {
-    console.log(filesResult);
     returnedObj.files=JSON.stringify(filesResult);
-    //if (arrayOfFilePaths.length === 0) {
       return res.status(200).json({
         message: 'Created Zip File successfully that has JSON results',
         returnedObj: returnedObj
       });
-    //}
   }).catch(error => {
     res.status(500).json({
       message: 'MyOwnJson is not found',
@@ -484,12 +485,14 @@ function getFiles(arrayOfFilePaths, returnedObj, res, req) {
 }
 
 function getJsonIds(filesJsonIds, returnedObj, res, req) {
-  let regexString = '"'+req.protocol+'://'+req.get("host")+'/files/'+'[^"]+"';
+  let regexString = '"'+returnedObj.oldHostUrl+'/files/'+'[^"]+"';
   let regex= new RegExp(regexString,"g");
   MyOwnJson.find({_id: {$in: filesJsonIds}}).then(jsonResults => {
+    console.log(jsonResults);
     returnedObj.jsonIds=JSON.stringify(jsonResults);
     let arrayOfFilePaths = returnedObj.jsonIds.match(regex);
-    if (arrayOfFilePaths.length === 0) {
+    console.log(arrayOfFilePaths);
+    if (!arrayOfFilePaths || arrayOfFilePaths.length===0) {
       return res.status(200).json({
         message: 'Created Zip File successfully that has JSON results',
         returnedObj: returnedObj
@@ -512,12 +515,12 @@ function getQueriesFromPages(queryIds, returnedObj, res,req) {
    // console.log(queriesResult);
     for (let i = 0; i < queriesResult.length; i++) {
       queries.push(queriesResult[i]);
-      const path = req.protocol + "://" + req.get("host")+'/api/myOwnJson/getJson/';
+      const path = returnedObj.oldHostUrl+'/api/myOwnJson/getJson/';
 
       ////{"content.info": {$regex: /http:\/\/localhost:3000\/.*/, $options: 'i'}}
       if(queriesResult[i].serverUrl.startsWith(path)){
         filesJsonIds.push( queriesResult[i].serverUrl.substring(path.length));
-        console.log(filesJsonIds);
+        //console.log(filesJsonIds);
       }
     }
     returnedObj.queries=JSON.stringify(queries);

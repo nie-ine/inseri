@@ -21,12 +21,17 @@ export class ActionService {
     return this.http.post(`${ActionService.API_BASE_URL_ACTION}/`, action);
   }
 
+<<<<<<< HEAD
+  createProject(action: Action, pageSet: PageSetModel, pages: [Page], queries: [QueryModel]): Observable<any> {
+    return this.http.post(
+      `${ActionService.API_BASE_URL_ACTION}/createProject/`,
+      {action: action, pageSet: pageSet, pages: pages, queries: queries});
+=======
    createProject(action: string, pageSet: string, pages: string, queries: string,
                  jsonQueries: string, oldHostUrl: string, filesJson: string, projectFiles: []): Observable<any> {
    //(action: Action, pageSet: PageSetModel, pages: [Page], queries: [QueryModel],
   //               jsonQueries: [MyOwnJson], oldHostUrl: string, projectFiles: []): Observable<any> {
     return this.http.post(`${ActionService.API_BASE_URL_ACTION}/createProject/`,
-      `${ActionService.API_BASE_URL_ACTION}/createProject/`,
       {action: action,
               pageSet: pageSet,
               pages: pages,
@@ -35,6 +40,7 @@ export class ActionService {
               oldHostUrl: oldHostUrl,
               filesJson: filesJson,
               projectFiles: projectFiles });
+>>>>>>> 4ec4a6be42a7d3e5375011657581949178d6a718
   }
   getAction(id: string): Observable<any> {
     return this.http.get(`${ActionService.API_BASE_URL_ACTION}/${id}`, {observe: 'response'});
