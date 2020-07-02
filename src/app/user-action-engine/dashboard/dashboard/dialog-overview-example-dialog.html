@@ -70,7 +70,7 @@
           <input type="text" class="form-control" name="pageSetId" [(ngModel)]="p_pageSetId" required />
         </div>
         <button [disabled]="loading" class="btn btn-primary" style="margin-top: 20px" (click)="reloadProject(p_pageSetId)" >Reload Project</button>
-
+        <button [disabled]="loading" class="btn btn-primary" style="margin-top: 20px" (click)="reloadFiles()" >Reload Files</button>
       </mat-expansion-panel>
     </mat-accordion>
 

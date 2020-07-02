@@ -131,5 +131,9 @@ export class FileService {
         fileData
       );
   }
+  reloadFiles(): Observable<any> {
+    return this.http
+      .get(`${FileService.API_BASE_URL_FILES}` + '/restoreFiles/' );
+  }
 }
 
