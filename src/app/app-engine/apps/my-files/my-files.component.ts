@@ -209,12 +209,19 @@ appInputsArray = [];
       default:
         this.addFolderForm = false;
         this.updateFolderTitleForm = false;
+        this.folderTitle = '';
         this.pageSetForm = false;
         this.createPageSetForm = false;
+        this.action.description = '';
+        this.action.title = '';
         // this.appMenuForm = false;
         this.createQueryForm = false;
+        this.queryTitle = '';
         this.updateFileForm = false;
         this.createNewFileForm = false;
+        this.fileName = '';
+        this.fileDescription = '';
+        this.fileContent = '';
     }
   }
   deleteFromBreadCrumb() {
