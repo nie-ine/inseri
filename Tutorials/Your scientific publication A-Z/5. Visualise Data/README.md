@@ -92,6 +92,9 @@ And then to select "Change app description", this opens a text-editor, allowing 
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-06/Tutorials/Your%20scientific%20publication%20A-Z/5.%20Visualise%20Data/5V.10b.png" alt="Adding commentary to an application, editor" width="500"></p>
 
+As of 08.07.2020, it is possible to manipulate data "live", for example, to select a disselect on a few of the total number of columns. The chart is modified automatically.
+Besides this, a a new feature, the value is now being displayed upon hovering over a column.
+
 ### 5.1.2. Stacked Bar Chart 
 The Stacked Bar Chart is a perfect visualisation tool for those cases, when the datasets are uniform, all like in the Bar Chart above, but what is important, is to also make the viewer aware of the subgroups of data within each single data set. 
 
@@ -159,5 +162,8 @@ The trick to make parts visible, if they are of very unequal size, like in our e
 Another suggestion, is to alternate the slightly bigger and the smaller slices in that 2-4 a.m. range.
 
 As of June 2020, if a page uses more than one visualisation app, all of them can be updated via the modification of one and the same JSON file, i.e. in JSON the user will see a single JSON including all trees used on the page, which also makes definitely easier to copy-paste the pieces of repeating information.
+
+As of 08.07.2020, it is possible to manipulate data "live", for example, to select a disselect on a few of the total number of pieces of a pie. The chart is modified automatically.
+Besides this, a a new feature, the value is now being displayed upon hovering over a column. The titles of the pies are also better visible.
 
 ## 5.2. Apps which are external, but useful
