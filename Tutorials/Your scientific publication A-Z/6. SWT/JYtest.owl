@@ -1,0 +1,1514 @@
+@prefix : <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13> .
+
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13> rdf:type owl:Ontology .
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> rdf:type owl:Class ;
+                                                                                      rdfs:subClassOf :Jayadrathayāmala .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.1.> rdf:type owl:Class ;
+                                                                                        rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.1.Ben.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.1.Ben.1.> rdf:type owl:Class ;
+                                                                                              rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.1.Col.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.1.Col.> rdf:type owl:Class ;
+                                                                                            rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.1.Sp.B.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.1.Sp.B.1.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.1.Sp.B.2.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.1.Sp.B.2.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.1.Sp.B.3.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.1.Sp.B.3.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.1.Sp.B.4.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.1.Sp.B.4.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.1.Sp.D.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.1.Sp.D.1.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.1.Sp.D.2.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.1.Sp.D.2.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.1.Sp.D.3.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.1.Sp.D.3.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.1.Sp.D.4.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.1.Sp.D.4.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.1.Sp.N.1
+:JY.1.1.Sp.N.1 rdf:type owl:Class ;
+               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.10.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.10.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.10.Col.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.10.Col.> rdf:type owl:Class ;
+                                                                                             rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.10.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.10.Sp.B.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.10.Sp.B.1.> rdf:type owl:Class ;
+                                                                                                rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.10.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.10.Sp.B.2.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.10.Sp.B.2.> rdf:type owl:Class ;
+                                                                                                rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.10.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.10.Sp.D.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.10.Sp.D.1.> rdf:type owl:Class ;
+                                                                                                rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.10.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.10.Sp.J.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.10.Sp.J.1.> rdf:type owl:Class ;
+                                                                                                rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.10.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.11
+:JY.1.11 rdf:type owl:Class ;
+         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.11.Col.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.11.Col.> rdf:type owl:Class ;
+                                                                                             rdfs:subClassOf :JY.1.11 .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.11.Sp.B.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.11.Sp.B.1.> rdf:type owl:Class ;
+                                                                                                rdfs:subClassOf :JY.1.11 .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.11.Sp.D.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.11.Sp.D.1.> rdf:type owl:Class ;
+                                                                                                rdfs:subClassOf :JY.1.11 .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.12.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.12.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.12.Col.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.12.Col.> rdf:type owl:Class ;
+                                                                                             rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.12.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.12.Sp.B.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.12.Sp.B.1.> rdf:type owl:Class ;
+                                                                                                rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.12.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.12.Sp.B.2.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.12.Sp.B.2.> rdf:type owl:Class ;
+                                                                                                rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.12.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.12.Sp.B.3.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.12.Sp.B.3.> rdf:type owl:Class ;
+                                                                                                rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.12.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.12.Sp.D.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.12.Sp.D.1.> rdf:type owl:Class ;
+                                                                                                rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.12.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.12.Sp.D.2.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.12.Sp.D.2.> rdf:type owl:Class ;
+                                                                                                rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.12.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.12.Sp.J.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.12.Sp.J.1.> rdf:type owl:Class ;
+                                                                                                rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.12.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.13.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.13.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.13.Col.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.13.Col.> rdf:type owl:Class ;
+                                                                                             rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.13.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.13.Sp.B.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.13.Sp.B.1.> rdf:type owl:Class ;
+                                                                                                rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.13.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.13.Sp.D.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.13.Sp.D.1.> rdf:type owl:Class ;
+                                                                                                rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.13.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.14.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.14.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.14.Col.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.14.Col.> rdf:type owl:Class ;
+                                                                                             rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.14.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.14.Sp.B.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.14.Sp.B.1.> rdf:type owl:Class ;
+                                                                                                rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.14.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.14.Sp.J.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.14.Sp.J.1.> rdf:type owl:Class ;
+                                                                                                rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.14.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.15.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.15.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.15.Col.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.15.Col.> rdf:type owl:Class ;
+                                                                                             rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.15.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.15.Sp.B.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.15.Sp.B.1.> rdf:type owl:Class ;
+                                                                                                rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.15.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.16.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.16.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.16.Col.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.16.Col.> rdf:type owl:Class ;
+                                                                                             rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.16.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.16.Sp.B.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.16.Sp.B.1.> rdf:type owl:Class ;
+                                                                                                rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.16.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.16.Sp.J.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.16.Sp.J.1.> rdf:type owl:Class ;
+                                                                                                rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.16.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.17.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.17.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.17.Col.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.17.Col.> rdf:type owl:Class ;
+                                                                                             rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.17.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.17.Sp.B.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.17.Sp.B.1.> rdf:type owl:Class ;
+                                                                                                rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.17.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.18.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.18.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.18.Col.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.18.Col.> rdf:type owl:Class ;
+                                                                                             rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.18.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.18.Sp.B.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.18.Sp.B.1.> rdf:type owl:Class ;
+                                                                                                rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.18.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.18.Sp.B.2.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.18.Sp.B.2.> rdf:type owl:Class ;
+                                                                                                rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.18.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.18.Sp.B.3.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.18.Sp.B.3.> rdf:type owl:Class ;
+                                                                                                rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.18.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.18.Sp.J.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.18.Sp.J.1.> rdf:type owl:Class ;
+                                                                                                rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.18.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.18.Sp.J.2.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.18.Sp.J.2.> rdf:type owl:Class ;
+                                                                                                rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.18.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.19.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.19.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.19.Col.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.19.Col.> rdf:type owl:Class ;
+                                                                                             rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.19.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.19.Sp.B.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.19.Sp.B.1.> rdf:type owl:Class ;
+                                                                                                rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.19.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.19.Sp.B.2.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.19.Sp.B.2.> rdf:type owl:Class ;
+                                                                                                rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.19.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.19.Sp.D.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.19.Sp.D.1.> rdf:type owl:Class ;
+                                                                                                rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.19.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.2.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.2.> rdf:type owl:Class ;
+                                                                                        rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.2.Col.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.2.Col.> rdf:type owl:Class ;
+                                                                                            rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.2.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.2.Sp.B.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.2.Sp.B.1.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.2.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.2.Sp.B.2.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.2.Sp.B.2.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.2.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.2.Sp.D.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.2.Sp.D.1.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.2.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.2.Sp.J.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.2.Sp.J.1.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.2.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.2.Sp.N.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.2.Sp.N.1.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.2.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.20.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.20.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.20.Col.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.20.Col.> rdf:type owl:Class ;
+                                                                                             rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.20.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.20.Sp.B.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.20.Sp.B.1.> rdf:type owl:Class ;
+                                                                                                rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.20.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.21.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.21.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.22.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.22.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.23.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.23.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.24.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.24.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.25.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.25.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.26.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.26.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.27.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.27.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.28.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.28.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.29.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.29.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.3.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.3.> rdf:type owl:Class ;
+                                                                                        rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.3.Col.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.3.Col.> rdf:type owl:Class ;
+                                                                                            rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.3.Sp.B.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.3.Sp.B.1.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.3.Sp.B.2.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.3.Sp.B.2.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.3.Sp.B.3.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.3.Sp.B.3.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.3.Sp.D.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.3.Sp.D.1.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.3.Sp.D.2.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.3.Sp.D.2.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.3.Sp.J.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.3.Sp.J.1.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.3.Sp.J.2.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.3.Sp.J.2.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.3.Sp.N.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.3.Sp.N.1.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.30.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.30.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.31.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.31.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.32.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.32.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.33.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.33.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.34.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.34.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.35.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.35.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.36.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.36.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.37.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.37.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.38.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.38.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.39.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.39.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.4.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.4.> rdf:type owl:Class ;
+                                                                                        rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.4.Col.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.4.Col.> rdf:type owl:Class ;
+                                                                                            rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.4.Sp.B.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.4.Sp.B.1.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.4.Sp.B.2.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.4.Sp.B.2.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.4.Sp.B.3.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.4.Sp.B.3.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.4.Sp.B.4.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.4.Sp.B.4.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.4.Sp.J.1
+:JY.1.4.Sp.J.1 rdf:type owl:Class ;
+               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.4.Sp.J.2.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.4.Sp.J.2.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.4.Sp.J.3.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.4.Sp.J.3.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.4.Sp.N.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.4.Sp.N.1.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.40.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.40.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.41.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.41.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.42.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.42.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.43.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.43.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.44.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.44.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.45.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.45.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.46.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.46.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.47.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.47.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.48.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.48.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.49.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.49.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.5.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.5.> rdf:type owl:Class ;
+                                                                                        rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.5.Col.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.5.Col.> rdf:type owl:Class ;
+                                                                                            rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.5.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.5.Sp.B.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.5.Sp.B.1.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.5.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.5.Sp.B.2.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.5.Sp.B.2.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.5.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.5.Sp.D.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.5.Sp.D.1.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.5.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.50.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.50.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.51.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.51.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.6.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.6.> rdf:type owl:Class ;
+                                                                                        rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.6.Col.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.6.Col.> rdf:type owl:Class ;
+                                                                                            rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.6.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.6.Sp.B.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.6.Sp.B.1.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.6.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.7.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.7.> rdf:type owl:Class ;
+                                                                                        rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.7.Col.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.7.Col.> rdf:type owl:Class ;
+                                                                                            rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.7.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.7.Sp.B.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.7.Sp.B.1.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.7.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.7.Sp.B.2.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.7.Sp.B.2.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.7.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.7.Sp.B.3.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.7.Sp.B.3.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.7.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.7.Sp.D.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.7.Sp.D.1.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.7.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.7.Sp.D.2.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.7.Sp.D.2.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.7.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.8.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.8.> rdf:type owl:Class ;
+                                                                                        rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.8.Col.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.8.Col.> rdf:type owl:Class ;
+                                                                                            rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.8.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.8.Sp.B.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.8.Sp.B.1.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.8.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.9.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.9.> rdf:type owl:Class ;
+                                                                                        rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.9.Col.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.9.Col.> rdf:type owl:Class ;
+                                                                                            rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.9.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.9.Sp.B.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.9.Sp.B.1.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.9.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.9.Sp.B.2.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.9.Sp.B.2.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.9.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.9.Sp.D.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.9.Sp.D.1.> rdf:type owl:Class ;
+                                                                                               rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.1.9.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.> rdf:type owl:Class ;
+                                                                                      rdfs:subClassOf :Jayadrathayāmala .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.1.> rdf:type owl:Class ;
+                                                                                        rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.10.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.10.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.11.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.11.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.12.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.12.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.13.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.13.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.14.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.14.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.15.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.15.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.16.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.16.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.17.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.17.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.18.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.18.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.19.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.19.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.2.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.2.> rdf:type owl:Class ;
+                                                                                        rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.20.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.20.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.21.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.21.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.22.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.22.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.23.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.23.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.24.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.24.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.25.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.25.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.3.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.3.> rdf:type owl:Class ;
+                                                                                        rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.4.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.4.> rdf:type owl:Class ;
+                                                                                        rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.5.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.5.> rdf:type owl:Class ;
+                                                                                        rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.6.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.6.> rdf:type owl:Class ;
+                                                                                        rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.7.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.7.> rdf:type owl:Class ;
+                                                                                        rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.8.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.8.> rdf:type owl:Class ;
+                                                                                        rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.9.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.9.> rdf:type owl:Class ;
+                                                                                        rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.2.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> rdf:type owl:Class ;
+                                                                                      rdfs:subClassOf :Jayadrathayāmala .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.1.> rdf:type owl:Class ;
+                                                                                        rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.10.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.10.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.11.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.11.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.12.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.12.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.13.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.13.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.14.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.14.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.15.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.15.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.16.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.16.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.17.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.17.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.18.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.18.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.19.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.19.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.2.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.2.> rdf:type owl:Class ;
+                                                                                        rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.20.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.20.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.21.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.21.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.22.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.22.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.23.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.23.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.24.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.24.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.25.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.25.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.26.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.26.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.27.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.27.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.28.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.28.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.29.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.29.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.3.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.3.> rdf:type owl:Class ;
+                                                                                        rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.30.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.30.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.31.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.31.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.32.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.32.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.33.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.33.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.34.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.34.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.35.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.35.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.36.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.36.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.37.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.37.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.38.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.38.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.39.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.39.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.4.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.4.> rdf:type owl:Class ;
+                                                                                        rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.5.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.5.> rdf:type owl:Class ;
+                                                                                        rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.6.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.6.> rdf:type owl:Class ;
+                                                                                        rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.7.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.7.> rdf:type owl:Class ;
+                                                                                        rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.8.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.8.> rdf:type owl:Class ;
+                                                                                        rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.9.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.9.> rdf:type owl:Class ;
+                                                                                        rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.3.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> rdf:type owl:Class ;
+                                                                                      rdfs:subClassOf :Jayadrathayāmala .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.1.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.1.> rdf:type owl:Class ;
+                                                                                        rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.10.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.10.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.11.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.11.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.12.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.12.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.13.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.13.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.14.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.14.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.15.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.15.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.16.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.16.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.17.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.17.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.18.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.18.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.19.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.19.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.2.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.2.> rdf:type owl:Class ;
+                                                                                        rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.20.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.20.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.21.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.21.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.22.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.22.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.23.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.23.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.24.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.24.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.25.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.25.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.26.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.26.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.27.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.27.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.28.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.28.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.29.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.29.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.3.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.3.> rdf:type owl:Class ;
+                                                                                        rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.30.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.30.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.31.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.31.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.32.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.32.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.33.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.33.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.34.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.34.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.35.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.35.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.36.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.36.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.37.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.37.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.38.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.38.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.39.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.39.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.4.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.4.> rdf:type owl:Class ;
+                                                                                        rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.40.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.40.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.41.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.41.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.42.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.42.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.43.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.43.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.44.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.44.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.45.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.45.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.46.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.46.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.47.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.47.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.48.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.48.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.49.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.49.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.5.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.5.> rdf:type owl:Class ;
+                                                                                        rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.50.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.50.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.51.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.51.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.52.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.52.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.53.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.53.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.54.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.54.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.55.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.55.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.56.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.56.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.57.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.57.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.58.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.58.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.59.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.59.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.6.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.6.> rdf:type owl:Class ;
+                                                                                        rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.60.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.60.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.61.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.61.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.62.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.62.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.63.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.63.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.64.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.64.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.65.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.65.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.66.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.66.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.67.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.67.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.68.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.68.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.69.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.69.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.7.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.7.> rdf:type owl:Class ;
+                                                                                        rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.70.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.70.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.71.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.71.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.72.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.72.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.73.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.73.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.74.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.74.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.75.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.75.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.76.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.76.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.77.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.77.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.78.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.78.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.79.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.79.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.8.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.8.> rdf:type owl:Class ;
+                                                                                        rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.80.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.80.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.81.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.81.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.82.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.82.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.83.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.83.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.84.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.84.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.85.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.85.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.86.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.86.> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.9.
+<http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.9.> rdf:type owl:Class ;
+                                                                                        rdfs:subClassOf <http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#JY.4.> .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#Jayadrathayāmala
+:Jayadrathayāmala rdf:type owl:Class ;
+                  rdfs:subClassOf :Text .
+
+
+###  http://www.semanticweb.org/svacchanda2/ontologies/2020/6/untitled-ontology-13#Text
+:Text rdf:type owl:Class .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
