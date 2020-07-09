@@ -14,7 +14,12 @@ import {AuthService} from '../../mongodb/auth/auth.service';
 import { UsergroupService } from '../../mongodb/usergroup/usergroup.service';
 import {PageListDialogComponent} from '../../../app-engine/page/page-list-dialog/page-list-dialog.component';
 import {NgxSpinnerService} from 'ngx-spinner';
-
+import {PageSetService} from '../../mongodb/pageset/page-set.service';
+import {FileService} from '../../file/file.service';
+import * as JSZipUtils from 'jszip-utils';
+import * as Fs from 'fs';
+import * as JSZip from 'jszip';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-dashboard',
@@ -298,11 +303,23 @@ export class DashboardComponent implements OnInit {
 
 }
 
+
 @Component({
   selector: 'dialog-overview-example-dialog',
   templateUrl: './dialog-overview-example-dialog.html',
 })
 export class DialogOverviewExampleDialog {
+
+  constructor(public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
+              @Inject(MAT_DIALOG_DATA) public data: any,
+              public dialog: MatDialog,
+              private router: Router,
+              private actionService: ActionService,
+              private pageSetService: PageSetService,
+              private pageService: PageService,
+              private usergroupService: UsergroupService,
+              private fileService: FileService) {
+  }
   action: Action = {
     id: undefined,
     title: '',
@@ -319,13 +336,55 @@ export class DialogOverviewExampleDialog {
   pageSet: [string, string];
   usergroup: any = {};
 
-  constructor(public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
-              @Inject(MAT_DIALOG_DATA) public data: any,
-              public dialog: MatDialog,
-              private router: Router,
-              private actionService: ActionService,
-              private usergroupService: UsergroupService) {
-  }
+  // importProjectAsFile($event: Event) {
+  //   let project = {};
+  //   const file = (event.target as HTMLInputElement).files[0];
+  //   this.fileService.addZipFileToSrvr(file).subscribe(responseData => {
+  //     console.log(responseData);
+  //     const path = './backend/files/' + responseData.fileName;
+  //     console.log(path);
+  //     const fileReader = new FileReader();
+  //     fileReader.onload = (e) => {
+  //       this.action = JSON.parse(fileReader.result.toString());
+  //       project = JSON.parse(fileReader.result.toString());
+  //       const detailsArray = Object.entries(project).map((e) => ({[e[0]]: e[1]}));
+  //       // console.log(detailsArray);
+  //       // console.log('the action is');
+  //       // console.log(this.action);
+  //
+  //       let action, pageSet, pages, queries;
+  //       for (let i = 0; i < detailsArray.length; i++) {
+  //         console.log(detailsArray[i]);
+  //         if (detailsArray[i]['action']) {
+  //           action = JSON.parse(JSON.parse(JSON.stringify(detailsArray[i]))['action']);
+  //         } else if (detailsArray[i]['pageSet']) {
+  //           pageSet = JSON.parse(JSON.parse(JSON.stringify(detailsArray[i]))['pageSet']);
+  //         } else if (detailsArray[i]['pages']) {
+  //           pages = JSON.parse(JSON.parse(JSON.stringify(detailsArray[i]))['pages']);
+  //         } else if (detailsArray[i]['queries']) {
+  //           queries = JSON.parse(JSON.parse(JSON.stringify(detailsArray[i]))['queries']);
+  //         }
+  //         // console.log(detailsArray['action']);
+  //       }
+  //       console.log(action, pageSet, pages, queries);
+  //       console.log('calling the create Project function');
+  //       this.actionService.createProject(action, pageSet, pages, queries)
+  //         .subscribe((actionResult) => {
+  //           if (action.type === 'page-set') {
+  //             this.pageSet = ['pageSet', action._id];
+  //           }
+  //           this.dialogRef.close(this.pageSet);
+  //         });
+  //
+  //       // console.log(fileReader.result);
+  //     };
+  //     fileReader.readAsText(file);
+  //     //
+  //     // console.log(readStream);
+  //   });
+  //
+  // }
+  p_pageSetId: string;
 
   close() {
     this.dialogRef.close(this.pageSet);
@@ -368,5 +427,93 @@ export class DialogOverviewExampleDialog {
           console.log( error );
         }
       );
+  }
+
+  importProjectAsZip($event: Event) {
+    const zipFile = (event.target as HTMLInputElement).files[0];
+    let action, pageSet, pages, queries, allFiles, jsonQueries, oldHostUrl, filesJson;
+    // const projectFiles = [];
+    const projectFiles = new Array<{fileName: string, fileContent: Blob}>();
+    let counter = 0;
+    JSZip.loadAsync(zipFile)
+      .then(function (zip) {
+        allFiles = Object.entries(zip.files);
+        counter = allFiles.length;
+        zip.forEach(function (relativePath, zipEntry) {
+          if (!zipEntry.dir) {
+            zip.file(relativePath).async('text').then(function (content) {
+              if (relativePath === 'action.json') {
+                action = content; // JSON.parse(JSON.parse(JSON.stringify(content)));
+                counter--;
+              } else if (relativePath === 'pageSet.json') {
+                pageSet = content; // JSON.parse(JSON.parse(JSON.stringify(content)));
+                counter--;
+              } else if (relativePath === 'pages.json') {
+                pages = content; // JSON.parse(JSON.parse(JSON.stringify(content)));
+                counter--;
+              } else if (relativePath === 'queries.json') {
+                if (content.length > 0) {
+                  queries = content; // JSON.parse(JSON.parse(JSON.stringify(content)));
+                }
+                counter--;
+              } else if (relativePath === 'JSONFile.json') {
+                if (content.length > 0) {
+                  jsonQueries = content; // JSON.parse(JSON.parse(JSON.stringify(content)));
+                }
+                counter--;
+              } else if (relativePath === 'files.json') {
+                if (content.length > 0) {
+                  filesJson = content; // JSON.parse(JSON.parse(JSON.stringify(content)));
+                }
+                counter--;
+              } else if (relativePath === 'oldHostUrl.txt') {
+                if (content.length > 0) {
+                  oldHostUrl = content;
+                  counter--;
+                }
+              } else {
+                zip.file(relativePath).async('blob').then(content => {
+                  projectFiles.push({fileName: relativePath.substr(6), fileContent: content});
+                  // new File([content], relativePath.substr(6)));
+                  console.log(projectFiles);
+                });
+                counter--;
+              }
+            });
+          } else { // The folders were counted as well
+            counter--;
+          }
+        });
+      });
+    let isFinished = false;
+    const mainObject = this;
+    const timeout = setInterval(function () {
+      if (!isFinished && counter === 0) {
+        clearInterval(timeout);
+        isFinished = true;
+        mainObject.actionService.createProject(action, pageSet, pages, queries, jsonQueries, oldHostUrl, filesJson, projectFiles)
+          .subscribe((actionResult) => {
+            if (action.type === 'page-set') {
+              mainObject.pageSet = ['pageSet', action._id];
+            }
+            mainObject.dialogRef.close(mainObject.pageSet);
+          });
+      }
+    }, 100);
+  }
+  reloadProject(pageSetId: string) {
+    console.log(pageSetId);
+    this.actionService.reloadProject(pageSetId)
+      .subscribe((actionResult) => {
+        if (actionResult.type === 'page-set') {
+          this.pageSet = ['pageSet', actionResult._id];
+        }
+        this.dialogRef.close(this.pageSet);
+      });
+  }
+  reloadFiles() {
+    this.fileService.reloadFiles().subscribe( fileResults => {
+      console.log(fileResults);
+    });
   }
 }

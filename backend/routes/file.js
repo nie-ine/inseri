@@ -539,4 +539,18 @@ function getQueriesFromPages(queryIds, returnedObj, res,req) {
     })
   })
 }
+router.get("/restoreFiles/", (req, res, next) => {
+  fs.readdir('backend/files').then(filenames =>{
+    return res.status(200).json({
+      message: 'Files retuned ',
+      files: filenames
+    });
+  }).catch(err=>{
+    res.status(500).json({
+      message: 'files not found',
+      error: err
+    })
+  });
+});
+
 module.exports = router;
