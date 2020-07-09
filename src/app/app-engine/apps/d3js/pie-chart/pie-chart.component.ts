@@ -28,6 +28,8 @@ export class PieChartComponent implements AfterViewChecked {
   private pie: any;
   private color: any;
   private svg: any;
+  private tooltip: any;
+  private _current: any;
 
   constructor() {
     this.width = 900 - this.margin.left - this.margin.right;
@@ -36,6 +38,7 @@ export class PieChartComponent implements AfterViewChecked {
   }
 
   ngAfterViewChecked() {
+    // console.log( this.numberOfInitialisedComponent, this.data );
     if (
       this.initialised &&
       !this.alreadyInitialised &&
@@ -71,6 +74,7 @@ export class PieChartComponent implements AfterViewChecked {
       .attr('height', 500)
       .append('g')
       .attr('transform', 'translate(' + this.width / 2 + ',' + this.height / 2 + ')');
+
   }
 
   private drawPie() {
@@ -79,11 +83,12 @@ export class PieChartComponent implements AfterViewChecked {
       .enter().append('g')
       .attr('class', 'arc');
     g.append('path').attr('d', this.arc)
-      .style('fill', (d: any) => this.color(d.data.label) );
+      .style('fill', (d: any) => this.color(d.data.label) )
+      .each( (d: any) =>  this._current - d );
     g.append('text').attr('transform', (d: any) => 'translate(' + this.labelArc.centroid(d) + ')')
       .attr('dy', '.35em')
       .text((d: any) => d.data.label);
-  }
 
+  }
 
 }

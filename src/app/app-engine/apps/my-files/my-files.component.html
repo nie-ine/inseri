@@ -30,7 +30,7 @@
 <button *ngIf="mainFolder_id!='-1'" mat-button [matMenuTriggerFor]="menuMore"><mat-icon>more_horiz</mat-icon></button>
 <mat-menu #menuMore="matMenu">
   <button mat-menu-item [matMenuTriggerFor]="menuFile" matTooltip="File" >
-    <mat-icon>note_add</mat-icon>
+    <mat-icon>insert_drive_file</mat-icon>
   </button>
   <button mat-menu-item [matMenuTriggerFor]="menuPageSet" matTooltip="PageSet" >
     <mat-icon>file_copy</mat-icon>
@@ -47,8 +47,11 @@
 </mat-menu>
 <mat-spinner *ngIf="multipleFileUpload"></mat-spinner>
 <mat-menu #menuFile="matMenu">
-  <button mat-menu-item matTooltip="Add a File"(click)="filePicker.click();" >
+  <button mat-menu-item matTooltip="Create New File"(click)="showForm('UpdateFileForm'); createNewFileForm = true; showFileContent = true;" >
     <mat-icon>add</mat-icon>
+  </button>
+  <button mat-menu-item matTooltip="Add a File"(click)="filePicker.click();" >
+    <mat-icon>note_add</mat-icon>
   </button>
   <button mat-menu-item matTooltip="Add Multiple Files"(click)="filePicker2.click();" >
     <mat-icon>library_add</mat-icon></button>
@@ -104,7 +107,7 @@
 
   <button
     mat-button
-    (click)="this.mainFolder_id = folder.id; deleteFromBreadCrumb();showFolders(); showForm('');">
+    (click)="this.mainFolder_id = folder.id; deleteFromBreadCrumb(); showFolders(); showForm('');">
     <mat-icon>arrow_right</mat-icon> {{ folder.title }}
   </button>
 
@@ -113,12 +116,12 @@
 <div *ngIf="addFolderForm" style="margin-left: 15px">
       <mat-form-field class="example-form-field">
         <mat-label>Folder Name</mat-label>
-        <input matInput type="text" [(ngModel)]="folder">
-        <button mat-button *ngIf="folder" matSuffix mat-icon-button aria-label="Clear" (click)="folder=''; showForm('');">
+        <input matInput type="text" [(ngModel)]="folderTitle">
+        <button mat-button *ngIf="folderTitle" matSuffix mat-icon-button aria-label="Clear" (click)="folderTitle=''; showForm('');">
           <mat-icon>close</mat-icon>
         </button>
       </mat-form-field>
-      <button mat-button *ngIf="folder" (click)="createNewFolder(folder); showForm(''); folder='' ">
+      <button mat-button *ngIf="folderTitle" (click)="createNewFolder(folderTitle); showForm(''); folderTitle='' ">
         Create
       </button>
   <button mat-button (click)="showForm('');"> Cancel</button>
@@ -127,12 +130,12 @@
 <div *ngIf="updateFolderTitleForm" style="margin-left: 15px">
   <mat-form-field class="example-form-field">
     <mat-label>Folder Name</mat-label>
-    <input matInput type="text" [(ngModel)]="folder">
-    <button mat-button *ngIf="folder" matSuffix mat-icon-button aria-label="Clear" (click)="folder=''">
+    <input matInput type="text" [(ngModel)]="folderTitle">
+    <button mat-button *ngIf="folderTitle" matSuffix mat-icon-button aria-label="Clear" (click)="folderTitle=''">
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
-  <button mat-button *ngIf="folder" (click)="updateFolderTitle(folder); updateBreadCrumb(folder); showForm(''); folder='' ">
+  <button mat-button *ngIf="folderTitle" (click)="updateFolderTitle(folderTitle); updateBreadCrumb(folderTitle); showForm(''); folderTitle='' ">
     Update
   </button>
   <button mat-button (click)="showForm('');"> Cancel</button>
@@ -143,7 +146,7 @@
     <mat-label>File Name</mat-label>
     <input matInput type="text" [(ngModel)]="fileName">
   </mat-form-field>
-  <mat-form-field class="example-form-field">
+  <mat-form-field *ngIf="!createNewFileForm" class="example-form-field">
     <!--mat-label>File Extension</mat-label-->
     <input matInput type="text" disabled value={{fileExtension}} />
   </mat-form-field>
@@ -153,8 +156,16 @@
     <input matInput type="text" [(ngModel)]="fileDescription">
   </mat-form-field>
   <br>
-  <button mat-button (click)="updateFile(); showForm('');">
+  <mat-form-field *ngIf="showFileContent" class="example-form-field">
+    <textarea  matInput rows="15" cols="200" placeholder="text" [(ngModel)]="fileContent"> <!--(change)="updateFileOnServer(file.urlPath,fileContent)"-->
+    </textarea>
+  </mat-form-field>
+  <br>
+  <button *ngIf="!createNewFileForm" mat-button (click)="updateFile(); showForm('');">
     Update
+  </button>
+  <button *ngIf="createNewFileForm" mat-button (click)="createNewFile(); showForm('');">
+    Create
   </button>
   <button mat-button (click)="showForm('');">
     Cancel
@@ -168,16 +179,10 @@
       <div *ngFor="let folderInstance of foldersArray">
         <button
           mat-button
-          (click)=" this.mainFolder_id=folderInstance._id; showFolders();
+          (click)=" this.mainFolder_id=folderInstance._id; showFolders(); folderTitle=folderInstance.title;
           addToBreadCrumb(folderInstance.title);">
           <mat-icon>folder</mat-icon> {{ folderInstance.title }}
         </button>
-        <!--input mat-input [(ngModel)]="folderInstance.title" *ngIf="updateFolderTitleForm">
-        <button
-          mat-menu-item
-          (click)="updateFolderTitle(folderInstance._id, folderInstance.title)" *ngIf="folderInstance.updateTitle === true">
-          Update folder title
-        </button-->
       </div>
     </div>
   </div>
@@ -193,55 +198,32 @@
           (click)="showAvailableInseriApps(row);" [matMenuTriggerFor]="menuOpenFileApps"> <button mat-button > <mat-icon> insert_drive_file</mat-icon> {{row.title}} </button>
       </td>
     </ng-container>
-    <ng-container matColumnDef="edit">
-      <td mat-cell *matCellDef="let row"
-           style="cursor: pointer; width: 10%;" > <button style="cursor: pointer; width: 10%;" mat-button matTooltip="Edit File Details" (click)="showForm('UpdateFileForm'); getFileDetails(file);">
-        <mat-icon>
-          edit
-        </mat-icon>
-      </button>
-    </td>
+    <ng-container matColumnDef="more">
+    <td mat-cell *matCellDef="let row"
+        style="cursor: pointer; width: 10%;" > <button style="cursor: pointer; width: 10%;" mat-button [matMenuTriggerFor]="menuFileOptions" (click)="getFileDetails(row);">
+      <mat-icon>
+        more_vert
+      </mat-icon>
+    </button>
     </ng-container>
-    <ng-container matColumnDef="delete">
-      <td mat-cell *matCellDef="let row"
-          style="cursor: pointer; width: 10%;" > <button style="cursor: pointer; width: 10%;" mat-button matTooltip="Delete File" (click)="deleteFile(file.id);">
-        <mat-icon>
-          delete
-        </mat-icon>
-      </button>
-      </td>
-    </ng-container>
-
     <!--tr mat-header-row *matHeaderRowDef="responsiveColumns" style="width: 100%;"></tr-->
-    <tr mat-row *matRowDef="let row; columns: ['name','edit','delete'];" style="width: 70%;"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['name','more'];" style="width: 70%;"></tr>
   </table>
 
 </div>
-
-
-<!--div class="div">
-  <div class="row">
-    <div class="col-xs-12">
-      <div *ngFor="let file of files" style="margin-left: 15px">
-        <button mat-button [matMenuTriggerFor]="menuOpenFileApps" (click)="showAvailableInseriApps(file);">
-          <mat-icon> insert_drive_file</mat-icon>
-          {{ file.title }}
-        </button>
-        <button mat-button matTooltip="Delete File" (click)="deleteFile(file.id);">
-          <mat-icon>
-            delete
-          </mat-icon>
-        </button>
-        <button mat-button matTooltip="Edit File Details" (click)="showForm('UpdateFileForm'); getFileDetails(file);">
-          <mat-icon>
-            edit
-          </mat-icon>
-        </button>
-      </div>
-    </div>
-  </div>
-</div-->
-
+<mat-menu #menuFileOptions="matMenu" >
+  <button style="cursor: pointer; width: 10%;" mat-button matTooltip="Edit File Details" (click)="showForm('UpdateFileForm');">
+    <mat-icon>
+      edit
+    </mat-icon>
+  </button>
+  <br>
+  <button style="cursor: pointer; width: 10%;" mat-button matTooltip="Delete File" (click)="deleteFile(file.id);">
+    <mat-icon>
+      delete
+    </mat-icon>
+  </button>
+</mat-menu>
 <mat-menu #menuOpenFileApps="matMenu" >
   <div *ngFor="let app of inseriAppsMenu" style="display: inline-block">
     <button mat-menu-item [matMenuTriggerFor]="menuOpenFileAppsItems" (mouseover)="selectChosenApp(app);" ><!--(click)="openApp(chosenApp.appType, chosenApp.name)"-->

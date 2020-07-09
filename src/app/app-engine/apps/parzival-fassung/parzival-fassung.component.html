@@ -1,12 +1,8 @@
-<div *ngFor="let zeile of zeilen; let i = index" #cmp>
+<div *ngFor="let entry of testArray; let i = index" #cmp>
   <button
     mat-button
-    (click)="updateURL(zeile)" >
-    {{ zeile.anchorName }}
+    (click)="updateURL( i )" >
+    {{ i }}
   </button>
-  <span *ngFor="let wort of zeile.woerter" >
-      <span [ngStyle]="wort.style" >
-        {{ wort.wort }}
-      </span>
-  </span>
+  {{ 'text von ' + i }}
 </div>

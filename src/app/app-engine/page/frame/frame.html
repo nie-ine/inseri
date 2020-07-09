@@ -27,6 +27,10 @@
                 File Options
               </button>
 
+              <button mat-menu-item (click)="addAppDescription()" >
+                Change app description
+              </button>
+
               <button mat-menu-item (click)="disappear()" >
                 Minimize
               </button>
@@ -54,9 +58,7 @@
                 </mat-form-field>
               </div>
               <button mat-button matTooltip="Extended search"
-                      (click)="panelExtended = !panelExtended"
-                      (click)="fullWidth = true"
-                      (click)="fullHeight = true"><mat-icon>search</mat-icon>Extended Search</button>
+                      (click)="panelExtended = true" (click)="app.panelExtended = true"><mat-icon>search</mat-icon>Extended Search</button>
               <mat-divider></mat-divider>
               <button
                 mat-menu-item
@@ -70,8 +72,13 @@
               <mat-icon>chevron_right</mat-icon>
             </button>
 
+
           <button *ngIf="position === 'static'" mat-button [matMenuTriggerFor]="menu1" style="float: right!important;">
             <mat-icon>minimize</mat-icon>
+          </button>
+
+          <button  *ngIf="showAppDescriptionEditor" (click)="showAppDescriptionEditor = false" (click)="sendAppSettingsBackToPage()" mat-button >
+            <mat-icon>close</mat-icon>
           </button>
 
         </mat-card-header>
@@ -86,9 +93,7 @@
 
             <button
               mat-button
-              (click)="panelExtended = !panelExtended"
-              (click)="fullWidth = false"
-              (click)="fullHeight = false">
+              (click)="panelExtended = false" (click)="app.panelExtended = false">
               Close extended search
             </button>
 
@@ -105,8 +110,8 @@
                   <mat-panel-title>
                     {{ i }}
                   </mat-panel-title>
-                  <mat-panel-description *ngIf="entry !== null && entry !== undefined">
-                    {{ entry.slice( 0, 10 ) }}
+                  <mat-panel-description *ngIf="entry !== null && entry !== undefined ">
+                    {{ entry.toString().slice( 0, 10 ) }}
                   </mat-panel-description>
                 </mat-expansion-panel-header>
 
@@ -122,6 +127,13 @@
                   *ngIf="entry !== null && entry !== undefined && checkIfUrlIsImage(entry)"
                   mat-card-image
                   src="{{ entry }}"
+                  alt="{{ entry }}" style="cursor: pointer"
+                  (click)="chooseResource( i )">
+
+                <img
+                  *ngIf="entry !== null && entry !== undefined && app.fileValueAsURL !== undefined"
+                  mat-card-image
+                  src="{{ app.iiifImagePath +'/' + app.maxImageWidth + '/' + app.maxImageHeight + '/0/default.jpg' }}"
                   alt="{{ entry }}" style="cursor: pointer"
                   (click)="chooseResource( i )">
 
@@ -143,4 +155,16 @@
 
         </mat-card-content>
 
+    <div  *ngIf="app.description !== undefined" >
+      <strong>{{ app.hash + ' | '}} {{ app.title || app.type }}</strong>
+      <div [innerHTML]="app.description" style="height: 60px;">
+      </div>
+    </div>
+
       </mat-card>
+
+
+  <p-editor
+    [(ngModel)]="app.description"
+    [style]="{'height':'320px'}"
+    *ngIf="showAppDescriptionEditor"></p-editor>

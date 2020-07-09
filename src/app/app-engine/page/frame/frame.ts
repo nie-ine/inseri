@@ -24,6 +24,8 @@ import { DataAssignmentComponent } from '../../../query-app-interface/data-manag
 import {QueryEntryComponent} from '../../../query-engine/query-entry/query-entry.component';
 import {Observable} from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
+import {HttpClient} from '@angular/common/http';
+import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 
 
 @Component({
@@ -41,6 +43,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
   /**
    * @param position - "static" if the option "sort by appType" is chosen, "absolute" otherwise
    * */
+  @Input() appIndex: number;
   @Input() position: string;
   @Input() preview = false;
   @Input() showAppSettingsOnPublish = true;
@@ -49,6 +52,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
   @Input() openAppArrayIndex: number;
   @Input() pathsWithArrays: Array<any>;
   @Input() height: number;
+  @Input() openAppArray: Array<any>;
   @Output() sendAppCoordinatesBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendAppSettingsBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendIndexBack: EventEmitter<any> = new EventEmitter<any>();
@@ -56,6 +60,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
   @Output() sendAssignInputCommandBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() minimizeApp: EventEmitter<any> = new EventEmitter<any>();
   @Output() closeAppEmitter: EventEmitter<any> = new EventEmitter<any>();
+  safeHtml: SafeHtml;
 
   mousemoveEvent: any;
   mouseupEvent: any;
@@ -79,6 +84,8 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
   dataChooserEntries: Array<string>;
   dataAssignmentComponent = new DataAssignmentComponent(  );
   sub: any;
+  showAppDescriptionEditor = false;
+  appDescription: string;
 
   panelExtended = false;
   @Input () showContent = true;
@@ -92,8 +99,10 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
     public dialog: MatDialog,
     private _router: Router,
     private _route: ActivatedRoute,
-    private spinner: NgxSpinnerService
-) {
+    private spinner: NgxSpinnerService,
+    private http: HttpClient,
+    private domSanitizer: DomSanitizer,
+  ) {
     this.mouseup = this.unboundMouseup.bind(this);
     this.dragging = this.unboundDragging.bind(this);
   }
@@ -113,7 +122,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
    * for example updated App - Settings or updated App - Title
    * */
   ngOnChanges( changes: SimpleChanges ) {
-    // console.log( 'change' );
+    // console.log( this.app );
     this.index = 0;
     this.width = this.produceHeightAndWidth( this.app.height,  this.app.initialHeight);
     this.height = this.produceHeightAndWidth( this.app.height,  this.app.initialHeight);
@@ -149,13 +158,21 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
       this.newDataChooserEntries = [];
       // console.log( this.dataChooserEntries );
       for ( const path of this.paths ) {
-        console.log( path.pathToValueInJson );
+        // console.log( path.pathToValueInJson );
         for ( let i = 0; i < this.dataChooserEntries.length; i++ ) {
+          // console.log( i );
+          for ( let j = 0; j < path.pathToValueInJson.length; j++ ) {
+            if ( typeof path.pathToValueInJson[ j ] === 'number' ) {
+              path.pathToValueInJson[ j ] = i;
+            }
+          }
+          // console.log( path.pathToValueInJson );
           this.newDataChooserEntries[ i ] = this.dataAssignmentComponent.generateAppinput(
             path.response,
             path.pathToValueInJson,
             i,
             0,
+            true,
             true
           );
           // console.log( this.newDataChooserEntries[ i ] );
@@ -174,7 +191,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
   }
 
   checkIfUrlIsImage(url: string) {
-    if ( url ) {
+    if ( url && typeof url === 'string') {
       return(
         url.match(/\.(jpeg|jpg|gif|png)$/) != null ||
         url.match(/(jpeg|jpg|gif|png)$/) != null
@@ -194,8 +211,6 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
 
   chooseResource(index: number) {
     this.panelExtended = false;
-    this.app.fullWidth = false;
-    this.app.fullHeight = false;
     this._router.navigate([], {
       queryParams: {
         [this.queryId + this.app.pathWithArray.toString() ]: Number( index )
@@ -207,6 +222,19 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
   stopPropagation(event) {
     event.stopPropagation();
     // console.log("Clicked!");
+  }
+
+  checkIfUrl(entry: string) {
+    this.http.get( entry, { responseType: 'text' } )
+      .subscribe(
+        data => {
+          this.safeHtml = this.domSanitizer.bypassSecurityTrustHtml( data );
+          return this.safeHtml;
+        }, error => {
+          return entry;
+          // console.log( error );
+        }
+      );
   }
 
   /**
@@ -335,12 +363,27 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
             hash: this.app.hash,
             type: this.app.type,
             fullWidth: result[ 3 ],
-            fullHeight: result[ 4 ]
+            fullHeight: result[ 4 ],
+            description: this.app.description
           }
         );
-
       }
     });
+  }
+
+  sendAppSettingsBackToPage() {
+    this.sendAppSettingsBack.emit(
+      {
+        title: this.app.title,
+        width: this.app.width,
+        height: this.app.height,
+        hash: this.app.hash,
+        type: this.app.type,
+        fullWidth: this.app.fullWidth,
+        fullHeight: this.app.fullHeight,
+        description: this.app.description
+      }
+    );
   }
 
   /**
@@ -367,6 +410,11 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
 
   closeApp() {
     this.closeAppEmitter.emit();
+  }
+
+  addAppDescription() {
+    console.log( 'add app description' );
+    this.showAppDescriptionEditor = true;
   }
 
 }

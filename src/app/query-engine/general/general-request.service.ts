@@ -29,13 +29,23 @@ export class GeneralRequestService {
           const query = data.query;
           // console.log( query );
           for ( const param in this.route.snapshot.queryParams ) {
-            // console.log( param );
+            console.log( param );
             if ( query.serverUrl.search( 'inseriParam---' + param + '---' ) !== -1 ) {
               const replaced = query.serverUrl.replace(
                 'inseriParam---' + param + '---',
                 this.route.snapshot.queryParams[ param ]
               );
               query.serverUrl = replaced;
+            }
+            console.log( query.body );
+            if ( query.body ) {
+              while ( query.body.search( 'inseriParam---' + param + '---' ) !== -1 ) {
+                const replaced = query.body.replace(
+                  'inseriParam---' + param + '---',
+                  this.route.snapshot.queryParams[ param ]
+                );
+                query.body = replaced;
+              }
             }
           }
           switch (query.method) {
@@ -87,8 +97,21 @@ export class GeneralRequestService {
   }
 
   post(url: string, parameter?: any, header?: any, body?: string): Observable<any> {
-    // console.log('POST Request', header, this.transformHeader(header));
-    return this.http.post(url, body, {params: this.transformParam(parameter), headers: this.transformHeader(header), observe: 'response'});
+    console.log('POST Request', body);
+    let help = {};
+    if ( header.length > 0 ) {
+      for ( const entry of header ) {
+        help[ entry.key ] = entry.value;
+      }
+      header = help;
+    }
+    console.log( help, header );
+
+    return this.http.post(
+      url,
+      body,
+      {params: this.transformParam(parameter), headers: this.transformHeader(header),
+        observe: 'response' } );
   }
 
   put(url: string, parameter?: any, header?: any, body?: string): Observable<any> {

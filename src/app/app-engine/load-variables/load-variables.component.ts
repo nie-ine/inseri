@@ -208,6 +208,7 @@ export class LoadVariablesComponent implements OnInit, OnChanges {
     appModel[ length ].height = appFromViewModel.height;
     appModel[ length ].fullWidth = appFromViewModel.fullWidth;
     appModel[ length ].fullHeight = appFromViewModel.fullHeight;
+    appModel[ length ].description = appFromViewModel.description;
     appModel[ length ].type = appType;
     appModel[ length ].initialized = true;
     appModel[ length ].text = appFromViewModel.text;

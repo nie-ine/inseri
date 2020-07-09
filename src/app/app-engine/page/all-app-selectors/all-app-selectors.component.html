@@ -1,5 +1,5 @@
-<app-json-environment *ngIf="app.type === 'jsonEnvironment'"
-                      [json]="app.json" [hash]="app.hash">
+<app-json-environment *ngIf="app.type === 'jsonEnvironment'"  (reloadVariables)="reloadVariablesFunction()"
+                      [assignedJson]="app.assignedJson" [hash]="app.hash" [pythonFile]="app.pythonFile">
 
 </app-json-environment>
 
@@ -96,7 +96,8 @@
 
 
 <app-parzival-fassung style="position: sticky;" *ngIf="app.type === 'parzivalFassung'"
-                      [textJson]="app.textJson">
+                      [textJson]="app.textJson"
+                      (reloadVariables)="reloadVariablesFunction()">
 </app-parzival-fassung>
 
 
@@ -184,6 +185,12 @@
                [numberOfInitialisedComponent] = " i "
                [data]="app.data">
 </app-pie-chart>
+
+<app-pie-chart-v2 *ngIf=" app.type === 'pieChartsV2' "
+               [initialised] = "app.initialized"
+               [numberOfInitialisedComponent] = " i "
+               [data]="app.data">
+</app-pie-chart-v2>
 
 
 <app-radial-barchart *ngIf=" app.type === 'radialBarCharts' "

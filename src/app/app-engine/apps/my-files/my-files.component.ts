@@ -21,6 +21,7 @@ import {RequestService} from '../../../query-engine/knora/request.service';
 import {GeneralRequestService} from '../../../query-engine/general/general-request.service';
 import {GenerateHashService} from '../../../user-action-engine/other/generateHash.service';
 import {map} from 'rxjs/operators';
+import {QueryModel} from '../../../user-action-engine/mongodb/query/query.model';
 
 @Component({
   selector: 'app-my-files',
@@ -32,6 +33,7 @@ export class MyFilesComponent implements OnInit {
   public demoForm: FormGroup;
   private fileUrlPath: string;
   fileExtension: any;
+  private fileContent: string;
   constructor(
     private http: HttpClient,
     private folderService: FolderService,
@@ -46,7 +48,7 @@ export class MyFilesComponent implements OnInit {
     private router: Router,
     private generateHashService: GenerateHashService,
     private requestService: GeneralRequestService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
   ) {
     this.demoForm = this.formBuilder.group({
       text_input: ['', Validators.required],
@@ -63,11 +65,11 @@ export class MyFilesComponent implements OnInit {
   // appMenuForm = false;
   createPageSetForm = false;
   createQueryForm = false;
-  folder: string;
+  folderTitle: string;
   foldersArray: Array<string>;
   mainFolder_id = '-1';
   subFolder_id: string;
-  file: FileModel;
+  file: {id: string, title: string, description: string, urlPath: string, content: string};
   filePreview: string;
   private  fileId: string;
   files: FileModel[] = [];
@@ -112,7 +114,13 @@ appInputsArray = [];
     fileName: string;
     fileDescription: string;
   multipleFileUpload = false;
-
+  folderQuery: any = {
+    title: '',
+    serverUrl: '',
+    method: ''
+  };
+  showFileContent = false;
+  createNewFileForm = false;
   createPageSet(title: string, description: string) {
     this.action.type = 'page-set';
     this.action.title = title;
@@ -151,6 +159,7 @@ appInputsArray = [];
     this.form = new FormGroup({
       'title': new FormControl(null), // {validators: [Validators.required]}), // Validators.minLength(3)
       'description': new FormControl(null), // {validators: [Validators.required]}),
+      'content': new FormControl(null),
       'file': new FormControl(null), // {validators: [Validators.required]})// , asyncValidators: [mimeType]})
     });
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
@@ -159,9 +168,12 @@ appInputsArray = [];
         this.fileId = paramMap.get('fileId');
         this.isLoading = true;
         this.fileService.getFile(this.fileId).subscribe(fileData => {
+          console.log('ngOninit');
+          console.log(fileData);
           this.isLoading = false;
-          this.file = {id: fileData._id, title: fileData.title, description: fileData.description, urlPath: null};
-          this.form.setValue({'title': this.file.title, 'description': this.file.description});
+          this.file = {id: fileData._id, title: fileData.title, description: fileData.description,
+            urlPath: fileData.urlPath, content: fileData.content};
+          this.form.setValue({'title': this.file.title, 'description': this.file.description, 'content': this.file.content});
           console.log( 'ngOnInit: ' + this.file.title );
         });
       } else {
@@ -197,11 +209,19 @@ appInputsArray = [];
       default:
         this.addFolderForm = false;
         this.updateFolderTitleForm = false;
+        this.folderTitle = '';
         this.pageSetForm = false;
         this.createPageSetForm = false;
+        this.action.description = '';
+        this.action.title = '';
         // this.appMenuForm = false;
         this.createQueryForm = false;
+        this.queryTitle = '';
         this.updateFileForm = false;
+        this.createNewFileForm = false;
+        this.fileName = '';
+        this.fileDescription = '';
+        this.fileContent = '';
     }
   }
   deleteFromBreadCrumb() {
@@ -224,13 +244,16 @@ appInputsArray = [];
     this.printFoldersTitle();
 }
   deleteFile(fileId: string) {
-    this.fileService.deleteFile(fileId, this.mainFolder_id).subscribe(() => {
-      console.log(this.files);
-      const updatedFiles = this.files.filter(file => file.id !== fileId);
-      this.files = updatedFiles;
-      console.log(this.files);
-      this.filesUpdated.next([...this.files]);
-    });
+    if(confirm('Would you really delete this file')){
+      this.fileService.deleteFile(fileId, this.mainFolder_id).subscribe(() => {
+        console.log(this.files);
+        const updatedFiles = this.files.filter(file => file.id !== fileId);
+        this.files = updatedFiles;
+        console.log(this.files);
+        this.filesUpdated.next([...this.files]);
+        this.showFiles();
+      });
+    }
   }
   onSaveFile() {
     // if (this.mode === 'add') {
@@ -301,45 +324,11 @@ appInputsArray = [];
       );
   }
 
-  addFiles( description: string, uploadedFiles: File[]) {
-    for (let i = 0; i < this.allFiles.length; i++) {
-      console.log(this.allFiles.controls[i].value.file.name);
-    }
-    console.log(this.allFiles);
-    console.log('calling filesService.addFiles');
-    console.log(description, uploadedFiles);
-    this.fileService.addFiles(
-      description, uploadedFiles, this.mainFolder_id
-// this.form.value.description,
-      // this.form.value.file,
-
-    ).subscribe(responseData => {
-      this.files.push(responseData.file);
-      this.filesUpdated.next([...this.files]);
-      this.showFiles();
-    });
-
-  }
-  addFile(title: string, description: string, uploadedFile: File ) {
-    this.fileService.addFile(title, description, uploadedFile, this.mainFolder_id)
-      .subscribe(responseData => {
-        const file: FileModel = {
-          id: responseData.file.id,
-          title: title,
-          description: description,
-          urlPath: responseData.file.urlPath
-        };
-        this.uploadFileToFolder(file.id);
-        this.files.push(file);
-        this.filesUpdated.next([...this.files]);
-      });
-  }
-
   showFolders () {
     this.folderService.showFolders(this.mainFolder_id)
       .subscribe(
         response => {
-          //console.log( (response as any).folders); // an array of subPages details'
+          // console.log( (response as any).folders); // an array of subPages details'
           this.foldersArray = (response as any).folders;
         }, error => {
           console.log( error );
@@ -354,13 +343,14 @@ appInputsArray = [];
   }
 
   showFiles() {
+    this.dataSource = null;
     if (this.mainFolder_id === '-1') {
       this.files = [];
     } else {
-      //console.log(this.mainFolder_id);
+      // console.log(this.mainFolder_id);
       this.fileService.getFiles(this.mainFolder_id)
         .subscribe(transformedFiles => {
-          //console.log('transformed files: ' || transformedFiles);
+          // console.log('transformed files: ' || transformedFiles);
           this.files = transformedFiles;
           this.filesUpdated.next([...this.files]);
           this.dataSource = new MatTableDataSource(this.files);
@@ -496,7 +486,6 @@ appInputsArray = [];
     }
   }*/
 
-
   showPageSetsForFolder() {
     if (this.mainFolder_id === '-1') {
       this.addedPageSets = [];
@@ -504,9 +493,9 @@ appInputsArray = [];
      // console.log(this.mainFolder_id);
       this.folderService.getPageSets(this.mainFolder_id)
         .subscribe(response => {
-            //console.log( response); // an array of subPages details'
+            // console.log( response); // an array of subPages details'
             this.addedPageSets = [...response];
-          //console.log(this.addedPageSets);
+          // console.log(this.addedPageSets);
           }, error => {
             console.log( error );
           }
@@ -542,12 +531,12 @@ appInputsArray = [];
      if (this.mainFolder_id === '-1') {
       this.addedQueries = [];
      } else {
-       //console.log(this.mainFolder_id);
+       // console.log(this.mainFolder_id);
        this.folderService.getQueries(this.mainFolder_id)
          .subscribe(response => {
-             //console.log(response);
+             // console.log(response);
              this.addedQueries = [...response];
-             //console.log(this.addedQueries);
+             // console.log(this.addedQueries);
            }, error => {
              console.log(error);
            }
@@ -622,9 +611,33 @@ appInputsArray = [];
     });
   }
 
+  showAllFolderStructure() {
+    this.folderQuery.title = this.folderTitle;
+    this.folderQuery.serverUrl = environment.node + '/api/folder/getAllFilesAndFolders/' + this.mainFolder_id;
+    this.folderQuery.method = 'GET';
+    this.folderService.getAllFoldersAndFiles(this.mainFolder_id)
+      .subscribe(data => {
+        this.queriesService.createQuery(this.folderQuery).subscribe(result => {
+          console.log(result);
+          console.log(result.body.query);
+          console.log(this.folderTitle);
+          console.log(this.mainFolder_id);
+          this.editQuery(result.body.query);
+          this.addQueryToFolder({id: result.body.query._id, title: this.folderTitle});
+
+        });
+      });
+
+    // this.folderService.getAllFoldersAndFiles(this.mainFolder_id)
+    //   .subscribe(data => {
+    //     console.log(data);
+    //   });
+
+  }
+
   receiveOpenAppsInThisPage(openAppsInThisPage: any) {
     this.openAppsInThisPage = openAppsInThisPage;
-    //console.log(this.openAppsInThisPage);
+    // console.log(this.openAppsInThisPage);
   }
     receivePage( pageAndAction: any ) {
       this.page = pageAndAction[0];
@@ -639,18 +652,10 @@ appInputsArray = [];
     }
 
   openApp(appType: string, name: string, inputName?: string) {
-    console.log( appType, this.openAppsInThisPage[ appType ].inputs, inputName );
-     this.pageComponent.addAnotherApp(appType, true, name, this.file.urlPath);
+    console.log( this.file, appType, this.openAppsInThisPage[ appType ].inputs, inputName );
+     this.pageComponent.addAnotherApp(appType, true, name, this.file.urlPath, inputName);
   }
 
-  showAllFolderStructure() {
-    alert(environment.node + '/api/folder/getAllFilesAndFolders/' + this.mainFolder_id);
-    this.folderService.getAllFoldersAndFiles(this.mainFolder_id)
-      .subscribe(data => {
-        console.log(data);
-      });
-
-  }
   selectChosenApp(app: any) {
     this.chosenApp = app;
     this.appInputsArray = this.openAppsInThisPage[app.appType].inputs;
@@ -660,13 +665,18 @@ appInputsArray = [];
     this.oldFileName = this.file.title;
     this.fileDetailsId = this.file.id;
     this.fileExtension = this.file.title.substring(this.file.title.lastIndexOf('.') + 1);
+    console.log('update File');
+    console.log(this.fileUrlPath);
+    // this.fileContent = this.file.content;
+    console.log('printing the file content: ' + this.fileContent);
     console.log(this.fileExtension);
     const newFileTitle = this.fileName + '.' + this.fileExtension;
     if (this.searchFiles(newFileTitle, this.files, this.file)) {
       alert('You cannot rename a file with a name already in the file List, try changing it with another name.');
       return;
     }
-    this.fileService.updateFile(this.fileDetailsId, newFileTitle, this.fileDescription)
+    console.log(this.fileDetailsId, newFileTitle, this.fileDescription, this.fileContent);
+    this.fileService.updateFile(this.fileDetailsId, newFileTitle, this.fileDescription, this.fileContent, this.fileUrlPath)
       .subscribe(response => {
         const file = response.file;
         console.log(file);
@@ -679,16 +689,77 @@ appInputsArray = [];
       this.fileName = '';
       this.fileDescription = '';
         this.fileExtension = '';
+        this.fileContent = '';
+        this.showFileContent = false;
       this.showFiles();
     });
   }
   getFileDetails(file: any) {
     this.file = file;
     this.fileService.getFile(file.id).subscribe(fileData => {
+      console.log('getFileDetails');
+      console.log(fileData);
       this.fileDescription = fileData.description;
       this.fileName = fileData.title.substring(0, fileData.title.lastIndexOf('.'));
       this.fileExtension = fileData.title.substring(fileData.title.lastIndexOf('.') + 1);
+      this.fileContent = fileData.content;
+      this.fileUrlPath = fileData.urlPath;
+      this.showFileContent = (this.fileExtension.match(/(txt)|(py)|(json)$/)) ? true : false;
+      console.log(this.fileUrlPath);
     });
+  }
+
+  addFiles( description: string, uploadedFiles: File[]) {
+    for (let i = 0; i < this.allFiles.length; i++) {
+      console.log(this.allFiles.controls[i].value.file.name);
+    }
+    console.log(this.allFiles);
+    console.log('calling filesService.addFiles');
+    console.log(description, uploadedFiles);
+    this.fileService.addFiles(
+      description, uploadedFiles, this.mainFolder_id
+// this.form.value.description,
+      // this.form.value.file,
+
+    ).subscribe(responseData => {
+      this.files.push(responseData.file);
+      this.filesUpdated.next([...this.files]);
+      this.showFiles();
+    });
+
+  }
+
+  addFile(title: string, description: string, uploadedFile: File ) {
+    this.fileService.addFile(title, description, this.mainFolder_id, uploadedFile )
+      .subscribe(responseData => {
+        console.log( responseData );
+        const file: FileModel = {
+          id: responseData.file.id,
+          title: title,
+          description: description,
+          urlPath: responseData.file.urlPath
+        };
+        //this.uploadFileToFolder(file.id);
+        this.files.push(file);
+        this.filesUpdated.next([...this.files]);
+        this.showFiles();
+      }, error => console.log( error ));
+  }
+  createNewFile() {
+    this.fileService.addFile(this.fileName, this.fileDescription, this.mainFolder_id, null, this.fileContent)
+      .subscribe(responseData => {
+        console.log( responseData );
+        const file: FileModel = {
+          id: responseData.file.id,
+          title: this.fileName,
+          description: this.fileDescription,
+          urlPath: responseData.file.urlPath
+        };
+        //this.uploadFileToFolder(file.id);
+        this.files.push(file);
+        this.filesUpdated.next([...this.files]);
+        this.showFiles();
+      }, error => console.log( error ));
   }
   searchFiles(fileName: string, files: FileModel[], file: FileModel) {
     for (let i = 0; i < files.length; i++) {
@@ -701,7 +772,7 @@ appInputsArray = [];
   }
   printFoldersTitle() {
     console.log('The Folder Path is: ', this.breadCrumbArray.length );
-    let titles = [];
+    const titles = [];
     this.breadCrumbArray.forEach(item => titles.push(item.title));
     console.log(titles);
   }

@@ -12,11 +12,7 @@
 
 <div style="margin-top: 30px" *ngIf="activateJsonButton">
   <button mat-button (click)="saveAndClose()" >
-    <mat-icon>clear</mat-icon> Save and Close
-  </button>
-  <button mat-button (click)="closeWithoutSaving()">
-  <mat-icon>clear</mat-icon>
-    Close without saving
+    <mat-icon>clear</mat-icon> Close and save query information
   </button>
 </div>
 
@@ -53,7 +49,7 @@
       </mat-option>
       <mat-option
         [value]="'JSON'" (click)="generateNewJsonObject()">
-        JSON Object
+        Create your own JSON object in inseri
       </mat-option>
     </mat-select>
   </mat-form-field>

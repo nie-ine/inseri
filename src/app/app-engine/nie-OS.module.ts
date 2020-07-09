@@ -94,6 +94,7 @@ import { MyFilesComponent } from './apps/my-files/my-files.component';
 import { AudioPlayerComponent } from './apps/audio-player/audio-player.component';
 import { NgxAudioPlayerModule } from 'ngx-audio-player';
 import { JsonEnvironmentComponent } from './apps/json-environment/json-environment.component';
+import { PieChartV2Component } from './apps/pie-chart-v2/pie-chart-v2.component';
 
 
 @NgModule({
@@ -211,7 +212,8 @@ import { JsonEnvironmentComponent } from './apps/json-environment/json-environme
     UrlParamUpdaterComponent,
     MyFilesComponent,
     AudioPlayerComponent,
-    JsonEnvironmentComponent
+    JsonEnvironmentComponent,
+    PieChartV2Component
   ],
   exports: [
     PageComponent,

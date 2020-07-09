@@ -10,6 +10,7 @@ import {GeneralRequestService} from '../../../query-engine/general/general-reque
 import { QueryService } from '../../../user-action-engine/mongodb/query/query.service';
 import {cloneDate} from 'ngx-bootstrap/chronos/create/clone';
 import {type} from 'os';
+import {DataAssignmentComponent} from '../data-assignment/data-assignment.component';
 
 @Injectable({
   providedIn: 'root'
@@ -71,13 +72,14 @@ export class GenerateDataChoosersService {
                 for ( const appHash in page.appInputQueryMapping ) {
                   for ( const input in page.appInputQueryMapping[ appHash ] ) {
                     const path = page.appInputQueryMapping[ appHash ][ input ].path;
-                    if ( path ) {
-                      for ( let i = 0; i < path.length; i++ ) {
-                        if ( typeof path[ i ] === 'number' ) {
-                          path.splice( i, 1 );
-                        }
-                      }
-                    }
+                    // console.log( data1.body, path );
+                    // if ( path ) {
+                    //   // for ( let i = 0; i < path.length; i++ ) {
+                    //   //   if ( typeof path[ i ] === 'number' ) {
+                    //   //     path.splice( i, 1 );
+                    //   //   }
+                    //   // }
+                    // }
                     this.checkIfSubsetOfResultContainsArray(
                       data1.body,
                       path,
@@ -85,7 +87,8 @@ export class GenerateDataChoosersService {
                       path,
                       queryTitle,
                       data1,
-                      queryId
+                      queryId,
+                      page
                     );
                   }
                 }
@@ -102,9 +105,24 @@ export class GenerateDataChoosersService {
     pathArray: Array<string>,
     queryTitle: string,
     data: any,
-    queryId: string
+    queryId: string,
+    page?: any
   ) {
     // console.log( path );
+    // issue assign data already here: https://github.com/nie-ine/inseri/issues/477
+    const dataAssignmentComponent = new DataAssignmentComponent();
+    if ( path[0] === 'wholeJsonResponseAssignedToThisAppInput' ) {
+      // console.log( path, response );
+      dataAssignmentComponent.startPathUpdateProcess(
+        queryId,
+        [],
+        0,
+        response,
+        0,
+        page.appInputQueryMapping,
+        openAppsInThisPage
+      );
+    }
     if ( path ) {
       const segment = path[ 0 ];
       // console.log( segment, response );

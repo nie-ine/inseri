@@ -1,3 +1,35 @@
-<p>
-  json-environment works!
-</p>
+<div style="display: inline-block; width: 40%;" >
+  <h3>
+    Input
+  </h3>
+
+  <pre style="height: 20rem; width: 400px;">{{display | json}}</pre>
+</div>
+
+<div style="display: inline-block; float: right; width: 60%;" >
+  <h3 >
+    Python code
+  </h3>
+
+  <ace-editor class="url-extension"
+              #editor
+              style="min-height: 20rem; overflow: auto; width: 600px;"
+              [mode]="'typescript'" (keyup)="updateCodeInLocalStorage()">
+  </ace-editor>
+
+  <button mat-button (click)="savePythonFile()" (click)="submitToMicroservice( true )" >
+    Save Python Code and Update dependent apps
+  </button>
+
+</div>
+
+<h3>
+  Output:
+</h3>
+
+<button mat-button (click)="submitToMicroservice( false )">
+  Submit
+</button>
+
+<pre style="height: 20rem; width: 700px;">{{output | json}}</pre>
+

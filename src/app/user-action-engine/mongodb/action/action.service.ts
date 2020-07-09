@@ -1,8 +1,12 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Query} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Action } from './action.model';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
+import {Page} from '../page/page.model';
+import {PageSetModel} from '../pageset/page-set.model';
+import {QueryModel} from '../query/query.model';
+import {MyOwnJson} from '../myOwnJSON/myOwnJson';
 
 @Injectable({ providedIn: 'root' })
 export class ActionService {
@@ -13,10 +17,23 @@ export class ActionService {
     private http: HttpClient,
   ) {}
 
-  createAction(action: Action): Observable<any> {
+  createAction(action: Action, pageSet?: PageSetModel, pages?: [Page]): Observable<any> {
     return this.http.post(`${ActionService.API_BASE_URL_ACTION}/`, action);
   }
 
+   createProject(action: string, pageSet: string, pages: string, queries: string,
+                 jsonQueries: string, oldHostUrl: string, filesJson: string, projectFiles: Array<{fileName: string, fileContent: Blob}>): Observable<any> {
+    return this.http.post(`${ActionService.API_BASE_URL_ACTION}/createProject/`,
+      {
+        action: action,
+              pageSet: pageSet,
+              pages: pages,
+              queries: queries,
+              jsonQueries: jsonQueries,
+              oldHostUrl: oldHostUrl,
+              filesJson: filesJson,
+              projectFiles: projectFiles });
+  }
   getAction(id: string): Observable<any> {
     return this.http.get(`${ActionService.API_BASE_URL_ACTION}/${id}`, {observe: 'response'});
   }
@@ -35,6 +52,10 @@ export class ActionService {
 
   deleteAction(id: string): Observable<any> {
     return this.http.delete(`${ActionService.API_BASE_URL_ACTION}/${id}`, {observe: 'response'});
+  }
+  reloadProject(pageSetId: string): Observable<any> {
+    return this.http.post(`${ActionService.API_BASE_URL_ACTION}/reloadProject/`,
+      {pageSetId });
   }
 
 }
