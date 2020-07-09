@@ -8,7 +8,7 @@ import {
   OnInit,
   ViewChild,
   ViewChildren,
-  QueryList
+  QueryList, Output, EventEmitter
 } from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
@@ -21,8 +21,10 @@ import {Location} from '@angular/common';
 export class ParzivalFassungComponent implements OnChanges, AfterViewChecked {
   @Input() textJson: any;
   @ViewChildren('cmp') MyProp2: ElementRef;
+  @Output() reloadVariables: EventEmitter<any> = new EventEmitter<any>();
   zeilen: Array<any> = [];
   currentAnchor = 1;
+  testArray = new Array(650);
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
@@ -31,290 +33,6 @@ export class ParzivalFassungComponent implements OnChanges, AfterViewChecked {
 
   ngOnChanges() {
     console.log( this.textJson );
-    if ( this.textJson === undefined ) {
-      this.textJson = {
-        "spaltenTitel": "*D",
-        "zeilen": [
-          {
-            "zeilenNummer": 1,
-            "anchorName": "*D",
-            "woerter": [
-              {
-                "wort": "2.26",
-                "style": {
-                  "font-weight": "bold"
-                }
-              },
-              {
-                "wort": "swelhiu"
-              },
-              {
-                "wort": "mîn râten merken",
-                "style": {
-                  "font-weight": "bold"
-                }
-              },
-              {
-                "wort": "wil"
-              }
-            ]
-          },
-          {
-            "zeilenNummer": 2,
-            "anchorName": "*D",
-            "woerter": [
-              {
-                "wort": "2.27",
-                "style": {
-                  "font-weight": "bold"
-                },
-                "annotation": [
-                  {
-                    "start": 3,
-                    "end": 4,
-                    "type": "link",
-                    "options": {
-                      "ref": "http://www.parzival.unibe.ch/parzdb/parzival.php?page=fassungen&dreissiger=3#"
-                    }
-                  }
-                ]
-              },
-              {
-                "wort": "diu sol"
-              },
-              {
-                "wort": "wizzen, war si kêre",
-                "annotation": [
-                  {
-                    "start": 3,
-                    "end": 3,
-                    "style": [
-                      "italic"
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "zeilenNummer": 3,
-            "anchorName": "*D",
-            "woerter": [
-              {
-                "wort": "2.28",
-                "style": {
-                  "font-weight": "bold"
-                }
-              },
-              {
-                "wort": "swelhiu"
-              },
-              {
-                "wort": "mîn râten merken",
-                "style": {
-                  "font-weight": "bold"
-                }
-              },
-              {
-                "wort": "wil"
-              }
-            ]
-          },
-          {
-            "zeilenNummer": 4,
-            "anchorName": "*D",
-            "woerter": [
-              {
-                "wort": "2.29",
-                "style": {
-                  "font-weight": "bold"
-                }
-              },
-              {
-                "wort": "swelhiu"
-              },
-              {
-                "wort": "mîn râten merken",
-                "style": {
-                  "font-weight": "bold"
-                }
-              },
-              {
-                "wort": "wil"
-              }
-            ]
-          },
-          {
-            "zeilenNummer": 5,
-            "anchorName": "*D",
-            "woerter": [
-              {
-                "wort": "2.30",
-                "style": {
-                  "font-weight": "bold"
-                }
-              },
-              {
-                "wort": "swelhiu"
-              },
-              {
-                "wort": "mîn râten merken",
-                "style": {
-                  "font-weight": "bold"
-                }
-              },
-              {
-                "wort": "wil"
-              }
-            ]
-          },
-          {
-            "zeilenNummer": 6,
-            "anchorName": "*D",
-            "woerter": [
-              {
-                "wort": "2.31",
-                "style": {
-                  "font-weight": "bold"
-                }
-              },
-              {
-                "wort": "swelhiu"
-              },
-              {
-                "wort": "mîn râten merken",
-                "style": {
-                  "font-weight": "bold"
-                }
-              },
-              {
-                "wort": "wil"
-              }
-            ]
-          },
-          {
-            "zeilenNummer": 7,
-            "anchorName": "*D",
-            "woerter": [
-              {
-                "wort": "2.32",
-                "style": {
-                  "font-weight": "bold"
-                }
-              },
-              {
-                "wort": "swelhiu"
-              },
-              {
-                "wort": "mîn râten merken",
-                "style": {
-                  "font-weight": "bold"
-                }
-              },
-              {
-                "wort": "wil"
-              }
-            ]
-          },
-          {
-            "zeilenNummer": 8,
-            "anchorName": "*D",
-            "woerter": [
-              {
-                "wort": "2.33",
-                "style": {
-                  "font-weight": "bold"
-                }
-              },
-              {
-                "wort": "swelhiu"
-              },
-              {
-                "wort": "mîn râten merken",
-                "style": {
-                  "font-weight": "bold"
-                }
-              },
-              {
-                "wort": "wil"
-              }
-            ]
-          },
-          {
-            "zeilenNummer": 9,
-            "anchorName": "*D",
-            "woerter": [
-              {
-                "wort": "2.34",
-                "style": {
-                  "font-weight": "bold"
-                }
-              },
-              {
-                "wort": "swelhiu"
-              },
-              {
-                "wort": "mîn râten merken",
-                "style": {
-                  "font-weight": "bold"
-                }
-              },
-              {
-                "wort": "wil"
-              }
-            ]
-          },
-          {
-            "zeilenNummer": 10,
-            "anchorName": "*D",
-            "woerter": [
-              {
-                "wort": "2.35",
-                "style": {
-                  "font-weight": "bold"
-                }
-              },
-              {
-                "wort": "swelhiu"
-              },
-              {
-                "wort": "mîn râten merken",
-                "style": {
-                  "font-weight": "bold"
-                }
-              },
-              {
-                "wort": "wil"
-              }
-            ]
-          },
-          {
-            "zeilenNummer": 11,
-            "anchorName": "*D",
-            "woerter": [
-              {
-                "wort": "2.36",
-                "style": {
-                  "font-weight": "bold"
-                }
-              },
-              {
-                "wort": "swelhiu"
-              },
-              {
-                "wort": "mîn râten merken",
-                "style": {
-                  "font-weight": "bold"
-                }
-              },
-              {
-                "wort": "wil"
-              }
-            ]
-          }
-        ]
-      };
-    }
     if ( this.textJson ) {
       this.zeilen = this.textJson.zeilen;
     }
@@ -323,24 +41,25 @@ export class ParzivalFassungComponent implements OnChanges, AfterViewChecked {
   ngAfterViewChecked() {
     this.cdr.detectChanges();
     // console.log( 'OnChanges' );
-    if ( this.currentAnchor !== this._route.snapshot.queryParams.parzivalFassungAnchor ) {
-      this.currentAnchor = this._route.snapshot.queryParams.parzivalFassungAnchor;
+    if ( this.currentAnchor !== this._route.snapshot.queryParams.verseNumber ) {
+      this.currentAnchor = this._route.snapshot.queryParams.verseNumber;
       this.updateAllFassungsComponents(
-        this._route.snapshot.queryParams.parzivalFassungAnchor
+        this._route.snapshot.queryParams.verseNumber
       );
     }
     this.cdr.detectChanges();
   }
 
   updateURL(
-    zeile: any
+    index: number
   ) {
     this._router.navigate([], {
       queryParams: {
-        parzivalFassungAnchor: zeile.zeilenNummer
+        verseNumber: index
       },
       queryParamsHandling: 'merge'
     });
+    this.reloadVariables.emit();
   }
 
   updateAllFassungsComponents( index: any ) {

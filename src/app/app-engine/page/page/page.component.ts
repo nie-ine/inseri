@@ -252,7 +252,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
   nothAlreadyQueryAppPathGenerated = new Set();
 
 
-  appMenuModel= new AppMenuModel().appMenu
+  appMenuModel= new AppMenuModel().appMenu;
+
+  params: any;
 
   slogans = [
     'Where you can gather information',

@@ -82,21 +82,27 @@ export class BarChartComponent implements AfterViewChecked {
    */
   constructor() {}
 
+
   /**
    * After initializing the component, initialize the SVG image.
    */
   ngAfterViewChecked() {
-    if( this.initialised && !this.alreadyInitialised && this.data ) {
-      console.log( this.data );
-      if ( typeof this.data === 'string') {
-        console.log( this.data );
-        // const parsedData = JSON.parse( this.data );
+    if ( this.initialised && !this.alreadyInitialised && this.data ) {
+      // console.log( this.data );
+      if ( typeof this.data === 'string' && IsJsonString(this.data) && JSON.parse(this.data).length > 0 ) {
+        const help =  this.data;
+        this.data = {};
+        this.data.data = JSON.parse(help);
+        this.alreadyInitialised = true;
+        setTimeout(() => {
+          this.drawBarchChart();
+        }, 100);
+      } else if ( typeof this.data !== 'string' ) {
+        this.alreadyInitialised = true;
+        setTimeout(() => {
+          this.drawBarchChart();
+        }, 100);
       }
-
-      this.alreadyInitialised = true;
-      setTimeout(() => {
-        this.drawBarchChart();
-      }, 100);
     }
   }
 
@@ -168,4 +174,13 @@ export class BarChartComponent implements AfterViewChecked {
       .attr('height', (d) => this.height - this.y(d.value) );
   }
 
+}
+
+function IsJsonString(str) {
+  try {
+    JSON.parse(str);
+  } catch (e) {
+    return false;
+  }
+  return true;
 }

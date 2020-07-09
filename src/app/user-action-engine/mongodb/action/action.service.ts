@@ -26,8 +26,8 @@ export class ActionService {
    //(action: Action, pageSet: PageSetModel, pages: [Page], queries: [QueryModel],
   //               jsonQueries: [MyOwnJson], oldHostUrl: string, projectFiles: []): Observable<any> {
     return this.http.post(`${ActionService.API_BASE_URL_ACTION}/createProject/`,
-      `${ActionService.API_BASE_URL_ACTION}/createProject/`,
-      {action: action,
+      {
+        action: action,
               pageSet: pageSet,
               pages: pages,
               queries: queries,

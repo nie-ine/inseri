@@ -1,0 +1,31 @@
+:host /deep/ rect {
+  stroke-width: 2;
+}
+:host /deep/ rect.disabled {
+  fill: transparent !important;
+}
+
+:host /deep/ #legend_container {
+  position: relative;
+  height: 200px;
+  width: 60000px;
+}
+
+:host /deep/ #legend {
+  position: fixed;
+  top: 5%;
+  left: 0%;
+}
+
+:host /deep/ #chart {
+  position: relative;
+}
+
+/* tooltip */
+:host /deep/ .tooltip {
+  font-family: 'Open Sans', sans-serif;
+  display: none;
+  position: absolute;
+  text-align: center;
+  z-index: 10;
+}

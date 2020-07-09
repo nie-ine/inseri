@@ -25,8 +25,6 @@
         </div>
 
         <button [disabled]="loading" class="btn btn-primary" style="margin-top: 20px">Create project</button>
-        <input type="file" #filePicker multiple style="visibility: hidden" (change)="importProjectAsZip($event)" >
-        <button [disabled]="loading" class="btn btn-primary" style="margin-top: 20px" (click)="filePicker.click();">Import project</button>
         <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
 
       </mat-expansion-panel>
@@ -54,22 +52,6 @@
         </div>
 
         <button [disabled]="loading" class="btn btn-primary" style="margin-top: 20px" (click)="createUserGroup()" >Create User Group</button>
-
-      </mat-expansion-panel>
-
-
-      <mat-expansion-panel [expanded]="!data.showUserGroups">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Reload Project
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-
-        <div class="form-group" >
-          <label for="pageSetId">PageSet Id </label>
-          <input type="text" class="form-control" name="pageSetId" [(ngModel)]="p_pageSetId" required />
-        </div>
-        <button [disabled]="loading" class="btn btn-primary" style="margin-top: 20px" (click)="reloadProject(p_pageSetId)" >Reload Project</button>
 
       </mat-expansion-panel>
     </mat-accordion>

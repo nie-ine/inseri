@@ -60,7 +60,7 @@ export class JsonEnvironmentComponent implements OnChanges, HttpInterceptor {
 
     return Observable.of(null).mergeMap(() => {
       if ( jsonEnvironmentSet.has( request.url ) ) {
-        console.log( 'interceptor is triggered' );
+        // console.log( 'interceptor is triggered' );
         const body = jsonEnvironmentInstances;
         // localStorage.removeItem( this.serivceId );
         return Observable.of(new HttpResponse({ status: 200, body: JSON.parse( localStorage.getItem( this.serivceId ) ).output } ));
@@ -73,7 +73,7 @@ export class JsonEnvironmentComponent implements OnChanges, HttpInterceptor {
   }
 
   submitToMicroservice( reload: boolean ) {
-    console.log( 'Submit to Microservice', this.display, this.editor.text );
+    // console.log( 'Submit to Microservice', this.display, this.editor.text );
     const formData = new FormData();
     formData.append( 'data', JSON.stringify(this.display) );
     formData.append( 'code', this.editor.text );
@@ -82,7 +82,7 @@ export class JsonEnvironmentComponent implements OnChanges, HttpInterceptor {
     this.microserviceService.postToMicroservice( this.serivceId, formData)
       .subscribe(
         data => {
-          console.log( data );
+          // console.log( data );
           this.output = { [this.serivceId + ' output']: data.body.output } ;
           localStorage.setItem(
             this.serivceId,

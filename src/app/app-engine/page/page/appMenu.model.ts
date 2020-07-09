@@ -98,17 +98,17 @@ export class AppMenuModel {
     //   showOnHome: false,
     //   appGroup: 'visualise'
     // },
-    // {
-    //   id: 'view_week',
-    //   name: 'Parzival - Fassung',
-    //   tags: 'synopsis, text, version',
-    //   color: 'green',
-    //   status: 'stable',
-    //   appType: 'parzivalFassung',
-    //   description: 'Project specific App for the Parzival Project - Open more than one app of this type to test it!',
-    //   showOnHome: false,
-    //   appGroup: 'visualise'
-    // },
+    {
+      id: 'view_week',
+      name: 'Parzival - Fassung',
+      tags: 'synopsis, text, version',
+      color: 'green',
+      status: 'stable',
+      appType: 'parzivalFassung',
+      description: 'Project specific App for the Parzival Project - Open more than one app of this type to test it!',
+      showOnHome: false,
+      appGroup: 'visualise'
+    },
     // {
     //   id: 'turned_in',
     //   name: 'AVP-Edition',
@@ -259,6 +259,17 @@ export class AppMenuModel {
       color: 'orange',
       status: 'under development',
       appType: 'pieCharts',
+      description: 'To visualise subsets',
+      showOnHome: false,
+      appGroup: 'visualise'
+    },
+    {
+      id: 'pie_chart',
+      name: 'Pie Chart V2',
+      tags: 'd3.js, data visualisation',
+      color: 'orange',
+      status: 'under development',
+      appType: 'pieChartsV2',
       description: 'To visualise subsets',
       showOnHome: false,
       appGroup: 'visualise'

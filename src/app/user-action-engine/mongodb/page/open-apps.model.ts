@@ -306,6 +306,38 @@ export class OpenAppsModel {
         }
       ],
     },
+    pieChartsV2: {
+      type: 'pieChartsV2',
+      model: [],
+      materialIcon: 'pie_chart',
+      initialWidth: '375',
+      initialHeight: '350',
+      inputs: [
+        {
+          'inputName': 'data',
+          default: {
+            'data': [
+              {
+                "label": "Man of letters",
+                "value": 4451
+              },
+              {
+                "label": "Scientist/vulgarizer",
+                "value": 865
+              },
+              {
+                "label": "Artist",
+                "value": 36
+              },
+              {
+                "label": "Other",
+                "value": 293
+              }
+            ]
+          }
+        }
+      ],
+    },
     radialBarCharts: {
       type: 'radialBarCharts',
       model: [],
