@@ -55,6 +55,11 @@ export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe(
         data => {
           console.log(data);
+          setTimeout(() => {
+            if ( this.editor ) {
+              this.editor.text = data.query.body;
+            }
+          }, 1000);
           this.data.query = data.query;
           this.form = new FormGroup({
             title: new FormControl(this.data.query.title, [Validators.required]),
