@@ -220,6 +220,17 @@ export class AppMenuModel {
       appGroup: 'visualise'
     },
     {
+      id: 'bar_chart',
+      name: 'Grouped Bar Chart V2',
+      tags: 'd3.js, interactive',
+      color: 'green',
+      status: 'stable',
+      appType: 'groupedBarChartV2',
+      description: 'To define data with two dimensions',
+      showOnHome: false,
+      appGroup: 'visualise'
+    },
+    {
       id: 'show_chart',
       name: 'Line Chart',
       tags: 'd3.js, interactive',
