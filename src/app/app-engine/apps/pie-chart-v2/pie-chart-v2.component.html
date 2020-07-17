@@ -6,9 +6,12 @@
 
   </div>
 
-  <div *ngIf="chosenSection.label !== undefined">
+  <div *ngIf="chosenSection.label !== undefined"
+       [ngStyle]="{'position': 'fixed', 'top': y.toString() + 'px', 'left': x.toString() + 'px'}">
     {{ chosenSection?.label + ', ' + chosenSection?.value + ', ' + chosenSection?.percent + '%' }}
   </div>
+
+
 
 
 

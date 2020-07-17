@@ -3,7 +3,7 @@ import * as d3 from 'd3-selection';
 import * as d3Scale from 'd3-scale';
 import * as d3Array from 'd3-array';
 import * as d3ScaleChromatic from 'd3-scale-chromatic';
-
+import * as d3Axis from 'd3-axis';
 
 @Component({
   selector: 'app-grouped-bar-chart-v2',
@@ -14,8 +14,16 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
   @Input() initialised = false;
   @Input() numberOfInitialisedComponent: number;
   @Input() data: any;
+  x: number;
+  y: number;
   alreadyInitialised = false;
-  constructor() { }
+  mouseOverData: any = {};
+  constructor() {
+    onmousemove = (e) => {
+      this.x = e.clientX + 20;
+      this.y = e.clientY - 20;
+    };
+  }
 
   generateComponentDivClass( name: string ) {
     return name + this.numberOfInitialisedComponent;
@@ -26,19 +34,21 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
     if (
       this.initialised &&
       !this.alreadyInitialised &&
-      this.data ) {
+      this.data && this.data.data ) {
       this.alreadyInitialised = true;
       setTimeout(() => {
         console.log( this.data );
         this.drawD3( this.data.data );
-      }, 100);
+      }, 500);
     }
   }
 
   drawD3( data: Array<any> ) {
-    console.log( data );
+    console.log( data.length );
 
-    const color = d3Scale.scaleOrdinal(d3ScaleChromatic.schemeRdYlGn[data.length]);
+    const keys = Object.keys(data[0]).slice(1);
+
+    const color = d3Scale.scaleOrdinal(d3ScaleChromatic.schemeRdYlGn[keys.length]);
 
     // svg chart dimensions
     const width = +d3.select("#chart").attr("width");
@@ -53,7 +63,6 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
     };
 
     // getting all the key names (["1851 and after", ...])
-    const keys = Object.keys(data[0]).slice(1);
 
     // size of the legend squares
     const legendRectSize = 25;
@@ -134,6 +143,196 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
         return color(d.key);
       });
 
+    svg.append("g")
+      .attr("class", "axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3Axis.axisBottom(x0));
+
+    svg.append("g")
+      .attr("class", "y axis")
+      .call(d3Axis.axisLeft(y).ticks(null, "s"))
+      .append("text")
+      .attr("x", 10)
+      .attr("y", y(y.ticks().pop()))
+      .attr("dy", "0.32em")
+      .attr("fill", "black")
+      .attr("font-weight", "bold")
+      .attr("text-anchor", "start")
+      .text("Number of citations");
+
+    // define tooltip
+    var tooltip = d3.select("#chart")
+      .append("div")
+      .attr("class", "tooltip");
+
+    tooltip.append("div")
+      .attr("class", "label");
+
+    tooltip.append("div")
+      .attr("class", "count");
+
+    // Confused?:
+
+    // <div id="chart">
+    //   <div class="tooltip">
+    //     <div class="label">
+    //     </div>
+    //     <div class="count">
+    //     </div>
+    //   </div>
+    // </div>
+
+    var barPart = svg.selectAll(".barPart");
+
+    barPart.on("mouseover", (d) => {
+      tooltip.select(".label").html(d.key);
+      tooltip.select(".count").html(d.value);
+      console.log( d.key, d.value );
+      this.mouseOverData.key = d.key;
+      this.mouseOverData.value = d.value;
+      tooltip.style("display", "block");
+    });
+
+    barPart.on("mouseout", () => {
+      this.mouseOverData = {};
+      tooltip.style("display", "none");
+    });
+
+    barPart.on("mousemove", (d) => {
+      tooltip.style("top", (d3.event.layerY - 50) + "px") // always 10px below the cursor
+        .style("left", (d3.event.layerX + 10) + "px"); // always 10px to the right of the mouse
+    });
+
+    var legend = svg2.append("g")
+      //.attr("text-anchor", "end")
+      .selectAll("g")
+      .data(keys.slice())
+      .enter()
+      .append("g")
+      .attr("transform", (d, i) => {
+        var height = legendRectSize + legendSpacing;
+        var vert = i * height;
+        return "translate(" + -120 + "," + vert + ")";
+      });
+
+    legend.append("rect")
+      .attr("x", 150)
+      .attr("width", legendRectSize)
+      .attr("height", legendRectSize)
+      .attr("fill", color)
+      .attr("stroke", color)
+      .attr("stroke-width",2)
+      .attr("cursor", "pointer")
+      .on("click",(d) => {
+        update(d)
+      });
+
+    legend.append("text")
+      .attr("x", 200)
+      .attr("y", legendRectSize - legendSpacing)
+      .text((d) => {
+        return d;
+      });
+
+    let filtered = [];
+
+    function update(d) {
+      // update the array to filter the chart by:
+
+      // add the clicked key if not included:
+      if (filtered.indexOf(d) == -1) {
+        filtered.push(d);
+        // if all bars are un-checked, reset:
+        if(filtered.length == keys.length) filtered = [];
+      }
+      // otherwise remove it:
+      else {
+        filtered.splice(filtered.indexOf(d), 1);
+      }
+
+      // update the scales for each group(/states)'s items:
+      var newKeys = [];
+      keys.forEach(function(d) {
+        if (filtered.indexOf(d) == -1 ) {
+          newKeys.push(d);
+        }
+      })
+      x1.domain(newKeys).rangeRound([0, x0.bandwidth()]);
+      y.domain([0, d3Array.max(data, function(d) {
+        return d3Array.max(keys, function(key) {
+          if (filtered.indexOf(key) == -1) return d[key];
+        });
+      })]).nice();
+
+      // update the y axis:
+      svg.select(".y")
+        .transition()
+        .call(d3Axis.axisLeft(y).ticks(null, "s"))
+        .duration(500);
+
+      // filter out the bands that need to be hidden:
+      var bars = svg.selectAll(".bar").selectAll("rect")
+        .data(function(d) {
+          return keys.map(function(key) {
+            return {key: key, value: d[key]};
+          });
+        })
+
+      bars.filter(function(d) {
+        return filtered.indexOf(d.key) > -1;
+      })
+        .transition()
+        .attr("x", function(d) {
+          return (+d3.select(this).attr("x")) + (+d3.select(this).attr("width"))/2;
+        })
+        .attr("height",0)
+        .attr("width",0)
+        .attr("y", function(d) {
+          return height;
+        })
+        .duration(500);
+
+      // adjust the remaining bars:
+      bars.filter(function(d) {
+        return filtered.indexOf(d.key) == -1;
+      })
+        .transition()
+        .attr("x", function(d) {
+          return x1(d.key);
+        })
+        .attr("y", function(d) {
+          return y(d.value);
+        })
+        .attr("height", function(d) {
+          return height - y(d.value);
+        })
+        .attr("width", x1.bandwidth())
+        .attr("fill", function(d) {
+          return color(d.key);
+        })
+        .duration(500);
+
+      // update legend:
+      legend.selectAll("rect")
+        .transition()
+        .attr("fill",function(d) {
+          if (filtered.length) {
+            if (filtered.indexOf(d) == -1) {
+              return color(d);
+            }
+            else {
+              return "white";
+            }
+          }
+          else {
+            return color(d);
+          }
+        })
+        .duration(100);
+    }
+
   }
+
+
 
 }

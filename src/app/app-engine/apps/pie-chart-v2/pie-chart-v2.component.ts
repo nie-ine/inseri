@@ -18,6 +18,8 @@ export class PieChartV2Component implements AfterViewChecked {
   @Input() data: any;
   alreadyInitialised = false;
   title = 'Pie Chart';
+  x: number;
+  y: number;
 
   private margin = {top: 20, right: 20, bottom: 30, left: 50};
   private width: number;
@@ -34,6 +36,10 @@ export class PieChartV2Component implements AfterViewChecked {
     this.width = 900 - this.margin.left - this.margin.right;
     this.height = 500 - this.margin.top - this.margin.bottom;
     this.radius = Math.min(this.width, this.height) / 2;
+    onmousemove = (e) => {
+      this.x = e.clientX + 20;
+      this.y = e.clientY - 20;
+    };
   }
 
   generateComponentDivClass( name: string ) {
