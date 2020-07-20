@@ -19,19 +19,24 @@ export class TextlistViewerComponent implements OnChanges {
   }
   ngOnChanges() {
     // console.log( 'Changes', this.textToDisplay );
-    this.http.get( this.textToDisplay, { responseType: 'text' } )
-      .subscribe(
-        data => {
-          // console.log( data );
-          if ( data.search( 'utf-8' ) !== -1 && data.search( 'inseri' ) !== -1 ) { // check if response is html from inseri
+    if (  this.textToDisplay && this.textToDisplay.search( 'http' ) !== -1 ) {
+      this.http.get( this.textToDisplay, { responseType: 'text' } )
+        .subscribe(
+          data => {
+            // console.log( data );
+            if ( data.search( 'utf-8' ) !== -1 && data.search( 'inseri' ) !== -1 ) { // check if response is html from inseri
+              this.safeHtml = this.domSanitizer.bypassSecurityTrustHtml(this.textToDisplay);
+            } else {
+              this.safeHtml = this.domSanitizer.bypassSecurityTrustHtml( data );
+            }
+          }, error => {
             this.safeHtml = this.domSanitizer.bypassSecurityTrustHtml(this.textToDisplay);
-          } else {
-            this.safeHtml = this.domSanitizer.bypassSecurityTrustHtml( data );
+            // console.log( error );
           }
-        }, error => {
-          this.safeHtml = this.domSanitizer.bypassSecurityTrustHtml(this.textToDisplay);
-          // console.log( error );
-        }
-      );
+        );
+    } else {
+      this.safeHtml = this.domSanitizer.bypassSecurityTrustHtml(this.textToDisplay);
+    }
+
   }
 }

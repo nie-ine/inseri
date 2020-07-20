@@ -198,6 +198,7 @@ export class LoadVariablesComponent implements OnInit, OnChanges {
     appModel: any,
     appFromViewModel: any
   ) {
+    console.log( appFromViewModel );
     const length = appModel.length;
     appModel[ length ] = {};
     appModel[ length ].x = appFromViewModel.x;

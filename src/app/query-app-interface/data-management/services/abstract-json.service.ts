@@ -12,7 +12,18 @@ export class AbstractJsonService {
   ) {}
 
   json2abstract( json: any ) {
-    this.leafLoop( json, {}, undefined );
+    console.log( json );
+    if ( json.length > 0 ) {
+      for (const entry of json) {
+        this.leafLoop(
+          entry,
+          {},
+          undefined
+        );
+      }
+    } else {
+      this.leafLoop( json, {}, undefined );
+    }
     return this.abstractTree;
   }
 

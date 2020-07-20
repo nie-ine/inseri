@@ -132,7 +132,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
       this.spinner.hide();
       this.app.spinnerIsShowing = false;
     }
-    // console.log( this.pathsWithArrays );
+    console.log( this.pathsWithArrays );
     this.paths = [];
     if ( this.app &&  this.pathsWithArrays ) {
       this.app.pathsWithArrays = this.pathsWithArrays;
@@ -166,15 +166,25 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
               path.pathToValueInJson[ j ] = i;
             }
           }
-          // console.log( path.pathToValueInJson );
-          this.newDataChooserEntries[ i ] = this.dataAssignmentComponent.generateAppinput(
-            path.response,
-            path.pathToValueInJson,
-            i,
-            0,
-            true,
-            true
-          );
+          if ( path.response.length > 0 ) {
+            this.newDataChooserEntries[ i ] = this.dataAssignmentComponent.generateAppinput(
+              path.response,
+              [ i ].concat( path.pathToValueInJson ),
+              i,
+              0,
+              true,
+              true
+            );
+          } else {
+            this.newDataChooserEntries[ i ] = this.dataAssignmentComponent.generateAppinput(
+              path.response,
+              path.pathToValueInJson,
+              i,
+              0,
+              true,
+              true
+            );
+          }
           // console.log( this.newDataChooserEntries[ i ] );
         }
         // console.log( this.newDataChooserEntries );

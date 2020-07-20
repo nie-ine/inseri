@@ -29,7 +29,7 @@ export class GeneralRequestService {
           const query = data.query;
           // console.log( query );
           for ( const param in this.route.snapshot.queryParams ) {
-            console.log( param );
+            // console.log( param );
             if ( query.serverUrl.search( 'inseriParam---' + param + '---' ) !== -1 ) {
               const replaced = query.serverUrl.replace(
                 'inseriParam---' + param + '---',
@@ -37,7 +37,7 @@ export class GeneralRequestService {
               );
               query.serverUrl = replaced;
             }
-            console.log( query.body );
+            // console.log( query.body );
             if ( query.body ) {
               while ( query.body.search( 'inseriParam---' + param + '---' ) !== -1 ) {
                 const replaced = query.body.replace(
@@ -97,7 +97,7 @@ export class GeneralRequestService {
   }
 
   post(url: string, parameter?: any, header?: any, body?: string): Observable<any> {
-    console.log('POST Request', body);
+    // console.log('POST Request', body);
     let help = {};
     if ( header.length > 0 ) {
       for ( const entry of header ) {
@@ -105,7 +105,7 @@ export class GeneralRequestService {
       }
       header = help;
     }
-    console.log( help, header );
+    // console.log( help, header );
 
     return this.http.post(
       url,

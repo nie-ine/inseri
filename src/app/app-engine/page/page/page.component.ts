@@ -640,6 +640,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
             chosenInput === input.inputName ? fileUrlPath : input.default
           );
         }
+      } else if ( this.loggedIn ) {
+        this.updatePage();
       }
     }
     return appModel;
@@ -827,6 +829,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.page.openApps[ settings.hash ].fullWidth = settings.fullWidth;
     this.page.openApps[ settings.hash ].fullHeight = settings.fullHeight;
     this.page.openApps[ settings.hash ].description = settings.description;
+    this.updatePage();
   }
 
   /**
@@ -893,8 +896,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.pathWithArray = input.pathWithArray;
     const dataAssignmentComponent = new DataAssignmentComponent();
     // console.log( this.index, input );
-    if ( this.page && this.openAppsInThisPage && this.pathWithArray !== [] && this.index === 0 ) {
-      // console.log( this.page );
+    if ( this.page && this.openAppsInThisPage && this.index === 0 ) {
+      // console.log( input );
       dataAssignmentComponent.startPathUpdateProcess(
         input.queryId,
         input.pathWithArray,
@@ -909,17 +912,19 @@ export class PageComponent implements OnInit, AfterViewChecked {
         console.log( this.page, 'page was loaded to late' );
       }, 1000);
     }
-    if (  this.pathWithArray && this.pathWithArray.length > 0 ) {
+    if (  this.pathWithArray ) {
       for ( const app of this.openAppArray ) {
         for ( const appInput in this.page.appInputQueryMapping[ app.hash ] ) {
-          // console.log( 'here' );
           if ( this.page.appInputQueryMapping[ app.hash ][ appInput ].query === this.queryId ) {
             let allSegmentsTheSame = true;
-            for ( let i = 0; i < this.pathWithArray.length; i++ ) {
+            for ( let i = 0; i <= this.pathWithArray.length; i++ ) {
               if ( this.pathWithArray[ i ] !== this.page.appInputQueryMapping[ app.hash ][ appInput ].path[ i ] ) {
                 allSegmentsTheSame = false;
               }
-              if ( i === this.pathWithArray.length - 1 && allSegmentsTheSame ) {
+              if (
+                ( i === this.pathWithArray.length - 1 && allSegmentsTheSame ) ||
+                ( this.pathWithArray.length === 0 && this.response.length > 0 )
+              ) {
                 if ( !app[ 'pathsWithArrays' ] ) {
                   app[ 'pathsWithArrays' ] = {};
                 }
@@ -1184,6 +1189,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     const helpVariable = this.openAppArray[currentPosition];
     this.openAppArray[ currentPosition ] = this.openAppArray[ nextPosition ];
     this.openAppArray[ nextPosition ] = helpVariable;
+    this.updatePage();
   }
 
   updateTilePage() {

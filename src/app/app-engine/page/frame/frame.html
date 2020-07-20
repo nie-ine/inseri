@@ -5,14 +5,12 @@
        'left': app.fullWidth ? '0' : curX + 'px',
        'z-index': curZIndex,
        'position': position,
-       width: app.fullWidth ? 'calc(100% - 70px)' : '',
        height: app.fullHeight ? 'calc(100% - 70px)' : '',
-       'margin-top': app.fullHeight ? '70px' : '',
-       'margin-left': app.fullWidth ? '70px' : ''
+       'margin-top': app.fullHeight ? '70px' : ''
        }">
 
         <mat-card-header class=" popup-drag" (mousedown)="mousedown($event)" *ngIf="!preview" (mousedown)="setNewZIndex()"
-                         [ngClass]="{'popup-title-bar': position === 'absolute'}">
+                         [ngClass]="{'popup-title-bar': position === 'absolute'}" >
 
             <button *ngIf="position === 'absolute'" mat-button [matMenuTriggerFor]="menu1" >
               {{ app.title || app.type }}
@@ -155,8 +153,8 @@
 
         </mat-card-content>
 
-    <div  *ngIf="app.description !== undefined" >
-      <strong>{{ app.hash + ' | '}} {{ app.title || app.type }}</strong>
+    <div  *ngIf="app.description !== undefined " style="margin-left: 10px" >
+      <strong>{{ app.title || app.type }}</strong> <span style="color: #9a9a9a"> | ref: {{  app.hash }}</span>
       <div [innerHTML]="app.description" style="height: 60px;">
       </div>
     </div>
