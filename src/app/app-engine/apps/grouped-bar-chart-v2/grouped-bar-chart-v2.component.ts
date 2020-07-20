@@ -14,15 +14,12 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
   @Input() initialised = false;
   @Input() numberOfInitialisedComponent: number;
   @Input() data: any;
-  x: number;
-  y: number;
+  private x: number;
+  private y: number;
   alreadyInitialised = false;
   mouseOverData: any = {};
+  lengthOfArray = 60000;
   constructor() {
-    onmousemove = (e) => {
-      this.x = e.clientX + 20;
-      this.y = e.clientY - 20;
-    };
   }
 
   generateComponentDivClass( name: string ) {
@@ -44,15 +41,16 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
   }
 
   drawD3( data: Array<any> ) {
-    console.log( data.length );
+
+    this.lengthOfArray = data.length;
 
     const keys = Object.keys(data[0]).slice(1);
 
     const color = d3Scale.scaleOrdinal(d3ScaleChromatic.schemeRdYlGn[keys.length]);
 
     // svg chart dimensions
-    const width = +d3.select("#chart").attr("width");
-    const height = +d3.select("#chart").attr("height");
+    const width = data.length * 100;
+    const height = +d3.select('.' + this.generateComponentDivClass( 'groupedBarChart' )).attr("height");
 
     // margins
     const margin = {
@@ -70,7 +68,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
     const legendSpacing = 6;
 
     // selecting the #chart
-    const svg = d3.select("#chart")
+    const svg = d3.select('.' + this.generateComponentDivClass( 'groupedBarChart' ))
       .append("svg") // appending an <svg> element
       .attr("width", width + margin.left + margin.right) // setting its width
       .attr("height", height + margin.top + margin.bottom) // setting its height
@@ -78,10 +76,12 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")"); // translate algon x-axis and y-axis
 
     // selecting the #chart
-    const svg2 = d3.select("#legend")
+    const svg2 = d3.select( '.' + this.generateComponentDivClass( 'groupedBarChartlegend' ) )
       .append("svg") // appending an <svg> element
-      .attr("width", +d3.select("#legend").attr("width") + margin.left + margin.right) // setting its width
-      .attr("height", +d3.select("#legend").attr("height") + margin.top + margin.bottom) // setting its height
+      .attr("width", +d3.select('.' + this.generateComponentDivClass( 'groupedBarChartlegend' ))
+        .attr("width") + margin.left + margin.right) // setting its width
+      .attr("height", +d3.select('.' + this.generateComponentDivClass( 'groupedBarChartlegend' ))
+        .attr("height") + margin.top + margin.bottom) // setting its height
       .append("g") // appending a <g> element to the <svg> element
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")"); // translate algon x-axis and y-axis
 
@@ -161,7 +161,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
       .text("Number of citations");
 
     // define tooltip
-    var tooltip = d3.select("#chart")
+    var tooltip = d3.select('.' + this.generateComponentDivClass( 'groupedBarChart' ))
       .append("div")
       .attr("class", "tooltip");
 
@@ -187,10 +187,14 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
     barPart.on("mouseover", (d) => {
       tooltip.select(".label").html(d.key);
       tooltip.select(".count").html(d.value);
-      console.log( d.key, d.value );
+      // console.log( d.key, d.value );
       this.mouseOverData.key = d.key;
       this.mouseOverData.value = d.value;
       tooltip.style("display", "block");
+      onmousemove = (e) => {
+        this.x = e.clientX + 20;
+        this.y = e.clientY - 20;
+      };
     });
 
     barPart.on("mouseout", () => {

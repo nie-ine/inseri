@@ -1,10 +1,11 @@
-<div id="legend_container">
-  <div id="legend" width="60000" height="300">
+<div style="margin-top: 30px; align-content: center">
+
+  <div class="{{ generateComponentDivClass( 'groupedBarChartlegend' ) }}" width="600" height="200">
   </div>
-</div>
-<div id="chart" width="60000" height="500">
-</div>
-<div *ngIf="mouseOverData.key !== undefined"
-     [ngStyle]="{'position': 'fixed', 'top': y.toString() + 'px', 'left': x.toString() + 'px'}">
-  {{ mouseOverData?.key + ', ' + mouseOverData?.value }}
+  <div class="{{ generateComponentDivClass( 'groupedBarChart' ) }}" width="60000" height="500" style="overflow: auto">
+  </div>
+  <div *ngIf="mouseOverData.key !== undefined"
+       [ngStyle]="{'position': 'fixed', 'top': y + 'px', 'left': x + 'px'}">
+    {{ mouseOverData?.key + ', ' + mouseOverData?.value }}
+  </div>
 </div>

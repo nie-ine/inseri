@@ -1,18 +1,14 @@
 <div style="margin-top: 30px; align-content: center">
-  <div class="{{ generateComponentDivClass( 'legend' ) }}">
+  <div class="{{ generateComponentDivClass( 'pieLegend' ) }}">
 
   </div>
   <div class="{{ generateComponentDivClass( 'chart' ) }}" style="width: 500px; height: 500px;" id="chart">
 
   </div>
 
-  <div *ngIf="chosenSection.label !== undefined"
-       [ngStyle]="{'position': 'fixed', 'top': y.toString() + 'px', 'left': x.toString() + 'px'}">
+  <div *ngIf="chosenSection.label !== undefined "
+       [ngStyle]="{'position': 'fixed', 'top': y + 'px', 'left': x + 'px'}">
     {{ chosenSection?.label + ', ' + chosenSection?.value + ', ' + chosenSection?.percent + '%' }}
   </div>
-
-
-
-
 
 </div>

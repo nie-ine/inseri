@@ -18,8 +18,8 @@ export class PieChartV2Component implements AfterViewChecked {
   @Input() data: any;
   alreadyInitialised = false;
   title = 'Pie Chart';
-  x: number;
-  y: number;
+  private x: number;
+  private y: number;
 
   private margin = {top: 20, right: 20, bottom: 30, left: 50};
   private width: number;
@@ -29,17 +29,13 @@ export class PieChartV2Component implements AfterViewChecked {
   private pie: any;
   private svg: any;
   private _current: any;
-  private chosenSection: any = {};
+  chosenSection: any = {};
   private tooltip: any;
 
   constructor() {
     this.width = 900 - this.margin.left - this.margin.right;
     this.height = 500 - this.margin.top - this.margin.bottom;
     this.radius = Math.min(this.width, this.height) / 2;
-    onmousemove = (e) => {
-      this.x = e.clientX + 20;
-      this.y = e.clientY - 20;
-    };
   }
 
   generateComponentDivClass( name: string ) {
@@ -119,7 +115,7 @@ export class PieChartV2Component implements AfterViewChecked {
         return (d.enabled) ? d.value : 0;
       }));
       const percent = Math.round(1000*d.data.value/total)/10;
-      console.log( d.data.label, d.data.value, percent );
+      // console.log( d.data.label, d.data.value, percent );
 
       this.chosenSection.label = d.data.label;
       this.chosenSection.value = d.data.value;
@@ -137,11 +133,13 @@ export class PieChartV2Component implements AfterViewChecked {
     });
 
     path.on("mousemove", (d) => {
-      tooltip.style("top", (d3.event.layerY - 50) + "px") // always 50px above the cursor
-        .style("left", (d3.event.layerX + 10) + "px"); // always 10px to the right of the mouse
+      onmousemove = (e) => {
+        this.x = e.clientX + 20;
+        this.y = e.clientY - 20;
+      };
     });
 
-    const legend = this.svg.selectAll('.' + this.generateComponentDivClass( 'legend' ))
+    const legend = this.svg.selectAll('.' + this.generateComponentDivClass( 'pieLegend' ))
       .data(color.domain()) // refers to an array of labels from our data
       .enter()
       .append("g")
