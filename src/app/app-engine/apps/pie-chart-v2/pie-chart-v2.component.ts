@@ -33,7 +33,7 @@ export class PieChartV2Component implements AfterViewChecked {
   private tooltip: any;
 
   constructor() {
-    this.width = 900 - this.margin.left - this.margin.right;
+    this.width = 1200 - this.margin.left - this.margin.right;
     this.height = 500 - this.margin.top - this.margin.bottom;
     this.radius = Math.min(this.width, this.height) / 2;
   }

@@ -838,6 +838,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * */
   receivePage( pageAndAction: any ) {
     this.page = pageAndAction[0];
+    this.page.tiles = true;
     // console.log( pageAndAction[0] );
     this.action = pageAndAction[1];
     this.reloadVariables = false;

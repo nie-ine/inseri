@@ -81,7 +81,7 @@
 
         </mat-card-header>
 
-        <mat-card-content class="popup-content" (mousedown)="setNewZIndex()">
+        <mat-card-content class="popup-content" (mousedown)="setNewZIndex()" >
 
           <div *ngIf="panelExtended" >
 
@@ -153,9 +153,9 @@
 
         </mat-card-content>
 
-    <div  *ngIf="app.description !== undefined " style="margin-left: 10px" >
+    <div  *ngIf="app.description !== undefined " style="margin-left: 10px; margin-left: 10px; cursor: text!important; user-select: text!important;" >
       <strong>{{ app.title || app.type }}</strong> <span style="color: #9a9a9a"> | ref: {{  app.hash }}</span>
-      <div [innerHTML]="app.description" style="height: 60px;">
+      <div [innerHTML]="app.description" style="height: calc(100% - 70px)" [ngStyle]="{ height: 'calc(80% - ' + app.height +'px)' }">
       </div>
     </div>
 

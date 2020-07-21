@@ -19,6 +19,8 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
   alreadyInitialised = false;
   mouseOverData: any = {};
   lengthOfArray = 60000;
+  width: number;
+  svg: any; svg2: any; legend: any;
   constructor() {
   }
 
@@ -40,7 +42,11 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
     }
   }
 
-  drawD3( data: Array<any> ) {
+  drawD3( data: Array<any>, width?: number ) {
+
+    this.svg = undefined;
+    this.svg2 = undefined;
+    this.legend = undefined;
 
     this.lengthOfArray = data.length;
 
@@ -49,7 +55,9 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
     const color = d3Scale.scaleOrdinal(d3ScaleChromatic.schemeRdYlGn[keys.length]);
 
     // svg chart dimensions
-    const width = data.length * 100;
+
+    this.width = width !== undefined ? width : data.length * 100;
+
     const height = +d3.select('.' + this.generateComponentDivClass( 'groupedBarChart' )).attr("height");
 
     // margins
@@ -68,15 +76,15 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
     const legendSpacing = 6;
 
     // selecting the #chart
-    const svg = d3.select('.' + this.generateComponentDivClass( 'groupedBarChart' ))
+    this.svg = d3.select('.' + this.generateComponentDivClass( 'groupedBarChart' ))
       .append("svg") // appending an <svg> element
-      .attr("width", width + margin.left + margin.right) // setting its width
+      .attr("width", this.width + margin.left + margin.right) // setting its width
       .attr("height", height + margin.top + margin.bottom) // setting its height
       .append("g") // appending a <g> element to the <svg> element
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")"); // translate algon x-axis and y-axis
 
     // selecting the #chart
-    const svg2 = d3.select( '.' + this.generateComponentDivClass( 'groupedBarChartlegend' ) )
+    this.svg2 = d3.select( '.' + this.generateComponentDivClass( 'groupedBarChartlegend' ) )
       .append("svg") // appending an <svg> element
       .attr("width", +d3.select('.' + this.generateComponentDivClass( 'groupedBarChartlegend' ))
         .attr("width") + margin.left + margin.right) // setting its width
@@ -90,7 +98,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
       .domain(data.map((d) => {
         return d.label; //
       })) // returns array of all the labels for the x-axis (["Verse 1", "Verse 2", ...])
-      .range([0, width])
+      .range([0, this.width])
       .paddingInner(0.1)
       .paddingOuter(0.5)
       .align(0.0);
@@ -111,7 +119,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
       .range([height, 0])
       .nice(); // nicing the scale (ending on round values)
 
-    svg.append("g")
+    this.svg.append("g")
       .selectAll("g")
       .data(data)
       .enter()
@@ -143,12 +151,12 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
         return color(d.key);
       });
 
-    svg.append("g")
+    this.svg.append("g")
       .attr("class", "axis")
       .attr("transform", "translate(0," + height + ")")
       .call(d3Axis.axisBottom(x0));
 
-    svg.append("g")
+    this.svg.append("g")
       .attr("class", "y axis")
       .call(d3Axis.axisLeft(y).ticks(null, "s"))
       .append("text")
@@ -182,7 +190,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
     //   </div>
     // </div>
 
-    var barPart = svg.selectAll(".barPart");
+    var barPart = this.svg.selectAll(".barPart");
 
     barPart.on("mouseover", (d) => {
       tooltip.select(".label").html(d.key);
@@ -207,7 +215,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
         .style("left", (d3.event.layerX + 10) + "px"); // always 10px to the right of the mouse
     });
 
-    var legend = svg2.append("g")
+    this.legend = this.svg2.append("g")
       //.attr("text-anchor", "end")
       .selectAll("g")
       .data(keys.slice())
@@ -219,7 +227,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
         return "translate(" + -120 + "," + vert + ")";
       });
 
-    legend.append("rect")
+    this.legend.append("rect")
       .attr("x", 150)
       .attr("width", legendRectSize)
       .attr("height", legendRectSize)
@@ -231,7 +239,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
         update(d)
       });
 
-    legend.append("text")
+    this.legend.append("text")
       .attr("x", 200)
       .attr("y", legendRectSize - legendSpacing)
       .text((d) => {
@@ -269,13 +277,13 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
       })]).nice();
 
       // update the y axis:
-      svg.select(".y")
+      this.svg.select(".y")
         .transition()
         .call(d3Axis.axisLeft(y).ticks(null, "s"))
         .duration(500);
 
       // filter out the bands that need to be hidden:
-      var bars = svg.selectAll(".bar").selectAll("rect")
+      var bars = this.svg.selectAll(".bar").selectAll("rect")
         .data(function(d) {
           return keys.map(function(key) {
             return {key: key, value: d[key]};
@@ -317,7 +325,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
         .duration(500);
 
       // update legend:
-      legend.selectAll("rect")
+      this.legend.selectAll("rect")
         .transition()
         .attr("fill",function(d) {
           if (filtered.length) {
