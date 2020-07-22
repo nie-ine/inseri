@@ -20,7 +20,6 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
   mouseOverData: any = {};
   lengthOfArray = 60000;
   width: number;
-  svg: any; svg2: any; legend: any;
   constructor() {
   }
 
@@ -43,10 +42,6 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
   }
 
   drawD3( data: Array<any>, width?: number ) {
-
-    this.svg = undefined;
-    this.svg2 = undefined;
-    this.legend = undefined;
 
     this.lengthOfArray = data.length;
 
@@ -76,7 +71,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
     const legendSpacing = 6;
 
     // selecting the #chart
-    this.svg = d3.select('.' + this.generateComponentDivClass( 'groupedBarChart' ))
+    const svg = d3.select('.' + this.generateComponentDivClass( 'groupedBarChart' ))
       .append("svg") // appending an <svg> element
       .attr("width", this.width + margin.left + margin.right) // setting its width
       .attr("height", height + margin.top + margin.bottom) // setting its height
@@ -84,7 +79,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")"); // translate algon x-axis and y-axis
 
     // selecting the #chart
-    this.svg2 = d3.select( '.' + this.generateComponentDivClass( 'groupedBarChartlegend' ) )
+    const svg2 = d3.select( '.' + this.generateComponentDivClass( 'groupedBarChartlegend' ) )
       .append("svg") // appending an <svg> element
       .attr("width", +d3.select('.' + this.generateComponentDivClass( 'groupedBarChartlegend' ))
         .attr("width") + margin.left + margin.right) // setting its width
@@ -119,7 +114,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
       .range([height, 0])
       .nice(); // nicing the scale (ending on round values)
 
-    this.svg.append("g")
+    svg.append("g")
       .selectAll("g")
       .data(data)
       .enter()
@@ -151,12 +146,12 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
         return color(d.key);
       });
 
-    this.svg.append("g")
+    svg.append("g")
       .attr("class", "axis")
       .attr("transform", "translate(0," + height + ")")
       .call(d3Axis.axisBottom(x0));
 
-    this.svg.append("g")
+    svg.append("g")
       .attr("class", "y axis")
       .call(d3Axis.axisLeft(y).ticks(null, "s"))
       .append("text")
@@ -190,7 +185,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
     //   </div>
     // </div>
 
-    var barPart = this.svg.selectAll(".barPart");
+    var barPart = svg.selectAll(".barPart");
 
     barPart.on("mouseover", (d) => {
       tooltip.select(".label").html(d.key);
@@ -215,7 +210,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
         .style("left", (d3.event.layerX + 10) + "px"); // always 10px to the right of the mouse
     });
 
-    this.legend = this.svg2.append("g")
+    const legend = svg2.append("g")
       //.attr("text-anchor", "end")
       .selectAll("g")
       .data(keys.slice())
@@ -227,7 +222,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
         return "translate(" + -120 + "," + vert + ")";
       });
 
-    this.legend.append("rect")
+    legend.append("rect")
       .attr("x", 150)
       .attr("width", legendRectSize)
       .attr("height", legendRectSize)
@@ -239,7 +234,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
         update(d)
       });
 
-    this.legend.append("text")
+    legend.append("text")
       .attr("x", 200)
       .attr("y", legendRectSize - legendSpacing)
       .text((d) => {
@@ -277,13 +272,13 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
       })]).nice();
 
       // update the y axis:
-      this.svg.select(".y")
+      svg.select(".y")
         .transition()
         .call(d3Axis.axisLeft(y).ticks(null, "s"))
         .duration(500);
 
       // filter out the bands that need to be hidden:
-      var bars = this.svg.selectAll(".bar").selectAll("rect")
+      var bars = svg.selectAll(".bar").selectAll("rect")
         .data(function(d) {
           return keys.map(function(key) {
             return {key: key, value: d[key]};

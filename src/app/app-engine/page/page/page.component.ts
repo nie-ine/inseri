@@ -1250,4 +1250,11 @@ export class PageComponent implements OnInit, AfterViewChecked {
     localStorage.setItem( 'theme', chosenTheme );
   }
 
+  appMenu(app: any, key: string) {
+    app[ key ] = true;
+    setTimeout(() => {
+      app[ key ] = false;
+    }, 100);
+  }
+
 }

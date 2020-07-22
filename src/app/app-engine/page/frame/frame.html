@@ -71,8 +71,8 @@
             </button>
 
 
-          <button *ngIf="position === 'static'" mat-button [matMenuTriggerFor]="menu1" style="float: right!important;">
-            <mat-icon>minimize</mat-icon>
+          <button *ngIf="position === 'static'" mat-button [matMenuTriggerFor]="menu1" style="float: right!important;" #clickHoverMenuTrigger="matMenuTrigger">
+<!--            <mat-icon>minimize</mat-icon>-->
           </button>
 
           <button  *ngIf="showAppDescriptionEditor" (click)="showAppDescriptionEditor = false" (click)="sendAppSettingsBackToPage()" mat-button >
@@ -155,7 +155,7 @@
 
     <div  *ngIf="app.description !== undefined " style="margin-left: 10px; margin-left: 10px; cursor: text!important; user-select: text!important;" >
       <strong>{{ app.title || app.type }}</strong> <span style="color: #9a9a9a"> | ref: {{  app.hash }}</span>
-      <div [innerHTML]="app.description" style="height: calc(100% - 70px)" [ngStyle]="{ height: 'calc(80% - ' + app.height +'px)' }">
+      <div [innerHTML]="app.description" >
       </div>
     </div>
 
