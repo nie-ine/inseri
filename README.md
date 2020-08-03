@@ -17,7 +17,7 @@ inseri is an online collaborative work and publish environment.
 - You can publish own frontend components in inseri
 	- If you wish to write own frontend components, for instance to enter data in your database or to create an individual d3.js data visualisations, you can do this very fast in inseri. Any npm - module can be integrated in inseri without any needed changes of the npm module you would like to integrate.
 
-## How can I work with inseri?
+## How can I work with inseri? 
 
 - inseri can be used to work collaboratively
 	- If somebody in your team needs to enter data and another team member needs to review it, you can create a site with 2 collages in inseri, exactly tailored to your team-specific workflow
