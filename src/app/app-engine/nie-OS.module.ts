@@ -43,7 +43,7 @@ import { NewGjsBoxDialogComponent } from './apps/grapesjs/new-gjs-box-dialog/new
 import { MatDialogModule } from '@angular/material';
 import { SimpleImageAppComponent } from './apps/simple-image-app/simple-image-app.component';
 import { FileDatabaseForApp, ResponseTreeAppComponent } from './apps/response-tree/response-tree.component';
-import { DataListView } from './apps/data-list-view/data-list-view.component';
+import { DataListViewComponent } from './apps/data-list-view/data-list-view.component';
 import { CdkTableModule } from '@angular/cdk/table';
 import { MatPaginatorModule, MatSortModule } from '@angular/material';
 import { QueryInformationDialogComponent } from './page/query-information-dialog/query-information-dialog.component';
@@ -55,9 +55,8 @@ import { Project0041Module } from './apps/project-specific/project-0041/project-
 import { ComplexTextViewsModule } from './apps/complex-text-views/complex-text-views.module';
 import { ResourceFormModule } from './apps/resource-form/resource-form.module';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { DataListViewDetailsDialogComponent } from './apps/data-list-view/data-list-view-details-dialog/data-list-view-details-dialog.component';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
-import { DataListViewSettings } from './apps/data-list-view/data-list-view-settings/data-list-view-settings';
+import { DataListViewSettings } from './apps/data-list-view/data-list-view-settings/data-list-view-settings.service';
 import { DataListViewTableComponent, HighlightPipe } from './apps/data-list-view/data-list-view-table/data-list-view-table.component';
 import { NavigationModule } from './apps/navigation/navigation.module';
 import { HtmlViewerModule } from './apps/html-viewer/html-viewer.module';
@@ -183,11 +182,11 @@ import { GroupedBarChartV2Component } from './apps/grouped-bar-chart-v2/grouped-
     NewGjsBoxDialogComponent,
     SimpleImageAppComponent,
     ResponseTreeAppComponent,
-    DataListView,
+    DataListViewComponent,
     QueryInformationDialogComponent,
     GrapesjsComponent,
     ParzivalFassungComponent,
-    DataListViewDetailsDialogComponent,
+    DataListViewSettings,
     HighlightPipe,
     DataListViewSettings,
     DataListViewTableComponent,
@@ -231,7 +230,6 @@ import { GroupedBarChartV2Component } from './apps/grouped-bar-chart-v2/grouped-
     QueryListComponent,
     NewGjsBoxDialogComponent,
     QueryInformationDialogComponent,
-    DataListViewDetailsDialogComponent,
     DataChooserComponent,
     AppInputComponentComponent,
     FileListDialogComponent,
