@@ -218,7 +218,7 @@ export class OpenAppsModel {
       type: 'barCharts',
       model: [],
       materialIcon: 'bar_chart',
-      initialWidth: '375',
+      initialWidth: '600',
       initialHeight: '350',
       inputs: [
         {
@@ -240,6 +240,54 @@ export class OpenAppsModel {
               {
                 'label': 'fourth bar',
                 'value': 1.2
+              }
+            ]
+          }
+        }
+      ],
+    },
+    groupedBarChartV2: {
+      type: 'groupedBarChartV2',
+      model: [],
+      materialIcon: 'bar_chart',
+      initialWidth: '600',
+      initialHeight: '350',
+      inputs: [
+        {
+          'inputName': 'data',
+          default: {
+            data: [
+              {
+                "label": "Verse 1",
+                "before 1800": 0,
+                "1800-1805": 5,
+                "1806-1813": 1,
+                "1814-1850": 1,
+                "1851 and after": 0
+              },
+              {
+                "label": "Verse 2",
+                "before 1800": 0,
+                "1800-1805": 5,
+                "1806-1813": 1,
+                "1814-1850": 1,
+                "1851 and after": 0
+              },
+              {
+                "label": "Verse 3",
+                "before 1800": 0,
+                "1800-1805": 6,
+                "1806-1813": 1,
+                "1814-1850": 4,
+                "1851 and after": 0
+              },
+              {
+                "label": "Verse 4",
+                "before 1800": 0,
+                "1800-1805": 6,
+                "1806-1813": 1,
+                "1814-1850": 4,
+                "1851 and after": 0
               }
             ]
           }

@@ -95,6 +95,7 @@ import { AudioPlayerComponent } from './apps/audio-player/audio-player.component
 import { NgxAudioPlayerModule } from 'ngx-audio-player';
 import { JsonEnvironmentComponent } from './apps/json-environment/json-environment.component';
 import { PieChartV2Component } from './apps/pie-chart-v2/pie-chart-v2.component';
+import { GroupedBarChartV2Component } from './apps/grouped-bar-chart-v2/grouped-bar-chart-v2.component';
 
 
 @NgModule({
@@ -213,7 +214,8 @@ import { PieChartV2Component } from './apps/pie-chart-v2/pie-chart-v2.component'
     MyFilesComponent,
     AudioPlayerComponent,
     JsonEnvironmentComponent,
-    PieChartV2Component
+    PieChartV2Component,
+    GroupedBarChartV2Component
   ],
   exports: [
     PageComponent,

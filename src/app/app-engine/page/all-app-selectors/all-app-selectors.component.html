@@ -151,6 +151,13 @@
 
 </app-bar-chart>
 
+<app-grouped-bar-chart-v2 *ngIf=" app.type === 'groupedBarChartV2' "
+               [initialised] = "app.initialized"
+               [numberOfInitialisedComponent] = " i "
+               [data]="app.data">
+
+</app-grouped-bar-chart-v2>
+
 
 <app-spiral-bar-chart *ngIf=" app.type === 'spiralBarCharts' "
                       [initialised] = "app.initialized"
