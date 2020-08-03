@@ -498,7 +498,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   /**
    * This function generates the pagesOfThisActtion Array
    * */
-  generateNavigation(actionID: string) {
+  generateNavigation(actionID: string, goToPage?: boolean) {
     if (!this.alreadyLoaded && actionID) {
       this.actionService.getAction(actionID)
         .subscribe(data => {
@@ -510,6 +510,15 @@ export class PageComponent implements OnInit, AfterViewChecked {
                 }
                 this.pagesOfThisActtion[this.pagesOfThisActtion.length] = page;
                 this.alreadyLoaded = true;
+              }
+              if ( goToPage ) {
+                this.selectedPage = this.pagesOfThisActtion.length - 1;
+                this.router.navigate( [ 'page' ], {
+                  queryParams: {
+                    'actionID': this.actionID,
+                    'page': this.pagesOfThisActtion[ this.pagesOfThisActtion.length - 1 ]._id
+                  }
+                } );
               }
             }
           },
@@ -839,7 +848,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   receivePage( pageAndAction: any ) {
     this.page = pageAndAction[0];
     this.page.tiles = true;
-    // console.log( pageAndAction[0] );
+    console.log( this.page );
     this.action = pageAndAction[1];
     this.reloadVariables = false;
     this.pageIsPublished = this.page.published;
@@ -1215,8 +1224,10 @@ export class PageComponent implements OnInit, AfterViewChecked {
           data => {
             this.alreadyLoaded = false;
             this.generateNavigation(
-              this.actionID
+              this.actionID,
+              true
             );
+            console.log( this.pagesOfThisActtion );
           }, error => console.log( error )
         );
     });
@@ -1255,6 +1266,25 @@ export class PageComponent implements OnInit, AfterViewChecked {
     setTimeout(() => {
       app[ key ] = false;
     }, 100);
+  }
+
+  publishAsTemplate() {
+    this.pageService.publishAsTemplate( this.page._id )
+      .subscribe(
+        response => {
+          console.log( response );
+        }, error => console.log( error )
+      );
+    console.log( 'publish as template' );
+  }
+
+  undoPublishTemplate() {
+    this.pageService.undoPublishTemplate( this.page._id )
+      .subscribe(
+        response => {
+          console.log( response );
+        }, error => console.log( error )
+      );
   }
 
 }

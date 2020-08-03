@@ -78,6 +78,14 @@
             <mat-icon > keyboard_arrow_right </mat-icon>
           </button>
 
+          <button mat-icon-button *ngIf=" (!pageAsDemo) && !preview && page.publishedAsTemplate" style="color: #4cae4c!important;" matTooltip="This page is published as a template!" [matMenuTriggerFor]="menu4">
+            <mat-icon style="margin-right: 10px">arrow_circle_up</mat-icon>
+          </button>
+
+          <mat-menu #menu4="matMenu">
+            <button mat-menu-item (click)="undoPublishTemplate()" (click)="page.publishedAsTemplate = false">Undo</button>
+          </mat-menu>
+
           <button style="float: right; margin-top: 4px;"
                   mat-button [matMenuTriggerFor]="menu1"
                   *ngIf=" (!pageAsDemo) && !preview && !page.tiles"><mat-icon>settings</mat-icon></button>
@@ -416,11 +424,14 @@
           </mat-tab>
 
           <mat-tab label="Publish">
-            <button mat-button *ngIf=" (!pageAsDemo) && !preview" (click)="updateTilePage()" >
-              <mat-icon style="margin-right: 10px">dashboard</mat-icon> Windows or Tiles
-            </button>
-            <button mat-button *ngIf=" (!pageAsDemo) && !preview" (click)="showResponsiveWidthMenu = !showResponsiveWidthMenu" >
-              <mat-icon style="margin-right: 10px">linear_scale</mat-icon> Tiles - Width: {{ page.chosenWidth }} px
+<!--            <button mat-button *ngIf=" (!pageAsDemo) && !preview" (click)="updateTilePage()" >-->
+<!--              <mat-icon style="margin-right: 10px">dashboard</mat-icon> Windows or Tiles-->
+<!--            </button>-->
+<!--            <button mat-button *ngIf=" (!pageAsDemo) && !preview" (click)="showResponsiveWidthMenu = !showResponsiveWidthMenu" >-->
+<!--              <mat-icon style="margin-right: 10px">linear_scale</mat-icon> Tiles - Width: {{ page.chosenWidth }} px-->
+<!--            </button>-->
+            <button mat-button *ngIf=" (!pageAsDemo) && !preview" (click)="publishAsTemplate()" (click)="page.publishedAsTemplate = true">
+              <mat-icon style="margin-right: 10px">arrow_circle_up</mat-icon> Publish as template
             </button>
             <button
               mat-button

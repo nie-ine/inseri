@@ -61,7 +61,7 @@ export class PrimeEditorComponent implements OnChanges {
       .subscribe(
         data => {
           console.log( data );
-          this.reloadVariables.emit();
+          window.location.reload();
         }, error => console.log( error )
       );
   }
