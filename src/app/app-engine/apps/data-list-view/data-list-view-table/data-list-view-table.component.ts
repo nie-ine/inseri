@@ -1,15 +1,15 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTable, MatTableDataSource } from '@angular/material';
 import { MatDialog } from '@angular/material';
-import { DataListViewDetailsDialogComponent } from '../data-list-view-details-dialog/data-list-view-details-dialog.component';
-import { DataService } from '../resources.service';
 import { PipeTransform, Pipe } from '@angular/core';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
+import { QueryService} from '../services/query.service';
+
+// import { DataListViewSettings } from '../data-list-view-settings/data-list-view-settings.service';
 
 @Component({
   selector: 'data-list-view-table',
-  templateUrl: './data-list-view-table.component.html',
-  providers: [DataService]
+  templateUrl: './data-list-view-table.component.html'
 })
 export class DataListViewTableComponent implements OnInit {
   @Input() dataListSettings: any;
@@ -17,24 +17,24 @@ export class DataListViewTableComponent implements OnInit {
   @Input() displayedColumns?: any;
 
   @ViewChild(MatTable) table: MatTable<any>;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator ) paginator: MatPaginator;
+  @ViewChild(MatSort ) sort: MatSort;
   // cssUrl: string;
   dataSource: MatTableDataSource <any>;
   dataSourceForExport: MatTableDataSource <any>;
   // TODO: highlight filter results in table cells by pipe
-  toHighlightByFilter: string = ''; // For highlighting Filter results
+  toHighlightByFilter = ''; // For highlighting Filter results
   // Export variables
   renderedData: any;
   renderedDisplayedData: any;
   exportSelection = 'displayed';
   UMLAUT_REPLACEMENTS = '{[{ "Ä", "Ae" }, { "Ü", "Ue" }, { "Ö", "Oe" }, { "ä", "ae" }, { "ü", "ue" }, { "ö", "oe" }]}';
 
-  constructor(private dialog: MatDialog, private dataService: DataService) {
+  constructor(private dialog: MatDialog,  private queryService: QueryService) {
   }
 
   ngOnInit() {
-    // console.log( this.dataToDisplay );
+    // console.log('this.dataToDisplay: ' + this.dataToDisplay );
     // console.log('displayed columns:' + this.displayedColumns);
     this.populateByDatastream();
     this.setFilter();
@@ -44,9 +44,8 @@ export class DataListViewTableComponent implements OnInit {
   //
   private populateByDatastream() {
     // INSTANTIATE the datasource of the table
-    // TODO: if (jsonType === extendedSearch ) { ... }
     this.dataSource = new MatTableDataSource(this.dataToDisplay);
-    this.dataSource.connect().subscribe(data => { this.renderedDisplayedData = data;} );
+    this.dataSource.connect().subscribe(data => { this.renderedDisplayedData = data; } );
     if (this.dataListSettings.paginator.paginate) { this.dataSource.paginator = this.paginator; }
 
     // SUBSCRIBE to the tabledata for exporting this rendered data
@@ -72,6 +71,7 @@ export class DataListViewTableComponent implements OnInit {
     }
     //
   }
+
 
 public replaceUmlaute(input) {
   console.log(input);
@@ -129,26 +129,16 @@ public replaceUmlaute(input) {
     return dataStr;
   }
 
-  private onThisClick(val, object) {
+  private onThisClick(val, index) {
     // SIMPLE METHOD TO DO SOMETHING WITH THE clicked cell/object like passing it to somewhere
     if (this.dataListSettings.actions.actions && this.dataListSettings.actions.actionMode === 'object') {
       if (this.dataListSettings.actions.actionType === 'dialog') {
-        console.log('opening detail dialog with object with property value ' + val);
-        this.openDetailsDialog(val);
+        const shrunkTitle = this.queryService.shrink_iri(val);
+        console.log('doing sth with with object with property value ' + val);
       } else {
         console.log('actions disabled or no action defined');
       }
     }
-  }
-
-  // TODO: maybe outsource this
-  private openDetailsDialog(msg) {
-    this.dialog.open(DataListViewDetailsDialogComponent, {
-      data: {
-        message: msg, buttonText: {cancel: 'close'
-        }
-      },
-    });
   }
 
   // TODO: maybe implement features from events by hostlistener ...
@@ -208,12 +198,17 @@ public replaceUmlaute(input) {
   //
 // Display / Design stuff
 //
-private isColumnSticky (column: number): boolean {
+private isColumnSticky(column: number): boolean {
   // Returns for each column whether/which column should be sticky when scrolling horizontally
   // (this.dataListSettings.columns.stickyColumn ? true : false)
   return !!this.dataListSettings.columns.stickyColumn;
   }
 
+  getSumOfDisplayedEntries() {
+    if (this.paginator.pageSize > this.dataSource.data.length) {
+      return this.dataSource.data.length;
+    } else { return this.paginator.pageSize; }
+  }
 }
 // TODO: highlighting filter results in cells by pipe
 @Pipe({ name: 'highlight' })
@@ -228,4 +223,6 @@ export class HighlightPipe implements PipeTransform {
 
     return search ? text.replace(regex, match => `<b>${match}</b>`) : text;
   }
+
 }
+
