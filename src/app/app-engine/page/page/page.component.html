@@ -341,7 +341,7 @@
 
     </mat-card-header>
     <mat-card-content style="pointer-events: auto!important;"
-      *ngIf=" !app.minimized " [style.overflow]="'auto'"
+      *ngIf=" !app.minimized && !app.panelExtended" [style.overflow]="'auto'"
       [ngStyle]="{ 'height':  ( app.fullHeight || app.panelExtended ) ? '92%' : app.height + 'px'}">
 
       <app-all-app-selectors

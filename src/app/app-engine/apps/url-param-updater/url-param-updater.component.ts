@@ -22,7 +22,7 @@ export class UrlParamUpdaterComponent implements OnChanges {
   ) { }
 
   ngOnChanges() {
-    console.log( this.textFile );
+    // console.log( this.textFile );
     if ( this.param && this.textFile ) {
       this.updateParam();
     }

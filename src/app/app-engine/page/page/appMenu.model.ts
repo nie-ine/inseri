@@ -22,6 +22,17 @@ export class AppMenuModel {
       appGroup: 'visualise'
     },
     {
+      id: 'speaker_notes',
+      name: 'Comment App',
+      tags: 'comment, browse',
+      color: 'green',
+      status: 'stable',
+      appType: 'commentOnIndices',
+      description: 'Comment on pages of books, etc',
+      showOnHome: false,
+      appGroup: 'application'
+    },
+    {
       id: 'input',
       name: 'Json Environment ',
       tags: 'json, python ',

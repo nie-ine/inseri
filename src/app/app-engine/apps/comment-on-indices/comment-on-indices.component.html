@@ -1,0 +1,23 @@
+<mat-card  *ngFor="let comment of commentArray" style="margin-top: 10px">
+  <mat-card-header>
+    <mat-card-subtitle>{{ comment.date }}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p>
+      {{ comment.commentText }}
+    </p>
+  </mat-card-content>
+</mat-card>
+
+
+
+<mat-form-field class="example-form-field" style="width: 100%; margin-top: 20px;">
+  <mat-label>Comment</mat-label>
+  <textarea matInput type="text" [(ngModel)]="newComment"></textarea>
+</mat-form-field>
+
+<br>
+
+<button mat-button (click)="addComment()">
+  Add comment
+</button>

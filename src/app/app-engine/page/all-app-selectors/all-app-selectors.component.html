@@ -64,7 +64,7 @@
 
 
 <app-simple-image-app style="position: sticky;" *ngIf="app.type === 'simpleImageApp'"
-                      [imageURL]="app.imageURL">
+                      [imageURL]="app.imageURL" [width]="app.width" [height]="app.height" >
 
 </app-simple-image-app>
 
@@ -265,6 +265,13 @@
   (reloadVariables)="reloadVariablesFunction()">
 
 </app-prime-editor>
+
+<app-comment-on-indices *ngIf="app.type === 'commentOnIndices'"
+                        [textFile]="app.textFile"
+                        [appInputQueryMapping]="appInputQueryMapping"
+                        [hash]="app.hash">
+
+</app-comment-on-indices>
 
 <app-angular-handsometable *ngIf="app.type === 'spreadSheet'">
 

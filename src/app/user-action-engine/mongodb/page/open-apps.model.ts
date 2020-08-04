@@ -30,6 +30,19 @@ export class OpenAppsModel {
       initialWidth: '375',
       initialHeight: '350'
     },
+    commentOnIndices: {
+      type: 'commentOnIndices',
+      model: [],
+      materialIcon: 'speaker_notes',
+      initialWidth: '400',
+      initialHeight: '400',
+      inputs: [
+        {
+          'inputName': 'textFile',
+          default: ''
+        }
+      ],
+    },
     myFiles: {
       type: 'myFiles',
       model: [],

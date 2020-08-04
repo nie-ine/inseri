@@ -106,7 +106,7 @@ export class DataAssignmentComponent implements OnChanges {
     openAppsInThisPage?: any,
     responseIsArray?: boolean
   ) {
-    console.log( 'startUpdateProcess' );
+    // console.log( 'startUpdateProcess' );
     // console.log( response, this.response, responseIsArray, index );
 
     if ( queryId ) {
@@ -404,7 +404,8 @@ export class DataAssignmentComponent implements OnChanges {
               response.height !== undefined &&
               response.width !== undefined &&
               forExtendedSearch &&
-              response['@id'].search('jp2') !== -1 ) {
+              response['@id'].search('jp2') !== -1 &&
+              response['@id'].search( '/full/full' ) === -1 ) {
               // if you open extended search, display the iif images
               const iiif = response['@id'] + '/full/full/0/default.jpg';
               // console.log( iiif );

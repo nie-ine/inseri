@@ -335,10 +335,13 @@ export class PageComponent implements OnInit, AfterViewChecked {
   ngAfterViewChecked() {
     this.cdr.detectChanges();
     if ( this.pageIDFromURL !==  this.route.snapshot.queryParams.page ) {
-      this.openAppArray = [];
-      this.page = {};
-      this.pageIDFromURL = this.route.snapshot.queryParams.page;
-      this.reloadVariables = true;
+      setTimeout(() => {
+        this.reloadVariables = true;
+        this.openAppArray = [];
+        this.page = {};
+        this.pageIDFromURL = this.route.snapshot.queryParams.page;
+      }, 500);
+      this.cdr.detectChanges();
     }
   }
 
@@ -848,7 +851,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   receivePage( pageAndAction: any ) {
     this.page = pageAndAction[0];
     this.page.tiles = true;
-    console.log( this.page );
+    // console.log( this.page );
     this.action = pageAndAction[1];
     this.reloadVariables = false;
     this.pageIsPublished = this.page.published;
