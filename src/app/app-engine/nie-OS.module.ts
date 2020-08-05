@@ -43,7 +43,6 @@ import { NewGjsBoxDialogComponent } from './apps/grapesjs/new-gjs-box-dialog/new
 import { MatDialogModule } from '@angular/material';
 import { SimpleImageAppComponent } from './apps/simple-image-app/simple-image-app.component';
 import { FileDatabaseForApp, ResponseTreeAppComponent } from './apps/response-tree/response-tree.component';
-import { DataListViewComponent } from './apps/data-list-view/data-list-view.component';
 import { CdkTableModule } from '@angular/cdk/table';
 import { MatPaginatorModule, MatSortModule } from '@angular/material';
 import { QueryInformationDialogComponent } from './page/query-information-dialog/query-information-dialog.component';
@@ -56,6 +55,8 @@ import { ComplexTextViewsModule } from './apps/complex-text-views/complex-text-v
 import { ResourceFormModule } from './apps/resource-form/resource-form.module';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
+import { DataListViewComponent} from './apps/data-list-view/data-list-view.component';
+import { DataListViewSettingsComponent} from './apps/data-list-view/data-list-view-settings/data-list-view-settings';
 import { DataListViewSettings } from './apps/data-list-view/data-list-view-settings/data-list-view-settings.service';
 import { DataListViewTableComponent, HighlightPipe } from './apps/data-list-view/data-list-view-table/data-list-view-table.component';
 import { NavigationModule } from './apps/navigation/navigation.module';
@@ -95,6 +96,7 @@ import { NgxAudioPlayerModule } from 'ngx-audio-player';
 import { JsonEnvironmentComponent } from './apps/json-environment/json-environment.component';
 import { PieChartV2Component } from './apps/pie-chart-v2/pie-chart-v2.component';
 import { GroupedBarChartV2Component } from './apps/grouped-bar-chart-v2/grouped-bar-chart-v2.component';
+import { QueryService } from './apps/data-list-view/services/query.service';
 
 
 @NgModule({
@@ -165,7 +167,9 @@ import { GroupedBarChartV2Component } from './apps/grouped-bar-chart-v2/grouped-
     FileDatabase,
     FileDatabaseForApp,
     CanvasWhiteboardComponent,
-    FileDatabaseForAppGND
+    FileDatabaseForAppGND,
+    QueryService,
+    DataListViewSettings
   ],
   declarations: [
     PageComponent,
@@ -186,9 +190,8 @@ import { GroupedBarChartV2Component } from './apps/grouped-bar-chart-v2/grouped-
     QueryInformationDialogComponent,
     GrapesjsComponent,
     ParzivalFassungComponent,
-    DataListViewSettings,
+    DataListViewSettingsComponent,
     HighlightPipe,
-    DataListViewSettings,
     DataListViewTableComponent,
     OpenbisLoginComponent,
     YoutubeVideoComponent,
