@@ -1,7 +1,7 @@
 <!-- TABLE -->
-<div *ngIf="resData">
+<div *ngIf="resData && dataListSettingsOut && displayedColumns">
   <data-list-view-table [dataToDisplay] = "resData"
-                        [dataListSettings] = "dataListSettings"
+                        [dataListTableSettings] = "dataListSettingsOut"
                         [displayedColumns] = "displayedColumns">
   </data-list-view-table>
 </div>

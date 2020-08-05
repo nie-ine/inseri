@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 
 export class DisplayedCollumnsService {
 
@@ -12,12 +12,14 @@ export class DisplayedCollumnsService {
           displayedColumns.push(entry + '.value');
           displayedColumns.push(entry + '.type');
         }
+        console.log('got displayed comlumns generically: ' + displayedColumns);
+        return displayedColumns;
       } else if (dataListSettings.jsonType === 'knora-extended') {
         displayedColumns = [this.generateDisplayedColumnsForKnora(data)];
         return displayedColumns;
       } else {
-        console.log('Wrong datalistSettings: this.dataListSettings.columns.genericColumns = ' +
-          dataListSettings.columns.genericColumns + ' but this.dataListSettings.jsonType "' +
+        console.log('Wrong datalistSettings: this.dataListSettingsOut.columns.genericColumns = ' +
+          dataListSettings.columns.genericColumns + ' but this.dataListSettingsOut.jsonType "' +
           dataListSettings.jsonType + '" is not applicable to a generic column definition ' +
           'or not yet implemented)'); }
       // if not using generic columns
@@ -27,7 +29,7 @@ export class DisplayedCollumnsService {
           displayedColumns.push(column.name);
         }
       }
-      console.log('got displayed comlumns by definition in comlumnMapping: ' + displayedColumns);
+      console.log('got displayed comlumns: ' + displayedColumns);
       return displayedColumns;
     }
   }

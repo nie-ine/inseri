@@ -1,5 +1,5 @@
 <!-- FILTER -->
-<div *ngIf="dataListSettings.filter.showFilter && dataSource && dataSource.data">
+<div *ngIf="dataListTableSettings.filter.showFilter && dataSource && dataSource.data">
   <mat-form-field>
     <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
     <mat-hint *ngIf="paginator">Displaying {{getSumOfDisplayedEntries()}} of {{dataSource.data.length}} entries in total</mat-hint>
@@ -8,17 +8,17 @@
 <!--TABLE-->
 <mat-table #table [dataSource]="dataSource"
            matSort
-           [matSortDisabled] ="this.dataListSettings.sort.disallowSorting"
+           [matSortDisabled] ="this.dataListTableSettings.sort.disallowSorting"
            [multiTemplateDataRows]="true">
   <ng-container *ngFor="let col of displayedColumns; let i = index" [cdkColumnDef]="col" [sticky]="isColumnSticky(i)">
     <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{col}}</mat-header-cell>
     <mat-cell *cdkCellDef="let row; let i = $implicit;"
-              [ngStyle]= "dataListSettings.styles.cellStyle"
+              [ngStyle]= "dataListTableSettings.styles.cellStyle"
               (click)="onThisClick(row[col], i)"
               [ngClass]="col">
       <!-- SETTING [ngClass]="col" enables to define styles for each column, setting it to row[col].value will enable to define a style for certain cell content -->
       <span *ngIf="row[col]">
-        <span [ngStyle] = "getStyle()" [innerHTML]="this.queryService.shrink_iri(row[col])" ></span>
+        <span [innerHTML]="this.queryService.shrink_iri(row[col])" ></span>
         </span>
       <!--        {{ showValue(row, col) }} &lt;!&ndash; | highlight: toHighlightByFilter &ndash;&gt;-->
     </mat-cell>
@@ -31,13 +31,13 @@
 </mat-table>
 <!-- PAGINATION -->
 <mat-paginator #paginator
-               [pageIndex]= "dataListSettings.paginator.pageIndex"
-               [pageSize]= "dataListSettings.paginator.pageSize"
-               [pageSizeOptions]= "dataListSettings.paginator.pageSizeOptions"
-               [ngStyle]= "{display: dataListSettings.paginator.paginate ? 'block' : 'none'}">
+               [pageIndex]= "dataListTableSettings.paginator.pageIndex"
+               [pageSize]= "dataListTableSettings.paginator.pageSize"
+               [pageSizeOptions]= "dataListTableSettings.paginator.pageSizeOptions"
+               [ngStyle]= "{display: dataListTableSettings.paginator.paginate ? 'block' : 'none'}">
 </mat-paginator>
 <!-- EXPORT -->
-<div *ngIf="dataListSettings.export.showExport">
+<div *ngIf="dataListTableSettings.export.showExport">
   <mat-form-field>
     <mat-label>Export OptionSettings</mat-label>
     <mat-select [(value)]="exportSelection">

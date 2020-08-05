@@ -124,7 +124,7 @@ export class ColumnDefinition {
 }
 
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class DataListViewSettings {
   constructor(private _inputMode: string,
               private _jsonType: string,
@@ -208,17 +208,92 @@ export class DataListViewSettings {
 
           set cellActions(val: CellActions) {
             this._cellActions = val;
-          }*/
 
-          public generateDataListViewSettings(settingsJSON?) {
-            // console.log(settingsJSON);
-            let sets: DataListViewSettings;
-            console.log(sets);
-            /*if (settingsJSON) {
-              Object.assign(sets, settingsJSON);
-            } else { Object.assign(sets, fallbackSettings );
-              }*/
-            return sets;
+          }*/
+  fallbackSettings: any =   { "inputMode":"query",
+    "jsonType":"sparql",
+    "columns":{
+      "genericColumns":false,
+      "columnMapping":[
+        {
+          "name":"predicate",
+          "path":[
+            "p",
+            "value"
+          ],
+          "displayed":true,
+          "filtered":true
+        },
+        {
+          "name":"object",
+          "path":[
+            "o",
+            "value"
+          ],
+          "displayed":true,
+          "filtered":true
         }
+      ],
+      "stickyColumn":0
+    },
+    "filter":{
+      "showFilter":false,
+      "caseSensitive":false
+    },
+    "paginator":{
+      "paginate":true,
+      "pageIndex":"0",
+      "pageSize":"5",
+      "pageSizeOptions":[
+        5,
+        10,
+        25,
+        50,
+        100,
+        250
+      ]
+    },
+    "export":{
+      "showExport":false
+    },
+    "sort":{
+      "disallowSorting":true
+    },
+    "styles":{
+      "cellStyle":{
+        "cursor":"pointer"
+      }
+    },
+    "actions":{
+      "actions":true,
+      "_comment":{
+        "cursorstyle":"use custom css properties",
+        "intLink":"opens another app",
+        "extLink":"opens another webpage"
+      },
+      "actionMode":"object",
+      "actionType":"dialog",
+      "actionRange":"cell",
+      "baseUrl":"http://localhost:4200/page?actionID=5c8a6300b4438759d237b246",
+      "urlParams":{
+        "label":"label.value",
+        "highlight":"authorsname.value"
+      }
+    }
+  };
+
+
+  public generateDataListViewSettings(settingsJSON) {
+
+    let sets: DataListViewSettings;
+    console.log(sets);
+    if (settingsJSON) {
+      Object.assign(sets, settingsJSON);
+    }
+    //else { Object.assign(sets, this.fallbackSettings );
+    //  }
+    // console.log(this.fallbackSettings);
+    return sets;
+  }
 }
 

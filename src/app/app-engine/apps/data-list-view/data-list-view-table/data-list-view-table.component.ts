@@ -1,18 +1,19 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTable, MatTableDataSource } from '@angular/material';
 import { MatDialog } from '@angular/material';
 import { PipeTransform, Pipe } from '@angular/core';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
 import { QueryService} from '../services/query.service';
 
-// import { DataListViewSettings } from '../data-list-view-settings/data-list-view-settings.service';
+// import { DataListViewSettings } from '../data-list-view-dataListSettings/data-list-view-dataListSettings.service';
 
 @Component({
   selector: 'data-list-view-table',
-  templateUrl: './data-list-view-table.component.html'
+  templateUrl: './data-list-view-table.component.html',
+
 })
-export class DataListViewTableComponent implements OnInit {
-  @Input() dataListSettings: any;
+export class DataListViewTableComponent implements OnChanges {
+  @Input() dataListTableSettings?: any;
   @Input() dataToDisplay: any;
   @Input() displayedColumns?: any;
 
@@ -33,9 +34,9 @@ export class DataListViewTableComponent implements OnInit {
   constructor(private dialog: MatDialog,  private queryService: QueryService) {
   }
 
-  ngOnInit() {
-    // console.log('this.dataToDisplay: ' + this.dataToDisplay );
-    // console.log('displayed columns:' + this.displayedColumns);
+  ngOnChanges() {
+    console.log('table: this data: ' + this.dataToDisplay );
+    console.log('table: new displayed columns:' + this.displayedColumns);
     this.populateByDatastream();
     this.setFilter();
   }
@@ -46,14 +47,14 @@ export class DataListViewTableComponent implements OnInit {
     // INSTANTIATE the datasource of the table
     this.dataSource = new MatTableDataSource(this.dataToDisplay);
     this.dataSource.connect().subscribe(data => { this.renderedDisplayedData = data; } );
-    if (this.dataListSettings.paginator.paginate) { this.dataSource.paginator = this.paginator; }
+    if (this.dataListTableSettings.paginator.paginate) { this.dataSource.paginator = this.paginator; }
 
     // SUBSCRIBE to the tabledata for exporting this rendered data
     this.dataSourceForExport = new MatTableDataSource(this.dataToDisplay);
     this.dataSourceForExport.connect().subscribe(data => this.renderedData = data);
 
     if (this.dataSource) {
-      if (this.dataListSettings.columns.nestedDatasource) {
+      if (this.dataListTableSettings.columns.nestedDatasource) {
         // IF the dataSource is nested sort must sort the table for subproperties (item.poperty.value)
         // and not for properties (standard sort). Therefore changing the sortingDataAccessor.
         this.dataSource.sortingDataAccessor = (item, property) => {
@@ -83,9 +84,9 @@ public replaceUmlaute(input) {
   return input;
   }
 
-  // FILTERING THE datasource acc to settings
+  // FILTERING THE datasource acc to dataListTableSettings
   private doFilter(value: string) {
-    if (this.dataListSettings.filter.caseSensitive) { this.dataSource.filter = value;
+    if (this.dataListTableSettings.filter.caseSensitive) { this.dataSource.filter = value;
       // TODO: highlighting
       this.toHighlightByFilter = value;
     } else { this.dataSource.filter = value.toLowerCase();
@@ -98,12 +99,12 @@ public replaceUmlaute(input) {
   // FILTER
   //
   private setFilter() {
-    // setting Filter predicate acc. to settings
+    // setting Filter predicate acc. to dataListTableSettings
     this.dataSource.filterPredicate = (data, filter) => {
       // console.log("resetting filter predicate for Filter term " + filter);
       const dataStr: string = this.joinFilteredColumns(data);
-      // applying case sensitivity/insensitivity from settings
-      if (this.dataListSettings.filter.caseSensitive) {
+      // applying case sensitivity/insensitivity from dataListTableSettings
+      if (this.dataListTableSettings.filter.caseSensitive) {
         return dataStr.indexOf(filter) !== -1;
       } else {
         return dataStr.toLowerCase().indexOf(filter) !== -1;
@@ -113,11 +114,11 @@ public replaceUmlaute(input) {
 
   private joinFilteredColumns(data) {
     let dataStr = '';
-    if ( this.dataListSettings.columns.genericColumns === false ) {
-      // JOINING all columns to be searched by filter (defined in the settings) together.
+    if ( this.dataListTableSettings.columns.genericColumns === false ) {
+      // JOINING all columns to be searched by filter (defined in the dataListTableSettings) together.
       // NOTE: If the datasource would be nested we have to set filtered data from data to sth like data.[column].value
       // so the object property value is compared by filtering and not the object itself.
-      for (const column of this.dataListSettings.columns.columnMapping) {
+      for (const column of this.dataListTableSettings.columns.columnMapping) {
         if (column.filtered) {
           dataStr = dataStr + data[column.name];
           }
@@ -131,8 +132,8 @@ public replaceUmlaute(input) {
 
   private onThisClick(val, index) {
     // SIMPLE METHOD TO DO SOMETHING WITH THE clicked cell/object like passing it to somewhere
-    if (this.dataListSettings.actions.actions && this.dataListSettings.actions.actionMode === 'object') {
-      if (this.dataListSettings.actions.actionType === 'dialog') {
+    if (this.dataListTableSettings.actions.actions && this.dataListTableSettings.actions.actionMode === 'object') {
+      if (this.dataListTableSettings.actions.actionType === 'dialog') {
         const shrunkTitle = this.queryService.shrink_iri(val);
         console.log('doing sth with with object with property value ' + val);
       } else {
@@ -144,7 +145,7 @@ public replaceUmlaute(input) {
   // TODO: maybe implement features from events by hostlistener ...
   /* @HostListener('click', ['$event'])
    onClick(event) {
-    if (this.dataListSettings.actions.actions && this.dataListSettings.actions.actionMode === 'host' &&
+    if (this.dataListTableSettings.actions.actions && this.dataListTableSettings.actions.actionMode === 'host' &&
     event.target.parentElement.classList[0] === 'fuuws') {
         // HERE THINGS CAN BE ADDED §
         console.log('opening detail dialog with ' + event.target.firstChild.data );
@@ -200,8 +201,8 @@ public replaceUmlaute(input) {
 //
 private isColumnSticky(column: number): boolean {
   // Returns for each column whether/which column should be sticky when scrolling horizontally
-  // (this.dataListSettings.columns.stickyColumn ? true : false)
-  return !!this.dataListSettings.columns.stickyColumn;
+  // (this.dataListTableSettings.columns.stickyColumn ? true : false)
+  return !!this.dataListTableSettings.columns.stickyColumn;
   }
 
   getSumOfDisplayedEntries() {

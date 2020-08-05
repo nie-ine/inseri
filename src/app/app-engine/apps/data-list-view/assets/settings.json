@@ -1,7 +1,7 @@
-  { "inputMode":"query",
+  { "inputMode":"input",
     "jsonType":"sparql",
     "columns":{
-      "genericColumns":false,
+      "genericColumns":true,
       "columnMapping":[
         {
           "name":"predicate",

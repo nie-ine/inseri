@@ -1,42 +1,43 @@
-import { Component, Input, Output, OnInit, OnChanges } from '@angular/core';
+import {Component, Input, Output, OnInit, OnChanges, EventEmitter} from '@angular/core';
 import { QueryService } from './services/query.service';
 import { DisplayedCollumnsService } from './data-list-view-services/table-data.service';
 // import { DataListViewSettings } from './data-list-view-settings/data-list-view-settings.service';
+import fallbackSettings from './assets/settings.json';
 
 @Component({
-  selector: 'app-data-list-view',
+  selector: 'data-list-view',
   templateUrl: './data-list-view.component.html'
 })
 
 export class DataListViewComponent implements OnChanges {
-  @Input() dataToDisplay?: Array<any>;
-  @Input() settings?: any; // DataListViewSettings;
+  @Input() queryResponse?: Array<any>;
+  @Input() dataListSettings?: any; // DataListViewSettings;
   @Input() query?: string;
   @Output() displayedColumns: Array<string> = [];
-  @Output() dataListSettings: any;
+  @Output() dataListSettingsOut: any;
   @Output() resData: any;
   tableData: Array<any> = [];
 
   constructor(private dataService: QueryService,
               private displayedCollumnsService: DisplayedCollumnsService,
-              // private datalistViewSettings: DataListViewSettings
+              // private settingsService: DataListViewSettings
   ) {
   }
 
   ngOnChanges() {
+    console.log('input of this.dataListSettings: ', this.dataListSettings);
     this.getSettings();
     this.onGetData();
   }
 
-  generateTableData(responseData: Array<any>, depth: number) {
-    if (this.dataListSettings.columns.genericColumns) {
+  generateTableData(responseData: any, depth: number) {
+    if (this.dataListSettingsOut.columns.genericColumns) {
       let length = 0;
-      for (const entry of responseData) {
+      for (const entry of responseData.results.bindings) {
         this.flattenObjects(entry, length);
         length += 1;
-      }
+      } console.log('WHAT IS this.tableData: ', this.tableData);
       this.resData = this.tableData;
-      // console.log(this.resData);
     } else {
       let length = -1;
       for (const responseEntry of responseData) {
@@ -50,7 +51,7 @@ export class DataListViewComponent implements OnChanges {
     // recursive method for getting the actual values from nested jsons
     // and appending them to the tabledata. Allowed values are strings,
     // numbers, symbols and booleans (so no objects allowed here).
-    for (const column of this.dataListSettings.columns.columnMapping) {
+    for (const column of this.dataListSettingsOut.columns.columnMapping) {
       if (typeof ResponseEntry[column.path[depth]] === 'string' ||
         typeof ResponseEntry[column.path[depth]] === 'number' ||
         typeof ResponseEntry[column.path[depth]] === 'symbol' ||
@@ -72,7 +73,7 @@ export class DataListViewComponent implements OnChanges {
       this.tableData[length] = {};
     }
     this.tableData[length][name] = entry;
-    if (this.tableData.length === this.dataToDisplay.length) {
+    if (this.tableData.length === this.queryResponse.length) {
       this.resData = this.tableData;
     }
   }
@@ -104,35 +105,34 @@ export class DataListViewComponent implements OnChanges {
 
   // GET the data - either by a passed input from another app/service or by a passed query
   private onGetData() {
-    if ( this.dataListSettings.inputMode === 'query' ) {
-      console.log('getting data by running a SPARQL query.');
-      console.log('this.dataListSettings): ' + this.dataListSettings) ;
+    if ( this.dataListSettingsOut.inputMode === 'query' ) {
       this.getTableDataFromQuery(this.query);
-      } else if ( this.dataListSettings.inputMode === 'input') {
-          console.log('getting data by input.');
-          if (this.dataToDisplay ) {
-            this.generateTableData(this.dataToDisplay, 0);
-            // this.displayedColumns = this.displayedCollumnsService.getDisplayedColumns(this.dataListSettings, this.dataToDisplay);
-        } else { console.log('No dataToDisplay passed by input as defined in dataListSettings.inputMode: ' + this.dataListSettings.inputMode); }
-      } else { console.log('Wrong settings definition for --> \"inputmode: ' + this.dataListSettings.inputMode + '\" allowed are: input, query'); }
+      } else if ( this.dataListSettingsOut.inputMode === 'input') {
+          if (this.queryResponse ) {
+            this.displayedColumns = this.displayedCollumnsService.getDisplayedColumns(this.dataListSettings, this.queryResponse);
+            this.generateTableData(this.queryResponse, 0);
+        } else { console.log('No queryResponse passed by input as defined in dataListSettingsOut.inputMode: ' + this.dataListSettingsOut.inputMode); }
+      } else { console.log('Wrong dataListSettings definition for --> \"inputmode: ' + this.dataListSettingsOut.inputMode + '\" allowed are: input, query'); }
     }
 
   private getTableDataFromQuery(query) {
     this.dataService.getData( this.query ).subscribe(data => {
       const responseData: any = data;
-      this.dataToDisplay = responseData.results.bindings;
-      this.generateTableData(this.dataToDisplay, 0);
-      this.displayedColumns = this.displayedCollumnsService.getDisplayedColumns(this.dataListSettings, this.dataToDisplay);
+      this.queryResponse = responseData.results.bindings;
+      this.generateTableData(this.queryResponse, 0);
+      this.displayedColumns = this.displayedCollumnsService.getDisplayedColumns(this.dataListSettingsOut, this.queryResponse);
+
     });
   }
 
   private getSettings() {
-      if ( this.settings ) {
-        this.dataListSettings = this.settings;
-        console.log('Got settings by input: ', this.dataListSettings);
+      if ( this.dataListSettings ) {
+        this.dataListSettingsOut = this.dataListSettings;
+        console.log('Got dataListSettings by input: ', this.dataListSettingsOut);
       } else {
-        console.log('No settings input. Loading fallback settings.');
-        // this.dataListSettings = this.datalistViewSettings.generateDataListViewSettings();
+
+        console.log('No dataListSettings input. Loading fallback dataListSettings.');
+        this.dataListSettingsOut = fallbackSettings; // this.settingsService.generateDataListViewSettings(this.dataListSettings);
       }
     }
 }
