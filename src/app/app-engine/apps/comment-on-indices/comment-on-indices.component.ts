@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {GeneralRequestService} from '../../../query-engine/general/general-request.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {QueryService} from '../../../user-action-engine/mongodb/query/query.service';
+import {AuthService} from '../../../user-action-engine/mongodb/auth/auth.service';
 
 @Component({
   selector: 'app-comment-on-indices',
@@ -15,8 +17,10 @@ export class CommentOnIndicesComponent implements OnInit {
   newComment: string;
   constructor(
     private requestService: GeneralRequestService,
-    private route: ActivatedRoute
-
+    private route: ActivatedRoute,
+    private router: Router,
+    private authService: AuthService,
+    private queryService: QueryService
   ) { }
 
   ngOnInit() {
@@ -40,21 +44,52 @@ export class CommentOnIndicesComponent implements OnInit {
   }
 
   addComment() {
-    let date = new Date();
+    const date = new Date().toLocaleDateString('en-GB');
     console.log( this.newComment );
     console.log( date );
     console.log( this.route.snapshot.queryParams );
 
-    this.commentArray.push(
-      {
-        commentText: this.newComment,
-        date: date,
-        params: this.route.snapshot.queryParams
+    this.authService.getUser(localStorage.getItem('userId')).subscribe((result) => {
+      console.log( result );
+      this.commentArray.push(
+        {
+          commentText: this.newComment,
+          date: date,
+          params: this.route.snapshot.queryParams,
+          user: result.user.lastName + ', ' + result.user.firstName,
+          queries: [],
+          userId: localStorage.getItem('userId'),
+          page: this.route.snapshot.queryParams.page,
+          action: this.route.snapshot.queryParams.page.actionID
+        }
+      );
+
+      for ( const param in this.commentArray[ this.commentArray.length - 1 ].params ) {
+        if ( param.search( ',' ) !== -1 ) {
+          console.log( param );
+          console.log( param.slice( 0, 24 ) );
+          this.queryService.getQuery( param.slice( 0, 24 ) )
+            .subscribe(
+              data => {
+                console.log( data );
+                this.commentArray[ this.commentArray.length - 1 ].queries.push({
+                  title: data.query.title,
+                  index: this.commentArray[ this.commentArray.length - 1 ].params[ param ]
+                });
+              }, error => console.log( error )
+            );
+        }
       }
-    );
 
-    console.log( this.commentArray );
+      console.log( this.commentArray );
+    });
+  }
 
+  browseToComment( comment: any ) {
+    this.router.navigate( [], {
+      queryParams: comment.params,
+      queryParamsHandling: 'merge'
+    } );
   }
 
 }
