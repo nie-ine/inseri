@@ -29,12 +29,22 @@ export class UrlParamUpdaterComponent implements OnChanges {
   }
 
   updateParam() {
+    // console.log( this.route.snapshot.queryParams, this.param, this.textFile );
+    let reload = false;
+    if ( !this.route.snapshot.queryParams[ this.param ] ||
+      this.route.snapshot.queryParams[ this.param ] !== this.textFile ) {
+      // console.log( 'reload' );
+      reload = true;
+    }
     this.router.navigate([], {
       queryParams: {
         [ this.param ]: this.textFile
       },
       queryParamsHandling: 'merge'
     });
+    if ( reload ) {
+      this.reloadVariables.emit();
+    }
   }
 
   save() {

@@ -267,6 +267,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   slogan: string;
 
+  queryParams: any;
+
   constructor(
     public route: ActivatedRoute,
     private cdr: ChangeDetectorRef,

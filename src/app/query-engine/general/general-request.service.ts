@@ -27,41 +27,54 @@ export class GeneralRequestService {
     return this.queryService.getQuery(queryID)
       .mergeMap(data => {
           const query = data.query;
-          // console.log( query );
-          for ( const param in this.route.snapshot.queryParams ) {
-            // console.log( param );
-            if ( query.serverUrl.search( 'inseriParam---' + param + '---' ) !== -1 ) {
-              const replaced = query.serverUrl.replace(
-                'inseriParam---' + param + '---',
-                this.route.snapshot.queryParams[ param ]
-              );
-              query.serverUrl = replaced;
-            }
-            // console.log( query.body );
-            if ( query.body ) {
-              while ( query.body.search( 'inseriParam---' + param + '---' ) !== -1 ) {
-                const replaced = query.body.replace(
-                  'inseriParam---' + param + '---',
-                  this.route.snapshot.queryParams[ param ]
-                );
-                query.body = replaced;
-              }
-            }
-          }
-          switch (query.method) {
-            case 'GET':
-              return this.get(query.serverUrl, data.query.params, query.header);
-            case 'POST':
-              return this.post(query.serverUrl, data.query.params, query.header, query.body);
-            case 'PUT':
-              return this.put(query.serverUrl, data.query.params, query.header, query.body);
-            case 'DELETE':
-              return this.delete(query.serverUrl, data.query.params, query.header);
-            case 'JSON':
-              // console.log( environment.node +  '/api' + query.serverUrl.split( 'api' )[ 1 ] );
-              return this.get(environment.node +  '/api' + query.serverUrl.split( 'api' )[ 1 ], data.query.params, query.header);
-          }
+          return this.goThroughParams( query, data );
       });
+  }
+
+  goThroughParams( query: any, data: any ) {
+    // console.log( 'here', this.route.snapshot.queryParams  );
+    for ( const param in this.route.snapshot.queryParams ) {
+      query.serverUrl = this.replaceParam( query.serverUrl, param );
+      if ( query.body ) {
+        query.body = this.replaceParam( query.serverUrl, param );
+      }
+    }
+    return this.performQueries( query, data );
+  }
+
+  replaceParam( toBeChecked: string, param: string ): string {
+    if ( toBeChecked.search( 'inseriParam---' + param + '---' ) !== -1 ) {
+      const replaced = toBeChecked.replace(
+        'inseriParam---' + param + '---',
+        this.route.snapshot.queryParams[ param ]
+      );
+      return replaced;
+    } else {
+      return toBeChecked;
+    }
+  }
+
+  performQueries(query: any, data: any) {
+    if ( query.serverUrl.search( 'inseriParam' ) !== -1 ||
+      ( query.body && query.body.search( 'inseriParam' ) !== -1 ) ) {
+      setTimeout(() => {
+        return this.goThroughParams( query, data );
+      }, 2000);
+    }
+    // console.log( query.serverUrl );
+    switch (query.method) {
+      case 'GET':
+        return this.get(query.serverUrl, data.query.params, query.header);
+      case 'POST':
+        return this.post(query.serverUrl, data.query.params, query.header, query.body);
+      case 'PUT':
+        return this.put(query.serverUrl, data.query.params, query.header, query.body);
+      case 'DELETE':
+        return this.delete(query.serverUrl, data.query.params, query.header);
+      case 'JSON':
+        // console.log( environment.node +  '/api' + query.serverUrl.split( 'api' )[ 1 ] );
+        return this.get(environment.node +  '/api' + query.serverUrl.split( 'api' )[ 1 ], data.query.params, query.header);
+    }
   }
 
   transformParam(parameter: any[]) {
