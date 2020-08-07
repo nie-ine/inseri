@@ -340,7 +340,7 @@
       </button>
 
     </mat-card-header>
-    <mat-card-content style="pointer-events: auto!important;"
+    <div style="pointer-events: auto!important;"
       *ngIf=" !app.minimized && !app.panelExtended" [style.overflow]="'auto'"
       [ngStyle]="{ 'height':  ( app.fullHeight || app.panelExtended ) ? '92%' : app.height + 'px'}">
 
@@ -463,7 +463,7 @@
 
       </div>
 
-    </mat-card-content>
+    </div>
 
     <popup #appId *ngIf=" !app.minimized "
            [appIndex]="i"

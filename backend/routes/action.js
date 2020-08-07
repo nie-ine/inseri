@@ -53,8 +53,8 @@ router.get('/:id', checkAuth2, (req, res, next) => {
       })
       .then(result => {
         if (result.length === 1) {
-          console.log('get action id');
-          console.log(result[0]);
+          // console.log('get action id');
+          // console.log(result[0]);
           res.status(200).json({
             message: 'Action was found',
             action: result[0]

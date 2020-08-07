@@ -3,6 +3,7 @@ import {GeneralRequestService} from '../../../query-engine/general/general-reque
 import {ActivatedRoute, Router} from '@angular/router';
 import {QueryService} from '../../../user-action-engine/mongodb/query/query.service';
 import {AuthService} from '../../../user-action-engine/mongodb/auth/auth.service';
+import {CommentService} from '../../../user-action-engine/mongodb/comment/comment.service';
 
 @Component({
   selector: 'app-comment-on-indices',
@@ -13,17 +14,35 @@ export class CommentOnIndicesComponent implements OnInit {
   @Input() textFile: string;
   @Input() appInputQueryMapping: string;
   @Input() hash: string;
-  commentArray: Array<any> = [];
+  @Input() forDashboard: boolean;
+  @Input() commentArray: Array<any> = [];
   newComment: string;
   constructor(
     private requestService: GeneralRequestService,
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
-    private queryService: QueryService
+    private queryService: QueryService,
+    private commentService: CommentService
   ) { }
 
   ngOnInit() {
+    if ( !this.forDashboard ) {
+      this.commentService.getCommentsOfPage( this.route.snapshot.queryParams.page )
+        .subscribe(
+          data => {
+            console.log( data );
+            this.commentArray = data.comments;
+            for ( let i = 0; i < this.commentArray.length; i++ ) {
+              this.createQueryInformationOfComment( i );
+            }
+          }, error => console.log( error )
+        );
+    } else {
+      for ( let i = 0; i < this.commentArray.length; i++ ) {
+        this.createQueryInformationOfComment( i );
+      }
+    }
   }
 
   save() {
@@ -51,45 +70,86 @@ export class CommentOnIndicesComponent implements OnInit {
 
     this.authService.getUser(localStorage.getItem('userId')).subscribe((result) => {
       console.log( result );
-      this.commentArray.push(
-        {
-          commentText: this.newComment,
+      const newComment = {
+        commentText: this.newComment,
           date: date,
-          params: this.route.snapshot.queryParams,
-          user: result.user.lastName + ', ' + result.user.firstName,
-          queries: [],
-          userId: localStorage.getItem('userId'),
-          page: this.route.snapshot.queryParams.page,
-          action: this.route.snapshot.queryParams.page.actionID
-        }
+        params: this.route.snapshot.queryParams,
+        user: result.user.lastName + ', ' + result.user.firstName,
+        queries: undefined,
+        userId: localStorage.getItem('userId'),
+        page: this.route.snapshot.queryParams.page,
+        action: this.route.snapshot.queryParams.actionID
+      };
+
+      this.commentArray.push(
+        newComment
       );
 
-      for ( const param in this.commentArray[ this.commentArray.length - 1 ].params ) {
-        if ( param.search( ',' ) !== -1 ) {
-          console.log( param );
-          console.log( param.slice( 0, 24 ) );
-          this.queryService.getQuery( param.slice( 0, 24 ) )
-            .subscribe(
-              data => {
-                console.log( data );
-                this.commentArray[ this.commentArray.length - 1 ].queries.push({
-                  title: data.query.title,
-                  index: this.commentArray[ this.commentArray.length - 1 ].params[ param ]
-                });
-              }, error => console.log( error )
-            );
-        }
-      }
+      this.createQueryInformationOfComment( this.commentArray.length - 1 );
 
-      console.log( this.commentArray );
+      this.commentService.createComment( newComment )
+        .subscribe( data => {
+          console.log( data );
+        }, error => console.log( error ));
+
     });
+
+  }
+
+  createQueryInformationOfComment( index: number ) {
+    for ( const param in this.commentArray[ index ].params ) {
+      if ( param.search( ',' ) !== -1 ) {
+        // console.log( param );
+        // console.log( param.slice( 0, 24 ) );
+        this.queryService.getQuery( param.slice( 0, 24 ) )
+          .subscribe(
+            data => {
+              console.log( data );
+              this.commentArray[ index ].queries = [];
+              this.commentArray[ index ].queries.push({
+                title: data.query.title,
+                index: this.commentArray[ index ].params[ param ]
+              });
+            }, error => console.log( error )
+          );
+      }
+    }
   }
 
   browseToComment( comment: any ) {
-    this.router.navigate( [], {
+    this.router.navigate( ['/page'], {
       queryParams: comment.params,
       queryParamsHandling: 'merge'
     } );
   }
+
+  deleteComment( commentId: string ) {
+    for ( let i = 0; i < this.commentArray.length; i++ ) {
+      if ( this.commentArray[ i ]._id === commentId ) {
+        this.commentArray.splice(i, 1);
+      }
+    }
+    console.log( commentId );
+    this.commentService.deletecomment( commentId )
+      .subscribe(
+        data => {
+          console.log( data );
+        }, error => console.log( error )
+      )
+  }
+
+  editComment( commentId: string, updatedText: string ) {
+    this.commentService.updateText(commentId, updatedText)
+      .subscribe(
+        response => console.log(response),
+        error => console.log( error )
+      );
+    for ( let i = 0; i < this.commentArray.length; i++ ) {
+      if ( this.commentArray[ i ]._id === commentId ) {
+        this.commentArray[ i ].commentText = updatedText;
+      }
+    }
+  }
+
 
 }

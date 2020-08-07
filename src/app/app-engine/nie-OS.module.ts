@@ -223,7 +223,8 @@ import { CommentOnIndicesComponent } from './apps/comment-on-indices/comment-on-
     PageComponent,
     MatSidenavModule,
     GrapesjsComponent,
-    AllAppSelectorsComponent
+    AllAppSelectorsComponent,
+    CommentOnIndicesComponent
   ],
   entryComponents: [
     DataManagementComponent,

@@ -279,6 +279,7 @@ export class DataAssignmentComponent implements OnChanges {
                     undefined,
                     responseIsArray
                   );
+                  // console.log( app[ input ] );
               }
             }
           }
@@ -300,7 +301,19 @@ export class DataAssignmentComponent implements OnChanges {
     responseIsArray?: boolean
   ) {
     if ( response ) {
-      // console.log( 'generateAppInput', responseIsArray, index, path );
+      // console.log( path, depth, path[ depth ] );
+
+      if ( path[ depth ] === null ) {
+        // console.log( 'segment is null' );
+        return this.generateAppinput(
+          response,
+          path,
+          index,
+          depth + 1,
+          true,
+          forExtendedSearch
+        );
+      }
 
       if ( responseIsArray ) {
         return this.generateAppinput(

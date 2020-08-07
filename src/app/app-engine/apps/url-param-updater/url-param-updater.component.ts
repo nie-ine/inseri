@@ -43,7 +43,7 @@ export class UrlParamUpdaterComponent implements OnChanges {
       queryParamsHandling: 'merge'
     });
     if ( reload ) {
-      this.reloadVariables.emit();
+      this.save();
     }
   }
 

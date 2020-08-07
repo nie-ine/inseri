@@ -30,7 +30,7 @@ export class AppMenuModel {
       appType: 'commentOnIndices',
       description: 'Comment on pages of books, etc',
       showOnHome: false,
-      appGroup: 'application'
+      appGroup: 'add'
     },
     {
       id: 'input',

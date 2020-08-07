@@ -19,11 +19,18 @@
           <mat-form-field style="margin-top: 30px">
             <mat-label>Show...</mat-label>
             <mat-select [(value)]="selected">
-              <mat-option (click)="showArchivedDocuments = false" (click)="showUserGroups = false"  value="option1">
+              <mat-option (click)="showArchivedDocuments = false" (click)="showUserGroups = false"  (click)="showComments = false" value="option1">
                 Projects
               </mat-option>
-              <mat-option (click)="showUserGroups = true" value="option2">
+              <mat-option (click)="showUserGroups = true" value="option2" (click)="showComments = false">
                 User groups
+              </mat-option>
+              <mat-option
+                (click)="showUserGroups = false"
+                (click)="showArchivedDocuments = false"
+                (click)="showComments = true"
+                value="option2">
+                Comments
               </mat-option>
               <mat-option (click)="openQueryList()">
                 RESTFul Queries
@@ -31,7 +38,7 @@
               <mat-option (click)="openAllPagesDialog()">
                 All pages
               </mat-option>
-              <mat-option (click)="showArchivedDocuments = true" (click)="showUserGroups = false" value="option3">
+              <mat-option (click)="showArchivedDocuments = true" (click)="showUserGroups = false" value="option3" (click)="showComments = false">
                 Archived projects
               </mat-option>
             </mat-select>
@@ -46,7 +53,7 @@
     <div class="row text-center">
 
 
-      <div class="col-md-4" href="#portfolioModal1" style=" width: 230px; height: 300px; display: inline-block;">
+      <div class="col-md-4" href="#portfolioModal1" style=" width: 230px; height: 300px; display: inline-block;" *ngIf="!showComments">
 
         <span class="fa-stack fa-4x" style="cursor: pointer">
          <i class="fa fa-circle fa-stack-2x text-primary"></i>
@@ -65,7 +72,7 @@
         <div
           class="col-md-4"
           href="#portfolioModal1"
-          *ngIf="!action.deleted && !action.isFinished && !showArchivedDocuments && !showUserGroups"
+          *ngIf="!action.deleted && !action.isFinished && !showArchivedDocuments && !showUserGroups && !showComments"
           [ngStyle]="{'color': action.isFinished ? 'green' : 'black'}"
           style=" width: 230px; height: 300px; display: inline-block;">
                     <span class="fa-stack fa-4x" [matMenuTriggerFor]="appMenu" [ngSwitch]="action.type"
@@ -133,6 +140,11 @@
           <h4 class="service-heading">{{ usergroup.title }}</h4>
           <p class="text-muted">{{ usergroup.description }}</p>
         </div>
+      </div>
+
+      <div *ngIf="showComments" >
+        <app-comment-on-indices [forDashboard] = true [commentArray]="commentArray"></app-comment-on-indices>
+
       </div>
 
 

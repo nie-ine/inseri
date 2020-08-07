@@ -20,6 +20,8 @@ import * as JSZipUtils from 'jszip-utils';
 import * as Fs from 'fs';
 import * as JSZip from 'jszip';
 import * as FileSaver from 'file-saver';
+import {CommentService} from '../../mongodb/comment/comment.service';
+import {error} from 'util';
 
 @Component({
   selector: 'app-dashboard',
@@ -40,6 +42,8 @@ export class DashboardComponent implements OnInit {
   usergroup: any = {};
   groupMembers: Array<any> = [];
   email: string;
+  showComments = false;
+  commentArray: Array<any> = [];
 
 
   /**
@@ -56,7 +60,8 @@ export class DashboardComponent implements OnInit {
     private pageService: PageService,
     private authService: AuthService,
     private usergroupService: UsergroupService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private commentService: CommentService
   ) {
 
     router.events.subscribe(s => {
@@ -82,6 +87,13 @@ export class DashboardComponent implements OnInit {
       this.loggedIn = false;
     }
     this.getUserGroups();
+    this.commentService.getAllCommentsOfUser()
+      .subscribe(
+        data => {
+          console.log( data );
+          this.commentArray = ( data as any ).comments;
+        }, error1 => console.log( error1 )
+      );
   }
 
   getUserGroups() {

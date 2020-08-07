@@ -398,8 +398,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
       this.route.snapshot.url[0].path === 'home' &&
       this.route.snapshot.queryParams.actionID === undefined
     ) {
-      this.page.chosenWidth = 800;
-      // this.addAnotherApp( 'login', true );
+      this.page.tiles = true;
       this.preview = false;
     }
 
@@ -903,7 +902,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * after the user chooses a data entry and triggers the data assignment component
    * */
   updateMainResourceIndex( input: any ) {
-    // console.log( input );
+    console.log( input );
     this.index = input.index;
     this.response = input.response;
     this.queryId = input.queryId;
@@ -911,6 +910,10 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.pathWithArray = input.pathWithArray;
     const dataAssignmentComponent = new DataAssignmentComponent();
     // console.log( this.index, input );
+    if ( ( this.index as any ) === 'NaN' || this.index === NaN ) {
+      console.log( 'index is NaN' )
+      this.index = 0;
+    }
     if ( this.page && this.openAppsInThisPage && this.index === 0 ) {
       // console.log( input );
       dataAssignmentComponent.startPathUpdateProcess(
@@ -924,7 +927,16 @@ export class PageComponent implements OnInit, AfterViewChecked {
       );
     } else {
       setTimeout(() => {
-        console.log( this.page, 'page was loaded to late' );
+        console.log( this.page, this.openAppsInThisPage, this.index, 'page was loaded to late' );
+        dataAssignmentComponent.startPathUpdateProcess(
+          input.queryId,
+          input.pathWithArray,
+          input.index,
+          input.response,
+          input.depth,
+          this.page.appInputQueryMapping,
+          this.openAppsInThisPage
+        );
       }, 1000);
     }
     if (  this.pathWithArray ) {

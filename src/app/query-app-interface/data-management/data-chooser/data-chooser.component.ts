@@ -89,10 +89,15 @@ export class DataChooserComponent implements AfterViewChecked {
       this.currentPath = this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ];
       setTimeout(() => {
         console.log(  this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ] );
-        // console.log(this.pathWithArray);
-        this.chooseResource( Number( this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ] ) );
+        console.log(this.pathWithArray);
+        if ( this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ] === NaN ) {
+          this.chooseResource(0 );
+        } else {
+          this.chooseResource( Number( this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ] ) );
+        }
       }, 50);
     } else if ( !this.alreadyEmitted ) {
+      console.log( 'not already emitted' );
       this.alreadyEmitted = true;
       this.chooseResource( 0 );
     }
@@ -102,10 +107,10 @@ export class DataChooserComponent implements AfterViewChecked {
     if ( this.dataChooserEntries ) {
       this.chosenEntry = this.dataChooserEntries[ index ];
     }
-    if ( this.pathWithArray && index !== 0 ) {
+    if ( this.pathWithArray ) {
       this._router.navigate([], {
         queryParams: {
-          [this.queryId + this.pathWithArray.toString() ]: index
+          [this.queryId + this.pathWithArray.toString() ]: index === NaN ? 0 : index
         },
         queryParamsHandling: 'merge'
       });
