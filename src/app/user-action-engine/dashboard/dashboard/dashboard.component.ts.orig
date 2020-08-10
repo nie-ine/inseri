@@ -62,9 +62,13 @@ export class DashboardComponent implements OnInit {
     private authService: AuthService,
     private usergroupService: UsergroupService,
     private spinner: NgxSpinnerService,
+<<<<<<< HEAD
     private commentService: CommentService,
-    private queryService: QueryService,
-    private fileService: FileService
+    private queryService: QueryService
+=======
+    private fileService: FileService,
+    private commentService: CommentService
+>>>>>>> 849ad0eb8d96e0c97f7bf19922eda128e924142a
   ) {
 
     router.events.subscribe(s => {
@@ -419,6 +423,7 @@ export class DashboardComponent implements OnInit {
               });
             }
           }, 100);
+
 
         });
     }
