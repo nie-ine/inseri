@@ -18,7 +18,7 @@ import {PageSetService} from '../../mongodb/pageset/page-set.service';
 import {FileService} from '../../file/file.service';
 import * as JSZipUtils from 'jszip-utils';
 import * as Fs from 'fs';
-import * as JSZip from 'jszip';
+import JSZip from 'jszip';
 import * as FileSaver from 'file-saver';
 import {CommentService} from '../../mongodb/comment/comment.service';
 import {error} from 'util';

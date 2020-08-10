@@ -4,7 +4,7 @@ import {Component, Input, Output} from '@angular/core';
   selector: 'data-list-view-settings',
   templateUrl: './data-list-view-settings.html'
 })
-export class DataListViewSettings {
+export class DataListViewSettingsComponent {
 
   @Input() displayedColumns: any;
   selectedOption;
