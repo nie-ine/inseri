@@ -583,12 +583,84 @@ export class OpenAppsModel {
           'inputName': 'json'
         },
         {
-          'inputName': 'settings'
+          'inputName': 'settings',
+          default:   { "inputMode":"input",
+            "jsonType":"sparql",
+            "columns":{
+              "genericColumns":true,
+              "columnMapping":[
+                {
+                  "name":"predicate",
+                  "path":[
+                    "p",
+                    "value"
+                  ],
+                  "displayed":true,
+                  "filtered":true
+                },
+                {
+                  "name":"object",
+                  "path":[
+                    "o",
+                    "value"
+                  ],
+                  "displayed":true,
+                  "filtered":true
+                }
+              ],
+              "stickyColumn":0
+            },
+            "filter":{
+              "showFilter":true,
+              "caseSensitive":false
+            },
+            "paginator":{
+              "paginate":true,
+              "pageIndex":"0",
+              "pageSize":"10",
+              "pageSizeOptions":[
+                5,
+                10,
+                25,
+                50,
+                100,
+                250
+              ]
+            },
+            "export":{
+              "showExport":true
+            },
+            "sort":{
+              "disallowSorting":false
+            },
+            "styles":{
+              "cellStyle":{
+                "cursor":"pointer"
+              }
+            },
+            "actions":{
+              "actions":true,
+              "_comment":{
+                "cursorstyle":"use custom css properties",
+                "intLink":"opens another app",
+                "extLink":"opens another webpage"
+              },
+              "actionMode":"object",
+              "actionType":"dialog",
+              "actionRange":"cell",
+              "baseUrl":"http://localhost:4200/page?actionID=5c8a6300b4438759d237b246",
+              "urlParams":{
+                "label":"label.value",
+                "highlight":"authorsname.value"
+              }
+            }
+          }
         }
       ],
       materialIcon: 'view_list',
       initialWidth: '375',
       initialHeight: '350'
+
     },
     parzivalFassung: {
       type: 'parzivalFassung',

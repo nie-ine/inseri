@@ -43,7 +43,6 @@ import { NewGjsBoxDialogComponent } from './apps/grapesjs/new-gjs-box-dialog/new
 import { MatDialogModule } from '@angular/material';
 import { SimpleImageAppComponent } from './apps/simple-image-app/simple-image-app.component';
 import { FileDatabaseForApp, ResponseTreeAppComponent } from './apps/response-tree/response-tree.component';
-import { DataListView } from './apps/data-list-view/data-list-view.component';
 import { CdkTableModule } from '@angular/cdk/table';
 import { MatPaginatorModule, MatSortModule } from '@angular/material';
 import { QueryInformationDialogComponent } from './page/query-information-dialog/query-information-dialog.component';
@@ -55,10 +54,11 @@ import { Project0041Module } from './apps/project-specific/project-0041/project-
 import { ComplexTextViewsModule } from './apps/complex-text-views/complex-text-views.module';
 import { ResourceFormModule } from './apps/resource-form/resource-form.module';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { DataListViewDetailsDialogComponent } from './apps/data-list-view/data-list-view-details-dialog/data-list-view-details-dialog.component';
-import { ngxCsv } from 'ngx-csv/ngx-csv';
-import { DataListViewSettings } from './apps/data-list-view/data-list-view-settings/data-list-view-settings';
+import { DataListViewComponent} from './apps/data-list-view/data-list-view.component';
+import { DataListViewSettingsComponent} from './apps/data-list-view/data-list-view-settings/data-list-view-settings';
+import { DataListViewSettings } from './apps/data-list-view/data-list-view-settings/data-list-view-settings.service';
 import { DataListViewTableComponent, HighlightPipe } from './apps/data-list-view/data-list-view-table/data-list-view-table.component';
+import { DataListViewInAppQueryService } from './apps/data-list-view/services/query.service';
 import { NavigationModule } from './apps/navigation/navigation.module';
 import { HtmlViewerModule } from './apps/html-viewer/html-viewer.module';
 import {MatCheckboxModule} from '@angular/material/checkbox';
@@ -167,13 +167,18 @@ import { CommentOnIndicesComponent } from './apps/comment-on-indices/comment-on-
     FileDatabase,
     FileDatabaseForApp,
     CanvasWhiteboardComponent,
-    FileDatabaseForAppGND
+    FileDatabaseForAppGND,
+    DataListViewSettings,
+    DataListViewInAppQueryService
   ],
   declarations: [
     PageComponent,
     Frame,
     TextlistViewerComponent,
     DataManagementComponent,
+    DataListViewComponent,
+    DataListViewSettingsComponent,
+    DataListViewTableComponent,
     QueryEntryComponent,
     KeyValueFormComponent,
     QueryAppInputMapComponent,
@@ -184,14 +189,10 @@ import { CommentOnIndicesComponent } from './apps/comment-on-indices/comment-on-
     NewGjsBoxDialogComponent,
     SimpleImageAppComponent,
     ResponseTreeAppComponent,
-    DataListView,
     QueryInformationDialogComponent,
     GrapesjsComponent,
     ParzivalFassungComponent,
-    DataListViewDetailsDialogComponent,
     HighlightPipe,
-    DataListViewSettings,
-    DataListViewTableComponent,
     OpenbisLoginComponent,
     YoutubeVideoComponent,
     DataChooserComponent,
@@ -234,7 +235,6 @@ import { CommentOnIndicesComponent } from './apps/comment-on-indices/comment-on-
     QueryListComponent,
     NewGjsBoxDialogComponent,
     QueryInformationDialogComponent,
-    DataListViewDetailsDialogComponent,
     DataChooserComponent,
     AppInputComponentComponent,
     FileListDialogComponent,
