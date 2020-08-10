@@ -81,7 +81,7 @@
         </section>
 
             <section>
-    
+
         <h3 id="methods">
             Methods
         </h3>
@@ -131,22 +131,22 @@
                                                         <td>
                                                                     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                                         </td>
-                                                    
+
                                                     <td>
                                                             No
                                                     </td>
-                                                    
+
 
                                                 </tr>
                                                 <tr>
                                                         <td>search</td>
                                                         <td>
                                                         </td>
-                                                    
+
                                                     <td>
                                                             No
                                                     </td>
-                                                    
+
 
                                                 </tr>
                                         </tbody>
@@ -159,7 +159,7 @@
 
                             </div>
                                 <div class="io-description">
-                                    
+
                                 </div>
                     </td>
                 </tr>
@@ -186,8 +186,8 @@ import { ngxCsv } from &#x27;ngx-csv/ngx-csv&#x27;;
   providers: [DataService]
 })
 export class DataListViewTableComponent implements OnInit {
-  @Input() dataListSettings: any;
-  @Input() dataToDisplay: any;
+  @Input() dataListSettingsOut: any;
+  @Input() queryResponse: any;
   @Input() displayedColumns?: any;
 
   @ViewChild(MatTable) table: MatTable&lt;any&gt;;
@@ -208,7 +208,7 @@ export class DataListViewTableComponent implements OnInit {
   }
 
   ngOnInit() {
-    // console.log( this.dataToDisplay );
+    // console.log( this.queryResponse );
     // console.log(&#x27;displayed columns:&#x27; + this.displayedColumns);
     this.populateByDatastream();
     this.setFilter();
@@ -219,16 +219,16 @@ export class DataListViewTableComponent implements OnInit {
   private populateByDatastream() {
     // INSTANTIATE the datasource of the table
     // TODO: if (jsonType &#x3D;&#x3D;&#x3D; extendedSearch ) { ... }
-    this.dataSource &#x3D; new MatTableDataSource(this.dataToDisplay);
+    this.dataSource &#x3D; new MatTableDataSource(this.queryResponse);
     this.dataSource.connect().subscribe(data &#x3D;&gt; { this.renderedDisplayedData &#x3D; data;} );
-    if (this.dataListSettings.paginator.paginate) { this.dataSource.paginator &#x3D; this.paginator; }
+    if (this.dataListSettingsOut.paginator.paginate) { this.dataSource.paginator &#x3D; this.paginator; }
 
     // SUBSCRIBE to the tabledata for exporting this rendered data
-    this.dataSourceForExport &#x3D; new MatTableDataSource(this.dataToDisplay);
+    this.dataSourceForExport &#x3D; new MatTableDataSource(this.queryResponse);
     this.dataSourceForExport.connect().subscribe(data &#x3D;&gt; this.renderedData &#x3D; data);
 
     if (this.dataSource) {
-      if (this.dataListSettings.columns.nestedDatasource) {
+      if (this.dataListSettingsOut.columns.nestedDatasource) {
         // IF the dataSource is nested sort must sort the table for subproperties (item.poperty.value)
         // and not for properties (standard sort). Therefore changing the sortingDataAccessor.
         this.dataSource.sortingDataAccessor &#x3D; (item, property) &#x3D;&gt; {
@@ -257,9 +257,9 @@ public replaceUmlaute(input) {
   return input;
   }
 
-  // FILTERING THE datasource acc to settings
+  // FILTERING THE datasource acc to dataListSettings
   private doFilter(value: string) {
-    if (this.dataListSettings.filter.caseSensitive) { this.dataSource.filter &#x3D; value;
+    if (this.dataListSettingsOut.filter.caseSensitive) { this.dataSource.filter &#x3D; value;
       // TODO: highlighting
       this.toHighlightByFilter &#x3D; value;
     } else { this.dataSource.filter &#x3D; value.toLowerCase();
@@ -272,12 +272,12 @@ public replaceUmlaute(input) {
   // FILTER
   //
   private setFilter() {
-    // setting Filter predicate acc. to settings
+    // setting Filter predicate acc. to dataListSettings
     this.dataSource.filterPredicate &#x3D; (data, filter) &#x3D;&gt; {
       // console.log(&quot;resetting filter predicate for Filter term &quot; + filter);
       const dataStr: string &#x3D; this.joinFilteredColumns(data);
-      // applying case sensitivity/insensitivity from settings
-      if (this.dataListSettings.filter.caseSensitive) {
+      // applying case sensitivity/insensitivity from dataListSettings
+      if (this.dataListSettingsOut.filter.caseSensitive) {
         return dataStr.indexOf(filter) !&#x3D;&#x3D; -1;
       } else {
         return dataStr.toLowerCase().indexOf(filter) !&#x3D;&#x3D; -1;
@@ -287,11 +287,11 @@ public replaceUmlaute(input) {
 
   private joinFilteredColumns(data) {
     let dataStr &#x3D; &#x27;&#x27;;
-    if ( this.dataListSettings.columns.genericColumns &#x3D;&#x3D;&#x3D; false ) {
-      // JOINING all columns to be searched by filter (defined in the settings) together.
+    if ( this.dataListSettingsOut.columns.genericColumns &#x3D;&#x3D;&#x3D; false ) {
+      // JOINING all columns to be searched by filter (defined in the dataListSettings) together.
       // NOTE: If the datasource would be nested we have to set filtered data from data to sth like data.[column].value
       // so the object property value is compared by filtering and not the object itself.
-      for (const column of this.dataListSettings.columns.columnMapping) {
+      for (const column of this.dataListSettingsOut.columns.columnMapping) {
         if (column.filtered) {
           dataStr &#x3D; dataStr + data[column.name];
           }
@@ -305,8 +305,8 @@ public replaceUmlaute(input) {
 
   private onThisClick(val, object) {
     // SIMPLE METHOD TO DO SOMETHING WITH THE clicked cell/object like passing it to somewhere
-    if (this.dataListSettings.actions.actions &amp;&amp; this.dataListSettings.actions.actionMode &#x3D;&#x3D;&#x3D; &#x27;object&#x27;) {
-      if (this.dataListSettings.actions.actionType &#x3D;&#x3D;&#x3D; &#x27;dialog&#x27;) {
+    if (this.dataListSettingsOut.actions.actions &amp;&amp; this.dataListSettingsOut.actions.actionMode &#x3D;&#x3D;&#x3D; &#x27;object&#x27;) {
+      if (this.dataListSettingsOut.actions.actionType &#x3D;&#x3D;&#x3D; &#x27;dialog&#x27;) {
         console.log(&#x27;opening detail dialog with object with property value &#x27; + val);
         this.openDetailsDialog(val);
       } else {
@@ -328,7 +328,7 @@ public replaceUmlaute(input) {
   // TODO: maybe implement features from events by hostlistener ...
   /* @HostListener(&#x27;click&#x27;, [&#x27;$event&#x27;])
    onClick(event) {
-    if (this.dataListSettings.actions.actions &amp;&amp; this.dataListSettings.actions.actionMode &#x3D;&#x3D;&#x3D; &#x27;host&#x27; &amp;&amp;
+    if (this.dataListSettingsOut.actions.actions &amp;&amp; this.dataListSettingsOut.actions.actionMode &#x3D;&#x3D;&#x3D; &#x27;host&#x27; &amp;&amp;
     event.target.parentElement.classList[0] &#x3D;&#x3D;&#x3D; &#x27;fuuws&#x27;) {
         // HERE THINGS CAN BE ADDED §
         console.log(&#x27;opening detail dialog with &#x27; + event.target.firstChild.data );
@@ -384,8 +384,8 @@ public replaceUmlaute(input) {
 //
 private isColumnSticky (column: number): boolean {
   // Returns for each column whether/which column should be sticky when scrolling horizontally
-  // (this.dataListSettings.columns.stickyColumn ? true : false)
-  return !!this.dataListSettings.columns.stickyColumn;
+  // (this.dataListSettingsOut.columns.stickyColumn ? true : false)
+  return !!this.dataListSettingsOut.columns.stickyColumn;
   }
 
 }

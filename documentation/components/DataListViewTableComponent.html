@@ -223,10 +223,10 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#dataListSettings">dataListSettings</a>
+                                <a href="#dataListSettings">dataListSettingsOut</a>
                             </li>
                             <li>
-                                <a href="#dataToDisplay">dataToDisplay</a>
+                                <a href="#dataToDisplay">queryResponse</a>
                             </li>
                             <li>
                                 <a href="#displayedColumns">displayedColumns</a>
@@ -272,27 +272,27 @@
                                         <tbody>
                                                 <tr>
                                                         <td>dialog</td>
-                                                  
+
                                                         <td>
                                                                     <code>MatDialog</code>
                                                         </td>
-                                                  
+
                                                     <td>
                                                             No
                                                     </td>
-                                                    
+
                                                 </tr>
                                                 <tr>
                                                         <td>dataService</td>
-                                                  
+
                                                         <td>
                                                                     <code><a href="../injectables/DataService.html" target="_self" >DataService</a></code>
                                                         </td>
-                                                  
+
                                                     <td>
                                                             No
                                                     </td>
-                                                    
+
                                                 </tr>
                                         </tbody>
                                     </table>
@@ -310,7 +310,7 @@
                 <tr>
                     <td class="col-md-2">
                         <a name="dataListSettings"></a>
-                        <code>dataListSettings</code>
+                        <code>dataListSettingsOut</code>
                     </td>
                     <td class="col-md-10">
                             <p>
@@ -331,7 +331,7 @@
                 <tr>
                     <td class="col-md-2">
                         <a name="dataToDisplay"></a>
-                        <code>dataToDisplay</code>
+                        <code>queryResponse</code>
                     </td>
                     <td class="col-md-10">
                             <p>
@@ -373,7 +373,7 @@
 
 
     <section>
-    
+
         <h3 id="methods">
             Methods
         </h3>
@@ -425,11 +425,11 @@
                                                         <td>
                                                                     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                                         </td>
-                                                    
+
                                                     <td>
                                                             No
                                                     </td>
-                                                    
+
 
                                                 </tr>
                                         </tbody>
@@ -442,7 +442,7 @@
 
                             </div>
                                 <div class="io-description">
-                                    
+
                                 </div>
                     </td>
                 </tr>
@@ -576,11 +576,11 @@
                                                         <td>
                                                                     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
                                                         </td>
-                                                    
+
                                                     <td>
                                                             No
                                                     </td>
-                                                    
+
 
                                                 </tr>
                                         </tbody>
@@ -593,7 +593,7 @@
 
                             </div>
                                 <div class="io-description">
-                                    
+
                                 </div>
                     </td>
                 </tr>
@@ -643,11 +643,11 @@
                                         <tbody>
                                                 <tr>
                                                         <td>data</td>
-                                                    
+
                                                     <td>
                                                             No
                                                     </td>
-                                                    
+
 
                                                 </tr>
                                         </tbody>
@@ -660,7 +660,7 @@
 
                             </div>
                                 <div class="io-description">
-                                    
+
                                 </div>
                     </td>
                 </tr>
@@ -748,20 +748,20 @@
                                         <tbody>
                                                 <tr>
                                                         <td>val</td>
-                                                    
+
                                                     <td>
                                                             No
                                                     </td>
-                                                    
+
 
                                                 </tr>
                                                 <tr>
                                                         <td>object</td>
-                                                    
+
                                                     <td>
                                                             No
                                                     </td>
-                                                    
+
 
                                                 </tr>
                                         </tbody>
@@ -774,7 +774,7 @@
 
                             </div>
                                 <div class="io-description">
-                                    
+
                                 </div>
                     </td>
                 </tr>
@@ -824,11 +824,11 @@
                                         <tbody>
                                                 <tr>
                                                         <td>msg</td>
-                                                    
+
                                                     <td>
                                                             No
                                                     </td>
-                                                    
+
 
                                                 </tr>
                                         </tbody>
@@ -841,7 +841,7 @@
 
                             </div>
                                 <div class="io-description">
-                                    
+
                                 </div>
                     </td>
                 </tr>
@@ -931,11 +931,11 @@
                                         <tbody>
                                                 <tr>
                                                         <td>input</td>
-                                                    
+
                                                     <td>
                                                             No
                                                     </td>
-                                                    
+
 
                                                 </tr>
                                         </tbody>
@@ -948,7 +948,7 @@
 
                             </div>
                                 <div class="io-description">
-                                    
+
                                 </div>
                     </td>
                 </tr>
@@ -997,7 +997,7 @@
 </section>
 
     <section>
-    
+
         <h3 id="inputs">
             Properties
         </h3>
@@ -1391,8 +1391,8 @@ import { ngxCsv } from &#x27;ngx-csv/ngx-csv&#x27;;
   providers: [DataService]
 })
 export class DataListViewTableComponent implements OnInit {
-  @Input() dataListSettings: any;
-  @Input() dataToDisplay: any;
+  @Input() dataListSettingsOut: any;
+  @Input() queryResponse: any;
   @Input() displayedColumns?: any;
 
   @ViewChild(MatTable) table: MatTable&lt;any&gt;;
@@ -1413,7 +1413,7 @@ export class DataListViewTableComponent implements OnInit {
   }
 
   ngOnInit() {
-    // console.log( this.dataToDisplay );
+    // console.log( this.queryResponse );
     // console.log(&#x27;displayed columns:&#x27; + this.displayedColumns);
     this.populateByDatastream();
     this.setFilter();
@@ -1424,16 +1424,16 @@ export class DataListViewTableComponent implements OnInit {
   private populateByDatastream() {
     // INSTANTIATE the datasource of the table
     // TODO: if (jsonType &#x3D;&#x3D;&#x3D; extendedSearch ) { ... }
-    this.dataSource &#x3D; new MatTableDataSource(this.dataToDisplay);
+    this.dataSource &#x3D; new MatTableDataSource(this.queryResponse);
     this.dataSource.connect().subscribe(data &#x3D;&gt; { this.renderedDisplayedData &#x3D; data;} );
-    if (this.dataListSettings.paginator.paginate) { this.dataSource.paginator &#x3D; this.paginator; }
+    if (this.dataListSettingsOut.paginator.paginate) { this.dataSource.paginator &#x3D; this.paginator; }
 
     // SUBSCRIBE to the tabledata for exporting this rendered data
-    this.dataSourceForExport &#x3D; new MatTableDataSource(this.dataToDisplay);
+    this.dataSourceForExport &#x3D; new MatTableDataSource(this.queryResponse);
     this.dataSourceForExport.connect().subscribe(data &#x3D;&gt; this.renderedData &#x3D; data);
 
     if (this.dataSource) {
-      if (this.dataListSettings.columns.nestedDatasource) {
+      if (this.dataListSettingsOut.columns.nestedDatasource) {
         // IF the dataSource is nested sort must sort the table for subproperties (item.poperty.value)
         // and not for properties (standard sort). Therefore changing the sortingDataAccessor.
         this.dataSource.sortingDataAccessor &#x3D; (item, property) &#x3D;&gt; {
@@ -1462,9 +1462,9 @@ public replaceUmlaute(input) {
   return input;
   }
 
-  // FILTERING THE datasource acc to settings
+  // FILTERING THE datasource acc to dataListSettings
   private doFilter(value: string) {
-    if (this.dataListSettings.filter.caseSensitive) { this.dataSource.filter &#x3D; value;
+    if (this.dataListSettingsOut.filter.caseSensitive) { this.dataSource.filter &#x3D; value;
       // TODO: highlighting
       this.toHighlightByFilter &#x3D; value;
     } else { this.dataSource.filter &#x3D; value.toLowerCase();
@@ -1477,12 +1477,12 @@ public replaceUmlaute(input) {
   // FILTER
   //
   private setFilter() {
-    // setting Filter predicate acc. to settings
+    // setting Filter predicate acc. to dataListSettings
     this.dataSource.filterPredicate &#x3D; (data, filter) &#x3D;&gt; {
       // console.log(&quot;resetting filter predicate for Filter term &quot; + filter);
       const dataStr: string &#x3D; this.joinFilteredColumns(data);
-      // applying case sensitivity/insensitivity from settings
-      if (this.dataListSettings.filter.caseSensitive) {
+      // applying case sensitivity/insensitivity from dataListSettings
+      if (this.dataListSettingsOut.filter.caseSensitive) {
         return dataStr.indexOf(filter) !&#x3D;&#x3D; -1;
       } else {
         return dataStr.toLowerCase().indexOf(filter) !&#x3D;&#x3D; -1;
@@ -1492,11 +1492,11 @@ public replaceUmlaute(input) {
 
   private joinFilteredColumns(data) {
     let dataStr &#x3D; &#x27;&#x27;;
-    if ( this.dataListSettings.columns.genericColumns &#x3D;&#x3D;&#x3D; false ) {
-      // JOINING all columns to be searched by filter (defined in the settings) together.
+    if ( this.dataListSettingsOut.columns.genericColumns &#x3D;&#x3D;&#x3D; false ) {
+      // JOINING all columns to be searched by filter (defined in the dataListSettings) together.
       // NOTE: If the datasource would be nested we have to set filtered data from data to sth like data.[column].value
       // so the object property value is compared by filtering and not the object itself.
-      for (const column of this.dataListSettings.columns.columnMapping) {
+      for (const column of this.dataListSettingsOut.columns.columnMapping) {
         if (column.filtered) {
           dataStr &#x3D; dataStr + data[column.name];
           }
@@ -1510,8 +1510,8 @@ public replaceUmlaute(input) {
 
   private onThisClick(val, object) {
     // SIMPLE METHOD TO DO SOMETHING WITH THE clicked cell/object like passing it to somewhere
-    if (this.dataListSettings.actions.actions &amp;&amp; this.dataListSettings.actions.actionMode &#x3D;&#x3D;&#x3D; &#x27;object&#x27;) {
-      if (this.dataListSettings.actions.actionType &#x3D;&#x3D;&#x3D; &#x27;dialog&#x27;) {
+    if (this.dataListSettingsOut.actions.actions &amp;&amp; this.dataListSettingsOut.actions.actionMode &#x3D;&#x3D;&#x3D; &#x27;object&#x27;) {
+      if (this.dataListSettingsOut.actions.actionType &#x3D;&#x3D;&#x3D; &#x27;dialog&#x27;) {
         console.log(&#x27;opening detail dialog with object with property value &#x27; + val);
         this.openDetailsDialog(val);
       } else {
@@ -1533,7 +1533,7 @@ public replaceUmlaute(input) {
   // TODO: maybe implement features from events by hostlistener ...
   /* @HostListener(&#x27;click&#x27;, [&#x27;$event&#x27;])
    onClick(event) {
-    if (this.dataListSettings.actions.actions &amp;&amp; this.dataListSettings.actions.actionMode &#x3D;&#x3D;&#x3D; &#x27;host&#x27; &amp;&amp;
+    if (this.dataListSettingsOut.actions.actions &amp;&amp; this.dataListSettingsOut.actions.actionMode &#x3D;&#x3D;&#x3D; &#x27;host&#x27; &amp;&amp;
     event.target.parentElement.classList[0] &#x3D;&#x3D;&#x3D; &#x27;fuuws&#x27;) {
         // HERE THINGS CAN BE ADDED §
         console.log(&#x27;opening detail dialog with &#x27; + event.target.firstChild.data );
@@ -1589,8 +1589,8 @@ public replaceUmlaute(input) {
 //
 private isColumnSticky (column: number): boolean {
   // Returns for each column whether/which column should be sticky when scrolling horizontally
-  // (this.dataListSettings.columns.stickyColumn ? true : false)
-  return !!this.dataListSettings.columns.stickyColumn;
+  // (this.dataListSettingsOut.columns.stickyColumn ? true : false)
+  return !!this.dataListSettingsOut.columns.stickyColumn;
   }
 
 }
@@ -1613,7 +1613,7 @@ export class HighlightPipe implements PipeTransform {
 
     <div class="tab-pane fade " id="c-templateData">
         <pre class="line-numbers"><code class="language-html">&lt;!-- FILTER --&gt;
-&lt;div *ngIf&#x3D;&quot;dataListSettings.filter.showFilter &amp;&amp; dataSource &amp;&amp; dataSource.data&quot;&gt;
+&lt;div *ngIf&#x3D;&quot;dataListSettingsOut.filter.showFilter &amp;&amp; dataSource &amp;&amp; dataSource.data&quot;&gt;
   &lt;mat-form-field&gt;
     &lt;input matInput type&#x3D;&quot;text&quot; (keyup)&#x3D;&quot;doFilter($event.target.value)&quot; placeholder&#x3D;&quot;Filter&quot;&gt;
     &lt;mat-hint *ngIf&#x3D;&quot;paginator&quot;&gt;Showing {{paginator.length}} of {{dataSource.data.length}} entries in total&lt;/mat-hint&gt;
@@ -1622,12 +1622,12 @@ export class HighlightPipe implements PipeTransform {
 &lt;!--TABLE--&gt;
 &lt;mat-table #table [dataSource]&#x3D;&quot;dataSource&quot;
            matSort
-           [matSortDisabled] &#x3D;&quot;this.dataListSettings.sort.disallowSorting&quot;
+           [matSortDisabled] &#x3D;&quot;this.dataListSettingsOut.sort.disallowSorting&quot;
            [multiTemplateDataRows]&#x3D;&quot;true&quot;&gt;
   &lt;ng-container *ngFor&#x3D;&quot;let col of displayedColumns; let i &#x3D; index&quot; [cdkColumnDef]&#x3D;&quot;col&quot; [sticky]&#x3D;&quot;isColumnSticky(i)&quot;&gt;
     &lt;mat-header-cell *cdkHeaderCellDef mat-sort-header&gt;{{col}}&lt;/mat-header-cell&gt;
     &lt;mat-cell *cdkCellDef&#x3D;&quot;let row; let i &#x3D; $implicit;&quot; class &#x3D; &quot;fuu&quot;
-              [ngStyle]&#x3D; &quot;dataListSettings.styles.cellStyle&quot;
+              [ngStyle]&#x3D; &quot;dataListSettingsOut.styles.cellStyle&quot;
               (click)&#x3D;&quot;onThisClick(row[col], i)&quot;
               [ngClass]&#x3D;&quot;col&quot;&gt;
       &lt;!-- SETTING [ngClass]&#x3D;&quot;col&quot; enables to define styles for each column, setting it to row[col].value will enable to define a style for certain cell content --&gt;
@@ -1645,13 +1645,13 @@ export class HighlightPipe implements PipeTransform {
 &lt;/mat-table&gt;
 &lt;!-- PAGINATION --&gt;
 &lt;mat-paginator #paginator
-               [pageIndex]&#x3D; &quot;dataListSettings.paginator.pageIndex&quot;
-               [pageSize]&#x3D; &quot;dataListSettings.paginator.pageSize&quot;
-               [pageSizeOptions]&#x3D; &quot;dataListSettings.paginator.pageSizeOptions&quot;
-               [ngStyle]&#x3D; &quot;{display: dataListSettings.paginator.paginate ? &#x27;block&#x27; : &#x27;none&#x27;}&quot;&gt;
+               [pageIndex]&#x3D; &quot;dataListSettingsOut.paginator.pageIndex&quot;
+               [pageSize]&#x3D; &quot;dataListSettingsOut.paginator.pageSize&quot;
+               [pageSizeOptions]&#x3D; &quot;dataListSettingsOut.paginator.pageSizeOptions&quot;
+               [ngStyle]&#x3D; &quot;{display: dataListSettingsOut.paginator.paginate ? &#x27;block&#x27; : &#x27;none&#x27;}&quot;&gt;
 &lt;/mat-paginator&gt;
 &lt;!-- EXPORT --&gt;
-&lt;div *ngIf&#x3D;&quot;dataListSettings.export.showExport&quot;&gt;
+&lt;div *ngIf&#x3D;&quot;dataListSettingsOut.export.showExport&quot;&gt;
   &lt;mat-form-field&gt;
     &lt;mat-label&gt;Export options&lt;/mat-label&gt;
     &lt;mat-select [(value)]&#x3D;&quot;exportSelection&quot;&gt;
@@ -1685,14 +1685,14 @@ export class HighlightPipe implements PipeTransform {
         </div>
     </div>
 
-    
+
 </div>
 
 <script src="../js/libs/vis.min.js"></script>
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><!-- FILTER --><div *ngIf="dataListSettings.filter.showFilter && dataSource && dataSource.data">  <mat-form-field>    <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">    <mat-hint *ngIf="paginator">Showing {{paginator.length}} of {{dataSource.data.length}} entries in total</mat-hint>  </mat-form-field></div><!--TABLE--><mat-table #table [dataSource]="dataSource"           matSort           [matSortDisabled] ="this.dataListSettings.sort.disallowSorting"           [multiTemplateDataRows]="true">  <ng-container *ngFor="let col of displayedColumns; let i = index" [cdkColumnDef]="col" [sticky]="isColumnSticky(i)">    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{col}}</mat-header-cell>    <mat-cell *cdkCellDef="let row; let i = $implicit;" class = "fuu"              [ngStyle]= "dataListSettings.styles.cellStyle"              (click)="onThisClick(row[col], i)"              [ngClass]="col">      <!-- SETTING [ngClass]="col" enables to define styles for each column, setting it to row[col].value will enable to define a style for certain cell content -->      <span *ngIf="row[col]">        <span [innerHTML]="row[col]" ></span>        </span>      <!--        {{ showValue(row, col) }} &lt;!&ndash; | highlight: toHighlightByFilter &ndash;&gt;-->    </mat-cell>  </ng-container>  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>  <mat-row    matRipple    *matRowDef="let row; columns: displayedColumns;">  </mat-row></mat-table><!-- PAGINATION --><mat-paginator #paginator               [pageIndex]= "dataListSettings.paginator.pageIndex"               [pageSize]= "dataListSettings.paginator.pageSize"               [pageSizeOptions]= "dataListSettings.paginator.pageSizeOptions"               [ngStyle]= "{display: dataListSettings.paginator.paginate ? \'block\' : \'none\'}"></mat-paginator><!-- EXPORT --><div *ngIf="dataListSettings.export.showExport">  <mat-form-field>    <mat-label>Export options</mat-label>    <mat-select [(value)]="exportSelection">      <mat-option value="displayed">Displayed data only</mat-option>      <mat-option value="complete">Complete export</mat-option>    </mat-select>  </mat-form-field>  <button (click)="exportToCsv()">Export to CSV</button></div></div>'
+        var COMPONENT_TEMPLATE = '<div><!-- FILTER --><div *ngIf="dataListSettingsOut.filter.showFilter && dataSource && dataSource.data">  <mat-form-field>    <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">    <mat-hint *ngIf="paginator">Showing {{paginator.length}} of {{dataSource.data.length}} entries in total</mat-hint>  </mat-form-field></div><!--TABLE--><mat-table #table [dataSource]="dataSource"           matSort           [matSortDisabled] ="this.dataListSettingsOut.sort.disallowSorting"           [multiTemplateDataRows]="true">  <ng-container *ngFor="let col of displayedColumns; let i = index" [cdkColumnDef]="col" [sticky]="isColumnSticky(i)">    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{col}}</mat-header-cell>    <mat-cell *cdkCellDef="let row; let i = $implicit;" class = "fuu"              [ngStyle]= "dataListSettingsOut.styles.cellStyle"              (click)="onThisClick(row[col], i)"              [ngClass]="col">      <!-- SETTING [ngClass]="col" enables to define styles for each column, setting it to row[col].value will enable to define a style for certain cell content -->      <span *ngIf="row[col]">        <span [innerHTML]="row[col]" ></span>        </span>      <!--        {{ showValue(row, col) }} &lt;!&ndash; | highlight: toHighlightByFilter &ndash;&gt;-->    </mat-cell>  </ng-container>  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>  <mat-row    matRipple    *matRowDef="let row; columns: displayedColumns;">  </mat-row></mat-table><!-- PAGINATION --><mat-paginator #paginator               [pageIndex]= "dataListSettingsOut.paginator.pageIndex"               [pageSize]= "dataListSettingsOut.paginator.pageSize"               [pageSizeOptions]= "dataListSettingsOut.paginator.pageSizeOptions"               [ngStyle]= "{display: dataListSettingsOut.paginator.paginate ? \'block\' : \'none\'}"></mat-paginator><!-- EXPORT --><div *ngIf="dataListSettingsOut.export.showExport">  <mat-form-field>    <mat-label>Export options</mat-label>    <mat-select [(value)]="exportSelection">      <mat-option value="displayed">Displayed data only</mat-option>      <mat-option value="complete">Complete export</mat-option>    </mat-select>  </mat-form-field>  <button (click)="exportToCsv()">Export to CSV</button></div></div>'
     var COMPONENTS = [{'name': 'AddAppGroupDialogComponent', 'selector': 'app-add-app-group-dialog'},{'name': 'AllAppSelectorsComponent', 'selector': 'app-all-app-selectors'},{'name': 'AngularHandsometableComponent', 'selector': 'app-angular-handsometable'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppInputComponentComponent', 'selector': 'app-app-input-component'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'BooleanValueEditorComponent', 'selector': 'app-boolean-value-editor'},{'name': 'BrowserlingComponent', 'selector': 'app-browserling'},{'name': 'BrushAndZoomComponent', 'selector': 'app-brush-and-zoom'},{'name': 'CanvasWhiteboardComponent', 'selector': 'app-canvas-whiteboard'},{'name': 'ChordDiagramComponent', 'selector': 'app-chord-diagram'},{'name': 'CreateResourceComponent', 'selector': 'app-create-resource'},{'name': 'D3tutorialComponent', 'selector': 'app-d3tutorial'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataAssignmentComponent', 'selector': 'app-data-assignment'},{'name': 'DataChooserComponent', 'selector': 'app-data-chooser'},{'name': 'DataListView', 'selector': 'data-list-view'},{'name': 'DataListViewDetailsDialogComponent', 'selector': 'app-data-list-view-details-dialog'},{'name': 'DataListViewSettings', 'selector': 'data-list-view-settings'},{'name': 'DataListViewTableComponent', 'selector': 'data-list-view-table'},{'name': 'DataManagementComponent', 'selector': 'app-data-management'},{'name': 'DateValueEditorComponent', 'selector': 'app-date-value-editor'},{'name': 'DateValueViewerComponent', 'selector': 'app-date-value-viewer'},{'name': 'DeactivateNewsletterComponent', 'selector': 'app-deactivate-newsletter'},{'name': 'DecimalValueEditorComponent', 'selector': 'app-decimal-value-editor'},{'name': 'DeleteActionComponent', 'selector': 'app-delete-action'},{'name': 'DeletePageComponent', 'selector': 'app-delete-page'},{'name': 'DialogCreateNewPageComponent', 'selector': 'dialog-create-new-page'},{'name': 'DialogOverviewExampleDialog', 'selector': 'dialog-overview-example-dialog'},{'name': 'DialogUserSettingsDialog', 'selector': 'dialog-user-settings-dialog'},{'name': 'DictionaryComponent', 'selector': 'app-dictionary'},{'name': 'DuplicatePageComponent', 'selector': 'app-duplicate-page'},{'name': 'EditActionComponent', 'selector': 'app-edit-action'},{'name': 'EditPageComponent', 'selector': 'app-edit-page'},{'name': 'EditPageSetComponent', 'selector': 'app-update-page-set'},{'name': 'ExtendSessionComponent', 'selector': 'session-component'},{'name': 'FactSheetComponent', 'selector': 'app-fact-sheet'},{'name': 'FileListDialogComponent', 'selector': 'app-file-list-dialog'},{'name': 'FloatLightTableComponent', 'selector': 'app-float-light-table'},{'name': 'FloatingImageObjectComponent', 'selector': 'app-floating-image-object'},{'name': 'FloatingTextObjectComponent', 'selector': 'app-floating-text-object'},{'name': 'Frame', 'selector': 'popup'},{'name': 'FrameSettingsComponent', 'selector': 'app-frame-settings'},{'name': 'GndLobidComponent', 'selector': 'app-gnd-lobid'},{'name': 'GrapesjsComponent', 'selector': 'app-grapesjs'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HierarchicalNavigationNodeComponent', 'selector': 'app-hierarchical-navigation-node'},{'name': 'HierarchicalNavigationRootComponent', 'selector': 'app-hierarchical-navigation-root'},{'name': 'HierarchicalNavigationViewComponent', 'selector': 'app-hierarchical-navigation-view'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HtmlViewerComponent', 'selector': 'app-html-viewer'},{'name': 'IframeComponent', 'selector': 'app-iframe'},{'name': 'ImageFrameOldComponent', 'selector': 'app-image-old-frame'},{'name': 'ImageFrameSizesComponent', 'selector': 'app-image-frame-sizes'},{'name': 'ImageViewComponent', 'selector': 'app-image-view'},{'name': 'ImageWithOverlayComponent', 'selector': 'app-image-with-overlay'},{'name': 'ImpressumComponent', 'selector': 'app-impressum'},{'name': 'InitPopupComponent', 'selector': 'app-init-popup'},{'name': 'IntValueEditorComponent', 'selector': 'app-int-value-editor'},{'name': 'InterlinearGlossingComponent', 'selector': 'app-interlinear-glossing'},{'name': 'JoinedTextBlockComponent', 'selector': 'app-joined-text-block'},{'name': 'JoinedTextLineComponent', 'selector': 'app-joined-text-line'},{'name': 'JoinedTextLinepartComponent', 'selector': 'app-joined-text-linepart'},{'name': 'JoinedTextMarginComponent', 'selector': 'app-joined-text-margin'},{'name': 'JoinedTextTextwrapperComponent', 'selector': 'app-joined-text-textwrapper'},{'name': 'JoinedTextViewComponent', 'selector': 'app-joined-text-view'},{'name': 'KeyValueComponent', 'selector': 'app-key-value'},{'name': 'KeyValueFormComponent', 'selector': 'app-key-value-form'},{'name': 'LeafletExampleComponent', 'selector': 'app-leaflet-example'},{'name': 'LightTableComponent', 'selector': 'app-light-table'},{'name': 'LightTableMenuComponent', 'selector': 'app-light-table-menu'},{'name': 'LinkValueEditorComponent', 'selector': 'app-link-value-editor'},{'name': 'LinkValueLabelViewerComponent', 'selector': 'app-link-value-label-viewer'},{'name': 'LoadLightTableComponent', 'selector': 'app-load-light-table'},{'name': 'LoadVariablesComponent', 'selector': 'app-load-variables'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MetadataViewComponent', 'selector': 'app-metadata-view'},{'name': 'MultiLineChartComponent', 'selector': 'app-multi-line-chart'},{'name': 'MyMainComponentComponent', 'selector': 'app-my-main-component'},{'name': 'MyPractiseComponentComponent', 'selector': 'app-my-practise-component'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationTreeComponent', 'selector': 'app-navigation-tree'},{'name': 'NewGjsBoxDialogComponent', 'selector': 'app-new-gjs-box-dialog'},{'name': 'OpenbisLoginComponent', 'selector': 'app-openbis-login'},{'name': 'OurNewComponentComponent', 'selector': 'app-our-new-component'},{'name': 'P0041EditionComponent', 'selector': 'app-p0041-edition'},{'name': 'P0041KandaComponent', 'selector': 'app-p0041-kanda'},{'name': 'P0041StropheComponent', 'selector': 'app-p0041-strophe'},{'name': 'P0041SuktaComponent', 'selector': 'app-p0041-sukta'},{'name': 'P0062TranscriptionFrameComponent', 'selector': 'app-p0062-transcription-frame'},{'name': 'PageComponent', 'selector': 'nie-os'},{'name': 'PageListDialogComponent', 'selector': 'app-page-list-dialog'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'PageSetLandingPageComponent', 'selector': 'app-page-set-landing-page'},{'name': 'ParzivalFassungComponent', 'selector': 'app-parzival-fassung'},{'name': 'PdfViewerComponent', 'selector': 'app-pdf-viewer'},{'name': 'PieChartComponent', 'selector': 'app-pie-chart'},{'name': 'PizzaPartyComponent', 'selector': 'snack-bar-component-example-snack'},{'name': 'PrimeEditorComponent', 'selector': 'app-prime-editor'},{'name': 'QueryAppInputMapComponent', 'selector': 'app-query-app-input-map'},{'name': 'QueryEntryComponent', 'selector': 'app-query-entry'},{'name': 'QueryInformationDialogComponent', 'selector': 'app-query-information-dialog'},{'name': 'QueryListComponent', 'selector': 'app-query-list'},{'name': 'RadialBarchartComponent', 'selector': 'app-radial-barchart'},{'name': 'RaeberNavigationComponent', 'selector': 'app-raeber-navigation'},{'name': 'ReactivateAccountComponent', 'selector': 'app-reactivate-account'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'RemoveObjectsByIdComponent', 'selector': 'app-remove-objects-by-id'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'ResourceFormComponent', 'selector': 'app-resource-form'},{'name': 'ResourceFormV2Component', 'selector': 'app-resource-form-v2'},{'name': 'ResourceValueHistoryComponent', 'selector': 'app-resource-value-history'},{'name': 'ResourceValueHistoryValueComponent', 'selector': 'app-resource-value-history-value'},{'name': 'ResponseTreeAppComponent', 'selector': 'response-tree'},{'name': 'ResponseTreeComponent', 'selector': 'app-response-tree'},{'name': 'RichTextByIriComponent', 'selector': 'app-spa-text'},{'name': 'SankeyComponent', 'selector': 'app-sankey'},{'name': 'SaveLightTableComponent', 'selector': 'app-save-light-table'},{'name': 'ShareLightTableComponent', 'selector': 'app-share-light-table'},{'name': 'SimpleImageAppComponent', 'selector': 'app-simple-image-app'},{'name': 'SpiralBarChartComponent', 'selector': 'app-spiral-bar-chart'},{'name': 'StackedBarChartComponent', 'selector': 'app-stacked-bar-chart'},{'name': 'SynopsisComponent', 'selector': 'app-synopsis'},{'name': 'SynopsisObjectManagerComponent', 'selector': 'app-synopsis-object-manager'},{'name': 'SynopsisObjectToolboxComponent', 'selector': 'app-synopsis-object-toolbox'},{'name': 'TagChipsComponent', 'selector': 'app-tag-chips'},{'name': 'TextDevViewComponent', 'selector': 'app-text-dev-view'},{'name': 'TextDisplayComponent', 'selector': 'app-text-display'},{'name': 'TextDisplayComponent', 'selector': 'app-text-display'},{'name': 'TextLineComponent', 'selector': 'app-text-line'},{'name': 'TextLineGroupComponent', 'selector': 'app-text-line-group'},{'name': 'TextLineMarginComponent', 'selector': 'app-text-line-margin'},{'name': 'TextLineNumberComponent', 'selector': 'app-text-line-number'},{'name': 'TextPageOfWordsComponent', 'selector': 'app-text-page-of-words'},{'name': 'TextRichInnerhtmlComponent', 'selector': 'app-text-rich-innerhtml'},{'name': 'TextSvgViewComponent', 'selector': 'app-text-svg-view'},{'name': 'TextSvgViewWrapperComponent', 'selector': 'app-text-svg-view-wrapper'},{'name': 'TextValueEditorComponent', 'selector': 'app-text-value-editor'},{'name': 'TextViewCanvasComponent', 'selector': 'app-text-view-canvas'},{'name': 'TextViewComponent', 'selector': 'app-text-view'},{'name': 'TextViewMetadataComponent', 'selector': 'app-text-view-metadata'},{'name': 'TextViewStructureComponent', 'selector': 'app-text-view-structure'},{'name': 'TextViewToolsComponent', 'selector': 'app-text-view-tools'},{'name': 'TextlistViewerComponent', 'selector': 'app-textlist-viewer'},{'name': 'ThumbnailbarComponent', 'selector': 'app-thumbnailbar'},{'name': 'TiledImageObjectComponent', 'selector': 'app-tiled-image-object'},{'name': 'TiledLightTableComponent', 'selector': 'app-tiled-light-table'},{'name': 'TiledTextObjectComponent', 'selector': 'app-tiled-text-object'},{'name': 'YoutubeVideoComponent', 'selector': 'app-youtube-video'}];
     var DIRECTIVES = [{'name': 'DraggableDirective', 'selector': '[appDraggable]'},{'name': 'DraggableStubDirective', 'selector': '[appDraggable]'},{'name': 'FloatDropTargetDirective', 'selector': '[appDropTarget]'},{'name': 'ModifiableDirective', 'selector': '[appModifiable]'},{'name': 'ModifiableStubDirective', 'selector': '[appModifiable]'},{'name': 'SelectableDirective', 'selector': '[appSelectable]'},{'name': 'SelectableStubDirective', 'selector': '[appSelectable]'},{'name': 'SynopsisObjectAnchorDirective', 'selector': '[appSynopsisObjectAnchor]'},{'name': 'TileDropTargetDirective', 'selector': '[appTileDropTarget]'}];
     var ACTUAL_COMPONENT = {'name': 'DataListViewTableComponent'};

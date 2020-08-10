@@ -9,9 +9,9 @@ const router = express.Router();
 
 router.post('', cors(), checkAuth, (req, res, next) => {
     const transporter = nodemailer.createTransport({
-        // service: settings.type,
+        // service: dataListSettings.type,
         // auth: {
-        //      pass: settings.pw // Your password
+        //      pass: dataListSettings.pw // Your password
         // }
       host: 'mailgateway.zhdk.cloud.switch.ch',
       port: 587

@@ -389,11 +389,11 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
       });
 
     /**
-     * After the dialog is closed, all settings are send back to the page.
+     * After the dialog is closed, all dataListSettings are send back to the page.
      * This emit triggers the update of the frame - inputs through onChanges.
      * Thus, the inputs of the frame are not updated immediatly in the frame.component
      * but through the onChanges - Event. This is necessary in order for the page
-     * to be able to save all app - settings immediately.
+     * to be able to save all app - dataListSettings immediately.
      * */
     dialogRef.afterClosed().subscribe((result) => {
       if ( result ) {

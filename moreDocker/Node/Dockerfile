@@ -4,7 +4,7 @@ COPY . ./nieOS
 
 WORKDIR ./nieOS
 
-RUN rm -R ./backend/.settings || true
+RUN rm -R ./backend/.dataListSettings || true
 
 RUN rm -R ./backend/files || true
 

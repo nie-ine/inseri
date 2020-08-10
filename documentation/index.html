@@ -82,7 +82,7 @@
 <li><code>cd inseri</code></li>
 </ul>
 <ol>
-<li><code>mv ./backend/settings_default ./backend/.settings</code></li>
+<li><code>mv ./backend/settings_default ./backend/.dataListSettings</code></li>
 <li><code>docker-compose up</code></li>
 <li>Wait until the mongodb - conatiner has a first terminal output, then restart the nieine/mean container, the last terminal output of the node container should say  &quot;connected to database&quot;</li>
 </ol>
@@ -108,8 +108,8 @@
 <h3 id="alternative-2-contact-jan-stoffregen-uzh-ch">Alternative 2: Contact <a href="mailto:jan.stoffregen@uzh.ch">jan.stoffregen@uzh.ch</a></h3>
 <h2 id="2-connect-inseri-to-mongodb-">2. Connect inseri to MongoDB:</h2>
 <ul>
-<li>Create a folder .settings</li>
-<li>In the folder settings, create the file mongodbServer.js Your file should look similiar to the following:</li>
+<li>Create a folder .dataListSettings</li>
+<li>In the folder dataListSettings, create the file mongodbServer.js Your file should look similiar to the following:</li>
 </ul>
 <div><pre class="line-numbers"><code class="language-none">const mongodbServer = &#39;mongodb+srv://user:dfgsdbdtrgr&#64;cluster567-7kilp.mongodb.net/node-angular&#39;;
 
@@ -160,10 +160,10 @@ module.exports = {
 <p>The following graph illustrates how you can use Inseri:</p>
 <p>--&gt; 1. You can create your entire website in Inseri with the help of pageSets. While this is suitable and you have the option to create your own,
 project specific design, you don&#39;t have the option to design all parts of the design of your website. </p>
-<p>--&gt; 2.1.1 &quot;I design my own website and I use iframe to include apps that I host on my own webserver&quot;: You can host an Inseri instance on your 
+<p>--&gt; 2.1.1 &quot;I design my own website and I use iframe to include apps that I host on my own webserver&quot;: You can host an Inseri instance on your
 webserver, create a page, open the desired app with the option to display it as a full - screen - app, publish this app and include it in
 your own website with iframe</p>
-<p>--&gt; 2.1.2 &quot;I design my own website and I use iframe to include pages that I host on my own webserver&quot;: You can host an Inseri instance on your 
+<p>--&gt; 2.1.2 &quot;I design my own website and I use iframe to include pages that I host on my own webserver&quot;: You can host an Inseri instance on your
 webserver, create a page, open the desired apps, publish this app and include it in your own website with iframe</p>
 <p>--&gt; 2.1.3 &quot;I design my own website and I use iframe to include apps that I host on the Inseri productive instance&quot;: You can create an account,
 on our productive Inseri instance, create a page, open the desired app with the option to display it as a full - screen - app, publish this app and include it in

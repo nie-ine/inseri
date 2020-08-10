@@ -99,7 +99,7 @@
         <button mat-button (click)="showFolders(folderInstance._id)">
           <mat-icon>folder</mat-icon> {{ folderInstance.title }}
         </button>
-        <button mat-button [matMenuTriggerFor]="menu"><mat-icon>settings</mat-icon></button>
+        <button mat-button [matMenuTriggerFor]="menu"><mat-icon>dataListSettings</mat-icon></button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item (click)="folderInstance.updateTitle = true">
             Update folder title

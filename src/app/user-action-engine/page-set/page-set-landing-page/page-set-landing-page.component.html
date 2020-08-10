@@ -26,7 +26,7 @@
             [disabled]=" i === 0 ">
             <mat-icon>keyboard_arrow_up</mat-icon>
           </button>
-          <button *ngIf="!preview" mat-button (click)="editPage(page)"><mat-icon>settings</mat-icon></button>
+          <button *ngIf="!preview" mat-button (click)="editPage(page)"><mat-icon>dataListSettings</mat-icon></button>
           <a (click)="goToPage(  page )" style="font-size: 25px; cursor: pointer;" >{{ page.title }}</a>
           <br>
           <button
@@ -48,7 +48,7 @@
       <br>
     <button mat-button (click)="addPage()" matTooltip="add page" ><mat-icon>add</mat-icon></button>
     <br>
-    <button mat-button (click)="editPageSet()" matTooltip="Change title and description of inseri document"><mat-icon>settings</mat-icon></button><br>
+    <button mat-button (click)="editPageSet()" matTooltip="Change title and description of inseri document"><mat-icon>dataListSettings</mat-icon></button><br>
   </div>
 
 </div>

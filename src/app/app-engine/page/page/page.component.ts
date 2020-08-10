@@ -798,8 +798,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   /**
-   * When a user updates settings in the app setting dialog instantiated in
-   * frame.component.ts, this component emits the settings back so that
+   * When a user updates dataListSettings in the app setting dialog instantiated in
+   * frame.component.ts, this component emits the dataListSettings back so that
    * it can be stored as part of the page that contains the app
    * */
   updateAppSettings( settings: any ) {

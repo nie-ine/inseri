@@ -186,13 +186,16 @@ import { QueryService } from './apps/data-list-view/services/query.service';
     NewGjsBoxDialogComponent,
     SimpleImageAppComponent,
     ResponseTreeAppComponent,
-    DataListViewComponent,
+
     QueryInformationDialogComponent,
     GrapesjsComponent,
     ParzivalFassungComponent,
+    DataListViewComponent,
     DataListViewSettingsComponent,
-    HighlightPipe,
     DataListViewTableComponent,
+
+    HighlightPipe,
+
     OpenbisLoginComponent,
     YoutubeVideoComponent,
     DataChooserComponent,

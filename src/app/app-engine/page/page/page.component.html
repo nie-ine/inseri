@@ -80,7 +80,7 @@
 
           <button style="float: right; margin-top: 4px;"
                   mat-button [matMenuTriggerFor]="menu1"
-                  *ngIf=" (!pageAsDemo) && !preview && !page.tiles"><mat-icon>settings</mat-icon></button>
+                  *ngIf=" (!pageAsDemo) && !preview && !page.tiles"><mat-icon>dataListSettings</mat-icon></button>
           <mat-menu #menu1="matMenu">
             <button mat-menu-item (click)="goToDashBoard()" *ngIf=" (!pageAsDemo) && !preview">
               <mat-icon matTooltip="back to dashboard">home</mat-icon> Dashboard
@@ -143,7 +143,7 @@
 
             <mat-checkbox [(ngModel)]="showAppTitlesOnPublish" (click)="updatePagePublishSettings()">Show app title bar</mat-checkbox> - This enables the user to reorganise the published page for his own purpose, for example to minimize some apps etc.
             Changes of a user are dismissed after the user leaves the published page. <br>
-            <mat-checkbox [disabled]="!showAppTitlesOnPublish" [(ngModel)]="showAppSettingsOnPublish" (click)="updatePagePublishSettings()">Show app settings</mat-checkbox> - This enables the user to minimize apps and change app sizes.
+            <mat-checkbox [disabled]="!showAppTitlesOnPublish" [(ngModel)]="showAppSettingsOnPublish" (click)="updatePagePublishSettings()">Show app dataListSettings</mat-checkbox> - This enables the user to minimize apps and change app sizes.
             <mat-divider style="margin-top: 10px; margin-bottom: 10px;" ></mat-divider>
             <mat-checkbox [(ngModel)]="showInseriLogoOnPublish" (click)="updatePagePublishSettings()">Show Inseri Appshore Button</mat-checkbox> - This option enables users of the page to open apps on your published page. It enables users for example to insert own, non - public comments on your page as well as
             open other apps that only the respective user can see, for example to write an own, non public essay with a text - editor - app.

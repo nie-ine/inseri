@@ -44,7 +44,7 @@ inseri is an online collaborative work and publish environment.
  - ``git clone https://github.com/nie-ine/inseri.git``
  - ``cd inseri``
  
-1. ```mv ./backend/settings_default ./backend/.settings```
+1. ```mv ./backend/settings_default ./backend/.dataListSettings```
 2. ```docker-compose up```
 3. Wait until the mongodb - conatiner has a first terminal output, then restart the nieine/mean container, the last terminal output of the node container should say  "connected to database"
 
@@ -76,8 +76,8 @@ MongoDB - Admin - Interface: [http://localhost:8081](http://localhost:8081)
 ### Alternative 2: Contact jan.stoffregen@uzh.ch
 
 ## 2. Connect inseri to MongoDB: 
- - Create a folder .settings
- - In the folder settings, create the file mongodbServer.js Your file should look similiar to the following:
+ - Create a folder .dataListSettings
+ - In the folder dataListSettings, create the file mongodbServer.js Your file should look similiar to the following:
 
  
 ```

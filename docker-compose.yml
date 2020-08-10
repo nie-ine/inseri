@@ -25,7 +25,7 @@ services:
 ##    - LETSENCRYPT_HOST=node.localhost
 ##    - LETSENCRYPT_EMAIL=jan.stoffregen@uzh.ch
     volumes:
-      - ./backend/.settings:/nieOS/backend/.settings
+      - ./backend/.dataListSettings:/nieOS/backend/.dataListSettings
     depends_on:
       - mongodb
 
