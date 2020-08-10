@@ -22,6 +22,7 @@ import * as JSZip from 'jszip';
 import * as FileSaver from 'file-saver';
 import {CommentService} from '../../mongodb/comment/comment.service';
 import {error} from 'util';
+import {QueryService} from '../../mongodb/query/query.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -61,7 +62,8 @@ export class DashboardComponent implements OnInit {
     private authService: AuthService,
     private usergroupService: UsergroupService,
     private spinner: NgxSpinnerService,
-    private commentService: CommentService
+    private commentService: CommentService,
+    private queryService: QueryService
   ) {
 
     router.events.subscribe(s => {
@@ -92,8 +94,53 @@ export class DashboardComponent implements OnInit {
         data => {
           console.log( data );
           this.commentArray = ( data as any ).comments;
+          for ( let i = 0; i < this.commentArray.length; i++ ) {
+            this.createQueryInformationOfComment( i );
+          }
         }, error1 => console.log( error1 )
       );
+  }
+
+  browseToComment( comment: any ) {
+    this.router.navigate( ['/page'], {
+      queryParams: comment.params,
+      queryParamsHandling: 'merge'
+    } );
+  }
+
+  createQueryInformationOfComment( index: number ) {
+    for ( const param in this.commentArray[ index ].params ) {
+      if ( param.search( ',' ) !== -1 ) {
+        // console.log( param );
+        // console.log( param.slice( 0, 24 ) );
+        this.queryService.getQuery( param.slice( 0, 24 ) )
+          .subscribe(
+            data => {
+              // console.log( data );
+              const serverUrl = this.replaceParam( data.query.serverUrl, index );
+              this.commentArray[ index ].queries = [];
+              this.commentArray[ index ].queries.push({
+                title: data.query.title,
+                index: this.commentArray[ index ].params[ param ],
+                serverUrl: serverUrl
+              });
+            }, error => console.log( error )
+          );
+      }
+    }
+  }
+
+  replaceParam( toBeChecked: string, index: number ): string {
+    if ( toBeChecked.search( 'inseriParam---'  ) !== -1 ) {
+      const param = toBeChecked.replace( 'inseriParam---', '' ).replace( '---' , '' );
+      const replaced = toBeChecked.replace(
+        'inseriParam---' + param + '---',
+        this.commentArray[ index ].params[ param ]
+      );
+      return replaced;
+    } else {
+      return toBeChecked;
+    }
   }
 
   getUserGroups() {
