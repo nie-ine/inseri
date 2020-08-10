@@ -61,6 +61,7 @@ export class DashboardComponent implements OnInit {
     private authService: AuthService,
     private usergroupService: UsergroupService,
     private spinner: NgxSpinnerService,
+    private fileService: FileService,
     private commentService: CommentService
   ) {
 
@@ -312,7 +313,70 @@ export class DashboardComponent implements OnInit {
       console.log( result );
     });
   }
+  exportProjectAsZip(action: Action) {
+    console.log(action.id);
+    if (action.type === 'page-set') {
+      this.fileService.downloadProject(action.id)
+        .subscribe(data => {
+          console.log(data);
+          const a = document.createElement('a');
+          document.body.appendChild(a);
+          a.setAttribute('display', 'none');
+          const zip = new JSZip();
+          let numOfFiles = 0;
+          zip.file('action.json', data.returnedObj.action);
+          zip.file('pageSet.json', data.returnedObj.pageSet);
+          zip.file('pages.json', data.returnedObj.pages);
+          zip.file('oldHostUrl.txt', data.returnedObj.oldHostUrl);
+          if (data.returnedObj.queries) {
+            zip.file('queries.json', data.returnedObj.queries);
+            if (data.returnedObj.jsonIds) {
+              zip.file('JSONFile.json', data.returnedObj.jsonIds);
+              if (data.returnedObj.files) {
+                zip.file('files.json', data.returnedObj.files);
+                numOfFiles = data.returnedObj.arrayOfFilePaths.length;
 
+                if (data.returnedObj.arrayOfFilePaths) {
+                  const files = zip.folder('files');
+                  for (let i = 0; i < data.returnedObj.arrayOfFilePaths.length; i++) {
+                    let url = data.returnedObj.arrayOfFilePaths[i];
+                    url = url.split(' ').join('%20');
+                    url = url.split('"').join('');
+                    JSZipUtils.getBinaryContent(url, function (err, data) {
+                      if (err) {
+                        throw err; // or handle the error
+                      }
+                      console.log(url);
+                      let filename = url.substr(url.indexOf('/files/') + 7);
+                      console.log(filename);
+                      filename = filename.split('%20').join(' ');
+                      files.file(filename, data, {binary: true});
+                      // console.log(files);
+                      numOfFiles--;
+                    });
+                  }
+
+                }
+              }
+            }
+          }
+
+          const timeout = setInterval(function () {
+            console.log(numOfFiles);
+            if (numOfFiles === 0) {
+              clearInterval(timeout);
+              console.log(zip);
+              zip.generateAsync({type: 'blob'}).then(function (content) {
+
+                FileSaver.saveAs(content, 'Project_' + action.title + '.zip');
+              });
+            }
+          }, 100);
+
+
+        });
+    }
+  }
 }
 
 
