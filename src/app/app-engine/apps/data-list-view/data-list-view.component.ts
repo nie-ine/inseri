@@ -107,6 +107,7 @@ export class DataListViewComponent implements OnChanges {
       this.getTableDataFromQuery(this.query);
       } else if ( this.dataListSettingsOut.inputMode === 'input') {
           if (this.queryResponse ) {
+            console.log( this.dataListSettings );
             this.displayedColumns = this.displayedCollumnsService.getDisplayedColumns(this.dataListSettings, this.queryResponse);
             this.generateTableData(this.queryResponse, 0);
         } else { console.log('No queryResponse passed by input as defined in dataListSettingsOut.inputMode: ' + this.dataListSettingsOut.inputMode); }
