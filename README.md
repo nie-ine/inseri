@@ -2,7 +2,7 @@ Contact and info about the organisation NIE-INE | NATIONAL INFRASTRUCTURE FOR ED
 
 Mandated by [swissuniversities](https://www.swissuniversities.ch/)
 
-# Presented or mentioned at
+## Presented or mentioned at
 
 [Virtual research environments and ancient manuscripts 2020/09 | University of Lausanne | Switzerland](https://claireclivaz.hypotheses.org/930)
 
@@ -10,8 +10,10 @@ Mandated by [swissuniversities](https://www.swissuniversities.ch/)
 
 [Digitisation of newspapers collections 2020/04 | University of Luxembourg](https://impresso.github.io/eldorado/online-program/)
 
+## Point of entry
+[Check our user guide](https://github.com/nie-ine/inseri/tree/devel/Tutorials/Your%20scientific%20publication%20A-Z)
 
-# What can I do with inseri?
+## What can I do with inseri?
 inseri is an online collaborative work and publish environment.
 
 ## What can I publish with inseri?
