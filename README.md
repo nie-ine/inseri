@@ -4,7 +4,7 @@ Mandated by [swissuniversities](https://www.swissuniversities.ch/)
 
 # Presented or mentioned at
 
-[Virtual research environments and ancient manuscripts 2020/09 | University of Lausanne | Switzerland](https://www.swissuniversities.ch/themen/digitalisierung/p-5-wissenschaftliche-information/newsletter/newsletter-august-2020)
+[Virtual research environments and ancient manuscripts 2020/09 | University of Lausanne | Switzerland](https://claireclivaz.hypotheses.org/930)
 
 [Swissuniversities Newsletter 2020/08 | Switzerland](https://www.swissuniversities.ch/themen/digitalisierung/p-5-wissenschaftliche-information/newsletter/newsletter-august-2020)
 
