@@ -2,7 +2,7 @@ Contact and info about the organisation NIE-INE | NATIONAL INFRASTRUCTURE FOR ED
 
 Mandated by [swissuniversities](https://www.swissuniversities.ch/)
 
-# Presented or mentioned at the following conferences:
+# Presented or mentioned at
 
 [Virtual research environments and ancient manuscripts 2020/09](https://www.swissuniversities.ch/themen/digitalisierung/p-5-wissenschaftliche-information/newsletter/newsletter-august-2020)
 
