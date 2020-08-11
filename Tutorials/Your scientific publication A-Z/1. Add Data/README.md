@@ -91,6 +91,31 @@ The process above has been simplified and automatised, and all what the user nee
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/1video2.png" alt="Guhyaṣoḍha, starting page" width="900"></p>
 
+As of 11.08.2020, the new way of working with templates has been implemented.
+It is described below. The user has an option to duplicate and to use as a template any published page, that has been explicitely published as a template.
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-08/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/Dup0.png" alt="Template publishing" width="400"></p>
+
+For this, first of all, let us create a new "project" at the Dashboard. Once it is open, click on the name of the project, the option of adding the pages will open. 
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-08/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/Dup1.png" alt="Adding pages to the project button" width="400"></p>
+
+As of 11.08.2020, there are two available templates:
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-08/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/Dup2.png" alt="Template list" width="900"></p>
+
+Let us chose the one with e-codices:
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-08/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/Dup3.png" alt="E-codices template" width="900"></p>
+
+Suppose that we want for our project use the same source, i.e. e-codices, but a diferent book. We should, all like it was explained above, open e-codices in the broser and copy the IIIF link.
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-08/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/Dup4.png" alt="The target book from e-codices" width="900"></p>
+
+Let us paste the link directly into the template:
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-08/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/Dup3a.png" alt="E-codices template, link replacement" width="900"></p>
+
+Result: the page refreses, and we can now access the desired book from within Inseri:
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-08/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/Dup5.png" alt="E-codices template, resulting page" width="900"></p>
+
 For those who are not that lucky, and had to scan the project data by themselves, the following options shall be further addressed:
 
 ## 1.2. Adding images and data from desktop to Inseri
