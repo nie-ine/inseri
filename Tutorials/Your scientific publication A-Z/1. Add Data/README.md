@@ -106,17 +106,17 @@ As of 11.08.2020, there are two available templates:
 Let us chose the one with e-codices:
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-08/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/Dup3.png" alt="E-codices template" width="900"></p>
 
-Suppose that we want for our project use the same source, i.e. e-codices, but a diferent book. We should, all like it was explained above, open e-codices in the broser and copy the IIIF link.
+Suppose that we want for our project use the same source, i.e. e-codices, but a different book. We should, all like it was explained above, open e-codices in the browser and copy the IIIF link.
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-08/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/Dup4.png" alt="The target book from e-codices" width="900"></p>
 
 Let us paste the link directly into the template:
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-08/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/Dup3a.png" alt="E-codices template, link replacement" width="900"></p>
 
-Result: the page refreses, and we can now access the desired book from within Inseri:
+Result: the page refreshes, and we can now access the desired book from within Inseri:
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-08/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/Dup5.png" alt="E-codices template, resulting page" width="900"></p>
 
-The steps and the commentary options have been explained by Jan Stoffregen in the video here:
+The steps and the commentary options have been explained by Jan Clemens Stoffregen in the video here:
 
 [https://www.youtube.com/watch?v=2SY3357fIZM](https://www.youtube.com/watch?v=2SY3357fIZM)
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-08/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/Dup44.png" alt="VideoImage" width="900"></p>
@@ -192,9 +192,9 @@ As in the 1.1.1. example, the images and their data maintain their original stru
 
 ## 1.4. Commenting on the data 
 
-Inseri provides a crucial function of structured commentary to vurtually any part of data that is opened in an application. This means that the user can address a third party data via IIIF, for example, a book from e-codices, and to comment on it page by page, thus immediately selecting and structuring the data for one's own research project, without the need to retype even the page number.
+Inseri provides a crucial function of a structured commentary to virtually any part of data that is opened in an application. This means that the user can address a third party data via IIIF, for example, a book from e-codices, and to comment on it page by page, thus immediately selecting and structuring the data for one's own research project, without the need to retype even the page number of the original.
 
-In order to make a comment, the user should first get data on the page by any of the methods described above (1.1-1.3). By clicking on the Inseri sign, in the "Add Data" group of applicaion, one find "Add commentary."
+In order to make a comment, the user should first get data on the page by any of the methods described above (1.1-1.3). By clicking on the Inseri sign, in the "Add, Edit & Manage Data" group of applicaion, one find "Comment App."
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-08/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/Com0.png" alt="Add Commentary in Apps" width="400"></p>
 
@@ -202,17 +202,17 @@ It is clear that the commentary option works the best when it is just one book/m
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-08/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/Com5.png" alt="Move App" width="400"></p>
 
-The arrows move the selected App window more up or more down.
+The arrows will move the selected App window more up or more down.
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-08/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/Com6.png" alt="Move App Arrows" width="400"></p>
 
-Once one click on "Add Commentary", a text field opens, where the user can easily add data.
+Once one clicks on "Add Commentary", a text field opens, where the user can easily add data.
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-08/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/Com1.png" alt="Typing Commentary" width="900"></p>
 
 There are some small tipps: in order to add a field, click on "new commentary", especially if there are some commentaries already, as the field would display the text of the most recent commentary, while in order to save what you have typed, click on "add commentary".
 
-As of 11.08.2020, the user can serach for the commentaries. For that it is necessary to go to the Dashboard and select commentaries:
+As of 11.08.2020, the user can search for the commentaries. For that it is necessary to go to the Dashboard and select commentaries:
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-08/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/Com2.png" alt="Finding Commentaries" width="400"></p>
 
