@@ -116,6 +116,11 @@ Let us paste the link directly into the template:
 Result: the page refreses, and we can now access the desired book from within Inseri:
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-08/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/Dup5.png" alt="E-codices template, resulting page" width="900"></p>
 
+The steps and the commentary options have been explained by Jan Stoffregen in the video here:
+
+[https://www.youtube.com/watch?v=2SY3357fIZM](https://www.youtube.com/watch?v=2SY3357fIZM)
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-08/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/Dup44.png" alt="VideoImage" width="900"></p>
+
 For those who are not that lucky, and had to scan the project data by themselves, the following options shall be further addressed:
 
 ## 1.2. Adding images and data from desktop to Inseri
