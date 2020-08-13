@@ -13,6 +13,7 @@ let JSZip = require("jszip");
 let FileSaver = require('file-saver');
 const fs = require('fs');
 let MyOwnJson = require("../models/myOwnJson");
+const {ObjectId} = require('mongodb');
 
 // let MyBlobBuilder = function () {
 //   this.parts = [];
@@ -464,17 +465,183 @@ router.get("/downloadProject/:actionId", checkAuth, (req, res, next) => {
     });
 });
 
+/*function getParentFolders(allFolderStructure, parentFolders, returnedObj, res, req) {
+  let newParentFolders=[];
+  Folder.find({hasParent: {$in: parentFolders}}).then(parentFolderResults =>{
+    parentFolderResults.forEach(folder=>{
+      if(! foundInArray(allFolderStructure,folder)){
+        allFolderStructure.push(folder);
+      }
+      if(folder.hasParent && !parentFolders.includes(folder.hasParent)){
+        newParentFolders.push(folder.hasParent);
+      }
+    });
+    if(newParentFolders.length===0){
+      returnedObj.folders=JSON.stringify(allFolderStructure);
+      return res.status(200).json({
+        message: 'Created Zip File successfully that has all folders',
+        returnedObj: returnedObj
+      });
+    }
+
+})
+}
+
+function getFoldersOfFiles(fileIds, returnedObj, res, req) {
+  let allFolderStructure=[];
+  let parentFolders=[];
+  Folder.find({hasFiles: {$in: fileIds}}).then(folderResults =>{
+    folderResults.forEach(folder=>{
+      allFolderStructure.push(folder);
+      if(folder.hasParent && !parentFolders.includes(folder.hasParent)){
+          parentFolders.push(folder.hasParent);
+      }
+    });
+    if(parentFolders.length===0){
+      returnedObj.folders=JSON.stringify(allFolderStructure);
+      return res.status(200).json({
+        message: 'Created Zip File successfully that has all folders',
+        returnedObj: returnedObj
+      });
+    }
+    getParentFolders(allFolderStructure,parentFolders,returnedObj, res, req);
+  }).catch(error => {
+    res.status(500).json({
+      message: 'Folders are not found',
+      error: error,
+      returnedObj: returnedObj
+    })
+  })
+}*/
+
+function searchAllParentFolders(allFoldersForAUser, foldersThatContainReturnedFiles, returnedFolders) {
+console.log("searchAllParentFolders");
+console.log(allFoldersForAUser);
+console.log(foldersThatContainReturnedFiles);
+  for(let i=0;i<foldersThatContainReturnedFiles.length;i++){
+    if(!returnedFolders.includes(foldersThatContainReturnedFiles[i])){
+      returnedFolders.push(foldersThatContainReturnedFiles[i]);
+    }
+    if(foldersThatContainReturnedFiles[i].hasParent){
+      allFoldersForAUser.forEach(folder =>{
+        if(folder._id === foldersThatContainReturnedFiles[i].hasParent && !returnedFolders.includes(folder)){
+          returnedFolders.push(folder);
+          if(folder.hasParent){
+            searchAllParentFolders(allFoldersForAUser,[folder],returnedFolders);
+          }
+        }
+      })
+    }
+  }
+  console.log(returnedFolders)
+}
+
+function getFoldersOfFiles(fileIds, returnedObj, res, req) {
+  let returnedFolders=[];
+  console.log("starting getting folders");
+  Folder.find({owner:req.userData.userId}).then(allFoldersForAUser=> {
+    console.log("All Folders");
+    console.log(allFoldersForAUser);
+    let newObjectFileIds=[];
+    console.log(fileIds);
+    fileIds.forEach(item => {newObjectFileIds.push(ObjectId(item))});
+    console.log(newObjectFileIds);
+    Folder.find({hasFiles: {$elemMatch: {$in: newObjectFileIds}}}).then(foldersThatContainReturnedFiles => {
+      foldersThatContainReturnedFiles.forEach(folder => {
+        returnedFolders.push(folder);
+      });
+      console.log(" foldersThatContainReturnedFiles");
+      console.log(foldersThatContainReturnedFiles);
+      //searchAllParentFolders(allFoldersForAUser, foldersThatContainReturnedFiles, returnedFolders);
+      foldersThatContainReturnedFiles.forEach(
+        itemFolder=>{
+          getParents(itemFolder,allFoldersForAUser,returnedFolders );
+        }
+      );
+      console.log("omnia testing");
+      console.log(returnedFolders);
+      returnedObj.folders = JSON.stringify(returnedFolders);
+      console.log("get Folders of File");
+      console.log(returnedObj.folders);
+      return res.status(200).json({
+        message: 'Created Zip File successfully with folders',
+        returnedObj: returnedObj
+      });
+    }).catch(error => {
+      res.status(500).json({
+        message: 'Folders That Contain Returned Files have errors',
+        error: error,
+        returnedObj: returnedObj
+      })
+    })
+  }).catch(error =>{
+      res.status(500).json({
+        message: 'All Folders could not be found',
+        error: error,
+        returnedObj: returnedObj
+      })
+    })
+}
+
+function getParents(folder, foldersSearchSpace, returnTarget )
+{
+  let parentIndex=getParent(folder,foldersSearchSpace);
+  if(parentIndex===-1) {
+    console.log("no parent");
+    return;
+  }
+  else
+  {
+    returnTarget.push(foldersSearchSpace[parentIndex]);
+    console.log("added");
+    console.log(foldersSearchSpace[parentIndex]);
+    getParents(foldersSearchSpace[parentIndex], foldersSearchSpace, returnTarget);
+  }
+}
+function getParent(folder, foldersSearchSpace)
+{
+  let i=-1;
+  for(i=0;i<foldersSearchSpace.length;i++)
+    {
+      let item=foldersSearchSpace[i];
+      console.log("comparing ");
+      //console.log(item._id);
+      //console.log(folder.hasParent);
+      if(!folder.hasParent) {
+        i=-1;
+        break;
+      }
+      if(item._id.toString()===folder.hasParent.toString()) {
+        console.log("found");
+        break;
+      }
+    }
+  if(i==foldersSearchSpace.length)
+    i=-1;
+  return i;
+}
 function getFiles(arrayOfFilePaths, returnedObj, res, req) {
   let fileUrlPaths=[];
   arrayOfFilePaths.forEach(x=>{ x= x.substring(1).substring(0,x.length-2);
                                 fileUrlPaths.push(x);});
+  console.log("getFiles--> fileUrlPaths");
+  console.log(fileUrlPaths);
   returnedObj.arrayOfFilePaths=arrayOfFilePaths;
   FileModel.find({urlPath: {$in: fileUrlPaths}}).then(filesResult => {
+    let fileIds=[];
+    console.log(filesResult);
+    filesResult.forEach(item => {fileIds.push(item._id)});
+    console.log(fileIds);
     returnedObj.files=JSON.stringify(filesResult);
+    console.log("get Files");
+    //console.log(returnedObj);
+    if(arrayOfFilePaths.length===0){
       return res.status(200).json({
-        message: 'Created Zip File successfully that has JSON results',
+        message: 'Created Zip File successfully that has no files',
         returnedObj: returnedObj
       });
+    }
+    getFoldersOfFiles(fileIds,returnedObj, res, req);
   }).catch(error => {
     res.status(500).json({
       message: 'MyOwnJson is not found',
@@ -488,9 +655,10 @@ function getJsonIds(filesJsonIds, returnedObj, res, req) {
   let regexString = '"'+returnedObj.oldHostUrl+'/files/'+'[^"]+"';
   let regex= new RegExp(regexString,"g");
   MyOwnJson.find({_id: {$in: filesJsonIds}}).then(jsonResults => {
-    console.log(jsonResults);
+    //console.log(jsonResults);
     returnedObj.jsonIds=JSON.stringify(jsonResults);
     let arrayOfFilePaths = returnedObj.jsonIds.match(regex);
+    console.log("getJsonIds -->array of file Paths");
     console.log(arrayOfFilePaths);
     if (!arrayOfFilePaths || arrayOfFilePaths.length===0) {
       return res.status(200).json({
