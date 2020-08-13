@@ -88,8 +88,8 @@ export class DataChooserComponent implements AfterViewChecked {
       this.currentPath !== this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ] ) {
       this.currentPath = this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ];
       setTimeout(() => {
-        console.log(  this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ] );
-        console.log(this.pathWithArray);
+        // console.log(  this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ] );
+        // console.log(this.pathWithArray);
         if ( this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ] === NaN ) {
           this.chooseResource(0 );
         } else {
@@ -97,13 +97,14 @@ export class DataChooserComponent implements AfterViewChecked {
         }
       }, 50);
     } else if ( !this.alreadyEmitted ) {
-      console.log( 'not already emitted' );
+      // console.log( 'not already emitted', this._route.snapshot.queryParams, this.queryId, this.pathWithArray );
       this.alreadyEmitted = true;
-      this.chooseResource( 0 );
+      this.chooseResource( Number( this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ] ) || 0 );
     }
   }
 
   chooseResource(index: number) {
+    console.log( index );
     if ( this.dataChooserEntries ) {
       this.chosenEntry = this.dataChooserEntries[ index ];
     }

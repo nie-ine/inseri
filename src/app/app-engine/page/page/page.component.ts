@@ -927,7 +927,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
       );
     } else {
       setTimeout(() => {
-        console.log( this.page, this.openAppsInThisPage, this.index, 'page was loaded to late' );
+        // console.log( this.page, this.openAppsInThisPage, this.index, 'page was loaded to late' );
         dataAssignmentComponent.startPathUpdateProcess(
           input.queryId,
           input.pathWithArray,

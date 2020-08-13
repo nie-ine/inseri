@@ -27,6 +27,7 @@ export class GeneralRequestService {
     return this.queryService.getQuery(queryID)
       .mergeMap(data => {
           const query = data.query;
+          // console.log( data );
           return this.goThroughParams( query, data );
       });
   }
@@ -36,7 +37,7 @@ export class GeneralRequestService {
     for ( const param in this.route.snapshot.queryParams ) {
       query.serverUrl = this.replaceParam( query.serverUrl, param );
       if ( query.body ) {
-        query.body = this.replaceParam( query.serverUrl, param );
+        query.body = this.replaceParam( query.body, param );
       }
     }
     return this.performQueries( query, data );
@@ -110,7 +111,7 @@ export class GeneralRequestService {
   }
 
   post(url: string, parameter?: any, header?: any, body?: string): Observable<any> {
-    // console.log('POST Request', body);
+    // console.log('POST Request', body, header);
     let help = {};
     if ( header.length > 0 ) {
       for ( const entry of header ) {

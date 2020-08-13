@@ -91,6 +91,36 @@ The process above has been simplified and automatised, and all what the user nee
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/1video2.png" alt="Guhyaṣoḍha, starting page" width="900"></p>
 
+As of 11.08.2020, the new way of working with templates has been implemented.
+It is described below. The user has an option to duplicate and to use as a template any published page, that has been explicitely published as a template.
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-08/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/Dup0.png" alt="Template publishing" width="400"></p>
+
+For this, first of all, let us create a new "project" at the Dashboard. Once it is open, click on the name of the project, the option of adding the pages will open. 
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-08/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/Dup1.png" alt="Adding pages to the project button" width="400"></p>
+
+As of 11.08.2020, there are two available templates:
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-08/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/Dup2.png" alt="Template list" width="900"></p>
+
+Let us chose the one with e-codices:
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-08/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/Dup3.png" alt="E-codices template" width="900"></p>
+
+Suppose that we want for our project use the same source, i.e. e-codices, but a different book. We should, all like it was explained above, open e-codices in the browser and copy the IIIF link.
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-08/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/Dup4.png" alt="The target book from e-codices" width="900"></p>
+
+Let us paste the link directly into the template:
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-08/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/Dup3a.png" alt="E-codices template, link replacement" width="900"></p>
+
+Result: the page refreshes, and we can now access the desired book from within Inseri:
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-08/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/Dup5.png" alt="E-codices template, resulting page" width="900"></p>
+
+The steps and the commentary options have been explained by Jan Clemens Stoffregen in the video here:
+
+[https://www.youtube.com/watch?v=2SY3357fIZM](https://www.youtube.com/watch?v=2SY3357fIZM)
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-08/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/Dup44.png" alt="VideoImage" width="900"></p>
+
 For those who are not that lucky, and had to scan the project data by themselves, the following options shall be further addressed:
 
 ## 1.2. Adding images and data from desktop to Inseri
@@ -159,3 +189,37 @@ Having saved and reloaded the page we obtain a simplified webpage, in which the 
 As in the 1.1.1. example, the images and their data maintain their original structure and linkages, and thus when one navigates in any of the windows via < > signs, the data fits the corresponding image. If one clicks on the number of the resource, i.e. page, it will open the extended search options, here, for example, we can see the preview of the whole selection of images:
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/1Knora6.png" alt="Preview of all pages" width="700"></p>
+
+## 1.4. Commenting on the data 
+
+Inseri provides a crucial function of a structured commentary to virtually any part of data that is opened in an application. This means that the user can address a third party data via IIIF, for example, a book from e-codices, and to comment on it page by page, thus immediately selecting and structuring the data for one's own research project, without the need to retype even the page number of the original.
+
+In order to make a comment, the user should first get data on the page by any of the methods described above (1.1-1.3). By clicking on the Inseri sign, in the "Add, Edit & Manage Data" group of applicaion, one find "Comment App."
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-08/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/Com0.png" alt="Add Commentary in Apps" width="400"></p>
+
+It is clear that the commentary option works the best when it is just one book/manuscript/ressource that is presented on a given page. If there is more than one, the user might need to order the applications on the page by moving them with arrows via "Move app on the page", which is to be found in the options in the top left corner.
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-08/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/Com5.png" alt="Move App" width="400"></p>
+
+The arrows will move the selected App window more up or more down.
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-08/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/Com6.png" alt="Move App Arrows" width="400"></p>
+
+Once one clicks on "Add Commentary", a text field opens, where the user can easily add data.
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-08/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/Com1.png" alt="Typing Commentary" width="900"></p>
+
+There are some small tipps: in order to add a field, click on "new commentary", especially if there are some commentaries already, as the field would display the text of the most recent commentary, while in order to save what you have typed, click on "add commentary".
+
+As of 11.08.2020, the user can search for the commentaries. For that it is necessary to go to the Dashboard and select commentaries:
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-08/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/Com2.png" alt="Finding Commentaries" width="400"></p>
+
+When the user clicks on the created commentaries in the list, he lands on the very page (of the IIIF addressed book, for example), for which the commentary was created.
+
+In order to edit or to delete the commentary, one should click on the avatar (here a dog), and these two options will appear.
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-08/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Add%20Data/Com3.png" alt="Editing and deleting Commentaries" width="400"></p>
+
+Clicking on Inseri button saves changes.

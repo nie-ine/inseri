@@ -187,7 +187,7 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(dialogRef: <a href="../components/FileListDialogComponent.html">MatDialogRef<FileListDialogComponent></a>, data: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, queryService: <a href="../injectables/QueryService.html">QueryService</a>)</code>
+<code>constructor(dialogRef: <a href="../components/FileListDialogComponent.html">MatDialogRef<FileListDialogComponent></a>, data: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, queryService: <a href="../injectables/QueryService.html">DataListViewInAppQueryService</a>)</code>
                     </td>
                 </tr>
                         <tr>
@@ -211,39 +211,39 @@
                                         <tbody>
                                                 <tr>
                                                         <td>dialogRef</td>
-                                                  
+
                                                         <td>
                                                                     <code><a href="../components/FileListDialogComponent.html" target="_self" >MatDialogRef&lt;FileListDialogComponent&gt;</a></code>
                                                         </td>
-                                                  
+
                                                     <td>
                                                             No
                                                     </td>
-                                                    
+
                                                 </tr>
                                                 <tr>
                                                         <td>data</td>
-                                                  
+
                                                         <td>
                                                                     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
                                                         </td>
-                                                  
+
                                                     <td>
                                                             No
                                                     </td>
-                                                    
+
                                                 </tr>
                                                 <tr>
                                                         <td>queryService</td>
-                                                  
+
                                                         <td>
-                                                                    <code><a href="../injectables/QueryService.html" target="_self" >QueryService</a></code>
+                                                                    <code><a href="../injectables/QueryService.html" target="_self" >DataListViewInAppQueryService</a></code>
                                                         </td>
-                                                  
+
                                                     <td>
                                                             No
                                                     </td>
-                                                    
+
                                                 </tr>
                                         </tbody>
                                     </table>
@@ -259,7 +259,7 @@
 
 
     <section>
-    
+
         <h3 id="methods">
             Methods
         </h3>
@@ -309,11 +309,11 @@
                                                         <td>
                                                                     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                                         </td>
-                                                    
+
                                                     <td>
                                                             No
                                                     </td>
-                                                    
+
 
                                                 </tr>
                                         </tbody>
@@ -326,7 +326,7 @@
 
                             </div>
                                 <div class="io-description">
-                                    
+
                                 </div>
                     </td>
                 </tr>
@@ -378,11 +378,11 @@
                                                         <td>
                                                                     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
                                                         </td>
-                                                    
+
                                                     <td>
                                                             No
                                                     </td>
-                                                    
+
 
                                                 </tr>
                                         </tbody>
@@ -395,7 +395,7 @@
 
                             </div>
                                 <div class="io-description">
-                                    
+
                                 </div>
                     </td>
                 </tr>
@@ -485,11 +485,11 @@
                                                         <td>
                                                                     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
                                                         </td>
-                                                    
+
                                                     <td>
                                                             Yes
                                                     </td>
-                                                    
+
 
                                                 </tr>
                                         </tbody>
@@ -502,7 +502,7 @@
 
                             </div>
                                 <div class="io-description">
-                                    
+
                                 </div>
                     </td>
                 </tr>
@@ -549,7 +549,7 @@
 </section>
 
     <section>
-    
+
         <h3 id="inputs">
             Properties
         </h3>
@@ -821,7 +821,7 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {Component, Inject, OnInit} from &#x27;@angular/core&#x27;;
 import {MAT_DIALOG_DATA, MatDialogRef, MatTableDataSource} from &#x27;@angular/material&#x27;;
-import {QueryService} from &#x27;../../../user-action-engine/mongodb/query/query.service&#x27;;
+import {DataListViewInAppQueryService} from &#x27;../../../user-action-engine/mongodb/query/query.service&#x27;;
 
 @Component({
   selector: &#x27;app-file-list-dialog&#x27;,
@@ -836,7 +836,7 @@ export class FileListDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef&lt;FileListDialogComponent&gt;,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private queryService: QueryService
+    private queryService: DataListViewInAppQueryService
   ) { }
 
   ngOnInit() {
@@ -947,7 +947,7 @@ export class FileListDialogComponent implements OnInit {
         </div>
     </div>
 
-    
+
 </div>
 
 <script src="../js/libs/vis.min.js"></script>
