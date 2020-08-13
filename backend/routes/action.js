@@ -119,18 +119,23 @@ router.post('/createProject/', checkAuth, (req, res, next) => {
         pageSetExported.save().then(pageSetResult => {
           Page.insertMany(pagesExported).then(pagesInserted => {
             if (queriesExported) {
+              //console.log('queries Exported');
               //console.log(queriesExported);
               Query.insertMany(queriesExported).then(queriesInserted => {
+                //console.log('queries Inserted');
+                //console.log(queriesInserted);
                 if (myOwnJsonExported) {
-                  //console.log(myOwnJsonExported);
+                 // console.log('myOwnJson Exported');
+                 // console.log(myOwnJsonExported);
                   MyOwnJSON.insertMany(myOwnJsonExported).then(myOwnJsonResults => {
                     if (projectFiles.length != 0 || filesJsonExported) {
-                     // console.log(filesJsonExported);
+                     // console.log('filesJson Exported');
+                      //console.log(filesJsonExported);
                       Files.insertMany(filesJsonExported).then(filesInserted => {
                         let counter = projectFiles.length;
                         projectFiles.forEach(file => {
                           let path = 'backend/files/' + file.fileName;
-                          //console.log(path);
+                          console.log(path);
                           //console.log(file);
                           fs.writeFile(path, file.fileContent, function (err) {
                             if (err) {

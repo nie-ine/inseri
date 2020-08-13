@@ -120,6 +120,8 @@ router.put('/:id/publish', checkAuth, (req, res, next) => {
 });
 
 router.post('', checkAuth, (req, res, next) => {
+  console.log('recieved query: ');
+  console.log(req.body);
   const newQuery = new Query({
     title: req.body.title,
     description: req.body.description,

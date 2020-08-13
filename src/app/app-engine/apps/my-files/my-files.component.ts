@@ -244,7 +244,7 @@ appInputsArray = [];
     this.printFoldersTitle();
 }
   deleteFile(fileId: string) {
-    if(confirm('Would you really delete this file')){
+    if (confirm('Would you really delete this file')) {
       this.fileService.deleteFile(fileId, this.mainFolder_id).subscribe(() => {
         console.log(this.files);
         const updatedFiles = this.files.filter(file => file.id !== fileId);

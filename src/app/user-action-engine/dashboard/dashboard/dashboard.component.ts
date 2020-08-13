@@ -402,7 +402,9 @@ export class DashboardComponent implements OnInit {
                       numOfFiles--;
                     });
                   }
-
+                  if (data.returnedObj.folders) {
+                    zip.file('folders.json', data.returnedObj.folders);
+                  }
                 }
               }
             }
