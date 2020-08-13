@@ -584,8 +584,10 @@ export class OpenAppsModel {
         },
         {
           'inputName': 'settings',
-          default:   { "inputMode":"input",
+          default:   {
+            "inputMode":"input",
             "jsonType":"sparql",
+            "pathToDataArray": "results.bindings",
             "columns":{
               "genericColumns":true,
               "columnMapping":[
@@ -640,11 +642,6 @@ export class OpenAppsModel {
             },
             "actions":{
               "actions":true,
-              "_comment":{
-                "cursorstyle":"use custom css properties",
-                "intLink":"opens another app",
-                "extLink":"opens another webpage"
-              },
               "actionMode":"object",
               "actionType":"dialog",
               "actionRange":"cell",

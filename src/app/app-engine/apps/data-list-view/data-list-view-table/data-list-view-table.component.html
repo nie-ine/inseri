@@ -18,7 +18,7 @@
               [ngClass]="col">
       <!-- SETTING [ngClass]="col" enables to define styles for each column, setting it to row[col].value will enable to define a style for certain cell content -->
       <span *ngIf="row[col]">
-        <span [innerHTML]="this.queryService.shrink_iri(row[col])" ></span>
+        <span [innerHTML]="this.queryService.shrink_iri(row[col].value)" ></span>
         </span>
       <!--        {{ showValue(row, col) }} &lt;!&ndash; | highlight: toHighlightByFilter &ndash;&gt;-->
     </mat-cell>
@@ -38,14 +38,21 @@
 </mat-paginator>
 <!-- EXPORT -->
 <div *ngIf="dataListTableSettings.export.showExport">
-  <mat-form-field>
+  <mat-form-field  style="margin: 3em">
     <mat-label>Export OptionSettings</mat-label>
     <mat-select [(value)]="exportSelection">
       <mat-option value="displayed">Displayed data only</mat-option>
       <mat-option value="complete">Complete export</mat-option>
     </mat-select>
   </mat-form-field>
-  <button (click)="exportToCsv()">Export to CSV</button>
+  <mat-form-field style="margin: 3em">
+    <mat-label>Export FormatSettings</mat-label>
+    <mat-select [(value)]="exportFormat">
+      <mat-option value="json">json</mat-option>
+      <mat-option value="csv">csv</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button (click)="export()" style="margin: 3em">Export</button>
 </div>
 
 
