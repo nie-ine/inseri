@@ -459,55 +459,6 @@ export class DialogOverviewExampleDialog {
   chooseNewAction: string;
   pageSet: [string, string];
   usergroup: any = {};
-
-  // importProjectAsFile($event: Event) {
-  //   let project = {};
-  //   const file = (event.target as HTMLInputElement).files[0];
-  //   this.fileService.addZipFileToSrvr(file).subscribe(responseData => {
-  //     console.log(responseData);
-  //     const path = './backend/files/' + responseData.fileName;
-  //     console.log(path);
-  //     const fileReader = new FileReader();
-  //     fileReader.onload = (e) => {
-  //       this.action = JSON.parse(fileReader.result.toString());
-  //       project = JSON.parse(fileReader.result.toString());
-  //       const detailsArray = Object.entries(project).map((e) => ({[e[0]]: e[1]}));
-  //       // console.log(detailsArray);
-  //       // console.log('the action is');
-  //       // console.log(this.action);
-  //
-  //       let action, pageSet, pages, queries;
-  //       for (let i = 0; i < detailsArray.length; i++) {
-  //         console.log(detailsArray[i]);
-  //         if (detailsArray[i]['action']) {
-  //           action = JSON.parse(JSON.parse(JSON.stringify(detailsArray[i]))['action']);
-  //         } else if (detailsArray[i]['pageSet']) {
-  //           pageSet = JSON.parse(JSON.parse(JSON.stringify(detailsArray[i]))['pageSet']);
-  //         } else if (detailsArray[i]['pages']) {
-  //           pages = JSON.parse(JSON.parse(JSON.stringify(detailsArray[i]))['pages']);
-  //         } else if (detailsArray[i]['queries']) {
-  //           queries = JSON.parse(JSON.parse(JSON.stringify(detailsArray[i]))['queries']);
-  //         }
-  //         // console.log(detailsArray['action']);
-  //       }
-  //       console.log(action, pageSet, pages, queries);
-  //       console.log('calling the create Project function');
-  //       this.actionService.createProject(action, pageSet, pages, queries)
-  //         .subscribe((actionResult) => {
-  //           if (action.type === 'page-set') {
-  //             this.pageSet = ['pageSet', action._id];
-  //           }
-  //           this.dialogRef.close(this.pageSet);
-  //         });
-  //
-  //       // console.log(fileReader.result);
-  //     };
-  //     fileReader.readAsText(file);
-  //     //
-  //     // console.log(readStream);
-  //   });
-  //
-  // }
   p_pageSetId: string;
 
   close() {
@@ -555,7 +506,7 @@ export class DialogOverviewExampleDialog {
 
   importProjectAsZip($event: Event) {
     const zipFile = (event.target as HTMLInputElement).files[0];
-    let action, pageSet, pages, queries, allFiles, jsonQueries, oldHostUrl, filesJson;
+    let action, pageSet, pages, queries, allFiles, jsonQueries, oldHostUrl, filesJson, foldersJson;
     // const projectFiles = [];
     const projectFiles = new Array<{fileName: string, fileContent: Blob}>();
     let counter = 0;
@@ -590,6 +541,11 @@ export class DialogOverviewExampleDialog {
                   filesJson = content; // JSON.parse(JSON.parse(JSON.stringify(content)));
                 }
                 counter--;
+              } else if (relativePath === 'folders.json') {
+                if (content.length > 0) {
+                  foldersJson = content;
+                }
+                counter--;
               } else if (relativePath === 'oldHostUrl.txt') {
                 if (content.length > 0) {
                   oldHostUrl = content;
@@ -615,7 +571,7 @@ export class DialogOverviewExampleDialog {
       if (!isFinished && counter === 0) {
         clearInterval(timeout);
         isFinished = true;
-        mainObject.actionService.createProject(action, pageSet, pages, queries, jsonQueries, oldHostUrl, filesJson, projectFiles)
+        mainObject.actionService.createProject(action, pageSet, pages, queries, jsonQueries, oldHostUrl, filesJson, foldersJson, projectFiles)
           .subscribe((actionResult) => {
             if (action.type === 'page-set') {
               mainObject.pageSet = ['pageSet', action._id];
