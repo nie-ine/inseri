@@ -1,6 +1,52 @@
 <h3>Displayed Columns</h3>
-<mat-selection-list #list [(ngModel)]="displayedColumns" (ngModelChange)="onNgModelChange($event)">
-  <mat-list-option *ngFor="let col of displayedColumnsIn" [value]="col">
-    {{col}}
-  </mat-list-option>
-</mat-selection-list>
+<div>{{dataListSettings | json}}</div>
+<mat-card>
+  <h3>Column definition</h3>
+  <mat-slide-toggle>Manual column definition</mat-slide-toggle>
+  <button mat-button-raised *ngIf="dataListSettings.columns.genericColumns  && dataListSettings.columns.columnMapping.length === 0"
+          (click) = "createColumnMapping()">Create Defintion from data source
+  </button>
+  <button mat-button-raised
+          *ngIf="!dataListSettings.columns.genericColumns && dataListSettings.columns.columnMapping.length > 0"
+          (click)="reloadColumns()">Reload Defintion from data source</button>
+</mat-card>
+<div *ngIf="columnMapping">
+    <mat-card *ngFor="let colDef of columnMapping, let i = index">
+      <mat-card-header>{{i}}.) {{colDef.colName}}</mat-card-header>
+       <div>
+          <mat-form-field>
+            <mat-label>Column name</mat-label>
+            <input matInput [formControl]="nameFormControl" [errorStateMatcher]="matcher"
+                   value="{{colDef.colName}}" >
+            <mat-error *ngIf="nameFormControl.hasError('required')">
+              Column name is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>data source</mat-label>
+          <input matInput [formControl]="nameFormControl" [errorStateMatcher]="matcher"
+                 value="{{colDef.path}}" >
+          <mat-error *ngIf="nameFormControl.hasError('required')">
+            data source is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+       <mat-slide-toggle>display column</mat-slide-toggle>
+      </div>
+      <div>
+        <mat-slide-toggle>filtered column</mat-slide-toggle>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Link</mat-label>
+          <input matInput
+                 value="{{colDef.link}}" >
+        </mat-form-field>
+      </div>
+    </mat-card>
+  <button mat-button-raised (click)="saveColumns()">Save displayed columns</button>
+  <button mat-button-raised (click)="restoreColumns()">Restore displayed Columns</button>
+</div>

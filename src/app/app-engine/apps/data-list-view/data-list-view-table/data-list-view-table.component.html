@@ -18,7 +18,7 @@
               [ngClass]="col">
       <!-- SETTING [ngClass]="col" enables to define styles for each column, setting it to row[col].value will enable to define a style for certain cell content -->
       <span *ngIf="row[col]">
-        <span [innerHTML]="this.queryService.shrink_iri(row[col].value)" ></span>
+        <span [innerHTML]="row[col].value" ></span>
         </span>
       <!--        {{ showValue(row, col) }} &lt;!&ndash; | highlight: toHighlightByFilter &ndash;&gt;-->
     </mat-cell>

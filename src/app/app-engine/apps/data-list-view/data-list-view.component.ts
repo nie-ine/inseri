@@ -26,7 +26,7 @@ export class DataListViewComponent implements OnChanges {
               private displayedCollumnsService: DisplayedCollumnsService
               // private settingsService: DataListViewSettings
               ) {
-    this.displayedColumnsSub = this.displayedCollumnsService.displayedCollumnsChange.subscribe(cols => this.displayedColumns = cols );
+    this.displayedColumnsSub = this.displayedCollumnsService.displayedColumnsChange.subscribe(cols => this.displayedColumns = cols );
   }
 
   ngOnChanges() {

@@ -3,13 +3,13 @@ import {EventEmitter, Injectable} from '@angular/core';
 @Injectable({ providedIn: 'root' })
 
 export class DisplayedCollumnsService {
-  displayedCollumns: Array<any>;
-  displayedCollumnsChange: EventEmitter<Array<any>>;
+  displayedColumns: Array<any>;
+  displayedColumnsChange: EventEmitter<Array<any>>;
   originalDisplayedColumns: Array<any>;
   displayedColumnsSet = new Set();
 
   constructor() {
-    this.displayedCollumnsChange = new EventEmitter<Array<any>>();
+    this.displayedColumnsChange = new EventEmitter<Array<any>>();
   }
 
   public setInitialDisplayedColumns(dataListSettings, data?) {
@@ -18,9 +18,9 @@ export class DisplayedCollumnsService {
       if (dataListSettings.jsonType === 'sparql') {
         this.setDisplayedColumns(data.head.vars);
       } else {
+        // gets the data array from a given path string pathToDataArray
         const dataArray = dataListSettings.pathToDataArray.split('.').reduce((a, b) => a[b], data);
         displayedColumns = this.generateDisplayedColumnsFromData(dataArray);
-        console.log('dispCols: ', displayedColumns);
         this.originalDisplayedColumns = displayedColumns;
         this.setDisplayedColumns(displayedColumns);
         }
@@ -37,13 +37,18 @@ export class DisplayedCollumnsService {
   }
 
   public setDisplayedColumns(cols) {
-    this.displayedCollumns = cols;
-    this.displayedCollumnsChange.emit(this.displayedCollumns);
+    this.displayedColumns = cols;
+    console.log('new disp cols: ', cols);
+    this.displayedColumnsChange.emit(this.displayedColumns);
+  }
+
+  public restoreOriginalDisplayedColumns() {
+    this.displayedColumns = this.originalDisplayedColumns;
+    this.displayedColumnsChange.emit(this.displayedColumns);
   }
 
   private generateDisplayedColumnsFromData(data: Array<any>) {
     data.forEach( obj => this.collectColumns(obj));
-    console.log('Arrr: ', Array.from(this.displayedColumnsSet.values()));
     return Array.from(this.displayedColumnsSet.values());
   }
 

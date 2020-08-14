@@ -1,10 +1,11 @@
-import { Component, Input, OnInit, OnChanges, ViewChild } from '@angular/core';
+import {Component, Input, OnInit, OnChanges, ViewChild, EventEmitter, Output} from '@angular/core';
 import { MatPaginator, MatSort, MatTable, MatTableDataSource } from '@angular/material';
 import { MatDialog } from '@angular/material';
 import { DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import { PipeTransform, Pipe } from '@angular/core';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
 import { DataListViewInAppQueryService} from '../services/query.service';
+import {Router} from '@angular/router';
 
 // import { DataListViewSettings } from '../data-list-view-dataListSettings/data-list-view-dataListSettings.service';
 
@@ -17,6 +18,7 @@ export class DataListViewTableComponent implements OnChanges {
   @Input() dataListTableSettings?: any;
   @Input() dataToDisplay: any;
   @Input() displayedColumns?: any;
+  @Output() reloadVariables: EventEmitter<any> = new EventEmitter<any>();
 
   @ViewChild(MatTable) table: MatTable<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -33,14 +35,10 @@ export class DataListViewTableComponent implements OnChanges {
   exportFormat = 'json';
   UMLAUT_REPLACEMENTS = '{[{ "Ä", "Ae" }, { "Ü", "Ue" }, { "Ö", "Oe" }, { "ä", "ae" }, { "ü", "ue" }, { "ö", "oe" }, {É, E}]}';
 
-  constructor(private dialog: MatDialog,
-              private queryService: DataListViewInAppQueryService,
-              private sanitizer: DomSanitizer) {
+  constructor( private _router: Router ) {
   }
 
   ngOnChanges() {
-    console.log('table data arrived: ' + this.dataToDisplay );
-    console.log('table: new displayed columns:' + this.displayedColumns);
     this.populateByDatastream();
     this.setFilter();
   }
@@ -139,14 +137,20 @@ public replaceUmlaute(input) {
   private onThisClick(val, index) {
     // SIMPLE METHOD TO DO SOMETHING WITH THE clicked cell/object like passing it to somewhere
     if (this.dataListTableSettings.actions.actions && this.dataListTableSettings.actions.actionMode === 'object') {
-      if (this.dataListTableSettings.actions.actionType === 'dialog') {
-        const shrunkTitle = this.queryService.shrink_iri(val);
-        console.log('doing sth with with object with property value ' + val);
-        console.log('we could also do sth with index i = ' + index);
-      } else {
-        console.log('actions disabled or no action defined');
-      }
+      console.log(index);
+      // this.updateURL(index);
+
     }
+  }
+
+  updateURL( index: any ) {
+    this._router.navigate([], {
+      queryParams: {
+        ['verseNumber']: index
+      },
+      queryParamsHandling: 'merge'
+    });
+    this.reloadVariables.emit();
   }
 
   // TODO: maybe implement features from events by hostlistener ...

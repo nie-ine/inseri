@@ -592,22 +592,12 @@ export class OpenAppsModel {
               "genericColumns":true,
               "columnMapping":[
                 {
-                  "name":"predicate",
-                  "path":[
-                    "p",
-                    "value"
-                  ],
+                  "name":"Name of the column",
+                  "path": "path in dot notation as displayed in genericColumns:true",
                   "displayed":true,
-                  "filtered":true
-                },
-                {
-                  "name":"object",
-                  "path":[
-                    "o",
-                    "value"
-                  ],
-                  "displayed":true,
-                  "filtered":true
+                  "filtered":true,
+                  "type":"integer/string/date or get it generically from path",
+                  "link": "id of put name of node here"
                 }
               ],
               "stickyColumn":0
