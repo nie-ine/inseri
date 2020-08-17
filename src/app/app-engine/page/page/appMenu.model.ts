@@ -33,6 +33,17 @@ export class AppMenuModel {
       appGroup: 'add'
     },
     {
+      id: 'calendar_today',
+      name: 'Calendar App',
+      tags: 'admin',
+      color: 'red',
+      status: 'under development',
+      appType: 'calendar',
+      description: 'Your calendar',
+      showOnHome: false,
+      appGroup: 'add'
+    },
+    {
       id: 'input',
       name: 'Json Environment ',
       tags: 'json, python ',

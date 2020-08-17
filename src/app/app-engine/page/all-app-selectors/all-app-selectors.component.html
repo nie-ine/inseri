@@ -12,6 +12,13 @@
 
 </app-my-files>
 
+<app-calendar
+  *ngIf="app.type === 'calendar'"
+  [calendarData]="app.calendarData"
+  [anotherInput]="{ test: 'test' }">
+
+</app-calendar>
+
 <app-gnd-lobid *ngIf="app.type === 'gndSubscriber'">
 
 </app-gnd-lobid>

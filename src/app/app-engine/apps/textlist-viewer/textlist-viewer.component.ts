@@ -18,7 +18,7 @@ export class TextlistViewerComponent implements OnChanges {
   ) {
   }
   ngOnChanges() {
-    // console.log( 'Changes', this.textToDisplay );
+    console.log( 'Changes', this.textToDisplay );
     if (  this.textToDisplay && this.textToDisplay.search( 'http' ) !== -1 ) {
       this.http.get( this.textToDisplay, { responseType: 'text' } )
         .subscribe(

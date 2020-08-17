@@ -160,6 +160,19 @@ export class OpenAppsModel {
       initialWidth: '250',
       initialHeight: '150'
     },
+    calendar: {
+      type: 'calendar',
+      model: [],
+      inputs: [
+        {
+          'inputName': 'calendarData',
+          default: 'this is an app for a calendar'
+        }
+      ],
+      materialIcon: 'calendar_today',
+      initialWidth: '400',
+      initialHeight: '400'
+    },
     jsonEnvironment: {
       type: 'jsonEnvironment',
       model: [],

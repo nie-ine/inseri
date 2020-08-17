@@ -62,7 +62,7 @@ export class ColumnMapping {
                 private _path: Array<string>, // the path within the passed JSON response from endpoint
                 private _filtered: boolean, // if the entries of that column apply to filter input
                 private _displayed: boolean, // if the column header is displayed or not
-              ) {}
+  ) {}
 
   get name() {
     return this._name;
@@ -126,11 +126,12 @@ export class ColumnDefinition {
 
 @Injectable({ providedIn: 'root' })
 export class DataListViewSettings {
-  constructor(private _inputMode: string,
-              private _jsonType: string,
-              private _collumnDefinition: ColumnDefinition,
-              private _filter: Filter,
-              private _paginator: Paginator
+  constructor(
+    // private _inputMode?: string,
+    // private _jsonType?: string,
+    // private _collumnDefinition?: ColumnDefinition,
+    // private _filter?: Filter,
+    // private _paginator?: Paginator
               /*
           private _exportOptions: ExportOptions,
          private _sortingOptions: SortingOptions,
@@ -140,152 +141,152 @@ export class DataListViewSettings {
   ) {
   }
 
-    get inputMode() {
-      return this._inputMode;
-    }
+  // get inputMode() {
+  //   return this._inputMode;
+  // }
+  //
+  // set inputMode(val: string) {
+  //   this._inputMode = val;
+  // }
+  //
+  // get jsonType() {
+  //   return this._jsonType;
+  // }
+  //
+  // set jsonType(val: string) {
+  //   this._jsonType = val;
+  // }
+  //
+  // get collumnDefinition() {
+  //   return this._collumnDefinition;
+  // }
+  //
+  // set collumnDefinition(val: ColumnDefinition) {
+  //   this._collumnDefinition = val;
+  // }
+  // get filter() {
+  //   return this._filter;
+  // }
+  //
+  // set filter(val: Filter) {
+  //   this._filter = val;
+  // }
+  // get paginator() {
+  //   return this._paginator;
+  // }
+  //
+  // set paginator(val: Paginator) {
+  //   this._paginator = val;
+  // }
+  // /*
+  //           get exportOptions() {
+  //             return this._exportOptions;
+  //           }
+  //
+  //           set exportOptions(val: ExportOptions) {
+  //             this._exportOptions = val;
+  //           }
+  //
+  //           get sortingOptions() {
+  //             return this._sortingOptions;
+  //           }
+  //
+  //           set sortingOptions(val: SortingOptions) {
+  //             this._sortingOptions = val;
+  //           }
+  //
+  //           get styles() {
+  //             return this._styles;
+  //           }
+  //
+  //           set styles(val: Styles) {
+  //             this._styles = val;
+  //           }
+  //
+  //           get cellActions() {
+  //             return this._cellActions;
+  //           }
+  //
+  //           set cellActions(val: CellActions) {
+  //             this._cellActions = val;
+  //
+  //           }*/
+  // fallbackSettings: any =   { "inputMode":"query",
+  //   "jsonType":"sparql",
+  //   "columns":{
+  //     "genericColumns":false,
+  //     "columnMapping":[
+  //       {
+  //         "name":"predicate",
+  //         "path":[
+  //           "p",
+  //           "value"
+  //         ],
+  //         "displayed":true,
+  //         "filtered":true
+  //       },
+  //       {
+  //         "name":"object",
+  //         "path":[
+  //           "o",
+  //           "value"
+  //         ],
+  //         "displayed":true,
+  //         "filtered":true
+  //       }
+  //     ],
+  //     "stickyColumn":0
+  //   },
+  //   "filter":{
+  //     "showFilter":false,
+  //     "caseSensitive":false
+  //   },
+  //   "paginator":{
+  //     "paginate":true,
+  //     "pageIndex":"0",
+  //     "pageSize":"5",
+  //     "pageSizeOptions":[
+  //       5,
+  //       10,
+  //       25,
+  //       50,
+  //       100,
+  //       250
+  //     ]
+  //   },
+  //   "export":{
+  //     "showExport":false
+  //   },
+  //   "sort":{
+  //     "disallowSorting":true
+  //   },
+  //   "styles":{
+  //     "cellStyle":{
+  //       "cursor":"pointer"
+  //     }
+  //   },
+  //   "actions":{
+  //     "actions":true,
+  //     "_comment":{
+  //       "cursorstyle":"use custom css properties",
+  //       "intLink":"opens another app",
+  //       "extLink":"opens another webpage"
+  //     },
+  //     "actionMode":"object",
+  //     "actionType":"dialog",
+  //     "actionRange":"cell",
+  //     "baseUrl":"http://localhost:4200/page?actionID=5c8a6300b4438759d237b246",
+  //     "urlParams":{
+  //       "label":"label.value",
+  //       "highlight":"authorsname.value"
+  //     }
+  //   }
+  // };
 
-    set inputMode(val: string) {
-      this._inputMode = val;
-    }
 
-    get jsonType() {
-      return this._jsonType;
-    }
+/*  public generateDataListViewSettings(settingsJSON) {
 
-    set jsonType(val: string) {
-      this._jsonType = val;
-    }
-
-  get collumnDefinition() {
-    return this._collumnDefinition;
-  }
-
-  set collumnDefinition(val: ColumnDefinition) {
-    this._collumnDefinition = val;
-  }
-  get filter() {
-    return this._filter;
-  }
-
-  set filter(val: Filter) {
-    this._filter = val;
-  }
-  get paginator() {
-    return this._paginator;
-  }
-
-  set paginator(val: Paginator) {
-    this._paginator = val;
-        }
-/*
-          get exportOptions() {
-            return this._exportOptions;
-          }
-
-          set exportOptions(val: ExportOptions) {
-            this._exportOptions = val;
-          }
-
-          get sortingOptions() {
-            return this._sortingOptions;
-          }
-
-          set sortingOptions(val: SortingOptions) {
-            this._sortingOptions = val;
-          }
-
-          get styles() {
-            return this._styles;
-          }
-
-          set styles(val: Styles) {
-            this._styles = val;
-          }
-
-          get cellActions() {
-            return this._cellActions;
-          }
-
-          set cellActions(val: CellActions) {
-            this._cellActions = val;
-
-          }*/
-  fallbackSettings: any =   { "inputMode":"query",
-    "jsonType":"sparql",
-    "columns":{
-      "genericColumns":false,
-      "columnMapping":[
-        {
-          "name":"predicate",
-          "path":[
-            "p",
-            "value"
-          ],
-          "displayed":true,
-          "filtered":true
-        },
-        {
-          "name":"object",
-          "path":[
-            "o",
-            "value"
-          ],
-          "displayed":true,
-          "filtered":true
-        }
-      ],
-      "stickyColumn":0
-    },
-    "filter":{
-      "showFilter":false,
-      "caseSensitive":false
-    },
-    "paginator":{
-      "paginate":true,
-      "pageIndex":"0",
-      "pageSize":"5",
-      "pageSizeOptions":[
-        5,
-        10,
-        25,
-        50,
-        100,
-        250
-      ]
-    },
-    "export":{
-      "showExport":false
-    },
-    "sort":{
-      "disallowSorting":true
-    },
-    "styles":{
-      "cellStyle":{
-        "cursor":"pointer"
-      }
-    },
-    "actions":{
-      "actions":true,
-      "_comment":{
-        "cursorstyle":"use custom css properties",
-        "intLink":"opens another app",
-        "extLink":"opens another webpage"
-      },
-      "actionMode":"object",
-      "actionType":"dialog",
-      "actionRange":"cell",
-      "baseUrl":"http://localhost:4200/page?actionID=5c8a6300b4438759d237b246",
-      "urlParams":{
-        "label":"label.value",
-        "highlight":"authorsname.value"
-      }
-    }
-  };
-
-
-  public generateDataListViewSettings(settingsJSON) {
-
-    let sets: DataListViewSettings;
+    let sets: any; //: DataListViewSettings;
     console.log(sets);
     if (settingsJSON) {
       Object.assign(sets, settingsJSON);
@@ -294,6 +295,5 @@ export class DataListViewSettings {
     //  }
     // console.log(this.fallbackSettings);
     return sets;
-  }
+  }*/
 }
-
