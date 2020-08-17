@@ -375,6 +375,8 @@ export class DashboardComponent implements OnInit {
           zip.file('pageSet.json', data.returnedObj.pageSet);
           zip.file('pages.json', data.returnedObj.pages);
           zip.file('oldHostUrl.txt', data.returnedObj.oldHostUrl);
+          if (data.returnedObj.comments) {
+            zip.file('comments.json', data.returnedObj.comments);
           if (data.returnedObj.queries) {
             zip.file('queries.json', data.returnedObj.queries);
             if (data.returnedObj.jsonIds) {
@@ -409,7 +411,7 @@ export class DashboardComponent implements OnInit {
               }
             }
           }
-
+        }
           const timeout = setInterval(function () {
             console.log(numOfFiles);
             if (numOfFiles === 0) {

@@ -13,6 +13,7 @@ let JSZip = require("jszip");
 let FileSaver = require('file-saver');
 const fs = require('fs');
 let MyOwnJson = require("../models/myOwnJson");
+let Comment=require("../models/comment");
 const {ObjectId} = require('mongodb');
 
 // let MyBlobBuilder = function () {
@@ -383,6 +384,22 @@ router.post("/deleteFiles/:fileId&:folderId", (req, res, next) => {
   });
 });
 
+function getComments(projectSpecific, objectId, returnedObj, res, req, queryIds) {
+  if(projectSpecific){
+      Comment.find({action: ObjectId(objectId)}).then(commentsResult =>{
+        console.log(commentsResult);
+        returnedObj.comments=JSON.stringify(commentsResult);
+        getQueriesFromPages(queryIds, returnedObj, res,req);
+      }).catch(commentsError=>{
+        res.status(500).json({
+          message: 'comments are not found',
+          error: commentsError,
+          returnedObj: returnedObj
+        })
+      });
+  }
+}
+
 router.get("/downloadProject/:actionId", checkAuth, (req, res, next) => {
   let queryIds = [];
   let returnedObj={};
@@ -427,7 +444,8 @@ router.get("/downloadProject/:actionId", checkAuth, (req, res, next) => {
                   returnedObj: returnedObj
                 });
               }
-              getQueriesFromPages(queryIds, returnedObj, res,req);
+              let projectSpecific=true, actionId=action._id;
+              getComments(projectSpecific,actionId, returnedObj, res, req);
             }).catch(error => {
               console.log(error);
               res.status(500).json({
