@@ -35,6 +35,7 @@ import {MatProgressSpinnerModule, MatTreeModule} from '@angular/material';
 import {MatListModule} from '@angular/material/list';
 import { FrameSettingsComponent } from './page/frame-settings/frame-settings.component';
 import {MatSliderModule} from '@angular/material/slider';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import {LoadVariablesComponent} from './load-variables/load-variables.component';
 import { QueryListComponent } from '../query-engine/query-list/query-list.component';
@@ -56,7 +57,6 @@ import { ResourceFormModule } from './apps/resource-form/resource-form.module';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { DataListViewComponent} from './apps/data-list-view/data-list-view.component';
 import { DataListViewSettingsComponent} from './apps/data-list-view/data-list-view-settings/data-list-view-settings';
-import { DataListViewSettings } from './apps/data-list-view/data-list-view-settings/data-list-view-settings.service';
 import { DataListViewTableComponent, HighlightPipe } from './apps/data-list-view/data-list-view-table/data-list-view-table.component';
 import { DataListViewInAppQueryService } from './apps/data-list-view/services/query.service';
 import { NavigationModule } from './apps/navigation/navigation.module';
@@ -129,6 +129,7 @@ import { CalendarComponent } from './apps/calendar/calendar.component';
     MatButtonToggleModule,
     MatListModule,
     MatSliderModule,
+    MatSlideToggleModule,
     NgxSpinnerModule,
     MatDialogModule,
     MatTreeModule,
@@ -171,7 +172,6 @@ import { CalendarComponent } from './apps/calendar/calendar.component';
     FileDatabaseForApp,
     CanvasWhiteboardComponent,
     FileDatabaseForAppGND,
-    DataListViewSettings,
     DataListViewInAppQueryService
   ],
   declarations: [

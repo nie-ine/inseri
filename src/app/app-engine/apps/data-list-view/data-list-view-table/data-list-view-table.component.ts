@@ -1,9 +1,11 @@
-import { Component, Input, OnInit, OnChanges, ViewChild } from '@angular/core';
+import {Component, Input, OnInit, OnChanges, ViewChild, EventEmitter, Output} from '@angular/core';
 import { MatPaginator, MatSort, MatTable, MatTableDataSource } from '@angular/material';
 import { MatDialog } from '@angular/material';
+import { DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import { PipeTransform, Pipe } from '@angular/core';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
 import { DataListViewInAppQueryService} from '../services/query.service';
+import {Router} from '@angular/router';
 
 // import { DataListViewSettings } from '../data-list-view-dataListSettings/data-list-view-dataListSettings.service';
 
@@ -16,10 +18,11 @@ export class DataListViewTableComponent implements OnChanges {
   @Input() dataListTableSettings?: any;
   @Input() dataToDisplay: any;
   @Input() displayedColumns?: any;
+  @Output() reloadVariables: EventEmitter<any> = new EventEmitter<any>();
 
   @ViewChild(MatTable) table: MatTable<any>;
-  @ViewChild(MatPaginator ) paginator: MatPaginator;
-  @ViewChild(MatSort ) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   // cssUrl: string;
   dataSource: MatTableDataSource <any>;
   dataSourceForExport: MatTableDataSource <any>;
@@ -29,21 +32,20 @@ export class DataListViewTableComponent implements OnChanges {
   renderedData: any;
   renderedDisplayedData: any;
   exportSelection = 'displayed';
-  UMLAUT_REPLACEMENTS = '{[{ "Ä", "Ae" }, { "Ü", "Ue" }, { "Ö", "Oe" }, { "ä", "ae" }, { "ü", "ue" }, { "ö", "oe" }]}';
+  exportFormat = 'json';
+  UMLAUT_REPLACEMENTS = '{[{ "Ä", "Ae" }, { "Ü", "Ue" }, { "Ö", "Oe" }, { "ä", "ae" }, { "ü", "ue" }, { "ö", "oe" }, {É, E}]}';
 
-  constructor(private dialog: MatDialog,  private queryService: DataListViewInAppQueryService) {
+  constructor( private _router: Router ) {
   }
 
   ngOnChanges() {
-    console.log('table: this data: ' + this.dataToDisplay );
-    console.log('table: new displayed columns:' + this.displayedColumns);
     this.populateByDatastream();
     this.setFilter();
   }
   //
   // DATA STREAM
   //
-  private populateByDatastream() {
+  populateByDatastream() {
     // INSTANTIATE the datasource of the table
     this.dataSource = new MatTableDataSource(this.dataToDisplay);
     this.dataSource.connect().subscribe(data => { this.renderedDisplayedData = data; } );
@@ -53,29 +55,23 @@ export class DataListViewTableComponent implements OnChanges {
     this.dataSourceForExport = new MatTableDataSource(this.dataToDisplay);
     this.dataSourceForExport.connect().subscribe(data => this.renderedData = data);
 
-    if (this.dataSource) {
-      if (this.dataListTableSettings.columns.nestedDatasource) {
-        // IF the dataSource is nested sort must sort the table for subproperties (item.poperty.value)
-        // and not for properties (standard sort). Therefore changing the sortingDataAccessor.
-        this.dataSource.sortingDataAccessor = (item, property) => {
-          switch (property) {
-            default:
-              return item[property].value;
-          }};
-      } /*else {
-        this.dataSource.sortingDataAccessor = (item, property) => {
-          switch (property) {
-            default:
-                return this.replaceUmlaute(item[property]);
-          }};*/
-      this.dataSource.sort = this.sort;
-    }
-    //
+  }
+
+  ngAfterViewInit() {
+    // AS the dataSource is nested sort must sort the table for subproperties (item.poperty.value)
+    // and not for properties (standard sort). Therefore changing the sortingDataAccessor.
+    this.dataSource.sortingDataAccessor = (item, property) => {
+      if ( item[property] ) {
+        if ('value' in item[property]) {
+          return item[property].value.toLowerCase();
+        }
+      }
+    };
+    this.dataSource.sort = this.sort;
   }
 
 
 public replaceUmlaute(input) {
-  console.log(input);
   for (const i of this.UMLAUT_REPLACEMENTS) {
     console.log(i[0], i[1]);
     input = input.replace(i[0], i[1]);
@@ -120,12 +116,20 @@ public replaceUmlaute(input) {
       // so the object property value is compared by filtering and not the object itself.
       for (const column of this.dataListTableSettings.columns.columnMapping) {
         if (column.filtered) {
-          dataStr = dataStr + data[column.name];
+          if (data[column]) {
+            if ('value' in data[column]) {
+              dataStr = dataStr + data[column.name].value;
+            }
+          }
           }
       }
     } else {for (const column of this.displayedColumns) {
-        dataStr = dataStr + data[column];
+        if (data[column]) {
+          if ('value' in data[column]) {
+            dataStr = dataStr + data[column].value;
+          }
         }
+      }
     }
     return dataStr;
   }
@@ -133,13 +137,20 @@ public replaceUmlaute(input) {
   private onThisClick(val, index) {
     // SIMPLE METHOD TO DO SOMETHING WITH THE clicked cell/object like passing it to somewhere
     if (this.dataListTableSettings.actions.actions && this.dataListTableSettings.actions.actionMode === 'object') {
-      if (this.dataListTableSettings.actions.actionType === 'dialog') {
-        const shrunkTitle = this.queryService.shrink_iri(val);
-        console.log('doing sth with with object with property value ' + val);
-      } else {
-        console.log('actions disabled or no action defined');
-      }
+      console.log(index);
+      // this.updateURL(index);
+
     }
+  }
+
+  updateURL( index: any ) {
+    this._router.navigate([], {
+      queryParams: {
+        ['verseNumber']: index
+      },
+      queryParamsHandling: 'merge'
+    });
+    this.reloadVariables.emit();
   }
 
   // TODO: maybe implement features from events by hostlistener ...
@@ -156,7 +167,19 @@ public replaceUmlaute(input) {
 
 
   //
-  // EXPORT TO CSV
+  // EXPORT
+
+  export() {
+    switch (this.exportFormat) {
+      case 'csv': {
+        this.exportToCsv();
+        break;
+      }
+      case 'json': this.exportToJson();
+
+    }
+  }
+
   public exportToCsv() {
 
     var options = {
@@ -165,7 +188,7 @@ public replaceUmlaute(input) {
       decimalseparator: '.',
       showLabels: true,
       showTitle: true,
-      title: 'data export',
+      title: 'table export',
       useBom: true,
       noDownload: false,
       headers: this.displayedColumns
@@ -175,13 +198,37 @@ public replaceUmlaute(input) {
     new ngxCsv(exportData, options.title, options);
   }
 
-  public getExportData() {
-    if (this.exportSelection === 'displayed') {
-      return this.renderedDisplayedData;
-    } else { return this.renderedData; }
+  exportToJson() {
+    let data;
+    if (this.exportSelection === 'displayed') {data = this.renderedDisplayedData} else {
+      data = this.renderedData;
+    }
+    const dataStr = JSON.stringify(data, null, 2);
+    const file = new Blob([dataStr], {type: 'text/json'});
+    this.download(file, 'export.json');
   }
 
-  /*public flatten(data) {
+  download(blob, filename) {
+    if (window.navigator.msSaveOrOpenBlob) { window.navigator.msSaveOrOpenBlob(blob, filename); } else {
+      let elem = document.createElement('a'), url = URL.createObjectURL(blob);
+      elem.href = url;
+      elem.download = filename;
+      document.body.appendChild(elem);
+      elem.click();
+      setTimeout(function() {
+        document.body.removeChild(elem);
+        window.URL.revokeObjectURL(url);
+      },0);
+    }
+  }
+
+  public getExportData() {
+    if (this.exportSelection === 'displayed') {
+      return this.flatten(this.renderedDisplayedData);
+    } else { return this.flatten(this.renderedData); }
+  }
+
+  public flatten(data) {
     // FLATTENS the data so the actual values of the nested objects are exported - not whole objects.
     let flattenedData = [];
     for (let obj in data) {
@@ -195,7 +242,7 @@ public replaceUmlaute(input) {
           }
     }
     return flattenedData;
-  }*/
+  }
   //
 // Display / Design stuff
 //

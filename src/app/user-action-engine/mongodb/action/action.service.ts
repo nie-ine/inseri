@@ -22,7 +22,7 @@ export class ActionService {
   }
 
    createProject(action: string, pageSet: string, pages: string, queries: string,
-                 jsonQueries: string, oldHostUrl: string, filesJson: string, projectFiles: Array<{fileName: string, fileContent: Blob}>): Observable<any> {
+                 jsonQueries: string, oldHostUrl: string, filesJson: string, foldersJson: string, projectFiles: Array<{fileName: string, fileContent: Blob}>): Observable<any> {
     return this.http.post(`${ActionService.API_BASE_URL_ACTION}/createProject/`,
       {
         action: action,
@@ -32,6 +32,7 @@ export class ActionService {
               jsonQueries: jsonQueries,
               oldHostUrl: oldHostUrl,
               filesJson: filesJson,
+              foldersJson: foldersJson,
               projectFiles: projectFiles });
   }
   getAction(id: string): Observable<any> {

@@ -1,27 +1,29 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 
 export class DisplayedCollumnsService {
+  displayedColumns: Array<any>;
+  displayedColumnsChange: EventEmitter<Array<any>>;
+  originalDisplayedColumns: Array<any>;
+  displayedColumnsSet = new Set();
 
-  public getDisplayedColumns(dataListSettings, data?) {
+  constructor() {
+    this.displayedColumnsChange = new EventEmitter<Array<any>>();
+  }
+
+  public setInitialDisplayedColumns(dataListSettings, data?) {
     let displayedColumns: Array<any> = [];
     if (dataListSettings.columns.genericColumns) {
       if (dataListSettings.jsonType === 'sparql') {
-        for (const entry of data.head.vars) {
-          displayedColumns.push(entry + '.value');
-          displayedColumns.push(entry + '.type');
-        }
-        console.log('got displayed comlumns generically: ' + displayedColumns);
-        return displayedColumns;
-      } else if (dataListSettings.jsonType === 'knora-extended') {
-        displayedColumns = [this.generateDisplayedColumnsForKnora(data)];
-        return displayedColumns;
+        this.setDisplayedColumns(data.head.vars);
       } else {
-        console.log('Wrong datalistSettings: this.dataListSettingsOut.columns.genericColumns = ' +
-          dataListSettings.columns.genericColumns + ' but this.dataListSettingsOut.jsonType "' +
-          dataListSettings.jsonType + '" is not applicable to a generic column definition ' +
-          'or not yet implemented)'); }
+        // gets the data array from a given path string pathToDataArray
+        const dataArray = dataListSettings.pathToDataArray.split('.').reduce((a, b) => a[b], data);
+        displayedColumns = this.generateDisplayedColumnsFromData(dataArray);
+        this.originalDisplayedColumns = displayedColumns;
+        this.setDisplayedColumns(displayedColumns);
+        }
       // if not using generic columns
     } else {
       for (const column of dataListSettings.columns.columnMapping) {
@@ -29,19 +31,48 @@ export class DisplayedCollumnsService {
           displayedColumns.push(column.name);
         }
       }
-      console.log('got displayed comlumns: ' + displayedColumns);
-      return displayedColumns;
+      this.originalDisplayedColumns = displayedColumns;
+      this.setDisplayedColumns(displayedColumns);
     }
   }
 
-  private generateDisplayedColumnsForKnora(data) {
-    const cols = new Set();
-    for (const obj of data) {
-      for (const key of Object.getOwnPropertyNames(obj)) {
-        cols.add(key);
-      }
-    }
-    return cols;
+  public setDisplayedColumns(cols) {
+    this.displayedColumns = cols;
+    console.log('new disp cols: ', cols);
+    this.displayedColumnsChange.emit(this.displayedColumns);
   }
 
+  public restoreOriginalDisplayedColumns() {
+    this.displayedColumns = this.originalDisplayedColumns;
+    this.displayedColumnsChange.emit(this.displayedColumns);
+  }
+
+  private generateDisplayedColumnsFromData(data: Array<any>) {
+    data.forEach( obj => this.collectColumns(obj));
+    return Array.from(this.displayedColumnsSet.values());
+  }
+
+  collectColumns(input, reference?) {
+    // FLATTENS the objects completely into a property name with the original path with dots as delimiters.
+    let colName = '';
+    Object.keys(input).forEach(propName => {
+      if (reference) {
+        colName = reference + '.' + propName; } else { colName = propName; }
+      const p = input[propName];
+      if (typeof p === 'object' && p !== null) {
+        this.collectColumns(p, colName); } else { this.displayedColumnsSet.add(colName); }
+    });
+  }
+}
+
+export class DataCell {
+  value: string;
+  type: string;
+  link: string;
+
+  constructor(value, type, link) {
+    this.value = value;
+    this.type = type;
+    this.link = link;
+  }
 }

@@ -1,6 +1,7 @@
-<!-- TABLE -->
-<div *ngIf="resData && dataListSettingsOut && displayedColumns">
-  <data-list-view-table [dataToDisplay] = "resData"
+<!-- TABLE
+<data-list-view-settings [dataListSettings] = "dataListSettingsOut" [displayedColumnsIn] = "displayedColumns"></data-list-view-settings>-->
+<div *ngIf="tableData && dataListSettingsOut && displayedColumns">
+  <data-list-view-table [dataToDisplay] = "tableData"
                         [dataListTableSettings] = "dataListSettingsOut"
                         [displayedColumns] = "displayedColumns">
   </data-list-view-table>

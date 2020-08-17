@@ -597,28 +597,20 @@ export class OpenAppsModel {
         },
         {
           'inputName': 'settings',
-          default:   { "inputMode":"input",
+          default:   {
+            "inputMode":"input",
             "jsonType":"sparql",
+            "pathToDataArray": "results.bindings",
             "columns":{
               "genericColumns":true,
               "columnMapping":[
                 {
-                  "name":"predicate",
-                  "path":[
-                    "p",
-                    "value"
-                  ],
+                  "name":"Name of the column",
+                  "path": "path in dot notation as displayed in genericColumns:true",
                   "displayed":true,
-                  "filtered":true
-                },
-                {
-                  "name":"object",
-                  "path":[
-                    "o",
-                    "value"
-                  ],
-                  "displayed":true,
-                  "filtered":true
+                  "filtered":true,
+                  "type":"integer/string/date or get it generically from path",
+                  "link": "id of put name of node here"
                 }
               ],
               "stickyColumn":0
@@ -653,11 +645,6 @@ export class OpenAppsModel {
             },
             "actions":{
               "actions":true,
-              "_comment":{
-                "cursorstyle":"use custom css properties",
-                "intLink":"opens another app",
-                "extLink":"opens another webpage"
-              },
               "actionMode":"object",
               "actionType":"dialog",
               "actionRange":"cell",

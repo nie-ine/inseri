@@ -6,6 +6,7 @@ const PageSet = require('../models/page-set');
 const Query = require('../models/query');
 const MyOwnJSON = require('../models/myOwnJson');
 const Files = require('../models/files');
+const Folder = require('../models/folder');
 const fs = require('fs');
 const ObjectId = require('mongoose');
 
@@ -16,28 +17,28 @@ const generatedHash = require('../middleware/hash-generator');
 const router = express.Router();
 
 router.get('', checkAuth, (req, res, next) => {
-    Action.find()
-      .populate('creator')
-        .then(actions => {
-            let message;
-            if (actions.length === 0) {
-                message = 'No actions were found'
-            } else if (actions.length === 1) {
-                message = 'One action was found'
-            } else {
-                message = 'All actions were found'
-            }
-            res.status(200).json({
-                message: message,
-                actions: actions
-            });
-        })
-        .catch(error => {
-            res.status(500).json({
-                message: 'Fetching all actions failed',
-                error: error
-            })
-        })
+  Action.find()
+    .populate('creator')
+    .then(actions => {
+      let message;
+      if (actions.length === 0) {
+        message = 'No actions were found'
+      } else if (actions.length === 1) {
+        message = 'One action was found'
+      } else {
+        message = 'All actions were found'
+      }
+      res.status(200).json({
+        message: message,
+        actions: actions
+      });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Fetching all actions failed',
+        error: error
+      })
+    })
 });
 
 router.get('/:id', checkAuth2, (req, res, next) => {
@@ -98,96 +99,192 @@ router.get('/:id', checkAuth2, (req, res, next) => {
 
 });
 
-function insertQueries(req, res) {
+function searchItemInArray(itemToSearch, arrayOfItems) {
+if(arrayOfItems.length ==0){
+  return -1;
+}
+  for (let i = 0; i < arrayOfItems.length; i++) {
+    console.log(arrayOfItems[i]._id);
+    console.log(itemToSearch._id);
+    if (arrayOfItems[i]._id.toString() == itemToSearch._id.toString()) {
+      console.log(i);
+      return i;
+    }
+  }
+  return -1;
+}
 
+function addFiles(req, res,oldHostUrl, newHostUrl) {
+  let filesJsonExported = JSON.parse(JSON.parse(JSON.stringify(req.body.filesJson.split(oldHostUrl).join(newHostUrl))));
+  let projectFiles = req.body.projectFiles;
+  let newFiles = filesJsonExported.slice();
+  if (projectFiles.length != 0 || filesJsonExported) {
+    Files.find({filesJsonExported}).then(foundFiles => {
+      filesJsonExported.forEach(item => {
+        let index = searchItemInArray(item, newFiles);
+        if (index != -1) {
+          newFiles.splice(index, 1);
+        }
+      });
+    Files.insertMany(newFiles, {ordered: false}).then(filesInserted => {
+      let counter = projectFiles.length;
+      projectFiles.forEach(file => {
+        let path = 'backend/files/' + file.fileName;
+        console.log(path);
+        fs.writeFile(path, file.fileContent, function (err) {
+          if (err) {
+            console.log('printing the error:  ' + err);
+            res.status(500).json({
+              message: 'Adding file ' + file.filename + " failed",
+              error: err
+            })
+          }
+          counter--;
+        });
+      });
+      const timeout = setInterval(function () {
+        if (counter === 0) {
+          clearInterval(timeout);
+        }
+      }, 100);
+    }).catch(foundFilesError => {
+      res.status(500).json({
+        message: 'Something happened while searching for the files',
+        error: foundFilesError
+      });
+    });
+    }).catch(filesError => {
+      //    tempError=true;
+      res.status(500).json({
+        message: 'Something happened while Adding the Files to the database',
+        error: filesError
+      });
+    });
+  }
+}
+
+function addFolders(req, res,oldHostUrl,newHostUrl) {
+  let foldersJsonExported = JSON.parse(JSON.parse(JSON.stringify(req.body.foldersJson)));
+  let newFolders = foldersJsonExported.slice();
+  if (foldersJsonExported) {
+    Folder.find({foldersJsonExported}).then(foundFolders => {
+      foldersJsonExported.forEach(item => {
+        let index = searchItemInArray(item, newFolders);
+        if (index != -1) {
+          newFolders.splice(index, 1);
+        }
+      });
+    Folder.insertMany(newFolders, {ordered: false}).then(foldersResults => {
+        addFiles(req, res, oldHostUrl, newHostUrl);
+    }).catch(foundFoldersError => {
+      res.status(500).json({
+        message: 'Something happened while searching for the folders',
+        error: foundFoldersError
+      });
+    });
+    }).catch(foldersError => {
+      //   tempError=true;
+      res.status(500).json({
+        message: 'Something happened while Adding the Folders',
+        error: foldersError
+      });
+    })
+  }
+}
+
+function addMyOwnJsons(req, res, oldHostUrl, newHostUrl) {
+  let myOwnJsonExported = JSON.parse(JSON.parse(JSON.stringify(req.body.jsonQueries.split(oldHostUrl).join(newHostUrl))));
+  let newMyOwnJsons = myOwnJsonExported.slice();
+  if (myOwnJsonExported) {
+    MyOwnJSON.find({myOwnJsonExported}).then(foundMyOwnJsons => {
+      myOwnJsonExported.forEach(item => {
+        let index = searchItemInArray(item, newMyOwnJsons);
+        if (index != -1) {
+          newMyOwnJsons.splice(index, 1);
+        }
+      });
+    MyOwnJSON.insertMany(newMyOwnJsons, {ordered: false}).then(myOwnJsonResults => {
+        addFolders(req, res, oldHostUrl,newHostUrl);
+    }).catch(foundMyOwnJsonsError => {
+      res.status(500).json({
+        message: 'Something happened while searching for the myOwnJson',
+        error: foundMyOwnJsonsError
+      });
+    });
+    }).catch(myOwnJsonError => {
+      // tempError=true;
+      res.status(500).json({
+        message: 'Something happened while Adding the MyOwnJson',
+        error: myOwnJsonError
+      });
+    });
+  }
+}
+
+function addQueries( req,  res,  oldHostUrl,newHostUrl) {
+  let queriesExported = JSON.parse(JSON.parse(JSON.stringify(req.body.queries.split(oldHostUrl).join(newHostUrl))));
+  let queriesIndices=[];
+  let newQueries = queriesExported.slice();
+  if(queriesExported){
+    queriesExported.forEach(item=>{
+      queriesIndices.push((item._id));
+    });
+  Query.find({_id: {$in: queriesIndices}}).then(foundQueries => {
+    queriesExported.forEach(item => {
+      let index = searchItemInArray(item, newQueries);
+      if (index != -1) {
+        newQueries.splice(index, 1);
+      }
+    });
+    Query.insertMany(newQueries, {ordered: false}).then(queriesInserted => {
+        addMyOwnJsons(req, res, oldHostUrl,newHostUrl);
+    }).catch(foundQueriesError => {
+      res.status(500).json({
+        message: 'Something happened while searching for the queries',
+        error: foundQueriesError
+      });
+    });
+  }).catch(queriesError => {
+    //tempError=true;
+    res.status(500).json({
+      message: 'Something happened while creating the queries',
+      error: queriesError
+    });
+  });
+}
+}
+
+
+function addPages( req, res, oldHostUrl, newHostUrl) {
+  let pagesExported = JSON.parse(JSON.parse(JSON.stringify(req.body.pages.split(oldHostUrl).join(newHostUrl))));
+  Page.insertMany(pagesExported).then(pagesInserted => {
+    addQueries(req, res, oldHostUrl, newHostUrl);
+    return res.status(201).json({
+      message: 'Project created successfully',
+    });
+  }).catch(pagesError => {
+    res.status(500).json({
+      message: 'Something happened while creating the pages',
+      error: pagesError
+    });
+  });
 }
 
 router.post('/createProject/', checkAuth, (req, res, next) => {
+  console.log(req.body);
   let oldHostUrl = req.body.oldHostUrl;
   let newHostUrl = req.protocol + "://" + req.get("host");
   let actionExported = new Action(JSON.parse(JSON.parse(JSON.stringify(req.body.action.split(oldHostUrl).join(newHostUrl)))));
   let pageSetExported = new PageSet(JSON.parse(JSON.parse(JSON.stringify(req.body.pageSet.split(oldHostUrl).join(newHostUrl)))));
-  let pagesExported = JSON.parse(JSON.parse(JSON.stringify(req.body.pages.split(oldHostUrl).join(newHostUrl))));
-  let queriesExported = JSON.parse(JSON.parse(JSON.stringify(req.body.queries.split(oldHostUrl).join(newHostUrl))));
-  let myOwnJsonExported = JSON.parse(JSON.parse(JSON.stringify(req.body.jsonQueries.split(oldHostUrl).join(newHostUrl))));
-  let filesJsonExported = JSON.parse(JSON.parse(JSON.stringify(req.body.filesJson.split(oldHostUrl).join(newHostUrl))));
-  let projectFiles = req.body.projectFiles;
   actionExported.save()
     .then((resultAction) => {
-      //console.log(resultAction);
       Action.updateOne({_id: resultAction._id}, {$set: {creator: req.userData.userId}}).then(updatedAction => {
         pageSetExported.save().then(pageSetResult => {
-          Page.insertMany(pagesExported).then(pagesInserted => {
-            if (queriesExported) {
-              //console.log('queries Exported');
-              //console.log(queriesExported);
-              Query.insertMany(queriesExported).then(queriesInserted => {
-                //console.log('queries Inserted');
-                //console.log(queriesInserted);
-                if (myOwnJsonExported) {
-                 // console.log('myOwnJson Exported');
-                 // console.log(myOwnJsonExported);
-                  MyOwnJSON.insertMany(myOwnJsonExported).then(myOwnJsonResults => {
-                    if (projectFiles.length != 0 || filesJsonExported) {
-                     // console.log('filesJson Exported');
-                      //console.log(filesJsonExported);
-                      Files.insertMany(filesJsonExported).then(filesInserted => {
-                        let counter = projectFiles.length;
-                        projectFiles.forEach(file => {
-                          let path = 'backend/files/' + file.fileName;
-                          console.log(path);
-                          //console.log(file);
-                          fs.writeFile(path, file.fileContent, function (err) {
-                            if (err) {
-                              console.log('printing the error:  ' + err);
-                              res.status(500).json({
-                                message: 'Adding file ' + file.filename + " failed",
-                                error: err
-                              })
-                            }
-                            counter--;
-                          });
-                        });
-                        const timeout = setInterval(function () {
-                          if (counter === 0) {
-                            clearInterval(timeout);
-                          }
-                        }, 100);
-                      }).catch(filesError => {
-                        res.status(500).json({
-                          message: 'Something happened while Adding the Files to the database',
-                          error: filesError
-                        });
-                      });
-                    }
-                  }).catch(myOwnJsonError => {
-                    res.status(500).json({
-                      message: 'Something happened while Adding the MyOwnJson',
-                      error: myOwnJsonError
-                    });
-                  });
-                }
-              })
-                .catch(queriesError => {
-                  res.status(500).json({
-                    message: 'Something happened while creating the queries',
-                    error: queriesError
-                  });
-                });
-            }
-            return res.status(201).json({
-              message: 'Project created successfully',
-            });
-          }).catch(pagesError => {
-            res.status(500).json({
-              message: 'Something happened while creating the pages',
-              error: pagesError
-            });
-          });
-        }).catch(errorPageSet => {
+          addPages( req, res, oldHostUrl, newHostUrl);
+        }).catch(pageSetError => {
           res.status(500).json({
             message: 'Something happened while creating the pageSet',
-            error: errorPageSet
+            error: pageSetError
           });
         });
       }).catch(updateActionError => {
@@ -206,7 +303,7 @@ router.post('/createProject/', checkAuth, (req, res, next) => {
 
 router.post('/reloadProject/', checkAuth, (req, res, next) => {
   console.log(req.body.pageSetId);
-  let pageSet_id= req.body.pageSetId;
+  let pageSet_id = req.body.pageSetId;
   const newAction = new Action({
     title: '',
     description: '',
@@ -217,27 +314,27 @@ router.post('/reloadProject/', checkAuth, (req, res, next) => {
   });
   PageSet.find({_id: pageSet_id}).then(pageSet => {
     console.log(pageSet);
-    Page.findOne({_id: pageSet[0].hasPages[0]}).then(mainPage=>{
+    Page.findOne({_id: pageSet[0].hasPages[0]}).then(mainPage => {
       console.log(mainPage);
-      newAction.title=mainPage.title;
-      newAction.description=mainPage.description;
-      newAction.hasPageSet= pageSet[0]._id;
-      newAction.hasPage=mainPage._id;
-      Page.find({_id: {$in: pageSet[0].hasPages}}).then(allPages =>{
-        let queries=[];
-        if(allPages){
+      newAction.title = mainPage.title;
+      newAction.description = mainPage.description;
+      newAction.hasPageSet = pageSet[0]._id;
+      newAction.hasPage = mainPage._id;
+      Page.find({_id: {$in: pageSet[0].hasPages}}).then(allPages => {
+        let queries = [];
+        if (allPages) {
           console.log(allPages);
-          for(let i=0;i<allPages.length;i++){
-            allPages[i].queries.forEach(query=>{
+          for (let i = 0; i < allPages.length; i++) {
+            allPages[i].queries.forEach(query => {
               queries.push(query);
             });
           }
           console.log(queries);
-          if(queries.length !=0){
-            Query.find({_id:{$in: queries}},{creator:1}).then(creatorResults =>{
+          if (queries.length != 0) {
+            Query.find({_id: {$in: queries}}, {creator: 1}).then(creatorResults => {
               console.log(creatorResults);
-              newAction.creator=creatorResults[0].creator;
-              newAction.save().then(newActionCreated=>{
+              newAction.creator = creatorResults[0].creator;
+              newAction.save().then(newActionCreated => {
                 res.status(201).json({
                   message: 'Action created successfully',
                   action: newActionCreated
@@ -249,7 +346,7 @@ router.post('/reloadProject/', checkAuth, (req, res, next) => {
                   error: newActionError
                 });
               })
-            }).catch(creatorError =>{
+            }).catch(creatorError => {
               console.log(creatorError);
               res.status(500).json({
                 message: 'Error retrieving Creator',
@@ -258,21 +355,21 @@ router.post('/reloadProject/', checkAuth, (req, res, next) => {
             });
           }
         }
-      }).catch(allPagesError=>{
+      }).catch(allPagesError => {
         console.log(allPagesError);
         res.status(500).json({
           message: 'Error retrieving All Pages',
           error: allPagesError
         });
       });
-    }).catch(mainPageError =>{
+    }).catch(mainPageError => {
       console.log(mainPageError);
       res.status(500).json({
         message: 'Error retrieving main Page',
         error: mainPageError
       });
     });
-  }).catch(pageSetErr =>{
+  }).catch(pageSetErr => {
     console.log(pageSetErr);
     res.status(500).json({
       message: 'Error retrieving PageSet',
