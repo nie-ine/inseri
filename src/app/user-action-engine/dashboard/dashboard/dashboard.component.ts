@@ -508,7 +508,7 @@ export class DialogOverviewExampleDialog {
 
   importProjectAsZip($event: Event) {
     const zipFile = (event.target as HTMLInputElement).files[0];
-    let action, pageSet, pages, queries, allFiles, jsonQueries, oldHostUrl, filesJson, foldersJson;
+    let action, pageSet, pages, queries, allFiles, jsonQueries, oldHostUrl, filesJson, foldersJson, comments;
     // const projectFiles = [];
     const projectFiles = new Array<{fileName: string, fileContent: Blob}>();
     let counter = 0;
@@ -524,6 +524,9 @@ export class DialogOverviewExampleDialog {
                 counter--;
               } else if (relativePath === 'pageSet.json') {
                 pageSet = content; // JSON.parse(JSON.parse(JSON.stringify(content)));
+                counter--;
+              } else if (relativePath === 'comments.json') {
+                comments = content; // JSON.parse(JSON.parse(JSON.stringify(content)));
                 counter--;
               } else if (relativePath === 'pages.json') {
                 pages = content; // JSON.parse(JSON.parse(JSON.stringify(content)));
@@ -573,7 +576,9 @@ export class DialogOverviewExampleDialog {
       if (!isFinished && counter === 0) {
         clearInterval(timeout);
         isFinished = true;
-        mainObject.actionService.createProject(action, pageSet, pages, queries, jsonQueries, oldHostUrl, filesJson, foldersJson, projectFiles)
+        console.log('dashboard component printing comments');
+        console.log(comments);
+        mainObject.actionService.createProject(action, pageSet, comments, pages, queries, jsonQueries, oldHostUrl, filesJson, foldersJson, projectFiles)
           .subscribe((actionResult) => {
             if (action.type === 'page-set') {
               mainObject.pageSet = ['pageSet', action._id];

@@ -7,6 +7,7 @@ const Query = require('../models/query');
 const MyOwnJSON = require('../models/myOwnJson');
 const Files = require('../models/files');
 const Folder = require('../models/folder');
+const Comment = require('../models/comment');
 const fs = require('fs');
 const ObjectId = require('mongoose');
 
@@ -116,43 +117,52 @@ if(arrayOfItems.length ==0){
 
 function addFiles(req, res,oldHostUrl, newHostUrl) {
   let filesJsonExported = JSON.parse(JSON.parse(JSON.stringify(req.body.filesJson.split(oldHostUrl).join(newHostUrl))));
+  console.log("filesJsonExported");
+  console.log(filesJsonExported);
   let projectFiles = req.body.projectFiles;
   let newFiles = filesJsonExported.slice();
   if (projectFiles.length != 0 || filesJsonExported) {
     Files.find({filesJsonExported}).then(foundFiles => {
-      filesJsonExported.forEach(item => {
+      foundFiles.forEach(item => {
         let index = searchItemInArray(item, newFiles);
         if (index != -1) {
           newFiles.splice(index, 1);
         }
       });
-    Files.insertMany(newFiles, {ordered: false}).then(filesInserted => {
-      let counter = projectFiles.length;
-      projectFiles.forEach(file => {
-        let path = 'backend/files/' + file.fileName;
-        console.log(path);
-        fs.writeFile(path, file.fileContent, function (err) {
-          if (err) {
-            console.log('printing the error:  ' + err);
-            res.status(500).json({
-              message: 'Adding file ' + file.filename + " failed",
-              error: err
-            })
-          }
-          counter--;
+      if(newFiles.length!=0){
+        console.log("newFilesJson");
+        console.log(newFiles);
+        Files.insertMany(newFiles, {ordered: false}).then(filesInserted => {
+          console.log("files inserted");
+          console.log(filesInserted);
+          let counter = projectFiles.length;
+          projectFiles.forEach(file => {
+            let path = 'backend/files/' + file.fileName;
+            console.log(path);
+            fs.writeFile(path, file.fileContent, function (err) {
+              if (err) {
+                console.log('printing the error:  ' + err);
+                res.status(500).json({
+                  message: 'Adding file ' + file.filename + " failed",
+                  error: err
+                })
+              }
+              console.log(file.fileName||"has been added to the server");
+              counter--;
+            });
+          });
+          const timeout = setInterval(function () {
+            if (counter === 0) {
+              clearInterval(timeout);
+            }
+          }, 100);
+        }).catch(foundFilesError => {
+          res.status(500).json({
+            message: 'Something happened while searching for the files',
+            error: foundFilesError
+          });
         });
-      });
-      const timeout = setInterval(function () {
-        if (counter === 0) {
-          clearInterval(timeout);
-        }
-      }, 100);
-    }).catch(foundFilesError => {
-      res.status(500).json({
-        message: 'Something happened while searching for the files',
-        error: foundFilesError
-      });
-    });
+      }
     }).catch(filesError => {
       //    tempError=true;
       res.status(500).json({
@@ -165,23 +175,31 @@ function addFiles(req, res,oldHostUrl, newHostUrl) {
 
 function addFolders(req, res,oldHostUrl,newHostUrl) {
   let foldersJsonExported = JSON.parse(JSON.parse(JSON.stringify(req.body.foldersJson)));
+  console.log("foldersJsonExported");
+  console.log(foldersJsonExported);
   let newFolders = foldersJsonExported.slice();
   if (foldersJsonExported) {
     Folder.find({foldersJsonExported}).then(foundFolders => {
-      foldersJsonExported.forEach(item => {
+      foundFolders.forEach(item => {
         let index = searchItemInArray(item, newFolders);
         if (index != -1) {
           newFolders.splice(index, 1);
         }
       });
-    Folder.insertMany(newFolders, {ordered: false}).then(foldersResults => {
-        addFiles(req, res, oldHostUrl, newHostUrl);
-    }).catch(foundFoldersError => {
-      res.status(500).json({
-        message: 'Something happened while searching for the folders',
-        error: foundFoldersError
-      });
-    });
+      if(newFolders.length!=0){
+        console.log("newFolders");
+        console.log(newFolders);
+        Folder.insertMany(newFolders, {ordered: false}).then(foldersResults => {
+          console.log("folders inserted");
+          console.log(foldersResults);
+        }).catch(foundFoldersError => {
+          res.status(500).json({
+            message: 'Something happened while searching for the folders',
+            error: foundFoldersError
+          });
+        });
+      }
+      addFiles(req, res, oldHostUrl, newHostUrl);
     }).catch(foldersError => {
       //   tempError=true;
       res.status(500).json({
@@ -194,23 +212,31 @@ function addFolders(req, res,oldHostUrl,newHostUrl) {
 
 function addMyOwnJsons(req, res, oldHostUrl, newHostUrl) {
   let myOwnJsonExported = JSON.parse(JSON.parse(JSON.stringify(req.body.jsonQueries.split(oldHostUrl).join(newHostUrl))));
+  console.log("myOwnJsonExported");
+  console.log(myOwnJsonExported);
   let newMyOwnJsons = myOwnJsonExported.slice();
   if (myOwnJsonExported) {
     MyOwnJSON.find({myOwnJsonExported}).then(foundMyOwnJsons => {
-      myOwnJsonExported.forEach(item => {
+      foundMyOwnJsons.forEach(item => {
         let index = searchItemInArray(item, newMyOwnJsons);
         if (index != -1) {
           newMyOwnJsons.splice(index, 1);
         }
       });
-    MyOwnJSON.insertMany(newMyOwnJsons, {ordered: false}).then(myOwnJsonResults => {
-        addFolders(req, res, oldHostUrl,newHostUrl);
-    }).catch(foundMyOwnJsonsError => {
-      res.status(500).json({
-        message: 'Something happened while searching for the myOwnJson',
-        error: foundMyOwnJsonsError
-      });
-    });
+      console.log( "newMyOwnJsons");
+      console.log(newMyOwnJsons);
+      if(newMyOwnJsons.length!=0){
+        MyOwnJSON.insertMany(newMyOwnJsons, {ordered: false}).then(myOwnJsonResults => {
+          console.log("inserted myOwnJson");
+          console.log(myOwnJsonResults)
+        }).catch(foundMyOwnJsonsError => {
+          res.status(500).json({
+            message: 'Something happened while searching for the myOwnJson',
+            error: foundMyOwnJsonsError
+          });
+        });
+      }
+      addFolders(req, res, oldHostUrl,newHostUrl);
     }).catch(myOwnJsonError => {
       // tempError=true;
       res.status(500).json({
@@ -223,6 +249,8 @@ function addMyOwnJsons(req, res, oldHostUrl, newHostUrl) {
 
 function addQueries( req,  res,  oldHostUrl,newHostUrl) {
   let queriesExported = JSON.parse(JSON.parse(JSON.stringify(req.body.queries.split(oldHostUrl).join(newHostUrl))));
+  console.log("queries exported");
+  console.log(queriesExported);
   let queriesIndices=[];
   let newQueries = queriesExported.slice();
   if(queriesExported){
@@ -230,20 +258,26 @@ function addQueries( req,  res,  oldHostUrl,newHostUrl) {
       queriesIndices.push((item._id));
     });
   Query.find({_id: {$in: queriesIndices}}).then(foundQueries => {
-    queriesExported.forEach(item => {
+    foundQueries.forEach(item => {
       let index = searchItemInArray(item, newQueries);
       if (index != -1) {
         newQueries.splice(index, 1);
       }
     });
-    Query.insertMany(newQueries, {ordered: false}).then(queriesInserted => {
-        addMyOwnJsons(req, res, oldHostUrl,newHostUrl);
-    }).catch(foundQueriesError => {
-      res.status(500).json({
-        message: 'Something happened while searching for the queries',
-        error: foundQueriesError
+    if(newQueries.length!=0){
+      console.log("new Queries");
+      console.log( newQueries);
+      Query.insertMany(newQueries, {ordered: false}).then(queriesInserted => {
+        console.log("queriesInserted");
+        console.log(queriesInserted);
+      }).catch(foundQueriesError => {
+        res.status(500).json({
+          message: 'Something happened while searching for the queries',
+          error: foundQueriesError
+        });
       });
-    });
+    }
+    addMyOwnJsons(req, res, oldHostUrl,newHostUrl);
   }).catch(queriesError => {
     //tempError=true;
     res.status(500).json({
@@ -258,6 +292,8 @@ function addQueries( req,  res,  oldHostUrl,newHostUrl) {
 function addPages( req, res, oldHostUrl, newHostUrl) {
   let pagesExported = JSON.parse(JSON.parse(JSON.stringify(req.body.pages.split(oldHostUrl).join(newHostUrl))));
   Page.insertMany(pagesExported).then(pagesInserted => {
+    console.log("pages inserted");
+    console.log(pagesInserted);
     addQueries(req, res, oldHostUrl, newHostUrl);
     return res.status(201).json({
       message: 'Project created successfully',
@@ -270,6 +306,56 @@ function addPages( req, res, oldHostUrl, newHostUrl) {
   });
 }
 
+function addComments(req, res, oldHostUrl, newHostUrl) {
+  console.log("I am here in add comments");
+  if(req.body.comments){
+    console.log(req.body.comments);
+    let commentsExported= JSON.parse(JSON.parse(JSON.stringify(req.body.comments.split(oldHostUrl).join(newHostUrl))));
+    let newComments = commentsExported.slice();
+    console.log("new comments copied");
+    console.log(newComments);
+    let commentsIndices=[];
+    if(commentsExported){
+      commentsExported.forEach(item=>{
+        commentsIndices.push((item._id));
+      });
+      console.log("comments indices");
+      console.log(commentsIndices);
+      Comment.find({_id: {$in: commentsIndices}}).then(foundComments => {
+        foundComments.forEach(item => {
+          let index = searchItemInArray(item, newComments);
+          if (index != -1) {
+            newComments.splice(index, 1);
+          }
+        });
+        if(newComments.length!=0){
+          console.log("new Comments after update");
+          console.log(newComments);
+          Comment.insertMany(newComments, {ordered: false}).then(commentsInserted => {
+            console.log("comments Inserted");
+            console.log(commentsInserted);
+          }).catch(foundCommentsError => {
+            res.status(500).json({
+              message: 'Something happened while searching for the comments',
+              error: foundCommentsError
+            });
+          });
+        }
+        addPages( req, res, oldHostUrl, newHostUrl);
+      }).catch(commentsError => {
+        res.status(500).json({
+          message: 'Something happened while creating the commetns',
+          error: commentsError
+        });
+      });
+    }
+  }
+  else{
+    addPages( req, res, oldHostUrl, newHostUrl);
+  }
+
+}
+
 router.post('/createProject/', checkAuth, (req, res, next) => {
   console.log(req.body);
   let oldHostUrl = req.body.oldHostUrl;
@@ -278,13 +364,20 @@ router.post('/createProject/', checkAuth, (req, res, next) => {
   let pageSetExported = new PageSet(JSON.parse(JSON.parse(JSON.stringify(req.body.pageSet.split(oldHostUrl).join(newHostUrl)))));
   actionExported.save()
     .then((resultAction) => {
+      console.log("action created");
       Action.updateOne({_id: resultAction._id}, {$set: {creator: req.userData.userId}}).then(updatedAction => {
+        console.log("action updated");
+        console.log("pageSet Exported");
+        console.log(pageSetExported);
         pageSetExported.save().then(pageSetResult => {
-          addPages( req, res, oldHostUrl, newHostUrl);
+          console.log("pageSet created");
+          console.log(pageSetResult);
+          addComments( req,res, oldHostUrl, newHostUrl);
         }).catch(pageSetError => {
           res.status(500).json({
             message: 'Something happened while creating the pageSet',
-            error: pageSetError
+            error: pageSetError,
+            newMessage: 'a problem with the pageSet'
           });
         });
       }).catch(updateActionError => {
