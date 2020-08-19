@@ -32,5 +32,10 @@
 :host /deep/ .groupedBarChartTooltip {
   position: fixed;
   display: none;
+  text-align: center;
   z-index: 4;
+}
+
+:host /deep/ .groupedBarChartTooltipLabel {
+  font-weight: bold;
 }

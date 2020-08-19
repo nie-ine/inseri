@@ -15,9 +15,10 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
   @Input() numberOfInitialisedComponent: number;
   @Input() data: any;
   alreadyInitialised = false;
-  // mouseOverData: any = {};
   width: number;
   timestamp = Math.floor(Date.now() / 1000);
+  private posX: number;
+  private posY: number;
 
   constructor() {
   }
@@ -166,10 +167,6 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
       .attr('text-anchor', 'start');
 
     // define tooltip
-    // var tooltip = d3.select('.' + this.generateComponentDivClass( 'groupedBarChart' ))
-    // const tooltip = d3.select('.groupedBarChartTooltip')
-
-    // define tooltip
     const tooltip = d3.select('#chart_' + this.numberOfInitialisedComponent)
       .append('div')
       .attr('class', 'groupedBarChartTooltip');
@@ -183,24 +180,21 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
     const barPart = svgChart.selectAll('.barPart');
 
     barPart.on('mouseover', (d) => {
-      tooltip.select('.groupedBarChartTooltipLabel').html('Group: ' + d.key);
-      tooltip.select('.groupedBarChartTooltipCount').html('Value: ' + d.value);
-      tooltip.style('display', 'block')
-        .style('left', (d3.event.pageX) + 'px')
-        .style('top', (d3.event.pageY - 50) + 'px');
-      // console.log( d.key, d.value );
-      // this.mouseOverData.key = d.key;
-      // this.mouseOverData.value = d.value;
-    });
-
-    barPart.on('mouseout', () => {
-      // this.mouseOverData = {};
-      tooltip.style('display', 'none');
+      tooltip.select('.groupedBarChartTooltipLabel').html(d.key);
+      tooltip.select('.groupedBarChartTooltipCount').html(d.value);
+      tooltip.style('display', 'block');
     });
 
     barPart.on('mousemove', (d) => {
-      tooltip.style('top', (d3.event.pageY) - 50 + 'px')
-        .style('left', (d3.event.pageX) + 'px');
+      this.posX = d3.event.pageX;
+      this.posY = d3.event.pageY;
+      // console.log('x/y: ' + this.posX + '/' + this.posY);
+      tooltip.style('left', (this.posX + 15) + 'px')
+        .style('top', (this.posY - 80) + 'px');
+    });
+
+    barPart.on('mouseout', () => {
+      tooltip.style('display', 'none');
     });
 
     const legend = svgLegend.append('g')
@@ -284,7 +278,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
       })
         .transition()
         .attr('x', function(d) {
-          return (+d3.select(this).attr('x')) + (+d3.select(this).attr('width'))/2;
+          return (+d3.select(this).attr('x')) + (+d3.select(this).attr('width')) / 2;
         })
         .attr('height', 0)
         .attr('width', 0)
