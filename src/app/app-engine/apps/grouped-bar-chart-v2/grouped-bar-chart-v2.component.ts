@@ -1,4 +1,4 @@
-import {AfterViewChecked, Component, Input, OnInit} from '@angular/core';
+import {AfterViewChecked, Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import * as d3 from 'd3-selection';
 import * as d3Scale from 'd3-scale';
 import * as d3Array from 'd3-array';
@@ -14,17 +14,17 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
   @Input() initialised = false;
   @Input() numberOfInitialisedComponent: number;
   @Input() data: any;
-  private x: number;
-  private y: number;
   alreadyInitialised = false;
   // mouseOverData: any = {};
   width: number;
+  timestamp = Math.floor(Date.now() / 1000);
+
   constructor() {
   }
 
-  generateComponentDivClass( name: string ) {
-    return name + this.numberOfInitialisedComponent;
-  }
+  // generateComponentDivClass( name: string ) {
+  //   return name + this.numberOfInitialisedComponent;
+  // }
 
   ngAfterViewChecked() {
     // console.log( this.numberOfInitialisedComponent, this.data );
@@ -41,7 +41,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
   }
 
   drawD3( data: Array<any>, width?: number ) {
-
+    console.log('INITIALISED: ' + this.numberOfInitialisedComponent);
     // setting svg chart dimensions
     this.width = width !== undefined ? width : this.data.data.length * 100;
     // const height = +d3.select('.' + this.generateComponentDivClass( 'groupedBarChart' )).attr("height");
@@ -65,8 +65,10 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
     const legendRectSize = 25;
     const legendSpacing = 6;
 
+
+
     // selecting the #yaxis
-    const svgYaxis = d3.select('#yaxis')
+    const svgYaxis = d3.select('#yaxis_' + this.numberOfInitialisedComponent)
       .append('svg')
       .attr('width', 50)
       .attr('height', height + margin.top + margin.bottom)
@@ -74,7 +76,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')'); // translate along x-axis and y-axis
 
     // selecting the #chart
-    const svgChart = d3.select('#chart')
+    const svgChart = d3.select('#chart_' + this.numberOfInitialisedComponent)
       .append('svg') // appending an <svg> element
       .attr('width', width + margin.left + margin.right)
       .attr('height', height + margin.top + margin.bottom)
@@ -82,7 +84,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
     // selecting the #legend
-    const svgLegend = d3.select('#legend')
+    const svgLegend = d3.select('#legend_' + this.numberOfInitialisedComponent)
       .append('svg') // appending an <svg> element
       .attr('width', 650 + margin.left + margin.right) // setting its width
       .attr('height', 200 + margin.top + margin.bottom) // setting its height
@@ -168,7 +170,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
     // const tooltip = d3.select('.groupedBarChartTooltip')
 
     // define tooltip
-    const tooltip = d3.select('#chart')
+    const tooltip = d3.select('#chart_' + this.numberOfInitialisedComponent)
       .append('div')
       .attr('class', 'groupedBarChartTooltip');
 
@@ -181,8 +183,8 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
     const barPart = svgChart.selectAll('.barPart');
 
     barPart.on('mouseover', (d) => {
-      tooltip.select('.groupedBarChartTooltipLabel').html(d.key);
-      tooltip.select('.groupedBarChartTooltipCount').html(d.value);
+      tooltip.select('.groupedBarChartTooltipLabel').html('Group: ' + d.key);
+      tooltip.select('.groupedBarChartTooltipCount').html('Value: ' + d.value);
       tooltip.style('display', 'block')
         .style('left', (d3.event.pageX) + 'px')
         .style('top', (d3.event.pageY - 50) + 'px');
