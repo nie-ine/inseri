@@ -15,8 +15,9 @@
 <app-calendar
   *ngIf="app.type === 'calendar'"
   [calendarData]="app.calendarData"
-  [anotherInput]="{ test: 'test' }">
-
+  [anotherInput]="{
+    test: 'test'
+  }">
 </app-calendar>
 
 <app-gnd-lobid *ngIf="app.type === 'gndSubscriber'">

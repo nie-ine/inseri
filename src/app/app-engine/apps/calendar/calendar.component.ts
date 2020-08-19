@@ -6,12 +6,15 @@ import {AuthService} from '../../../user-action-engine/mongodb/auth/auth.service
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss']
 })
+
+
 export class CalendarComponent implements OnInit, OnChanges {
   @Input() calendarData: string;
   @Input() anotherInput: any;
   countArray: Array<any> = [];
   inputForApp = 'First input';
   userFirstName: string;
+
   constructor(
     private authService: AuthService
   ) { }
@@ -23,7 +26,7 @@ export class CalendarComponent implements OnInit, OnChanges {
     }
     // console.log( this.countArray );
     setTimeout(() => {
-      this.inputForApp = 'new input';
+      this.inputForApp = this.anotherInput.test;
     }, 1000);
     this.myFirstFunction( 'test' );
   }
