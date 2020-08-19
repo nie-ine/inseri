@@ -10,15 +10,15 @@
            matSort
            [matSortDisabled] ="this.dataListTableSettings.sort.disallowSorting"
            [multiTemplateDataRows]="true">
-  <ng-container *ngFor="let col of displayedColumns; let i = index" [cdkColumnDef]="col" [sticky]="isColumnSticky(i)">
-    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{col}}</mat-header-cell>
+  <ng-container *ngFor="let col of definedColumns; let i = index" [cdkColumnDef]="col.columnPath" [sticky]="isColumnSticky(i)">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{col.columnName}}</mat-header-cell>
     <mat-cell *cdkCellDef="let row; let i = $implicit;"
               [ngStyle]= "dataListTableSettings.styles.cellStyle"
-              (click)="onThisClick(row[col], i)"
+              (click)="onThisClick(row[col.columnPath], i)"
               [ngClass]="col">
       <!-- SETTING [ngClass]="col" enables to define styles for each column, setting it to row[col].value will enable to define a style for certain cell content -->
-      <span *ngIf="row[col]">
-        <span [innerHTML]="row[col].value" ></span>
+      <span *ngIf="row[col.columnPath]">
+        <span [innerHTML]="row[col.columnPath].value" ></span>
         </span>
       <!--        {{ showValue(row, col) }} &lt;!&ndash; | highlight: toHighlightByFilter &ndash;&gt;-->
     </mat-cell>
