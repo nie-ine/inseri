@@ -30,6 +30,7 @@ export class DataListViewComponent implements OnChanges {
   }
 
   ngOnChanges() {
+    console.log(this.queryResponse);
     this.dataListSettingsOut = this.dataListSettings;
     this.onGetData();
   }
@@ -40,15 +41,7 @@ export class DataListViewComponent implements OnChanges {
       dataArray = responseData.results.bindings; } else {
       // returns the array at the node defined by pathToArray variable (path string with dot notation)
       dataArray =  this.dataListSettingsOut.pathToDataArray.split('.').reduce((a, b) => a[b], responseData); }
-    if (this.dataListSettingsOut.columns.genericColumns ) {
       this.createGenericData(dataArray);
-    } else {
-      let length = -1;
-      for (const entry of dataArray) {
-        length += 1;
-        this.appendEntryToTabledata(entry, 0, length);
-      }
-    }
   }
 
   createGenericData(dataArray: Array<any>) {
@@ -64,6 +57,7 @@ export class DataListViewComponent implements OnChanges {
 
   }
 
+  /*
   appendEntryToTabledata(ResponseEntry: any, depth: number, length: number, pathCompare?: Array<string>) {
     // recursive method for getting the actual values from nested jsons
     // and appending them to the tabledata. Allowed values are strings,
@@ -95,6 +89,7 @@ export class DataListViewComponent implements OnChanges {
     }
   }
 
+*/
 
   flattenAndAssignObjects(input, length, reference?, output?) {
     // FLATTENS the objects completely and assigns the result to generatedData.

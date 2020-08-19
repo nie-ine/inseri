@@ -593,8 +593,31 @@ export class OpenAppsModel {
       model: [],
       inputs: [
         {
-          'inputName': 'json'
+          'inputName': 'json',
+          default: {
+          "head": {
+            "vars": [
+              "column1",
+              "column2"
+            ]
+          },
+          "results": {
+            "bindings": [
+              {
+                "column1": {
+                  "type": "literal",
+                  "value": "please change the input of the app."
+                },
+                "column2": {
+                  "type": "literal",
+                  "value": "app menu --> file options, json."
+                }
+              }
+            ]
+            }
+          }
         },
+
         {
           'inputName': 'settings',
           default:   {
