@@ -12,15 +12,26 @@ export class DisplayedCollumnsService {
     this.displayedColumnsChange = new EventEmitter<Array<any>>();
   }
 
+  public createColumns(columns: Array<string>) {
+    const dispColumns = [];
+    columns.forEach(colDef => {
+      const column = new DataHeader(colDef, colDef);
+      dispColumns.push(column);
+    });
+    return dispColumns;
+  }
+
   public setInitialDisplayedColumns(dataListSettings, data?) {
     let displayedColumns: Array<any> = [];
     if (dataListSettings.columns.genericColumns) {
       if (dataListSettings.jsonType === 'sparql') {
-        this.setDisplayedColumns(data.head.vars);
+        displayedColumns = this.createColumns(data.head.vars);
+        this.setDisplayedColumns(displayedColumns);
       } else {
         // gets the data array from a given path string pathToDataArray
         const dataArray = dataListSettings.pathToDataArray.split('.').reduce((a, b) => a[b], data);
-        displayedColumns = this.generateDisplayedColumnsFromData(dataArray);
+        const distinctColumns = this.generateDisplayedColumnsFromData(dataArray);
+        displayedColumns = this.createColumns(distinctColumns);
         this.originalDisplayedColumns = displayedColumns;
         this.setDisplayedColumns(displayedColumns);
         }
@@ -28,7 +39,8 @@ export class DisplayedCollumnsService {
     } else {
       for (const column of dataListSettings.columns.columnMapping) {
         if (column.displayed === true) {
-          displayedColumns.push(column.name);
+          const col = new DataHeader(column.name, column.path );
+          displayedColumns.push(col);
         }
       }
       this.originalDisplayedColumns = displayedColumns;
@@ -60,7 +72,9 @@ export class DisplayedCollumnsService {
         colName = reference + '.' + propName; } else { colName = propName; }
       const p = input[propName];
       if (typeof p === 'object' && p !== null) {
-        this.collectColumns(p, colName); } else { this.displayedColumnsSet.add(colName); }
+        this.collectColumns(p, colName); } else {
+          this.displayedColumnsSet.add(colName);
+      }
     });
   }
 }
@@ -74,5 +88,15 @@ export class DataCell {
     this.value = value;
     this.type = type;
     this.link = link;
+  }
+}
+
+export class DataHeader {
+  columnName: string;
+  columnPath: string;
+
+  constructor(columnName, columnPath) {
+    this.columnName = columnName;
+    this.columnPath = columnPath;
   }
 }

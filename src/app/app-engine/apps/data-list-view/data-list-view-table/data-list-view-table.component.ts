@@ -17,8 +17,9 @@ import {Router} from '@angular/router';
 export class DataListViewTableComponent implements OnChanges {
   @Input() dataListTableSettings?: any;
   @Input() dataToDisplay: any;
-  @Input() displayedColumns?: any;
+  @Input() definedColumns?: any;
   @Output() reloadVariables: EventEmitter<any> = new EventEmitter<any>();
+  displayedColumns: any[];
 
   @ViewChild(MatTable) table: MatTable<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -39,6 +40,10 @@ export class DataListViewTableComponent implements OnChanges {
   }
 
   ngOnChanges() {
+
+    if (this.definedColumns) {this.displayedColumns = this.definedColumns.map(col => col.columnPath);
+    ;}
+
     this.populateByDatastream();
     this.setFilter();
   }
@@ -73,7 +78,7 @@ export class DataListViewTableComponent implements OnChanges {
 
 public replaceUmlaute(input) {
   for (const i of this.UMLAUT_REPLACEMENTS) {
-    console.log(i[0], i[1]);
+    // console.log(i[0], i[1]);
     input = input.replace(i[0], i[1]);
     }
     // console.log(input);
@@ -116,9 +121,9 @@ public replaceUmlaute(input) {
       // so the object property value is compared by filtering and not the object itself.
       for (const column of this.dataListTableSettings.columns.columnMapping) {
         if (column.filtered) {
-          if (data[column]) {
-            if ('value' in data[column]) {
-              dataStr = dataStr + data[column.name].value;
+          if (data[column.path]) {
+            if ('value' in data[column.path]) {
+              dataStr = dataStr + data[column.path].value;
             }
           }
           }
@@ -253,10 +258,15 @@ private isColumnSticky(column: number): boolean {
   }
 
   getSumOfDisplayedEntries() {
-    if (this.paginator.pageSize > this.dataSource.data.length) {
-      return this.dataSource.data.length;
-    } else { return this.paginator.pageSize; }
+    if (this.dataSource.filter) {
+      return this.dataSource.filteredData.length;
+    } else {
+      if (this.paginator.pageSize > this.dataSource.data.length) {
+        return this.dataSource.data.length;
+      } else { return this.paginator.pageSize; }
+    }
   }
+
 }
 // TODO: highlighting filter results in cells by pipe
 @Pipe({ name: 'highlight' })

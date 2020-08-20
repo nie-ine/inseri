@@ -3,6 +3,6 @@
 <div *ngIf="tableData && dataListSettingsOut && displayedColumns">
   <data-list-view-table [dataToDisplay] = "tableData"
                         [dataListTableSettings] = "dataListSettingsOut"
-                        [displayedColumns] = "displayedColumns">
+                        [definedColumns]="displayedColumns">
   </data-list-view-table>
 </div>
