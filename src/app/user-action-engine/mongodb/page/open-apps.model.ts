@@ -48,7 +48,13 @@ export class OpenAppsModel {
       model: [],
       materialIcon: 'folder',
       initialWidth: '375',
-      initialHeight: '350'
+      initialHeight: '350',
+      inputs: [
+        {
+          'inputName': 'folderPath',
+          default: undefined
+        }
+      ],
     },
     urlParamUpdater: {
       type: 'urlParamUpdater',

@@ -53,7 +53,8 @@ export class UrlParamUpdaterComponent implements OnChanges {
       this.appInputQueryMapping[ this.hash ][ 'textFile' ][ 'serverUrl' ]
         .split('/')[ 6 ], {
         [this.hash]: {
-          textFile: this.textFile
+          textFile: this.textFile,
+          param: this.param
         }
       }
       )

@@ -86,32 +86,6 @@
             <button mat-menu-item (click)="undoPublishTemplate()" (click)="page.publishedAsTemplate = false">Undo</button>
           </mat-menu>
 
-          <button style="float: right; margin-top: 4px;"
-                  mat-button [matMenuTriggerFor]="menu1"
-                  *ngIf=" (!pageAsDemo) && !preview && !page.tiles"><mat-icon>settings</mat-icon></button>
-          <mat-menu #menu1="matMenu">
-            <button mat-menu-item (click)="goToDashBoard()" *ngIf=" (!pageAsDemo) && !preview">
-              <mat-icon matTooltip="back to dashboard">home</mat-icon> Dashboard
-            </button>
-            <button mat-menu-item (click)="goToPageSet()" *ngIf="route.snapshot.queryParams.page" >
-              <mat-icon matTooltip="Table of content">list</mat-icon> Table of content
-            </button>
-            <button mat-menu-item *ngIf=" (!pageAsDemo) && !preview" (click)="updatePage()" >
-              <mat-icon  matTooltip="save page">save</mat-icon> Save Page
-            </button>
-            <button mat-menu-item *ngIf=" (!pageAsDemo) && !preview" (click)="openDataManagement()" >
-              <mat-icon matTooltip="page data manager">zoom_out_map</mat-icon> Data management
-            </button>
-            <button mat-menu-item *ngIf=" (!pageAsDemo) && !preview" (click)="updateTilePage()" >
-              <mat-icon matTooltip="page data manager">dashboard</mat-icon> Windows or Tiles
-            </button>
-            <button mat-menu-item *ngIf=" (!pageAsDemo) && !preview" (click)="showResponsiveWidthMenu = !showResponsiveWidthMenu" >
-              <mat-icon matTooltip="page data manager">linear_scale</mat-icon> Tiles - Width: {{ page.chosenWidth }} px
-            </button>
-            <button mat-menu-item *ngIf=" (!pageAsDemo) && !preview" (click)="logout()" >
-              <mat-icon matTooltip="{{ 'click to logout - ' + userInfo }}">lock_open</mat-icon> Log out
-            </button>
-          </mat-menu>
 
           <button mat-button style="float: right; margin-top: 4px;"
                   *ngIf="pageIsPublished && loggedIn"
@@ -311,7 +285,7 @@
         </button>
 
         <button mat-menu-item (click)="appMenu( app, 'fileOptions' )">
-          File Options
+          App Input Options
         </button>
 
         <button mat-menu-item (click)="appMenu( app, 'showDescription' )">
@@ -373,7 +347,10 @@
               <mat-icon matTooltip="back to dashboard" style="margin-right: 10px">home</mat-icon> Dashboard
             </button> <br>
             <button mat-button *ngIf=" (!pageAsDemo) && !preview" (click)="updatePage()" >
-              <mat-icon  matTooltip="save page" style="margin-right: 10px">save</mat-icon> Save Page
+            <mat-icon  matTooltip="save page" style="margin-right: 10px">save</mat-icon> Save Page
+          </button> <br>
+            <button mat-button *ngIf=" (!pageAsDemo) && !preview" (click)="reloadVariablesFunction()" >
+              <mat-icon style="margin-right: 10px">update</mat-icon> Reload Page
             </button>
             <div *ngFor="let app of appMenuModel" >
               <button mat-button *ngIf="app.appGroup === 'admin'" (click)="addAnotherApp(app.appType, true, app.appType)">

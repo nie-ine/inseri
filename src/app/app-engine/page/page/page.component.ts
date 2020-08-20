@@ -568,7 +568,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
         delete this.page.appInputQueryMapping[ mapping ];
       }
     }
-    console.log( this.page );
+    // console.log( this.page );
     this.pageService.updatePage(
       { ...this.page }
       )
@@ -902,11 +902,13 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * after the user chooses a data entry and triggers the data assignment component
    * */
   updateMainResourceIndex( input: any ) {
-    console.log( input );
+    // console.log( input );
     this.index = input.index;
     this.response = input.response;
     this.queryId = input.queryId;
+    this.cdr.detectChanges();
     this.depth = input.depth;
+    this.cdr.detectChanges();
     this.pathWithArray = input.pathWithArray;
     const dataAssignmentComponent = new DataAssignmentComponent();
     // console.log( this.index, input );
@@ -1202,7 +1204,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   reloadVariablesFunction() {
-    console.log('test');
+    // console.log('test');
     this.updatePage( true );
   }
 
