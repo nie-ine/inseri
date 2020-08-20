@@ -96,7 +96,7 @@ export class DataChooserComponent implements AfterViewChecked {
           this.chooseResource( Number( this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ] ) );
         }
       }, 50);
-    } else if ( !this.alreadyEmitted ) {
+    } else if ( !this.alreadyEmitted && this.pathWithArray ) {
       // console.log( 'not already emitted', this._route.snapshot.queryParams, this.queryId, this.pathWithArray );
       this.alreadyEmitted = true;
       this.chooseResource( Number( this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ] ) || 0 );
@@ -104,7 +104,7 @@ export class DataChooserComponent implements AfterViewChecked {
   }
 
   chooseResource(index: number) {
-    console.log( index );
+    // console.log( index );
     if ( this.dataChooserEntries ) {
       this.chosenEntry = this.dataChooserEntries[ index ];
     }

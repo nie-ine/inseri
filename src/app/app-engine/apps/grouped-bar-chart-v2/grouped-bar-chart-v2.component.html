@@ -1,25 +1,27 @@
+<!--<div>-->
+<!--  <div>-->
+<!--    <label for="scaleBar">Scale</label>-->
+<!--  </div>-->
+<!--  <div>-->
+<!--    <mat-slider-->
+<!--      id="scaleBar"-->
+<!--      min="0"-->
+<!--      max="1000"-->
+<!--      step="50"-->
+<!--      value="{{this.chartWidth}}">-->
+<!--    </mat-slider>-->
+<!--  </div>-->
+<!--</div>-->
 <div>
-  <div id="legend_container">
-    <div id="legend">
+  <div class="legend_container">
+    <div class="legend" id="{{ 'legend_' + this.numberOfInitialisedComponent }}">
     </div>
   </div>
-  <div id="chart_container">
-    <div id="yaxis">
+  <div class="chart_container">
+    <div class="yaxis" id="{{ 'yaxis_' + this.numberOfInitialisedComponent }}">
     </div>
-    <div id="chart">
+    <div class="chart" id="{{ 'chart_' + this.numberOfInitialisedComponent }}">
     </div>
   </div>
 </div>
 
-<!--<div style="margin-top: 30px; align-content: center">-->
-
-<!--  <div class="{{ generateComponentDivClass( 'groupedBarChartlegend' ) }}" width="600" height="200">-->
-<!--  </div>-->
-
-<!--  <div class="{{ generateComponentDivClass( 'groupedBarChart' ) }}" width="60000" height="500" style="overflow: auto">-->
-<!--  </div>-->
-<!--  <div *ngIf="mouseOverData.key !== undefined"-->
-<!--       [ngStyle]="{'position': 'fixed', 'top': y + 'px', 'left': x + 'px'}">-->
-<!--    {{ mouseOverData?.key + ', ' + mouseOverData?.value }}-->
-<!--  </div>-->
-<!--</div>-->

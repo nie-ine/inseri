@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../../environments/environment';
 import {FolderService} from '../../../user-action-engine/mongodb/folder/folder.service';
@@ -28,7 +28,10 @@ import {QueryModel} from '../../../user-action-engine/mongodb/query/query.model'
   templateUrl: './my-files.component.html',
   styleUrls: ['./my-files.component.scss']
 })
-export class MyFilesComponent implements OnInit {
+export class MyFilesComponent implements OnInit, OnChanges {
+  @Input() folderPath: string;
+  @Input() appInputQueryMapping: string;
+  @Input() hash: string;
   openAppArray = [];
   public demoForm: FormGroup;
   private fileUrlPath: string;
@@ -181,6 +184,14 @@ appInputsArray = [];
         this.fileId = null;
       }
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log( this.folderPath );
+    if ( this.folderPath ) {
+      this.mainFolder_id = this.folderPath;
+      this.showFolders();
+    }
   }
 
   showForm(form: string) {
@@ -675,7 +686,7 @@ appInputsArray = [];
       alert('You cannot rename a file with a name already in the file List, try changing it with another name.');
       return;
     }
-    console.log(this.fileDetailsId, newFileTitle, this.fileDescription, this.fileContent);
+    // console.log(this.fileDetailsId, newFileTitle, this.fileDescription, this.fileContent);
     this.fileService.updateFile(this.fileDetailsId, newFileTitle, this.fileDescription, this.fileContent, this.fileUrlPath)
       .subscribe(response => {
         const file = response.file;
@@ -771,9 +782,19 @@ appInputsArray = [];
 
   }
   printFoldersTitle() {
-    console.log('The Folder Path is: ', this.breadCrumbArray.length );
-    const titles = [];
-    this.breadCrumbArray.forEach(item => titles.push(item.title));
-    console.log(titles);
+    console.log('Current folder: ', this.mainFolder_id );
+    this.requestService.updateFile(
+      this.appInputQueryMapping[ this.hash ][ 'folderPath' ][ 'serverUrl' ].split('/')[ 6 ],
+      {
+        [this.hash]: {
+          folderPath: this.mainFolder_id
+        }
+      }
+    )
+      .subscribe(
+        data => {
+          console.log( data );
+        }, error => console.log( error )
+      );
   }
 }

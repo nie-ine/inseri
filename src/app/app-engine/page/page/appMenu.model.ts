@@ -32,7 +32,7 @@ export class AppMenuModel {
       showOnHome: false,
       appGroup: 'add'
     },
-    {
+/*    {
       id: 'calendar_today',
       name: 'Calendar App',
       tags: 'admin',
@@ -42,7 +42,7 @@ export class AppMenuModel {
       description: 'Your calendar',
       showOnHome: false,
       appGroup: 'add'
-    },
+    },*/
     {
       id: 'input',
       name: 'Json Environment ',
@@ -120,17 +120,17 @@ export class AppMenuModel {
     //   showOnHome: false,
     //   appGroup: 'visualise'
     // },
-    {
-      id: 'view_week',
-      name: 'Parzival - Fassung',
-      tags: 'synopsis, text, version',
-      color: 'green',
-      status: 'stable',
-      appType: 'parzivalFassung',
-      description: 'Project specific App for the Parzival Project - Open more than one app of this type to test it!',
-      showOnHome: false,
-      appGroup: 'visualise'
-    },
+    // {
+    //   id: 'view_week',
+    //   name: 'Parzival - Fassung',
+    //   tags: 'synopsis, text, version',
+    //   color: 'green',
+    //   status: 'stable',
+    //   appType: 'parzivalFassung',
+    //   description: 'Project specific App for the Parzival Project - Open more than one app of this type to test it!',
+    //   showOnHome: false,
+    //   appGroup: 'visualise'
+    // },
     // {
     //   id: 'turned_in',
     //   name: 'AVP-Edition',

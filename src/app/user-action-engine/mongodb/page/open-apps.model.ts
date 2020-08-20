@@ -20,15 +20,15 @@ export class OpenAppsModel {
         }
       ],
       materialIcon: 'image',
-      initialWidth: '375',
-      initialHeight: '350'
+      initialWidth: '800',
+      initialHeight: '500'
     },
     textViewer: {
       type: 'textViewer',
       model: [],
       materialIcon: 'short_text',
-      initialWidth: '375',
-      initialHeight: '350'
+      initialWidth: '600',
+      initialHeight: '400'
     },
     commentOnIndices: {
       type: 'commentOnIndices',
@@ -46,9 +46,15 @@ export class OpenAppsModel {
     myFiles: {
       type: 'myFiles',
       model: [],
-      materialIcon: 'folder',
-      initialWidth: '375',
-      initialHeight: '350'
+      materialIcon: 'menu',
+      initialWidth: '450',
+      initialHeight: '600',
+      inputs: [
+        {
+          'inputName': 'folderPath',
+          default: undefined
+        }
+      ],
     },
     urlParamUpdater: {
       type: 'urlParamUpdater',
@@ -63,9 +69,10 @@ export class OpenAppsModel {
           default: 'Please paste variable here and click save afterwards'
         }
       ],
-      materialIcon: 'lead_add',
+      materialIcon: 'menu',
       initialWidth: '375',
-      initialHeight: '350'
+      initialHeight: '100',
+      fullWidth: true,
     },
     openbisLogin: {
       type: 'openbisLogin',
@@ -224,8 +231,8 @@ export class OpenAppsModel {
         }
       ],
       materialIcon: 'format_paint',
-      initialWidth: '375',
-      initialHeight: '350'
+      initialWidth: '800',
+      initialHeight: '500'
     },
     youtubeVideo: {
       type: 'youtubeVideo',
@@ -277,7 +284,8 @@ export class OpenAppsModel {
       model: [],
       materialIcon: 'bar_chart',
       initialWidth: '600',
-      initialHeight: '350',
+      initialHeight: '800',
+      fullWidth: true,
       inputs: [
         {
           'inputName': 'data',
@@ -385,7 +393,8 @@ export class OpenAppsModel {
       model: [],
       materialIcon: 'pie_chart',
       initialWidth: '375',
-      initialHeight: '350',
+      initialHeight: '600',
+      fullWidth: true,
       inputs: [
         {
           'inputName': 'data',
@@ -543,8 +552,8 @@ export class OpenAppsModel {
           }
         ],
       materialIcon: 'add_photo_alternate',
-      initialWidth: '375',
-      initialHeight: '350'
+      initialWidth: '800',
+      initialHeight: '500'
     },
     jsonViewer: {
       type: 'jsonViewer',
@@ -682,8 +691,9 @@ export class OpenAppsModel {
       ],
       materialIcon: 'view_list',
       initialWidth: '375',
-      initialHeight: '350'
-
+      initialHeight: '500',
+      fullWidth: true,
+      fullHeight: true
     },
     parzivalFassung: {
       type: 'parzivalFassung',
@@ -745,8 +755,8 @@ export class OpenAppsModel {
         }
       ],
       materialIcon: 'aspect_ratio',
-      initialWidth: '375',
-      initialHeight: '350'
+      initialWidth: '800',
+      initialHeight: '500'
     },
     joinedTextView: {
       type: 'joinedTextView',
@@ -785,9 +795,9 @@ export class OpenAppsModel {
     pageMenu: {
       type: 'pageMenu',
       model: [],
-      materialIcon: 'settings',
-      initialWidth: '375',
-      initialHeight: '350'
+      materialIcon: 'menu',
+      initialWidth: '450',
+      initialHeight: '450'
     },
     sparqlVisualizer: {
       type: 'sparqlVisualizer',
@@ -795,6 +805,8 @@ export class OpenAppsModel {
       materialIcon: 'drag_indicator',
     initialWidth: '375',
     initialHeight: '350',
+    fullWidth: true,
+    fullHeight: true,
       inputs: [
         {
           'inputName': 'url'
@@ -854,8 +866,8 @@ export class OpenAppsModel {
       type: 'primeEditor',
       model: [],
       materialIcon: 'format_size',
-      initialWidth: '375',
-      initialHeight: '350',
+      initialWidth: '800',
+      initialHeight: '500',
       inputs: [
         {
           'inputName': 'textFile',
@@ -867,8 +879,8 @@ export class OpenAppsModel {
       type: 'spreadSheet',
       model: [],
       materialIcon: 'table_chart',
-      initialWidth: '375',
-      initialHeight: '350'
+      initialWidth: '800',
+      initialHeight: '500'
     },
     urlUpdate: {
       type: 'urlUpdate',

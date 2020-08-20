@@ -52,6 +52,7 @@ export class FileService {
   }
 
   getFileByUrl(url: string) {
+    console.log( url );
     return this.http.get<{ _id: string; title: string; description: string, content: string, urlPath: string }>(
       `${FileService.API_BASE_URL_FILES}` + '/getFileByUrl/' + encodeURIComponent(url)
     );

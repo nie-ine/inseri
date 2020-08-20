@@ -5,33 +5,37 @@
   fill: transparent !important;
 }
 
-:host /deep/ #legend_container {
+:host /deep/ .legend_container {
   position: relative;
 }
 
-:host /deep/ #legend {
+:host /deep/ .legend {
   position: relative;
 }
 
-:host /deep/ #chart_container {
+:host /deep/ .chart_container {
   position: relative;
 }
 
-:host /deep/ #yaxis {
+:host /deep/ .yaxis {
   position: absolute;
   float: left;
   z-index: 3;
 }
 
-:host /deep/ #chart {
+:host /deep/ .chart {
   position: relative;
   overflow-x: auto;
 }
 
 /* tooltip */
 :host /deep/ .groupedBarChartTooltip {
-  position: fixed;
+  position: absolute;
   display: none;
   text-align: center;
   z-index: 4;
+}
+
+:host /deep/ .groupedBarChartTooltipLabel {
+  font-weight: bold;
 }
