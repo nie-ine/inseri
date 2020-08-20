@@ -616,8 +616,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
       appModel[ length ].hash = this.generateHashService.generateHash();
       appModel[ length ].type = appType;
       appModel[ length ].title = appType;
-      appModel[ length ].fullWidth = false;
-      appModel[ length ].fullHeight = false;
+      appModel[ length ].fullWidth = this.openAppsInThisPage[ appType ].fullWidth;
+      appModel[ length ].fullHeight = this.openAppsInThisPage[ appType ].fullHeight;
       appModel[ length ].initialized = true;
       appModel[ length ].x = 100;
       appModel[ length ].y = 100;
@@ -627,6 +627,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
       appModel[ length ].height = this.openAppsInThisPage[ appType ].initialHeight;
       appModel[ length ].openAppArrayIndex = length;
       appModel[ length ].showContent = true;
+      appModel[ length ].materialIcon = this.openAppsInThisPage[ appType ].materialIcon;
       if ( !this.page.openApps ) {
         this.page.openApps = {};
       }

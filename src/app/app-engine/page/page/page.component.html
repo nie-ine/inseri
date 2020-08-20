@@ -271,7 +271,7 @@
     <mat-card-header *ngIf=" !app.minimized " >
 
       <button mat-icon-button [matMenuTriggerFor]="menu2" >
-        <mat-icon>menu</mat-icon>
+        <mat-icon>{{ this.openAppsInThisPage[ app.type ].materialIcon }}</mat-icon>
       </button>
 
       <mat-menu #menu2="matMenu">
@@ -410,6 +410,7 @@
             <button mat-button *ngIf=" (!pageAsDemo) && !preview" (click)="publishAsTemplate()" (click)="page.publishedAsTemplate = true">
               <mat-icon style="margin-right: 10px">arrow_circle_up</mat-icon> Publish as template
             </button>
+            <br>
             <button
               mat-button
               *ngIf=" (!pageAsDemo) && loggedIn"
