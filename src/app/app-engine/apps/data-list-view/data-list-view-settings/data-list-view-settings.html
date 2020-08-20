@@ -1,52 +1,40 @@
-<h3>Displayed Columns</h3>
-<div>{{dataListSettings | json}}</div>
-<mat-card>
-  <h3>Column definition</h3>
-  <mat-slide-toggle>Manual column definition</mat-slide-toggle>
-  <button mat-button-raised *ngIf="dataListSettings.columns.genericColumns  && dataListSettings.columns.columnMapping.length === 0"
-          (click) = "createColumnMapping()">Create Defintion from data source
-  </button>
-  <button mat-button-raised
-          *ngIf="!dataListSettings.columns.genericColumns && dataListSettings.columns.columnMapping.length > 0"
-          (click)="reloadColumns()">Reload Defintion from data source</button>
-</mat-card>
-<div *ngIf="columnMapping">
-    <mat-card *ngFor="let colDef of columnMapping, let i = index">
-      <mat-card-header>{{i}}.) {{colDef.colName}}</mat-card-header>
-       <div>
+<div *ngIf = "nameFormControls">
+  <div cdkDropList cdkDropListOrientation="horizontal" class="column-list" (cdkDropListDropped)="drop($event)">
+    <div class="column-box" *ngFor="let colDef of displayedColumns, let i = index" cdkDrag>
+      <mat-card>
+        <div><mat-checkbox [(ngModel)]="colDef.display"  (ngModelChange)="updateColumns()" [checked] = "colDef.display">{{colDef.columnName}}</mat-checkbox></div>
+        <div>
           <mat-form-field>
             <mat-label>Column name</mat-label>
-            <input matInput [formControl]="nameFormControl" [errorStateMatcher]="matcher"
-                   value="{{colDef.colName}}" >
-            <mat-error *ngIf="nameFormControl.hasError('required')">
-              Column name is <strong>required</strong>
-            </mat-error>
-        </mat-form-field>
-      </div>
-      <div>
-        <mat-form-field>
-          <mat-label>data source</mat-label>
-          <input matInput [formControl]="nameFormControl" [errorStateMatcher]="matcher"
-                 value="{{colDef.path}}" >
-          <mat-error *ngIf="nameFormControl.hasError('required')">
-            data source is <strong>required</strong>
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div>
-       <mat-slide-toggle>display column</mat-slide-toggle>
-      </div>
-      <div>
-        <mat-slide-toggle>filtered column</mat-slide-toggle>
-      </div>
-      <div>
-        <mat-form-field>
-          <mat-label>Link</mat-label>
-          <input matInput
-                 value="{{colDef.link}}" >
-        </mat-form-field>
-      </div>
-    </mat-card>
-  <button mat-button-raised (click)="saveColumns()">Save displayed columns</button>
-  <button mat-button-raised (click)="restoreColumns()">Restore displayed Columns</button>
+              <input matInput [formControl]="nameFormControls[i]" [errorStateMatcher]="matcher"
+                     value="{{colDef.columnName}}" [(ngModel)]="colDef.columnName" (ngModelChange)="updateColumns()" >
+              <mat-error *ngIf="nameFormControls[i].hasError('required')">
+                Column name is <strong>required</strong>
+              </mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <mat-label>data source</mat-label>
+            <input matInput [disabled]="true" value="{{colDef.columnPath}}" >
+          </mat-form-field>
+        </div>
+        <div><mat-slide-toggle [checked]="colDef.filtered">filtered column</mat-slide-toggle></div>
+        <div>
+          <mat-form-field>
+            <mat-label>Link</mat-label>
+            <input matInput
+               value="{{colDef.link}}" >
+          </mat-form-field>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>
+<hr>
+<div>
+  <button mat-button-raised (click)="saveColumns()">Save column definition permanently</button>
+  <button mat-button-raised (click)="reloadColumns()">Reset column definition</button>
+  <button mat-button-raised (click)="recreateGenericColumns()">Reload default column definition from data source</button>
+  <button mat-button-raised (click)="closeSettings()">Close</button>
 </div>

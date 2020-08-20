@@ -24,6 +24,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatInputModule} from '@angular/material/input';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 import { QueryEntryComponent } from '../query-engine/query-entry/query-entry.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { AceEditorModule } from 'ng2-ace-editor';
@@ -133,6 +134,7 @@ import { CalendarComponent } from './apps/calendar/calendar.component';
     MatDialogModule,
     MatTreeModule,
     CdkTableModule,
+    DragDropModule,
     MatPaginatorModule,
     MatSortModule,
     MatChipsModule,

@@ -6,6 +6,8 @@ import { PipeTransform, Pipe } from '@angular/core';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
 import { DataListViewInAppQueryService} from '../services/query.service';
 import {Router} from '@angular/router';
+import {DisplayedCollumnsService, SettingsService} from '../data-list-view-services/table-data.service';
+import {Subscription} from 'rxjs';
 
 // import { DataListViewSettings } from '../data-list-view-dataListSettings/data-list-view-dataListSettings.service';
 
@@ -17,9 +19,9 @@ import {Router} from '@angular/router';
 export class DataListViewTableComponent implements OnChanges {
   @Input() dataListTableSettings?: any;
   @Input() dataToDisplay: any;
-  @Input() definedColumns?: any;
+  definedColumns: any;
   @Output() reloadVariables: EventEmitter<any> = new EventEmitter<any>();
-  displayedColumns: any[];
+  displayedColumns: string[];
 
   @ViewChild(MatTable) table: MatTable<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -29,6 +31,7 @@ export class DataListViewTableComponent implements OnChanges {
   dataSourceForExport: MatTableDataSource <any>;
   // TODO: highlight filter results in table cells by pipe
   toHighlightByFilter = ''; // For highlighting Filter results
+  columnDefSub: Subscription; // subscribe to changes in column definition.
   // Export variables
   renderedData: any;
   renderedDisplayedData: any;
@@ -36,14 +39,20 @@ export class DataListViewTableComponent implements OnChanges {
   exportFormat = 'json';
   UMLAUT_REPLACEMENTS = '{[{ "Ä", "Ae" }, { "Ü", "Ue" }, { "Ö", "Oe" }, { "ä", "ae" }, { "ü", "ue" }, { "ö", "oe" }, {É, E}]}';
 
-  constructor( private _router: Router ) {
-  }
+  constructor( private _router: Router,
+               private settingsService: SettingsService,
+               private columnService: DisplayedCollumnsService ) {
+    this.columnDefSub = this.columnService.displayedColumnsChange.subscribe(cols => {
+      this.definedColumns = cols;
+      console.log('secretly updated columns:', cols);
+      this.updateDisplayedColumns();
+    });
+    }
 
   ngOnChanges() {
-
-    if (this.definedColumns) {this.displayedColumns = this.definedColumns.map(col => col.columnPath);
-    ;}
-
+    this.definedColumns = this.columnService.getDisplayedColumns();
+    this.updateDisplayedColumns();
+    console.log('new columns in table component: ', this.definedColumns);
     this.populateByDatastream();
     this.setFilter();
   }
@@ -73,6 +82,13 @@ export class DataListViewTableComponent implements OnChanges {
       }
     };
     this.dataSource.sort = this.sort;
+  }
+
+  updateDisplayedColumns() {
+    this.displayedColumns = [];
+    this.definedColumns.forEach(col => {
+      if (col.display) { this.displayedColumns.push(col.columnPath); }
+    });
   }
 
 
@@ -139,12 +155,17 @@ public replaceUmlaute(input) {
     return dataStr;
   }
 
-  private onThisClick(val, index) {
+  private onThisClick(col, val, index) {
     // SIMPLE METHOD TO DO SOMETHING WITH THE clicked cell/object like passing it to somewhere
-    if (this.dataListTableSettings.actions.actions && this.dataListTableSettings.actions.actionMode === 'object') {
+    if (col.link.type === 'external') {
+      //this.definedColumns[index]
+      // open page in new window
+      console.log(index);
+
+    } else {
+      console.log(col);
       console.log(index);
       // this.updateURL(index);
-
     }
   }
 
@@ -247,6 +268,10 @@ public replaceUmlaute(input) {
           }
     }
     return flattenedData;
+  }
+
+  openSettings() {
+    this.settingsService.switchOpenState();
   }
   //
 // Display / Design stuff

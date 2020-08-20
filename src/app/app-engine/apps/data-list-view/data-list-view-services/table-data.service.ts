@@ -5,7 +5,6 @@ import {EventEmitter, Injectable} from '@angular/core';
 export class DisplayedCollumnsService {
   displayedColumns: Array<any>;
   displayedColumnsChange: EventEmitter<Array<any>>;
-  originalDisplayedColumns: Array<any>;
   displayedColumnsSet = new Set();
 
   constructor() {
@@ -26,36 +25,30 @@ export class DisplayedCollumnsService {
     if (dataListSettings.columns.genericColumns) {
       if (dataListSettings.jsonType === 'sparql') {
         displayedColumns = this.createColumns(data.head.vars);
-        this.setDisplayedColumns(displayedColumns);
       } else {
         // gets the data array from a given path string pathToDataArray
         const dataArray = dataListSettings.pathToDataArray.split('.').reduce((a, b) => a[b], data);
         const distinctColumns = this.generateDisplayedColumnsFromData(dataArray);
         displayedColumns = this.createColumns(distinctColumns);
-        this.originalDisplayedColumns = displayedColumns;
-        this.setDisplayedColumns(displayedColumns);
         }
-      // if not using generic columns
+      // if not generic columns
     } else {
       for (const column of dataListSettings.columns.columnMapping) {
-        if (column.displayed === true) {
-          const col = new DataHeader(column.name, column.path );
-          displayedColumns.push(col);
-        }
+        const col = new DataHeader(column.name, column.path, column.displayed, column.filtered, column.link, column.type );
+        displayedColumns.push(col);
       }
-      this.originalDisplayedColumns = displayedColumns;
-      this.setDisplayedColumns(displayedColumns);
     }
+    this.setDisplayedColumns(displayedColumns);
+    return displayedColumns;
+  }
+
+  public getDisplayedColumns() {
+    return this.displayedColumns;
   }
 
   public setDisplayedColumns(cols) {
     this.displayedColumns = cols;
-    console.log('new disp cols: ', cols);
-    this.displayedColumnsChange.emit(this.displayedColumns);
-  }
-
-  public restoreOriginalDisplayedColumns() {
-    this.displayedColumns = this.originalDisplayedColumns;
+    console.log('disp cols set: ', cols);
     this.displayedColumnsChange.emit(this.displayedColumns);
   }
 
@@ -91,12 +84,51 @@ export class DataCell {
   }
 }
 
+@Injectable({ providedIn: 'root' })
+export class SettingsService {
+  settingsOpenState = false;
+  settingsOpenStateChange: EventEmitter<boolean>;
+
+  constructor() {
+    this.settingsOpenStateChange = new EventEmitter<boolean>();
+  }
+
+  switchOpenState() {
+    this.settingsOpenState = !this.settingsOpenState;
+    this.settingsOpenStateChange.emit(this.settingsOpenState); }
+}
+
 export class DataHeader {
   columnName: string;
   columnPath: string;
+  display: boolean;
+  filtered: boolean;
+  link?: string;
+  type?: string;
 
-  constructor(columnName, columnPath) {
+  constructor(columnName, columnPath, display?, filtered?, link?, type?) {
     this.columnName = columnName;
     this.columnPath = columnPath;
+    this.display = display || true;
+    this.filtered = filtered || true;
+    this.link = link || columnPath;
+    this.type = type || 'literal';
+  }
+}
+
+
+@Injectable({ providedIn: 'root' })
+export class OriginalColumnService {
+  private originalColumnDefinition = [];
+
+
+  setOriginalDisplayedColumns(cols) {
+    this.originalColumnDefinition = cols;
+    console.log('this.originalColumnDefinition is set', this.originalColumnDefinition);
+  }
+
+  getOriginalDisplayedColumns() {
+    console.log('this.originalColumnDefinition has been requested', this.originalColumnDefinition)
+    return this.originalColumnDefinition;
   }
 }
