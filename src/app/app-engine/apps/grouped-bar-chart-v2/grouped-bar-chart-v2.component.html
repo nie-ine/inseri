@@ -1,4 +1,18 @@
 <div>
+  <div>
+    <label for="scaleBar">Scale</label>
+  </div>
+  <div>
+    <mat-slider
+      id="scaleBar"
+      min="0"
+      max="1000"
+      step="50"
+      value="{{this.chartWidth}}">
+    </mat-slider>
+  </div>
+</div>
+<div>
   <div class="legend_container">
     <div class="legend" id="{{ 'legend_' + this.numberOfInitialisedComponent }}">
     </div>

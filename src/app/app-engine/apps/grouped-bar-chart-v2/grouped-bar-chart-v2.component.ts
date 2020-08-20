@@ -18,6 +18,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
   width: number;
   private posX: number;
   private posY: number;
+  chartWidth = 100;
 
   constructor() {
   }
@@ -35,7 +36,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
       this.alreadyInitialised = true;
       setTimeout(() => {
         console.log( this.data );
-        this.drawD3( this.data.data, this.data.data.length * 100 );
+        this.drawD3( this.data.data, this.data.data.length * this.chartWidth );
       }, 500);
     }
   }
@@ -63,9 +64,9 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
     };
 
     // setting a d3.js color scheme for the legend
-    const color = d3Scale.scaleOrdinal(d3ScaleChromatic.schemePuOr[keys.length]);
+    const color = d3Scale.scaleOrdinal(d3ScaleChromatic.schemeRdYlGn[keys.length]);
 
-    // creating the #yaxis
+    // creating the yaxis
     const svgYaxis = d3.select('#yaxis_' + this.numberOfInitialisedComponent)
       .append('svg')
       .attr('width', 50)
@@ -73,7 +74,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')'); // translate along x-axis and y-axis
 
-    // creating the #chart
+    // creating the chart
     const svgChart = d3.select('#chart_' + this.numberOfInitialisedComponent)
       .append('svg') // appending an <svg> element
       .attr('width', width + margin.left + margin.right)
@@ -186,13 +187,11 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
     });
 
     barPart.on('mousemove', (d) => {
-      this.posX = d3.event.pageX;
-      this.posY = d3.event.pageY;
-      // console.log('x/y: ' + this.posX + '/' + this.posY);
-      // console.log('top: ' + (this.posY - 80));
-      // console.log('left: ' + (this.posX + 15));
-      tooltip.style('left', (this.posX + 15) + 'px')
-        .style('top', (this.posY - 80) + 'px');
+      this.posX = d3.event.layerX;
+      this.posY = d3.event.layerY;
+      // console.log('top: ' + (this.posY - 50) + '/left: ' + (this.posX + 15));
+      tooltip.style('left', (this.posX) + 'px')
+        .style('top', (this.posY - 50) + 'px');
     });
 
     barPart.on('mouseout', () => {
