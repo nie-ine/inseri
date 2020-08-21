@@ -99,6 +99,7 @@ import { JsonEnvironmentComponent } from './apps/json-environment/json-environme
 import { PieChartV2Component } from './apps/pie-chart-v2/pie-chart-v2.component';
 import { GroupedBarChartV2Component } from './apps/grouped-bar-chart-v2/grouped-bar-chart-v2.component';
 import { CommentOnIndicesComponent } from './apps/comment-on-indices/comment-on-indices.component';
+//import {DataListViewDetailsDialogComponent} from './apps/data-list-view/data-list-view-details-dialog/data-list-view-details-dialog.component';
 import { CalendarComponent } from './apps/calendar/calendar.component';
 
 
@@ -225,6 +226,8 @@ import { CalendarComponent } from './apps/calendar/calendar.component';
     PieChartV2Component,
     GroupedBarChartV2Component,
     CommentOnIndicesComponent,
+
+    //DataListViewDetailsDialogComponent,
     CalendarComponent
   ],
   exports: [
