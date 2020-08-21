@@ -10,7 +10,9 @@
 
   <div *ngIf="chosenSection.label !== undefined "
        [ngStyle]="{'position': 'fixed', 'top': y + 'px', 'left': x + 'px'}">
-    {{ chosenSection?.label + ', ' + chosenSection?.value + ', ' + chosenSection?.percent + '%' }}
+    <b>{{ chosenSection?.label }}</b><br/>
+    {{ chosenSection?.value }}<br/>
+    {{ chosenSection?.percent + '%'}}
   </div>
 
 </div>
