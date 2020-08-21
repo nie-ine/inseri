@@ -100,10 +100,11 @@ router.get('/:id', checkAuth2, (req, res, next) => {
 
 });
 
-function searchItemInArray(itemToSearch, arrayOfItems) {
+exports.searchItemInArray=function (itemToSearch, arrayOfItems) {
 if(arrayOfItems.length ==0){
   return -1;
 }
+
   for (let i = 0; i < arrayOfItems.length; i++) {
     console.log(arrayOfItems[i]._id);
     console.log(itemToSearch._id);
@@ -794,3 +795,4 @@ router.delete('/:id', checkAuth, (req, res, next) => {
 });
 
 module.exports = router;
+

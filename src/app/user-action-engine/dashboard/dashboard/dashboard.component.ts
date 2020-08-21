@@ -366,6 +366,7 @@ export class DashboardComponent implements OnInit {
       this.fileService.downloadProject(action.id)
         .subscribe(data => {
           console.log(data);
+          console.log("data returned successfully");
           const a = document.createElement('a');
           document.body.appendChild(a);
           a.setAttribute('display', 'none');
@@ -383,24 +384,28 @@ export class DashboardComponent implements OnInit {
               zip.file('JSONFile.json', data.returnedObj.jsonIds);
               if (data.returnedObj.files) {
                 zip.file('files.json', data.returnedObj.files);
-                numOfFiles = data.returnedObj.arrayOfFilePaths.length;
-
-                if (data.returnedObj.arrayOfFilePaths) {
+                const arrayOfFilePaths = JSON.parse(data.returnedObj.arrayOfFilePaths);
+                numOfFiles = arrayOfFilePaths.length;
+                console.log(numOfFiles);
+                console.log('printing number of files');
+                if (arrayOfFilePaths) {
                   const files = zip.folder('files');
-                  for (let i = 0; i < data.returnedObj.arrayOfFilePaths.length; i++) {
-                    let url = data.returnedObj.arrayOfFilePaths[i];
+                  for (let i = 0; i < arrayOfFilePaths.length; i++) {
+                    let url = arrayOfFilePaths[i];
                     url = url.split(' ').join('%20');
                     url = url.split('"').join('');
                     JSZipUtils.getBinaryContent(url, function (err, data) {
                       if (err) {
-                        throw err; // or handle the error
+                        console.log(err);
+                       // throw err; // or handle the error
                       }
                       console.log(url);
                       let filename = url.substr(url.indexOf('/files/') + 7);
                       console.log(filename);
                       filename = filename.split('%20').join(' ');
                       files.file(filename, data, {binary: true});
-                      // console.log(files);
+                      console.log(files);
+                      console.log(numOfFiles)
                       numOfFiles--;
                     });
                   }
@@ -413,10 +418,10 @@ export class DashboardComponent implements OnInit {
           }
         }
           const timeout = setInterval(function () {
-            console.log(numOfFiles);
+           // console.log(numOfFiles);
             if (numOfFiles === 0) {
               clearInterval(timeout);
-              console.log(zip);
+             // console.log(zip);
               zip.generateAsync({type: 'blob'}).then(function (content) {
 
                 FileSaver.saveAs(content, 'Project_' + action.title + '.zip');

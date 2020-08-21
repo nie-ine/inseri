@@ -13,8 +13,9 @@ let JSZip = require("jszip");
 let FileSaver = require('file-saver');
 const fs = require('fs');
 let MyOwnJson = require("../models/myOwnJson");
-let Comment=require("../models/comment");
+let Comment = require("../models/comment");
 const {ObjectId} = require('mongodb');
+let actionRoute=require('../routes/action');
 
 // let MyBlobBuilder = function () {
 //   this.parts = [];
@@ -63,7 +64,7 @@ router.post('/singleFileUpload/:folderId/:newFile', checkAuth, multer({storage: 
   console.log(req.body);
   console.log(req.params);
   console.log(req.file);
-  if (req.params.newFile==='false') {
+  if (req.params.newFile === 'false') {
     file = new FileModel({
       title: req.body.title,
       description: req.body.description,
@@ -94,9 +95,9 @@ router.post('/singleFileUpload/:folderId/:newFile', checkAuth, multer({storage: 
       {$addToSet: {hasFiles: createdFile._id}})
       .then((updatedDocument) => {
         console.log(updatedDocument);
-        if (req.params.newFile==='true') {
-          let urlPath='backend'+file.urlPath.substring(file.urlPath.indexOf('/files/'));
-           //urlPath= req.protocol + "://" + req.get("host") + "/files/" + Date.now() + "-" + req.body.title+"backend/files/" + Date.now() + "-" + req.body.title;
+        if (req.params.newFile === 'true') {
+          let urlPath = 'backend' + file.urlPath.substring(file.urlPath.indexOf('/files/'));
+          //urlPath= req.protocol + "://" + req.get("host") + "/files/" + Date.now() + "-" + req.body.title+"backend/files/" + Date.now() + "-" + req.body.title;
           fs.writeFile(urlPath, req.body.content, function (err) {
             if (err) {
               console.log(err);
@@ -118,8 +119,7 @@ router.post('/singleFileUpload/:folderId/:newFile', checkAuth, multer({storage: 
               }
             });
           });
-        }
-        else{
+        } else {
           console.log('File added');
           res.status(201).json({
             message: "File added successfully",
@@ -207,19 +207,25 @@ router.get("/:id", (req, res, next) => {
     if (file) {
       //console.log(file);
       //console.log(file.urlPath);
-      let content='', path='backend'+file.urlPath.substring(file.urlPath.indexOf('/files/'));
+      let content = '', path = 'backend' + file.urlPath.substring(file.urlPath.indexOf('/files/'));
       fs.readFile(path, function (err, data) {
         if (err) {
           console.log(err);
         } else {
           //console.log(data.toString());
-          if(path.match(/.*\.(txt)|(py)|(json)$/)){
-          content = data.toString();
+          if (path.match(/.*\.(txt)|(py)|(json)$/)) {
+            content = data.toString();
           } else {
             content = '';
           }
         }
-        res.status(200).json({_id: file._id, title: file.title, description: file.description, content: content, urlPath: file.urlPath});
+        res.status(200).json({
+          _id: file._id,
+          title: file.title,
+          description: file.description,
+          content: content,
+          urlPath: file.urlPath
+        });
       });
 
     } else {
@@ -230,6 +236,7 @@ router.get("/:id", (req, res, next) => {
 
 router.get("/getFileByUrl/:url", checkAuth, (req, res, next) => {
   // console.log( 'here' );
+  console.log(req.params.url);
   FileModel.find({urlPath: req.params.url}).then(file => {
     if (file) {
       // console.log(file);
@@ -237,7 +244,7 @@ router.get("/getFileByUrl/:url", checkAuth, (req, res, next) => {
         {
           message: "file found",
           file: file[0]
-      });
+        });
     } else {
       res.status(404).json({message: "file not found!"});
     }
@@ -260,12 +267,12 @@ router.post("/:id", checkAuth, (req, res, next) => {
         console.log('File Renamed.');
       });*/
       //console.log('starting writing to the file');
-      let path= 'backend'+req.body.urlPath.substring(req.body.urlPath.indexOf('/files/'));
+      let path = 'backend' + req.body.urlPath.substring(req.body.urlPath.indexOf('/files/'));
       //console.log(path);
-      if(path.match(/.*\.(txt)|(py)|(json)$/)){
+      if (path.match(/.*\.(txt)|(py)|(json)$/)) {
         fs.writeFile(path, req.body.content, function (err) {
           if (err) {
-            console.log('printing the error:  '+err);
+            console.log('printing the error:  ' + err);
             res.status(500).json({
               message: 'Updating File content failed',
               error: err
@@ -284,7 +291,7 @@ router.post("/:id", checkAuth, (req, res, next) => {
       //   file: result
       // });
     }).catch(error => {
-      console.log('error while saving to db: '+ error);
+    console.log('error while saving to db: ' + error);
     res.status(500).json({
       message: 'Updating File failed',
       error: error
@@ -385,24 +392,25 @@ router.post("/deleteFiles/:fileId&:folderId", (req, res, next) => {
 });
 
 function getComments(projectSpecific, objectId, returnedObj, res, req, queryIds) {
-  if(projectSpecific){
-      Comment.find({action: ObjectId(objectId)}).then(commentsResult =>{
-        console.log(commentsResult);
-        returnedObj.comments=JSON.stringify(commentsResult);
-        getQueriesFromPages(queryIds, returnedObj, res,req);
-      }).catch(commentsError=>{
-        res.status(500).json({
-          message: 'comments are not found',
-          error: commentsError,
-          returnedObj: returnedObj
-        })
-      });
+  if (projectSpecific) {
+    Comment.find({action: objectId}).then(commentsResult => {
+      console.log("comments results");
+      console.log(commentsResult);
+      returnedObj.comments = JSON.stringify(commentsResult);
+      getQueriesFromPages(queryIds, returnedObj, res, req);
+    }).catch(commentsError => {
+      res.status(500).json({
+        message: 'comments are not found',
+        error: commentsError,
+        returnedObj: returnedObj
+      })
+    });
   }
 }
 
 router.get("/downloadProject/:actionId", checkAuth, (req, res, next) => {
   let queryIds = [];
-  let returnedObj={};
+  let returnedObj = {};
   Action.find({creator: req.userData.userId, _id: req.params.actionId})
     .populate('hasPage')
     .populate({
@@ -419,33 +427,35 @@ router.get("/downloadProject/:actionId", checkAuth, (req, res, next) => {
     } else {
       if (actionResults[0].hasPageSet.hasPages !== null && actionResults[0].hasPageSet.hasPages[0]._id) {
         action.hasPage = actionResults[0].hasPageSet.hasPages[0]._id;
-        action.hasPageSet=actionResults[0].hasPageSet._id;
-        returnedObj.action=JSON.stringify(action);
+        action.hasPageSet = actionResults[0].hasPageSet._id;
+        returnedObj.action = JSON.stringify(action);
         PageSet.find({_id: action.hasPageSet}).then(pageSetResult => {
-          let pageSet=JSON.stringify(pageSetResult[0]);
+          let pageSet = JSON.stringify(pageSetResult[0]);
           if (pageSetResult.length === 0) {
             message = 'PageSet not found';
             console.log(message);
           } else {
-            returnedObj.pageSet=pageSet;
-            let pages=[];
+            returnedObj.pageSet = pageSet;
+            let pages = [];
             Page.find({_id: {$in: pageSetResult[0].hasPages}}).then(pagesResult => {
               for (let i = 0; i < pagesResult.length; i++) {
                 pages.push(pagesResult[i]);
                 if (pagesResult[i].queries.length != 0) {
-                  pagesResult[i].queries.forEach(item => {queryIds.push(item)});
+                  pagesResult[i].queries.forEach(item => {
+                    queryIds.push(item)
+                  });
                 }
               }
-              returnedObj.pages=(JSON.stringify(pages));
-              returnedObj.oldHostUrl=req.protocol+'://'+req.get('host');
+              returnedObj.pages = (JSON.stringify(pages));
+              returnedObj.oldHostUrl = req.protocol + '://' + req.get('host');
               if (queryIds.length === 0) {
                 return res.status(200).json({
                   message: 'Created Zip File successfully that has no queries',
                   returnedObj: returnedObj
                 });
               }
-              let projectSpecific=true, actionId=action._id;
-              getComments(projectSpecific,actionId, returnedObj, res, req);
+              let projectSpecific = true, actionId = action._id;
+              getComments(projectSpecific, actionId, returnedObj, res, req, queryIds);
             }).catch(error => {
               console.log(error);
               res.status(500).json({
@@ -475,155 +485,290 @@ router.get("/downloadProject/:actionId", checkAuth, (req, res, next) => {
     });
 });
 
-function getFoldersOfFiles(fileIds, returnedObj, res, req) {
-  let returnedFolders=[];
-  Folder.find({owner:req.userData.userId}).then(allFoldersForAUser=> {
-    let newObjectFileIds=[];
-    fileIds.forEach(item => {newObjectFileIds.push(ObjectId(item))});
-    Folder.find({hasFiles: {$elemMatch: {$in: newObjectFileIds}}}).then(foldersThatContainReturnedFiles => {
-      foldersThatContainReturnedFiles.forEach(folder => {
-        returnedFolders.push(folder);
+async function getFoldersOfFiles(fileIds, folderIds, userId, returnedObj) {
+//console.log("fileIds" + fileIds);
+//console.log("folderIds" + folderIds);
+  let returnedFolders = [];
+  //let filesFoundInFolders=[];
+  let promiseResult = '';
+  try {
+    let allFoldersForAUser = await Folder.find({owner: userId});
+    let newObjectFileIds = [];
+    if(fileIds && fileIds.length!=0){
+      fileIds.forEach(item => {
+        newObjectFileIds.push(ObjectId(item))
       });
-      foldersThatContainReturnedFiles.forEach(
-        itemFolder=>{
-          getParents(itemFolder,allFoldersForAUser,returnedFolders );
+    }
+
+    let foldersWithFiles = await Folder.find({$or: [{hasFiles: {$elemMatch: {$in: newObjectFileIds}}}, {_id: {$in: folderIds}}]});
+    //console.log("getFoldersOfFiles");
+    //console.log(foldersWithFiles);
+    if(foldersWithFiles && foldersWithFiles.length!=0 ){
+      foldersWithFiles.forEach(folder => {
+        let folderFound=false;
+        if(returnedFolders && returnedFolders.length!=0){
+          returnedFolders.forEach(item=>{
+            if(item._id.toString()==folder._id.toString()){
+              folderFound =true;
+            }
+          });
         }
-      );
-      returnedObj.folders = JSON.stringify(returnedFolders);
-      return res.status(200).json({
-        message: 'Created Zip File successfully with folders',
-        returnedObj: returnedObj
+        if(!folderFound){
+          returnedFolders.push(folder);
+        }
       });
-    }).catch(error => {
-      res.status(500).json({
-        message: 'Folders That Contain Returned Files have errors',
-        error: error,
-        returnedObj: returnedObj
-      })
-    })
-  }).catch(error =>{
-      res.status(500).json({
-        message: 'All Folders could not be found',
-        error: error,
-        returnedObj: returnedObj
-      })
-    })
+    }
+
+    //returnedFolders.push(foldersWithFiles.flatten());
+    for (let i = 0; i < foldersWithFiles.length; i++) {
+      getParents(foldersWithFiles[i], allFoldersForAUser, returnedFolders);
+    }
+
+    console.log("folders with files and their parents " + returnedFolders);
+    for(let i=0; i< returnedFolders.length;i++){
+      if(returnedFolders[i].hasFiles && returnedFolders[i].hasFiles.length!=0){
+        promiseResult += ' ' + await getFiles([], returnedFolders[i].hasFiles, returnedObj);
+      }
+    }
+    if(returnedFolders && returnedFolders.length!=0 ) {
+      returnedFolders.forEach(folder => {
+        let folderFound = false;
+        if (returnedObj.folders && returnedObj.folders.length != 0) {
+          returnedObj.folders.forEach(item => {
+            if (item._id.toString() == folder._id.toString()) {
+              folderFound = true;
+            }
+          });
+        }
+        if (!folderFound) {
+          returnedObj.folders.push(folder);
+        }
+      });
+    }
+    //returnedFolders.forEach(folder=>{returnedObj.folders.push(folder)});
+    //returnedObj.folders.push(returnedFolders);
+    return promiseResult + ' get Folders done';
+  } catch (error) {
+    console.log("All Folders could not be found " + error);
+    return 'get Folders error ' + error.toString();
+  }
 }
 
-function getParents(folder, foldersSearchSpace, returnTarget )
-{
-  let parentIndex=getParent(folder,foldersSearchSpace);
-  if(parentIndex===-1) {
+function getParents(folder, foldersSearchSpace, returnTarget) {
+  let parentIndex = getParent(folder, foldersSearchSpace);
+  if (parentIndex === -1) {
     return;
-  }
-  else
-  {
-    returnTarget.push(foldersSearchSpace[parentIndex]);
+  } else {
+      let folderFound=false;
+      console.log( "folder "+ folder._id.toString()+" has Parent folder "+ foldersSearchSpace[parentIndex]);
+    if(returnTarget && returnTarget.length!=0 ) {
+      returnTarget.forEach(folder => {
+        if (folder._id.toString() == foldersSearchSpace[parentIndex]._id.toString()) {
+          folderFound = true;
+        }
+      });
+      if (!folderFound) {
+        returnTarget.push(foldersSearchSpace[parentIndex]);
+        console.log("added "+ foldersSearchSpace[parentIndex]._id.toString()+" to the return Target");
+      }
+    }
+    //returnTarget.push(foldersSearchSpace[parentIndex]);
     getParents(foldersSearchSpace[parentIndex], foldersSearchSpace, returnTarget);
   }
 }
+
 function getParent(folder, foldersSearchSpace) {
-  let i=-1;
-  for(i=0;i<foldersSearchSpace.length;i++)
-    {
-      let item=foldersSearchSpace[i];
-      if(!folder.hasParent) {
-        i=-1;
-        break;
-      }
-      if(item._id.toString()===folder.hasParent.toString()) {
-        break;
-      }
+  let i = -1;
+  for (i = 0; i < foldersSearchSpace.length; i++) {
+    let item = foldersSearchSpace[i];
+    if (!folder.hasParent) {
+      i = -1;
+      break;
     }
-  if(i==foldersSearchSpace.length)
-    i=-1;
+    if (item._id.toString() === folder.hasParent.toString()) {
+      break;
+    }
+  }
+  if (i == foldersSearchSpace.length)
+    i = -1;
+  console.log("index of parent Folder "+ i + " for the folder id "+ folder._id.toString());
   return i;
 }
-function getFiles(arrayOfFilePaths, returnedObj, res, req) {
-  let fileUrlPaths=[];
-  arrayOfFilePaths.forEach(x=>{ x= x.substring(1).substring(0,x.length-2);
-                                fileUrlPaths.push(x);});
-  returnedObj.arrayOfFilePaths=arrayOfFilePaths;
-  FileModel.find({urlPath: {$in: fileUrlPaths}}).then(filesResult => {
-    let fileIds=[];
-    filesResult.forEach(item => {fileIds.push(item._id)});
-    returnedObj.files=JSON.stringify(filesResult);
-    if(arrayOfFilePaths.length===0){
-      return res.status(200).json({
-        message: 'Created Zip File successfully that has no files',
-        returnedObj: returnedObj
+
+async function getFiles(arrayOfFilePaths, p_fileIds, returnedObj) {
+  console.log("getFiles************");
+  let fileUrlPaths = [];
+  if (arrayOfFilePaths.length != 0) {
+    for (let i = 0; i < arrayOfFilePaths.length; i++) {
+      //console.log(arrayOfFilePaths[i]);
+      let x = arrayOfFilePaths[i];
+      x = x.substring(1).substring(0, x.length - 2);
+      //console.log(x);
+      fileUrlPaths.push(x);
+    }
+  }
+  try {
+    //console.log("fileUrlPaths "+ fileUrlPaths);
+    //console.log((p_fileIds.length!=0)? p_fileIds:fileUrlPaths);
+    let filesResult = await FileModel.find({$or: [{urlPath: {$in: fileUrlPaths}}, {_id: {$in: p_fileIds}}]});
+    console.log("print hehhabasfdknfdks");
+
+    if(filesResult && filesResult.length!=0 ) {
+      filesResult.forEach(file => {
+        let fileFound = false;
+        if (returnedObj.fileIds && returnedObj.fileIds.length != 0) {
+          returnedObj.fileIds.forEach(item => {
+            if (item.toString() == file._id.toString()) {
+              fileFound = true;
+            }
+          });
+        }
+        if (!fileFound) {
+          returnedObj.fileIds.push(file._id);
+          returnedObj.files.push(file);
+        }
       });
     }
-    getFoldersOfFiles(fileIds,returnedObj, res, req);
-  }).catch(error => {
-    res.status(500).json({
-      message: 'MyOwnJson is not found',
-      error: error,
-      returnedObj: returnedObj
-    })
-  })
-}
 
-function getJsonIds(filesJsonIds, returnedObj, res, req) {
-  let regexString = '"'+returnedObj.oldHostUrl+'/files/'+'[^"]+"';
-  let regex= new RegExp(regexString,"g");
-  MyOwnJson.find({_id: {$in: filesJsonIds}}).then(jsonResults => {
-    returnedObj.jsonIds=JSON.stringify(jsonResults);
-    let arrayOfFilePaths = returnedObj.jsonIds.match(regex);
-    if (!arrayOfFilePaths || arrayOfFilePaths.length===0) {
-      return res.status(200).json({
-        message: 'Created Zip File successfully that has JSON results',
-        returnedObj: returnedObj
+    if(filesResult && filesResult.length!=0 ) {
+      filesResult.forEach(file => {
+        let fileFound = false;
+        if(returnedObj.arrayOfFilePaths && returnedObj.arrayOfFilePaths.length!=0)
+          returnedObj.arrayOfFilePaths.forEach(item => {
+            if (item === file.urlPath) {
+              fileFound = true;
+            }
+          });
+        if (!fileFound) {
+          returnedObj.arrayOfFilePaths.push(file.urlPath);
+        }
       });
     }
-      getFiles(arrayOfFilePaths, returnedObj,res,req);
-  }).catch(error => {
-    res.status(500).json({
-      message: 'MyOwnJson is not found',
-      error: error,
-      returnedObj: returnedObj
-    })
-  })
+    // filesResult.forEach(file => {
+    //   if(!returnedObj.fileIds.includes(file._id)){
+    //     returnedObj.fileIds.push(file._id);
+    //   }
+    // });
+    //console.log(returnedObj.fileIds);
+    // let fileFound= false;
+    // filesResult.forEach(file=>{
+    //   returnedObj.files.forEach(item =>{
+    //     if(file._id === item._id){
+    //       fileFound=true;
+    //     }
+    //   });
+    //   if(!fileFound) {
+    //     returnedObj.files.push(file);
+    //   }
+    // });
+    //console.log(returnedObj.files);
+   return 'getFiles done';
+  } catch (error) {
+    console.log("cannot find all files" + error);
+    return 'error in getFiles ' + error.toString();
+  }
 }
 
-function getQueriesFromPages(queryIds, returnedObj, res,req) {
-  let queries=[];
-  Query.find({_id: {$in: queryIds}}).then(queriesResult => {
-    let filesJsonIds=[];
-   // console.log(queriesResult);
-    for (let i = 0; i < queriesResult.length; i++) {
-      queries.push(queriesResult[i]);
-      const path = returnedObj.oldHostUrl+'/api/myOwnJson/getJson/';
+async function getJsonIds(filesJsonIds, returnedObj) {
+  let arrayOfFilePaths;
+  if (filesJsonIds.length != 0) {
+    let regexString = '"' + returnedObj.oldHostUrl + '/files/' + '[^"]+"';
+    let regex = new RegExp(regexString, "g");
+    try {
+      let jsonResults = await MyOwnJson.find({_id: {$in: filesJsonIds}});
+      returnedObj.jsonIds = JSON.stringify(jsonResults);
+      arrayOfFilePaths = returnedObj.jsonIds.match(regex);
+      returnedObj.arrayOfFilePaths = arrayOfFilePaths;
+      // if (!arrayOfFilePaths || arrayOfFilePaths.length===0)
+      // {
+      //console.log("Zip File successfully that has JSON results");
+      return 'Json Ids done';
+      //}
+    } catch (error) {
+      console.log("MyOwnJson is not found " + error);
+      return 'JsonIds error ' + error.toString();
+    }
+  }
 
-      ////{"content.info": {$regex: /http:\/\/localhost:3000\/.*/, $options: 'i'}}
-      if(queriesResult[i].serverUrl.startsWith(path)){
-        filesJsonIds.push( queriesResult[i].serverUrl.substring(path.length));
-        //console.log(filesJsonIds);
+}
+
+async function getQueriesFromPages(queryIds, returnedObj, res, req) {
+  let promiseResult = '';
+  let queries = [];
+  let queriesResult = await Query.find({_id: {$in: queryIds}});
+  let myOwnJsonIds = [];
+  let folderIds = [];
+  let filePaths = [];
+  for (let i = 0; i < queriesResult.length; i++) {
+    queries.push(queriesResult[i]);
+    const path = returnedObj.oldHostUrl + '/api/myOwnJson/getJson/';
+    const folderPath = returnedObj.oldHostUrl + '/api/folder/getAllFilesAndFolders/';
+    const filePath = returnedObj.oldHostUrl + '/files/';
+    ////{"content.info": {$regex: /http:\/\/localhost:3000\/.*/, $options: 'i'}}
+    if (queriesResult[i].serverUrl.startsWith(path)) {
+      myOwnJsonIds.push(queriesResult[i].serverUrl.substring(path.length));
+      //console.log("myOwmJson is added " + myOwnJsonIds[myOwnJsonIds.length - 1]);
+    } else if (queriesResult[i].serverUrl.startsWith(folderPath)) {
+      if(!folderIds.includes(queriesResult[i].serverUrl.substring(folderPath.length))){
+      folderIds.push(queriesResult[i].serverUrl.substring(folderPath.length));}
+      //console.log("folderPath is added " + folderIds[folderIds.length - 1]);
+    } else if (queriesResult[i].serverUrl.startsWith(filePath)) {
+      if(!filePaths.includes(queriesResult[i].serverUrl)){
+      filePaths.push(queriesResult[i].serverUrl);}
+      //console.log("filePaths is added " + filePaths[filePaths.length - 1]);
+    }
+  }
+  returnedObj.queries = JSON.stringify(queries);
+  returnedObj.files = [];
+  returnedObj.fileIds = [];
+  returnedObj.arrayOfFilePaths = [];
+  if (myOwnJsonIds.length > 0) {
+    //console.log("myOwnJsonIds");
+    //console.log(myOwnJsonIds);
+    promiseResult += await getJsonIds(myOwnJsonIds, returnedObj);
+  }
+  if (filePaths.length > 0) {
+   // console.log("filePaths");
+   // console.log(filePaths);
+    let arrayOfFilePaths = returnedObj.arrayOfFilePaths;
+    filePaths.forEach(filePath => {
+      if (!arrayOfFilePaths.includes('"' || filePath || '"')) {
+        arrayOfFilePaths.push('"' || filePath || '"');
+        if (arrayOfFilePaths[arrayOfFilePaths.length - 1] === '"') {
+          arrayOfFilePaths.pop();
+        }
       }
-    }
-    returnedObj.queries=JSON.stringify(queries);
-    if (filesJsonIds.length === 0) {
-      return res.status(200).json({
-        message: 'Created Zip File successfully that has no files',
-        returnedObj: returnedObj
-      });
-    }
-    getJsonIds(filesJsonIds, returnedObj, res,req);
-  }).catch(error => {
-    res.status(500).json({
-      message: 'Queries not found',
-      error: error,
-      returnedObj: returnedObj
-    })
-  })
+    });
+   // console.log(arrayOfFilePaths);
+
+    promiseResult += await getFiles(arrayOfFilePaths, [], returnedObj);
+  }
+  if (folderIds.length > 0) {
+    //console.log("folderIds");
+   // console.log(folderIds);
+    returnedObj.folders = [];
+    promiseResult += await getFoldersOfFiles(returnedObj.fileIds, folderIds, req.userData.userId, returnedObj);
+  }
+  console.log("hehehehhe I am not lost");
+  returnedObj.files = JSON.stringify(returnedObj.files);
+  returnedObj.folders = JSON.stringify(returnedObj.folders);
+  returnedObj.arrayOfFilePaths = JSON.stringify(returnedObj.arrayOfFilePaths);
+  // if (myOwnJsonIds.length === 0 && folderIds.length===0 && filePaths.length===0) {
+  return res.status(200).json({
+    message: 'Created Zip File successfully that has no files',
+    returnedObj: returnedObj,
+    //promiseResult: promiseResult.toString()
+  });
+
 }
+
 router.get("/restoreFiles/", (req, res, next) => {
-  fs.readdir('backend/files').then(filenames =>{
+  fs.readdir('backend/files').then(filenames => {
     return res.status(200).json({
       message: 'Files retuned ',
       files: filenames
     });
-  }).catch(err=>{
+  }).catch(err => {
     res.status(500).json({
       message: 'files not found',
       error: err
