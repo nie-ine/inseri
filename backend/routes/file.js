@@ -235,11 +235,12 @@ router.get("/:id", (req, res, next) => {
 });
 
 router.get("/getFileByUrl/:url", checkAuth, (req, res, next) => {
-  // console.log( 'here' );
-  console.log(req.params.url);
+
+  console.log( req.params.url );
+
   FileModel.find({urlPath: req.params.url}).then(file => {
     if (file) {
-      // console.log(file);
+      console.log('file:', file);
       res.status(200).json(
         {
           message: "file found",

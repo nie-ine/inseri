@@ -6,6 +6,8 @@ import { PipeTransform, Pipe } from '@angular/core';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
 import { DataListViewInAppQueryService} from '../services/query.service';
 import {Router} from '@angular/router';
+import {DisplayedCollumnsService, SettingsService} from '../data-list-view-services/table-data.service';
+import {Subscription} from 'rxjs';
 
 // import { DataListViewSettings } from '../data-list-view-dataListSettings/data-list-view-dataListSettings.service';
 
@@ -17,8 +19,9 @@ import {Router} from '@angular/router';
 export class DataListViewTableComponent implements OnChanges {
   @Input() dataListTableSettings?: any;
   @Input() dataToDisplay: any;
-  @Input() displayedColumns?: any;
+  definedColumns: any;
   @Output() reloadVariables: EventEmitter<any> = new EventEmitter<any>();
+  displayedColumns: string[];
 
   @ViewChild(MatTable) table: MatTable<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -28,6 +31,7 @@ export class DataListViewTableComponent implements OnChanges {
   dataSourceForExport: MatTableDataSource <any>;
   // TODO: highlight filter results in table cells by pipe
   toHighlightByFilter = ''; // For highlighting Filter results
+  columnDefSub: Subscription; // subscribe to changes in column definition.
   // Export variables
   renderedData: any;
   renderedDisplayedData: any;
@@ -35,10 +39,20 @@ export class DataListViewTableComponent implements OnChanges {
   exportFormat = 'json';
   UMLAUT_REPLACEMENTS = '{[{ "Ä", "Ae" }, { "Ü", "Ue" }, { "Ö", "Oe" }, { "ä", "ae" }, { "ü", "ue" }, { "ö", "oe" }, {É, E}]}';
 
-  constructor( private _router: Router ) {
-  }
+  constructor( private _router: Router,
+               private settingsService: SettingsService,
+               private columnService: DisplayedCollumnsService ) {
+    this.columnDefSub = this.columnService.displayedColumnsChange.subscribe(cols => {
+      this.definedColumns = cols;
+      console.log('secretly updated columns:', cols);
+      this.updateDisplayedColumns();
+    });
+    }
 
   ngOnChanges() {
+    this.definedColumns = this.columnService.getDisplayedColumns();
+    this.updateDisplayedColumns();
+    console.log('new columns in table component: ', this.definedColumns);
     this.populateByDatastream();
     this.setFilter();
   }
@@ -70,10 +84,17 @@ export class DataListViewTableComponent implements OnChanges {
     this.dataSource.sort = this.sort;
   }
 
+  updateDisplayedColumns() {
+    this.displayedColumns = [];
+    this.definedColumns.forEach(col => {
+      if (col.display) { this.displayedColumns.push(col.columnPath); }
+    });
+  }
+
 
 public replaceUmlaute(input) {
   for (const i of this.UMLAUT_REPLACEMENTS) {
-    console.log(i[0], i[1]);
+    // console.log(i[0], i[1]);
     input = input.replace(i[0], i[1]);
     }
     // console.log(input);
@@ -116,9 +137,9 @@ public replaceUmlaute(input) {
       // so the object property value is compared by filtering and not the object itself.
       for (const column of this.dataListTableSettings.columns.columnMapping) {
         if (column.filtered) {
-          if (data[column]) {
-            if ('value' in data[column]) {
-              dataStr = dataStr + data[column.name].value;
+          if (data[column.path]) {
+            if ('value' in data[column.path]) {
+              dataStr = dataStr + data[column.path].value;
             }
           }
           }
@@ -134,12 +155,17 @@ public replaceUmlaute(input) {
     return dataStr;
   }
 
-  private onThisClick(val, index) {
+  private onThisClick(col, val, index) {
     // SIMPLE METHOD TO DO SOMETHING WITH THE clicked cell/object like passing it to somewhere
-    if (this.dataListTableSettings.actions.actions && this.dataListTableSettings.actions.actionMode === 'object') {
+    if (col.link.type === 'external') {
+      //this.definedColumns[index]
+      // open page in new window
+      console.log(index);
+
+    } else {
+      console.log(col);
       console.log(index);
       // this.updateURL(index);
-
     }
   }
 
@@ -243,6 +269,10 @@ public replaceUmlaute(input) {
     }
     return flattenedData;
   }
+
+  openSettings() {
+    this.settingsService.switchOpenState();
+  }
   //
 // Display / Design stuff
 //
@@ -253,10 +283,15 @@ private isColumnSticky(column: number): boolean {
   }
 
   getSumOfDisplayedEntries() {
-    if (this.paginator.pageSize > this.dataSource.data.length) {
-      return this.dataSource.data.length;
-    } else { return this.paginator.pageSize; }
+    if (this.dataSource.filter) {
+      return this.dataSource.filteredData.length;
+    } else {
+      if (this.paginator.pageSize > this.dataSource.data.length) {
+        return this.dataSource.data.length;
+      } else { return this.paginator.pageSize; }
+    }
   }
+
 }
 // TODO: highlighting filter results in cells by pipe
 @Pipe({ name: 'highlight' })

@@ -1,4 +1,4 @@
-import {AfterViewChecked, Component, Input, OnInit} from '@angular/core';
+import {AfterViewChecked, Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import * as d3 from 'd3-selection';
 import * as d3Scale from 'd3-scale';
 import * as d3Array from 'd3-array';
@@ -14,18 +14,18 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
   @Input() initialised = false;
   @Input() numberOfInitialisedComponent: number;
   @Input() data: any;
-  private x: number;
-  private y: number;
   alreadyInitialised = false;
-  mouseOverData: any = {};
-  lengthOfArray = 60000;
   width: number;
+  private posX: number;
+  private posY: number;
+  chartWidth = 100;
+
   constructor() {
   }
 
-  generateComponentDivClass( name: string ) {
-    return name + this.numberOfInitialisedComponent;
-  }
+  // generateComponentDivClass( name: string ) {
+  //   return name + this.numberOfInitialisedComponent;
+  // }
 
   ngAfterViewChecked() {
     // console.log( this.numberOfInitialisedComponent, this.data );
@@ -36,26 +36,26 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
       this.alreadyInitialised = true;
       setTimeout(() => {
         console.log( this.data );
-        this.drawD3( this.data.data );
+        this.drawD3( this.data.data, this.data.data.length * this.chartWidth );
       }, 500);
     }
   }
 
-  drawD3( data: Array<any>, width?: number ) {
+  drawD3(data: Array<any>, width?: number) {
+    // console.log('Initialized component: ' + this.numberOfInitialisedComponent);
 
-    this.lengthOfArray = data.length;
-
+    // getting all the key names for the legend
     const keys = Object.keys(data[0]).slice(1);
 
-    const color = d3Scale.scaleOrdinal(d3ScaleChromatic.schemeRdYlGn[keys.length]);
+    // setting size of and spacing between legend squares
+    const legendRectSize = 25;
+    const legendSpacing = 6;
 
-    // svg chart dimensions
+    // setting svg chart dimensions
+    this.width = width !== undefined ? width : this.data.data.length * 100;
+    const height = 350;
 
-    this.width = width !== undefined ? width : data.length * 100;
-
-    const height = +d3.select('.' + this.generateComponentDivClass( 'groupedBarChart' )).attr("height");
-
-    // margins
+    // setting margins
     const margin = {
       top: 20,
       right: 20,
@@ -63,30 +63,32 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
       left: 40
     };
 
-    // getting all the key names (["1851 and after", ...])
+    // setting a d3.js color scheme for the legend
+    const color = d3Scale.scaleOrdinal(d3ScaleChromatic.schemeRdYlGn[keys.length]);
 
-    // size of the legend squares
-    const legendRectSize = 25;
-    // spacing between legend squares
-    const legendSpacing = 6;
+    // creating the yaxis
+    const svgYaxis = d3.select('#yaxis_' + this.numberOfInitialisedComponent)
+      .append('svg')
+      .attr('width', 50)
+      .attr('height', height + margin.top + margin.bottom)
+      .append('g')
+      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')'); // translate along x-axis and y-axis
 
-    // selecting the #chart
-    const svg = d3.select('.' + this.generateComponentDivClass( 'groupedBarChart' ))
-      .append("svg") // appending an <svg> element
-      .attr("width", this.width + margin.left + margin.right) // setting its width
-      .attr("height", height + margin.top + margin.bottom) // setting its height
-      .append("g") // appending a <g> element to the <svg> element
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")"); // translate algon x-axis and y-axis
+    // creating the chart
+    const svgChart = d3.select('#chart_' + this.numberOfInitialisedComponent)
+      .append('svg') // appending an <svg> element
+      .attr('width', width + margin.left + margin.right)
+      .attr('height', height + margin.top + margin.bottom)
+      .append('g')
+      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-    // selecting the #chart
-    const svg2 = d3.select( '.' + this.generateComponentDivClass( 'groupedBarChartlegend' ) )
-      .append("svg") // appending an <svg> element
-      .attr("width", +d3.select('.' + this.generateComponentDivClass( 'groupedBarChartlegend' ))
-        .attr("width") + margin.left + margin.right) // setting its width
-      .attr("height", +d3.select('.' + this.generateComponentDivClass( 'groupedBarChartlegend' ))
-        .attr("height") + margin.top + margin.bottom) // setting its height
-      .append("g") // appending a <g> element to the <svg> element
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")"); // translate algon x-axis and y-axis
+    // creating the legend
+    const svgLegend = d3.select('#legend_' + this.numberOfInitialisedComponent)
+      .append('svg') // appending an <svg> element
+      .attr('width', 650 + margin.left + margin.right) // setting its width
+      .attr('height', ( keys.length * (legendRectSize + legendSpacing)) + margin.top + margin.bottom) // setting its height
+      .append('g')
+      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
     // scale for the x-axis (spacing the groups)
     const x0 = d3Scale.scaleBand()
@@ -114,129 +116,114 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
       .range([height, 0])
       .nice(); // nicing the scale (ending on round values)
 
-    svg.append("g")
-      .selectAll("g")
+    svgChart.append('g')
+      .selectAll('g')
       .data(data)
       .enter()
-      .append("g")
-      .attr("class","bar")
-      .attr("transform", (d) => {
-        return "translate(" + x0(d.label) + ",0)"; // x0(d.label) => getting the corresponding range for the domain value
+      .append('g')
+      .attr('class', 'bar')
+      .attr('transform', (d) => {
+        return 'translate(' + x0(d.label) + ',0)'; // x0(d.label) => getting the corresponding range for the domain value
       })
-      .selectAll("rect")
+      .selectAll('rect')
       .data((d) => {
         return keys.map((key) => {
           return {key: key, value: d[key]};
         });
       })
       .enter()
-      .append("rect")
-      .attr("class", "barPart")
-      .attr("x", (d) => {
+      .append('rect')
+      .attr('class', 'barPart')
+      .attr('x', (d) => {
         return x1(d.key);
       })
-      .attr("y", (d) => {
+      .attr('y', (d) => {
         return y(d.value);
       })
-      .attr("width", x1.bandwidth())
-      .attr("height", (d) => {
+      .attr('width', x1.bandwidth())
+      .attr('height', (d) => {
         return height - y(d.value);
       })
-      .attr("fill", (d) => {
+      .attr('fill', (d) => {
         return color(d.key);
       });
 
-    svg.append("g")
-      .attr("class", "axis")
-      .attr("transform", "translate(0," + height + ")")
+    svgChart.append('g')
+      .attr('class', 'axis')
+      .attr('transform', 'translate(0,' + height + ')')
       .call(d3Axis.axisBottom(x0));
 
-    svg.append("g")
-      .attr("class", "y axis")
-      .call(d3Axis.axisLeft(y).ticks(null, "s"))
-      .append("text")
-      .attr("x", 10)
-      .attr("y", y(y.ticks().pop()))
-      .attr("dy", "0.32em")
-      .attr("fill", "black")
-      .attr("font-weight", "bold")
-      .attr("text-anchor", "start")
-      .text("Number of citations");
+    svgYaxis.append('g')
+      .attr('class', 'y axis')
+      .call(d3Axis.axisLeft(y).ticks(null, 's'))
+      .append('text')
+      .attr('x', 10)
+      .attr('y', y(y.ticks().pop()))
+      .attr('dy', '0.32em')
+      .attr('fill', 'black')
+      .attr('font-weight', 'bold')
+      .attr('text-anchor', 'start');
 
     // define tooltip
-    var tooltip = d3.select('.' + this.generateComponentDivClass( 'groupedBarChart' ))
-      .append("div")
-      .attr("class", "tooltip");
+    const tooltip = d3.select('#chart_' + this.numberOfInitialisedComponent)
+      .append('div')
+      .attr('class', 'groupedBarChartTooltip')
+      .attr('id', 'groupedBarChartTooltip_' + this.numberOfInitialisedComponent);
 
-    tooltip.append("div")
-      .attr("class", "label");
+    tooltip.append('div')
+      .attr('class', 'groupedBarChartTooltipLabel')
+      .attr('id', 'groupedBarChartTooltipLabel_' + this.numberOfInitialisedComponent);
 
-    tooltip.append("div")
-      .attr("class", "count");
+    tooltip.append('div')
+      .attr('class', 'groupedBarChartTooltipCount')
+      .attr('id', 'groupedBarChartTooltipCount_' + this.numberOfInitialisedComponent);
 
-    // Confused?:
+    const barPart = svgChart.selectAll('.barPart');
 
-    // <div id="chart">
-    //   <div class="tooltip">
-    //     <div class="label">
-    //     </div>
-    //     <div class="count">
-    //     </div>
-    //   </div>
-    // </div>
-
-    var barPart = svg.selectAll(".barPart");
-
-    barPart.on("mouseover", (d) => {
-      tooltip.select(".label").html(d.key);
-      tooltip.select(".count").html(d.value);
-      // console.log( d.key, d.value );
-      this.mouseOverData.key = d.key;
-      this.mouseOverData.value = d.value;
-      tooltip.style("display", "block");
-      onmousemove = (e) => {
-        this.x = e.clientX + 20;
-        this.y = e.clientY - 20;
-      };
+    barPart.on('mouseover', (d) => {
+      tooltip.select('#groupedBarChartTooltipLabel_' + this.numberOfInitialisedComponent).html(d.key);
+      tooltip.select('#groupedBarChartTooltipCount_' + this.numberOfInitialisedComponent).html(d.value);
+      tooltip.style('display', 'block');
     });
 
-    barPart.on("mouseout", () => {
-      this.mouseOverData = {};
-      tooltip.style("display", "none");
+    barPart.on('mousemove', (d) => {
+      this.posX = d3.event.layerX;
+      this.posY = d3.event.layerY;
+      // console.log('top: ' + (this.posY - 50) + '/left: ' + (this.posX + 15));
+      tooltip.style('left', (this.posX) + 'px')
+        .style('top', (this.posY - 50) + 'px');
     });
 
-    barPart.on("mousemove", (d) => {
-      tooltip.style("top", (d3.event.layerY - 50) + "px") // always 10px below the cursor
-        .style("left", (d3.event.layerX + 10) + "px"); // always 10px to the right of the mouse
+    barPart.on('mouseout', () => {
+      tooltip.style('display', 'none');
     });
 
-    const legend = svg2.append("g")
-      //.attr("text-anchor", "end")
-      .selectAll("g")
+    const legend = svgLegend.append('g')
+      .selectAll('g')
       .data(keys.slice())
       .enter()
-      .append("g")
-      .attr("transform", (d, i) => {
-        var height = legendRectSize + legendSpacing;
-        var vert = i * height;
-        return "translate(" + -120 + "," + vert + ")";
+      .append('g')
+      .attr('transform', (d, i) => {
+        const thisHeight = legendRectSize + legendSpacing;
+        const vert = i * thisHeight;
+        return 'translate(' + -120 + ',' + vert + ')';
       });
 
-    legend.append("rect")
-      .attr("x", 150)
-      .attr("width", legendRectSize)
-      .attr("height", legendRectSize)
-      .attr("fill", color)
-      .attr("stroke", color)
-      .attr("stroke-width",2)
-      .attr("cursor", "pointer")
-      .on("click",(d) => {
-        update(d)
+    legend.append('rect')
+      .attr('x', 150)
+      .attr('width', legendRectSize)
+      .attr('height', legendRectSize)
+      .attr('fill', color)
+      .attr('stroke', color)
+      .attr('stroke-width', 2)
+      .attr('cursor', 'pointer')
+      .on('click', (d) => {
+        update(d);
       });
 
-    legend.append("text")
-      .attr("x", 200)
-      .attr("y", legendRectSize - legendSpacing)
+    legend.append('text')
+      .attr('x', 200)
+      .attr('y', legendRectSize - legendSpacing)
       .text((d) => {
         return d;
       });
@@ -247,91 +234,91 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
       // update the array to filter the chart by:
 
       // add the clicked key if not included:
-      if (filtered.indexOf(d) == -1) {
+      if (filtered.indexOf(d) === -1) {
         filtered.push(d);
         // if all bars are un-checked, reset:
-        if(filtered.length == keys.length) filtered = [];
-      }
-      // otherwise remove it:
-      else {
+        if (filtered.length === keys.length) {
+          filtered = [];
+        }
+      } else {
         filtered.splice(filtered.indexOf(d), 1);
       }
 
       // update the scales for each group(/states)'s items:
-      var newKeys = [];
-      keys.forEach(function(d) {
-        if (filtered.indexOf(d) == -1 ) {
+      const newKeys = [];
+      keys.forEach(function (d) {
+        if (filtered.indexOf(d) === -1) {
           newKeys.push(d);
         }
-      })
+      });
       x1.domain(newKeys).rangeRound([0, x0.bandwidth()]);
-      y.domain([0, d3Array.max(data, function(d) {
-        return d3Array.max(keys, function(key) {
-          if (filtered.indexOf(key) == -1) return d[key];
+      y.domain([0, d3Array.max(data, function (d) {
+        return d3Array.max(keys, function (key) {
+          if (filtered.indexOf(key) === -1) {
+            return d[key];
+          }
         });
       })]).nice();
 
       // update the y axis:
-      svg.select(".y")
+      svgYaxis.select('.y')
         .transition()
-        .call(d3Axis.axisLeft(y).ticks(null, "s"))
+        .call(d3Axis.axisLeft(y).ticks(null, 's'))
         .duration(500);
 
       // filter out the bands that need to be hidden:
-      var bars = svg.selectAll(".bar").selectAll("rect")
-        .data(function(d) {
-          return keys.map(function(key) {
+      const bars = svgChart.selectAll('.bar').selectAll('rect')
+        .data(function (d) {
+          return keys.map(function (key) {
             return {key: key, value: d[key]};
           });
-        })
+        });
 
-      bars.filter(function(d) {
+      bars.filter(function (d) {
         return filtered.indexOf(d.key) > -1;
       })
         .transition()
-        .attr("x", function(d) {
-          return (+d3.select(this).attr("x")) + (+d3.select(this).attr("width"))/2;
+        .attr('x', function (d) {
+          return (+d3.select(this).attr('x')) + (+d3.select(this).attr('width')) / 2;
         })
-        .attr("height",0)
-        .attr("width",0)
-        .attr("y", function(d) {
+        .attr('height', 0)
+        .attr('width', 0)
+        .attr('y', function (d) {
           return height;
         })
         .duration(500);
 
       // adjust the remaining bars:
-      bars.filter(function(d) {
-        return filtered.indexOf(d.key) == -1;
+      bars.filter(function (d) {
+        return filtered.indexOf(d.key) === -1;
       })
         .transition()
-        .attr("x", function(d) {
+        .attr('x', function (d) {
           return x1(d.key);
         })
-        .attr("y", function(d) {
+        .attr('y', function (d) {
           return y(d.value);
         })
-        .attr("height", function(d) {
+        .attr('height', function (d) {
           return height - y(d.value);
         })
-        .attr("width", x1.bandwidth())
-        .attr("fill", function(d) {
+        .attr('width', x1.bandwidth())
+        .attr('fill', function (d) {
           return color(d.key);
         })
         .duration(500);
 
       // update legend:
-      this.legend.selectAll("rect")
+      legend.selectAll('rect')
         .transition()
-        .attr("fill",function(d) {
+        .attr('fill', function (d) {
           if (filtered.length) {
-            if (filtered.indexOf(d) == -1) {
+            if (filtered.indexOf(d) === -1) {
               return color(d);
+            } else {
+              return 'white';
             }
-            else {
-              return "white";
-            }
-          }
-          else {
+          } else {
             return color(d);
           }
         })
@@ -339,7 +326,5 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
     }
 
   }
-
-
 
 }

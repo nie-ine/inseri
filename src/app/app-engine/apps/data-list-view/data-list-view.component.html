@@ -1,8 +1,9 @@
-<!-- TABLE
-<data-list-view-settings [dataListSettings] = "dataListSettingsOut" [displayedColumnsIn] = "displayedColumns"></data-list-view-settings>-->
-<div *ngIf="tableData && dataListSettingsOut && displayedColumns">
+<!-- TABLE-->
+<div *ngIf = "displaySettings">
+  <data-list-view-settings [dataListSettings] = "dataListSettingsOut"></data-list-view-settings>
+</div>
+  <div *ngIf="tableData && dataListSettingsOut">
   <data-list-view-table [dataToDisplay] = "tableData"
-                        [dataListTableSettings] = "dataListSettingsOut"
-                        [displayedColumns] = "displayedColumns">
+                        [dataListTableSettings] = "dataListSettingsOut">
   </data-list-view-table>
 </div>

@@ -1,54 +1,69 @@
-import {Component, Input, OnChanges} from '@angular/core';
-import {DisplayedCollumnsService} from '../data-list-view-services/table-data.service';
+import {Component, EventEmitter, Input, OnChanges} from '@angular/core';
+import {DisplayedCollumnsService, OriginalColumnService, SettingsService} from '../data-list-view-services/table-data.service';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'data-list-view-settings',
-  templateUrl: './data-list-view-settings.html'
+  templateUrl: './data-list-view-settings.html',
+  styleUrls: ['data-list-view-settings.css']
 })
 export class DataListViewSettingsComponent implements OnChanges
 {
   @Input() dataListSettings: any;
-  @Input() displayedColumnsIn: any;
   displayedColumns: any;
   selectedOption;
-  columnMapping: Array<ColumnDefinition>;
-
-  nameFormControl = new FormControl('', [
-    Validators.required
-  ]);
+  nameFormControls: Array<FormControl>;
 
   matcher = new MyErrorStateMatcher();
 
-  constructor( private displayedCollumnsService: DisplayedCollumnsService
-  ) {  }
+  constructor( private displayedCollumnsService: DisplayedCollumnsService,
+               private settingsService: SettingsService,
+               private originalColumnsService: OriginalColumnService
+  ) { }
 
   ngOnChanges() {
-    this.displayedColumns = this.displayedColumnsIn;
+    this.displayedColumns = this.displayedCollumnsService.getDisplayedColumns();
+    this.createNameFormControls(this.displayedColumns);
   }
 
-  saveColumns() {
+  createNameFormControls(columns) {
+    this.nameFormControls = [];
+    columns.forEach( col => {
+      this.nameFormControls.push(new FormControl('', [
+        Validators.required
+      ]));
+    });
+  }
+
+  updateColumns() {
     this.displayedCollumnsService.setDisplayedColumns(this.displayedColumns);
   }
 
-  restoreColumns() {
-    this.displayedCollumnsService.restoreOriginalDisplayedColumns();
+  saveColumns() {
+    this.dataListSettings.columns.columnMapping = this.displayedColumns;
+    // TODO: save to file
   }
 
-  createColumnMapping() {
-    this.columnMapping = [];
-    for (const col of this.displayedColumns) {
-      console.log(col);
-      const colDef = new ColumnDefinition( col, col, true, true);
-      this.columnMapping.push(colDef);
-      }
-    console.log('my new comlumn Mapping: ', this.columnMapping);
+  closeSettings() {
+    this.settingsService.switchOpenState();
+  }
+
+  recreateGenericColumns() {
+    this.dataListSettings.columns.genericColumns = true;
+    this.dataListSettings.columns.columnMapping = [];
+    // save the sets & reload
   }
 
   reloadColumns() {
-    this.restoreColumns();
-    this.createColumnMapping();
+    const cols = this.originalColumnsService.getOriginalDisplayedColumns();
+    this.displayedCollumnsService.setDisplayedColumns(cols);
+  }
+
+  drop(event: CdkDragDrop<ColumnDefinition[]>) {
+    moveItemInArray(this.displayedColumns, event.previousIndex, event.currentIndex);
+    this.updateColumns();
   }
 }
 

@@ -1,8 +1,6 @@
-import {Component, Input, Output, OnInit, OnChanges, EventEmitter} from '@angular/core';
+import {Component, Input, Output, OnChanges } from '@angular/core';
 import { DataListViewInAppQueryService } from './services/query.service';
-import {DisplayedCollumnsService, DataCell} from './data-list-view-services/table-data.service';
-// import { DataListViewSettings } from './data-list-view-settings/data-list-view-settings.service';
-import fallbackSettings from './assets/settings.json';
+import {DisplayedCollumnsService, DataCell, SettingsService, OriginalColumnService} from './data-list-view-services/table-data.service';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -14,22 +12,25 @@ export class DataListViewComponent implements OnChanges {
   @Input() queryResponse?: any;
   @Input() dataListSettings?: any; // DataListViewSettings;
   @Input() query?: string;
-  @Output() displayedColumns: Array<string> = [];
   @Output() dataListSettingsOut: any;
   @Output() tableData: Array<any>; // table data passed to table component. Equals the generatedData once this is finished.
   generatedData: Array<any> = []; // data
   generatedData2: Array<DataCell> = [];
 
-  displayedColumnsSub: Subscription;
+  displaySettings: boolean; // weather the settings are displayed above the table or not
+  displaySettingsChange: Subscription; // change is triggered from within the table component, so we subscribe to that
 
   constructor(private dataService: DataListViewInAppQueryService,
-              private displayedCollumnsService: DisplayedCollumnsService
-              // private settingsService: DataListViewSettings
+              private displayedCollumnsService: DisplayedCollumnsService,
+              private settingsService: SettingsService,
+              private originalColumnService: OriginalColumnService
               ) {
-    this.displayedColumnsSub = this.displayedCollumnsService.displayedColumnsChange.subscribe(cols => this.displayedColumns = cols );
+
+    this.displaySettingsChange = this.settingsService.settingsOpenStateChange.subscribe(oState => this.displaySettings = oState);
   }
 
   ngOnChanges() {
+    console.log(this.queryResponse);
     this.dataListSettingsOut = this.dataListSettings;
     this.onGetData();
   }
@@ -40,15 +41,7 @@ export class DataListViewComponent implements OnChanges {
       dataArray = responseData.results.bindings; } else {
       // returns the array at the node defined by pathToArray variable (path string with dot notation)
       dataArray =  this.dataListSettingsOut.pathToDataArray.split('.').reduce((a, b) => a[b], responseData); }
-    if (this.dataListSettingsOut.columns.genericColumns ) {
       this.createGenericData(dataArray);
-    } else {
-      let length = -1;
-      for (const entry of dataArray) {
-        length += 1;
-        this.appendEntryToTabledata(entry, 0, length);
-      }
-    }
   }
 
   createGenericData(dataArray: Array<any>) {
@@ -64,6 +57,7 @@ export class DataListViewComponent implements OnChanges {
 
   }
 
+  /*
   appendEntryToTabledata(ResponseEntry: any, depth: number, length: number, pathCompare?: Array<string>) {
     // recursive method for getting the actual values from nested jsons
     // and appending them to the tabledata. Allowed values are strings,
@@ -95,6 +89,7 @@ export class DataListViewComponent implements OnChanges {
     }
   }
 
+*/
 
   flattenAndAssignObjects(input, length, reference?, output?) {
     // FLATTENS the objects completely and assigns the result to generatedData.
@@ -121,7 +116,8 @@ export class DataListViewComponent implements OnChanges {
       }
     if ( this.dataListSettingsOut.inputMode === 'input') {
       if (this.queryResponse ) {
-        this.displayedCollumnsService.setInitialDisplayedColumns(this.dataListSettings, this.queryResponse);
+        const originalColumns = this.displayedCollumnsService.setInitialDisplayedColumns(this.dataListSettings, this.queryResponse);
+        this.originalColumnService.setOriginalDisplayedColumns(originalColumns);
         this.generateTableData(this.queryResponse, 0);
         } else { console.log('No data input passed like defined in dataListSettingsOut.inputMode: ' + this.dataListSettingsOut.inputMode); }
       } else { console.log('Wrong dataListSettings definition for --> \"inputmode: ' + this.dataListSettingsOut.inputMode +
@@ -133,8 +129,8 @@ export class DataListViewComponent implements OnChanges {
       const responseData: any = data;
       this.queryResponse = responseData.results.bindings;
       this.generateTableData(this.queryResponse, 0);
-      this.displayedCollumnsService.setInitialDisplayedColumns(this.dataListSettingsOut, this.queryResponse);
-
+      const originalColumns = this.displayedCollumnsService.setInitialDisplayedColumns(this.dataListSettingsOut, this.queryResponse);
+      this.originalColumnService.setOriginalDisplayedColumns(originalColumns);
     });
   }
 }

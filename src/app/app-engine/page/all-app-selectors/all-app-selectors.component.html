@@ -8,15 +8,19 @@
 
 </app-audio-player>
 
-<app-my-files *ngIf="app.type === 'myFiles'">
+<app-my-files *ngIf="app.type === 'myFiles'"
+              [folderPath]="app.folderPath"
+              [appInputQueryMapping]="appInputQueryMapping"
+              [hash]="app.hash">
 
 </app-my-files>
 
 <app-calendar
   *ngIf="app.type === 'calendar'"
   [calendarData]="app.calendarData"
-  [anotherInput]="{ test: 'test' }">
-
+  [anotherInput]="{
+    test: 'test'
+  }">
 </app-calendar>
 
 <app-gnd-lobid *ngIf="app.type === 'gndSubscriber'">
