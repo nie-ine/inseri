@@ -14,6 +14,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
   @Input() initialised = false;
   @Input() numberOfInitialisedComponent: number;
   @Input() data: any;
+  title = 'Grouped Bar Chart';
   alreadyInitialised = false;
   width: number;
   private posX: number;

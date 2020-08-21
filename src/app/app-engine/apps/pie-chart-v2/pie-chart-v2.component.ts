@@ -22,19 +22,20 @@ export class PieChartV2Component implements AfterViewChecked {
   private y: number;
 
   private margin = {top: 20, right: 20, bottom: 30, left: 50};
-  private width: number;
-  private height: number;
-  private radius: number;
+  private readonly width: number;
+  private readonly height: number;
+  private readonly radius: number;
 
   private pie: any;
-  private svg: any;
+  private svgChart: any;
+  private svgLegend: any;
   private _current: any;
   chosenSection: any = {};
   private tooltip: any;
 
   constructor() {
-    this.width = 1000 - this.margin.left - this.margin.right;
-    this.height = 500 - this.margin.top - this.margin.bottom;
+    this.width = 600 - this.margin.left - this.margin.right;
+    this.height = 400 - this.margin.top - this.margin.bottom;
     this.radius = Math.min(this.width, this.height) / 2;
   }
 
@@ -59,7 +60,7 @@ export class PieChartV2Component implements AfterViewChecked {
   drawD3( data: Array<any> ) {
     const color = d3Scale.scaleOrdinal(d3ScaleChromatic.schemeRdYlGn[data.length]);
 
-    this.svg = d3.select('.' + this.generateComponentDivClass('chart'))
+    this.svgChart = d3.select('.' + this.generateComponentDivClass('chart'))
       .append('svg')
       .attr('width', this.width)
       .attr('height', this.height)
@@ -75,19 +76,18 @@ export class PieChartV2Component implements AfterViewChecked {
       .value((d) =>  d.value);
 
     // define tooltip
-    // define tooltip
-    var tooltip = d3.select("#chart")
-      .append("div")
-      .attr("class", "tooltip");
+    const tooltip = d3.select('#chart')
+      .append('div')
+      .attr('class', 'tooltip');
 
-    tooltip.append("div")
-      .attr("class", "label");
+    tooltip.append('div')
+      .attr('class', 'label');
 
-    tooltip.append("div")
-      .attr("class", "count");
+    tooltip.append('div')
+      .attr('class', 'count');
 
-    tooltip.append("div")
-      .attr("class", "percent");
+    tooltip.append('div')
+      .attr('class', 'percent');
 
     for ( const entry of data ) {
       console.log( data );
@@ -96,12 +96,12 @@ export class PieChartV2Component implements AfterViewChecked {
     }
 
     // creating the chart
-    let path = this.svg.selectAll("path")
+    let path = this.svgChart.selectAll('path')
       .data(this.pie(data))
       .enter()
-      .append("path")
-      .attr("d", arc)
-      .attr("fill", (d) => {
+      .append('path')
+      .attr('d', arc)
+      .attr('fill', (d) => {
         return color(d.data.label);
       })
       .each((d) => {
@@ -109,75 +109,84 @@ export class PieChartV2Component implements AfterViewChecked {
       }); // creates a smooth animation for each track
 
     // mouse event handlers
-    path.on("mouseover", (d, n, i) => {
+    path.on('mouseover', (d, n, i) => {
       // calculate the total number
       const total = d3Array.sum(data.map((d) => {
         return (d.enabled) ? d.value : 0;
       }));
-      const percent = Math.round(1000*d.data.value/total)/10;
+      const percent = Math.round(1000 * d.data.value / total) / 10;
       // console.log( d.data.label, d.data.value, percent );
 
       this.chosenSection.label = d.data.label;
       this.chosenSection.value = d.data.value;
       this.chosenSection.percent = percent;
 
-      tooltip.select(".label").html(d.data.label);
-      tooltip.select(".count").html(d.data.value);
-      tooltip.select(".percent").html(percent + "%");
-      tooltip.style("display", "block");
+      tooltip.select('.label').html(d.data.label);
+      tooltip.select('.count').html(d.data.value);
+      tooltip.select('.percent').html(percent + '%');
+      tooltip.style('display', 'block');
     });
 
-    path.on("mouseout", () => {
-      tooltip.style("display", "none");
+    path.on('mouseout', () => {
+      tooltip.style('display', 'none');
       this.chosenSection = {};
     });
 
-    path.on("mousemove", (d) => {
+    path.on('mousemove', (d) => {
       onmousemove = (e) => {
         this.x = e.clientX + 20;
         this.y = e.clientY - 20;
       };
     });
 
-    const legend = this.svg.selectAll('.' + this.generateComponentDivClass( 'pieLegend' ))
+    this.svgLegend = d3.select('.' + this.generateComponentDivClass('pieLegend'))
+      .append('svg')
+      .attr('width', this.width)
+      .attr('height', this.height)
+      .append('g')
+      .attr('transform', 'translate(' + 0 + ',' + (this.height / 2) + ')');
+
+    const legend = this.svgLegend.selectAll('.' + this.generateComponentDivClass('pieLegend'))
       .data(color.domain()) // refers to an array of labels from our data
       .enter()
-      .append("g")
-      .attr("class", "legend")
-      .attr("transform", (d, i) => {
-        var height = 25 + 6;
-        var offset =  height * color.domain().length / 2;
-        var horz = 12 * 25;
-        var vert = i * height - offset;
-        return "translate(" + horz + "," + vert + ")";
+      .append('g')
+      .attr('transform', (d, i) => {
+        const height = 25 + 6;
+        const offset = height * color.domain().length / 2;
+        const vert = i * height - offset;
+        return 'translate(' + 0 + ',' + vert + ')';
       });
 
     // adding colored squares to legend
-    legend.append("rect")
-      .attr("width", 25)
-      .attr("height", 25)
-      .style("fill", color)
-      .style("stroke", color)
-      .attr("cursor", "pointer")
-      .on("click", (label, i, n) => {
+    legend.append('rect')
+      .attr('width', 25)
+      .attr('height', 25)
+      .style('fill', color)
+      .style('stroke', color)
+      .attr('cursor', 'pointer')
+      .on('click', (label, i, n) => {
         // console.log( this, n, i );
         // console.log( n[ i ] );
-        var rect = d3.select( n[ i ] );
-        var enabled = true; // set enabled true to default
-        var totalEnabled = d3Array.sum(data.map((d) => { // can't disable all options
+        const rect = d3.select(n[i]);
+        let enabled = true; // set enabled true to default
+        const totalEnabled = d3Array.sum(data.map((d) => { // can't disable all options
           return (d.enabled) ? 1 : 0; // return 1 for each enabled entry. and summing it up
         }));
 
-        if (rect.attr("class") === "disabled") { // if class is disabled
-          rect.attr("class", ""); // remove class disabled
+        if (rect.attr('class') === 'disabled') { // if class is disabled
+          rect.attr('class', ''); // remove class disabled
         } else { // else
-          if (totalEnabled < 2) return; // if less than two labels are flagged, exit
-          rect.attr("class", "disabled"); // otherwise flag the square disabled
+          if (totalEnabled < 2) {
+            return;
+          } // if less than two labels are flagged, exit
+          rect.attr('class', 'disabled'); // otherwise flag the square disabled
           enabled = false; // set enabled to false
         }
 
-        this.pie.value((d: any)  => {
-          if (d.label === label) d.enabled = enabled; // if entry label matches legend label
+        this.pie.value((d: any) => {
+          if (d.label === label) {
+            d.enabled = enabled;
+          } // if entry label matches legend label
           return (d.enabled) ? d.value : 0; // update enabled property and return count or 0 based on the entry"s status
         });
 
@@ -185,8 +194,8 @@ export class PieChartV2Component implements AfterViewChecked {
 
         path.transition() // transition of redrawn pie
           .duration(750) //
-          .attrTween("d", (d) => { // "d" specifies the d attribute that we'll be animating
-            var interpolate = d3Interpolate.interpolate(this._current, d); // this = current path element
+          .attrTween('d', (d) => { // "d" specifies the d attribute that we'll be animating
+            const interpolate = d3Interpolate.interpolate(this._current, d); // this = current path element
             this._current = interpolate(0); // interpolate between current value and the new value of 'd'
             return (t) => {
               return arc(interpolate(t));
@@ -194,13 +203,12 @@ export class PieChartV2Component implements AfterViewChecked {
           });
       });
 
-    legend.append("text")
-      .attr("x", 26 + 5)
-      .attr("y", 25 - 6)
+    legend.append('text')
+      .attr('x', 26 + 5)
+      .attr('y', 25 - 6)
       .text((d) => {
-        return d ; // return label
+        return d; // return label
       });
   }
-
 
 }
