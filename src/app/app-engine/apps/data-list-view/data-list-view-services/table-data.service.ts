@@ -3,7 +3,7 @@ import {EventEmitter, Injectable} from '@angular/core';
 @Injectable({ providedIn: 'root' })
 
 export class DisplayedCollumnsService {
-  displayedColumns: Array<any>;
+  displayedColumns: Array<ColumnHeader>;
   displayedColumnsChange: EventEmitter<Array<any>>;
   displayedColumnsSet = new Set();
 
@@ -14,7 +14,8 @@ export class DisplayedCollumnsService {
   public createColumns(columns: Array<string>) {
     const dispColumns = [];
     columns.forEach(colDef => {
-      const column = new DataHeader(colDef, colDef);
+
+      const column = new ColumnHeader(colDef, colDef);
       dispColumns.push(column);
     });
     return dispColumns;
@@ -34,7 +35,7 @@ export class DisplayedCollumnsService {
       // if not generic columns
     } else {
       for (const column of dataListSettings.columns.columnMapping) {
-        const col = new DataHeader(column.name, column.path, column.displayed, column.filtered, column.link, column.type );
+        const col = new ColumnHeader(column.name, column.path, column.displayed, column.filtered, column.link, column.type );
         displayedColumns.push(col);
       }
     }
@@ -98,23 +99,31 @@ export class SettingsService {
     this.settingsOpenStateChange.emit(this.settingsOpenState); }
 }
 
-export class DataHeader {
+export class ColumnHeader {
   columnName: string;
   columnPath: string;
   display: boolean;
   filtered: boolean;
-  link?: string;
+  styles: Array<any>;
   type?: string;
+  link?: InLink;
 
-  constructor(columnName, columnPath, display?, filtered?, link?, type?) {
+  constructor(columnName, columnPath, display?, filtered?, styles?: Array<any>, link?: InLink, type?) {
     this.columnName = columnName;
     this.columnPath = columnPath;
     this.display = display || true;
     this.filtered = filtered || true;
-    this.link = link || columnPath;
+    this.styles = styles || ['font-style: normal'];
+    this.link = link || {linkType: 'external', linkValue: columnPath};
     this.type = type || 'literal';
   }
 }
+
+export interface InLink {
+  linkType: string;
+  linkValue: string;
+}
+
 
 
 @Injectable({ providedIn: 'root' })
