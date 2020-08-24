@@ -20,6 +20,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
   private posX: number;
   private posY: number;
   chartWidthFactor = 100;
+  titleYaxis: string;
 
   constructor() {
   }
@@ -60,7 +61,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
     const margin = {
       top: 20,
       right: 20,
-      bottom: 30,
+      bottom: 50,
       left: 40
     };
 
@@ -99,7 +100,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
       .range([0, this.width])
       .paddingInner(0.1)
       .paddingOuter(0.5)
-      .align(0.0);
+      .align(0.5);
 
     // scale for the bars per above given group (spacing each group's bars)
     const x1 = d3Scale.scaleBand()
@@ -155,15 +156,28 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
       .call(d3Axis.axisBottom(x0));
 
     svgYaxis.append('g')
-      .attr('class', 'y axis')
-      .call(d3Axis.axisLeft(y).ticks(null, 's'))
-      .append('text')
-      .attr('x', 10)
-      .attr('y', y(y.ticks().pop()))
-      .attr('dy', '0.32em')
-      .attr('fill', 'black')
-      .attr('font-weight', 'bold')
-      .attr('text-anchor', 'start');
+      .call(d3Axis.axisLeft(y).ticks(null, 's'));
+
+    if (this.data.metadata) {
+      svgYaxis.append('g')
+        .append('text')
+        .attr('transform', 'rotate(-90)')
+        .attr('y', 0 - (margin.left + 3))
+        .attr('x', 0 - (height / 2))
+        .attr('dy', '1em')
+        .attr('fill', 'black')
+        .attr('font-weight', 'bold')
+        .attr('text-anchor', 'middle')
+        .text(this.data.metadata.yAxis);
+
+      svgChart.append('g')
+        .append('text')
+        .attr('transform', 'translate(' + width / 2 + ',' + (height + margin.top + 20) + ')')
+        .attr('fill', 'black')
+        .attr('font-weight', 'bold')
+        .style('text-anchor', 'middle')
+        .text(this.data.metadata.xAxis);
+    }
 
     // define tooltip
     const tooltip = d3.select('#chart_' + this.numberOfInitialisedComponent)
