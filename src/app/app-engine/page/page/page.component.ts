@@ -874,24 +874,16 @@ export class PageComponent implements OnInit, AfterViewChecked {
         }
       }
     }
-    console.log( this.page.openApps);
-    let j = 0;
-    for ( const appHash in this.page.openApps ) {
-      console.log( this.page.openApps[ appHash ] );
-      this.openAppArray[ this.page.openApps[ appHash ].openAppArrayIndex ] = this.page.openApps[ appHash ];
-      this.openAppArray[ this.page.openApps[ appHash ].openAppArrayIndex ].spinnerIsShowing = false;
+    for ( const app of this.openAppArray ) {
+      app.openAppArrayIndex = this.page.openApps[ app.hash ].openAppArrayIndex;
     }
-    // for ( const app of this.openAppArray ) {
-    //   // console.log( this.page.openApps );
-    //   const index = this.page.openApps[ app.hash ].openAppArrayIndex;
-    //   if ( index ) {
-    //     const switchHelp = this.openAppArray[ index ];
-    //     this.openAppArray[ index ] = app;
-    //     this.openAppArray[ j ] = switchHelp;
-    //   }
-    //   j++;
-    //   app.spinnerIsShowing = false;
-    // }
+    const helpArray = [];
+    for ( const app of this.openAppArray ) {
+      helpArray[ app.openAppArrayIndex ] = app;
+    }
+    if ( helpArray.length ===  this.openAppArray.length ) {
+      this.openAppArray = helpArray;
+    }
   }
 
   /**
