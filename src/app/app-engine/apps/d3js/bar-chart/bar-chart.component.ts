@@ -140,7 +140,7 @@ export class BarChartComponent implements AfterViewChecked {
     this.svgYaxis = d3.select('#barChartYaxis_' + this.numberOfInitialisedComponent)
       .append('svg')
       .attr('width', 50 + this.margin.left)
-      .attr('height', 350 + this.margin.bottom);
+      .attr('height', 350);
 
     this.gYaxis = this.svgYaxis.append('g')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
@@ -171,13 +171,6 @@ export class BarChartComponent implements AfterViewChecked {
     this.gYaxis.append('g')
       .attr('class', 'axis axis--y')
       .call(d3Axis.axisLeft(this.y).ticks(10));
-    // .append('text')
-    // .attr('class', 'axis-title')
-    // .attr('transform', 'rotate(-90)')
-    // .attr('y', 6)
-    // .attr('dy', '0.71em')
-    // .attr('text-anchor', 'end')
-    // .text('value');
 
     if (this.data.metadata) {
       this.gYaxis.append('g')
