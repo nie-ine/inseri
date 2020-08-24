@@ -48,7 +48,7 @@ export class BarChartComponent implements AfterViewChecked {
   /**
    * Margin around the SVG image.
    */
-  private margin = {top: 20, right: 20, bottom: 30, left: 40};
+  private margin = {top: 20, right: 20, bottom: 30, left: 50};
 
   /**
    * Horizontal axis scale.
@@ -139,8 +139,8 @@ export class BarChartComponent implements AfterViewChecked {
 
     this.svgYaxis = d3.select('#barChartYaxis_' + this.numberOfInitialisedComponent)
       .append('svg')
-      .attr('width', 50)
-      .attr('height', 350);
+      .attr('width', 50 + this.margin.left)
+      .attr('height', 350 + this.margin.bottom);
 
     this.gYaxis = this.svgYaxis.append('g')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
@@ -153,7 +153,7 @@ export class BarChartComponent implements AfterViewChecked {
     this.x = d3Scale.scaleBand().range([0, this.imageWidth - this.margin.left - this.margin.right])
       .paddingInner(0.1)
       .paddingOuter(0.1)
-      .align(0.0);
+      .align(0.5);
     this.y = d3Scale.scaleLinear().rangeRound([this.height, 0]);
     this.x.domain(this.data.data.map((d) => d.label));
     this.y.domain([0, d3Array.max(this.data.data, (d) => d.value)]);
@@ -171,14 +171,37 @@ export class BarChartComponent implements AfterViewChecked {
     this.gYaxis.append('g')
       .attr('class', 'axis axis--y')
       .call(d3Axis.axisLeft(this.y).ticks(10));
-      // .append('text')
-      // .attr('class', 'axis-title')
-      // .attr('transform', 'rotate(-90)')
-      // .attr('y', 6)
-      // .attr('dy', '0.71em')
-      // .attr('text-anchor', 'end')
-      // .text('value');
+    // .append('text')
+    // .attr('class', 'axis-title')
+    // .attr('transform', 'rotate(-90)')
+    // .attr('y', 6)
+    // .attr('dy', '0.71em')
+    // .attr('text-anchor', 'end')
+    // .text('value');
+
+    if (this.data.metadata) {
+      this.gYaxis.append('g')
+        .append('text')
+        .attr('transform', 'rotate(-90)')
+        .attr('y', 0 - (this.margin.left + 3))
+        .attr('x', 0 - (this.height / 2))
+        .attr('dy', '1em')
+        .attr('fill', 'black')
+        .attr('font-weight', 'bold')
+        .attr('text-anchor', 'middle')
+        .text(this.data.metadata.yAxis);
+
+      this.g.append('g')
+        .append('text')
+        .attr('transform', 'translate(' + ((this.imageWidth - this.margin.left - this.margin.right) / 2) + ',' + (this.height + this.margin.top + 10) + ')')
+        .attr('fill', 'black')
+        .attr('font-weight', 'bold')
+        .style('text-anchor', 'middle')
+        .text(this.data.metadata.xAxis);
+    }
+
   }
+
 
   /**
    * Draw a bar to every entry, the height representing the value.
@@ -188,10 +211,10 @@ export class BarChartComponent implements AfterViewChecked {
       .data(this.data.data)
       .enter().append('rect')
       .attr('class', 'bar')
-      .attr('x', (d) => this.x(d.label) )
-      .attr('y', (d) => this.y(d.value) )
+      .attr('x', (d) => this.x(d.label))
+      .attr('y', (d) => this.y(d.value))
       .attr('width', this.x.bandwidth())
-      .attr('height', (d) => this.height - this.y(d.value) );
+      .attr('height', (d) => this.height - this.y(d.value));
 
     // define tooltip
     const tooltip = d3.select('#barChartChart_' + this.numberOfInitialisedComponent)
