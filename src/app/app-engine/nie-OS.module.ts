@@ -37,6 +37,7 @@ import {MatListModule} from '@angular/material/list';
 import { FrameSettingsComponent } from './page/frame-settings/frame-settings.component';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatToolbarModule} from '@angular/material/toolbar';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import {LoadVariablesComponent} from './load-variables/load-variables.component';
 import { QueryListComponent } from '../query-engine/query-list/query-list.component';
@@ -132,6 +133,7 @@ import { CalendarComponent } from './apps/calendar/calendar.component';
     MatSliderModule,
     MatSlideToggleModule,
     NgxSpinnerModule,
+    MatToolbarModule,
     MatDialogModule,
     MatTreeModule,
     CdkTableModule,

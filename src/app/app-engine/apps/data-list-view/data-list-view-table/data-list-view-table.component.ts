@@ -6,7 +6,7 @@ import { PipeTransform, Pipe } from '@angular/core';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
 import { DataListViewInAppQueryService} from '../services/query.service';
 import {Router} from '@angular/router';
-import {DisplayedCollumnsService, SettingsService} from '../data-list-view-services/table-data.service';
+import {ColumnHeader, DisplayedCollumnsService, SettingsService} from '../data-list-view-services/table-data.service';
 import {Subscription} from 'rxjs';
 
 // import { DataListViewSettings } from '../data-list-view-dataListSettings/data-list-view-dataListSettings.service';
@@ -19,7 +19,7 @@ import {Subscription} from 'rxjs';
 export class DataListViewTableComponent implements OnChanges {
   @Input() dataListTableSettings?: any;
   @Input() dataToDisplay: any;
-  definedColumns: any;
+  definedColumns: Array<ColumnHeader>;
   @Output() reloadVariables: EventEmitter<any> = new EventEmitter<any>();
   displayedColumns: string[];
 
@@ -153,6 +153,14 @@ public replaceUmlaute(input) {
       }
     }
     return dataStr;
+  }
+
+  getStyles(styles: Array<string> ) {
+    let style = {};
+    styles.forEach(s => style[s.split(':')[0]] = s.split(':')[1]);
+    // console.log('style', style);
+    // return {'font-weight': 'bold', 'font-style': 'italic'};
+    return style;
   }
 
   private onThisClick(col, val, index) {
