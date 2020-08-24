@@ -384,6 +384,7 @@ export class DashboardComponent implements OnInit {
               zip.file('JSONFile.json', data.returnedObj.jsonIds);
               if (data.returnedObj.files) {
                 zip.file('files.json', data.returnedObj.files);
+                console.log( data.returnedObj.arrayOfFilePaths );
                 const arrayOfFilePaths = JSON.parse(data.returnedObj.arrayOfFilePaths);
                 numOfFiles = arrayOfFilePaths.length;
                 console.log(numOfFiles);
