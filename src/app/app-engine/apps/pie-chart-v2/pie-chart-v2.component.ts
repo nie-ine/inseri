@@ -58,7 +58,7 @@ export class PieChartV2Component implements AfterViewChecked {
   }
 
   drawD3( data: Array<any> ) {
-    const color = d3Scale.scaleOrdinal(d3ScaleChromatic.schemeRdYlGn[data.length]);
+    const color = d3Scale.scaleOrdinal(d3ScaleChromatic.schemeRdYlBu[data.length]);
 
     this.svgChart = d3.select('.' + this.generateComponentDivClass('chart'))
       .append('svg')
