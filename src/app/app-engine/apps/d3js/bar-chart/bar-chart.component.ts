@@ -63,12 +63,14 @@ export class BarChartComponent implements AfterViewChecked {
   /**
    * Root element of the SVG image.
    */
-  private svg: any;
+  private svgChart: any;
+  private svgYaxis: any;
 
   /**
    * Group for the axis labels.
    */
   private g: any;
+  private gYaxis: any;
 
   /**
    * needed by NIE-OS
@@ -95,20 +97,20 @@ export class BarChartComponent implements AfterViewChecked {
         this.data.data = JSON.parse(help);
         this.alreadyInitialised = true;
         setTimeout(() => {
-          this.drawBarchChart();
+          this.drawBarChart();
         }, 100);
       } else if ( typeof this.data !== 'string' ) {
         this.alreadyInitialised = true;
         setTimeout(() => {
-          this.drawBarchChart();
+          this.drawBarChart();
         }, 100);
       }
     }
   }
 
-  drawBarchChart() {
+  drawBarChart() {
     this.g = undefined;
-    this.svg = undefined;
+    this.svgChart = undefined;
     this.initSvg();
     this.initAxis();
     this.drawAxis();
@@ -123,14 +125,22 @@ export class BarChartComponent implements AfterViewChecked {
     if (this.data.data.length * 50 > this.imageWidth) {
       this.imageWidth = this.data.data.length * 50;
     }
-    this.svg = d3.select('.' + this.generateComponentDivClass())
+    this.svgChart = d3.select('#barChartChart_' + this.numberOfInitialisedComponent)
       .append('svg')
       .attr('width', this.imageWidth)
       // .attr('width', this.imageWidth) // Change here for size of the bars
       .attr('height', 350);
     this.width = this.imageWidth - this.margin.left - this.margin.right;
     this.height = 350 - this.margin.top - this.margin.bottom;
-    this.g = this.svg.append('g')
+    this.g = this.svgChart.append('g')
+      .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
+
+    this.svgYaxis = d3.select('#barChartYaxis_' + this.numberOfInitialisedComponent)
+      .append('svg')
+      .attr('width', 50)
+      .attr('height', 350);
+
+    this.gYaxis = this.svgYaxis.append('g')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
   }
 
@@ -140,7 +150,7 @@ export class BarChartComponent implements AfterViewChecked {
   private initAxis() {
     this.x = d3Scale.scaleBand().range([0, this.imageWidth - this.margin.left - this.margin.right])
       .paddingInner(0.1)
-      .paddingOuter(0.0)
+      .paddingOuter(0.1)
       .align(0.0);
     this.y = d3Scale.scaleLinear().rangeRound([this.height, 0]);
     this.x.domain(this.data.data.map((d) => d.label));
@@ -155,15 +165,16 @@ export class BarChartComponent implements AfterViewChecked {
       .attr('class', 'axis axis--x')
       .attr('transform', 'translate(0,' + this.height + ')')
       .call(d3Axis.axisBottom(this.x));
-    this.g.append('g')
+
+    this.gYaxis.append('g')
       .attr('class', 'axis axis--y')
-      .call(d3Axis.axisLeft(this.y).ticks(10))
-      .append('text')
-      .attr('class', 'axis-title')
-      .attr('transform', 'rotate(-90)')
-      .attr('y', 6)
-      .attr('dy', '0.71em')
-      .attr('text-anchor', 'end');
+      .call(d3Axis.axisLeft(this.y).ticks(10));
+      // .append('text')
+      // .attr('class', 'axis-title')
+      // .attr('transform', 'rotate(-90)')
+      // .attr('y', 6)
+      // .attr('dy', '0.71em')
+      // .attr('text-anchor', 'end')
       // .text('value');
   }
 

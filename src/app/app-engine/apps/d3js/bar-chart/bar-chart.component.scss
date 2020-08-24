@@ -11,3 +11,18 @@
   stroke: black;
   stroke-width: 0.5px;
 }
+
+.barChartContainer {
+  position: relative;
+}
+
+.barChartYaxis {
+  position: absolute;
+  float: left;
+  z-index: 3;
+}
+
+.barChartChart {
+  position: relative;
+  overflow-x: auto;
+}
