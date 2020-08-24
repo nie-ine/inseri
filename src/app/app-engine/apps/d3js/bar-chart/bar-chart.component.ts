@@ -75,7 +75,7 @@ export class BarChartComponent implements AfterViewChecked {
    */
   alreadyInitialised = false;
 
-  imageWidth = 1000;
+  imageWidth = 600;
 
   /**
    * written by angular-cli
@@ -90,7 +90,7 @@ export class BarChartComponent implements AfterViewChecked {
     if ( this.initialised && !this.alreadyInitialised && this.data ) {
       // console.log( this.data );
       if ( typeof this.data === 'string' && IsJsonString(this.data) && JSON.parse(this.data).length > 0 ) {
-        const help =  this.data;
+        const help = this.data;
         this.data = {};
         this.data.data = JSON.parse(help);
         this.alreadyInitialised = true;
@@ -120,12 +120,16 @@ export class BarChartComponent implements AfterViewChecked {
   }
 
   private initSvg() {
+    if (this.data.data.length * 50 > this.imageWidth) {
+      this.imageWidth = this.data.data.length * 50;
+    }
     this.svg = d3.select('.' + this.generateComponentDivClass())
       .append('svg')
-      .attr('width', this.imageWidth) // Change here for size of the bars
-      .attr('height', 500);
-    this.width = +this.svg.attr('width') - this.margin.left - this.margin.right;
-    this.height = +this.svg.attr('height') - this.margin.top - this.margin.bottom;
+      .attr('width', this.imageWidth)
+      // .attr('width', this.imageWidth) // Change here for size of the bars
+      .attr('height', 350);
+    this.width = this.imageWidth - this.margin.left - this.margin.right;
+    this.height = 350 - this.margin.top - this.margin.bottom;
     this.g = this.svg.append('g')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
   }
@@ -134,7 +138,10 @@ export class BarChartComponent implements AfterViewChecked {
    * Initialize the components for the axis.
    */
   private initAxis() {
-    this.x = d3Scale.scaleBand().rangeRound([0, this.width]).padding(0.1);
+    this.x = d3Scale.scaleBand().range([0, this.imageWidth - this.margin.left - this.margin.right])
+      .paddingInner(0.1)
+      .paddingOuter(0.0)
+      .align(0.0);
     this.y = d3Scale.scaleLinear().rangeRound([this.height, 0]);
     this.x.domain(this.data.data.map((d) => d.label));
     this.y.domain([0, d3Array.max(this.data.data, (d) => d.value)]);
@@ -156,12 +163,12 @@ export class BarChartComponent implements AfterViewChecked {
       .attr('transform', 'rotate(-90)')
       .attr('y', 6)
       .attr('dy', '0.71em')
-      .attr('text-anchor', 'end')
-      .text('value');
+      .attr('text-anchor', 'end');
+      // .text('value');
   }
 
   /**
-   * Draw a bar to every entrie, the height representing the value.
+   * Draw a bar to every entry, the height representing the value.
    */
   private drawBars() {
     this.g.selectAll('.bar')
