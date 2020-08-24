@@ -1,9 +1,5 @@
 .bar {
-  fill: steelblue;
-}
-
-.bar:hover {
-  fill: brown;
+  fill: #fdae61;
 }
 
 .axis-title {
@@ -26,3 +22,16 @@
   position: relative;
   overflow-x: auto;
 }
+/* tooltip */
+.barChartTooltip {
+  position: fixed;
+  display: none;
+  text-align: center;
+  z-index: 4;
+}
+
+.barChartTooltipValue {
+
+}
+
+

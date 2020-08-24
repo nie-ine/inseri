@@ -79,6 +79,8 @@ export class BarChartComponent implements AfterViewChecked {
 
   imageWidth = 600;
 
+  private posX: number;
+  private posY: number;
   /**
    * written by angular-cli
    */
@@ -109,17 +111,17 @@ export class BarChartComponent implements AfterViewChecked {
   }
 
   drawBarChart() {
-    this.g = undefined;
-    this.svgChart = undefined;
+    // this.g = undefined;
+    // this.svgChart = undefined;
     this.initSvg();
     this.initAxis();
     this.drawAxis();
     this.drawBars();
   }
 
-  generateComponentDivClass() {
-    return 'barChart' + this.numberOfInitialisedComponent;
-  }
+  // generateComponentDivClass() {
+  //   return 'barChart' + this.numberOfInitialisedComponent;
+  // }
 
   private initSvg() {
     if (this.data.data.length * 50 > this.imageWidth) {
@@ -190,6 +192,37 @@ export class BarChartComponent implements AfterViewChecked {
       .attr('y', (d) => this.y(d.value) )
       .attr('width', this.x.bandwidth())
       .attr('height', (d) => this.height - this.y(d.value) );
+
+    // define tooltip
+    const tooltip = d3.select('#barChartChart_' + this.numberOfInitialisedComponent)
+      .append('div')
+      .attr('class', 'barChartTooltip')
+      .attr('id', 'barChartTooltip_' + this.numberOfInitialisedComponent);
+
+    tooltip.append('div')
+      .attr('class', 'barChartTooltipValue')
+      .attr('id', 'barChartTooltipValue_' + this.numberOfInitialisedComponent);
+
+    const bar = this.svgChart.selectAll('.bar');
+
+    bar.on('mouseover', (d) => {
+      tooltip.select('#barChartTooltipValue_' + this.numberOfInitialisedComponent).html(d.value);
+      tooltip.style('display', 'block');
+
+      onmousemove = (e) => {
+        this.posX = e.clientX + 20;
+        this.posY = e.clientY - 20;
+        tooltip
+          .style('left', (this.posX) + 'px')
+          .style('top', (this.posY) + 'px');
+      };
+
+      onmouseout = (e) => {
+        tooltip.style('display', 'none');
+      };
+    });
+
+
   }
 
 }
