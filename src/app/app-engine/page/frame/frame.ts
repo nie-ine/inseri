@@ -301,13 +301,13 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
       this.app.x = 100;
       this.app.y = 100;
     }
-    Observable.interval(1000)
-      .subscribe((val) => {
-        if ( document.getElementById('app') !== null ) {
-          this.height = document.getElementById('app').offsetHeight;
-          this.width = document.getElementById('app').offsetWidth;
-        }
-      });
+    // Observable.interval(1000)
+    //   .subscribe((val) => {
+    //     if ( document.getElementById('app') !== null ) {
+    //       this.height = document.getElementById('app').offsetHeight;
+    //       this.width = document.getElementById('app').offsetWidth;
+    //     }
+    //   });
     this.curZIndex += 1;
     localStorage.setItem( 'curZIndex', this.curZIndex + 1 );
   }

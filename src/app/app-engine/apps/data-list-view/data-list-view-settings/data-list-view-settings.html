@@ -1,9 +1,18 @@
+<div><h5>Data source</h5>
+  <mat-form-field>
+    <mat-label>Data source</mat-label>
+    <input [disabled] = "dataListSettings.jsonType === 'sparql'" matInput [(ngModel)] ="dataListSettings.pathToDataArray" >
+  </mat-form-field>
+</div>
 <div *ngIf = "nameFormControls">
   <div cdkDropList cdkDropListOrientation="horizontal" class="column-list" (cdkDropListDropped)="drop($event)">
     <div class="column-box" *ngFor="let colDef of displayedColumns, let i = index" cdkDrag>
       <mat-card>
-        <div><mat-checkbox [(ngModel)]="colDef.display"  (ngModelChange)="updateColumns()" [checked] = "colDef.display">{{colDef.columnName}}</mat-checkbox></div>
+        <h3>
+          <mat-checkbox [(ngModel)]="colDef.display"  (ngModelChange)="updateColumns()" [checked] = "colDef.display">{{colDef.columnName}}</mat-checkbox>
+        </h3>
         <div>
+          <h5>Column title</h5>
           <mat-form-field>
             <mat-label>Column name</mat-label>
               <input matInput [formControl]="nameFormControls[i]" [errorStateMatcher]="matcher"
@@ -14,17 +23,42 @@
           </mat-form-field>
         </div>
         <div>
+          <h5>Data source</h5>
           <mat-form-field>
             <mat-label>data source</mat-label>
             <input matInput [disabled]="true" value="{{colDef.columnPath}}" >
           </mat-form-field>
         </div>
         <div><mat-slide-toggle [checked]="colDef.filtered">filtered column</mat-slide-toggle></div>
-        <div>
+        <div *ngIf = "colDef.styles.length > 0">
+          <h5>Styles</h5>
           <mat-form-field>
-            <mat-label>Link</mat-label>
+            <mat-chip-list #chipList aria-label="css styles">
+              <mat-chip *ngFor="let style of colDef.styles, let s = index" [selectable]="selectable"
+                        [removable]="colDef.styles.length > 1 || style !== 'font-style: normal'" (removed)="removeStyle(i, s)">
+                {{style}}
+                <mat-icon matChipRemove *ngIf="colDef.styles.length > 1 || style !== 'font-style: normal'">cancel</mat-icon>
+              </mat-chip>
+                <input placeholder="Type css style and hit enter to add one style ..."
+                       [matChipInputFor]="chipList"
+                       [matChipInputAddOnBlur]=true
+                       (matChipInputTokenEnd)="addStyle($event, i)">
+            </mat-chip-list>
+          </mat-form-field>
+        </div>
+        <div>
+          <h5>Link</h5>
+          <mat-form-field>
+          <mat-label>Link type</mat-label>
+          <mat-select  [(ngModel)]="colDef.link.linkType">
+            <mat-option></mat-option>
+            <mat-option [value]="option" *ngFor="let option of ['external', 'internal', 'none']">{{ option }}</mat-option>
+          </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Link value</mat-label>
             <input matInput
-               value="{{colDef.link}}" >
+                   value="{{colDef.link.linkValue}}" >
           </mat-form-field>
         </div>
       </mat-card>

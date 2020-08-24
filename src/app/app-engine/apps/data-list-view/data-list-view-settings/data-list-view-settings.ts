@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges} from '@angular/core';
-import {DisplayedCollumnsService, OriginalColumnService, SettingsService} from '../data-list-view-services/table-data.service';
+import {MatChipInputEvent} from '@angular/material/chips';
+import {DisplayedCollumnsService, OriginalColumnService, SettingsService, ColumnHeader } from '../data-list-view-services/table-data.service';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
@@ -61,27 +62,41 @@ export class DataListViewSettingsComponent implements OnChanges
     this.displayedCollumnsService.setDisplayedColumns(cols);
   }
 
-  drop(event: CdkDragDrop<ColumnDefinition[]>) {
+  drop(event: CdkDragDrop<ColumnHeader[]>) {
     moveItemInArray(this.displayedColumns, event.previousIndex, event.currentIndex);
     this.updateColumns();
   }
-}
 
-export class ColumnDefinition {
-  colName: string;
-  path: string;
-  displayed: boolean;
-  filtered: boolean;
-  type?: string;
-  link?: string;
 
-  constructor( colName, path, displayed, filtered, type?, link?) {
-    this.colName = colName;
-    this.path = path;
-    this.displayed = displayed;
-    this.filtered = filtered;
-    this.type = type;
-    this.link = link;
+  addStyle(event: MatChipInputEvent, columnIndex: number): void {
+    const input = event.input;
+    const value = event.value;
+
+    // Add our style
+    if ((value || '').trim()) {
+      this.displayedColumns[columnIndex].styles.push(value.trim());
+      // if there is a font-style:normal, we have to remove it
+      if (this.displayedColumns[columnIndex].styles.includes('font-style: normal')) {
+        const normalStyleToRemove = this.displayedColumns[columnIndex].styles.indexOf('font-style: normal');
+        this.displayedColumns[columnIndex].styles.splice(normalStyleToRemove, 1);
+      }
+      this.updateColumns();
+    }
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  removeStyle(colIndex, styleIndex): void {
+    if (this.displayedColumns[colIndex].styles.length > 1) {
+      this.displayedColumns[colIndex].styles.splice(styleIndex, 1);
+    } else {
+      // if the style to remove is the last remaining style in the array, we add font-style: normal
+      this.displayedColumns[colIndex].styles.splice(styleIndex, 1);
+      this.displayedColumns[colIndex].styles.push('font-style: normal');
+    }
+    this.updateColumns();
   }
 }
 
