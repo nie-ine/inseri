@@ -5,12 +5,14 @@ import {ContactService} from '../mongodb/contact/contact.service';
 import {environment} from '../../../environments/environment';
 import { PasswordFormatCheckService } from '../shared/password-format-check.service';
 import { TermsAndConditions } from './termsAndConditions/termsAndConditions';
+import {FileModel} from '../file/file.model';
+import {FileService} from '../file/file.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html'
 })
-export class RegisterComponent implements OnInit{
+export class RegisterComponent implements OnInit {
   model: any = {};
   loading = false;
   userCreated = false;
@@ -26,7 +28,8 @@ export class RegisterComponent implements OnInit{
     public authService: AuthService,
     private contactService: ContactService,
     private passwordFormatCheckService: PasswordFormatCheckService,
-    private termsAndConditions: TermsAndConditions
+    private termsAndConditions: TermsAndConditions,
+    public fileService: FileService,
   ) {}
 
   ngOnInit() {
@@ -40,7 +43,8 @@ export class RegisterComponent implements OnInit{
     if (this.passwordFormatCheckService.checkProposedPassword(this.model.password)) {
       this.wrongFormatAlert = false;
       this.loading = true;
-      this.authService.createUser(this.model.email, this.model.password, this.model.firstName, this.model.lastName, this.model.newsletter)
+      this.authService.createUser(this.model.email, this.model.password, this.model.firstName, this.model.lastName, this.model.newsletter,
+        this.model.usrProfileIcon)
         .subscribe(response => {
           console.log(response);
           setTimeout(() => {
@@ -79,4 +83,12 @@ export class RegisterComponent implements OnInit{
     this.acceptTermsBoolean = change.checked;
   }
 
+  onProfilePicSelected(event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    this.fileService.addFile(this.model.firstName, 'profilePic', '-1', file )
+      .subscribe(responseData => {
+        console.log( responseData );
+      }, error => console.log( error ));
+    //usrProfileIcon
+  }
 }
