@@ -1,17 +1,17 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Router, NavigationEnd } from '@angular/router';
-import { ActionService } from '../../mongodb/action/action.service';
-import { Action } from '../../mongodb/action/action.model';
-import { map } from 'rxjs/operators';
+import {Component, OnInit, Inject} from '@angular/core';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {Router, NavigationEnd} from '@angular/router';
+import {ActionService} from '../../mongodb/action/action.service';
+import {Action} from '../../mongodb/action/action.model';
+import {map} from 'rxjs/operators';
 import {ContactService} from '../../mongodb/contact/contact.service';
 import {EditActionComponent} from './edit-action/edit-action.component';
-import { DeleteActionComponent } from './delete-action/delete-action.component';
-import { QueryListComponent } from '../../../query-engine/query-list/query-list.component';
+import {DeleteActionComponent} from './delete-action/delete-action.component';
+import {QueryListComponent} from '../../../query-engine/query-list/query-list.component';
 import {PageService} from '../../mongodb/page/page.service';
 import {Observable} from 'rxjs';
 import {AuthService} from '../../mongodb/auth/auth.service';
-import { UsergroupService } from '../../mongodb/usergroup/usergroup.service';
+import {UsergroupService} from '../../mongodb/usergroup/usergroup.service';
 import {PageListDialogComponent} from '../../../app-engine/page/page-list-dialog/page-list-dialog.component';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {PageSetService} from '../../mongodb/pageset/page-set.service';
@@ -72,7 +72,9 @@ export class DashboardComponent implements OnInit {
         const tree = router.parseUrl(router.url);
         if (tree.fragment) {
           const element = document.querySelector('#' + tree.fragment);
-          if (element) { element.scrollIntoView(true); }
+          if (element) {
+            element.scrollIntoView(true);
+          }
         }
       }
     });
@@ -86,57 +88,57 @@ export class DashboardComponent implements OnInit {
     /**
      * If not logged in, preview instatiates the published page options.
      * */
-    if ( !this.authService.getIsAuth() ) {
+    if (!this.authService.getIsAuth()) {
       this.loggedIn = false;
     }
     this.getUserGroups();
     this.commentService.getAllCommentsOfUser()
       .subscribe(
         data => {
-          console.log( data );
-          this.commentArray = ( data as any ).comments;
-          for ( let i = 0; i < this.commentArray.length; i++ ) {
-            this.createQueryInformationOfComment( i );
+          console.log(data);
+          this.commentArray = (data as any).comments;
+          for (let i = 0; i < this.commentArray.length; i++) {
+            this.createQueryInformationOfComment(i);
           }
-        }, error1 => console.log( error1 )
+        }, error1 => console.log(error1)
       );
   }
 
-  browseToComment( comment: any ) {
-    this.router.navigate( ['/page'], {
+  browseToComment(comment: any) {
+    this.router.navigate(['/page'], {
       queryParams: comment.params,
       queryParamsHandling: 'merge'
-    } );
+    });
   }
 
-  createQueryInformationOfComment( index: number ) {
-    for ( const param in this.commentArray[ index ].params ) {
-      if ( param.search( ',' ) !== -1 ) {
+  createQueryInformationOfComment(index: number) {
+    for (const param in this.commentArray[index].params) {
+      if (param.search(',') !== -1) {
         // console.log( param );
         // console.log( param.slice( 0, 24 ) );
-        this.queryService.getQuery( param.slice( 0, 24 ) )
+        this.queryService.getQuery(param.slice(0, 24))
           .subscribe(
             data => {
               // console.log( data );
-              const serverUrl = this.replaceParam( data.query.serverUrl, index );
-              this.commentArray[ index ].queries = [];
-              this.commentArray[ index ].queries.push({
+              const serverUrl = this.replaceParam(data.query.serverUrl, index);
+              this.commentArray[index].queries = [];
+              this.commentArray[index].queries.push({
                 title: data.query.title,
-                index: this.commentArray[ index ].params[ param ],
+                index: this.commentArray[index].params[param],
                 serverUrl: serverUrl
               });
-            }, error => console.log( error )
+            }, error => console.log(error)
           );
       }
     }
   }
 
-  replaceParam( toBeChecked: string, index: number ): string {
-    if ( toBeChecked.search( 'inseriParam---'  ) !== -1 ) {
-      const param = toBeChecked.replace( 'inseriParam---', '' ).replace( '---' , '' );
+  replaceParam(toBeChecked: string, index: number): string {
+    if (toBeChecked.search('inseriParam---') !== -1) {
+      const param = toBeChecked.replace('inseriParam---', '').replace('---', '');
       const replaced = toBeChecked.replace(
         'inseriParam---' + param + '---',
-        this.commentArray[ index ].params[ param ]
+        this.commentArray[index].params[param]
       );
       return replaced;
     } else {
@@ -145,14 +147,14 @@ export class DashboardComponent implements OnInit {
   }
 
   getUserGroups() {
-    console.log( 'get user groups' );
+    console.log('get user groups');
     this.usergroupService.getAllUserGroups()
       .subscribe(
         usergroupresponse => {
-          console.log( usergroupresponse );
-          this.userGroups = ( usergroupresponse as any).body.groups;
+          console.log(usergroupresponse);
+          this.userGroups = (usergroupresponse as any).body.groups;
         },
-        error => console.log( error )
+        error => console.log(error)
       );
   }
 
@@ -173,13 +175,14 @@ export class DashboardComponent implements OnInit {
             };
           });
         }))
-      .subscribe( transformedActions => {
-        console.log( transformedActions );
+      .subscribe(transformedActions => {
+        console.log(transformedActions);
         this.actions = transformedActions;
       });
   }
 
-  createHasPage() {}
+  createHasPage() {
+  }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
@@ -193,9 +196,9 @@ export class DashboardComponent implements OnInit {
       this.updateActions();
       this.getUserGroups();
       if (result) {
-        console.log( result );
+        console.log(result);
         const newPage: any = {};
-        this.actionService.getAction( result[ 1 ] )
+        this.actionService.getAction(result[1])
           .subscribe(
             actionResult => {
               console.log('actionService - get Action: ');
@@ -205,16 +208,18 @@ export class DashboardComponent implements OnInit {
               this.pageService.createPage(actionResult.body.action.hasPageSet._id, newPage)
                 .subscribe((result2) => {
                   this.router.navigate(['/page'],
-                    { queryParams:
-                        { actionID: actionResult.body.action._id,
+                    {
+                      queryParams:
+                        {
+                          actionID: actionResult.body.action._id,
                           page: result2.page._id
                         }
                     });
                 }, error => {
-                  console.log( error );
+                  console.log(error);
                 });
             }, error => {
-              console.log( error );
+              console.log(error);
             }
           );
       }
@@ -243,29 +248,29 @@ export class DashboardComponent implements OnInit {
       });
   }
 
-  markAsDone( action: any ) {
-    if ( action.isFinished === true ) {
+  markAsDone(action: any) {
+    if (action.isFinished === true) {
       action.isFinished = false;
     } else {
       action.isFinished = true;
     }
-    this.actionService.updateAction( action )
+    this.actionService.updateAction(action)
       .subscribe(
         data => {
-          console.log( data );
+          console.log(data);
         }, error => {
-          console.log( error );
+          console.log(error);
         }
       );
   }
 
-  continueAction( action: any ) {
-    if ( action.type === 'page-set' ) {
+  continueAction(action: any) {
+    if (action.type === 'page-set') {
       this.actionService.getAction(action.id)
         .subscribe(data => {
-          if ( data.body.action.hasPageSet.hasPages !== null && data.body.action.hasPageSet.hasPages[ 0 ]._id ) {
-            action.hasPage = data.body.action.hasPageSet.hasPages[ 0 ]._id;
-            this.router.navigate( [ '/page' ],
+          if (data.body.action.hasPageSet.hasPages !== null && data.body.action.hasPageSet.hasPages[0]._id) {
+            action.hasPage = data.body.action.hasPageSet.hasPages[0]._id;
+            this.router.navigate(['/page'],
               {
                 queryParams: {
                   'actionID': action.id,
@@ -279,8 +284,8 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  goToDocumentIndex( action: any ) {
-    this.router.navigate( [ '/page-set' ],
+  goToDocumentIndex(action: any) {
+    this.router.navigate(['/page-set'],
       {
         queryParams: {
           'actionID': action.id
@@ -291,8 +296,8 @@ export class DashboardComponent implements OnInit {
   sendMessage() {
     console.log('Send Message');
     console.log(this.message);
-    this.contactService.sendMessage( this.message )
-      .subscribe( response => {
+    this.contactService.sendMessage(this.message)
+      .subscribe(response => {
         console.log(response);
         this.successfullySendMessage = true;
         this.message = '';
@@ -319,10 +324,11 @@ export class DashboardComponent implements OnInit {
           console.log(response);
         },
         error => {
-          console.log( error );
+          console.log(error);
         }
       );
   }
+
   removeUserFromGroup() {
     this.usergroupService.removeUserFromGroup(
       this.usergroup, this.email)
@@ -331,20 +337,21 @@ export class DashboardComponent implements OnInit {
           console.log(response);
         },
         error => {
-          console.log( error );
+          console.log(error);
         }
       );
   }
-  showGroupMembers( title: string ) {
-    console.log( 'show group members' );
-    this.usergroupService.showGroupMembers( title )
+
+  showGroupMembers(title: string) {
+    console.log('show group members');
+    this.usergroupService.showGroupMembers(title)
       .subscribe(
         groupMembers => {
-          console.log( groupMembers );
-          this.groupMembers = ( groupMembers as any).body.result.users;
+          console.log(groupMembers);
+          this.groupMembers = (groupMembers as any).body.result.users;
         },
         error => {
-          console.log( error );
+          console.log(error);
         });
   }
 
@@ -357,16 +364,17 @@ export class DashboardComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe((result) => {
-      console.log( result );
+      console.log(result);
     });
   }
+
   exportProjectAsZip(action: Action) {
     console.log(action.id);
     if (action.type === 'page-set') {
       this.fileService.downloadProject(action.id)
         .subscribe(data => {
           console.log(data);
-          console.log("data returned successfully");
+          console.log('data returned successfully');
           const a = document.createElement('a');
           document.body.appendChild(a);
           a.setAttribute('display', 'none');
@@ -378,51 +386,50 @@ export class DashboardComponent implements OnInit {
           zip.file('oldHostUrl.txt', data.returnedObj.oldHostUrl);
           if (data.returnedObj.comments) {
             zip.file('comments.json', data.returnedObj.comments);
+          }
           if (data.returnedObj.queries) {
             zip.file('queries.json', data.returnedObj.queries);
-            if (data.returnedObj.jsonIds) {
-              zip.file('JSONFile.json', data.returnedObj.jsonIds);
-              if (data.returnedObj.files) {
-                zip.file('files.json', data.returnedObj.files);
-                console.log( data.returnedObj.arrayOfFilePaths );
-                const arrayOfFilePaths = JSON.parse(data.returnedObj.arrayOfFilePaths);
-                numOfFiles = arrayOfFilePaths.length;
-                console.log(numOfFiles);
-                console.log('printing number of files');
-                if (arrayOfFilePaths) {
-                  const files = zip.folder('files');
-                  for (let i = 0; i < arrayOfFilePaths.length; i++) {
-                    let url = arrayOfFilePaths[i];
-                    url = url.split(' ').join('%20');
-                    url = url.split('"').join('');
-                    JSZipUtils.getBinaryContent(url, function (err, data) {
-                      if (err) {
-                        console.log(err);
-                       // throw err; // or handle the error
-                      }
-                      console.log(url);
-                      let filename = url.substr(url.indexOf('/files/') + 7);
-                      console.log(filename);
-                      filename = filename.split('%20').join(' ');
-                      files.file(filename, data, {binary: true});
-                      console.log(files);
-                      console.log(numOfFiles)
-                      numOfFiles--;
-                    });
+          }
+          if (data.returnedObj.jsonIds) {
+            zip.file('JSONFile.json', data.returnedObj.jsonIds);
+          }
+          if (data.returnedObj.folders) {
+            zip.file('folders.json', data.returnedObj.folders);
+          }
+          if (data.returnedObj.files) {
+            zip.file('files.json', data.returnedObj.files);
+            const arrayOfFilePaths = JSON.parse(data.returnedObj.arrayOfFilePaths);
+            numOfFiles = arrayOfFilePaths.length;
+            console.log(numOfFiles);
+            console.log('printing number of files');
+            if (arrayOfFilePaths) {
+              const files = zip.folder('files');
+              for (let i = 0; i < arrayOfFilePaths.length; i++) {
+                let url = arrayOfFilePaths[i];
+                url = url.split(' ').join('%20');
+                url = url.split('"').join('');
+                JSZipUtils.getBinaryContent(url, function (err, data) {
+                  if (err) {
+                    console.log(err);
+                    // throw err; // or handle the error
                   }
-                  if (data.returnedObj.folders) {
-                    zip.file('folders.json', data.returnedObj.folders);
-                  }
-                }
+                  console.log(url);
+                  let filename = url.substr(url.indexOf('/files/') + 7);
+                  console.log(filename);
+                  filename = filename.split('%20').join(' ');
+                  files.file(filename, data, {binary: true});
+                  console.log(files);
+                  console.log(numOfFiles);
+                  numOfFiles--;
+                });
               }
             }
           }
-        }
           const timeout = setInterval(function () {
-           // console.log(numOfFiles);
+            // console.log(numOfFiles);
             if (numOfFiles === 0) {
               clearInterval(timeout);
-             // console.log(zip);
+              // console.log(zip);
               zip.generateAsync({type: 'blob'}).then(function (content) {
 
                 FileSaver.saveAs(content, 'Project_' + action.title + '.zip');
@@ -452,6 +459,7 @@ export class DialogOverviewExampleDialog {
               private usergroupService: UsergroupService,
               private fileService: FileService) {
   }
+
   action: Action = {
     id: undefined,
     title: '',
@@ -486,28 +494,29 @@ export class DialogOverviewExampleDialog {
   }
 
   createUserGroup() {
-    console.log( this.usergroup.title, this.usergroup.description );
+    console.log(this.usergroup.title, this.usergroup.description);
     this.usergroupService.createGroup(
       this.usergroup.title,
-      this.usergroup.description )
+      this.usergroup.description)
       .subscribe(
         data => {
-          console.log( data );
+          console.log(data);
           this.dialogRef.close(data);
         }, error => {
-          console.log( error );
+          console.log(error);
         }
       );
   }
+
   deleteUserGroup(title: string) {
-    console.log( 'show group members' );
-    this.usergroupService.deleteGroup( title )
+    console.log('show group members');
+    this.usergroupService.deleteGroup(title)
       .subscribe(
         response => {
           console.log(response);
         },
         error => {
-          console.log( error );
+          console.log(error);
         }
       );
   }
@@ -516,7 +525,7 @@ export class DialogOverviewExampleDialog {
     const zipFile = (event.target as HTMLInputElement).files[0];
     let action, pageSet, pages, queries, allFiles, jsonQueries, oldHostUrl, filesJson, foldersJson, comments;
     // const projectFiles = [];
-    const projectFiles = new Array<{fileName: string, fileContent: Blob}>();
+    let projectFiles = new Array<{ fileName: string, fileContent: Blob }>();
     let counter = 0;
     JSZip.loadAsync(zipFile)
       .then(function (zip) {
@@ -565,7 +574,6 @@ export class DialogOverviewExampleDialog {
               } else {
                 zip.file(relativePath).async('blob').then(content => {
                   projectFiles.push({fileName: relativePath.substr(6), fileContent: content});
-                  // new File([content], relativePath.substr(6)));
                   console.log(projectFiles);
                 });
                 counter--;
@@ -594,6 +602,7 @@ export class DialogOverviewExampleDialog {
       }
     }, 100);
   }
+
   reloadProject(pageSetId: string) {
     console.log(pageSetId);
     this.actionService.reloadProject(pageSetId)
@@ -604,8 +613,9 @@ export class DialogOverviewExampleDialog {
         this.dialogRef.close(this.pageSet);
       });
   }
+
   reloadFiles() {
-    this.fileService.reloadFiles().subscribe( fileResults => {
+    this.fileService.reloadFiles().subscribe(fileResults => {
       console.log(fileResults);
     });
   }

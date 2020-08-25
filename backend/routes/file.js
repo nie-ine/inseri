@@ -395,8 +395,8 @@ router.post("/deleteFiles/:fileId&:folderId", (req, res, next) => {
 function getComments(projectSpecific, objectId, returnedObj, res, req, queryIds) {
   if (projectSpecific) {
     Comment.find({action: objectId}).then(commentsResult => {
-      console.log("comments results");
-      console.log(commentsResult);
+      //console.log("comments results");
+      //console.log(commentsResult);
       returnedObj.comments = JSON.stringify(commentsResult);
       getQueriesFromPages(queryIds, returnedObj, res, req);
     }).catch(commentsError => {
@@ -525,15 +525,20 @@ async function getFoldersOfFiles(fileIds, folderIds, userId, returnedObj) {
       getParents(foldersWithFiles[i], allFoldersForAUser, returnedFolders);
     }
 
-    console.log("folders with files and their parents " + returnedFolders);
+   // console.log("folders with files and their parents ");
+   // console.log( returnedFolders);
+   // console.log( returnedFolders.length);
     for(let i=0; i< returnedFolders.length;i++){
       if(returnedFolders[i].hasFiles && returnedFolders[i].hasFiles.length!=0){
+        console.log(returnedFolders[i].hasFiles);
         promiseResult += ' ' + await getFiles([], returnedFolders[i].hasFiles, returnedObj);
       }
     }
     if(returnedFolders && returnedFolders.length!=0 ) {
       returnedFolders.forEach(folder => {
         let folderFound = false;
+        //console.log("before adding the returned Folders");
+        //console.log(returnedObj.folders);
         if (returnedObj.folders && returnedObj.folders.length != 0) {
           returnedObj.folders.forEach(item => {
             if (item._id.toString() == folder._id.toString()) {
@@ -541,11 +546,13 @@ async function getFoldersOfFiles(fileIds, folderIds, userId, returnedObj) {
             }
           });
         }
-        if (!folderFound) {
+        if (!folderFound || returnedObj.folders.length==0) {
           returnedObj.folders.push(folder);
         }
       });
     }
+    //console.log("returned Object with Folders");
+    //console.log(returnedObj.folders);
     //returnedFolders.forEach(folder=>{returnedObj.folders.push(folder)});
     //returnedObj.folders.push(returnedFolders);
     return promiseResult + ' get Folders done';
@@ -561,7 +568,7 @@ function getParents(folder, foldersSearchSpace, returnTarget) {
     return;
   } else {
       let folderFound=false;
-      console.log( "folder "+ folder._id.toString()+" has Parent folder "+ foldersSearchSpace[parentIndex]);
+      //console.log( "folder "+ folder._id.toString()+" has Parent folder "+ foldersSearchSpace[parentIndex]);
     if(returnTarget && returnTarget.length!=0 ) {
       returnTarget.forEach(folder => {
         if (folder._id.toString() == foldersSearchSpace[parentIndex]._id.toString()) {
@@ -592,14 +599,16 @@ function getParent(folder, foldersSearchSpace) {
   }
   if (i == foldersSearchSpace.length)
     i = -1;
-  console.log("index of parent Folder "+ i + " for the folder id "+ folder._id.toString());
+  //console.log("index of parent Folder "+ i + " for the folder id "+ folder._id.toString());
   return i;
 }
 
 async function getFiles(arrayOfFilePaths, p_fileIds, returnedObj) {
   console.log("getFiles************");
   let fileUrlPaths = [];
-  if (arrayOfFilePaths.length != 0) {
+
+  if (arrayOfFilePaths && arrayOfFilePaths.length != 0) {
+    console.log(arrayOfFilePaths);
     for (let i = 0; i < arrayOfFilePaths.length; i++) {
       //console.log(arrayOfFilePaths[i]);
       let x = arrayOfFilePaths[i];
@@ -607,13 +616,14 @@ async function getFiles(arrayOfFilePaths, p_fileIds, returnedObj) {
       //console.log(x);
       fileUrlPaths.push(x);
     }
+    console.log(fileUrlPaths);
   }
   try {
     //console.log("fileUrlPaths "+ fileUrlPaths);
     //console.log((p_fileIds.length!=0)? p_fileIds:fileUrlPaths);
     let filesResult = await FileModel.find({$or: [{urlPath: {$in: fileUrlPaths}}, {_id: {$in: p_fileIds}}]});
     console.log("print hehhabasfdknfdks");
-
+    console.log(filesResult);
     if(filesResult && filesResult.length!=0 ) {
       filesResult.forEach(file => {
         let fileFound = false;
@@ -621,30 +631,34 @@ async function getFiles(arrayOfFilePaths, p_fileIds, returnedObj) {
           returnedObj.fileIds.forEach(item => {
             if (item.toString() == file._id.toString()) {
               fileFound = true;
+              console.log(fileFound);
             }
           });
         }
         if (!fileFound) {
           returnedObj.fileIds.push(file._id);
           returnedObj.files.push(file);
+          console.log(returnedObj.arrayOfFilePaths.length);
+          returnedObj.arrayOfFilePaths.push(file.urlPath);
+          console.log(returnedObj.arrayOfFilePaths);
         }
       });
     }
 
-    if(filesResult && filesResult.length!=0 ) {
-      filesResult.forEach(file => {
-        let fileFound = false;
-        if(returnedObj.arrayOfFilePaths && returnedObj.arrayOfFilePaths.length!=0)
-          returnedObj.arrayOfFilePaths.forEach(item => {
-            if (item === file.urlPath) {
-              fileFound = true;
-            }
-          });
-        if (!fileFound) {
-          returnedObj.arrayOfFilePaths.push(file.urlPath);
-        }
-      });
-    }
+    // if(filesResult && filesResult.length!=0 ) {
+    //   filesResult.forEach(file => {
+    //     let fileFound = false;
+    //     if(returnedObj.arrayOfFilePaths && returnedObj.arrayOfFilePaths.length!=0)
+    //       returnedObj.arrayOfFilePaths.forEach(item => {
+    //         if (item === file.urlPath) {
+    //           fileFound = true;
+    //         }
+    //       });
+    //     if (!fileFound) {
+    //       returnedObj.arrayOfFilePaths.push(file.urlPath);
+    //     }
+    //   });
+    // }
     // filesResult.forEach(file => {
     //   if(!returnedObj.fileIds.includes(file._id)){
     //     returnedObj.fileIds.push(file._id);
@@ -679,7 +693,12 @@ async function getJsonIds(filesJsonIds, returnedObj) {
       let jsonResults = await MyOwnJson.find({_id: {$in: filesJsonIds}});
       returnedObj.jsonIds = JSON.stringify(jsonResults);
       arrayOfFilePaths = returnedObj.jsonIds.match(regex);
-      returnedObj.arrayOfFilePaths = arrayOfFilePaths;
+      arrayOfFilePaths.forEach(filePath =>{
+        returnedObj.arrayOfFilePaths.push(filePath);// arrayOfFilePaths;
+      });
+
+      //console.log("returned array of file paths from Json");
+      //console.log(returnedObj.arrayOfFilePaths);
       // if (!arrayOfFilePaths || arrayOfFilePaths.length===0)
       // {
       //console.log("Zip File successfully that has JSON results");
@@ -700,6 +719,8 @@ async function getQueriesFromPages(queryIds, returnedObj, res, req) {
   let myOwnJsonIds = [];
   let folderIds = [];
   let filePaths = [];
+  //console.log("get queries form pages");
+  //console.log(queriesResult);
   for (let i = 0; i < queriesResult.length; i++) {
     queries.push(queriesResult[i]);
     const path = returnedObj.oldHostUrl + '/api/myOwnJson/getJson/';
@@ -710,10 +731,13 @@ async function getQueriesFromPages(queryIds, returnedObj, res, req) {
       myOwnJsonIds.push(queriesResult[i].serverUrl.substring(path.length));
       //console.log("myOwmJson is added " + myOwnJsonIds[myOwnJsonIds.length - 1]);
     } else if (queriesResult[i].serverUrl.startsWith(folderPath)) {
+      //console.log( "Found folderPath"+folderPath.toString());
       if(!folderIds.includes(queriesResult[i].serverUrl.substring(folderPath.length))){
-      folderIds.push(queriesResult[i].serverUrl.substring(folderPath.length));}
+      folderIds.push(queriesResult[i].serverUrl.substring(folderPath.length));
+      }
       //console.log("folderPath is added " + folderIds[folderIds.length - 1]);
     } else if (queriesResult[i].serverUrl.startsWith(filePath)) {
+      console.log( "Found filePath"+filePath.toString());
       if(!filePaths.includes(queriesResult[i].serverUrl)){
       filePaths.push(queriesResult[i].serverUrl);}
       //console.log("filePaths is added " + filePaths[filePaths.length - 1]);
@@ -728,23 +752,31 @@ async function getQueriesFromPages(queryIds, returnedObj, res, req) {
     //console.log(myOwnJsonIds);
     promiseResult += await getJsonIds(myOwnJsonIds, returnedObj);
   }
-  if (filePaths.length > 0) {
-   // console.log("filePaths");
-   // console.log(filePaths);
-    let arrayOfFilePaths = returnedObj.arrayOfFilePaths;
+  if (filePaths.length > 0 || (returnedObj.arrayOfFilePaths && returnedObj.arrayOfFilePaths.length>0)) {
+   console.log("filePaths");
+   console.log(filePaths);
+   if(returnedObj.arrayOfFilePaths){
+     console.log("arrayOfFilePaths");
+     console.log(returnedObj.arrayOfFilePaths);
+   }
+    //let arrayOfFilePaths = returnedObj.arrayOfFilePaths;
     filePaths.forEach(filePath => {
-      if (!arrayOfFilePaths.includes('"' || filePath || '"')) {
-        arrayOfFilePaths.push('"' || filePath || '"');
-        if (arrayOfFilePaths[arrayOfFilePaths.length - 1] === '"') {
-          arrayOfFilePaths.pop();
+      if (!returnedObj.arrayOfFilePaths.includes('"' || filePath || '"')) {
+        //arrayOfFilePaths.push('"' || filePath || '"');
+        returnedObj.arrayOfFilePaths.push('"' || filePath || '"');
+
+        if (returnedObj.arrayOfFilePaths[returnedObj.arrayOfFilePaths.length - 1] === '"') {
+          returnedObj.arrayOfFilePaths.pop();
         }
       }
     });
+    console.log("arrayOfFilePaths after adding all the filePaths");
+    console.log(returnedObj.arrayOfFilePaths);
    // console.log(arrayOfFilePaths);
 
-    promiseResult += await getFiles(arrayOfFilePaths, [], returnedObj);
+    promiseResult += await getFiles(returnedObj.arrayOfFilePaths, [], returnedObj);
   }
-  if (folderIds.length > 0) {
+  if (folderIds.length > 0 || returnedObj.fileIds.length>0) {
     //console.log("folderIds");
    // console.log(folderIds);
     returnedObj.folders = [];
@@ -752,8 +784,12 @@ async function getQueriesFromPages(queryIds, returnedObj, res, req) {
   }
   console.log("hehehehhe I am not lost");
   returnedObj.files = JSON.stringify(returnedObj.files);
+  console.log(returnedObj.files);
   returnedObj.folders = JSON.stringify(returnedObj.folders);
+  console.log(returnedObj.folders);
   returnedObj.arrayOfFilePaths = JSON.stringify(returnedObj.arrayOfFilePaths);
+  console.log(returnedObj.arrayOfFilePaths);
+  console.log(returnedObj);
   // if (myOwnJsonIds.length === 0 && folderIds.length===0 && filePaths.length===0) {
   return res.status(200).json({
     message: 'Created Zip File successfully that has no files',

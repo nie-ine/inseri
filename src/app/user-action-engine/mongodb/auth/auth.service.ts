@@ -22,13 +22,15 @@ export class AuthService {
     return this.token;
   }
 
-  createUser(email: string, password: string, firstName: string, lastName: string, newsletter: boolean): Observable<any> {
+  createUser(email: string, password: string, firstName: string, lastName: string, newsletter: boolean,
+             usrProfileIcon: string): Observable<any> {
     const authData: AuthData = {
       email: email,
       password: password,
       firstName: firstName,
       lastName: lastName,
-      newsLetter: newsletter
+      newsLetter: newsletter,
+      usrProfileIcon: usrProfileIcon
     };
     return this.http.post(`${AuthService.API_BASE_URL_USER}/signup`, authData);
   }
