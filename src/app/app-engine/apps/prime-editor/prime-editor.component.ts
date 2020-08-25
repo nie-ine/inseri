@@ -30,7 +30,7 @@ export class PrimeEditorComponent implements OnChanges {
 
   updateAce() {
     this.editor.text = this.textFile;
-    console.log( JSON.stringify(this.textFile) );
+    // console.log( JSON.stringify(this.textFile) );
     this.safeHtml = this.domSanitizer.bypassSecurityTrustHtml(this.textFile);
   }
 
@@ -50,11 +50,16 @@ export class PrimeEditorComponent implements OnChanges {
   }
 
   save() {
+    console.log( this.appInputQueryMapping );
+    const pathToTextList = this.appInputQueryMapping[ this.hash ][ 'textFile' ].path;
+    const hashOfOriginalFileOwnerApp = pathToTextList.slice().reverse()[ 1 ];
+    console.log( pathToTextList, pathToTextList.slice().reverse()[ 1 ] );
+
     this.requestService.updateFile(
-      this.appInputQueryMapping[ this.hash ][ 'textFile' ][ 'serverUrl' ].split('/')[ 6 ],
+      this.appInputQueryMapping[ hashOfOriginalFileOwnerApp ][ pathToTextList.slice().reverse()[ 0 ] ][ 'serverUrl' ].split('/')[ 6 ],
       {
-        [this.hash]: {
-          textFile: this.textFile
+        [hashOfOriginalFileOwnerApp]: {
+          [ pathToTextList.slice().reverse()[ 0 ] ]: this.textFile
         }
       }
         )
@@ -64,6 +69,7 @@ export class PrimeEditorComponent implements OnChanges {
           this.reloadVariables.emit();
         }, error => console.log( error )
       );
+
   }
 
 }

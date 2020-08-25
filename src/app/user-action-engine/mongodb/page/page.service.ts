@@ -61,4 +61,12 @@ export class PageService {
     return this.http.get(`${PageService.API_BASE_URL_PAGE}/published`);
   }
 
+  publishAsTemplate( pageID: string ) {
+    return this.http.get(`${PageService.API_BASE_URL_PAGE}/publishAsTemplate/${pageID}`);
+  }
+
+  undoPublishTemplate( pageID: string ) {
+    return this.http.get(`${PageService.API_BASE_URL_PAGE}/undoPublishTemplate/${pageID}`);
+  }
+
 }

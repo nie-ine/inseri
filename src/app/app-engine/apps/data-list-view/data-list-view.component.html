@@ -1,8 +1,9 @@
-<!-- TABLE -->
-<div *ngIf="resData">
-  <data-list-view-table [dataToDisplay] = "resData"
-                        [dataListSettings] = "dataListSettings"
-                        [displayedColumns] = "displayedColumns">
+<!-- TABLE-->
+<div *ngIf = "displaySettings || mustSetArray">
+  <data-list-view-settings [dataArrays]="dataArrays" [hash]="hash" [appInputQueryMapping]="appInputQueryMapping" [dataListSettings] = "dataListSettingsOut"></data-list-view-settings>
+</div>
+<div *ngIf="tableData && dataListSettingsOut">
+  <data-list-view-table [dataToDisplay] = "tableData"
+                        [dataListTableSettings] = "dataListSettingsOut">
   </data-list-view-table>
 </div>
-

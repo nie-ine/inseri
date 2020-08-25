@@ -98,27 +98,34 @@ router.put('/updateJson/:id', checkAuth, (req, res, next) => {
 });
 
 router.put('/updateFile/:id', checkAuth, (req, res, next) => {
-  console.log(req.body);
-  MyOwnJson.findOneAndUpdate(
-    {_id: req.params.id},
-    {
-      content: {
-        info: req.body
-      }
-    }, {
-      returnNewDocument: true
-    })
-    .then((resultJSON) => {
-      res.status(200).json({
-        message: 'JSON was updated successfully',
-        JSON: resultJSON
-      });
-    })
-    .catch(error => {
-      res.status(400).json({
-        message: 'JSON cannot be updated'
-      });
-    });
+  // console.log(req.body, Object.keys(req.body)[0]);
+  MyOwnJson.find( {_id: req.params.id} )
+    .then( result => {
+        console.log( result[ 0 ].content.info );
+        newValue = result[ 0 ].content.info;
+        newValue[ Object.keys(req.body)[0] ] = req.body[ Object.keys(req.body)[0] ];
+        MyOwnJson.findOneAndUpdate(
+          {_id: req.params.id},
+          {
+            content: {
+              info: newValue
+            }
+          }, {
+            returnNewDocument: true
+          })
+          .then((resultJSON) => {
+            res.status(200).json({
+              message: 'JSON was updated successfully',
+              JSON: resultJSON
+            });
+          })
+          .catch(error => {
+            res.status(400).json({
+              message: 'JSON cannot be updated'
+            });
+          });
+    }
+    );
 });
 
 router.put('/publishJSON/:id', checkAuth, (req, res, next) => {

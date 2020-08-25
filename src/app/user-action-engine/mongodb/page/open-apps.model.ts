@@ -20,22 +20,41 @@ export class OpenAppsModel {
         }
       ],
       materialIcon: 'image',
-      initialWidth: '375',
-      initialHeight: '350'
+      initialWidth: '800',
+      initialHeight: '500'
     },
     textViewer: {
       type: 'textViewer',
       model: [],
       materialIcon: 'short_text',
-      initialWidth: '375',
-      initialHeight: '350'
+      initialWidth: '600',
+      initialHeight: '400'
+    },
+    commentOnIndices: {
+      type: 'commentOnIndices',
+      model: [],
+      materialIcon: 'speaker_notes',
+      initialWidth: '400',
+      initialHeight: '400',
+      inputs: [
+        {
+          'inputName': 'textFile',
+          default: ''
+        }
+      ],
     },
     myFiles: {
       type: 'myFiles',
       model: [],
-      materialIcon: 'folder',
-      initialWidth: '375',
-      initialHeight: '350'
+      materialIcon: 'menu',
+      initialWidth: '450',
+      initialHeight: '600',
+      inputs: [
+        {
+          'inputName': 'folderPath',
+          default: undefined
+        }
+      ],
     },
     urlParamUpdater: {
       type: 'urlParamUpdater',
@@ -50,9 +69,10 @@ export class OpenAppsModel {
           default: 'Please paste variable here and click save afterwards'
         }
       ],
-      materialIcon: 'lead_add',
+      materialIcon: 'menu',
       initialWidth: '375',
-      initialHeight: '350'
+      initialHeight: '100',
+      fullWidth: true,
     },
     openbisLogin: {
       type: 'openbisLogin',
@@ -147,6 +167,19 @@ export class OpenAppsModel {
       initialWidth: '250',
       initialHeight: '150'
     },
+    calendar: {
+      type: 'calendar',
+      model: [],
+      inputs: [
+        {
+          'inputName': 'calendarData',
+          default: 'this is an app for a calendar'
+        }
+      ],
+      materialIcon: 'calendar_today',
+      initialWidth: '400',
+      initialHeight: '400'
+    },
     jsonEnvironment: {
       type: 'jsonEnvironment',
       model: [],
@@ -198,8 +231,8 @@ export class OpenAppsModel {
         }
       ],
       materialIcon: 'format_paint',
-      initialWidth: '375',
-      initialHeight: '350'
+      initialWidth: '800',
+      initialHeight: '500'
     },
     youtubeVideo: {
       type: 'youtubeVideo',
@@ -218,7 +251,7 @@ export class OpenAppsModel {
       type: 'barCharts',
       model: [],
       materialIcon: 'bar_chart',
-      initialWidth: '375',
+      initialWidth: '600',
       initialHeight: '350',
       inputs: [
         {
@@ -240,6 +273,55 @@ export class OpenAppsModel {
               {
                 'label': 'fourth bar',
                 'value': 1.2
+              }
+            ]
+          }
+        }
+      ],
+    },
+    groupedBarChartV2: {
+      type: 'groupedBarChartV2',
+      model: [],
+      materialIcon: 'bar_chart',
+      initialWidth: '600',
+      initialHeight: '800',
+      fullWidth: true,
+      inputs: [
+        {
+          'inputName': 'data',
+          default: {
+            data: [
+              {
+                "label": "Verse 1",
+                "before 1800": 0,
+                "1800-1805": 5,
+                "1806-1813": 1,
+                "1814-1850": 1,
+                "1851 and after": 0
+              },
+              {
+                "label": "Verse 2",
+                "before 1800": 0,
+                "1800-1805": 5,
+                "1806-1813": 1,
+                "1814-1850": 1,
+                "1851 and after": 0
+              },
+              {
+                "label": "Verse 3",
+                "before 1800": 0,
+                "1800-1805": 6,
+                "1806-1813": 1,
+                "1814-1850": 4,
+                "1851 and after": 0
+              },
+              {
+                "label": "Verse 4",
+                "before 1800": 0,
+                "1800-1805": 6,
+                "1806-1813": 1,
+                "1814-1850": 4,
+                "1851 and after": 0
               }
             ]
           }
@@ -311,7 +393,8 @@ export class OpenAppsModel {
       model: [],
       materialIcon: 'pie_chart',
       initialWidth: '375',
-      initialHeight: '350',
+      initialHeight: '600',
+      fullWidth: true,
       inputs: [
         {
           'inputName': 'data',
@@ -469,8 +552,8 @@ export class OpenAppsModel {
           }
         ],
       materialIcon: 'add_photo_alternate',
-      initialWidth: '375',
-      initialHeight: '350'
+      initialWidth: '800',
+      initialHeight: '500'
     },
     jsonViewer: {
       type: 'jsonViewer',
@@ -519,15 +602,56 @@ export class OpenAppsModel {
       model: [],
       inputs: [
         {
-          'inputName': 'json'
+          'inputName': 'json',
         },
+
         {
-          'inputName': 'settings'
+          'inputName': 'settings',
+          default:   {
+            "inputMode":"input",
+            "jsonType":"any",
+            "pathToDataArray": "",
+            "columns":{
+              "manualColumns": false,
+              "columnMapping":[],
+              "stickyColumn":0
+            },
+            "filter":{
+              "showFilter": true,
+              "caseSensitive": false
+            },
+            "paginator":{
+              "paginate":true,
+              "pageIndex":"0",
+              "pageSize":"10",
+              "pageSizeOptions":[
+                5,
+                10,
+                25,
+                50,
+                100,
+                250
+              ]
+            },
+            "export":{
+              "showExport":true
+            },
+            "sort":{
+              "disallowSorting":false
+            },
+            "styles":{
+              "cellStyle":{
+                "cursor":"pointer"
+              }
+            }
+          }
         }
       ],
       materialIcon: 'view_list',
       initialWidth: '375',
-      initialHeight: '350'
+      initialHeight: '500',
+      fullWidth: true,
+      fullHeight: true
     },
     parzivalFassung: {
       type: 'parzivalFassung',
@@ -589,8 +713,8 @@ export class OpenAppsModel {
         }
       ],
       materialIcon: 'aspect_ratio',
-      initialWidth: '375',
-      initialHeight: '350'
+      initialWidth: '800',
+      initialHeight: '500'
     },
     joinedTextView: {
       type: 'joinedTextView',
@@ -623,15 +747,15 @@ export class OpenAppsModel {
       type: 'login',
       model: [],
       materialIcon: 'lock_open',
-      initialWidth: '375',
-      initialHeight: '350'
+      initialWidth: '450',
+      initialHeight: '450'
     },
     pageMenu: {
       type: 'pageMenu',
       model: [],
-      materialIcon: 'settings',
-      initialWidth: '375',
-      initialHeight: '350'
+      materialIcon: 'menu',
+      initialWidth: '450',
+      initialHeight: '450'
     },
     sparqlVisualizer: {
       type: 'sparqlVisualizer',
@@ -639,6 +763,8 @@ export class OpenAppsModel {
       materialIcon: 'drag_indicator',
     initialWidth: '375',
     initialHeight: '350',
+    fullWidth: true,
+    fullHeight: true,
       inputs: [
         {
           'inputName': 'url'
@@ -698,8 +824,8 @@ export class OpenAppsModel {
       type: 'primeEditor',
       model: [],
       materialIcon: 'format_size',
-      initialWidth: '375',
-      initialHeight: '350',
+      initialWidth: '800',
+      initialHeight: '500',
       inputs: [
         {
           'inputName': 'textFile',
@@ -711,8 +837,8 @@ export class OpenAppsModel {
       type: 'spreadSheet',
       model: [],
       materialIcon: 'table_chart',
-      initialWidth: '375',
-      initialHeight: '350'
+      initialWidth: '800',
+      initialHeight: '500'
     },
     urlUpdate: {
       type: 'urlUpdate',

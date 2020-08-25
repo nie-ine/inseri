@@ -6,9 +6,15 @@ import {Component, Input, OnChanges, OnInit} from '@angular/core';
 })
 export class SimpleImageAppComponent implements OnChanges {
   @Input() imageURL: string;
+  @Input() height: number;
+  @Input() width: number;
   constructor() { }
 
   ngOnChanges() {
+    // console.log( this.imageURL );
+    if ( this.imageURL ) {
+      this.imageURL = this.imageURL.replace( 'full/full', 'full/' + this.width + ',' );
+    }
   }
 
 }

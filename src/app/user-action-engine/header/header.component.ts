@@ -425,13 +425,17 @@ export class PizzaPartyComponent {}
   templateUrl: 'extend-session.html'
 })
 export class ExtendSessionComponent {
-  password = 'password';
+  password: string;
   email = 'Email';
   loginError = false;
   constructor(
     public authService: AuthService,
     public cdr: ChangeDetectorRef
   ) {
+    this.authService.getUser(localStorage.getItem('userId')).subscribe((result) => {
+      console.log( result );
+      this.email = result.user.email;
+    });
   }
   extendSession() {
     this.loginError = false;

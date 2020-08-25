@@ -5,43 +5,14 @@
        'left': app.fullWidth ? '0' : curX + 'px',
        'z-index': curZIndex,
        'position': position,
-       width: app.fullWidth ? 'calc(100% - 70px)' : '',
        height: app.fullHeight ? 'calc(100% - 70px)' : '',
-       'margin-top': app.fullHeight ? '70px' : '',
-       'margin-left': app.fullWidth ? '70px' : ''
+       'margin-top': app.fullHeight ? '70px' : ''
        }">
 
-        <mat-card-header class=" popup-drag" (mousedown)="mousedown($event)" *ngIf="!preview" (mousedown)="setNewZIndex()"
-                         [ngClass]="{'popup-title-bar': position === 'absolute'}">
+        <div class=" popup-drag" (mousedown)="mousedown($event)" *ngIf="!preview && !app.panelExtended" (mousedown)="setNewZIndex()"
+                         [ngClass]="{'popup-title-bar': position === 'absolute'}" >
 
-            <button *ngIf="position === 'absolute'" mat-button [matMenuTriggerFor]="menu1" >
-              {{ app.title || app.type }}
-            </button>
-            <mat-menu #menu1="matMenu">
-
-              <button mat-menu-item (click)="openSettings()" >
-                Change Title and size
-              </button>
-
-              <button mat-menu-item (click)="assignInput()" >
-                File Options
-              </button>
-
-              <button mat-menu-item (click)="addAppDescription()" >
-                Change app description
-              </button>
-
-              <button mat-menu-item (click)="disappear()" >
-                Minimize
-              </button>
-
-              <button mat-menu-item (click)="closeApp()" >
-                Close
-              </button>
-
-            </mat-menu>
-
-            <button mat-button *ngIf="pathsWithArrays" (click)="moveBack()" [disabled]="!(index > 0)">
+            <button mat-button *ngIf="pathsWithArrays" (click)="moveBack()" [disabled]="!(index > 0)" >
               <mat-icon>chevron_left</mat-icon>
             </button>
 
@@ -53,19 +24,12 @@
 
             <mat-menu #menu="matMenu">
               <div mat-menu-item [disableRipple]="true" (click)="$event.stopPropagation()">
-                <mat-form-field #chooseIndex>
-                  <input  matInput placeholder="Go to Number" (keyup.enter)=chooseResource(Number(chooseIndex.value))>
+                <mat-form-field >
+                  <input  #chooseIndex matInput placeholder="Go to Number ( 0 - {{dataChooserEntries?.length + 1 }} )" (keyup.enter)=chooseResource(+chooseIndex.value)>
                 </mat-form-field>
               </div>
               <button mat-button matTooltip="Extended search"
                       (click)="panelExtended = true" (click)="app.panelExtended = true"><mat-icon>search</mat-icon>Extended Search</button>
-              <mat-divider></mat-divider>
-              <button
-                mat-menu-item
-                *ngFor="let entry of dataChooserEntries; let i = index;"
-                (click)="chooseResource(i)">
-                {{ i + 1 }}
-              </button>
             </mat-menu>
 
             <button mat-button *ngIf="pathsWithArrays" (click)="moveForward()" [disabled]="!(index < dataChooserEntries.length -1 )">
@@ -73,72 +37,66 @@
             </button>
 
 
-          <button *ngIf="position === 'static'" mat-button [matMenuTriggerFor]="menu1" style="float: right!important;">
-            <mat-icon>minimize</mat-icon>
-          </button>
-
           <button  *ngIf="showAppDescriptionEditor" (click)="showAppDescriptionEditor = false" (click)="sendAppSettingsBackToPage()" mat-button >
             <mat-icon>close</mat-icon>
           </button>
 
-        </mat-card-header>
+        </div>
 
-        <mat-card-content class="popup-content" (mousedown)="setNewZIndex()">
+        <div class="popup-content" (mousedown)="setNewZIndex()" >
 
-          <div *ngIf="panelExtended" >
+          <div *ngIf="panelExtended" style="height: 100%; width: 100%; margin-top: 10px;">
 
             <mat-form-field *ngIf="!checkIfUrlIsImage(newDataChooserEntries[0])">
               <input matInput placeholder="Search for word" [(ngModel)]="searchTerm" >
             </mat-form-field>
 
             <button
+              style="display: inline-block"
               mat-button
               (click)="panelExtended = false" (click)="app.panelExtended = false">
               Close extended search
             </button>
 
-            <button mat-button (click)="showContent = !showContent" >{{ showContent ? 'Close Panels' : 'Open Panels'}}</button>
+            <mat-paginator [length]="newDataChooserEntries.length"
+                           [pageSize]="25"
+                           [pageSizeOptions]="[5, 10, 25, 100]"
+                           (page)="changePaginatorOption($event)">
+            </mat-paginator>
 
             <br>
 
-            <div *ngFor="let entry of newDataChooserEntries;  let i = index;" style="display: inline-block;">
-              <mat-expansion-panel *ngIf=" !searchTerm || entry.search(searchTerm)  !== -1  "
-                                   [ngStyle]="{ 'width': (width / 2).toString() + 'px' }"
-                                   style="max-height: 400px; overflow-y: auto; margin-bottom: 15px; margin-left: 15px;"
-                                   [expanded]="showContent" >
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    {{ i }}
-                  </mat-panel-title>
-                  <mat-panel-description *ngIf="entry !== null && entry !== undefined ">
-                    {{ entry.toString().slice( 0, 10 ) }}
-                  </mat-panel-description>
-                </mat-expansion-panel-header>
+            <mat-card *ngFor="let entry of shownEntriesArray;  let i = index;" style="display: inline-block; width: 300px;">
+              <div *ngIf=" !searchTerm || entry.search(searchTerm)  !== -1  "
+                   style="max-height: 400px; overflow-y: auto; margin-bottom: 15px; margin-left: 15px; ">
 
-                <div
+                <mat-card-header style="color: #9a9a9a" >{{ currentStartIndex + i }}</mat-card-header>
+
+                <mat-card-content
                   *ngIf="entry !== null && entry !== undefined && !checkIfUrlIsImage(entry)"
                   [innerHtml]="entry"
                   style="cursor: pointer"
-                  (click)="chooseResource( i )">
+                  (click)="chooseResource( currentStartIndex + i )" (click)="panelExtended = false" (click)="app.panelExtended = false">
 
-                </div>
+                </mat-card-content>
 
                 <img
-                  *ngIf="entry !== null && entry !== undefined && checkIfUrlIsImage(entry)"
+                  *ngIf="entry !== null && entry !== undefined && checkIfUrlIsImage(entry) "
                   mat-card-image
-                  src="{{ entry }}"
+                  src="{{ entry.replace( 'full/full', 'full/300,' ) }}"
                   alt="{{ entry }}" style="cursor: pointer"
-                  (click)="chooseResource( i )">
+                  (click)="chooseResource( currentStartIndex + i )" (click)="panelExtended = false" (click)="app.panelExtended = false">
 
                 <img
-                  *ngIf="entry !== null && entry !== undefined && app.fileValueAsURL !== undefined"
+                     *ngIf="entry !== null && entry !== undefined && app.fileValueAsURL !== undefined"
                   mat-card-image
                   src="{{ app.iiifImagePath +'/' + app.maxImageWidth + '/' + app.maxImageHeight + '/0/default.jpg' }}"
                   alt="{{ entry }}" style="cursor: pointer"
-                  (click)="chooseResource( i )">
+                  (click)="chooseResource( currentStartIndex + i )" (click)="panelExtended = false" (click)="app.panelExtended = false">
 
-              </mat-expansion-panel>
-            </div>
+              </div>
+            </mat-card>
+
 
 
           </div>
@@ -153,11 +111,11 @@
 
             <ng-content *ngIf="!panelExtended" ></ng-content>
 
-        </mat-card-content>
+        </div>
 
-    <div  *ngIf="app.description !== undefined" >
-      <strong>{{ app.hash + ' | '}} {{ app.title || app.type }}</strong>
-      <div [innerHTML]="app.description" style="height: 60px;">
+    <div  *ngIf="app.description !== undefined " style="margin-left: 10px; margin-left: 10px; cursor: text!important; user-select: text!important;" >
+      <strong>{{ app.title || app.type }}</strong> <span style="color: #9a9a9a"> | ref: {{  app.hash }}</span>
+      <div [innerHTML]="app.description" >
       </div>
     </div>
 

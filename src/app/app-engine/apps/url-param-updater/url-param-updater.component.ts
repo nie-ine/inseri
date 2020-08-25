@@ -22,29 +22,46 @@ export class UrlParamUpdaterComponent implements OnChanges {
   ) { }
 
   ngOnChanges() {
-    console.log( this.textFile );
+    // console.log( this.textFile );
     if ( this.param && this.textFile ) {
       this.updateParam();
     }
   }
 
   updateParam() {
+    // console.log( this.route.snapshot.queryParams, this.param, this.textFile );
+    let reload = false;
+    if ( !this.route.snapshot.queryParams[ this.param ] ||
+      this.route.snapshot.queryParams[ this.param ] !== this.textFile ) {
+      // console.log( 'reload' );
+      reload = true;
+    }
     this.router.navigate([], {
       queryParams: {
         [ this.param ]: this.textFile
       },
       queryParamsHandling: 'merge'
     });
+    if ( reload ) {
+      this.save();
+    }
   }
 
   save() {
     console.log( this.textFile, this.appInputQueryMapping[ this.hash ] );
     this.requestService.updateFile(
       this.appInputQueryMapping[ this.hash ][ 'textFile' ][ 'serverUrl' ]
-        .split('/')[ 6 ], { textFile: this.textFile} )
+        .split('/')[ 6 ], {
+        [this.hash]: {
+          textFile: this.textFile,
+          param: this.param
+        }
+      }
+      )
       .subscribe(
         data => {
           console.log( data );
+
           this.reloadVariables.emit();
         }, error => console.log( error )
       );

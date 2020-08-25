@@ -44,7 +44,7 @@ export class LoadVariablesComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     if ( this.reload ) {
-      console.log( this.reload );
+      // console.log( this.reload );
       this.reloadVariables();
     }
   }
@@ -70,7 +70,7 @@ export class LoadVariablesComponent implements OnInit, OnChanges {
   }
 
   updateAppsInView(viewHash: string, actionID?: string ) {
-    console.log( viewHash );
+    // console.log( viewHash );
     this.pageService.getPage(viewHash)
       .subscribe(
         data => {
@@ -198,6 +198,7 @@ export class LoadVariablesComponent implements OnInit, OnChanges {
     appModel: any,
     appFromViewModel: any
   ) {
+    // console.log( appFromViewModel );
     const length = appModel.length;
     appModel[ length ] = {};
     appModel[ length ].x = appFromViewModel.x;

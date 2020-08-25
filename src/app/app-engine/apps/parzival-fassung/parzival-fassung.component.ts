@@ -20,6 +20,7 @@ import {Location} from '@angular/common';
 })
 export class ParzivalFassungComponent implements OnChanges, AfterViewChecked {
   @Input() textJson: any;
+  @Input() key = 'verseNumber';
   @ViewChildren('cmp') MyProp2: ElementRef;
   @Output() reloadVariables: EventEmitter<any> = new EventEmitter<any>();
   zeilen: Array<any> = [];
@@ -55,7 +56,7 @@ export class ParzivalFassungComponent implements OnChanges, AfterViewChecked {
   ) {
     this._router.navigate([], {
       queryParams: {
-        verseNumber: index
+        ['verseNumber']: index
       },
       queryParamsHandling: 'merge'
     });

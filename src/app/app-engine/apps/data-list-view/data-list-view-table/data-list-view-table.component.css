@@ -14,15 +14,11 @@
   font-weight: bold;
 }
 
-.authorsname {
-}
 
 .mat-cell {
-  /*white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;*/
   padding: 5px;
 }
+
 
 /*  [ngClass]="row[col].value --> will search for the class name of the cells content */
 /*  [ngClass]="row[col].value --> will search for the class name of the cells content */
@@ -35,8 +31,17 @@
   background-color: lightblue;
 }
 
+.table-cell {
+  all: inherit;
+}
+
 .filter {
   padding: 10px;
+}
+
+#settings-button
+{
+  margin-right:0;
 }
 
 

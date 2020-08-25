@@ -14,7 +14,7 @@ import {
   ContentChildren,
   QueryList,
   ElementRef,
-  Renderer2, OnInit, OnChanges, AfterViewChecked, SimpleChanges
+  Renderer2, OnInit, OnChanges, AfterViewChecked, SimpleChanges, ViewChild, ChangeDetectorRef
 } from '@angular/core';
 import 'rxjs/add/operator/map';
 import {MatDialog} from '@angular/material';
@@ -26,6 +26,7 @@ import {Observable} from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
 import {HttpClient} from '@angular/common/http';
 import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
+import {MatMenuTrigger} from '@angular/material/menu';
 
 
 @Component({
@@ -53,6 +54,13 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
   @Input() pathsWithArrays: Array<any>;
   @Input() height: number;
   @Input() openAppArray: Array<any>;
+  @Input() openAppMenu: false;
+  @Input() tileAndSize = false;
+  @Input() fileOptions = false;
+  @Input() description = false;
+  @Input() minimize = false;
+  @Input() close = false;
+  @ViewChild('clickHoverMenuTrigger') clickHoverMenuTrigger: MatMenuTrigger;
   @Output() sendAppCoordinatesBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendAppSettingsBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendIndexBack: EventEmitter<any> = new EventEmitter<any>();
@@ -86,11 +94,17 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
   sub: any;
   showAppDescriptionEditor = false;
   appDescription: string;
+  currentStartIndex: number = 0;
+  shownEntries = {
+    begin: 0,
+    end: 25
+  };
 
   panelExtended = false;
   @Input () showContent = true;
   searchTerm: string;
   newDataChooserEntries = [];
+  shownEntriesArray: Array<any>;
 
 
   constructor(
@@ -102,6 +116,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
     private spinner: NgxSpinnerService,
     private http: HttpClient,
     private domSanitizer: DomSanitizer,
+    private cdr: ChangeDetectorRef
   ) {
     this.mouseup = this.unboundMouseup.bind(this);
     this.dragging = this.unboundDragging.bind(this);
@@ -123,6 +138,32 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
    * */
   ngOnChanges( changes: SimpleChanges ) {
     // console.log( this.app );
+
+    if ( this.tileAndSize ) {
+      this.openSettings();
+      this.tileAndSize = false;
+    }
+
+    if ( this.fileOptions ) {
+      this.assignInput();
+      this.fileOptions = false;
+    }
+
+    if ( this.description ) {
+      this.addAppDescription();
+      this.description = false;
+    }
+
+    if ( this.minimize ) {
+      this.disappear();
+      this.minimize = false;
+    }
+
+    if ( this.close ) {
+      this.closeApp();
+      this.close = false;
+    }
+
     this.index = 0;
     this.width = this.produceHeightAndWidth( this.app.height,  this.app.initialHeight);
     this.height = this.produceHeightAndWidth( this.app.height,  this.app.initialHeight);
@@ -166,19 +207,30 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
               path.pathToValueInJson[ j ] = i;
             }
           }
-          // console.log( path.pathToValueInJson );
-          this.newDataChooserEntries[ i ] = this.dataAssignmentComponent.generateAppinput(
-            path.response,
-            path.pathToValueInJson,
-            i,
-            0,
-            true,
-            true
-          );
+          if ( path.response.length > 0 ) {
+            this.newDataChooserEntries[ i ] = this.dataAssignmentComponent.generateAppinput(
+              path.response,
+              [ i ].concat( path.pathToValueInJson ),
+              i,
+              0,
+              true,
+              true
+            );
+          } else {
+            this.newDataChooserEntries[ i ] = this.dataAssignmentComponent.generateAppinput(
+              path.response,
+              path.pathToValueInJson,
+              i,
+              0,
+              true,
+              true
+            );
+          }
           // console.log( this.newDataChooserEntries[ i ] );
         }
         // console.log( this.newDataChooserEntries );
       }
+      this.shownEntriesArray = this.newDataChooserEntries.slice( this.shownEntries.begin, this.shownEntries.end );
     }
   }
 
@@ -211,6 +263,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
 
   chooseResource(index: number) {
     this.panelExtended = false;
+    console.log( index );
     this._router.navigate([], {
       queryParams: {
         [this.queryId + this.app.pathWithArray.toString() ]: Number( index )
@@ -248,13 +301,13 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
       this.app.x = 100;
       this.app.y = 100;
     }
-    Observable.interval(1000)
-      .subscribe((val) => {
-        if ( document.getElementById('app') !== null ) {
-          this.height = document.getElementById('app').offsetHeight;
-          this.width = document.getElementById('app').offsetWidth;
-        }
-      });
+    // Observable.interval(1000)
+    //   .subscribe((val) => {
+    //     if ( document.getElementById('app') !== null ) {
+    //       this.height = document.getElementById('app').offsetHeight;
+    //       this.width = document.getElementById('app').offsetWidth;
+    //     }
+    //   });
     this.curZIndex += 1;
     localStorage.setItem( 'curZIndex', this.curZIndex + 1 );
   }
@@ -330,17 +383,19 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
 
   openSettings() {
     console.log( 'Open Settings' );
-    const dialogRef = this.dialog.open(FrameSettingsComponent, {
-      width: '50%',
-      height: '50%',
-      data: [
-        this.app.title,
-        this.app.width,
-        this.app.height,
-        this.app.fullWidth,
-        this.app.fullHeight
-      ]
-    });
+    setTimeout(() => {
+      const dialogRef = this.dialog.open(FrameSettingsComponent, {
+        width: '50%',
+        height: '50%',
+        data: [
+          this.app.title,
+          this.app.width,
+          this.app.height,
+          this.app.fullWidth,
+          this.app.fullHeight
+        ]
+      });
+
     /**
      * After the dialog is closed, all settings are send back to the page.
      * This emit triggers the update of the frame - inputs through onChanges.
@@ -349,12 +404,11 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
      * to be able to save all app - settings immediately.
      * */
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
-      this.app.width = result[ 1 ];
-      this.app.height = result[ 2 ];
-      this.app.fullWidth = result[ 3 ];
-      this.app.fullHeight = result[ 4 ];
       if ( result ) {
+        this.app.width = result[ 1 ];
+        this.app.height = result[ 2 ];
+        this.app.fullWidth = result[ 3 ];
+        this.app.fullHeight = result[ 4 ];
         this.sendAppSettingsBack.emit(
           {
             title: result[ 0 ],
@@ -369,6 +423,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
         );
       }
     });
+    }, 500);
   }
 
   sendAppSettingsBackToPage() {
@@ -415,6 +470,13 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
   addAppDescription() {
     console.log( 'add app description' );
     this.showAppDescriptionEditor = true;
+  }
+
+  changePaginatorOption(event: any) {
+    console.log( event );
+    this.currentStartIndex = event.pageIndex * event.pageSize;
+    this.shownEntriesArray =
+      this.newDataChooserEntries.slice( event.pageIndex * event.pageSize, event.pageIndex * event.pageSize + event.pageSize );
   }
 
 }

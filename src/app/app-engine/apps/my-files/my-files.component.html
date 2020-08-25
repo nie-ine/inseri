@@ -2,6 +2,7 @@
   (sendOpenAppsInThisPageBack)="receiveOpenAppsInThisPage( $event )"
   (sendPageBack)="receivePage( $event )">
 </app-load-variables>
+
 <button mat-button matTooltip="Go to My Files App" style="display: inline-block"
         (click)="this.mainFolder_id='-1';showFolders(); showForm(''); deleteFromBreadCrumb();">
   <mat-icon>home</mat-icon>
@@ -174,7 +175,6 @@
 
 
 <div class="div">
-  <div class="row">
     <div class="col-xs-12">
       <div *ngFor="let folderInstance of foldersArray">
         <button
@@ -185,10 +185,9 @@
         </button>
       </div>
     </div>
-  </div>
 </div>
 
-<div style="width: 100%" *ngIf="dataSource">
+<div *ngIf="dataSource">
   <table mat-table [dataSource]="dataSource" matSort>
 
     <!-- Name Column -->
@@ -200,14 +199,14 @@
     </ng-container>
     <ng-container matColumnDef="more">
     <td mat-cell *matCellDef="let row"
-        style="cursor: pointer; width: 10%;" > <button style="cursor: pointer; width: 10%;" mat-button [matMenuTriggerFor]="menuFileOptions" (click)="getFileDetails(row);">
+        style="cursor: pointer;" > <button style="cursor: pointer; float: right" mat-button [matMenuTriggerFor]="menuFileOptions" (click)="getFileDetails(row);">
       <mat-icon>
         more_vert
       </mat-icon>
     </button>
     </ng-container>
     <!--tr mat-header-row *matHeaderRowDef="responsiveColumns" style="width: 100%;"></tr-->
-    <tr mat-row *matRowDef="let row; columns: ['name','more'];" style="width: 70%;"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['name','more'];" ></tr>
   </table>
 
 </div>
@@ -242,7 +241,6 @@
 </mat-menu>
 
 <div class="div">
-  <div class="row">
     <div class="col-xs-12">
       <div *ngFor="let pageSet of addedPageSets" style="margin-left: 15px">
         <button mat-button (click)="navigateToPageSet(pageSet)">
@@ -256,13 +254,11 @@
         </button>
       </div>
     </div>
-  </div>
 </div>
 
 <div class="div">
-  <div class="row">
     <div class="col-xs-12">
-      <div *ngFor="let query of addedQueries" style="margin-left: 15px">
+      <div *ngFor="let query of addedQueries" >
         <button mat-button (click)="editQuery(query)">
           <mat-icon> receipt</mat-icon>
           {{ query.title }}
@@ -276,7 +272,6 @@
         </button>
       </div>
     </div>
-  </div>
 </div>
 
 

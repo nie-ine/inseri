@@ -1,15 +1,16 @@
 <div style="margin-top: 30px; align-content: center">
-  <div class="{{ generateComponentDivClass( 'legend' ) }}">
 
-  </div>
-  <div class="{{ generateComponentDivClass( 'chart' ) }}" style="width: 500px; height: 500px;" id="chart">
-
+  <div class="chart {{ generateComponentDivClass( 'chart' ) }}"  >
   </div>
 
-  <div *ngIf="chosenSection.label !== undefined">
-    {{ chosenSection?.label + ', ' + chosenSection?.value + ', ' + chosenSection?.percent + '%' }}
+  <div class="legend {{ generateComponentDivClass( 'pieLegend' ) }}" >
   </div>
 
-
+  <div *ngIf="chosenSection.label !== undefined "
+       [ngStyle]="{'position': 'fixed', 'top': y + 'px', 'left': x + 'px', 'text-align': 'center'}">
+    <b>{{ chosenSection?.label }}</b><br/>
+    {{ chosenSection?.value }}<br/>
+    {{ chosenSection?.percent + '%'}}
+  </div>
 
 </div>

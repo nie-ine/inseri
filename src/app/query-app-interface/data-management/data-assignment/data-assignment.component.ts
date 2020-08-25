@@ -103,8 +103,11 @@ export class DataAssignmentComponent implements OnChanges {
     response?: any,
     depth?: number,
     appInputQueryMapping?: any,
-    openAppsInThisPage?: any
+    openAppsInThisPage?: any,
+    responseIsArray?: boolean
   ) {
+    // console.log( 'startUpdateProcess' );
+    // console.log( response, this.response, responseIsArray, index );
 
     if ( queryId ) {
       this.queryId = queryId;
@@ -116,7 +119,7 @@ export class DataAssignmentComponent implements OnChanges {
 
     // this.pathWithArray = this.pathWithArray !== undefined ? this.pathWithArray : [];
 
-    // this.index = index !== undefined ? index : 0;
+    this.index = index !== undefined ? index : this.index;
 
     if ( response ) {
       this.response = response;
@@ -210,7 +213,7 @@ export class DataAssignmentComponent implements OnChanges {
       }
       // console.log( this.appInputQueryMapping[ appHash ] );
     }
-    this.goThroughAppInputs();
+    this.goThroughAppInputs(undefined, undefined, responseIsArray);
   }
 
   /**
@@ -250,9 +253,9 @@ export class DataAssignmentComponent implements OnChanges {
    * this method assigns the depth = 0 to array coming after the first array where the depth is chosen by the
    * data chooser
    * */
-  goThroughAppInputs( response?: any, queryId?: string ) {
+  goThroughAppInputs( response?: any, queryId?: string, responseIsArray?: boolean ) {
     // console.log( this.openAppsInThisPage );
-    // console.log( 'goThroughAppInputs' );
+    // console.log( 'goThroughAppInputs', this.response, responseIsArray );
     for ( const type in this.openAppsInThisPage ) {
       if (  this.openAppsInThisPage[ type ].model.length && type !== 'dataChooser' ) {
         for ( const app of this.openAppsInThisPage[ type ].model ) {
@@ -261,24 +264,22 @@ export class DataAssignmentComponent implements OnChanges {
             for ( const input in this.appInputQueryMapping[ app.hash ] ) {
               // console.log( 'hier', this.queryId, queryId );
               if ( this.appInputQueryMapping[ app.hash ][ input ][ 'query' ] === (this.queryId || queryId ) ) {
-                let increment = 0;
-                for ( const segment of this.appInputQueryMapping[ app.hash ][ input ][ 'path' ] ) {
-                  if ( segment === null ) {
-                    this.appInputQueryMapping[ app.hash ][ input ][ 'path' ].splice( increment, 1 );
-                  }
-                  increment += 1;
-                }
                   /**
                    * Here, the appInput is assigned to the respective part of the json
                    * */
                   // console.log( this.queryId, this.response, this.appInputQueryMapping[ app.hash ][ input ][ 'path' ], this.index );
                   app[ input ] = this.generateAppinput(
-                    this.response || response,
-                    this.appInputQueryMapping[ app.hash ][ input ][ 'path' ],
+                    (this.response.length > 0 ? { array: this.response } : this.response ) || response,
+                    this.response.length > 0 ?
+                      ['array'].concat( this.appInputQueryMapping[ app.hash ][ input ][ 'path' ] ) :
+                      this.appInputQueryMapping[ app.hash ][ input ][ 'path' ],
                     this.index,
                     0,
-                    true
+                    true,
+                    undefined,
+                    responseIsArray
                   );
+                  // console.log( app[ input ] );
               }
             }
           }
@@ -296,10 +297,36 @@ export class DataAssignmentComponent implements OnChanges {
     index: number,
     depth: number,
     firstArray: boolean, // indicates, if the response as this input is the first array with length > 1
-    forExtendedSearch?: boolean
+    forExtendedSearch?: boolean,
+    responseIsArray?: boolean
   ) {
     if ( response ) {
-      // console.log( index );
+      // console.log( path, depth, path[ depth ] );
+
+      if ( path[ depth ] === null ) {
+        // console.log( 'segment is null' );
+        return this.generateAppinput(
+          response,
+          path,
+          index,
+          depth + 1,
+          true,
+          forExtendedSearch
+        );
+      }
+
+      if ( responseIsArray ) {
+        return this.generateAppinput(
+          response[ 'array' ][ index ],
+          path,
+          index,
+          depth + 1,
+          true,
+          forExtendedSearch,
+          false
+        );
+      }
+
       if ( response[ path[ depth ] ] && response[ path[ depth ] ].length === 1 ) {
         // console.log( response[ path[ depth ] ], response, path, depth );
         return this.generateAppinput(
@@ -390,7 +417,8 @@ export class DataAssignmentComponent implements OnChanges {
               response.height !== undefined &&
               response.width !== undefined &&
               forExtendedSearch &&
-              response['@id'].search('jp2') !== -1 ) {
+              response['@id'].search('jp2') !== -1 &&
+              response['@id'].search( '/full/full' ) === -1 ) {
               // if you open extended search, display the iif images
               const iiif = response['@id'] + '/full/full/0/default.jpg';
               // console.log( iiif );

@@ -59,6 +59,7 @@ export class QueryAppInputMapComponent implements OnInit {
   }
 
   loadAbstractResponse() {
+    console.log( this.input );
     this.requestService.request(this.input.query._id)
       .subscribe((data) => {
         if (data.status === 200) {

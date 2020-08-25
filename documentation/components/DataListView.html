@@ -132,7 +132,7 @@
                                 <a href="#resData">resData</a>
                             </li>
                             <li>
-                                <a href="#tableData">tableData</a>
+                                <a href="#tableData">generatedData</a>
                             </li>
                         </ul>
                     </td>
@@ -153,7 +153,7 @@
                                 <a href="#appendEntryToTabledata">appendEntryToTabledata</a>
                             </li>
                             <li>
-                                <a href="#flattenObjects">flattenObjects</a>
+                                <a href="#flattenObjects">flattenAndAssignObjects</a>
                             </li>
                             <li>
                                 <a href="#generateDisplayedColumnsForKnora">generateDisplayedColumnsForKnora</a>
@@ -162,7 +162,7 @@
                                 <a href="#generateTableData">generateTableData</a>
                             </li>
                             <li>
-                                <a href="#getDisplayedColumns">getDisplayedColumns</a>
+                                <a href="#getDisplayedColumns">setInitialDisplayedColumns</a>
                             </li>
                             <li>
                                 <a href="#getSettings">getSettings</a>
@@ -236,15 +236,15 @@
                                         <tbody>
                                                 <tr>
                                                         <td>dataService</td>
-                                                  
+
                                                         <td>
                                                                     <code><a href="../injectables/DataService.html" target="_self" >DataService</a></code>
                                                         </td>
-                                                  
+
                                                     <td>
                                                             No
                                                     </td>
-                                                    
+
                                                 </tr>
                                         </tbody>
                                     </table>
@@ -325,7 +325,7 @@
 
 
     <section>
-    
+
         <h3 id="methods">
             Methods
         </h3>
@@ -375,11 +375,11 @@
                                                         <td>
                                                                     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                                         </td>
-                                                    
+
                                                     <td>
                                                             No
                                                     </td>
-                                                    
+
 
                                                 </tr>
                                                 <tr>
@@ -387,11 +387,11 @@
                                                         <td>
                                                                     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                                         </td>
-                                                    
+
                                                     <td>
                                                             No
                                                     </td>
-                                                    
+
 
                                                 </tr>
                                                 <tr>
@@ -399,11 +399,11 @@
                                                         <td>
                                                                     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
                                                         </td>
-                                                    
+
                                                     <td>
                                                             No
                                                     </td>
-                                                    
+
 
                                                 </tr>
                                         </tbody>
@@ -416,7 +416,7 @@
 
                             </div>
                                 <div class="io-description">
-                                    
+
                                 </div>
                     </td>
                 </tr>
@@ -468,11 +468,11 @@
                                                         <td>
                                                                     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
                                                         </td>
-                                                    
+
                                                     <td>
                                                             No
                                                     </td>
-                                                    
+
 
                                                 </tr>
                                                 <tr>
@@ -480,11 +480,11 @@
                                                         <td>
                                                                     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
                                                         </td>
-                                                    
+
                                                     <td>
                                                             No
                                                     </td>
-                                                    
+
 
                                                 </tr>
                                                 <tr>
@@ -492,11 +492,11 @@
                                                         <td>
                                                                     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
                                                         </td>
-                                                    
+
                                                     <td>
                                                             No
                                                     </td>
-                                                    
+
 
                                                 </tr>
                                                 <tr>
@@ -504,11 +504,11 @@
                                                         <td>
                                                                     <code>Array&lt;string&gt;</code>
                                                         </td>
-                                                    
+
                                                     <td>
                                                             Yes
                                                     </td>
-                                                    
+
 
                                                 </tr>
                                         </tbody>
@@ -521,7 +521,7 @@
 
                             </div>
                                 <div class="io-description">
-                                    
+
                                 </div>
                     </td>
                 </tr>
@@ -534,7 +534,7 @@
                         <a name="flattenObjects"></a>
                         <span class="name">
                             <b>
-                            flattenObjects
+                            flattenAndAssignObjects
                             </b>
                             <a href="#flattenObjects"><span class="icon ion-ios-link"></span></a>
                         </span>
@@ -542,7 +542,7 @@
                 </tr>
                 <tr>
                     <td class="col-md-4">
-<code>flattenObjects(input: , length: , reference?: , output?: )</code>
+<code>flattenAndAssignObjects(input: , length: , reference?: , output?: )</code>
                     </td>
                 </tr>
 
@@ -569,38 +569,38 @@
                                         <tbody>
                                                 <tr>
                                                         <td>input</td>
-                                                    
+
                                                     <td>
                                                             No
                                                     </td>
-                                                    
+
 
                                                 </tr>
                                                 <tr>
                                                         <td>length</td>
-                                                    
+
                                                     <td>
                                                             No
                                                     </td>
-                                                    
+
 
                                                 </tr>
                                                 <tr>
                                                         <td>reference</td>
-                                                    
+
                                                     <td>
                                                             Yes
                                                     </td>
-                                                    
+
 
                                                 </tr>
                                                 <tr>
                                                         <td>output</td>
-                                                    
+
                                                     <td>
                                                             Yes
                                                     </td>
-                                                    
+
 
                                                 </tr>
                                         </tbody>
@@ -613,7 +613,7 @@
 
                             </div>
                                 <div class="io-description">
-                                    
+
                                 </div>
                     </td>
                 </tr>
@@ -703,11 +703,11 @@
                                                         <td>
                                                                     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
                                                         </td>
-                                                    
+
                                                     <td>
                                                             No
                                                     </td>
-                                                    
+
 
                                                 </tr>
                                                 <tr>
@@ -715,11 +715,11 @@
                                                         <td>
                                                                     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
                                                         </td>
-                                                    
+
                                                     <td>
                                                             No
                                                     </td>
-                                                    
+
 
                                                 </tr>
                                         </tbody>
@@ -732,7 +732,7 @@
 
                             </div>
                                 <div class="io-description">
-                                    
+
                                 </div>
                     </td>
                 </tr>
@@ -745,7 +745,7 @@
                         <a name="getDisplayedColumns"></a>
                         <span class="name">
                             <b>
-                            getDisplayedColumns
+                            setInitialDisplayedColumns
                             </b>
                             <a href="#getDisplayedColumns"><span class="icon ion-ios-link"></span></a>
                         </span>
@@ -753,7 +753,7 @@
                 </tr>
                 <tr>
                     <td class="col-md-4">
-<code>getDisplayedColumns(headers?: )</code>
+<code>setInitialDisplayedColumns(headers?: )</code>
                     </td>
                 </tr>
 
@@ -780,11 +780,11 @@
                                         <tbody>
                                                 <tr>
                                                         <td>headers</td>
-                                                    
+
                                                     <td>
                                                             Yes
                                                     </td>
-                                                    
+
 
                                                 </tr>
                                         </tbody>
@@ -797,7 +797,7 @@
 
                             </div>
                                 <div class="io-description">
-                                    
+
                                 </div>
                     </td>
                 </tr>
@@ -845,11 +845,11 @@
                                         <tbody>
                                                 <tr>
                                                         <td>input</td>
-                                                    
+
                                                     <td>
                                                             Yes
                                                     </td>
-                                                    
+
 
                                                 </tr>
                                         </tbody>
@@ -862,7 +862,7 @@
 
                             </div>
                                 <div class="io-description">
-                                    
+
                                 </div>
                     </td>
                 </tr>
@@ -949,7 +949,7 @@
 </section>
 
     <section>
-    
+
         <h3 id="inputs">
             Properties
         </h3>
@@ -1033,7 +1033,7 @@
                         <a name="tableData"></a>
                         <span class="name">
                             <b>
-                            tableData
+                            generatedData
                             </b>
                             <a href="#tableData"><span class="icon ion-ios-link"></span></a>
                         </span>
@@ -1041,7 +1041,7 @@
                 </tr>
                 <tr>
                     <td class="col-md-4">
-                        <code>tableData:     <code>Array&lt;any&gt;</code>
+                        <code>generatedData:     <code>Array&lt;any&gt;</code>
 </code>
                     </td>
                 </tr>
@@ -1087,7 +1087,7 @@ export class DataListView implements OnChanges {
   @Input() query?: any;
   resData: any;
   displayedColumns: any &#x3D; [];
-  tableData: Array&lt;any&gt; &#x3D; [];
+  generatedData: Array&lt;any&gt; &#x3D; [];
 
   constructor(private dataService: DataService) {
   }
@@ -1102,10 +1102,10 @@ export class DataListView implements OnChanges {
     if (this.dataListSettings.columns.genericColumns) {
       let length &#x3D; 0;
       for (const entry of response) {
-        this.flattenObjects(entry, length);
+        this.flattenAndAssignObjects(entry, length);
         length +&#x3D; 1;
       }
-      this.resData &#x3D; this.tableData;
+      this.resData &#x3D; this.generatedData;
       console.log(this.resData);
     } else {
       let length &#x3D; -1;
@@ -1138,18 +1138,18 @@ export class DataListView implements OnChanges {
 
   append( entry: string, name: string, length: number ) {
     // is appending the collected values to the tabledata
-    if ( this.tableData[ length ] &#x3D;&#x3D;&#x3D; undefined ) {
-      this.tableData[ length ] &#x3D; {};
+    if ( this.generatedData[ length ] &#x3D;&#x3D;&#x3D; undefined ) {
+      this.generatedData[ length ] &#x3D; {};
     }
-    this.tableData[ length ][ name ] &#x3D; entry;
-    if ( this.tableData.length &#x3D;&#x3D;&#x3D; this.queryResponse.length ) {
-      this.resData &#x3D; this.tableData;
+    this.generatedData[ length ][ name ] &#x3D; entry;
+    if ( this.generatedData.length &#x3D;&#x3D;&#x3D; this.queryResponse.length ) {
+      this.resData &#x3D; this.generatedData;
     }
   }
 
 
-  flattenObjects(input, length, reference?, output?) {
-    // FLATTENS the response completely and assigns the result to tableData.
+  flattenAndAssignObjects(input, length, reference?, output?) {
+    // FLATTENS the response completely and assigns the result to generatedData.
     output &#x3D; output || {};
     for (let key of Object.keys(input)) {
       const value &#x3D; input[key];
@@ -1157,7 +1157,7 @@ export class DataListView implements OnChanges {
         key &#x3D; reference + &#x27;.&#x27; + key;
       }
       if (typeof value &#x3D;&#x3D;&#x3D; &#x27;object&#x27; &amp;&amp; value !&#x3D;&#x3D; null) {
-        this.flattenObjects(value,  length, key, output);
+        this.flattenAndAssignObjects(value,  length, key, output);
       } else {
         output[key] &#x3D; value;
         // renesting with name and types
@@ -1168,13 +1168,13 @@ export class DataListView implements OnChanges {
 
       }
     }
-    this.tableData[ length ] &#x3D;  output;
+    this.generatedData[ length ] &#x3D;  output;
   }
 
   generateDisplayedColumnsForKnora() {
-    console.log( this.tableData );
+    console.log( this.generatedData );
     const cols &#x3D; new Set();
-    for (const obj of this.tableData) {
+    for (const obj of this.generatedData) {
       for (const key of Object.getOwnPropertyNames(obj)) {
         cols.add(key);
       }
@@ -1182,7 +1182,7 @@ export class DataListView implements OnChanges {
     this.displayedColumns &#x3D; cols;
   }
 
-  getDisplayedColumns(headers?) {
+  setInitialDisplayedColumns(headers?) {
     if (this.dataListSettings.columns.genericColumns) {
       if (this.dataListSettings.jsonType &#x3D;&#x3D;&#x3D; &#x27;sparql&#x27;) {
         for (const entry of headers.head.vars) {
@@ -1215,13 +1215,13 @@ export class DataListView implements OnChanges {
       this.dataService.getData().subscribe(data &#x3D;&gt; {
         const responseData: any &#x3D; data;
         this.generateTableData(responseData.results.bindings, 0);
-        this.getDisplayedColumns(responseData);
+        this.setInitialDisplayedColumns(responseData);
       });
     } else if (this.dataListSettings &amp;&amp; this.dataListSettings.inputMode &#x3D;&#x3D;&#x3D; &#x27;queryResponse&#x27;) {
       console.log(&#x27;getting data by a queryResonse input.&#x27;);
       if ( this.queryResponse &amp;&amp; this.dataListSettings) {
         this.generateTableData(this.queryResponse, 0);
-        this.getDisplayedColumns();
+        this.setInitialDisplayedColumns();
       } else {
         console.log(&#x27;no data by input available yet. Please choose data input·&#x27;);
       }
@@ -1329,14 +1329,14 @@ export class DataListView implements OnChanges {
         </div>
     </div>
 
-    
+
 </div>
 
 <script src="../js/libs/vis.min.js"></script>
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><!-- TABLE --><div *ngIf="resData">  <data-list-view-table [dataToDisplay] = "resData"                        [dataListSettings] = "dataListSettings"                        [displayedColumns] = "displayedColumns">  </data-list-view-table></div></div>'
+        var COMPONENT_TEMPLATE = '<div><!-- TABLE --><div *ngIf="resData">  <data-list-view-table [dataToDisplay] = "resData"                        [dataListSettings] = "dataListSettings"                        [definedColumns]="displayedColumns">  </data-list-view-table></div></div>'
     var COMPONENTS = [{'name': 'AddAppGroupDialogComponent', 'selector': 'app-add-app-group-dialog'},{'name': 'AllAppSelectorsComponent', 'selector': 'app-all-app-selectors'},{'name': 'AngularHandsometableComponent', 'selector': 'app-angular-handsometable'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppInputComponentComponent', 'selector': 'app-app-input-component'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'BooleanValueEditorComponent', 'selector': 'app-boolean-value-editor'},{'name': 'BrowserlingComponent', 'selector': 'app-browserling'},{'name': 'BrushAndZoomComponent', 'selector': 'app-brush-and-zoom'},{'name': 'CanvasWhiteboardComponent', 'selector': 'app-canvas-whiteboard'},{'name': 'ChordDiagramComponent', 'selector': 'app-chord-diagram'},{'name': 'CreateResourceComponent', 'selector': 'app-create-resource'},{'name': 'D3tutorialComponent', 'selector': 'app-d3tutorial'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataAssignmentComponent', 'selector': 'app-data-assignment'},{'name': 'DataChooserComponent', 'selector': 'app-data-chooser'},{'name': 'DataListView', 'selector': 'data-list-view'},{'name': 'DataListViewDetailsDialogComponent', 'selector': 'app-data-list-view-details-dialog'},{'name': 'DataListViewSettings', 'selector': 'data-list-view-settings'},{'name': 'DataListViewTableComponent', 'selector': 'data-list-view-table'},{'name': 'DataManagementComponent', 'selector': 'app-data-management'},{'name': 'DateValueEditorComponent', 'selector': 'app-date-value-editor'},{'name': 'DateValueViewerComponent', 'selector': 'app-date-value-viewer'},{'name': 'DeactivateNewsletterComponent', 'selector': 'app-deactivate-newsletter'},{'name': 'DecimalValueEditorComponent', 'selector': 'app-decimal-value-editor'},{'name': 'DeleteActionComponent', 'selector': 'app-delete-action'},{'name': 'DeletePageComponent', 'selector': 'app-delete-page'},{'name': 'DialogCreateNewPageComponent', 'selector': 'dialog-create-new-page'},{'name': 'DialogOverviewExampleDialog', 'selector': 'dialog-overview-example-dialog'},{'name': 'DialogUserSettingsDialog', 'selector': 'dialog-user-settings-dialog'},{'name': 'DictionaryComponent', 'selector': 'app-dictionary'},{'name': 'DuplicatePageComponent', 'selector': 'app-duplicate-page'},{'name': 'EditActionComponent', 'selector': 'app-edit-action'},{'name': 'EditPageComponent', 'selector': 'app-edit-page'},{'name': 'EditPageSetComponent', 'selector': 'app-update-page-set'},{'name': 'ExtendSessionComponent', 'selector': 'session-component'},{'name': 'FactSheetComponent', 'selector': 'app-fact-sheet'},{'name': 'FileListDialogComponent', 'selector': 'app-file-list-dialog'},{'name': 'FloatLightTableComponent', 'selector': 'app-float-light-table'},{'name': 'FloatingImageObjectComponent', 'selector': 'app-floating-image-object'},{'name': 'FloatingTextObjectComponent', 'selector': 'app-floating-text-object'},{'name': 'Frame', 'selector': 'popup'},{'name': 'FrameSettingsComponent', 'selector': 'app-frame-settings'},{'name': 'GndLobidComponent', 'selector': 'app-gnd-lobid'},{'name': 'GrapesjsComponent', 'selector': 'app-grapesjs'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HierarchicalNavigationNodeComponent', 'selector': 'app-hierarchical-navigation-node'},{'name': 'HierarchicalNavigationRootComponent', 'selector': 'app-hierarchical-navigation-root'},{'name': 'HierarchicalNavigationViewComponent', 'selector': 'app-hierarchical-navigation-view'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HtmlViewerComponent', 'selector': 'app-html-viewer'},{'name': 'IframeComponent', 'selector': 'app-iframe'},{'name': 'ImageFrameOldComponent', 'selector': 'app-image-old-frame'},{'name': 'ImageFrameSizesComponent', 'selector': 'app-image-frame-sizes'},{'name': 'ImageViewComponent', 'selector': 'app-image-view'},{'name': 'ImageWithOverlayComponent', 'selector': 'app-image-with-overlay'},{'name': 'ImpressumComponent', 'selector': 'app-impressum'},{'name': 'InitPopupComponent', 'selector': 'app-init-popup'},{'name': 'IntValueEditorComponent', 'selector': 'app-int-value-editor'},{'name': 'InterlinearGlossingComponent', 'selector': 'app-interlinear-glossing'},{'name': 'JoinedTextBlockComponent', 'selector': 'app-joined-text-block'},{'name': 'JoinedTextLineComponent', 'selector': 'app-joined-text-line'},{'name': 'JoinedTextLinepartComponent', 'selector': 'app-joined-text-linepart'},{'name': 'JoinedTextMarginComponent', 'selector': 'app-joined-text-margin'},{'name': 'JoinedTextTextwrapperComponent', 'selector': 'app-joined-text-textwrapper'},{'name': 'JoinedTextViewComponent', 'selector': 'app-joined-text-view'},{'name': 'KeyValueComponent', 'selector': 'app-key-value'},{'name': 'KeyValueFormComponent', 'selector': 'app-key-value-form'},{'name': 'LeafletExampleComponent', 'selector': 'app-leaflet-example'},{'name': 'LightTableComponent', 'selector': 'app-light-table'},{'name': 'LightTableMenuComponent', 'selector': 'app-light-table-menu'},{'name': 'LinkValueEditorComponent', 'selector': 'app-link-value-editor'},{'name': 'LinkValueLabelViewerComponent', 'selector': 'app-link-value-label-viewer'},{'name': 'LoadLightTableComponent', 'selector': 'app-load-light-table'},{'name': 'LoadVariablesComponent', 'selector': 'app-load-variables'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MetadataViewComponent', 'selector': 'app-metadata-view'},{'name': 'MultiLineChartComponent', 'selector': 'app-multi-line-chart'},{'name': 'MyMainComponentComponent', 'selector': 'app-my-main-component'},{'name': 'MyPractiseComponentComponent', 'selector': 'app-my-practise-component'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationTreeComponent', 'selector': 'app-navigation-tree'},{'name': 'NewGjsBoxDialogComponent', 'selector': 'app-new-gjs-box-dialog'},{'name': 'OpenbisLoginComponent', 'selector': 'app-openbis-login'},{'name': 'OurNewComponentComponent', 'selector': 'app-our-new-component'},{'name': 'P0041EditionComponent', 'selector': 'app-p0041-edition'},{'name': 'P0041KandaComponent', 'selector': 'app-p0041-kanda'},{'name': 'P0041StropheComponent', 'selector': 'app-p0041-strophe'},{'name': 'P0041SuktaComponent', 'selector': 'app-p0041-sukta'},{'name': 'P0062TranscriptionFrameComponent', 'selector': 'app-p0062-transcription-frame'},{'name': 'PageComponent', 'selector': 'nie-os'},{'name': 'PageListDialogComponent', 'selector': 'app-page-list-dialog'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'PageSetLandingPageComponent', 'selector': 'app-page-set-landing-page'},{'name': 'ParzivalFassungComponent', 'selector': 'app-parzival-fassung'},{'name': 'PdfViewerComponent', 'selector': 'app-pdf-viewer'},{'name': 'PieChartComponent', 'selector': 'app-pie-chart'},{'name': 'PizzaPartyComponent', 'selector': 'snack-bar-component-example-snack'},{'name': 'PrimeEditorComponent', 'selector': 'app-prime-editor'},{'name': 'QueryAppInputMapComponent', 'selector': 'app-query-app-input-map'},{'name': 'QueryEntryComponent', 'selector': 'app-query-entry'},{'name': 'QueryInformationDialogComponent', 'selector': 'app-query-information-dialog'},{'name': 'QueryListComponent', 'selector': 'app-query-list'},{'name': 'RadialBarchartComponent', 'selector': 'app-radial-barchart'},{'name': 'RaeberNavigationComponent', 'selector': 'app-raeber-navigation'},{'name': 'ReactivateAccountComponent', 'selector': 'app-reactivate-account'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'RemoveObjectsByIdComponent', 'selector': 'app-remove-objects-by-id'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'ResourceFormComponent', 'selector': 'app-resource-form'},{'name': 'ResourceFormV2Component', 'selector': 'app-resource-form-v2'},{'name': 'ResourceValueHistoryComponent', 'selector': 'app-resource-value-history'},{'name': 'ResourceValueHistoryValueComponent', 'selector': 'app-resource-value-history-value'},{'name': 'ResponseTreeAppComponent', 'selector': 'response-tree'},{'name': 'ResponseTreeComponent', 'selector': 'app-response-tree'},{'name': 'RichTextByIriComponent', 'selector': 'app-spa-text'},{'name': 'SankeyComponent', 'selector': 'app-sankey'},{'name': 'SaveLightTableComponent', 'selector': 'app-save-light-table'},{'name': 'ShareLightTableComponent', 'selector': 'app-share-light-table'},{'name': 'SimpleImageAppComponent', 'selector': 'app-simple-image-app'},{'name': 'SpiralBarChartComponent', 'selector': 'app-spiral-bar-chart'},{'name': 'StackedBarChartComponent', 'selector': 'app-stacked-bar-chart'},{'name': 'SynopsisComponent', 'selector': 'app-synopsis'},{'name': 'SynopsisObjectManagerComponent', 'selector': 'app-synopsis-object-manager'},{'name': 'SynopsisObjectToolboxComponent', 'selector': 'app-synopsis-object-toolbox'},{'name': 'TagChipsComponent', 'selector': 'app-tag-chips'},{'name': 'TextDevViewComponent', 'selector': 'app-text-dev-view'},{'name': 'TextDisplayComponent', 'selector': 'app-text-display'},{'name': 'TextDisplayComponent', 'selector': 'app-text-display'},{'name': 'TextLineComponent', 'selector': 'app-text-line'},{'name': 'TextLineGroupComponent', 'selector': 'app-text-line-group'},{'name': 'TextLineMarginComponent', 'selector': 'app-text-line-margin'},{'name': 'TextLineNumberComponent', 'selector': 'app-text-line-number'},{'name': 'TextPageOfWordsComponent', 'selector': 'app-text-page-of-words'},{'name': 'TextRichInnerhtmlComponent', 'selector': 'app-text-rich-innerhtml'},{'name': 'TextSvgViewComponent', 'selector': 'app-text-svg-view'},{'name': 'TextSvgViewWrapperComponent', 'selector': 'app-text-svg-view-wrapper'},{'name': 'TextValueEditorComponent', 'selector': 'app-text-value-editor'},{'name': 'TextViewCanvasComponent', 'selector': 'app-text-view-canvas'},{'name': 'TextViewComponent', 'selector': 'app-text-view'},{'name': 'TextViewMetadataComponent', 'selector': 'app-text-view-metadata'},{'name': 'TextViewStructureComponent', 'selector': 'app-text-view-structure'},{'name': 'TextViewToolsComponent', 'selector': 'app-text-view-tools'},{'name': 'TextlistViewerComponent', 'selector': 'app-textlist-viewer'},{'name': 'ThumbnailbarComponent', 'selector': 'app-thumbnailbar'},{'name': 'TiledImageObjectComponent', 'selector': 'app-tiled-image-object'},{'name': 'TiledLightTableComponent', 'selector': 'app-tiled-light-table'},{'name': 'TiledTextObjectComponent', 'selector': 'app-tiled-text-object'},{'name': 'YoutubeVideoComponent', 'selector': 'app-youtube-video'}];
     var DIRECTIVES = [{'name': 'DraggableDirective', 'selector': '[appDraggable]'},{'name': 'DraggableStubDirective', 'selector': '[appDraggable]'},{'name': 'FloatDropTargetDirective', 'selector': '[appDropTarget]'},{'name': 'ModifiableDirective', 'selector': '[appModifiable]'},{'name': 'ModifiableStubDirective', 'selector': '[appModifiable]'},{'name': 'SelectableDirective', 'selector': '[appSelectable]'},{'name': 'SelectableStubDirective', 'selector': '[appSelectable]'},{'name': 'SynopsisObjectAnchorDirective', 'selector': '[appSynopsisObjectAnchor]'},{'name': 'TileDropTargetDirective', 'selector': '[appTileDropTarget]'}];
     var ACTUAL_COMPONENT = {'name': 'DataListView'};

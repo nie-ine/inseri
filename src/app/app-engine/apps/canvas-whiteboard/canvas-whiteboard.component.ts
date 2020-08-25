@@ -35,26 +35,28 @@ export class CanvasWhiteboardComponent implements AfterViewInit, OnChanges {
   private cx: CanvasRenderingContext2D;
 
   ngOnChanges() {
-    this.textFile = JSON.parse( this.textFile as any );
-    // console.log( this.textFile );
-    if ( this.textFile.length > 0 ) {
-      // get the context
-      const canvasEl: HTMLCanvasElement = this.canvas.nativeElement;
-      this.cx = canvasEl.getContext('2d');
+    if(this.textFile){
+      this.textFile = JSON.parse( this.textFile as any );
+      // console.log( this.textFile );
+      if ( this.textFile.length > 0 ) {
+        // get the context
+        const canvasEl: HTMLCanvasElement = this.canvas.nativeElement;
+        this.cx = canvasEl.getContext('2d');
 
-      // set the width and height
-      canvasEl.width = this.width;
-      canvasEl.height = this.height;
+        // set the width and height
+        canvasEl.width = this.width;
+        canvasEl.height = this.height;
 
-      // set some default properties about the line
-      this.cx.lineWidth = 3;
-      this.cx.lineCap = 'round';
-      this.cx.strokeStyle = '#000';
+        // set some default properties about the line
+        this.cx.lineWidth = 3;
+        this.cx.lineCap = 'round';
+        this.cx.strokeStyle = '#000';
 
-      // we'll implement this method to start capturing mouse events
-      this.captureEvents(canvasEl);
-      for ( const move of this.textFile ) {
-        this.drawOnCanvas( move.prevPos, move.prevPos );
+        // we'll implement this method to start capturing mouse events
+        this.captureEvents(canvasEl);
+        for ( const move of this.textFile ) {
+          this.drawOnCanvas( move.prevPos, move.prevPos );
+        }
       }
     }
   }

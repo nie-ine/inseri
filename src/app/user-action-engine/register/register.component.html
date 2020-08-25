@@ -14,6 +14,16 @@
       <div *ngIf="f.submitted && !lastName.valid" class="help-block">Last Name is required</div>
     </div>
 
+    <div class="form-group" >
+      <label for="profilePic">Profile Picture</label>
+      <input type="file" class="form-control" name="profilePic" #filePicker (change)="onProfilePicSelected($event)" style="visibility: hidden;height: 0px">
+      <button mat-menu-item (click)="filePicker.click();" >
+        <mat-icon>perm_identity</mat-icon>
+      </button>
+
+    </div>
+
+
     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
       <label for="email">Email</label>
       <input type="email" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" required pattern="^\S+[@]\S+[.]\S+$" email/>

@@ -22,6 +22,28 @@ export class AppMenuModel {
       appGroup: 'visualise'
     },
     {
+      id: 'speaker_notes',
+      name: 'Comment App',
+      tags: 'comment, browse',
+      color: 'green',
+      status: 'stable',
+      appType: 'commentOnIndices',
+      description: 'Comment on pages of books, etc',
+      showOnHome: false,
+      appGroup: 'add'
+    },
+/*    {
+      id: 'calendar_today',
+      name: 'Calendar App',
+      tags: 'admin',
+      color: 'red',
+      status: 'under development',
+      appType: 'calendar',
+      description: 'Your calendar',
+      showOnHome: false,
+      appGroup: 'add'
+    },*/
+    {
       id: 'input',
       name: 'Json Environment ',
       tags: 'json, python ',
@@ -98,17 +120,17 @@ export class AppMenuModel {
     //   showOnHome: false,
     //   appGroup: 'visualise'
     // },
-    {
-      id: 'view_week',
-      name: 'Parzival - Fassung',
-      tags: 'synopsis, text, version',
-      color: 'green',
-      status: 'stable',
-      appType: 'parzivalFassung',
-      description: 'Project specific App for the Parzival Project - Open more than one app of this type to test it!',
-      showOnHome: false,
-      appGroup: 'visualise'
-    },
+    // {
+    //   id: 'view_week',
+    //   name: 'Parzival - Fassung',
+    //   tags: 'synopsis, text, version',
+    //   color: 'green',
+    //   status: 'stable',
+    //   appType: 'parzivalFassung',
+    //   description: 'Project specific App for the Parzival Project - Open more than one app of this type to test it!',
+    //   showOnHome: false,
+    //   appGroup: 'visualise'
+    // },
     // {
     //   id: 'turned_in',
     //   name: 'AVP-Edition',
@@ -215,6 +237,17 @@ export class AppMenuModel {
       color: 'orange',
       status: 'under development',
       appType: 'barCharts',
+      description: 'To define data with two dimensions',
+      showOnHome: false,
+      appGroup: 'visualise'
+    },
+    {
+      id: 'bar_chart',
+      name: 'Grouped Bar Chart V2',
+      tags: 'd3.js, interactive',
+      color: 'green',
+      status: 'stable',
+      appType: 'groupedBarChartV2',
       description: 'To define data with two dimensions',
       showOnHome: false,
       appGroup: 'visualise'

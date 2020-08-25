@@ -68,18 +68,11 @@ export class GenerateDataChoosersService {
             .subscribe((data1) => {
               if (data1.status === 200) {
                 // console.log(data.body, pathArray);
+                // console.log( data1 );
                 this.response = data1.body;
                 for ( const appHash in page.appInputQueryMapping ) {
                   for ( const input in page.appInputQueryMapping[ appHash ] ) {
                     const path = page.appInputQueryMapping[ appHash ][ input ].path;
-                    // console.log( data1.body, path );
-                    // if ( path ) {
-                    //   // for ( let i = 0; i < path.length; i++ ) {
-                    //   //   if ( typeof path[ i ] === 'number' ) {
-                    //   //     path.splice( i, 1 );
-                    //   //   }
-                    //   // }
-                    // }
                     this.checkIfSubsetOfResultContainsArray(
                       data1.body,
                       path,
@@ -108,7 +101,11 @@ export class GenerateDataChoosersService {
     queryId: string,
     page?: any
   ) {
-    // console.log( path );
+    // console.log( path, response );
+    if ( response && response.length > 0 && typeof response !== 'string' ) {
+      response = { array: response };
+      path = ['array'].concat( path );
+    }
     // issue assign data already here: https://github.com/nie-ine/inseri/issues/477
     const dataAssignmentComponent = new DataAssignmentComponent();
     if ( path[0] === 'wholeJsonResponseAssignedToThisAppInput' ) {
@@ -126,7 +123,7 @@ export class GenerateDataChoosersService {
     if ( path ) {
       const segment = path[ 0 ];
       // console.log( segment, response );
-      if ( response[ segment ] && response[ segment ].length > 1 && typeof response[ segment ] !== 'string') {
+      if ( response && response[ segment ]  && response[ segment ].length > 1 && typeof response[ segment ] !== 'string') {
         // console.log( openAppsInThisPage.dataChooser.model );
         this.generateArrayKeyValueForEachArrayInResponse(
           data.body,
@@ -136,7 +133,7 @@ export class GenerateDataChoosersService {
           []
         );
         return openAppsInThisPage;
-      } else if ( response[ segment ] && response[ segment ] !== 'string' ) {
+      } else if ( response && response[ segment ] && response[ segment ] !== 'string' ) {
         const clonedPath = Object.assign([], path);
         clonedPath.splice(0, 1);
         // console.log( 'case 1', clonedPath, response[ segment ] );

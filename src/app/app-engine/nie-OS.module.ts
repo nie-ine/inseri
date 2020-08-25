@@ -4,6 +4,7 @@ import {PageComponent} from './page/page/page.component';
 import {RouterModule} from '@angular/router';
 import {Frame} from './page/frame/frame';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatButtonModule} from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
@@ -24,6 +25,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatInputModule} from '@angular/material/input';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 import { QueryEntryComponent } from '../query-engine/query-entry/query-entry.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { AceEditorModule } from 'ng2-ace-editor';
@@ -35,6 +37,8 @@ import {MatProgressSpinnerModule, MatTreeModule} from '@angular/material';
 import {MatListModule} from '@angular/material/list';
 import { FrameSettingsComponent } from './page/frame-settings/frame-settings.component';
 import {MatSliderModule} from '@angular/material/slider';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatToolbarModule} from '@angular/material/toolbar';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import {LoadVariablesComponent} from './load-variables/load-variables.component';
 import { QueryListComponent } from '../query-engine/query-list/query-list.component';
@@ -43,7 +47,6 @@ import { NewGjsBoxDialogComponent } from './apps/grapesjs/new-gjs-box-dialog/new
 import { MatDialogModule } from '@angular/material';
 import { SimpleImageAppComponent } from './apps/simple-image-app/simple-image-app.component';
 import { FileDatabaseForApp, ResponseTreeAppComponent } from './apps/response-tree/response-tree.component';
-import { DataListView } from './apps/data-list-view/data-list-view.component';
 import { CdkTableModule } from '@angular/cdk/table';
 import { MatPaginatorModule, MatSortModule } from '@angular/material';
 import { QueryInformationDialogComponent } from './page/query-information-dialog/query-information-dialog.component';
@@ -55,10 +58,10 @@ import { Project0041Module } from './apps/project-specific/project-0041/project-
 import { ComplexTextViewsModule } from './apps/complex-text-views/complex-text-views.module';
 import { ResourceFormModule } from './apps/resource-form/resource-form.module';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { DataListViewDetailsDialogComponent } from './apps/data-list-view/data-list-view-details-dialog/data-list-view-details-dialog.component';
-import { ngxCsv } from 'ngx-csv/ngx-csv';
-import { DataListViewSettings } from './apps/data-list-view/data-list-view-settings/data-list-view-settings';
+import { DataListViewComponent} from './apps/data-list-view/data-list-view.component';
+import { DataListViewSettingsComponent} from './apps/data-list-view/data-list-view-settings/data-list-view-settings';
 import { DataListViewTableComponent, HighlightPipe } from './apps/data-list-view/data-list-view-table/data-list-view-table.component';
+import { DataListViewInAppQueryService } from './apps/data-list-view/services/query.service';
 import { NavigationModule } from './apps/navigation/navigation.module';
 import { HtmlViewerModule } from './apps/html-viewer/html-viewer.module';
 import {MatCheckboxModule} from '@angular/material/checkbox';
@@ -95,6 +98,10 @@ import { AudioPlayerComponent } from './apps/audio-player/audio-player.component
 import { NgxAudioPlayerModule } from 'ngx-audio-player';
 import { JsonEnvironmentComponent } from './apps/json-environment/json-environment.component';
 import { PieChartV2Component } from './apps/pie-chart-v2/pie-chart-v2.component';
+import { GroupedBarChartV2Component } from './apps/grouped-bar-chart-v2/grouped-bar-chart-v2.component';
+import { CommentOnIndicesComponent } from './apps/comment-on-indices/comment-on-indices.component';
+//import {DataListViewDetailsDialogComponent} from './apps/data-list-view/data-list-view-details-dialog/data-list-view-details-dialog.component';
+import { CalendarComponent } from './apps/calendar/calendar.component';
 
 
 @NgModule({
@@ -114,6 +121,7 @@ import { PieChartV2Component } from './apps/pie-chart-v2/pie-chart-v2.component'
     MatExpansionModule,
     MatDividerModule,
     D3jsModule,
+    MatAutocompleteModule,
     MatChipsModule,
     MatTableModule,
     MatInputModule,
@@ -125,10 +133,13 @@ import { PieChartV2Component } from './apps/pie-chart-v2/pie-chart-v2.component'
     MatButtonToggleModule,
     MatListModule,
     MatSliderModule,
+    MatSlideToggleModule,
     NgxSpinnerModule,
+    MatToolbarModule,
     MatDialogModule,
     MatTreeModule,
     CdkTableModule,
+    DragDropModule,
     MatPaginatorModule,
     MatSortModule,
     MatChipsModule,
@@ -155,7 +166,8 @@ import { PieChartV2Component } from './apps/pie-chart-v2/pie-chart-v2.component'
       { path: 'canvas', component: CanvasWhiteboardComponent },
       { path: 'app-our-new-component', component: OurNewComponentComponent },
       { path: 'gnd', component: GndLobidComponent },
-      { path: 'audio', component: AudioPlayerComponent }
+      { path: 'audio', component: AudioPlayerComponent },
+      { path: 'calendar', component: CalendarComponent }
     ])
   ],
   providers: [
@@ -165,13 +177,17 @@ import { PieChartV2Component } from './apps/pie-chart-v2/pie-chart-v2.component'
     FileDatabase,
     FileDatabaseForApp,
     CanvasWhiteboardComponent,
-    FileDatabaseForAppGND
+    FileDatabaseForAppGND,
+    DataListViewInAppQueryService
   ],
   declarations: [
     PageComponent,
     Frame,
     TextlistViewerComponent,
     DataManagementComponent,
+    DataListViewComponent,
+    DataListViewSettingsComponent,
+    DataListViewTableComponent,
     QueryEntryComponent,
     KeyValueFormComponent,
     QueryAppInputMapComponent,
@@ -182,14 +198,10 @@ import { PieChartV2Component } from './apps/pie-chart-v2/pie-chart-v2.component'
     NewGjsBoxDialogComponent,
     SimpleImageAppComponent,
     ResponseTreeAppComponent,
-    DataListView,
     QueryInformationDialogComponent,
     GrapesjsComponent,
     ParzivalFassungComponent,
-    DataListViewDetailsDialogComponent,
     HighlightPipe,
-    DataListViewSettings,
-    DataListViewTableComponent,
     OpenbisLoginComponent,
     YoutubeVideoComponent,
     DataChooserComponent,
@@ -213,13 +225,19 @@ import { PieChartV2Component } from './apps/pie-chart-v2/pie-chart-v2.component'
     MyFilesComponent,
     AudioPlayerComponent,
     JsonEnvironmentComponent,
-    PieChartV2Component
+    PieChartV2Component,
+    GroupedBarChartV2Component,
+    CommentOnIndicesComponent,
+
+    //DataListViewDetailsDialogComponent,
+    CalendarComponent
   ],
   exports: [
     PageComponent,
     MatSidenavModule,
     GrapesjsComponent,
-    AllAppSelectorsComponent
+    AllAppSelectorsComponent,
+    CommentOnIndicesComponent
   ],
   entryComponents: [
     DataManagementComponent,
@@ -229,7 +247,6 @@ import { PieChartV2Component } from './apps/pie-chart-v2/pie-chart-v2.component'
     QueryListComponent,
     NewGjsBoxDialogComponent,
     QueryInformationDialogComponent,
-    DataListViewDetailsDialogComponent,
     DataChooserComponent,
     AppInputComponentComponent,
     FileListDialogComponent,

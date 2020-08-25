@@ -267,6 +267,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   slogan: string;
 
+  queryParams: any;
+
   constructor(
     public route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
@@ -335,10 +337,13 @@ export class PageComponent implements OnInit, AfterViewChecked {
   ngAfterViewChecked() {
     this.cdr.detectChanges();
     if ( this.pageIDFromURL !==  this.route.snapshot.queryParams.page ) {
-      this.openAppArray = [];
-      this.page = {};
-      this.pageIDFromURL = this.route.snapshot.queryParams.page;
-      this.reloadVariables = true;
+      setTimeout(() => {
+        this.reloadVariables = true;
+        this.openAppArray = [];
+        this.page = {};
+        this.pageIDFromURL = this.route.snapshot.queryParams.page;
+      }, 500);
+      this.cdr.detectChanges();
     }
   }
 
@@ -393,8 +398,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
       this.route.snapshot.url[0].path === 'home' &&
       this.route.snapshot.queryParams.actionID === undefined
     ) {
-      this.page.chosenWidth = 800;
-      // this.addAnotherApp( 'login', true );
+      this.page.tiles = true;
       this.preview = false;
     }
 
@@ -498,7 +502,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   /**
    * This function generates the pagesOfThisActtion Array
    * */
-  generateNavigation(actionID: string) {
+  generateNavigation(actionID: string, goToPage?: boolean) {
     if (!this.alreadyLoaded && actionID) {
       this.actionService.getAction(actionID)
         .subscribe(data => {
@@ -510,6 +514,15 @@ export class PageComponent implements OnInit, AfterViewChecked {
                 }
                 this.pagesOfThisActtion[this.pagesOfThisActtion.length] = page;
                 this.alreadyLoaded = true;
+              }
+              if ( goToPage ) {
+                this.selectedPage = this.pagesOfThisActtion.length - 1;
+                this.router.navigate( [ 'page' ], {
+                  queryParams: {
+                    'actionID': this.actionID,
+                    'page': this.pagesOfThisActtion[ this.pagesOfThisActtion.length - 1 ]._id
+                  }
+                } );
               }
             }
           },
@@ -555,7 +568,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
         delete this.page.appInputQueryMapping[ mapping ];
       }
     }
-    console.log( this.page );
+    // console.log( this.page );
     this.pageService.updatePage(
       { ...this.page }
       )
@@ -603,8 +616,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
       appModel[ length ].hash = this.generateHashService.generateHash();
       appModel[ length ].type = appType;
       appModel[ length ].title = appType;
-      appModel[ length ].fullWidth = false;
-      appModel[ length ].fullHeight = false;
+      appModel[ length ].fullWidth = this.openAppsInThisPage[ appType ].fullWidth;
+      appModel[ length ].fullHeight = this.openAppsInThisPage[ appType ].fullHeight;
       appModel[ length ].initialized = true;
       appModel[ length ].x = 100;
       appModel[ length ].y = 100;
@@ -614,6 +627,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
       appModel[ length ].height = this.openAppsInThisPage[ appType ].initialHeight;
       appModel[ length ].openAppArrayIndex = length;
       appModel[ length ].showContent = true;
+      appModel[ length ].materialIcon = this.openAppsInThisPage[ appType ].materialIcon;
       if ( !this.page.openApps ) {
         this.page.openApps = {};
       }
@@ -640,6 +654,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
             chosenInput === input.inputName ? fileUrlPath : input.default
           );
         }
+      } else if ( this.loggedIn ) {
+        this.updatePage();
       }
     }
     return appModel;
@@ -712,7 +728,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
                       .subscribe(updatedJson => {
                         this.updatePage();
                         setTimeout(() => {
-                          console.log( 'reload 702' );
+                          // console.log( 'reload 702' );
                           this.reloadVariables = true;
                         }, 200);
                         }, error => console.log(error)
@@ -827,6 +843,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.page.openApps[ settings.hash ].fullWidth = settings.fullWidth;
     this.page.openApps[ settings.hash ].fullHeight = settings.fullHeight;
     this.page.openApps[ settings.hash ].description = settings.description;
+    this.updatePage();
   }
 
   /**
@@ -835,7 +852,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * */
   receivePage( pageAndAction: any ) {
     this.page = pageAndAction[0];
-    // console.log( pageAndAction[0] );
+    this.page.tiles = true;
+    // console.log( this.page );
     this.action = pageAndAction[1];
     this.reloadVariables = false;
     this.pageIsPublished = this.page.published;
@@ -856,17 +874,15 @@ export class PageComponent implements OnInit, AfterViewChecked {
         }
       }
     }
-    // console.log( this.openAppArray );
-    let j = 0;
     for ( const app of this.openAppArray ) {
-      // console.log( app );
-      if ( this.page.openApps[ app.hash ].openAppArrayIndex ) {
-        const switchHelp = this.openAppArray[this.page.openApps[app.hash].openAppArrayIndex];
-        this.openAppArray[this.page.openApps[app.hash].openAppArrayIndex] = app;
-        this.openAppArray[ j ] = switchHelp;
-      }
-      j++;
-      app.spinnerIsShowing = false;
+      app.openAppArrayIndex = this.page.openApps[ app.hash ].openAppArrayIndex;
+    }
+    const helpArray = [];
+    for ( const app of this.openAppArray ) {
+      helpArray[ app.openAppArrayIndex ] = app;
+    }
+    if ( helpArray.length ===  this.openAppArray.length ) {
+      this.openAppArray = helpArray;
     }
   }
 
@@ -889,12 +905,19 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.index = input.index;
     this.response = input.response;
     this.queryId = input.queryId;
+    this.cdr.detectChanges();
     this.depth = input.depth;
+    this.cdr.detectChanges();
     this.pathWithArray = input.pathWithArray;
+    this.cdr.detectChanges();
     const dataAssignmentComponent = new DataAssignmentComponent();
     // console.log( this.index, input );
-    if ( this.page && this.openAppsInThisPage && this.pathWithArray !== [] && this.index === 0 ) {
-      // console.log( this.page );
+    if ( ( this.index as any ) === 'NaN' || this.index === NaN ) {
+      console.log( 'index is NaN' )
+      this.index = 0;
+    }
+    if ( this.page && this.openAppsInThisPage && this.index === 0 ) {
+      // console.log( input );
       dataAssignmentComponent.startPathUpdateProcess(
         input.queryId,
         input.pathWithArray,
@@ -906,20 +929,31 @@ export class PageComponent implements OnInit, AfterViewChecked {
       );
     } else {
       setTimeout(() => {
-        console.log( this.page, 'page was loaded to late' );
+        // console.log( this.page, this.openAppsInThisPage, this.index, 'page was loaded to late' );
+        dataAssignmentComponent.startPathUpdateProcess(
+          input.queryId,
+          input.pathWithArray,
+          input.index,
+          input.response,
+          input.depth,
+          this.page.appInputQueryMapping,
+          this.openAppsInThisPage
+        );
       }, 1000);
     }
-    if (  this.pathWithArray && this.pathWithArray.length > 0 ) {
+    if (  this.pathWithArray ) {
       for ( const app of this.openAppArray ) {
         for ( const appInput in this.page.appInputQueryMapping[ app.hash ] ) {
-          // console.log( 'here' );
           if ( this.page.appInputQueryMapping[ app.hash ][ appInput ].query === this.queryId ) {
             let allSegmentsTheSame = true;
-            for ( let i = 0; i < this.pathWithArray.length; i++ ) {
+            for ( let i = 0; i <= this.pathWithArray.length; i++ ) {
               if ( this.pathWithArray[ i ] !== this.page.appInputQueryMapping[ app.hash ][ appInput ].path[ i ] ) {
                 allSegmentsTheSame = false;
               }
-              if ( i === this.pathWithArray.length - 1 && allSegmentsTheSame ) {
+              if (
+                ( i === this.pathWithArray.length - 1 && allSegmentsTheSame ) ||
+                ( this.pathWithArray.length === 0 && this.response.length > 0 )
+              ) {
                 if ( !app[ 'pathsWithArrays' ] ) {
                   app[ 'pathsWithArrays' ] = {};
                 }
@@ -1170,7 +1204,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   reloadVariablesFunction() {
-    console.log('test');
+    // console.log('test');
     this.updatePage( true );
   }
 
@@ -1184,6 +1218,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     const helpVariable = this.openAppArray[currentPosition];
     this.openAppArray[ currentPosition ] = this.openAppArray[ nextPosition ];
     this.openAppArray[ nextPosition ] = helpVariable;
+    this.updatePage();
   }
 
   updateTilePage() {
@@ -1208,8 +1243,10 @@ export class PageComponent implements OnInit, AfterViewChecked {
           data => {
             this.alreadyLoaded = false;
             this.generateNavigation(
-              this.actionID
+              this.actionID,
+              true
             );
+            console.log( this.pagesOfThisActtion );
           }, error => console.log( error )
         );
     });
@@ -1241,6 +1278,32 @@ export class PageComponent implements OnInit, AfterViewChecked {
     const chosenTheme = this.theme === 'none' ? 'dark-theme' : 'none';
     this.theme = chosenTheme;
     localStorage.setItem( 'theme', chosenTheme );
+  }
+
+  appMenu(app: any, key: string) {
+    app[ key ] = true;
+    setTimeout(() => {
+      app[ key ] = false;
+    }, 100);
+  }
+
+  publishAsTemplate() {
+    this.pageService.publishAsTemplate( this.page._id )
+      .subscribe(
+        response => {
+          console.log( response );
+        }, error => console.log( error )
+      );
+    console.log( 'publish as template' );
+  }
+
+  undoPublishTemplate() {
+    this.pageService.undoPublishTemplate( this.page._id )
+      .subscribe(
+        response => {
+          console.log( response );
+        }, error => console.log( error )
+      );
   }
 
 }

@@ -1,9 +1,5 @@
 .bar {
-  fill: steelblue;
-}
-
-.bar:hover {
-  fill: brown;
+  fill: #FED136;
 }
 
 .axis-title {
@@ -11,3 +7,31 @@
   stroke: black;
   stroke-width: 0.5px;
 }
+
+.barChartContainer {
+  position: relative;
+}
+
+.barChartYaxis {
+  position: absolute;
+  float: left;
+  z-index: 3;
+}
+
+.barChartChart {
+  position: relative;
+  overflow-x: auto;
+}
+/* tooltip */
+.barChartTooltip {
+  position: fixed;
+  display: none;
+  text-align: center;
+  z-index: 4;
+}
+
+.barChartTooltipValue {
+
+}
+
+
