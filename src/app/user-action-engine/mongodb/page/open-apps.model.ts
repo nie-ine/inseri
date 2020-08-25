@@ -769,8 +769,8 @@ export class OpenAppsModel {
       type: 'login',
       model: [],
       materialIcon: 'lock_open',
-      initialWidth: '375',
-      initialHeight: '350'
+      initialWidth: '450',
+      initialHeight: '450'
     },
     pageMenu: {
       type: 'pageMenu',

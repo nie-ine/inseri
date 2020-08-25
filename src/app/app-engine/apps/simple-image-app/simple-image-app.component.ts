@@ -11,7 +11,7 @@ export class SimpleImageAppComponent implements OnChanges {
   constructor() { }
 
   ngOnChanges() {
-    console.log( this.imageURL );
+    // console.log( this.imageURL );
     if ( this.imageURL ) {
       this.imageURL = this.imageURL.replace( 'full/full', 'full/' + this.width + ',' );
     }
