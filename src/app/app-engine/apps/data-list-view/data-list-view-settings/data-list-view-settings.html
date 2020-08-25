@@ -1,90 +1,91 @@
-<mat-expansion-panel>
-  <mat-expansion-panel-header>
-    <mat-panel-title>
-      <mat-icon>settings</mat-icon>
-      General settings
-    </mat-panel-title>
-    <mat-panel-description>
-      Change general settings of the table: define the base array, sort, filter or export options.
-    </mat-panel-description>
-  </mat-expansion-panel-header>
-  <div *ngIf="dataListSettings.pathToDataArray === '' && dataArrays">
-    <label>Please choose the path to the data array of your json input you like to be displayed in the table. Saving and reloading the page is necessary.</label>
-    <mat-radio-group
-      [(ngModel)]="dataListSettings.pathToDataArray">
-      <div *ngFor="let path of dataArrays">
-        <mat-radio-button [value]="path">
-          {{path}}
-        </mat-radio-button>
-      </div>
-    </mat-radio-group>
-  </div>
-  <div  *ngIf="dataListSettings.pathToDataArray !== '' && dataArrays.length === 0">
-    <h5>JSON Type</h5>
-    <mat-form-field>
-      <mat-label>Json type</mat-label>
-      <mat-select  [(ngModel)]="dataListSettings.jsonType">
-        <mat-option [value]="option" *ngFor="let option of ['sparql', 'any']">{{ option }}</mat-option>
-      </mat-select>
-    </mat-form-field>
+<mat-card *ngIf="dataListSettings.pathToDataArray === '' && dataArrays">
+  <label>Please choose the path to the data array of your json input you like to be displayed in the table, set your choice and reload the page.</label>
+  <mat-radio-group  [(ngModel)]="chosenDataSource">
+    <div *ngFor="let path of dataArrays">
+      <mat-radio-button [value]="path">
+        {{path}}
+      </mat-radio-button>
+      <span></span>
+    </div>
+  </mat-radio-group>
+  <button mat-button-raised (click)="setInitialDataSource()">Set initial data source</button>
+</mat-card>
+<div *ngIf="dataListSettings.pathToDataArray !== '' && dataArrays.length === 0">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon>settings</mat-icon>
+        General settings
+      </mat-panel-title>
+      <mat-panel-description>
+        Change general settings of the table: define the base array, sort, filter or export options.
+      </mat-panel-description>
+    </mat-expansion-panel-header>
     <div>
-      <h5>Data source</h5>
+      <h5>JSON Type</h5>
       <mat-form-field>
-        <mat-label>Data source/path to data array</mat-label>
-        <input [disabled] = "true" matInput [(ngModel)] ="dataListSettings.pathToDataArray" [matTooltip] = "'Please set the path to the base array within your json.'">
+        <mat-label>Json type</mat-label>
+        <mat-select  [(ngModel)]="dataListSettings.jsonType">
+          <mat-option [value]="option" *ngFor="let option of ['sparql', 'any']">{{ option }}</mat-option>
+        </mat-select>
       </mat-form-field>
-    </div>
-    <div>
-      <h5>Sort</h5>
       <div>
-        <mat-checkbox  [(ngModel)]="dataListSettings.sort.disallowSorting">Disallow sorting</mat-checkbox>
-      </div>
-    </div>
-    <div>
-      <h5>Filter</h5>
-      <div>
-        <mat-checkbox  [(ngModel)]="dataListSettings.filter.showFilter">Display filter</mat-checkbox>
+        <h5>Data source</h5>
+        <mat-form-field>
+          <mat-label>Data source/path to data array</mat-label>
+          <input [disabled] = "true" matInput [(ngModel)] ="dataListSettings.pathToDataArray" [matTooltip] = "'Please set the path to the base array within your json.'">
+        </mat-form-field>
       </div>
       <div>
-        <mat-checkbox [(ngModel)]="dataListSettings.filter.caseSensitive" [disabled]="!dataListSettings.filter.showFilter">Filter case sensitive</mat-checkbox>
-      </div>
-    </div>
-    <div>
-      <h5>Paginator</h5>
-      <div>
-        <mat-checkbox  [(ngModel)]="dataListSettings.paginator.paginate">Paginate</mat-checkbox>
+        <h5>Sort</h5>
         <div>
-          <h5>Page size limit</h5>
-          <mat-form-field>
-            <mat-label>Items / rows per page</mat-label>
-            <input matInput
-                   value="{{dataListSettings.paginator.pageSize}}"
-                   [disabled] = "!dataListSettings.paginator.paginate"
-                   [(ngModel)]="dataListSettings.paginator.pageSize">
-          </mat-form-field>
+          <mat-checkbox  [(ngModel)]="dataListSettings.sort.disallowSorting">Disallow sorting</mat-checkbox>
+        </div>
+      </div>
+      <div>
+        <h5>Filter</h5>
+        <div>
+          <mat-checkbox  [(ngModel)]="dataListSettings.filter.showFilter">Display filter</mat-checkbox>
         </div>
         <div>
-          <h5>Page size options</h5>
-          <span  *ngFor="let pOption of dataListSettings.paginator.pageSizeOptions, let p = index">
+          <mat-checkbox [(ngModel)]="dataListSettings.filter.caseSensitive" [disabled]="!dataListSettings.filter.showFilter">Filter case sensitive</mat-checkbox>
+        </div>
+      </div>
+      <div>
+        <h5>Paginator</h5>
+        <div>
+          <mat-checkbox  [(ngModel)]="dataListSettings.paginator.paginate">Paginate</mat-checkbox>
+          <div>
+            <h5>Page size limit</h5>
             <mat-form-field>
+              <mat-label>Items / rows per page</mat-label>
               <input matInput
-                     value="{{pOption}}"
+                     value="{{dataListSettings.paginator.pageSize}}"
                      [disabled] = "!dataListSettings.paginator.paginate"
-                     [(ngModel)]="dataListSettings.paginator.pageSizeOptions[p]">
+                     [(ngModel)]="dataListSettings.paginator.pageSize">
             </mat-form-field>
-          </span>
+          </div>
+          <div>
+            <h5>Page size options</h5>
+            <span  *ngFor="let pOption of dataListSettings.paginator.pageSizeOptions, let p = index">
+              <mat-form-field>
+                <input matInput
+                       value="{{pOption}}"
+                       [disabled] = "!dataListSettings.paginator.paginate"
+                       [(ngModel)]="dataListSettings.paginator.pageSizeOptions[p]">
+              </mat-form-field>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h5>Export</h5>
+        <div>
+          <mat-checkbox  [(ngModel)]="dataListSettings.export.showExport">Display export options</mat-checkbox>
         </div>
       </div>
     </div>
-    <div>
-      <h5>Export</h5>
-      <div>
-        <mat-checkbox  [(ngModel)]="dataListSettings.export.showExport">Display export options</mat-checkbox>
-      </div>
-    </div>
-  </div>
-</mat-expansion-panel>
-<div  *ngIf="dataListSettings.pathToDataArray !== '' && dataArrays.length === 0">
+  </mat-expansion-panel>
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -180,10 +181,9 @@
         </div>
       </div>
   </mat-expansion-panel>
-</div>
-<hr>
-<div>
-  <button mat-button-raised (click)="saveSettingsToJson()">Save settings persistantly</button>
-  <button mat-button-raised (click)="recreateGenericColumns()">Reload default column definition from data source</button>
-  <button mat-button-raised (click)="closeSettings()">Close</button>
+  <div>
+    <button mat-button-raised (click)="saveSettingsToJson()">Save settings persistantly</button>
+    <button mat-button-raised (click)="recreateGenericColumns()">Reload default column definition from data source</button>
+    <button mat-button-raised (click)="closeSettings()">Close</button>
+  </div>
 </div>

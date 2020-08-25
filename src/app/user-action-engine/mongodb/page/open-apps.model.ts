@@ -603,28 +603,6 @@ export class OpenAppsModel {
       inputs: [
         {
           'inputName': 'json',
-          default: {
-          "head": {
-            "vars": [
-              "column1",
-              "column2"
-            ]
-          },
-          "results": {
-            "bindings": [
-              {
-                "column1": {
-                  "type": "literal",
-                  "value": "please change the input of the app."
-                },
-                "column2": {
-                  "type": "literal",
-                  "value": "app menu --> file options, json."
-                }
-              }
-            ]
-            }
-          }
         },
 
         {
@@ -632,7 +610,7 @@ export class OpenAppsModel {
           default:   {
             "inputMode":"input",
             "jsonType":"any",
-            "pathToDataArray": "results.bindings",
+            "pathToDataArray": "",
             "columns":{
               "manualColumns": false,
               "columnMapping":[],
