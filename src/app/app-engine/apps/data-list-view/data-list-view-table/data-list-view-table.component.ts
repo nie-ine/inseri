@@ -161,24 +161,21 @@ public replaceUmlaute(input) {
     return style;
   }
 
-  private onThisClick(col, val, index) {
-    // SIMPLE METHOD TO DO SOMETHING WITH THE clicked cell/object like passing it to somewhere
-    if (col.link.type === 'external') {
-      //this.definedColumns[index]
-      // open page in new window
-      console.log(index);
-
+  private onThisClick(col, index) {
+    let v = '';
+    col.link.linkPath.forEach(p => {
+      if (p[0] === '"') { v = v + p.split('"').join(''); } else { v = v + index[p].value; } });
+    if (col.link.linkType === 'external') {
+      window.open(v, '_blank');
     } else {
-      console.log(col);
-      console.log(index);
-      // this.updateURL(index);
+      this.updateURL(v, col.link.variableToPass);
     }
   }
 
-  updateURL( index: any ) {
+  updateURL( index: any, variableToPass = '' ) {
     this._router.navigate([], {
       queryParams: {
-        ['verseNumber']: index
+        [variableToPass]: index
       },
       queryParamsHandling: 'merge'
     });

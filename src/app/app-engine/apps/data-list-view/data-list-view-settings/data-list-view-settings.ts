@@ -41,7 +41,8 @@ export class DataListViewSettingsComponent implements OnChanges
   recreateGenericColumns() {
     this.dataListSettings.columns.manualColumns = false;
     this.dataListSettings.columns.columnMapping = [];
-    // save the sets & reload
+    this.saveSettingsToJson();
+    // reload!!!
   }
 
   reloadColumns() {

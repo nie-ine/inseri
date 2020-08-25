@@ -20,7 +20,7 @@
     <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{col.columnName}}</mat-header-cell>
     <mat-cell *cdkCellDef="let row; let i = $implicit;"
               [ngStyle]= "getStyles(col.styles)"
-              (click)="onThisClick(col, row[col.columnPath], i)"
+              (click)="onThisClick(col, i)"
               [ngClass]="col">
       <!-- SETTING [ngClass]="col" enables to define styles for each column, setting it to row[col].value will enable to define a style for certain cell content -->
       <span *ngIf="row[col.columnPath]">

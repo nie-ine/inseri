@@ -14,7 +14,7 @@
   padding: 20px 10px;
   border-right: solid 1px #ccc;
   color: rgba(0, 0, 0, 0.87);
-  display: flex;
+  width: 100%;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -48,4 +48,13 @@
 
 .column-list.cdk-drop-list-dragging .column-box:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.column-card {
+  width: 100%;
+}
+
+.mat-chip-list-stacked .mat-chip {
+  width: auto;
+  min-width: 0;
 }

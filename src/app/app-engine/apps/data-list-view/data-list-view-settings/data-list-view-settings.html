@@ -126,7 +126,7 @@
               <div *ngIf = "colDef.styles.length > 0">
                 <h5>Styles</h5>
                 <mat-form-field>
-                  <mat-chip-list #chipList aria-label="css styles">
+                  <mat-chip-list class="mat-chip-list" #chipList>
                     <mat-chip *ngFor="let style of colDef.styles, let s = index" [selectable]="selectable"
                               [removable]="colDef.styles.length > 1 || style !== 'font-style: normal'" (removed)="removeStyle(i, s)">
                       {{style}}
@@ -141,33 +141,38 @@
               </div>
               <div>
                 <h5>Hyperlink</h5>
-                <mat-form-field>
-                <mat-label>Link type</mat-label>
-                <mat-select  [(ngModel)]="colDef.link.linkType">
-                  <mat-option></mat-option>
-                  <mat-option [value]="option" *ngFor="let option of ['external', 'internal', 'none']">{{ option }}</mat-option>
-                </mat-select>
+                <div>
+                  <mat-form-field>
+                    <mat-label>Link type</mat-label>
+                    <mat-select  [(ngModel)]="colDef.link.linkType">
+                      <mat-option [value]="option" *ngFor="let option of ['external', 'internal', 'none']">{{ option }}</mat-option>
+                    </mat-select>
                 </mat-form-field>
-                <mat-form-field>
-                  <mat-chip-list #linkChipList aria-label="Hyperlink definition">
-                    <mat-chip
-                      *ngFor="let linkPart of colDef.link.linkPath, let lIndex = index"
-                      [selectable]="true"
-                      [removable]="true"
-                      (removed)="removeLinkPart(i, lIndex)">
-                      {{linkPart}}
-                      <mat-icon matChipRemove>cancel</mat-icon>
-                    </mat-chip>
-                    <input placeholder="Type your link or link part and add with Enter ..."
-                           [matChipInputFor]="linkChipList"
-                           [matChipInputAddOnBlur]=true
-                           (matChipInputTokenEnd)="addLinkPart(i, $event)">
-                  </mat-chip-list>
-                </mat-form-field>
-                <mat-form-field>
-                  <mat-label>Link value</mat-label>
+                </div>
+                <div class = "column-card">
+                  <mat-form-field>
+                    <mat-chip-list class="mat-chip-list" #linkChipList aria-label="Hyperlink definition">
+                        <mat-chip
+                        *ngFor="let linkPart of colDef.link.linkPath, let lIndex = index"
+                        [selectable]="true"
+                        [removable]="true"
+                        (removed)="removeLinkPart(i, lIndex)">
+                        {{linkPart}}
+                        <mat-icon matChipRemove>cancel</mat-icon>
+                      </mat-chip>
+                      <input placeholder="Type your link or link part and add with Enter ..."
+                             [matChipInputFor]="linkChipList"
+                             [matChipInputAddOnBlur]=true
+                             (matChipInputTokenEnd)="addLinkPart(i, $event)">
+                    </mat-chip-list>
+                  </mat-form-field>
+                </div>
+                <mat-form-field *ngIf="colDef.link.linkType === 'internal'">
+                  <mat-label>Variable to update (for passing internally only)</mat-label>
                   <input matInput
-                         value="{{colDef.link.linkValue}}" >
+                         [(ngModel)]="colDef.link.variableToPass"
+                         (ngModelChange)="updateColumns()"
+                         value="{{colDef.link.variableToPass}}" >
                 </mat-form-field>
               </div>
             </mat-card>
@@ -179,7 +184,6 @@
 <hr>
 <div>
   <button mat-button-raised (click)="saveSettingsToJson()">Save settings persistantly</button>
-  <button mat-button-raised (click)="reloadColumns()">Reset column definition</button>
   <button mat-button-raised (click)="recreateGenericColumns()">Reload default column definition from data source</button>
   <button mat-button-raised (click)="closeSettings()">Close</button>
 </div>
