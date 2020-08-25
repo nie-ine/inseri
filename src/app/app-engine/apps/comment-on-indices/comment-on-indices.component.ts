@@ -31,7 +31,7 @@ export class CommentOnIndicesComponent implements OnInit {
       this.commentService.getCommentsOfPage( this.route.snapshot.queryParams.page )
         .subscribe(
           data => {
-            console.log( data );
+            // console.log( data );
             this.commentArray = data.comments;
             for ( let i = 0; i < this.commentArray.length; i++ ) {
               this.createQueryInformationOfComment( i );

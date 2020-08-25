@@ -728,7 +728,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
                       .subscribe(updatedJson => {
                         this.updatePage();
                         setTimeout(() => {
-                          console.log( 'reload 702' );
+                          // console.log( 'reload 702' );
                           this.reloadVariables = true;
                         }, 200);
                         }, error => console.log(error)
@@ -874,17 +874,15 @@ export class PageComponent implements OnInit, AfterViewChecked {
         }
       }
     }
-    // console.log( this.openAppArray );
-    let j = 0;
     for ( const app of this.openAppArray ) {
-      // console.log( app );
-      if ( this.page.openApps[ app.hash ].openAppArrayIndex ) {
-        const switchHelp = this.openAppArray[this.page.openApps[app.hash].openAppArrayIndex];
-        this.openAppArray[this.page.openApps[app.hash].openAppArrayIndex] = app;
-        this.openAppArray[ j ] = switchHelp;
-      }
-      j++;
-      app.spinnerIsShowing = false;
+      app.openAppArrayIndex = this.page.openApps[ app.hash ].openAppArrayIndex;
+    }
+    const helpArray = [];
+    for ( const app of this.openAppArray ) {
+      helpArray[ app.openAppArrayIndex ] = app;
+    }
+    if ( helpArray.length ===  this.openAppArray.length ) {
+      this.openAppArray = helpArray;
     }
   }
 
@@ -911,6 +909,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.depth = input.depth;
     this.cdr.detectChanges();
     this.pathWithArray = input.pathWithArray;
+    this.cdr.detectChanges();
     const dataAssignmentComponent = new DataAssignmentComponent();
     // console.log( this.index, input );
     if ( ( this.index as any ) === 'NaN' || this.index === NaN ) {

@@ -3,7 +3,7 @@ import {EventEmitter, Injectable} from '@angular/core';
 @Injectable({ providedIn: 'root' })
 
 export class DisplayedCollumnsService {
-  displayedColumns: Array<any>;
+  displayedColumns: Array<ColumnHeader>;
   displayedColumnsChange: EventEmitter<Array<any>>;
   displayedColumnsSet = new Set();
 
@@ -14,7 +14,8 @@ export class DisplayedCollumnsService {
   public createColumns(columns: Array<string>) {
     const dispColumns = [];
     columns.forEach(colDef => {
-      const column = new DataHeader(colDef, colDef);
+
+      const column = new ColumnHeader(colDef, colDef);
       dispColumns.push(column);
     });
     return dispColumns;
@@ -22,7 +23,7 @@ export class DisplayedCollumnsService {
 
   public setInitialDisplayedColumns(dataListSettings, data?) {
     let displayedColumns: Array<any> = [];
-    if (dataListSettings.columns.genericColumns) {
+    if (!dataListSettings.columns.manualColumns) {
       if (dataListSettings.jsonType === 'sparql') {
         displayedColumns = this.createColumns(data.head.vars);
       } else {
@@ -31,10 +32,10 @@ export class DisplayedCollumnsService {
         const distinctColumns = this.generateDisplayedColumnsFromData(dataArray);
         displayedColumns = this.createColumns(distinctColumns);
         }
-      // if not generic columns
-    } else {
+    } else { // if manual columns
       for (const column of dataListSettings.columns.columnMapping) {
-        const col = new DataHeader(column.name, column.path, column.displayed, column.filtered, column.link, column.type );
+        console.log('col ', column);
+        const col = new ColumnHeader(column.columnName, column.columnPath, column.display, column.filtered, column.styles, column.link, column.type );
         displayedColumns.push(col);
       }
     }
@@ -98,23 +99,37 @@ export class SettingsService {
     this.settingsOpenStateChange.emit(this.settingsOpenState); }
 }
 
-export class DataHeader {
+export class ColumnHeader {
   columnName: string;
   columnPath: string;
   display: boolean;
   filtered: boolean;
-  link?: string;
+  styles: Array<any>;
   type?: string;
+  link?: InLink;
 
-  constructor(columnName, columnPath, display?, filtered?, link?, type?) {
+  constructor(columnName: string,
+              columnPath: string,
+              display = true,
+              filtered = true,
+              styles: Array<any> = ['font-style: normal'],
+              link: InLink =  {linkType: 'internal', linkPath: [columnPath]},
+              type: string = 'literal') {
     this.columnName = columnName;
     this.columnPath = columnPath;
-    this.display = display || true;
-    this.filtered = filtered || true;
-    this.link = link || columnPath;
-    this.type = type || 'literal';
+    this.display = display;
+    this.filtered = filtered;
+    this.styles = styles;
+    this.link = link;
+    this.type = type;
   }
 }
+
+export interface InLink {
+  linkType: string;
+  linkPath: Array<string>;
+}
+
 
 
 @Injectable({ providedIn: 'root' })

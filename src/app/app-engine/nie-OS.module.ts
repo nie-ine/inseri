@@ -4,6 +4,7 @@ import {PageComponent} from './page/page/page.component';
 import {RouterModule} from '@angular/router';
 import {Frame} from './page/frame/frame';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatButtonModule} from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
@@ -37,6 +38,7 @@ import {MatListModule} from '@angular/material/list';
 import { FrameSettingsComponent } from './page/frame-settings/frame-settings.component';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatToolbarModule} from '@angular/material/toolbar';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import {LoadVariablesComponent} from './load-variables/load-variables.component';
 import { QueryListComponent } from '../query-engine/query-list/query-list.component';
@@ -119,6 +121,7 @@ import { CalendarComponent } from './apps/calendar/calendar.component';
     MatExpansionModule,
     MatDividerModule,
     D3jsModule,
+    MatAutocompleteModule,
     MatChipsModule,
     MatTableModule,
     MatInputModule,
@@ -132,6 +135,7 @@ import { CalendarComponent } from './apps/calendar/calendar.component';
     MatSliderModule,
     MatSlideToggleModule,
     NgxSpinnerModule,
+    MatToolbarModule,
     MatDialogModule,
     MatTreeModule,
     CdkTableModule,

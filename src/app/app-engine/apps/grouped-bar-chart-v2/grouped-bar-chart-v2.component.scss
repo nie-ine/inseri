@@ -30,7 +30,7 @@
 
 /* tooltip */
 :host /deep/ .groupedBarChartTooltip {
-  position: absolute;
+  position: fixed;
   display: none;
   text-align: center;
   z-index: 4;

@@ -1,39 +1,184 @@
-<div *ngIf = "nameFormControls">
-  <div cdkDropList cdkDropListOrientation="horizontal" class="column-list" (cdkDropListDropped)="drop($event)">
-    <div class="column-box" *ngFor="let colDef of displayedColumns, let i = index" cdkDrag>
-      <mat-card>
-        <div><mat-checkbox [(ngModel)]="colDef.display"  (ngModelChange)="updateColumns()" [checked] = "colDef.display">{{colDef.columnName}}</mat-checkbox></div>
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <mat-icon>settings</mat-icon>
+      General settings
+    </mat-panel-title>
+    <mat-panel-description>
+      Change general settings of the table: define the base array, sort, filter or export options.
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <div *ngIf="dataListSettings.pathToDataArray === '' && dataArrays">
+    <label>Please choose the path to the data array of your json input you like to be displayed in the table. Saving and reloading the page is necessary.</label>
+    <mat-radio-group
+      [(ngModel)]="dataListSettings.pathToDataArray">
+      <div *ngFor="let path of dataArrays">
+        <mat-radio-button [value]="path">
+          {{path}}
+        </mat-radio-button>
+      </div>
+    </mat-radio-group>
+  </div>
+  <div  *ngIf="dataListSettings.pathToDataArray !== '' && dataArrays.length === 0">
+    <h5>JSON Type</h5>
+    <mat-form-field>
+      <mat-label>Json type</mat-label>
+      <mat-select  [(ngModel)]="dataListSettings.jsonType">
+        <mat-option [value]="option" *ngFor="let option of ['sparql', 'any']">{{ option }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div>
+      <h5>Data source</h5>
+      <mat-form-field>
+        <mat-label>Data source/path to data array</mat-label>
+        <input [disabled] = "true" matInput [(ngModel)] ="dataListSettings.pathToDataArray" [matTooltip] = "'Please set the path to the base array within your json.'">
+      </mat-form-field>
+    </div>
+    <div>
+      <h5>Sort</h5>
+      <div>
+        <mat-checkbox  [(ngModel)]="dataListSettings.sort.disallowSorting">Disallow sorting</mat-checkbox>
+      </div>
+    </div>
+    <div>
+      <h5>Filter</h5>
+      <div>
+        <mat-checkbox  [(ngModel)]="dataListSettings.filter.showFilter">Display filter</mat-checkbox>
+      </div>
+      <div>
+        <mat-checkbox [(ngModel)]="dataListSettings.filter.caseSensitive" [disabled]="!dataListSettings.filter.showFilter">Filter case sensitive</mat-checkbox>
+      </div>
+    </div>
+    <div>
+      <h5>Paginator</h5>
+      <div>
+        <mat-checkbox  [(ngModel)]="dataListSettings.paginator.paginate">Paginate</mat-checkbox>
         <div>
+          <h5>Page size limit</h5>
           <mat-form-field>
-            <mat-label>Column name</mat-label>
-              <input matInput [formControl]="nameFormControls[i]" [errorStateMatcher]="matcher"
-                     value="{{colDef.columnName}}" [(ngModel)]="colDef.columnName" (ngModelChange)="updateColumns()" >
-              <mat-error *ngIf="nameFormControls[i].hasError('required')">
-                Column name is <strong>required</strong>
-              </mat-error>
-          </mat-form-field>
-        </div>
-        <div>
-          <mat-form-field>
-            <mat-label>data source</mat-label>
-            <input matInput [disabled]="true" value="{{colDef.columnPath}}" >
-          </mat-form-field>
-        </div>
-        <div><mat-slide-toggle [checked]="colDef.filtered">filtered column</mat-slide-toggle></div>
-        <div>
-          <mat-form-field>
-            <mat-label>Link</mat-label>
+            <mat-label>Items / rows per page</mat-label>
             <input matInput
-               value="{{colDef.link}}" >
+                   value="{{dataListSettings.paginator.pageSize}}"
+                   [disabled] = "!dataListSettings.paginator.paginate"
+                   [(ngModel)]="dataListSettings.paginator.pageSize">
           </mat-form-field>
         </div>
-      </mat-card>
+        <div>
+          <h5>Page size options</h5>
+          <span  *ngFor="let pOption of dataListSettings.paginator.pageSizeOptions, let p = index">
+            <mat-form-field>
+              <input matInput
+                     value="{{pOption}}"
+                     [disabled] = "!dataListSettings.paginator.paginate"
+                     [(ngModel)]="dataListSettings.paginator.pageSizeOptions[p]">
+            </mat-form-field>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h5>Export</h5>
+      <div>
+        <mat-checkbox  [(ngModel)]="dataListSettings.export.showExport">Display export options</mat-checkbox>
+      </div>
     </div>
   </div>
+</mat-expansion-panel>
+<div  *ngIf="dataListSettings.pathToDataArray !== '' && dataArrays.length === 0">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon>view_column</mat-icon>
+        Column definition
+      </mat-panel-title>
+      <mat-panel-description>
+        Column settings of the table: Drag & drop columns, change column title, links asf.
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+      <div>
+        <mat-slide-toggle [(ngModel)]="dataListSettings.columns.manualColumns"
+                          [checked]="dataListSettings.columns.manualColumns">manual column definition</mat-slide-toggle>
+      </div>
+      <div *ngIf = "dataListSettings.columns.manualColumns">
+        <h4>Column definition</h4>
+        <div cdkDropList cdkDropListOrientation="horizontal" class="column-list" (cdkDropListDropped)="drop($event)">
+          <div class="column-box" *ngFor="let colDef of displayedColumns, let i = index" cdkDrag>
+            <mat-card>
+              <h3>
+                <mat-checkbox [(ngModel)]="colDef.display"  (ngModelChange)="updateColumns()" [checked] = "colDef.display">{{colDef.columnName}}</mat-checkbox>
+              </h3>
+              <div>
+                <h5>Column title</h5>
+                <mat-form-field>
+                  <mat-label>Column name</mat-label>
+                    <input matInput
+                           value="{{colDef.columnName}}" [(ngModel)]="colDef.columnName" (ngModelChange)="updateColumns()" >
+                </mat-form-field>
+              </div>
+              <div>
+                <h5>Data source</h5>
+                <mat-form-field>
+                  <mat-label>data source</mat-label>
+                  <input matInput [disabled]="true" value="{{colDef.columnPath}}" >
+                </mat-form-field>
+              </div>
+              <div><mat-slide-toggle [checked]="colDef.filtered">filtered column</mat-slide-toggle></div>
+              <div *ngIf = "colDef.styles.length > 0">
+                <h5>Styles</h5>
+                <mat-form-field>
+                  <mat-chip-list #chipList aria-label="css styles">
+                    <mat-chip *ngFor="let style of colDef.styles, let s = index" [selectable]="selectable"
+                              [removable]="colDef.styles.length > 1 || style !== 'font-style: normal'" (removed)="removeStyle(i, s)">
+                      {{style}}
+                      <mat-icon matChipRemove *ngIf="colDef.styles.length > 1 || style !== 'font-style: normal'">cancel</mat-icon>
+                    </mat-chip>
+                      <input placeholder="Type css style and hit enter to add one style ..."
+                             [matChipInputFor]="chipList"
+                             [matChipInputAddOnBlur]=true
+                             (matChipInputTokenEnd)="addStyle($event, i)">
+                  </mat-chip-list>
+                </mat-form-field>
+              </div>
+              <div>
+                <h5>Hyperlink</h5>
+                <mat-form-field>
+                <mat-label>Link type</mat-label>
+                <mat-select  [(ngModel)]="colDef.link.linkType">
+                  <mat-option></mat-option>
+                  <mat-option [value]="option" *ngFor="let option of ['external', 'internal', 'none']">{{ option }}</mat-option>
+                </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-chip-list #linkChipList aria-label="Hyperlink definition">
+                    <mat-chip
+                      *ngFor="let linkPart of colDef.link.linkPath, let lIndex = index"
+                      [selectable]="true"
+                      [removable]="true"
+                      (removed)="removeLinkPart(i, lIndex)">
+                      {{linkPart}}
+                      <mat-icon matChipRemove>cancel</mat-icon>
+                    </mat-chip>
+                    <input placeholder="Type your link or link part and add with Enter ..."
+                           [matChipInputFor]="linkChipList"
+                           [matChipInputAddOnBlur]=true
+                           (matChipInputTokenEnd)="addLinkPart(i, $event)">
+                  </mat-chip-list>
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Link value</mat-label>
+                  <input matInput
+                         value="{{colDef.link.linkValue}}" >
+                </mat-form-field>
+              </div>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+  </mat-expansion-panel>
 </div>
 <hr>
 <div>
-  <button mat-button-raised (click)="saveColumns()">Save column definition permanently</button>
+  <button mat-button-raised (click)="saveSettingsToJson()">Save settings persistantly</button>
   <button mat-button-raised (click)="reloadColumns()">Reset column definition</button>
   <button mat-button-raised (click)="recreateGenericColumns()">Reload default column definition from data source</button>
   <button mat-button-raised (click)="closeSettings()">Close</button>
