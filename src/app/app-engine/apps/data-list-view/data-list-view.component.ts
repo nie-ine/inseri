@@ -9,13 +9,17 @@ import {Subscription} from 'rxjs';
 })
 
 export class DataListViewComponent implements OnChanges {
+  @Input() appInputQueryMapping: any;
+  @Input() hash: string;
   @Input() queryResponse?: any;
   @Input() dataListSettings?: any; // DataListViewSettings;
   @Input() query?: string;
   @Output() dataListSettingsOut: any;
   @Output() tableData: Array<any>; // table data passed to table component. Equals the generatedData once this is finished.
-  generatedData: Array<any> = []; // data
-  generatedData2: Array<DataCell> = [];
+  generatedData: Array<DataCell> = []; // data
+
+  mustSetArray = false;
+  dataArrays = [];
 
   displaySettings: boolean; // weather the settings are displayed above the table or not
   displaySettingsChange: Subscription; // change is triggered from within the table component, so we subscribe to that
@@ -30,18 +34,25 @@ export class DataListViewComponent implements OnChanges {
   }
 
   ngOnChanges() {
-    console.log(this.queryResponse);
-    this.dataListSettingsOut = this.dataListSettings;
-    this.onGetData();
+    if (typeof this.dataListSettings === 'string') {
+      this.dataListSettingsOut = JSON.parse( this.dataListSettings as any );
+    } else {this.dataListSettingsOut = this.dataListSettings; }
+    if (this.dataListSettingsOut.pathToDataArray !== '' ) {
+       this.onGetData(); } else {
+      if (this.dataListSettingsOut.jsonType === 'sparql') {
+        this.dataListSettingsOut.pathToDataArray = 'results.bindings';
+      } else {
+        this.getArraysFromJson(this.queryResponse);
+        this.mustSetArray = true;
+      }
+    }
+
   }
 
   generateTableData(responseData: any, depth: number) {
-    let dataArray = [];
-    if (this.dataListSettingsOut.jsonType === 'sparql') {
-      dataArray = responseData.results.bindings; } else {
-      // returns the array at the node defined by pathToArray variable (path string with dot notation)
-      dataArray =  this.dataListSettingsOut.pathToDataArray.split('.').reduce((a, b) => a[b], responseData); }
-      this.createGenericData(dataArray);
+    // returns the array at the node defined by pathToArray variable (path string with dot notation)
+    const dataArray =  this.dataListSettingsOut.pathToDataArray.split('.').reduce((a, b) => a[b], responseData);
+    this.createGenericData(dataArray);
   }
 
   createGenericData(dataArray: Array<any>) {
@@ -108,6 +119,27 @@ export class DataListViewComponent implements OnChanges {
     this.generatedData[length] = output;
   }
 
+  getArraysFromJson(input, reference?, output?) {
+    output = output || '';
+    // FLATTENS the objects completely and assigns the result to generatedData.
+    for (const key of Object.keys(input))  {
+      const value = input[key];
+      if (reference && Array.isArray(value)) {
+        if (output !== '') {output = reference + '.' + key; } else {output = key; }
+        if ( this.dataArrays.indexOf(output) === -1 ) { // if the path is not yet in dataArrays
+          this.dataArrays.push(output); }
+      }
+      if (typeof value === 'object' && !Array.isArray(value) && value !== null) {
+        if (output !== '') {output = output + '.' + key; } else {output = key; }
+        this.getArraysFromJson(value, key, output);
+      }
+      if (!reference && Array.isArray(value)) {
+        if ( this.dataArrays.indexOf(value) === -1 ) { // if the path is not yet in dataArrays
+          this.dataArrays.push(value); }
+      }
+    }
+  }
+
 
   // GET the data - either by a passed input from another app/service or by a passed query
   private onGetData() {
@@ -115,11 +147,8 @@ export class DataListViewComponent implements OnChanges {
       this.getTableDataFromQuery(this.query);
       }
     if ( this.dataListSettingsOut.inputMode === 'input') {
-      if (this.queryResponse ) {
-        const originalColumns = this.displayedCollumnsService.setInitialDisplayedColumns(this.dataListSettings, this.queryResponse);
-        this.originalColumnService.setOriginalDisplayedColumns(originalColumns);
+        const originalColumns = this.displayedCollumnsService.setInitialDisplayedColumns(this.dataListSettingsOut, this.queryResponse);
         this.generateTableData(this.queryResponse, 0);
-        } else { console.log('No data input passed like defined in dataListSettingsOut.inputMode: ' + this.dataListSettingsOut.inputMode); }
       } else { console.log('Wrong dataListSettings definition for --> \"inputmode: ' + this.dataListSettingsOut.inputMode +
       '\" allowed are: input, query'); }
     }

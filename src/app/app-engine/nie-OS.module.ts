@@ -4,6 +4,7 @@ import {PageComponent} from './page/page/page.component';
 import {RouterModule} from '@angular/router';
 import {Frame} from './page/frame/frame';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatButtonModule} from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
@@ -120,6 +121,7 @@ import { CalendarComponent } from './apps/calendar/calendar.component';
     MatExpansionModule,
     MatDividerModule,
     D3jsModule,
+    MatAutocompleteModule,
     MatChipsModule,
     MatTableModule,
     MatInputModule,

@@ -44,7 +44,6 @@ export class DataListViewTableComponent implements OnChanges {
                private columnService: DisplayedCollumnsService ) {
     this.columnDefSub = this.columnService.displayedColumnsChange.subscribe(cols => {
       this.definedColumns = cols;
-      console.log('secretly updated columns:', cols);
       this.updateDisplayedColumns();
     });
     }
@@ -52,7 +51,6 @@ export class DataListViewTableComponent implements OnChanges {
   ngOnChanges() {
     this.definedColumns = this.columnService.getDisplayedColumns();
     this.updateDisplayedColumns();
-    console.log('new columns in table component: ', this.definedColumns);
     this.populateByDatastream();
     this.setFilter();
   }
@@ -131,7 +129,7 @@ public replaceUmlaute(input) {
 
   private joinFilteredColumns(data) {
     let dataStr = '';
-    if ( this.dataListTableSettings.columns.genericColumns === false ) {
+    if ( this.dataListTableSettings.columns.manualColumns === true ) {
       // JOINING all columns to be searched by filter (defined in the dataListTableSettings) together.
       // NOTE: If the datasource would be nested we have to set filtered data from data to sth like data.[column].value
       // so the object property value is compared by filtering and not the object itself.
@@ -156,7 +154,7 @@ public replaceUmlaute(input) {
   }
 
   getStyles(styles: Array<string> ) {
-    let style = {};
+    const style = {};
     styles.forEach(s => style[s.split(':')[0]] = s.split(':')[1]);
     // console.log('style', style);
     // return {'font-weight': 'bold', 'font-style': 'italic'};
@@ -184,7 +182,7 @@ public replaceUmlaute(input) {
       },
       queryParamsHandling: 'merge'
     });
-    this.reloadVariables.emit();
+    this.reloadVariables.emit(); // TODO: übernehmen für settings
   }
 
   // TODO: maybe implement features from events by hostlistener ...

@@ -631,25 +631,16 @@ export class OpenAppsModel {
           'inputName': 'settings',
           default:   {
             "inputMode":"input",
-            "jsonType":"sparql",
+            "jsonType":"any",
             "pathToDataArray": "results.bindings",
             "columns":{
-              "genericColumns":true,
-              "columnMapping":[
-                {
-                  "name":"Name of the column",
-                  "path": "path in dot notation as displayed in genericColumns:true",
-                  "displayed":true,
-                  "filtered":true,
-                  "type":"integer/string/date or get it generically from path",
-                  "link": "id of put name of node here"
-                }
-              ],
+              "manualColumns": false,
+              "columnMapping":[],
               "stickyColumn":0
             },
             "filter":{
-              "showFilter":true,
-              "caseSensitive":false
+              "showFilter": true,
+              "caseSensitive": false
             },
             "paginator":{
               "paginate":true,
@@ -673,17 +664,6 @@ export class OpenAppsModel {
             "styles":{
               "cellStyle":{
                 "cursor":"pointer"
-              }
-            },
-            "actions":{
-              "actions":true,
-              "actionMode":"object",
-              "actionType":"dialog",
-              "actionRange":"cell",
-              "baseUrl":"http://localhost:4200/page?actionID=5c8a6300b4438759d237b246",
-              "urlParams":{
-                "label":"label.value",
-                "highlight":"authorsname.value"
               }
             }
           }

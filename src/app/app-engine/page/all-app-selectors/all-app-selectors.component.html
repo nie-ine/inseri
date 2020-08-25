@@ -151,7 +151,9 @@
 
 <data-list-view style="position: sticky;" *ngIf="app.type === 'dataListView'"
                 [queryResponse]="app.json"
-                [dataListSettings]="app.settings">
+                [dataListSettings]="app.settings"
+                [hash] = "app.hash"
+                [appInputQueryMapping] = "appInputQueryMapping">
 </data-list-view>
 
 

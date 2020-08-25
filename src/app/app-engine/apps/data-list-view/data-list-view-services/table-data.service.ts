@@ -23,7 +23,7 @@ export class DisplayedCollumnsService {
 
   public setInitialDisplayedColumns(dataListSettings, data?) {
     let displayedColumns: Array<any> = [];
-    if (dataListSettings.columns.genericColumns) {
+    if (!dataListSettings.columns.manualColumns) {
       if (dataListSettings.jsonType === 'sparql') {
         displayedColumns = this.createColumns(data.head.vars);
       } else {
@@ -32,10 +32,10 @@ export class DisplayedCollumnsService {
         const distinctColumns = this.generateDisplayedColumnsFromData(dataArray);
         displayedColumns = this.createColumns(distinctColumns);
         }
-      // if not generic columns
-    } else {
+    } else { // if manual columns
       for (const column of dataListSettings.columns.columnMapping) {
-        const col = new ColumnHeader(column.name, column.path, column.displayed, column.filtered, column.link, column.type );
+        console.log('col ', column);
+        const col = new ColumnHeader(column.columnName, column.columnPath, column.display, column.filtered, column.styles, column.link, column.type );
         displayedColumns.push(col);
       }
     }
@@ -108,20 +108,26 @@ export class ColumnHeader {
   type?: string;
   link?: InLink;
 
-  constructor(columnName, columnPath, display?, filtered?, styles?: Array<any>, link?: InLink, type?) {
+  constructor(columnName: string,
+              columnPath: string,
+              display = true,
+              filtered = true,
+              styles: Array<any> = ['font-style: normal'],
+              link: InLink =  {linkType: 'internal', linkPath: [columnPath]},
+              type: string = 'literal') {
     this.columnName = columnName;
     this.columnPath = columnPath;
-    this.display = display || true;
-    this.filtered = filtered || true;
-    this.styles = styles || ['font-style: normal'];
-    this.link = link || {linkType: 'external', linkValue: columnPath};
-    this.type = type || 'literal';
+    this.display = display;
+    this.filtered = filtered;
+    this.styles = styles;
+    this.link = link;
+    this.type = type;
   }
 }
 
 export interface InLink {
   linkType: string;
-  linkValue: string;
+  linkPath: Array<string>;
 }
 
 
