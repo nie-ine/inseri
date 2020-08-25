@@ -66,7 +66,8 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
     };
 
     // setting a d3.js color scheme for the legend
-    const color = d3Scale.scaleOrdinal(d3ScaleChromatic.schemeRdYlBu[keys.length]);
+    // const color = d3Scale.scaleOrdinal(d3ScaleChromatic.schemeRdYlBu[keys.length]);
+    const color = d3Scale.scaleOrdinal(d3ScaleChromatic.schemePaired);
 
     // creating the yaxis
     const svgYaxis = d3.select('#yaxis_' + this.numberOfInitialisedComponent)
