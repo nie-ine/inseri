@@ -114,6 +114,7 @@ export class DataListViewSettingsComponent implements OnChanges
   }
 
   saveSettingsToJson() {
+    console.log(this.dataListSettings);
     this.dataListSettings.columns.columnMapping = this.displayedColumns;
     this.requestService.updateFile(
       this.appInputQueryMapping[ this.hash ][ 'settings' ][ 'serverUrl' ].split('/')[ 6 ], {

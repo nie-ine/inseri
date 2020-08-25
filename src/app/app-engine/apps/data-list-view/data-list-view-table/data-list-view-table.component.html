@@ -20,12 +20,11 @@
     <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{col.columnName}}</mat-header-cell>
     <mat-cell *cdkCellDef="let row; let i = $implicit;"
               [ngStyle]= "getStyles(col.styles)"
-              (click)="onThisClick(col, i)"
-              [ngClass]="col">
+              (click)="onThisClick(col, i)">
       <!-- SETTING [ngClass]="col" enables to define styles for each column, setting it to row[col].value will enable to define a style for certain cell content -->
-      <span *ngIf="row[col.columnPath]">
-        <span [innerHTML]="row[col.columnPath].value" ></span>
-        </span>
+      <div *ngIf="row[col.columnPath]"  class="table-cell">
+        <div>{{row[col.columnPath].value}}</div>
+        </div>
       <!--        {{ showValue(row, col) }} &lt;!&ndash; | highlight: toHighlightByFilter &ndash;&gt;-->
     </mat-cell>
   </ng-container>

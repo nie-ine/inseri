@@ -45,6 +45,7 @@ export class DataListViewTableComponent implements OnChanges {
     this.columnDefSub = this.columnService.displayedColumnsChange.subscribe(cols => {
       this.definedColumns = cols;
       this.updateDisplayedColumns();
+      this.setFilter();
     });
     }
 
@@ -135,9 +136,9 @@ public replaceUmlaute(input) {
       // so the object property value is compared by filtering and not the object itself.
       for (const column of this.dataListTableSettings.columns.columnMapping) {
         if (column.filtered) {
-          if (data[column.path]) {
-            if ('value' in data[column.path]) {
-              dataStr = dataStr + data[column.path].value;
+          if (data[column.columnPath]) {
+            if ('value' in data[column.columnPath]) {
+              dataStr = dataStr + data[column.columnPath].value;
             }
           }
           }

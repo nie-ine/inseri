@@ -123,7 +123,7 @@
                   <input matInput [disabled]="true" value="{{colDef.columnPath}}" >
                 </mat-form-field>
               </div>
-              <div><mat-slide-toggle [checked]="colDef.filtered">filtered column</mat-slide-toggle></div>
+              <div><mat-slide-toggle [(ngModel)]="colDef.filtered" [checked]="colDef.filtered">Column content is filtered</mat-slide-toggle></div>
               <div *ngIf = "colDef.styles.length > 0">
                 <h5>Styles</h5>
                 <mat-form-field>
