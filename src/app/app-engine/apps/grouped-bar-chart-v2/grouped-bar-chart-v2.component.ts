@@ -156,6 +156,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
       .call(d3Axis.axisBottom(x0));
 
     svgYaxis.append('g')
+      .attr('class', 'y')
       .call(d3Axis.axisLeft(y).ticks(null, 's'));
 
     if (this.data.metadata) {

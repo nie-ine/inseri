@@ -139,7 +139,7 @@ export class BarChartComponent implements AfterViewChecked {
 
     this.svgYaxis = d3.select('#barChartYaxis_' + this.numberOfInitialisedComponent)
       .append('svg')
-      .attr('width', 50 + this.margin.left)
+      .attr('width', 70)
       .attr('height', 350);
 
     this.gYaxis = this.svgYaxis.append('g')
