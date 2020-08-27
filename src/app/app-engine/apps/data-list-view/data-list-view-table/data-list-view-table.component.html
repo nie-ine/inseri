@@ -18,22 +18,24 @@
            [multiTemplateDataRows]="true">
   <ng-container *ngFor="let col of definedColumns; let i = index" [cdkColumnDef]="col.columnPath" [sticky]="isColumnSticky(i)">
     <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{col.columnName}}</mat-header-cell>
-    <mat-cell *cdkCellDef="let row; let i = $implicit;"
+    <mat-cell class="mat-cell" *cdkCellDef="let row; let i = $implicit;"
               [ngStyle]= "getStyles(col.styles)"
               (click)="onThisClick(col, i)"
               (mouseover)="showCellmoreVert=row[col.columnPath]">
       <!-- SETTING [ngClass]="col" enables to define styles for each column, setting it to row[col].value will enable to define a style for certain cell content -->
       <div *ngIf="row[col.columnPath]"  class="table-cell">
+        <table class = "in-cell-table">
+          <thead>
         <tr>
           <td><span [innerHTML]="row[col.columnPath].value"></span></td>
-          <td class="cell-button-container">
-            <button mat-button class="context-menu-button"
-                    [matMenuTriggerFor]="contextMenu"
-                    *ngIf="showCellmoreVert && showCellmoreVert === row[col.columnPath]">
-              <mat-icon>more_vert</mat-icon>
+          <td class="cell-container">
+            <button mat-icon-button class="context-menu-button"
+                    [matMenuTriggerFor]="contextMenu">
+              <mat-icon *ngIf="showCellmoreVert && showCellmoreVert === row[col.columnPath]">more_vert</mat-icon>
             </button>
           </td>
-        </tr>
+        </tr></thead>
+        </table>
       </div>
       <!--        {{ showValue(row, col) }} &lt;!&ndash; | highlight: toHighlightByFilter &ndash;&gt;-->
     </mat-cell>

@@ -1,7 +1,4 @@
-/*.mat-row, .mat-header-row {
-  min-width: 2800px;
-  width: 100%;
-}*/
+
 .mat-row:default {
   height: 10px;
 }
@@ -14,24 +11,26 @@
   font-weight: bold;
 }
 
-
 .mat-cell {
   padding: 5px;
 }
 
-.cell-button-container {
-  width: 1em;
-  max-width: 1em;
-  min-width: unset;
+.in-cell-table {
+  margin:0 10px 10px 0;
+}
+
+.cell-container {
+  width: auto;
+  min-width: 1em;
 }
 
 .context-menu-button {
   width: 1em;
-  min-width: unset;
+  min-width: 1em;
   max-width: 1em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  overflow: hidden;
+  position: absolute;
+  vertical-align: top;
   margin: 0;
   padding: 0;
 }
