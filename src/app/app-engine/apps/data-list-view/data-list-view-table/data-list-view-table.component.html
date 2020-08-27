@@ -23,8 +23,8 @@
               (click)="onThisClick(col, i)">
       <!-- SETTING [ngClass]="col" enables to define styles for each column, setting it to row[col].value will enable to define a style for certain cell content -->
       <div *ngIf="row[col.columnPath]"  class="table-cell">
-        <div>{{row[col.columnPath].value}}</div>
-        </div>
+        <span [innerHTML]="row[col.columnPath].value"></span>
+      </div>
       <!--        {{ showValue(row, col) }} &lt;!&ndash; | highlight: toHighlightByFilter &ndash;&gt;-->
     </mat-cell>
   </ng-container>
