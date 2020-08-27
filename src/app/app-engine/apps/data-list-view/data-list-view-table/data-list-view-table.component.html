@@ -20,10 +20,20 @@
     <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{col.columnName}}</mat-header-cell>
     <mat-cell *cdkCellDef="let row; let i = $implicit;"
               [ngStyle]= "getStyles(col.styles)"
-              (click)="onThisClick(col, i)">
+              (click)="onThisClick(col, i)"
+              (mouseover)="showCellmoreVert=row[col.columnPath]">
       <!-- SETTING [ngClass]="col" enables to define styles for each column, setting it to row[col].value will enable to define a style for certain cell content -->
       <div *ngIf="row[col.columnPath]"  class="table-cell">
-        <span [innerHTML]="row[col.columnPath].value"></span>
+        <tr>
+          <td><span [innerHTML]="row[col.columnPath].value"></span></td>
+          <td class="cell-button-container">
+            <button mat-button class="context-menu-button"
+                    [matMenuTriggerFor]="contextMenu"
+                    *ngIf="showCellmoreVert && showCellmoreVert === row[col.columnPath]">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+          </td>
+        </tr>
       </div>
       <!--        {{ showValue(row, col) }} &lt;!&ndash; | highlight: toHighlightByFilter &ndash;&gt;-->
     </mat-cell>
@@ -59,6 +69,20 @@
   </mat-form-field>
   <button (click)="export()" style="margin: 3em">Export</button>
 </div>
+<mat-menu #contextMenu="matMenu">
+  <button mat-menu-item (click)="copyToClipboard(showCellmoreVert.value)">
+    <mat-icon>content_copy</mat-icon>
+    <span>Copy content to clipboard</span>
+  </button>
+  <button mat-menu-item disabled>
+    <mat-icon>edit</mat-icon>
+    <span>Edit (not yet implemented)</span>
+  </button>
+  <button mat-menu-item disabled>
+    <mat-icon>remove_circle</mat-icon>
+    <span>Delete (not yet implemented)</span>
+  </button>
+</mat-menu>
 
 
 

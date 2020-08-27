@@ -1,12 +1,12 @@
 import {Component, Input, OnInit, OnChanges, ViewChild, EventEmitter, Output} from '@angular/core';
 import { MatPaginator, MatSort, MatTable, MatTableDataSource } from '@angular/material';
-import { MatDialog } from '@angular/material';
+import {MatMenuModule} from '@angular/material/menu';
 import { DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import { PipeTransform, Pipe } from '@angular/core';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
 import { DataListViewInAppQueryService} from '../services/query.service';
 import {Router} from '@angular/router';
-import {ColumnHeader, DisplayedCollumnsService, SettingsService} from '../data-list-view-services/table-data.service';
+import {ColumnHeader, DisplayedCollumnsService, SettingsService, DataCell} from '../data-list-view-services/table-data.service';
 import {Subscription} from 'rxjs';
 
 // import { DataListViewSettings } from '../data-list-view-dataListSettings/data-list-view-dataListSettings.service';
@@ -38,6 +38,8 @@ export class DataListViewTableComponent implements OnChanges {
   exportSelection = 'displayed';
   exportFormat = 'json';
   UMLAUT_REPLACEMENTS = '{[{ "Ä", "Ae" }, { "Ü", "Ue" }, { "Ö", "Oe" }, { "ä", "ae" }, { "ü", "ue" }, { "ö", "oe" }, {É, E}]}';
+
+  showCellmoreVert: DataCell;
 
   constructor( private _router: Router,
                private settingsService: SettingsService,
@@ -250,6 +252,17 @@ public replaceUmlaute(input) {
         window.URL.revokeObjectURL(url);
       },0);
     }
+  }
+
+  copyToClipboard(item): void {
+    let listener = (e: ClipboardEvent) => {
+      e.clipboardData.setData('text/plain', (item));
+      e.preventDefault();
+    };
+
+    document.addEventListener('copy', listener);
+    document.execCommand('copy');
+    document.removeEventListener('copy', listener);
   }
 
   public getExportData() {
