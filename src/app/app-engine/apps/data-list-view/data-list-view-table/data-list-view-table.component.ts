@@ -296,7 +296,7 @@ public replaceUmlaute(input) {
 private isColumnSticky(column: number): boolean {
   // Returns for each column whether/which column should be sticky when scrolling horizontally
   // (this.dataListTableSettings.columns.stickyColumn ? true : false)
-  return !!this.dataListTableSettings.columns.stickyColumn;
+  return false;
   }
 
   getSumOfDisplayedEntries() {
