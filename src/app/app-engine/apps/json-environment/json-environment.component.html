@@ -17,7 +17,7 @@
               [mode]="'typescript'" (keyup)="updateCodeInLocalStorage()">
   </ace-editor>
 
-  <button mat-button (click)="savePythonFile()" (click)="submitToMicroservice( true )" >
+  <button mat-button (click)="savePythonFile()" (click)="submitToMicroservice()" >
     Save Python Code and Update dependent apps
   </button>
 
@@ -31,5 +31,5 @@
   Submit
 </button>
 
-<pre style="height: 20rem; width: 100%;">{{output | json}}</pre>
+<div style="height: 20rem; width: 100%;">{{output | json}}</div>
 
