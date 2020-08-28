@@ -23,16 +23,32 @@ export class AuthService {
   }
 
   createUser(email: string, password: string, firstName: string, lastName: string, newsletter: boolean,
-             usrProfileIcon: string): Observable<any> {
-    const authData: AuthData = {
-      email: email,
-      password: password,
-      firstName: firstName,
-      lastName: lastName,
-      newsLetter: newsletter,
-      usrProfileIcon: usrProfileIcon
-    };
-    return this.http.post(`${AuthService.API_BASE_URL_USER}/signup`, authData);
+             usrProfileFile: File): Observable<any> {
+    //const fileData = new FormData();
+    const authData = new FormData();
+    authData.append( 'password', password);
+    authData.append( 'firstName', firstName);
+    authData.append( 'lastName', lastName);
+    authData.append( 'usrProfileFilePath', environment.app + '/assets/img/team/user-icon-vector.jpg');
+    authData.append( 'email', email);
+    authData.append( 'host', environment.app);
+    if (usrProfileFile) {
+      authData.append('file', usrProfileFile, usrProfileFile.name);
+    }
+    //   usrProfileFilePath: environment.app + '/assets/img/team/user-icon-vector.jpg'
+    //
+    // if (usrProfileFile) {
+    //   fileData.append('file', usrProfileFile, usrProfileFile.name);
+    // }
+    // const authData: AuthData = {
+    //   email: email,
+    //   password: password,
+    //   firstName: firstName,
+    //   lastName: lastName,
+    //   newsLetter: newsletter,
+    //   usrProfileFilePath: environment.app + '/assets/img/team/user-icon-vector.jpg'
+    // };
+    return this.http.post(`${AuthService.API_BASE_URL_USER}/signup/` + newsletter, authData);
   }
 
   updateUser(userId: string, email: string, firstName: string, lastName: string, newsletter: boolean): Observable<any> {
@@ -170,7 +186,7 @@ export class AuthService {
     this.authStatusListener.next(false);
     if ( navigateToHome === undefined ) {
       this.router.navigate(['/home']);
-    };
+    }
     clearTimeout(this.tokenTimer);
     this.clearAuthData();
   }

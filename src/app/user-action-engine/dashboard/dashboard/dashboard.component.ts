@@ -525,7 +525,8 @@ export class DialogOverviewExampleDialog {
     const zipFile = (event.target as HTMLInputElement).files[0];
     let action, pageSet, pages, queries, allFiles, jsonQueries, oldHostUrl, filesJson, foldersJson, comments;
     // const projectFiles = [];
-    let projectFiles = new Array<{ fileName: string, fileContent: Blob }>();
+    let fileType;
+    const projectFiles = new Array<{ fileName: string, fileContent: Blob }>();
     let counter = 0;
     JSZip.loadAsync(zipFile)
       .then(function (zip) {
@@ -533,52 +534,70 @@ export class DialogOverviewExampleDialog {
         counter = allFiles.length;
         zip.forEach(function (relativePath, zipEntry) {
           if (!zipEntry.dir) {
-            zip.file(relativePath).async('text').then(function (content) {
-              if (relativePath === 'action.json') {
+            if (relativePath === 'action.json') {
+              zip.file(relativePath).async('text').then(function (content) {
                 action = content; // JSON.parse(JSON.parse(JSON.stringify(content)));
                 counter--;
-              } else if (relativePath === 'pageSet.json') {
+              });
+            } else if (relativePath === 'pageSet.json') {
+              zip.file(relativePath).async('text').then(function (content) {
                 pageSet = content; // JSON.parse(JSON.parse(JSON.stringify(content)));
                 counter--;
-              } else if (relativePath === 'comments.json') {
+              });
+            } else if (relativePath === 'comments.json') {
+              zip.file(relativePath).async('text').then(function (content) {
                 comments = content; // JSON.parse(JSON.parse(JSON.stringify(content)));
                 counter--;
-              } else if (relativePath === 'pages.json') {
+              });
+            } else if (relativePath === 'pages.json') {
+              zip.file(relativePath).async('text').then(function (content) {
                 pages = content; // JSON.parse(JSON.parse(JSON.stringify(content)));
                 counter--;
-              } else if (relativePath === 'queries.json') {
+              });
+            } else if (relativePath === 'queries.json') {
+              zip.file(relativePath).async('text').then(function (content) {
                 if (content.length > 0) {
                   queries = content; // JSON.parse(JSON.parse(JSON.stringify(content)));
                 }
                 counter--;
-              } else if (relativePath === 'JSONFile.json') {
+              });
+            } else if (relativePath === 'JSONFile.json') {
+              zip.file(relativePath).async('text').then(function (content) {
                 if (content.length > 0) {
                   jsonQueries = content; // JSON.parse(JSON.parse(JSON.stringify(content)));
                 }
                 counter--;
-              } else if (relativePath === 'files.json') {
+              });
+            } else if (relativePath === 'files.json') {
+              zip.file(relativePath).async('text').then(function (content) {
                 if (content.length > 0) {
                   filesJson = content; // JSON.parse(JSON.parse(JSON.stringify(content)));
                 }
                 counter--;
-              } else if (relativePath === 'folders.json') {
+              });
+            } else if (relativePath === 'folders.json') {
+              zip.file(relativePath).async('text').then(function (content) {
                 if (content.length > 0) {
                   foldersJson = content;
                 }
                 counter--;
-              } else if (relativePath === 'oldHostUrl.txt') {
+              });
+            } else if (relativePath === 'oldHostUrl.txt') {
+              zip.file(relativePath).async('text').then(function (content) {
                 if (content.length > 0) {
                   oldHostUrl = content;
                   counter--;
                 }
-              } else {
-                zip.file(relativePath).async('blob').then(content => {
-                  projectFiles.push({fileName: relativePath.substr(6), fileContent: content});
-                  console.log(projectFiles);
-                });
+              });
+            } else {
+              zip.file(relativePath).async('blob').then(content => {
+                console.log('content');
+                console.log(content);
+                projectFiles.push({fileName: relativePath.substr(6), fileContent: content});
+                //console.log(projectFiles);
                 counter--;
-              }
-            });
+              });
+            }
           } else { // The folders were counted as well
             counter--;
           }
@@ -590,8 +609,10 @@ export class DialogOverviewExampleDialog {
       if (!isFinished && counter === 0) {
         clearInterval(timeout);
         isFinished = true;
-        console.log('dashboard component printing comments');
-        console.log(comments);
+        //console.log('dashboard component printing comments');
+        //console.log(comments);
+        console.log('project Files');
+        console.log(projectFiles);
         mainObject.actionService.createProject(action, pageSet, comments, pages, queries, jsonQueries, oldHostUrl, filesJson, foldersJson, projectFiles)
           .subscribe((actionResult) => {
             if (action.type === 'page-set') {

@@ -119,7 +119,11 @@ if(arrayOfItems.length ==0){
 function addFiles(req, res,oldHostUrl, newHostUrl) {
   if(req.body.filesJson) {
     let filesJsonExported = JSON.parse(JSON.parse(JSON.stringify(req.body.filesJson.split(oldHostUrl).join(newHostUrl))));
+
     let projectFiles = req.body.projectFiles;
+    console.log('req.body.projectFiles');
+    console.log(req.body.projectFiles);
+
     let newFiles = filesJsonExported.slice();
     console.log(newFiles);
     let filesIndices = [];
@@ -143,7 +147,8 @@ function addFiles(req, res,oldHostUrl, newHostUrl) {
             projectFiles.forEach(file => {
               let path = 'backend/files/' + file.fileName;
               console.log(path);
-              fs.writeFile(path, file.fileContent, function (err) {
+              console.log(file.fileContent);
+              fs.writeFile(path, file.fileContent,'blob', function (err) {
                 if (err) {
                   console.log('printing the error:  ' + err);
                   res.status(500).json({
@@ -151,7 +156,7 @@ function addFiles(req, res,oldHostUrl, newHostUrl) {
                     error: err
                   });
                 }
-                console.log(file.fileName+ "has been added to the server");
+                console.log(file.fileName + "has been added to the server");
                 counter--;
               });
             });

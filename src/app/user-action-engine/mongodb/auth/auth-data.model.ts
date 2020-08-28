@@ -4,5 +4,5 @@ export interface AuthData {
   firstName: string;
   lastName: string;
   newsLetter: boolean;
-  usrProfileIcon: string;
+  usrProfileFilePath: string;
 }

@@ -20,7 +20,7 @@
       <button mat-menu-item (click)="filePicker.click();" >
         <mat-icon>perm_identity</mat-icon>
       </button>
-
+      <img [src]="imagePreview" style="display: inline-block;padding:10px;margin:10px;width:70px;" *ngIf="imagePreview!=='' && imagePreview">
     </div>
 
 

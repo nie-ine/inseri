@@ -7,11 +7,24 @@ const Action = require('../models/action');
 const Query = require('../models/query');
 let nodemailer = require('nodemailer');
 const nieOsServer = require('../.settings/nieOsServer');
+const multer = require("multer");
+
 
 const checkAuth = require('../middleware/check-auth');
 const salt = require('../.settings/salt');
 
 const router = express.Router();
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "src/assets/img/team");
+  },
+  filename: (req, file, cb) => {
+    const name = file.originalname;//req.file._id+"_"
+    console.log("The expected filename form the multer package = " + Date.now() + "-" + name);
+    cb(null, Date.now() + "-" + name);
+  }
+});
 
 // Nur zum TESTEN --> UNBEDINGT WEGMACHEN, DA VERSCHLUESSELTES PASSWORT MITGESCHICKT WIRD!!!!!!!!!!
 router.get('', (req, res, next) => {
@@ -463,9 +476,12 @@ router.get('/:id/queries', checkAuth, (req, res, next) => {
     })
 });
 
-router.post('/signup', (req, res, next) => {
+router.post('/signup/:newsLetter',multer({storage: storage}).single("file"), (req, res, next) => {
     // Tests if email address is invalid
     const emailPattern = /^\S+[@]\S+[.]\S+$/;
+    console.log(req.body);
+    console.log(req.param);
+    console.log(req);
     if (!emailPattern.test(req.body.email)) {
         return res.status(400).json({
             message: 'Your email address is invalid!'
@@ -486,16 +502,24 @@ router.post('/signup', (req, res, next) => {
             // Creates new user with hashed password
             bcrypt.hash(req.body.password, 10)
                 .then( hashPwd => {
+                  let filePath=req.body.usrProfileFilePath;
+                  if(req.file){
+                    console.log("uploaded a file ");
+                    console.log((req.file.filename));
+                    filePath= req.body.host + "/src/assets/img/team/" + req.file.filename;
+                    console.log(filePath);
+                  }
                     const user = new User({
                         email: req.body.email,
                         password: hashPwd,
                         firstName: req.body.firstName,
                         lastName: req.body.lastName,
-                        newsletter: req.body.newsLetter,
-                        usrProfileIcon: req.body.usrProfileIcon
+                        newsletter: req.param.newsLetter,
+                        usrProfileFilePath: filePath
                     });
                     user.save()
                         .then(result => {
+                          console.log(result);
                             res.status(201).json({
                                 message: 'User was created',
                                 result: result

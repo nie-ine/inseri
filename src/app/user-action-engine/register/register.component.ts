@@ -22,6 +22,8 @@ export class RegisterComponent implements OnInit {
   wrongFormatAlert = false;
   newsletter = false;
   environment = environment.node;
+  imagePreview: string;
+  profilePic: File;
 
   constructor(
     private router: Router,
@@ -43,8 +45,11 @@ export class RegisterComponent implements OnInit {
     if (this.passwordFormatCheckService.checkProposedPassword(this.model.password)) {
       this.wrongFormatAlert = false;
       this.loading = true;
+      if (this.imagePreview) {
+        this.model.usrProfileFile = this.profilePic; // I am sending the file
+      }
       this.authService.createUser(this.model.email, this.model.password, this.model.firstName, this.model.lastName, this.model.newsletter,
-        this.model.usrProfileIcon)
+        this.model.usrProfileFile)
         .subscribe(response => {
           console.log(response);
           setTimeout(() => {
@@ -84,11 +89,11 @@ export class RegisterComponent implements OnInit {
   }
 
   onProfilePicSelected(event: Event) {
-    const file = (event.target as HTMLInputElement).files[0];
-    this.fileService.addFile(this.model.firstName, 'profilePic', '-1', file )
-      .subscribe(responseData => {
-        console.log( responseData );
-      }, error => console.log( error ));
-    //usrProfileIcon
+     this.profilePic = (event.target as HTMLInputElement).files[0];
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.imagePreview = reader.result as string;
+        };
+        reader.readAsDataURL(this.profilePic);
   }
 }
