@@ -1,12 +1,12 @@
 import {Component, Input, OnInit, OnChanges, ViewChild, EventEmitter, Output} from '@angular/core';
 import { MatPaginator, MatSort, MatTable, MatTableDataSource } from '@angular/material';
-import { MatDialog } from '@angular/material';
+import {MatMenuModule} from '@angular/material/menu';
 import { DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import { PipeTransform, Pipe } from '@angular/core';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
 import { DataListViewInAppQueryService} from '../services/query.service';
 import {Router} from '@angular/router';
-import {ColumnHeader, DisplayedCollumnsService, SettingsService} from '../data-list-view-services/table-data.service';
+import {ColumnHeader, DisplayedCollumnsService, SettingsService, DataCell} from '../data-list-view-services/table-data.service';
 import {Subscription} from 'rxjs';
 
 // import { DataListViewSettings } from '../data-list-view-dataListSettings/data-list-view-dataListSettings.service';
@@ -39,12 +39,15 @@ export class DataListViewTableComponent implements OnChanges {
   exportFormat = 'json';
   UMLAUT_REPLACEMENTS = '{[{ "Ä", "Ae" }, { "Ü", "Ue" }, { "Ö", "Oe" }, { "ä", "ae" }, { "ü", "ue" }, { "ö", "oe" }, {É, E}]}';
 
+  showCellmoreVert: DataCell;
+
   constructor( private _router: Router,
                private settingsService: SettingsService,
                private columnService: DisplayedCollumnsService ) {
     this.columnDefSub = this.columnService.displayedColumnsChange.subscribe(cols => {
       this.definedColumns = cols;
       this.updateDisplayedColumns();
+      this.setFilter();
     });
     }
 
@@ -135,9 +138,9 @@ public replaceUmlaute(input) {
       // so the object property value is compared by filtering and not the object itself.
       for (const column of this.dataListTableSettings.columns.columnMapping) {
         if (column.filtered) {
-          if (data[column.path]) {
-            if ('value' in data[column.path]) {
-              dataStr = dataStr + data[column.path].value;
+          if (data[column.columnPath]) {
+            if ('value' in data[column.columnPath]) {
+              dataStr = dataStr + data[column.columnPath].value;
             }
           }
           }
@@ -161,24 +164,21 @@ public replaceUmlaute(input) {
     return style;
   }
 
-  private onThisClick(col, val, index) {
-    // SIMPLE METHOD TO DO SOMETHING WITH THE clicked cell/object like passing it to somewhere
-    if (col.link.type === 'external') {
-      //this.definedColumns[index]
-      // open page in new window
-      console.log(index);
-
+  private onThisClick(col, index) {
+    let v = '';
+    col.link.linkPath.forEach(p => {
+      if (p[0] === '"') { v = v + p.split('"').join(''); } else { v = v + index[p].value; } });
+    if (col.link.linkType === 'external') {
+      window.open(v, '_blank');
     } else {
-      console.log(col);
-      console.log(index);
-      // this.updateURL(index);
+      this.updateURL(v, col.link.variableToPass);
     }
   }
 
-  updateURL( index: any ) {
+  updateURL( index: any, variableToPass = '' ) {
     this._router.navigate([], {
       queryParams: {
-        ['verseNumber']: index
+        [variableToPass]: index
       },
       queryParamsHandling: 'merge'
     });
@@ -254,6 +254,17 @@ public replaceUmlaute(input) {
     }
   }
 
+  copyToClipboard(item): void {
+    let listener = (e: ClipboardEvent) => {
+      e.clipboardData.setData('text/plain', (item));
+      e.preventDefault();
+    };
+
+    document.addEventListener('copy', listener);
+    document.execCommand('copy');
+    document.removeEventListener('copy', listener);
+  }
+
   public getExportData() {
     if (this.exportSelection === 'displayed') {
       return this.flatten(this.renderedDisplayedData);
@@ -285,7 +296,7 @@ public replaceUmlaute(input) {
 private isColumnSticky(column: number): boolean {
   // Returns for each column whether/which column should be sticky when scrolling horizontally
   // (this.dataListTableSettings.columns.stickyColumn ? true : false)
-  return !!this.dataListTableSettings.columns.stickyColumn;
+  return false;
   }
 
   getSumOfDisplayedEntries() {

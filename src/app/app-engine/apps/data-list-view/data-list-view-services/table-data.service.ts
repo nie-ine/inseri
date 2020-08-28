@@ -34,7 +34,6 @@ export class DisplayedCollumnsService {
         }
     } else { // if manual columns
       for (const column of dataListSettings.columns.columnMapping) {
-        console.log('col ', column);
         const col = new ColumnHeader(column.columnName, column.columnPath, column.display, column.filtered, column.styles, column.link, column.type );
         displayedColumns.push(col);
       }
@@ -49,7 +48,6 @@ export class DisplayedCollumnsService {
 
   public setDisplayedColumns(cols) {
     this.displayedColumns = cols;
-    console.log('disp cols set: ', cols);
     this.displayedColumnsChange.emit(this.displayedColumns);
   }
 
@@ -113,7 +111,7 @@ export class ColumnHeader {
               display = true,
               filtered = true,
               styles: Array<any> = ['font-style: normal'],
-              link: InLink =  {linkType: 'internal', linkPath: [columnPath]},
+              link: InLink =  {linkType: 'internal', linkPath: [columnPath], variableToPass: ''},
               type: string = 'literal') {
     this.columnName = columnName;
     this.columnPath = columnPath;
@@ -128,6 +126,7 @@ export class ColumnHeader {
 export interface InLink {
   linkType: string;
   linkPath: Array<string>;
+  variableToPass: string;
 }
 
 
@@ -139,11 +138,9 @@ export class OriginalColumnService {
 
   setOriginalDisplayedColumns(cols) {
     this.originalColumnDefinition = cols;
-    console.log('this.originalColumnDefinition is set', this.originalColumnDefinition);
   }
 
   getOriginalDisplayedColumns() {
-    console.log('this.originalColumnDefinition has been requested', this.originalColumnDefinition)
     return this.originalColumnDefinition;
   }
 }

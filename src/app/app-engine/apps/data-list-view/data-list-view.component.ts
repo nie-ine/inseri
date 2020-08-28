@@ -20,7 +20,6 @@ export class DataListViewComponent implements OnChanges {
 
   mustSetArray = false;
   dataArrays = [];
-
   displaySettings: boolean; // weather the settings are displayed above the table or not
   displaySettingsChange: Subscription; // change is triggered from within the table component, so we subscribe to that
 
@@ -37,13 +36,15 @@ export class DataListViewComponent implements OnChanges {
     if (typeof this.dataListSettings === 'string') {
       this.dataListSettingsOut = JSON.parse( this.dataListSettings as any );
     } else {this.dataListSettingsOut = this.dataListSettings; }
-    if (this.dataListSettingsOut.pathToDataArray !== '' ) {
+    if (this.dataListSettingsOut && this.dataListSettingsOut.pathToDataArray !== '' ) {
        this.onGetData(); } else {
-      if (this.dataListSettingsOut.jsonType === 'sparql') {
+      if (this.dataListSettingsOut && this.dataListSettingsOut.jsonType === 'sparql') {
         this.dataListSettingsOut.pathToDataArray = 'results.bindings';
       } else {
-        this.getArraysFromJson(this.queryResponse);
-        this.mustSetArray = true;
+        if (this.queryResponse ) {
+          this.getArraysFromJson(this.queryResponse);
+          this.mustSetArray = true;
+        }
       }
     }
 

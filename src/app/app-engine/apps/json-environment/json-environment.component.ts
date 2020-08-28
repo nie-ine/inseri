@@ -81,7 +81,7 @@ export class JsonEnvironmentComponent implements OnChanges, HttpInterceptor {
     this.microserviceService.postToMicroservice( this.serivceId, formData)
       .subscribe(
         data => {
-          // console.log( data );
+          console.log( data );
           this.output = { [this.serivceId + ' output']: data.body.output } ;
           const currentLocalStorage = JSON.parse( localStorage.getItem( this.serivceId ) );
           // console.log( currentLocalStorage ) ;

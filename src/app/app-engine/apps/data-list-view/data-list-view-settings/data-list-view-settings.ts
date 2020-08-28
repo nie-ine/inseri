@@ -20,6 +20,8 @@ export class DataListViewSettingsComponent implements OnChanges
   displayedColumns: any;
   selectedOption;
 
+  chosenDataSource: string;
+
   constructor( private displayedCollumnsService: DisplayedCollumnsService,
                private settingsService: SettingsService,
                private originalColumnsService: OriginalColumnService,
@@ -41,7 +43,13 @@ export class DataListViewSettingsComponent implements OnChanges
   recreateGenericColumns() {
     this.dataListSettings.columns.manualColumns = false;
     this.dataListSettings.columns.columnMapping = [];
-    // save the sets & reload
+    this.saveSettingsToJson();
+    // reload!!!
+  }
+
+  setInitialDataSource() {
+    this.dataListSettings.pathToDataArray = this.chosenDataSource;
+    this.saveSettingsToJson();
   }
 
   reloadColumns() {
@@ -106,6 +114,7 @@ export class DataListViewSettingsComponent implements OnChanges
   }
 
   saveSettingsToJson() {
+    console.log(this.dataListSettings);
     this.dataListSettings.columns.columnMapping = this.displayedColumns;
     this.requestService.updateFile(
       this.appInputQueryMapping[ this.hash ][ 'settings' ][ 'serverUrl' ].split('/')[ 6 ], {

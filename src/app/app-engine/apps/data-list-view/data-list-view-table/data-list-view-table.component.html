@@ -18,18 +18,29 @@
            [multiTemplateDataRows]="true">
   <ng-container *ngFor="let col of definedColumns; let i = index" [cdkColumnDef]="col.columnPath" [sticky]="isColumnSticky(i)">
     <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{col.columnName}}</mat-header-cell>
-    <mat-cell *cdkCellDef="let row; let i = $implicit;"
+    <mat-cell class="mat-cell" *cdkCellDef="let row; let i = $implicit;"
               [ngStyle]= "getStyles(col.styles)"
-              (click)="onThisClick(col, row[col.columnPath], i)"
-              [ngClass]="col">
+              (click)="onThisClick(col, i)"
+              (mouseover)="showCellmoreVert=row[col.columnPath]">
       <!-- SETTING [ngClass]="col" enables to define styles for each column, setting it to row[col].value will enable to define a style for certain cell content -->
-      <span *ngIf="row[col.columnPath]">
-        <span [innerHTML]="row[col.columnPath].value" ></span>
-        </span>
+      <div *ngIf="row[col.columnPath]"  class="table-cell">
+        <table class = "in-cell-table">
+          <thead>
+        <tr>
+          <td><span [innerHTML]="row[col.columnPath].value"></span></td>
+          <td class="cell-container">
+            <button mat-icon-button class="context-menu-button"
+                    [matMenuTriggerFor]="contextMenu">
+              <mat-icon *ngIf="showCellmoreVert && showCellmoreVert === row[col.columnPath]">more_vert</mat-icon>
+            </button>
+          </td>
+        </tr></thead>
+        </table>
+      </div>
       <!--        {{ showValue(row, col) }} &lt;!&ndash; | highlight: toHighlightByFilter &ndash;&gt;-->
     </mat-cell>
   </ng-container>
-  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
   <mat-row
     matRipple
     *matRowDef="let row; columns: displayedColumns;">
@@ -60,6 +71,20 @@
   </mat-form-field>
   <button (click)="export()" style="margin: 3em">Export</button>
 </div>
+<mat-menu #contextMenu="matMenu">
+  <button mat-menu-item (click)="copyToClipboard(showCellmoreVert.value)">
+    <mat-icon>content_copy</mat-icon>
+    <span>Copy content to clipboard</span>
+  </button>
+  <button mat-menu-item disabled>
+    <mat-icon>edit</mat-icon>
+    <span>Edit (not yet implemented)</span>
+  </button>
+  <button mat-menu-item disabled>
+    <mat-icon>remove_circle</mat-icon>
+    <span>Delete (not yet implemented)</span>
+  </button>
+</mat-menu>
 
 
 
