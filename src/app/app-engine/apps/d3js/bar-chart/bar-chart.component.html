@@ -1,6 +1,17 @@
-<div class="barChartContainer">
-  <div>
-    <div class="barChartYaxis" id="{{ 'barChartYaxis_' + this.numberOfInitialisedComponent }}"></div>
-    <div class="barChartChart" id="{{ 'barChartChart_' + this.numberOfInitialisedComponent }}"></div>
+<div>
+  <mat-form-field id="scaleBarChartWidth">
+    <input matInput
+           placeholder="Width:"
+           [value]="this.imageWidth"
+           [(ngModel)]="this.newImageWidth"
+           (keyup)="reDrawBarChart()">
+  </mat-form-field>
+<!--  <button id="scaleBarChartButton" mat-button (click)="reDrawBarChart()">Update</button>-->
+
+  <div class="barChartContainer">
+    <div>
+      <div class="barChartYaxis" id="{{ 'barChartYaxis_' + this.numberOfInitialisedComponent }}"></div>
+      <div class="barChartChart" id="{{ 'barChartChart_' + this.numberOfInitialisedComponent }}"></div>
+    </div>
   </div>
 </div>
