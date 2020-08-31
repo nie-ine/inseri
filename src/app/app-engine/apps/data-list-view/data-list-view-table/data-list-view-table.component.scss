@@ -1,0 +1,40 @@
+
+
+
+.mat-cell {
+  // word-break: break-all;
+}
+
+.in-cell-table {
+  width: 100%;
+  display: table;
+}
+
+.value-cell {
+  display: table-cell;
+  // word-wrap: break-word
+}
+
+.button-container {
+  width: 2em;
+  display: table-cell;
+  min-width: 2em;
+  vertical-align: top;
+}
+
+.context-menu-button {
+  width: 1em;
+  min-width: 1em;
+  max-width: 1em;
+  overflow: hidden;
+  vertical-align: top;
+  margin: 0;
+  padding: 0;
+}
+
+
+/*  [ngClass]="row[col].value --> will search for the class name of the cells content */
+/*  [ngClass]="row[col].value --> will search for the class name of the cells content */
+
+.inner-table-cell {
+}

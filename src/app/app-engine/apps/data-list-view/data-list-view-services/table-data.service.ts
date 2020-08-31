@@ -111,7 +111,7 @@ export class ColumnHeader {
               display = true,
               filtered = true,
               styles: Array<any> = ['font-style: normal'],
-              link: InLink =  {linkType: 'internal', linkPath: [columnPath], variableToPass: ''},
+              link: InLink =  {linkType: 'none', linkPath: [''], variableToPass: ''},
               type: string = 'literal') {
     this.columnName = columnName;
     this.columnPath = columnPath;

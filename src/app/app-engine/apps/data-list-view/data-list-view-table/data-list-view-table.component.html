@@ -12,29 +12,27 @@
   </span>
 </div>
 <!--TABLE-->
-<mat-table #table [dataSource]="dataSource"
+<mat-table [dataSource]="dataSource"
            matSort
            [matSortDisabled] ="this.dataListTableSettings.sort.disallowSorting"
            [multiTemplateDataRows]="true">
-  <ng-container *ngFor="let col of definedColumns; let i = index" [cdkColumnDef]="col.columnPath" [sticky]="isColumnSticky(i)">
-    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{col.columnName}}</mat-header-cell>
-    <mat-cell class="mat-cell" *cdkCellDef="let row; let i = $implicit;"
+  <ng-container *ngFor="let col of definedColumns; let i = index" [matColumnDef]="col.columnPath" [sticky]="isColumnSticky(i)">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>{{col.columnName}}</mat-header-cell>
+    <mat-cell class="mat-cell" *matCellDef="let row; let i = $implicit;"
               [ngStyle]= "getStyles(col.styles)"
-              (click)="onThisClick(col, i)"
               (mouseover)="showCellmoreVert=row[col.columnPath]">
       <!-- SETTING [ngClass]="col" enables to define styles for each column, setting it to row[col].value will enable to define a style for certain cell content -->
       <div *ngIf="row[col.columnPath]"  class="table-cell">
-        <table class = "in-cell-table">
-          <thead>
-        <tr>
-          <td><span [innerHTML]="row[col.columnPath].value"></span></td>
-          <td class="cell-container">
+        <table>
+        <tr class="inner-table-cell">
+          <td  [ngStyle]="{'cursor': col.link.linkType !== 'none' ? 'pointer' : 'unset' }" (click)="onThisClick(col, i)" class="value-cell"><span class="mat-cell" [innerHTML]="row[col.columnPath].value"></span></td>
+          <td class="button-container">
             <button mat-icon-button class="context-menu-button"
                     [matMenuTriggerFor]="contextMenu">
               <mat-icon *ngIf="showCellmoreVert && showCellmoreVert === row[col.columnPath]">more_vert</mat-icon>
             </button>
           </td>
-        </tr></thead>
+        </tr>
         </table>
       </div>
       <!--        {{ showValue(row, col) }} &lt;!&ndash; | highlight: toHighlightByFilter &ndash;&gt;-->
