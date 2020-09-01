@@ -280,6 +280,10 @@
           Change Title and size
         </button>
 
+        <button mat-menu-item (click)="appMenu( app, 'showDescription' )">
+          Change app description
+        </button>
+
         <button (click)="app.showArrows = app.showArrows ? false : true" mat-menu-item>
           {{ app.showArrows ? 'Hide move arrows' : 'Move app on page'}}
         </button>
@@ -288,8 +292,8 @@
           App Input Options
         </button>
 
-        <button mat-menu-item (click)="appMenu( app, 'showDescription' )">
-          Change app description
+        <button mat-menu-item (click)="openDataManagement()">
+          Open Data Management
         </button>
 
         <button mat-menu-item (click)="appMenu( app, 'minimize' )">

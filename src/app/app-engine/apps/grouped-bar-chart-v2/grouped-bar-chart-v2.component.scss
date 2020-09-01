@@ -1,3 +1,17 @@
+:host /deep/ .scaleGroupedBarChartWidth {
+  margin: 10px 0 0 30px;
+  width: 128px;
+  overflow: hidden;
+}
+
+:host /deep/ .scaleGroupedBarChartInput {
+
+}
+
+:host /deep/ .scaleGroupedBarChartSlider {
+
+}
+
 :host /deep/ rect {
   stroke-width: 2;
 }
