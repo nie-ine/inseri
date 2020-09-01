@@ -17,7 +17,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
   title = 'Grouped Bar Chart';
   alreadyInitialised = false;
   width: number;
-  newWidth = 0;
+  newWidth: number;
   private posX: number;
   private posY: number;
   chartWidthFactor = 100;
@@ -40,14 +40,14 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
     }
   }
 
-  drawD3(data: Array<any>, width?: number) {
-
+  drawD3(data: Array<any>, width: number) {
+    console.log(width);
     if ( width === 0 ) {
       width = this.data.data.length * this.chartWidthFactor;
     }
 
-
     this.width = width;
+    this.newWidth = width;
 
     // Remove current chart elements if already there
     d3.select('#chart_' + this.numberOfInitialisedComponent).select('svg').remove();
@@ -89,7 +89,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
     // creating the chart
     const svgChart = d3.select('#chart_' + this.numberOfInitialisedComponent)
       .append('svg') // appending an <svg> element
-      .attr('width', width + margin.left + margin.right)
+      .attr('width', +width + +margin.left + +margin.right)
       .attr('height', height + margin.top + margin.bottom)
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
