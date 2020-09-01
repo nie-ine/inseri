@@ -13,8 +13,8 @@ import {ThemePalette} from '@angular/material/core';
 import {Observable} from 'rxjs';
 import 'rxjs/add/observable/interval';
 import {ContactService} from '../mongodb/contact/contact.service';
-import { environment } from '../../../environments/environment';
-import { PasswordFormatCheckService } from '../shared/password-format-check.service';
+import {environment} from '../../../environments/environment';
+import {PasswordFormatCheckService} from '../shared/password-format-check.service';
 
 export interface ChipColor {
   name: string;
@@ -61,11 +61,11 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
     public snackBar: MatSnackBar,
     private actionService: ActionService,
   ) {
-      this.activatedRoute.queryParams.subscribe(params => {
-        this.hashOfThisPage = params.page;
-        this.actionID = params.actionID;
-        this.generateNavigation(params.actionID);
-      });
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.hashOfThisPage = params.page;
+      this.actionID = params.actionID;
+      this.generateNavigation(params.actionID);
+    });
   }
 
   selectPage(i: number, page: any) {
@@ -73,7 +73,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.navigateToOtherView(page);
   }
 
-  checkIfSelected( index: number ) {
+  checkIfSelected(index: number) {
     return (index === this.selectedPage);
   }
 
@@ -92,15 +92,15 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
   checkTimeUntilLogout() {
     const now = new Date();
     const expirationDate = localStorage.getItem('expiration');
-    const secondsTotal = ( new Date(expirationDate).getTime() - now.getTime() ) / 1000;
+    const secondsTotal = (new Date(expirationDate).getTime() - now.getTime()) / 1000;
     const minutes = Math.floor(secondsTotal / 60);
     const seconds = Math.floor(secondsTotal - minutes * 60);
     this.userInfo = 'Session expires in ' + minutes + ' min and ' + seconds + ' sec';
-    if ( expirationDate && new Date(expirationDate).getTime() - now.getTime() > 0) {
-      if ( minutes < 5 && !this.snackBarOpen) {
+    if (expirationDate && new Date(expirationDate).getTime() - now.getTime() > 0) {
+      if (minutes < 5 && !this.snackBarOpen) {
         this.snackBarOpen = true;
         this.openExtendSessionBar();
-      } else if ( minutes > 5 ) {
+      } else if (minutes > 5) {
         this.snackBar.dismiss();
       }
     }
@@ -112,11 +112,11 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
         this.checkTimeUntilLogout();
       });
     if (this.initService.isAppLaunchingFirstTime()) {
-        setTimeout(() => {
-            this.dialog2.open(InitPopupComponent, {
-                data: {}
-            });
-        }, 1000);
+      setTimeout(() => {
+        this.dialog2.open(InitPopupComponent, {
+          data: {}
+        });
+      }, 1000);
     }
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authListenerSubs = this.authService
@@ -142,11 +142,11 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
         .subscribe(data => {
             if (data.body.action.type === 'page-set') {
               this.pagesOfThisActtion = [];
-              for (const page of ( data.body as any ).action.hasPageSet.hasPages as any ) {
-                console.log( page._id, this.hashOfThisPage );
-                if ( page._id === this.hashOfThisPage ) {
+              for (const page of (data.body as any).action.hasPageSet.hasPages as any) {
+                console.log(page._id, this.hashOfThisPage);
+                if (page._id === this.hashOfThisPage) {
                   this.selectedPage = this.pagesOfThisActtion.length;
-                  console.log( this.selectedPage );
+                  console.log(this.selectedPage);
                 }
                 this.pagesOfThisActtion[this.pagesOfThisActtion.length] = page;
                 this.alreadyLoaded = true;
@@ -161,57 +161,57 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   navigateToOtherView(page: any) {
     console.log('Navigate to last View');
-    this.router.navigate( [ 'page' ], {
+    this.router.navigate(['page'], {
       queryParams: {
         'actionID': this.actionID,
         'page': page._id
       }
-    } );
+    });
   }
 
   generateLeftHeaderString(): string {
     return (
-      this.routeMapping( 'dashboard', 'inseri - Dashboard' ) ||
-      this.routeMapping( 'home', 'Inseri' ) ||
-      this.routeMapping( 'page', 'Inseri - Page' ) ||
-      this.routeMapping( '', 'Inseri' )
+      this.routeMapping('dashboard', 'inseri - Dashboard') ||
+      this.routeMapping('home', 'Inseri') ||
+      this.routeMapping('page', 'Inseri - Page') ||
+      this.routeMapping('', 'Inseri')
     );
   }
 
   generateLoginOrSettingsButton(): string {
-    return(
-      this.routeMapping( 'dashboard', 'Logout' ) ||
-      this.routeMapping( 'page', 'User Settings' )
+    return (
+      this.routeMapping('dashboard', 'Logout') ||
+      this.routeMapping('page', 'User Settings')
     );
   }
 
   generateFunctionsHomeLink(): string {
-    return(
-      this.routeMapping( 'dashboard', '' ) // ||
+    return (
+      this.routeMapping('dashboard', '') // ||
       // this.routeMapping( 'home', 'Funktionen' )
     );
   }
 
   generateLeftHeaderStringLink() {
-    return(
-      this.routeMapping( 'dashboard', 'dashboard#top' ) ||
-      this.routeMapping( 'home', 'home#top' ) ||
-      this.routeMapping( 'page', 'dashboard#top' ) ||
-      this.routeMapping( 'page-set', 'dashboard#top' ) ||
-      this.routeMapping( '', 'home#top' )
+    return (
+      this.routeMapping('dashboard', 'dashboard#top') ||
+      this.routeMapping('home', 'home#top') ||
+      this.routeMapping('page', 'dashboard#top') ||
+      this.routeMapping('page-set', 'dashboard#top') ||
+      this.routeMapping('', 'home#top')
     );
   }
 
   isAuthenticated(): boolean {
-      return this.userIsAuthenticated;
+    return this.userIsAuthenticated;
   }
 
   isOnDashboard(): boolean {
-      return (this.router.url && this.router.url.search( 'dash') === 1);
+    return (this.router.url && this.router.url.search('dash') === 1);
   }
 
-  routeMapping( location: string, output: string ): string {
-    if ( this.router.url && this.router.url.search( location ) !== -1 ) {
+  routeMapping(location: string, output: string): string {
+    if (this.router.url && this.router.url.search(location) !== -1) {
       return output;
     }
   }
@@ -225,13 +225,13 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.authService.logout();
       this.router.navigate(['/']);
     } else {
-        this.router.navigate(['/home'], { fragment: 'login' });
+      this.router.navigate(['/home'], {fragment: 'login'});
     }
   }
 
   openSettingsDialog() {
-    if ( !this.dialogIsOpen ) {
-      this. dialogIsOpen = true;
+    if (!this.dialogIsOpen) {
+      this.dialogIsOpen = true;
       const userId = localStorage.getItem('userId');
       if (userId) {
         this.authService.getUser(userId).subscribe((result) => {
@@ -242,11 +242,12 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
               email: result.user.email,
               firstName: result.user.firstName,
               lastName: result.user.lastName,
-              newsletter: result.user.newsletter
+              newsletter: result.user.newsletter,
+              usrProfileFilePath: result.user.usrProfileFilePath
             }
           });
           dialogRef.afterClosed().subscribe((result1) => {
-            this. dialogIsOpen = false;
+            this.dialogIsOpen = false;
           });
         }, (error) => {
           console.log(error);
@@ -260,134 +261,144 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
 }
 
 @Component({
-    selector: 'dialog-user-settings-dialog',
-    templateUrl: './dialog-user-settings-dialog.html',
-    styleUrls: ['./dialog-user-settings-dialog.scss']
+  selector: 'dialog-user-settings-dialog',
+  templateUrl: './dialog-user-settings-dialog.html',
+  styleUrls: ['./dialog-user-settings-dialog.scss']
 })
 
 export class DialogUserSettingsDialog implements OnInit {
-    userId: string;
-    errorPwd: boolean;
-    errorPwdMessage: string;
-    errorProfile: boolean;
-    errorProfileMessage: string;
-    profileForm: FormGroup;
-    pwdForm: FormGroup;
-    deleteAccount: FormGroup;
-    neededSpecialCharacters;
-    wrongFormatAlert = false;
+  userId: string;
+  errorPwd: boolean;
+  errorPwdMessage: string;
+  errorProfile: boolean;
+  errorProfileMessage: string;
+  profileForm: FormGroup;
+  pwdForm: FormGroup;
+  deleteAccount: FormGroup;
+  neededSpecialCharacters;
+  wrongFormatAlert = false;
+  imagePreview: string;
+  profileFotoForm: FormGroup;
+  private profilePic: File;
+  usrProfileFilePath: string;
 
-    constructor(
-      public dialogRef: MatDialogRef<DialogUserSettingsDialog>,
-      @Inject(MAT_DIALOG_DATA) public data: any,
-      private authService: AuthService,
-      public snackBar: MatSnackBar,
-      private router: Router,
-      private contactService: ContactService,
-      private passwortFormatCheckService: PasswordFormatCheckService
-    ) {}
+  constructor(
+    public dialogRef: MatDialogRef<DialogUserSettingsDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private authService: AuthService,
+    public snackBar: MatSnackBar,
+    private router: Router,
+    private contactService: ContactService,
+    private passwortFormatCheckService: PasswordFormatCheckService
+  ) {
+  }
 
-    ngOnInit() {
-      this.neededSpecialCharacters = this.passwortFormatCheckService.neededSpecialCharacters;
-      this.userId = this.data.userId;
+  ngOnInit() {
+    this.neededSpecialCharacters = this.passwortFormatCheckService.neededSpecialCharacters;
+    this.userId = this.data.userId;
 
-      this.profileForm = new FormGroup({
-        firstname: new FormControl(this.data.firstName, [Validators.required, Validators.maxLength(25)]),
-        lastname: new FormControl(this.data.lastName, [Validators.required, Validators.maxLength(25)]),
-        email: new FormControl(this.data.email, [Validators.required, Validators.pattern(/^.+@.+\.\w+$/)]),
-        newsletter: new FormControl((this.data.newsletter == null) ? true : this.data.newsletter,[])
-      });
+    this.profileForm = new FormGroup({
+      firstname: new FormControl(this.data.firstName, [Validators.required, Validators.maxLength(25)]),
+      lastname: new FormControl(this.data.lastName, [Validators.required, Validators.maxLength(25)]),
+      email: new FormControl(this.data.email, [Validators.required, Validators.pattern(/^.+@.+\.\w+$/)]),
+      newsletter: new FormControl((this.data.newsletter == null) ? true : this.data.newsletter, [])
+    });
 
-      this.pwdForm = new FormGroup( {
-        oldpwd: new FormControl('', [Validators.required]),
-        newpwd1: new FormControl('', [Validators.required, Validators.minLength(4)]),
-        newpwd2: new FormControl('', [Validators.required, Validators.minLength(4)]),
-      });
+    this.pwdForm = new FormGroup({
+      oldpwd: new FormControl('', [Validators.required]),
+      newpwd1: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      newpwd2: new FormControl('', [Validators.required, Validators.minLength(4)]),
+    });
 
-      this.deleteAccount = new FormGroup( {
-        email: new FormControl(this.data.email, [Validators.required, Validators.pattern(/^.+@.+\.\w+$/)]),
-        oldpwd: new FormControl('', [Validators.required]),
-      });
+    this.deleteAccount = new FormGroup({
+      email: new FormControl(this.data.email, [Validators.required, Validators.pattern(/^.+@.+\.\w+$/)]),
+      oldpwd: new FormControl('', [Validators.required]),
+    });
 
-      this.resetErrorPwd();
-      this.resetErrorProfile();
-    }
-
-    resetErrorPwd() {
-      this.errorPwd = false;
-    }
-
-    resetErrorProfile() {
-      this.errorProfile = false;
-    }
-
-    close() {
-        this.dialogRef.close();
-    }
-
-    save() {
-        this.resetErrorProfile();
-        this.authService.updateUser(
-          this.userId,
-          this.profileForm.get('email').value,
-          this.profileForm.get('firstname').value,
-          this.profileForm.get('lastname').value,
-          this.profileForm.get('newsletter').value)
-          .subscribe((result) => {
-            if (this.profileForm.get('newsletter').value) {
-              const message = 'Guten Tag, ' + this.profileForm.get('firstname').value + ', Du hast Dich zu unserem Newsletter angemeldet.' +
-                '\n\nBitte klicke auf den folgenden Link, wenn Du Dich abmelden möchtest: \n\n'
-                + environment.app + '/deactivate-newsletter?user=' + this.userId;
-              this.contactService.sendMessage(message, this.profileForm.get('email').value)
-                .subscribe(response1 => {
-                  console.log(response1);
-                }, error1 => {
-                  console.log(error1);
-                });
-            }
-            this.close();
-          }, error => {
-            if (error.status === 409) {
-              this.errorProfile = true;
-              this.errorProfileMessage = 'Email ist schon vergeben!';
-            } else {
-              this.errorProfile = true;
-              this.errorProfileMessage = 'Fehler mit dem Server!';
-            }
-          });
-    }
-
-    changePwd() {
-  if (this.passwortFormatCheckService.checkProposedPassword(this.pwdForm.get('newpwd1').value)) {
+    this.profileFotoForm = new FormGroup({
+      usrProfileFilePath: new FormControl(this.data.usrProfileFilePath)
+    });
+    console.log(this.data.usrProfileFilePath);
+    this.imagePreview = this.data.usrProfileFilePath;
     this.resetErrorPwd();
-    this.authService.updatePwd(
+    this.resetErrorProfile();
+  }
+
+  resetErrorPwd() {
+    this.errorPwd = false;
+  }
+
+  resetErrorProfile() {
+    this.errorProfile = false;
+  }
+
+  close() {
+    this.dialogRef.close();
+  }
+
+  save() {
+    this.resetErrorProfile();
+    this.authService.updateUser(
       this.userId,
-      this.pwdForm.get('oldpwd').value,
-      this.pwdForm.get('newpwd1').value)
-      .subscribe(result => {
+      this.profileForm.get('email').value,
+      this.profileForm.get('firstname').value,
+      this.profileForm.get('lastname').value,
+      this.profileForm.get('newsletter').value)
+      .subscribe((result) => {
+        if (this.profileForm.get('newsletter').value) {
+          const message = 'Guten Tag, ' + this.profileForm.get('firstname').value + ', Du hast Dich zu unserem Newsletter angemeldet.' +
+            '\n\nBitte klicke auf den folgenden Link, wenn Du Dich abmelden möchtest: \n\n'
+            + environment.app + '/deactivate-newsletter?user=' + this.userId;
+          this.contactService.sendMessage(message, this.profileForm.get('email').value)
+            .subscribe(response1 => {
+              console.log(response1);
+            }, error1 => {
+              console.log(error1);
+            });
+        }
         this.close();
-      }, (error) => {
-        if (error.status === 400) {
-          this.errorPwd = true;
-          this.errorPwdMessage = 'Ungültiges Passwort!';
-        } else if (error.status === 420) {
-          this.errorPwd = true;
-          this.errorPwdMessage = 'Neues und altes Passwort sind identisch!';
+      }, error => {
+        if (error.status === 409) {
+          this.errorProfile = true;
+          this.errorProfileMessage = 'Email ist schon vergeben!';
         } else {
-          this.errorPwd = true;
-          this.errorPwdMessage = 'Fehler mit dem Server!';
+          this.errorProfile = true;
+          this.errorProfileMessage = 'Fehler mit dem Server!';
         }
       });
+  }
+
+  changePwd() {
+    if (this.passwortFormatCheckService.checkProposedPassword(this.pwdForm.get('newpwd1').value)) {
+      this.resetErrorPwd();
+      this.authService.updatePwd(
+        this.userId,
+        this.pwdForm.get('oldpwd').value,
+        this.pwdForm.get('newpwd1').value)
+        .subscribe(result => {
+          this.close();
+        }, (error) => {
+          if (error.status === 400) {
+            this.errorPwd = true;
+            this.errorPwdMessage = 'Ungültiges Passwort!';
+          } else if (error.status === 420) {
+            this.errorPwd = true;
+            this.errorPwdMessage = 'Neues und altes Passwort sind identisch!';
+          } else {
+            this.errorPwd = true;
+            this.errorPwdMessage = 'Fehler mit dem Server!';
+          }
+        });
     } else {
       this.wrongFormatAlert = true;
     }
   }
 
   delete() {
-      console.log('Delete Account');
-      this.authService.deleteAccount( this.userId, this.deleteAccount.get('oldpwd').value )
+    console.log('Delete Account');
+    this.authService.deleteAccount(this.userId, this.deleteAccount.get('oldpwd').value)
       .subscribe(result => {
-        console.log( result );
+        console.log(result);
         this.contactService.sendMessage(
           'Guten Tag, ' + this.data.firstName + ',\n\n' +
           'schade, dass Du Deinen Account bei Inseri deaktiviert hast, wir werden Dich vermissen!\n\n\n' +
@@ -395,17 +406,34 @@ export class DialogUserSettingsDialog implements OnInit {
           environment.app + '/reactivate?user=' + this.userId +
           '\n\n\nViele schöne Grüsse und alles Gute von Deinem Inseri Team!', this.profileForm.get('email').value
         )
-          .subscribe( response => {
+          .subscribe(response => {
             console.log(response);
           }, error1 => {
             console.log(error1);
           });
         this.authService.logout();
-        this.router.navigate(['/home'], { queryParams: {deletedAccount: true} });
+        this.router.navigate(['/home'], {queryParams: {deletedAccount: true}});
         this.dialogRef.close();
       }, error1 => {
-        console.log( error1 );
+        console.log(error1);
       });
+  }
+
+  changeProfilePic() {
+    this.authService.updateUsrProfilePic(this.profilePic, this.data.email).subscribe(results => {
+      console.log(results);
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  onProfilePicSelected($event: Event) {
+    this.profilePic = (event.target as HTMLInputElement).files[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result as string;
+    };
+    reader.readAsDataURL(this.profilePic);
   }
 }
 
@@ -418,7 +446,8 @@ export class DialogUserSettingsDialog implements OnInit {
     }
   `],
 })
-export class PizzaPartyComponent {}
+export class PizzaPartyComponent {
+}
 
 @Component({
   selector: 'session-component',
@@ -428,18 +457,20 @@ export class ExtendSessionComponent {
   password: string;
   email = 'Email';
   loginError = false;
+
   constructor(
     public authService: AuthService,
     public cdr: ChangeDetectorRef
   ) {
     this.authService.getUser(localStorage.getItem('userId')).subscribe((result) => {
-      console.log( result );
+      console.log(result);
       this.email = result.user.email;
     });
   }
+
   extendSession() {
     this.loginError = false;
-    this.authService.logout( true );
+    this.authService.logout(true);
     this.authService.login(
       this.email,
       this.password,

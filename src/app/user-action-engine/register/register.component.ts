@@ -38,6 +38,7 @@ export class RegisterComponent implements OnInit {
     console.log( this.environment );
     this.model.newsletter = false;
     this.neededSpecialCharacters = this.passwordFormatCheckService.neededSpecialCharacters;
+    this.imagePreview = environment.app + '/assets/img/team/user-icon-vector.jpg';
   }
 
   register() {

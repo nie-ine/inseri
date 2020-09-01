@@ -236,4 +236,13 @@ export class AuthService {
     };
   }
 
+  updateUsrProfilePic(usrProfilePic: File, email: string): Observable<any> {
+    const usrProfileFile = new FormData();
+    usrProfileFile.append( 'usrProfileFilePath', environment.app + '/assets/img/team/user-icon-vector.jpg');
+    usrProfileFile.append('hostname', environment.app);
+    if (usrProfilePic) {
+      usrProfileFile.append('file', usrProfilePic, usrProfilePic.name);
+    }
+    return this.http.post(`${AuthService.API_BASE_URL_USER}/updateUsrProfilePic/${email}`, usrProfileFile);
+  }
 }

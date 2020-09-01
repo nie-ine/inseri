@@ -4,8 +4,6 @@ import * as d3Scale from 'd3-scale';
 import * as d3Array from 'd3-array';
 import * as d3Axis from 'd3-axis';
 
-import { STATISTICS } from './statistics';
-
 /**
  * This component describes a bar chart, with a column for each value from left to right.
  * The column's height represents the value behind.
@@ -77,7 +75,8 @@ export class BarChartComponent implements AfterViewChecked {
    */
   alreadyInitialised = false;
 
-  imageWidth = 600;
+  imageWidth = 350;
+  newImageWidth = 0;
 
   private posX: number;
   private posY: number;
@@ -119,18 +118,19 @@ export class BarChartComponent implements AfterViewChecked {
     this.drawBars();
   }
 
-  // generateComponentDivClass() {
-  //   return 'barChart' + this.numberOfInitialisedComponent;
-  // }
-
   private initSvg() {
-    if (this.data.data.length * 50 > this.imageWidth) {
-      this.imageWidth = this.data.data.length * 50;
+    if (this.newImageWidth !== 0) {
+      this.imageWidth = this.newImageWidth;
+    } else {
+      if (this.data.data.length * 25 > this.imageWidth) {
+        this.imageWidth = this.data.data.length * 25;
+      } else {
+        this.newImageWidth = this.imageWidth;
+      }
     }
     this.svgChart = d3.select('#barChartChart_' + this.numberOfInitialisedComponent)
       .append('svg')
       .attr('width', this.imageWidth)
-      // .attr('width', this.imageWidth) // Change here for size of the bars
       .attr('height', 350);
     this.width = this.imageWidth - this.margin.left - this.margin.right;
     this.height = 350 - this.margin.top - this.margin.bottom;
@@ -241,6 +241,14 @@ export class BarChartComponent implements AfterViewChecked {
 
   }
 
+  reDrawBarChart() {
+    d3.select('#barChartChart_' + this.numberOfInitialisedComponent).select('svg').remove();
+    d3.select('#barChartYaxis_' + this.numberOfInitialisedComponent).select('svg').remove();
+    this.initSvg();
+    this.initAxis();
+    this.drawAxis();
+    this.drawBars();
+  }
 }
 
 function IsJsonString(str) {
