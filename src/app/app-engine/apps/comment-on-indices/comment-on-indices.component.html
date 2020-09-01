@@ -14,7 +14,9 @@
   <mat-divider ></mat-divider>
 
   <mat-card-header style="margin-top: 15px" >
-    <div mat-card-avatar class="example-header-image" [matMenuTriggerFor]="menu" style="cursor: pointer"> <!-- matTooltip="{{ comment.user }} + test"-->
+
+    <div mat-card-avatar [matMenuTriggerFor]="menu" style="cursor: pointer"> <!-- matTooltip="{{ comment.user }} + test"-->
+      <img [src]="comment.creator.usrProfileFilePath"  style="display: inline-block;padding:0px;margin:0px;width:40px;">
     </div>
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)=" comment.inputField = true; " >Edit comment</button>

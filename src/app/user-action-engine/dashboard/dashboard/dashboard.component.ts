@@ -23,6 +23,7 @@ import * as FileSaver from 'file-saver';
 import {CommentService} from '../../mongodb/comment/comment.service';
 import {error} from 'util';
 import {QueryService} from '../../mongodb/query/query.service';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-dashboard',
@@ -98,6 +99,10 @@ export class DashboardComponent implements OnInit {
           console.log(data);
           this.commentArray = (data as any).comments;
           for (let i = 0; i < this.commentArray.length; i++) {
+            if (!this.commentArray[i].creator.usrProfileFilePath) {
+              this.commentArray[i].creator.usrProfileFilePath = environment.app + '/assets/img/team/user-icon-vector.jpg';
+              console.log(this.commentArray[i].creator.usrProfileFilePath);
+            }
             this.createQueryInformationOfComment(i);
           }
         }, error1 => console.log(error1)

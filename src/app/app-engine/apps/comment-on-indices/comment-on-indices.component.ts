@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {QueryService} from '../../../user-action-engine/mongodb/query/query.service';
 import {AuthService} from '../../../user-action-engine/mongodb/auth/auth.service';
 import {CommentService} from '../../../user-action-engine/mongodb/comment/comment.service';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-comment-on-indices',
@@ -31,9 +32,13 @@ export class CommentOnIndicesComponent implements OnInit {
       this.commentService.getCommentsOfPage( this.route.snapshot.queryParams.page )
         .subscribe(
           data => {
-            // console.log( data );
+            //console.log( data );
             this.commentArray = data.comments;
             for ( let i = 0; i < this.commentArray.length; i++ ) {
+              if (!this.commentArray[i].creator.usrProfileFilePath) {
+                this.commentArray[i].creator.usrProfileFilePath = environment.app + '/assets/img/team/user-icon-vector.jpg';
+                console.log(this.commentArray[i].creator.creatorProfilePhotoUrl);
+              }
               this.createQueryInformationOfComment( i );
             }
           }, error => console.log( error )
@@ -70,12 +75,14 @@ export class CommentOnIndicesComponent implements OnInit {
 
     this.authService.getUser(localStorage.getItem('userId')).subscribe((result) => {
       console.log( result );
+      console.log(result.user.usrProfileFilePath);
       const newComment = {
         commentText: this.newComment,
           date: date,
         params: this.route.snapshot.queryParams,
         user: result.user.lastName + ', ' + result.user.firstName,
         queries: undefined,
+        //creatorProfilePhotoUrl: ((!result.user.usrProfileFilePath) ? environment.app + '/assets/img/team/user-icon-vector.jpg' : result.user.usrProfileFilePath),
         userId: localStorage.getItem('userId'),
         page: this.route.snapshot.queryParams.page,
         action: this.route.snapshot.queryParams.actionID
@@ -135,7 +142,7 @@ export class CommentOnIndicesComponent implements OnInit {
         data => {
           console.log( data );
         }, error => console.log( error )
-      )
+      );
   }
 
   editComment( commentId: string, updatedText: string ) {
