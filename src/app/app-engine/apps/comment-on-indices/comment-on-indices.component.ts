@@ -75,19 +75,19 @@ export class CommentOnIndicesComponent implements OnInit {
 
     this.authService.getUser(localStorage.getItem('userId')).subscribe((result) => {
       console.log( result );
-      console.log(result.user.usrProfileFilePath);
+      console.log(result.user);
       const newComment = {
         commentText: this.newComment,
           date: date,
         params: this.route.snapshot.queryParams,
         user: result.user.lastName + ', ' + result.user.firstName,
         queries: undefined,
-        //creatorProfilePhotoUrl: ((!result.user.usrProfileFilePath) ? environment.app + '/assets/img/team/user-icon-vector.jpg' : result.user.usrProfileFilePath),
+        creator: result.user,
         userId: localStorage.getItem('userId'),
         page: this.route.snapshot.queryParams.page,
         action: this.route.snapshot.queryParams.actionID
       };
-
+      console.log(newComment);
       this.commentArray.push(
         newComment
       );
