@@ -6,7 +6,7 @@
              placeholder="Chart width:"
              [value]="this.width"
              [(ngModel)]="this.newWidth"
-             (keyup)="drawD3(this.data.data, this.newWidth)">
+             (keyup)="drawD3(this.data.data, this.newWidth, false)">
     </mat-form-field>
   </div>
   <div class="scaleGroupedBarChartSlider">
@@ -33,4 +33,12 @@
     </div>
   </div>
 </div>
-
+<!--(change)="drawD3(this.data.data, this.newWidth)"-->
+<div class="sortChart"><mat-slide-toggle
+  id="{{ 'sortChart_' + this.numberOfInitialisedComponent }}"
+  [(ngModel)]="this.isSorted"
+  (change)="drawD3(this.data.data, this.newWidth)"
+  >
+  Sort
+  </mat-slide-toggle>
+</div>
