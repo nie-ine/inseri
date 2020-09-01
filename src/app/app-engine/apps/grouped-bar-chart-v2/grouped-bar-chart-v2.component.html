@@ -1,17 +1,26 @@
-<!--<div>-->
-<!--  <div>-->
-<!--    <label for="scaleBar">Scale</label>-->
-<!--  </div>-->
-<!--  <div>-->
-<!--    <mat-slider-->
-<!--      id="scaleBar"-->
-<!--      min="0"-->
-<!--      max="1000"-->
-<!--      step="50"-->
-<!--      value="{{this.chartWidth}}">-->
-<!--    </mat-slider>-->
-<!--  </div>-->
-<!--</div>-->
+
+<div class="scaleGroupedBarChartWidth">
+  <div class="scaleGroupedBarChartInput">
+    <mat-form-field>
+      <input matInput
+             placeholder="Chart width:"
+             [value]="this.width"
+             [(ngModel)]="this.newWidth"
+             (keyup)="drawD3(this.data.data, this.newWidth)">
+    </mat-form-field>
+  </div>
+  <div class="scaleGroupedBarChartSlider">
+    <mat-slider
+      min="150"
+      max="{{ this.width * 4 }}"
+      step="50"
+      [value]="this.width"
+      [(ngModel)]="this.newWidth"
+      (change)="drawD3(this.data.data, this.newWidth)"></mat-slider>
+    <!-- thumbLabel -->
+  </div>
+</div>
+
 <div>
   <div class="legend_container">
     <div class="legend" id="{{ 'legend_' + this.numberOfInitialisedComponent }}">

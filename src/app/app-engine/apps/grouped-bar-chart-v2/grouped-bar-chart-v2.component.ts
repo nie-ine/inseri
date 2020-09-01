@@ -17,6 +17,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
   title = 'Grouped Bar Chart';
   alreadyInitialised = false;
   width: number;
+  newWidth: number;
   private posX: number;
   private posY: number;
   chartWidthFactor = 100;
@@ -24,10 +25,6 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
 
   constructor() {
   }
-
-  // generateComponentDivClass( name: string ) {
-  //   return name + this.numberOfInitialisedComponent;
-  // }
 
   ngAfterViewChecked() {
     // console.log( this.numberOfInitialisedComponent, this.data );
@@ -37,13 +34,25 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
       this.data && this.data.data ) {
       this.alreadyInitialised = true;
       setTimeout(() => {
-        console.log( this.data );
-        this.drawD3( this.data.data, this.data.data.length * this.chartWidthFactor );
+        // console.log( this.data );
+        this.drawD3(this.data.data, 0);
       }, 500);
     }
   }
 
-  drawD3(data: Array<any>, width?: number) {
+  drawD3(data: Array<any>, width: number) {
+    console.log(width);
+    if ( width === 0 ) {
+      width = this.data.data.length * this.chartWidthFactor;
+    }
+
+    this.width = width;
+    this.newWidth = width;
+
+    // Remove current chart elements if already there
+    d3.select('#chart_' + this.numberOfInitialisedComponent).select('svg').remove();
+    d3.select('#yaxis_' + this.numberOfInitialisedComponent).select('svg').remove();
+    d3.select('#legend_' + this.numberOfInitialisedComponent).select('svg').remove();
     // console.log('Initialized component: ' + this.numberOfInitialisedComponent);
 
     // getting all the key names for the legend
@@ -54,7 +63,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
     const legendSpacing = 6;
 
     // setting svg chart dimensions
-    this.width = width !== undefined ? width : this.data.data.length * 100;
+    // this.width = width !== undefined ? width : this.data.data.length * 100;
     const height = 350;
 
     // setting margins
@@ -80,7 +89,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
     // creating the chart
     const svgChart = d3.select('#chart_' + this.numberOfInitialisedComponent)
       .append('svg') // appending an <svg> element
-      .attr('width', this.width + margin.left + margin.right)
+      .attr('width', +width + +margin.left + +margin.right)
       .attr('height', height + margin.top + margin.bottom)
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
@@ -98,7 +107,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
       .domain(data.map((d) => {
         return d.label; //
       })) // returns array of all the labels for the x-axis (["Verse 1", "Verse 2", ...])
-      .range([0, this.width])
+      .range([0, width])
       .paddingInner(0.1)
       .paddingOuter(0.5)
       .align(0.5);

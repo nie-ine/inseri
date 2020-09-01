@@ -17,10 +17,10 @@
     <div class="form-group" >
       <label for="profilePic">Profile Picture</label>
       <input type="file" class="form-control" name="profilePic" #filePicker (change)="onProfilePicSelected($event)" style="visibility: hidden;height: 0px">
-      <button mat-menu-item (click)="filePicker.click();" >
+      <!--button mat-menu-item (click)="filePicker.click();" >
         <mat-icon>perm_identity</mat-icon>
-      </button>
-      <img [src]="imagePreview" style="display: inline-block;padding:10px;margin:10px;width:70px;" *ngIf="imagePreview!=='' && imagePreview">
+      </button-->
+      <img [src]="imagePreview" (click)="filePicker.click();" style="display: inline-block;padding:10px;margin:10px;width:70px;" *ngIf="imagePreview!=='' && imagePreview">
     </div>
 
 

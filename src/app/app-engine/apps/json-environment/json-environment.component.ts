@@ -73,12 +73,13 @@ export class JsonEnvironmentComponent implements OnChanges, HttpInterceptor {
 
   submitToMicroservice() {
     // console.log( 'Submit to Microservice', this.display, this.editor.text );
-    const formData = new FormData();
-    formData.append( 'data', JSON.stringify(this.display) );
-    formData.append( 'code', this.editor.text );
-    formData.append( 'd_name', 'yourData.json' );
-    formData.append( 'c_name', 'yourCode.py' );
-    this.microserviceService.postToMicroservice( this.serivceId, formData)
+    const body = {
+      datafile: 'yourData.json',
+      data: JSON.stringify(this.display),
+      codefile: 'yourCode.py',
+      code: this.editor.text
+    };
+    this.microserviceService.postToMicroservice( this.serivceId, body)
       .subscribe(
         data => {
           console.log( data );
@@ -99,7 +100,10 @@ export class JsonEnvironmentComponent implements OnChanges, HttpInterceptor {
           }
             // console.log( localStorage.getItem( this.serivceId ) );
         }
-        , error => console.log( error )
+        , error => {
+          console.log( error );
+          this.output = { [this.serivceId + ' output']: error.error.output } ;
+        }
       );
   }
 
