@@ -59,8 +59,6 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
     // getting all the key names for the legend
     const keys = Object.keys(data[0]).slice(1);
 
-    console.log(this.isSorted);
-    console.log(data);
     if (this.isSorted === true) {
       data = data.map(v => {
         v.total = keys.map(key => v[key]).reduce((a, b) => a + b, 0);
@@ -122,6 +120,14 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
       .paddingInner(0.1)
       .paddingOuter(0.5)
       .align(0.5);
+
+    // Always sort data back by label
+    data.sort((a: any, b: any) => a.label - b.label);
+    console.log(data);
+    // ...and remove the 'total' key
+    data.map((d) => {
+      delete d.total;
+    });
 
     // scale for the bars per above given group (spacing each group's bars)
     const x1 = d3Scale.scaleBand()
@@ -263,10 +269,6 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
       .text((d) => {
         return d;
       });
-
-    data = data.map(t => {
-      delete t.total;
-    });
 
     let filtered = [];
 
