@@ -27,4 +27,13 @@
       <div class="barChartChart" id="{{ 'barChartChart_' + this.numberOfInitialisedComponent }}"></div>
     </div>
   </div>
+
+  <div class="sortBarChart"><mat-slide-toggle
+    id="{{ 'sortChart_' + this.numberOfInitialisedComponent }}"
+    [(ngModel)]="this.isSorted"
+    (change)="reDrawBarChart()"
+  >
+    Sort by value
+  </mat-slide-toggle>
+  </div>
 </div>

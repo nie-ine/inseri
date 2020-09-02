@@ -69,6 +69,10 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
       data.sort((a: any, b: any) => b.total - a.total);
     }
 
+    data = data.map(t => {
+      t.delete('total');
+    });
+
     // setting size of and spacing between legend squares
     const legendRectSize = 25;
     const legendSpacing = 6;
@@ -263,10 +267,6 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
       .text((d) => {
         return d;
       });
-
-    data = data.map(t => {
-      delete t.total;
-    });
 
     let filtered = [];
 
