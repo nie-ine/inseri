@@ -6,6 +6,7 @@ const commentSchema = mongoose.Schema({
   action: { type: mongoose.Schema.Types.ObjectId, ref: 'Action' },
   creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User', require: true },
   date: { type: String, required: true },
+  //creatorProfilePhotoUrl: { type: String},
   params: {}
 });
 

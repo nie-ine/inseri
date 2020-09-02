@@ -150,7 +150,8 @@
           <mat-card>
 
             <mat-card-header  >
-              <div mat-card-avatar class="example-header-image" style="cursor: pointer"> <!-- matTooltip="{{ comment.user }} + test"-->
+              <div mat-card-avatar  style="cursor: pointer"> <!--[ngStyle]="{'background-image': 'url('+comment.creatorProfilePhotoUrl+')'}" -->
+              <img [src]="comment.creator.usrProfileFilePath"  style="display: inline-block;border-radius: 50%;width:50px;height: 50px;vertical-align: middle;">
               </div>
               <mat-card-subtitle style="cursor: pointer" >
                 {{ comment.date }}

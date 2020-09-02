@@ -122,7 +122,7 @@ function addFiles(req, res,oldHostUrl, newHostUrl) {
 
     let projectFiles = req.body.projectFiles;
     console.log('req.body.projectFiles');
-    console.log(req.body.projectFiles);
+    //console.log(req.body.projectFiles);
 
     let newFiles = filesJsonExported.slice();
     console.log(newFiles);
@@ -147,8 +147,10 @@ function addFiles(req, res,oldHostUrl, newHostUrl) {
             projectFiles.forEach(file => {
               let path = 'backend/files/' + file.fileName;
               console.log(path);
-              console.log(file.fileContent);
-              fs.writeFile(path, file.fileContent,'blob', function (err) {
+              //console.log(file.fileContent);
+              //const data = new Uint8Array(Buffer.from(file.fileContent));
+              var buf = new Buffer(file.fileContent, 'binary'); //base64
+              fs.writeFile(path, buf,(err)=> {
                 if (err) {
                   console.log('printing the error:  ' + err);
                   res.status(500).json({

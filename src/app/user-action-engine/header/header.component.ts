@@ -319,7 +319,8 @@ export class DialogUserSettingsDialog implements OnInit {
       usrProfileFilePath: new FormControl(this.data.usrProfileFilePath)
     });
     console.log(this.data.usrProfileFilePath);
-    this.imagePreview = this.data.usrProfileFilePath;
+    this.imagePreview = (!this.data.usrProfileFilePath) ? environment.app + '/assets/img/team/user-icon-vector.jpg' : this.data.usrProfileFilePath;
+    console.log(this.imagePreview);
     this.resetErrorPwd();
     this.resetErrorProfile();
   }
