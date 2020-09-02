@@ -59,3 +59,11 @@
   width: auto;
   min-width: 0;
 }
+
+.mat-icon {
+  margin-right: 1em;
+}
+
+.mat-raised-button {
+  margin: 1em;
+}

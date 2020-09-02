@@ -5,6 +5,7 @@ import {EventEmitter, Injectable} from '@angular/core';
 export class DisplayedCollumnsService {
   displayedColumns: Array<ColumnHeader>;
   displayedColumnsChange: EventEmitter<Array<any>>;
+
   displayedColumnsSet = new Set();
 
   constructor() {
@@ -27,8 +28,11 @@ export class DisplayedCollumnsService {
       if (dataListSettings.jsonType === 'sparql') {
         displayedColumns = this.createColumns(data.head.vars);
       } else {
+        console.log('datalistSettings: ', dataListSettings );
+        console.log('data: ', data);
         // gets the data array from a given path string pathToDataArray
         const dataArray = dataListSettings.pathToDataArray.split('.').reduce((a, b) => a[b], data);
+        console.log('dataArray: ', dataArray);
         const distinctColumns = this.generateDisplayedColumnsFromData(dataArray);
         displayedColumns = this.createColumns(distinctColumns);
         }
@@ -74,22 +78,27 @@ export class DisplayedCollumnsService {
 export class DataCell {
   value: string;
   type: string;
-  link: string;
 
   constructor(value, type, link) {
     this.value = value;
     this.type = type;
-    this.link = link;
   }
 }
 
 @Injectable({ providedIn: 'root' })
+
 export class SettingsService {
   settingsOpenState = false;
   settingsOpenStateChange: EventEmitter<boolean>;
+  reloadPage: EventEmitter<any>;
 
   constructor() {
     this.settingsOpenStateChange = new EventEmitter<boolean>();
+    this.reloadPage = new EventEmitter<any>();
+  }
+
+  reloadComponentWithNewSettings(settings) {
+    this.reloadPage.emit(settings);
   }
 
   switchOpenState() {
@@ -111,7 +120,7 @@ export class ColumnHeader {
               display = true,
               filtered = true,
               styles: Array<any> = ['font-style: normal'],
-              link: InLink =  {linkType: 'none', linkPath: [''], variableToPass: ''},
+              link: InLink =  {linkType: 'none', linkPath: [], variableToPass: ''},
               type: string = 'literal') {
     this.columnName = columnName;
     this.columnPath = columnPath;
@@ -127,20 +136,4 @@ export interface InLink {
   linkType: string;
   linkPath: Array<string>;
   variableToPass: string;
-}
-
-
-
-@Injectable({ providedIn: 'root' })
-export class OriginalColumnService {
-  private originalColumnDefinition = [];
-
-
-  setOriginalDisplayedColumns(cols) {
-    this.originalColumnDefinition = cols;
-  }
-
-  getOriginalDisplayedColumns() {
-    return this.originalColumnDefinition;
-  }
 }

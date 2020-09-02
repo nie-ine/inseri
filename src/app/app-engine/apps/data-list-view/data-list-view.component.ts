@@ -1,6 +1,7 @@
-import {Component, Input, Output, OnChanges } from '@angular/core';
+import {Component, Input, Output, OnInit, OnChanges, ChangeDetectorRef} from '@angular/core';
 import { DataListViewInAppQueryService } from './services/query.service';
-import {DisplayedCollumnsService, DataCell, SettingsService, OriginalColumnService} from './data-list-view-services/table-data.service';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {DisplayedCollumnsService, DataCell, SettingsService } from './data-list-view-services/table-data.service';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -8,7 +9,7 @@ import {Subscription} from 'rxjs';
   templateUrl: './data-list-view.component.html'
 })
 
-export class DataListViewComponent implements OnChanges {
+export class DataListViewComponent implements  OnChanges {
   @Input() appInputQueryMapping: any;
   @Input() hash: string;
   @Input() queryResponse?: any;
@@ -22,29 +23,36 @@ export class DataListViewComponent implements OnChanges {
   dataArrays = [];
   displaySettings: boolean; // weather the settings are displayed above the table or not
   displaySettingsChange: Subscription; // change is triggered from within the table component, so we subscribe to that
+  reloadPageChange: Subscription;
 
   constructor(private dataService: DataListViewInAppQueryService,
               private displayedCollumnsService: DisplayedCollumnsService,
-              private settingsService: SettingsService,
-              private originalColumnService: OriginalColumnService
+              private settingsService: SettingsService
               ) {
 
     this.displaySettingsChange = this.settingsService.settingsOpenStateChange.subscribe(oState => this.displaySettings = oState);
+
+    this.reloadPageChange = this.settingsService.reloadPage.subscribe(settings => {
+      this.dataListSettings = settings;
+      this.ngOnChanges();
+    });
   }
 
   ngOnChanges() {
     if (typeof this.dataListSettings === 'string') {
       this.dataListSettingsOut = JSON.parse( this.dataListSettings as any );
     } else {this.dataListSettingsOut = this.dataListSettings; }
+
     if (this.dataListSettingsOut && this.dataListSettingsOut.pathToDataArray !== '' ) {
-       this.onGetData(); } else {
+      this.tableData = []; // reset in case of a reload after change of data source/path to data array
+      this.onGetData(); } else {
       if (this.dataListSettingsOut && this.dataListSettingsOut.jsonType === 'sparql') {
         this.dataListSettingsOut.pathToDataArray = 'results.bindings';
       } else {
         if (this.queryResponse ) {
           this.getArraysFromJson(this.queryResponse);
           this.mustSetArray = true;
-        }
+        } else { console.log('here nothing todo???'); }
       }
     }
 
@@ -135,8 +143,8 @@ export class DataListViewComponent implements OnChanges {
         this.getArraysFromJson(value, key, output);
       }
       if (!reference && Array.isArray(value)) {
-        if ( this.dataArrays.indexOf(value) === -1 ) { // if the path is not yet in dataArrays
-          this.dataArrays.push(value); }
+        if ( this.dataArrays.indexOf(key) === -1 ) { // if the path is not yet in dataArrays
+          this.dataArrays.push(key); }
       }
     }
   }
@@ -147,20 +155,18 @@ export class DataListViewComponent implements OnChanges {
     if ( this.dataListSettingsOut.inputMode === 'query' ) {
       this.getTableDataFromQuery(this.query);
       }
-    if ( this.dataListSettingsOut.inputMode === 'input') {
-        const originalColumns = this.displayedCollumnsService.setInitialDisplayedColumns(this.dataListSettingsOut, this.queryResponse);
+    if ( this.dataListSettingsOut.inputMode === 'input' && this.queryResponse ) {
+        this.displayedCollumnsService.setInitialDisplayedColumns(this.dataListSettingsOut, this.queryResponse);
         this.generateTableData(this.queryResponse, 0);
-      } else { console.log('Wrong dataListSettings definition for --> \"inputmode: ' + this.dataListSettingsOut.inputMode +
-      '\" allowed are: input, query'); }
+      }
     }
 
   private getTableDataFromQuery(query) {
     this.dataService.getData( this.query ).subscribe(data => {
       const responseData: any = data;
       this.queryResponse = responseData.results.bindings;
+      this.displayedCollumnsService.setInitialDisplayedColumns(this.dataListSettings, this.queryResponse);
       this.generateTableData(this.queryResponse, 0);
-      const originalColumns = this.displayedCollumnsService.setInitialDisplayedColumns(this.dataListSettingsOut, this.queryResponse);
-      this.originalColumnService.setOriginalDisplayedColumns(originalColumns);
     });
   }
 }
