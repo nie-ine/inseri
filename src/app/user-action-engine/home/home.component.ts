@@ -38,9 +38,9 @@ export class HomeComponent implements OnInit {
     // reset login status
     const expirationDate = localStorage.getItem('expiration');
     const now = new Date();
-    if (new Date(expirationDate).getTime() - now.getTime() > 0) {
-      this.router.navigate(['/dashboard'], {fragment: 'top'});
-    }
+    // if (new Date(expirationDate).getTime() - now.getTime() > 0) {
+    //   this.router.navigate(['/dashboard'], {fragment: 'top'});
+    // }
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || encodeURI('/dashboard#top');
@@ -51,7 +51,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  goToRegister(){
+  goToRegister() {
     this.router.navigate(['/register' ]);
   }
 

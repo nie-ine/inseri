@@ -209,6 +209,7 @@ export class PageSetLandingPageComponent implements OnInit {
   }
 
   goToPage( page: any ) {
+    console.log( page );
     this.router.navigate(['/page'],
       { queryParams:
           {

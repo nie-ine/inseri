@@ -2,7 +2,7 @@
 
 DATE=`date +%y-%m-%d`
 
-VERSION="v5"
+VERSION="v1"
 
 docker login
 
