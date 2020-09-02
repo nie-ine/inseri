@@ -51,21 +51,20 @@ export class DataListViewSettingsComponent implements OnChanges {
   recreateGenericColumns() {
     this.dataListSettings.columns.manualColumns = false;
     this.dataListSettings.columns.columnMapping = [];
-    this.saveSettingsToJson(true);
+    this.saveSettingsToJson(2);
   }
 
   setInitialDataSource() {
     this.dataListSettings.pathToDataArray = this.chosenDataSource;
-    this.saveSettingsToJson(true);
+    this.saveSettingsToJson(2);
   }
 
   resetDataSource() {
-    console.log('resetting Datasource');
     this.dataListSettings.pathToDataArray = '';
     this.dataListSettings.jsonType = 'any';
     this.dataListSettings.columns.manualColumns = false;
     this.dataListSettings.columns.columnMapping = [];
-    this.saveSettingsToJson(true);
+    this.saveSettingsToJson(2);
   }
 
   saveJsonType() {
@@ -73,7 +72,7 @@ export class DataListViewSettingsComponent implements OnChanges {
     this.dataListSettings.jsonType = this.jsonType;
     this.dataListSettings.columns.manualColumns = false;
     this.dataListSettings.columns.columnMapping = [];
-    this.saveSettingsToJson(true);
+    this.saveSettingsToJson(2);
   }
 
 
@@ -134,10 +133,10 @@ export class DataListViewSettingsComponent implements OnChanges {
 
   saveColumnDefinition() {
     this.dataListSettings.columns.columnMapping = this.displayedColumns;
-    this.saveSettingsToJson(true);
+    this.saveSettingsToJson(0);
   }
 
-  saveSettingsToJson(reload: boolean) {
+  saveSettingsToJson(reload: number) {
     this.requestService.updateFile(
       this.appInputQueryMapping[ this.hash ][ 'settings' ][ 'serverUrl' ].split('/')[ 6 ], {
         [this.hash]: {
@@ -146,8 +145,11 @@ export class DataListViewSettingsComponent implements OnChanges {
       }
     ).subscribe(
       data => {
-        if (reload) { this.settingsService.reloadComponentWithNewSettings(this.dataListSettings); }
+        if (reload === 1) { this.settingsService.reloadComponentWithNewSettings(this.dataListSettings); }
         console.log( data );
+        if (reload === 2) {
+          window.location.reload();
+        }
 
       }, error => console.log( error )
     );
