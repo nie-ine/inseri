@@ -23,7 +23,7 @@ export class ActionService {
 
    createProject(action: string, pageSet: string, comments: string, pages: string, queries: string,
                  jsonQueries: string, oldHostUrl: string, filesJson: string, foldersJson: string,
-                 projectFiles: Array<{fileName: string, fileContent: Blob}>): Observable<any> {
+                 projectFiles: Array<{fileName: string, fileContent: string}>): Observable<any> { //BinaryString
       return this.http.post(`${ActionService.API_BASE_URL_ACTION}/createProject/`,
       {
               action: action,

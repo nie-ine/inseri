@@ -531,7 +531,7 @@ export class DialogOverviewExampleDialog {
     let action, pageSet, pages, queries, allFiles, jsonQueries, oldHostUrl, filesJson, foldersJson, comments;
     // const projectFiles = [];
     let fileType;
-    const projectFiles = new Array<{ fileName: string, fileContent: Blob }>();
+    const projectFiles = new Array<{ fileName: string, fileContent: string }>();
     let counter = 0;
     JSZip.loadAsync(zipFile)
       .then(function (zip) {
@@ -595,7 +595,7 @@ export class DialogOverviewExampleDialog {
                 }
               });
             } else {
-              zip.file(relativePath).async('blob').then(content => {
+              zip.file(relativePath).async('binarystring').then(content => {  //base64  ///binarystring
                 console.log('content');
                 console.log(content);
                 projectFiles.push({fileName: relativePath.substr(6), fileContent: content});
