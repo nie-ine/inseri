@@ -22,6 +22,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
   private posY: number;
   chartWidthFactor = 100;
   titleYaxis: string;
+  isSorted = false;
 
   constructor() {
   }
@@ -41,7 +42,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
   }
 
   drawD3(data: Array<any>, width: number) {
-    console.log(width);
+    // console.log(width);
     if ( width === 0 ) {
       width = this.data.data.length * this.chartWidthFactor;
     }
@@ -57,6 +58,14 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
 
     // getting all the key names for the legend
     const keys = Object.keys(data[0]).slice(1);
+
+    if (this.isSorted === true) {
+      data = data.map(v => {
+        v.total = keys.map(key => v[key]).reduce((a, b) => a + b, 0);
+        return v;
+      });
+      data.sort((a: any, b: any) => b.total - a.total);
+    }
 
     // setting size of and spacing between legend squares
     const legendRectSize = 25;
@@ -105,12 +114,20 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
     // scale for the x-axis (spacing the groups)
     const x0 = d3Scale.scaleBand()
       .domain(data.map((d) => {
-        return d.label; //
+        return d.label;
       })) // returns array of all the labels for the x-axis (["Verse 1", "Verse 2", ...])
       .range([0, width])
       .paddingInner(0.1)
       .paddingOuter(0.5)
       .align(0.5);
+
+    // Always sort data back by label
+    data.sort((a: any, b: any) => a.label - b.label);
+    console.log(data);
+    // ...and remove the 'total' key
+    data.map((d) => {
+      delete d.total;
+    });
 
     // scale for the bars per above given group (spacing each group's bars)
     const x1 = d3Scale.scaleBand()

@@ -19,7 +19,8 @@ router.post('', checkAuth, (req, res, next) => {
     action: req.body.action,
     creator: req.userData.userId,
     date: req.body.date,
-    params: req.body.params
+    params: req.body.params//,
+    //creatorProfilePhotoUrl: req.body.creatorProfilePhotoUrl
   });
   newComment.save()
     .then (resultComment => {
@@ -38,7 +39,7 @@ router.post('', checkAuth, (req, res, next) => {
 
 router.get('/:pageId', checkAuth, (req, res, next) => {
   console.log( req.params );
-  Comment.find( {page: req.params.pageId } )
+  Comment.find( {page: req.params.pageId } ).populate('creator')
     .then(comments => {
       console.log( comments );
       let message;
@@ -49,6 +50,8 @@ router.get('/:pageId', checkAuth, (req, res, next) => {
       } else {
         message = 'All comments were found'
       }
+      console.log('comments of the page');
+      console.log(comments);
       res.status(200).json({
         message: message,
         comments: comments
@@ -66,7 +69,7 @@ router.get('', checkAuth, (req, res, next) => {
   Comment.find(
     {
       creator: req.userData.userId
-    })
+    }).populate('creator')
     .then(comments => {
       console.log( comments );
       let message;
@@ -77,6 +80,8 @@ router.get('', checkAuth, (req, res, next) => {
       } else {
         message = 'All comments were found'
       }
+      console.log('comments of the page');
+      console.log(comments);
       res.status(200).json({
         message: message,
         comments: comments

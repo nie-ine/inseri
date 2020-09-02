@@ -77,6 +77,7 @@ export class BarChartComponent implements AfterViewChecked {
 
   imageWidth = 350;
   newImageWidth = 0;
+  isSorted = false;
 
   private posX: number;
   private posY: number;
@@ -150,6 +151,11 @@ export class BarChartComponent implements AfterViewChecked {
    * Initialize the components for the axis.
    */
   private initAxis() {
+
+    if (this.isSorted === true) {
+      // Sort by value
+      this.data.data.sort((a: any, b: any) => b.value - a.value);
+    }
     this.x = d3Scale.scaleBand().range([0, this.imageWidth - this.margin.left - this.margin.right])
       .paddingInner(0.1)
       .paddingOuter(0.1)
@@ -157,6 +163,9 @@ export class BarChartComponent implements AfterViewChecked {
     this.y = d3Scale.scaleLinear().rangeRound([this.height, 0]);
     this.x.domain(this.data.data.map((d) => d.label));
     this.y.domain([0, d3Array.max(this.data.data, (d) => d.value)]);
+
+    // Always sort back to initial state (by label)
+    this.data.data.sort((a: any, b: any) => a.label - b.label);
   }
 
   /**

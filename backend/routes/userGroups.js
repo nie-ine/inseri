@@ -24,7 +24,8 @@ router.post('',checkAuth, (req, res, next) => {
         users:[req.userData.email],
         owner:req.userData.userId,
         hasPages:[],
-        hasPageSets:[]
+        hasPageSets:[],
+        hasActions: []
       });
       newGroup.save()
         .then (resultQuery => {
@@ -324,33 +325,8 @@ router.post('/sharePageSet/:pageSetId&:groupId'/*,checkAuth*/, (req, res, next) 
           error: error
         });
       });
-  })
-////Should we add a validation to check whether the user has a pageset that contains this specific page and then if not to be added otherwise not?
+  });
 router.post('/sharePage/:pageId&:groupId'/*,checkAuth*/, (req, res, next) => {
- /*PageSet.find({hasPages: {$in: req.param.pageId}})
-   .then((pageSetResult) => {
-     //check the user group if it has the pageSet, if not, we can add the page safely
-     UserGroup.find({hasPageSets: {$in: pageSetResult}})
-       .then((userGroupHasPageSetContainsTheRequiredPage) => {
-         if (userGroupHasPageSetContainsTheRequiredPage.length === 0) {
-           /////add the below logic
-         } else {
-           message = 'Page cannot be added as the user group share the whole page set'
-         }
-       })
-       .catch(error => {
-         res.status(500).json({
-           message: 'Error while retrieving the userGroup',
-           error: error
-         })
-       })
-   }).catch(error =>{
-   res.status(500).json({
-     message: 'Error while retrieving the PageSet',
-     error: error
-   });
- });*/
-
   Page.find({_id:req.params.pageId})
     .then((result) => {
       let message;
@@ -382,9 +358,7 @@ router.post('/sharePage/:pageId&:groupId'/*,checkAuth*/, (req, res, next) => {
         error: error
       });
     });
-})
-
-
+});
 router.get('/showPageSets/:groupId'/*,checkAuth*/, (req, res, next) => {
   UserGroup.find(
     {_id: req.params.groupId}, {_id:0, hasPageSets:1})
@@ -400,8 +374,7 @@ router.get('/showPageSets/:groupId'/*,checkAuth*/, (req, res, next) => {
         error: error
       });
     })
-})
-
+});
 router.get('/showPages/:groupId'/*,checkAuth*/, (req, res, next) => {
   UserGroup.find(
     {_id: req.params.groupId}, {_id:0, hasPages:1})
@@ -417,6 +390,6 @@ router.get('/showPages/:groupId'/*,checkAuth*/, (req, res, next) => {
         error: error
       });
     })
-})
+});
 module.exports = router;
 

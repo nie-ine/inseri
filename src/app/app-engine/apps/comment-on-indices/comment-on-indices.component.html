@@ -13,8 +13,10 @@
 
   <mat-divider ></mat-divider>
 
-  <mat-card-header style="margin-top: 15px" >
-    <div mat-card-avatar class="example-header-image" [matMenuTriggerFor]="menu" style="cursor: pointer"> <!-- matTooltip="{{ comment.user }} + test"-->
+  <mat-card-header style="margin-top: 15px; margin-bottom: 15px;" >
+
+    <div mat-card-avatar [matMenuTriggerFor]="menu" style="cursor: pointer"> <!-- matTooltip="{{ comment.user }} + test"-->
+      <img [src]="comment.creator.usrProfileFilePath"  style="display: inline-block;border-radius: 50%;width:50px;height: 50px;">
     </div>
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)=" comment.inputField = true; " >Edit comment</button>
