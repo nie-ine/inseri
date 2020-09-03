@@ -1,6 +1,221 @@
-<h3>Displayed Columns</h3>
-<mat-selection-list #list [(ngModel)]="displayedColumns" (ngModelChange)="onNgModelChange($event)">
-  <mat-list-option *ngFor="let col of displayedColumns" [value]="col">
-    {{col}}
-  </mat-list-option>
-</mat-selection-list>
+<mat-card *ngIf="dataListSettings.pathToDataArray === '' && dataArrays">
+  <label>Please choose the path to the data array of your json input you like to be displayed in the table, set your choice and reload the page.</label>
+  <mat-radio-group  [(ngModel)]="chosenDataSource">
+    <div *ngFor="let path of dataArrays">
+      <mat-radio-button [value]="path">
+        {{path}}
+      </mat-radio-button>
+    </div>
+  </mat-radio-group>
+  <button mat-raised-button  color="primary" (click)="setInitialDataSource()">Set initial data source</button>
+</mat-card>
+<mat-card *ngIf="dataListSettings.pathToDataArray !== '' && dataArrays.length === 0">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon>perm_data_setting</mat-icon>
+        Data source settings
+      </mat-panel-title>
+      <mat-panel-description>
+        Change the JSON type or the path to your data.
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-card>
+      <mat-card-header><h4>Changes in these settings will resut in a reset of all column definitions to default.</h4></mat-card-header>
+      <h5>JSON Type</h5>
+      <mat-form-field>
+        <mat-label>Json type</mat-label>
+        <mat-select  [(ngModel)]="jsonType">
+          <mat-option [value]="option" *ngFor="let option of ['any', 'sparql']">{{ option }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-raised-button
+              color="warn"
+              matTooltip="By changing the json type all column definitions will be set back to default!"
+              (click)="saveJsonType()">
+        <mat-icon>warning</mat-icon> Save & reset columns</button>
+      <div>
+        <h5>Data source</h5>
+        <mat-form-field>
+          <mat-label>Data source/path to data array</mat-label>
+          <input [disabled] = "true" matInput [(ngModel)] ="dataListSettings.pathToDataArray">
+        </mat-form-field>
+        <button matTooltip="By changing the json type all column definitions will be set back to default!"
+                mat-raised-button
+                color="warn"
+                (click)="resetDataSource()">
+          <mat-icon>warning</mat-icon> Change data source ... (resets all column definition)</button>
+      </div>
+    </mat-card>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon>menu</mat-icon>
+        General table settings
+      </mat-panel-title>
+      <mat-panel-description>
+        Change general settings of the table: define the base array, sort, filter or export options.
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-card>
+      <div>
+        <h5>Sort</h5>
+        <div>
+          <mat-checkbox  [(ngModel)]="dataListSettings.sort.disallowSorting">Disallow sorting</mat-checkbox>
+        </div>
+      </div>
+      <div>
+        <h5>Filter</h5>
+        <div>
+          <mat-checkbox  [(ngModel)]="dataListSettings.filter.showFilter">Display filter</mat-checkbox>
+        </div>
+        <div>
+          <mat-checkbox [(ngModel)]="dataListSettings.filter.caseSensitive" [disabled]="!dataListSettings.filter.showFilter">Filter case sensitive</mat-checkbox>
+        </div>
+      </div>
+      <div>
+        <h5>Paginator</h5>
+        <div>
+          <mat-checkbox  [(ngModel)]="dataListSettings.paginator.paginate">Paginate</mat-checkbox>
+          <div>
+            <h5>Page size limit</h5>
+            <mat-form-field>
+              <mat-label>Items / rows per page</mat-label>
+              <input matInput
+                     value="{{dataListSettings.paginator.pageSize}}"
+                     [disabled] = "!dataListSettings.paginator.paginate"
+                     [(ngModel)]="dataListSettings.paginator.pageSize">
+            </mat-form-field>
+          </div>
+          <div>
+            <h5>Page size options</h5>
+            <span  *ngFor="let pOption of dataListSettings.paginator.pageSizeOptions, let p = index">
+              <mat-form-field>
+                <input matInput
+                       value="{{pOption}}"
+                       [disabled] = "!dataListSettings.paginator.paginate"
+                       [(ngModel)]="dataListSettings.paginator.pageSizeOptions[p]">
+              </mat-form-field>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h5>Export</h5>
+        <div>
+          <mat-checkbox  [(ngModel)]="dataListSettings.export.showExport">Display export options</mat-checkbox>
+        </div>
+      </div>
+      <button mat-raised-button  color="primary" (click)="saveSettingsToJson(false)">Save general settings</button>
+    </mat-card>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon>view_column</mat-icon>
+        Column definition
+      </mat-panel-title>
+      <mat-panel-description>
+        Column settings of the table: Drag & drop columns, change column title, links asf.
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-card>
+      <div>
+        <mat-slide-toggle [(ngModel)]="dataListSettings.columns.manualColumns"
+                          [checked]="dataListSettings.columns.manualColumns"
+                          [disabled]="dataListSettings.columns.manualColumns">manual column definition</mat-slide-toggle>
+      </div>
+      <div *ngIf = "dataListSettings.columns.manualColumns">
+        <h4>Column definition</h4>
+        <div cdkDropList cdkDropListOrientation="horizontal" class="column-list" (cdkDropListDropped)="drop($event)">
+          <div class="column-box" *ngFor="let colDef of displayedColumns, let i = index" cdkDrag>
+            <mat-card>
+              <h3>
+                <mat-checkbox [(ngModel)]="colDef.display"  (ngModelChange)="updateColumns()" [checked] = "colDef.display">{{colDef.columnName}}</mat-checkbox>
+              </h3>
+              <div>
+                <h5>Column title</h5>
+                <mat-form-field>
+                  <mat-label>Column name</mat-label>
+                    <input matInput
+                           value="{{colDef.columnName}}" [(ngModel)]="colDef.columnName" (ngModelChange)="updateColumns()" >
+                </mat-form-field>
+              </div>
+              <div>
+                <h5>Data source</h5>
+                <mat-form-field>
+                  <mat-label>data source</mat-label>
+                  <input matInput [disabled]="true" value="{{colDef.columnPath}}" >
+                </mat-form-field>
+              </div>
+              <div><mat-slide-toggle [(ngModel)]="colDef.filtered" [checked]="colDef.filtered">Column content is filtered</mat-slide-toggle></div>
+              <div *ngIf = "colDef.styles.length > 0">
+                <h5>Styles</h5>
+                <mat-form-field>
+                  <mat-chip-list class="mat-chip-list" #chipList>
+                    <mat-chip *ngFor="let style of colDef.styles, let s = index" [selectable]="selectable"
+                              [removable]="colDef.styles.length > 1 || style !== 'font-style: normal'" (removed)="removeStyle(i, s)">
+                      {{style}}
+                      <mat-icon matChipRemove *ngIf="colDef.styles.length > 1 || style !== 'font-style: normal'">cancel</mat-icon>
+                    </mat-chip>
+                      <input placeholder="Type css style and hit enter to add one style ..."
+                             [matChipInputFor]="chipList"
+                             [matChipInputAddOnBlur]=true
+                             (matChipInputTokenEnd)="addStyle($event, i)">
+                  </mat-chip-list>
+                </mat-form-field>
+              </div>
+              <div>
+                <h5>Hyperlink</h5>
+                <div>
+                  <mat-form-field>
+                    <mat-label>Link type</mat-label>
+                    <mat-select  [(ngModel)]="colDef.link.linkType">
+                      <mat-option [value]="option" *ngFor="let option of ['external', 'internal', 'none']">{{ option }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                </div>
+                <div class = "column-card">
+                  <mat-form-field>
+                    <mat-chip-list class="mat-chip-list" #linkChipList aria-label="Hyperlink definition">
+                        <mat-chip
+                        *ngFor="let linkPart of colDef.link.linkPath, let lIndex = index"
+                        [selectable]="true"
+                        [removable]="true"
+                        (removed)="removeLinkPart(i, lIndex)">
+                        {{linkPart}}
+                        <mat-icon matChipRemove>cancel</mat-icon>
+                      </mat-chip>
+                      <input placeholder="Type your link or link part and add with Enter ..."
+                             [matChipInputFor]="linkChipList"
+                             [matChipInputAddOnBlur]=true
+                             (matChipInputTokenEnd)="addLinkPart(i, $event)">
+                    </mat-chip-list>
+                  </mat-form-field>
+                </div>
+                <mat-form-field *ngIf="colDef.link.linkType === 'internal'">
+                  <mat-label>Variable to update (for passing internally only)</mat-label>
+                  <input matInput
+                         [(ngModel)]="colDef.link.variableToPass"
+                         (ngModelChange)="updateColumns()"
+                         value="{{colDef.link.variableToPass}}" >
+                </mat-form-field>
+              </div>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+      <button mat-raised-button  color="primary" (click)="saveColumnDefinition()">Save column definition</button>
+      <button mat-raised-button
+              color="accent"
+              matTooltip="By restoring the columns to default all saved column definitions will be overwritten by default!"
+              (click)="recreateGenericColumns()">
+        <mat-icon >warning</mat-icon>Restore generic columns
+      </button>
+    </mat-card>
+  </mat-expansion-panel>
+  <div>
+    <button mat-raised-button (click)="closeSettings()">Close all settings</button>
+  </div>
+</mat-card>

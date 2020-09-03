@@ -11,7 +11,7 @@ const MyOwnJson = require('../models/myOwnJson');
 
 
 router.get('/published', (req, res, next) => {
-    Page.find( { published: true } )
+    Page.find( { publishedAsTemplate: true } )
         .then(pages => {
             let message;
             if (pages.length === 0) {
@@ -26,6 +26,38 @@ router.get('/published', (req, res, next) => {
                 pages: pages
             });
         });
+});
+
+router.get('/publishAsTemplate/:pageID', (req, res, next) => {
+  console.log( req.params.pageID );
+  Page.findByIdAndUpdate({_id: req.params.pageID}, {publishedAsTemplate: true})
+    .then(pages => {
+      res.status(200).json({
+        message: 'publishing template worked',
+        pages: pages
+      })
+        .catch(error => {
+          res.status(500).json({
+            message: 'Publishing page as template failed',
+            error: error
+          })
+        });
+    });
+});
+
+router.get('/undoPublishTemplate/:pageID', (req, res, next) => {
+  console.log( req.params.pageID );
+  Page.findByIdAndUpdate({_id: req.params.pageID}, {publishedAsTemplate: false})
+    .then(pages => {
+      res.status(200).json({
+        message: 'undo publish page successful'
+      })
+        .catch(error => {
+          res.status(500).json({
+            message: 'not successful'
+          })
+        });
+    });
 });
 
 router.get('/:id', checkAuth2, (req, res, next) => {

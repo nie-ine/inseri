@@ -1,23 +1,44 @@
-<div style="margin-top: 30px; align-content: center">
 
-  <div class="{{ generateComponentDivClass( 'groupedBarChartlegend' ) }}" width="600" height="200">
+<div class="scaleGroupedBarChartWidth">
+  <div class="scaleGroupedBarChartInput">
+    <mat-form-field>
+      <input matInput
+             placeholder="Chart width:"
+             [value]="this.width"
+             [(ngModel)]="this.newWidth"
+             (keyup)="drawD3(this.data.data, this.newWidth, false)">
+    </mat-form-field>
   </div>
+  <div class="scaleGroupedBarChartSlider">
+    <mat-slider
+      min="150"
+      max="{{ this.width * 4 }}"
+      step="50"
+      [value]="this.width"
+      [(ngModel)]="this.newWidth"
+      (change)="drawD3(this.data.data, this.newWidth)"></mat-slider>
+    <!-- thumbLabel -->
+  </div>
+</div>
 
-<!--  <mat-form-field class="example-form-field">-->
-<!--    <mat-label>Scale</mat-label>-->
-<!--    <input matInput type="text" [(ngModel)]="width">-->
-<!--    <button mat-button *ngIf="width" matSuffix mat-icon-button aria-label="Clear" (click)="drawD3( data.data, data.length * 100 )">-->
-<!--      <mat-icon>close</mat-icon>-->
-<!--    </button>-->
-<!--  </mat-form-field>-->
-<!--  <button mat-button (click)="drawD3( data.data, width )">-->
-<!--    Scale Chart-->
-<!--  </button>-->
-
-  <div class="{{ generateComponentDivClass( 'groupedBarChart' ) }}" width="60000" height="500" style="overflow: auto">
+<div>
+  <div class="legend_container">
+    <div class="legend" id="{{ 'legend_' + this.numberOfInitialisedComponent }}">
+    </div>
   </div>
-  <div *ngIf="mouseOverData.key !== undefined"
-       [ngStyle]="{'position': 'fixed', 'top': y + 'px', 'left': x + 'px'}">
-    {{ mouseOverData?.key + ', ' + mouseOverData?.value }}
+  <div class="chart_container">
+    <div class="yaxis" id="{{ 'yaxis_' + this.numberOfInitialisedComponent }}">
+    </div>
+    <div class="chart" id="{{ 'chart_' + this.numberOfInitialisedComponent }}">
+    </div>
   </div>
+</div>
+<!--(change)="drawD3(this.data.data, this.newWidth)"-->
+<div class="sortChart"><mat-slide-toggle
+  id="{{ 'sortChart_' + this.numberOfInitialisedComponent }}"
+  [(ngModel)]="this.isSorted"
+  (change)="drawD3(this.data.data, this.newWidth)"
+  >
+  Sort by value
+  </mat-slide-toggle>
 </div>

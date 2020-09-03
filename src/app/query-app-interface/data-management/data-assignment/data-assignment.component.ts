@@ -106,7 +106,7 @@ export class DataAssignmentComponent implements OnChanges {
     openAppsInThisPage?: any,
     responseIsArray?: boolean
   ) {
-    console.log( 'startUpdateProcess' );
+    // console.log( 'startUpdateProcess' );
     // console.log( response, this.response, responseIsArray, index );
 
     if ( queryId ) {
@@ -279,6 +279,7 @@ export class DataAssignmentComponent implements OnChanges {
                     undefined,
                     responseIsArray
                   );
+                  // console.log( app[ input ] );
               }
             }
           }
@@ -300,7 +301,19 @@ export class DataAssignmentComponent implements OnChanges {
     responseIsArray?: boolean
   ) {
     if ( response ) {
-      // console.log( 'generateAppInput', responseIsArray, index, path );
+      // console.log( path, depth, path[ depth ] );
+
+      if ( path[ depth ] === null ) {
+        // console.log( 'segment is null' );
+        return this.generateAppinput(
+          response,
+          path,
+          index,
+          depth + 1,
+          true,
+          forExtendedSearch
+        );
+      }
 
       if ( responseIsArray ) {
         return this.generateAppinput(
@@ -404,7 +417,8 @@ export class DataAssignmentComponent implements OnChanges {
               response.height !== undefined &&
               response.width !== undefined &&
               forExtendedSearch &&
-              response['@id'].search('jp2') !== -1 ) {
+              response['@id'].search('jp2') !== -1 &&
+              response['@id'].search( '/full/full' ) === -1 ) {
               // if you open extended search, display the iif images
               const iiif = response['@id'] + '/full/full/0/default.jpg';
               // console.log( iiif );

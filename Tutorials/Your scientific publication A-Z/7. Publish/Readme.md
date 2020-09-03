@@ -61,3 +61,15 @@ Once the "Publish" button is clicked, the page goes publish and can be accessed 
 To make the page private again, one should open the publish option as explained above, and instead of "publish" button, one will find there "make private again":
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-04/Tutorials/Your%20scientific%20publication%20A-Z/7.%20Publish/7A12.png" alt="Make private" width="300"></p>
+
+## 7.2. Exporting the project
+
+The user can export the project anytime. For that, in the Dashboard, one should select the project to export, and click on it. A list of options will open, of which the last one is the export:
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-08/Tutorials/Your%20scientific%20publication%20A-Z/7.%20Publish/Exp1.png" alt="Export option" width="300"></p>
+
+Once the user clicks on the export, the file to be downloaded appears.
+This file includes all user files (stored in "Files") in Inseri, and all structures and queries used in the creation of the project in JSON format.
+
+That data can be directly uploaded to any other server.
+The option of importing the exported project by a different user within Inseri, for educational or research purposes, is being developed.

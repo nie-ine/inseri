@@ -1,23 +1,23 @@
-<div style="display: inline-block; width: 40%;" >
+<div style="width: 100%;" >
   <h3>
     Input
   </h3>
 
-  <pre style="height: 20rem; width: 400px;">{{display | json}}</pre>
+  <pre style="height: 10rem; width: 100%;">{{display | json}}</pre>
 </div>
 
-<div style="display: inline-block; float: right; width: 60%;" >
+<div style=" width: 100%;" >
   <h3 >
     Python code
   </h3>
 
   <ace-editor class="url-extension"
               #editor
-              style="min-height: 20rem; overflow: auto; width: 600px;"
+              style="min-height: 50rem; overflow: auto; width: 100%;"
               [mode]="'typescript'" (keyup)="updateCodeInLocalStorage()">
   </ace-editor>
 
-  <button mat-button (click)="savePythonFile()" (click)="submitToMicroservice( true )" >
+  <button mat-button (click)="savePythonFile()" (click)="submitToMicroservice()" >
     Save Python Code and Update dependent apps
   </button>
 
@@ -27,9 +27,9 @@
   Output:
 </h3>
 
-<button mat-button (click)="submitToMicroservice( false )">
+<button mat-button (click)="submitToMicroservice(  )">
   Submit
 </button>
 
-<pre style="height: 20rem; width: 700px;">{{output | json}}</pre>
+<div style="height: 20rem; width: 100%;">{{output | json}}</div>
 

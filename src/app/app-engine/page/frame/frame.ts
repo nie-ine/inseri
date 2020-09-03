@@ -94,11 +94,17 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
   sub: any;
   showAppDescriptionEditor = false;
   appDescription: string;
+  currentStartIndex: number = 0;
+  shownEntries = {
+    begin: 0,
+    end: 25
+  };
 
   panelExtended = false;
   @Input () showContent = true;
   searchTerm: string;
   newDataChooserEntries = [];
+  shownEntriesArray: Array<any>;
 
 
   constructor(
@@ -131,7 +137,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
    * for example updated App - Settings or updated App - Title
    * */
   ngOnChanges( changes: SimpleChanges ) {
-    console.log( this.app );
+    // console.log( this.app );
 
     if ( this.tileAndSize ) {
       this.openSettings();
@@ -167,7 +173,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
       this.spinner.hide();
       this.app.spinnerIsShowing = false;
     }
-    console.log( this.pathsWithArrays );
+    // console.log( this.pathsWithArrays );
     this.paths = [];
     if ( this.app &&  this.pathsWithArrays ) {
       this.app.pathsWithArrays = this.pathsWithArrays;
@@ -224,6 +230,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
         }
         // console.log( this.newDataChooserEntries );
       }
+      this.shownEntriesArray = this.newDataChooserEntries.slice( this.shownEntries.begin, this.shownEntries.end );
     }
   }
 
@@ -256,6 +263,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
 
   chooseResource(index: number) {
     this.panelExtended = false;
+    console.log( index );
     this._router.navigate([], {
       queryParams: {
         [this.queryId + this.app.pathWithArray.toString() ]: Number( index )
@@ -293,13 +301,13 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
       this.app.x = 100;
       this.app.y = 100;
     }
-    Observable.interval(1000)
-      .subscribe((val) => {
-        if ( document.getElementById('app') !== null ) {
-          this.height = document.getElementById('app').offsetHeight;
-          this.width = document.getElementById('app').offsetWidth;
-        }
-      });
+    // Observable.interval(1000)
+    //   .subscribe((val) => {
+    //     if ( document.getElementById('app') !== null ) {
+    //       this.height = document.getElementById('app').offsetHeight;
+    //       this.width = document.getElementById('app').offsetWidth;
+    //     }
+    //   });
     this.curZIndex += 1;
     localStorage.setItem( 'curZIndex', this.curZIndex + 1 );
   }
@@ -462,6 +470,13 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
   addAppDescription() {
     console.log( 'add app description' );
     this.showAppDescriptionEditor = true;
+  }
+
+  changePaginatorOption(event: any) {
+    console.log( event );
+    this.currentStartIndex = event.pageIndex * event.pageSize;
+    this.shownEntriesArray =
+      this.newDataChooserEntries.slice( event.pageIndex * event.pageSize, event.pageIndex * event.pageSize + event.pageSize );
   }
 
 }

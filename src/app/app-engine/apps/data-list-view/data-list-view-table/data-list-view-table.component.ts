@@ -1,20 +1,28 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import {Component, Input, OnInit, OnChanges, ViewChild, EventEmitter, Output} from '@angular/core';
 import { MatPaginator, MatSort, MatTable, MatTableDataSource } from '@angular/material';
-import { MatDialog } from '@angular/material';
-import { DataListViewDetailsDialogComponent } from '../data-list-view-details-dialog/data-list-view-details-dialog.component';
-import { DataService } from '../resources.service';
+import {MatMenuModule} from '@angular/material/menu';
+import { DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import { PipeTransform, Pipe } from '@angular/core';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
+import { DataListViewInAppQueryService} from '../services/query.service';
+import {Router} from '@angular/router';
+import {ColumnHeader, DisplayedCollumnsService, SettingsService, DataCell} from '../data-list-view-services/table-data.service';
+import {Subscription} from 'rxjs';
+
+// import { DataListViewSettings } from '../data-list-view-dataListSettings/data-list-view-dataListSettings.service';
 
 @Component({
   selector: 'data-list-view-table',
   templateUrl: './data-list-view-table.component.html',
-  providers: [DataService]
+  styleUrls: ['data-list-view-table.component.scss']
+
 })
-export class DataListViewTableComponent implements OnInit {
-  @Input() dataListSettings: any;
+export class DataListViewTableComponent implements OnChanges {
+  @Input() dataListTableSettings?: any;
   @Input() dataToDisplay: any;
-  @Input() displayedColumns?: any;
+  definedColumns: Array<ColumnHeader>;
+  @Output() reloadVariables: EventEmitter<any> = new EventEmitter<any>();
+  displayedColumns: string[];
 
   @ViewChild(MatTable) table: MatTable<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -23,69 +31,81 @@ export class DataListViewTableComponent implements OnInit {
   dataSource: MatTableDataSource <any>;
   dataSourceForExport: MatTableDataSource <any>;
   // TODO: highlight filter results in table cells by pipe
-  toHighlightByFilter: string = ''; // For highlighting Filter results
+  toHighlightByFilter = ''; // For highlighting Filter results
+  columnDefSub: Subscription; // subscribe to changes in column definition.
   // Export variables
   renderedData: any;
   renderedDisplayedData: any;
   exportSelection = 'displayed';
-  UMLAUT_REPLACEMENTS = '{[{ "Ä", "Ae" }, { "Ü", "Ue" }, { "Ö", "Oe" }, { "ä", "ae" }, { "ü", "ue" }, { "ö", "oe" }]}';
+  exportFormat = 'json';
+  UMLAUT_REPLACEMENTS = '{[{ "Ä", "Ae" }, { "Ü", "Ue" }, { "Ö", "Oe" }, { "ä", "ae" }, { "ü", "ue" }, { "ö", "oe" }, {É, E}]}';
 
-  constructor(private dialog: MatDialog, private dataService: DataService) {
-  }
+  showCellmoreVert: DataCell;
 
-  ngOnInit() {
-    // console.log( this.dataToDisplay );
-    // console.log('displayed columns:' + this.displayedColumns);
+  constructor( private _router: Router,
+               private settingsService: SettingsService,
+               private columnService: DisplayedCollumnsService ) {
+    this.columnDefSub = this.columnService.displayedColumnsChange.subscribe(cols => {
+      this.definedColumns = cols;
+      this.updateDisplayedColumns();
+      this.setFilter();
+    });
+    }
+
+  ngOnChanges() {
+    this.definedColumns = this.columnService.getDisplayedColumns();
+    this.updateDisplayedColumns();
     this.populateByDatastream();
     this.setFilter();
   }
   //
   // DATA STREAM
   //
-  private populateByDatastream() {
+  populateByDatastream() {
     // INSTANTIATE the datasource of the table
-    // TODO: if (jsonType === extendedSearch ) { ... }
     this.dataSource = new MatTableDataSource(this.dataToDisplay);
-    this.dataSource.connect().subscribe(data => { this.renderedDisplayedData = data;} );
-    if (this.dataListSettings.paginator.paginate) { this.dataSource.paginator = this.paginator; }
+    this.dataSource.connect().subscribe(data => { this.renderedDisplayedData = data; } );
+    if (this.dataListTableSettings.paginator.paginate) { this.dataSource.paginator = this.paginator; }
 
     // SUBSCRIBE to the tabledata for exporting this rendered data
     this.dataSourceForExport = new MatTableDataSource(this.dataToDisplay);
     this.dataSourceForExport.connect().subscribe(data => this.renderedData = data);
 
-    if (this.dataSource) {
-      if (this.dataListSettings.columns.nestedDatasource) {
-        // IF the dataSource is nested sort must sort the table for subproperties (item.poperty.value)
-        // and not for properties (standard sort). Therefore changing the sortingDataAccessor.
-        this.dataSource.sortingDataAccessor = (item, property) => {
-          switch (property) {
-            default:
-              return item[property].value;
-          }};
-      } /*else {
-        this.dataSource.sortingDataAccessor = (item, property) => {
-          switch (property) {
-            default:
-                return this.replaceUmlaute(item[property]);
-          }};*/
-      this.dataSource.sort = this.sort;
-    }
-    //
   }
 
+  ngAfterViewInit() {
+    // AS the dataSource is nested sort must sort the table for subproperties (item.poperty.value)
+    // and not for properties (standard sort). Therefore changing the sortingDataAccessor.
+    this.dataSource.sortingDataAccessor = (item, property) => {
+      if ( item[property] ) {
+        if ('value' in item[property]) {
+          return item[property].value.toLowerCase();
+        }
+      }
+    };
+    this.dataSource.sort = this.sort;
+  }
+
+  updateDisplayedColumns() {
+    this.displayedColumns = [];
+    this.definedColumns.forEach(col => {
+      if (col.display) { this.displayedColumns.push(col.columnPath); }
+    });
+  }
+
+
 public replaceUmlaute(input) {
-  console.log(input);
   for (const i of this.UMLAUT_REPLACEMENTS) {
-    console.log(i[0], i[1]);
+    // console.log(i[0], i[1]);
     input = input.replace(i[0], i[1]);
     }
     // console.log(input);
   return input;
   }
 
-  // FILTERING THE datasource acc to settings
+  // FILTERING THE datasource acc to dataListTableSettings
   private doFilter(value: string) {
-    if (this.dataListSettings.filter.caseSensitive) { this.dataSource.filter = value;
+    if (this.dataListTableSettings.filter.caseSensitive) { this.dataSource.filter = value;
       // TODO: highlighting
       this.toHighlightByFilter = value;
     } else { this.dataSource.filter = value.toLowerCase();
@@ -98,12 +118,12 @@ public replaceUmlaute(input) {
   // FILTER
   //
   private setFilter() {
-    // setting Filter predicate acc. to settings
+    // setting Filter predicate acc. to dataListTableSettings
     this.dataSource.filterPredicate = (data, filter) => {
       // console.log("resetting filter predicate for Filter term " + filter);
       const dataStr: string = this.joinFilteredColumns(data);
-      // applying case sensitivity/insensitivity from settings
-      if (this.dataListSettings.filter.caseSensitive) {
+      // applying case sensitivity/insensitivity from dataListTableSettings
+      if (this.dataListTableSettings.filter.caseSensitive) {
         return dataStr.indexOf(filter) !== -1;
       } else {
         return dataStr.toLowerCase().indexOf(filter) !== -1;
@@ -113,48 +133,64 @@ public replaceUmlaute(input) {
 
   private joinFilteredColumns(data) {
     let dataStr = '';
-    if ( this.dataListSettings.columns.genericColumns === false ) {
-      // JOINING all columns to be searched by filter (defined in the settings) together.
+    if ( this.dataListTableSettings.columns.manualColumns === true ) {
+      // JOINING all columns to be searched by filter (defined in the dataListTableSettings) together.
       // NOTE: If the datasource would be nested we have to set filtered data from data to sth like data.[column].value
       // so the object property value is compared by filtering and not the object itself.
-      for (const column of this.dataListSettings.columns.columnMapping) {
+      for (const column of this.dataListTableSettings.columns.columnMapping) {
         if (column.filtered) {
-          dataStr = dataStr + data[column.name];
+          if (data[column.columnPath]) {
+            if ('value' in data[column.columnPath]) {
+              dataStr = dataStr + data[column.columnPath].value;
+            }
+          }
           }
       }
     } else {for (const column of this.displayedColumns) {
-        dataStr = dataStr + data[column];
+        if (data[column]) {
+          if ('value' in data[column]) {
+            dataStr = dataStr + data[column].value;
+          }
         }
+      }
     }
     return dataStr;
   }
 
-  private onThisClick(val, object) {
-    // SIMPLE METHOD TO DO SOMETHING WITH THE clicked cell/object like passing it to somewhere
-    if (this.dataListSettings.actions.actions && this.dataListSettings.actions.actionMode === 'object') {
-      if (this.dataListSettings.actions.actionType === 'dialog') {
-        console.log('opening detail dialog with object with property value ' + val);
-        this.openDetailsDialog(val);
-      } else {
-        console.log('actions disabled or no action defined');
-      }
+  getStyles(styles: Array<string> ) {
+    const style = {};
+    styles.forEach(s => style[s.split(':')[0]] = s.split(':')[1]);
+    // console.log('style', style);
+    // return {'font-weight': 'bold', 'font-style': 'italic'};
+    // style['cursor'] = (link !== 'none') ? 'pointer' : 'unset';
+    return style;
+  }
+
+  private onThisClick(col, index) {
+    let v = '';
+    col.link.linkPath.forEach(p => {
+      if (p[0] === '"') { v = v + p.split('"').join(''); } else { v = v + index[p].value; } });
+    if (col.link.linkType === 'external') {
+      window.open(v, '_blank');
+    } else {
+      this.updateURL(v, col.link.variableToPass);
     }
   }
 
-  // TODO: maybe outsource this
-  private openDetailsDialog(msg) {
-    this.dialog.open(DataListViewDetailsDialogComponent, {
-      data: {
-        message: msg, buttonText: {cancel: 'close'
-        }
+  updateURL( index: any, variableToPass = '' ) {
+    this._router.navigate([], {
+      queryParams: {
+        [variableToPass]: index
       },
+      queryParamsHandling: 'merge'
     });
+    this.reloadVariables.emit(); // TODO: übernehmen für settings
   }
 
   // TODO: maybe implement features from events by hostlistener ...
   /* @HostListener('click', ['$event'])
    onClick(event) {
-    if (this.dataListSettings.actions.actions && this.dataListSettings.actions.actionMode === 'host' &&
+    if (this.dataListTableSettings.actions.actions && this.dataListTableSettings.actions.actionMode === 'host' &&
     event.target.parentElement.classList[0] === 'fuuws') {
         // HERE THINGS CAN BE ADDED §
         console.log('opening detail dialog with ' + event.target.firstChild.data );
@@ -165,7 +201,19 @@ public replaceUmlaute(input) {
 
 
   //
-  // EXPORT TO CSV
+  // EXPORT
+
+  export() {
+    switch (this.exportFormat) {
+      case 'csv': {
+        this.exportToCsv();
+        break;
+      }
+      case 'json': this.exportToJson();
+
+    }
+  }
+
   public exportToCsv() {
 
     var options = {
@@ -174,7 +222,7 @@ public replaceUmlaute(input) {
       decimalseparator: '.',
       showLabels: true,
       showTitle: true,
-      title: 'data export',
+      title: 'table export',
       useBom: true,
       noDownload: false,
       headers: this.displayedColumns
@@ -184,13 +232,48 @@ public replaceUmlaute(input) {
     new ngxCsv(exportData, options.title, options);
   }
 
-  public getExportData() {
-    if (this.exportSelection === 'displayed') {
-      return this.renderedDisplayedData;
-    } else { return this.renderedData; }
+  exportToJson() {
+    let data;
+    if (this.exportSelection === 'displayed') {data = this.renderedDisplayedData} else {
+      data = this.renderedData;
+    }
+    const dataStr = JSON.stringify(data, null, 2);
+    const file = new Blob([dataStr], {type: 'text/json'});
+    this.download(file, 'export.json');
   }
 
-  /*public flatten(data) {
+  download(blob, filename) {
+    if (window.navigator.msSaveOrOpenBlob) { window.navigator.msSaveOrOpenBlob(blob, filename); } else {
+      let elem = document.createElement('a'), url = URL.createObjectURL(blob);
+      elem.href = url;
+      elem.download = filename;
+      document.body.appendChild(elem);
+      elem.click();
+      setTimeout(function() {
+        document.body.removeChild(elem);
+        window.URL.revokeObjectURL(url);
+      },0);
+    }
+  }
+
+  copyToClipboard(item): void {
+    let listener = (e: ClipboardEvent) => {
+      e.clipboardData.setData('text/plain', (item));
+      e.preventDefault();
+    };
+
+    document.addEventListener('copy', listener);
+    document.execCommand('copy');
+    document.removeEventListener('copy', listener);
+  }
+
+  public getExportData() {
+    if (this.exportSelection === 'displayed') {
+      return this.flatten(this.renderedDisplayedData);
+    } else { return this.flatten(this.renderedData); }
+  }
+
+  public flatten(data) {
     // FLATTENS the data so the actual values of the nested objects are exported - not whole objects.
     let flattenedData = [];
     for (let obj in data) {
@@ -204,14 +287,28 @@ public replaceUmlaute(input) {
           }
     }
     return flattenedData;
-  }*/
+  }
+
+  openSettings() {
+    this.settingsService.switchOpenState();
+  }
   //
 // Display / Design stuff
 //
-private isColumnSticky (column: number): boolean {
+private isColumnSticky(column: number): boolean {
   // Returns for each column whether/which column should be sticky when scrolling horizontally
-  // (this.dataListSettings.columns.stickyColumn ? true : false)
-  return !!this.dataListSettings.columns.stickyColumn;
+  // (this.dataListTableSettings.columns.stickyColumn ? true : false)
+  return false;
+  }
+
+  getSumOfDisplayedEntries() {
+    if (this.dataSource.filter) {
+      return this.dataSource.filteredData.length;
+    } else {
+      if (this.paginator.pageSize > this.dataSource.data.length) {
+        return this.dataSource.data.length;
+      } else { return this.paginator.pageSize; }
+    }
   }
 
 }
@@ -228,4 +325,6 @@ export class HighlightPipe implements PipeTransform {
 
     return search ? text.replace(regex, match => `<b>${match}</b>`) : text;
   }
+
 }
+

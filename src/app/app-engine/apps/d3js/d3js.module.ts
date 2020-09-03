@@ -14,8 +14,8 @@ import { LeafletExampleComponent } from './leaflet-example/leaflet-example.compo
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { ChordDiagramComponent } from './chord-diagram/chord-diagram.component';
 import { SpiralBarChartComponent } from './spiral-bar-chart/spiral-bar-chart.component';
-import {MatButtonModule, MatFormFieldModule, MatInputModule} from '@angular/material';
-import {FormsModule} from '@angular/forms';
+import {MatButtonModule, MatFormFieldModule, MatInputModule, MatSliderModule, MatSlideToggleModule} from '@angular/material';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -23,6 +23,7 @@ import {FormsModule} from '@angular/forms';
     LeafletModule,
     MatButtonModule,
     MatFormFieldModule,
+    MatSliderModule,
     MatInputModule,
     FormsModule,
     RouterModule.forChild([
@@ -37,7 +38,8 @@ import {FormsModule} from '@angular/forms';
       { path: 'leaflet-example', component: LeafletExampleComponent },
       { path: 'chord', component: ChordDiagramComponent }
     ]),
-    AceEditorModule
+    AceEditorModule,
+    MatSlideToggleModule
   ],
   declarations: [
     BarChartComponent,
@@ -63,7 +65,8 @@ import {FormsModule} from '@angular/forms';
     LeafletExampleComponent,
     SankeyComponent,
     ChordDiagramComponent,
-    SpiralBarChartComponent
+    SpiralBarChartComponent,
+    MatSlideToggleModule
 ]
 })
 export class D3jsModule { }

@@ -182,7 +182,7 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(dialogRef: <a href="../interfaces/Page.html">MatDialogRef<DuplicatePageComponent></a>, data: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, queryService: <a href="../injectables/QueryService.html">QueryService</a>)</code>
+<code>constructor(dialogRef: <a href="../interfaces/Page.html">MatDialogRef<DuplicatePageComponent></a>, data: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, queryService: <a href="../injectables/QueryService.html">DataListViewInAppQueryService</a>)</code>
                     </td>
                 </tr>
                         <tr>
@@ -206,39 +206,39 @@
                                         <tbody>
                                                 <tr>
                                                         <td>dialogRef</td>
-                                                  
+
                                                         <td>
                                                                     <code><a href="../interfaces/Page.html" target="_self" >MatDialogRef&lt;DuplicatePageComponent&gt;</a></code>
                                                         </td>
-                                                  
+
                                                     <td>
                                                             No
                                                     </td>
-                                                    
+
                                                 </tr>
                                                 <tr>
                                                         <td>data</td>
-                                                  
+
                                                         <td>
                                                                     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
                                                         </td>
-                                                  
+
                                                     <td>
                                                             No
                                                     </td>
-                                                    
+
                                                 </tr>
                                                 <tr>
                                                         <td>queryService</td>
-                                                  
+
                                                         <td>
-                                                                    <code><a href="../injectables/QueryService.html" target="_self" >QueryService</a></code>
+                                                                    <code><a href="../injectables/QueryService.html" target="_self" >DataListViewInAppQueryService</a></code>
                                                         </td>
-                                                  
+
                                                     <td>
                                                             No
                                                     </td>
-                                                    
+
                                                 </tr>
                                         </tbody>
                                     </table>
@@ -254,7 +254,7 @@
 
 
     <section>
-    
+
         <h3 id="methods">
             Methods
         </h3>
@@ -342,11 +342,11 @@
                                                         <td>
                                                                     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
                                                         </td>
-                                                    
+
                                                     <td>
                                                             No
                                                     </td>
-                                                    
+
 
                                                 </tr>
                                         </tbody>
@@ -359,7 +359,7 @@
 
                             </div>
                                 <div class="io-description">
-                                    
+
                                 </div>
                     </td>
                 </tr>
@@ -482,7 +482,7 @@
 </section>
 
     <section>
-    
+
         <h3 id="inputs">
             Properties
         </h3>
@@ -637,7 +637,7 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Inject, OnInit } from &#x27;@angular/core&#x27;;
 import { MAT_DIALOG_DATA, MatDialogRef } from &#x27;@angular/material&#x27;;
-import { QueryService } from &#x27;../../mongodb/query/query.service&#x27;;
+import { DataListViewInAppQueryService } from &#x27;../../mongodb/query/query.service&#x27;;
 import { FormArray, FormControl, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
 
 @Component({
@@ -651,7 +651,7 @@ export class DuplicatePageComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef&lt;DuplicatePageComponent&gt;,
               @Inject(MAT_DIALOG_DATA) public data: any,
-              private queryService: QueryService
+              private queryService: DataListViewInAppQueryService
               ) {
     this.isLoading &#x3D; true;
   }
@@ -750,7 +750,7 @@ export class DuplicatePageComponent implements OnInit {
         </div>
     </div>
 
-    
+
 </div>
 
 <script src="../js/libs/vis.min.js"></script>

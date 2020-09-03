@@ -5,13 +5,8 @@
 </div>
 
 <mat-tab-group>
-  <mat-tab label="{{ allPagesOfUser?.length }} own pages">
-
-    <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-    </mat-form-field>
-
-    <table *ngIf="pages !== undefined" mat-table [dataSource]="pages" style="width: 100%" >
+  <mat-tab label="Web applications">
+    <table *ngIf="publishedPages !== undefined" mat-table [dataSource]="publishedPages" style="width: 100%" >
 
       <ng-container matColumnDef="goToPage"  >
         <th mat-header-cell *matHeaderCellDef>Go to page</th>
@@ -23,9 +18,8 @@
       </ng-container>
 
       <ng-container matColumnDef="actionTitle">
-        <th mat-header-cell *matHeaderCellDef>inseri folio</th>
+        <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let item">
-          <div>{{item.actionTitle}}</div>
         </td>
       </ng-container>
 
@@ -55,8 +49,13 @@
 
     </table>
   </mat-tab>
-  <mat-tab label="{{ publishedPagesLength }} published Pages">
-    <table *ngIf="publishedPages !== undefined" mat-table [dataSource]="publishedPages" style="width: 100%" >
+  <mat-tab label="Own pages">
+
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+
+    <table *ngIf="pages !== undefined" mat-table [dataSource]="pages" style="width: 100%" >
 
       <ng-container matColumnDef="goToPage"  >
         <th mat-header-cell *matHeaderCellDef>Go to page</th>
@@ -68,8 +67,9 @@
       </ng-container>
 
       <ng-container matColumnDef="actionTitle">
-        <th mat-header-cell *matHeaderCellDef></th>
+        <th mat-header-cell *matHeaderCellDef>inseri folio</th>
         <td mat-cell *matCellDef="let item">
+          <div>{{item.actionTitle}}</div>
         </td>
       </ng-container>
 

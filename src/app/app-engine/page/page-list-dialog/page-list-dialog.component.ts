@@ -61,6 +61,7 @@ export class PageListDialogComponent implements OnInit {
           }
         }, error => console.log( error )
       );
+    this.updateTable();
   }
 
   goThroughPageIdArray( hasPages: Array<any>, action: any ) {
@@ -74,11 +75,17 @@ export class PageListDialogComponent implements OnInit {
             page.actionTitle = action.title;
             page.actionId = action._id;
             this.allPagesOfUser.push( pageResponse.page );
-            this.pages = new MatTableDataSource( this.allPagesOfUser.slice().reverse());
+            // this.updateTable();
           }, error => console.log( error )
         );
       }
     }
+
+  updateTable() {
+    setTimeout(() => {
+      this.pages = new MatTableDataSource( this.allPagesOfUser.slice().reverse());
+    }, 5000);
+  }
 
   close() {
     this.dialogRef.close();

@@ -8,9 +8,20 @@
 
 </app-audio-player>
 
-<app-my-files *ngIf="app.type === 'myFiles'">
+<app-my-files *ngIf="app.type === 'myFiles'"
+              [folderPath]="app.folderPath"
+              [appInputQueryMapping]="appInputQueryMapping"
+              [hash]="app.hash">
 
 </app-my-files>
+
+<app-calendar
+  *ngIf="app.type === 'calendar'"
+  [calendarData]="app.calendarData"
+  [anotherInput]="{
+    test: 'test'
+  }">
+</app-calendar>
 
 <app-gnd-lobid *ngIf="app.type === 'gndSubscriber'">
 
@@ -64,7 +75,7 @@
 
 
 <app-simple-image-app style="position: sticky;" *ngIf="app.type === 'simpleImageApp'"
-                      [imageURL]="app.imageURL">
+                      [imageURL]="app.imageURL" [width]="app.width" [height]="app.height" >
 
 </app-simple-image-app>
 
@@ -140,7 +151,10 @@
 
 <data-list-view style="position: sticky;" *ngIf="app.type === 'dataListView'"
                 [queryResponse]="app.json"
-                [dataListSettings]="app.settings">
+                [dataListSettings]="app.settings"
+                [hash] = "app.hash"
+                [appInputQueryMapping] = "appInputQueryMapping"
+                (reloadVariables)="reloadVariablesFunction()">
 </data-list-view>
 
 
@@ -265,6 +279,13 @@
   (reloadVariables)="reloadVariablesFunction()">
 
 </app-prime-editor>
+
+<app-comment-on-indices *ngIf="app.type === 'commentOnIndices'"
+                        [textFile]="app.textFile"
+                        [appInputQueryMapping]="appInputQueryMapping"
+                        [hash]="app.hash">
+
+</app-comment-on-indices>
 
 <app-angular-handsometable *ngIf="app.type === 'spreadSheet'">
 

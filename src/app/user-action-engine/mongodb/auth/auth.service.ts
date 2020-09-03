@@ -22,15 +22,33 @@ export class AuthService {
     return this.token;
   }
 
-  createUser(email: string, password: string, firstName: string, lastName: string, newsletter: boolean): Observable<any> {
-    const authData: AuthData = {
-      email: email,
-      password: password,
-      firstName: firstName,
-      lastName: lastName,
-      newsLetter: newsletter
-    };
-    return this.http.post(`${AuthService.API_BASE_URL_USER}/signup`, authData);
+  createUser(email: string, password: string, firstName: string, lastName: string, newsletter: boolean,
+             usrProfileFile: File): Observable<any> {
+    //const fileData = new FormData();
+    const authData = new FormData();
+    authData.append( 'password', password);
+    authData.append( 'firstName', firstName);
+    authData.append( 'lastName', lastName);
+    authData.append( 'usrProfileFilePath', environment.app + '/assets/img/team/user-icon-vector.jpg');
+    authData.append( 'email', email);
+    authData.append( 'host', environment.app);
+    if (usrProfileFile) {
+      authData.append('file', usrProfileFile, usrProfileFile.name);
+    }
+    //   usrProfileFilePath: environment.app + '/assets/img/team/user-icon-vector.jpg'
+    //
+    // if (usrProfileFile) {
+    //   fileData.append('file', usrProfileFile, usrProfileFile.name);
+    // }
+    // const authData: AuthData = {
+    //   email: email,
+    //   password: password,
+    //   firstName: firstName,
+    //   lastName: lastName,
+    //   newsLetter: newsletter,
+    //   usrProfileFilePath: environment.app + '/assets/img/team/user-icon-vector.jpg'
+    // };
+    return this.http.post(`${AuthService.API_BASE_URL_USER}/signup/` + newsletter, authData);
   }
 
   updateUser(userId: string, email: string, firstName: string, lastName: string, newsletter: boolean): Observable<any> {
@@ -168,7 +186,7 @@ export class AuthService {
     this.authStatusListener.next(false);
     if ( navigateToHome === undefined ) {
       this.router.navigate(['/home']);
-    };
+    }
     clearTimeout(this.tokenTimer);
     this.clearAuthData();
   }
@@ -218,4 +236,13 @@ export class AuthService {
     };
   }
 
+  updateUsrProfilePic(usrProfilePic: File, email: string): Observable<any> {
+    const usrProfileFile = new FormData();
+    usrProfileFile.append( 'usrProfileFilePath', environment.app + '/assets/img/team/user-icon-vector.jpg');
+    usrProfileFile.append('hostname', environment.app);
+    if (usrProfilePic) {
+      usrProfileFile.append('file', usrProfilePic, usrProfilePic.name);
+    }
+    return this.http.post(`${AuthService.API_BASE_URL_USER}/updateUsrProfilePic/${email}`, usrProfileFile);
+  }
 }

@@ -1,9 +1,19 @@
-.bar {
-  fill: steelblue;
+.scaleBarChartWidth {
+  margin: 10px 0 0 30px;
+  width: 128px;
+  overflow: hidden;
 }
 
-.bar:hover {
-  fill: brown;
+.scaleBarChartInput {
+
+}
+
+.scaleBarChartSlider {
+
+}
+
+.bar {
+  fill: #FED136;
 }
 
 .axis-title {
@@ -11,3 +21,36 @@
   stroke: black;
   stroke-width: 0.5px;
 }
+
+.barChartContainer {
+  position: relative;
+}
+
+.barChartYaxis {
+  position: absolute;
+  float: left;
+  z-index: 3;
+}
+
+.barChartChart {
+  position: relative;
+  overflow-x: auto;
+}
+
+.sortBarChart {
+  margin:0 0 0 30px;
+}
+
+/* tooltip */
+.barChartTooltip {
+  position: fixed;
+  display: none;
+  text-align: center;
+  z-index: 4;
+}
+
+.barChartTooltipValue {
+
+}
+
+

@@ -7,7 +7,8 @@ const userSchema = mongoose.Schema({
     firstName: { type: String },
     lastName: { type: String },
     newsletter: { type: Boolean },
-    delete: { type: Date }
+    delete: { type: Date },
+    usrProfileFilePath: { type: String}
 });
 
 userSchema.plugin(uniqueValidator);

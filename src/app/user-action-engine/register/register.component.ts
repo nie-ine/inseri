@@ -5,12 +5,14 @@ import {ContactService} from '../mongodb/contact/contact.service';
 import {environment} from '../../../environments/environment';
 import { PasswordFormatCheckService } from '../shared/password-format-check.service';
 import { TermsAndConditions } from './termsAndConditions/termsAndConditions';
+import {FileModel} from '../file/file.model';
+import {FileService} from '../file/file.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html'
 })
-export class RegisterComponent implements OnInit{
+export class RegisterComponent implements OnInit {
   model: any = {};
   loading = false;
   userCreated = false;
@@ -20,19 +22,23 @@ export class RegisterComponent implements OnInit{
   wrongFormatAlert = false;
   newsletter = false;
   environment = environment.node;
+  imagePreview: string;
+  profilePic: File;
 
   constructor(
     private router: Router,
     public authService: AuthService,
     private contactService: ContactService,
     private passwordFormatCheckService: PasswordFormatCheckService,
-    private termsAndConditions: TermsAndConditions
+    private termsAndConditions: TermsAndConditions,
+    public fileService: FileService,
   ) {}
 
   ngOnInit() {
     console.log( this.environment );
     this.model.newsletter = false;
     this.neededSpecialCharacters = this.passwordFormatCheckService.neededSpecialCharacters;
+    this.imagePreview = environment.app + '/assets/img/team/user-icon-vector.jpg';
   }
 
   register() {
@@ -40,7 +46,11 @@ export class RegisterComponent implements OnInit{
     if (this.passwordFormatCheckService.checkProposedPassword(this.model.password)) {
       this.wrongFormatAlert = false;
       this.loading = true;
-      this.authService.createUser(this.model.email, this.model.password, this.model.firstName, this.model.lastName, this.model.newsletter)
+      if (this.imagePreview) {
+        this.model.usrProfileFile = this.profilePic; // I am sending the file
+      }
+      this.authService.createUser(this.model.email, this.model.password, this.model.firstName, this.model.lastName, this.model.newsletter,
+        this.model.usrProfileFile)
         .subscribe(response => {
           console.log(response);
           setTimeout(() => {
@@ -79,4 +89,12 @@ export class RegisterComponent implements OnInit{
     this.acceptTermsBoolean = change.checked;
   }
 
+  onProfilePicSelected(event: Event) {
+     this.profilePic = (event.target as HTMLInputElement).files[0];
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.imagePreview = reader.result as string;
+        };
+        reader.readAsDataURL(this.profilePic);
+  }
 }

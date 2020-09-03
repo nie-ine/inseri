@@ -7,6 +7,7 @@ const userGroup = mongoose.Schema({
   owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User', require: true },
   hasPages: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Page' }],
   hasPageSets: [{ type: mongoose.Schema.Types.ObjectId, ref: 'PageSet' }],
+  hasActions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Action' }]
 });
 
 module.exports = mongoose.model('userGroup', userGroup);

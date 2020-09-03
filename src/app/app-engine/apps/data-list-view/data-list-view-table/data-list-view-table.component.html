@@ -1,29 +1,44 @@
-<!-- FILTER -->
-<div *ngIf="dataListSettings.filter.showFilter && dataSource && dataSource.data">
-  <mat-form-field>
-    <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
-    <mat-hint *ngIf="paginator">Showing {{paginator.length}} of {{dataSource.data.length}} entries in total</mat-hint>
-  </mat-form-field>
+<div style="display: flex;
+     justify-content: space-between;">
+  <!-- FILTER -->
+  <div  *ngIf="dataListTableSettings.filter.showFilter && dataSource && dataSource.data">
+      <mat-form-field>
+        <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+        <mat-hint *ngIf="paginator">Displaying {{getSumOfDisplayedEntries()}} of {{dataSource.data.length}} entries in total</mat-hint>
+      </mat-form-field>
+  </div>
+  <span>
+    <button id = "settings-button" mat-icon-button (click)="openSettings()"><mat-icon>settings</mat-icon></button>
+  </span>
 </div>
 <!--TABLE-->
-<mat-table #table [dataSource]="dataSource"
+<mat-table [dataSource]="dataSource"
            matSort
-           [matSortDisabled] ="this.dataListSettings.sort.disallowSorting"
+           [matSortDisabled] ="this.dataListTableSettings.sort.disallowSorting"
            [multiTemplateDataRows]="true">
-  <ng-container *ngFor="let col of displayedColumns; let i = index" [cdkColumnDef]="col" [sticky]="isColumnSticky(i)">
-    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{col}}</mat-header-cell>
-    <mat-cell *cdkCellDef="let row; let i = $implicit;" class = "fuu"
-              [ngStyle]= "dataListSettings.styles.cellStyle"
-              (click)="onThisClick(row[col], i)"
-              [ngClass]="col">
+  <ng-container *ngFor="let col of definedColumns; let i = index" [matColumnDef]="col.columnPath" [sticky]="isColumnSticky(i)">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>{{col.columnName}}</mat-header-cell>
+    <mat-cell class="mat-cell" *matCellDef="let row; let i = $implicit;"
+              [ngStyle]= "getStyles(col.styles)"
+              (mouseover)="showCellmoreVert=row[col.columnPath]">
       <!-- SETTING [ngClass]="col" enables to define styles for each column, setting it to row[col].value will enable to define a style for certain cell content -->
-      <span *ngIf="row[col]">
-        <span [innerHTML]="row[col]" ></span>
-        </span>
+      <div *ngIf="row[col.columnPath]"  class="table-cell">
+        <table>
+        <tr class="inner-table-cell">
+          <td  [ngStyle]="{'cursor': col.link.linkType !== 'none' ? 'pointer' : 'unset' }" (click)="onThisClick(col, i)" class="value-cell"><span class="mat-cell" [innerHTML]="row[col.columnPath].value"></span></td>
+          <td class="button-container">
+            <button mat-icon-button class="context-menu-button"
+                    [matMenuTriggerFor]="contextMenu">
+              <mat-icon *ngIf="showCellmoreVert && showCellmoreVert === row[col.columnPath]">more_vert</mat-icon>
+            </button>
+          </td>
+        </tr>
+        </table>
+      </div>
       <!--        {{ showValue(row, col) }} &lt;!&ndash; | highlight: toHighlightByFilter &ndash;&gt;-->
     </mat-cell>
   </ng-container>
-  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
   <mat-row
     matRipple
     *matRowDef="let row; columns: displayedColumns;">
@@ -31,22 +46,43 @@
 </mat-table>
 <!-- PAGINATION -->
 <mat-paginator #paginator
-               [pageIndex]= "dataListSettings.paginator.pageIndex"
-               [pageSize]= "dataListSettings.paginator.pageSize"
-               [pageSizeOptions]= "dataListSettings.paginator.pageSizeOptions"
-               [ngStyle]= "{display: dataListSettings.paginator.paginate ? 'block' : 'none'}">
+               [pageIndex]= "dataListTableSettings.paginator.pageIndex"
+               [pageSize]= "dataListTableSettings.paginator.pageSize"
+               [pageSizeOptions]= "dataListTableSettings.paginator.pageSizeOptions"
+               [ngStyle]= "{display: dataListTableSettings.paginator.paginate ? 'block' : 'none'}">
 </mat-paginator>
 <!-- EXPORT -->
-<div *ngIf="dataListSettings.export.showExport">
-  <mat-form-field>
-    <mat-label>Export options</mat-label>
+<div *ngIf="dataListTableSettings.export.showExport">
+  <mat-form-field  style="margin: 3em">
+    <mat-label>Export OptionSettings</mat-label>
     <mat-select [(value)]="exportSelection">
       <mat-option value="displayed">Displayed data only</mat-option>
       <mat-option value="complete">Complete export</mat-option>
     </mat-select>
   </mat-form-field>
-  <button (click)="exportToCsv()">Export to CSV</button>
+  <mat-form-field style="margin: 3em">
+    <mat-label>Export FormatSettings</mat-label>
+    <mat-select [(value)]="exportFormat">
+      <mat-option value="json">json</mat-option>
+      <mat-option value="csv">csv</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button (click)="export()" style="margin: 3em">Export</button>
 </div>
+<mat-menu #contextMenu="matMenu">
+  <button mat-menu-item (click)="copyToClipboard(showCellmoreVert.value)">
+    <mat-icon>content_copy</mat-icon>
+    <span>Copy content to clipboard</span>
+  </button>
+  <button mat-menu-item disabled>
+    <mat-icon>edit</mat-icon>
+    <span>Edit (not yet implemented)</span>
+  </button>
+  <button mat-menu-item disabled>
+    <mat-icon>remove_circle</mat-icon>
+    <span>Delete (not yet implemented)</span>
+  </button>
+</mat-menu>
 
 
 

@@ -46,6 +46,22 @@
     </form>
   </mat-tab>
 
+  <mat-tab label="Profil Foto">
+    <form [formGroup]="profileFotoForm" (ngSubmit)="changeProfilePic()">
+      <div class="form-group" >
+        <!--label for="profilePic">Profile Picture</label-->
+        <input type="file" class="form-control" name="profilePic" #filePicker (change)="onProfilePicSelected($event)" style="visibility: hidden;height: 0px">
+        <!--button mat-menu-item (click)="filePicker.click();" >
+          <mat-icon>perm_identity</mat-icon>
+        </button-->
+        <img [src]="imagePreview" (click)="filePicker.click();" style="display: inline-block;border-radius: 50%;width:50px;height: 50px;vertical-align: middle;" *ngIf="imagePreview!=='' && imagePreview">
+      </div>
+
+      <button mat-button type="button" (click)="close()">Schliessen</button>
+      <button type="submit" mat-button>Abspeichern</button>
+    </form>
+  </mat-tab>
+
   <mat-tab label="Passwort">
     <form [formGroup]="pwdForm" (ngSubmit)="changePwd()">
       <div class="setting" (keydown)="resetErrorPwd()">
@@ -151,5 +167,6 @@
       </div>
     </form>
   </mat-tab>
+
 
 </mat-tab-group>

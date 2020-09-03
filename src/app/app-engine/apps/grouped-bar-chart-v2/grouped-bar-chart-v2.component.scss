@@ -1,4 +1,16 @@
+:host /deep/ .scaleGroupedBarChartWidth {
+  margin: 10px 0 0 30px;
+  width: 128px;
+  overflow: hidden;
+}
 
+:host /deep/ .scaleGroupedBarChartInput {
+
+}
+
+:host /deep/ .scaleGroupedBarChartSlider {
+
+}
 
 :host /deep/ rect {
   stroke-width: 2;
@@ -7,25 +19,41 @@
   fill: transparent !important;
 }
 
-:host /deep/ #legend_container {
+:host /deep/ .legend_container {
   position: relative;
-  width: 60000px;
 }
 
-:host /deep/ #legend {
-  position: fixed;
-  left: 0%;
+:host /deep/ .legend {
+  position: relative;
 }
 
-:host /deep/ #chart {
+:host /deep/ .chart_container {
   position: relative;
+}
+
+:host /deep/ .yaxis {
+  position: absolute;
+  float: left;
+  z-index: 3;
+}
+
+:host /deep/ .chart {
+  position: relative;
+  overflow-x: auto;
+}
+
+:host /deep/ .sortChart {
+  margin:0 0 0 30px;
 }
 
 /* tooltip */
-:host /deep/ .tooltip {
-  font-family: 'Open Sans', sans-serif;
+:host /deep/ .groupedBarChartTooltip {
+  position: fixed;
   display: none;
-  position: absolute;
   text-align: center;
-  z-index: 10;
+  z-index: 4;
+}
+
+:host /deep/ .groupedBarChartTooltipLabel {
+  font-weight: bold;
 }
