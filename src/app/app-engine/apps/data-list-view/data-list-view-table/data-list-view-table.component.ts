@@ -3,7 +3,7 @@ import { MatPaginator, MatSort, MatTable, MatTableDataSource } from '@angular/ma
 import { PipeTransform, Pipe } from '@angular/core';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
 import {Router} from '@angular/router';
-import {ColumnHeader, DisplayedCollumnsService, SettingsService, DataCell} from '../data-list-view-services/table-data.service';
+import {ColumnHeader, DisplayedCollumnsService, SettingsService, DataCell} from '../data-list-view-services/data-list-view.service';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -83,10 +83,12 @@ export class DataListViewTableComponent implements OnChanges {
   }
 
   updateDisplayedColumns() {
-    this.displayedColumns = [];
-    this.definedColumns.forEach(col => {
-      if (col.display) { this.displayedColumns.push(col.columnPath); }
-    });
+    if ( this.definedColumns ) {
+      this.displayedColumns = [];
+      this.definedColumns.forEach(col => {
+        if (col.display) { this.displayedColumns.push(col.columnPath); }
+      });
+    }
   }
 
 

@@ -62,7 +62,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { DataListViewComponent} from './apps/data-list-view/data-list-view.component';
 import { DataListViewSettingsComponent} from './apps/data-list-view/data-list-view-settings/data-list-view-settings';
 import { DataListViewTableComponent, HighlightPipe } from './apps/data-list-view/data-list-view-table/data-list-view-table.component';
-import { DataListViewInAppQueryService } from './apps/data-list-view/services/query.service';
+import { DataListViewInAppQueryService } from './apps/data-list-view/data-list-view-services/query.service';
 import { NavigationModule } from './apps/navigation/navigation.module';
 import { HtmlViewerModule } from './apps/html-viewer/html-viewer.module';
 import {MatCheckboxModule} from '@angular/material/checkbox';

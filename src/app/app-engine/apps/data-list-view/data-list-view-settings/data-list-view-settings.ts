@@ -1,6 +1,6 @@
 import {Component, Input, OnChanges} from '@angular/core';
 import {MatChipInputEvent} from '@angular/material/chips';
-import {DisplayedCollumnsService, SettingsService, ColumnHeader } from '../data-list-view-services/table-data.service';
+import {DisplayedCollumnsService, SettingsService, ColumnHeader } from '../data-list-view-services/data-list-view.service';
 import {FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
