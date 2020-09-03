@@ -125,6 +125,13 @@
         <mat-slide-toggle [(ngModel)]="dataListSettings.columns.manualColumns"
                           [checked]="dataListSettings.columns.manualColumns"
                           [disabled]="dataListSettings.columns.manualColumns">manual column definition</mat-slide-toggle>
+        <button mat-raised-button
+                *ngIf="dataListSettings.columns.manualColumns"
+                color="accent"
+                matTooltip="By restoring the columns to default all saved column definitions will be overwritten by default!"
+                (click)="recreateGenericColumns()">
+          <mat-icon >warning</mat-icon>Restore generic columns
+        </button>
       </div>
       <div *ngIf = "dataListSettings.columns.manualColumns">
         <h4>Column definition</h4>
@@ -207,12 +214,6 @@
         </div>
       </div>
       <button mat-raised-button  color="primary" (click)="saveColumnDefinition()">Save column definition</button>
-      <button mat-raised-button
-              color="accent"
-              matTooltip="By restoring the columns to default all saved column definitions will be overwritten by default!"
-              (click)="recreateGenericColumns()">
-        <mat-icon >warning</mat-icon>Restore generic columns
-      </button>
     </mat-card>
   </mat-expansion-panel>
   <div>

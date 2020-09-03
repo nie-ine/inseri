@@ -1,4 +1,4 @@
-import {Component, Input, Output, OnInit, OnChanges, ChangeDetectorRef} from '@angular/core';
+import {Component, Input, Output, OnChanges } from '@angular/core';
 import { DataListViewInAppQueryService } from './services/query.service';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {DisplayedCollumnsService, DataCell, SettingsService } from './data-list-view-services/table-data.service';
@@ -17,10 +17,10 @@ export class DataListViewComponent implements  OnChanges {
   @Input() query?: string;
   @Output() dataListSettingsOut: any;
   @Output() tableData: Array<any>; // table data passed to table component. Equals the generatedData once this is finished.
-  generatedData: Array<DataCell> = []; // data
+  generatedData: Array<DataCell> = []; // data generated/flattened/tranposed from json
 
-  mustSetArray = false;
-  dataArrays = [];
+  mustSetArray = false; // wether the user must choose an array as data source; will be set to true if needed.
+  dataArrays = []; // list of available arrays in the passed JSON
   displaySettings: boolean; // weather the settings are displayed above the table or not
   displaySettingsChange: Subscription; // change is triggered from within the table component, so we subscribe to that
   reloadPageChange: Subscription;
@@ -33,6 +33,7 @@ export class DataListViewComponent implements  OnChanges {
     this.displaySettingsChange = this.settingsService.settingsOpenStateChange.subscribe(oState => this.displaySettings = oState);
 
     this.reloadPageChange = this.settingsService.reloadPage.subscribe(settings => {
+      // reloads the component with new settings defined;
       this.dataListSettings = settings;
       this.ngOnChanges();
     });
@@ -52,7 +53,7 @@ export class DataListViewComponent implements  OnChanges {
         if (this.queryResponse ) {
           this.getArraysFromJson(this.queryResponse);
           this.mustSetArray = true;
-        } else { console.log('here nothing todo???'); }
+        } else { console.log('no data passed'); }
       }
     }
 

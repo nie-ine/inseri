@@ -32,10 +32,11 @@ export class DataListViewTableComponent implements OnChanges {
   renderedData: any; // rendered Export data
   renderedDisplayedData: any; // rendered data for export: only the displayed data (filtered && on first page if paginated)
   exportSelection = 'displayed'; // Wether only data which is displayed is exported or not. default: displayed data only
-  exportFormat = 'json';
+  exportFormat = 'json'; // default export format
+  // Replacing
   UMLAUT_REPLACEMENTS = '{[{ "Ä", "Ae" }, { "Ü", "Ue" }, { "Ö", "Oe" }, { "ä", "ae" }, { "ü", "ue" }, { "ö", "oe" }, {É, E}]}';
 
-  showCellmoreVert: DataCell;
+  hoveredDataCell: DataCell;
 
   constructor( private _router: Router,
                private settingsService: SettingsService,
@@ -93,9 +94,7 @@ export class DataListViewTableComponent implements OnChanges {
     for (const i of this.UMLAUT_REPLACEMENTS) {
       // console.log(i[0], i[1]);
       input = input.replace(i[0], i[1]);
-      }
-      // console.log(input);
-    return input;
+      } return input;
     }
 
   // FILTERING THE datasource acc to dataListTableSettings
@@ -273,14 +272,13 @@ export class DataListViewTableComponent implements OnChanges {
   openSettings() {
     this.settingsService.switchOpenState();
   }
-  //
-// Display / Design stuff
-//
-private isColumnSticky(column: number): boolean {
-  // Returns for each column whether/which column should be sticky when scrolling horizontally
-  // (this.dataListTableSettings.columns.stickyColumn ? true : false)
-  return false;
-  }
+
+
+  isColumnSticky(column: number): boolean {
+    // Returns for each column whether/which column should be sticky when scrolling horizontally
+    // (this.dataListTableSettings.columns.stickyColumn ? true : false)
+    return false;
+    }
 
   getSumOfDisplayedEntries() {
     if (this.dataSource.filter) {
@@ -293,7 +291,7 @@ private isColumnSticky(column: number): boolean {
   }
 
 }
-// TODO: highlighting filter results in cells by pipe
+
 @Pipe({ name: 'highlight' })
 export class HighlightPipe implements PipeTransform {
   transform(text: string, search): string {
