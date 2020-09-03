@@ -30,7 +30,7 @@ inseri is an online collaborative work and publish environment.
 
 ## How can I work with inseri? 
 
-- inseri can be used to work collaboratively
+- inseri can be used to work online and collaboratively
 	- If somebody in your team needs to enter data and another team member needs to review it, you can create a site with 2 collages in inseri, exactly tailored to your team-specific workflow
 - Your can upload any of your data to inseri and always access it whereever you are, also over your phone. inseri also provides pdf readers and other apps that enable you to work with your data.
 - You can display for example one pdf, one spreadsheet, and one texteditor on one collage and save this constellation. You can then come back to this collage and keep on working on your task, also collaboratively with colleagues.
