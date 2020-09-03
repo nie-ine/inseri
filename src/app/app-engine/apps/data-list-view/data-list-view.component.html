@@ -9,11 +9,11 @@
       <li>Options for Input JSON</li>
       <li>Assign to query ...</li>
 </mat-card>
-<div *ngIf = "dataListSettings">
-  <mat-progress-bar *ngIf="!mustSetArray && !tableData && dataListSettings.pathToDataArray !== ''" mode="indeterminate"></mat-progress-bar>
-</div>
 <div *ngIf="tableData && dataListSettingsOut && !mustSetArray">
   <data-list-view-table [dataToDisplay] = "tableData"
                         [dataListTableSettings] = "dataListSettingsOut">
   </data-list-view-table>
+  <div *ngIf = "dataListSettings">
+    <mat-progress-bar *ngIf="!mustSetArray && !tableData && dataListSettings.pathToDataArray !== ''" mode="indeterminate"></mat-progress-bar>
+  </div>
 </div>

@@ -1,15 +1,10 @@
-import {Component, Input, OnInit, OnChanges, ViewChild, EventEmitter, Output} from '@angular/core';
+import {Component, Input, OnChanges, ViewChild, EventEmitter, Output} from '@angular/core';
 import { MatPaginator, MatSort, MatTable, MatTableDataSource } from '@angular/material';
-import {MatMenuModule} from '@angular/material/menu';
-import { DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import { PipeTransform, Pipe } from '@angular/core';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
-import { DataListViewInAppQueryService} from '../services/query.service';
 import {Router} from '@angular/router';
 import {ColumnHeader, DisplayedCollumnsService, SettingsService, DataCell} from '../data-list-view-services/table-data.service';
 import {Subscription} from 'rxjs';
-
-// import { DataListViewSettings } from '../data-list-view-dataListSettings/data-list-view-dataListSettings.service';
 
 @Component({
   selector: 'data-list-view-table',
@@ -20,23 +15,23 @@ import {Subscription} from 'rxjs';
 export class DataListViewTableComponent implements OnChanges {
   @Input() dataListTableSettings?: any;
   @Input() dataToDisplay: any;
-  definedColumns: Array<ColumnHeader>;
-  @Output() reloadVariables: EventEmitter<any> = new EventEmitter<any>();
-  displayedColumns: string[];
+  @Output() reloadVariables: EventEmitter<any> = new EventEmitter<any>(); // Emit changes to other apps
+  definedColumns: Array<ColumnHeader>; // The columns defined by settings;
+  displayedColumns: string[]; // The displayed columns used by mat table;
 
   @ViewChild(MatTable) table: MatTable<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  // cssUrl: string;
+
   dataSource: MatTableDataSource <any>;
   dataSourceForExport: MatTableDataSource <any>;
   // TODO: highlight filter results in table cells by pipe
   toHighlightByFilter = ''; // For highlighting Filter results
   columnDefSub: Subscription; // subscribe to changes in column definition.
   // Export variables
-  renderedData: any;
-  renderedDisplayedData: any;
-  exportSelection = 'displayed';
+  renderedData: any; // rendered Export data
+  renderedDisplayedData: any; // rendered data for export: only the displayed data (filtered && on first page if paginated)
+  exportSelection = 'displayed'; // Wether only data which is displayed is exported or not. default: displayed data only
   exportFormat = 'json';
   UMLAUT_REPLACEMENTS = '{[{ "Ä", "Ae" }, { "Ü", "Ue" }, { "Ö", "Oe" }, { "ä", "ae" }, { "ü", "ue" }, { "ö", "oe" }, {É, E}]}';
 
@@ -45,10 +40,10 @@ export class DataListViewTableComponent implements OnChanges {
   constructor( private _router: Router,
                private settingsService: SettingsService,
                private columnService: DisplayedCollumnsService ) {
-    this.columnDefSub = this.columnService.displayedColumnsChange.subscribe(cols => {
+    this.columnDefSub = this.columnService.definedColumnsChange.subscribe(cols => {
       this.definedColumns = cols;
       this.updateDisplayedColumns();
-      this.setFilter();
+      if (this.dataSource) { this.setFilter(); }
     });
     }
 
@@ -56,7 +51,7 @@ export class DataListViewTableComponent implements OnChanges {
     this.definedColumns = this.columnService.getDisplayedColumns();
     this.updateDisplayedColumns();
     this.populateByDatastream();
-    this.setFilter();
+    if (this.dataSource) { this.setFilter(); }
   }
   //
   // DATA STREAM
@@ -184,23 +179,9 @@ public replaceUmlaute(input) {
       },
       queryParamsHandling: 'merge'
     });
-    this.reloadVariables.emit(); // TODO: übernehmen für settings
+    this.reloadVariables.emit();
   }
 
-  // TODO: maybe implement features from events by hostlistener ...
-  /* @HostListener('click', ['$event'])
-   onClick(event) {
-    if (this.dataListTableSettings.actions.actions && this.dataListTableSettings.actions.actionMode === 'host' &&
-    event.target.parentElement.classList[0] === 'fuuws') {
-        // HERE THINGS CAN BE ADDED §
-        console.log('opening detail dialog with ' + event.target.firstChild.data );
-        console.log( event.target );
-        this.openDetailsDialog(event.target.firstChild.data);
-      } // else {console.log('actions on cells disabled or no action defined')}
-  }*/
-
-
-  //
   // EXPORT
 
   export() {

@@ -25,7 +25,11 @@
       <div *ngIf="row[col.columnPath]"  class="table-cell">
         <table>
         <tr class="inner-table-cell">
-          <td  [ngStyle]="{'cursor': col.link.linkType !== 'none' ? 'pointer' : 'unset' }" (click)="onThisClick(col, i)" class="value-cell"><span class="mat-cell" [innerHTML]="row[col.columnPath].value"></span></td>
+          <td  [ngStyle]="{'cursor': col.link.linkType !== 'none' ? 'pointer' : 'unset' }"
+               (click)="onThisClick(col, i)"
+               class="value-cell">
+            <span class="mat-cell" [innerHTML]="row[col.columnPath].value"></span>
+          </td>
           <td class="button-container">
             <button mat-icon-button class="context-menu-button"
                     [matMenuTriggerFor]="contextMenu">

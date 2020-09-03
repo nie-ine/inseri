@@ -4,12 +4,12 @@ import {EventEmitter, Injectable} from '@angular/core';
 
 export class DisplayedCollumnsService {
   displayedColumns: Array<ColumnHeader>;
-  displayedColumnsChange: EventEmitter<Array<any>>;
+  definedColumnsChange: EventEmitter<Array<any>>;
 
   displayedColumnsSet = new Set();
 
   constructor() {
-    this.displayedColumnsChange = new EventEmitter<Array<any>>();
+    this.definedColumnsChange = new EventEmitter<Array<any>>();
   }
 
   public createColumns(columns: Array<string>) {
@@ -52,7 +52,7 @@ export class DisplayedCollumnsService {
 
   public setDisplayedColumns(cols) {
     this.displayedColumns = cols;
-    this.displayedColumnsChange.emit(this.displayedColumns);
+    this.definedColumnsChange.emit(this.displayedColumns);
   }
 
   private generateDisplayedColumnsFromData(data: Array<any>) {
