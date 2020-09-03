@@ -89,17 +89,17 @@ export class DataListViewTableComponent implements OnChanges {
   }
 
 
-public replaceUmlaute(input) {
-  for (const i of this.UMLAUT_REPLACEMENTS) {
-    // console.log(i[0], i[1]);
-    input = input.replace(i[0], i[1]);
+  public replaceUmlaute(input) {
+    for (const i of this.UMLAUT_REPLACEMENTS) {
+      // console.log(i[0], i[1]);
+      input = input.replace(i[0], i[1]);
+      }
+      // console.log(input);
+    return input;
     }
-    // console.log(input);
-  return input;
-  }
 
   // FILTERING THE datasource acc to dataListTableSettings
-  private doFilter(value: string) {
+  doFilter(value: string) {
     if (this.dataListTableSettings.filter.caseSensitive) { this.dataSource.filter = value;
       // TODO: highlighting
       this.toHighlightByFilter = value;
@@ -298,7 +298,7 @@ private isColumnSticky(column: number): boolean {
 export class HighlightPipe implements PipeTransform {
   transform(text: string, search): string {
     const pattern = search
-      .replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&")
+      .replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&')
       .split(' ')
       .filter(t => t.length > 0)
       .join('|');

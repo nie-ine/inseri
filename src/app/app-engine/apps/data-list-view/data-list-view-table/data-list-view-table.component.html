@@ -28,7 +28,7 @@
           <td  [ngStyle]="{'cursor': col.link.linkType !== 'none' ? 'pointer' : 'unset' }"
                (click)="onThisClick(col, i)"
                class="value-cell">
-            <span class="mat-cell" [innerHTML]="row[col.columnPath].value"></span>
+            <span class="mat-cell" [innerHTML]="row[col.columnPath].value | highlight: toHighlightByFilter"></span>
           </td>
           <td class="button-container">
             <button mat-icon-button class="context-menu-button"
