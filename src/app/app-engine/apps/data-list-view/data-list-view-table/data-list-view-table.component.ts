@@ -14,6 +14,7 @@ import {Subscription} from 'rxjs';
 @Component({
   selector: 'data-list-view-table',
   templateUrl: './data-list-view-table.component.html',
+  styleUrls: ['data-list-view-table.component.scss']
 
 })
 export class DataListViewTableComponent implements OnChanges {
@@ -161,6 +162,7 @@ public replaceUmlaute(input) {
     styles.forEach(s => style[s.split(':')[0]] = s.split(':')[1]);
     // console.log('style', style);
     // return {'font-weight': 'bold', 'font-style': 'italic'};
+    // style['cursor'] = (link !== 'none') ? 'pointer' : 'unset';
     return style;
   }
 

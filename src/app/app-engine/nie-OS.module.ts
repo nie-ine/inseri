@@ -34,6 +34,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { KeyValueFormComponent } from '../query-engine/query-entry/key-value-form/key-value-form.component';
 import { QueryAppInputMapComponent } from '../query-app-interface/query-app-input-map/query-app-input-map.component';
 import {MatProgressSpinnerModule, MatTreeModule} from '@angular/material';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatListModule} from '@angular/material/list';
 import { FrameSettingsComponent } from './page/frame-settings/frame-settings.component';
 import {MatSliderModule} from '@angular/material/slider';
@@ -127,6 +128,7 @@ import { CalendarComponent } from './apps/calendar/calendar.component';
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
+    MatProgressBarModule,
     MatSelectModule,
     MatTabsModule,
     AceEditorModule,

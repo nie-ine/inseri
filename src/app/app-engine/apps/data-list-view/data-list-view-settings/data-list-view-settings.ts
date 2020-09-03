@@ -1,18 +1,18 @@
 import {Component, Input, OnChanges} from '@angular/core';
 import {MatChipInputEvent} from '@angular/material/chips';
-import {DisplayedCollumnsService, OriginalColumnService, SettingsService, ColumnHeader } from '../data-list-view-services/table-data.service';
-import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {DisplayedCollumnsService, SettingsService, ColumnHeader } from '../data-list-view-services/table-data.service';
+import {FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {GeneralRequestService} from '../../../../query-engine/general/general-request.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'data-list-view-settings',
   templateUrl: './data-list-view-settings.html',
   styleUrls: ['data-list-view-settings.css']
 })
-export class DataListViewSettingsComponent implements OnChanges
-{
+export class DataListViewSettingsComponent implements OnChanges {
   @Input() appInputQueryMapping: any;
   @Input() hash: string;
   @Input() dataListSettings: any;
@@ -22,13 +22,21 @@ export class DataListViewSettingsComponent implements OnChanges
 
   chosenDataSource: string;
 
+  jsonType: string;
+  reloadPageChange: Subscription;
+
   constructor( private displayedCollumnsService: DisplayedCollumnsService,
                private settingsService: SettingsService,
-               private originalColumnsService: OriginalColumnService,
+               private originalColumnsService: SettingsService,
                private requestService: GeneralRequestService
-  ) { }
+  ) {
+    this.reloadPageChange = this.settingsService.reloadPage.subscribe(settings => {
+      this.ngOnChanges();
+    });
+  }
 
   ngOnChanges() {
+    this.jsonType = this.dataListSettings.jsonType;
     this.displayedColumns = this.displayedCollumnsService.getDisplayedColumns();
   }
 
@@ -43,25 +51,35 @@ export class DataListViewSettingsComponent implements OnChanges
   recreateGenericColumns() {
     this.dataListSettings.columns.manualColumns = false;
     this.dataListSettings.columns.columnMapping = [];
-    this.saveSettingsToJson();
-    // reload!!!
+    this.saveSettingsToJson(2);
   }
 
   setInitialDataSource() {
     this.dataListSettings.pathToDataArray = this.chosenDataSource;
-    this.saveSettingsToJson();
+    this.saveSettingsToJson(2);
   }
 
-  reloadColumns() {
-    const cols = this.originalColumnsService.getOriginalDisplayedColumns();
-    this.displayedCollumnsService.setDisplayedColumns(cols);
+  resetDataSource() {
+    this.dataListSettings.pathToDataArray = '';
+    this.dataListSettings.jsonType = 'any';
+    this.dataListSettings.columns.manualColumns = false;
+    this.dataListSettings.columns.columnMapping = [];
+    this.saveSettingsToJson(2);
   }
+
+  saveJsonType() {
+    console.log('json type: ', this.jsonType);
+    this.dataListSettings.jsonType = this.jsonType;
+    this.dataListSettings.columns.manualColumns = false;
+    this.dataListSettings.columns.columnMapping = [];
+    this.saveSettingsToJson(2);
+  }
+
 
   drop(event: CdkDragDrop<ColumnHeader[]>) {
     moveItemInArray(this.displayedColumns, event.previousIndex, event.currentIndex);
     this.updateColumns();
   }
-
 
   addStyle(event: MatChipInputEvent, columnIndex: number): void {
     const input = event.input;
@@ -113,9 +131,12 @@ export class DataListViewSettingsComponent implements OnChanges
       this.displayedColumns[colIndex].link.linkPath.splice(linkindex, 1);
   }
 
-  saveSettingsToJson() {
-    console.log(this.dataListSettings);
+  saveColumnDefinition() {
     this.dataListSettings.columns.columnMapping = this.displayedColumns;
+    this.saveSettingsToJson(0);
+  }
+
+  saveSettingsToJson(reload: number) {
     this.requestService.updateFile(
       this.appInputQueryMapping[ this.hash ][ 'settings' ][ 'serverUrl' ].split('/')[ 6 ], {
         [this.hash]: {
@@ -124,7 +145,12 @@ export class DataListViewSettingsComponent implements OnChanges
       }
     ).subscribe(
       data => {
+        if (reload === 1) { this.settingsService.reloadComponentWithNewSettings(this.dataListSettings); }
         console.log( data );
+        if (reload === 2) {
+          window.location.reload();
+        }
+
       }, error => console.log( error )
     );
   }

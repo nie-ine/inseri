@@ -5,37 +5,60 @@
       <mat-radio-button [value]="path">
         {{path}}
       </mat-radio-button>
-      <span></span>
     </div>
   </mat-radio-group>
-  <button mat-button-raised (click)="setInitialDataSource()">Set initial data source</button>
+  <button mat-raised-button  color="primary" (click)="setInitialDataSource()">Set initial data source</button>
 </mat-card>
-<div *ngIf="dataListSettings.pathToDataArray !== '' && dataArrays.length === 0">
+<mat-card *ngIf="dataListSettings.pathToDataArray !== '' && dataArrays.length === 0">
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <mat-icon>settings</mat-icon>
-        General settings
+        <mat-icon>perm_data_setting</mat-icon>
+        Data source settings
+      </mat-panel-title>
+      <mat-panel-description>
+        Change the JSON type or the path to your data.
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-card>
+      <mat-card-header><h4>Changes in these settings will resut in a reset of all column definitions to default.</h4></mat-card-header>
+      <h5>JSON Type</h5>
+      <mat-form-field>
+        <mat-label>Json type</mat-label>
+        <mat-select  [(ngModel)]="jsonType">
+          <mat-option [value]="option" *ngFor="let option of ['any', 'sparql']">{{ option }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-raised-button
+              color="warn"
+              matTooltip="By changing the json type all column definitions will be set back to default!"
+              (click)="saveJsonType()">
+        <mat-icon>warning</mat-icon> Save & reset columns</button>
+      <div>
+        <h5>Data source</h5>
+        <mat-form-field>
+          <mat-label>Data source/path to data array</mat-label>
+          <input [disabled] = "true" matInput [(ngModel)] ="dataListSettings.pathToDataArray">
+        </mat-form-field>
+        <button matTooltip="By changing the json type all column definitions will be set back to default!"
+                mat-raised-button
+                color="warn"
+                (click)="resetDataSource()">
+          <mat-icon>warning</mat-icon> Change data source ... (resets all column definition)</button>
+      </div>
+    </mat-card>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon>menu</mat-icon>
+        General table settings
       </mat-panel-title>
       <mat-panel-description>
         Change general settings of the table: define the base array, sort, filter or export options.
       </mat-panel-description>
     </mat-expansion-panel-header>
-    <div>
-      <h5>JSON Type</h5>
-      <mat-form-field>
-        <mat-label>Json type</mat-label>
-        <mat-select  [(ngModel)]="dataListSettings.jsonType">
-          <mat-option [value]="option" *ngFor="let option of ['sparql', 'any']">{{ option }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <div>
-        <h5>Data source</h5>
-        <mat-form-field>
-          <mat-label>Data source/path to data array</mat-label>
-          <input [disabled] = "true" matInput [(ngModel)] ="dataListSettings.pathToDataArray" [matTooltip] = "'Please set the path to the base array within your json.'">
-        </mat-form-field>
-      </div>
+    <mat-card>
       <div>
         <h5>Sort</h5>
         <div>
@@ -84,7 +107,8 @@
           <mat-checkbox  [(ngModel)]="dataListSettings.export.showExport">Display export options</mat-checkbox>
         </div>
       </div>
-    </div>
+      <button mat-raised-button  color="primary" (click)="saveSettingsToJson(false)">Save general settings</button>
+    </mat-card>
   </mat-expansion-panel>
   <mat-expansion-panel>
     <mat-expansion-panel-header>
@@ -96,9 +120,11 @@
         Column settings of the table: Drag & drop columns, change column title, links asf.
       </mat-panel-description>
     </mat-expansion-panel-header>
+    <mat-card>
       <div>
         <mat-slide-toggle [(ngModel)]="dataListSettings.columns.manualColumns"
-                          [checked]="dataListSettings.columns.manualColumns">manual column definition</mat-slide-toggle>
+                          [checked]="dataListSettings.columns.manualColumns"
+                          [disabled]="dataListSettings.columns.manualColumns">manual column definition</mat-slide-toggle>
       </div>
       <div *ngIf = "dataListSettings.columns.manualColumns">
         <h4>Column definition</h4>
@@ -180,10 +206,16 @@
           </div>
         </div>
       </div>
+      <button mat-raised-button  color="primary" (click)="saveColumnDefinition()">Save column definition</button>
+      <button mat-raised-button
+              color="accent"
+              matTooltip="By restoring the columns to default all saved column definitions will be overwritten by default!"
+              (click)="recreateGenericColumns()">
+        <mat-icon >warning</mat-icon>Restore generic columns
+      </button>
+    </mat-card>
   </mat-expansion-panel>
   <div>
-    <button mat-button-raised (click)="saveSettingsToJson()">Save settings persistantly</button>
-    <button mat-button-raised (click)="recreateGenericColumns()">Reload default column definition from data source</button>
-    <button mat-button-raised (click)="closeSettings()">Close</button>
+    <button mat-raised-button (click)="closeSettings()">Close all settings</button>
   </div>
-</div>
+</mat-card>
