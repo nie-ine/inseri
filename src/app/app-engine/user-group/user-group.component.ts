@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {UsergroupService} from '../../../mongodb/usergroup/usergroup.service';
+import {UsergroupService} from '../../user-action-engine/mongodb/usergroup/usergroup.service';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
@@ -17,10 +17,9 @@ export class UserGroupComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.groupId = this.route.snapshot.queryParams.usrGroupId;
+    this.groupId = (this.route.snapshot.queryParams.usrGroupId) ? this.route.snapshot.queryParams.usrGroupId : '';
     console.log(this.groupId);
-    this.userID = localStorage.getItem('userId');
-    //console.log(this.usergroupService.showUserGroupDetails(this.groupId));
+    //this.userID = localStorage.getItem('userId');
   }
 
 

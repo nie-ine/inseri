@@ -23,7 +23,6 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatSelectModule} from '@angular/material/select';
 import {NIEOSModule} from '../../app-engine/nie-OS.module';
 
-
 @NgModule({
     imports: [
         CommonModule,
@@ -45,7 +44,7 @@ import {NIEOSModule} from '../../app-engine/nie-OS.module';
         MatSelectModule,
         RouterModule.forRoot([
             {path: 'dashboard', component: DashboardComponent},
-            {path: 'impressum', component: ImpressumComponent}
+            {path: 'impressum', component: ImpressumComponent},
         ]),
         NIEOSModule
     ],

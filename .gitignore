@@ -18,6 +18,7 @@
 backend/.settings/
 backend/.mongoData/
 backend/files
+src/assets/img/team
 *.sublime-workspace
 
 # IDE - VSCode

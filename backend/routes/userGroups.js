@@ -8,9 +8,9 @@ const Page = require('../models/page');
 const PageSet = require('../models/page-set');
 const router = express.Router();
 
-router.post('',checkAuth, (req, res, next) => {
+router.post('',checkAuth, (req, res, next) => { // done with the new logic
   console.log(req.body);
-  UserGroup.find({title: req.body.title, owner:req.userData.userId})
+  UserGroup.find({title: req.body.title, adminsUsers: {$in:req.userData.userId} })
     .then((result) => {
       // Checks if other owner has the same group name
       if (result.length > 0) {
@@ -21,10 +21,9 @@ router.post('',checkAuth, (req, res, next) => {
       const newGroup = new UserGroup({
         title: req.body.title,
         description: req.body.description,
-        users:[req.userData.email],
-        owner:req.userData.userId,
+        users:[req.userData.userId],
+        adminsUsers:[req.userData.userId],
         hasPages:[],
-        hasPageSets:[],
         hasActions: []
       });
       newGroup.save()
@@ -43,10 +42,10 @@ router.post('',checkAuth, (req, res, next) => {
     });
 });
 
-router.get('', checkAuth, (req, res, next) => {
+router.get('', checkAuth, (req, res, next) => { // done with the new logic
   UserGroup.find({$or: [
-      {owner: req.userData.userId},
-      {users: {$in: req.userData.email}}
+      {adminsUsers: {$in:req.userData.userId}},
+      {users: {$in: req.userData.userId}}
     ]
   })
     .then(groups => {
@@ -268,11 +267,17 @@ router.post('/updateUserGroup/:title&:description',checkAuth, (req, res, next) =
             });
           })
       });
-router.get('/showUserGroupDetails/:groupId',checkAuth, (req, res, next) => {
+router.get('/showUserGroupDetails/:groupId',checkAuth, (req, res, next) => {   ///done editing with the new logic
   console.log(req.params.groupId);
 console.log(req.userData.userId);
-  UserGroup.findOne({$and: [{_id: req.params.groupId}, {owner: req.userData.userId}]}
-    )
+  UserGroup.findOne({_id: req.params.groupId})///({$and: [{_id: req.params.groupId}, {adminUsers:{$in: [req.userData.userId]}}]})
+    .populate('hasActions')
+    .populate({
+      path: 'hasPageSet',
+      populate: {
+        path: 'hasPages'
+      }
+    })
     .then(result => {
       if(result.length===0) {
         message: 'Group not found, or you are not the owner of the group.'
