@@ -43,7 +43,7 @@ inseri is an online collaborative work and publish environment.
 - University projects who would like to publish their data and enable the user to visualise and create interesting subsets of the published data. For instance, a user can visualise data from one Library which published a RestFul API, visualise on the same collage data from another Library RestFul API, visualise on the same collage data from a University project, and add his/her own notes, thus working on his/her research.
 
 
-# Get it up and running - OUTDATED - needs to be updated!
+# Get it up and running
 
 [![Build Status](https://travis-ci.org/nie-ine/NIE-OS.svg?branch=devel)](https://travis-ci.org/nie-ine/inseri)
 ![Docker pulls](https://img.shields.io/docker/pulls/nieine/nieos.svg)
