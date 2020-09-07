@@ -121,24 +121,24 @@
         </div>
       </div>
 
-      <div *ngFor="let usergroup of userGroups.slice().reverse(); let i = index">
+      <div *ngFor="let userGroup of userGroups.slice().reverse(); let i = index">
         <div
           class="col-md-4"
           href="#portfolioModal1"
           *ngIf="showUserGroups" style=" width: 230px; height: 300px; display: inline-block;"
-          matTooltip="{{ usergroup.owner === userID ? 'you are the owner of this group' : 'you are a member of this group' }}">
+          matTooltip="{{ userGroup.adminsUsers.includes( userID) ? 'you are one of the admins of this group' : 'you are a member of this group' }}">
                     <span class="fa-stack fa-4x" [matMenuTriggerFor]="appMenu" style="cursor: pointer">
                       <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                      <i class="fa fa-user-plus fa-stack-1x fa-inverse" *ngIf="usergroup.owner === userID"></i>
-                      <i class="fa fa-user fa-stack-1x fa-inverse" *ngIf="usergroup.owner !== userID"></i>
+                      <i class="fa fa-user-plus fa-stack-1x fa-inverse" *ngIf="userGroup.adminsUsers.includes( userID) "></i>
+                      <i class="fa fa-user fa-stack-1x fa-inverse" *ngIf="!userGroup.adminsUsers.includes( userID) "></i>
                     </span>
           <mat-menu #appMenu="matMenu">
-            <button mat-menu-item (click)="showGroupMembers( usergroup.title )">Show group members</button>
+            <button mat-menu-item (click)="showUserGroupDetails(userGroup._id)">Go to user group</button> <!--showGroupMembers( usergroup.title )-->
             <button mat-menu-item>Change title or description</button>
             <button mat-menu-item>Delete user group</button>
           </mat-menu>
-          <h4 class="service-heading">{{ usergroup.title }}</h4>
-          <p class="text-muted">{{ usergroup.description }}</p>
+          <h4 class="service-heading">{{ userGroup.title }}</h4>
+          <p class="text-muted">{{ userGroup.description }}</p>
         </div>
       </div>
 

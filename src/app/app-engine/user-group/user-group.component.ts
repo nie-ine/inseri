@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {UsergroupService} from '../../../mongodb/usergroup/usergroup.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-user-group',
@@ -11,22 +12,16 @@ export class UserGroupComponent implements OnInit {
   userGroups: Array<any> = [];
   constructor(
     private usergroupService: UsergroupService,
+    private groupId: string,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
+    this.groupId = this.route.snapshot.queryParams.usrGroupId;
+    console.log(this.groupId);
     this.userID = localStorage.getItem('userId');
+    //console.log(this.usergroupService.showUserGroupDetails(this.groupId));
+  }
 
-  }
-  getUserGroups() {
-    console.log('get user groups');
-    this.usergroupService.getAllUserGroups()
-      .subscribe(
-        usergroupresponse => {
-          console.log(usergroupresponse);
-          this.userGroups = (usergroupresponse as any).body.groups;
-        },
-        error => console.log(error)
-      );
-  }
 
 }
