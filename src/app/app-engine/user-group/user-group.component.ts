@@ -10,9 +10,10 @@ import {ActivatedRoute} from '@angular/router';
 export class UserGroupComponent implements OnInit {
   userID: string;
   userGroups: Array<any> = [];
+  private groupId: string;
   constructor(
     private usergroupService: UsergroupService,
-    private groupId: string,
+    // private groupId: string,
     private route: ActivatedRoute
   ) { }
 

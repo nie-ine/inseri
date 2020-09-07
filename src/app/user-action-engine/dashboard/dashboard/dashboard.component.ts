@@ -453,13 +453,12 @@ export class DashboardComponent implements OnInit {
     console.log(_id);
     this.usergroupService.showUserGroupDetails(_id).subscribe(result => {
       console.log(result);
-      this.router.navigate(['app-user-group'], {
+      this.router.navigate(['/app-user-group'], {
         queryParams: {
           usrGroupId: _id
         }
       });
     });
-
   }
 }
 

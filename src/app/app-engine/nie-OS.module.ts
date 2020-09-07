@@ -103,6 +103,7 @@ import { GroupedBarChartV2Component } from './apps/grouped-bar-chart-v2/grouped-
 import { CommentOnIndicesComponent } from './apps/comment-on-indices/comment-on-indices.component';
 //import {DataListViewDetailsDialogComponent} from './apps/data-list-view/data-list-view-details-dialog/data-list-view-details-dialog.component';
 import { CalendarComponent } from './apps/calendar/calendar.component';
+import {UserGroupComponent} from './user-group/user-group.component';
 
 
 @NgModule({
@@ -169,7 +170,8 @@ import { CalendarComponent } from './apps/calendar/calendar.component';
       { path: 'app-our-new-component', component: OurNewComponentComponent },
       { path: 'gnd', component: GndLobidComponent },
       { path: 'audio', component: AudioPlayerComponent },
-      { path: 'calendar', component: CalendarComponent }
+      { path: 'calendar', component: CalendarComponent },
+      { path: 'app-user-group', component: UserGroupComponent },
     ])
   ],
   providers: [
@@ -230,7 +232,7 @@ import { CalendarComponent } from './apps/calendar/calendar.component';
     PieChartV2Component,
     GroupedBarChartV2Component,
     CommentOnIndicesComponent,
-
+    UserGroupComponent,
     //DataListViewDetailsDialogComponent,
     CalendarComponent
   ],
