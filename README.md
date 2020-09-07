@@ -1,5 +1,3 @@
-Contact and info about the organisation NIE-INE | NATIONAL INFRASTRUCTURE FOR EDITIONS | A swiss-wide organisation for the infrastructure of editions: [https://www.nie-ine.ch/](https://www.nie-ine.ch/)
-
 Mandated by [swissuniversities](https://www.swissuniversities.ch/)
 
 ## Presented or mentioned at
