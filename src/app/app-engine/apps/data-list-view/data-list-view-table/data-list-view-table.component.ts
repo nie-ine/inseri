@@ -271,10 +271,6 @@ export class DataListViewTableComponent implements OnChanges {
     return flattenedData;
   }
 
-  openSettings() {
-    this.settingsService.switchOpenState();
-  }
-
 
   isColumnSticky(column: number): boolean {
     // Returns for each column whether/which column should be sticky when scrolling horizontally

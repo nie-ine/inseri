@@ -293,7 +293,12 @@
         </button>
 
         <button mat-menu-item (click)="openDataManagement()">
-          Open Data Management
+          Data Management
+        </button>
+
+        <button mat-menu-item *ngIf="app.hasOwnProperty('showSettings')" (click)="toggleShowInAppSettings( app, i )">
+          <span *ngIf="app.showSettings">Close app settings without changes</span>
+          <span *ngIf="!app.showSettings">Show app settings </span>
         </button>
 
         <button mat-menu-item (click)="appMenu( app, 'minimize' )">

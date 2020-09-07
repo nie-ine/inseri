@@ -1287,6 +1287,10 @@ export class PageComponent implements OnInit, AfterViewChecked {
     }, 100);
   }
 
+  toggleShowInAppSettings(app: any, index: number) {
+      this.openAppArray[index]['showSettings'] = !this.openAppArray[index]['showSettings'] ;
+  }
+
   publishAsTemplate() {
     this.pageService.publishAsTemplate( this.page._id )
       .subscribe(

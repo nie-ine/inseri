@@ -44,10 +44,6 @@ export class DataListViewSettingsComponent implements OnChanges {
     this.displayedCollumnsService.setDisplayedColumns(this.displayedColumns);
   }
 
-  closeSettings() {
-    this.settingsService.switchOpenState();
-  }
-
   recreateGenericColumns() {
     this.dataListSettings.columns.manualColumns = false;
     this.dataListSettings.columns.columnMapping = [];
@@ -69,7 +65,6 @@ export class DataListViewSettingsComponent implements OnChanges {
   }
 
   saveJsonType() {
-    console.log('json type: ', this.jsonType);
     this.dataListSettings.jsonType = this.jsonType;
     this.dataListSettings.columns.manualColumns = false;
     this.dataListSettings.columns.columnMapping = [];
