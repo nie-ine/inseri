@@ -297,8 +297,8 @@
         </button>
 
         <button mat-menu-item *ngIf="app.hasOwnProperty('showSettings')" (click)="toggleShowInAppSettings( app, i )">
-          <span *ngIf="app.showSettings">Close app settings without changes</span>
-          <span *ngIf="!app.showSettings">Show app settings </span>
+          <span *ngIf="app.showSettings">Close app settings</span>
+          <span *ngIf="!app.showSettings">Show app settings</span>
         </button>
 
         <button mat-menu-item (click)="appMenu( app, 'minimize' )">
@@ -326,6 +326,10 @@
     <div style="pointer-events: auto!important;"
       *ngIf=" !app.minimized && !app.panelExtended" [style.overflow]="'auto'"
       [ngStyle]="{ 'height':  ( app.fullHeight || app.panelExtended ) ? '92%' : app.height + 'px'}">
+
+      <div *ngIf="app.hasOwnProperty('showSettings')">
+        <button mat-raised-button color="primary" *ngIf="app.showSettings" (click)="toggleShowInAppSettings( app, i )">Close app settings</button>
+      </div>
 
       <app-all-app-selectors
         [i]="i"

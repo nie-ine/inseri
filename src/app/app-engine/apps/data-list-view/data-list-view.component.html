@@ -14,5 +14,5 @@
                         [dataListTableSettings] = "dataListSettingsOut">
   </data-list-view-table>
 </div>
-<mat-progress-bar *ngIf="!mustSetArray && !queryResponse && !showInstructions" mode="indeterminate"></mat-progress-bar>
+<mat-progress-bar *ngIf="!mustSetArray && tableData.length === 0 && !showInstructions" mode="indeterminate"></mat-progress-bar>
 
