@@ -1,15 +1,14 @@
 import {EventEmitter, Injectable} from '@angular/core';
 
-@Injectable({ providedIn: 'root' })
-
+@Injectable()
 export class DisplayedCollumnsService {
   displayedColumns: Array<ColumnHeader>;
-  displayedColumnsChange: EventEmitter<Array<any>>;
+  definedColumnsChange: EventEmitter<Array<any>>;
 
   displayedColumnsSet = new Set();
 
   constructor() {
-    this.displayedColumnsChange = new EventEmitter<Array<any>>();
+    this.definedColumnsChange = new EventEmitter<Array<any>>();
   }
 
   public createColumns(columns: Array<string>) {
@@ -28,11 +27,8 @@ export class DisplayedCollumnsService {
       if (dataListSettings.jsonType === 'sparql') {
         displayedColumns = this.createColumns(data.head.vars);
       } else {
-        console.log('datalistSettings: ', dataListSettings );
-        console.log('data: ', data);
         // gets the data array from a given path string pathToDataArray
         const dataArray = dataListSettings.pathToDataArray.split('.').reduce((a, b) => a[b], data);
-        console.log('dataArray: ', dataArray);
         const distinctColumns = this.generateDisplayedColumnsFromData(dataArray);
         displayedColumns = this.createColumns(distinctColumns);
         }
@@ -52,7 +48,7 @@ export class DisplayedCollumnsService {
 
   public setDisplayedColumns(cols) {
     this.displayedColumns = cols;
-    this.displayedColumnsChange.emit(this.displayedColumns);
+    this.definedColumnsChange.emit(this.displayedColumns);
   }
 
   private generateDisplayedColumnsFromData(data: Array<any>) {
@@ -85,8 +81,7 @@ export class DataCell {
   }
 }
 
-@Injectable({ providedIn: 'root' })
-
+@Injectable()
 export class SettingsService {
   settingsOpenState = false;
   settingsOpenStateChange: EventEmitter<boolean>;

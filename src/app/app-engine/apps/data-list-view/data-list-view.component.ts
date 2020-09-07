@@ -1,12 +1,13 @@
-import {Component, Input, Output, OnInit, OnChanges, ChangeDetectorRef} from '@angular/core';
-import { DataListViewInAppQueryService } from './services/query.service';
+import {Component, Input, Output, OnChanges } from '@angular/core';
+import { DataListViewInAppQueryService } from './data-list-view-services/query.service';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
-import {DisplayedCollumnsService, DataCell, SettingsService } from './data-list-view-services/table-data.service';
+import {DisplayedCollumnsService, DataCell, SettingsService } from './data-list-view-services/data-list-view.service';
 import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'data-list-view',
-  templateUrl: './data-list-view.component.html'
+  templateUrl: './data-list-view.component.html',
+  providers: [DisplayedCollumnsService, SettingsService, DataListViewInAppQueryService]
 })
 
 export class DataListViewComponent implements  OnChanges {
@@ -17,12 +18,12 @@ export class DataListViewComponent implements  OnChanges {
   @Input() query?: string;
   @Output() dataListSettingsOut: any;
   @Output() tableData: Array<any>; // table data passed to table component. Equals the generatedData once this is finished.
-  generatedData: Array<DataCell> = []; // data
+  generatedData: Array<DataCell> = []; // data generated/flattened/tranposed from json
 
-  mustSetArray = false;
-  dataArrays = [];
-  displaySettings: boolean; // weather the settings are displayed above the table or not
-  displaySettingsChange: Subscription; // change is triggered from within the table component, so we subscribe to that
+  mustSetArray = false; // wether the user must choose an array as data source; will be set to true if needed.
+  dataArrays = []; // list of available arrays in the passed JSON
+  showSettings: boolean; // weather the settings are displayed above the table or not
+  showSettingsChange: Subscription; // change is triggered from within the table component, so we subscribe to that
   reloadPageChange: Subscription;
 
   constructor(private dataService: DataListViewInAppQueryService,
@@ -30,9 +31,10 @@ export class DataListViewComponent implements  OnChanges {
               private settingsService: SettingsService
               ) {
 
-    this.displaySettingsChange = this.settingsService.settingsOpenStateChange.subscribe(oState => this.displaySettings = oState);
+    this.showSettingsChange = this.settingsService.settingsOpenStateChange.subscribe(oState => this.showSettings = oState);
 
     this.reloadPageChange = this.settingsService.reloadPage.subscribe(settings => {
+      // reloads the component with new settings defined;
       this.dataListSettings = settings;
       this.ngOnChanges();
     });
@@ -52,7 +54,7 @@ export class DataListViewComponent implements  OnChanges {
         if (this.queryResponse ) {
           this.getArraysFromJson(this.queryResponse);
           this.mustSetArray = true;
-        } else { console.log('here nothing todo???'); }
+        } else { console.log('no data passed'); }
       }
     }
 

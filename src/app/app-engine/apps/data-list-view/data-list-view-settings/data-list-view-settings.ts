@@ -1,6 +1,6 @@
 import {Component, Input, OnChanges} from '@angular/core';
 import {MatChipInputEvent} from '@angular/material/chips';
-import {DisplayedCollumnsService, SettingsService, ColumnHeader } from '../data-list-view-services/table-data.service';
+import {DisplayedCollumnsService, SettingsService, ColumnHeader } from '../data-list-view-services/data-list-view.service';
 import {FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
@@ -51,12 +51,13 @@ export class DataListViewSettingsComponent implements OnChanges {
   recreateGenericColumns() {
     this.dataListSettings.columns.manualColumns = false;
     this.dataListSettings.columns.columnMapping = [];
-    this.saveSettingsToJson(2);
+    this.updateColumns();
+    this.saveSettingsToJson(1); // save && soft reload: only settings & columns get updated
   }
 
   setInitialDataSource() {
     this.dataListSettings.pathToDataArray = this.chosenDataSource;
-    this.saveSettingsToJson(2);
+    this.saveSettingsToJson(2); // save && hard reload
   }
 
   resetDataSource() {
@@ -72,7 +73,8 @@ export class DataListViewSettingsComponent implements OnChanges {
     this.dataListSettings.jsonType = this.jsonType;
     this.dataListSettings.columns.manualColumns = false;
     this.dataListSettings.columns.columnMapping = [];
-    this.saveSettingsToJson(2);
+    this.updateColumns();
+    this.saveSettingsToJson(1);
   }
 
 

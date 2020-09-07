@@ -638,11 +638,6 @@ export class OpenAppsModel {
             },
             "sort":{
               "disallowSorting":false
-            },
-            "styles":{
-              "cellStyle":{
-                "cursor":"pointer"
-              }
             }
           }
         }

@@ -1,15 +1,10 @@
-import {Component, Input, OnInit, OnChanges, ViewChild, EventEmitter, Output} from '@angular/core';
+import {Component, Input, OnChanges, ViewChild, EventEmitter, Output} from '@angular/core';
 import { MatPaginator, MatSort, MatTable, MatTableDataSource } from '@angular/material';
-import {MatMenuModule} from '@angular/material/menu';
-import { DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import { PipeTransform, Pipe } from '@angular/core';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
-import { DataListViewInAppQueryService} from '../services/query.service';
 import {Router} from '@angular/router';
-import {ColumnHeader, DisplayedCollumnsService, SettingsService, DataCell} from '../data-list-view-services/table-data.service';
+import {ColumnHeader, DisplayedCollumnsService, SettingsService, DataCell} from '../data-list-view-services/data-list-view.service';
 import {Subscription} from 'rxjs';
-
-// import { DataListViewSettings } from '../data-list-view-dataListSettings/data-list-view-dataListSettings.service';
 
 @Component({
   selector: 'data-list-view-table',
@@ -20,35 +15,36 @@ import {Subscription} from 'rxjs';
 export class DataListViewTableComponent implements OnChanges {
   @Input() dataListTableSettings?: any;
   @Input() dataToDisplay: any;
-  definedColumns: Array<ColumnHeader>;
-  @Output() reloadVariables: EventEmitter<any> = new EventEmitter<any>();
-  displayedColumns: string[];
+  @Output() reloadVariables: EventEmitter<any> = new EventEmitter<any>(); // Emit changes to other apps
+  definedColumns: Array<ColumnHeader>; // The columns defined by settings;
+  displayedColumns: string[]; // The displayed columns used by mat table;
 
   @ViewChild(MatTable) table: MatTable<any>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  // cssUrl: string;
+
   dataSource: MatTableDataSource <any>;
   dataSourceForExport: MatTableDataSource <any>;
   // TODO: highlight filter results in table cells by pipe
   toHighlightByFilter = ''; // For highlighting Filter results
   columnDefSub: Subscription; // subscribe to changes in column definition.
   // Export variables
-  renderedData: any;
-  renderedDisplayedData: any;
-  exportSelection = 'displayed';
-  exportFormat = 'json';
+  renderedData: any; // rendered Export data
+  renderedDisplayedData: any; // rendered data for export: only the displayed data (filtered && on first page if paginated)
+  exportSelection = 'displayed'; // Wether only data which is displayed is exported or not. default: displayed data only
+  exportFormat = 'json'; // default export format
+  // Replacing
   UMLAUT_REPLACEMENTS = '{[{ "Ä", "Ae" }, { "Ü", "Ue" }, { "Ö", "Oe" }, { "ä", "ae" }, { "ü", "ue" }, { "ö", "oe" }, {É, E}]}';
 
-  showCellmoreVert: DataCell;
+  hoveredDataCell: DataCell;
 
   constructor( private _router: Router,
                private settingsService: SettingsService,
                private columnService: DisplayedCollumnsService ) {
-    this.columnDefSub = this.columnService.displayedColumnsChange.subscribe(cols => {
+    this.columnDefSub = this.columnService.definedColumnsChange.subscribe(cols => {
       this.definedColumns = cols;
       this.updateDisplayedColumns();
-      this.setFilter();
+      if (this.dataSource) { this.setFilter(); }
     });
     }
 
@@ -56,7 +52,7 @@ export class DataListViewTableComponent implements OnChanges {
     this.definedColumns = this.columnService.getDisplayedColumns();
     this.updateDisplayedColumns();
     this.populateByDatastream();
-    this.setFilter();
+    if (this.dataSource) { this.setFilter(); }
   }
   //
   // DATA STREAM
@@ -87,24 +83,24 @@ export class DataListViewTableComponent implements OnChanges {
   }
 
   updateDisplayedColumns() {
-    this.displayedColumns = [];
-    this.definedColumns.forEach(col => {
-      if (col.display) { this.displayedColumns.push(col.columnPath); }
-    });
-  }
-
-
-public replaceUmlaute(input) {
-  for (const i of this.UMLAUT_REPLACEMENTS) {
-    // console.log(i[0], i[1]);
-    input = input.replace(i[0], i[1]);
+    if ( this.definedColumns ) {
+      this.displayedColumns = [];
+      this.definedColumns.forEach(col => {
+        if (col.display) { this.displayedColumns.push(col.columnPath); }
+      });
     }
-    // console.log(input);
-  return input;
   }
+
+
+  public replaceUmlaute(input) {
+    for (const i of this.UMLAUT_REPLACEMENTS) {
+      // console.log(i[0], i[1]);
+      input = input.replace(i[0], i[1]);
+      } return input;
+    }
 
   // FILTERING THE datasource acc to dataListTableSettings
-  private doFilter(value: string) {
+  doFilter(value: string) {
     if (this.dataListTableSettings.filter.caseSensitive) { this.dataSource.filter = value;
       // TODO: highlighting
       this.toHighlightByFilter = value;
@@ -184,23 +180,9 @@ public replaceUmlaute(input) {
       },
       queryParamsHandling: 'merge'
     });
-    this.reloadVariables.emit(); // TODO: übernehmen für settings
+    this.reloadVariables.emit();
   }
 
-  // TODO: maybe implement features from events by hostlistener ...
-  /* @HostListener('click', ['$event'])
-   onClick(event) {
-    if (this.dataListTableSettings.actions.actions && this.dataListTableSettings.actions.actionMode === 'host' &&
-    event.target.parentElement.classList[0] === 'fuuws') {
-        // HERE THINGS CAN BE ADDED §
-        console.log('opening detail dialog with ' + event.target.firstChild.data );
-        console.log( event.target );
-        this.openDetailsDialog(event.target.firstChild.data);
-      } // else {console.log('actions on cells disabled or no action defined')}
-  }*/
-
-
-  //
   // EXPORT
 
   export() {
@@ -292,14 +274,13 @@ public replaceUmlaute(input) {
   openSettings() {
     this.settingsService.switchOpenState();
   }
-  //
-// Display / Design stuff
-//
-private isColumnSticky(column: number): boolean {
-  // Returns for each column whether/which column should be sticky when scrolling horizontally
-  // (this.dataListTableSettings.columns.stickyColumn ? true : false)
-  return false;
-  }
+
+
+  isColumnSticky(column: number): boolean {
+    // Returns for each column whether/which column should be sticky when scrolling horizontally
+    // (this.dataListTableSettings.columns.stickyColumn ? true : false)
+    return false;
+    }
 
   getSumOfDisplayedEntries() {
     if (this.dataSource.filter) {
@@ -312,12 +293,12 @@ private isColumnSticky(column: number): boolean {
   }
 
 }
-// TODO: highlighting filter results in cells by pipe
+
 @Pipe({ name: 'highlight' })
 export class HighlightPipe implements PipeTransform {
   transform(text: string, search): string {
     const pattern = search
-      .replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&")
+      .replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&')
       .split(' ')
       .filter(t => t.length > 0)
       .join('|');
