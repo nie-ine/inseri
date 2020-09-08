@@ -604,6 +604,10 @@ export class OpenAppsModel {
         {
           'inputName': 'json',
         },
+        {
+          'inputName': 'showSettings',
+          default: false
+        },
 
         {
           'inputName': 'settings',
