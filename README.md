@@ -8,6 +8,9 @@ Mandated by [swissuniversities](https://www.swissuniversities.ch/)
 
 [Digitisation of newspapers collections 2020/04 | University of Luxembourg](https://impresso.github.io/eldorado/online-program/)
 
+## inseri use cases
+To get a first impression what inseri does, please go here: [https://nie-ine.github.io/inseri/](https://nie-ine.github.io/inseri/)
+
 ## Point of entry
 [Check our user guide](https://github.com/nie-ine/inseri/tree/devel/Tutorials/Your%20scientific%20publication%20A-Z)
 
