@@ -34,7 +34,7 @@ export class TextlistViewerComponent implements OnChanges {
           }
         );
     } else {
-      this.safeHtml = this.domSanitizer.bypassSecurityTrustHtml(this.linkify(this.textToDisplay));
+      this.safeHtml = this.domSanitizer.bypassSecurityTrustHtml(this.textToDisplay);
     }
   }
 
