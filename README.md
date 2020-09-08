@@ -1,3 +1,6 @@
+## inseri use cases
+To get a first impression what inseri does, please go here: [https://nie-ine.github.io/inseri/](https://nie-ine.github.io/inseri/)
+
 Mandated by [swissuniversities](https://www.swissuniversities.ch/)
 
 ## Presented or mentioned at
@@ -7,9 +10,6 @@ Mandated by [swissuniversities](https://www.swissuniversities.ch/)
 [Swissuniversities Newsletter 2020/08 | Switzerland](https://www.swissuniversities.ch/themen/digitalisierung/p-5-wissenschaftliche-information/newsletter/newsletter-august-2020)
 
 [Digitisation of newspapers collections 2020/04 | University of Luxembourg](https://impresso.github.io/eldorado/online-program/)
-
-## inseri use cases
-To get a first impression what inseri does, please go here: [https://nie-ine.github.io/inseri/](https://nie-ine.github.io/inseri/)
 
 ## Point of entry
 [Check our user guide](https://github.com/nie-ine/inseri/tree/devel/Tutorials/Your%20scientific%20publication%20A-Z)
