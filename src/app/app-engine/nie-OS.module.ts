@@ -104,6 +104,7 @@ import { CommentOnIndicesComponent } from './apps/comment-on-indices/comment-on-
 //import {DataListViewDetailsDialogComponent} from './apps/data-list-view/data-list-view-details-dialog/data-list-view-details-dialog.component';
 import { CalendarComponent } from './apps/calendar/calendar.component';
 import {UserGroupComponent} from './user-group/user-group.component';
+import {LinkifyPipe} from '../../pipes/style-pipes';
 
 
 @NgModule({
@@ -234,14 +235,16 @@ import {UserGroupComponent} from './user-group/user-group.component';
     CommentOnIndicesComponent,
     UserGroupComponent,
     //DataListViewDetailsDialogComponent,
-    CalendarComponent
+    CalendarComponent,
+    LinkifyPipe
   ],
   exports: [
     PageComponent,
     MatSidenavModule,
     GrapesjsComponent,
     AllAppSelectorsComponent,
-    CommentOnIndicesComponent
+    CommentOnIndicesComponent,
+    LinkifyPipe
   ],
   entryComponents: [
     DataManagementComponent,
