@@ -279,7 +279,7 @@ section h3.section-subheading {
   text-transform: none;
   font-style: italic;
   font-weight: 400;
-  margin-bottom: 40px
+  margin-bottom: 15px
 }
 
 @media (min-width: 768px) {
