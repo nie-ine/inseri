@@ -104,8 +104,7 @@ import { CommentOnIndicesComponent } from './apps/comment-on-indices/comment-on-
 //import {DataListViewDetailsDialogComponent} from './apps/data-list-view/data-list-view-details-dialog/data-list-view-details-dialog.component';
 import { CalendarComponent } from './apps/calendar/calendar.component';
 import {UserGroupComponent} from './user-group/user-group.component';
-import {LinkifyPipe} from '../../pipes/style-pipes';
-
+import {SharedPipeModule} from '../../pipes/shared-pipe-module/shared-pipe.module';
 
 @NgModule({
   imports: [
@@ -161,6 +160,7 @@ import {LinkifyPipe} from '../../pipes/style-pipes';
     HierarchicalNavigationModule,
     EditorModule,
     PdfViewerModule,
+    SharedPipeModule,
     // KnoraJsonldSimplify,
     AgGridModule.withComponents([]),
     NgxAudioPlayerModule,
@@ -235,8 +235,7 @@ import {LinkifyPipe} from '../../pipes/style-pipes';
     CommentOnIndicesComponent,
     UserGroupComponent,
     //DataListViewDetailsDialogComponent,
-    CalendarComponent,
-    LinkifyPipe
+    CalendarComponent
   ],
   exports: [
     PageComponent,
@@ -244,7 +243,7 @@ import {LinkifyPipe} from '../../pipes/style-pipes';
     GrapesjsComponent,
     AllAppSelectorsComponent,
     CommentOnIndicesComponent,
-    LinkifyPipe
+    SharedPipeModule
   ],
   entryComponents: [
     DataManagementComponent,
