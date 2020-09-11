@@ -64,6 +64,10 @@
 
 </app-home>
 
+<app-crispr *ngIf="app.type === 'crispr'" >
+
+</app-crispr>
+
 
 <app-image-with-overlay style="position: sticky;" *ngIf=" app.type === 'imageViewer'"
                         [iiifImagePath]="app.fileValueAsUrl"

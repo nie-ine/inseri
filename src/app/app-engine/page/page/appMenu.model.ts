@@ -407,6 +407,17 @@ export class AppMenuModel {
       appGroup: 'application'
     },
     {
+      id: 'view_week',
+      name: 'Crispr',
+      tags: 'crispr',
+      color: 'green',
+      status: 'stable',
+      appType: 'crispr',
+      description: 'Try your data with the crispr algorithm',
+      showOnHome: true,
+      appGroup: 'application'
+    },
+    {
       id: 'camera_enhance',
       name: 'Salsah 2',
       tags: 'DaSCH',

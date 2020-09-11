@@ -62,7 +62,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { DataListViewComponent} from './apps/data-list-view/data-list-view.component';
 import { DataListViewSettingsComponent} from './apps/data-list-view/data-list-view-settings/data-list-view-settings';
 import { DataListViewTableComponent, HighlightPipe } from './apps/data-list-view/data-list-view-table/data-list-view-table.component';
-import { DataListViewInAppQueryService } from './apps/data-list-view/data-list-view-services/query.service';
+import { DataListViewInAppQueryService } from './apps/data-list-view/services/query.service';
 import { NavigationModule } from './apps/navigation/navigation.module';
 import { HtmlViewerModule } from './apps/html-viewer/html-viewer.module';
 import {MatCheckboxModule} from '@angular/material/checkbox';
@@ -103,8 +103,10 @@ import { GroupedBarChartV2Component } from './apps/grouped-bar-chart-v2/grouped-
 import { CommentOnIndicesComponent } from './apps/comment-on-indices/comment-on-indices.component';
 //import {DataListViewDetailsDialogComponent} from './apps/data-list-view/data-list-view-details-dialog/data-list-view-details-dialog.component';
 import { CalendarComponent } from './apps/calendar/calendar.component';
-import {UserGroupComponent} from './user-group/user-group.component';
-
+import { CrisprComponent } from './apps/crispr/crispr.component';
+import { MatFileUploadModule } from 'angular-material-fileupload';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
@@ -160,9 +162,12 @@ import {UserGroupComponent} from './user-group/user-group.component';
     HierarchicalNavigationModule,
     EditorModule,
     PdfViewerModule,
+    MatFileUploadModule,
     // KnoraJsonldSimplify,
     AgGridModule.withComponents([]),
     NgxAudioPlayerModule,
+    BrowserModule,
+    BrowserAnimationsModule,
     RouterModule.forChild([
       { path: 'page', component: PageComponent },
       { path: 'browserling', component: BrowserlingComponent },
@@ -170,8 +175,7 @@ import {UserGroupComponent} from './user-group/user-group.component';
       { path: 'app-our-new-component', component: OurNewComponentComponent },
       { path: 'gnd', component: GndLobidComponent },
       { path: 'audio', component: AudioPlayerComponent },
-      { path: 'calendar', component: CalendarComponent },
-      { path: 'app-user-group', component: UserGroupComponent },
+      { path: 'calendar', component: CalendarComponent }
     ])
   ],
   providers: [
@@ -232,9 +236,11 @@ import {UserGroupComponent} from './user-group/user-group.component';
     PieChartV2Component,
     GroupedBarChartV2Component,
     CommentOnIndicesComponent,
-    UserGroupComponent,
+
     //DataListViewDetailsDialogComponent,
-    CalendarComponent
+    CalendarComponent,
+
+    CrisprComponent
   ],
   exports: [
     PageComponent,
