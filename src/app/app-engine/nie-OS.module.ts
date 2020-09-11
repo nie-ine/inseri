@@ -103,7 +103,10 @@ import { GroupedBarChartV2Component } from './apps/grouped-bar-chart-v2/grouped-
 import { CommentOnIndicesComponent } from './apps/comment-on-indices/comment-on-indices.component';
 //import {DataListViewDetailsDialogComponent} from './apps/data-list-view/data-list-view-details-dialog/data-list-view-details-dialog.component';
 import { CalendarComponent } from './apps/calendar/calendar.component';
-
+import { CrisprComponent } from './apps/crispr/crispr.component';
+import { MatFileUploadModule } from 'angular-material-fileupload';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
@@ -159,9 +162,12 @@ import { CalendarComponent } from './apps/calendar/calendar.component';
     HierarchicalNavigationModule,
     EditorModule,
     PdfViewerModule,
+    MatFileUploadModule,
     // KnoraJsonldSimplify,
     AgGridModule.withComponents([]),
     NgxAudioPlayerModule,
+    BrowserModule,
+    BrowserAnimationsModule,
     RouterModule.forChild([
       { path: 'page', component: PageComponent },
       { path: 'browserling', component: BrowserlingComponent },
@@ -232,7 +238,9 @@ import { CalendarComponent } from './apps/calendar/calendar.component';
     CommentOnIndicesComponent,
 
     //DataListViewDetailsDialogComponent,
-    CalendarComponent
+    CalendarComponent,
+
+    CrisprComponent
   ],
   exports: [
     PageComponent,

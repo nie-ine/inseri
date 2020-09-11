@@ -30,6 +30,13 @@ export class OpenAppsModel {
       initialWidth: '600',
       initialHeight: '400'
     },
+    crispr: {
+      type: 'crispr',
+      model: [],
+      materialIcon: 'view_week',
+      initialWidth: '600',
+      initialHeight: '400'
+    },
     commentOnIndices: {
       type: 'commentOnIndices',
       model: [],
