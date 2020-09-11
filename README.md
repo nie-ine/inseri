@@ -1,3 +1,6 @@
+## inseri - have a look!
+To get a first impression what inseri does, please go here: [https://nie-ine.github.io/inseri/](https://nie-ine.github.io/inseri/)
+
 Mandated by [swissuniversities](https://www.swissuniversities.ch/)
 
 ## Presented or mentioned at
