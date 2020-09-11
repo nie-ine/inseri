@@ -91,7 +91,7 @@
             <button mat-menu-item (click)="exportProjectAsZip( action )">Export project</button>
           </mat-menu>
           <h4 class="service-heading">{{ action.title }}</h4>
-          <p class="text-muted">{{ action.description }}</p>
+          <p class="text-muted"  [innerHTML]= "action.description | linkify"></p>
         </div>
         <div
           class="col-md-4"
