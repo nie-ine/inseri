@@ -60,7 +60,6 @@ export class DataListViewComponent implements  OnChanges {
   }
 
   generateTableData(responseData: any, depth: number) {
-    console.log('HHHEEER');
     // returns the array at the node defined by pathToArray variable (path string with dot notation)
     const dataArray =  this.displayedCollumnsService.getDataFromPath(this.dataListSettingsOut.pathToDataArray, responseData);
     this.createGenericData(dataArray);

@@ -15,9 +15,9 @@
   <mat-icon>{{ validPathToDataArray && previewData ? 'verified':'error'}}</mat-icon>
   <button *ngIf="!validPathToDataArray" mat-raised-button  color="primary" (click)="this.testDataSource(chosenDataSource)">Validate path</button>
   <button *ngIf="validPathToDataArray" mat-raised-button  color="accent" (click)="setInitialDataSource()">Set data source</button>
-  <h3>Data preview</h3>
+  <h4  *ngIf="previewData" >Data preview</h4>
   <div *ngIf="previewData" [innerHTML]= "previewData | prettyprint">  </div>
-  <div>
+  <div  *ngIf="!previewData">
     <h4>Manual data source defintion</h4>
     <div>Enter the desired path in the input field above either in dot-notation for objects or even with indices [i] for selecting an index of an array.</div>
     <div>
