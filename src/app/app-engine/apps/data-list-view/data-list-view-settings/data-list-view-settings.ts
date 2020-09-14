@@ -21,6 +21,7 @@ export class DataListViewSettingsComponent implements OnChanges {
   displayedColumns: any;
   selectedOption;
   previewData: any;
+  validPathToDataArray = false
 
   chosenDataSource: string;
 
@@ -60,6 +61,7 @@ export class DataListViewSettingsComponent implements OnChanges {
 
   testDataSource(path) {
     this.previewData = this.displayedColumnsService.getDataFromPath(path, this.dataJson);
+    if (this.previewData) {this.validPathToDataArray = true; }
   }
 
   resetDataSource() {

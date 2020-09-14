@@ -10,10 +10,11 @@
   </mat-radio-group>
   <mat-form-field>
     <mat-label>Data source/path to data array</mat-label>
-    <input matInput [(ngModel)] ="chosenDataSource" (ngModelChange) = "this.testDataSource(chosenDataSource)">
+    <input matInput [(ngModel)] ="chosenDataSource" (ngModelChange) = "validPathToDataArray = false">
   </mat-form-field>
-    <mat-icon *ngIf="previewData">verified</mat-icon>
-  <button mat-raised-button  color="primary" (click)="setInitialDataSource()">Set initial data source</button>
+  <mat-icon>{{ validPathToDataArray && previewData ? 'verified':'error'}}</mat-icon>
+  <button *ngIf="!validPathToDataArray" mat-raised-button  color="primary" (click)="this.testDataSource(chosenDataSource)">Validate path</button>
+  <button *ngIf="validPathToDataArray" mat-raised-button  color="accent" (click)="setInitialDataSource()">Set data source</button>
   <h3>Data preview</h3>
   <div *ngIf="previewData" [innerHTML]= "previewData | prettyprint">  </div>
   <div>
