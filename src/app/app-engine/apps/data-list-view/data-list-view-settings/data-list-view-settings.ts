@@ -17,8 +17,10 @@ export class DataListViewSettingsComponent implements OnChanges {
   @Input() hash: string;
   @Input() dataListSettings: any;
   @Input() dataArrays?: Array<string>;
+  @Input() dataJson?: any;
   displayedColumns: any;
   selectedOption;
+  previewData: any;
 
   chosenDataSource: string;
 
@@ -27,7 +29,7 @@ export class DataListViewSettingsComponent implements OnChanges {
 
   constructor( private displayedCollumnsService: DisplayedCollumnsService,
                private settingsService: SettingsService,
-               private originalColumnsService: SettingsService,
+               private displayedColumnsService: DisplayedCollumnsService,
                private requestService: GeneralRequestService
   ) {
     this.reloadPageChange = this.settingsService.reloadPage.subscribe(settings => {
@@ -54,6 +56,10 @@ export class DataListViewSettingsComponent implements OnChanges {
   setInitialDataSource() {
     this.dataListSettings.pathToDataArray = this.chosenDataSource;
     this.saveSettingsToJson(2); // save && hard reload
+  }
+
+  testDataSource(path) {
+    this.previewData = this.displayedColumnsService.getDataFromPath(path, this.dataJson);
   }
 
   resetDataSource() {

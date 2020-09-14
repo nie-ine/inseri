@@ -1,6 +1,6 @@
 <!-- TABLE-->
 <div *ngIf = "showSettings || mustSetArray">
-  <data-list-view-settings [dataArrays]="dataArrays" [hash]="hash" [appInputQueryMapping]="appInputQueryMapping" [dataListSettings] = "dataListSettingsOut"></data-list-view-settings>
+  <data-list-view-settings [dataArrays]="dataArrays" [dataJson]="queryResponse" [hash]="hash" [appInputQueryMapping]="appInputQueryMapping" [dataListSettings] = "dataListSettingsOut"></data-list-view-settings>
 </div>
 <mat-card *ngIf = "!mustSetArray && !queryResponse && showInstructions">
     <h3>No data input detected. Please define the input of your app:</h3>

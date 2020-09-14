@@ -3,6 +3,7 @@ import { DataListViewInAppQueryService } from './data-list-view-services/query.s
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {DisplayedCollumnsService, DataCell, SettingsService } from './data-list-view-services/data-list-view.service';
 import {Subscription} from 'rxjs';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'data-list-view',
@@ -59,8 +60,9 @@ export class DataListViewComponent implements  OnChanges {
   }
 
   generateTableData(responseData: any, depth: number) {
+    console.log('HHHEEER');
     // returns the array at the node defined by pathToArray variable (path string with dot notation)
-    const dataArray =  this.dataListSettingsOut.pathToDataArray.split('.').reduce((a, b) => a[b], responseData);
+    const dataArray =  this.displayedCollumnsService.getDataFromPath(this.dataListSettingsOut.pathToDataArray, responseData);
     this.createGenericData(dataArray);
   }
 

@@ -1,16 +1,18 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {LinkifyPipe} from './style-pipes';
+import {LinkifyPipe, PrettyPrintPipe} from './style-pipes';
 
 @NgModule({
   declarations: [
-    LinkifyPipe
+    LinkifyPipe,
+    PrettyPrintPipe
   ],
   imports: [
     CommonModule
   ],
   exports: [
-    LinkifyPipe
+    LinkifyPipe,
+    PrettyPrintPipe
   ]
 })
 export class SharedPipeModule {}
