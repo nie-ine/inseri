@@ -24,7 +24,7 @@ export class AuthService {
 
   createUser(email: string, password: string, firstName: string, lastName: string, newsletter: boolean,
              usrProfileFile: File): Observable<any> {
-    //const fileData = new FormData();
+    // const fileData = new FormData();
     const authData = new FormData();
     authData.append( 'password', password);
     authData.append( 'firstName', firstName);
@@ -244,5 +244,9 @@ export class AuthService {
       usrProfileFile.append('file', usrProfilePic, usrProfilePic.name);
     }
     return this.http.post(`${AuthService.API_BASE_URL_USER}/updateUsrProfilePic/${email}`, usrProfileFile);
+  }
+
+  getUserByEmail(email: string): Observable<any> {
+    return this.http.get(`${AuthService.API_BASE_URL_USER}/${email}/getUserByEmail`);
   }
 }

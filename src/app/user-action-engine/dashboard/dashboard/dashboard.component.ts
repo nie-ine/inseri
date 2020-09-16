@@ -324,44 +324,44 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  assignUserToGroup() {
-    this.usergroupService.assignUserToGroup(
-      this.usergroup, this.email)
-      .subscribe(
-        response => {
-          console.log(response);
-        },
-        error => {
-          console.log(error);
-        }
-      );
-  }
-
-  removeUserFromGroup() {
-    this.usergroupService.removeUserFromGroup(
-      this.usergroup, this.email)
-      .subscribe(
-        response => {
-          console.log(response);
-        },
-        error => {
-          console.log(error);
-        }
-      );
-  }
-
-  showGroupMembers(title: string) {
-    console.log('show group members');
-    this.usergroupService.showGroupMembers(title)
-      .subscribe(
-        groupMembers => {
-          console.log(groupMembers);
-          this.groupMembers = (groupMembers as any).body.result.users;
-        },
-        error => {
-          console.log(error);
-        });
-  }
+  // assignUserToGroup() {
+  //   this.usergroupService.assignUserToGroup(
+  //     this.usergroup, this.email)
+  //     .subscribe(
+  //       response => {
+  //         console.log(response);
+  //       },
+  //       error => {
+  //         console.log(error);
+  //       }
+  //     );
+  // }
+  //
+  // removeUserFromGroup() {
+  //   this.usergroupService.removeUserFromGroup(
+  //     this.usergroup, this.email)
+  //     .subscribe(
+  //       response => {
+  //         console.log(response);
+  //       },
+  //       error => {
+  //         console.log(error);
+  //       }
+  //     );
+  // }
+  //
+  // showGroupMembers(title: string) {
+  //   console.log('show group members');
+  //   this.usergroupService.showGroupMembers(title)
+  //     .subscribe(
+  //       groupMembers => {
+  //         console.log(groupMembers);
+  //         this.groupMembers = (groupMembers as any).body.result.users;
+  //       },
+  //       error => {
+  //         console.log(error);
+  //       });
+  // }
 
   openAllPagesDialog() {
     const dialogRef = this.dialog.open(PageListDialogComponent, {
@@ -451,13 +451,10 @@ export class DashboardComponent implements OnInit {
 
   showUserGroupDetails(_id: any) {
     console.log(_id);
-    this.usergroupService.showUserGroupDetails(_id).subscribe(result => {
-      console.log(result);
-      this.router.navigate(['/app-user-group'], {
-        queryParams: {
-          usrGroupId: _id
-        }
-      });
+    this.router.navigate(['app-user-group'], {
+      queryParams: {
+        usrGroupId: _id
+      }, skipLocationChange: true
     });
   }
 }
@@ -528,18 +525,18 @@ export class DialogOverviewExampleDialog {
       );
   }
 
-  deleteUserGroup(title: string) {
-    console.log('show group members');
-    this.usergroupService.deleteGroup(title)
-      .subscribe(
-        response => {
-          console.log(response);
-        },
-        error => {
-          console.log(error);
-        }
-      );
-  }
+  // deleteUserGroup(title: string) {
+  //   console.log('show group members');
+  //   this.usergroupService.deleteGroup(title)
+  //     .subscribe(
+  //       response => {
+  //         console.log(response);
+  //       },
+  //       error => {
+  //         console.log(error);
+  //       }
+  //     );
+  // }
 
   importProjectAsZip($event: Event) {
     const zipFile = (event.target as HTMLInputElement).files[0];
