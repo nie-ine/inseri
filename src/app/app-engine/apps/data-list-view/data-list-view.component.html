@@ -1,9 +1,9 @@
 <!-- TABLE-->
 <div *ngIf = "showSettings || mustSetArray">
-  <data-list-view-settings [dataArrays]="dataArrays" [hash]="hash" [appInputQueryMapping]="appInputQueryMapping" [dataListSettings] = "dataListSettingsOut"></data-list-view-settings>
+  <data-list-view-settings [dataArrays]="dataArrays" [dataJson]="queryResponse" [hash]="hash" [appInputQueryMapping]="appInputQueryMapping" [dataListSettings] = "dataListSettingsOut"></data-list-view-settings>
 </div>
-<mat-card *ngIf =" !mustSetArray && !tableData && dataListSettings.pathToDataArray == ''">
-    <h3>Please define the input of your app:</h3>
+<mat-card *ngIf = "!mustSetArray && !queryResponse && showInstructions">
+    <h3>No data input detected. Please define the input of your app:</h3>
       <li>Open app menu</li>
       <li>App Input Options</li>
       <li>Options for Input JSON</li>
@@ -14,6 +14,5 @@
                         [dataListTableSettings] = "dataListSettingsOut">
   </data-list-view-table>
 </div>
-<div *ngIf = "dataListSettings">
-  <mat-progress-bar *ngIf="!mustSetArray && !tableData && dataListSettings.pathToDataArray !== ''" mode="indeterminate"></mat-progress-bar>
-</div>
+<mat-progress-bar *ngIf="!mustSetArray && !queryResponse && !showInstructions" mode="indeterminate"></mat-progress-bar>
+

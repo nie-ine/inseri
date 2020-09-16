@@ -19,6 +19,7 @@ import {EditPageComponent } from './edit-page/edit-page.component';
 import { DeletePageComponent } from './delete-page/delete-page.component';
 import { DuplicatePageComponent } from './duplicate-page/duplicate-page.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {SharedPipeModule} from '../../../pipes/shared-pipe-module/shared-pipe.module';
 
 @NgModule({
   imports: [
@@ -36,6 +37,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatProgressSpinnerModule,
     MatCheckboxModule,
     MatTooltipModule,
+    SharedPipeModule,
     RouterModule.forRoot([
       {path: 'page-set', component: PageSetLandingPageComponent}
     ])
@@ -58,6 +60,9 @@ import {MatTooltipModule} from '@angular/material/tooltip';
   providers: [
     PageSetService,
     GenerateHashService
+  ],
+  exports: [
+    SharedPipeModule
   ]
 })
 export class MyPageSetModule { }

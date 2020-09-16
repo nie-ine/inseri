@@ -95,10 +95,6 @@ export class SettingsService {
   reloadComponentWithNewSettings(settings) {
     this.reloadPage.emit(settings);
   }
-
-  switchOpenState() {
-    this.settingsOpenState = !this.settingsOpenState;
-    this.settingsOpenStateChange.emit(this.settingsOpenState); }
 }
 
 export class ColumnHeader {

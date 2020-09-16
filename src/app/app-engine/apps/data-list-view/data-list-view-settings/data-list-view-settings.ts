@@ -17,8 +17,11 @@ export class DataListViewSettingsComponent implements OnChanges {
   @Input() hash: string;
   @Input() dataListSettings: any;
   @Input() dataArrays?: Array<string>;
+  @Input() dataJson?: any;
   displayedColumns: any;
   selectedOption;
+  previewData: any;
+  validPathToDataArray = false
 
   chosenDataSource: string;
 
@@ -27,7 +30,7 @@ export class DataListViewSettingsComponent implements OnChanges {
 
   constructor( private displayedCollumnsService: DisplayedCollumnsService,
                private settingsService: SettingsService,
-               private originalColumnsService: SettingsService,
+               private displayedColumnsService: DisplayedCollumnsService,
                private requestService: GeneralRequestService
   ) {
     this.reloadPageChange = this.settingsService.reloadPage.subscribe(settings => {
@@ -44,10 +47,6 @@ export class DataListViewSettingsComponent implements OnChanges {
     this.displayedCollumnsService.setDisplayedColumns(this.displayedColumns);
   }
 
-  closeSettings() {
-    this.settingsService.switchOpenState();
-  }
-
   recreateGenericColumns() {
     this.dataListSettings.columns.manualColumns = false;
     this.dataListSettings.columns.columnMapping = [];
@@ -60,6 +59,11 @@ export class DataListViewSettingsComponent implements OnChanges {
     this.saveSettingsToJson(2); // save && hard reload
   }
 
+  testDataSource(path) {
+    this.previewData = this.displayedColumnsService.getDataFromPath(path, this.dataJson);
+    if (this.previewData) {this.validPathToDataArray = true; }
+  }
+
   resetDataSource() {
     this.dataListSettings.pathToDataArray = '';
     this.dataListSettings.jsonType = 'any';
@@ -69,7 +73,6 @@ export class DataListViewSettingsComponent implements OnChanges {
   }
 
   saveJsonType() {
-    console.log('json type: ', this.jsonType);
     this.dataListSettings.jsonType = this.jsonType;
     this.dataListSettings.columns.manualColumns = false;
     this.dataListSettings.columns.columnMapping = [];

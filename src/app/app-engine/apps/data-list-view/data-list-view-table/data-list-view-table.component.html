@@ -1,15 +1,9 @@
-<div style="display: flex;
-     justify-content: space-between;">
-  <!-- FILTER -->
-  <div  *ngIf="dataListTableSettings.filter.showFilter && dataSource && dataSource.data">
-      <mat-form-field>
-        <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
-        <mat-hint *ngIf="paginator">Displaying {{getSumOfDisplayedEntries()}} of {{dataSource.data.length}} entries in total</mat-hint>
-      </mat-form-field>
-  </div>
-  <span>
-    <button mat-icon-button (click)="openSettings()"><mat-icon>settings</mat-icon></button>
-  </span>
+<!-- FIlter -->
+<div  *ngIf="dataListTableSettings.filter.showFilter && dataSource && dataSource.data">
+    <mat-form-field>
+      <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+      <mat-hint *ngIf="paginator">Displaying {{getSumOfDisplayedEntries()}} of {{dataSource.data.length}} entries in total</mat-hint>
+    </mat-form-field>
 </div>
 <!--TABLE-->
 <mat-table [dataSource]="dataSource"
