@@ -593,7 +593,7 @@ appInputsArray = [];
             { queryParams:
                 { actionID: pageSet.actionId,
                   page: data.pageset.hasPages[0]
-                }
+                }, skipLocationChange: true
             });
          console.log(data.pageset.hasPages[0]);
         }, error1 => {

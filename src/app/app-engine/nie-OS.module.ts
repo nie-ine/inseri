@@ -103,7 +103,7 @@ import { GroupedBarChartV2Component } from './apps/grouped-bar-chart-v2/grouped-
 import { CommentOnIndicesComponent } from './apps/comment-on-indices/comment-on-indices.component';
 //import {DataListViewDetailsDialogComponent} from './apps/data-list-view/data-list-view-details-dialog/data-list-view-details-dialog.component';
 import { CalendarComponent } from './apps/calendar/calendar.component';
-import {UserGroupComponent} from './user-group/user-group.component';
+//import {UserGroupComponent} from '../user-action-engine/user-group/user-group.component';
 import {SharedPipeModule} from '../../pipes/shared-pipe-module/shared-pipe.module';
 
 @NgModule({
@@ -171,8 +171,7 @@ import {SharedPipeModule} from '../../pipes/shared-pipe-module/shared-pipe.modul
       { path: 'app-our-new-component', component: OurNewComponentComponent },
       { path: 'gnd', component: GndLobidComponent },
       { path: 'audio', component: AudioPlayerComponent },
-      { path: 'calendar', component: CalendarComponent },
-      { path: 'app-user-group', component: UserGroupComponent },
+      { path: 'calendar', component: CalendarComponent }
     ])
   ],
   providers: [
@@ -233,7 +232,7 @@ import {SharedPipeModule} from '../../pipes/shared-pipe-module/shared-pipe.modul
     PieChartV2Component,
     GroupedBarChartV2Component,
     CommentOnIndicesComponent,
-    UserGroupComponent,
+    //UserGroupComponent,
     //DataListViewDetailsDialogComponent,
     CalendarComponent
   ],
