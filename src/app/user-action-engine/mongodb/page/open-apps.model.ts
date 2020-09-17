@@ -30,6 +30,21 @@ export class OpenAppsModel {
       initialWidth: '600',
       initialHeight: '400'
     },
+    machineReasoning: {
+      type: 'machineReasoning',
+      model: [],
+      materialIcon: 'blur_on',
+      initialWidth: '600',
+      initialHeight: '800',
+      fullWidth: true
+    },
+    crispr: {
+      type: 'crispr',
+      model: [],
+      materialIcon: 'view_week',
+      initialWidth: '600',
+      initialHeight: '400'
+    },
     commentOnIndices: {
       type: 'commentOnIndices',
       model: [],

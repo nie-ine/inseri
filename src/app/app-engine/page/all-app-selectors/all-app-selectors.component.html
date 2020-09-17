@@ -64,6 +64,10 @@
 
 </app-home>
 
+<app-crispr *ngIf="app.type === 'crispr'" >
+
+</app-crispr>
+
 
 <app-image-with-overlay style="position: sticky;" *ngIf=" app.type === 'imageViewer'"
                         [iiifImagePath]="app.fileValueAsUrl"
@@ -157,6 +161,10 @@
                 [showSettings]="app.showSettings"
                 (reloadVariables)="reloadVariablesFunction()">
 </data-list-view>
+
+<app-machine-reasoning *ngIf="app.type === 'machineReasoning'">
+
+</app-machine-reasoning>
 
 
 <app-bar-chart *ngIf=" app.type === 'barCharts' "

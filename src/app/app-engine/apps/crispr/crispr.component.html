@@ -1,0 +1,4 @@
+<button mat-button (click)="imgFileInput.click()">{{ !showSubmitButton ? 'Choose file' : 'Choose another file' }}</button> <br>
+
+<input style="display: none;" type="file" #imgFileInput (change)="onFileChange($event.target.files)"/>
+<button mat-button (click)="submitFile()" *ngIf="showSubmitButton">Submit {{ fileToUpload.name }} </button>

@@ -1,4 +1,5 @@
-Contact and info about the organisation NIE-INE | NATIONAL INFRASTRUCTURE FOR EDITIONS | A swiss-wide organisation for the infrastructure of editions: [https://www.nie-ine.ch/](https://www.nie-ine.ch/)
+## inseri - have a look!
+To get a first impression what inseri does, please go here: [https://nie-ine.github.io/inseri/](https://nie-ine.github.io/inseri/)
 
 Mandated by [swissuniversities](https://www.swissuniversities.ch/)
 
@@ -13,39 +14,7 @@ Mandated by [swissuniversities](https://www.swissuniversities.ch/)
 ## Point of entry
 [Check our user guide](https://github.com/nie-ine/inseri/tree/devel/Tutorials/Your%20scientific%20publication%20A-Z)
 
-## What can I do with inseri?
-inseri is an online collaborative work and publish environment.
-
-## What can I publish with inseri?
-
-- You can create websites with inseri
-	- Websites consist of collages that display your data.
-	- This data can be text you entered directly in inseri, but also data from your database
-- You can create online presentations with inseri
-	- Like in powerpoint, you can create online presentations in inseri. Slides are called collages in inseri and can visualise data from your database in d3.js data visualisations.
-	- Users can comment on each collage, which is helpful for instance in lectures that professors hold in front of 1000 students who might have further questions especially related to one collage.
-	- You can store each collage in a central way and integrate it in different presentations, thus no more copy and pasting slides with the same content, you can maintain everything in a central way!
-- You can publish own frontend components in inseri
-	- If you wish to write own frontend components, for instance to enter data in your database or to create an individual d3.js data visualisations, you can do this very fast in inseri. Any npm - module can be integrated in inseri without any needed changes of the npm module you would like to integrate.
-
-## How can I work with inseri? 
-
-- inseri can be used to work online and collaboratively
-	- If somebody in your team needs to enter data and another team member needs to review it, you can create a site with 2 collages in inseri, exactly tailored to your team-specific workflow
-- Your can upload any of your data to inseri and always access it whereever you are, also over your phone. inseri also provides pdf readers and other apps that enable you to work with your data.
-- You can display for example one pdf, one spreadsheet, and one texteditor on one collage and save this constellation. You can then come back to this collage and keep on working on your task, also collaboratively with colleagues.
-
-## Who is inseri for?
-
-- Universities who would like to centrally maintain project and research specific online presentations of data and research output. Since maintaining thousands of different websites is too labor intensive for many IT departments, inseri offers projects to create websites in inseri which can be centrally maintained by the respective insitution.
-- Online developers who would like to publish combineable frontend components. If a frontend developer for instance needs a SQL-entry-frontend-component fast, he/she is much faster adding it to inseri than creating a whole new project. He/She is able to maintain everything he/she does in a central, reusable and combineable way.
-- Companies who write internal and external business applications can create their frontend components in inseri. This way the components are instantly reusable by other users and clients if desired.
-- Universities who would like to create research specific data visualisations in a central way. A researcher or phd student who creates his/her data visualisations in inseri enables future researchers and phd students to reuse the visualisations for their research.
-- Researchers and phd students who would like to visualise and publish their data online as part of their research publication.
-- University projects who would like to publish their data and enable the user to visualise and create interesting subsets of the published data. For instance, a user can visualise data from one Library which published a RestFul API, visualise on the same collage data from another Library RestFul API, visualise on the same collage data from a University project, and add his/her own notes, thus working on his/her research.
-
-
-# Get it up and running - OUTDATED - needs to be updated!
+# Get it up and running
 
 [![Build Status](https://travis-ci.org/nie-ine/NIE-OS.svg?branch=devel)](https://travis-ci.org/nie-ine/inseri)
 ![Docker pulls](https://img.shields.io/docker/pulls/nieine/nieos.svg)
@@ -57,7 +26,7 @@ inseri is an online collaborative work and publish environment.
  
 1. ```mv ./backend/settings_default ./backend/.settings```
 2. ```docker-compose up```
-3. Wait until the mongodb - conatiner has a first terminal output, then restart the nieine/mean container, the last terminal output of the node container should say  "connected to database"
+3. Wait until the mongodb - container has a first terminal output, then restart the nieine/mean container, the last terminal output of the node container should say  "connected to database"
 
 So, in another terminal, type:
 
