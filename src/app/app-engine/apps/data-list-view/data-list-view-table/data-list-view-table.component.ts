@@ -36,7 +36,7 @@ export class DataListViewTableComponent implements OnChanges {
   // Replacing
   UMLAUT_REPLACEMENTS = '{[{ "Ä", "Ae" }, { "Ü", "Ue" }, { "Ö", "Oe" }, { "ä", "ae" }, { "ü", "ue" }, { "ö", "oe" }, {É, E}]}';
 
-  hoveredDataCell: DataCell;
+  hoveredDataCell: DataCell; // used in template only
 
   constructor( private _router: Router,
                private settingsService: SettingsService,
@@ -45,7 +45,7 @@ export class DataListViewTableComponent implements OnChanges {
       this.definedColumns = cols;
       this.updateDisplayedColumns();
       if (this.dataSource) { this.setFilter(); }
-    });
+      });
     }
 
   ngOnChanges() {
@@ -75,7 +75,12 @@ export class DataListViewTableComponent implements OnChanges {
     this.dataSource.sortingDataAccessor = (item, property) => {
       if ( item[property] ) {
         if ('value' in item[property]) {
-          return item[property].value.toLowerCase();
+          if (typeof item[property].value === 'string') {
+            return item[property].value.toLowerCase();
+          }
+          if (typeof item[property].value === 'number') {
+            return item[property].value;
+          }
         }
       }
     };

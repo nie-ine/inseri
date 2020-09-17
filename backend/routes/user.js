@@ -338,6 +338,23 @@ router.get('/:email/reset-password', (req, res, next) => {
     });
 });
 
+router.get('/:email/getUserByEmail', (req, res, next) => {
+  User.findOne({email: req.params.email})
+    .then(result => {
+      console.log(result);
+        res.status(201).json({
+          message: 'User Successfully found ',
+          user: result
+        });
+    })
+    .catch(err => {
+      console.log(err);
+      return res.status(401).json({
+        message: 'Did not find user'
+      });
+    });
+});
+
 router.post('/:email/reset-password-set-new-password', (req, res, next) => {
   User.findOne({email: req.params.email})
     .then(result => {
