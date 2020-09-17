@@ -30,6 +30,15 @@ export class OpenAppsModel {
       initialWidth: '600',
       initialHeight: '400'
     },
+    machineReasoning: {
+      type: 'machineReasoning',
+      model: [],
+      materialIcon: 'blur_on',
+      initialWidth: '600',
+      initialHeight: '400',
+      fullWidth: true,
+      fullHeight: true
+    },
     crispr: {
       type: 'crispr',
       model: [],

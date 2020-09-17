@@ -107,6 +107,7 @@ import { CrisprComponent } from './apps/crispr/crispr.component';
 import { MatFileUploadModule } from 'angular-material-fileupload';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MachineReasoningComponent } from './apps/machine-reasoning/machine-reasoning.component';
 
 @NgModule({
   imports: [
@@ -240,7 +241,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     //DataListViewDetailsDialogComponent,
     CalendarComponent,
 
-    CrisprComponent
+    CrisprComponent,
+
+    MachineReasoningComponent
   ],
   exports: [
     PageComponent,
