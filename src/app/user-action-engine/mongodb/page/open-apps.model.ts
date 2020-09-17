@@ -35,9 +35,8 @@ export class OpenAppsModel {
       model: [],
       materialIcon: 'blur_on',
       initialWidth: '600',
-      initialHeight: '400',
-      fullWidth: true,
-      fullHeight: true
+      initialHeight: '800',
+      fullWidth: true
     },
     crispr: {
       type: 'crispr',

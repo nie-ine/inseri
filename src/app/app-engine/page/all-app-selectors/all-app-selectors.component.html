@@ -162,6 +162,10 @@
                 (reloadVariables)="reloadVariablesFunction()">
 </data-list-view>
 
+<app-machine-reasoning *ngIf="app.type === 'machineReasoning'">
+
+</app-machine-reasoning>
+
 
 <app-bar-chart *ngIf=" app.type === 'barCharts' "
                [initialised] = "app.initialized"

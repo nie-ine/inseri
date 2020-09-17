@@ -60,7 +60,7 @@ export class DataListViewSettingsComponent implements OnChanges {
   }
 
   testDataSource(path) {
-    this.previewData = this.displayedColumnsService.getDataFromPath(path, this.dataJson);
+    // this.previewData = this.displayedColumnsService.getDataFromPath(path, this.dataJson);
     if (this.previewData) {this.validPathToDataArray = true; }
   }
 
