@@ -22,6 +22,17 @@ export class AppMenuModel {
       appGroup: 'visualise'
     },
     {
+      id: 'blur_on',
+      name: 'Machine Reasoning',
+      tags: 'N3, rdfs, rdf, owl',
+      color: 'yellow',
+      status: 'under development',
+      appType: 'machineReasoning',
+      description: 'Reason with reason',
+      showOnHome: false,
+      appGroup: 'microservice'
+    },
+    {
       id: 'speaker_notes',
       name: 'Comment App',
       tags: 'comment, browse',

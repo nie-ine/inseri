@@ -6,8 +6,8 @@ docker login
 
 ng build --optimization=false
 docker build -t nieos .
-docker tag nieos:latest nieine/nieos:${DATE}
-docker push nieine/nieos:${DATE}
+docker tag nieos:latest nieine/nieos:latest
+docker push nieine/nieos:latest
 
 ng build --optimization=false --configuration=production
 docker build -t nieos-production-instance .

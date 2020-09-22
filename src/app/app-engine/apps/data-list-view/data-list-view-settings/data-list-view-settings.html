@@ -1,13 +1,36 @@
 <mat-card *ngIf="dataListSettings.pathToDataArray === '' && dataArrays">
-  <label>Please choose the path to the data array of your json input you like to be displayed in the table, set your choice and reload the page.</label>
-  <mat-radio-group  [(ngModel)]="chosenDataSource">
+  <h4>Please select one of the data arrays proposed here or set the path manually</h4>
+  <mat-radio-group  [(ngModel)]="chosenDataSource" (ngModelChange) = "this.testDataSource(chosenDataSource)">
+    <mat-label>Detected data arrays</mat-label>
     <div *ngFor="let path of dataArrays">
       <mat-radio-button [value]="path">
         {{path}}
       </mat-radio-button>
     </div>
   </mat-radio-group>
-  <button mat-raised-button  color="primary" (click)="setInitialDataSource()">Set initial data source</button>
+  <mat-form-field>
+    <mat-label>Data source/path to data array</mat-label>
+    <input matInput [(ngModel)] ="chosenDataSource" (ngModelChange) = "validPathToDataArray = false">
+  </mat-form-field>
+  <mat-icon>{{ validPathToDataArray && previewData ? 'verified':'error'}}</mat-icon>
+  <button *ngIf="!validPathToDataArray" mat-raised-button  color="primary" (click)="this.testDataSource(chosenDataSource)">Validate path</button>
+  <button *ngIf="validPathToDataArray" mat-raised-button  color="accent" (click)="setInitialDataSource()">Set data source</button>
+  <h4  *ngIf="previewData" >Data preview</h4>
+  <div *ngIf="previewData" [innerHTML]= "previewData">  </div> <!-- | prettyprint-->
+  <div  *ngIf="!previewData">
+    <h4>HowTo: Manual data source defintion</h4>
+    <div>Enter the desired path in the input field above either in dot-notation for objects or even with indices [i] for selecting an index of an array.</div>
+    <div>
+      <h5>Example 1: Nested objects</h5>
+      <mat-label>For chosing an array "apples" in fruits property of the objectContainingData: </mat-label>
+      <mat-form-field><input [disabled] = "true" matInput value ="objectContainingData.fruits.apples"></mat-form-field>
+    </div>
+    <div>
+      <h5>Example 2: nested arrays</h5>
+      <mat-label>For chosing an array "fruitData" which is the first index of the fruitArray in the objectContainingData use the brackets []: </mat-label>
+      <mat-form-field><input [disabled] = "true" matInput value ="objectContainingData.fruits[0].fruitData"></mat-form-field>
+    </div>
+  </div>
 </mat-card>
 <mat-card *ngIf="dataListSettings.pathToDataArray !== '' && dataArrays.length === 0">
   <mat-expansion-panel>
@@ -124,7 +147,15 @@
       <div>
         <mat-slide-toggle [(ngModel)]="dataListSettings.columns.manualColumns"
                           [checked]="dataListSettings.columns.manualColumns"
-                          [disabled]="dataListSettings.columns.manualColumns">manual column definition</mat-slide-toggle>
+                          [disabled]="dataListSettings.columns.manualColumns"
+                          (ngModelChange)="updateColumns()">manual column definition</mat-slide-toggle>
+        <button mat-raised-button
+                *ngIf="dataListSettings.columns.manualColumns"
+                color="accent"
+                matTooltip="By restoring the columns to default all saved column definitions will be overwritten by default!"
+                (click)="recreateGenericColumns()">
+          <mat-icon >warning</mat-icon>Restore generic columns
+        </button>
       </div>
       <div *ngIf = "dataListSettings.columns.manualColumns">
         <h4>Column definition</h4>
@@ -138,8 +169,7 @@
                 <h5>Column title</h5>
                 <mat-form-field>
                   <mat-label>Column name</mat-label>
-                    <input matInput
-                           value="{{colDef.columnName}}" [(ngModel)]="colDef.columnName" (ngModelChange)="updateColumns()" >
+                    <input matInput value="{{colDef.columnName}}" [(ngModel)]="displayedColumns[i].columnName" (ngModelChange)="updateColumns()" >
                 </mat-form-field>
               </div>
               <div>
@@ -207,15 +237,6 @@
         </div>
       </div>
       <button mat-raised-button  color="primary" (click)="saveColumnDefinition()">Save column definition</button>
-      <button mat-raised-button
-              color="accent"
-              matTooltip="By restoring the columns to default all saved column definitions will be overwritten by default!"
-              (click)="recreateGenericColumns()">
-        <mat-icon >warning</mat-icon>Restore generic columns
-      </button>
     </mat-card>
   </mat-expansion-panel>
-  <div>
-    <button mat-raised-button (click)="closeSettings()">Close all settings</button>
-  </div>
 </mat-card>

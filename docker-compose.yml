@@ -4,7 +4,7 @@ services:
   nieos_production:
     # build: .
     #image: nieine/nieos:2019-07-31
-    image: nieine/nieos:19-08-04
+    image: nieine/nieos:latest
     ports:
     - 4200:80
     volumes:
@@ -16,7 +16,7 @@ services:
 
   node:
     # image: mean:latest
-    image:  mean:latest
+    image:  nieine/mean:latest
     ports:
     - 3000:3000
     entrypoint: npm run start:server

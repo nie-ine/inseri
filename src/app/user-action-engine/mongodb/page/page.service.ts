@@ -69,4 +69,11 @@ export class PageService {
     return this.http.get(`${PageService.API_BASE_URL_PAGE}/undoPublishTemplate/${pageID}`);
   }
 
+  addProfilePhotoForTemplate(pageID: any, templatePhoto: File) {
+    const template = new FormData();
+    template.append('file', templatePhoto, templatePhoto.name);
+    template.append( 'host', environment.app);
+    return this.http.post(`${PageService.API_BASE_URL_PAGE}/addProfileTemplate/${pageID}`,
+      template);
+  }
 }

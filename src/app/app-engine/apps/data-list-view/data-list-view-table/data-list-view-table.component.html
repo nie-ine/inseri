@@ -1,15 +1,9 @@
-<div style="display: flex;
-     justify-content: space-between;">
-  <!-- FILTER -->
-  <div  *ngIf="dataListTableSettings.filter.showFilter && dataSource && dataSource.data">
-      <mat-form-field>
-        <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
-        <mat-hint *ngIf="paginator">Displaying {{getSumOfDisplayedEntries()}} of {{dataSource.data.length}} entries in total</mat-hint>
-      </mat-form-field>
-  </div>
-  <span>
-    <button id = "settings-button" mat-icon-button (click)="openSettings()"><mat-icon>settings</mat-icon></button>
-  </span>
+<!-- FIlter -->
+<div  *ngIf="dataListTableSettings.filter.showFilter && dataSource && dataSource.data">
+    <mat-form-field>
+      <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+      <mat-hint *ngIf="paginator">Displaying {{getSumOfDisplayedEntries()}} of {{dataSource.data.length}} entries in total</mat-hint>
+    </mat-form-field>
 </div>
 <!--TABLE-->
 <mat-table [dataSource]="dataSource"
@@ -25,7 +19,11 @@
       <div *ngIf="row[col.columnPath]"  class="table-cell">
         <table>
         <tr class="inner-table-cell">
-          <td  [ngStyle]="{'cursor': col.link.linkType !== 'none' ? 'pointer' : 'unset' }" (click)="onThisClick(col, i)" class="value-cell"><span class="mat-cell" [innerHTML]="row[col.columnPath].value"></span></td>
+          <td  [ngStyle]="{'cursor': col.link.linkType !== 'none' ? 'pointer' : 'unset' }"
+               (click)="onThisClick(col, i)"
+               class="value-cell">
+            <span class="mat-cell" [innerHTML]="row[col.columnPath].value | highlight: toHighlightByFilter"></span>
+          </td>
           <td class="button-container">
             <button mat-icon-button class="context-menu-button"
                     [matMenuTriggerFor]="contextMenu">
@@ -70,7 +68,7 @@
   <button (click)="export()" style="margin: 3em">Export</button>
 </div>
 <mat-menu #contextMenu="matMenu">
-  <button mat-menu-item (click)="copyToClipboard(showCellmoreVert.value)">
+  <button mat-menu-item > <!-- (click)="copyToClipboard(showCellmoreVert.value)" -->
     <mat-icon>content_copy</mat-icon>
     <span>Copy content to clipboard</span>
   </button>
