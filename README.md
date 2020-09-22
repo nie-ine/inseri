@@ -25,6 +25,7 @@ If you want to use it locally or on your server, but you don't want to contribut
  - ``git clone https://github.com/nie-ine/inseri.git``
  - ``cd inseri``
   - ```mv ./backend/settings_default ./backend/.settings```
+  - replace salt in ./backend/.settings/slat.js to own secret string
   - ```docker-compose up```
   
   
@@ -47,10 +48,11 @@ If you want to contribute own code. If questions appear, don't hesiate to contac
  - ``git clone https://github.com/nie-ine/inseri.git``
  - ``cd inseri``
  - ```mv ./backend/settings_default ./backend/.settings```
+ - replace salt in ./backend/.settings/slat.js to own secret string
 
 #### Create MongoDB instance:
 
- - Create a sandbox on Mongodb Cloud, choose a free instance.
+ - Create a sandbox on [the mongoDB cloud](https://account.mongodb.com/account/login), choose a free instance.
  - In this sandbox, add your IP to the whitelist
  - Get the server-connect string, similiar to this: ```mongodb+srv://user:dfgsdbdtrgr@cluster567-7kilp.mongodb.net/node-angular``` via klick on Connect, klick on connect your application, klick one nodejs
 
