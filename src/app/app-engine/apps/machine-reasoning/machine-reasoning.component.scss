@@ -1,0 +1,46 @@
+$containerHeight: 400px;
+$filesHeight: $containerHeight * 0.7;
+$urlsHeight: $containerHeight * 0.3;
+$backgroundGrey: rgba(0, 0, 0, 0.065);
+
+.source_container {
+  position: relative;
+  height: $containerHeight;
+}
+
+.files {
+  position: relative;
+  height: $filesHeight;
+}
+
+.file_list {
+  position: relative;
+  height: $filesHeight * 0.75;
+  background-color: $backgroundGrey;
+  padding: 5px;
+  margin-bottom: 15px;
+}
+
+.urls {
+  position: relative;
+  height: $urlsHeight;
+}
+
+.urls textarea {
+  position: relative;
+  height: $urlsHeight;
+  background-color: $backgroundGrey;
+  padding: 5px;
+  resize: none;
+}
+
+#param_list {
+  position: relative;
+  height: $urlsHeight * 0.5;
+  background-color: $backgroundGrey;
+  padding: 5px;
+  margin: 5px 0 15px 0;
+  resize: none;
+}
+
+

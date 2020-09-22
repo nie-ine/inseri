@@ -1,3 +1,55 @@
-<p>
-  machine-reasoning works!
-</p>
+<div>
+  <mat-tab-group animationDuration="500ms">
+    <mat-tab label="Data">
+      <div class="source_container">
+        <div class="files">
+          <div class="file_list" id="data_uploads">
+            Upload data files...
+          </div>
+          <input #hidden_upl_data style="display:none" type="file" (change)="onFileSelect($event)" multiple>
+          <button mat-raised-button (click)="hidden_upl_data.click()">Select data files</button>
+          <!-- <input class="upload_btn" type="file" id="upl_data" multiple> -->
+        </div>
+        <div class="urls">
+          <textarea matInput id="data_list" aria-label="list of data URLs" placeholder="...or you can insert data URLs here (line by line)"></textarea>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Rules">
+      <div class="source_container">
+        <div class="files">
+          <div class="file_list" id="rule_uploads">
+            Upload rule files...
+          </div>
+          <input #hidden_upl_rule style="display:none" type="file" (change)="onFileSelect($event)" multiple>
+          <button mat-raised-button (click)="hidden_upl_rule.click()">Select rule files</button>
+          <!-- <input class="upload_btn" type="file" id="upl_rules" multiple> -->
+        </div>
+        <div class="urls">
+          <textarea matInput id="rule_list" aria-label="list of rule URLs" placeholder="...or you can insert rule URLs here (line by line)"></textarea>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Queries">
+      <div class="source_container">
+        <div class="files">
+          <div class="file_list" id="query_uploads">
+            Upload query files...
+          </div>
+          <input #hidden_upl_query style="display:none" type="file" (change)="onFileSelect($event)" multiple>
+          <button mat-raised-button (click)="hidden_upl_query.click()">Select query files</button>
+          <!-- <input class="upload_btn" type="file" id="upl_queries" multiple> -->
+        </div>
+        <div class="urls">
+          <textarea matInput id="query_list" aria-label="list of query URLs" placeholder="...or you can insert query URLs here (line by line)"></textarea>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+  <hr>
+  <div id="parameters">
+    <span class="param">The parameters (currently readonly)</span>
+    <textarea matInput id="param_list" aria-label="reasoning parameters" readonly>--nope</textarea>
+  </div>
+  <button mat-raised-button id="reason">Reason</button>
+</div>
