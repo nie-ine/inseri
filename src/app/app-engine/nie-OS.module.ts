@@ -67,6 +67,7 @@ import { NavigationModule } from './apps/navigation/navigation.module';
 import { HtmlViewerModule } from './apps/html-viewer/html-viewer.module';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { OpenbisLoginComponent } from './apps/openbis-login/openbis-login.component';
+import { UserGroupComponent } from './user-group/user-group.component';
 // import { KnoraJsonldSimplify } from 'knora-jsonld-simplify/dist';
 import { DataChooserComponent } from '../query-app-interface/data-management/data-chooser/data-chooser.component';
 import { StaticPagesModule } from  '../user-action-engine/static-pages.module';
@@ -243,7 +244,8 @@ import { MachineReasoningComponent } from './apps/machine-reasoning/machine-reas
 
     CrisprComponent,
 
-    MachineReasoningComponent
+    MachineReasoningComponent,
+    UserGroupComponent
   ],
   exports: [
     PageComponent,
