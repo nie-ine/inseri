@@ -16,7 +16,7 @@ services:
 
   node:
     # image: mean:latest
-    image:  mean:latest
+    image:  nieine/mean:latest
     ports:
     - 3000:3000
     entrypoint: npm run start:server
