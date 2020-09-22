@@ -48,7 +48,7 @@ If you want to contribute own code. If questions appear, don't hesiate to contac
  - ``git clone https://github.com/nie-ine/inseri.git``
  - ``cd inseri``
  - ```mv ./backend/settings_default ./backend/.settings```
- - replace salt in ./backend/.settings/slat.js to own secret string
+ - replace salt in ./backend/.settings/salt.js to own secret string
 
 #### Create MongoDB instance:
 
