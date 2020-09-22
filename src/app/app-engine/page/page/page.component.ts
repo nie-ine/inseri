@@ -268,6 +268,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
   slogan: string;
 
   queryParams: any;
+  private templatePhoto: File;
+  private imagePreview: string;
 
   constructor(
     public route: ActivatedRoute,
@@ -1312,5 +1314,18 @@ export class PageComponent implements OnInit, AfterViewChecked {
         }, error => console.log( error )
       );
   }
-
+  addProfilePhoto($event: Event) {
+    this.templatePhoto = (event.target as HTMLInputElement).files[0];
+    // const reader = new FileReader();
+    // reader.onload = () => {
+    //   this.imagePreview = reader.result as string;
+    // };
+    // reader.readAsDataURL(this.templatePhoto);
+    this.pageService.addProfilePhotoForTemplate( this.page._id, this.templatePhoto).subscribe(
+      response => {
+        console.log( response );
+      }, error => console.log( error )
+    );
+  }
 }
+

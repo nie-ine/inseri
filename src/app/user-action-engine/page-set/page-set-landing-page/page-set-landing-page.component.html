@@ -38,7 +38,7 @@
           </button>
           <button mat-button (click)="deletePage(page)" *ngIf="!preview"><mat-icon>delete</mat-icon></button>
 <!--          <button mat-button (click)="duplicatePage(page)"><mat-icon>file_copy</mat-icon></button>-->
-          <span style="font-size: 15px" [innerHTML] = "page.description | linkify" ></span>
+          <span style="font-size: 15px" [innerHTML] = "page.description " ></span> <!--| linkify-->
 
         </span>
     </div>

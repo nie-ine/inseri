@@ -35,19 +35,6 @@ export class AuthService {
     if (usrProfileFile) {
       authData.append('file', usrProfileFile, usrProfileFile.name);
     }
-    //   usrProfileFilePath: environment.app + '/assets/img/team/user-icon-vector.jpg'
-    //
-    // if (usrProfileFile) {
-    //   fileData.append('file', usrProfileFile, usrProfileFile.name);
-    // }
-    // const authData: AuthData = {
-    //   email: email,
-    //   password: password,
-    //   firstName: firstName,
-    //   lastName: lastName,
-    //   newsLetter: newsletter,
-    //   usrProfileFilePath: environment.app + '/assets/img/team/user-icon-vector.jpg'
-    // };
     return this.http.post(`${AuthService.API_BASE_URL_USER}/signup/` + newsletter, authData);
   }
 

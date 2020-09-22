@@ -78,7 +78,7 @@ export class UserGroupComponent implements OnInit {
           }
 
           // console.log(this.actions);
-          const temp = this.actions.map((obj) => ({...obj, ['color']: '', ['pages']: []}));
+          const temp = this.actions.map((obj) => ({...obj, ['color']: 'black', ['pages']: []}));
           this.actions = temp;
           result.body.userGroup.hasActions.forEach(actionInUserGroup => {
             const indexOfAction = this.searchObjIdInArray(actionInUserGroup.actionId._id, this.actions);
@@ -86,11 +86,11 @@ export class UserGroupComponent implements OnInit {
               this.actions[indexOfAction].color = 'green'; // found in my list as well, update the pages.
               this.actions[indexOfAction].pages = [];
               // console.log(actionInUserGroup.hasPages);
-              actionInUserGroup.hasPages.forEach(pageInUsrGrp => {
-                if (this.searchObjIdInArray(pageInUsrGrp._id, this.actions[indexOfAction].hasPageSet.hasPages) !== -1) {
-                  this.actions[indexOfAction].pages.push({page: pageInUsrGrp, toAdd: false});
+              this.actions[indexOfAction].hasPageSet.hasPages.forEach(pageInAction => {
+                if (this.searchObjIdInArray(pageInAction._id, actionInUserGroup.hasPages) !== -1) {
+                  this.actions[indexOfAction].pages.push({page: pageInAction, toAdd: false});
                 } else {
-                  this.actions[indexOfAction].pages.push({page: pageInUsrGrp, toAdd: true});
+                  this.actions[indexOfAction].pages.push({page: pageInAction, toAdd: true});
                 }
               });
             } else {
@@ -107,25 +107,17 @@ export class UserGroupComponent implements OnInit {
       });
   }
 
-  addProjectToUserGroup(action: any, pages?: any) {
+  addProjectToUserGroup(action: any) {
     const pagesId = [];
-    // console.log(action);
     if (action.color === 'green') { // the project is one of  the user group projects
       alert('The project is already in the userGroup, you can add/remove its pages');
       return;
     }
-    if (!pages) {
       action.hasPageSet.hasPages.forEach(page => {
         pagesId.push(page._id);
       });
-    } else {
-      pages.forEach(page => {
-        pagesId.push(page._id);
-      });
-    }
     this.userGroupService.addProjectToUserGroup(action._id, pagesId, this.groupId).subscribe(results => {
       this.updateVariables();
-      // console.log(results);
     });
   }
 
@@ -138,13 +130,37 @@ export class UserGroupComponent implements OnInit {
   }
 
   addPageToProject(page: any) {
-    this.userGroupService.addRemovePageToProject(this.actionId, this.groupId, page._id, true).subscribe(results => {
-      this.updateVariables();
-      // console.log(results);
-    });
+    const index = this.searchObjIdInArray(this.actionId, this.actions);
+    if ( this.actions[index].color === 'black') {
+      console.log('project is not shared yet.');
+      this.userGroupService.addProjectToUserGroup(this.actionId, [page.page._id], this.groupId).subscribe(results => {
+        this.updateVariables();
+      });
+    } else {
+      this.userGroupService.addPageToProject(this.actionId, this.groupId, page.page._id).subscribe(results => {
+        console.log('project is shared and we only add a page to it.');
+        this.updateVariables();
+      });
+    }
+
   }
 
   removePageFromProject(page: any) {
+    const index = this.searchObjIdInArray(this.actionId, this.actions);
+    console.log(this.actions[index]);
+    let counter = 0;
+    this.actions[index].pages.forEach( page => {
+      if (page.toAdd) {
+        counter++;
+      }
+    });
+    if (counter === 1) {
+      this.removeProjectFromUserGroup(this.actions[index]);
+    } else {
+      this.userGroupService.removePageFromProject(this.actionId, this.groupId, page.page._id).subscribe(results => {
+        this.updateVariables();
+      });
+    }
 
   }
 

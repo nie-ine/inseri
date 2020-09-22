@@ -10,8 +10,21 @@
           matTooltip="Users"(click)="showForm('user');">
     <mat-icon>person</mat-icon>
   </button>
+
+<!--button mat-button style="display: inline-block"
+        matTooltip="menu" [matMenuTriggerFor]="fileMenu">
+  <mat-icon>menu</mat-icon>
+</button-->
 </div>
 
+<!--mat-menu #fileMenu="matMenu">
+    <button *ngIf="page.toAdd" mat-button matTooltip="Add Page To Project" (click)="addPageToProject(page)">
+      <mat-icon> add </mat-icon>
+    </button>
+    <button *ngIf="!page.toAdd" mat-button matTooltip="Remove Page From Project" (click)="removePageFromProject(page);">
+      <mat-icon> remove </mat-icon>
+    </button>
+</mat-menu-->
 
 <div class="container">
   <div class="row">

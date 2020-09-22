@@ -84,6 +84,8 @@
 
           <mat-menu #menu4="matMenu">
             <button mat-menu-item (click)="undoPublishTemplate()" (click)="page.publishedAsTemplate = false">Undo</button>
+            <button mat-menu-item (click)="filePicker.click()" >Add Profile Photo</button>
+            <input type="file" class="form-control" name="profilePic" #filePicker (change)="addProfilePhoto($event)" style="visibility: hidden;height: 0px">
           </mat-menu>
 
 

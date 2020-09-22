@@ -218,86 +218,93 @@ router.post('/deleteGroup', checkAuth, (req, res, next) => {
 
 
 
-router.post('/addRemovePageFromProject', (req, res, next) => {
-  UserGroup.findOne({_id: req.params.groupId}).then( userGroup=>{
-   let listOfActions=[];
-   userGroup.hasActions.forEach(action=>{
-     listOfActions.push(action.actionId);
-   });
-   if(searchInArray(listOfActions,req.params.actionId)){
-
-   }
-  });
-});
-
-
-router.post('/removeCurrentUserFromGroup/:groupId', checkAuth, (req, res, next) => {
-  console.log(req.userData.userId);
-  UserGroup.updateOne({
-      $and: [
-        {owner: {$ne: req.userData.userId}},
-        {_id: req.params.groupId}
-      ]
-    },
-    {$pull: {users: req.userData.email}})
-    .then((updatedDocument) => {
-      if (updatedDocument.n === 0) {
-        res.status(400).json({
-          message: 'User cannot be removed from the group.'
-        });
-      } else {
-        return res.status(200).json({
-          message: 'User has been removed successfully from the group.',
-          updatedGroup: updatedDocument
-        });
-      }
+router.post('/addPageToProject', (req, res, next) => {
+  UserGroup.update(
+    {_id: req.body.groupId , 'hasActions.actionId': req.body.actionId},
+    {$addToSet: {'hasActions.$.hasPages' : req.body.pageId}})
+    .then(updateResult => {
+      console.log(updateResult);
+      res.status(201).json({
+        message: 'User group updated', //+ result[0]._id,
+        result: updateResult
+      });
     })
     .catch(error => {
       res.status(500).json({
-        message: 'Updating group failed.',
-        error: error
-      })
-    });
-});
-
-
-
-router.post('/assignNewOwner/:groupId&:email', checkAuth, (req, res, next) => {
-  console.log(req.userData.userId);
-  console.log(req.params.groupId || " " || req.params.email);
-  User.find({email: req.params.email})
-    .then((result) => {
-      let message;
-      if (result.length === 0) {
-        message = 'User not found'
-
-      } else {
-        message = 'User has been found'
-        console.log(message);
-        UserGroup.updateOne(
-          {_id: req.params.groupId},
-          {$set: {owner: result[0]._id}, $addToSet: {users: req.params.email}})
-          .then(updateResult => {
-            res.status(201).json({
-
-              message: 'User group updated' //+ result[0]._id,
-            });
-          })
-          .catch(error => {
-            res.status(500).json({
-              message: 'Error while updating the group',
-              error: error
-            });
-          })
-      }
-    })
-    .catch(error => {
-      res.status(500).json({
-        message: 'Error while retrieving the user',
+        message: 'Error while updating the group',
         error: error
       });
-    });
+    })
 });
+
+
+// router.post('/removeCurrentUserFromGroup/:groupId', checkAuth, (req, res, next) => {
+//   console.log(req.userData.userId);
+//   UserGroup.updateOne({
+//       $and: [
+//         {owner: {$ne: req.userData.userId}},
+//         {_id: req.params.groupId}
+//       ]
+//     },
+//     {$pull: {users: req.userData.email}})
+//     .then((updatedDocument) => {
+//       if (updatedDocument.n === 0) {
+//         res.status(400).json({
+//           message: 'User cannot be removed from the group.'
+//         });
+//       } else {
+//         return res.status(200).json({
+//           message: 'User has been removed successfully from the group.',
+//           updatedGroup: updatedDocument
+//         });
+//       }
+//     })
+//     .catch(error => {
+//       res.status(500).json({
+//         message: 'Updating group failed.',
+//         error: error
+//       })
+//     });
+// });
+
+
+
+// router.post('/assignNewOwner/:groupId&:email', checkAuth, (req, res, next) => {
+//   console.log(req.userData.userId);
+//   console.log(req.params.groupId || " " || req.params.email);
+//   User.find({email: req.params.email})
+//     .then((result) => {
+//       let message;
+//       if (result.length === 0) {
+//         message = 'User not found'
+//
+//       } else {
+//         message = 'User has been found'
+//         console.log(message);
+//         UserGroup.updateOne(
+//           {_id: req.params.groupId},
+//           {$set: {owner: result[0]._id}, $addToSet: {users: req.params.email}})
+//           .then(updateResult => {
+//             res.status(201).json({
+//
+//               message: 'User group updated' //+ result[0]._id,
+//             });
+//           })
+//           .catch(error => {
+//             res.status(500).json({
+//               message: 'Error while updating the group',
+//               error: error
+//             });
+//           })
+//       }
+//     })
+//     .catch(error => {
+//       res.status(500).json({
+//         message: 'Error while retrieving the user',
+//         error: error
+//       });
+//     });
+// });
 router.post('/updateUserGroup/:title&:description', checkAuth, (req, res, next) => {
   UserGroup.update(
     {owner: req.userData.userId, _id: req.body.groupId},
@@ -494,6 +501,25 @@ router.post('/addProjectToUserGroup/:groupId', checkAuth, (req, res, next) => {
     {_id: req.params.groupId},
     {$addToSet: {hasActions: {actionId: req.body.actionId, hasPages: req.body.hasPages}}})
     .then(updateResult => {
+      res.status(201).json({
+        message: 'User group updated', //+ result[0]._id,
+        result: updateResult
+      });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Error while updating the group',
+        error: error
+      });
+    })
+});
+
+router.post('/removePageFromProject/', checkAuth, (req, res, next) => {
+  UserGroup.update(
+    {_id: req.body.groupId , 'hasActions.actionId': req.body.actionId},
+    {$pull: {'hasActions.$.hasPages' : req.body.pageId}})
+    .then(updateResult => {
+      console.log(updateResult);
       res.status(201).json({
         message: 'User group updated', //+ result[0]._id,
         result: updateResult

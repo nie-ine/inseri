@@ -20,6 +20,7 @@ export class PageListDialogComponent implements OnInit {
   publishedPages: any;
   publishedPagesLength = 0;
   allPagesLength = 0;
+  imagePreview: string;
 
   constructor(
     public dialogRef: MatDialogRef<PageListDialogComponent>,

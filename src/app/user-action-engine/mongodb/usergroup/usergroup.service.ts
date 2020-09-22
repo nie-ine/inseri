@@ -24,10 +24,6 @@ export class UsergroupService {
       `${UsergroupService.API_BASE_URL_USERGROUP}`, {observe: 'response'});
   }
 
-  showGroupMembers(title: string) {
-    return this.http.get(
-      `${UsergroupService.API_BASE_URL_USERGROUP + '/' + title + '/listGroupMembers'}`, {observe: 'response'});
-  }
 
   assignUserToGroup(groupId: any, id: string, admin: boolean): Observable<any> {
     return this.http.post(
@@ -39,25 +35,6 @@ export class UsergroupService {
     return this.http.post(
       `${UsergroupService.API_BASE_URL_USERGROUP  + '/deleteGroup'}`,
       {id: groupId}, {observe: 'response'});
-  }
-
-  removeUserFromGroup(group: any, email: string): Observable<any> {
-    return this.http.post(
-      `${UsergroupService.API_BASE_URL_USERGROUP + '/removeMember'}`,
-      {groupId: group._id, memberToRemove: email}, {observe: 'response'});
-  }
-
-  removeCurrentUserFromGroup(group: any) {
-    return this.http.post(
-      `${UsergroupService.API_BASE_URL_USERGROUP + '/removeCurrentUserFromGroup/' + group._id}`,
-      {title: group.title}, {observe: 'response'}
-    );
-  }
-
-  assignNewOwner(group: any, email: string): Observable<any> {
-    return this.http.post(
-      `${UsergroupService.API_BASE_URL_USERGROUP + '/assignNewOwner/' + group._id + '&' + email}`,
-      {title: group.title}, {observe: 'response'});
   }
 
   updateUserGroupDetails(groupId: string, title: string, description: string) {
@@ -89,10 +66,17 @@ export class UsergroupService {
       {groupId: groupId, actionId: actionId }, {observe: 'response'});
   }
 
-  addRemovePageToProject(actionId: any, groupId: string, pageId:  any, addDelete: boolean) {
+  addPageToProject(actionId: any, groupId: string, pageId:  any) {
     return this.http.post(
-      `${UsergroupService.API_BASE_URL_USERGROUP + '/addRemovePageFromProject'}`,
-      {actionId: actionId, groupId: groupId, pageId:  pageId, addDelete: addDelete },
+      `${UsergroupService.API_BASE_URL_USERGROUP + '/addPageToProject'}`,
+      {actionId: actionId, groupId: groupId, pageId:  pageId },
+      {observe: 'response'});
+  }
+
+  removePageFromProject(actionId: any, groupId: string, pageId: any) {
+    return this.http.post(
+      `${UsergroupService.API_BASE_URL_USERGROUP + '/removePageFromProject'}`,
+      {actionId: actionId, groupId: groupId, pageId:  pageId },
       {observe: 'response'});
   }
 }
