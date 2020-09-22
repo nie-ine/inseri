@@ -138,7 +138,7 @@ export class AuthService {
       }
       >(`${AuthService.API_BASE_URL_USER}/login`, authData)
       .subscribe( response => {
-        console.log( response );
+        //console.log( response );
         const token = response.token;
         this.token = token;
         const expiresInDuration = response.expiresIn;
@@ -215,7 +215,7 @@ export class AuthService {
       'userId',
       userId
     );
-    console.log(localStorage);
+    //console.log(localStorage);
   }
 
   private clearAuthData() {

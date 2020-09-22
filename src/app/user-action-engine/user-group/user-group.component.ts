@@ -1,10 +1,10 @@
-import {UsergroupService} from '../../user-action-engine/mongodb/usergroup/usergroup.service';
+import {UsergroupService} from '../mongodb/usergroup/usergroup.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ActionService} from '../../user-action-engine/mongodb/action/action.service';
+import {ActionService} from '../mongodb/action/action.service';
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatTableDataSource} from '@angular/material';
-import {AuthService} from '../../user-action-engine/mongodb/auth/auth.service';
+import {AuthService} from '../mongodb/auth/auth.service';
 import {environment} from '../../../environments/environment';
 import Stardog from 'stardog';
 import consistency = Stardog.db.reasoning.consistency;
@@ -54,12 +54,12 @@ export class UserGroupComponent implements OnInit {
     this.actions = [];
     this.userGroupService.showUserGroupDetails(this.groupId)
       .subscribe((result: any) => {
-        console.log(result);
+        // console.log(result);
         this.userGroupTitle = result.body.userGroup.title;
         if (result.body.actions || result.body.userGroup) {
           this.userGroup = result.body.userGroup;
           this.users = this.userGroup.users;
-          console.log(this.users);
+          // console.log(this.users);
           this.dataSource = new MatTableDataSource(this.users);
           this.adminUsers = this.userGroup.adminsUsers; // list of the admin users id
           this.userAdmin = result.body.userAdmin; // true if the user is one of the admin users
@@ -77,7 +77,7 @@ export class UserGroupComponent implements OnInit {
             });
           }
 
-          console.log(this.actions);
+          // console.log(this.actions);
           const temp = this.actions.map((obj) => ({...obj, ['color']: '', ['pages']: []}));
           this.actions = temp;
           result.body.userGroup.hasActions.forEach(actionInUserGroup => {
@@ -85,7 +85,7 @@ export class UserGroupComponent implements OnInit {
             if (indexOfAction !== -1) {
               this.actions[indexOfAction].color = 'green'; // found in my list as well, update the pages.
               this.actions[indexOfAction].pages = [];
-              console.log(actionInUserGroup.hasPages);
+              // console.log(actionInUserGroup.hasPages);
               actionInUserGroup.hasPages.forEach(pageInUsrGrp => {
                 if (this.searchObjIdInArray(pageInUsrGrp._id, this.actions[indexOfAction].hasPageSet.hasPages) !== -1) {
                   this.actions[indexOfAction].pages.push({page: pageInUsrGrp, toAdd: false});
@@ -101,7 +101,7 @@ export class UserGroupComponent implements OnInit {
                 this.actions[this.actions.length - 1].pages.push({page: page, toAdd: false});
               });
             }
-            console.log(this.actions);
+            // console.log(this.actions);
           });
         }
       });
@@ -109,7 +109,7 @@ export class UserGroupComponent implements OnInit {
 
   addProjectToUserGroup(action: any, pages?: any) {
     const pagesId = [];
-    console.log(action);
+    // console.log(action);
     if (action.color === 'green') { // the project is one of  the user group projects
       alert('The project is already in the userGroup, you can add/remove its pages');
       return;
@@ -130,7 +130,7 @@ export class UserGroupComponent implements OnInit {
   }
 
   removeProjectFromUserGroup(action: any) {
-    console.log(action._id, this.groupId);
+    // console.log(action._id, this.groupId);
     this.userGroupService.deleteProjectFromUserGroup(action._id, this.groupId).subscribe(results => {
       this.updateVariables();
       // console.log(results);
@@ -169,10 +169,10 @@ export class UserGroupComponent implements OnInit {
         this.emailForm.reset();
         this.updateUsers(results.user._id, admin, true, null, results.user.email, results.user.usrProfileFilePath);
       }, err => {
-        console.log(err);
+        // console.log(err);
       });
     }, error => {
-      console.log(error);
+      // console.log(error);
     });
   }
 
@@ -185,7 +185,7 @@ export class UserGroupComponent implements OnInit {
         this.pages.push({page: page, toAdd: true});
         });
     }
-    console.log(this.pages);
+    // console.log(this.pages);
   }
 
   private searchObjIdInArray(ObjId: any, arrayOfObjects: Array<any>, refObj?: string) {
@@ -203,7 +203,7 @@ export class UserGroupComponent implements OnInit {
       this.userGroupService.deleteUser(this.groupId, userId, admin).subscribe(deletedUser => {
        this.updateUsers(userId, admin, false, removeCompletly);
       }, err => {
-        console.log(err);
+        // console.log(err);
       });
     }
 
@@ -213,7 +213,7 @@ export class UserGroupComponent implements OnInit {
         this.adminUsers.push({_id: id});
       } else {
         this.users.push({_id: id, usrProfileFilePath: usrProfileFilePath, email: userEMail, password: ''});
-        console.log(this.users);
+        // console.log(this.users);
       }
     } else {
       if ( removeCompletly) {
