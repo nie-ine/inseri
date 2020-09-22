@@ -1,5 +1,5 @@
-const nieOSServer = 'http://localhost:4200';
+const salt = 'my_secret_secret';
 
 module.exports = {
-  nieOSServer: nieOSServer
+  salt: salt
 };
