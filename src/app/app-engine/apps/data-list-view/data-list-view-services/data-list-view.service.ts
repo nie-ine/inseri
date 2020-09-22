@@ -1,4 +1,5 @@
 import {EventEmitter, Injectable} from '@angular/core';
+import * as _ from 'lodash';
 
 @Injectable()
 export class DisplayedCollumnsService {
@@ -21,6 +22,12 @@ export class DisplayedCollumnsService {
     return dispColumns;
   }
 
+  public getDataFromPath(path: string, data: any) {
+    if (Array.isArray(_.get(data, path))) {
+      return _.get(data, path);
+    }
+  }
+
   public setInitialDisplayedColumns(dataListSettings, data?) {
     let displayedColumns: Array<any> = [];
     if (!dataListSettings.columns.manualColumns) {
@@ -28,7 +35,8 @@ export class DisplayedCollumnsService {
         displayedColumns = this.createColumns(data.head.vars);
       } else {
         // gets the data array from a given path string pathToDataArray
-        const dataArray = dataListSettings.pathToDataArray.split('.').reduce((a, b) => a[b], data);
+        const dataArray = this.getDataFromPath(dataListSettings.pathToDataArray, data);
+        // const dataArray2 = dataListSettings.pathToDataArray.split('.').reduce((a, b) => a[b], data);
         const distinctColumns = this.generateDisplayedColumnsFromData(dataArray);
         displayedColumns = this.createColumns(distinctColumns);
         }

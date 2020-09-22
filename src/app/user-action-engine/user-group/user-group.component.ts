@@ -19,10 +19,10 @@ export class UserGroupComponent implements OnInit {
   userGroup: any;
   groupId: string;
   actions: any[] = [];
-  private userGroupTitle: string;
+  userGroupTitle: string;
   private userAdmin: boolean;
   pages: any;
-  private usersForm: boolean;
+  usersForm: boolean;
   userEMail: string;
   users: any;
   private adminUsers: any;
