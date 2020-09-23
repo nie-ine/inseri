@@ -240,7 +240,7 @@ import { MachineReasoningComponent } from './apps/machine-reasoning/machine-reas
     GroupedBarChartV2Component,
     CommentOnIndicesComponent,
 
-    //DataListViewDetailsDialogComponent,
+    // DataListViewDetailsDialogComponent,
     CalendarComponent,
 
     CrisprComponent,
