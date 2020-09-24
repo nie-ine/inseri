@@ -36,7 +36,6 @@ export class MachineReasoningComponent implements OnInit {
     this.query_bowl = 'Upload query files...';
   }
 
-<<<<<<< HEAD
   // Note: files from different source folder could have the same name
   // e.g. 'data.ttl'. If you save them in the Docker container, they
   // will be overwritten. You might want to add an index number to each
@@ -117,3 +116,4 @@ export class MachineReasoningComponent implements OnInit {
       this.query_bowl = this.addChips(this.query_files);
     }
   }
+}
