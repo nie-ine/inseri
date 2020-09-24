@@ -69,6 +69,53 @@ router.get('/allActionsAndItsPages/:userId', (req, res, next)=>{
     })
 });
 
+router.get('/checkIfShortNameExist/:shortName', (req, res, next ) => {
+  Action.find({shortName: req.params.shortName})
+    .then(actions => {
+      console.log( actions );
+      let exist;
+    if (actions.length === 0) {
+      message = 'No actions were found';
+      exist = false;
+    } else {
+      message = 'All actions were found';
+      exist = true;
+    }
+    res.status(200).json({
+      message: message,
+      exist: exist,
+      action: actions[ 0 ]
+    });
+  })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Checking shortname failed',
+        error: error
+      })
+    })
+});
+
+router.get('/setShortName/:shortName/:id', checkAuth, (req, res, next ) => {
+  Action.findOneAndUpdate({_id: req.params.id, creator: req.userData.userId}, {
+    shortName: req.params.shortName
+  }, {new: true})
+    .then(resultAction => {
+      if (resultAction) {
+        res.status(200).json({
+          message: 'Action was updated successfully',
+          action: resultAction
+        });
+      } else {
+        res.status(200).json({
+          message: 'Action cannot be updated'
+        });
+      }
+    })
+    .catch(error =>
+      res.status(404).json({message: 'Update action failed'})
+    );
+});
+
 router.get('/:id', checkAuth2, (req, res, next) => {
   // Authorisation (only if user is also the creator of the action)
   if (req.loggedIn === true) {

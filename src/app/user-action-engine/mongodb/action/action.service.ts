@@ -60,6 +60,12 @@ export class ActionService {
     return this.http.post(`${ActionService.API_BASE_URL_ACTION}/reloadProject/`,
       {pageSetId });
   }
+  checkIfShortNameExist( shortName: string ) {
+    return this.http.get(`${ActionService.API_BASE_URL_ACTION}/checkIfShortNameExist/${shortName}`);
+  }
+  setShortName( shortName: string, id: string ) {
+    return this.http.get(`${ActionService.API_BASE_URL_ACTION}/setShortName/${shortName}/${id}`);
+  }
   // getAllDetailsOfActions(userId: string) {
   //   return this.http.get(`${ActionService.API_BASE_URL_ACTION}/allActionsAndItsPages/${userId}`);
   // }
