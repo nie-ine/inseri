@@ -258,15 +258,9 @@
 
 
 
-
-
-
-
-<div *ngIf="innerWidth < page.chosenWidth || page.tiles" >
   <mat-card
     *ngFor="let app of openAppArray.slice(); let i = index;"
     style="display: inline-grid; margin-bottom: 10px; margin-left: 60px; margin-top: 70px;"
-    matTooltip="{{ app.minimized ? app.title : '' }}"
     [ngStyle]="{ 'width': ( app.fullWidth || app.panelExtended ) ? '92%' : app.width + 'px'}">
 
 
@@ -325,7 +319,7 @@
       </button>
 
     </mat-card-header>
-    <div style="pointer-events: auto!important;"
+    <mat-card-content style="pointer-events: auto!important;"
       *ngIf=" !app.minimized && !app.panelExtended" [style.overflow]="'auto'"
       [ngStyle]="{ 'height':  ( app.fullHeight || app.panelExtended ) ? '92%' : app.height + 'px'}">
 
@@ -341,13 +335,6 @@
         [(hoveredElement)]="hoveredElement">
 
       </app-all-app-selectors>
-
-
-      <div *ngIf="pageAsDemo && app.type === 'pageMenu'" >
-        <h4>Tutorial Videos</h4>
-        <button mat-button color="primary" (click)="addVideoApp( 'https://www.youtube.com/embed/9An1cGPrv9Q' )"> <mat-icon>video_library</mat-icon> Watch Video "First steps in Inseri"</button>
-        <h4 style="margin-top: 15px;" >Apps</h4>
-      </div>
 
       <mat-form-field *ngIf="app.type === 'pageMenu'" style="width: 100%">
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search all appgroups">
@@ -456,7 +443,7 @@
 
       </div>
 
-    </div>
+    </mat-card-content>
 
     <popup #appId *ngIf=" !app.minimized "
            [appIndex]="i"
@@ -481,7 +468,6 @@
     </popup>
 
   </mat-card>
-</div>
 
 <div
   [ngStyle]="{'border-left': '3px solid', 'height': '500px', 'margin-left': page.chosenWidth + 'px', 'color': 'C9D6FF'}"

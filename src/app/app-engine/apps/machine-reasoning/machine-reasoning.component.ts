@@ -12,4 +12,7 @@ export class MachineReasoningComponent implements OnInit {
   ngOnInit() {
   }
 
+  onFileSelect( event: any ) {
+  }
+
 }
