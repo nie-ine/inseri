@@ -3,12 +3,9 @@
     <mat-tab label="Data">
       <div class="source_container">
         <div class="files">
-          <div class="file_list" id="data_uploads">
-            Upload data files...
-          </div>
-          <input #hidden_upl_data style="display:none" type="file" (change)="onFileSelect($event)" multiple>
+          <div #data_uploads class="file_list" [innerHTML]="this.data_bowl" ng-change="wtf()"></div>
+          <input #hidden_upl_data style="display:none" type="file" (change)="onFileSelect($event, 'data')" multiple>
           <button mat-raised-button (click)="hidden_upl_data.click()">Select data files</button>
-          <!-- <input class="upload_btn" type="file" id="upl_data" multiple> -->
         </div>
         <div class="urls">
           <textarea matInput id="data_list" aria-label="list of data URLs" placeholder="...or you can insert data URLs here (line by line)"></textarea>
@@ -18,12 +15,9 @@
     <mat-tab label="Rules">
       <div class="source_container">
         <div class="files">
-          <div class="file_list" id="rule_uploads">
-            Upload rule files...
-          </div>
-          <input #hidden_upl_rule style="display:none" type="file" (change)="onFileSelect($event)" multiple>
+          <div #rule_uploads class="file_list" [innerHTML]="this.rule_bowl"></div>
+          <input #hidden_upl_rule style="display:none" type="file" (change)="onFileSelect($event, 'rule')" multiple>
           <button mat-raised-button (click)="hidden_upl_rule.click()">Select rule files</button>
-          <!-- <input class="upload_btn" type="file" id="upl_rules" multiple> -->
         </div>
         <div class="urls">
           <textarea matInput id="rule_list" aria-label="list of rule URLs" placeholder="...or you can insert rule URLs here (line by line)"></textarea>
@@ -33,15 +27,12 @@
     <mat-tab label="Queries">
       <div class="source_container">
         <div class="files">
-          <div class="file_list" id="query_uploads">
-            Upload query files...
-          </div>
-          <input #hidden_upl_query style="display:none" type="file" (change)="onFileSelect($event)" multiple>
+          <div #query_uploads class="file_list" [innerHTML]="this.query_bowl"></div>
+          <input #hidden_upl_query style="display:none" type="file" (change)="onFileSelect($event, 'query')" multiple>
           <button mat-raised-button (click)="hidden_upl_query.click()">Select query files</button>
-          <!-- <input class="upload_btn" type="file" id="upl_queries" multiple> -->
         </div>
         <div class="urls">
-          <textarea matInput id="query_list" aria-label="list of query URLs" placeholder="...or you can insert query URLs here (line by line)"></textarea>
+          <textarea #query_list matInput aria-label="list of query URLs" placeholder="...or you can insert query URLs here (line by line)"></textarea>
         </div>
       </div>
     </mat-tab>
@@ -49,7 +40,7 @@
   <hr>
   <div id="parameters">
     <span class="param">The parameters (currently readonly)</span>
-    <textarea matInput id="param_list" aria-label="reasoning parameters" readonly>--nope</textarea>
+    <textarea id="param_list" matInput aria-label="reasoning parameters" readonly>--nope</textarea>
   </div>
-  <button mat-raised-button id="reason">Reason</button>
+  <button #reason mat-raised-button>Reason</button>
 </div>

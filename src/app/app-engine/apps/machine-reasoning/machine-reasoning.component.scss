@@ -19,6 +19,8 @@ $backgroundGrey: rgba(0, 0, 0, 0.065);
   background-color: $backgroundGrey;
   padding: 5px;
   margin-bottom: 15px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .urls {
@@ -41,6 +43,24 @@ $backgroundGrey: rgba(0, 0, 0, 0.065);
   padding: 5px;
   margin: 5px 0 15px 0;
   resize: none;
+}
+
+.file_chip {
+  padding: 5px 15px 5px 10px;
+  margin-bottom: 5px;
+  border-radius: 25px;
+  background-color: #FFE46D;
+}
+
+.remove_btn {
+  position: relative;
+  float: right;
+  cursor: pointer;
+  color: #888;
+}
+
+.remove_btn:hover {
+  color: #000;
 }
 
 
