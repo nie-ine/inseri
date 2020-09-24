@@ -29,7 +29,7 @@ export class JsonEnvironmentComponent implements OnChanges, HttpInterceptor {
   }
 
   ngOnChanges( changes: SimpleChanges ) {
-    // console.log( 'changes', this.hash, this.assignedJson, this.pythonFile );
+    console.log( 'changes', this.hash, this.assignedJson, this.pythonFile );
     if ( this.hash && this.pythonFile ) {
       this.display = { hash: this.hash, json: this.assignedJson };
       if ( this.pythonFile.search( 'http' ) !== -1 ) {
@@ -44,6 +44,7 @@ export class JsonEnvironmentComponent implements OnChanges, HttpInterceptor {
           );
       } else {
         this.editor.text = this.pythonFile;
+        this.submitToMicroservice();
       }
     }
   }
@@ -72,7 +73,7 @@ export class JsonEnvironmentComponent implements OnChanges, HttpInterceptor {
   }
 
   submitToMicroservice() {
-    // console.log( 'Submit to Microservice', this.display, this.editor.text );
+    console.log( 'Submit to Microservice', this.display, this.editor.text );
     const body = {
       datafile: 'yourData.json',
       data: JSON.stringify(this.display),
@@ -85,20 +86,19 @@ export class JsonEnvironmentComponent implements OnChanges, HttpInterceptor {
           console.log( data );
           this.output = { [this.serivceId + ' output']: data.body.output } ;
           const currentLocalStorage = JSON.parse( localStorage.getItem( this.serivceId ) );
-          // console.log( currentLocalStorage ) ;
-          if ( currentLocalStorage === null || currentLocalStorage['json'] !==
-            this.assignedJson ) {
-            localStorage.setItem(
-              this.serivceId,
-              JSON.stringify(
-                { hash: this.hash,
-                  json: this.assignedJson,
-                  pythonCode: this.editor.text,
-                  output: this.output
-                }));
+          const localStorageBefore = JSON.parse( localStorage.getItem( this.serivceId ))[ 'json' ] ;
+          localStorage.setItem(
+            this.serivceId,
+            JSON.stringify(
+              { hash: this.hash,
+                json: this.assignedJson,
+                pythonCode: this.editor.text,
+                output: this.output
+              }));
+          const localStorageAfter = JSON.parse( localStorage.getItem( this.serivceId ) )[ 'json' ];
+          if ( JSON.stringify( localStorageBefore ) !== JSON.stringify( localStorageAfter ) ) {
             this.reloadVariables.emit();
           }
-            // console.log( localStorage.getItem( this.serivceId ) );
         }
         , error => {
           console.log( error );
