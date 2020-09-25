@@ -9,7 +9,8 @@ const actionSchema = mongoose.Schema({
     hasPage: { type: mongoose.Schema.Types.ObjectId, ref: 'Page' },
     hasPageSet: { type: mongoose.Schema.Types.ObjectId, ref: 'PageSet' },
     creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User', require: true },
-    published: { type: Boolean }
+    published: { type: Boolean },
+    shortName: { type: String }
 });
 
 module.exports = mongoose.model('Action', actionSchema);

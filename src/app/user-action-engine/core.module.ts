@@ -28,6 +28,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {MatChipsModule} from '@angular/material/chips';
 import { DevelopmentViewsModule } from '../app-engine/apps/development-views/development-views.module';
 import {MatIconModule} from '@angular/material/icon';
+import {PageComponent} from '../app-engine/page/page/page.component';
 
 @NgModule({
   imports: [
@@ -50,7 +51,7 @@ import {MatIconModule} from '@angular/material/icon';
     MatChipsModule,
     MatIconModule,
     RouterModule.forRoot([
-      { path: '**', component: PageNotFoundComponent }
+      { path: '**', component: PageComponent }
       ])
   ],
   declarations: [
