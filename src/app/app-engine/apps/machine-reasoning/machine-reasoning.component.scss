@@ -23,16 +23,19 @@ $backgroundGrey: rgba(0, 0, 0, 0.065);
   overflow-x: hidden;
 }
 
-.urls {
-  position: relative;
-  height: $urlsHeight;
-}
-
 .urls textarea {
   position: relative;
   height: $urlsHeight;
   background-color: $backgroundGrey;
   padding: 5px;
+}
+#data_url_list {
+  resize: none;
+}
+#rule_url_list {
+  resize: none;
+}
+#query_url_list {
   resize: none;
 }
 
