@@ -96,7 +96,7 @@ export class DashboardComponent implements OnInit {
     this.commentService.getAllCommentsOfUser()
       .subscribe(
         data => {
-          //console.log(data);
+          // console.log(data);
           this.commentArray = (data as any).comments;
           for (let i = 0; i < this.commentArray.length; i++) {
             if (!this.commentArray[i].creator.usrProfileFilePath) {
@@ -181,7 +181,7 @@ export class DashboardComponent implements OnInit {
           });
         }))
       .subscribe(transformedActions => {
-        //console.log(transformedActions);
+        // console.log(transformedActions);
         this.actions = transformedActions;
       });
   }
@@ -197,22 +197,22 @@ export class DashboardComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe((result) => {
-      //console.log(result);
+      // console.log(result);
       this.updateActions();
       this.getUserGroups();
       if (result) {
-        //console.log(result);
+        // console.log(result);
         const newPage: any = {};
         this.actionService.getAction(result[1])
           .subscribe(
             actionResult => {
-              //console.log('actionService - get Action: ');
+              // console.log('actionService - get Action: ');
              // console.log(actionResult);
               newPage.title = actionResult.body.action.title;
               newPage.description = actionResult.body.action.description;
               this.pageService.createPage(actionResult.body.action.hasPageSet._id, newPage)
                 .subscribe((result2) => {
-                  //console.log('open dialog');
+                  // console.log('open dialog');
                   this.router.navigate(['/page'],
                     {
                       queryParams:
@@ -263,9 +263,9 @@ export class DashboardComponent implements OnInit {
     this.actionService.updateAction(action)
       .subscribe(
         data => {
-          //console.log(data);
+          // console.log(data);
         }, error => {
-          //console.log(error);
+          // console.log(error);
         }
       );
   }
@@ -274,7 +274,7 @@ export class DashboardComponent implements OnInit {
     if (action.type === 'page-set') {
       this.actionService.getAction(action.id)
         .subscribe(data => {
-          //console.log('continue action');
+          // console.log('continue action');
           if (data.body.action.hasPageSet.hasPages !== null && data.body.action.hasPageSet.hasPages[0]._id) {
             action.hasPage = data.body.action.hasPageSet.hasPages[0]._id;
             this.router.navigate(['/page'],
@@ -286,13 +286,13 @@ export class DashboardComponent implements OnInit {
               });
           }
         }, error => {
-          //console.log(error);
+          // console.log(error);
         });
     }
   }
 
   goToDocumentIndex(action: any) {
-    //console.log('goToDocumentIndex');
+    // console.log('goToDocumentIndex');
     this.router.navigate(['/page-set'],
       {
         queryParams: {
@@ -302,8 +302,8 @@ export class DashboardComponent implements OnInit {
   }
 
   sendMessage() {
-    //console.log('Send Message');
-    //console.log(this.message);
+    // console.log('Send Message');
+    // console.log(this.message);
     this.contactService.sendMessage(this.message)
       .subscribe(response => {
         console.log(response);
@@ -372,7 +372,7 @@ export class DashboardComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe((result) => {
-      //console.log(result);
+      // console.log(result);
     });
   }
 
@@ -381,7 +381,7 @@ export class DashboardComponent implements OnInit {
     if (action.type === 'page-set') {
       this.fileService.downloadProject(action.id)
         .subscribe(data => {
-          //console.log(data);
+          // console.log(data);
           console.log('data returned successfully');
           const a = document.createElement('a');
           document.body.appendChild(a);
@@ -451,10 +451,11 @@ export class DashboardComponent implements OnInit {
 
   showUserGroupDetails(_id: any) {
    // console.log(_id);
-    this.router.navigate(['app-user-group'], {
+
+    this.router.navigate(['user-group'], {
       queryParams: {
         usrGroupId: _id
-      }, skipLocationChange: true
+      }, replaceUrl: true
     });
   }
 }
@@ -517,10 +518,10 @@ export class DialogOverviewExampleDialog {
       this.usergroup.description)
       .subscribe(
         data => {
-          //console.log(data);
+          // console.log(data);
           this.dialogRef.close(data);
         }, error => {
-          //console.log(error);
+          // console.log(error);
         }
       );
   }

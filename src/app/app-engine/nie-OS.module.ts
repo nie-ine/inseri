@@ -109,6 +109,7 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MachineReasoningComponent } from './apps/machine-reasoning/machine-reasoning.component';
+import { MenuItemComponent } from './page/menu-item/menu-item.component';
 
 
 @NgModule({
@@ -245,7 +246,9 @@ import { MachineReasoningComponent } from './apps/machine-reasoning/machine-reas
 
     CrisprComponent,
 
-    MachineReasoningComponent
+    MachineReasoningComponent,
+
+    MenuItemComponent
   ],
   exports: [
     PageComponent,

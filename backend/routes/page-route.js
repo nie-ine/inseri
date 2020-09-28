@@ -624,5 +624,91 @@ router.post('/addProfileTemplate/:pageID', multer({storage: storage}).single("fi
     });
 });
 
+//create sub-page
+router.post('/:pageId/newSubPage',checkAuth, (req, res, next) => {
+  let messages = [];
+  // Tests if title is undefined, null or is empty string
+  if (!Boolean(req.body.title)) messages.push('Your title is invalid!');
+
+  // Tests if description is undefined, null or is empty string
+  if (!Boolean(req.body.description)) messages.push('Your description is invalid!');
+
+  // Attaches error messages to the response
+  if (messages.length > 0) return res.status(400).json({messages: messages});
+
+  const newSubPage = new Page({
+    title: req.body.title,
+    description: req.body.description,
+    tiles: true,
+    openApps: []
+  });
+  newSubPage.save()
+    .then(resultQuery => {
+      Page.update({_id: req.params.pageId}, { $push: { hasSubPages: resultQuery._id } })
+        .then(updatedPage => {
+          if (updatedPage.n > 0) {
+            console.log(newSubPage);
+            console.log(updatedPage);
+            res.status(201).json({
+              message: 'Sub-page was created successfully and linked to the page',
+              subpage: newSubPage
+            });
+          } else {
+            res.status(400).json({
+              message: 'sub-page cannot be created'
+            });
+          }
+        })
+        .catch(errorUpdatePage => {
+          res.status(500).json({
+            message: 'Creating sub-page in page failed',
+            error: errorUpdatePage
+          });
+        });
+    })
+    .catch(errorSubPage => {
+      res.status(500).json({
+        message: 'Creating sub-page failed',
+        error: errorSubPage
+      });
+    });
+});
+
+router.get('/sub-pages/:pageId', checkAuth, (req, res, next) => {
+  Page.find({_id: req.params.pageId}, {_id: 0, hasSubPages: 1})
+    .populate('hasSubPages')
+    .then(subPagesIds => {
+      let message;
+      console.log(subPagesIds);
+      if (subPagesIds.length === 0) {
+        message = 'No sub-pages were found'
+      } else {
+        Page.find({_id: {$in: subPagesIds[0].hasSubPages}})
+          .then(subPagesDetails => {
+            console.log(subPagesDetails);
+            if (subPagesDetails.length === 0) {
+              message = 'No sub-pages were found'
+            } else {
+              message = 'All sub-pages details were found.'
+            }
+            res.status(200).json({
+              message: message,
+              subPages: subPagesDetails
+            });
+          })
+          .catch(error => {
+            res.status(500).json({
+              message: 'Could not retrieve sub-pages',
+              error: error
+            })
+          });
+      }
+    }).catch(error => {
+    res.status(500).json({
+      message: 'Could not retrieve page',
+      error: error
+    })
+  });
+});
 
 module.exports = router;

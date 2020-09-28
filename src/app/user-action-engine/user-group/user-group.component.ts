@@ -41,6 +41,11 @@ export class UserGroupComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.router.navigate(
+      ['.'],
+      { relativeTo: this.route, queryParams: {} }
+    );
+
     this.emailForm = new FormGroup({
       email: new FormControl(this.userEMail, [Validators.pattern(/^.+@.+\.\w+$/)]),
     });

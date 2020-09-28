@@ -35,6 +35,9 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {PageListDialogComponent} from '../page-list-dialog/page-list-dialog.component';
 import {OverlayContainer} from '@angular/cdk/overlay';
 import {PageSetService} from '../../../user-action-engine/mongodb/pageset/page-set.service';
+import {SubPageOfPageModel} from '../../../user-action-engine/mongodb/page/subPageOfPage.model';
+import {Page} from '../../../user-action-engine/mongodb/page/page.model';
+
 
 @Component({
   selector: 'nie-os',
@@ -42,6 +45,8 @@ import {PageSetService} from '../../../user-action-engine/mongodb/pageset/page-s
   providers: [StyleMappingService]
 })
 export class PageComponent implements OnInit, AfterViewChecked {
+
+  @ViewChild('childMenu') public childMenu;
 
   /**
    * Needed for the inseri page menu, this array indicates the columns of the mat-table
@@ -253,7 +258,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   nothAlreadyQueryAppPathGenerated = new Set();
 
 
-  appMenuModel= new AppMenuModel().appMenu;
+  appMenuModel = new AppMenuModel().appMenu;
 
   params: any;
 
@@ -277,6 +282,10 @@ export class PageComponent implements OnInit, AfterViewChecked {
   private imagePreview: string;
 
   shortName: string;
+  private selectedPageObj: any;
+  private parentPage: any;
+  selectedSubPage: SubPageOfPageModel;
+  subPagesOfPage: SubPageOfPageModel[] = [] ;
 
   constructor(
     public route: ActivatedRoute,
@@ -504,7 +513,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
   addNewPage() {
     const dialogRef = this.dialog.open(DialogCreateNewPageComponent, {
       width: '700px',
-      data: { pageset: this.action.hasPageSet }
+      data: { pageset: this.action.hasPageSet,
+      subPage: false,
+      pageId: ''}
     });
     dialogRef.afterClosed().subscribe(result => {
       this.alreadyLoaded = false;
@@ -520,17 +531,19 @@ export class PageComponent implements OnInit, AfterViewChecked {
   selectPage(i: number, page: any) {
     this.selectedPage = i;
     this.selectedPageToShow = i + 1;
-    this.navigateToOtherView(page);
+    this.selectedPageObj = page;
+    console.log(this.selectedPageObj, this.selectedPage, this.selectedPageToShow);
+    // this.navigateToOtherView(page);
   }
 
   /**
    * This function is used to navigate to another page belonging to the current pageSet
    * */
-  navigateToOtherView(page: any) {
+  navigateToOtherView() {
     this.router.navigate( [ 'page' ], {
       queryParams: {
         'actionID': this.actionID,
-        'page': page._id
+        'page': this.selectedPageObj._id
       }
     } );
   }
@@ -548,6 +561,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
                 if ( page._id === this.hashOfThisPage ) {
                   this.selectedPage = this.pagesOfThisActtion.length;
                 }
+                this.subPagesOfPage.push({page: page});
+                this.selectSubPages(page);
                 this.pagesOfThisActtion[this.pagesOfThisActtion.length] = page;
                 this.alreadyLoaded = true;
               }
@@ -950,7 +965,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     const dataAssignmentComponent = new DataAssignmentComponent();
     // console.log( this.index, input );
     if ( ( this.index as any ) === 'NaN' || this.index === NaN ) {
-      console.log( 'index is NaN' )
+      console.log( 'index is NaN' );
       this.index = 0;
     }
     if ( this.page && this.openAppsInThisPage && this.index === 0 ) {
@@ -1381,6 +1396,49 @@ export class PageComponent implements OnInit, AfterViewChecked {
           console.log( response );
         }, e => console.log( e )
       );
+  }
+  addNewSubPage() {
+    console.log(this.selectedPageObj._id);
+    const dialogRef = this.dialog.open(DialogCreateNewPageComponent, {
+      width: '700px',
+      data: { pageset: this.action.hasPageSet,
+        subPage: true,
+        pageId: this.selectedPageObj._id}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.alreadyLoaded = false;
+      this.generateNavigation(
+        this.actionID
+      );
+    });
+  }
+
+  selectSubPages(page: any) {
+    this.parentPage = page;
+    console.log(this.subPagesOfPage);
+    this.pageService.getAllSubPages( this.parentPage._id )
+      .subscribe(
+        response => {
+          console.log( response );
+          if ( (response as any).subPages) {
+            this.selectedSubPage = {page: this.parentPage, subPages: (response as any).subPages};
+            this.subPagesOfPage[this.searchPageInSubPages(page)].subPages = (response as any).subPages;
+            (response as any).subPages.forEach(page=> {
+              this.subPagesOfPage.push({page: page});
+            });
+          }
+          console.log(this.subPagesOfPage);
+        }, error => console.log( error )
+      );
+  }
+  searchPageInSubPages(page: Page) {
+    console.log(this.subPagesOfPage, page);
+    for (let i = 0; i < this.subPagesOfPage.length; i++) {
+      if (this.subPagesOfPage[i].page.id === page.id) {
+        return i;
+      }
+    }
+    return -1;
   }
 }
 
