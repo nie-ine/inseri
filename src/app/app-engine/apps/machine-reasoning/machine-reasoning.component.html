@@ -3,12 +3,13 @@
     <mat-tab label="Data">
       <div class="source_container">
         <div class="files">
-          <div #data_uploads class="file_list" [innerHTML]="this.data_bowl" ng-change="wtf()"></div>
+          <div #data_uploads class="file_list" [innerHTML]="this.data_bowl"></div>
           <input #hidden_upl_data style="display:none" type="file" (change)="onFileSelect($event, 'data')" multiple>
-          <button mat-raised-button (click)="hidden_upl_data.click()">Select data files</button>
+          <button mat-button (click)="hidden_upl_data.click()">Upload data files</button>
+          <button mat-button (click)="resetData()" [ngStyle]="{'float':'right'}">Reset</button>
         </div>
         <div class="urls">
-          <textarea matInput id="data_list" aria-label="list of data URLs" placeholder="...or you can insert data URLs here (line by line)"></textarea>
+          <textarea matInput id="data_url_list" aria-label="list of data URLs" placeholder="...or you can insert data URLs here (line by line)"></textarea>
         </div>
       </div>
     </mat-tab>
@@ -17,10 +18,11 @@
         <div class="files">
           <div #rule_uploads class="file_list" [innerHTML]="this.rule_bowl"></div>
           <input #hidden_upl_rule style="display:none" type="file" (change)="onFileSelect($event, 'rule')" multiple>
-          <button mat-raised-button (click)="hidden_upl_rule.click()">Select rule files</button>
+          <button mat-button (click)="hidden_upl_rule.click()">Upload rule files</button>
+          <button mat-button (click)="resetRules()" [ngStyle]="{'float':'right'}">Reset</button>
         </div>
         <div class="urls">
-          <textarea matInput id="rule_list" aria-label="list of rule URLs" placeholder="...or you can insert rule URLs here (line by line)"></textarea>
+          <textarea matInput id="rule_url_list" aria-label="list of rule URLs" placeholder="...or you can insert rule URLs here (line by line)"></textarea>
         </div>
       </div>
     </mat-tab>
@@ -29,10 +31,11 @@
         <div class="files">
           <div #query_uploads class="file_list" [innerHTML]="this.query_bowl"></div>
           <input #hidden_upl_query style="display:none" type="file" (change)="onFileSelect($event, 'query')" multiple>
-          <button mat-raised-button (click)="hidden_upl_query.click()">Select query files</button>
+          <button mat-button (click)="hidden_upl_query.click()">Upload query files</button>
+          <button mat-button (click)="resetQueries()" [ngStyle]="{'float':'right'}">Reset</button>
         </div>
         <div class="urls">
-          <textarea #query_list matInput aria-label="list of query URLs" placeholder="...or you can insert query URLs here (line by line)"></textarea>
+          <textarea matInput id="query_url_list" aria-label="list of query URLs" placeholder="...or you can insert query URLs here (line by line)"></textarea>
         </div>
       </div>
     </mat-tab>
@@ -42,5 +45,6 @@
     <span class="param">The parameters (currently readonly)</span>
     <textarea id="param_list" matInput aria-label="reasoning parameters" readonly>--nope</textarea>
   </div>
-  <button #reason mat-raised-button>Reason</button>
+  <button #reason mat-raised-button [ngStyle]="{'background-color':'#FFE46D'}">Reason</button>
 </div>
+
