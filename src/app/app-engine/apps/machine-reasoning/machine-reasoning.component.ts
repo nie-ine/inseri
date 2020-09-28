@@ -1,6 +1,6 @@
-import {Component, OnInit, ViewChild, ElementRef, ViewEncapsulation} from '@angular/core';
-import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
-import {Renderer} from 'leaflet';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {DomSanitizer, SafeHtml, SafeResourceUrl} from '@angular/platform-browser';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-machine-reasoning',
@@ -12,26 +12,30 @@ import {Renderer} from 'leaflet';
 
 export class MachineReasoningComponent implements OnInit {
 
-  constructor(private sanitizer: DomSanitizer) {
+  constructor(
+    private sanitizer: DomSanitizer,
+    private http: HttpClient
+  ) {
   }
 
   title = 'Machine Reasoning';
-  init_bowl_text = 'Upload files...';
+  init_bowl_text = '';
+  init_urls_text = '...or list URLs here (line by line)';
 
   data_files = [];
-  @ViewChild('data_uploads') data_uploads: ElementRef;
   data_urls = [];
   data_bowl: SafeHtml;
 
   rule_files = [];
-  @ViewChild('rule_uploads') rule_uploads: ElementRef;
   rule_urls = [];
   rule_bowl: SafeHtml;
 
   query_files = [];
-  @ViewChild('query_uploads') query_uploads: ElementRef;
   query_urls = [];
   query_bowl: SafeHtml;
+
+  reasoning = false;
+  pathToFile: SafeResourceUrl = '';
 
   ngOnInit() {
     this.data_bowl = this.init_bowl_text;
@@ -50,13 +54,17 @@ export class MachineReasoningComponent implements OnInit {
     reader.readAsText(file);
   }
 
+  // HTML for the file chip displayed in the GUI
+  // Not a very good practice, I guess (?)
   addChips(source) {
     return source.map((object) => ([
-      '<div class=\'file_chip\' data-bowl=\'data\'>'
+      '<div class=\'file_chip\'>'
       + object.file
-      // + '<span class=\'remove_btn\'>&times;</span>'
       + '</div>'])).join('');
   }
+
+  // Resetting: when selecting a file and resetting and selecting the same file again,
+  // it won't be displayed as it is still in the FileList and there was no change!!!
 
   resetData() {
     this.data_bowl = this.init_bowl_text;
@@ -115,27 +123,49 @@ export class MachineReasoningComponent implements OnInit {
       this.query_bowl = this.sanitizer.bypassSecurityTrustHtml(this.addChips(this.query_files));
     }
 
-    // wtf(event: Event) {
-    //   console.log('wtfff');
-    //   const remove_btns = document.getElementsByClassName('remove_btn');
-    //   const values = Array.prototype.map.call(remove_btns, function(el) {
-    //     return el.value;
-    //   });
-    //   console.log(values);
-    //   for (let i = 0; i < values.length; i++) {
-    //     values[i].addEventListener('click', function () {
-    //       console.log('hello button');
-    //     });
-    //   }
+  }
+  reason() {
+    // Validate the URL lists FOR REAL
+    // Are there URLs?
 
-    // const remove_btns = document.querySelectorAll('.remove_btn');
-    // console.log(remove_btns);
-    // for (let i = 0; i < remove_btns.length; i++) {
-    //   remove_btns[i].addEventListener('click', function () {
-    //     console.log('hello button');
-    //   });
-    // }
-    // }
 
+    // Validate the file arrays FOR REAL
+    // Are there files? Are the suffixes ok?
+    if (this.data_files.length > 0
+      && this.rule_files.length > 0
+      && this.query_files.length > 0) {
+
+      // Create the object to POST
+      const body = {
+        'data': {
+          'files': this.data_files,
+          'urls': this.data_urls
+        },
+        'rules': {
+          'files': this.rule_files,
+          'urls': this.rule_urls
+        },
+        'queries': {
+          'files': this.query_files,
+          'urls': this.query_urls
+        }
+      };
+      console.log(body);
+      // POST the object
+      this.http.post('http://localhost:50001', body, { responseType: 'blob' })
+        .subscribe((val) => {
+            // Show the progress spinner
+            this.reasoning = true;
+
+            const blob = new Blob([ val as any ], { type: 'text/turtle' });
+            console.log( blob );
+            const url = URL.createObjectURL(blob);
+            this.pathToFile = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+
+            // Hide the progress spinner
+            this.reasoning = false;
+          }, error => console.log(error)
+        );
+    }
   }
 }

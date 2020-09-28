@@ -3,7 +3,23 @@ $filesHeight: $containerHeight * 0.7;
 $urlsHeight: $containerHeight * 0.3;
 $backgroundGrey: rgba(0, 0, 0, 0.065);
 
-.source_container {
+#wrapper {
+  width: 100%;
+  overflow: hidden;
+}
+
+#input {
+  width: 550px;
+  float: left;
+  margin-right: 50px;
+}
+
+#results {
+  overflow: hidden;
+  // background-color: $backgroundGrey;
+}
+
+.input_container {
   position: relative;
   height: $containerHeight;
 }
@@ -54,16 +70,6 @@ $backgroundGrey: rgba(0, 0, 0, 0.065);
   border-radius: 25px;
   background-color: #FFE46D;
 }
-
-.remove_btn {
-  position: relative;
-  float: right;
-  cursor: pointer;
-  color: #888;
+.the_spinner {
+  display: none;
 }
-
-.remove_btn:hover {
-  color: #000;
-}
-
-
