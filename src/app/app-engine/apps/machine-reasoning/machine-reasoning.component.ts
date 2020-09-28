@@ -35,7 +35,7 @@ export class MachineReasoningComponent implements OnInit {
   query_bowl: SafeHtml;
 
   reasoning = false;
-  pathToFile: SafeResourceUrl = '';
+  pathToFile: SafeResourceUrl;
 
   ngOnInit() {
     this.data_bowl = this.init_bowl_text;
@@ -125,9 +125,10 @@ export class MachineReasoningComponent implements OnInit {
 
   }
   reason() {
+    // Show spinner
+    this.reasoning = true;
     // Validate the URL lists FOR REAL
     // Are there URLs?
-
 
     // Validate the file arrays FOR REAL
     // Are there files? Are the suffixes ok?
@@ -150,20 +151,16 @@ export class MachineReasoningComponent implements OnInit {
           'urls': this.query_urls
         }
       };
-      console.log(body);
+
       // POST the object
       this.http.post('http://localhost:50001', body, { responseType: 'blob' })
         .subscribe((val) => {
-            // Show the progress spinner
-            this.reasoning = true;
-
-            const blob = new Blob([ val as any ], { type: 'text/turtle' });
-            console.log( blob );
-            const url = URL.createObjectURL(blob);
-            this.pathToFile = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-
-            // Hide the progress spinner
-            this.reasoning = false;
+          const blob = new Blob([val as any], { type: 'text/turtle' });
+          console.log(blob);
+          const url = URL.createObjectURL(blob);
+          this.pathToFile = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+          // Hide spinner
+          this.reasoning = false;
           }, error => console.log(error)
         );
     }
