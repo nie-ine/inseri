@@ -55,8 +55,7 @@ export class MachineReasoningComponent implements OnInit {
 
   // Note: files from different source folder could have the same name
   // e.g. 'data.ttl'. If you save them in the Docker container, they
-  // will be overwritten. You might want to add an index number to each
-  // filename you received from the JSON ==> HANDLE AT MICROSERVICE'S END
+  // will be overwritten. ==> HANDLE AT MICROSERVICE'S END
 
   readFile(file, onLoadCallback) {
     const reader = new FileReader();
@@ -118,9 +117,6 @@ export class MachineReasoningComponent implements OnInit {
     // Empty the current button's FileList
     (event.target as HTMLInputElement).value = '';
   }
-
-  // Resetting: when selecting a file and resetting and selecting the same file again,
-  // it won't be displayed as it is still in the FileList and there was no change!!!
 
   // Function to remove selected files (from GUI and arrays)
   // A bit redundant
