@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {DomSanitizer, SafeHtml, SafeResourceUrl} from '@angular/platform-browser';
 import {HttpClient} from '@angular/common/http';
 
@@ -18,23 +18,33 @@ export class MachineReasoningComponent implements OnInit {
   ) {
   }
 
-  title = 'Machine Reasoning';
   init_bowl_text = '';
   init_urls_text = '...or list URLs here (line by line)';
 
   data_files = [];
   data_urls = [];
   data_bowl: SafeHtml;
+  @ViewChild('hidden_upl_data') hidden_upl_data: HTMLInputElement;
+  // @ViewChild('data_url_list') data_url_list: HTMLTextAreaElement;
+  data_url_content = '';
+
 
   rule_files = [];
   rule_urls = [];
   rule_bowl: SafeHtml;
+  @ViewChild('hidden_upl_rule') hidden_upl_rule: HTMLInputElement;
+  // @ViewChild('rule_url_list') rule_url_list: HTMLTextAreaElement;
+  rule_url_content = '';
 
   query_files = [];
   query_urls = [];
   query_bowl: SafeHtml;
+  @ViewChild('hidden_upl_query') hidden_upl_query: HTMLInputElement;
+  // ViewChild('query_url_list') query_url_list: HTMLTextAreaElement;
+  query_url_content = '';
 
   reasoning = false;
+  errorMessage;
   pathToFile: SafeResourceUrl;
 
   ngOnInit() {
@@ -55,17 +65,19 @@ export class MachineReasoningComponent implements OnInit {
   }
 
   // HTML for the file chip displayed in the GUI
-  // Not a very good practice, I guess (?)
+  // Bad practice?
   addChips(source) {
     return source.map((object) => ([
-      '<div class=\'file_chip\'>'
+      '<div class=\'file_chip\'><b>'
       + object.file
-      + '</div>'])).join('');
+      + '</b></div>'])).join('');
   }
 
   // Resetting: when selecting a file and resetting and selecting the same file again,
   // it won't be displayed as it is still in the FileList and there was no change!!!
 
+  // Functions to remove selected files from the GUI
+  // A bit redundant
   resetData() {
     this.data_bowl = this.init_bowl_text;
     this.data_files = [];
@@ -82,9 +94,11 @@ export class MachineReasoningComponent implements OnInit {
     console.log(this.query_files);
   }
 
+  // Selecting data, rule, or query files
   onFileSelect(event: Event, type) {
     // save the FileList object
     const selectedFiles = (event.target as HTMLInputElement).files;
+    console.log(selectedFiles);
 
     // iterate over each selected file
     for (let i = 0; i < selectedFiles.length; ++i) {
@@ -109,32 +123,49 @@ export class MachineReasoningComponent implements OnInit {
         this.query_files.push(thisFile);
       }
     }
+
     console.log(this.data_files);
     console.log(this.rule_files);
     console.log(this.query_files);
 
     // List the names of the selected files in the GUI
     if (type === 'data') {
-      // this.data_bowl = this.addChips(this.data_files, 'data').bypassSecurityTrustHtml;
       this.data_bowl = this.sanitizer.bypassSecurityTrustHtml(this.addChips(this.data_files));
+      console.log(selectedFiles);
     } else if (type === 'rule') {
       this.rule_bowl = this.sanitizer.bypassSecurityTrustHtml(this.addChips(this.rule_files));
     } else if (type === 'query') {
       this.query_bowl = this.sanitizer.bypassSecurityTrustHtml(this.addChips(this.query_files));
     }
-
   }
-  reason() {
-    // Show spinner
-    this.reasoning = true;
-    // Validate the URL lists FOR REAL
-    // Are there URLs?
 
-    // Validate the file arrays FOR REAL
-    // Are there files? Are the suffixes ok?
-    if (this.data_files.length > 0
-      && this.rule_files.length > 0
-      && this.query_files.length > 0) {
+  reason() {
+    // Remove any currently displayed error messages
+    this.errorMessage = false;
+    // Remove any currently displayed reasoning results
+    this.pathToFile = false;
+
+    // Create new URL array, if according textarea is not empty and not only whitespace!
+    if  (this.data_url_content.trim() !== '') {
+      this.data_urls = this.data_url_content.split(/\r?\n/);
+      console.log(this.data_urls);
+    }
+    if  (this.data_url_content.trim() !== '') {
+      this.rule_urls = this.rule_url_content.split(/\r?\n/);
+      console.log(this.rule_urls);
+    }
+    if  (this.data_url_content.trim() !== '') {
+      this.query_urls = this.query_url_content.split(/\r?\n/);
+      console.log(this.query_urls);
+    }
+
+    // Check if there's at least one input for data, rules, and queries
+    if (this.data_files.concat(this.data_urls).length > 0
+      && this.rule_files.concat(this.rule_urls).length > 0
+      && this.query_files.concat(this.query_urls).length > 0) {
+
+      // Show spinner
+      this.reasoning = true;
 
       // Create the object to POST
       const body = {
@@ -161,8 +192,17 @@ export class MachineReasoningComponent implements OnInit {
           this.pathToFile = this.sanitizer.bypassSecurityTrustResourceUrl(url);
           // Hide spinner
           this.reasoning = false;
-          }, error => console.log(error)
+          }, error => {
+            // Log error, display error message
+            console.log(error);
+            this.errorMessage = error.message;
+            // Hide spinner
+            this.reasoning = false;
+          }
         );
+    } else { // If there's no data, no rules, or queries
+      this.errorMessage = 'Data, rule, or query input is missing!';
+      this.reasoning = false;
     }
   }
 }
