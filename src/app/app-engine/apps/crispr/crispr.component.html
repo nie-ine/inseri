@@ -1,12 +1,90 @@
-<button mat-button (click)="imgFileInput.click()">{{ !showSubmitButton ? 'Choose file' : 'Choose another file' }}</button> <br>
 
-<input style="display: none;" type="file" #imgFileInput (change)="onFileChange($event.target.files)"/>
-<button mat-button (click)="submitFile()" *ngIf="showSubmitButton">Submit {{ fileToUpload.name }} </button>
+
+<mat-form-field appearance="fill">
+  <mat-label>Prediction type</mat-label>
+  <mat-select [(value)]="selectedPredictionType">
+    <mat-option value="mean">Mean</mat-option>
+    <mat-option value="median">Median</mat-option>
+    <mat-option value="max">Max</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-form-field appearance="fill">
+  <mat-label>Base editor</mat-label>
+  <mat-select [(value)]="selectedBaseEditor">
+    <mat-option value="ABEmax">ABEmax</mat-option>
+    <mat-option value="BE4">BE4</mat-option>
+    <mat-option value="ABE8e">ABE8e</mat-option>
+    <mat-option value="AID">AID</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<!--<mat-form-field appearance="fill" *ngIf="showSubmitButton" style="width: 400px">-->
+<!--  <mat-label>Which of the {{ sequencesArray.length }} sequences should be plotted?</mat-label>-->
+<!--  <mat-select [formControl]="sequencesForm" multiple>-->
+<!--    <mat-select-trigger>-->
+<!--      {{sequencesForm.value ? sequencesForm.value[0] : ''}}-->
+<!--      <span *ngIf="sequencesForm.value?.length > 1" class="example-additional-selection">-->
+<!--        (+{{sequencesForm.value.length - 1}} {{sequencesForm.value?.length === 2 ? 'other' : 'others'}})-->
+<!--      </span>-->
+<!--    </mat-select-trigger>-->
+<!--    <mat-option *ngFor="let sequence of sequencesArray" [value]="sequence">{{sequence}}</mat-option>-->
+<!--  </mat-select>-->
+<!--</mat-form-field>-->
 
 <br>
 
-<div *ngIf="pathToFile && !fileHasChanged">
-  <h3> Result for {{ fileToUpload.name }} </h3>
+<button mat-button (click)="imgFileInput.click()">{{ !showSubmitButton ? 'Choose file' : 'Choose another file' }}</button> <br>
+
+<input style="display: none;" type="file" #imgFileInput (change)="onFileChange($event.target.files)"/>
+
+<span *ngIf="csvContainsTooManyLines" >Your csv contains too many lines</span>
+
+<div style="height: 400px!important; overflow: auto;" *ngIf="showSubmitButton">
+
+  <mat-form-field>
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Search for sequences" #input>
+  </mat-form-field>
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"  style="width: 100%;">
+
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox (change)="$event ? masterToggle() : null"
+                      [checked]="selection.hasValue() && isAllSelected()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()"
+                      [aria-label]="checkboxLabel()">
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox (click)="$event.stopPropagation()"
+                      (change)="$event ? selection.toggle(row) : null"
+                      [checked]="selection.isSelected(row)"
+                      [aria-label]="checkboxLabel(row)">
+        </mat-checkbox>
+      </td>
+    </ng-container>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef> All sequences </th>
+      <td mat-cell *matCellDef="let element"> {{element.sequence}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+        (click)="selection.toggle(row)">
+    </tr>
+  </table>
+</div>
+
+<button mat-button (click)="submitFile()" *ngIf="showSubmitButton && !csvContainsTooManyLines">Submit {{ fileToUpload.name }} </button>
+
+<div *ngIf="pathToFile && !fileHasChanged && !csvContainsTooManyLines">
+  <h4> Result for {{ fileToUpload.name }} | {{ submittedBaseEditor }} | {{ submittedPredictionType }} </h4>
+
   <iframe  [src]= "pathToFile"  style="width: 100%; height: 600px;" ></iframe>
 </div>
 
