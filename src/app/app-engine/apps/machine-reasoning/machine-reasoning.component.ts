@@ -22,7 +22,7 @@ export class MachineReasoningComponent implements OnInit {
   init_urls_text = 'List file URLs line by line';
 
   data_files = [];
-  data_urls = [];
+  data_urls: Array<string>;
   data_bowl: SafeHtml;
   @ViewChild('hidden_upl_data') hidden_upl_data: HTMLInputElement;
   // @ViewChild('data_url_list') data_url_list: HTMLTextAreaElement;
@@ -30,14 +30,14 @@ export class MachineReasoningComponent implements OnInit {
 
 
   rule_files = [];
-  rule_urls = [];
+  rule_urls: Array<string>;
   rule_bowl: SafeHtml;
   @ViewChild('hidden_upl_rule') hidden_upl_rule: HTMLInputElement;
   // @ViewChild('rule_url_list') rule_url_list: HTMLTextAreaElement;
   rule_url_content = '';
 
   query_files = [];
-  query_urls = [];
+  query_urls: Array<string>;
   query_bowl: SafeHtml;
   @ViewChild('hidden_upl_query') hidden_upl_query: HTMLInputElement;
   // ViewChild('query_url_list') query_url_list: HTMLTextAreaElement;
@@ -146,12 +146,18 @@ export class MachineReasoningComponent implements OnInit {
     // Create new URL arrays, if according textarea is not empty and not only whitespace
     if  (this.data_url_content.trim() !== '') {
       this.data_urls = this.data_url_content.split(/\r?\n/);
+    } else {
+      this.data_urls = [];
     }
     if  (this.rule_url_content.trim() !== '') {
       this.rule_urls = this.rule_url_content.split(/\r?\n/);
+    } else {
+      this.rule_urls = [];
     }
     if  (this.query_url_content.trim() !== '') {
       this.query_urls = this.query_url_content.split(/\r?\n/);
+    } else {
+      this.query_urls = [];
     }
 
     // Check if there's at least one input for data, rules, and queries (files or URLs)
