@@ -5,12 +5,12 @@
         <div class="input_container">
           <div class="files">
             <div class="file_list" [innerHTML]="data_bowl"></div>
-            <input #hidden_upl_data style="display:none" type="file" (change)="onFileSelect($event, 'data')" multiple>
+            <input #hidden_upl_data [ngStyle]="{'display':'none'}" type="file" (change)="onFileSelect($event, 'data')" multiple>
             <button mat-button (click)="hidden_upl_data.click()">Select data...</button>
             <button mat-button (click)="resetData()" [ngStyle]="{'float':'right'}">Reset</button>
           </div>
           <div class="urls">
-            <textarea matInput id="data_url_list" aria-label="list of data URLs" [placeholder]="init_urls_text"></textarea>
+            <textarea matInput id="data_url_list" aria-label="list of data URLs" [(ngModel)]="data_url_content" [placeholder]="init_urls_text"></textarea>
           </div>
         </div>
       </mat-tab>
@@ -23,7 +23,7 @@
             <button mat-button (click)="resetRules()" [ngStyle]="{'float':'right'}">Reset</button>
           </div>
           <div class="urls">
-            <textarea matInput id="rule_url_list" aria-label="list of rule URLs" [placeholder]="init_urls_text"></textarea>
+            <textarea matInput id="rule_url_list" aria-label="list of rule URLs" [(ngModel)]="rule_url_content" [placeholder]="init_urls_text"></textarea>
           </div>
         </div>
       </mat-tab>
@@ -31,12 +31,12 @@
         <div class="input_container">
           <div class="files">
             <div class="file_list" [innerHTML]="query_bowl"></div>
-            <input #hidden_upl_query style="display:none" type="file" (change)="onFileSelect($event, 'query')" multiple>
+            <input #hidden_upl_query [ngStyle]="{'display':'none'}" type="file" (change)="onFileSelect($event, 'query')" multiple>
             <button mat-button (click)="hidden_upl_query.click()">Select queries...</button>
             <button mat-button (click)="resetQueries()" [ngStyle]="{'float':'right'}">Reset</button>
           </div>
           <div class="urls">
-            <textarea matInput id="query_url_list" aria-label="list of query URLs" [placeholder]="init_urls_text"></textarea>
+            <textarea matInput id="query_url_list" aria-label="list of query URLs" [(ngModel)]="query_url_content" [placeholder]="init_urls_text"></textarea>
           </div>
         </div>
       </mat-tab>
@@ -46,12 +46,13 @@
       <span class="param">The parameters (currently readonly)</span>
       <textarea id="param_list" matInput aria-label="reasoning parameters" readonly>--nope</textarea>
     </div>
-    <button mat-raised-button (click)="reason()" [ngStyle]="{'background-color':'#FFE46D'}">Reason</button>
+    <button mat-button (click)="reason()" [ngStyle]="{'background-color':'#FFE46D'}">Reason</button>
     <mat-spinner *ngIf="reasoning" diameter="25" [ngStyle]="{'float':'right', 'right':'20px'}"></mat-spinner>
   </div>
   <div id="results">
     <mat-tab-group animationDuration="0ms">
       <mat-tab label="Results">
+        <div *ngIf="errorMessage" [innerText]="errorMessage" [ngStyle]="{'padding':'5px','background-color':'#ff0033', 'border-radius':'4px', 'color':'white'}"></div>
         <iframe *ngIf="pathToFile" [src]="pathToFile" [ngStyle]="{'width':'100%', 'height':'578px', 'border':'0'}"></iframe>
       </mat-tab>
     </mat-tab-group>

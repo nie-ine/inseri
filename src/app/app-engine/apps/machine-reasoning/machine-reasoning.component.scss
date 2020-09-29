@@ -1,7 +1,7 @@
 $containerHeight: 400px;
 $filesHeight: $containerHeight * 0.7;
 $urlsHeight: $containerHeight * 0.3;
-$backgroundGrey: rgba(0, 0, 0, 0.065);
+$backgroundGrey: #F5F5F5;
 
 #wrapper {
   width: 100%;
@@ -43,16 +43,18 @@ $backgroundGrey: rgba(0, 0, 0, 0.065);
   position: relative;
   height: $urlsHeight;
   background-color: $backgroundGrey;
-  padding: 5px;
 }
 #data_url_list {
   resize: none;
+  padding: 5px;
 }
 #rule_url_list {
   resize: none;
+  padding: 5px;
 }
 #query_url_list {
   resize: none;
+  padding: 5px;
 }
 
 #param_list {
@@ -65,11 +67,13 @@ $backgroundGrey: rgba(0, 0, 0, 0.065);
 }
 
 .file_chip {
-  padding: 5px 15px 5px 10px;
+  height: 32px;
+  padding: 7px 8px 7px 12px;
   margin-bottom: 5px;
   border-radius: 25px;
-  background-color: #FFE46D;
+  background-color: #C6C6C6;
 }
+
 .the_spinner {
   display: none;
 }
