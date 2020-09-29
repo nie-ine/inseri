@@ -1,4 +1,6 @@
-import {Component, OnInit, ViewChild, ElementRef, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {DomSanitizer, SafeHtml, SafeResourceUrl} from '@angular/platform-browser';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-machine-reasoning',
@@ -9,31 +11,36 @@ import {Component, OnInit, ViewChild, ElementRef, ViewEncapsulation} from '@angu
 })
 
 export class MachineReasoningComponent implements OnInit {
-  title = 'Machine Reasoning';
 
-  data_files = [];
-  @ViewChild('data_uploads') data_uploads: ElementRef;
-  data_urls = [];
-  data_bowl;
-
-  rule_files = [];
-  @ViewChild('rule_uploads') rule_uploads: ElementRef;
-  rule_urls = [];
-  rule_bowl;
-
-  query_files = [];
-  @ViewChild('query_uploads') query_uploads: ElementRef;
-  query_urls = [];
-  query_bowl;
-  private elRef: any;
-
-  constructor() {
+  constructor(
+    private sanitizer: DomSanitizer,
+    private http: HttpClient
+  ) {
   }
 
+  title = 'Machine Reasoning';
+  init_bowl_text = '';
+  init_urls_text = '...or list URLs here (line by line)';
+
+  data_files = [];
+  data_urls = [];
+  data_bowl: SafeHtml;
+
+  rule_files = [];
+  rule_urls = [];
+  rule_bowl: SafeHtml;
+
+  query_files = [];
+  query_urls = [];
+  query_bowl: SafeHtml;
+
+  reasoning = false;
+  pathToFile: SafeResourceUrl;
+
   ngOnInit() {
-    this.data_bowl = 'Upload data files...';
-    this.rule_bowl = 'Upload rule files...';
-    this.query_bowl = 'Upload query files...';
+    this.data_bowl = this.init_bowl_text;
+    this.rule_bowl = this.init_bowl_text;
+    this.query_bowl = this.init_bowl_text;
   }
 
   // Note: files from different source folder could have the same name
@@ -47,35 +54,32 @@ export class MachineReasoningComponent implements OnInit {
     reader.readAsText(file);
   }
 
-  // wtf(event: Event) {
-  //   console.log('wtfff');
-  //   const remove_btns = document.getElementsByClassName('remove_btn');
-  //   const values = Array.prototype.map.call(remove_btns, function(el) {
-  //     return el.value;
-  //   });
-  //   console.log(values);
-  //   for (let i = 0; i < values.length; i++) {
-  //     values[i].addEventListener('click', function () {
-  //       console.log('hello button');
-  //     });
-  //   }
-
-
-    // const remove_btns = document.querySelectorAll('.remove_btn');
-    // console.log(remove_btns);
-    // for (let i = 0; i < remove_btns.length; i++) {
-    //   remove_btns[i].addEventListener('click', function () {
-    //     console.log('hello button');
-    //   });
-    // }
-  // }
-
+  // HTML for the file chip displayed in the GUI
+  // Not a very good practice, I guess (?)
   addChips(source) {
     return source.map((object) => ([
       '<div class=\'file_chip\'>'
       + object.file
-      + '<span class=\'remove_btn\'>&times;</span>'
       + '</div>'])).join('');
+  }
+
+  // Resetting: when selecting a file and resetting and selecting the same file again,
+  // it won't be displayed as it is still in the FileList and there was no change!!!
+
+  resetData() {
+    this.data_bowl = this.init_bowl_text;
+    this.data_files = [];
+    console.log(this.data_files);
+  }
+  resetRules() {
+    this.rule_bowl = this.init_bowl_text;
+    this.rule_files = [];
+    console.log(this.rule_files);
+  }
+  resetQueries() {
+    this.query_bowl = this.init_bowl_text;
+    this.query_files = [];
+    console.log(this.query_files);
   }
 
   onFileSelect(event: Event, type) {
@@ -92,7 +96,9 @@ export class MachineReasoningComponent implements OnInit {
 
       // read the content of the file...
       // ...and add the key 'content' with the file's content as text to the object
-      this.readFile(selectedFiles[i], function(e) { thisFile['content'] = e.target.result; });
+      this.readFile(selectedFiles[i], function (e) {
+        thisFile['content'] = e.target.result;
+      });
 
       // push the created object for this file to the according global array of all selected files
       if (type === 'data') {
@@ -109,11 +115,54 @@ export class MachineReasoningComponent implements OnInit {
 
     // List the names of the selected files in the GUI
     if (type === 'data') {
-      this.data_bowl = this.addChips(this.data_files);
+      // this.data_bowl = this.addChips(this.data_files, 'data').bypassSecurityTrustHtml;
+      this.data_bowl = this.sanitizer.bypassSecurityTrustHtml(this.addChips(this.data_files));
     } else if (type === 'rule') {
-      this.rule_bowl = this.addChips(this.rule_files);
+      this.rule_bowl = this.sanitizer.bypassSecurityTrustHtml(this.addChips(this.rule_files));
     } else if (type === 'query') {
-      this.query_bowl = this.addChips(this.query_files);
+      this.query_bowl = this.sanitizer.bypassSecurityTrustHtml(this.addChips(this.query_files));
+    }
+
+  }
+  reason() {
+    // Show spinner
+    this.reasoning = true;
+    // Validate the URL lists FOR REAL
+    // Are there URLs?
+
+    // Validate the file arrays FOR REAL
+    // Are there files? Are the suffixes ok?
+    if (this.data_files.length > 0
+      && this.rule_files.length > 0
+      && this.query_files.length > 0) {
+
+      // Create the object to POST
+      const body = {
+        'data': {
+          'files': this.data_files,
+          'urls': this.data_urls
+        },
+        'rules': {
+          'files': this.rule_files,
+          'urls': this.rule_urls
+        },
+        'queries': {
+          'files': this.query_files,
+          'urls': this.query_urls
+        }
+      };
+
+      // POST the object
+      this.http.post('http://localhost:50001', body, { responseType: 'blob' })
+        .subscribe((val) => {
+          const blob = new Blob([val as any], { type: 'text/turtle' });
+          console.log(blob);
+          const url = URL.createObjectURL(blob);
+          this.pathToFile = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+          // Hide spinner
+          this.reasoning = false;
+          }, error => console.log(error)
+        );
     }
   }
 }

@@ -46,7 +46,7 @@ import {UserGroupComponent} from '../user-group/user-group.component';
     RouterModule.forRoot([
       {path: 'dashboard', component: DashboardComponent},
       {path: 'impressum', component: ImpressumComponent},
-      {path: 'app-user-group', component: UserGroupComponent},
+      {path: 'user-group', component: UserGroupComponent},
     ]),
     NIEOSModule,
     MatTableModule

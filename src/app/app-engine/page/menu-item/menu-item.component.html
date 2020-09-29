@@ -1,0 +1,17 @@
+<mat-menu #childMenu="matMenu" [overlapTrigger]="false">
+  <span *ngFor="let child of items">
+    <!-- Handle branch node menu items -->
+    <span *ngIf="child.subPages && child.subPages.length > 0">
+      <button mat-menu-item color="primary" [matMenuTriggerFor]="menu.childMenu">
+        <span>{{child.page.title}}</span>
+      </button>
+      <app-menu-item #menu [items]="child.subPages"></app-menu-item>
+    </span>
+    <!-- Handle leaf node menu items -->
+    <span *ngIf="(!child.subPages || child.subPages.length === 0) && child.page">
+      <button mat-menu-item>
+        <span>{{child.page.title}}</span>
+      </button>
+    </span>
+  </span>
+</mat-menu>

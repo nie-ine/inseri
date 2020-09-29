@@ -9,7 +9,7 @@ import { Page } from '../../mongodb/page/page.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DeletePageComponent } from '../delete-page/delete-page.component';
 import { PageService } from '../../mongodb/page/page.service';
-import { DuplicatePageComponent } from "../duplicate-page/duplicate-page.component";
+import { DuplicatePageComponent } from '../duplicate-page/duplicate-page.component';
 import {PageSetService} from '../../mongodb/pageset/page-set.service';
 import {AuthService} from '../../mongodb/auth/auth.service';
 
@@ -230,6 +230,8 @@ export class DialogCreateNewPageComponent implements OnInit {
   form: FormGroup;
   isLoading: boolean;
   pageSetID: any;
+  pageId: any;
+  subPage: boolean;
   newPage: Page = {
     id: undefined,
     title: '',
@@ -243,6 +245,8 @@ export class DialogCreateNewPageComponent implements OnInit {
               private route: ActivatedRoute,
               private pageService: PageService) {
     this.pageSetID = data.pageset._id;
+    this.subPage = data.subPage;
+    this.pageId = data.pageId;
   }
 
   ngOnInit() {
@@ -262,17 +266,33 @@ export class DialogCreateNewPageComponent implements OnInit {
     this.newPage.title = this.form.get('title').value;
     this.newPage.description = this.form.get('description').value;
 
-    this.pageService.createPage(this.pageSetID, this.newPage)
-      .subscribe((result) => {
-        this.isLoading = false;
-        if (result.status === 201) {
-          this.dialogRef.close();
-        } else {
-          this.dialogRef.close();
-        }
-      }, error => {
-        this.isLoading = false;
-      });
+    if (this.subPage) {
+      this.pageService.createPage(null, this.newPage, this.pageId, this.subPage)
+        .subscribe((result) => {
+          this.isLoading = false;
+          if (result.status === 201) {
+            this.dialogRef.close();
+          } else {
+            this.dialogRef.close();
+          }
+        }, error => {
+          this.isLoading = false;
+        });
+    } else {
+      this.pageService.createPage(this.pageSetID, this.newPage)
+        .subscribe((result) => {
+          this.isLoading = false;
+          if (result.status === 201) {
+            this.dialogRef.close();
+          } else {
+            this.dialogRef.close();
+          }
+        }, error => {
+          this.isLoading = false;
+        });
+    }
+
+
   }
 
 }

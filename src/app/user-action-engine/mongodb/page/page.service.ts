@@ -12,8 +12,12 @@ export class PageService {
     private http: HttpClient
   ) {}
 
-  createPage(pageSetID: string, page: any): Observable<any> {
-    return this.http.post(`${PageService.API_BASE_URL_PAGE_SET}/${pageSetID}/pages`, page);
+  createPage(pageSetID: string, page: any, parentPageId?: string, subPage?: boolean): Observable<any> {
+    if (subPage) {
+      return this.http.post(`${PageService.API_BASE_URL_PAGE}/${parentPageId}/newSubPage`, page);
+    } else {
+      return this.http.post(`${PageService.API_BASE_URL_PAGE_SET}/${pageSetID}/pages`, page);
+    }
   }
 
   getPage(pageId: string): Observable<any> {
@@ -75,5 +79,9 @@ export class PageService {
     template.append( 'host', environment.app);
     return this.http.post(`${PageService.API_BASE_URL_PAGE}/addProfileTemplate/${pageID}`,
       template);
+  }
+
+  getAllSubPages(pageId: string) {
+    return this.http.get(`${PageService.API_BASE_URL_PAGE}/sub-pages/${pageId}`);
   }
 }
