@@ -271,9 +271,9 @@ export class DialogCreateNewPageComponent implements OnInit {
         .subscribe((result) => {
           this.isLoading = false;
           if (result.status === 201) {
-            this.dialogRef.close();
+            this.dialogRef.close(result.body.subpage);
           } else {
-            this.dialogRef.close();
+            this.dialogRef.close(result.body.subpage);
           }
         }, error => {
           this.isLoading = false;

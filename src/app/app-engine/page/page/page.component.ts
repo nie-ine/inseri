@@ -10,9 +10,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {GenerateHashService} from '../../../user-action-engine/other/generateHash.service';
 import {OpenAppsModel} from '../../../user-action-engine/mongodb/page/open-apps.model';
 import {PageService} from '../../../user-action-engine/mongodb/page/page.service';
-import { DataManagementComponent } from '../../../query-app-interface/data-management/data-management/data-management.component';
+import {DataManagementComponent} from '../../../query-app-interface/data-management/data-management/data-management.component';
 import {MatDialog, MatSnackBar} from '@angular/material';
-import { NgxSpinnerService } from 'ngx-spinner';
+import {NgxSpinnerService} from 'ngx-spinner';
 import {GeneralRequestService} from '../../../query-engine/general/general-request.service';
 import {QueryInformationDialogComponent} from '../query-information-dialog/query-information-dialog.component';
 import {StyleMappingService} from '../../../query-app-interface/services/style-mapping-service';
@@ -22,11 +22,11 @@ import {ActionService} from '../../../user-action-engine/mongodb/action/action.s
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-import { AppMenuModel } from './appMenu.model';
+import {AppMenuModel} from './appMenu.model';
 import {ExtendSessionComponent, PizzaPartyComponent} from '../../../user-action-engine/header/header.component';
 import {AuthService} from '../../../user-action-engine/mongodb/auth/auth.service';
 import {QueryService} from '../../../user-action-engine/mongodb/query/query.service';
-import { environment } from '../../../../environments/environment';
+import {environment} from '../../../../environments/environment';
 import {DialogCreateNewPageComponent} from '../../../user-action-engine/page-set/page-set-landing-page/page-set-landing-page.component';
 import {AppInputComponentComponent} from '../app-input-component/app-input-component.component';
 import {AddAppGroupDialogComponent} from '../add-app-group-dialog/add-app-group-dialog.component';
@@ -37,6 +37,7 @@ import {OverlayContainer} from '@angular/cdk/overlay';
 import {PageSetService} from '../../../user-action-engine/mongodb/pageset/page-set.service';
 import {SubPageOfPageModel} from '../../../user-action-engine/mongodb/page/subPageOfPage.model';
 import {Page} from '../../../user-action-engine/mongodb/page/page.model';
+import {forEach} from '@angular/router/src/utils/collection';
 
 
 @Component({
@@ -285,7 +286,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   private selectedPageObj: any;
   private parentPage: any;
   selectedSubPage: SubPageOfPageModel;
-  subPagesOfPage: SubPageOfPageModel[] = [] ;
+  subPagesOfPage: SubPageOfPageModel[] = [];
 
   constructor(
     public route: ActivatedRoute,
@@ -314,14 +315,14 @@ export class PageComponent implements OnInit, AfterViewChecked {
       this.generateNavigation(params.actionID);
     });
     // route
-    if ( this.route.snapshot.queryParams.page ) {
+    if (this.route.snapshot.queryParams.page) {
       this.dataSource = new MatTableDataSource(
         new AppMenuModel().appMenu
       );
     } else {
       const menuForHome = [];
-      for ( const app of new AppMenuModel().appMenu ) {
-        if ( app.showOnHome ) {
+      for (const app of new AppMenuModel().appMenu) {
+        if (app.showOnHome) {
           menuForHome.push(app);
         }
       }
@@ -340,7 +341,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     const dialogRef = this.dialog.open(DataManagementComponent, {
       width: '80%',
       height: '80%',
-      data: [ this.openAppsInThisPage, this.page, this.openAppArray, this.querySet ]
+      data: [this.openAppsInThisPage, this.page, this.openAppArray, this.querySet]
     });
     dialogRef.afterClosed().subscribe((result) => {
       this.resetPage = true;
@@ -355,7 +356,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * */
   ngAfterViewChecked() {
     this.cdr.detectChanges();
-    if ( this.pageIDFromURL !==  this.route.snapshot.queryParams.page ) {
+    if (this.pageIDFromURL !== this.route.snapshot.queryParams.page) {
       setTimeout(() => {
         this.reloadVariables = true;
         this.openAppArray = [];
@@ -368,7 +369,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
-    console.log( this.dataSource.filter );
+    console.log(this.dataSource.filter);
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
@@ -377,30 +378,30 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   ngOnInit() {
 
-    if ( this.router.url.split('/')[ 1 ].search( 'actionID=' ) === -1 ) {
-        this.actionService.checkIfShortNameExist( this.router.url.split('/')[ 1 ] )
-          .subscribe(
-            response => {
-              // console.log( response );
-              if ( (response as any).exist ) {
-                this.pageSetService.getPageSet( ( response as any).action.hasPageSet )
-                  .subscribe(
-                    pageSetResponse => {
-                      console.log( pageSetResponse );
-                      this.router.navigate(['/page'],
-                        {
-                          queryParams: {
-                            'actionID': ( response as any).action._id,
-                            'page': pageSetResponse.pageset.hasPages[ 0 ]
-                          },
-                        });
-                    }, e2 => console.log( e2 )
-                  );
-              } else if ( this.router.url.split('/')[ 1 ].search( 'home' ) === -1 ) {
-                this.notFound = true;
-              }
-            }, e => console.log( e )
-          );
+    if (this.router.url.split('/')[1].search('actionID=') === -1) {
+      this.actionService.checkIfShortNameExist(this.router.url.split('/')[1])
+        .subscribe(
+          response => {
+            // console.log( response );
+            if ((response as any).exist) {
+              this.pageSetService.getPageSet((response as any).action.hasPageSet)
+                .subscribe(
+                  pageSetResponse => {
+                    console.log(pageSetResponse);
+                    this.router.navigate(['/page'],
+                      {
+                        queryParams: {
+                          'actionID': (response as any).action._id,
+                          'page': pageSetResponse.pageset.hasPages[0]
+                        },
+                      });
+                  }, e2 => console.log(e2)
+                );
+            } else if (this.router.url.split('/')[1].search('home') === -1) {
+              this.notFound = true;
+            }
+          }, e => console.log(e)
+        );
     }
 
     this.slogan = this.slogans[Math.floor(Math.random() * this.slogans.length)];
@@ -418,7 +419,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     /**
      * If not logged in, preview instatiates the published page options.
      * */
-    if ( !this.authService.getIsAuth() ) {
+    if (!this.authService.getIsAuth()) {
       this.preview = true;
       this.loggedIn = false;
       this.page.tiles = true;
@@ -427,8 +428,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
     /**
      * Necesary for appshore menu
      * */
-    for ( const appType in this.openApps.openApps ) {
-      this.appTypes.push( appType );
+    for (const appType in this.openApps.openApps) {
+      this.appTypes.push(appType);
     }
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -453,7 +454,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     /**
      * If there is no action Id in the url, variables are set to instantiate the landing page
      * */
-    if ( !this.actionID ) {
+    if (!this.actionID) {
       this.pageAsDemo = true;
       this.lightHouse = false;
     }
@@ -467,7 +468,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     /**
      * If the page is a demo, the lighthouse changes the colour every 7 secdons
      * */
-    if ( this.pageAsDemo ) {
+    if (this.pageAsDemo) {
       this.startLightHouse();
     }
 
@@ -486,20 +487,21 @@ export class PageComponent implements OnInit, AfterViewChecked {
   /**
    * Youtube utorial videos are added with this function
    * */
-  addVideoApp( url: string ) {
-    this.addAnotherApp( 'youtubeVideo', true, 'Youtube Video' );
-    const length = this.openAppsInThisPage[ 'youtubeVideo' ].model.length - 1;
-    this.openAppsInThisPage[ 'youtubeVideo' ].model[ length ].initialized = true;
-    this.openAppsInThisPage[ 'youtubeVideo' ].model[ length ].x = 100;
-    this.openAppsInThisPage[ 'youtubeVideo' ].model[ length ].y = 100;
-    this.openAppsInThisPage[ 'youtubeVideo' ].model[ length ]['videoURL'] = url;
-    this.openAppsInThisPage[ 'youtubeVideo' ].model[ length ].width = 600;
-    this.openAppsInThisPage[ 'youtubeVideo' ].model[ length ].height = 400;
+  addVideoApp(url: string) {
+    this.addAnotherApp('youtubeVideo', true, 'Youtube Video');
+    const length = this.openAppsInThisPage['youtubeVideo'].model.length - 1;
+    this.openAppsInThisPage['youtubeVideo'].model[length].initialized = true;
+    this.openAppsInThisPage['youtubeVideo'].model[length].x = 100;
+    this.openAppsInThisPage['youtubeVideo'].model[length].y = 100;
+    this.openAppsInThisPage['youtubeVideo'].model[length]['videoURL'] = url;
+    this.openAppsInThisPage['youtubeVideo'].model[length].width = 600;
+    this.openAppsInThisPage['youtubeVideo'].model[length].height = 400;
   }
 
   goToPageSet() {
     this.router.navigate(['/page-set'],
-      { queryParams:
+      {
+        queryParams:
           {
             actionID: this.actionID
           }
@@ -513,9 +515,11 @@ export class PageComponent implements OnInit, AfterViewChecked {
   addNewPage() {
     const dialogRef = this.dialog.open(DialogCreateNewPageComponent, {
       width: '700px',
-      data: { pageset: this.action.hasPageSet,
-      subPage: false,
-      pageId: ''}
+      data: {
+        pageset: this.action.hasPageSet,
+        subPage: false,
+        pageId: ''
+      }
     });
     dialogRef.afterClosed().subscribe(result => {
       this.alreadyLoaded = false;
@@ -539,41 +543,45 @@ export class PageComponent implements OnInit, AfterViewChecked {
   /**
    * This function is used to navigate to another page belonging to the current pageSet
    * */
-  navigateToOtherView() {
-    this.router.navigate( [ 'page' ], {
+  navigateToOtherView(page?: any) {
+    this.router.navigate(['page'], {
       queryParams: {
         'actionID': this.actionID,
-        'page': this.selectedPageObj._id
+        'page': (page ? page._id : this.selectedPageObj._id)
       }
-    } );
+    });
   }
 
   /**
    * This function generates the pagesOfThisActtion Array
    * */
   generateNavigation(actionID: string, goToPage?: boolean) {
+    // this.subPagesOfPage = this.subPagesOfPage.slice(0);
     if (!this.alreadyLoaded && actionID) {
+      this.subPagesOfPage = [];
       this.actionService.getAction(actionID)
         .subscribe(data => {
             if (data.body.action.type === 'page-set') {
               this.pagesOfThisActtion = [];
-              for (const page of ( data.body as any ).action.hasPageSet.hasPages as any ) {
-                if ( page._id === this.hashOfThisPage ) {
+              console.log((data.body as any).action.hasPageSet.hasPages);
+              for (const page of (data.body as any).action.hasPageSet.hasPages as any) {
+                if (page._id === this.hashOfThisPage) {
                   this.selectedPage = this.pagesOfThisActtion.length;
                 }
-                this.subPagesOfPage.push({page: page});
+                this.subPagesOfPage.push({page: page, subPages: null});
                 this.selectSubPages(page);
                 this.pagesOfThisActtion[this.pagesOfThisActtion.length] = page;
                 this.alreadyLoaded = true;
               }
-              if ( goToPage ) {
+              console.log(this.subPagesOfPage);
+              if (goToPage) {
                 this.selectedPage = this.pagesOfThisActtion.length - 1;
-                this.router.navigate( [ 'page' ], {
+                this.router.navigate(['page'], {
                   queryParams: {
                     'actionID': this.actionID,
-                    'page': this.pagesOfThisActtion[ this.pagesOfThisActtion.length - 1 ]._id
+                    'page': this.pagesOfThisActtion[this.pagesOfThisActtion.length - 1]._id
                   }
-                } );
+                });
               }
             }
           },
@@ -589,57 +597,57 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * including all open apps.
    * */
   updateAppCoordinates(app: any) {
-    if (this.page.openApps[ app.hash ] === null) {
-      this.page.openApps[ app.hash ] = [];
+    if (this.page.openApps[app.hash] === null) {
+      this.page.openApps[app.hash] = [];
     }
-    this.page.openApps[ app.hash ] = app;
+    this.page.openApps[app.hash] = app;
   }
 
   /**
    * This function updates the page in MongoDB
    * */
-  updatePage( reload?: boolean ) {
+  updatePage(reload?: boolean) {
     /**
      *  - it is important to give a COPY of this.page as an input, thus { ...this.page },
      * otherwise this.page will be rewritten by the routine pageService.updatePage
      * during its execution!
      * */
     let openAppArrayIndex = 0;
-    for ( let i = 0; i < this.openAppArray.length; i++ ) {
+    for (let i = 0; i < this.openAppArray.length; i++) {
       if (
-        this.page.openApps[ this.openAppArray[ i ].hash ].type !== 'pageMenu' &&
-        this.page.openApps[ this.openAppArray[ i ].hash ].type !== 'dataChooser'
+        this.page.openApps[this.openAppArray[i].hash].type !== 'pageMenu' &&
+        this.page.openApps[this.openAppArray[i].hash].type !== 'dataChooser'
       ) {
-        this.page.openApps[ this.openAppArray[ i ].hash ].openAppArrayIndex = openAppArrayIndex;
+        this.page.openApps[this.openAppArray[i].hash].openAppArrayIndex = openAppArrayIndex;
         openAppArrayIndex += 1;
       }
     }
-    for ( const mapping in this.page.appInputQueryMapping ) {
-      if ( !this.page.openApps[ mapping ] ) {
-        delete this.page.appInputQueryMapping[ mapping ];
+    for (const mapping in this.page.appInputQueryMapping) {
+      if (!this.page.openApps[mapping]) {
+        delete this.page.appInputQueryMapping[mapping];
       }
     }
     // console.log( this.page );
     this.pageService.updatePage(
-      { ...this.page }
-      )
+      {...this.page}
+    )
       .subscribe(
         data => {
           this.snackBarOpen = true;
           setTimeout(() => {
             this.snackBarOpen = false;
           }, 2000);
-          this.snackBar2.open( 'Page successfully saved', 'ok',
+          this.snackBar2.open('Page successfully saved', 'ok',
             {
               duration: 2000
             });
-          if ( reload ) {
+          if (reload) {
             this.reloadVariables = true;
           }
         },
         error => {
           console.log(error);
-          this.snackBar2.open( 'Sth went wrong, page has not been saved' );
+          this.snackBar2.open('Sth went wrong, page has not been saved');
         });
   }
 
@@ -647,65 +655,65 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * This function adds another app to the page. It is invocated through the
    * inseri appshore menu
    * */
-  addAnotherApp (
+  addAnotherApp(
     appType: string,
     generateHash: boolean,
     title: string,
     fileUrlPath?: string,
     chosenInput?: string
   ): Array<any> {
-    for ( let i = 0; i < this.openAppArray.length; i++ ) {
-      if ( this.openAppArray[ i ].type === 'pageMenu' ) {
-        this.openAppArray.splice( i, 1 );
+    for (let i = 0; i < this.openAppArray.length; i++) {
+      if (this.openAppArray[i].type === 'pageMenu') {
+        this.openAppArray.splice(i, 1);
       }
     }
     this.dataSource.filter = undefined;
-    const appModel = this.openAppsInThisPage[ appType ].model;
+    const appModel = this.openAppsInThisPage[appType].model;
     const length = appModel.length;
-    appModel[ length ] = {};
-    if ( generateHash ) {
-      appModel[ length ].hash = this.generateHashService.generateHash();
-      appModel[ length ].type = appType;
-      appModel[ length ].title = appType;
-      appModel[ length ].fullWidth = this.openAppsInThisPage[ appType ].fullWidth;
-      appModel[ length ].fullHeight = this.openAppsInThisPage[ appType ].fullHeight;
-      appModel[ length ].initialized = true;
-      appModel[ length ].x = 100;
-      appModel[ length ].y = 100;
-      appModel[ length ].initialHeight = this.openAppsInThisPage[ appType ].initialHeight;
-      appModel[ length ].initialWidth = this.openAppsInThisPage[ appType ].initialWidth;
-      appModel[ length ].width = this.openAppsInThisPage[ appType ].initialWidth;
-      appModel[ length ].height = this.openAppsInThisPage[ appType ].initialHeight;
-      appModel[ length ].openAppArrayIndex = length;
-      appModel[ length ].showContent = true;
-      appModel[ length ].materialIcon = this.openAppsInThisPage[ appType ].materialIcon;
-      if ( !this.page.openApps ) {
+    appModel[length] = {};
+    if (generateHash) {
+      appModel[length].hash = this.generateHashService.generateHash();
+      appModel[length].type = appType;
+      appModel[length].title = appType;
+      appModel[length].fullWidth = this.openAppsInThisPage[appType].fullWidth;
+      appModel[length].fullHeight = this.openAppsInThisPage[appType].fullHeight;
+      appModel[length].initialized = true;
+      appModel[length].x = 100;
+      appModel[length].y = 100;
+      appModel[length].initialHeight = this.openAppsInThisPage[appType].initialHeight;
+      appModel[length].initialWidth = this.openAppsInThisPage[appType].initialWidth;
+      appModel[length].width = this.openAppsInThisPage[appType].initialWidth;
+      appModel[length].height = this.openAppsInThisPage[appType].initialHeight;
+      appModel[length].openAppArrayIndex = length;
+      appModel[length].showContent = true;
+      appModel[length].materialIcon = this.openAppsInThisPage[appType].materialIcon;
+      if (!this.page.openApps) {
         this.page.openApps = {};
       }
       if (
         this.page.openApps &&
-        this.page.openApps[ appModel[ length ].hash ] === null
+        this.page.openApps[appModel[length].hash] === null
       ) {
-        this.page.openApps[ appModel[ length ].hash ] = [];
+        this.page.openApps[appModel[length].hash] = [];
       }
-      if ( this.page.openApps ) {
-        this.page.openApps[ appModel[ length ].hash ] = appModel[ length ];
+      if (this.page.openApps) {
+        this.page.openApps[appModel[length].hash] = appModel[length];
       }
-      if ( this.openAppArray.length === 0 ) {
-        this.openAppArray.push( appModel[ length ] );
+      if (this.openAppArray.length === 0) {
+        this.openAppArray.push(appModel[length]);
       } else {
-        this.openAppArray = [ appModel[ length ] ].concat( this.openAppArray );
+        this.openAppArray = [appModel[length]].concat(this.openAppArray);
       }
-      if ( appType !== 'pageMenu' &&  this.openAppsInThisPage[ appModel[ length ].type ].inputs ) {
-        for ( const input of this.openAppsInThisPage[ appModel[ length ].type ].inputs ) {
+      if (appType !== 'pageMenu' && this.openAppsInThisPage[appModel[length].type].inputs) {
+        for (const input of this.openAppsInThisPage[appModel[length].type].inputs) {
           this.createDefaultInputAndMappToAppInput(
             appType,
-            appModel[ length ],
+            appModel[length],
             input,
             chosenInput === input.inputName ? fileUrlPath : input.default
           );
         }
-      } else if ( this.loggedIn ) {
+      } else if (this.loggedIn) {
         this.updatePage();
       }
     }
@@ -718,132 +726,132 @@ export class PageComponent implements OnInit, AfterViewChecked {
     input: any,
     valueToAssign: string
   ) {
-      if ( this.loggedIn ) {
-        app.spinnerIsShowing = true;
-      }
-      // for ( const input of this.openAppsInThisPage[ app.type ].inputs ) {
-        const now = new Date();
-        // console.log(!this.page.serverUrl);
-        if ( !this.page.jsonId ) {
-          this.queryService.createQueryOfPage(this.page._id,
-            {title: 'page:' + this.page.title + ' | data stored in inseri'})
-            .subscribe(data => {
-              if (data.status === 201) {
-                const query = data.body.query;
-                this.page.queries.push( query._id );
-                this.requestService.createJson()
-                  .subscribe(myOwnJson => {
-                      const jsonId = (myOwnJson as any).result._id;
-                      const serverURL = environment.node + '/api/myOwnJson/getJson/' + String((myOwnJson as any).result._id);
-                      this.page.jsonId = jsonId;
-                      this.page.ownQuery = query._id;
-                      query.serverUrl = serverURL;
-                      query.method = 'JSON';
-                      query.description = now.getFullYear() +
-                        ':' + now.getDate() +
-                        ':' + now.getHours() +
-                        ':' + now.getMinutes() +
-                        ':' + now.getSeconds();
-                      this.queryService.updateQueryOfPage(this.page._id, query._id, query)
-                        .subscribe((data3) => {
-                          if (data3.status === 200) {
-                          } else {
-                            // console.log('Updating query failed');
-                          }
-                        }, error1 => console.log(error1));
-                      if ( this.page.appInputQueryMapping[ app.hash ] === undefined ) {
-                        this.page.appInputQueryMapping[ app.hash ] = {};
+    if (this.loggedIn) {
+      app.spinnerIsShowing = true;
+    }
+    // for ( const input of this.openAppsInThisPage[ app.type ].inputs ) {
+    const now = new Date();
+    // console.log(!this.page.serverUrl);
+    if (!this.page.jsonId) {
+      this.queryService.createQueryOfPage(this.page._id,
+        {title: 'page:' + this.page.title + ' | data stored in inseri'})
+        .subscribe(data => {
+          if (data.status === 201) {
+            const query = data.body.query;
+            this.page.queries.push(query._id);
+            this.requestService.createJson()
+              .subscribe(myOwnJson => {
+                  const jsonId = (myOwnJson as any).result._id;
+                  const serverURL = environment.node + '/api/myOwnJson/getJson/' + String((myOwnJson as any).result._id);
+                  this.page.jsonId = jsonId;
+                  this.page.ownQuery = query._id;
+                  query.serverUrl = serverURL;
+                  query.method = 'JSON';
+                  query.description = now.getFullYear() +
+                    ':' + now.getDate() +
+                    ':' + now.getHours() +
+                    ':' + now.getMinutes() +
+                    ':' + now.getSeconds();
+                  this.queryService.updateQueryOfPage(this.page._id, query._id, query)
+                    .subscribe((data3) => {
+                      if (data3.status === 200) {
+                      } else {
+                        // console.log('Updating query failed');
                       }
-                      this.page.appInputQueryMapping[ app.hash ][ input.inputName ] = {};
-                      this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'path' ] =
-                        [ 'result', 'content', 'info', app.hash, input.inputName ];
-                      this.page.appInputQueryMapping[ app.hash ][ input.inputName ].query = this.page.ownQuery;
-                      this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'serverUrl' ] =
-                        environment.node + '/api/myOwnJson/getJson/' + this.page.jsonId;
-                      this.page.appInputQueryMapping[ app.hash ].app = app.hash;
-                    this.requestService.updateJson(
-                      this.page.jsonId,
-                      {
-                        _id: this.page.jsonId,
-                        creator: this.page.creator,
-                        content: {
-                          info: {
-                            [app.hash]: {
-                              [input.inputName]: valueToAssign
-                            }
+                    }, error1 => console.log(error1));
+                  if (this.page.appInputQueryMapping[app.hash] === undefined) {
+                    this.page.appInputQueryMapping[app.hash] = {};
+                  }
+                  this.page.appInputQueryMapping[app.hash][input.inputName] = {};
+                  this.page.appInputQueryMapping[app.hash][input.inputName]['path'] =
+                    ['result', 'content', 'info', app.hash, input.inputName];
+                  this.page.appInputQueryMapping[app.hash][input.inputName].query = this.page.ownQuery;
+                  this.page.appInputQueryMapping[app.hash][input.inputName]['serverUrl'] =
+                    environment.node + '/api/myOwnJson/getJson/' + this.page.jsonId;
+                  this.page.appInputQueryMapping[app.hash].app = app.hash;
+                  this.requestService.updateJson(
+                    this.page.jsonId,
+                    {
+                      _id: this.page.jsonId,
+                      creator: this.page.creator,
+                      content: {
+                        info: {
+                          [app.hash]: {
+                            [input.inputName]: valueToAssign
                           }
-                        },
-                        __v: 0
-                      }
-                    )
-                      .subscribe(updatedJson => {
+                        }
+                      },
+                      __v: 0
+                    }
+                  )
+                    .subscribe(updatedJson => {
                         this.updatePage();
                         setTimeout(() => {
                           // console.log( 'reload 702' );
                           this.reloadVariables = true;
                         }, 200);
-                        }, error => console.log(error)
-                      );
-                    }, error => {
-                      console.log(error);
-                    }
-                  );
+                      }, error => console.log(error)
+                    );
+                }, error => {
+                  console.log(error);
+                }
+              );
+          }
+        }, error1 => {
+          app.spinnerIsShowing = false;
+          console.log(error1);
+        });
+    } else {
+      // console.log( 'update existing query', input );
+      let existingInputs: any;
+      this.requestService.get(environment.node + '/api/myOwnJson/getJson/' + this.page.jsonId, undefined, undefined)
+        .subscribe(
+          myOwnJsonResponse => {
+            console.log(myOwnJsonResponse);
+            if (myOwnJsonResponse.body.result.content) {
+              existingInputs = myOwnJsonResponse.body.result.content.info;
+            } else {
+              existingInputs = {};
+            }
+            // console.log( existingInputs );
+            if (existingInputs[app.hash] === undefined) {
+              existingInputs[app.hash] = {};
+            }
+            existingInputs[app.hash][input.inputName] = valueToAssign;
+            this.requestService.updateJson(
+              this.page.jsonId,
+              {
+                _id: this.page.jsonId,
+                creator: this.page.creator,
+                content: {
+                  info: existingInputs
+                },
+                __v: 0
               }
-            }, error1 => {
-              app.spinnerIsShowing = false;
-              console.log( error1 );
-            });
-        } else {
-          // console.log( 'update existing query', input );
-          let existingInputs: any;
-          this.requestService.get(  environment.node + '/api/myOwnJson/getJson/' + this.page.jsonId, undefined, undefined )
-            .subscribe(
-              myOwnJsonResponse => {
-                console.log( myOwnJsonResponse );
-                if ( myOwnJsonResponse.body.result.content ) {
-                  existingInputs = myOwnJsonResponse.body.result.content.info;
-                } else {
-                  existingInputs = {};
-                }
-                // console.log( existingInputs );
-                if ( existingInputs[app.hash] === undefined ) {
-                  existingInputs[app.hash] = {};
-                }
-                existingInputs[app.hash][input.inputName] = valueToAssign;
-                this.requestService.updateJson(
-                  this.page.jsonId,
-                  {
-                    _id: this.page.jsonId,
-                    creator: this.page.creator,
-                    content: {
-                      info: existingInputs
-                    },
-                    __v: 0
+            )
+              .subscribe(updatedJson => {
+                  // console.log(updatedJson);
+                  if (this.page.appInputQueryMapping[app.hash] === undefined) {
+                    this.page.appInputQueryMapping[app.hash] = {};
                   }
-                )
-                  .subscribe(updatedJson => {
-                      // console.log(updatedJson);
-                    if ( this.page.appInputQueryMapping[ app.hash ] === undefined ) {
-                      this.page.appInputQueryMapping[ app.hash ] = {};
-                    }
-                    this.page.appInputQueryMapping[ app.hash ][ input.inputName ] = {};
-                    this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'path' ] =
-                      [ 'result', 'content', 'info', app.hash, input.inputName ];
-                    this.page.appInputQueryMapping[ app.hash ][ input.inputName ].query = this.page.ownQuery;
-                    this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'serverUrl' ] =
-                      environment.node + '/api/myOwnJson/getJson/' + this.page.jsonId;
-                    this.page.appInputQueryMapping[ app.hash ].app = app.hash;
-                    this.updatePage();
-                    setTimeout(() => {
-                      console.log( 'reload 753' );
-                      this.reloadVariables = true;
-                    }, 200);
-                    }, error => console.log(error)
-                  );
-              }, error => console.log( error )
-            );
-        }
-      // }
+                  this.page.appInputQueryMapping[app.hash][input.inputName] = {};
+                  this.page.appInputQueryMapping[app.hash][input.inputName]['path'] =
+                    ['result', 'content', 'info', app.hash, input.inputName];
+                  this.page.appInputQueryMapping[app.hash][input.inputName].query = this.page.ownQuery;
+                  this.page.appInputQueryMapping[app.hash][input.inputName]['serverUrl'] =
+                    environment.node + '/api/myOwnJson/getJson/' + this.page.jsonId;
+                  this.page.appInputQueryMapping[app.hash].app = app.hash;
+                  this.updatePage();
+                  setTimeout(() => {
+                    console.log('reload 753');
+                    this.reloadVariables = true;
+                  }, 200);
+                }, error => console.log(error)
+              );
+          }, error => console.log(error)
+        );
+    }
+    // }
   }
 
   /**
@@ -853,12 +861,12 @@ export class PageComponent implements OnInit, AfterViewChecked {
     appHash: string,
     i: number
   ) {
-    console.log( this.page );
+    console.log(this.page);
     this.openAppArray.splice(
       i,
       1);
-    if ( this.page.openApps ) {
-      delete this.page.openApps[ appHash ];
+    if (this.page.openApps) {
+      delete this.page.openApps[appHash];
     }
   }
 
@@ -867,9 +875,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * frame.component.ts, this component emits the settings back so that
    * it can be stored as part of the page that contains the app
    * */
-  updateAppSettings( settings: any ) {
-    for ( const app of this.openAppsInThisPage[ settings.type ].model ) {
-      if ( settings.hash === app.hash ) {
+  updateAppSettings(settings: any) {
+    for (const app of this.openAppsInThisPage[settings.type].model) {
+      if (settings.hash === app.hash) {
         app.title = settings.title;
         app.width = settings.width;
         app.height = settings.height;
@@ -878,8 +886,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
         app.description = settings.description;
       }
     }
-    for ( const app of this.openAppArray ) {
-      if ( settings.hash === app.hash ) {
+    for (const app of this.openAppArray) {
+      if (settings.hash === app.hash) {
         app.title = settings.title;
         app.width = settings.width;
         app.height = settings.height;
@@ -888,12 +896,12 @@ export class PageComponent implements OnInit, AfterViewChecked {
         app.description = settings.description;
       }
     }
-    this.page.openApps[ settings.hash ].title = settings.title;
-    this.page.openApps[ settings.hash ].width = settings.width;
-    this.page.openApps[ settings.hash ].height = settings.height;
-    this.page.openApps[ settings.hash ].fullWidth = settings.fullWidth;
-    this.page.openApps[ settings.hash ].fullHeight = settings.fullHeight;
-    this.page.openApps[ settings.hash ].description = settings.description;
+    this.page.openApps[settings.hash].title = settings.title;
+    this.page.openApps[settings.hash].width = settings.width;
+    this.page.openApps[settings.hash].height = settings.height;
+    this.page.openApps[settings.hash].fullWidth = settings.fullWidth;
+    this.page.openApps[settings.hash].fullHeight = settings.fullHeight;
+    this.page.openApps[settings.hash].description = settings.description;
     this.updatePage();
   }
 
@@ -901,12 +909,12 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * The load-variables.component emits the page and the action loaded from mongodb to this
    * function where the relevant variables are updated
    * */
-  receivePage( pageAndAction: any ) {
+  receivePage(pageAndAction: any) {
     this.page = pageAndAction[0];
     this.page.tiles = true;
     // console.log( this.page );
     this.action = pageAndAction[1];
-    console.log( this.action );
+    console.log(this.action);
     this.reloadVariables = false;
     this.pageIsPublished = this.page.published;
     this.showAppTitlesOnPublish = this.page.showAppTitlesOnPublish;
@@ -915,25 +923,25 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.showDataBrowserOnPublish = this.page.showDataBrowserOnPublish;
   }
 
-  generateOpenApps( openApps: any ) {
+  generateOpenApps(openApps: any) {
     // console.log( openApps );
     this.openAppArray = [];
-    for ( const appType in openApps ) {
-      for ( const app of openApps[ appType ].model ) {
+    for (const appType in openApps) {
+      for (const app of openApps[appType].model) {
         // console.log( app );
-        if ( app.x ) {
-          this.openAppArray.push( app );
+        if (app.x) {
+          this.openAppArray.push(app);
         }
       }
     }
-    for ( const app of this.openAppArray ) {
-      app.openAppArrayIndex = this.page.openApps[ app.hash ].openAppArrayIndex;
+    for (const app of this.openAppArray) {
+      app.openAppArrayIndex = this.page.openApps[app.hash].openAppArrayIndex;
     }
     const helpArray = [];
-    for ( const app of this.openAppArray ) {
-      helpArray[ app.openAppArrayIndex ] = app;
+    for (const app of this.openAppArray) {
+      helpArray[app.openAppArrayIndex] = app;
     }
-    if ( helpArray.length ===  this.openAppArray.length ) {
+    if (helpArray.length === this.openAppArray.length) {
       this.openAppArray = helpArray;
     }
   }
@@ -942,17 +950,17 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * The load-variables.component emits the openApps - information loaded from mongodb to this
    * function where the relevant variables are updated
    * */
-  receiveOpenAppsInThisPage( openAppsInThisPage: any ) {
+  receiveOpenAppsInThisPage(openAppsInThisPage: any) {
     this.openAppsInThisPage = openAppsInThisPage;
     this.reloadVariables = false;
-    this.generateOpenApps( openAppsInThisPage );
+    this.generateOpenApps(openAppsInThisPage);
   }
 
   /**
    * This fuction is invoked by an emit of the data-chooser component,
    * after the user chooses a data entry and triggers the data assignment component
    * */
-  updateMainResourceIndex( input: any ) {
+  updateMainResourceIndex(input: any) {
     // console.log( input );
     this.index = input.index;
     this.response = input.response;
@@ -964,11 +972,11 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.cdr.detectChanges();
     const dataAssignmentComponent = new DataAssignmentComponent();
     // console.log( this.index, input );
-    if ( ( this.index as any ) === 'NaN' || this.index === NaN ) {
-      console.log( 'index is NaN' );
+    if ((this.index as any) === 'NaN' || this.index === NaN) {
+      console.log('index is NaN');
       this.index = 0;
     }
-    if ( this.page && this.openAppsInThisPage && this.index === 0 ) {
+    if (this.page && this.openAppsInThisPage && this.index === 0) {
       // console.log( input );
       dataAssignmentComponent.startPathUpdateProcess(
         input.queryId,
@@ -993,27 +1001,27 @@ export class PageComponent implements OnInit, AfterViewChecked {
         );
       }, 1000);
     }
-    if (  this.pathWithArray ) {
-      for ( const app of this.openAppArray ) {
-        for ( const appInput in this.page.appInputQueryMapping[ app.hash ] ) {
-          if ( this.page.appInputQueryMapping[ app.hash ][ appInput ].query === this.queryId ) {
+    if (this.pathWithArray) {
+      for (const app of this.openAppArray) {
+        for (const appInput in this.page.appInputQueryMapping[app.hash]) {
+          if (this.page.appInputQueryMapping[app.hash][appInput].query === this.queryId) {
             let allSegmentsTheSame = true;
-            for ( let i = 0; i <= this.pathWithArray.length; i++ ) {
-              if ( this.pathWithArray[ i ] !== this.page.appInputQueryMapping[ app.hash ][ appInput ].path[ i ] ) {
+            for (let i = 0; i <= this.pathWithArray.length; i++) {
+              if (this.pathWithArray[i] !== this.page.appInputQueryMapping[app.hash][appInput].path[i]) {
                 allSegmentsTheSame = false;
               }
               if (
-                ( i === this.pathWithArray.length - 1 && allSegmentsTheSame ) ||
-                ( this.pathWithArray.length === 0 && this.response.length > 0 )
+                (i === this.pathWithArray.length - 1 && allSegmentsTheSame) ||
+                (this.pathWithArray.length === 0 && this.response.length > 0)
               ) {
-                if ( !app[ 'pathsWithArrays' ] ) {
-                  app[ 'pathsWithArrays' ] = {};
+                if (!app['pathsWithArrays']) {
+                  app['pathsWithArrays'] = {};
                 }
-                if ( !app[ 'pathsWithArrays' ][ this.queryId ] ) {
-                  app[ 'pathsWithArrays' ][ this.queryId ] = {};
+                if (!app['pathsWithArrays'][this.queryId]) {
+                  app['pathsWithArrays'][this.queryId] = {};
                 }
-                if ( !app[ 'pathsWithArrays' ][ this.queryId ][ this.pathWithArray.toString() ] ) {
-                  app[ 'pathsWithArrays' ][ this.queryId ][ this.pathWithArray.toString() ] = {};
+                if (!app['pathsWithArrays'][this.queryId][this.pathWithArray.toString()]) {
+                  app['pathsWithArrays'][this.queryId][this.pathWithArray.toString()] = {};
                 }
                 // console.log( input );
                 dataAssignmentComponent.startPathUpdateProcess(
@@ -1021,11 +1029,11 @@ export class PageComponent implements OnInit, AfterViewChecked {
                   this.pathWithArray,
                   this.index
                 );
-                app[ 'pathsWithArrays' ][ this.queryId ][ this.pathWithArray.toString() ] = {
+                app['pathsWithArrays'][this.queryId][this.pathWithArray.toString()] = {
                   index: input.index,
                   dataChooserEntries: input.dataChooserEntries,
                   response: this.response,
-                  pathToValueInJson: this.page.appInputQueryMapping[ app.hash ][ appInput ].path
+                  pathToValueInJson: this.page.appInputQueryMapping[app.hash][appInput].path
                 };
               }
             }
@@ -1040,88 +1048,88 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * This function generates the Query information needed to
    * generate the information in the the generated dialog.
    * */
-  generateQueryAppPathInformation( queryId: string ): any {
-      // console.log( this.openAppArray );
-      let queryAppPathInformation;
-      for ( const appHash in this.page.appInputQueryMapping ) {
-        for ( const appType in this.openAppsInThisPage ) {
-          if (
-            this.openAppsInThisPage[ appType ].model.length > 0 &&
-            appType !== 'dataChooser'
-          ) {
-            for ( const appEntry of this.openAppsInThisPage[ appType ].model ) {
-              if ( appEntry.hash === appHash ) {
-                for ( const input in this.page.appInputQueryMapping[ appHash ] ) {
-                  if ( this.page.appInputQueryMapping[ appHash ][ input ].query === queryId ) {
-                    if ( queryAppPathInformation === undefined ) {
-                      queryAppPathInformation = [];
-                    }
-                    queryAppPathInformation.push(
-                      {
-                        appHash: appHash,
-                        appTitle: appEntry.title,
-                        path: this.page.appInputQueryMapping[ appHash ][ input ].path,
-                        input: input,
-                        type: appType
-                      }
-                    );
+  generateQueryAppPathInformation(queryId: string): any {
+    // console.log( this.openAppArray );
+    let queryAppPathInformation;
+    for (const appHash in this.page.appInputQueryMapping) {
+      for (const appType in this.openAppsInThisPage) {
+        if (
+          this.openAppsInThisPage[appType].model.length > 0 &&
+          appType !== 'dataChooser'
+        ) {
+          for (const appEntry of this.openAppsInThisPage[appType].model) {
+            if (appEntry.hash === appHash) {
+              for (const input in this.page.appInputQueryMapping[appHash]) {
+                if (this.page.appInputQueryMapping[appHash][input].query === queryId) {
+                  if (queryAppPathInformation === undefined) {
+                    queryAppPathInformation = [];
                   }
+                  queryAppPathInformation.push(
+                    {
+                      appHash: appHash,
+                      appTitle: appEntry.title,
+                      path: this.page.appInputQueryMapping[appHash][input].path,
+                      input: input,
+                      type: appType
+                    }
+                  );
                 }
               }
             }
           }
         }
       }
-      if ( queryAppPathInformation === undefined ) {
-        return undefined;
-      } else {
-        return queryAppPathInformation;
-      }
+    }
+    if (queryAppPathInformation === undefined) {
+      return undefined;
+    } else {
+      return queryAppPathInformation;
+    }
   }
 
   /**
    * This function opens the QueryInformationDialog
    * */
-  openQueryInformationDialog( queryId: string ) {
+  openQueryInformationDialog(queryId: string) {
     const dialogRef = this.queryInfoDialog.open(QueryInformationDialogComponent, {
       width: '800px',
       height: '400px',
-      data: this.generateQueryAppPathInformation( queryId )
+      data: this.generateQueryAppPathInformation(queryId)
     });
   }
 
-  updateTiledPosition( moveAndHash: any ) {
-    console.log( moveAndHash );
+  updateTiledPosition(moveAndHash: any) {
+    console.log(moveAndHash);
   }
 
   openPageMenu() {
-    this.addAnotherApp( 'pageMenu', true, 'inseri Appshore' );
+    this.addAnotherApp('pageMenu', true, 'inseri Appshore');
   }
 
   checkTimeUntilLogout() {
     const now = new Date();
     const expirationDate = localStorage.getItem('expiration');
-    const secondsTotal = ( new Date(expirationDate).getTime() - now.getTime() ) / 1000;
+    const secondsTotal = (new Date(expirationDate).getTime() - now.getTime()) / 1000;
     const minutes = Math.floor(secondsTotal / 60);
     const seconds = Math.floor(secondsTotal - minutes * 60);
     this.userInfo = 'Session expires in ' + minutes + ' min and ' + seconds + ' sec';
-    if ( expirationDate && new Date(expirationDate).getTime() - now.getTime() > 0) {
+    if (expirationDate && new Date(expirationDate).getTime() - now.getTime() > 0) {
 
-      if ( minutes === 59 && seconds === 59 ) {
+      if (minutes === 59 && seconds === 59) {
         this.snackBarOpen = true;
         setTimeout(() => {
           this.snackBarOpen = false;
         }, 2000);
-        this.snackBar2.open( 'Session extended successfully', 'ok',
+        this.snackBar2.open('Session extended successfully', 'ok',
           {
             duration: 2000
           });
       }
 
-      if ( minutes < 5 && !this.snackBarOpen) {
+      if (minutes < 5 && !this.snackBarOpen) {
         this.snackBarOpen = true;
         this.openExtendSessionBar();
-      } else if ( minutes > 5 && !this.snackBarOpen ) {
+      } else if (minutes > 5 && !this.snackBarOpen) {
         this.snackBar.dismiss();
       }
 
@@ -1147,16 +1155,16 @@ export class PageComponent implements OnInit, AfterViewChecked {
     });
   }
 
-  publishPageOrMakePagePrivate( published: boolean ) {
+  publishPageOrMakePagePrivate(published: boolean) {
 
     /**
      * This part of the function publishes all queries
      * */
-    for ( const queryId of this.page.queries ) {
+    for (const queryId of this.page.queries) {
       this.queryService.getQuery(queryId)
         .subscribe(
           (query) => {
-            if ( query.query.method === 'JSON' ) {
+            if (query.query.method === 'JSON') {
               /**
                * The query that is from type 'JSON', which means that this
                * query requests data from mongodb, contains the mongodb id
@@ -1164,26 +1172,26 @@ export class PageComponent implements OnInit, AfterViewChecked {
                * This part is queried in the following 2 lines.
                * */
               let splittedString = query.query.serverUrl.split('/');
-              splittedString = splittedString[ splittedString.length - 1 ];
-              this.requestService.publishJSON( splittedString, published )
+              splittedString = splittedString[splittedString.length - 1];
+              this.requestService.publishJSON(splittedString, published)
                 .subscribe(
                   (json) => {
-                    console.log( json );
+                    console.log(json);
                   }, error1 => {
-                    console.log( error1 );
+                    console.log(error1);
                   }
                 );
             }
           }, error1 => {
-            console.log( error1 );
+            console.log(error1);
           }
         );
       this.queryService.publishQuery(queryId, published)
         .subscribe(
           (response) => {
-            console.log( response );
+            console.log(response);
           }, error => {
-            console.log( error );
+            console.log(error);
           });
     }
 
@@ -1192,7 +1200,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
      * */
     this.pageIsPublished = published;
     this.page.published = published;
-    console.log( this.action );
+    console.log(this.action);
     this.action.published = published;
     this.page.showAppTitlesOnPublish = this.showAppTitlesOnPublish;
     this.page.showAppSettingsOnPublish = this.showAppSettingsOnPublish;
@@ -1225,10 +1233,10 @@ export class PageComponent implements OnInit, AfterViewChecked {
     }, 2000);
   }
 
-  openAssignInputDialog( input: any ) {
-    console.log( input, this.openAppsInThisPage );
+  openAssignInputDialog(input: any) {
+    console.log(input, this.openAppsInThisPage);
     this.pageService.updatePage(
-      { ...this.page }
+      {...this.page}
     )
       .subscribe(
         data => {
@@ -1239,14 +1247,14 @@ export class PageComponent implements OnInit, AfterViewChecked {
             data: {
               appHash: input.hash,
               page: this.page,
-              inputs: this.openAppsInThisPage[ input.type ].inputs
+              inputs: this.openAppsInThisPage[input.type].inputs
             }
           });
           dialogRef.afterClosed().subscribe((result) => {
-            console.log( result );
-            if ( result === 'openDataMGMT' ) {
+            console.log(result);
+            if (result === 'openDataMGMT') {
               this.openDataManagement();
-            } else if ( result === 'reload' ) {
+            } else if (result === 'reload') {
               window.location.reload();
             }
           });
@@ -1257,7 +1265,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   reloadVariablesFunction() {
     // console.log('test');
-    this.updatePage( true );
+    this.updatePage(true);
   }
 
   @HostListener('window:resize', ['$event'])
@@ -1266,10 +1274,10 @@ export class PageComponent implements OnInit, AfterViewChecked {
     // console.log( this.innerWidth );
   }
 
-  switchAppTilePosition( currentPosition: number, nextPosition: number ) {
+  switchAppTilePosition(currentPosition: number, nextPosition: number) {
     const helpVariable = this.openAppArray[currentPosition];
-    this.openAppArray[ currentPosition ] = this.openAppArray[ nextPosition ];
-    this.openAppArray[ nextPosition ] = helpVariable;
+    this.openAppArray[currentPosition] = this.openAppArray[nextPosition];
+    this.openAppArray[nextPosition] = helpVariable;
     this.updatePage();
   }
 
@@ -1277,8 +1285,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.page.tiles = !this.page.tiles;
   }
 
-  minimizeApp( openAppArrayIndex: number ) {
-    this.openAppArray[ openAppArrayIndex ].minimized = true;
+  minimizeApp(openAppArrayIndex: number) {
+    this.openAppArray[openAppArrayIndex].minimized = true;
   }
 
   addDuplicatedPage() {
@@ -1290,7 +1298,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
       }
     });
     dialogRef.afterClosed().subscribe((result) => {
-      this.pageService.duplicatePage( result, this.action.hasPageSet._id )
+      this.pageService.duplicatePage(result, this.action.hasPageSet._id)
         .subscribe(
           data => {
             this.alreadyLoaded = false;
@@ -1298,8 +1306,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
               this.actionID,
               true
             );
-            console.log( this.pagesOfThisActtion );
-          }, error => console.log( error )
+            console.log(this.pagesOfThisActtion);
+          }, error => console.log(error)
         );
     });
   }
@@ -1313,15 +1321,15 @@ export class PageComponent implements OnInit, AfterViewChecked {
       }
     });
     dialogRef.afterClosed().subscribe((result) => {
-      console.log( 'Link existing ' + result );
-      this.pageService.linkExistingPage( result, this.action.hasPageSet._id )
+      console.log('Link existing ' + result);
+      this.pageService.linkExistingPage(result, this.action.hasPageSet._id)
         .subscribe(
           data => {
             this.alreadyLoaded = false;
             this.generateNavigation(
               this.actionID
             );
-          }, error => console.log( error )
+          }, error => console.log(error)
         );
     });
   }
@@ -1329,41 +1337,42 @@ export class PageComponent implements OnInit, AfterViewChecked {
   onThemeChange() {
     const chosenTheme = this.theme === 'none' ? 'dark-theme' : 'none';
     this.theme = chosenTheme;
-    localStorage.setItem( 'theme', chosenTheme );
+    localStorage.setItem('theme', chosenTheme);
   }
 
   appMenu(app: any, key: string) {
-    app[ key ] = true;
+    app[key] = true;
     setTimeout(() => {
-      app[ key ] = false;
+      app[key] = false;
     }, 100);
   }
 
   toggleShowInAppSettings(app: any, index: number) {
-      this.openAppArray[index]['showSettings'] = !this.openAppArray[index]['showSettings'] ;
-      if (!this.openAppArray[index]['showSettings']) { // RELOAD variables if settings are closed
-        this.reloadVariables = true;
-      }
+    this.openAppArray[index]['showSettings'] = !this.openAppArray[index]['showSettings'];
+    if (!this.openAppArray[index]['showSettings']) { // RELOAD variables if settings are closed
+      this.reloadVariables = true;
+    }
   }
 
   publishAsTemplate() {
-    this.pageService.publishAsTemplate( this.page._id )
+    this.pageService.publishAsTemplate(this.page._id)
       .subscribe(
         response => {
-          console.log( response );
-        }, error => console.log( error )
+          console.log(response);
+        }, error => console.log(error)
       );
-    console.log( 'publish as template' );
+    console.log('publish as template');
   }
 
   undoPublishTemplate() {
-    this.pageService.undoPublishTemplate( this.page._id )
+    this.pageService.undoPublishTemplate(this.page._id)
       .subscribe(
         response => {
-          console.log( response );
-        }, error => console.log( error )
+          console.log(response);
+        }, error => console.log(error)
       );
   }
+
   addProfilePhoto($event: Event) {
     this.templatePhoto = (event.target as HTMLInputElement).files[0];
     // const reader = new FileReader();
@@ -1371,74 +1380,109 @@ export class PageComponent implements OnInit, AfterViewChecked {
     //   this.imagePreview = reader.result as string;
     // };
     // reader.readAsDataURL(this.templatePhoto);
-    this.pageService.addProfilePhotoForTemplate( this.page._id, this.templatePhoto).subscribe(
+    this.pageService.addProfilePhotoForTemplate(this.page._id, this.templatePhoto).subscribe(
       response => {
-        console.log( response );
-      }, error => console.log( error )
+        console.log(response);
+      }, error => console.log(error)
     );
   }
-  checkIfShortNameExist( shortName: string ) {
-    console.log( shortName );
-    this.actionService.checkIfShortNameExist( shortName )
+
+  checkIfShortNameExist(shortName: string) {
+    console.log(shortName);
+    this.actionService.checkIfShortNameExist(shortName)
       .subscribe(
         response => {
-          console.log( response );
-          this.shortNameExist = ( response as any ).exist;
+          console.log(response);
+          this.shortNameExist = (response as any).exist;
           this.shortName = shortName;
-        }, e => console.log( e )
+        }, e => console.log(e)
       );
   }
+
   setShortName() {
-    console.log( 'Set shortname', this.shortName );
-    this.actionService.setShortName( this.shortName, this.action._id )
+    console.log('Set shortname', this.shortName);
+    this.actionService.setShortName(this.shortName, this.action._id)
       .subscribe(
         response => {
-          console.log( response );
-        }, e => console.log( e )
+          console.log(response);
+        }, e => console.log(e)
       );
   }
+
   addNewSubPage() {
     console.log(this.selectedPageObj._id);
     const dialogRef = this.dialog.open(DialogCreateNewPageComponent, {
       width: '700px',
-      data: { pageset: this.action.hasPageSet,
+      data: {
+        pageset: this.action.hasPageSet,
         subPage: true,
-        pageId: this.selectedPageObj._id}
+        pageId: this.selectedPageObj._id
+      }
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(subPage => {
+      this.addSubPageToSubPagesArr(this.selectedPageObj, subPage);
       this.alreadyLoaded = false;
       this.generateNavigation(
         this.actionID
       );
     });
   }
-
-  selectSubPages(page: any) {
-    this.parentPage = page;
-    console.log(this.subPagesOfPage);
-    this.pageService.getAllSubPages( this.parentPage._id )
-      .subscribe(
-        response => {
-          console.log( response );
-          if ( (response as any).subPages) {
-            this.selectedSubPage = {page: this.parentPage, subPages: (response as any).subPages};
-            this.subPagesOfPage[this.searchPageInSubPages(page)].subPages = (response as any).subPages;
-            (response as any).subPages.forEach(page=> {
-              this.subPagesOfPage.push({page: page});
-            });
-          }
-          console.log(this.subPagesOfPage);
-        }, error => console.log( error )
-      );
-  }
-  searchPageInSubPages(page: Page) {
-    console.log(this.subPagesOfPage, page);
+  getSubPage(page) {
+    let targetPage;
     for (let i = 0; i < this.subPagesOfPage.length; i++) {
-      if (this.subPagesOfPage[i].page.id === page.id) {
-        return i;
+     // console.log(this.subPagesOfPage[i]);
+       targetPage = this.getPageFromHierarchy(page, this.subPagesOfPage[i]);
+      if (targetPage !== null) {
+        return targetPage;
       }
     }
-    return -1;
+    return targetPage;
+  }
+  getPageFromHierarchy(page, current) {
+    let result;
+    if (!current || current.length === 0) {
+      return null;
+    }
+    if (page && page._id === current.page._id ) {
+      return current;
+    }
+    if (current.subPages !== null && current.subPages.length !== 0 && page) {
+      for (let i = 0; i < current.subPages.length; i++) {
+        result = this.getPageFromHierarchy(page, current[i] );
+        if (result !== null) {
+          return result;
+        }
+      }
+    }
+    return null;
+  }
+
+  selectSubPages(page: any) {
+    const target = this.getSubPage(page);
+       this.pageService.getAllSubPages(page._id)
+         .subscribe(
+           response => {
+             const tempSubPages = (response as any).subPages;
+             if (tempSubPages) {
+               const subs = [] as any;
+               for (let i = 0; i < tempSubPages.length; i++) {
+                 subs.push({page: tempSubPages[i], subPages: null});
+                target.subPages = subs;
+                this.selectSubPages(tempSubPages[i]);
+               }
+             }
+           }, error => console.log(error)
+         );
+  }
+
+  addSubPageToSubPagesArr(parentPage: any, subPage: any) {
+    const oldParetnObj = this.getSubPage(parentPage);
+    if (oldParetnObj.subPages || oldParetnObj.subPages.length !== 0) {
+      oldParetnObj.subPages.push({page: subPage, subPages: []});
+    } else {
+      oldParetnObj.subPages = [{page: subPage, subPages: []}];
+    }
+    console.log( this.subPagesOfPage);
   }
 }
 

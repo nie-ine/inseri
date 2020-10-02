@@ -75,7 +75,7 @@
             (click)="selectPage( selectedPage - 1 , pagesOfThisActtion[ selectedPage - 1 ] )">
       <mat-icon> keyboard_arrow_left</mat-icon>
     </button>
-    <button mat-button [matMenuTriggerFor]="menu3" *ngIf="pagesOfThisActtion">{{ page.title }}
+    <button mat-button [matMenuTriggerFor]="menu5" *ngIf="pagesOfThisActtion">{{ page.title }}
     </button>
     <mat-menu #menu3="matMenu">
       <!--button
@@ -91,7 +91,7 @@
         [ngStyle]="{'color' : i === selectedPage ? 'blue' : 'black' }"
         matTooltip="{{ page.description }}"
         [matMenuTriggerFor]="menu5"
-        mat-menu-item (click)="selectSubPages( page ); ">{{ page.title }}</button>
+        mat-menu-item (click)="selectSubPages(page); ">{{ page.title }}</button>
       <mat-button-toggle-group
         name="fontStyle"
         *ngIf=" (!pageAsDemo) && !preview && loggedIn"
@@ -113,30 +113,28 @@
 
     </mat-menu>
     <mat-menu #menu5="matMenu"[overlapTrigger]="false">
-      <!--div *ngIf="selectedSubPage">
-        <button
-          style="display: block"
-          *ngFor="let page of selectedSubPage.subPages; let i = index;"
-          matTooltip="{{ page.description }}"
-          [matMenuTriggerFor]="menu5"
-          mat-menu-item (click)="selectSubPages( page ); ">{{ page.title }}</button>
 
-      </div-->
-
-      <span *ngFor="let item of subPagesOfPage">
+      <span *ngFor="let subPage of subPagesOfPage">
     <!-- Handle branch node buttons here -->
-    <span *ngIf="item.subPages && item.subPages.length > 0">
-      <button mat-raised-button [matMenuTriggerFor]="menu.childMenu" (click)="selectSubPages(item.page);"> <!--color="primary"-->
-        {{item.page.title}}
-        <!--mat-icon>expand_more</mat-icon-->
+    <span *ngIf="subPage.subPages && subPage.subPages.length > 0">
+
+      <div class="button-row">
+      <button mat-icon-button matTooltip="Settings" [mat-menu-trigger-for]="menu6" ><mat-icon> settings</mat-icon></button>
+     <button mat-button  [mat-menu-trigger-for]="menu.childMenu"> <!--color="primary"-->
+       {{subPage.page.title}}
       </button>
-      <app-menu-item #menu [items]="item.subPages"></app-menu-item>
+    </div>
+
+      <app-menu-item #menu [items]="subPage.subPages"></app-menu-item>
     </span>
         <!-- Leaf node buttons here -->
-    <span *ngIf="!item.subPages || item.subPages.length === 0">
-      <button mat-button color="primary" >
-        {{item.page.title}}
+    <span *ngIf="!subPage.subPages || subPage.subPages.length === 0">
+     <div class="button-row">
+      <button mat-icon-button matTooltip="Settings" [mat-menu-trigger-for]="menu6" ><mat-icon> settings</mat-icon></button>
+      <button mat-button  >
+        {{subPage.page.title}}
       </button>
+    </div>
     </span>
   </span>
       <mat-button-toggle-group
@@ -144,100 +142,112 @@
         *ngIf=" (!pageAsDemo) && !preview && loggedIn"
         style="margin-left: 10px; margin-right: 10px; margin-top: 10px;">
 
-        <mat-button-toggle (click)="navigateToOtherView();" matTooltip="Go to page">
-          <mat-icon>navigate_next</mat-icon>
+        <mat-button-toggle (click)="addNewPage()" matTooltip="Add new page">
+          <mat-icon>add</mat-icon>
         </mat-button-toggle>
 
-        <mat-button-toggle (click)="addNewSubPage()" matTooltip="Add new subpage">
-          <mat-icon>add</mat-icon>
+        <mat-button-toggle (click)="addDuplicatedPage()" matTooltip="Copy and add existing page">
+          <mat-icon>file_copy</mat-icon>
+        </mat-button-toggle>
+
+        <mat-button-toggle matTooltip="Link existing page" (click)="linkExistingPage()">
+          <mat-icon>link</mat-icon>
         </mat-button-toggle>
 
       </mat-button-toggle-group>
 
     </mat-menu>
+    <mat-menu #menu6="matMenu">
+     <button mat-menu-item (click)="navigateToOtherView();" matTooltip="Go to page">
+       <mat-icon>navigate_next</mat-icon>
+     </button>
+     <button (click)="addNewSubPage();" matTooltip="Add new subpage">
+       <mat-icon>add</mat-icon>
+     </button>
+   </mat-menu>
 
-    <button [disabled]="selectedPage === pagesOfThisActtion.length - 1"
-            *ngIf="pagesOfThisActtion"
-            mat-button
-            (click)="selectPage( selectedPage + 1 , pagesOfThisActtion[ selectedPage + 1 ] )">
-      <mat-icon> keyboard_arrow_right</mat-icon>
-    </button>
+   <button [disabled]="selectedPage === pagesOfThisActtion.length - 1"
+           *ngIf="pagesOfThisActtion"
+           mat-button
+           (click)="selectPage( selectedPage + 1 , pagesOfThisActtion[ selectedPage + 1 ] )">
+     <mat-icon> keyboard_arrow_right</mat-icon>
+   </button>
 
-    <button mat-icon-button *ngIf=" (!pageAsDemo) && !preview && page.publishedAsTemplate"
-            style="color: #4cae4c!important;" matTooltip="This page is published as a template!"
-            [matMenuTriggerFor]="menu4">
-      <mat-icon style="margin-right: 10px">arrow_circle_up</mat-icon>
-    </button>
+   <button mat-icon-button *ngIf=" (!pageAsDemo) && !preview && page.publishedAsTemplate"
+           style="color: #4cae4c!important;" matTooltip="This page is published as a template!"
+           [matMenuTriggerFor]="menu4">
+     <mat-icon style="margin-right: 10px">arrow_circle_up</mat-icon>
+   </button>
 
-    <mat-menu #menu4="matMenu">
-      <button mat-menu-item (click)="undoPublishTemplate()" (click)="page.publishedAsTemplate = false">Undo</button>
-      <button mat-menu-item (click)="filePicker.click()">Add Profile Photo</button>
-      <input type="file" class="form-control" name="profilePic" #filePicker (change)="addProfilePhoto($event)"
-             style="visibility: hidden;height: 0px">
-    </mat-menu>
-
-
-    <button mat-button style="float: right; margin-top: 4px;"
-            *ngIf="pageIsPublished && loggedIn"
-            matTooltip='Page is published'>
-      <mat-icon>public</mat-icon>
-    </button>
-    <div *ngFor="let app of openAppArray; let i = index;">
-      <div
-        *ngIf="( !preview || showAppSettingsOnPublish ) && innerWidth > page.chosenWidth && app.type !== 'pageMenu' && !page.tiles">
-        <button
-          mat-button
-          [matMenuTriggerFor]="menu"
-          style="vertical-align: bottom;"
-          *ngIf="!app.showContent">
-          <mat-icon>{{ openApps.openApps[app.type].materialIcon }}</mat-icon>
-          {{ i }}</button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="app.showContent = true" (click)="app.initialized = true">
-            Show {{ app.title || app.type + i }}</button>
-          <button mat-menu-item (click)=" closeApp( app.hash, i ) ">Remove this app</button>
-        </mat-menu>
-      </div>
-    </div>
-  </div>
+   <mat-menu #menu4="matMenu">
+     <button mat-menu-item (click)="undoPublishTemplate()" (click)="page.publishedAsTemplate = false">Undo</button>
+     <button mat-menu-item (click)="filePicker.click()">Add Profile Photo</button>
+     <input type="file" class="form-control" name="profilePic" #filePicker (change)="addProfilePhoto($event)"
+            style="visibility: hidden;height: 0px">
+   </mat-menu>
 
 
-  <div style=" position: fixed; bottom: 0; left: 0; z-index: 200; overflow-x: auto; margin-top: 70px; width: 300px;"
-       *ngIf="preview && loggedIn">
-    <mat-expansion-panel [ngStyle]="{
-          'height': publishedOptionsExpanded ? '500px' : '',
-          'overflow': publishedOptionsExpanded ? 'auto' : '' }">
-      <mat-expansion-panel-header (click)="publishedOptionsExpanded = !publishedOptionsExpanded">
-        <mat-panel-title>
-          Publish Options
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-
-      <mat-form-field class="example-full-width">
-        <mat-label>Shortname</mat-label>
-        <input #shortname matInput placeholder="Choose URL segment" value="{{ action.shortName }}"
-               (keyup)="checkIfShortNameExist( shortname.value )">
-        <mat-icon matSuffix>{{ shortNameExist === false ? 'done' : 'clear' }}</mat-icon>
-      </mat-form-field>
-
-      <span *ngIf="shortNameExist === true"> Shortname exist, please choose another one </span>
-
-      <button mat-button *ngIf="shortNameExist === false" (click)="setShortName()"> Set Shortname</button>
-
-      <mat-divider style="margin-top: 10px; margin-bottom: 10px;"></mat-divider>
-      <button mat-button *ngIf="!pageIsPublished" (click)="publishPageOrMakePagePrivate( true )">
-        <mat-icon>publish</mat-icon>
-        Publish Page
-      </button>
-      <button mat-button *ngIf="pageIsPublished" (click)="publishPageOrMakePagePrivate( false )">
-        <mat-icon>fingerprint</mat-icon>
-        Make page private again
-      </button>
-    </mat-expansion-panel>
-  </div>
+   <button mat-button style="float: right; margin-top: 4px;"
+           *ngIf="pageIsPublished && loggedIn"
+           matTooltip='Page is published'>
+     <mat-icon>public</mat-icon>
+   </button>
+   <div *ngFor="let app of openAppArray; let i = index;">
+     <div
+       *ngIf="( !preview || showAppSettingsOnPublish ) && innerWidth > page.chosenWidth && app.type !== 'pageMenu' && !page.tiles">
+       <button
+         mat-button
+         [matMenuTriggerFor]="menu"
+         style="vertical-align: bottom;"
+         *ngIf="!app.showContent">
+         <mat-icon>{{ openApps.openApps[app.type].materialIcon }}</mat-icon>
+         {{ i }}</button>
+       <mat-menu #menu="matMenu">
+         <button mat-menu-item (click)="app.showContent = true" (click)="app.initialized = true">
+           Show {{ app.title || app.type + i }}</button>
+         <button mat-menu-item (click)=" closeApp( app.hash, i ) ">Remove this app</button>
+       </mat-menu>
+     </div>
+   </div>
+ </div>
 
 
-  <!-- Data Chooser -->
+ <div style=" position: fixed; bottom: 0; left: 0; z-index: 200; overflow-x: auto; margin-top: 70px; width: 300px;"
+      *ngIf="preview && loggedIn">
+   <mat-expansion-panel [ngStyle]="{
+         'height': publishedOptionsExpanded ? '500px' : '',
+         'overflow': publishedOptionsExpanded ? 'auto' : '' }">
+     <mat-expansion-panel-header (click)="publishedOptionsExpanded = !publishedOptionsExpanded">
+       <mat-panel-title>
+         Publish Options
+       </mat-panel-title>
+     </mat-expansion-panel-header>
+
+     <mat-form-field class="example-full-width">
+       <mat-label>Shortname</mat-label>
+       <input #shortname matInput placeholder="Choose URL segment" value="{{ action.shortName }}"
+              (keyup)="checkIfShortNameExist( shortname.value )">
+       <mat-icon matSuffix>{{ shortNameExist === false ? 'done' : 'clear' }}</mat-icon>
+     </mat-form-field>
+
+     <span *ngIf="shortNameExist === true"> Shortname exist, please choose another one </span>
+
+     <button mat-button *ngIf="shortNameExist === false" (click)="setShortName()"> Set Shortname</button>
+
+     <mat-divider style="margin-top: 10px; margin-bottom: 10px;"></mat-divider>
+     <button mat-button *ngIf="!pageIsPublished" (click)="publishPageOrMakePagePrivate( true )">
+       <mat-icon>publish</mat-icon>
+       Publish Page
+     </button>
+     <button mat-button *ngIf="pageIsPublished" (click)="publishPageOrMakePagePrivate( false )">
+       <mat-icon>fingerprint</mat-icon>
+       Make page private again
+     </button>
+   </mat-expansion-panel>
+ </div>
+
+
+ <!-- Data Chooser -->
   <div style=" position: fixed; bottom: 0; right: 0; z-index: 200; overflow-x: auto; margin-top: 70px;"
        *ngIf="openAppsInThisPage[ 'dataChooser' ].model.length > 0 ">
     <mat-expansion-panel style="float: right;" [disabled]="preview && !showDataBrowserOnPublish"
