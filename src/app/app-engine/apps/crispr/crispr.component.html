@@ -37,7 +37,7 @@
 
 <mat-tab-group mat-align-tabs="start" *ngIf="selectedAction === 'plot' && showSubmitButton">
 
-  <mat-tab label="Plot Sequences">
+  <mat-tab label="Select Sequences that should be plotted">
 
     <div *ngIf="pathToFile && !fileHasChanged && !csvContainsTooManyLines">
       <h4> Result for {{ fileToUpload.name }} | {{ submittedBaseEditor }} | {{ submittedPredictionType }} </h4>

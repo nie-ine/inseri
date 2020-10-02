@@ -21,10 +21,10 @@ export class MachineReasoningComponent implements OnInit {
   }
 
   init_bowl_text = '';
-  init_urls_text = '...or list URLs here (line by line)';
+  init_urls_text = 'List file URLs line by line';
 
   data_files = [];
-  data_urls = [];
+  data_urls: Array<string>;
   data_bowl: SafeHtml;
   @ViewChild('hidden_upl_data') hidden_upl_data: HTMLInputElement;
   // @ViewChild('data_url_list') data_url_list: HTMLTextAreaElement;
@@ -32,14 +32,14 @@ export class MachineReasoningComponent implements OnInit {
 
 
   rule_files = [];
-  rule_urls = [];
+  rule_urls: Array<string>;
   rule_bowl: SafeHtml;
   @ViewChild('hidden_upl_rule') hidden_upl_rule: HTMLInputElement;
   // @ViewChild('rule_url_list') rule_url_list: HTMLTextAreaElement;
   rule_url_content = '';
 
   query_files = [];
-  query_urls = [];
+  query_urls: Array<string>;
   query_bowl: SafeHtml;
   @ViewChild('hidden_upl_query') hidden_upl_query: HTMLInputElement;
   // ViewChild('query_url_list') query_url_list: HTMLTextAreaElement;
@@ -60,8 +60,7 @@ export class MachineReasoningComponent implements OnInit {
 
   // Note: files from different source folder could have the same name
   // e.g. 'data.ttl'. If you save them in the Docker container, they
-  // will be overwritten. You might want to add an index number to each
-  // filename you received from the JSON
+  // will be overwritten. ==> HANDLE AT MICROSERVICE'S END
 
   readFile(file, onLoadCallback) {
     const reader = new FileReader();
@@ -78,32 +77,10 @@ export class MachineReasoningComponent implements OnInit {
       + '</b></div>'])).join('');
   }
 
-  // Resetting: when selecting a file and resetting and selecting the same file again,
-  // it won't be displayed as it is still in the FileList and there was no change!!!
-
-  // Functions to remove selected files from the GUI
-  // A bit redundant
-  resetData() {
-    this.data_bowl = this.init_bowl_text;
-    this.data_files = [];
-    console.log(this.data_files);
-  }
-  resetRules() {
-    this.rule_bowl = this.init_bowl_text;
-    this.rule_files = [];
-    console.log(this.rule_files);
-  }
-  resetQueries() {
-    this.query_bowl = this.init_bowl_text;
-    this.query_files = [];
-    console.log(this.query_files);
-  }
-
   // Selecting data, rule, or query files
-  onFileSelect(event: Event, type) {
+  onFileSelect(event: Event, target) {
     // save the FileList object
     const selectedFiles = (event.target as HTMLInputElement).files;
-    console.log(selectedFiles);
 
     // iterate over each selected file
     for (let i = 0; i < selectedFiles.length; ++i) {
@@ -120,27 +97,44 @@ export class MachineReasoningComponent implements OnInit {
       });
 
       // push the created object for this file to the according global array of all selected files
-      if (type === 'data') {
+      if (target === 'data') {
         this.data_files.push(thisFile);
-      } else if (type === 'rule') {
+      } else if (target === 'rule') {
         this.rule_files.push(thisFile);
-      } else if (type === 'query') {
+      } else if (target === 'query') {
         this.query_files.push(thisFile);
       }
     }
 
-    console.log(this.data_files);
-    console.log(this.rule_files);
-    console.log(this.query_files);
+    // console.log(this.data_files);
+    // console.log(this.rule_files);
+    // console.log(this.query_files);
 
     // List the names of the selected files in the GUI
-    if (type === 'data') {
+    if (target === 'data') {
       this.data_bowl = this.sanitizer.bypassSecurityTrustHtml(this.addChips(this.data_files));
-      console.log(selectedFiles);
-    } else if (type === 'rule') {
+    } else if (target === 'rule') {
       this.rule_bowl = this.sanitizer.bypassSecurityTrustHtml(this.addChips(this.rule_files));
-    } else if (type === 'query') {
+    } else if (target === 'query') {
       this.query_bowl = this.sanitizer.bypassSecurityTrustHtml(this.addChips(this.query_files));
+    }
+
+    // Empty the current button's FileList
+    (event.target as HTMLInputElement).value = '';
+  }
+
+  // Function to remove selected files (from GUI and arrays)
+  // A bit redundant
+  resetFiles(target) {
+    if (target === 'data') {
+      this.data_bowl = this.init_bowl_text;
+      this.data_files = [];
+    } else if (target === 'rule') {
+      this.rule_bowl = this.init_bowl_text;
+      this.rule_files = [];
+    } else if (target === 'query') {
+      this.query_bowl = this.init_bowl_text;
+      this.query_files = [];
     }
   }
 
@@ -150,29 +144,32 @@ export class MachineReasoningComponent implements OnInit {
     // Remove any currently displayed reasoning results
     this.pathToFile = false;
 
-    // Create new URL array, if according textarea is not empty and not only whitespace!
+    // Create new URL arrays, if according textarea is not empty and not only whitespace
     if  (this.data_url_content.trim() !== '') {
       this.data_urls = this.data_url_content.split(/\r?\n/);
-      console.log(this.data_urls);
+    } else {
+      this.data_urls = [];
     }
-    if  (this.data_url_content.trim() !== '') {
+    if  (this.rule_url_content.trim() !== '') {
       this.rule_urls = this.rule_url_content.split(/\r?\n/);
-      console.log(this.rule_urls);
+    } else {
+      this.rule_urls = [];
     }
-    if  (this.data_url_content.trim() !== '') {
+    if  (this.query_url_content.trim() !== '') {
       this.query_urls = this.query_url_content.split(/\r?\n/);
-      console.log(this.query_urls);
+    } else {
+      this.query_urls = [];
     }
 
-    // Check if there's at least one input for data, rules, and queries
+    // Check if there's at least one input for data, rules, and queries (files or URLs)
     if (this.data_files.concat(this.data_urls).length > 0
       && this.rule_files.concat(this.rule_urls).length > 0
       && this.query_files.concat(this.query_urls).length > 0) {
 
-      // Show spinner
+      // Show the spinner
       this.reasoning = true;
 
-      // Create the object to POST
+      // Create the body to POST
       const body = {
         'data': {
           'files': this.data_files,
@@ -188,24 +185,33 @@ export class MachineReasoningComponent implements OnInit {
         }
       };
 
-      // POST the object
+      console.log('POSTing:');
+      console.log(body);
+
+      // POST the object to the reasoning microservice
+      // https://github.com/nie-ine/microservice-reasoning-task
+      // Receive the response as blob
       this.microserviceService.postToMicroservice( this.serviceId, body, {} )
         .subscribe((val) => {
           console.log( val );
+          console.log('Response:');
           this.textToDisplay = val.output;
           this.editor.text = val.output;
-          // Hide spinner
+
+          // Hide the spinner
           this.reasoning = false;
           }, error => {
-            // Log error, display error message
+            // Display error message
+            console.log('Error:');
             console.log(error);
             this.errorMessage = error.message;
-            // Hide spinner
+            // Hide the spinner
             this.reasoning = false;
           }
         );
     } else { // If there's no data, no rules, or queries
-      this.errorMessage = 'Data, rule, or query input is missing!';
+      this.errorMessage = 'Data, rule, or query input is missing';
+      // Hide the spinner
       this.reasoning = false;
     }
   }

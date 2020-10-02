@@ -26,7 +26,7 @@ export class CrisprComponent {
   csvContainsTooManyLines = false;
   displayedColumns: string[] = ['select', 'position'];
   dataSource: any;
-  selectedAction = 'download';
+  selectedAction: string;
   public selection = new SelectionModel<any>(true, []);
   constructor(
     private http: HttpClient,

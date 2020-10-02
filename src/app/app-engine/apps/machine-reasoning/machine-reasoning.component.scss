@@ -16,7 +16,6 @@ $backgroundGrey: #F5F5F5;
 
 #results {
   overflow: hidden;
-  // background-color: $backgroundGrey;
 }
 
 .input_container {
@@ -33,8 +32,9 @@ $backgroundGrey: #F5F5F5;
   position: relative;
   height: $filesHeight * 0.75;
   background-color: $backgroundGrey;
+  border-radius: 4px;
   padding: 5px;
-  margin-bottom: 15px;
+  margin: 5px 0 15px 0;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -42,6 +42,7 @@ $backgroundGrey: #F5F5F5;
 .urls textarea {
   position: relative;
   height: $urlsHeight;
+  border-radius: 4px;
   background-color: $backgroundGrey;
 }
 #data_url_list {
@@ -61,6 +62,7 @@ $backgroundGrey: #F5F5F5;
   position: relative;
   height: $urlsHeight * 0.5;
   background-color: $backgroundGrey;
+  border-radius: 4px;
   padding: 5px;
   margin: 5px 0 15px 0;
   resize: none;
