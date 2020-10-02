@@ -11,10 +11,10 @@ export class MicroserviceService {
 
   constructor(private http: HttpClient) { }
 
-  postToMicroservice( serviceId: string, body: any ): Observable<any> {
+  postToMicroservice( serviceId: string, body: any, options: any ): Observable<any> {
     // console.log( body.getAll('data') );
     return this.http.post( `${MicroserviceService.API_BASE_URL_MICROSERVICES}/
-        ${encodeURIComponent(environment[ serviceId ])}` , body, {observe: 'response'});
+        ${encodeURIComponent(environment[ serviceId ])}` , body, options );
     // return this.http.post( environment[ serviceId ] , body, {observe: 'response'});
   }
 }

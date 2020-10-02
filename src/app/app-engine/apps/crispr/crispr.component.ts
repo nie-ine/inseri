@@ -26,6 +26,7 @@ export class CrisprComponent {
   csvContainsTooManyLines = false;
   displayedColumns: string[] = ['select', 'position'];
   dataSource: any;
+  selectedAction = 'download';
   public selection = new SelectionModel<any>(true, []);
   constructor(
     private http: HttpClient,
@@ -78,9 +79,15 @@ export class CrisprComponent {
 
     const selectedSequences = [];
 
-    for ( const selectedSequence of this.selection._selected ) {
-      selectedSequences.push( selectedSequence.sequence );
+    console.log( this.dataSource );
+
+    for ( const row of this.dataSource.data ) {
+      if ( this.selection.isSelected(row) ) {
+        selectedSequences.push( row.sequence );
+      }
     }
+
+    console.log( selectedSequences );
 
     this.form.set( 'selectedBaseEditor', this.selectedBaseEditor );
     this.form.set( 'selectedPredictionType', this.selectedPredictionType );

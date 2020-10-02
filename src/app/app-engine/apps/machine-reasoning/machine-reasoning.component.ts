@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {DomSanitizer, SafeHtml, SafeResourceUrl} from '@angular/platform-browser';
 import {HttpClient} from '@angular/common/http';
+import {MicroserviceService} from '../../../user-action-engine/mongodb/microservice/microservice.service';
 
 @Component({
   selector: 'app-machine-reasoning',
@@ -14,7 +15,8 @@ export class MachineReasoningComponent implements OnInit {
 
   constructor(
     private sanitizer: DomSanitizer,
-    private http: HttpClient
+    private http: HttpClient,
+    private microserviceService: MicroserviceService
   ) {
   }
 
@@ -46,6 +48,9 @@ export class MachineReasoningComponent implements OnInit {
   reasoning = false;
   errorMessage;
   pathToFile: SafeResourceUrl;
+  serviceId = 'machineReasoning';
+  textToDisplay: string;
+  @ViewChild('editor') editor;
 
   ngOnInit() {
     this.data_bowl = this.init_bowl_text;
@@ -184,12 +189,11 @@ export class MachineReasoningComponent implements OnInit {
       };
 
       // POST the object
-      this.http.post('http://localhost:50001', body, { responseType: 'blob' })
+      this.microserviceService.postToMicroservice( this.serviceId, body, {} )
         .subscribe((val) => {
-          const blob = new Blob([val as any], { type: 'text/turtle' });
-          console.log(blob);
-          const url = URL.createObjectURL(blob);
-          this.pathToFile = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+          console.log( val );
+          this.textToDisplay = val.output;
+          this.editor.text = val.output;
           // Hide spinner
           this.reasoning = false;
           }, error => {

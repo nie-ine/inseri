@@ -80,7 +80,7 @@ export class JsonEnvironmentComponent implements OnChanges, HttpInterceptor {
       codefile: 'yourCode.py',
       code: this.editor.text
     };
-    this.microserviceService.postToMicroservice( this.serivceId, body)
+    this.microserviceService.postToMicroservice( this.serivceId, body, {})
       .subscribe(
         data => {
           // console.log( data );

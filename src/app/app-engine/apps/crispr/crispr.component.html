@@ -19,72 +19,73 @@
   </mat-select>
 </mat-form-field>
 
-<!--<mat-form-field appearance="fill" *ngIf="showSubmitButton" style="width: 400px">-->
-<!--  <mat-label>Which of the {{ sequencesArray.length }} sequences should be plotted?</mat-label>-->
-<!--  <mat-select [formControl]="sequencesForm" multiple>-->
-<!--    <mat-select-trigger>-->
-<!--      {{sequencesForm.value ? sequencesForm.value[0] : ''}}-->
-<!--      <span *ngIf="sequencesForm.value?.length > 1" class="example-additional-selection">-->
-<!--        (+{{sequencesForm.value.length - 1}} {{sequencesForm.value?.length === 2 ? 'other' : 'others'}})-->
-<!--      </span>-->
-<!--    </mat-select-trigger>-->
-<!--    <mat-option *ngFor="let sequence of sequencesArray" [value]="sequence">{{sequence}}</mat-option>-->
-<!--  </mat-select>-->
-<!--</mat-form-field>-->
+<mat-form-field appearance="fill">
+  <mat-label>Action</mat-label>
+  <mat-select [(value)]="selectedAction">
+    <mat-option value="download">Download prediction</mat-option>
+    <mat-option value="plot">Plot sequences</mat-option>
+  </mat-select>
+</mat-form-field>
 
-<br>
+<button mat-button (click)="imgFileInput.click()">{{ !showSubmitButton ? 'Choose file' : 'Choose another file' }}</button>
 
-<button mat-button (click)="imgFileInput.click()">{{ !showSubmitButton ? 'Choose file' : 'Choose another file' }}</button> <br>
+<button mat-button (click)="submitFile()" *ngIf="showSubmitButton && !csvContainsTooManyLines">Submit {{ fileToUpload.name }} </button>
 
 <input style="display: none;" type="file" #imgFileInput (change)="onFileChange($event.target.files)"/>
 
 <span *ngIf="csvContainsTooManyLines" >Your csv contains too many lines</span>
 
-<div style="height: 400px!important; overflow: auto;" *ngIf="showSubmitButton">
+<mat-tab-group mat-align-tabs="start" *ngIf="selectedAction === 'plot' && showSubmitButton">
 
-  <mat-form-field>
-    <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Search for sequences" #input>
-  </mat-form-field>
+  <mat-tab label="Plot Sequences">
 
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"  style="width: 100%;">
+    <div *ngIf="pathToFile && !fileHasChanged && !csvContainsTooManyLines">
+      <h4> Result for {{ fileToUpload.name }} | {{ submittedBaseEditor }} | {{ submittedPredictionType }} </h4>
 
-    <!-- Checkbox Column -->
-    <ng-container matColumnDef="select">
-      <th mat-header-cell *matHeaderCellDef>
-        <mat-checkbox (change)="$event ? masterToggle() : null"
-                      [checked]="selection.hasValue() && isAllSelected()"
-                      [indeterminate]="selection.hasValue() && !isAllSelected()"
-                      [aria-label]="checkboxLabel()">
-        </mat-checkbox>
-      </th>
-      <td mat-cell *matCellDef="let row">
-        <mat-checkbox (click)="$event.stopPropagation()"
-                      (change)="$event ? selection.toggle(row) : null"
-                      [checked]="selection.isSelected(row)"
-                      [aria-label]="checkboxLabel(row)">
-        </mat-checkbox>
-      </td>
-    </ng-container>
+      <iframe  [src]= "pathToFile"  style="width: 100%; height: 600px;" ></iframe>
+    </div>
 
-    <!-- Position Column -->
-    <ng-container matColumnDef="position">
-      <th mat-header-cell *matHeaderCellDef> All sequences </th>
-      <td mat-cell *matCellDef="let element"> {{element.sequence}} </td>
-    </ng-container>
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Search for sequences" #input>
+    </mat-form-field>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
-        (click)="selection.toggle(row)">
-    </tr>
-  </table>
-</div>
+    <div style="height: 400px!important; overflow: auto;">
 
-<button mat-button (click)="submitFile()" *ngIf="showSubmitButton && !csvContainsTooManyLines">Submit {{ fileToUpload.name }} </button>
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"  style="width: 100%;">
 
-<div *ngIf="pathToFile && !fileHasChanged && !csvContainsTooManyLines">
-  <h4> Result for {{ fileToUpload.name }} | {{ submittedBaseEditor }} | {{ submittedPredictionType }} </h4>
+        <!-- Checkbox Column -->
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <mat-checkbox (change)="$event ? masterToggle() : null"
+                          [checked]="selection.hasValue() && isAllSelected()"
+                          [indeterminate]="selection.hasValue() && !isAllSelected()"
+                          [aria-label]="checkboxLabel()">
+            </mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()"
+                          (change)="$event ? selection.toggle(row) : null"
+                          [checked]="selection.isSelected(row)"
+                          [aria-label]="checkboxLabel(row)">
+            </mat-checkbox>
+          </td>
+        </ng-container>
 
-  <iframe  [src]= "pathToFile"  style="width: 100%; height: 600px;" ></iframe>
-</div>
+        <!-- Position Column -->
+        <ng-container matColumnDef="position">
+          <th mat-header-cell *matHeaderCellDef> All sequences </th>
+          <td mat-cell *matCellDef="let element"> {{element.sequence}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+            (click)="selection.toggle(row)">
+        </tr>
+      </table>
+    </div>
+
+  </mat-tab>
+</mat-tab-group>
+
 
