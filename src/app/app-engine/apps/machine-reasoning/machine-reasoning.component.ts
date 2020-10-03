@@ -1,6 +1,7 @@
-import {Component, OnInit, ViewChild, ElementRef, ViewEncapsulation} from '@angular/core';
-import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
-import {Renderer} from 'leaflet';
+import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {DomSanitizer, SafeHtml, SafeResourceUrl} from '@angular/platform-browser';
+import {HttpClient} from '@angular/common/http';
+import {MicroserviceService} from '../../../user-action-engine/mongodb/microservice/microservice.service';
 
 @Component({
   selector: 'app-machine-reasoning',
@@ -12,26 +13,44 @@ import {Renderer} from 'leaflet';
 
 export class MachineReasoningComponent implements OnInit {
 
-  constructor(private sanitizer: DomSanitizer) {
+  constructor(
+    private sanitizer: DomSanitizer,
+    private http: HttpClient,
+    private microserviceService: MicroserviceService
+  ) {
   }
 
-  title = 'Machine Reasoning';
-  init_bowl_text = 'Upload files...';
+  init_bowl_text = '';
+  init_urls_text = 'List file URLs line by line';
 
   data_files = [];
-  @ViewChild('data_uploads') data_uploads: ElementRef;
-  data_urls = [];
+  data_urls: Array<string>;
   data_bowl: SafeHtml;
+  @ViewChild('hidden_upl_data') hidden_upl_data: HTMLInputElement;
+  // @ViewChild('data_url_list') data_url_list: HTMLTextAreaElement;
+  data_url_content = '';
+
 
   rule_files = [];
-  @ViewChild('rule_uploads') rule_uploads: ElementRef;
-  rule_urls = [];
+  rule_urls: Array<string>;
   rule_bowl: SafeHtml;
+  @ViewChild('hidden_upl_rule') hidden_upl_rule: HTMLInputElement;
+  // @ViewChild('rule_url_list') rule_url_list: HTMLTextAreaElement;
+  rule_url_content = '';
 
   query_files = [];
-  @ViewChild('query_uploads') query_uploads: ElementRef;
-  query_urls = [];
+  query_urls: Array<string>;
   query_bowl: SafeHtml;
+  @ViewChild('hidden_upl_query') hidden_upl_query: HTMLInputElement;
+  // ViewChild('query_url_list') query_url_list: HTMLTextAreaElement;
+  query_url_content = '';
+
+  reasoning = false;
+  errorMessage;
+  pathToFile: SafeResourceUrl;
+  serviceId = 'machineReasoning';
+  textToDisplay: string;
+  @ViewChild('editor') editor;
 
   ngOnInit() {
     this.data_bowl = this.init_bowl_text;
@@ -41,8 +60,7 @@ export class MachineReasoningComponent implements OnInit {
 
   // Note: files from different source folder could have the same name
   // e.g. 'data.ttl'. If you save them in the Docker container, they
-  // will be overwritten. You might want to add an index number to each
-  // filename you received from the JSON
+  // will be overwritten. ==> HANDLE AT MICROSERVICE'S END
 
   readFile(file, onLoadCallback) {
     const reader = new FileReader();
@@ -50,31 +68,17 @@ export class MachineReasoningComponent implements OnInit {
     reader.readAsText(file);
   }
 
+  // HTML for the file chip displayed in the GUI
+  // Bad practice?
   addChips(source) {
     return source.map((object) => ([
-      '<div class=\'file_chip\' data-bowl=\'data\'>'
+      '<div class=\'file_chip\'><b>'
       + object.file
-      // + '<span class=\'remove_btn\'>&times;</span>'
-      + '</div>'])).join('');
+      + '</b></div>'])).join('');
   }
 
-  resetData() {
-    this.data_bowl = this.init_bowl_text;
-    this.data_files = [];
-    console.log(this.data_files);
-  }
-  resetRules() {
-    this.rule_bowl = this.init_bowl_text;
-    this.rule_files = [];
-    console.log(this.rule_files);
-  }
-  resetQueries() {
-    this.query_bowl = this.init_bowl_text;
-    this.query_files = [];
-    console.log(this.query_files);
-  }
-
-  onFileSelect(event: Event, type) {
+  // Selecting data, rule, or query files
+  onFileSelect(event: Event, target) {
     // save the FileList object
     const selectedFiles = (event.target as HTMLInputElement).files;
 
@@ -93,49 +97,122 @@ export class MachineReasoningComponent implements OnInit {
       });
 
       // push the created object for this file to the according global array of all selected files
-      if (type === 'data') {
+      if (target === 'data') {
         this.data_files.push(thisFile);
-      } else if (type === 'rule') {
+      } else if (target === 'rule') {
         this.rule_files.push(thisFile);
-      } else if (type === 'query') {
+      } else if (target === 'query') {
         this.query_files.push(thisFile);
       }
     }
-    console.log(this.data_files);
-    console.log(this.rule_files);
-    console.log(this.query_files);
+
+    // console.log(this.data_files);
+    // console.log(this.rule_files);
+    // console.log(this.query_files);
 
     // List the names of the selected files in the GUI
-    if (type === 'data') {
-      // this.data_bowl = this.addChips(this.data_files, 'data').bypassSecurityTrustHtml;
+    if (target === 'data') {
       this.data_bowl = this.sanitizer.bypassSecurityTrustHtml(this.addChips(this.data_files));
-    } else if (type === 'rule') {
+    } else if (target === 'rule') {
       this.rule_bowl = this.sanitizer.bypassSecurityTrustHtml(this.addChips(this.rule_files));
-    } else if (type === 'query') {
+    } else if (target === 'query') {
       this.query_bowl = this.sanitizer.bypassSecurityTrustHtml(this.addChips(this.query_files));
     }
 
-    // wtf(event: Event) {
-    //   console.log('wtfff');
-    //   const remove_btns = document.getElementsByClassName('remove_btn');
-    //   const values = Array.prototype.map.call(remove_btns, function(el) {
-    //     return el.value;
-    //   });
-    //   console.log(values);
-    //   for (let i = 0; i < values.length; i++) {
-    //     values[i].addEventListener('click', function () {
-    //       console.log('hello button');
-    //     });
-    //   }
+    // Empty the current button's FileList
+    (event.target as HTMLInputElement).value = '';
+  }
 
-    // const remove_btns = document.querySelectorAll('.remove_btn');
-    // console.log(remove_btns);
-    // for (let i = 0; i < remove_btns.length; i++) {
-    //   remove_btns[i].addEventListener('click', function () {
-    //     console.log('hello button');
-    //   });
-    // }
-    // }
+  // Function to remove selected files (from GUI and arrays)
+  // A bit redundant
+  resetFiles(target) {
+    if (target === 'data') {
+      this.data_bowl = this.init_bowl_text;
+      this.data_files = [];
+    } else if (target === 'rule') {
+      this.rule_bowl = this.init_bowl_text;
+      this.rule_files = [];
+    } else if (target === 'query') {
+      this.query_bowl = this.init_bowl_text;
+      this.query_files = [];
+    }
+  }
 
+  reason() {
+    // Remove any currently displayed error messages
+    this.errorMessage = false;
+    // Remove any currently displayed reasoning results
+    this.pathToFile = false;
+
+    // Create new URL arrays, if according textarea is not empty and not only whitespace
+    if  (this.data_url_content.trim() !== '') {
+      this.data_urls = this.data_url_content.split(/\r?\n/);
+    } else {
+      this.data_urls = [];
+    }
+    if  (this.rule_url_content.trim() !== '') {
+      this.rule_urls = this.rule_url_content.split(/\r?\n/);
+    } else {
+      this.rule_urls = [];
+    }
+    if  (this.query_url_content.trim() !== '') {
+      this.query_urls = this.query_url_content.split(/\r?\n/);
+    } else {
+      this.query_urls = [];
+    }
+
+    // Check if there's at least one input for data, rules, and queries (files or URLs)
+    if (this.data_files.concat(this.data_urls).length > 0
+      && this.rule_files.concat(this.rule_urls).length > 0
+      && this.query_files.concat(this.query_urls).length > 0) {
+
+      // Show the spinner
+      this.reasoning = true;
+
+      // Create the body to POST
+      const body = {
+        'data': {
+          'files': this.data_files,
+          'urls': this.data_urls
+        },
+        'rules': {
+          'files': this.rule_files,
+          'urls': this.rule_urls
+        },
+        'queries': {
+          'files': this.query_files,
+          'urls': this.query_urls
+        }
+      };
+
+      console.log('POSTing:');
+      console.log(body);
+
+      // POST the object to the reasoning microservice
+      // https://github.com/nie-ine/microservice-reasoning-task
+      // Receive the response as blob
+      this.microserviceService.postToMicroservice( this.serviceId, body, {} )
+        .subscribe((val) => {
+          console.log( val );
+          console.log('Response:');
+          this.textToDisplay = val.output;
+          this.editor.text = val.output;
+
+          // Hide the spinner
+          this.reasoning = false;
+          }, error => {
+            // Display error message
+            console.log('Error:');
+            console.log(error);
+            this.errorMessage = error.message;
+            // Hide the spinner
+            this.reasoning = false;
+          }
+        );
+    } else { // If there's no data, no rules, or queries
+      this.errorMessage = 'Data, rule, or query input is missing';
+      // Hide the spinner
+      this.reasoning = false;
+    }
   }
 }

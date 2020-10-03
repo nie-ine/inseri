@@ -1,50 +1,67 @@
-<div>
-  <mat-tab-group animationDuration="500ms">
-    <mat-tab label="Data">
-      <div class="source_container">
-        <div class="files">
-          <div #data_uploads class="file_list" [innerHTML]="this.data_bowl"></div>
-          <input #hidden_upl_data style="display:none" type="file" (change)="onFileSelect($event, 'data')" multiple>
-          <button mat-button (click)="hidden_upl_data.click()">Upload data files</button>
-          <button mat-button (click)="resetData()" [ngStyle]="{'float':'right'}">Reset</button>
+<div id="wrapper">
+  <div id="input">
+    <mat-tab-group animationDuration="500ms">
+      <mat-tab label="Data">
+        <div class="input_container">
+          <div class="files">
+            <div class="file_list" [innerHTML]="data_bowl"></div>
+            <input #hidden_upl_data [ngStyle]="{'display':'none'}" type="file" (change)="onFileSelect($event, 'data')" multiple>
+            <button mat-button (click)="hidden_upl_data.click()">Select data...</button>
+            <button *ngIf="data_files.length > 0" mat-button (click)="resetFiles('data')" [ngStyle]="{'color':'#ff4d4d'}">Reset</button>
+          </div>
+          <div class="urls">
+            <textarea matInput id="data_url_list" aria-label="list of data URLs" [(ngModel)]="data_url_content" [placeholder]="init_urls_text"></textarea>
+          </div>
         </div>
-        <div class="urls">
-          <textarea matInput id="data_url_list" aria-label="list of data URLs" placeholder="...or you can insert data URLs here (line by line)"></textarea>
+      </mat-tab>
+      <mat-tab label="Rules">
+        <div class="input_container">
+          <div class="files">
+            <div class="file_list" [innerHTML]="rule_bowl"></div>
+            <input #hidden_upl_rule [ngStyle]="{'display':'none'}" type="file" (change)="onFileSelect($event, 'rule')" multiple>
+            <button mat-button (click)="hidden_upl_rule.click()">Select rules...</button>
+            <button *ngIf="rule_files.length > 0" mat-button (click)="resetFiles('rule')" [ngStyle]="{'color':'#ff4d4d'}">Reset</button>
+          </div>
+          <div class="urls">
+            <textarea matInput id="rule_url_list" aria-label="list of rule URLs" [(ngModel)]="rule_url_content" [placeholder]="init_urls_text"></textarea>
+          </div>
         </div>
-      </div>
-    </mat-tab>
-    <mat-tab label="Rules">
-      <div class="source_container">
-        <div class="files">
-          <div #rule_uploads class="file_list" [innerHTML]="this.rule_bowl"></div>
-          <input #hidden_upl_rule style="display:none" type="file" (change)="onFileSelect($event, 'rule')" multiple>
-          <button mat-button (click)="hidden_upl_rule.click()">Upload rule files</button>
-          <button mat-button (click)="resetRules()" [ngStyle]="{'float':'right'}">Reset</button>
+      </mat-tab>
+      <mat-tab label="Queries">
+        <div class="input_container">
+          <div class="files">
+            <div class="file_list" [innerHTML]="query_bowl"></div>
+            <input #hidden_upl_query [ngStyle]="{'display':'none'}" type="file" (change)="onFileSelect($event, 'query')" multiple>
+            <button mat-button (click)="hidden_upl_query.click()">Select queries...</button>
+            <button *ngIf="query_files.length > 0" mat-button (click)="resetFiles('query')" [ngStyle]="{'color':'#ff4d4d'}">Reset</button>
+          </div>
+          <div class="urls">
+            <textarea matInput id="query_url_list" aria-label="list of query URLs" [(ngModel)]="query_url_content" [placeholder]="init_urls_text"></textarea>
+          </div>
         </div>
-        <div class="urls">
-          <textarea matInput id="rule_url_list" aria-label="list of rule URLs" placeholder="...or you can insert rule URLs here (line by line)"></textarea>
-        </div>
-      </div>
-    </mat-tab>
-    <mat-tab label="Queries">
-      <div class="source_container">
-        <div class="files">
-          <div #query_uploads class="file_list" [innerHTML]="this.query_bowl"></div>
-          <input #hidden_upl_query style="display:none" type="file" (change)="onFileSelect($event, 'query')" multiple>
-          <button mat-button (click)="hidden_upl_query.click()">Upload query files</button>
-          <button mat-button (click)="resetQueries()" [ngStyle]="{'float':'right'}">Reset</button>
-        </div>
-        <div class="urls">
-          <textarea matInput id="query_url_list" aria-label="list of query URLs" placeholder="...or you can insert query URLs here (line by line)"></textarea>
-        </div>
-      </div>
-    </mat-tab>
-  </mat-tab-group>
-  <hr>
-  <div id="parameters">
-    <span class="param">The parameters (currently readonly)</span>
-    <textarea id="param_list" matInput aria-label="reasoning parameters" readonly>--nope</textarea>
+      </mat-tab>
+    </mat-tab-group>
+    <hr>
+    <div id="parameters">
+      <span class="param">The parameters (currently readonly)</span>
+      <textarea id="param_list" matInput aria-label="reasoning parameters" readonly>--nope</textarea>
+    </div>
+    <button mat-button (click)="reason()" [ngStyle]="{'background-color':'#FFE46D'}">Reason</button>
+    <mat-spinner *ngIf="reasoning" diameter="25" [ngStyle]="{'float':'right', 'right':'20px'}"></mat-spinner>
   </div>
-  <button #reason mat-raised-button [ngStyle]="{'background-color':'#FFE46D'}">Reason</button>
+  <div id="results">
+    <mat-tab-group animationDuration="0ms">
+      <mat-tab label="Results">
+        <ace-editor class="url-extension"
+                    #editor
+                    style="min-height: 50rem; overflow: auto; width: 100%;"
+                    [mode]="'typescript'" >
+        </ace-editor>
+        <div *ngIf="errorMessage" [innerText]="errorMessage" [ngStyle]="{'padding':'5px', 'background-color':'#ff4d4d', 'border-radius':'4px', 'color':'white', 'margin-top':'5px'}"></div>
+        <iframe *ngIf="pathToFile" [src]="pathToFile" [ngStyle]="{'width':'100%', 'height':'578px', 'border':'0'}"></iframe>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
 </div>
+
 

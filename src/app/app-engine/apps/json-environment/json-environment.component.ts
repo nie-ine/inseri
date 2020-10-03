@@ -29,8 +29,8 @@ export class JsonEnvironmentComponent implements OnChanges, HttpInterceptor {
   }
 
   ngOnChanges( changes: SimpleChanges ) {
-    console.log( 'changes', this.hash, this.assignedJson, this.pythonFile );
-    if ( this.hash && this.pythonFile ) {
+    // console.log( 'changes', this.hash, this.assignedJson, this.pythonFile );
+    if ( this.hash && this.pythonFile && this.assignedJson ) {
       this.display = { hash: this.hash, json: this.assignedJson };
       if ( this.pythonFile.search( 'http' ) !== -1 ) {
         this.http.get( this.pythonFile, { responseType: 'text' } )
@@ -80,23 +80,27 @@ export class JsonEnvironmentComponent implements OnChanges, HttpInterceptor {
       codefile: 'yourCode.py',
       code: this.editor.text
     };
-    this.microserviceService.postToMicroservice( this.serivceId, body)
+    this.microserviceService.postToMicroservice( this.serivceId, body, {})
       .subscribe(
         data => {
-          console.log( data );
-          this.output = { [this.serivceId + ' output']: data.body.output } ;
-          const currentLocalStorage = JSON.parse( localStorage.getItem( this.serivceId ) );
-          const localStorageBefore = JSON.parse( localStorage.getItem( this.serivceId ))[ 'json' ] ;
+          // console.log( data );
+          this.output = { [this.serivceId + ' output']: data.body.output };
+          const localStorageBefore = JSON.parse( localStorage.getItem( this.serivceId ));
           localStorage.setItem(
             this.serivceId,
             JSON.stringify(
-              { hash: this.hash,
+              {
+                hash: this.hash,
                 json: this.assignedJson,
                 pythonCode: this.editor.text,
                 output: this.output
               }));
-          const localStorageAfter = JSON.parse( localStorage.getItem( this.serivceId ) )[ 'json' ];
+          const localStorageAfter = JSON.parse( localStorage.getItem( this.serivceId ) );
+          setTimeout(() => {
+            // console.log( localStorageBefore, localStorageAfter );
+          }, 1000);
           if ( JSON.stringify( localStorageBefore ) !== JSON.stringify( localStorageAfter ) ) {
+            console.log( 'emit' );
             this.reloadVariables.emit();
           }
         }

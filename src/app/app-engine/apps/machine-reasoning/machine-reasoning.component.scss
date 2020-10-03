@@ -1,9 +1,24 @@
 $containerHeight: 400px;
 $filesHeight: $containerHeight * 0.7;
 $urlsHeight: $containerHeight * 0.3;
-$backgroundGrey: rgba(0, 0, 0, 0.065);
+$backgroundGrey: #F5F5F5;
 
-.source_container {
+#wrapper {
+  width: 100%;
+  overflow: hidden;
+}
+
+#input {
+  width: 550px;
+  float: left;
+  margin-right: 50px;
+}
+
+#results {
+  overflow: hidden;
+}
+
+.input_container {
   position: relative;
   height: $containerHeight;
 }
@@ -17,8 +32,9 @@ $backgroundGrey: rgba(0, 0, 0, 0.065);
   position: relative;
   height: $filesHeight * 0.75;
   background-color: $backgroundGrey;
+  border-radius: 4px;
   padding: 5px;
-  margin-bottom: 15px;
+  margin: 5px 0 15px 0;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -26,44 +42,40 @@ $backgroundGrey: rgba(0, 0, 0, 0.065);
 .urls textarea {
   position: relative;
   height: $urlsHeight;
+  border-radius: 4px;
   background-color: $backgroundGrey;
-  padding: 5px;
 }
 #data_url_list {
   resize: none;
+  padding: 5px;
 }
 #rule_url_list {
   resize: none;
+  padding: 5px;
 }
 #query_url_list {
   resize: none;
+  padding: 5px;
 }
 
 #param_list {
   position: relative;
   height: $urlsHeight * 0.5;
   background-color: $backgroundGrey;
+  border-radius: 4px;
   padding: 5px;
   margin: 5px 0 15px 0;
   resize: none;
 }
 
 .file_chip {
-  padding: 5px 15px 5px 10px;
+  height: 32px;
+  padding: 7px 8px 7px 12px;
   margin-bottom: 5px;
   border-radius: 25px;
-  background-color: #FFE46D;
+  background-color: #C6C6C6;
 }
 
-.remove_btn {
-  position: relative;
-  float: right;
-  cursor: pointer;
-  color: #888;
+.the_spinner {
+  display: none;
 }
-
-.remove_btn:hover {
-  color: #000;
-}
-
-

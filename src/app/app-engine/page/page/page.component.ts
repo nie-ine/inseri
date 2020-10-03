@@ -537,7 +537,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.selectedPageToShow = i + 1;
     this.selectedPageObj = page;
     console.log(this.selectedPageObj, this.selectedPage, this.selectedPageToShow);
-    // this.navigateToOtherView(page);
+    this.navigateToOtherView();
   }
 
   /**
