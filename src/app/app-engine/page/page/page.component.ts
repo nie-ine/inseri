@@ -532,12 +532,17 @@ export class PageComponent implements OnInit, AfterViewChecked {
   /**
    * This function is used to navigate to another page belonging to the current pageSet
    * */
-  selectPage(i: number, page: any) {
-    this.selectedPage = i;
-    this.selectedPageToShow = i + 1;
+  selectPage(page: any, i?: number, navigate?:boolean) {
+    if (i) {
+      this.selectedPage = i;
+      this.selectedPageToShow = i + 1;
+    }
     this.selectedPageObj = page;
     console.log(this.selectedPageObj, this.selectedPage, this.selectedPageToShow);
-    this.navigateToOtherView();
+    if(navigate) {
+      this.navigateToOtherView();
+    }
+
   }
 
   /**
@@ -1484,5 +1489,6 @@ export class PageComponent implements OnInit, AfterViewChecked {
     }
     console.log( this.subPagesOfPage);
   }
+
 }
 

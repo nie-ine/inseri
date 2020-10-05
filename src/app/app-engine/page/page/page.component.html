@@ -166,7 +166,7 @@
     <button *ngIf="pagesOfThisActtion"
             [disabled]="selectedPage === 0"
             mat-button
-            (click)="selectPage( selectedPage - 1 , pagesOfThisActtion[ selectedPage - 1 ] )">
+            (click)="selectPage( pagesOfThisActtion[ selectedPage - 1 ], selectedPage - 1   ,true)">
       <mat-icon> keyboard_arrow_left </mat-icon>
     </button>
     <button mat-button [matMenuTriggerFor]="menu5" *ngIf="pagesOfThisActtion">{{ page.title }}
@@ -178,7 +178,7 @@
         *ngFor="let page of pagesOfThisActtion; let i = index;"
         matTooltip="{{ page.description }}"
         mat-button
-        (click)="selectPage( i, page )">{{ page.title }}</button>
+        (click)="selectPage( page, i ,true)">{{ page.title }}</button>
       <mat-button-toggle-group
         name="fontStyle"
         *ngIf=" (!pageAsDemo) && !preview && loggedIn"
@@ -203,26 +203,25 @@
 
       <span *ngFor="let subPage of subPagesOfPage">
     <!-- Handle branch node buttons here -->
+   <div class="button-row">
     <span *ngIf="subPage.subPages && subPage.subPages.length > 0">
 
-      <div class="button-row">
-      <button mat-icon-button matTooltip="Settings" [mat-menu-trigger-for]="menu6" ><mat-icon> settings</mat-icon></button>
-     <button mat-button  [mat-menu-trigger-for]="menu.childMenu"> <!--color="primary"-->
-       {{subPage.page.title}}
-      </button>
-    </div>
+      <button  mat-button  matTooltip="Settings" (click)="selectPage(subPage.page)" [mat-menu-trigger-for]="menu6" ><mat-icon> settings</mat-icon></button>
+        <button mat-button (click)="navigateToOtherView(subPage.page)"> {{subPage.page.title}} </button>
+     <button mat-button [mat-menu-trigger-for]="menu.childMenu" > <mat-icon>expand_more</mat-icon> </button>
+
 
       <app-menu-item #menu [items]="subPage.subPages"></app-menu-item>
     </span>
+     </div>
         <!-- Leaf node buttons here -->
+        <div class="button-row">
     <span *ngIf="!subPage.subPages || subPage.subPages.length === 0">
-     <div class="button-row">
-      <button mat-icon-button matTooltip="Settings" [mat-menu-trigger-for]="menu6" ><mat-icon> settings</mat-icon></button>
-      <button mat-button  >
-        {{subPage.page.title}}
-      </button>
+       <button  mat-button matTooltip="Settings" (click)="selectPage(subPage.page)" [mat-menu-trigger-for]="menu6" ><mat-icon> settings</mat-icon></button>
+        <button mat-button (click)="navigateToOtherView(subPage.page)"> {{subPage.page.title}} </button>
+   </span>
     </div>
-    </span>
+
   </span>
       <mat-button-toggle-group
         name="fontStyle"
@@ -245,18 +244,20 @@
 
     </mat-menu>
     <mat-menu #menu6="matMenu">
-     <button mat-menu-item (click)="navigateToOtherView();" matTooltip="Go to page">
-       <mat-icon>navigate_next</mat-icon>
-     </button>
      <button (click)="addNewSubPage();" matTooltip="Add new subpage">
        <mat-icon>add</mat-icon>
      </button>
    </mat-menu>
+    <mat-menu #menu7="matMenu">
+      <button (click)="addNewSubPage();" matTooltip="Add new subpage">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-menu>
 
    <button [disabled]="selectedPage === pagesOfThisActtion.length - 1"
            *ngIf="pagesOfThisActtion"
            mat-button
-           (click)="selectPage( selectedPage + 1 , pagesOfThisActtion[ selectedPage + 1 ] )">
+           (click)="selectPage( pagesOfThisActtion[ selectedPage + 1 ] , selectedPage + 1 )">
      <mat-icon> keyboard_arrow_right</mat-icon>
    </button>
 
