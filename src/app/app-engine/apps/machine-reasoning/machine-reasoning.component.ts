@@ -53,7 +53,6 @@ export class MachineReasoningComponent implements OnInit {
     this.data_bowl = this.init_bowl_text;
     this.rule_bowl = this.init_bowl_text;
     this.query_bowl = this.init_bowl_text;
-
     this.editor.setTheme('chrome');
     this.editor.setMode('turtle');
   }
@@ -159,6 +158,9 @@ export class MachineReasoningComponent implements OnInit {
       && this.rule_files.concat(this.rule_urls).length > 0
       && this.query_files.concat(this.query_urls).length > 0) {
 
+      // Empty any already shown results
+      this.editor.text = '';
+
       // Show the spinner
       this.reasoning = true;
 
@@ -186,7 +188,7 @@ export class MachineReasoningComponent implements OnInit {
       this.microserviceService.postToMicroservice( this.serviceId, body, {} )
         .subscribe((val) => {
           console.log('Response:');
-          console.log(val);
+          // console.log(val);
           // this.textToDisplay = val.output;
           this.editor.text = val.output;
 
@@ -203,6 +205,8 @@ export class MachineReasoningComponent implements OnInit {
           }
         );
     } else { // If there's no data, no rules, or queries
+      // Empty any already shown results
+      this.editor.text = '';
       this.errorMessage = 'Data, rule, or query input is missing';
       // Hide the spinner
       this.reasoning = false;
