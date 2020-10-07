@@ -3,11 +3,6 @@ $filesHeight: $containerHeight * 0.7;
 $urlsHeight: $containerHeight * 0.3;
 $backgroundGrey: #ebebeb;
 
-#wrapper {
-  width: 100%;
-  overflow: hidden;
-}
-
 #input {
   width: 550px;
   float: left;
@@ -78,4 +73,14 @@ $backgroundGrey: #ebebeb;
 
 .the_spinner {
   display: none;
+}
+
+.fullScreenDiv {
+  z-index: 9999;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: white;
 }

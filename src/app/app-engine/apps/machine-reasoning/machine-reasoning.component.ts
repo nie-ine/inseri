@@ -47,7 +47,8 @@ export class MachineReasoningComponent implements OnInit {
   timestamp: string;
   errorMessage;
   serviceId = 'machineReasoning';
-  textToDisplay: string;
+  @ViewChild('results') results;
+  isFullScreen: boolean;
   @ViewChild('editor') editor;
 
   ngOnInit() {
@@ -56,6 +57,7 @@ export class MachineReasoningComponent implements OnInit {
     this.query_bowl = this.init_bowl_text;
     this.editor.setTheme('chrome');
     this.editor.setMode('turtle');
+    this.isFullScreen = false;
   }
 
   readFile(file, onLoadCallback) {
@@ -197,7 +199,6 @@ export class MachineReasoningComponent implements OnInit {
         .subscribe((val) => {
           console.log('Response:');
           console.log(val);
-          this.textToDisplay = val.output;
           this.editor.text = val.output;
 
 
