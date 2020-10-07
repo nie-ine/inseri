@@ -53,7 +53,11 @@
     <mat-tab-group animationDuration="0ms">
       <mat-tab label="Results">
         <div *ngIf="errorMessage" [innerText]="errorMessage" [ngStyle]="{'position':'absolute','top':'18px','left':'45px','width':'90%','z-index':'999','padding':'5px', 'background-color':'#ff4d4d', 'border-radius':'4px', 'color':'white'}"></div>
-        <ace-editor #editor [ngStyle]="{'height':'583px','overflow':'auto','width':'100%','font-size':'14px'}"></ace-editor>
+        <ace-editor #editor [ngStyle]="{'height':'532px','overflow':'auto','width':'100%','font-size':'14px','margin-bottom':'15px'}"></ace-editor>
+        <div *ngIf="textToDisplay" [ngStyle]="{'float': 'right'}">
+<!--          <button mat-button (click)="fullscreen()">Fullscreen</button>-->
+          <button mat-button (click)="download()">Download</button>
+        </div>
       </mat-tab>
     </mat-tab-group>
   </div>

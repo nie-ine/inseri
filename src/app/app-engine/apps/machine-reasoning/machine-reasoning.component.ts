@@ -44,9 +44,10 @@ export class MachineReasoningComponent implements OnInit {
   query_url_content = '';
 
   reasoning = false;
+  timestamp: string;
   errorMessage;
   serviceId = 'machineReasoning';
-  // textToDisplay: string;
+  textToDisplay: string;
   @ViewChild('editor') editor;
 
   ngOnInit() {
@@ -158,6 +159,13 @@ export class MachineReasoningComponent implements OnInit {
       && this.rule_files.concat(this.rule_urls).length > 0
       && this.query_files.concat(this.query_urls).length > 0) {
 
+      const nowDate = new Date();
+      this.timestamp = nowDate.getFullYear().toString()
+        + (nowDate.getMonth() +1).toString()
+        + nowDate.getDate().toString()
+        + nowDate.getHours().toString()
+        + nowDate.getMinutes().toString();
+
       // Empty any already shown results
       this.editor.text = '';
 
@@ -188,8 +196,8 @@ export class MachineReasoningComponent implements OnInit {
       this.microserviceService.postToMicroservice( this.serviceId, body, {} )
         .subscribe((val) => {
           console.log('Response:');
-          // console.log(val);
-          // this.textToDisplay = val.output;
+          console.log(val);
+          this.textToDisplay = val.output;
           this.editor.text = val.output;
 
 
@@ -211,5 +219,16 @@ export class MachineReasoningComponent implements OnInit {
       // Hide the spinner
       this.reasoning = false;
     }
+  }
+
+  download() {
+    const a = document.createElement('a');
+    const textToBLOB = new Blob([this.editor.text], { type: 'text/plain' });
+    const url = window.URL.createObjectURL(textToBLOB);
+    a.href = url;
+    a.download = 'reasoning_' + this.timestamp + '.ttl';
+    a.click();
+    a.remove();
+    window.URL.revokeObjectURL(url);
   }
 }
