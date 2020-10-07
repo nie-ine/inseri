@@ -55,7 +55,7 @@
         <ace-editor #editor [ngStyle]="{'height' : isFullScreen === false ? '532px' : '85vh','overflow':'auto','width':'100%','font-size':'14px','margin-bottom':'15px'}"></ace-editor>
         <div [ngStyle]="{'float': 'right'}">
           <button mat-button *ngIf="this.editor.text.length > 0" (click)="download()">Download</button>
-          <button mat-button (click)="isFullScreen = !isFullScreen" [ngStyle]="{'color' : isFullScreen === false ? 'rgba(0,0,0,.87)' : '#ff4d4d'}">{{ isFullScreen === true ? 'Exit fullscreen' : 'Fullscreen' }}</button>
+          <button mat-button (click)="isFullScreen = !isFullScreen" [ngStyle]="{'color' : isFullScreen === false ? 'rgba(0,0,0,.87)' : '#ff4d4d'}">{{ isFullScreen === true ? 'Minimize' : 'Maximize' }}</button>
         </div>
       </mat-tab>
     </mat-tab-group>
