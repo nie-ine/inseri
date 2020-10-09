@@ -1,7 +1,9 @@
 import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
-import {DomSanitizer, SafeHtml, SafeResourceUrl} from '@angular/platform-browser';
+import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 import {HttpClient} from '@angular/common/http';
 import {MicroserviceService} from '../../../user-action-engine/mongodb/microservice/microservice.service';
+import 'ace-builds/src-noconflict/mode-turtle';
+import 'ace-builds/src-noconflict/theme-chrome';
 
 @Component({
   selector: 'app-machine-reasoning',
@@ -27,40 +29,36 @@ export class MachineReasoningComponent implements OnInit {
   data_urls: Array<string>;
   data_bowl: SafeHtml;
   @ViewChild('hidden_upl_data') hidden_upl_data: HTMLInputElement;
-  // @ViewChild('data_url_list') data_url_list: HTMLTextAreaElement;
   data_url_content = '';
-
 
   rule_files = [];
   rule_urls: Array<string>;
   rule_bowl: SafeHtml;
   @ViewChild('hidden_upl_rule') hidden_upl_rule: HTMLInputElement;
-  // @ViewChild('rule_url_list') rule_url_list: HTMLTextAreaElement;
   rule_url_content = '';
 
   query_files = [];
   query_urls: Array<string>;
   query_bowl: SafeHtml;
   @ViewChild('hidden_upl_query') hidden_upl_query: HTMLInputElement;
-  // ViewChild('query_url_list') query_url_list: HTMLTextAreaElement;
   query_url_content = '';
 
   reasoning = false;
+  timestamp: string;
   errorMessage;
-  pathToFile: SafeResourceUrl;
   serviceId = 'machineReasoning';
-  textToDisplay: string;
+  @ViewChild('results') results;
+  isFullScreen: boolean;
   @ViewChild('editor') editor;
 
   ngOnInit() {
     this.data_bowl = this.init_bowl_text;
     this.rule_bowl = this.init_bowl_text;
     this.query_bowl = this.init_bowl_text;
+    this.editor.setTheme('chrome');
+    this.editor.setMode('turtle');
+    this.isFullScreen = false;
   }
-
-  // Note: files from different source folder could have the same name
-  // e.g. 'data.ttl'. If you save them in the Docker container, they
-  // will be overwritten. ==> HANDLE AT MICROSERVICE'S END
 
   readFile(file, onLoadCallback) {
     const reader = new FileReader();
@@ -69,7 +67,6 @@ export class MachineReasoningComponent implements OnInit {
   }
 
   // HTML for the file chip displayed in the GUI
-  // Bad practice?
   addChips(source) {
     return source.map((object) => ([
       '<div class=\'file_chip\'><b>'
@@ -141,8 +138,6 @@ export class MachineReasoningComponent implements OnInit {
   reason() {
     // Remove any currently displayed error messages
     this.errorMessage = false;
-    // Remove any currently displayed reasoning results
-    this.pathToFile = false;
 
     // Create new URL arrays, if according textarea is not empty and not only whitespace
     if  (this.data_url_content.trim() !== '') {
@@ -166,6 +161,16 @@ export class MachineReasoningComponent implements OnInit {
       && this.rule_files.concat(this.rule_urls).length > 0
       && this.query_files.concat(this.query_urls).length > 0) {
 
+      const nowDate = new Date();
+      this.timestamp = nowDate.getFullYear().toString()
+        + (nowDate.getMonth() +1).toString()
+        + nowDate.getDate().toString()
+        + nowDate.getHours().toString()
+        + nowDate.getMinutes().toString();
+
+      // Empty any already shown results
+      this.editor.text = '';
+
       // Show the spinner
       this.reasoning = true;
 
@@ -185,18 +190,17 @@ export class MachineReasoningComponent implements OnInit {
         }
       };
 
-      console.log('POSTing:');
+      console.log('POST:');
       console.log(body);
 
       // POST the object to the reasoning microservice
       // https://github.com/nie-ine/microservice-reasoning-task
-      // Receive the response as blob
       this.microserviceService.postToMicroservice( this.serviceId, body, {} )
         .subscribe((val) => {
-          console.log( val );
           console.log('Response:');
-          this.textToDisplay = val.output;
+          console.log(val);
           this.editor.text = val.output;
+
 
           // Hide the spinner
           this.reasoning = false;
@@ -210,9 +214,22 @@ export class MachineReasoningComponent implements OnInit {
           }
         );
     } else { // If there's no data, no rules, or queries
+      // Empty any already shown results
+      this.editor.text = '';
       this.errorMessage = 'Data, rule, or query input is missing';
       // Hide the spinner
       this.reasoning = false;
     }
+  }
+
+  download() {
+    const a = document.createElement('a');
+    const textToBLOB = new Blob([this.editor.text], { type: 'text/plain' });
+    const url = window.URL.createObjectURL(textToBLOB);
+    a.href = url;
+    a.download = 'reasoning_' + this.timestamp + '.ttl';
+    a.click();
+    a.remove();
+    window.URL.revokeObjectURL(url);
   }
 }
