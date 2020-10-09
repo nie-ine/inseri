@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatTableDataSource} from '@angular/material/table';
+import { environment } from '../../../../environments/environment';
 
 
 @Component({
@@ -24,10 +25,14 @@ export class CrisprComponent {
   sequencesArray: Array<any> = [];
   sequencesForm = new FormControl();
   csvContainsTooManyLines = false;
-  displayedColumns: string[] = ['select', 'position'];
+  displayedColumns: string[] = ['select', 'sequences', 'positions'];
   dataSource: any;
-  selectedAction: string;
+  selectedAction = 'download';
+  waitingForResponse = false;
+  selectedSequences: Array<string> = [];
+  errorMessage: string;
   public selection = new SelectionModel<any>(true, []);
+  progressBarValue = 0;
   constructor(
     private http: HttpClient,
     private sanitizer: DomSanitizer
@@ -35,8 +40,11 @@ export class CrisprComponent {
 
   onFileChange(files: FileList): void {
 
+    this.errorMessage = undefined;
+
     if ( files.item(0) ) {
       this.fileToUpload = files.item(0);
+      console.log( this.fileToUpload );
       this.showSubmitButton = true;
       this.fileHasChanged = true;
 
@@ -51,9 +59,12 @@ export class CrisprComponent {
           this.csvContainsTooManyLines = true;
         }
 
+        this.sequencesArray = [];
+
         for ( const sequence of csvRecordsArray ) {
           this.sequencesArray.push( {
-            sequence: sequence.split( ',')[ 0 ]
+            sequence: sequence.split( ',')[ 0 ],
+            positions: sequence.split( ',')[ 1 ]
           } );
         }
 
@@ -73,37 +84,49 @@ export class CrisprComponent {
     this.form.append('data', this.fileToUpload, 'data' );
   }
 
-  submitFile() {
-    console.log( this.sequencesForm.value );
-    console.log( this.selection );
-
-    const selectedSequences = [];
-
-    console.log( this.dataSource );
-
-    for ( const row of this.dataSource.data ) {
-      if ( this.selection.isSelected(row) ) {
-        selectedSequences.push( row.sequence );
-      }
+  updateProgressBar() {
+    if ( this.waitingForResponse ) {
+      setTimeout(() => {
+        this.progressBarValue += ( 1 / this.sequencesArray.length ) * 2000;
+        this.updateProgressBar();
+      }, 500);
     }
+  }
 
-    console.log( selectedSequences );
+  submitFile( sequence?: string ) {
+
+    this.errorMessage = undefined;
+
+    this.selectedSequences = [ sequence ];
 
     this.form.set( 'selectedBaseEditor', this.selectedBaseEditor );
     this.form.set( 'selectedPredictionType', this.selectedPredictionType );
-    this.form.set( 'selectedSequences', selectedSequences.toString() );
+    this.form.set( 'selectedSequences', this.selectedAction === 'plot' ? this.selectedSequences.toString() : undefined );
+    this.form.set( 'selectedAction', this.selectedAction );
 
     this.submittedBaseEditor = this.selectedBaseEditor;
     this.submittedPredictionType = this.selectedPredictionType;
 
-    this.http.post('http://localhost:4321', this.form, { responseType: 'blob' })
+    this.waitingForResponse = true;
+
+    this.updateProgressBar();
+
+    this.http.post('http://172.23.39.73:4321', this.form, { responseType: 'blob' })
       .subscribe((val) => {
-        const blob = new Blob([ val as any ], { type: 'application/pdf' });
-        console.log( blob );
-        const url = URL.createObjectURL(blob);
-        this.pathToFile = this.sanitizer.bypassSecurityTrustResourceUrl( url );
-        this.fileHasChanged = false;
-    }, error => console.log( error ));
+        if ( this.selectedAction === 'plot' ) {
+          const blob = new Blob([ val as any ], { type: 'application/pdf' });
+          const url = URL.createObjectURL(blob);
+          this.pathToFile = this.sanitizer.bypassSecurityTrustResourceUrl( url );
+          this.fileHasChanged = false;
+          this.waitingForResponse = false;
+        } else if ( this.selectedAction === 'download' ) {
+          saveAs(val, 'predictions_' + this.selectedBaseEditor + '_' + this.selectedPredictionType +  '.zip');
+          this.waitingForResponse = false;
+        }
+    }, error => {
+        this.errorMessage = error.message;
+        this.waitingForResponse = false;
+      });
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
@@ -123,7 +146,7 @@ export class CrisprComponent {
   }
 
   /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: PeriodicElement): string {
+  checkboxLabel(row?: any): string {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
@@ -140,24 +163,17 @@ export class CrisprComponent {
     }
   }
 
-}
+  updateSelection() {
+    setTimeout(() => {
+      this.selectedSequences = [];
+      for ( const row of this.dataSource.data ) {
+        if ( this.selection.isSelected(row) ) {
+          this.selectedSequences.push( row.sequence );
+        }
+      }
+      // console.log( this.selectedSequences );
+    }, 100);
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
+  }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
+}

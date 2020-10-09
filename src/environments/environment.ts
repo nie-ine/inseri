@@ -15,5 +15,6 @@ export const environment = {
   raeber: 'http://raeber.nie-ine.ch/',
   webern: 'https://edition.anton-webern.ch/',
   jsonEnvironment: 'http://localhost:50000',
-  machineReasoning: 'http://localhost:50001'
+  machineReasoning: 'http://localhost:50001',
+  crispr: 'http://172.23.39.73:4321'
 };

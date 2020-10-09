@@ -14,7 +14,7 @@
   <ace-editor class="url-extension"
               #editor
               style="min-height: 50rem; overflow: auto; width: 100%;"
-              [mode]="'typescript'" (keyup)="updateCodeInLocalStorage()">
+              [mode]="'python'" (keyup)="updateCodeInLocalStorage()">
   </ace-editor>
 
   <button mat-button (click)="savePythonFile()" (click)="submitToMicroservice()" >

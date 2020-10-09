@@ -5,6 +5,7 @@ import {environment} from '../../../../environments/environment';
 import {GenerateHashService} from '../../../user-action-engine/other/generateHash.service';
 import {MicroserviceService} from '../../../user-action-engine/mongodb/microservice/microservice.service';
 import {FileService} from '../../../user-action-engine/file/file.service';
+import 'ace-builds/src-noconflict/mode-python';
 
 @Component({
   selector: 'app-json-environment',
