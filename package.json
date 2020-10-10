@@ -39,7 +39,7 @@
     "angular-material-fileupload": "^3.0.1",
     "angular2-csv": "^0.2.9",
     "angular2-draggable": "^2.3.2",
-    "bcrypt": "^3.0.4",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "core-js": "^2.6.5",
     "cors": "^2.8.5",
