@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {MicroserviceService} from '../../../user-action-engine/mongodb/microservice/microservice.service';
 import 'ace-builds/src-noconflict/mode-turtle';
 import 'ace-builds/src-noconflict/theme-chrome';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-machine-reasoning',
@@ -48,7 +49,7 @@ export class MachineReasoningComponent implements OnInit {
   errorMessage;
   serviceId = 'machineReasoning';
   @ViewChild('results') results;
-  isFullScreen: boolean;
+  isMaximized: boolean;
   @ViewChild('editor') editor;
 
   ngOnInit() {
@@ -57,7 +58,7 @@ export class MachineReasoningComponent implements OnInit {
     this.query_bowl = this.init_bowl_text;
     this.editor.setTheme('chrome');
     this.editor.setMode('turtle');
-    this.isFullScreen = false;
+    this.isMaximized = false;
   }
 
   readFile(file, onLoadCallback) {
@@ -163,7 +164,7 @@ export class MachineReasoningComponent implements OnInit {
 
       const nowDate = new Date();
       this.timestamp = nowDate.getFullYear().toString()
-        + (nowDate.getMonth() +1).toString()
+        + (nowDate.getMonth() + 1).toString()
         + nowDate.getDate().toString()
         + nowDate.getHours().toString()
         + nowDate.getMinutes().toString();
@@ -190,15 +191,13 @@ export class MachineReasoningComponent implements OnInit {
         }
       };
 
-      console.log('POST:');
-      console.log(body);
+      console.log('POST', body);
 
       // POST the object to the reasoning microservice
       // https://github.com/nie-ine/microservice-reasoning-task
       this.microserviceService.postToMicroservice( this.serviceId, body, {} )
         .subscribe((val) => {
-          console.log('Response:');
-          console.log(val);
+          console.log('Response:', val);
           this.editor.text = val.output;
 
 
@@ -206,8 +205,7 @@ export class MachineReasoningComponent implements OnInit {
           this.reasoning = false;
           }, error => {
             // Display error message
-            console.log('Error:');
-            console.log(error);
+            console.log('Error', error);
             this.errorMessage = error.message;
             // Hide the spinner
             this.reasoning = false;
@@ -227,9 +225,21 @@ export class MachineReasoningComponent implements OnInit {
     const textToBLOB = new Blob([this.editor.text], { type: 'text/plain' });
     const url = window.URL.createObjectURL(textToBLOB);
     a.href = url;
-    a.download = 'reasoning_' + this.timestamp + '.ttl';
+    if (this.timestamp) {
+      a.download = 'inseriReasoningResults_' + this.timestamp + '.ttl';
+    } else {
+      a.download = 'inseriReasoningApp.ttl';
+    }
     a.click();
     a.remove();
     window.URL.revokeObjectURL(url);
+  }
+
+  // resizeAceContent() {
+  //   this.editor.setAutoScrollEditorIntoView(true);
+  // }
+
+  wtf() {
+    this.editor.resize();
   }
 }

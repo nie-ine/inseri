@@ -48,14 +48,14 @@
     <button mat-button (click)="reason()" [ngStyle]="{'background-color':'#FFE46D'}">Reason</button>
     <mat-spinner *ngIf="reasoning" diameter="25" [ngStyle]="{'float':'right', 'right':'20px'}"></mat-spinner>
   </div>
-  <div id="results" [class.fullScreenDiv]="isFullScreen === true">
+  <div id="results" [class.maximizedDiv]="isMaximized === true">
     <mat-tab-group animationDuration="0ms">
       <mat-tab label="Results">
         <div *ngIf="errorMessage" [innerText]="errorMessage" [ngStyle]="{'position':'absolute','top':'18px','left':'45px','width':'90%','z-index':'999','padding':'5px', 'background-color':'#ff4d4d', 'border-radius':'4px', 'color':'white'}"></div>
-        <ace-editor #editor [ngStyle]="{'height' : isFullScreen === false ? '532px' : '85vh','overflow':'auto','width':'100%','font-size':'14px','margin-bottom':'15px'}"></ace-editor>
+        <ace-editor #editor [readOnly]="true" [ngStyle]="{'height' : isMaximized === false ? '532px' : '85vh','overflow':'scroll','width':'100%','font-size':'14px','margin-bottom':'15px'}"></ace-editor>
         <div [ngStyle]="{'float': 'right'}">
           <button mat-button *ngIf="this.editor.text.length > 0" (click)="download()">Download</button>
-          <button mat-button (click)="isFullScreen = !isFullScreen" [ngStyle]="{'color' : isFullScreen === false ? 'rgba(0,0,0,.87)' : '#ff4d4d'}">{{ isFullScreen === true ? 'Minimize' : 'Maximize' }}</button>
+          <button mat-button (click)="isMaximized = !isMaximized; wtf()" [ngStyle]="{'color' : isMaximized === false ? 'rgba(0,0,0,.87)' : '#ff4d4d'}">{{ isMaximized === true ? 'Minimize' : 'Maximize' }}</button>
         </div>
       </mat-tab>
     </mat-tab-group>
