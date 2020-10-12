@@ -234,12 +234,4 @@ export class MachineReasoningComponent implements OnInit {
     a.remove();
     window.URL.revokeObjectURL(url);
   }
-
-  // resizeAceContent() {
-  //   this.editor.setAutoScrollEditorIntoView(true);
-  // }
-
-  wtf() {
-    this.editor.resize();
-  }
 }

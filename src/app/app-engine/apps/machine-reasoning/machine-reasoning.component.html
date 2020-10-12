@@ -55,7 +55,7 @@
         <ace-editor #editor [readOnly]="true" [ngStyle]="{'height' : isMaximized === false ? '532px' : '85vh','overflow':'scroll','width':'100%','font-size':'14px','margin-bottom':'15px'}"></ace-editor>
         <div [ngStyle]="{'float': 'right'}">
           <button mat-button *ngIf="this.editor.text.length > 0" (click)="download()">Download</button>
-          <button mat-button (click)="isMaximized = !isMaximized; wtf()" [ngStyle]="{'color' : isMaximized === false ? 'rgba(0,0,0,.87)' : '#ff4d4d'}">{{ isMaximized === true ? 'Minimize' : 'Maximize' }}</button>
+          <button mat-button (click)="isMaximized = !isMaximized" [ngStyle]="{'color' : isMaximized === false ? 'rgba(0,0,0,.87)' : '#ff4d4d'}">{{ isMaximized === true ? 'Minimize' : 'Maximize' }}</button>
         </div>
       </mat-tab>
     </mat-tab-group>
