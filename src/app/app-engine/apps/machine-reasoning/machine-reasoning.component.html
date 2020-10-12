@@ -52,7 +52,7 @@
     <mat-tab-group animationDuration="0ms">
       <mat-tab label="Results">
         <div *ngIf="errorMessage" [innerText]="errorMessage" [ngStyle]="{'position':'absolute','top':'18px','left':'45px','width':'90%','z-index':'999','padding':'5px', 'background-color':'#ff4d4d', 'border-radius':'4px', 'color':'white'}"></div>
-        <ace-editor #editor [readOnly]="true" [ngStyle]="{'height' : isMaximized === false ? '532px' : '85vh','overflow':'scroll','width':'100%','font-size':'14px','margin-bottom':'15px'}"></ace-editor>
+        <ace-editor #editor [readOnly]="true" [ngStyle]="{'height' : isMaximized === false ? '532px' : '85vh','width':'100%','font-size':'14px','margin-bottom':'15px'}"></ace-editor>
         <div [ngStyle]="{'float': 'right'}">
           <button mat-button *ngIf="this.editor.text.length > 0" (click)="download()">Download</button>
           <button mat-button (click)="isMaximized = !isMaximized" [ngStyle]="{'color' : isMaximized === false ? 'rgba(0,0,0,.87)' : '#ff4d4d'}">{{ isMaximized === true ? 'Minimize' : 'Maximize' }}</button>
