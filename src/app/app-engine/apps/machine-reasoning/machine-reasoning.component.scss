@@ -75,11 +75,11 @@ $backgroundGrey: #ebebeb;
   display: none;
 }
 
-.fullScreenDiv {
+.maximizedDiv {
+  position: fixed;
   z-index: 9999;
   height: 100vh;
-  width: 100vw;
-  position: fixed;
+  width: 99.5vw;
   top: 0;
   left: 0;
   background-color: white;
