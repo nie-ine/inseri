@@ -249,6 +249,10 @@ export class DialogCreateNewPageComponent implements OnInit {
     this.pageId = data.pageId;
   }
 
+  setSubpageValue( value: string ) {
+    console.log( value );
+  }
+
   ngOnInit() {
     this.isLoading = false;
     this.form = new FormGroup({

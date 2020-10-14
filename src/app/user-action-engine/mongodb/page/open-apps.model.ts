@@ -180,7 +180,8 @@ export class OpenAppsModel {
       ],
       materialIcon: 'short_text',
       initialWidth: '250',
-      initialHeight: '150'
+      initialHeight: '150',
+      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/...'
     },
     calendar: {
       type: 'calendar',

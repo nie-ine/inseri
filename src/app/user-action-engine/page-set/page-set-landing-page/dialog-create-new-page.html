@@ -2,21 +2,36 @@
 
 <!--<div class="col-md-6 col-md-offset-3">-->
   <form [formGroup]="form" (ngSubmit)="save()" *ngIf="!isLoading">
-    <h1 mat-dialog-title>Neue Page erstellen</h1>
+
+    <h5 style="display: inline-block">Create new</h5>
+
+    <mat-radio-group
+      style="margin-bottom: 30px" style="display: inline-block; margin-left: 15px;" [(ngModel)]="subPage" >
+      <mat-radio-button value="false" [checked]="true">page</mat-radio-button>
+      <mat-radio-button value="true" style="margin-left: 20px">subpage</mat-radio-button>
+    </mat-radio-group>
+
+
     <div>
       <mat-form-field class="full-width">
         <input formControlName="title" matInput placeholder="Titel">
-        <mat-error>Titel muss eingegeben werden</mat-error>
+        <mat-error>Title has to be entered</mat-error>
       </mat-form-field>
 
       <mat-form-field class="full-width">
         <textarea formControlName="description" matInput placeholder="Beschreibung"></textarea>
-        <mat-error>Beschreibung muss eingegeben werden</mat-error>
+        <mat-error>Description has to be entered</mat-error>
       </mat-form-field>
 
+
+
       <div>
+
+
         <button type="button" mat-button (click)="cancel()">Abbrechen</button>
-        <button type="submit" mat-button [disabled]="form.invalid">Ok</button>
+        <button type="submit" mat-button [disabled]="form.invalid">Create</button>
+
+
       </div>
 
     </div>
