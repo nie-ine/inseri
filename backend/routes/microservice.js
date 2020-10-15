@@ -9,7 +9,7 @@ router.post('/:microserviceAddress', checkAuth, (req, res, next) => {
 
   request.post({ url: req.params.microserviceAddress, json: req.body }, (err, httpResponse, body) => {
 
-    console.log( httpResponse, err );
+    // console.log( httpResponse, err );
 
     if ( err ) {
       return res.status(500).json({

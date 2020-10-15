@@ -266,7 +266,6 @@
   <mat-card
     *ngFor="let app of openAppArray.slice(); let i = index;"
     style="display: inline-grid; margin-bottom: 10px; margin-left: 60px; margin-top: 70px;"
-    matTooltip="{{ app.minimized ? app.title : '' }}"
     [ngStyle]="{ 'width': ( app.fullWidth || app.panelExtended ) ? '92%' : app.width + 'px'}">
 
 

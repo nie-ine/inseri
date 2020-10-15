@@ -74,7 +74,7 @@ export class JsonEnvironmentComponent implements OnChanges, HttpInterceptor {
   }
 
   submitToMicroservice() {
-    console.log( 'Submit to Microservice', this.display, this.editor.text );
+    // console.log( 'Submit to Microservice', this.display, this.editor.text );
     const body = {
       datafile: 'yourData.json',
       data: JSON.stringify(this.display),
@@ -85,7 +85,7 @@ export class JsonEnvironmentComponent implements OnChanges, HttpInterceptor {
       .subscribe(
         data => {
           // console.log( data );
-          this.output = { [this.serivceId + ' output']: data.body.output };
+          this.output = { [this.serivceId + ' output']: data.output };
           const localStorageBefore = JSON.parse( localStorage.getItem( this.serivceId ));
           localStorage.setItem(
             this.serivceId,
