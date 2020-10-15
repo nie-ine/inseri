@@ -45,6 +45,10 @@ export class JoinedTextTextwrapperComponent implements OnChanges {
 
   constructor() { }
 
+  /**
+   * Take in propertyIRIs and turn them into prefixed form. Renew with changes.
+   * @param changes
+   */
   ngOnChanges(changes: SimpleChanges) {
     if ((this.propertyIri && this.namespaces) && (changes['propertyIri'] || changes['namespaces'] )) {
       let tempKey = this.propertyIri;

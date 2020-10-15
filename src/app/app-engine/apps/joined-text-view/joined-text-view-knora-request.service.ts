@@ -8,6 +8,11 @@ export class JoinedTextViewKnoraRequestService {
 
   constructor() { }
 
+  /**
+   * Form a Gravsearch (subset of SPARQL) query depending on the configuration in the respecitve component input.
+   * @param configuration  The way the component is related to its parent and how it interacts graphically and mouse input.
+   * @param parentIri  The IRI of the parent resource, e.g. in the case of lines, the block, they belong to.
+   */
   getGravSearch(configuration: JoinedTextElement, parentIri): string {
 
     let graveSearchRequest =
