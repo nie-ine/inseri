@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angu
 import { IIIFImage } from '../../shared/IIIFImage';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageTree } from '../models/page-tree.model';
-import { PAGETRANSCRIPTION } from '../../development-views/text-dev-view/text-dev-view/page-transcription';
+import { PAGETRANSCRIPTION } from '../page-transcription';
 
 /**
  * This component wraps a text-svg-view component to make it usable as a NIE-OS app.
