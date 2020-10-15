@@ -1,7 +1,7 @@
 /**
  * Test data for svg-text-view.
  */
-import { PageTree } from '../../../complex-text-views/models/page-tree.model';
+import { PageTree } from './models/page-tree.model';
 
 export const PAGETRANSCRIPTION: PageTree = {
   pageId: '1510618',
