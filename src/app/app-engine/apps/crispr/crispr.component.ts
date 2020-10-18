@@ -31,6 +31,7 @@ export class CrisprComponent {
   waitingForResponse = false;
   selectedSequences: Array<string> = [];
   errorMessage: string;
+  sessionHash: string;
   public selection = new SelectionModel<any>(true, []);
   progressBarValue = 0;
   constructor(
@@ -41,6 +42,8 @@ export class CrisprComponent {
   onFileChange(files: FileList): void {
 
     this.errorMessage = undefined;
+    this.sessionHash = undefined;
+    this.selectedAction = 'download';
 
     if ( files.item(0) ) {
       this.fileToUpload = files.item(0);
@@ -84,6 +87,10 @@ export class CrisprComponent {
     this.form.append('data', this.fileToUpload, 'data' );
   }
 
+  onFileChange2(files: FileList): void {
+    console.log( 'second file chosen' );
+  }
+
   updateProgressBar() {
     if ( this.waitingForResponse ) {
       setTimeout(() => {
@@ -99,10 +106,15 @@ export class CrisprComponent {
 
     this.selectedSequences = [ sequence ];
 
+    if ( this.selectedAction === 'download' ) {
+      this.sessionHash = this.generateHash();
+    }
+
     this.form.set( 'selectedBaseEditor', this.selectedBaseEditor );
     this.form.set( 'selectedPredictionType', this.selectedPredictionType );
     this.form.set( 'selectedSequences', this.selectedAction === 'plot' ? this.selectedSequences.toString() : undefined );
     this.form.set( 'selectedAction', this.selectedAction );
+    this.form.set( 'sessionHash', this.sessionHash );
 
     this.submittedBaseEditor = this.selectedBaseEditor;
     this.submittedPredictionType = this.selectedPredictionType;
@@ -111,7 +123,7 @@ export class CrisprComponent {
 
     this.updateProgressBar();
 
-    this.http.post('http://172.23.39.73:4321', this.form, { responseType: 'blob' })
+    this.http.post('http://localhost:4321', this.form, { responseType: 'blob' })
       .subscribe((val) => {
         if ( this.selectedAction === 'plot' ) {
           const blob = new Blob([ val as any ], { type: 'application/pdf' });
@@ -174,6 +186,18 @@ export class CrisprComponent {
       // console.log( this.selectedSequences );
     }, 100);
 
+  }
+
+  generateHash(): string {
+    let text = '';
+    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+    for (let i = 0; i < 20; i++) {
+      text += possible.charAt(
+        Math.floor(Math.random() * possible.length )
+      );
+    }
+    return text;
   }
 
 }

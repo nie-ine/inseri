@@ -23,13 +23,21 @@
   <mat-label>Choose action</mat-label>
   <mat-select [(value)]="selectedAction">
     <mat-option value="download" >Perform prediction</mat-option>
-    <mat-option value="plot" >Plot sequences</mat-option>
+    <mat-option
+      value="plot"
+      [disabled]="sessionHash === undefined"
+      matTooltip="{{ sessionHash === undefined ? 'perform prediction first' : '' }}">
+      Plot sequences
+    </mat-option>
   </mat-select>
 </mat-form-field>
 
 <br>
 
-<mat-form-field appearance="fill"  (click)="imgFileInput.click()" style="cursor: pointer!important;">
+<mat-form-field appearance="fill"
+                (click)="imgFileInput.click()"
+                style="cursor: pointer!important;"
+                *ngIf="selectedAction === 'download'">
   <mat-label>{{ showSubmitButton ? 'Choose another csv' : 'Choose csv' }}</mat-label>
   <mat-icon matSuffix>insert_drive_file</mat-icon>
   <input matInput style="display: none;" >
@@ -37,7 +45,8 @@
 
 <mat-form-field
   appearance="fill"
-  (click)="submitFile()" *ngIf="showSubmitButton && !csvContainsTooManyLines && ( selectedAction === 'download' || selectedSequences.length > 0 )"
+  (click)="submitFile()"
+  *ngIf="showSubmitButton && !csvContainsTooManyLines && selectedAction === 'download'"
   style="cursor: pointer!important;"
   matTooltip="Submit {{ fileToUpload.name }}">
   <mat-label>Submit {{ fileToUpload.name }}</mat-label>
@@ -56,9 +65,12 @@
 
 <input style="display: none;" type="file" #imgFileInput (change)="onFileChange($event.target.files)"/>
 
+<input style="display: none;" type="file" #imgFileInput2 (change)="onFileChange2($event.target.files)"/>
+
+
 <span *ngIf="csvContainsTooManyLines" >Your csv contains too many lines</span>
 
-<mat-tab-group mat-align-tabs="start" *ngIf="selectedAction === 'plot' && showSubmitButton ">
+<mat-tab-group mat-align-tabs="start" *ngIf="selectedAction === 'plot' && showSubmitButton && sessionHash !== undefined">
 
   <mat-tab label="Select Sequences"  >
 
@@ -106,11 +118,16 @@
 
   <mat-tab
     label="{{ waitingForResponse ? 'Plotting ' + this.selectedSequences[ 0 ] : 'Result for ' + this.selectedSequences[ 0 ] }}"
-    *ngIf="pathToFile && !fileHasChanged && !csvContainsTooManyLines">
+    *ngIf="( pathToFile && !fileHasChanged && !csvContainsTooManyLines ) || waitingForResponse">
 
     <h4 style="margin-top: 20px;" > Result for {{ fileToUpload.name }} | {{ submittedBaseEditor }} | {{ submittedPredictionType }} </h4>
-
-    <iframe  [src]= "pathToFile"  style="width: 100%; height: 800px;" ></iframe>
+    <mat-spinner
+      *ngIf="waitingForResponse"
+      style="margin:0 auto; margin-top: 100px;"></mat-spinner>
+    <iframe
+      [src]= "pathToFile"
+      style="width: 100%; height: 800px;"
+      *ngIf="!waitingForResponse"></iframe>
   </mat-tab>
 
 </mat-tab-group>
