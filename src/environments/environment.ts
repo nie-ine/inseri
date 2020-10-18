@@ -11,8 +11,6 @@ export const environment = {
   media: 'http://localhost:1024',
   node: 'http://localhost:3000',
   sparqlVisualizer: 'http://sparqlvisualizer.nie-ine.ch/',
-  salsah2: 'http://salsah2.nie-ine.ch/',
-  raeber: 'http://raeber.nie-ine.ch/',
   webern: 'https://edition.anton-webern.ch/',
   jsonEnvironment: 'http://localhost:50000',
   machineReasoning: 'http://localhost:50001',

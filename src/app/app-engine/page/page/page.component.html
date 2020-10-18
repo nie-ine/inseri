@@ -125,21 +125,16 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
 
-      <mat-checkbox [(ngModel)]="showAppTitlesOnPublish" (click)="updatePagePublishSettings()">Show app title bar</mat-checkbox> - This enables the user to reorganise the published page for his own purpose, for example to minimize some apps etc.
-      Changes of a user are dismissed after the user leaves the published page. <br>
-      <mat-checkbox [disabled]="!showAppTitlesOnPublish" [(ngModel)]="showAppSettingsOnPublish" (click)="updatePagePublishSettings()">Show app settings</mat-checkbox> - This enables the user to minimize apps and change app sizes.
-      <mat-divider style="margin-top: 10px; margin-bottom: 10px;" ></mat-divider>
-      <mat-checkbox [(ngModel)]="showInseriLogoOnPublish" (click)="updatePagePublishSettings()">Show Inseri Appshore Button</mat-checkbox> - This option enables users of the page to open apps on your published page. It enables users for example to insert own, non - public comments on your page as well as
-      open other apps that only the respective user can see, for example to write an own, non public essay with a text - editor - app.
-      <mat-divider style="margin-top: 10px; margin-bottom: 10px;"  ></mat-divider>
-      <mat-checkbox  [(ngModel)]="showDataBrowserOnPublish" (click)="updatePagePublishSettings()">Show Data Browser</mat-checkbox> - This option enables users of the page to possibly browse through the data of the page, if you mapped an array from the json to an app input.
-      <mat-divider style="margin-top: 10px; margin-bottom: 10px;"  ></mat-divider>
-      <mat-radio-group aria-label="Select an option">
-        <mat-radio-button value="1" [checked]="true" >Beta Publication</mat-radio-button> - This inseri publication type indicates for a user that the page can still be changed by the user after the page has been published. Thus,
-        the page is not quotable and can not be used as a reference for scientific publications. <br>
-        <mat-radio-button value="2" [disabled]="true" >Alpha Publication</mat-radio-button> - This inseri publication type indicates that the page, once it is published, is persistent and can't be changed by anyone ever again.
-        Thus, the page is quotable and can be used as a reference for scientific publications.
-      </mat-radio-group>
+      <mat-form-field class="example-full-width" >
+        <mat-label>Shortname</mat-label>
+        <input #shortname matInput placeholder="Choose URL segment" value="{{ action.shortName }}" (keyup)="checkIfShortNameExist( shortname.value )" >
+        <mat-icon matSuffix>{{ shortNameExist ===  false ? 'done' :  'clear' }}</mat-icon>
+      </mat-form-field>
+
+      <span *ngIf="shortNameExist === true" > Shortname exist, please choose another one </span>
+
+      <button mat-button *ngIf="shortNameExist === false" (click)="setShortName()" > Set Shortname </button>
+
       <mat-divider style="margin-top: 10px; margin-bottom: 10px;"  ></mat-divider>
       <button mat-button *ngIf="!pageIsPublished" (click)="publishPageOrMakePagePrivate( true )"> <mat-icon>publish</mat-icon> Publish Page</button>
       <button mat-button *ngIf="pageIsPublished" (click)="publishPageOrMakePagePrivate( false )"> <mat-icon>fingerprint</mat-icon> Make page private again</button>

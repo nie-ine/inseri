@@ -34,6 +34,7 @@ import {DataAssignmentComponent} from '../../../query-app-interface/data-managem
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {PageListDialogComponent} from '../page-list-dialog/page-list-dialog.component';
 import {OverlayContainer} from '@angular/cdk/overlay';
+import {PageSetService} from '../../../user-action-engine/mongodb/pageset/page-set.service';
 
 @Component({
   selector: 'nie-os',
@@ -256,6 +257,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   params: any;
 
+  notFound = false;
+
   slogans = [
     'Where you can gather information',
     'It\'s pretty cloudy in the cloud',
@@ -267,9 +270,13 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   slogan: string;
 
+  shortNameExist: boolean;
+
   queryParams: any;
   private templatePhoto: File;
   private imagePreview: string;
+
+  shortName: string;
 
   constructor(
     public route: ActivatedRoute,
@@ -289,7 +296,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
     public snackBar2: MatSnackBar,
     private authService: AuthService,
     private queryService: QueryService,
-    private overlayContainer: OverlayContainer
+    private overlayContainer: OverlayContainer,
+    private pageSetService: PageSetService,
   ) {
     this.route.queryParams.subscribe(params => {
       this.hashOfThisPage = params.page;
@@ -359,6 +367,32 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnInit() {
+
+    if ( this.router.url.split('/')[ 1 ].search( 'actionID=' ) === -1 ) {
+      this.actionService.checkIfShortNameExist( this.router.url.split('/')[ 1 ] )
+        .subscribe(
+          response => {
+            // console.log( response );
+            if ( (response as any).exist ) {
+              this.pageSetService.getPageSet( ( response as any).action.hasPageSet )
+                .subscribe(
+                  pageSetResponse => {
+                    console.log( pageSetResponse );
+                    this.router.navigate(['/page'],
+                      {
+                        queryParams: {
+                          'actionID': ( response as any).action._id,
+                          'page': pageSetResponse.pageset.hasPages[ 0 ]
+                        },
+                      });
+                  }, e2 => console.log( e2 )
+                );
+            } else if ( this.router.url.split('/')[ 1 ].search( 'home' ) === -1 ) {
+              this.notFound = true;
+            }
+          }, e => console.log( e )
+        );
+    }
 
     this.slogan = this.slogans[Math.floor(Math.random() * this.slogans.length)];
 
@@ -857,6 +891,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.page.tiles = true;
     // console.log( this.page );
     this.action = pageAndAction[1];
+    console.log( this.action );
     this.reloadVariables = false;
     this.pageIsPublished = this.page.published;
     this.showAppTitlesOnPublish = this.page.showAppTitlesOnPublish;
@@ -1326,5 +1361,25 @@ export class PageComponent implements OnInit, AfterViewChecked {
         console.log( response );
       }, error => console.log( error )
     );
+  }
+  checkIfShortNameExist( shortName: string ) {
+    console.log( shortName );
+    this.actionService.checkIfShortNameExist( shortName )
+      .subscribe(
+        response => {
+          console.log( response );
+          this.shortNameExist = ( response as any ).exist;
+          this.shortName = shortName;
+        }, e => console.log( e )
+      );
+  }
+  setShortName() {
+    console.log( 'Set shortname', this.shortName );
+    this.actionService.setShortName( this.shortName, this.action._id )
+      .subscribe(
+        response => {
+          console.log( response );
+        }, e => console.log( e )
+      );
   }
 }

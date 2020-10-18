@@ -123,7 +123,7 @@ export class CrisprComponent {
 
     this.updateProgressBar();
 
-    this.http.post('http://localhost:4321', this.form, { responseType: 'blob' })
+    this.http.post('http://172.23.39.73:4321', this.form, { responseType: 'blob' })
       .subscribe((val) => {
         if ( this.selectedAction === 'plot' ) {
           const blob = new Blob([ val as any ], { type: 'application/pdf' });
