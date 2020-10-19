@@ -1,7 +1,7 @@
 ## Comment app
 The Comment App allows the user to make commentaries that are different in nature from the options, provided for example by the "application description". This difference primarily consists in the fact that Comment App is linked to a particular query and its elements.
 
-For example, let us open any template, go to random page of the provided ressource and make a comment.
+For example, let us open any template, go to random page of the provided resource and make a comment.
 For that, from the Inseri Logo, we open a list of application, and in the group "Add, Edit and Manage data", we click on a "Comment App".
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-10/Tutorials/App%20descriptions%20for%20Researchers/Apps%20to%20add%2C%20edit%20and%20manage%20data/Comment%20app/CA1.png" alt="FindingCommentApp" width="500"></p>
