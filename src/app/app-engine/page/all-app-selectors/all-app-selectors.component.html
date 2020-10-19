@@ -95,14 +95,14 @@
 
 </app-synopsis>
 
-<app-resource-form-v2 *ngIf="app.type === 'knoraV2viewer'"
-                      [backendAddress]="app.backendAddress"
-                      [resourceIRI]="app.resourceIRI"
-                      [queryParamForResourceIRI]="app.queryParamForResourceIRI"
-                      [hoverColor]="app.hoverColor"
-                      [maxDepth]="app.maxDepth"
-                      [(hoveredResource)]="hoveredElement">
-</app-resource-form-v2>
+<app-knora-v2-viewer *ngIf="app.type === 'knoraV2viewer'"
+                     [backendAddress]="app.backendAddress"
+                     [resourceIRI]="app.resourceIRI"
+                     [queryParamForResourceIRI]="app.queryParamForResourceIRI"
+                     [hoverColor]="app.hoverColor"
+                     [maxDepth]="app.maxDepth"
+                     [(hoveredResource)]="hoveredElement">
+</app-knora-v2-viewer>
 
 <app-youtube-video *ngIf=" app.type === 'youtubeVideo'"
                    [videoURL]="app.videoURL">
@@ -135,10 +135,10 @@
 </response-tree>
 
 
-<app-navigation-tree *ngIf="app.type === 'treeNavigation'"
+<app-tree-navigation *ngIf="app.type === 'treeNavigation'"
                      [queryResponse]="app.json">
 
-</app-navigation-tree>
+</app-tree-navigation>
 
 
 <app-hierarchical-navigation-view *ngIf="app.type === 'hierarchicalNavigationView'"

@@ -55,13 +55,13 @@ import {GrapesjsComponent} from './apps/grapesjs/grapesjs.component';
 import { ImageFrameModule } from './apps/image-frame/image-frame.module';
 import { ParzivalFassungComponent } from './apps/parzival-fassung/parzival-fassung.component';
 import { ComplexTextViewsModule } from './apps/complex-text-views/complex-text-views.module';
-import { ResourceFormModule } from './apps/resource-form/resource-form.module';
+import { KnoraV2ViewerModule } from './apps/knora-v2-viewer/knora-v2-viewer.module';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { DataListViewComponent} from './apps/data-list-view/data-list-view.component';
 import { DataListViewSettingsComponent} from './apps/data-list-view/data-list-view-settings/data-list-view-settings';
 import { DataListViewTableComponent, HighlightPipe } from './apps/data-list-view/data-list-view-table/data-list-view-table.component';
 import { DataListViewInAppQueryService } from './apps/data-list-view/data-list-view-services/query.service';
-import { NavigationModule } from './apps/navigation/navigation.module';
+import { TreeNavigationModule } from './apps/tree-navigation/tree-navigation.module';
 import { HtmlViewerModule } from './apps/html-viewer/html-viewer.module';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { OpenbisLoginComponent } from './apps/openbis-login/openbis-login.component';
@@ -72,7 +72,7 @@ import { YoutubeVideoComponent } from './apps/youtube-video/youtube-video.compon
 import {MatRadioModule} from '@angular/material/radio';
 import { JoinedTextViewModule } from './apps/joined-text-view/joined-text-view.module';
 import { ResponseTreeComponent, FileDatabase } from '../query-app-interface/data-management/response-tree/response-tree.component';
-import { HierarchicalNavigationModule } from './apps/navigation/hierarchical-navigation/hierarchical-navigation.module';
+import { HierarchicalNavigationModule } from './apps/hierarchical-navigation-view/hierarchical-navigation.module';
 import { IframeComponent } from './apps/iframe/iframe.component';
 import { PrimeEditorComponent } from './apps/prime-editor/prime-editor.component';
 import {EditorModule} from 'primeng/editor';
@@ -121,7 +121,7 @@ import { MenuItemComponent } from './page/menu-item/menu-item.component';
     MatTooltipModule,
     SynopsisModule,
     MyPageSetModule,
-    ResourceFormModule,
+    KnoraV2ViewerModule,
     MatProgressSpinnerModule,
     MatExpansionModule,
     MatDividerModule,
@@ -153,7 +153,7 @@ import { MenuItemComponent } from './page/menu-item/menu-item.component';
     ImageFrameModule,
     ComplexTextViewsModule,
     HtmlViewerModule,
-    NavigationModule,
+    TreeNavigationModule,
     OverlayModule,
     MatCheckboxModule,
     StaticPagesModule,

@@ -68,7 +68,7 @@ export class JoinedTextViewComponent implements OnChanges {
   /**
    * Constructor
    * @param _route  Activated route for this component
-   * @param _router  Router for navigation
+   * @param _router  Router for hierarchical-navigation-view
    */
   constructor(private _route: ActivatedRoute, private _router: Router) { }
 

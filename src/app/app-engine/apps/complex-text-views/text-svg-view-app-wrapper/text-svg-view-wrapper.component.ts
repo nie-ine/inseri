@@ -76,7 +76,7 @@ export class TextSvgViewWrapperComponent implements OnInit, OnChanges {
   /**
    * Constructor initializes ActivatedRoute
    * @param _route  Enables access to the query parameters.
-   * @param _router   Router for navigation.
+   * @param _router   Router for hierarchical-navigation-view.
    */
   constructor(private _route: ActivatedRoute, private _router: Router) { }
 
