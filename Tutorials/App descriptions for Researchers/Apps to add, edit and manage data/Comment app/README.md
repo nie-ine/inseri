@@ -24,10 +24,11 @@ In order to find your comments, go to your Dashboard, and in the top menu instea
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-10/Tutorials/App%20descriptions%20for%20Researchers/Apps%20to%20add%2C%20edit%20and%20manage%20data/Comment%20app/CA4.png" alt="FindingYourComment" width="500"></p>
 
-You will be able to see all your comments, and when you click on any of them, it will open a corresponding project page, and a corresponding page of the resource.
+You will be able to see all your comments:
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-10/Tutorials/App%20descriptions%20for%20Researchers/Apps%20to%20add%2C%20edit%20and%20manage%20data/Comment%20app/CA5.png" alt="NavigateCommentPage" width="800"></p>
 
+When you click on any of them, it will open a corresponding project page together with a corresponding page of the resource.
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-10/Tutorials/App%20descriptions%20for%20Researchers/Apps%20to%20add%2C%20edit%20and%20manage%20data/Comment%20app/CA6.png" alt="CommentOpensThePage" width="800"></p>
 As in this case your comment is attached to a particular resource via query, it will dissapear if you modify the query.
