@@ -12,7 +12,11 @@ Plaintext Viewer, the app which displays the result on the webpage.</p>
 <p>In the <strong>Editor</strong> one can enter the text, select what degree of highlights (i.e. size, colour, background) the text should have; align the text, include the images (upload from desktop is possible and easy), and set up a link to another page, via a link sign.
   
 The saving is not automatic, and one need to click on the &quot;Save Text and Update Page&quot; button down the page often.
-The <strong>Code</strong> area shows all typed and set up in the editor in HTML. This code can be conveniently copied and pasted to any other webpage editor, and is used to visualize the result in the set of &quot;viewer&quot; applications.
+
+The <strong>Code</strong> area shows all typed and set up in the editor in HTML. 
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-10/Tutorials/App%20descriptions%20for%20Researchers/Apps%20to%20visualise%20data/Plaintext%20Viewer/1.5Code.png" alt="TextEditorCode" width="500"></p>
+
+This code can be conveniently copied and pasted to any other webpage editor, and is used to visualize the result in the set of &quot;viewer&quot; applications.
 
 
 The <strong>Output</strong> down the editor should show the result in real time, how it will be visible to the outside viewers.
@@ -22,7 +26,7 @@ The <strong>Output</strong> down the editor should show the result in real time,
 
 <p>It opens as a seemingly empty frame, as below:</p>
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-10/Tutorials/App%20descriptions%20for%20Researchers/Apps%20to%20visualise%20data/Plaintext%20Viewer/2.5VE.png" alt="TextEditor" width="500"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-10/Tutorials/App%20descriptions%20for%20Researchers/Apps%20to%20visualise%20data/Plaintext%20Viewer/2.5VE.png" alt="TextEditor" width="400"></p>
 
 <p>In order to generate the view of the text that the user has just entered, all we need is to recall the file. For that, the user should click on the text &quot;Plain text viewer&quot; itself, and it will open the &quot;options&quot; menu, as below:</p>
 
