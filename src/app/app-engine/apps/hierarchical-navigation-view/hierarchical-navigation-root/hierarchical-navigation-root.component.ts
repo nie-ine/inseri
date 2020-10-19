@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { HierarchicalNavigationConfiguration } from '../hierarchical-navigation-configuration';
-import { KnoraV2RequestService } from '../../../../query-engine/knora/knora-v2-request.service';
 import { HierarchicalNavigationRequestService } from '../hierarchical-navigation-request.service';
 
 @Component({
@@ -51,7 +50,7 @@ export class HierarchicalNavigationRootComponent implements OnChanges {
    * default written by angular-cli
    */
   constructor(
-    private knoraV2Request: KnoraV2RequestService,
+    private knoraV2Request: HierarchicalNavigationRequestService,
     private hierarchicalNavigationRequest: HierarchicalNavigationRequestService) { }
 
   /**

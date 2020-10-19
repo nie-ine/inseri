@@ -1,12 +1,42 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JoinedTextElement } from './joined-text-view/joined-text-view';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class JoinedTextViewKnoraRequestService {
+/**
+ * This service deals with requests to the Knora V2 API and centralizes parameters for it.
+ */
+@Injectable()
+export class JoinedTextViewRequestService {
 
-  constructor() { }
+  basicAuthentication = 'email=root%40example.com&password=test'; // TODO: integrate into login framework
+
+  // create authentication data for posting
+  // TODO: use services
+  httpOptions = {
+    headers: new HttpHeaders({'Authorization': 'Basic ' + btoa('root@example.com' + ':' + 'test')})
+  };
+
+  constructor(private httpClient: HttpClient) { }
+
+  /**
+   * Get a JSON representation of a tree defined by a gravesearch query
+   * @param {string} graveSearchRequest  A SPARQL like request
+   * @param {string} databaseAddress  The domain of the Knora instance
+   * @returns {Observable<Object>}  The Knora V2 response for this resource
+   */
+  extendedSearchFromSpecificInstance(graveSearchRequest: string, databaseAddress: string) {
+    return this.httpClient.post(databaseAddress + '/v2/searchextended?' + this.basicAuthentication, graveSearchRequest);
+  }
+
+  /**
+   * Get the number of main resources defined by a gravesearch query
+   * @param {string} graveSearchRequest  A SPARQL like request
+   * @param {string} databaseAddress  The domain of the Knora instance
+   * @returns {Observable<Object>}  The Knora V2 response for this resource
+   */
+  countExtendedSearchFromSpecificInstance(graveSearchRequest: string, databaseAddress: string) {
+    return this.httpClient.post(databaseAddress + '/v2/searchextended/count?' + this.basicAuthentication, graveSearchRequest);
+  }
 
   /**
    * Form a Gravsearch (subset of SPARQL) query depending on the configuration in the respecitve component input.
@@ -53,4 +83,5 @@ export class JoinedTextViewKnoraRequestService {
 
     return graveSearchRequest;
   }
+
 }

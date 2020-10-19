@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { KnoraV2RequestService } from '../../../../query-engine/knora/knora-v2-request.service';
+import { KnoraV2ViewerRequestService } from '../knora-v2-viewer-request.service';
 
 @Component({
   selector: 'app-knora-v2-viewer',
@@ -60,7 +60,7 @@ export class KnoraV2ViewerComponent implements OnChanges {
    * @param _route  Activated route for this component
    * @param knoraV2Request  Service for Knora request
    */
-  constructor(private _route: ActivatedRoute, private knoraV2Request: KnoraV2RequestService) { }
+  constructor(private _route: ActivatedRoute, private knoraV2Request: KnoraV2ViewerRequestService) { }
 
   /**
    * Subscribe to the query parameters for focus, hovering and other selections.

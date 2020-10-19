@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { IIIFImage } from '../../shared/IIIFImage';
+import { IIIFImage } from '../IIIFImage';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageTree } from '../models/page-tree.model';
 import { PAGETRANSCRIPTION } from '../page-transcription';

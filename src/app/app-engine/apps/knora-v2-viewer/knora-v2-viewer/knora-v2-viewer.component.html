@@ -7,27 +7,27 @@
       <!-- text values -->
       <li *ngIf="resourceData[key]['knora-api:textValueAsXml']">
         {{key}}:
-        <app-text-rich-innerhtml
-          [htmlContent]="resourceData[key]['knora-api:textValueAsXml']"></app-text-rich-innerhtml>
+        <app-knora-v2-viewer-innerhtml
+          [htmlContent]="resourceData[key]['knora-api:textValueAsXml']"></app-knora-v2-viewer-innerhtml>
       </li>
 
       <li *ngIf="resourceData[key]['knora-api:textValueAsHtml']">
         {{key}}:
-        <app-text-rich-innerhtml
-          [htmlContent]="resourceData[key]['knora-api:textValueAsHtml']"></app-text-rich-innerhtml>
+        <app-knora-v2-viewer-innerhtml
+          [htmlContent]="resourceData[key]['knora-api:textValueAsHtml']"></app-knora-v2-viewer-innerhtml>
       </li>
 
       <li *ngIf="resourceData[key]['knora-api:ValueAsString']">
         {{key}}:
-        <app-text-rich-innerhtml
-          [htmlContent]="resourceData[key]['knora-api:ValueAsString']"></app-text-rich-innerhtml>
+        <app-knora-v2-viewer-innerhtml
+          [htmlContent]="resourceData[key]['knora-api:ValueAsString']"></app-knora-v2-viewer-innerhtml>
       </li>
 
       <!-- int value -->
       <li *ngIf="resourceData[key]['knora-api:ValueAsInt']">
         {{key}}:
-        <app-text-rich-innerhtml
-          [htmlContent]="resourceData[key]['knora-api:ValueAsInt']"></app-text-rich-innerhtml>
+        <app-knora-v2-viewer-innerhtml
+          [htmlContent]="resourceData[key]['knora-api:ValueAsInt']"></app-knora-v2-viewer-innerhtml>
       </li>
 
       <!-- decimal value TODO -->

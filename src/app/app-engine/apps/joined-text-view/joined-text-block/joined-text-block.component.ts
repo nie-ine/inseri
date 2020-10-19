@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { KnoraV2RequestService } from '../../../../query-engine/knora/knora-v2-request.service';
-import { JoinedTextViewKnoraRequestService } from '../joined-text-view-knora-request.service';
-import { SelectableEnvironments, StyleDeclaration } from '../../shared/rich-text/text-rich-innerhtml/text-rich-innerhtml.component';
+import { SelectableEnvironments, StyleDeclaration } from '../joined-text-innerhtml/joined-text-innerhtml.component';
 import { JoinedTextBlock } from './joined-text-block';
+import { JoinedTextViewRequestService } from '../joined-text-view-request.service';
 
 /**
  * Combination of text lines into a specific form
@@ -77,7 +76,7 @@ export class JoinedTextBlockComponent implements OnChanges {
   /**
    * default written by angular-cli
    */
-  constructor(private knoraV2Request: KnoraV2RequestService, private joinedTextViewKnoraRequest: JoinedTextViewKnoraRequestService) { }
+  constructor(private requestService: JoinedTextViewRequestService) { }
 
   /**
    * load new content with new input variables
@@ -85,9 +84,9 @@ export class JoinedTextBlockComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
 
     if ((this.parentIri && this.blockConfiguration && this.backendAddress) && (changes['parentIri'] || changes['backendAddress'] || changes['blockConfiguration'])) {
-      const gravSearchRequest = this.joinedTextViewKnoraRequest.getGravSearch(this.blockConfiguration, this.parentIri);
+      const gravSearchRequest = this.requestService.getGravSearch(this.blockConfiguration, this.parentIri);
 
-      this.knoraV2Request.extendedSearchFromSpecificInstance(gravSearchRequest, this.backendAddress)
+      this.requestService.extendedSearchFromSpecificInstance(gravSearchRequest, this.backendAddress)
         .subscribe(d => {
           if (d[ '@graph' ]) {
             this.blocks = d[ '@graph' ];

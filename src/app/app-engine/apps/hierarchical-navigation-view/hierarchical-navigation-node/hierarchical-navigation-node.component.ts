@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { KnoraV2RequestService } from '../../../../query-engine/knora/knora-v2-request.service';
-import { HierarchicalNavigationRequestService } from '../hierarchical-navigation-request.service';
 import { HierarchicalNavigationNodeConfiguration } from '../hierarchical-navigation-configuration';
+import { HierarchicalNavigationRequestService } from '../hierarchical-navigation-request.service';
 
 @Component({
   selector: 'app-hierarchical-navigation-node',
@@ -65,8 +64,7 @@ export class HierarchicalNavigationNodeComponent implements OnChanges, OnInit {
    * default written by angular-cli
    */
   constructor(
-    private knoraV2Request: KnoraV2RequestService,
-    private hierarchicalNavigationRequest: HierarchicalNavigationRequestService) { }
+    private requestService: HierarchicalNavigationRequestService) { }
 
   /**
    * load load children if this node is selected
@@ -103,13 +101,13 @@ export class HierarchicalNavigationNodeComponent implements OnChanges, OnInit {
     this.childrenAreActive = true;
     if (this.resource && this.nodeConfiguration && this.backendAddress && this.nodeConfiguration.children) {
       // get body of HTTP post query
-      const graveSearchRequest = this.hierarchicalNavigationRequest.getGravSearch(
+      const graveSearchRequest = this.requestService.getGravSearch(
         this.nodeConfiguration.children,
         this.resource['@id'],
         0);
 
       // total number of children (for further loading)
-      this.knoraV2Request.countExtendedSearchFromSpecificInstance(graveSearchRequest, this.backendAddress)
+      this.requestService.countExtendedSearchFromSpecificInstance(graveSearchRequest, this.backendAddress)
         .subscribe(d => {
           this.totalNumberOfChildren = d['schema:numberOfItems'];
         }, error1 => {
@@ -117,7 +115,7 @@ export class HierarchicalNavigationNodeComponent implements OnChanges, OnInit {
         });
 
       // send query through service
-      this.knoraV2Request.extendedSearchFromSpecificInstance(graveSearchRequest, this.backendAddress)
+      this.requestService.extendedSearchFromSpecificInstance(graveSearchRequest, this.backendAddress)
         .subscribe(d => {
           if (d[ '@graph' ]) {
             this.children = d[ '@graph' ];
@@ -156,13 +154,13 @@ export class HierarchicalNavigationNodeComponent implements OnChanges, OnInit {
         while (iterate) {
 
           // request body
-          const graveSearchRequest = this.hierarchicalNavigationRequest.getGravSearch(
+          const graveSearchRequest = this.requestService.getGravSearch(
             this.nodeConfiguration.children,
             this.resource['@id'],
             this.children.length);
 
           // request
-          this.knoraV2Request.extendedSearchFromSpecificInstance(graveSearchRequest, this.backendAddress)
+          this.requestService.extendedSearchFromSpecificInstance(graveSearchRequest, this.backendAddress)
             .subscribe(d => {
               if (d[ '@graph' ]) {
                 // append children
@@ -200,12 +198,12 @@ export class HierarchicalNavigationNodeComponent implements OnChanges, OnInit {
    */
   loadMoreChildren() {
     if (this.resource && this.nodeConfiguration && this.backendAddress && this.nodeConfiguration.children) {
-      const graveSearchRequest = this.hierarchicalNavigationRequest.getGravSearch(
+      const graveSearchRequest = this.requestService.getGravSearch(
         this.nodeConfiguration.children,
         this.resource['@id'],
         this.children.length);
 
-      this.knoraV2Request.extendedSearchFromSpecificInstance(graveSearchRequest, this.backendAddress)
+      this.requestService.extendedSearchFromSpecificInstance(graveSearchRequest, this.backendAddress)
         .subscribe(d => {
           if (d[ '@graph' ]) {
             this.children.concat(d[ '@graph' ]);

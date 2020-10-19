@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SelectableEnvironments, StyleDeclaration } from '../../shared/rich-text/text-rich-innerhtml/text-rich-innerhtml.component';
+import { SelectableEnvironments, StyleDeclaration } from '../joined-text-innerhtml/joined-text-innerhtml.component';
 import { JoinedTextViewRoot } from './joined-text-view';
 
 @Component({

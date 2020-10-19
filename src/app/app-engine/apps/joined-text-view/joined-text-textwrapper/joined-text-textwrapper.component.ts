@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { SelectableEnvironments, StyleDeclaration } from '../../shared/rich-text/text-rich-innerhtml/text-rich-innerhtml.component';
+import { SelectableEnvironments, StyleDeclaration } from '../joined-text-innerhtml/joined-text-innerhtml.component';
 
 @Component({
   selector: 'app-joined-text-textwrapper',

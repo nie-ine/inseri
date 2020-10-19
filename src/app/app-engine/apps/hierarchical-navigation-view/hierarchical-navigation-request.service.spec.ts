@@ -1,12 +1,17 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 
 import { HierarchicalNavigationRequestService } from './hierarchical-navigation-request.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('HierarchicalNavigationRequestService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
-
-  it('should be created', () => {
-    const service: HierarchicalNavigationRequestService = TestBed.get(HierarchicalNavigationRequestService);
-    expect(service).toBeTruthy();
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [HierarchicalNavigationRequestService],
+      imports: [ HttpClientTestingModule ]
+    });
   });
+
+  it('should be created', inject([HierarchicalNavigationRequestService], (service: HierarchicalNavigationRequestService) => {
+    expect(service).toBeTruthy();
+  }));
 });
