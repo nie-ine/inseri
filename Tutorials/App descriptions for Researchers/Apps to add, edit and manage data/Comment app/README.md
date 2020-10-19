@@ -12,9 +12,9 @@ In the opened frame of "Comment App", in the field "New Comment", we can directl
 
 To add another comment, navigate to the page of the resource to which your new comment should belong, type your comment as before and click on "Add comment".
 
-You can thus annotate he whole book, for example, type in all useful citations from a book found on Archive.org, or make bookmarks in a long manuscript resource.
+You can thus annotate the whole book, for example, type in all useful citations from a book found on Archive.org, or make bookmarks in a long manuscript resource.
 
-If you need to change the comment, click on the logo to the left of your comment, which is empty by defolt, but where you can have a profile picture.
+If you need to change the comment, click on the logo to the left of your comment, which is empty by default, but where you can have a profile picture.
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-10/Tutorials/App%20descriptions%20for%20Researchers/Apps%20to%20add%2C%20edit%20and%20manage%20data/Comment%20app/CA3.png" alt="ChangeComment" width="500"></p>
 
