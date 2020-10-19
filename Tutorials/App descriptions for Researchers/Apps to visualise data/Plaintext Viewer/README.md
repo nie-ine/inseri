@@ -67,5 +67,21 @@ Here we can "Change Current Data" by directly editing JSON, or we can create a n
 
 Having passed through these options, let us come back to the linking Text Editor and Plaintext Viewer, that we shall do here via <strong>&quot;Data Management&quot;</strong>.
 
+When we click on "Data Management" in the optiond of any application, or by navigating to it via Inseri Logo, we should see the following picture:
 
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-10/Tutorials/App%20descriptions%20for%20Researchers/Apps%20to%20visualise%20data/Plaintext%20Viewer/3DM1.png" alt="PlainTextViewerOptions" width="600"></p>
 
+This means that both applications, Text Editor and PlainText Viewer are present on our page, what we need to insure is that the PlainText Viewer displays the correct piece of information generated via the Text Editor.
+
+For that, let us open Text Editor from the same "Data Management", to see in the opening query structure where exactly is the piece of information that we want to display. It is easier to do with human-readable option called "Show tree with data" to the left. The path to piece of code called "Vlls2" that we want is listen in blue.
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-10/Tutorials/App%20descriptions%20for%20Researchers/Apps%20to%20visualise%20data/Plaintext%20Viewer/4TEF.png" alt="PlainTextViewerOptions" width="600"></p>
+
+Now, from "Data Management" we click on "Plaintext Viewer" and to "map", and then, having clicked to "Show abstract tree structure", we follow the same path in blue.
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-10/Tutorials/App%20descriptions%20for%20Researchers/Apps%20to%20visualise%20data/Plaintext%20Viewer/5PTV1.png" alt="PlainTextViewerOptions" width="600"></p>
+
+And down "Vlls2" we click on the available "textlist".
+
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-10/Tutorials/App%20descriptions%20for%20Researchers/Apps%20to%20visualise%20data/Plaintext%20Viewer/6PTV2.png" alt="PlainTextViewerOptions" width="600"></p>
+
+We save, close and reload the page is necessary, and now we are sure that the "PlainText Viewer" displays correctly the input from the "Text Editor":
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-10/Tutorials/App%20descriptions%20for%20Researchers/Apps%20to%20visualise%20data/Plaintext%20Viewer/7res.png" alt="PlainTextViewerOptions" width="600"></p>
