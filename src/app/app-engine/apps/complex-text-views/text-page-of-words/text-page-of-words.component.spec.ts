@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TextPageOfWordsComponent } from './text-page-of-words.component';
 import { RichTextModule } from '../../shared/rich-text/rich-text.module';
-import { TextStructureModule } from '../../text-structure/text-structure.module';
+import { TextStructureModule } from '../text-structure/text-structure.module';
 
 describe('TextPageOfWordsComponent', () => {
   let component: TextPageOfWordsComponent;
