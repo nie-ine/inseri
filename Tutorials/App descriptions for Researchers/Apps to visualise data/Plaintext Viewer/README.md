@@ -30,7 +30,7 @@ The <strong>Output</strong> down the editor should show the result in real time,
 
 <p>In order to generate the view of the text that the user has just entered, all we need is to recall the file. For that, the user should click on the text &quot;Plain text viewer&quot; itself, and it will open the &quot;options&quot; menu, as below:</p>
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-10/Tutorials/App%20descriptions%20for%20Researchers/Apps%20to%20visualise%20data/Plaintext%20Viewer/2.8VE.png" alt="PlainTextViewerOptions" width="500"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-10/Tutorials/App%20descriptions%20for%20Researchers/Apps%20to%20visualise%20data/Plaintext%20Viewer/2.8VE.png" alt="PlainTextViewerOptions" width="400"></p>
 
 <p>Let us briefly go through all the options, because the same exist in the absolute majority of the INSERI applications.</p>
 
@@ -57,7 +57,7 @@ We can create a &quot;Tile&quot; covering only a part of the visible screen, or 
 
 <p>In June 2020 a new option has been added: the user can now not only change the title, but also add a commentary, describing, for example, how the data was collected in the visualisation applications, or simply describing how to use the application for a given project.</p>
 
-<p><strong>&quot;File Options&quot;</strong> shall open another menu, as below:</p>
+<p><strong>&quot;App Input Options&quot;</strong> shall open another menu, as below:</p>
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8d.png" alt="Plaintext Viewer File Options" width="400"></p>
 
