@@ -7,7 +7,7 @@ Plaintext Viewer, the app which displays the result on the webpage.</p>
 
 <p>Lets first start with the Text Editor:</p>
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8.png" alt="Collage creation" width="600"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-10/Tutorials/App%20descriptions%20for%20Researchers/Apps%20to%20visualise%20data/Plaintext%20Viewer/1TE1.png" alt="TextEditor" width="500"></p>
 
 <p>In the <strong>Editor</strong> one can enter the text, select what degree of highlights (i.e. size, colour, background) the text should have; align the text, include the images (upload from desktop is possible and easy), and set up a link to another page, via a link sign.
   
@@ -16,16 +16,17 @@ The <strong>Code</strong> area shows all typed and set up in the editor in HTML.
 
 
 The <strong>Output</strong> down the editor should show the result in real time, how it will be visible to the outside viewers.
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-10/Tutorials/App%20descriptions%20for%20Researchers/Apps%20to%20visualise%20data/Plaintext%20Viewer/2TE2.png" alt="TextEditor" width="500"></p>
 
 <p>Once the user has clicked the &quot;Save&quot; button, and then on Inseri Logo, the file is saved and can now be called from other applications. Let us take an example of the Text Viewer. The user should, all like before, from the same &quot;Project&quot; page, click in the &quot;Lighthouse&quot; button, and select the &quot;Plaintext Viewer&quot; from the list.</p>
 
 <p>It opens as a seemingly empty frame, as below:</p>
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8a.png" alt="Plaintext Viewer" width="300"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-10/Tutorials/App%20descriptions%20for%20Researchers/Apps%20to%20visualise%20data/Plaintext%20Viewer/2.5VE.png" alt="TextEditor" width="500"></p>
 
 <p>In order to generate the view of the text that the user has just entered, all we need is to recall the file. For that, the user should click on the text &quot;Plain text viewer&quot; itself, and it will open the &quot;options&quot; menu, as below:</p>
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8b.png" alt="Plaintext Viewer Options" width="200"></p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-10/Tutorials/App%20descriptions%20for%20Researchers/Apps%20to%20visualise%20data/Plaintext%20Viewer/2.8VE.png" alt="PlainTextViewerOptions" width="500"></p>
 
 <p>Let us briefly go through all the options, because the same exist in the absolute majority of the INSERI applications.</p>
 
@@ -33,8 +34,11 @@ The <strong>Output</strong> down the editor should show the result in real time,
 
 <ol>
 <li>Change Title and Size</li>
-<li>File Options</li>
-<li>Minimize</li>
+<li>Change app description</li>
+<li>Move app on page</li>
+<li>App Input Options</li>
+<li>Data Management</li>
+<li>Minimise</li>
 <li>Close</li>
 </ol>
 
