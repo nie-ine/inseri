@@ -79,7 +79,7 @@ For that, let us open Text Editor from the same "Data Management", to see in the
 Now, from "Data Management" we click on "Plaintext Viewer" and to "map", and then, having clicked to "Show abstract tree structure", we follow the same path in blue.
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-10/Tutorials/App%20descriptions%20for%20Researchers/Apps%20to%20visualise%20data/Plaintext%20Viewer/5PTV1.png" alt="PlainTextViewerOptions" width="600"></p>
 
-And down "Vlls2" we click on the available "textlist".
+And down "Vlls2" we click on the available "textlist" in the "textFile".
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-10/Tutorials/App%20descriptions%20for%20Researchers/Apps%20to%20visualise%20data/Plaintext%20Viewer/6PTV2.png" alt="PlainTextViewerOptions" width="600"></p>
 
