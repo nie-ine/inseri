@@ -55,33 +55,19 @@ The <strong>Output</strong> down the editor should show the result in real time,
 <p>What we are setting up here is the size of the textual block that we have just entered in the &quot;Text Editor&quot; how it will be visible to public in the &quot;Viewer&quot;.
 We can create a &quot;Tile&quot; covering only a part of the visible screen, or to make the text occupy the whole screen. More over, the user can also change the headline, here containing the name of the application, i.e. &quot;Plaintext Viewer&quot; into something different, or even delete it altogether. &quot;Save&quot; and &quot;Close&quot;.</p>
 
-<p>In June 2020 a new option has been added: the user can now not only change the title, but also add a commentary, describing, for example, how the data was collected in the visualisation applications, or simply describing how to use the application for a given project.</p>
+<p>In June 2020 a new option has been added, "Change App Description": the user can now not only change the title, but also add a commentary, describing, for example, how the data was collected in the visualisation applications, or simply describing how to use the application for a given project.</p>
 
-<p><strong>&quot;App Input Options&quot;</strong> shall open another menu, as below:</p>
+<p>Move App on Page, will show the arrows to the left and right that will allow to move the app in question up and down.</p>
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8d.png" alt="Plaintext Viewer File Options" width="400"></p>
+<p><strong>&quot;App Input Options&quot;</strong> shall open another menu, where we should select "textlist", to access further options as below:</p>
 
-<p>What we need is the &quot;Option for input: &quot;textlist&quot;&quot;. 
-It will open the following possibilities:</p>
+<p><img src="https://github.com/nie-ine/inseri/blob/2020-10/Tutorials/App%20descriptions%20for%20Researchers/Apps%20to%20visualise%20data/Plaintext%20Viewer/AIO.png" alt="PlainTextViewerOptions" width="400"></p>
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8e.png" alt="Further Options" width="200"></p>
+Here we can "Change Current Data" by directly editing JSON, or we can create a new file, for example, by pasting a created in the Editor code, or we can assign a file to a query (These options shall be explained separately.)
 
-<p>&quot;Change current data&quot; will open JSON object, which can be modified by hand.
-&quot;Open other file&quot;, will open a directory within INSERI where the Project files are stored.</p>
+&quot;Open other file&quot;, will open a directory within INSERI where the Project files are stored. (This option does not exist as of Oct. 2020, but it previously allowed to save a text file in from the Text Editor and to call that text file from the PlainText Viewer.)</p>
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8f.png" alt="INSERI file directory" width="500"></p>
+Having passed through these options, let us come back to the linking Text Editor and Plaintext Viewer, that we shall do via "Data Management".
 
-<p>All we need is to select the file we have just created (most recent are up by default), and click on &quot;+&quot; sign. By doing so we have created a link between the file done in the &quot;Editor&quot; and its visualization in the &quot;Viewer&quot;. Having clicked on &quot;+&quot; we shall be back to a form we have seen already, click on &quot;Close and reload page to see changes&quot; in order to validate the established link:</p>
 
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8d.png" alt="Plaintext Viewer File Options" width="700"></p>
 
-<p>Other options from the area above include:
-&quot;Create new file&quot; will create a new file, that can be further opened in the &quot;Text editor&quot; as we have done above in another direction, i.e. from &quot;Editor&quot; to &quot;Viewer&quot;.
-&quot;Assign to query&quot; shall be dealt with further down.</p>
-
-<p>Here are the two applications together:
-<p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/9.png" alt="Plaintext Editor and Plaintext Viewer" width="1000"></p></p>
-
-As some pieces of information, such as title of the project and its description can occur in many different places, Inseri allows to modify/update them all centrally, i.e from one "Editor" to miltiple "Views".
-
-Having created and viewed the Title and brief description of the Project, we shall learn next how to upload primary data, starting with images in the part called "Add Data".
