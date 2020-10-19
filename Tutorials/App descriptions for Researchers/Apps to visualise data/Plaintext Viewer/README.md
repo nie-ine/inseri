@@ -46,8 +46,6 @@ The <strong>Output</strong> down the editor should show the result in real time,
 <li>Close</li>
 </ol>
 
-<p>We shall describe here only the first two, the other being self-evident.</p>
-
 <p><strong>&quot;Change Title and Size&quot;</strong> opens the following option window:</p>
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8c.png" alt="Plaintext Editor and Plaintext Viewer" width="500"></p>
@@ -55,9 +53,9 @@ The <strong>Output</strong> down the editor should show the result in real time,
 <p>What we are setting up here is the size of the textual block that we have just entered in the &quot;Text Editor&quot; how it will be visible to public in the &quot;Viewer&quot;.
 We can create a &quot;Tile&quot; covering only a part of the visible screen, or to make the text occupy the whole screen. More over, the user can also change the headline, here containing the name of the application, i.e. &quot;Plaintext Viewer&quot; into something different, or even delete it altogether. &quot;Save&quot; and &quot;Close&quot;.</p>
 
-<p>In June 2020 a new option has been added, "Change App Description": the user can now not only change the title, but also add a commentary, describing, for example, how the data was collected in the visualisation applications, or simply describing how to use the application for a given project.</p>
+<p>In June 2020 a new option has been added, <strong>&quot;Change App Description&quot;</strong>: the user can now not only change the title, but also add a commentary, describing, for example, how the data was collected in the visualisation applications, or simply describing how to use the application for a given project.</p>
 
-<p>Move App on Page, will show the arrows to the left and right that will allow to move the app in question up and down.</p>
+<p><strong>&quot;Move App on Page&quot;</strong>, will show the arrows to the left and right that will allow to move the app in question up and down.</p>
 
 <p><strong>&quot;App Input Options&quot;</strong> shall open another menu, where we should select "textlist", to access further options as below:</p>
 
@@ -67,7 +65,7 @@ Here we can "Change Current Data" by directly editing JSON, or we can create a n
 
 &quot;Open other file&quot;, will open a directory within INSERI where the Project files are stored. (This option does not exist as of Oct. 2020, but it previously allowed to save a text file in from the Text Editor and to call that text file from the PlainText Viewer.)</p>
 
-Having passed through these options, let us come back to the linking Text Editor and Plaintext Viewer, that we shall do via "Data Management".
+Having passed through these options, let us come back to the linking Text Editor and Plaintext Viewer, that we shall do here via <strong>&quot;Data Management&quot;</strong>.
 
 
 
