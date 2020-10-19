@@ -9,25 +9,15 @@ Plaintext Viewer, the app which displays the result on the webpage.</p>
 
 <p><img src="https://github.com/nie-ine/inseri/blob/2020-03/Tutorials/Your%20scientific%20publication%20A-Z/1.%20Introduction/8.png" alt="Collage creation" width="600"></p>
 
-<p>This application allows creating and modifying a project webpage in a very simple way. 
-There are 4 major areas in the app:</p>
-
-<ol>
-<li>Editor</li>
-<li>Code</li>
-<li>Output</li>
-<li>Export</li>
-</ol>
-
 <p>In the <strong>Editor</strong> one can enter the text, select what degree of highlights (i.e. size, colour, background) the text should have; align the text, include the images (upload from desktop is possible and easy), and set up a link to another page, via a link sign.
-The saving is not automatic, and one need to click on the &quot;Save&quot; button down the page often.
+  
+The saving is not automatic, and one need to click on the &quot;Save Text and Update Page&quot; button down the page often.
 The <strong>Code</strong> area shows all typed and set up in the editor in HTML. This code can be conveniently copied and pasted to any other webpage editor, and is used to visualize the result in the set of &quot;viewer&quot; applications.
-The <strong>Output</strong> should show the result in real time, how it will be visible to the outside viewers.
-The <strong>Export</strong> area [has another Save button, export options are UNDER DEVELOPMENT].</p>
 
-<p>Once the user has clicked the &quot;Save&quot; button, and (depending on the Internet connection issues) reloaded the page, the file has been saved in the INSERI file storage [may be precise here the size limit issues?]</p>
 
-<p>This file can now be called from other applications. Let us take an example of the Text Viewer. The user should, all like before, from the same &quot;Project&quot; page, click in the &quot;Lighthouse&quot; button, and select the &quot;Plaintext Viewer&quot; from the list.</p>
+The <strong>Output</strong> down the editor should show the result in real time, how it will be visible to the outside viewers.
+
+<p>Once the user has clicked the &quot;Save&quot; button, and then on Inseri Logo, the file is saved and can now be called from other applications. Let us take an example of the Text Viewer. The user should, all like before, from the same &quot;Project&quot; page, click in the &quot;Lighthouse&quot; button, and select the &quot;Plaintext Viewer&quot; from the list.</p>
 
 <p>It opens as a seemingly empty frame, as below:</p>
 
