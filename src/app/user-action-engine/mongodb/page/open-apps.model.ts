@@ -21,7 +21,8 @@ export class OpenAppsModel {
       ],
       materialIcon: 'image',
       initialWidth: '800',
-      initialHeight: '500'
+      initialHeight: '500',
+      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/App descriptions for Researchers/Apps to visualise data/Image Viewer/README.md'
     },
     textViewer: {
       type: 'textViewer',
@@ -593,7 +594,8 @@ export class OpenAppsModel {
       ],
       materialIcon: 'subdirectory_arrow_right',
       initialWidth: '375',
-      initialHeight: '350'
+      initialHeight: '350',
+      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/App descriptions for Researchers/Apps to visualise data/Tree Navigation/README.md'
     },
     hierarchicalNavigationView: {
       type: 'hierarchicalNavigationView',
@@ -611,7 +613,8 @@ export class OpenAppsModel {
       ],
       materialIcon: 'subdirectory_arrow_right',
       initialWidth: '375',
-      initialHeight: '350'
+      initialHeight: '350',
+      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/App descriptions for Researchers/Apps to visualise data/Hierarchical Navigation/README.md'
     },
     dataListView: {
       type: 'dataListView',
@@ -729,7 +732,8 @@ export class OpenAppsModel {
       ],
       materialIcon: 'aspect_ratio',
       initialWidth: '800',
-      initialHeight: '500'
+      initialHeight: '500',
+      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/App descriptions for Researchers/Apps to visualise data/HTML Viewer/README.md'
     },
     joinedTextView: {
       type: 'joinedTextView',
@@ -756,7 +760,8 @@ export class OpenAppsModel {
       ],
       materialIcon: 'aspect_ratio',
       initialWidth: '375',
-      initialHeight: '350'
+      initialHeight: '350',
+      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/App descriptions for Researchers/Apps to visualise data/Joined Text View/README.md'
     },
     login: {
       type: 'login',

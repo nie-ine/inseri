@@ -8,13 +8,10 @@ import { JoinedTextElement } from '../joined-text-view/joined-text-view/joined-t
 @Injectable()
 export class HierarchicalNavigationRequestService {
 
+  /**
+   * Basic credentials to smoothen CORS requests
+   */
   basicAuthentication = 'email=root%40example.com&password=test'; // TODO: integrate into login framework
-
-  // create authentication data for posting
-  // TODO: use services
-  httpOptions = {
-    headers: new HttpHeaders({'Authorization': 'Basic ' + btoa('root@example.com' + ':' + 'test')})
-  };
 
   constructor(private httpClient: HttpClient) { }
 
@@ -38,6 +35,12 @@ export class HierarchicalNavigationRequestService {
     return this.httpClient.post(databaseAddress + '/v2/searchextended/count?' + this.basicAuthentication, graveSearchRequest);
   }
 
+  /**
+   * Form a Gravsearch (subset of SPARQL) query depending on the configuration in the respecitve component input.
+   * @param configuration  The way the component is related to its parent and how it interacts graphically and mouse input.
+   * @param parentIri  The IRI of the parent resource, e.g. in the case of lines, the block, they belong to.
+   * @param offset  Offset for paged loading (see Knora documentation)
+   */
   getGravSearch(configuration: JoinedTextElement, parentIri, offset): string {
 
     let graveSearchRequest =

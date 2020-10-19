@@ -4,6 +4,7 @@ import { Component, Injectable } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { ActivatedRoute, Router } from '@angular/router';
 
+/** Node with label (displayed), identifier (unique), path (parent identifiers), child nodes */
 interface ResourceNode {
   label: string;
   identifier: string;
@@ -48,6 +49,11 @@ export class TreeNavigationComponent implements OnChanges, OnInit {
    */
   parameterKeyBase = 'd';
 
+  /**
+   * Flattener for nodes as needed for FlatTreeControl
+   * @param node
+   * @param level
+   */
   private transformer = (node: ResourceNode, level: number) => {
     return {
       expandable: !!node.children && node.children.length > 0,
@@ -68,6 +74,9 @@ export class TreeNavigationComponent implements OnChanges, OnInit {
 
   constructor(private _route: ActivatedRoute, private _router: Router) { }
 
+  /**
+   * Query a nested structure from Knora.
+   */
   ngOnChanges() {
     if (this.queryResponse === undefined) {
       this.queryResponse = {

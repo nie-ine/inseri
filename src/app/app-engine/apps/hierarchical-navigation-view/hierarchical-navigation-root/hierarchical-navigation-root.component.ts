@@ -44,14 +44,16 @@ export class HierarchicalNavigationRootComponent implements OnChanges {
    */
   children: Array<any>;
 
+  /**
+   * Number of dependent resources, to ensure completeness in paged loading.
+   */
   totalNumberOfChildren: number;
 
   /**
    * default written by angular-cli
    */
   constructor(
-    private knoraV2Request: HierarchicalNavigationRequestService,
-    private hierarchicalNavigationRequest: HierarchicalNavigationRequestService) { }
+    private requestService: HierarchicalNavigationRequestService) { }
 
   /**
    * load new content with new input variables
@@ -77,13 +79,13 @@ export class HierarchicalNavigationRootComponent implements OnChanges {
     if (this.resourceIri && this.nodeConfiguration && this.backendAddress && this.nodeConfiguration.children) {
 
       // request body
-      const graveSearchRequest = this.hierarchicalNavigationRequest.getGravSearch(
+      const graveSearchRequest = this.requestService.getGravSearch(
         this.nodeConfiguration.children,
         this.resourceIri,
         0);
 
       // total number of children
-      this.knoraV2Request.countExtendedSearchFromSpecificInstance(graveSearchRequest, this.backendAddress)
+      this.requestService.countExtendedSearchFromSpecificInstance(graveSearchRequest, this.backendAddress)
         .subscribe(d => {
           this.totalNumberOfChildren = d[ 'schema:numberOfItems' ];
         }, error1 => {
@@ -91,7 +93,7 @@ export class HierarchicalNavigationRootComponent implements OnChanges {
         });
 
       // send query through service
-      this.knoraV2Request.extendedSearchFromSpecificInstance(graveSearchRequest, this.backendAddress)
+      this.requestService.extendedSearchFromSpecificInstance(graveSearchRequest, this.backendAddress)
         .subscribe(d => {
           if (d[ '@graph' ]) {
             this.children = d[ '@graph' ];
@@ -128,13 +130,13 @@ export class HierarchicalNavigationRootComponent implements OnChanges {
 
         // request body
         while (iterate) {
-          const graveSearchRequest = this.hierarchicalNavigationRequest.getGravSearch(
+          const graveSearchRequest = this.requestService.getGravSearch(
             this.nodeConfiguration.children,
             this.resourceIri,
             this.children.length);
 
           // request
-          this.knoraV2Request.extendedSearchFromSpecificInstance(graveSearchRequest, this.backendAddress)
+          this.requestService.extendedSearchFromSpecificInstance(graveSearchRequest, this.backendAddress)
             .subscribe(d => {
               if (d[ '@graph' ]) {
                 this.children = d[ '@graph' ];
@@ -171,12 +173,12 @@ export class HierarchicalNavigationRootComponent implements OnChanges {
    */
   loadMoreChildren() {
     if (this.resourceIri && this.nodeConfiguration && this.backendAddress && this.nodeConfiguration.children) {
-      const graveSearchRequest = this.hierarchicalNavigationRequest.getGravSearch(
+      const graveSearchRequest = this.requestService.getGravSearch(
         this.nodeConfiguration.children,
         this.resourceIri,
         this.children.length);
 
-      this.knoraV2Request.extendedSearchFromSpecificInstance(graveSearchRequest, this.backendAddress)
+      this.requestService.extendedSearchFromSpecificInstance(graveSearchRequest, this.backendAddress)
         .subscribe(d => {
           if (d[ '@graph' ]) {
             this.children.concat(d[ '@graph' ]);
