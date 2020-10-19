@@ -125,20 +125,6 @@ export class OpenAppsModel {
       initialWidth: '375',
       initialHeight: '350'
     },
-    createResourceForm: {
-      type: 'createResourceForm',
-      model: [],
-      materialIcon: 'add_to_queue',
-      initialWidth: '375',
-      initialHeight: '350'
-    },
-    editResourceForm: {
-      type: 'editResourceForm',
-      model: [],
-      materialIcon: 'web',
-      initialWidth: '375',
-      initialHeight: '350'
-    },
     knoraV2viewer: {
       type: 'knoraV2viewer',
       model: [],
