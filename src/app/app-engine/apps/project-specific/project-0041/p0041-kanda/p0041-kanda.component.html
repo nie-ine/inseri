@@ -1,9 +1,0 @@
-<div *ngIf="suktaIRI">
-  <ng-container *ngIf="kandaData">
-    {{ kandaData['rdfs:label'] }}
-  </ng-container>
-</div>
-<div *ngIf="!suktaIRI">
-  <h2 *ngIf="kandaData">{{ kandaData['rdfs:label'] }}</h2>
-  <div>Lorem Ipsum</div>
-</div>

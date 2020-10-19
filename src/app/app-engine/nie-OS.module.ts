@@ -13,7 +13,6 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {SynopsisModule} from './apps/synopsis/synopsis.module';
 import {MyPageSetModule} from '../user-action-engine/page-set/page-set.module';
 import {GenerateHashService} from '../user-action-engine/other/generateHash.service';
-import {CreateResourceModule} from './apps/create-resource/create-resource.module';
 import {TextlistViewerComponent} from './apps/textlist-viewer/textlist-viewer.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDividerModule} from '@angular/material/divider';
@@ -55,7 +54,6 @@ import { MatCardModule } from '@angular/material/card';
 import {GrapesjsComponent} from './apps/grapesjs/grapesjs.component';
 import { ImageFrameModule } from './apps/image-frame/image-frame.module';
 import { ParzivalFassungComponent } from './apps/parzival-fassung/parzival-fassung.component';
-import { Project0041Module } from './apps/project-specific/project-0041/project-0041.module';
 import { ComplexTextViewsModule } from './apps/complex-text-views/complex-text-views.module';
 import { ResourceFormModule } from './apps/resource-form/resource-form.module';
 import { OverlayModule } from '@angular/cdk/overlay';
@@ -123,7 +121,6 @@ import { MenuItemComponent } from './page/menu-item/menu-item.component';
     MatTooltipModule,
     SynopsisModule,
     MyPageSetModule,
-    CreateResourceModule,
     ResourceFormModule,
     MatProgressSpinnerModule,
     MatExpansionModule,
@@ -155,7 +152,6 @@ import { MenuItemComponent } from './page/menu-item/menu-item.component';
     MatCardModule,
     ImageFrameModule,
     ComplexTextViewsModule,
-    Project0041Module,
     HtmlViewerModule,
     NavigationModule,
     OverlayModule,
