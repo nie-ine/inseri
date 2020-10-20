@@ -30,13 +30,14 @@ export class JsonEnvironmentComponent implements OnChanges, HttpInterceptor {
   }
 
   ngOnChanges( changes: SimpleChanges ) {
-    // console.log( 'changes', this.hash, this.assignedJson, this.pythonFile );
-    if ( this.hash && this.pythonFile && this.assignedJson ) {
+    console.log( 'changes', this.hash, this.assignedJson, this.pythonFile );
+    if ( this.hash && this.pythonFile ) {
       this.display = { hash: this.hash, json: this.assignedJson };
       if ( this.pythonFile.search( 'http' ) !== -1 ) {
         this.http.get( this.pythonFile, { responseType: 'text' } )
           .subscribe(
             data => {
+              console.log( data );
               this.editor.text = data;
               this.submitToMicroservice();
             }, error => {
@@ -112,8 +113,7 @@ export class JsonEnvironmentComponent implements OnChanges, HttpInterceptor {
       );
   }
 
-  savePythonFile() {
-    console.log( JSON.parse(localStorage.getItem( this.serivceId )).pythonCode );
+  savePythonFile( submit?: boolean ) {
     this.fileService.getFileByUrl( this.pythonFile )
       .subscribe(response => {
         console.log( response );
@@ -126,6 +126,9 @@ export class JsonEnvironmentComponent implements OnChanges, HttpInterceptor {
           this.pythonFile)
           .subscribe(savedFile => {
             console.log( savedFile );
+              if ( submit ) {
+                this.submitToMicroservice();
+              }
           }, error1 => console.log( error1 )
           );
       }, error => console.log( error )
