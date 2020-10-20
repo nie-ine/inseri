@@ -4,7 +4,6 @@ import {HttpClient} from '@angular/common/http';
 import {MicroserviceService} from '../../../user-action-engine/mongodb/microservice/microservice.service';
 import 'ace-builds/src-noconflict/mode-turtle';
 import 'ace-builds/src-noconflict/theme-chrome';
-import * as $ from 'jquery';
 
 @Component({
   selector: 'app-machine-reasoning',
@@ -200,7 +199,6 @@ export class MachineReasoningComponent implements OnInit {
           console.log('Response:', val);
           this.editor.text = val.output;
 
-
           // Hide the spinner
           this.reasoning = false;
           }, error => {
@@ -225,11 +223,7 @@ export class MachineReasoningComponent implements OnInit {
     const textToBLOB = new Blob([this.editor.text], { type: 'text/plain' });
     const url = window.URL.createObjectURL(textToBLOB);
     a.href = url;
-    if (this.timestamp) {
-      a.download = 'inseriReasoningResults_' + this.timestamp + '.ttl';
-    } else {
-      a.download = 'inseriReasoningApp.ttl';
-    }
+    a.download = 'inseriReasoningResults_' + this.timestamp + '.ttl';
     a.click();
     a.remove();
     window.URL.revokeObjectURL(url);
