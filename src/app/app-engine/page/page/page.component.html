@@ -35,9 +35,9 @@
         style="width: 40px; margin-bottom: 2px; vertical-align: bottom;" matTooltip="inseri apps" >
     </button>
     <button *ngIf="pagesOfThisActtion"
-            [disabled]="selectedPage === 0"
+            [disabled]="selectedPageIndex === 0"
             mat-button
-            (click)="selectPage( selectedPage - 1 , pagesOfThisActtion[ selectedPage - 1 ] )">
+            (click)="selectPage( selectedPageIndex - 1 , pagesOfThisActtion[ selectedPageIndex - 1 ] )">
       <mat-icon> keyboard_arrow_left </mat-icon>
     </button>
     <button mat-button [matMenuTriggerFor]="menu3" *ngIf="pagesOfThisActtion">{{ page.title }}
@@ -45,7 +45,7 @@
     <mat-menu #menu3="matMenu" >
       <button
         style="display: block"
-        [color]=" i === selectedPage ? 'primary' : 'null'"
+        [color]=" i === selectedPageIndex ? 'primary' : 'null'"
         *ngFor="let page of pagesOfThisActtion; let i = index;"
         matTooltip="{{ page.description }}"
         mat-button
@@ -55,7 +55,7 @@
         *ngIf=" (!pageAsDemo) && !preview && loggedIn"
         style="margin-left: 10px; margin-right: 10px; margin-top: 10px;">
 
-        <mat-button-toggle (click)="addNewPage()" matTooltip="Add new page">
+        <mat-button-toggle (click)="addNewPage(page)" matTooltip="Add new page">
           <mat-icon>add</mat-icon>
         </mat-button-toggle>
 
@@ -71,10 +71,10 @@
 
     </mat-menu>
 
-    <button [disabled]="selectedPage === pagesOfThisActtion.length - 1"
+    <button [disabled]="selectedPageIndex === pagesOfThisActtion.length - 1"
             *ngIf="pagesOfThisActtion"
             mat-button
-            (click)="selectPage( selectedPage + 1 , pagesOfThisActtion[ selectedPage + 1 ] )">
+            (click)="selectPage( selectedPageIndex + 1 , pagesOfThisActtion[ selectedPageIndex + 1 ] )">
       <mat-icon > keyboard_arrow_right </mat-icon>
     </button>
 

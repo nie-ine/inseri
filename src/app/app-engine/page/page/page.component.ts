@@ -173,7 +173,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * If an action is a pageSet, it contains an array with the pages, from this array the navigation is created,
    * the following value is needed to generate the navigation
    * */
-  selectedPage = 0;
+  selectedPageIndex = 0;
 
   /**
    * This variable makes sure that the load-variables.component is loaded only once
@@ -253,7 +253,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   nothAlreadyQueryAppPathGenerated = new Set();
 
 
-  appMenuModel= new AppMenuModel().appMenu;
+  appMenuModel = new AppMenuModel().appMenu;
 
   params: any;
 
@@ -277,6 +277,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   private imagePreview: string;
 
   shortName: string;
+  private selectedPage: any;
 
   constructor(
     public route: ActivatedRoute,
@@ -501,10 +502,14 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.router.navigate(['/dashboard']);
   }
 
-  addNewPage() {
+  addNewPage(page) {
     const dialogRef = this.dialog.open(DialogCreateNewPageComponent, {
       width: '700px',
-      data: { pageset: this.action.hasPageSet }
+      data: { pageset: this.action.hasPageSet,
+              parentPageId: page._id
+              // subPage: ,
+              // pageId:
+             }
     });
     dialogRef.afterClosed().subscribe(result => {
       this.alreadyLoaded = false;
@@ -518,8 +523,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * This function is used to navigate to another page belonging to the current pageSet
    * */
   selectPage(i: number, page: any) {
-    this.selectedPage = i;
+    this.selectedPageIndex = i;
     this.selectedPageToShow = i + 1;
+    this.selectedPage = page;
     this.navigateToOtherView(page);
   }
 
@@ -546,13 +552,13 @@ export class PageComponent implements OnInit, AfterViewChecked {
               this.pagesOfThisActtion = [];
               for (const page of ( data.body as any ).action.hasPageSet.hasPages as any ) {
                 if ( page._id === this.hashOfThisPage ) {
-                  this.selectedPage = this.pagesOfThisActtion.length;
+                  this.selectedPageIndex = this.pagesOfThisActtion.length;
                 }
                 this.pagesOfThisActtion[this.pagesOfThisActtion.length] = page;
                 this.alreadyLoaded = true;
               }
               if ( goToPage ) {
-                this.selectedPage = this.pagesOfThisActtion.length - 1;
+                this.selectedPageIndex = this.pagesOfThisActtion.length - 1;
                 this.router.navigate( [ 'page' ], {
                   queryParams: {
                     'actionID': this.actionID,
@@ -950,7 +956,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     const dataAssignmentComponent = new DataAssignmentComponent();
     // console.log( this.index, input );
     if ( ( this.index as any ) === 'NaN' || this.index === NaN ) {
-      console.log( 'index is NaN' )
+      console.log( 'index is NaN' );
       this.index = 0;
     }
     if ( this.page && this.openAppsInThisPage && this.index === 0 ) {
