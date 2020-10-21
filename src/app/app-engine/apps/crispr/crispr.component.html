@@ -86,9 +86,17 @@
   <mat-tab label="Select Sequences"  >
 
     <mat-form-field>
-      <mat-label>Filter</mat-label>
+      <mat-label>
+        {{ sequencesArray.length > 100 ? 'Filter the first 100 sequences of this preview' : 'Filter' }}
+      </mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Search for sequences" #input>
-    </mat-form-field>
+    </mat-form-field>    <mat-form-field>
+    <mat-label>Type Sequence to plot</mat-label>
+    <input matInput placeholder="Enter Sequence Name" #input>
+  </mat-form-field>
+    <button mat-button (click)="submitFile( input.value )" [disabled]="waitingForResponse" >
+      <mat-icon>analytics</mat-icon>
+    </button>
 
     <div style="height: 400px!important; overflow: auto;">
 
