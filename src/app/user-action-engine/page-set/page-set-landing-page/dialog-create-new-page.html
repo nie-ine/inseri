@@ -3,9 +3,10 @@
 <!--<div class="col-md-6 col-md-offset-3">-->
   <form [formGroup]="form" (ngSubmit)="save()" *ngIf="!isLoading">
 
-    <h5 style="display: inline-block">Create new</h5>
+    <!--h5 style="display: inline-block">Create new</h5-->
 
     <div>
+      <label style="display: inline-block">Create new</label>
       <mat-radio-group
         style="margin-bottom: 30px" style="display: inline-block; margin-left: 15px;" [formControl]="subPage" >
         <mat-radio-button value="false" [checked]="true">page</mat-radio-button>
