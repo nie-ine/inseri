@@ -32,6 +32,7 @@ export class PieChartV2Component implements AfterViewChecked {
   private _current: any;
   chosenSection: any = {};
   private tooltip: any;
+  chartLoading = true;
 
   constructor() {
     this.width = 600 - this.margin.left - this.margin.right;
@@ -55,12 +56,14 @@ export class PieChartV2Component implements AfterViewChecked {
           console.log( this.data );
           this.drawD3( this.data.data );
         }, 100);
+        this.chartLoading = false;
       } else if ( typeof this.data !== 'string' ) {
         this.alreadyInitialised = true;
         setTimeout(() => {
           console.log( this.data );
           this.drawD3( this.data.data );
         }, 100);
+        this.chartLoading = false;
       }
     }
   }
