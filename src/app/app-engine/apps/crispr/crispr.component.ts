@@ -31,6 +31,7 @@ export class CrisprComponent {
   waitingForResponse = false;
   selectedSequences: Array<string> = [];
   errorMessage: string;
+  sessionHash: string;
   public selection = new SelectionModel<any>(true, []);
   progressBarValue = 0;
   constructor(
@@ -41,47 +42,24 @@ export class CrisprComponent {
   onFileChange(files: FileList): void {
 
     this.errorMessage = undefined;
+    this.sessionHash = undefined;
+    this.selectedAction = 'download';
+    this.pathToFile = undefined;
 
     if ( files.item(0) ) {
       this.fileToUpload = files.item(0);
-      console.log( this.fileToUpload );
+      this.form.set('data', this.fileToUpload, 'data' );
+      this.form.set( 'sessionHash', this.sessionHash );
       this.showSubmitButton = true;
       this.fileHasChanged = true;
-
-      let reader = new FileReader();
-      reader.readAsText(files.item(0));
-
-      reader.onload = () => {
-
-        const csvRecordsArray = (<string>reader.result).split(/\r\n|\n/);
-
-        if ( csvRecordsArray.length > 20001 ) {
-          this.csvContainsTooManyLines = true;
-        }
-
-        this.sequencesArray = [];
-
-        for ( const sequence of csvRecordsArray ) {
-          this.sequencesArray.push( {
-            sequence: sequence.split( ',')[ 0 ],
-            positions: sequence.split( ',')[ 1 ]
-          } );
-        }
-
-        this.sequencesArray.shift();
-
-        console.log( this.sequencesArray );
-
-        this.dataSource = new MatTableDataSource(this.sequencesArray);
-
-      };
-
-      reader.onerror = function () {
-        console.log('error is occured while reading file!');
-      };
+      this.sessionHash = this.generateHash();
+      this.progressBarValue = 0;
+      console.log( this.sessionHash );
     }
+  }
 
-    this.form.append('data', this.fileToUpload, 'data' );
+  onFileChange2(files: FileList): void {
+    console.log( 'second file chosen' );
   }
 
   updateProgressBar() {
@@ -94,6 +72,36 @@ export class CrisprComponent {
   }
 
   submitFile( sequence?: string ) {
+
+    let reader = new FileReader();
+    reader.readAsText( this.fileToUpload );
+
+    reader.onload = () => {
+
+      const csvRecordsArray = (<string>reader.result).split(/\r\n|\n/);
+
+      if ( csvRecordsArray.length > 20001 ) {
+        this.csvContainsTooManyLines = true;
+      }
+
+      this.sequencesArray = [];
+
+      for ( const sequence of csvRecordsArray ) {
+        this.sequencesArray.push( {
+          sequence: sequence.split( ',')[ 0 ],
+          positions: sequence.split( ',')[ 1 ]
+        } );
+      }
+
+      this.sequencesArray.shift();
+
+      this.dataSource = new MatTableDataSource(this.sequencesArray);
+
+    };
+
+    reader.onerror = function () {
+      console.log('error is occured while reading file!');
+    };
 
     this.errorMessage = undefined;
 
@@ -174,6 +182,18 @@ export class CrisprComponent {
       // console.log( this.selectedSequences );
     }, 100);
 
+  }
+
+  generateHash(): string {
+    let text = '';
+    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+    for (let i = 0; i < 20; i++) {
+      text += possible.charAt(
+        Math.floor(Math.random() * possible.length )
+      );
+    }
+    return text;
   }
 
 }

@@ -34,10 +34,10 @@
         [src]=" lightHouse ?  '../../../../assets/img/logo_transparent.png' : '../../../../assets/img/logo_transparent2.png'"
         style="width: 40px; margin-bottom: 2px; vertical-align: bottom;" matTooltip="inseri apps" >
     </button>
-    <button *ngIf="pagesOfThisActtion"
-            [disabled]="selectedPage === 0"
+    <!--button *ngIf="pagesOfThisActtion"
+            [disabled]="selectedPageIndex === 0"
             mat-button
-            (click)="selectPage( selectedPage - 1 , pagesOfThisActtion[ selectedPage - 1 ] )">
+            (click)="selectPage( selectedPageIndex - 1 , pagesOfThisActtion[ selectedPageIndex - 1 ] )">
       <mat-icon> keyboard_arrow_left </mat-icon>
     </button>
     <button mat-button [matMenuTriggerFor]="menu3" *ngIf="pagesOfThisActtion">{{ page.title }}
@@ -45,7 +45,7 @@
     <mat-menu #menu3="matMenu" >
       <button
         style="display: block"
-        [color]=" i === selectedPage ? 'primary' : 'null'"
+        [color]=" i === selectedPageIndex ? 'primary' : 'null'"
         *ngFor="let page of pagesOfThisActtion; let i = index;"
         matTooltip="{{ page.description }}"
         mat-button
@@ -55,7 +55,7 @@
         *ngIf=" (!pageAsDemo) && !preview && loggedIn"
         style="margin-left: 10px; margin-right: 10px; margin-top: 10px;">
 
-        <mat-button-toggle (click)="addNewPage()" matTooltip="Add new page">
+        <mat-button-toggle (click)="addNewPage(page)" matTooltip="Add new page">
           <mat-icon>add</mat-icon>
         </mat-button-toggle>
 
@@ -69,12 +69,70 @@
 
       </mat-button-toggle-group>
 
+    </mat-menu-->
+    <button *ngIf="pagesOfThisActtion"
+            [disabled]="selectedPage === 0"
+            mat-button
+            (click)="selectPage( selectedPage - 1, pagesOfThisActtion[ selectedPage - 1 ])">
+      <mat-icon> keyboard_arrow_left </mat-icon>
+    </button>
+    <button mat-button [matMenuTriggerFor]="menu5" *ngIf="pagesOfThisActtion">{{ page.title }}
+    </button>
+
+    <!--mat-menu #menuOpenFileApps="matMenu" >
+      <div *ngFor="let app of inseriAppsMenu" style="display: inline-block">
+        <button mat-menu-item [matMenuTriggerFor]="menuOpenFileAppsItems" (mouseover)="selectChosenApp(app);" >
+          <mat-icon>{{app.id}}</mat-icon>
+          {{app.name}}
+        </button>
+      </div>
+    </mat-menu-->
+
+    <mat-menu #menu5="matMenu"[overlapTrigger]="false">
+
+      <span *ngFor="let subPage of subPagesOfPage">
+    <!-- Handle branch node buttons here -->
+   <div class="button-row">
+    <span *ngIf="subPage.subPages && subPage.subPages.length > 0">
+        <button mat-button (click)="navigateToOtherView(subPage.page)"> {{subPage.page.title}} </button>
+     <button mat-button [mat-menu-trigger-for]="menu.childMenu" (mouseover)="selectSubPages(subPage.page);" > <mat-icon>expand_more</mat-icon> </button>
+
+      <app-menu-item #menu [items]="subPage.subPages"></app-menu-item>
+    </span>
+     </div>
+        <!-- Leaf node buttons here -->
+        <div class="button-row">
+    <span *ngIf="!subPage.subPages || subPage.subPages.length === 0">
+        <button mat-button (click)="navigateToOtherView(subPage.page)"> {{subPage.page.title}} </button>
+   </span>
+    </div>
+
+  </span>
+      <mat-button-toggle-group
+        name="fontStyle"
+        *ngIf=" (!pageAsDemo) && !preview && loggedIn"
+        style="margin-left: 10px; margin-right: 10px; margin-top: 10px;">
+
+        <mat-button-toggle (click)="addNewPage(page)" matTooltip="Add new page">
+          <mat-icon>add</mat-icon>
+        </mat-button-toggle>
+
+        <mat-button-toggle (click)="addDuplicatedPage()" matTooltip="Copy and add existing page">
+          <mat-icon>file_copy</mat-icon>
+        </mat-button-toggle>
+
+        <mat-button-toggle matTooltip="Link existing page" (click)="linkExistingPage()">
+          <mat-icon>link</mat-icon>
+        </mat-button-toggle>
+
+      </mat-button-toggle-group>
+
     </mat-menu>
 
-    <button [disabled]="selectedPage === pagesOfThisActtion.length - 1"
+    <button [disabled]="selectedPageIndex === pagesOfThisActtion.length - 1"
             *ngIf="pagesOfThisActtion"
             mat-button
-            (click)="selectPage( selectedPage + 1 , pagesOfThisActtion[ selectedPage + 1 ] )">
+            (click)="selectPage( selectedPageIndex + 1 , pagesOfThisActtion[ selectedPageIndex + 1 ] )">
       <mat-icon > keyboard_arrow_right </mat-icon>
     </button>
 
@@ -125,21 +183,16 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
 
-      <mat-checkbox [(ngModel)]="showAppTitlesOnPublish" (click)="updatePagePublishSettings()">Show app title bar</mat-checkbox> - This enables the user to reorganise the published page for his own purpose, for example to minimize some apps etc.
-      Changes of a user are dismissed after the user leaves the published page. <br>
-      <mat-checkbox [disabled]="!showAppTitlesOnPublish" [(ngModel)]="showAppSettingsOnPublish" (click)="updatePagePublishSettings()">Show app settings</mat-checkbox> - This enables the user to minimize apps and change app sizes.
-      <mat-divider style="margin-top: 10px; margin-bottom: 10px;" ></mat-divider>
-      <mat-checkbox [(ngModel)]="showInseriLogoOnPublish" (click)="updatePagePublishSettings()">Show Inseri Appshore Button</mat-checkbox> - This option enables users of the page to open apps on your published page. It enables users for example to insert own, non - public comments on your page as well as
-      open other apps that only the respective user can see, for example to write an own, non public essay with a text - editor - app.
-      <mat-divider style="margin-top: 10px; margin-bottom: 10px;"  ></mat-divider>
-      <mat-checkbox  [(ngModel)]="showDataBrowserOnPublish" (click)="updatePagePublishSettings()">Show Data Browser</mat-checkbox> - This option enables users of the page to possibly browse through the data of the page, if you mapped an array from the json to an app input.
-      <mat-divider style="margin-top: 10px; margin-bottom: 10px;"  ></mat-divider>
-      <mat-radio-group aria-label="Select an option">
-        <mat-radio-button value="1" [checked]="true" >Beta Publication</mat-radio-button> - This inseri publication type indicates for a user that the page can still be changed by the user after the page has been published. Thus,
-        the page is not quotable and can not be used as a reference for scientific publications. <br>
-        <mat-radio-button value="2" [disabled]="true" >Alpha Publication</mat-radio-button> - This inseri publication type indicates that the page, once it is published, is persistent and can't be changed by anyone ever again.
-        Thus, the page is quotable and can be used as a reference for scientific publications.
-      </mat-radio-group>
+      <mat-form-field class="example-full-width" >
+        <mat-label>Shortname</mat-label>
+        <input #shortname matInput placeholder="Choose URL segment" value="{{ action.shortName }}" (keyup)="checkIfShortNameExist( shortname.value )" >
+        <mat-icon matSuffix>{{ shortNameExist ===  false ? 'done' :  'clear' }}</mat-icon>
+      </mat-form-field>
+
+      <span *ngIf="shortNameExist === true" > Shortname exist, please choose another one </span>
+
+      <button mat-button *ngIf="shortNameExist === false" (click)="setShortName()" > Set Shortname </button>
+
       <mat-divider style="margin-top: 10px; margin-bottom: 10px;"  ></mat-divider>
       <button mat-button *ngIf="!pageIsPublished" (click)="publishPageOrMakePagePrivate( true )"> <mat-icon>publish</mat-icon> Publish Page</button>
       <button mat-button *ngIf="pageIsPublished" (click)="publishPageOrMakePagePrivate( false )"> <mat-icon>fingerprint</mat-icon> Make page private again</button>
@@ -266,7 +319,6 @@
   <mat-card
     *ngFor="let app of openAppArray.slice(); let i = index;"
     style="display: inline-grid; margin-bottom: 10px; margin-left: 60px; margin-top: 70px;"
-    matTooltip="{{ app.minimized ? app.title : '' }}"
     [ngStyle]="{ 'width': ( app.fullWidth || app.panelExtended ) ? '92%' : app.width + 'px'}">
 
 

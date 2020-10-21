@@ -34,6 +34,8 @@ import {DataAssignmentComponent} from '../../../query-app-interface/data-managem
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {PageListDialogComponent} from '../page-list-dialog/page-list-dialog.component';
 import {OverlayContainer} from '@angular/cdk/overlay';
+import {PageSetService} from '../../../user-action-engine/mongodb/pageset/page-set.service';
+import {SubPageOfPageModel} from '../../../user-action-engine/mongodb/page/subPageOfPage.model';
 
 @Component({
   selector: 'nie-os',
@@ -172,7 +174,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * If an action is a pageSet, it contains an array with the pages, from this array the hierarchical-navigation-view is created,
    * the following value is needed to generate the hierarchical-navigation-view
    * */
-  selectedPage = 0;
+  selectedPageIndex = 0;
 
   /**
    * This variable makes sure that the load-variables.component is loaded only once
@@ -252,9 +254,11 @@ export class PageComponent implements OnInit, AfterViewChecked {
   nothAlreadyQueryAppPathGenerated = new Set();
 
 
-  appMenuModel= new AppMenuModel().appMenu;
+  appMenuModel = new AppMenuModel().appMenu;
 
   params: any;
+
+  notFound = false;
 
   slogans = [
     'Where you can gather information',
@@ -267,9 +271,17 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   slogan: string;
 
+  shortNameExist: boolean;
+
   queryParams: any;
   private templatePhoto: File;
   private imagePreview: string;
+
+  shortName: string;
+  private selectedPage: any;
+
+  selectedSubPage: SubPageOfPageModel;
+  subPagesOfPage: SubPageOfPageModel[] = [];
 
   constructor(
     public route: ActivatedRoute,
@@ -289,7 +301,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
     public snackBar2: MatSnackBar,
     private authService: AuthService,
     private queryService: QueryService,
-    private overlayContainer: OverlayContainer
+    private overlayContainer: OverlayContainer,
+    private pageSetService: PageSetService,
   ) {
     this.route.queryParams.subscribe(params => {
       this.hashOfThisPage = params.page;
@@ -359,6 +372,32 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnInit() {
+
+    if ( this.router.url.split('/')[ 1 ].search( 'actionID=' ) === -1 ) {
+      this.actionService.checkIfShortNameExist( this.router.url.split('/')[ 1 ] )
+        .subscribe(
+          response => {
+            // console.log( response );
+            if ( (response as any).exist ) {
+              this.pageSetService.getPageSet( ( response as any).action.hasPageSet )
+                .subscribe(
+                  pageSetResponse => {
+                    console.log( pageSetResponse );
+                    this.router.navigate(['/page'],
+                      {
+                        queryParams: {
+                          'actionID': ( response as any).action._id,
+                          'page': pageSetResponse.pageset.hasPages[ 0 ]
+                        },
+                      });
+                  }, e2 => console.log( e2 )
+                );
+            } else if ( this.router.url.split('/')[ 1 ].search( 'home' ) === -1 ) {
+              this.notFound = true;
+            }
+          }, e => console.log( e )
+        );
+    }
 
     this.slogan = this.slogans[Math.floor(Math.random() * this.slogans.length)];
 
@@ -467,10 +506,14 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.router.navigate(['/dashboard']);
   }
 
-  addNewPage() {
+  addNewPage(page) {
     const dialogRef = this.dialog.open(DialogCreateNewPageComponent, {
       width: '700px',
-      data: { pageset: this.action.hasPageSet }
+      data: { pageset: this.action.hasPageSet,
+              parentPageId: page._id
+              // subPage: ,
+              // pageId:
+             }
     });
     dialogRef.afterClosed().subscribe(result => {
       this.alreadyLoaded = false;
@@ -483,9 +526,10 @@ export class PageComponent implements OnInit, AfterViewChecked {
   /**
    * This function is used to navigate to another page belonging to the current pageSet
    * */
-  selectPage(i: number, page: any) {
-    this.selectedPage = i;
+  selectPage(i: number, page: any, ) {
+    this.selectedPageIndex = i;
     this.selectedPageToShow = i + 1;
+    this.selectedPage = page;
     this.navigateToOtherView(page);
   }
 
@@ -506,19 +550,22 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * */
   generateNavigation(actionID: string, goToPage?: boolean) {
     if (!this.alreadyLoaded && actionID) {
+      this.subPagesOfPage = [];
       this.actionService.getAction(actionID)
         .subscribe(data => {
             if (data.body.action.type === 'page-set') {
               this.pagesOfThisActtion = [];
               for (const page of ( data.body as any ).action.hasPageSet.hasPages as any ) {
                 if ( page._id === this.hashOfThisPage ) {
-                  this.selectedPage = this.pagesOfThisActtion.length;
+                  this.selectedPageIndex = this.pagesOfThisActtion.length;
                 }
+                this.subPagesOfPage.push({page: page, subPages: null});
+                this.selectSubPages(page);
                 this.pagesOfThisActtion[this.pagesOfThisActtion.length] = page;
                 this.alreadyLoaded = true;
               }
               if ( goToPage ) {
-                this.selectedPage = this.pagesOfThisActtion.length - 1;
+                this.selectedPageIndex = this.pagesOfThisActtion.length - 1;
                 this.router.navigate( [ 'page' ], {
                   queryParams: {
                     'actionID': this.actionID,
@@ -857,6 +904,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.page.tiles = true;
     // console.log( this.page );
     this.action = pageAndAction[1];
+    console.log( this.action );
     this.reloadVariables = false;
     this.pageIsPublished = this.page.published;
     this.showAppTitlesOnPublish = this.page.showAppTitlesOnPublish;
@@ -915,7 +963,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     const dataAssignmentComponent = new DataAssignmentComponent();
     // console.log( this.index, input );
     if ( ( this.index as any ) === 'NaN' || this.index === NaN ) {
-      console.log( 'index is NaN' )
+      console.log( 'index is NaN' );
       this.index = 0;
     }
     if ( this.page && this.openAppsInThisPage && this.index === 0 ) {
@@ -1327,4 +1375,83 @@ export class PageComponent implements OnInit, AfterViewChecked {
       }, error => console.log( error )
     );
   }
+  checkIfShortNameExist( shortName: string ) {
+    console.log( shortName );
+    this.actionService.checkIfShortNameExist( shortName )
+      .subscribe(
+        response => {
+          console.log( response );
+          this.shortNameExist = ( response as any ).exist;
+          this.shortName = shortName;
+        }, e => console.log( e )
+      );
+  }
+  setShortName() {
+    console.log( 'Set shortname', this.shortName );
+    this.actionService.setShortName( this.shortName, this.action._id )
+      .subscribe(
+        response => {
+          console.log( response );
+        }, e => console.log( e )
+      );
+  }
+
+  getSubPage(page) {
+    let targetPage;
+    for (let i = 0; i < this.subPagesOfPage.length; i++) {
+      // console.log(this.subPagesOfPage[i]);
+      targetPage = this.getPageFromHierarchy(page, this.subPagesOfPage[i]);
+      if (targetPage !== null) {
+        return targetPage;
+      }
+    }
+    return targetPage;
+  }
+  getPageFromHierarchy(page, current) {
+    let result;
+    if (!current || current.length === 0) {
+      return null;
+    }
+    if (page && page._id === current.page._id ) {
+      return current;
+    }
+    if (current.subPages !== null && current.subPages.length !== 0 && page) {
+      for (let i = 0; i < current.subPages.length; i++) {
+        result = this.getPageFromHierarchy(page, current[i] );
+        if (result !== null) {
+          return result;
+        }
+      }
+    }
+    return null;
+  }
+
+  selectSubPages(page: any) {
+    const target = this.getSubPage(page);
+    this.pageService.getAllSubPages(page._id)
+      .subscribe(
+        response => {
+          const tempSubPages = (response as any).subPages;
+          if (tempSubPages) {
+            const subs = [] as any;
+            for (let i = 0; i < tempSubPages.length; i++) {
+              subs.push({page: tempSubPages[i], subPages: null});
+              target.subPages = subs;
+              this.selectSubPages(tempSubPages[i]);
+            }
+          }
+        }, error => console.log(error)
+      );
+  }
+
+  addSubPageToSubPagesArr(parentPage: any, subPage: any) {
+    const oldParetnObj = this.getSubPage(parentPage);
+    if (oldParetnObj.subPages || oldParetnObj.subPages.length !== 0) {
+      oldParetnObj.subPages.push({page: subPage, subPages: []});
+    } else {
+      oldParetnObj.subPages = [{page: subPage, subPages: []}];
+    }
+    console.log( this.subPagesOfPage);
+  }
+
 }

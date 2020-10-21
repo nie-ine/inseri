@@ -39,16 +39,25 @@ export class PieChartComponent implements AfterViewChecked {
 
   ngAfterViewChecked() {
     // console.log( this.numberOfInitialisedComponent, this.data );
-    if (
-      this.initialised &&
-      !this.alreadyInitialised &&
-      this.data ) {
-      this.alreadyInitialised = true;
-      console.log( this.data );
-      setTimeout(() => {
-      this.initSvg();
-      this.drawPie();
-      }, 100);
+    if (this.initialised && !this.alreadyInitialised && this.data) {
+        if ( typeof this.data === 'string' && IsJsonString(this.data) && JSON.parse(this.data).length > 0 ) {
+          const help = this.data;
+          this.data = {};
+          this.data.data = JSON.parse(help);
+          this.alreadyInitialised = true;
+          setTimeout(() => {
+            console.log( this.data );
+            this.initSvg();
+            this.drawPie();
+          }, 100);
+        } else if ( typeof this.data !== 'string' ) {
+          this.alreadyInitialised = true;
+          console.log( this.data );
+          setTimeout(() => {
+            this.initSvg();
+            this.drawPie();
+          }, 100);
+        }
     }
   }
 
@@ -74,7 +83,6 @@ export class PieChartComponent implements AfterViewChecked {
       .attr('height', 500)
       .append('g')
       .attr('transform', 'translate(' + this.width / 2 + ',' + this.height / 2 + ')');
-
   }
 
   private drawPie() {
@@ -91,4 +99,13 @@ export class PieChartComponent implements AfterViewChecked {
 
   }
 
+}
+
+function IsJsonString(str) {
+  try {
+    JSON.parse(str);
+  } catch (e) {
+    return false;
+  }
+  return true;
 }
