@@ -230,8 +230,8 @@ export class DialogCreateNewPageComponent implements OnInit {
   form: FormGroup;
   isLoading: boolean;
   pageSetID: any;
-  pageId: any;
-  subPage: boolean;
+  parentPageId: any;
+  subPage: FormControl;
   newPage: Page = {
     id: undefined,
     title: '',
@@ -245,8 +245,8 @@ export class DialogCreateNewPageComponent implements OnInit {
               private route: ActivatedRoute,
               private pageService: PageService) {
     this.pageSetID = data.pageset._id;
-    this.subPage = data.subPage;
-    this.pageId = data.pageId;
+    this.subPage = new FormControl('false');
+    this.parentPageId = data.parentPageId;
   }
 
   setSubpageValue( value: string ) {
@@ -258,6 +258,7 @@ export class DialogCreateNewPageComponent implements OnInit {
     this.form = new FormGroup({
       title: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
+      subPageCtrl: this.subPage,
     });
   }
 
@@ -269,15 +270,18 @@ export class DialogCreateNewPageComponent implements OnInit {
     this.isLoading = true;
     this.newPage.title = this.form.get('title').value;
     this.newPage.description = this.form.get('description').value;
+    const subPageVal = this.form.get('subPageCtrl').value;
+    console.log(subPageVal);
 
-    if (this.subPage) {
-      this.pageService.createPage(null, this.newPage, this.pageId, this.subPage)
+
+    if (subPageVal === 'true') {
+      this.pageService.createPage(null, this.newPage, this.parentPageId, true)
         .subscribe((result) => {
           this.isLoading = false;
           if (result.status === 201) {
-            this.dialogRef.close(result.body.subpage);
+            this.dialogRef.close();
           } else {
-            this.dialogRef.close(result.body.subpage);
+            this.dialogRef.close();
           }
         }, error => {
           this.isLoading = false;

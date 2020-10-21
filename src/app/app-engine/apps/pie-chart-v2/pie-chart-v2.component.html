@@ -1,6 +1,7 @@
 <div style="margin-top: 30px; align-content: center">
 
   <div class="chart {{ generateComponentDivClass( 'chart' ) }}"  >
+    <mat-spinner *ngIf="chartLoading" diameter="50" [ngStyle]="{'position':'absolute','top':'25%','left':'25%'}"></mat-spinner>
   </div>
 
   <div class="legend {{ generateComponentDivClass( 'pieLegend' ) }}" >
