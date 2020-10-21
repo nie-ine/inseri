@@ -17,7 +17,7 @@
               [mode]="'python'" (keyup)="updateCodeInLocalStorage()">
   </ace-editor>
 
-  <button mat-button (click)="savePythonFile()" (click)="submitToMicroservice()" >
+  <button mat-button (click)="savePythonFile( true )" >
     Save Python Code and Update dependent apps
   </button>
 
