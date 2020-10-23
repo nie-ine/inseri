@@ -1,14 +1,14 @@
 # Inseri: an overview
 
-Inseri is an IT framework allowing to conduct an academic research project online, in virtually any discipline, beginning to end. Research projects can include many groups and members, and can join at any stage of the development.
+Inseri is an IT framework allowing to conduct an academic research project online, in virtually any discipline, beginning to end. Research projects can include many groups and members, and can join at any stage of their development.
 
 ## Architecture of Inseri 
-The user opens an account, and from without account he or she can create an unlimited number of the "projects". "Project" does not have to correspond to the whole research project, it can cover, for example, just one analysis. For the publication purposes, the results are best collided together into a single "project", and then published.
+The user opens an account, and from within the account he or she can create an unlimited number of the "projects". "Project" does not have to correspond to the whole research project, it can cover, for example, just one kind of analysis. For the publication purposes, the results are best collided together into a single "project", and then published.
 Within the "project", the user has "pages". Each of these "pages" can have as many elements (texts, images, videos, etc.) as needed, and the user can add as many pages as necessary to the project via a continuous navigation (p. 1, p. 2, etc), or via hyperlinks. 
 All like in WordPress or Squarespace, the user can freely add text, upload images and other types of files, provide links to the external webpages, etc., however, free of charge. Besides the web-editing functions, which were the original ground for the creation of Inseri, it provides now a large pallettes of tools (called Apps) specifically designed to facilitate research process.
 
 ### Types of Apps
-The applications are classified into the six groups according to their general purpose in order to find them easier:
+The applications are classified into the six groups according to their general purpose:
 
 1. Admin
 2. Add, Edit & Manage Data
