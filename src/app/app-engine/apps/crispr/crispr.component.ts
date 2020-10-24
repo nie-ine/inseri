@@ -47,12 +47,15 @@ export class CrisprComponent {
     this.pathToFile = undefined;
 
     if ( files.item(0) ) {
+
       this.fileToUpload = files.item(0);
       this.form.set('data', this.fileToUpload, 'data' );
+
+      this.sessionHash = this.generateHash();
       this.form.set( 'sessionHash', this.sessionHash );
+
       this.showSubmitButton = true;
       this.fileHasChanged = true;
-      this.sessionHash = this.generateHash();
       this.progressBarValue = 0;
       console.log( this.sessionHash );
     }
@@ -86,16 +89,24 @@ export class CrisprComponent {
 
       this.sequencesArray = [];
 
-      for ( const sequence of csvRecordsArray ) {
+      for ( const sequenceEntry of csvRecordsArray ) {
         this.sequencesArray.push( {
-          sequence: sequence.split( ',')[ 0 ],
-          positions: sequence.split( ',')[ 1 ]
+          sequence: sequenceEntry.split( ',')[ 0 ],
+          positions: sequenceEntry.split( ',')[ 1 ]
         } );
       }
 
       this.sequencesArray.shift();
 
-      this.dataSource = new MatTableDataSource(this.sequencesArray);
+      let arrayForTable = [];
+
+      if ( this.sequencesArray.length > 100 ) {
+        arrayForTable = this.sequencesArray.slice( 0, 100 );
+      } else {
+        arrayForTable = this.sequencesArray;
+      }
+
+      this.dataSource = new MatTableDataSource( arrayForTable );
 
     };
 
@@ -119,6 +130,7 @@ export class CrisprComponent {
 
     this.updateProgressBar();
 
+    console.log( this.sessionHash );
     this.http.post('http://172.23.39.73:4321', this.form, { responseType: 'blob' })
       .subscribe((val) => {
         if ( this.selectedAction === 'plot' ) {
@@ -169,19 +181,6 @@ export class CrisprComponent {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
-  }
-
-  updateSelection() {
-    setTimeout(() => {
-      this.selectedSequences = [];
-      for ( const row of this.dataSource.data ) {
-        if ( this.selection.isSelected(row) ) {
-          this.selectedSequences.push( row.sequence );
-        }
-      }
-      // console.log( this.selectedSequences );
-    }, 100);
-
   }
 
   generateHash(): string {
