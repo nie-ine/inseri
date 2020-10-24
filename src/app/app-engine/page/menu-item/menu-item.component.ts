@@ -7,13 +7,28 @@ import {SubPageOfPageModel} from '../../../user-action-engine/mongodb/page/subPa
   templateUrl: './menu-item.component.html',
   styleUrls: ['./menu-item.component.scss']
 })
+
+
 export class MenuItemComponent implements OnInit {
-  @Input() items: SubPageOfPageModel[];
-  @ViewChild('childMenu') public childMenu;
+  // @Input() items: SubPageOfPageModel[];
+  // @ViewChild('childMenu') public childMenu;
+  pages: any[] = [
+    {
+      page: {title: '123'},
+      subPages: [{page: {title: '456'}}]
+    }];
 
-  constructor(public router: Router) {
-  }
-
-  ngOnInit() {
+  ngOnInit(): void {
   }
 }
+
+/*constructor(public
+router: Router;
+)
+{
+}
+
+ngOnInit();
+{
+}
+}*/

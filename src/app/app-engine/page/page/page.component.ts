@@ -36,6 +36,7 @@ import {PageListDialogComponent} from '../page-list-dialog/page-list-dialog.comp
 import {OverlayContainer} from '@angular/cdk/overlay';
 import {PageSetService} from '../../../user-action-engine/mongodb/pageset/page-set.service';
 import {SubPageOfPageModel} from '../../../user-action-engine/mongodb/page/subPageOfPage.model';
+import {NestedMenu} from '../menu-item/nested-menu';
 
 @Component({
   selector: 'nie-os',

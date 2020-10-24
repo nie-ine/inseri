@@ -88,11 +88,65 @@
       </div>
     </mat-menu-->
 
-    <mat-menu #menu5="matMenu"[overlapTrigger]="false">
+    <mat-menu #menu5>
+
+      <ng-container *ngFor="let page of subPagesOfPage">
+        <ng-container *ngIf="!!page.subPages.length">
+          <button [matMenuTriggerFor]="submenu.menu" mat-menu-item>
+            {{ page.page.title }}
+          </button>
+          <nested-menu [pages]="page.subPages" #submenu="nestedMenu" ></nested-menu>
+        </ng-container>
+
+        <a *ngIf="!page.subPages.length" mat-menu-item>
+          {{ page.page.title }}
+        </a>
+      </ng-container>
+      <mat-button-toggle-group
+        name="fontStyle"
+        *ngIf=" (!pageAsDemo) && !preview && loggedIn"
+        style="margin-left: 10px; margin-right: 10px; margin-top: 10px;">
+
+        <mat-button-toggle (click)="addNewPage(page)" matTooltip="Add new page">
+          <mat-icon>add</mat-icon>
+        </mat-button-toggle>
+
+        <mat-button-toggle (click)="addDuplicatedPage()" matTooltip="Copy and add existing page">
+          <mat-icon>file_copy</mat-icon>
+        </mat-button-toggle>
+
+        <mat-button-toggle matTooltip="Link existing page" (click)="linkExistingPage()">
+          <mat-icon>link</mat-icon>
+        </mat-button-toggle>
+
+      </mat-button-toggle-group>
+
+    </mat-menu>
+    <!--mat-menu #menu5>
+      <div class="mat-app-background basic-container">
+        <app-menu-item>loading</app-menu-item>
+      </div>
+    </mat-menu-->
+      <!--ng-container *ngFor="let subPage of subPagesOfPage">
+        <ng-container *ngIf="!!subPage.subPages.length">
+          <button [matMenuTriggerFor]="submenu.menu" mat-menu-item>
+            {{ subPage.page.title }}
+          </button>
+          <nested-menu [items]="subPage.subPages" #submenu="nestedMenu"></nested-menu>
+        </ng-container>
+
+        <a *ngIf="!subPage.subPages.length" mat-menu-item>
+          {{ subPage.page.title }}
+        </a>
+      </ng-container>
+
+    </mat-menu-->
+
+
+    <!--mat-menu #menu5="matMenu"[overlapTrigger]="false">
     <div class="basic-container">
 
       <span *ngFor="let subPage of subPagesOfPage">
-    <!-- Handle branch node buttons here -->
    <div class="button-row">
     <span *ngIf="subPage.subPages && subPage.subPages.length > 0">
         <button mat-button (click)="navigateToOtherView(subPage.page)"> {{subPage.page.title}} </button>
@@ -101,7 +155,6 @@
       <app-menu-item #menu [items]="subPage.subPages"></app-menu-item>
     </span>
      </div>
-        <!-- Leaf node buttons here -->
         <div class="button-row">
     <span *ngIf="!subPage.subPages || subPage.subPages.length === 0">
         <button mat-button (click)="navigateToOtherView(subPage.page)"> {{subPage.page.title}} </button>
@@ -128,7 +181,7 @@
 
       </mat-button-toggle-group>
     </div>
-    </mat-menu>
+    </mat-menu-->
 
     <button [disabled]="selectedPageIndex === pagesOfThisActtion.length - 1"
             *ngIf="pagesOfThisActtion"
