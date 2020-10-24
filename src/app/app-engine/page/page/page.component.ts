@@ -553,14 +553,17 @@ export class PageComponent implements OnInit, AfterViewChecked {
       this.subPagesOfPage = [];
       this.actionService.getAction(actionID)
         .subscribe(data => {
+          console.log(data.body.action.hasPageSet.hasPages);
+          console.log(data.body.hierarchyOfPages);
             if (data.body.action.type === 'page-set') {
               this.pagesOfThisActtion = [];
+              this.subPagesOfPage = data.body.hierarchyOfPages;
               for (const page of ( data.body as any ).action.hasPageSet.hasPages as any ) {
                 if ( page._id === this.hashOfThisPage ) {
                   this.selectedPageIndex = this.pagesOfThisActtion.length;
                 }
-                this.subPagesOfPage.push({page: page, subPages: null});
-                this.selectSubPages(page);
+                // this.subPagesOfPage.push({page: page, subPages: null});
+                // this.selectSubPages(page);
                 this.pagesOfThisActtion[this.pagesOfThisActtion.length] = page;
                 this.alreadyLoaded = true;
               }

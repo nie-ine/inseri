@@ -679,13 +679,13 @@ router.get('/sub-pages/:pageId', checkAuth, (req, res, next) => {
     .populate('hasSubPages')
     .then(subPagesIds => {
       let message;
-      console.log(subPagesIds);
+      //console.log(subPagesIds);
       if (subPagesIds.length === 0) {
         message = 'No sub-pages were found'
       } else {
         Page.find({_id: {$in: subPagesIds[0].hasSubPages}})
           .then(subPagesDetails => {
-            console.log(subPagesDetails);
+            //console.log(subPagesDetails);
             if (subPagesDetails.length === 0) {
               message = 'No sub-pages were found'
             } else {

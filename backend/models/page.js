@@ -14,6 +14,7 @@ const pageSchema = mongoose.Schema({
     tiles: { type: Boolean },
     chosenWidth: { type: Number },
     hasSubPages: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Page'  }],
+    hasParent:{ type: mongoose.Schema.Types.ObjectId, ref: 'Page'  },
     jsonId: { type: String },
     ownQuery: { type: String },
     publishedAsTemplate: { type: Boolean },
