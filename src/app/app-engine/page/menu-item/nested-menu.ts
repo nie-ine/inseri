@@ -7,12 +7,10 @@ import {MatMenu} from '@angular/material';
 @Component({
   selector: 'nested-menu',
   template: `
-    <mat-menu>
-      <a *ngFor="let page of pages" mat-menu-item>
-        {{ page.page.title }}
-      </a>
+    <mat-menu><a *ngFor="let page of pages" mat-menu-item>  {{ page.page.title }} </a>
+      <ng-content></ng-content>
     </mat-menu>
-  `,
+    <div ng-transclude></div>`,
   exportAs: 'nestedMenu'
 })
 export class NestedMenu {

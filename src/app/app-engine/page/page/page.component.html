@@ -95,7 +95,27 @@
           <button [matMenuTriggerFor]="submenu.menu" mat-menu-item>
             {{ page.page.title }}
           </button>
-          <nested-menu [pages]="page.subPages" #submenu="nestedMenu" ></nested-menu>
+            <nested-menu [pages]="page.subPages" #submenu="nestedMenu" >
+              <mat-button-toggle-group
+                name="fontStyle"
+                *ngIf=" (!pageAsDemo) && !preview && loggedIn"
+                style="margin-left: 10px; margin-right: 10px; margin-top: 10px;">
+
+                <mat-button-toggle (click)="addNewPage(page)" matTooltip="Add new page">
+                  <mat-icon>add</mat-icon>
+                </mat-button-toggle>
+
+                <mat-button-toggle (click)="addDuplicatedPage()" matTooltip="Copy and add existing page">
+                  <mat-icon>file_copy</mat-icon>
+                </mat-button-toggle>
+
+                <mat-button-toggle matTooltip="Link existing page" (click)="linkExistingPage()">
+                  <mat-icon>link</mat-icon>
+                </mat-button-toggle>
+
+              </mat-button-toggle-group>
+
+            </nested-menu>
         </ng-container>
 
         <a *ngIf="!page.subPages.length" mat-menu-item>
