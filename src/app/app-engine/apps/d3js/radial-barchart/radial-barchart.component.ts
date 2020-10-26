@@ -22,8 +22,8 @@ export class RadialBarchartComponent implements AfterViewChecked {
   @Input() data;
   alreadyInitialised = false;
 
-  width = 800;
-  height = 800;
+  width = 600;
+  height = 600;
   barHeight = this.height / 2 - 40;
   formatNumber: any;
   color: any;
@@ -92,6 +92,7 @@ export class RadialBarchartComponent implements AfterViewChecked {
       .range([0, this.barHeight]
       );
     this.keys = this.data.data.map((d) => d.label);
+    console.log( this.keys );
     this.numBars = this.keys.length;
     this.x = d3Scale.scaleLinear()
       .domain(this.extent)

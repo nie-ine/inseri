@@ -394,8 +394,7 @@
     *ngFor="let app of openAppArray.slice(); let i = index;"
     style="display: inline-grid; margin-bottom: 10px; margin-left: 60px; margin-top: 70px;"
     [ngStyle]="{
-    'width': ( app.fullWidth || app.panelExtended ) ? '92%' : app.width + 'px',
-    'height':  ( app.fullHeight || app.panelExtended ) ? generateBrowserHeight() : app.height + 'px'}">
+    'width': ( app.fullWidth || app.panelExtended ) ? '92%' : app.width + 'px' }">
 
 
     <mat-card-header *ngIf=" !app.minimized " >
@@ -454,6 +453,7 @@
 
     </mat-card-header>
     <div style="pointer-events: auto!important;"
+         [ngStyle]="{'height':  ( app.fullHeight || app.panelExtended ) ? generateBrowserHeight() : app.height + 'px'}"
          *ngIf=" !app.minimized && !app.panelExtended" [style.overflow]="'auto'">
 
       <div *ngIf="app.hasOwnProperty('showSettings')">
@@ -637,7 +637,10 @@
   }
 </style>
 
-<div style=" position: fixed; top: 50%; left: 50%; margin-top: -100px; margin-left: -100px; z-index: -10000" class="text-center" *ngIf="!loggedIn">
+<div
+  style=" position: fixed; top: 50%; left: 50%; margin-top: -100px; margin-left: -100px; z-index: -10000"
+  class="text-center"
+  *ngIf="!loggedIn && router.url.split('/')[ 1 ].search( 'actionID=' ) === -1">
   <h1  style="text-transform: none!important; font-size: 45px" >
     <span class=" i i:before " >i</span>nser<span class=" i i:before ">i</span>
   </h1>

@@ -297,7 +297,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     public sanitizer: DomSanitizer,
     private stylemapping: StyleMappingService,
     private actionService: ActionService,
-    private router: Router,
+    public router: Router,
     public snackBar: MatSnackBar,
     public snackBar2: MatSnackBar,
     private authService: AuthService,
@@ -631,10 +631,10 @@ export class PageComponent implements OnInit, AfterViewChecked {
           setTimeout(() => {
             this.snackBarOpen = false;
           }, 2000);
-          this.snackBar2.open( 'Page successfully saved', 'ok',
-            {
-              duration: 2000
-            });
+          // this.snackBar2.open( 'Page successfully saved', 'ok',
+          //   {
+          //     duration: 2000
+          //   });
           if ( reload ) {
             this.reloadVariables = true;
           }
@@ -1459,7 +1459,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   generateBrowserHeight(): string {
-    return window.screen.height + 'px';
+    const size = window.screen.height - 200;
+    return size + 'px';
   }
 
 }
