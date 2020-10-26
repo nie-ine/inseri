@@ -489,7 +489,63 @@ export class OpenAppsModel {
       initialHeight: '350',
       inputs: [
         {
-          'inputName': 'data'
+          'inputName': 'data',
+          default: {
+            'data': {
+              nodes: [{
+                nodeId: 0,
+                name: "node0"
+              }, {
+                nodeId: 1,
+                name: "node1"
+              }, {
+                nodeId: 2,
+                name: "node2"
+              }, {
+                nodeId: 3,
+                name: "node3"
+              }, {
+                nodeId: 4,
+                name: "node4"
+              }],
+              links: [{
+                source: 0,
+                target: 2,
+                value: 2,
+                uom: 'Widget(s)'
+              }, {
+                source: 1,
+                target: 2,
+                value: 2,
+                uom: 'Widget(s)'
+              }, {
+                source: 1,
+                target: 3,
+                value: 2,
+                uom: 'Widget(s)'
+              }, {
+                source: 0,
+                target: 4,
+                value: 2,
+                uom: 'Widget(s)'
+              }, {
+                source: 2,
+                target: 3,
+                value: 2,
+                uom: 'Widget(s)'
+              }, {
+                source: 2,
+                target: 4,
+                value: 2,
+                uom: 'Widget(s)'
+              }, {
+                source: 3,
+                target: 4,
+                value: 4,
+                uom: 'Widget(s)'
+              }]
+            }
+          }
         }
       ]
     },
