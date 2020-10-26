@@ -1458,4 +1458,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
     console.log( this.subPagesOfPage);
   }
 
+  generateBrowserHeight(): string {
+    return window.screen.height + 'px';
+  }
+
 }
