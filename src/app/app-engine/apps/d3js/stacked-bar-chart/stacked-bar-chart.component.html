@@ -1,3 +1,46 @@
-<div style="margin-top: 30px">
+<!--<div style="margin-top: 30px">
   <div class="{{ generateComponentDivClass() }}"></div>
+</div>-->
+<div class="scaleStackedBarChartWidth">
+  <div class="scaleStackedBarChartInput">
+    <mat-form-field>
+      <input matInput
+             placeholder="Chart width:"
+             [value]="this.width"
+             [(ngModel)]="this.newWidth"
+             (keyup)="drawD3(this.data.data, this.newWidth )">
+    </mat-form-field>
+  </div>
+  <div class="scaleStackedBarChartSlider">
+    <mat-slider
+      min="150"
+      max="{{ this.width * 4 }}"
+      step="50"
+      [value]="this.width"
+      [(ngModel)]="this.newWidth"
+      (change)="drawD3(this.data.data, this.newWidth)"></mat-slider>
+    <!-- thumbLabel -->
+  </div>
+</div>
+
+<div>
+  <div class="legend_container">
+    <div class="legend" id="{{ 'legend_' + this.numberOfInitialisedComponent }}">
+    </div>
+  </div>
+  <div class="chart_container">
+    <div class="yaxis" id="{{ 'yaxis_' + this.numberOfInitialisedComponent }}">
+    </div>
+    <div class="chart" id="{{ 'chart_' + this.numberOfInitialisedComponent }}">
+    </div>
+  </div>
+</div>
+<!--(change)="drawD3(this.data.data, this.newWidth)"-->
+<div class="sortChart"><mat-slide-toggle
+  id="{{ 'sortChart_' + this.numberOfInitialisedComponent }}"
+  [(ngModel)]="this.isSorted"
+  (change)="drawD3(this.data.data, this.newWidth)"
+>
+  Sort by value
+</mat-slide-toggle>
 </div>

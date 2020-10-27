@@ -1,3 +1,63 @@
-.axis .domain {
+//.axis .domain {
+//  display: none;
+//}
+
+:host /deep/ .scaleStackedBarChartWidth {
+  margin: 10px 0 0 30px;
+  width: 128px;
+  overflow: hidden;
+}
+
+:host /deep/ .scaleStackedBarChartInput {
+
+}
+
+:host /deep/ .scaleStackedBarChartSlider {
+
+}
+
+:host /deep/ rect {
+  stroke-width: 2;
+}
+:host /deep/ rect.disabled {
+  fill: transparent !important;
+}
+
+:host /deep/ .legend_container {
+  position: relative;
+}
+
+:host /deep/ .legend {
+  position: relative;
+}
+
+:host /deep/ .chart_container {
+  position: relative;
+}
+
+:host /deep/ .yaxis {
+  position: absolute;
+  float: left;
+  z-index: 3;
+}
+
+:host /deep/ .chart {
+  position: relative;
+  overflow-x: auto;
+}
+
+:host /deep/ .sortChart {
+  margin:0 0 0 30px;
+}
+
+/* tooltip */
+:host /deep/ .stackedBarChartTooltip {
+  position: fixed;
   display: none;
+  text-align: center;
+  z-index: 4;
+}
+
+:host /deep/ .stackedBarChartTooltipLabel {
+  font-weight: bold;
 }
