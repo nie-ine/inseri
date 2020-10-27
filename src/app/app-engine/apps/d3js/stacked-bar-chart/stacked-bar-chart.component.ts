@@ -1,4 +1,4 @@
-import {AfterViewChecked, Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {AfterViewChecked, Component, Input} from '@angular/core';
 import * as d3 from 'd3-selection';
 import * as d3Scale from 'd3-scale';
 import * as d3Array from 'd3-array';
@@ -8,10 +8,10 @@ import * as d3Shape from 'd3-shape';
 
 @Component({
   selector: 'app-stacked-bar-chart',
-  // encapsulation: ViewEncapsulation.None,
   templateUrl: './stacked-bar-chart.component.html',
   styleUrls: ['./stacked-bar-chart.component.scss']
 })
+
 export class StackedBarChartComponent implements AfterViewChecked {
   @Input() initialised = false;
   @Input() numberOfInitialisedComponent: number;
@@ -25,7 +25,6 @@ export class StackedBarChartComponent implements AfterViewChecked {
   chartWidthFactor = 100;
   titleYaxis: string;
   isSorted = false;
-  // isSorted = true;
 
   constructor() {
   }
@@ -138,13 +137,7 @@ export class StackedBarChartComponent implements AfterViewChecked {
       .range([height, 0])
       .nice(); // nicing the scale (ending on round values)
 
-    // Always sort data back by label
-    data.sort((a: any, b: any) => a.label - b.label);
-    console.log(data);
-    // ...and remove the 'total' key
-    data.map((d) => {
-      delete d.total;
-    });
+    console.log('stacked', d3Shape.stack().keys(keys)(data));
 
     svgChart.append('g')
       .selectAll('g')
@@ -197,22 +190,22 @@ export class StackedBarChartComponent implements AfterViewChecked {
     // define tooltip
     const tooltip = d3.select('#chart_' + this.numberOfInitialisedComponent)
       .append('div')
-      .attr('class', 'groupedBarChartTooltip')
-      .attr('id', 'groupedBarChartTooltip_' + this.numberOfInitialisedComponent);
+      .attr('class', 'stackedBarChartTooltip')
+      .attr('id', 'stackedBarChartTooltip_' + this.numberOfInitialisedComponent);
 
     tooltip.append('div')
-      .attr('class', 'groupedBarChartTooltipLabel')
-      .attr('id', 'groupedBarChartTooltipLabel_' + this.numberOfInitialisedComponent);
+      .attr('class', 'stackedBarChartTooltipLabel')
+      .attr('id', 'stackedBarChartTooltipLabel_' + this.numberOfInitialisedComponent);
 
     tooltip.append('div')
-      .attr('class', 'groupedBarChartTooltipCount')
-      .attr('id', 'groupedBarChartTooltipCount_' + this.numberOfInitialisedComponent);
+      .attr('class', 'stackedBarChartTooltipCount')
+      .attr('id', 'stackedBarChartTooltipCount_' + this.numberOfInitialisedComponent);
 
     const barPart = svgChart.selectAll('.barPart');
 
     barPart.on('mouseover', (d) => {
-      tooltip.select('#groupedBarChartTooltipLabel_' + this.numberOfInitialisedComponent).html(d.key);
-      tooltip.select('#groupedBarChartTooltipCount_' + this.numberOfInitialisedComponent).html(d.value);
+      tooltip.select('#stackedBarChartTooltipLabel_' + this.numberOfInitialisedComponent).html(d.data.label);
+      tooltip.select('#stackedBarChartTooltipCount_' + this.numberOfInitialisedComponent).html(d[1] - d[0]);
       tooltip.style('display', 'block');
 
       onmousemove = (e) => {
@@ -353,7 +346,13 @@ export class StackedBarChartComponent implements AfterViewChecked {
     //     })
     //     .duration(100);
     // }
-
+    // Always sort data back by label
+    data.sort((a: any, b: any) => a.label - b.label);
+    console.log(data);
+    // ...and remove the 'total' key
+    data.map((d) => {
+      delete d.total;
+    });
   }
 
 }
