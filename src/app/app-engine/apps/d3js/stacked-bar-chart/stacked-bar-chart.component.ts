@@ -94,7 +94,6 @@ export class StackedBarChartComponent implements AfterViewChecked {
     };
 
     // setting a d3.js color scheme for the legend
-    // const color = d3Scale.scaleOrdinal(d3ScaleChromatic.schemeRdYlBu[keys.length]);
     const color = d3Scale.scaleOrdinal(d3ScaleChromatic.schemePaired);
 
     // creating the yaxis
@@ -204,7 +203,7 @@ export class StackedBarChartComponent implements AfterViewChecked {
     const barPart = svgChart.selectAll('.barPart');
 
     barPart.on('mouseover', (d) => {
-      tooltip.select('#stackedBarChartTooltipLabel_' + this.numberOfInitialisedComponent).html(d.data.label);
+      // tooltip.select('#stackedBarChartTooltipLabel_' + this.numberOfInitialisedComponent).html();
       tooltip.select('#stackedBarChartTooltipCount_' + this.numberOfInitialisedComponent).html(d[1] - d[0]);
       tooltip.style('display', 'block');
 
