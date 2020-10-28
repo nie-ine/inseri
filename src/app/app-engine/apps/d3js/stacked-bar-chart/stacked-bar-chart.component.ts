@@ -120,8 +120,8 @@ export class StackedBarChartComponent implements AfterViewChecked {
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-    // scale for the x-axis (spacing the groups)
-    const x0 = d3Scale.scaleBand()
+    // scale for the x-axis
+    const x = d3Scale.scaleBand()
       .domain(data.map((d) => {
         return d.label;
       })) // returns array of all the labels for the x-axis (["Verse 1", "Verse 2", ...])
@@ -136,30 +136,33 @@ export class StackedBarChartComponent implements AfterViewChecked {
       .range([height, 0])
       .nice(); // nicing the scale (ending on round values)
 
-    console.log('stacked', d3Shape.stack().keys(keys)(data));
-
-    svgChart.append('g')
-      .selectAll('g')
-      .data(d3Shape.stack().keys(keys)(data))
-      .enter()
-      .append('g')
-      .attr('fill', (d) => {
-        return color(d.key);
-      })
-      .selectAll('rect')
-      .data(d => d)
-      .enter()
-      .append('rect')
-      .attr('class', 'barPart')
-      .attr('x', d => x0(d.data.label))
-      .attr('y', d => y(d[1]))
-      .attr('width', x0.bandwidth())
-      .attr('height', d => y(d[0]) - y(d[1]));
+    function drawStacks(currentKeys) {
+      d3.selectAll('.gStack').remove();
+      svgChart.append('g')
+        .attr('class', 'gStack')
+        .selectAll('g')
+        .data(d3Shape.stack().keys(currentKeys)(data))
+        .enter()
+        .append('g')
+        .attr('fill', (d) => {
+          return color(d.key);
+        })
+        .selectAll('rect')
+        .data(d => d)
+        .enter()
+        .append('rect')
+        .attr('class', 'barPart')
+        .attr('x', d => x(d.data.label))
+        .attr('y', d => y(d[1]))
+        .attr('width', x.bandwidth())
+        .attr('height', d => y(d[0]) - y(d[1]));
+    }
+    drawStacks(keys);
 
     svgChart.append('g')
       .attr('class', 'axis')
       .attr('transform', 'translate(0,' + height + ')')
-      .call(d3Axis.axisBottom(x0));
+      .call(d3Axis.axisBottom(x));
 
     svgYaxis.append('g')
       .attr('class', 'y')
@@ -187,37 +190,41 @@ export class StackedBarChartComponent implements AfterViewChecked {
     }
 
     // define tooltip
-    const tooltip = d3.select('#chart_' + this.numberOfInitialisedComponent)
-      .append('div')
-      .attr('class', 'stackedBarChartTooltip')
-      .attr('id', 'stackedBarChartTooltip_' + this.numberOfInitialisedComponent);
+    function doTooltip( component, posX, posY ) {
+      const tooltip = d3.select('#chart_' + component)
+        .append('div')
+        .attr('class', 'stackedBarChartTooltip')
+        .attr('id', 'stackedBarChartTooltip_' + component);
 
-    tooltip.append('div')
-      .attr('class', 'stackedBarChartTooltipLabel')
-      .attr('id', 'stackedBarChartTooltipLabel_' + this.numberOfInitialisedComponent);
+      tooltip.append('div')
+        .attr('class', 'stackedBarChartTooltipLabel')
+        .attr('id', 'stackedBarChartTooltipLabel_' + component);
 
-    tooltip.append('div')
-      .attr('class', 'stackedBarChartTooltipCount')
-      .attr('id', 'stackedBarChartTooltipCount_' + this.numberOfInitialisedComponent);
+      tooltip.append('div')
+        .attr('class', 'stackedBarChartTooltipCount')
+        .attr('id', 'stackedBarChartTooltipCount_' + component);
 
-    const barPart = svgChart.selectAll('.barPart');
+      const barPart = svgChart.selectAll('.barPart');
 
-    barPart.on('mouseover', (d) => {
-      // tooltip.select('#stackedBarChartTooltipLabel_' + this.numberOfInitialisedComponent).html();
-      tooltip.select('#stackedBarChartTooltipCount_' + this.numberOfInitialisedComponent).html(d[1] - d[0]);
-      tooltip.style('display', 'block');
+      barPart.on('mouseover', (d) => {
+        // tooltip.select('#stackedBarChartTooltipLabel_' + this.numberOfInitialisedComponent).html();
+        tooltip.select('#stackedBarChartTooltipCount_' + component).html(d[1] - d[0]);
+        tooltip.style('display', 'block');
 
-      onmousemove = (e) => {
-        this.posX = e.clientX + 20;
-        this.posY = e.clientY - 20;
-        tooltip.style('left', (this.posX) + 'px')
-          .style('top', (this.posY) + 'px');
-      };
+        onmousemove = (e) => {
+          posX = e.clientX + 20;
+          posY = e.clientY - 20;
+          tooltip.style('left', (posX) + 'px')
+            .style('top', (posY) + 'px');
+        };
 
-      onmouseout = (e) => {
-        tooltip.style('display', 'none');
-      };
-    });
+        onmouseout = (e) => {
+          tooltip.style('display', 'none');
+        };
+      });
+
+    }
+    doTooltip(this.numberOfInitialisedComponent, this.posX, this.posY);
 
     const legend = svgLegend.append('g')
       .selectAll('g')
@@ -237,10 +244,10 @@ export class StackedBarChartComponent implements AfterViewChecked {
       .attr('fill', color)
       .attr('stroke', color)
       .attr('stroke-width', 2)
-      .attr('cursor', 'pointer');
-      // .on('click', (d) => {
-      //   update(d);
-      // });
+      .attr('cursor', 'pointer')
+      .on('click', (d) => {
+        update(d, this.numberOfInitialisedComponent, this.posX, this.posY);
+      });
 
     legend.append('text')
       .attr('x', 200)
@@ -249,102 +256,49 @@ export class StackedBarChartComponent implements AfterViewChecked {
         return d;
       });
 
-    // let filtered = [];
-    //
-    // function update(d) {
-    //   // update the array to filter the chart by:
-    //
-    //   // add the clicked key if not included:
-    //   if (filtered.indexOf(d) === -1) {
-    //     filtered.push(d);
-    //     // if all bars are un-checked, reset:
-    //     if (filtered.length === keys.length) {
-    //       filtered = [];
-    //     }
-    //   } else {
-    //     filtered.splice(filtered.indexOf(d), 1);
-    //   }
-    //
-    //   // update the scales for each group(/states)'s items:
-    //   const newKeys = [];
-    //   keys.forEach(function (d) {
-    //     if (filtered.indexOf(d) === -1) {
-    //       newKeys.push(d);
-    //     }
-    //   });
-    //   x1.domain(newKeys).rangeRound([0, x0.bandwidth()]);
-    //   y.domain([0, d3Array.max(data, function (d) {
-    //     return d3Array.max(keys, function (key) {
-    //       if (filtered.indexOf(key) === -1) {
-    //         return d[key];
-    //       }
-    //     });
-    //   })]).nice();
-    //
-    //   // update the y axis:
-    //   svgYaxis.select('.y')
-    //     .transition()
-    //     .call(d3Axis.axisLeft(y).ticks(null, 's'))
-    //     .duration(500);
-    //
-    //   // filter out the bands that need to be hidden:
-    //   const bars = svgChart.selectAll('.bar').selectAll('rect')
-    //     .data(function (d) {
-    //       return keys.map(function (key) {
-    //         return {key: key, value: d[key]};
-    //       });
-    //     });
-    //
-    //   bars.filter(function (d) {
-    //     return filtered.indexOf(d.key) > -1;
-    //   })
-    //     .transition()
-    //     .attr('x', function (d) {
-    //       return (+d3.select(this).attr('x')) + (+d3.select(this).attr('width')) / 2;
-    //     })
-    //     .attr('height', 0)
-    //     .attr('width', 0)
-    //     .attr('y', function (d) {
-    //       return height;
-    //     })
-    //     .duration(500);
-    //
-    //   // adjust the remaining bars:
-    //   bars.filter(function (d) {
-    //     return filtered.indexOf(d.key) === -1;
-    //   })
-    //     .transition()
-    //     .attr('x', function (d) {
-    //       return x1(d.key);
-    //     })
-    //     .attr('y', function (d) {
-    //       return y(d.value);
-    //     })
-    //     .attr('height', function (d) {
-    //       return height - y(d.value);
-    //     })
-    //     .attr('width', x1.bandwidth())
-    //     .attr('fill', function (d) {
-    //       return color(d.key);
-    //     })
-    //     .duration(500);
-    //
-    //   // update legend:
-    //   legend.selectAll('rect')
-    //     .transition()
-    //     .attr('fill', function (d) {
-    //       if (filtered.length) {
-    //         if (filtered.indexOf(d) === -1) {
-    //           return color(d);
-    //         } else {
-    //           return 'white';
-    //         }
-    //       } else {
-    //         return color(d);
-    //       }
-    //     })
-    //     .duration(100);
-    // }
+    let filtered = [];
+
+    function update(d, component, posX, posY) {
+      // update the array to filter the chart by:
+      console.log('d is just the legend label', d);
+      // add the clicked key if not included:
+      if (filtered.indexOf(d) === -1) {
+        filtered.push(d);
+        // if all bars are un-checked, reset:
+        if (filtered.length === keys.length) {
+          filtered = [];
+        }
+      } else {
+        filtered.splice(filtered.indexOf(d), 1);
+      }
+
+      const newKeys = [];
+      keys.forEach(function (d) {
+        if (filtered.indexOf(d) === -1) {
+          newKeys.push(d);
+        }
+      });
+      console.log(newKeys);
+      drawStacks(newKeys);
+      doTooltip(component, posX, posY);
+
+      // update legend:
+      legend.selectAll('rect')
+        .transition()
+        .attr('fill', function (d) {
+          if (filtered.length) {
+            if (filtered.indexOf(d) === -1) {
+              return color(d);
+            } else {
+              return 'white';
+            }
+          } else {
+            return color(d);
+          }
+        })
+        .duration(100);
+    } // end of update()
+
     // Always sort data back by label
     data.sort((a: any, b: any) => a.label - b.label);
     console.log(data);
