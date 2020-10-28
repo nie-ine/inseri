@@ -76,7 +76,11 @@
             (click)="selectPage( selectedPage - 1, pagesOfThisActtion[ selectedPage - 1 ])">
       <mat-icon> keyboard_arrow_left </mat-icon>
     </button>
-    <button mat-button [matMenuTriggerFor]="menu5" *ngIf="pagesOfThisActtion">{{ page.title }}
+    <button
+      mat-button
+      [matMenuTriggerFor]="menu5"
+      *ngIf="pagesOfThisActtion"
+      >{{ page.title }}
     </button>
 
     <!--mat-menu #menuOpenFileApps="matMenu" >
@@ -92,7 +96,7 @@
 
       <ng-container *ngFor="let page of subPagesOfPage">
         <ng-container *ngIf="!!page.subPages.length">
-          <button [matMenuTriggerFor]="submenu.menu" mat-menu-item>
+          <button [matMenuTriggerFor]="submenu.menu" mat-menu-item >
             {{ page.page.title }}
           </button>
             <nested-menu [pages]="page.subPages" #submenu="nestedMenu" >
@@ -118,7 +122,7 @@
             </nested-menu>
         </ng-container>
 
-        <a *ngIf="!page.subPages.length" mat-menu-item>
+        <a *ngIf="!page.subPages.length" mat-menu-item (click)="navigateToOtherView( page.page )">
           {{ page.page.title }}
         </a>
       </ng-container>

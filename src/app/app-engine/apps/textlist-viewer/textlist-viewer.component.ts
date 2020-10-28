@@ -1,6 +1,7 @@
-import {Component, OnInit, Input, OnChanges } from '@angular/core';
+import {Component, OnInit, Input, OnChanges, HostListener} from '@angular/core';
 import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 import {HttpClient} from '@angular/common/http';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-textlist-viewer',
@@ -14,9 +15,28 @@ export class TextlistViewerComponent implements OnChanges {
 
   constructor(
     private domSanitizer: DomSanitizer,
-    private http: HttpClient
+    private http: HttpClient,
+    public router: Router
   ) {
   }
+  @HostListener('click', ['$event'])
+  public onClick(event) {
+    console.log(event.target.href);
+    console.log( this.router.url );
+    const demoParams = {
+      testParam: 'test'
+    }
+    if (event.target.tagName === 'A') {
+      this.router.navigate( ['/page'], {
+        queryParams: demoParams,
+        queryParamsHandling: 'merge'
+      } );
+      event.preventDefault();
+    } else {
+      return;
+    }
+  }
+
   ngOnChanges() {
     if (  this.textToDisplay && this.textToDisplay.search( 'http' ) !== -1 ) {
       this.http.get( this.textToDisplay, { responseType: 'text' } )

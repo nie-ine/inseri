@@ -538,6 +538,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * This function is used to navigate to another page belonging to the current pageSet
    * */
   navigateToOtherView(page: any) {
+    console.log( page );
     this.router.navigate( [ 'page' ], {
       queryParams: {
         'actionID': this.actionID,
