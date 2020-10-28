@@ -155,6 +155,8 @@ export class BarChartComponent implements AfterViewChecked {
     if (this.isSorted === true) {
       // Sort by value
       this.data.data.sort((a: any, b: any) => b.value - a.value);
+    } else {
+      this.data.data.sort((a: any, b: any) => a.value - b.value);
     }
     this.x = d3Scale.scaleBand().range([0, this.imageWidth - this.margin.left - this.margin.right])
       .paddingInner(0.1)
