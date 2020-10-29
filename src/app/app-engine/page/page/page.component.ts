@@ -569,6 +569,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
                 this.pagesOfThisActtion[this.pagesOfThisActtion.length] = page;
                 this.alreadyLoaded = true;
               }
+              console.log( this.pagesOfThisActtion, this.subPagesOfPage );
               if ( goToPage ) {
                 this.selectedPageIndex = this.pagesOfThisActtion.length - 1;
                 this.router.navigate( [ 'page' ], {
