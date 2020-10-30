@@ -48,7 +48,7 @@
                 *ngIf="selectedAction === 'download'">
   <mat-label>{{ showSubmitButton ? 'Choose another csv' : 'Choose csv' }}</mat-label>
   <mat-icon matSuffix>insert_drive_file</mat-icon>
-  <input matInput style="display: none;" >
+  <input matInput style="display: none;" [disabled]="waitingForResponse">
 </mat-form-field>
 
 <mat-form-field
@@ -59,7 +59,7 @@
   matTooltip="Submit {{ fileToUpload.name }}">
   <mat-label>Submit {{ fileToUpload.name }}</mat-label>
   <mat-icon matSuffix>send</mat-icon>
-  <input matInput style="display: none;" >
+  <input matInput style="display: none;" [disabled]="waitingForResponse">
 </mat-form-field>
 
 <mat-progress-bar
@@ -74,9 +74,9 @@
 <button mat-button (click)="errorMessage = undefined" *ngIf="errorMessage" ><mat-icon>close</mat-icon></button>
 
 
-<input style="display: none;" type="file" #imgFileInput (change)="onFileChange($event.target.files)"/>
+<input [disabled]="waitingForResponse" style="display: none;" type="file" #imgFileInput (change)="onFileChange($event.target.files)"/>
 
-<input style="display: none;" type="file" #imgFileInput2 (change)="onFileChange2($event.target.files)"/>
+<input [disabled]="waitingForResponse" style="display: none;" type="file" #imgFileInput2 (change)="onFileChange2($event.target.files)"/>
 
 
 <span *ngIf="csvContainsTooManyLines" >Your csv contains too many lines</span>

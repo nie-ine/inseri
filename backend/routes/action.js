@@ -181,15 +181,14 @@ router.get('/:id', checkAuth2, (req, res, next) => {
              //}
 
              //await  getMainHierarchyOfPages(pages, hierarchyOfPages);
-             //console.log('final hierarchy');
-             //console.log(hierarchyOfPages);
+             // console.log('final hierarchy');
+             // console.log(hierarchyOfPages);
             res.status(200).json({
               message: 'Action was found',
               action: actionResult[0],
               hierarchyOfPages: hierarchyOfPages
             })
-           }
-           else{
+           } else {
             res.status(200).json({
               message: 'Action was found',
               action: actionResult[0],
@@ -218,12 +217,41 @@ router.get('/:id', checkAuth2, (req, res, next) => {
           path: 'hasPages'
         }
       })
-      .then(result => {
+      .then(async result => {
         if (result[0].published === true) {
-          res.status(200).json({
-            message: 'Action was found',
-            action: result[0]
-          })
+          let hierarchyOfPages = [];
+          let pages=result[0].hasPageSet.hasPages;
+          if(pages.length!=0){
+            for(let i=0;i<pages.length;i++){
+              hierarchyOfPages.push({page: pages[i], subPages:await getHierarchyOfPages(pages[i])});
+            }
+            //for(let i=0;i<pages.length;i++) {
+            //pagesIds.push(page._id);
+            // const page=pages[i];
+            //
+            //hierarchyOfPages.push({page: page, subPages:await getHierarchyOfPages(page._id)});
+            // console.log('atest');
+            // console.log(subPages);
+            // const pageInHierarchy={page: page, subPages:subPages };
+            // hierarchyOfPages.push(pageInHierarchy);
+            // await getHierarchyOfPages(page._id, hierarchyOfPages);
+            //}
+
+            //await  getMainHierarchyOfPages(pages, hierarchyOfPages);
+            // console.log('final hierarchy');
+            // console.log(hierarchyOfPages);
+            res.status(200).json({
+              message: 'Action was found',
+              action: result[0],
+              hierarchyOfPages: hierarchyOfPages
+            })
+          } else {
+            res.status(200).json({
+              message: 'Action was found',
+              action: result[0],
+              hierarchyOfPages: []
+            })
+          }
         } else {
           res.status(404).json({message: 'Action was not found'})
         }
