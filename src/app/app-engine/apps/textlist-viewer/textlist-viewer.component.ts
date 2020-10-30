@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, OnChanges, HostListener} from '@angular/core';
 import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 import {HttpClient} from '@angular/common/http';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-textlist-viewer',
@@ -12,26 +12,54 @@ export class TextlistViewerComponent implements OnChanges {
   @Input() textToDisplay;
   displayArray: boolean;
   safeHtml: SafeHtml;
-
+  paramObj: any;
   constructor(
     private domSanitizer: DomSanitizer,
     private http: HttpClient,
-    public router: Router
+    public router: Router,
+    private route: ActivatedRoute
   ) {
   }
+
   @HostListener('click', ['$event'])
   public onClick(event) {
-    console.log(event.target.href);
-    console.log( this.router.url );
-    const demoParams = {
-      testParam: 'test'
-    }
+    // Handle same-page links with extra parameters through microservice-generated HTML
+    // Indicate links with pageID and 1-n custom parameters:
+    // e.g. /page?page=5f96f0f4a65e56001e21a3ee&verse-label=verse-001&param2=two
     if (event.target.tagName === 'A') {
-      this.router.navigate( ['/page'], {
-        queryParams: demoParams,
-        queryParamsHandling: 'merge'
-      } );
-      event.preventDefault();
+      // Create object of all current parameters
+      this.route.queryParamMap
+        .subscribe((params) => {
+            this.paramObj = { ...params.keys, ...params };
+          }
+        );
+      // Get current pageID
+      const currentPageID = this.paramObj.params.page;
+      // Get page ID in microservice-generated link
+      // It matches everything in the given href after 'page=' and before the next '&'
+      const targetPageID = event.target.href.match(/(?<=page=)(.*?)(?=&)/)[1];
+
+      // Check if it's a same-page link
+      if ( currentPageID === targetPageID ) {
+        // Get the complete custom parameter string after the given page ID + & (1-n)
+        const targetParamsString = event.target.href.split(targetPageID + '&')[1];
+        // Split the query parameter string at '&' to get each parameter (["param1=one", "param2=two"])
+        const targetParams = targetParamsString.split('&');
+
+        const addedParams = {};
+        let i;
+        for (i = 0; i < targetParams.length; i++) {
+          const thisParam = targetParams[i].split('=');
+          addedParams[thisParam[0]] = thisParam[1];
+        }
+        this.router.navigate( ['/page'], {
+          queryParams: addedParams,
+          queryParamsHandling: 'merge'
+        } );
+        event.preventDefault();
+      } else {
+        return;
+      }
     } else {
       return;
     }

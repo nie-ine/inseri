@@ -4,12 +4,10 @@
   overflow: hidden;
 }
 
-.scaleBarChartInput {
-
-}
-
-.scaleBarChartSlider {
-
+.selectBarChartRange {
+  margin: 10px 0 0 30px;
+  width: 128px;
+  overflow: hidden;
 }
 
 .bar {
@@ -49,8 +47,5 @@
   z-index: 4;
 }
 
-.barChartTooltipValue {
-
-}
 
 
