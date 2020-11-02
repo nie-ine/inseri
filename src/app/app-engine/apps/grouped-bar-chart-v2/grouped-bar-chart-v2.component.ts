@@ -16,7 +16,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
   @Input() data: any;
   title = 'Grouped Bar Chart';
   alreadyInitialised = false;
-  width: number;
+  width: any;
   newWidth: number;
   private posX: number;
   private posY: number;
@@ -76,7 +76,6 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
     d3.select('#chart_' + this.numberOfInitialisedComponent).select('svg').remove();
     d3.select('#yaxis_' + this.numberOfInitialisedComponent).select('svg').remove();
     d3.select('#legend_' + this.numberOfInitialisedComponent).select('svg').remove();
-    // console.log('Initialized component: ' + this.numberOfInitialisedComponent);
 
     // getting all the key names for the legend
     const keys = Object.keys(data[0]).slice(1);

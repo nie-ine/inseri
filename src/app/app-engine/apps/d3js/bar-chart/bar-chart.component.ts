@@ -75,9 +75,16 @@ export class BarChartComponent implements AfterViewChecked {
    */
   alreadyInitialised = false;
 
-  imageWidth = 350;
-  newImageWidth = 0;
+  chartWidth: any = 350;
+  newChartWidth = 0;
   isSorted = false;
+
+  showRange = false;
+  rangeLabel: string;
+  rangeLowest: any;
+  newRangeLowest: any;
+  rangeHighest: any;
+  newRangeHighest: any;
 
   private posX: number;
   private posY: number;
@@ -111,8 +118,6 @@ export class BarChartComponent implements AfterViewChecked {
   }
 
   drawBarChart() {
-    // this.g = undefined;
-    // this.svgChart = undefined;
     this.initSvg();
     this.initAxis();
     this.drawAxis();
@@ -120,20 +125,24 @@ export class BarChartComponent implements AfterViewChecked {
   }
 
   private initSvg() {
-    if (this.newImageWidth !== 0) {
-      this.imageWidth = this.newImageWidth;
+    if (this.data.metadata.rangeLabel) {
+      this.showRange = true;
+      this.rangeLabel = this.data.metadata.rangeLabel;
+    }
+    if (this.newChartWidth !== 0) {
+      this.chartWidth = this.newChartWidth;
     } else {
-      if (this.data.data.length * 25 > this.imageWidth) {
-        this.imageWidth = this.data.data.length * 25;
+      if (this.data.data.length * 25 > this.chartWidth) {
+        this.chartWidth = this.data.data.length * 25;
       } else {
-        this.newImageWidth = this.imageWidth;
+        this.newChartWidth = this.chartWidth;
       }
     }
     this.svgChart = d3.select('#barChartChart_' + this.numberOfInitialisedComponent)
       .append('svg')
-      .attr('width', this.imageWidth)
+      .attr('width', this.chartWidth)
       .attr('height', 350);
-    this.width = this.imageWidth - this.margin.left - this.margin.right;
+    this.width = this.chartWidth - this.margin.left - this.margin.right;
     this.height = 350 - this.margin.top - this.margin.bottom;
     this.g = this.svgChart.append('g')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
@@ -151,12 +160,25 @@ export class BarChartComponent implements AfterViewChecked {
    * Initialize the components for the axis.
    */
   private initAxis() {
+    if (this.data.metadata.rangeLabel) {
+      // CURRENTLY, NO LOWEST/HIGHEST ARE SHOWN BECAUSE THERE'S AN NGMODEL FOR NEWRANGELOWEST, ECT. WHICH IS STILL FALSE!!!
+      this.rangeLowest = d3Array.min(this.data.data, (d) => d3Array.min(d.ranges, (r) => r.point));
+      this.rangeHighest = d3Array.max(this.data.data, (d) => d3Array.max(d.ranges, (r) => r.point));
+      // console.log('lowest', d3Array.min(this.data.data, (d) => d3Array.min(d.ranges, (z) => z.range)));
+      // console.log('highest', d3Array.max(this.data.data, (d) => d3Array.max(d.ranges, (z) => z.range)));
+
+      // Check if not default range
+      // If not default range, re-build this.data.data: "value" has to be total of all ranges.value within given range
+      // Similar to chartWidth/newChartWidth
+    }
 
     if (this.isSorted === true) {
       // Sort by value
       this.data.data.sort((a: any, b: any) => b.value - a.value);
+    } else {
+      this.data.data.sort((a: any, b: any) => a.value - b.value);
     }
-    this.x = d3Scale.scaleBand().range([0, this.imageWidth - this.margin.left - this.margin.right])
+    this.x = d3Scale.scaleBand().range([0, this.chartWidth - this.margin.left - this.margin.right])
       .paddingInner(0.1)
       .paddingOuter(0.1)
       .align(0.5);
@@ -181,7 +203,7 @@ export class BarChartComponent implements AfterViewChecked {
       .attr('class', 'axis axis--y')
       .call(d3Axis.axisLeft(this.y).ticks(10));
 
-    if (this.data.metadata) {
+    if (this.data.metadata.axes) {
       this.gYaxis.append('g')
         .append('text')
         .attr('transform', 'rotate(-90)')
@@ -191,15 +213,16 @@ export class BarChartComponent implements AfterViewChecked {
         .attr('fill', 'black')
         .attr('font-weight', 'bold')
         .attr('text-anchor', 'middle')
-        .text(this.data.metadata.yAxis);
+        .text(this.data.metadata.axes.y);
 
       this.g.append('g')
         .append('text')
-        .attr('transform', 'translate(' + ((this.imageWidth - this.margin.left - this.margin.right) / 2) + ',' + (this.height + this.margin.top + 10) + ')')
+        // tslint:disable-next-line:max-line-length
+        .attr('transform', 'translate(' + ((this.chartWidth - this.margin.left - this.margin.right) / 2) + ',' + (this.height + this.margin.top + 10) + ')')
         .attr('fill', 'black')
         .attr('font-weight', 'bold')
         .style('text-anchor', 'middle')
-        .text(this.data.metadata.xAxis);
+        .text(this.data.metadata.axes.x);
     }
 
   }

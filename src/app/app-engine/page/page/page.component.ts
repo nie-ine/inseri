@@ -544,6 +544,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * This function is used to navigate to another page belonging to the current pageSet
    * */
   navigateToOtherView(page: any) {
+    console.log( page );
     this.router.navigate( [ 'page' ], {
       queryParams: {
         'actionID': this.actionID,
@@ -575,6 +576,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
                 this.pagesOfThisActtion[this.pagesOfThisActtion.length] = page;
                 this.alreadyLoaded = true;
               }
+              console.log( this.pagesOfThisActtion, this.subPagesOfPage );
               if ( goToPage ) {
                 this.selectedPageIndex = this.pagesOfThisActtion.length - 1;
                 this.router.navigate( [ 'page' ], {
