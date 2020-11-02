@@ -1,4 +1,4 @@
-import {Component, OnInit, Inject } from '@angular/core';
+import {Component, OnInit, Inject, Output, EventEmitter} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import {Router, ActivatedRoute} from '@angular/router';
 import {EditPageSetComponent} from '../edit-page-set/edit-page-set.component';
@@ -221,6 +221,7 @@ export class PageSetLandingPageComponent implements OnInit {
 
 }
 
+
 @Component({
   selector: 'dialog-create-new-page',
   templateUrl: './dialog-create-new-page.html',
@@ -231,7 +232,7 @@ export class DialogCreateNewPageComponent implements OnInit {
   isLoading: boolean;
   pageSetID: any;
   parentPageId: any;
-  subPage: FormControl;
+  //subPage: FormControl;
   newPage: Page = {
     id: undefined,
     title: '',
@@ -239,13 +240,14 @@ export class DialogCreateNewPageComponent implements OnInit {
     hash: ''
   };
 
+
   constructor(public dialogRef: MatDialogRef<DialogCreateNewPageComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private router: Router,
               private route: ActivatedRoute,
               private pageService: PageService) {
     this.pageSetID = data.pageset._id;
-    this.subPage = new FormControl('false');
+    //this.subPage = new FormControl('false');
     this.parentPageId = data.parentPageId;
   }
 
@@ -258,7 +260,7 @@ export class DialogCreateNewPageComponent implements OnInit {
     this.form = new FormGroup({
       title: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
-      subPageCtrl: this.subPage,
+      //subPageCtrl: this.subPage,
     });
   }
 
@@ -270,19 +272,25 @@ export class DialogCreateNewPageComponent implements OnInit {
     this.isLoading = true;
     this.newPage.title = this.form.get('title').value;
     this.newPage.description = this.form.get('description').value;
-    const subPageVal = this.form.get('subPageCtrl').value;
-    console.log(subPageVal);
+    //const subPageVal = this.form.get('subPageCtrl').value;
+    //console.log(subPageVal);
 
 
-    if (subPageVal === 'true') {
+    if (this.parentPageId) {
       this.pageService.createPage(null, this.newPage, this.parentPageId, true)
         .subscribe((result) => {
           this.isLoading = false;
-          if (result.status === 201) {
-            this.dialogRef.close();
-          } else {
-            this.dialogRef.close();
-          }
+          console.log(result);
+          //if (result.status === 201) {
+            //this.pageId.emit(result.body.subpage._id);
+            console.log('I am here in the add new subPage');
+            console.log(result);
+            console.log(result.subpage._id);
+            this.dialogRef.close({page: result.subpage, parentPage: this.parentPageId});
+          // } else {
+          //   console.log('Dialog closed with no creation');
+          //   this.dialogRef.close();
+          // }
         }, error => {
           this.isLoading = false;
         });
@@ -290,11 +298,15 @@ export class DialogCreateNewPageComponent implements OnInit {
       this.pageService.createPage(this.pageSetID, this.newPage)
         .subscribe((result) => {
           this.isLoading = false;
-          if (result.status === 201) {
-            this.dialogRef.close();
-          } else {
-            this.dialogRef.close();
-          }
+          //if (result.status === 201) {
+            console.log('I am here in the add new Page of a subPage');
+            console.log(result);
+            console.log(result.page._id);
+            this.dialogRef.close({page: result.page, parentPage: null});
+          // } else {
+          //   console.log('Dialog closed with no creation');
+          //   this.dialogRef.close();
+          // }
         }, error => {
           this.isLoading = false;
         });

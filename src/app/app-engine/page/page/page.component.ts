@@ -283,6 +283,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   selectedSubPage: SubPageOfPageModel;
   subPagesOfPage: SubPageOfPageModel[] = [];
+  pageSet: any;
 
   constructor(
     public route: ActivatedRoute,
@@ -308,7 +309,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.route.queryParams.subscribe(params => {
       this.hashOfThisPage = params.page;
       this.actionID = params.actionID;
-      this.generateNavigation(params.actionID);
+      this.generateNavigation(params.actionID, true);
     });
     // route
     if ( this.route.snapshot.queryParams.page ) {
@@ -508,19 +509,21 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   addNewPage(page) {
+    alert('add New Page');
     const dialogRef = this.dialog.open(DialogCreateNewPageComponent, {
       width: '700px',
       data: { pageset: this.action.hasPageSet,
-              parentPageId: page._id
+              parentPageId: null
               // subPage: ,
               // pageId:
              }
     });
     dialogRef.afterClosed().subscribe(result => {
       this.alreadyLoaded = false;
-      this.generateNavigation(
-        this.actionID
-      );
+      this.subPagesOfPage.push({page: result.page, subPages: []});
+      // this.updatePagesArray(result);
+      this.navigateToOtherView(result.page._id);
+      // this.generateNavigation(this.actionID, true);
     });
   }
 
@@ -528,6 +531,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * This function is used to navigate to another page belonging to the current pageSet
    * */
   selectPage(i: number, page: any, ) {
+    console.log(page);
+    console.log(i);
+    console.log(this.selectedPageIndex);
     this.selectedPageIndex = i;
     this.selectedPageToShow = i + 1;
     this.selectedPage = page;
@@ -554,6 +560,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
       this.subPagesOfPage = [];
       this.actionService.getAction(actionID)
         .subscribe(data => {
+          this.pageSet = data.body.action.hasPageSet._id;
           console.log(data.body.action.hasPageSet.hasPages);
           console.log(data.body.hierarchyOfPages);
             if (data.body.action.type === 'page-set') {
@@ -573,7 +580,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
                 this.router.navigate( [ 'page' ], {
                   queryParams: {
                     'actionID': this.actionID,
-                    'page': this.pagesOfThisActtion[ this.pagesOfThisActtion.length - 1 ]._id
+                    'page': this.pagesOfThisActtion[ this.pagesOfThisActtion.length - 1 ]._id // this.hashOfThisPage
                   }
                 } );
               }
@@ -1292,14 +1299,12 @@ export class PageComponent implements OnInit, AfterViewChecked {
       }
     });
     dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
       this.pageService.duplicatePage( result, this.action.hasPageSet._id )
         .subscribe(
           data => {
             this.alreadyLoaded = false;
-            this.generateNavigation(
-              this.actionID,
-              true
-            );
+            this.generateNavigation(this.actionID, true);
             console.log( this.pagesOfThisActtion );
           }, error => console.log( error )
         );
@@ -1320,8 +1325,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
         .subscribe(
           data => {
             this.alreadyLoaded = false;
-            this.generateNavigation(
-              this.actionID
+            this.generateNavigation(this.actionID, true
             );
           }, error => console.log( error )
         );
@@ -1463,4 +1467,11 @@ export class PageComponent implements OnInit, AfterViewChecked {
     return size + 'px';
   }
 
+  private updatePagesArray(newSubPagesOfPage: SubPageOfPageModel[]) {
+    // result = {page: result.page, parentPage: parentPageId}
+    // we need to update this.subPagesOfPage
+    console.log(newSubPagesOfPage);
+      this.subPagesOfPage = newSubPagesOfPage;
+
+  }
 }

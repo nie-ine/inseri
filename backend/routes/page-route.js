@@ -644,6 +644,10 @@ router.post('/:pageId/newSubPage',checkAuth, (req, res, next) => {
   });
   newSubPage.save()
     .then(resultQuery => {
+      console.log('params');
+      console.log(req.params);
+      console.log('resultQuery');
+      console.log(resultQuery);
       Page.update({_id: req.params.pageId}, { $push: { hasSubPages: resultQuery._id } })
         .then(updatedPage => {
           if (updatedPage.n > 0) {

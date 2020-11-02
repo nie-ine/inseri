@@ -70,14 +70,17 @@
       </mat-button-toggle-group>
 
     </mat-menu-->
-    <button *ngIf="pagesOfThisActtion"
-            [disabled]="selectedPage === 0"
+    <!--button *ngIf="pagesOfThisActtion"-->
+     <button *ngIf="pagesOfThisActtion"
+            [disabled]="selectedPageIndex === 0"
             mat-button
-            (click)="selectPage( selectedPage - 1, pagesOfThisActtion[ selectedPage - 1 ])">
+           (click)="selectPage( selectedPageIndex - 1, pagesOfThisActtion[ selectedPageIndex - 1 ])">
       <mat-icon> keyboard_arrow_left </mat-icon>
     </button>
-    <button mat-button [matMenuTriggerFor]="menu5" *ngIf="pagesOfThisActtion">{{ page.title }}
+    <button mat-button [matMenuTriggerFor]="menu5" *ngIf="subPagesOfPage">{{ page.title }}
     </button>
+    <!--button mat-button [matMenuTriggerFor]="menu5" *ngIf="pagesOfThisActtion">{{ page.title }}
+    </button-->
 
     <!--mat-menu #menuOpenFileApps="matMenu" >
       <div *ngFor="let app of inseriAppsMenu" style="display: inline-block">
@@ -91,36 +94,18 @@
     <mat-menu #menu5>
 
       <ng-container *ngFor="let page of subPagesOfPage">
-        <ng-container *ngIf="!!page.subPages.length">
-          <button [matMenuTriggerFor]="submenu.menu" mat-menu-item>
+        <!--ng-container *ngIf="!!page.subPages.length"-->
+          <button  (click)="navigateToOtherView(page.page)" [matMenuTriggerFor]="submenu.menu" mat-menu-item>
             {{ page.page.title }}
           </button>
-            <nested-menu [pages]="page.subPages" #submenu="nestedMenu" >
-              <mat-button-toggle-group
-                name="fontStyle"
-                *ngIf=" (!pageAsDemo) && !preview && loggedIn"
-                style="margin-left: 10px; margin-right: 10px; margin-top: 10px;">
-
-                <mat-button-toggle (click)="addNewPage(page)" matTooltip="Add new page">
-                  <mat-icon>add</mat-icon>
-                </mat-button-toggle>
-
-                <mat-button-toggle (click)="addDuplicatedPage()" matTooltip="Copy and add existing page">
-                  <mat-icon>file_copy</mat-icon>
-                </mat-button-toggle>
-
-                <mat-button-toggle matTooltip="Link existing page" (click)="linkExistingPage()">
-                  <mat-icon>link</mat-icon>
-                </mat-button-toggle>
-
-              </mat-button-toggle-group>
-
-            </nested-menu>
-        </ng-container>
+            <app-nested-menu (subPagesArray)="updatePagesArray($event)" [pageSet]="pageSet" [parentPage]="page.page" [actionIDInput]="actionID" [pages]="page.subPages" [allPages]="subPagesOfPage" [pageAsDemo]="pageAsDemo" [preview]="preview" [loggedIn]="loggedIn" #submenu="nestedMenu"> <!--(actionIDOutput)="$event"-->
+            <ng-content></ng-content>
+            </app-nested-menu>
+        <!--/ng-container>
 
         <a *ngIf="!page.subPages.length" mat-menu-item>
-          {{ page.page.title }}
-        </a>
+      {{ page.page.title }}
+    </a-->
       </ng-container>
       <mat-button-toggle-group
         name="fontStyle"
@@ -203,13 +188,18 @@
     </div>
     </mat-menu-->
 
-    <button [disabled]="selectedPageIndex === pagesOfThisActtion.length - 1"
+    <!--button [disabled]="selectedPageIndex === pagesOfThisActtion.length - 1"
+            *ngIf="pagesOfThisActtion"
+            mat-button
+            (click)="selectPage( selectedPageIndex + 1 , pagesOfThisActtion[ selectedPageIndex + 1 ] )">
+      <mat-icon > keyboard_arrow_right </mat-icon>
+    </button-->
+    <button [disabled]="selectedPageIndex === subPagesOfPage.length - 1"
             *ngIf="pagesOfThisActtion"
             mat-button
             (click)="selectPage( selectedPageIndex + 1 , pagesOfThisActtion[ selectedPageIndex + 1 ] )">
       <mat-icon > keyboard_arrow_right </mat-icon>
     </button>
-
     <button mat-icon-button *ngIf=" (!pageAsDemo) && !preview && page.publishedAsTemplate" style="color: #4cae4c!important;" matTooltip="This page is published as a template!" [matMenuTriggerFor]="menu4">
       <mat-icon style="margin-right: 10px">arrow_circle_up</mat-icon>
     </button>
