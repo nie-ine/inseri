@@ -3,6 +3,7 @@ import * as d3 from 'd3-selection';
 import * as d3Scale from 'd3-scale';
 import * as d3Array from 'd3-array';
 import * as d3Axis from 'd3-axis';
+import { Options } from '@angular-slider/ngx-slider';
 
 /**
  * This component describes a bar chart, with a column for each value from left to right.
@@ -81,8 +82,19 @@ export class BarChartComponent implements AfterViewChecked {
 
   showRange = false;
   rangeLabel: string;
+
+  RangeOptions: Options = {
+    floor: 0,
+    ceil: 0
+  };
+
+  rangeMinMin: any;
+  rangeMinMax: any;
   rangeLowest: any;
   newRangeLowest: any;
+
+  rangeMaxMax: any;
+  rangeMaxMin: any;
   rangeHighest: any;
   newRangeHighest: any;
 
@@ -118,6 +130,8 @@ export class BarChartComponent implements AfterViewChecked {
   }
 
   drawBarChart() {
+    d3.select('#barChartChart_' + this.numberOfInitialisedComponent).select('svg').remove();
+    d3.select('#barChartYaxis_' + this.numberOfInitialisedComponent).select('svg').remove();
     this.initSvg();
     this.initAxis();
     this.drawAxis();
@@ -161,33 +175,66 @@ export class BarChartComponent implements AfterViewChecked {
    */
   private initAxis() {
     if (this.data.metadata.rangeLabel) {
-      // CURRENTLY, NO LOWEST/HIGHEST ARE SHOWN BECAUSE THERE'S AN NGMODEL FOR NEWRANGELOWEST, ECT. WHICH IS STILL FALSE!!!
-      this.rangeLowest = d3Array.min(this.data.data, (d) => d3Array.min(d.ranges, (r) => r.point));
-      this.rangeHighest = d3Array.max(this.data.data, (d) => d3Array.max(d.ranges, (r) => r.point));
-      // console.log('lowest', d3Array.min(this.data.data, (d) => d3Array.min(d.ranges, (z) => z.range)));
-      // console.log('highest', d3Array.max(this.data.data, (d) => d3Array.max(d.ranges, (z) => z.range)));
-
-      // Check if not default range
-      // If not default range, re-build this.data.data: "value" has to be total of all ranges.value within given range
-      // Similar to chartWidth/newChartWidth
+      this.rangeMinMin = d3Array.min(this.data.data, (d) => d3Array.min(d.ranges, (r) => r.point));
+      this.rangeMaxMax = d3Array.max(this.data.data, (d) => d3Array.max(d.ranges, (r) => r.point));
+      this.rangeMinMax = this.rangeMaxMax;
+      this.rangeMaxMin = this.rangeMinMax;
+      if (this.newRangeLowest !== undefined) { // User indicated new lowest
+        this.rangeLowest = this.newRangeLowest;
+        this.rangeMaxMin = this.rangeLowest;
+      } else {
+        this.rangeLowest = d3Array.min(this.data.data, (d) => d3Array.min(d.ranges, (r) => r.point));
+        this.newRangeLowest = this.rangeLowest;
+      }
+      if (this.newRangeHighest !== undefined) { // User indicated new highest
+        this.rangeHighest = this.newRangeHighest;
+        this.rangeMinMax = this.rangeHighest;
+      } else {
+        this.rangeHighest = d3Array.max(this.data.data, (d) => d3Array.max(d.ranges, (r) => r.point));
+        this.newRangeHighest = this.rangeHighest;
+      }
+      const helpLow = this.rangeLowest;
+      const helpHigh = this.rangeHighest;
+      this.data.data.forEach( function (d) {
+        d.value = 0;
+        d.ranges.forEach( function (r) {
+          if (r.point >= helpLow && r.point <= helpHigh) {
+            d.value += r.value;
+          }
+        });
+      });
+      this.RangeOptions.floor = this.rangeLowest;
+      this.RangeOptions.ceil = this.rangeHighest;
     }
 
     if (this.isSorted === true) {
       // Sort by value
       this.data.data.sort((a: any, b: any) => b.value - a.value);
-    } else {
-      this.data.data.sort((a: any, b: any) => a.value - b.value);
+    } else { // Sort by bar label
+      this.data.data.sort( function (a: any, b: any) {
+        if (a.label < b.label) { return -1; }
+        if (a.label > b.label) { return 1; }
+        return 0;
+      });
     }
+
     this.x = d3Scale.scaleBand().range([0, this.chartWidth - this.margin.left - this.margin.right])
       .paddingInner(0.1)
       .paddingOuter(0.1)
       .align(0.5);
     this.y = d3Scale.scaleLinear().rangeRound([this.height, 0]);
     this.x.domain(this.data.data.map((d) => d.label));
-    this.y.domain([0, d3Array.max(this.data.data, (d) => d.value)]);
+    if (d3Array.max(this.data.data, (d) => d.value) !== 0) {
+      this.y.domain([0, d3Array.max(this.data.data, (d) => d.value)]);
+    }
 
     // Always sort back to initial state (by label)
-    this.data.data.sort((a: any, b: any) => a.label - b.label);
+    // this.data.data.sort((a: any, b: any) => a.label - b.label);
+    this.data.data.sort( function (a: any, b: any) {
+      if (a.label < b.label) { return -1; }
+      if (a.label > b.label) { return 1; }
+      return 0;
+    });
   }
 
   /**
@@ -224,7 +271,6 @@ export class BarChartComponent implements AfterViewChecked {
         .style('text-anchor', 'middle')
         .text(this.data.metadata.axes.x);
     }
-
   }
 
 
@@ -269,17 +315,6 @@ export class BarChartComponent implements AfterViewChecked {
         tooltip.style('display', 'none');
       };
     });
-
-
-  }
-
-  reDrawBarChart() {
-    d3.select('#barChartChart_' + this.numberOfInitialisedComponent).select('svg').remove();
-    d3.select('#barChartYaxis_' + this.numberOfInitialisedComponent).select('svg').remove();
-    this.initSvg();
-    this.initAxis();
-    this.drawAxis();
-    this.drawBars();
   }
 }
 

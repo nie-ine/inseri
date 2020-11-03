@@ -101,7 +101,6 @@ import { GroupedBarChartV2Component } from './apps/grouped-bar-chart-v2/grouped-
 import { CommentOnIndicesComponent } from './apps/comment-on-indices/comment-on-indices.component';
 //import {DataListViewDetailsDialogComponent} from './apps/data-list-view/data-list-view-details-dialog/data-list-view-details-dialog.component';
 import { CalendarComponent } from './apps/calendar/calendar.component';
-
 import { CrisprComponent } from './apps/crispr/crispr.component';
 import { MatFileUploadModule } from 'angular-material-fileupload';
 import { BrowserModule } from '@angular/platform-browser';
@@ -109,6 +108,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MachineReasoningComponent } from './apps/machine-reasoning/machine-reasoning.component';
 import { MenuItemComponent } from './page/menu-item/menu-item.component';
 import { NestedMenu} from './page/menu-item/nested-menu';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
 @NgModule({
   imports: [
@@ -176,7 +176,8 @@ import { NestedMenu} from './page/menu-item/nested-menu';
       { path: 'gnd', component: GndLobidComponent },
       { path: 'audio', component: AudioPlayerComponent },
       { path: 'calendar', component: CalendarComponent }
-    ])
+    ]),
+    NgxSliderModule
   ],
   providers: [
     GenerateHashService,
