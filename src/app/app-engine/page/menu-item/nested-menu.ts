@@ -27,6 +27,7 @@ export class NestedMenu {
   @Input() actionIDInput: any;
   @Output() subPagesArray = new EventEmitter<SubPageOfPageModel[]>();
   // @Output() actionIDOutput = new EventEmitter<any>();
+  private addSubPages: boolean;
   constructor(public dialog: MatDialog,
               public router: Router,
               private pageService: PageService) {
@@ -99,7 +100,7 @@ export class NestedMenu {
       queryParams: {
         'actionID': this.actionIDInput,
         'page': pageId
-      }
+      }, queryParamsHandling: "merge"
     } );
   }
 
@@ -147,5 +148,11 @@ export class NestedMenu {
   }
 
 
-
+  addSubPagesEvent() {
+    if (this.addSubPages) {
+      this.addSubPages = false;
+    } else {
+      this.addSubPages = true;
+    }
+  }
 }

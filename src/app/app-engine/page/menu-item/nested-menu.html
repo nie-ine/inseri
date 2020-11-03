@@ -1,15 +1,20 @@
 <mat-menu #childMenu="matMenu" [overlapTrigger]="false">
-  <span *ngIf="pages.length!=0">
+  <!--span *ngIf="pages.length!=0"-->
     <span *ngFor="let child of pages">
     <!-- Handle branch node menu items -->
     <!--span *ngIf="child.subPages && child.subPages.length > 0"-->
-      <button mat-menu-item color="primary" (click)="navigateToOtherView(child.page._id)" [matMenuTriggerFor]="submenu.menu" ><!--(mouseover)="setActionId()"-->
-        <span>{{child.page.title}}</span>
-      </button>
-      <app-nested-menu [pageSet]="pageSet" [allPages]="allPages"[actionIDInput]="actionIDInput" [parentPage]="child.page" [pages]="child.subPages" [pageAsDemo]="pageAsDemo" [preview]="preview" [loggedIn]="loggedIn" #submenu="nestedMenu"> <!--(actionIDOutput)="setActionIdAsOutput($event)"-->
+       <button class="mat-menu-item" mat-menu-item >
+                 <!--[matMenuTriggerFor]="submenu.menu"-->
+          <span class="pm-menu-item" (click)="navigateToOtherView(child.page)"> {{ child.page.title }}</span>
+          <i style="float: right" class="material-icons pm-menu-icon-right" *ngIf="child.subPages.length!==0 ||addSubPages"  (click)="$event.stopPropagation();" [matMenuTriggerFor]="submenu.menu"> keyboard_arrow_right</i>
+        </button>
+      <!--button mat-menu-item color="primary" (click)="navigateToOtherView(child.page._id)" [matMenuTriggerFor]="submenu.menu" ><!--(mouseover)="setActionId()"-->
+        <!--span>{{child.page.title}}</span>
+      </button-->
+      <app-nested-menu #submenu="nestedMenu" [pageSet]="pageSet" [allPages]="allPages"[actionIDInput]="actionIDInput" [parentPage]="child.page" [pages]="child.subPages" [pageAsDemo]="pageAsDemo" [preview]="preview" [loggedIn]="loggedIn" > <!--(actionIDOutput)="setActionIdAsOutput($event)"-->
       </app-nested-menu>
       <!--app-menu-item #menu [items]="child.subPages"></app-menu-item-->
-    </span>
+    <!--</span>-->
       <!-- Handle leaf node menu items -->
     <!--span *ngIf="!child.subPages || child.subPages.length === 0">
       <button mat-menu-item>
@@ -32,6 +37,10 @@
 
     <mat-button-toggle matTooltip="Link existing page" (click)="linkExistingPage()">
       <mat-icon>link</mat-icon>
+    </mat-button-toggle>
+
+    <mat-button-toggle matTooltip="Add subPages" (click)="$event.stopPropagation(); addSubPagesEvent();">
+      <mat-icon>library_add</mat-icon>
     </mat-button-toggle>
 
   </mat-button-toggle-group>

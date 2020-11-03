@@ -283,7 +283,10 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   selectedSubPage: SubPageOfPageModel;
   subPagesOfPage: SubPageOfPageModel[] = [];
+  dataSourceOfSubPages: MatTableDataSource<any>;
   pageSet: any;
+  private actionAlreadyLoaded: boolean;
+  addSubPages: boolean;
 
   constructor(
     public route: ActivatedRoute,
@@ -309,7 +312,11 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.route.queryParams.subscribe(params => {
       this.hashOfThisPage = params.page;
       this.actionID = params.actionID;
-      this.generateNavigation(params.actionID);
+      // console.log(params.actionAlreadyLoaded);
+      // if (!params.actionAlreadyLoaded) {
+        this.generateNavigation(params.actionID);
+     // }
+
     });
     // route
     if ( this.route.snapshot.queryParams.page ) {
@@ -389,8 +396,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
                       {
                         queryParams: {
                           'actionID': ( response as any).action._id,
-                          'page': pageSetResponse.pageset.hasPages[ 0 ]
-                        },
+                          'page': pageSetResponse.pageset.hasPages[ 0 ],
+                          //'actionAlreadyLoaded': true
+                        }, queryParamsHandling: "merge"
                       });
                   }, e2 => console.log( e2 )
                 );
@@ -548,8 +556,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.router.navigate( [ 'page' ], {
       queryParams: {
         'actionID': this.actionID,
-        'page': page._id
-      }
+        'page': page._id,
+       // 'actionAlreadyLoaded': true
+      }, queryParamsHandling: "merge"
     } );
   }
 
@@ -567,6 +576,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
             if (data.body.action.type === 'page-set') {
               this.pagesOfThisActtion = [];
               this.subPagesOfPage = data.body.hierarchyOfPages;
+              this.dataSourceOfSubPages = new MatTableDataSource(this.subPagesOfPage);
+              console.log(this.subPagesOfPage);
               for (const page of ( data.body as any ).action.hasPageSet.hasPages as any ) {
                 if ( page._id === this.hashOfThisPage ) {
                   this.selectedPageIndex = this.pagesOfThisActtion.length;
@@ -577,15 +588,16 @@ export class PageComponent implements OnInit, AfterViewChecked {
                 this.alreadyLoaded = true;
               }
               console.log( this.pagesOfThisActtion, this.subPagesOfPage );
-              //if ( goToPage ) {
-                //this.selectedPageIndex = this.pagesOfThisActtion.length - 1;
+              // if ( goToPage ) {
+                // this.selectedPageIndex = this.pagesOfThisActtion.length - 1;
                 this.router.navigate( [ 'page' ], {
                   queryParams: {
                     'actionID': this.actionID,
-                    'page': this.pagesOfThisActtion[ this.selectedPageIndex ]._id // this.hashOfThisPage
-                  }
+                    'page': this.pagesOfThisActtion[ this.selectedPageIndex ]._id, // this.hashOfThisPage
+                    //'actionAlreadyLoaded': true
+                  }, queryParamsHandling: "merge"
                 } );
-              //}
+              // }
             }
           },
           error => {
@@ -1474,5 +1486,13 @@ export class PageComponent implements OnInit, AfterViewChecked {
     console.log(newSubPagesOfPage);
       this.subPagesOfPage = newSubPagesOfPage;
 
+  }
+
+  addSubPagesEvent() {
+    if (this.addSubPages) {
+      this.addSubPages = false;
+    } else {
+      this.addSubPages = true;
+    }
   }
 }
