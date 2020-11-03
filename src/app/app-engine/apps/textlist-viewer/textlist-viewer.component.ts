@@ -12,7 +12,7 @@ export class TextlistViewerComponent implements OnChanges {
   @Input() textToDisplay;
   displayArray: boolean;
   safeHtml: SafeHtml;
-  paramObj: any;
+
   constructor(
     private domSanitizer: DomSanitizer,
     private http: HttpClient,
@@ -23,44 +23,33 @@ export class TextlistViewerComponent implements OnChanges {
 
   @HostListener('click', ['$event'])
   public onClick(event) {
-    // Handle same-page links with extra parameters through microservice-generated HTML
-    // Indicate links with pageID and 1-n custom parameters:
-    // e.g. /page?page=5f96f0f4a65e56001e21a3ee&verse-label=verse-001&param2=two
+    // Handle same-page links or bookmarks of microservice-generated HTML
+    // Check if <a>
     if (event.target.tagName === 'A') {
-      // Create object of all current parameters
-      this.route.queryParamMap
-        .subscribe((params) => {
-            this.paramObj = { ...params.keys, ...params };
-          }
-        );
-      // Get current pageID
-      const currentPageID = this.paramObj.params.page;
-      // Get page ID in microservice-generated link
-      // It matches everything in the given href after 'page=' and before the next '&'
-      const targetPageID = event.target.href.match(/(?<=page=)(.*?)(?=&)/)[1];
-
-      // Check if it's a same-page link
-      if ( currentPageID === targetPageID ) {
-        // Get the complete custom parameter string after the given page ID + & (1-n)
-        const targetParamsString = event.target.href.split(targetPageID + '&')[1];
-        // Split the query parameter string at '&' to get each parameter (["param1=one", "param2=two"])
-        const targetParams = targetParamsString.split('&');
-
+      // Get href
+      const href = event.target.href;
+      if (href.startsWith('inseriparams')) {
         const addedParams = {};
+        const paramsString = href.split('inseriparams:')[1];
+        const addToURL = paramsString.split('&');
         let i;
-        for (i = 0; i < targetParams.length; i++) {
-          const thisParam = targetParams[i].split('=');
+        for (i = 0; i < addToURL.length; i++) {
+          const thisParam = addToURL[i].split('=');
           addedParams[thisParam[0]] = thisParam[1];
         }
-        this.router.navigate( ['/page'], {
+        this.router.navigate(['/page'], {
           queryParams: addedParams,
           queryParamsHandling: 'merge'
-        } );
+        });
         event.preventDefault();
-      } else {
+      } else if ( href.startsWith('inseribookmark')) {
+        const element = document.getElementById(href.split('inseribookmark:#')[1]);
+        element.scrollIntoView();
+        event.preventDefault();
+      } else { // if regular href
         return;
       }
-    } else {
+    } else { // if not <a>
       return;
     }
   }
