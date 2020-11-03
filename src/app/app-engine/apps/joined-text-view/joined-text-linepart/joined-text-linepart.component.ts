@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { KnoraV2RequestService } from '../../../../query-engine/knora/knora-v2-request.service';
-import { JoinedTextViewKnoraRequestService } from '../joined-text-view-knora-request.service';
-import { SelectableEnvironments, StyleDeclaration } from '../../shared/rich-text/text-rich-innerhtml/text-rich-innerhtml.component';
+import { SelectableEnvironments, StyleDeclaration } from '../joined-text-innerhtml/joined-text-innerhtml.component';
 import { JoinedTextLinepart } from './joined-text-linepart';
+import { JoinedTextViewRequestService } from '../joined-text-view-request.service';
 
 /**
  * A horizontal text element with the options of left and right columns for marginals or metadata
@@ -74,7 +73,7 @@ export class JoinedTextLinepartComponent implements OnChanges {
   /**
    * default written by angular-cli
    */
-  constructor(private knoraV2Request: KnoraV2RequestService, private joinedTextViewKnoraRequest: JoinedTextViewKnoraRequestService) { }
+  constructor(private requestService: JoinedTextViewRequestService) { }
 
   /**
    * load content with changing input variables
@@ -82,9 +81,9 @@ export class JoinedTextLinepartComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
 
     if ((this.backendAddress && this.linepartConfiguration && this.parentIri) && (changes['parentIri'] || changes['backendAddress'] || changes['linepartConfiguration'])) {
-      const gravSearchRequest = this.joinedTextViewKnoraRequest.getGravSearch(this.linepartConfiguration, this.parentIri);
+      const gravSearchRequest = this.requestService.getGravSearch(this.linepartConfiguration, this.parentIri);
 
-      this.knoraV2Request.extendedSearchFromSpecificInstance(gravSearchRequest, this.backendAddress)
+      this.requestService.extendedSearchFromSpecificInstance(gravSearchRequest, this.backendAddress)
         .subscribe(d => {
           if (d[ '@graph' ]) {
             this.lineparts = d[ '@graph' ];

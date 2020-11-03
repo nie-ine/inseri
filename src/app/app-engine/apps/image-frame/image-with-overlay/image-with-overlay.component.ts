@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChange} from "@angular/core";
+import {Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChange} from '@angular/core';
 import { RegionToSvgService } from '../region-to-svg.service';
 
 
@@ -203,13 +203,9 @@ export class ImageWithOverlayComponent implements OnInit, OnChanges, OnDestroy {
       }
 
       this.setupViewer();
-
-        this.openImage();
-        this.drawRegions();
-
+      this.openImage();
+      this.drawRegions();
     }
-
-
   }
 
   /**

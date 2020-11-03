@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { SelectableEnvironments, StyleDeclaration } from '../../shared/rich-text/text-rich-innerhtml/text-rich-innerhtml.component';
+import { SelectableEnvironments, StyleDeclaration } from '../joined-text-innerhtml/joined-text-innerhtml.component';
 
 @Component({
   selector: 'app-joined-text-textwrapper',
@@ -45,6 +45,10 @@ export class JoinedTextTextwrapperComponent implements OnChanges {
 
   constructor() { }
 
+  /**
+   * Take in propertyIRIs and turn them into prefixed form. Renew with changes.
+   * @param changes
+   */
   ngOnChanges(changes: SimpleChanges) {
     if ((this.propertyIri && this.namespaces) && (changes['propertyIri'] || changes['namespaces'] )) {
       let tempKey = this.propertyIri;

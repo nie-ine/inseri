@@ -153,7 +153,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   hoveredElement: string;
 
   /**
-   * needed to generate the navigation in case that the page belongs to a pageSet
+   * needed to generate the hierarchical-navigation-view in case that the page belongs to a pageSet
    * */
   pagesOfThisActtion: Array<any>;
 
@@ -163,17 +163,17 @@ export class PageComponent implements OnInit, AfterViewChecked {
   hashOfThisPage: string;
 
   /**
-   *  - Needed to generate the navigation
+   *  - Needed to generate the hierarchical-navigation-view
    * */
   lastView: any;
 
   /**
-   * Needed to generate the navigation
+   * Needed to generate the hierarchical-navigation-view
    * */
   nextView: any;
   /**
-   * If an action is a pageSet, it contains an array with the pages, from this array the navigation is created,
-   * the following value is needed to generate the navigation
+   * If an action is a pageSet, it contains an array with the pages, from this array the hierarchical-navigation-view is created,
+   * the following value is needed to generate the hierarchical-navigation-view
    * */
   selectedPageIndex = 0;
 

@@ -8,10 +8,6 @@ In the future also the authentication to the data sources has to be piped throug
 
 Services in this collection:
 
-- KnoraV1RequestService
-    - used in apps to create and show resources.
-- KnoraV2RequestService
-    - used in apps for navigation, complex text views etc.
 - KnoraRequestService
     - used in text view apps
     - dependencies of this service: KnoraAuthService, RequestService, RequestTemplate
