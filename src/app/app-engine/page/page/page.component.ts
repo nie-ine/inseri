@@ -309,7 +309,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.route.queryParams.subscribe(params => {
       this.hashOfThisPage = params.page;
       this.actionID = params.actionID;
-      this.generateNavigation(params.actionID, true);
+      this.generateNavigation(params.actionID);
     });
     // route
     if ( this.route.snapshot.queryParams.page ) {
@@ -556,7 +556,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   /**
    * This function generates the pagesOfThisActtion Array
    * */
-  generateNavigation(actionID: string, goToPage?: boolean) {
+  generateNavigation(actionID: string) {
     if (!this.alreadyLoaded && actionID) {
       this.subPagesOfPage = [];
       this.actionService.getAction(actionID)
@@ -577,15 +577,15 @@ export class PageComponent implements OnInit, AfterViewChecked {
                 this.alreadyLoaded = true;
               }
               console.log( this.pagesOfThisActtion, this.subPagesOfPage );
-              if ( goToPage ) {
-                this.selectedPageIndex = this.pagesOfThisActtion.length - 1;
+              //if ( goToPage ) {
+                //this.selectedPageIndex = this.pagesOfThisActtion.length - 1;
                 this.router.navigate( [ 'page' ], {
                   queryParams: {
                     'actionID': this.actionID,
-                    'page': this.pagesOfThisActtion[ this.pagesOfThisActtion.length - 1 ]._id // this.hashOfThisPage
+                    'page': this.pagesOfThisActtion[ this.selectedPageIndex ]._id // this.hashOfThisPage
                   }
                 } );
-              }
+              //}
             }
           },
           error => {
@@ -1306,7 +1306,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
         .subscribe(
           data => {
             this.alreadyLoaded = false;
-            this.generateNavigation(this.actionID, true);
+            this.generateNavigation(this.actionID);
             console.log( this.pagesOfThisActtion );
           }, error => console.log( error )
         );
@@ -1327,8 +1327,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
         .subscribe(
           data => {
             this.alreadyLoaded = false;
-            this.generateNavigation(this.actionID, true
-            );
+            this.generateNavigation(this.actionID);
           }, error => console.log( error )
         );
     });
