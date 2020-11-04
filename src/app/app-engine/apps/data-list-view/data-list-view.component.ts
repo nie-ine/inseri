@@ -1,28 +1,30 @@
-import {Component, Input, Output, OnInit, OnChanges, ChangeDetectorRef} from '@angular/core';
-import { DataListViewInAppQueryService } from './services/query.service';
+import {Component, Input, Output, OnChanges } from '@angular/core';
+import { DataListViewInAppQueryService } from './data-list-view-services/query.service';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
-import {DisplayedCollumnsService, DataCell, SettingsService } from './data-list-view-services/table-data.service';
+import {DisplayedCollumnsService, DataCell, SettingsService } from './data-list-view-services/data-list-view.service';
 import {Subscription} from 'rxjs';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'data-list-view',
-  templateUrl: './data-list-view.component.html'
+  templateUrl: './data-list-view.component.html',
+  providers: [DisplayedCollumnsService, SettingsService, DataListViewInAppQueryService]
 })
 
 export class DataListViewComponent implements  OnChanges {
-  @Input() appInputQueryMapping: any;
-  @Input() hash: string;
-  @Input() queryResponse?: any;
+  @Input() appInputQueryMapping: any; // for saving back settings
+  @Input() hash: string; // for saving back settings
+  @Input() queryResponse?: any; // the data coming in
   @Input() dataListSettings?: any; // DataListViewSettings;
+  @Input() showSettings: boolean; // wether the settings are displayed above the table or not
   @Input() query?: string;
   @Output() dataListSettingsOut: any;
   @Output() tableData: Array<any>; // table data passed to table component. Equals the generatedData once this is finished.
-  generatedData: Array<DataCell> = []; // data
+  generatedData: Array<DataCell> = []; // data generated/flattened/tranposed from json
 
-  mustSetArray = false;
-  dataArrays = [];
-  displaySettings: boolean; // weather the settings are displayed above the table or not
-  displaySettingsChange: Subscription; // change is triggered from within the table component, so we subscribe to that
+  showInstructions = false; // wether the instructions show up un start or not. Is set to true after 2 seconds no data input;
+  mustSetArray = false; // wether the user must choose an array as data source; will be set to true if needed.
+  dataArrays = []; // list of available arrays in the passed JSON
   reloadPageChange: Subscription;
 
   constructor(private dataService: DataListViewInAppQueryService,
@@ -30,19 +32,18 @@ export class DataListViewComponent implements  OnChanges {
               private settingsService: SettingsService
               ) {
 
-    this.displaySettingsChange = this.settingsService.settingsOpenStateChange.subscribe(oState => this.displaySettings = oState);
-
     this.reloadPageChange = this.settingsService.reloadPage.subscribe(settings => {
+      // reloads the component with new settings defined;
       this.dataListSettings = settings;
       this.ngOnChanges();
     });
   }
 
   ngOnChanges() {
+    this.setTimeOutForInstructions();
     if (typeof this.dataListSettings === 'string') {
       this.dataListSettingsOut = JSON.parse( this.dataListSettings as any );
-    } else {this.dataListSettingsOut = this.dataListSettings; }
-
+    } else { this.dataListSettingsOut = this.dataListSettings; }
     if (this.dataListSettingsOut && this.dataListSettingsOut.pathToDataArray !== '' ) {
       this.tableData = []; // reset in case of a reload after change of data source/path to data array
       this.onGetData(); } else {
@@ -52,7 +53,7 @@ export class DataListViewComponent implements  OnChanges {
         if (this.queryResponse ) {
           this.getArraysFromJson(this.queryResponse);
           this.mustSetArray = true;
-        } else { console.log('here nothing todo???'); }
+        } else { console.log('no data passed'); }
       }
     }
 
@@ -60,8 +61,8 @@ export class DataListViewComponent implements  OnChanges {
 
   generateTableData(responseData: any, depth: number) {
     // returns the array at the node defined by pathToArray variable (path string with dot notation)
-    const dataArray =  this.dataListSettingsOut.pathToDataArray.split('.').reduce((a, b) => a[b], responseData);
-    this.createGenericData(dataArray);
+    // const dataArray =  this.displayedCollumnsService.getDataFromPath(this.dataListSettingsOut.pathToDataArray, responseData);
+    // this.createGenericData(dataArray);
   }
 
   createGenericData(dataArray: Array<any>) {
@@ -77,37 +78,46 @@ export class DataListViewComponent implements  OnChanges {
 
   }
 
-  /*
-  appendEntryToTabledata(ResponseEntry: any, depth: number, length: number, pathCompare?: Array<string>) {
-    // recursive method for getting the actual values from nested jsons
-    // and appending them to the tabledata. Allowed values are strings,
-    // numbers, symbols and booleans. Objects can not be used here). If it is an object,
-    // it will try to flatten that by calling this very method recursively.
-    for (const column of this.dataListSettingsOut.columns.columnMapping) {
-      if (typeof ResponseEntry[column.path[depth]] !== 'object' &&
-        typeof ResponseEntry[column.path[depth]] !== 'undefined' ) {
-        // checks if the path of a recursive function call is the same as in the column
-        // generated by the for of loop. This is necessary if more than one column may have the same segment names
-        // but in different depths / paths.
-        if (pathCompare === undefined || pathCompare === column.path) {
-          this.append(ResponseEntry[column.path[depth]], column.name, length);
-        }
-      } else if (typeof ResponseEntry[column.path[depth]] === 'object') {
-        this.appendEntryToTabledata(ResponseEntry[column.path[depth]], depth + 1, length, column.path);
-      }
-    }
+  toggleShowSettings() {
+    this.showSettings = !this.showSettings;
+    // Todo: reset also the setits in the page component!!!
   }
 
-  append(entry: string, name: string, length: number) {
-    // is appending the collected values to the tabledata
-    if (this.generatedData[length] === undefined) {
-      this.generatedData[length] = {};
-    }
-    this.generatedData[length][name] = entry;
-    if (this.generatedData.length === this.queryResponse.length) {
-      this.tableData = this.generatedData;
+  setTimeOutForInstructions() {
+    setTimeout(() => { this.showInstructions = true; }, 1500);
+  }
+
+/*
+appendEntryToTabledata(ResponseEntry: any, depth: number, length: number, pathCompare?: Array<string>) {
+  // recursive method for getting the actual values from nested jsons
+  // and appending them to the tabledata. Allowed values are strings,
+  // numbers, symbols and booleans. Objects can not be used here). If it is an object,
+  // it will try to flatten that by calling this very method recursively.
+  for (const column of this.dataListSettingsOut.columns.columnMapping) {
+    if (typeof ResponseEntry[column.path[depth]] !== 'object' &&
+      typeof ResponseEntry[column.path[depth]] !== 'undefined' ) {
+      // checks if the path of a recursive function call is the same as in the column
+      // generated by the for of loop. This is necessary if more than one column may have the same segment names
+      // but in different depths / paths.
+      if (pathCompare === undefined || pathCompare === column.path) {
+        this.append(ResponseEntry[column.path[depth]], column.name, length);
+      }
+    } else if (typeof ResponseEntry[column.path[depth]] === 'object') {
+      this.appendEntryToTabledata(ResponseEntry[column.path[depth]], depth + 1, length, column.path);
     }
   }
+}
+
+append(entry: string, name: string, length: number) {
+  // is appending the collected values to the tabledata
+  if (this.generatedData[length] === undefined) {
+    this.generatedData[length] = {};
+  }
+  this.generatedData[length][name] = entry;
+  if (this.generatedData.length === this.queryResponse.length) {
+    this.tableData = this.generatedData;
+  }
+}
 
 */
 

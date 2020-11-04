@@ -1,0 +1,134 @@
+
+<br>
+<div>
+  <button mat-button style="display: inline-block"
+          (click)="goToDashboard();">
+    <mat-icon>home</mat-icon>
+  </button>
+
+  <button mat-button style="display: inline-block"
+          matTooltip="Users"(click)="showForm('user');">
+    <mat-icon>person</mat-icon>
+  </button>
+
+<!--button mat-button style="display: inline-block"
+        matTooltip="menu" [matMenuTriggerFor]="fileMenu">
+  <mat-icon>menu</mat-icon>
+</button-->
+</div>
+
+<!--mat-menu #fileMenu="matMenu">
+    <button *ngIf="page.toAdd" mat-button matTooltip="Add Page To Project" (click)="addPageToProject(page)">
+      <mat-icon> add </mat-icon>
+    </button>
+    <button *ngIf="!page.toAdd" mat-button matTooltip="Remove Page From Project" (click)="removePageFromProject(page);">
+      <mat-icon> remove </mat-icon>
+    </button>
+</mat-menu-->
+
+<div class="container">
+  <div class="row">
+<div class="col-lg-12 text-center">
+<h1 class="section-heading">Admin Dashboard for {{ userGroupTitle }} User Group</h1>
+</div>
+  </div>
+
+  <br>
+  <br>
+  <br>
+
+  <div *ngFor="let action of actions; let i = index">
+    <div
+      class="col-md-4"
+      href="#portfolioModal1"
+      *ngIf="userAdmin"
+      [ngStyle]="{'color': userAdmin && action.color ==='green' ? 'green' : 'black'}"
+
+      style=" width: 230px; height: 300px; display: inline-block;">
+                  <span class="fa-stack fa-4x" [matMenuTriggerFor]="appMenu" [ngSwitch]="action.type"
+                        style="cursor: pointer">
+                      <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                      <i class="fa fa-lightbulb-o fa-stack-1x fa-inverse"></i>
+                    </span>
+      <h4 class="service-heading">{{ action.title }}</h4>
+      <p class="text-muted">{{ action.description }}</p>
+      <mat-menu #appMenu="matMenu">
+        <button mat-menu-item (click)="addProjectToUserGroup( action )">Add Project to User Group</button>
+        <button mat-menu-item (click)="getPages(action._id);" [matMenuTriggerFor]="pageMenu">Add/Remove Page to/from User Group</button>
+        <button mat-menu-item (click)="removeProjectFromUserGroup(action)">Remove Project From User Group</button>
+      </mat-menu>
+      <mat-menu #pageMenu="matMenu">
+        <div *ngFor="let page of pages" style="margin-left: 15px">
+          {{ page.page.title }}
+          <button *ngIf="page.toAdd" mat-button matTooltip="Add Page To Project" (click)="addPageToProject(page)">
+            <mat-icon> add </mat-icon>
+          </button>
+          <button *ngIf="!page.toAdd" mat-button matTooltip="Remove Page From Project" (click)="removePageFromProject(page);">
+            <mat-icon> remove </mat-icon>
+          </button>
+        </div>
+      </mat-menu>
+    </div>
+  </div>
+<div class="example-container" style="align-content: initial">
+<div *ngIf="usersForm">
+  <button style="float: right;background-color:#9d9d9d" mat-button (click)="showForm('');">
+    <mat-icon>close</mat-icon>
+  </button>
+  <div style="margin-left: 70px;"  *ngIf="userAdmin">
+    <div [formGroup]="emailForm">
+      <mat-form-field class="full-width">
+        <input formControlName="email" matInput name="email" placeholder="Enter User Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+      </mat-form-field>
+      <div class="error-validation" *ngIf="emailForm.get('email').hasError('pattern') && emailForm.get('email').touched">
+        The email is not valid, please enter a valid one.
+      </div>
+      <button mat-button mat-icon-button (click)="addUserToUserGroup(emailForm.get('email').value, false)">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="dataSource">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="profile" >
+        <!--th mat-header-cell *matHeaderCellDef mat-sort-header > File name </th-->
+        <td mat-cell *matCellDef="let row" >
+          <img [src]="(row.usrProfileFilePath)? row.usrProfileFilePath: environment + '/assets/img/team/user-icon-vector.jpg'"  style="display: inline-block;border-radius: 50%;width:50px;height: 50px;float:left;margin-left: 1px;">
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <td mat-cell *matCellDef="let row" >
+         <div style="padding: 10px;" [ngStyle]="{'text-decoration':(searchObjIdInArray(row._id,adminUsers)!=-1)?'underline red':'none'}"> {{row.email}} </div>
+        </td>
+        <!--person_outline-->
+      </ng-container>
+      <ng-container matColumnDef="delete">
+        <td mat-cell *matCellDef="let row">
+          <button mat-menu-item (click)="deleteUser( row._id, false, true);" >
+            <mat-icon>remove</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="addToAdminList">
+        <td mat-cell *matCellDef="let row">
+          <button [disabled]="(searchObjIdInArray(row._id,adminUsers)!==-1)? true:false" mat-menu-item (click)="addUserToUserGroup(row.email, true);" >
+            <mat-icon>verified_user</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="deleteFromAdminList">
+        <td mat-cell *matCellDef="let row">
+          <button [disabled]="(searchObjIdInArray(row._id,adminUsers)!==-1)? false:true" mat-menu-item (click)="deleteUser( row._id, true, false);" >
+            <mat-icon>person_outline</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <tr mat-row *matRowDef="let row; columns: ['profile','name','delete', 'addToAdminList','deleteFromAdminList'];" ></tr>
+    </table>
+  </div>
+</div>
+</div>
+</div>

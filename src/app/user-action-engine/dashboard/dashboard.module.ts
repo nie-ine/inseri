@@ -3,7 +3,7 @@ import {CommonModule, DatePipe} from '@angular/common';
 import {DashboardComponent, DialogOverviewExampleDialog} from './dashboard/dashboard.component';
 import {RouterModule} from '@angular/router';
 import {MatButtonModule} from '@angular/material/button';
-import { MatDialogModule, MatProgressSpinnerModule } from '@angular/material';
+import {MatDialogModule, MatProgressSpinnerModule, MatTableModule} from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatMenuModule} from '@angular/material/menu';
@@ -22,39 +22,42 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatSelectModule} from '@angular/material/select';
 import {NIEOSModule} from '../../app-engine/nie-OS.module';
-
+import {UserGroupComponent} from '../user-group/user-group.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        MatButtonModule,
-        MatDialogModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatRadioModule,
-        MatMenuModule,
-        MatIconModule,
-        MatInputModule,
-        MatFormFieldModule,
-        MatProgressSpinnerModule,
-        MatExpansionModule,
-        MatCardModule,
-        StaticPagesModule,
-        MatTooltipModule,
-        MatChipsModule,
-        MatSelectModule,
-        RouterModule.forRoot([
-            {path: 'dashboard', component: DashboardComponent},
-            {path: 'impressum', component: ImpressumComponent}
-        ]),
-        NIEOSModule
-    ],
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatDialogModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatRadioModule,
+    MatMenuModule,
+    MatIconModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatProgressSpinnerModule,
+    MatExpansionModule,
+    MatCardModule,
+    StaticPagesModule,
+    MatTooltipModule,
+    MatChipsModule,
+    MatSelectModule,
+    RouterModule.forRoot([
+      {path: 'dashboard', component: DashboardComponent},
+      {path: 'impressum', component: ImpressumComponent},
+      {path: 'app-user-group', component: UserGroupComponent},
+    ]),
+    NIEOSModule,
+    MatTableModule
+  ],
   declarations: [
     DashboardComponent,
     DialogOverviewExampleDialog,
     EditActionComponent,
     DeleteActionComponent,
     ImpressumComponent,
+    UserGroupComponent,
     HeaderComponent
   ],
   entryComponents: [

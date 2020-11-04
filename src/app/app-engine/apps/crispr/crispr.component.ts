@@ -9,7 +9,7 @@ import {HttpClient} from '@angular/common/http';
 })
 export class CrisprComponent {
   fileToUpload: any;
-  formData = new FormData();
+  form = new FormData();
   showSubmitButton = false;
   constructor(
     private http: HttpClient
@@ -22,14 +22,13 @@ export class CrisprComponent {
       this.showSubmitButton = true;
     }
 
-    this.formData.append('file', this.fileToUpload, this.fileToUpload.name);
+    this.form.append('data', this.fileToUpload, 'data' );
   }
 
   submitFile() {
-    this.http.post('http://localhost:4321', this.formData)
+    this.http.post('http://localhost:4321', this.form)
       .subscribe((val) => {
         console.log(val);
     }, error => console.log( error ));
   }
-
 }

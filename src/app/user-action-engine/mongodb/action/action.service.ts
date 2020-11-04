@@ -60,5 +60,7 @@ export class ActionService {
     return this.http.post(`${ActionService.API_BASE_URL_ACTION}/reloadProject/`,
       {pageSetId });
   }
-
+  // getAllDetailsOfActions(userId: string) {
+  //   return this.http.get(`${ActionService.API_BASE_URL_ACTION}/allActionsAndItsPages/${userId}`);
+  // }
 }

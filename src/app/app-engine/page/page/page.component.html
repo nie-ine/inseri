@@ -84,6 +84,8 @@
 
           <mat-menu #menu4="matMenu">
             <button mat-menu-item (click)="undoPublishTemplate()" (click)="page.publishedAsTemplate = false">Undo</button>
+            <button mat-menu-item (click)="filePicker.click()" >Add Profile Photo</button>
+            <input type="file" class="form-control" name="profilePic" #filePicker (change)="addProfilePhoto($event)" style="visibility: hidden;height: 0px">
           </mat-menu>
 
 
@@ -293,7 +295,12 @@
         </button>
 
         <button mat-menu-item (click)="openDataManagement()">
-          Open Data Management
+          Data Management
+        </button>
+
+        <button mat-menu-item *ngIf="app.hasOwnProperty('showSettings')" (click)="toggleShowInAppSettings( app, i )">
+          <span *ngIf="app.showSettings">Close app settings</span>
+          <span *ngIf="!app.showSettings">Show app settings</span>
         </button>
 
         <button mat-menu-item (click)="appMenu( app, 'minimize' )">
@@ -321,6 +328,10 @@
     <div style="pointer-events: auto!important;"
       *ngIf=" !app.minimized && !app.panelExtended" [style.overflow]="'auto'"
       [ngStyle]="{ 'height':  ( app.fullHeight || app.panelExtended ) ? '92%' : app.height + 'px'}">
+
+      <div *ngIf="app.hasOwnProperty('showSettings')">
+        <button mat-raised-button color="primary" *ngIf="app.showSettings" (click)="toggleShowInAppSettings( app, i )">Close app settings</button>
+      </div>
 
       <app-all-app-selectors
         [i]="i"

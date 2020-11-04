@@ -24,7 +24,7 @@ export class AuthService {
 
   createUser(email: string, password: string, firstName: string, lastName: string, newsletter: boolean,
              usrProfileFile: File): Observable<any> {
-    //const fileData = new FormData();
+    // const fileData = new FormData();
     const authData = new FormData();
     authData.append( 'password', password);
     authData.append( 'firstName', firstName);
@@ -35,19 +35,6 @@ export class AuthService {
     if (usrProfileFile) {
       authData.append('file', usrProfileFile, usrProfileFile.name);
     }
-    //   usrProfileFilePath: environment.app + '/assets/img/team/user-icon-vector.jpg'
-    //
-    // if (usrProfileFile) {
-    //   fileData.append('file', usrProfileFile, usrProfileFile.name);
-    // }
-    // const authData: AuthData = {
-    //   email: email,
-    //   password: password,
-    //   firstName: firstName,
-    //   lastName: lastName,
-    //   newsLetter: newsletter,
-    //   usrProfileFilePath: environment.app + '/assets/img/team/user-icon-vector.jpg'
-    // };
     return this.http.post(`${AuthService.API_BASE_URL_USER}/signup/` + newsletter, authData);
   }
 
@@ -138,7 +125,7 @@ export class AuthService {
       }
       >(`${AuthService.API_BASE_URL_USER}/login`, authData)
       .subscribe( response => {
-        console.log( response );
+        //console.log( response );
         const token = response.token;
         this.token = token;
         const expiresInDuration = response.expiresIn;
@@ -215,7 +202,7 @@ export class AuthService {
       'userId',
       userId
     );
-    console.log(localStorage);
+    //console.log(localStorage);
   }
 
   private clearAuthData() {
@@ -244,5 +231,9 @@ export class AuthService {
       usrProfileFile.append('file', usrProfilePic, usrProfilePic.name);
     }
     return this.http.post(`${AuthService.API_BASE_URL_USER}/updateUsrProfilePic/${email}`, usrProfileFile);
+  }
+
+  getUserByEmail(email: string): Observable<any> {
+    return this.http.get(`${AuthService.API_BASE_URL_USER}/${email}/getUserByEmail`);
   }
 }

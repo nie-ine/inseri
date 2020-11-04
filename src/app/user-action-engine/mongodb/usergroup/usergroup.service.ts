@@ -24,40 +24,17 @@ export class UsergroupService {
       `${UsergroupService.API_BASE_URL_USERGROUP}`, {observe: 'response'});
   }
 
-  showGroupMembers(title: string) {
-    return this.http.get(
-      `${UsergroupService.API_BASE_URL_USERGROUP + '/' + title + '/listGroupMembers'}`, {observe: 'response'});
-  }
 
-  assignUserToGroup(group: any, email: string): Observable<any> {
+  assignUserToGroup(groupId: any, id: string, admin: boolean): Observable<any> {
     return this.http.post(
       `${UsergroupService.API_BASE_URL_USERGROUP + '/addMember'}`,
-      {groupId: group._id, memberToAdd: email}, {observe: 'response'});
+      {groupId: groupId, memberToAdd: id, admin: admin}, {observe: 'response'});
   }
 
-  deleteGroup(groupTitle: string) {
+  deleteGroup(groupId: string) {
     return this.http.post(
-      'http://localhost:3000/api/userGroups/' + groupTitle,
-      {title: groupTitle}, {observe: 'response'});
-  }
-
-  removeUserFromGroup(group: any, email: string): Observable<any> {
-    return this.http.post(
-      `${UsergroupService.API_BASE_URL_USERGROUP + '/removeMember'}`,
-      {groupId: group._id, memberToRemove: email}, {observe: 'response'});
-  }
-
-  removeCurrentUserFromGroup(group: any) {
-    return this.http.post(
-      `${UsergroupService.API_BASE_URL_USERGROUP + '/removeCurrentUserFromGroup/' + group._id}`,
-      {title: group.title}, {observe: 'response'}
-    );
-  }
-
-  assignNewOwner(group: any, email: string): Observable<any> {
-    return this.http.post(
-      `${UsergroupService.API_BASE_URL_USERGROUP + '/assignNewOwner/' + group._id + '&' + email}`,
-      {title: group.title}, {observe: 'response'});
+      `${UsergroupService.API_BASE_URL_USERGROUP  + '/deleteGroup'}`,
+      {id: groupId}, {observe: 'response'});
   }
 
   updateUserGroupDetails(groupId: string, title: string, description: string) {
@@ -66,8 +43,40 @@ export class UsergroupService {
       {groupId: groupId}, {observe: 'response'});
   }
   showUserGroupDetails(groupId: string) {
-    return this.http.get(`${UsergroupService.API_BASE_URL_USERGROUP + '/showUserGroupDetails/' + groupId}`,
+    return this.http.get(`${UsergroupService.API_BASE_URL_USERGROUP + '/showUserGroupDetails/' + groupId }`,
       {observe: 'response'}
       );
+  }
+
+  addProjectToUserGroup(_id: string, hasPages: [string] | Array<string>, groupId: string) {
+    return this.http.post(
+      `${UsergroupService.API_BASE_URL_USERGROUP + '/addProjectToUserGroup/' + groupId}`,
+      {actionId: _id, hasPages: hasPages}, {observe: 'response'});
+  }
+
+  deleteUser(groupId: string, userId: any, admin: boolean) {
+    return this.http.post(
+      `${UsergroupService.API_BASE_URL_USERGROUP + '/removeMember'}`,
+      {groupId: groupId, memberToRemove: userId, admin: admin}, {observe: 'response'});
+  }
+
+  deleteProjectFromUserGroup(actionId: any, groupId: any) {
+    return this.http.post(
+      `${UsergroupService.API_BASE_URL_USERGROUP + '/removeProject'}`,
+      {groupId: groupId, actionId: actionId }, {observe: 'response'});
+  }
+
+  addPageToProject(actionId: any, groupId: string, pageId:  any) {
+    return this.http.post(
+      `${UsergroupService.API_BASE_URL_USERGROUP + '/addPageToProject'}`,
+      {actionId: actionId, groupId: groupId, pageId:  pageId },
+      {observe: 'response'});
+  }
+
+  removePageFromProject(actionId: any, groupId: string, pageId: any) {
+    return this.http.post(
+      `${UsergroupService.API_BASE_URL_USERGROUP + '/removePageFromProject'}`,
+      {actionId: actionId, groupId: groupId, pageId:  pageId },
+      {observe: 'response'});
   }
 }

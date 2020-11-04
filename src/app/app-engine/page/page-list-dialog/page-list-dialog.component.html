@@ -12,7 +12,8 @@
         <th mat-header-cell *matHeaderCellDef>Go to page</th>
         <td mat-cell *matCellDef="let item">
           <a target=”_blank” [routerLink]="['/page']" [queryParams]="{actionID: item.actionId, page: item._id }">
-            <mat-icon>trending_up</mat-icon>
+            <img [src]="item.templatePhotoURL" style="display: inline-block;border-radius: 50%;width:50px;height: 50px;vertical-align: middle;" *ngIf="item.templatePhotoURL!=='' && item.templatePhotoURL">
+            <mat-icon  *ngIf="!item.templatePhotoURL">trending_up</mat-icon>
           </a>
         </td>
       </ng-container>

@@ -256,7 +256,7 @@ header .intro-text .intro-heading {
   header .intro-text .intro-heading {
     font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-transform: uppercase;
-    font-weight: 700;
+    font-weight: 500;
     font-size: 75px;
     line-height: 75px;
     margin-bottom: 50px
@@ -279,7 +279,7 @@ section h3.section-subheading {
   text-transform: none;
   font-style: italic;
   font-weight: 400;
-  margin-bottom: 75px
+  margin-bottom: 15px
 }
 
 @media (min-width: 768px) {

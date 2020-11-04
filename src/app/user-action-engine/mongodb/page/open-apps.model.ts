@@ -30,6 +30,14 @@ export class OpenAppsModel {
       initialWidth: '600',
       initialHeight: '400'
     },
+    machineReasoning: {
+      type: 'machineReasoning',
+      model: [],
+      materialIcon: 'blur_on',
+      initialWidth: '600',
+      initialHeight: '800',
+      fullWidth: true
+    },
     crispr: {
       type: 'crispr',
       model: [],
@@ -611,6 +619,10 @@ export class OpenAppsModel {
         {
           'inputName': 'json',
         },
+        {
+          'inputName': 'showSettings',
+          default: false
+        },
 
         {
           'inputName': 'settings',
@@ -645,11 +657,6 @@ export class OpenAppsModel {
             },
             "sort":{
               "disallowSorting":false
-            },
-            "styles":{
-              "cellStyle":{
-                "cursor":"pointer"
-              }
             }
           }
         }

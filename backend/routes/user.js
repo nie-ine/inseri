@@ -338,6 +338,21 @@ router.get('/:email/reset-password', (req, res, next) => {
     });
 });
 
+router.get('/:email/getUserByEmail', (req, res, next) => {
+  User.findOne({email: req.params.email})
+    .then(result => {
+        res.status(201).json({
+          message: 'User Successfully found ',
+          user: result
+        });
+    })
+    .catch(err => {
+      return res.status(401).json({
+        message: 'Did not find user'
+      });
+    });
+});
+
 router.post('/:email/reset-password-set-new-password', (req, res, next) => {
   User.findOne({email: req.params.email})
     .then(result => {
@@ -480,9 +495,6 @@ router.get('/:id/queries', checkAuth, (req, res, next) => {
 router.post('/signup/:newsLetter', multer({storage: storage}).single("file"), (req, res, next) => {
   // Tests if email address is invalid
   const emailPattern = /^\S+[@]\S+[.]\S+$/;
-  console.log(req.body);
-  console.log(req.param);
-  console.log(req);
   if (!emailPattern.test(req.body.email)) {
     return res.status(400).json({
       message: 'Your email address is invalid!'
@@ -505,10 +517,9 @@ router.post('/signup/:newsLetter', multer({storage: storage}).single("file"), (r
         .then(hashPwd => {
           let filePath = req.body.usrProfileFilePath;
           if (req.file) {
-            console.log("uploaded a file ");
-            console.log((req.file.filename));
+
             filePath = req.body.host + "/assets/img/team/" + req.file.filename;
-            console.log(filePath);
+
           }
           const user = new User({
             email: req.body.email,
@@ -520,7 +531,7 @@ router.post('/signup/:newsLetter', multer({storage: storage}).single("file"), (r
           });
           user.save()
             .then(result => {
-              console.log(result);
+
               res.status(201).json({
                 message: 'User was created',
                 result: result
@@ -542,7 +553,7 @@ router.post('/signup/:newsLetter', multer({storage: storage}).single("file"), (r
 
 router.post('/login', (req, res, next) => {
   let fetchedUser;
-  console.log('Login');
+
   User.findOne({email: req.body.email})
     .then(user => {
       if (!user) {
@@ -581,7 +592,7 @@ router.post('/login', (req, res, next) => {
       });
     })
     .catch(err => {
-      console.log(err);
+
       return res.status(401).json({
         message: 'Auth failed'
       });
@@ -590,7 +601,6 @@ router.post('/login', (req, res, next) => {
 
 router.post('/updateUsrProfilePic/:email', multer({storage: storage}).single("file"), (req, res, next) => {
   let filePath = "";
-  console.log(" final file Path is " + filePath);
   User.findOne({email: req.params.email}).then(userFound => {
     if (req.file) {
       filePath = req.body.hostname + "/assets/img/team/" + req.file.filename;

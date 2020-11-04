@@ -158,8 +158,13 @@
                 [dataListSettings]="app.settings"
                 [hash] = "app.hash"
                 [appInputQueryMapping] = "appInputQueryMapping"
+                [showSettings]="app.showSettings"
                 (reloadVariables)="reloadVariablesFunction()">
 </data-list-view>
+
+<app-machine-reasoning *ngIf="app.type === 'machineReasoning'">
+
+</app-machine-reasoning>
 
 
 <app-bar-chart *ngIf=" app.type === 'barCharts' "

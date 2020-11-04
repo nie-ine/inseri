@@ -96,12 +96,12 @@ export class DashboardComponent implements OnInit {
     this.commentService.getAllCommentsOfUser()
       .subscribe(
         data => {
-          console.log(data);
+          //console.log(data);
           this.commentArray = (data as any).comments;
           for (let i = 0; i < this.commentArray.length; i++) {
             if (!this.commentArray[i].creator.usrProfileFilePath) {
               this.commentArray[i].creator.usrProfileFilePath = environment.app + '/assets/img/team/user-icon-vector.jpg';
-              console.log(this.commentArray[i].creator.usrProfileFilePath);
+             // console.log(this.commentArray[i].creator.usrProfileFilePath);
             }
             this.createQueryInformationOfComment(i);
           }
@@ -156,7 +156,7 @@ export class DashboardComponent implements OnInit {
     this.usergroupService.getAllUserGroups()
       .subscribe(
         usergroupresponse => {
-          console.log(usergroupresponse);
+         // console.log(usergroupresponse);
           this.userGroups = (usergroupresponse as any).body.groups;
         },
         error => console.log(error)
@@ -181,7 +181,7 @@ export class DashboardComponent implements OnInit {
           });
         }))
       .subscribe(transformedActions => {
-        console.log(transformedActions);
+        //console.log(transformedActions);
         this.actions = transformedActions;
       });
   }
@@ -197,21 +197,22 @@ export class DashboardComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
+      //console.log(result);
       this.updateActions();
       this.getUserGroups();
       if (result) {
-        console.log(result);
+        //console.log(result);
         const newPage: any = {};
         this.actionService.getAction(result[1])
           .subscribe(
             actionResult => {
-              console.log('actionService - get Action: ');
-              console.log(actionResult);
+              //console.log('actionService - get Action: ');
+             // console.log(actionResult);
               newPage.title = actionResult.body.action.title;
               newPage.description = actionResult.body.action.description;
               this.pageService.createPage(actionResult.body.action.hasPageSet._id, newPage)
                 .subscribe((result2) => {
+                  //console.log('open dialog');
                   this.router.navigate(['/page'],
                     {
                       queryParams:
@@ -262,9 +263,9 @@ export class DashboardComponent implements OnInit {
     this.actionService.updateAction(action)
       .subscribe(
         data => {
-          console.log(data);
+          //console.log(data);
         }, error => {
-          console.log(error);
+          //console.log(error);
         }
       );
   }
@@ -273,6 +274,7 @@ export class DashboardComponent implements OnInit {
     if (action.type === 'page-set') {
       this.actionService.getAction(action.id)
         .subscribe(data => {
+          //console.log('continue action');
           if (data.body.action.hasPageSet.hasPages !== null && data.body.action.hasPageSet.hasPages[0]._id) {
             action.hasPage = data.body.action.hasPageSet.hasPages[0]._id;
             this.router.navigate(['/page'],
@@ -284,12 +286,13 @@ export class DashboardComponent implements OnInit {
               });
           }
         }, error => {
-          console.log(error);
+          //console.log(error);
         });
     }
   }
 
   goToDocumentIndex(action: any) {
+    //console.log('goToDocumentIndex');
     this.router.navigate(['/page-set'],
       {
         queryParams: {
@@ -299,8 +302,8 @@ export class DashboardComponent implements OnInit {
   }
 
   sendMessage() {
-    console.log('Send Message');
-    console.log(this.message);
+    //console.log('Send Message');
+    //console.log(this.message);
     this.contactService.sendMessage(this.message)
       .subscribe(response => {
         console.log(response);
@@ -321,44 +324,44 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  assignUserToGroup() {
-    this.usergroupService.assignUserToGroup(
-      this.usergroup, this.email)
-      .subscribe(
-        response => {
-          console.log(response);
-        },
-        error => {
-          console.log(error);
-        }
-      );
-  }
-
-  removeUserFromGroup() {
-    this.usergroupService.removeUserFromGroup(
-      this.usergroup, this.email)
-      .subscribe(
-        response => {
-          console.log(response);
-        },
-        error => {
-          console.log(error);
-        }
-      );
-  }
-
-  showGroupMembers(title: string) {
-    console.log('show group members');
-    this.usergroupService.showGroupMembers(title)
-      .subscribe(
-        groupMembers => {
-          console.log(groupMembers);
-          this.groupMembers = (groupMembers as any).body.result.users;
-        },
-        error => {
-          console.log(error);
-        });
-  }
+  // assignUserToGroup() {
+  //   this.usergroupService.assignUserToGroup(
+  //     this.usergroup, this.email)
+  //     .subscribe(
+  //       response => {
+  //         console.log(response);
+  //       },
+  //       error => {
+  //         console.log(error);
+  //       }
+  //     );
+  // }
+  //
+  // removeUserFromGroup() {
+  //   this.usergroupService.removeUserFromGroup(
+  //     this.usergroup, this.email)
+  //     .subscribe(
+  //       response => {
+  //         console.log(response);
+  //       },
+  //       error => {
+  //         console.log(error);
+  //       }
+  //     );
+  // }
+  //
+  // showGroupMembers(title: string) {
+  //   console.log('show group members');
+  //   this.usergroupService.showGroupMembers(title)
+  //     .subscribe(
+  //       groupMembers => {
+  //         console.log(groupMembers);
+  //         this.groupMembers = (groupMembers as any).body.result.users;
+  //       },
+  //       error => {
+  //         console.log(error);
+  //       });
+  // }
 
   openAllPagesDialog() {
     const dialogRef = this.dialog.open(PageListDialogComponent, {
@@ -369,7 +372,7 @@ export class DashboardComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
+      //console.log(result);
     });
   }
 
@@ -378,7 +381,7 @@ export class DashboardComponent implements OnInit {
     if (action.type === 'page-set') {
       this.fileService.downloadProject(action.id)
         .subscribe(data => {
-          console.log(data);
+          //console.log(data);
           console.log('data returned successfully');
           const a = document.createElement('a');
           document.body.appendChild(a);
@@ -445,6 +448,15 @@ export class DashboardComponent implements OnInit {
         });
     }
   }
+
+  showUserGroupDetails(_id: any) {
+   // console.log(_id);
+    this.router.navigate(['app-user-group'], {
+      queryParams: {
+        usrGroupId: _id
+      }, skipLocationChange: true
+    });
+  }
 }
 
 
@@ -505,26 +517,26 @@ export class DialogOverviewExampleDialog {
       this.usergroup.description)
       .subscribe(
         data => {
-          console.log(data);
+          //console.log(data);
           this.dialogRef.close(data);
         }, error => {
-          console.log(error);
+          //console.log(error);
         }
       );
   }
 
-  deleteUserGroup(title: string) {
-    console.log('show group members');
-    this.usergroupService.deleteGroup(title)
-      .subscribe(
-        response => {
-          console.log(response);
-        },
-        error => {
-          console.log(error);
-        }
-      );
-  }
+  // deleteUserGroup(title: string) {
+  //   console.log('show group members');
+  //   this.usergroupService.deleteGroup(title)
+  //     .subscribe(
+  //       response => {
+  //         console.log(response);
+  //       },
+  //       error => {
+  //         console.log(error);
+  //       }
+  //     );
+  // }
 
   importProjectAsZip($event: Event) {
     const zipFile = (event.target as HTMLInputElement).files[0];
@@ -595,11 +607,11 @@ export class DialogOverviewExampleDialog {
                 }
               });
             } else {
-              zip.file(relativePath).async('binarystring').then(content => {  //base64  ///binarystring
+              zip.file(relativePath).async('binarystring').then(content => {  // base64  ///binarystring
                 console.log('content');
                 console.log(content);
                 projectFiles.push({fileName: relativePath.substr(6), fileContent: content});
-                //console.log(projectFiles);
+                // console.log(projectFiles);
                 counter--;
               });
             }
@@ -614,8 +626,8 @@ export class DialogOverviewExampleDialog {
       if (!isFinished && counter === 0) {
         clearInterval(timeout);
         isFinished = true;
-        //console.log('dashboard component printing comments');
-        //console.log(comments);
+        // console.log('dashboard component printing comments');
+        // console.log(comments);
         console.log('project Files');
         console.log(projectFiles);
         mainObject.actionService.createProject(action, pageSet, comments, pages, queries, jsonQueries, oldHostUrl, filesJson, foldersJson, projectFiles)

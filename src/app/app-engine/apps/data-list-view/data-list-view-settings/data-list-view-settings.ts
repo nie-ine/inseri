@@ -1,6 +1,6 @@
 import {Component, Input, OnChanges} from '@angular/core';
 import {MatChipInputEvent} from '@angular/material/chips';
-import {DisplayedCollumnsService, SettingsService, ColumnHeader } from '../data-list-view-services/table-data.service';
+import {DisplayedCollumnsService, SettingsService, ColumnHeader } from '../data-list-view-services/data-list-view.service';
 import {FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
@@ -17,8 +17,11 @@ export class DataListViewSettingsComponent implements OnChanges {
   @Input() hash: string;
   @Input() dataListSettings: any;
   @Input() dataArrays?: Array<string>;
+  @Input() dataJson?: any;
   displayedColumns: any;
   selectedOption;
+  previewData: any;
+  validPathToDataArray = false
 
   chosenDataSource: string;
 
@@ -27,7 +30,7 @@ export class DataListViewSettingsComponent implements OnChanges {
 
   constructor( private displayedCollumnsService: DisplayedCollumnsService,
                private settingsService: SettingsService,
-               private originalColumnsService: SettingsService,
+               private displayedColumnsService: DisplayedCollumnsService,
                private requestService: GeneralRequestService
   ) {
     this.reloadPageChange = this.settingsService.reloadPage.subscribe(settings => {
@@ -44,19 +47,21 @@ export class DataListViewSettingsComponent implements OnChanges {
     this.displayedCollumnsService.setDisplayedColumns(this.displayedColumns);
   }
 
-  closeSettings() {
-    this.settingsService.switchOpenState();
-  }
-
   recreateGenericColumns() {
     this.dataListSettings.columns.manualColumns = false;
     this.dataListSettings.columns.columnMapping = [];
-    this.saveSettingsToJson(2);
+    this.updateColumns();
+    this.saveSettingsToJson(1); // save && soft reload: only settings & columns get updated
   }
 
   setInitialDataSource() {
     this.dataListSettings.pathToDataArray = this.chosenDataSource;
-    this.saveSettingsToJson(2);
+    this.saveSettingsToJson(2); // save && hard reload
+  }
+
+  testDataSource(path) {
+    // this.previewData = this.displayedColumnsService.getDataFromPath(path, this.dataJson);
+    if (this.previewData) {this.validPathToDataArray = true; }
   }
 
   resetDataSource() {
@@ -68,11 +73,11 @@ export class DataListViewSettingsComponent implements OnChanges {
   }
 
   saveJsonType() {
-    console.log('json type: ', this.jsonType);
     this.dataListSettings.jsonType = this.jsonType;
     this.dataListSettings.columns.manualColumns = false;
     this.dataListSettings.columns.columnMapping = [];
-    this.saveSettingsToJson(2);
+    this.updateColumns();
+    this.saveSettingsToJson(1);
   }
 
 

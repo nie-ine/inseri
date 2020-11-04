@@ -1,3 +1,5 @@
+
+
 const express = require('express');
 
 const Page = require('../models/page');
@@ -8,7 +10,18 @@ const checkAuth2 = require('../middleware/check-auth-without-immediate-response'
 const router = express.Router();
 const PageSet = require('../models/page-set');
 const MyOwnJson = require('../models/myOwnJson');
+const multer = require("multer");
 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "src/assets/img/pageTemplates");
+  },
+  filename: (req, file, cb) => {
+    const name = file.originalname;
+    console.log("The expected filename form the multer package = " + Date.now() + "-" + name);
+    cb(null, Date.now() + "-" + name);
+  }
+});
 
 router.get('/published', (req, res, next) => {
     Page.find( { publishedAsTemplate: true } )
@@ -588,5 +601,28 @@ function updatePage( pageResult, queries, res, req, oldAndNewServerUrls, oldAndN
       });
     });
 }
+
+router.post('/addProfileTemplate/:pageID', multer({storage: storage}).single("file"), (req, res, next) => {
+  let filePath='';
+  console.log(req.file);
+  console.log(req.body);
+  if (req.file) {
+    filePath = req.body.host + "/assets/img/pageTemplates/" + req.file.filename;
+  }
+  Page.findOneAndUpdate({_id: req.params.pageID}, {templatePhotoURL: filePath} )
+    .then(updatedPage => {
+      res.status(201).json({
+        message: 'Page updated successfully',
+        page: updatedPage
+      });
+    })
+    .catch(errorUpdatePage => {
+      res.status(500).json({
+        message: 'Updated page failed',
+        error: errorUpdatePage
+      });
+    });
+});
+
 
 module.exports = router;
