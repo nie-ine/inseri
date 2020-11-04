@@ -7,20 +7,21 @@
           <mat-form-field>
             <input matInput
                    type="number"
+                   [ngStyle]="{'width':'128px'}"
                    placeholder="Pixel"
-                   [value]="this.chartWidth"
-                   [(ngModel)]="this.newChartWidth"
-                   (keyup)="reDrawBarChart()">
+                   [value]="chartWidth"
+                   [(ngModel)]="newChartWidth"
+                   (change)="drawBarChart()">
           </mat-form-field>
         </div>
         <div class="scaleBarChartSlider">
           <mat-slider
             min="150"
-            max="{{ this.chartWidth * 4 }}"
+            max="{{ chartWidth * 4 }}"
             step="50"
-            [value]="this.chartWidth"
-            [(ngModel)]="this.newChartWidth"
-            (change)="reDrawBarChart()"></mat-slider>
+            [value]="chartWidth"
+            [(ngModel)]="newChartWidth"
+            (change)="drawBarChart()"></mat-slider>
         </div>
       </div>
     </div>
@@ -28,13 +29,16 @@
       <div class="selectBarChartRange" [ngStyle]="{'position':'relative', 'width': '100%', 'height': '100%'}">
         <div class="selectLowerRange" [ngStyle]="{'float':'left'}">
           <div>
-            <div [innerHTML]="this.rangeLabel" [ngStyle]="{'font-weight':'bold'}"></div>
+            <div [innerHTML]="rangeLabel" [ngStyle]="{'font-weight':'bold'}"></div>
             <mat-form-field [ngStyle]="{'width':'80px', 'margin-right':'10px'}">
               <input matInput
+                     type="number"
+                     min="{{ rangeMinMin }}"
+                     max="{{ rangeMinMax }}"
                      placeholder="Lowest"
-                     [value]="this.rangeLowest"
-                     [(ngModel)]="this.newRangeLowest">
-<!--                     (keyup)="reDrawBarChart()">-->
+                     [value]="rangeLowest"
+                     [(ngModel)]="newRangeLowest"
+                     (change)="drawBarChart()">
             </mat-form-field>
           </div>
         </div>
@@ -43,28 +47,39 @@
             <div [ngStyle]="{'font-weight':'bold'}">&nbsp;</div>
             <mat-form-field [ngStyle]="{'width':'80px', 'margin-left':'10px'}">
               <input matInput
+                     type="number"
+                     min="{{ rangeMaxMin }}"
+                     max="{{ rangeMaxMax }}"
                      placeholder="Highest"
-                     [value]="this.rangeHighest"
-                     [(ngModel)]="this.newRangeHighest">
-              <!--                   (keyup)="reDrawBarChart()">-->
+                     [value]="rangeHighest"
+                     [(ngModel)]="newRangeHighest"
+                     (change)="drawBarChart()">
             </mat-form-field>
           </div>
         </div>
+      </div>
+      <div class="custom-slider" [ngStyle]="{'position':'relative', 'width': '100%', 'height': '100%', 'padding-left':'30px'}">
+        <ngx-slider [(value)]="newRangeLowest"
+                    [(highValue)]="newRangeHighest"
+                    [options]="RangeOptions"
+                    (valueChange)="drawBarChart()"
+                    (highValueChange)="drawBarChart()">
+        </ngx-slider>
       </div>
     </div>
   </div>
   <!-- <button id="scaleBarChartButton" mat-button (click)="reDrawBarChart()">Update</button> -->
   <div class="barChartContainer">
     <div>
-      <div class="barChartYaxis" id="{{ 'barChartYaxis_' + this.numberOfInitialisedComponent }}"></div>
-      <div class="barChartChart" id="{{ 'barChartChart_' + this.numberOfInitialisedComponent }}"></div>
+      <div class="barChartYaxis" id="{{ 'barChartYaxis_' + numberOfInitialisedComponent }}"></div>
+      <div class="barChartChart" id="{{ 'barChartChart_' + numberOfInitialisedComponent }}"></div>
     </div>
   </div>
 
   <div class="sortBarChart"><mat-slide-toggle
-    id="{{ 'sortChart_' + this.numberOfInitialisedComponent }}"
-    [(ngModel)]="this.isSorted"
-    (change)="reDrawBarChart()"
+    id="{{ 'sortChart_' + numberOfInitialisedComponent }}"
+    [(ngModel)]="isSorted"
+    (change)="drawBarChart()"
   >
     Sorted by value
   </mat-slide-toggle>
