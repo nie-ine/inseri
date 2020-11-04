@@ -199,7 +199,7 @@ export class AppMenuModel {
     },
     {
       id: 'subdirectory_arrow_right',
-      name: 'Tree navigation',
+      name: 'Tree hierarchical-navigation-view',
       tags: 'navigation',
       color: 'green',
       status: 'stable',
@@ -441,12 +441,12 @@ export class AppMenuModel {
     },
     {
       id: 'subdirectory_arrow_right',
-      name: 'Hierarchical navigation',
-      tags: 'knora, navigation',
+      name: 'Hierarchical hierarchical-navigation-view',
+      tags: 'knora, hierarchical-navigation-view',
       color: 'orange',
       status: 'under development',
       appType: 'hierarchicalNavigationView',
-      description: 'Map resources in a graph to a navigation tree.',
+      description: 'Map resources in a graph to a hierarchical-navigation-view tree.',
       showOnHome: false,
       appGroup: 'visualise'
     },

@@ -26,8 +26,8 @@ import { PizzaPartyComponent } from './header/header.component';
 import { ExtendSessionComponent } from './header/header.component';
 import { BrowserModule } from '@angular/platform-browser';
 import {MatChipsModule} from '@angular/material/chips';
-import { DevelopmentViewsModule } from '../app-engine/apps/development-views/development-views.module';
 import {MatIconModule} from '@angular/material/icon';
+import {PageComponent} from '../app-engine/page/page/page.component';
 
 @NgModule({
   imports: [
@@ -40,7 +40,6 @@ import {MatIconModule} from '@angular/material/icon';
     DashboardModule,
     SynopsisModule,
     FormsModule,
-    DevelopmentViewsModule,
     ReactiveFormsModule,
     BrowserModule,
     MatTooltipModule,
@@ -50,7 +49,7 @@ import {MatIconModule} from '@angular/material/icon';
     MatChipsModule,
     MatIconModule,
     RouterModule.forRoot([
-      { path: '**', component: PageNotFoundComponent }
+      { path: '**', component: PageComponent }
       ])
   ],
   declarations: [

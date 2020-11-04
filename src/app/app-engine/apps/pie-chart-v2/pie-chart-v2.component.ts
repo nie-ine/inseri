@@ -32,6 +32,7 @@ export class PieChartV2Component implements AfterViewChecked {
   private _current: any;
   chosenSection: any = {};
   private tooltip: any;
+  chartLoading = true;
 
   constructor() {
     this.width = 600 - this.margin.left - this.margin.right;
@@ -45,15 +46,25 @@ export class PieChartV2Component implements AfterViewChecked {
 
   ngAfterViewChecked() {
     // console.log( this.numberOfInitialisedComponent, this.data );
-    if (
-      this.initialised &&
-      !this.alreadyInitialised &&
-      this.data ) {
-      this.alreadyInitialised = true;
-      setTimeout(() => {
-        console.log( this.data );
-        this.drawD3( this.data.data );
-      }, 100);
+    if ( this.initialised && !this.alreadyInitialised && this.data ) {
+      if ( typeof this.data === 'string' && IsJsonString(this.data) && JSON.parse(this.data).length > 0 ) {
+        const help = this.data;
+        this.data = {};
+        this.data.data = JSON.parse(help);
+        this.alreadyInitialised = true;
+        setTimeout(() => {
+          console.log( this.data );
+          this.drawD3( this.data.data );
+        }, 100);
+        this.chartLoading = false;
+      } else if ( typeof this.data !== 'string' ) {
+        this.alreadyInitialised = true;
+        setTimeout(() => {
+          console.log( this.data );
+          this.drawD3( this.data.data );
+        }, 100);
+        this.chartLoading = false;
+      }
     }
   }
 
@@ -212,4 +223,13 @@ export class PieChartV2Component implements AfterViewChecked {
       });
   }
 
+}
+
+function IsJsonString(str) {
+  try {
+    JSON.parse(str);
+  } catch (e) {
+    return false;
+  }
+  return true;
 }

@@ -21,7 +21,8 @@ export class OpenAppsModel {
       ],
       materialIcon: 'image',
       initialWidth: '800',
-      initialHeight: '500'
+      initialHeight: '500',
+      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/App descriptions for Researchers/Apps to visualise data/Image Viewer/README.md'
     },
     textViewer: {
       type: 'textViewer',
@@ -124,20 +125,6 @@ export class OpenAppsModel {
       initialWidth: '375',
       initialHeight: '350'
     },
-    createResourceForm: {
-      type: 'createResourceForm',
-      model: [],
-      materialIcon: 'add_to_queue',
-      initialWidth: '375',
-      initialHeight: '350'
-    },
-    editResourceForm: {
-      type: 'editResourceForm',
-      model: [],
-      materialIcon: 'web',
-      initialWidth: '375',
-      initialHeight: '350'
-    },
     knoraV2viewer: {
       type: 'knoraV2viewer',
       model: [],
@@ -180,7 +167,8 @@ export class OpenAppsModel {
       ],
       materialIcon: 'short_text',
       initialWidth: '250',
-      initialHeight: '150'
+      initialHeight: '150',
+      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/...'
     },
     calendar: {
       type: 'calendar',
@@ -488,7 +476,63 @@ export class OpenAppsModel {
       initialHeight: '350',
       inputs: [
         {
-          'inputName': 'data'
+          'inputName': 'data',
+          default: {
+            'data': {
+              nodes: [{
+                nodeId: 0,
+                name: "node0"
+              }, {
+                nodeId: 1,
+                name: "node1"
+              }, {
+                nodeId: 2,
+                name: "node2"
+              }, {
+                nodeId: 3,
+                name: "node3"
+              }, {
+                nodeId: 4,
+                name: "node4"
+              }],
+              links: [{
+                source: 0,
+                target: 2,
+                value: 2,
+                uom: 'Widget(s)'
+              }, {
+                source: 1,
+                target: 2,
+                value: 2,
+                uom: 'Widget(s)'
+              }, {
+                source: 1,
+                target: 3,
+                value: 2,
+                uom: 'Widget(s)'
+              }, {
+                source: 0,
+                target: 4,
+                value: 2,
+                uom: 'Widget(s)'
+              }, {
+                source: 2,
+                target: 3,
+                value: 2,
+                uom: 'Widget(s)'
+              }, {
+                source: 2,
+                target: 4,
+                value: 2,
+                uom: 'Widget(s)'
+              }, {
+                source: 3,
+                target: 4,
+                value: 4,
+                uom: 'Widget(s)'
+              }]
+            }
+          }
         }
       ]
     },
@@ -592,7 +636,8 @@ export class OpenAppsModel {
       ],
       materialIcon: 'subdirectory_arrow_right',
       initialWidth: '375',
-      initialHeight: '350'
+      initialHeight: '350',
+      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/App descriptions for Researchers/Apps to visualise data/Tree Navigation/README.md'
     },
     hierarchicalNavigationView: {
       type: 'hierarchicalNavigationView',
@@ -610,7 +655,8 @@ export class OpenAppsModel {
       ],
       materialIcon: 'subdirectory_arrow_right',
       initialWidth: '375',
-      initialHeight: '350'
+      initialHeight: '350',
+      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/App descriptions for Researchers/Apps to visualise data/Hierarchical Navigation/README.md'
     },
     dataListView: {
       type: 'dataListView',
@@ -728,7 +774,8 @@ export class OpenAppsModel {
       ],
       materialIcon: 'aspect_ratio',
       initialWidth: '800',
-      initialHeight: '500'
+      initialHeight: '500',
+      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/App descriptions for Researchers/Apps to visualise data/HTML Viewer/README.md'
     },
     joinedTextView: {
       type: 'joinedTextView',
@@ -755,7 +802,8 @@ export class OpenAppsModel {
       ],
       materialIcon: 'aspect_ratio',
       initialWidth: '375',
-      initialHeight: '350'
+      initialHeight: '350',
+      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/App descriptions for Researchers/Apps to visualise data/Joined Text View/README.md'
     },
     login: {
       type: 'login',

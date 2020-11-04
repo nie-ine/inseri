@@ -13,11 +13,12 @@ const pageSchema = mongoose.Schema({
     showDataBrowserOnPublish: { type: Boolean },
     tiles: { type: Boolean },
     chosenWidth: { type: Number },
-    hasSubPages: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Page'  }],
     jsonId: { type: String },
     ownQuery: { type: String },
     publishedAsTemplate: { type: Boolean },
-    templatePhotoURL: {type: String}
+    templatePhotoURL: {type: String},
+    hasSubPages: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Page'  }],
+    //hasParent:{ type: mongoose.Schema.Types.ObjectId, ref: 'Page'  }
 });
 
 module.exports = mongoose.model('Page', pageSchema);

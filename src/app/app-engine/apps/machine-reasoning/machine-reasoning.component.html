@@ -1,3 +1,67 @@
-<p>
-  machine-reasoning works!
-</p>
+<div id="input">
+    <mat-tab-group animationDuration="500ms">
+      <mat-tab label="Data">
+        <div class="input_container">
+          <div class="files">
+            <div class="file_list" [innerHTML]="data_bowl"></div>
+            <input #hidden_upl_data [ngStyle]="{'display':'none'}" type="file" (change)="onFileSelect($event, 'data')" multiple>
+            <button mat-button (click)="hidden_upl_data.click()">Select data...</button>
+            <button *ngIf="data_files.length > 0" mat-button (click)="resetFiles('data')" [ngStyle]="{'color':'#ff4d4d'}">Reset</button>
+          </div>
+          <div class="urls">
+            <textarea matInput id="data_url_list" aria-label="list of data URLs" [(ngModel)]="data_url_content" [placeholder]="init_urls_text"></textarea>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Rules">
+        <div class="input_container">
+          <div class="files">
+            <div class="file_list" [innerHTML]="rule_bowl"></div>
+            <input #hidden_upl_rule [ngStyle]="{'display':'none'}" type="file" (change)="onFileSelect($event, 'rule')" multiple>
+            <button mat-button (click)="hidden_upl_rule.click()">Select rules...</button>
+            <button *ngIf="rule_files.length > 0" mat-button (click)="resetFiles('rule')" [ngStyle]="{'color':'#ff4d4d'}">Reset</button>
+          </div>
+          <div class="urls">
+            <textarea matInput id="rule_url_list" aria-label="list of rule URLs" [(ngModel)]="rule_url_content" [placeholder]="init_urls_text"></textarea>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Queries">
+        <div class="input_container">
+          <div class="files">
+            <div class="file_list" [innerHTML]="query_bowl"></div>
+            <input #hidden_upl_query [ngStyle]="{'display':'none'}" type="file" (change)="onFileSelect($event, 'query')" multiple>
+            <button mat-button (click)="hidden_upl_query.click()">Select queries...</button>
+            <button *ngIf="query_files.length > 0" mat-button (click)="resetFiles('query')" [ngStyle]="{'color':'#ff4d4d'}">Reset</button>
+          </div>
+          <div class="urls">
+            <textarea matInput id="query_url_list" aria-label="list of query URLs" [(ngModel)]="query_url_content" [placeholder]="init_urls_text"></textarea>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+    <hr>
+    <div id="parameters">
+      <span class="param">The parameters (currently readonly)</span>
+      <textarea id="param_list" matInput aria-label="reasoning parameters" readonly>--nope</textarea>
+    </div>
+    <button mat-button (click)="reason()" [ngStyle]="{'background-color':'#FFE46D'}">Reason</button>
+    <mat-spinner *ngIf="reasoning" diameter="25" [ngStyle]="{'float':'right', 'right':'20px'}"></mat-spinner>
+  </div>
+  <div id="results" [class.maximizedDiv]="isMaximized === true">
+
+    <mat-tab-group animationDuration="0ms">
+      <mat-tab label="Results">
+        <div *ngIf="errorMessage" [innerText]="errorMessage" [ngStyle]="{'position':'absolute','top':'18px','left':'45px','width':'90%','z-index':'999','padding':'5px', 'background-color':'#ff4d4d', 'border-radius':'4px', 'color':'white'}"></div>
+        <div [ngStyle]="{'height' : isMaximized === false ? '532px' : '85vh'}">
+          <ace-editor #editor [readOnly]="true" [ngStyle]="{'height':'100%','width':'100%','font-size':'14px','margin-bottom':'15px'}"></ace-editor>
+        </div>
+        <div [ngStyle]="{'float': 'right'}">
+          <button mat-button *ngIf="this.editor.text.length > 0" (click)="download()">Download</button>
+          <button mat-button (click)="isMaximized = !isMaximized" [ngStyle]="{'color' : isMaximized === false ? 'rgba(0,0,0,.87)' : '#ff4d4d'}">{{ isMaximized === true ? 'Minimize' : 'Maximize' }}</button>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+
+

@@ -1,0 +1,52 @@
+<!--mat-menu #childMenu="matMenu" [overlapTrigger]="false">
+  <span *ngFor="let child of items">
+    <span *ngIf="child.subPages && child.subPages.length > 0">
+      <button mat-menu-item color="primary" [matMenuTriggerFor]="menu.childMenu">
+        <span>{{child.page.title}}</span>
+      </button>
+      <app-menu-item #menu [items]="child.subPages"></app-menu-item>
+    </span>
+    <span *ngIf="!child.subPages || child.subPages.length === 0">
+      <button mat-menu-item >
+        <span>{{child.page.title}}</span>
+      </button>
+    </span>
+  </span>
+</mat-menu-->
+<!--mat-menu #appMenu>
+
+  <ng-container *ngFor="let page of pages">
+    <ng-container *ngIf="!!page.subPages.length">
+      <button [matMenuTriggerFor]="submenu.menu" mat-menu-item>
+        {{ page.page.title }}
+      </button>
+      <nested-menu [pages]="page.subPages" #submenu="nestedMenu"></nested-menu>
+    </ng-container>
+
+    <a *ngIf="!page.subPages.length" mat-menu-item>
+      {{ page.page.title }}
+    </a>
+  </ng-container>
+
+</mat-menu-->
+
+
+
+<mat-menu #childMenu="matMenu" [overlapTrigger]="false">
+  <span *ngFor="let child of items">
+    <!-- Handle branch node menu items -->
+    <span *ngIf="child.subPages && child.subPages.length > 0">
+      <button mat-menu-item color="primary" [matMenuTriggerFor]="menu.childMenu">
+        <span>{{child.page.title}}</span>
+      </button>
+      <app-menu-item #menu [items]="child.subPages"></app-menu-item>
+    </span>
+    <!-- Handle leaf node menu items -->
+    <span *ngIf="!child.subPages || child.subPages.length === 0">
+      <button mat-menu-item>
+        <span>{{child.page.title}}</span>
+      </button>
+    </span>
+  </span>
+</mat-menu>
+

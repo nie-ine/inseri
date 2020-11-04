@@ -16,6 +16,7 @@ import { ChordDiagramComponent } from './chord-diagram/chord-diagram.component';
 import { SpiralBarChartComponent } from './spiral-bar-chart/spiral-bar-chart.component';
 import {MatButtonModule, MatFormFieldModule, MatInputModule, MatSliderModule, MatSlideToggleModule} from '@angular/material';
 import { FormsModule } from '@angular/forms';
+import {NgxSliderModule} from '@angular-slider/ngx-slider';
 
 @NgModule({
   imports: [
@@ -27,19 +28,20 @@ import { FormsModule } from '@angular/forms';
     MatInputModule,
     FormsModule,
     RouterModule.forChild([
-      { path: 'bar-chart', component: BarChartComponent },
-      { path: 'd3-tutorial', component: D3tutorialComponent },
-      { path: 'multi-line-chart', component: MultiLineChartComponent },
-      { path: 'brush-zoom', component: BrushAndZoomComponent },
-      { path: 'radial-component', component: RadialBarchartComponent },
-      { path: 'pie-chart', component: PieChartComponent },
-      { path: 'stacked-bar-chart', component: StackedBarChartComponent },
-      { path: 'sankey', component: SankeyComponent },
-      { path: 'leaflet-example', component: LeafletExampleComponent },
-      { path: 'chord', component: ChordDiagramComponent }
+      {path: 'bar-chart', component: BarChartComponent},
+      {path: 'd3-tutorial', component: D3tutorialComponent},
+      {path: 'multi-line-chart', component: MultiLineChartComponent},
+      {path: 'brush-zoom', component: BrushAndZoomComponent},
+      {path: 'radial-component', component: RadialBarchartComponent},
+      {path: 'pie-chart', component: PieChartComponent},
+      {path: 'stacked-bar-chart', component: StackedBarChartComponent},
+      {path: 'sankey', component: SankeyComponent},
+      {path: 'leaflet-example', component: LeafletExampleComponent},
+      {path: 'chord', component: ChordDiagramComponent}
     ]),
     AceEditorModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    NgxSliderModule,
   ],
   declarations: [
     BarChartComponent,

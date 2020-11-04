@@ -1,6 +1,7 @@
-import {Component, OnInit, Input, OnChanges } from '@angular/core';
+import {Component, OnInit, Input, OnChanges, HostListener} from '@angular/core';
 import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 import {HttpClient} from '@angular/common/http';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-textlist-viewer',
@@ -14,9 +15,45 @@ export class TextlistViewerComponent implements OnChanges {
 
   constructor(
     private domSanitizer: DomSanitizer,
-    private http: HttpClient
+    private http: HttpClient,
+    public router: Router,
+    private route: ActivatedRoute
   ) {
   }
+
+  @HostListener('click', ['$event'])
+  public onClick(event) {
+    // Handle same-page links or bookmarks of microservice-generated HTML
+    // Check if <a>
+    if (event.target.tagName === 'A') {
+      // Get href
+      const href = event.target.href;
+      if (href.startsWith('inseriparams')) {
+        const addedParams = {};
+        const paramsString = href.split('inseriparams:')[1];
+        const addToURL = paramsString.split('&');
+        let i;
+        for (i = 0; i < addToURL.length; i++) {
+          const thisParam = addToURL[i].split('=');
+          addedParams[thisParam[0]] = thisParam[1];
+        }
+        this.router.navigate(['/page'], {
+          queryParams: addedParams,
+          queryParamsHandling: 'merge'
+        });
+        event.preventDefault();
+      } else if ( href.startsWith('inseribookmark')) {
+        const element = document.getElementById(href.split('inseribookmark:#')[1]);
+        element.scrollIntoView();
+        event.preventDefault();
+      } else { // if regular href
+        return;
+      }
+    } else { // if not <a>
+      return;
+    }
+  }
+
   ngOnChanges() {
     if (  this.textToDisplay && this.textToDisplay.search( 'http' ) !== -1 ) {
       this.http.get( this.textToDisplay, { responseType: 'text' } )
@@ -29,7 +66,7 @@ export class TextlistViewerComponent implements OnChanges {
               this.safeHtml = this.domSanitizer.bypassSecurityTrustHtml( data );
             }
           }, error => {
-            this.safeHtml = this.domSanitizer.bypassSecurityTrustHtml(this.linkify(this.textToDisplay));
+            this.safeHtml = this.domSanitizer.bypassSecurityTrustHtml(this.textToDisplay);
             // console.log( error );
           }
         );

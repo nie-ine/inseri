@@ -8,6 +8,7 @@ import * as d3Shape from 'd3-shape';
 import * as d3Interpolate from 'd3-interpolate';
 
 import { STATISTICS } from './STATISTICS';
+import * as d3ScaleChromatic from 'd3-scale-chromatic';
 
 @Component({
   selector: 'app-radial-barchart',
@@ -22,8 +23,8 @@ export class RadialBarchartComponent implements AfterViewChecked {
   @Input() data;
   alreadyInitialised = false;
 
-  width = 800;
-  height = 800;
+  width = 600;
+  height = 600;
   barHeight = this.height / 2 - 40;
   formatNumber: any;
   color: any;
@@ -51,21 +52,22 @@ export class RadialBarchartComponent implements AfterViewChecked {
       this.alreadyInitialised = true;
       setTimeout(() => {
       // this.formatNumber = d3Format.format('s');
-      this.color = d3Scale.scaleOrdinal()
-        .range([
-          '#8dd3c7',
-          '#ffffb3',
-          '#bebada',
-          '#fb8072',
-          '#80b1d3',
-          '#fdb462',
-          '#b3de69',
-          '#fccde5',
-          '#d9d9d9',
-          '#bc80bd',
-          '#ccebc5',
-          '#ffed6f'
-        ]);
+      // this.color = d3Scale.scaleOrdinal()
+      //   .range([
+      //     '#8dd3c7',
+      //     '#ffffb3',
+      //     '#bebada',
+      //     '#fb8072',
+      //     '#80b1d3',
+      //     '#fdb462',
+      //     '#b3de69',
+      //     '#fccde5',
+      //     '#d9d9d9',
+      //     '#bc80bd',
+      //     '#ccebc5',
+      //     '#ffed6f'
+      //   ]);
+      this.color = d3Scale.scaleOrdinal(d3ScaleChromatic.schemePaired);
       this.initSvg();
       this.initAxis();
       }, 100);
@@ -92,6 +94,7 @@ export class RadialBarchartComponent implements AfterViewChecked {
       .range([0, this.barHeight]
       );
     this.keys = this.data.data.map((d) => d.label);
+    console.log( this.keys );
     this.numBars = this.keys.length;
     this.x = d3Scale.scaleLinear()
       .domain(this.extent)

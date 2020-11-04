@@ -22,7 +22,8 @@ export class SankeyComponent implements AfterViewChecked {
 
   ngAfterViewChecked() {
     if ( this.initialised && !this.alreadyInitialised && this.data ) {
-      this.energy = this.data.DAG;
+      console.log( this.data );
+      this.energy = this.data.data;
       this.alreadyInitialised = true;
       setTimeout(() => {
       this.DrawChart();

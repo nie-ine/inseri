@@ -33,7 +33,7 @@ router.get('', checkAuth, (req, res, next) => {
         })
 });
 
-router.get('/:id', checkAuth, (req, res, next) => {
+router.get('/:id', (req, res, next) => {
     PageSet.findById({_id: req.params.id})
 
         .then(pageSet => {

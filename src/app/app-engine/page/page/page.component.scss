@@ -126,3 +126,18 @@ summary {
   text-transform: uppercase;
   font-weight: 700;
 }
+
+.button-row {
+  display: table-cell;
+  width: 490px;
+}
+.example-flex-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.example-button-container {
+  display: flex;
+  justify-content: center;
+  width: 120px;
+}

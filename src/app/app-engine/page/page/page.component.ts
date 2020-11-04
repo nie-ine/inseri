@@ -34,6 +34,9 @@ import {DataAssignmentComponent} from '../../../query-app-interface/data-managem
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {PageListDialogComponent} from '../page-list-dialog/page-list-dialog.component';
 import {OverlayContainer} from '@angular/cdk/overlay';
+import {PageSetService} from '../../../user-action-engine/mongodb/pageset/page-set.service';
+import {SubPageOfPageModel} from '../../../user-action-engine/mongodb/page/subPageOfPage.model';
+import {NestedMenu} from '../menu-item/nested-menu';
 
 @Component({
   selector: 'nie-os',
@@ -150,7 +153,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   hoveredElement: string;
 
   /**
-   * needed to generate the navigation in case that the page belongs to a pageSet
+   * needed to generate the hierarchical-navigation-view in case that the page belongs to a pageSet
    * */
   pagesOfThisActtion: Array<any>;
 
@@ -160,19 +163,19 @@ export class PageComponent implements OnInit, AfterViewChecked {
   hashOfThisPage: string;
 
   /**
-   *  - Needed to generate the navigation
+   *  - Needed to generate the hierarchical-navigation-view
    * */
   lastView: any;
 
   /**
-   * Needed to generate the navigation
+   * Needed to generate the hierarchical-navigation-view
    * */
   nextView: any;
   /**
-   * If an action is a pageSet, it contains an array with the pages, from this array the navigation is created,
-   * the following value is needed to generate the navigation
+   * If an action is a pageSet, it contains an array with the pages, from this array the hierarchical-navigation-view is created,
+   * the following value is needed to generate the hierarchical-navigation-view
    * */
-  selectedPage = 0;
+  selectedPageIndex = 0;
 
   /**
    * This variable makes sure that the load-variables.component is loaded only once
@@ -252,9 +255,11 @@ export class PageComponent implements OnInit, AfterViewChecked {
   nothAlreadyQueryAppPathGenerated = new Set();
 
 
-  appMenuModel= new AppMenuModel().appMenu;
+  appMenuModel = new AppMenuModel().appMenu;
 
   params: any;
+
+  notFound = false;
 
   slogans = [
     'Where you can gather information',
@@ -267,9 +272,21 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   slogan: string;
 
+  shortNameExist: boolean;
+
   queryParams: any;
   private templatePhoto: File;
   private imagePreview: string;
+
+  shortName: string;
+  private selectedPage: any;
+
+  selectedSubPage: SubPageOfPageModel;
+  subPagesOfPage: SubPageOfPageModel[] = [];
+  dataSourceOfSubPages: MatTableDataSource<any>;
+  pageSet: any;
+  private actionAlreadyLoaded: boolean;
+  addSubPages: boolean;
 
   constructor(
     public route: ActivatedRoute,
@@ -284,17 +301,22 @@ export class PageComponent implements OnInit, AfterViewChecked {
     public sanitizer: DomSanitizer,
     private stylemapping: StyleMappingService,
     private actionService: ActionService,
-    private router: Router,
+    public router: Router,
     public snackBar: MatSnackBar,
     public snackBar2: MatSnackBar,
     private authService: AuthService,
     private queryService: QueryService,
-    private overlayContainer: OverlayContainer
+    private overlayContainer: OverlayContainer,
+    private pageSetService: PageSetService,
   ) {
     this.route.queryParams.subscribe(params => {
       this.hashOfThisPage = params.page;
       this.actionID = params.actionID;
-      this.generateNavigation(params.actionID);
+      // console.log(params.actionAlreadyLoaded);
+      // if (!params.actionAlreadyLoaded) {
+        this.generateNavigation(params.actionID);
+     // }
+
     });
     // route
     if ( this.route.snapshot.queryParams.page ) {
@@ -359,6 +381,33 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnInit() {
+
+    if ( this.router.url.split('/')[ 1 ].search( 'actionID=' ) === -1 ) {
+      this.actionService.checkIfShortNameExist( this.router.url.split('/')[ 1 ] )
+        .subscribe(
+          response => {
+            // console.log( response );
+            if ( (response as any).exist ) {
+              this.pageSetService.getPageSet( ( response as any).action.hasPageSet )
+                .subscribe(
+                  pageSetResponse => {
+                    console.log( pageSetResponse );
+                    this.router.navigate(['/page'],
+                      {
+                        queryParams: {
+                          'actionID': ( response as any).action._id,
+                          'page': pageSetResponse.pageset.hasPages[ 0 ],
+                          //'actionAlreadyLoaded': true
+                        }, queryParamsHandling: "merge"
+                      });
+                  }, e2 => console.log( e2 )
+                );
+            } else if ( this.router.url.split('/')[ 1 ].search( 'home' ) === -1 ) {
+              this.notFound = true;
+            }
+          }, e => console.log( e )
+        );
+    }
 
     this.slogan = this.slogans[Math.floor(Math.random() * this.slogans.length)];
 
@@ -467,25 +516,35 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.router.navigate(['/dashboard']);
   }
 
-  addNewPage() {
+  addNewPage(page) {
+    alert('add New Page');
     const dialogRef = this.dialog.open(DialogCreateNewPageComponent, {
       width: '700px',
-      data: { pageset: this.action.hasPageSet }
+      data: { pageset: this.action.hasPageSet,
+              parentPageId: null
+              // subPage: ,
+              // pageId:
+             }
     });
     dialogRef.afterClosed().subscribe(result => {
       this.alreadyLoaded = false;
-      this.generateNavigation(
-        this.actionID
-      );
+      this.subPagesOfPage.push({page: result.page, subPages: []});
+      // this.updatePagesArray(result);
+      this.navigateToOtherView(result.page._id);
+      // this.generateNavigation(this.actionID, true);
     });
   }
 
   /**
    * This function is used to navigate to another page belonging to the current pageSet
    * */
-  selectPage(i: number, page: any) {
-    this.selectedPage = i;
+  selectPage(i: number, page: any, ) {
+    console.log(page);
+    console.log(i);
+    console.log(this.selectedPageIndex);
+    this.selectedPageIndex = i;
     this.selectedPageToShow = i + 1;
+    this.selectedPage = page;
     this.navigateToOtherView(page);
   }
 
@@ -493,39 +552,52 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * This function is used to navigate to another page belonging to the current pageSet
    * */
   navigateToOtherView(page: any) {
+    console.log( page );
     this.router.navigate( [ 'page' ], {
       queryParams: {
         'actionID': this.actionID,
-        'page': page._id
-      }
+        'page': page._id,
+       // 'actionAlreadyLoaded': true
+      }, queryParamsHandling: "merge"
     } );
   }
 
   /**
    * This function generates the pagesOfThisActtion Array
    * */
-  generateNavigation(actionID: string, goToPage?: boolean) {
+  generateNavigation(actionID: string) {
     if (!this.alreadyLoaded && actionID) {
+      this.subPagesOfPage = [];
       this.actionService.getAction(actionID)
         .subscribe(data => {
+          this.pageSet = data.body.action.hasPageSet._id;
+          console.log(data.body.action.hasPageSet.hasPages);
+          console.log(data.body.hierarchyOfPages);
             if (data.body.action.type === 'page-set') {
               this.pagesOfThisActtion = [];
+              this.subPagesOfPage = data.body.hierarchyOfPages;
+              this.dataSourceOfSubPages = new MatTableDataSource(this.subPagesOfPage);
+              console.log(this.subPagesOfPage);
               for (const page of ( data.body as any ).action.hasPageSet.hasPages as any ) {
                 if ( page._id === this.hashOfThisPage ) {
-                  this.selectedPage = this.pagesOfThisActtion.length;
+                  this.selectedPageIndex = this.pagesOfThisActtion.length;
                 }
+                // this.subPagesOfPage.push({page: page, subPages: null});
+                // this.selectSubPages(page);
                 this.pagesOfThisActtion[this.pagesOfThisActtion.length] = page;
                 this.alreadyLoaded = true;
               }
-              if ( goToPage ) {
-                this.selectedPage = this.pagesOfThisActtion.length - 1;
+              console.log( this.pagesOfThisActtion, this.subPagesOfPage );
+              // if ( goToPage ) {
+                // this.selectedPageIndex = this.pagesOfThisActtion.length - 1;
                 this.router.navigate( [ 'page' ], {
                   queryParams: {
                     'actionID': this.actionID,
-                    'page': this.pagesOfThisActtion[ this.pagesOfThisActtion.length - 1 ]._id
-                  }
+                    'page': this.pagesOfThisActtion[ this.selectedPageIndex ]._id, // this.hashOfThisPage
+                    //'actionAlreadyLoaded': true
+                  }, queryParamsHandling: "merge"
                 } );
-              }
+              // }
             }
           },
           error => {
@@ -573,17 +645,17 @@ export class PageComponent implements OnInit, AfterViewChecked {
     // console.log( this.page );
     this.pageService.updatePage(
       { ...this.page }
-      )
+    )
       .subscribe(
         data => {
           this.snackBarOpen = true;
           setTimeout(() => {
             this.snackBarOpen = false;
           }, 2000);
-          this.snackBar2.open( 'Page successfully saved', 'ok',
-            {
-              duration: 2000
-            });
+          // this.snackBar2.open( 'Page successfully saved', 'ok',
+          //   {
+          //     duration: 2000
+          //   });
           if ( reload ) {
             this.reloadVariables = true;
           }
@@ -669,132 +741,132 @@ export class PageComponent implements OnInit, AfterViewChecked {
     input: any,
     valueToAssign: string
   ) {
-      if ( this.loggedIn ) {
-        app.spinnerIsShowing = true;
-      }
-      // for ( const input of this.openAppsInThisPage[ app.type ].inputs ) {
-        const now = new Date();
-        // console.log(!this.page.serverUrl);
-        if ( !this.page.jsonId ) {
-          this.queryService.createQueryOfPage(this.page._id,
-            {title: 'page:' + this.page.title + ' | data stored in inseri'})
-            .subscribe(data => {
-              if (data.status === 201) {
-                const query = data.body.query;
-                this.page.queries.push( query._id );
-                this.requestService.createJson()
-                  .subscribe(myOwnJson => {
-                      const jsonId = (myOwnJson as any).result._id;
-                      const serverURL = environment.node + '/api/myOwnJson/getJson/' + String((myOwnJson as any).result._id);
-                      this.page.jsonId = jsonId;
-                      this.page.ownQuery = query._id;
-                      query.serverUrl = serverURL;
-                      query.method = 'JSON';
-                      query.description = now.getFullYear() +
-                        ':' + now.getDate() +
-                        ':' + now.getHours() +
-                        ':' + now.getMinutes() +
-                        ':' + now.getSeconds();
-                      this.queryService.updateQueryOfPage(this.page._id, query._id, query)
-                        .subscribe((data3) => {
-                          if (data3.status === 200) {
-                          } else {
-                            // console.log('Updating query failed');
-                          }
-                        }, error1 => console.log(error1));
-                      if ( this.page.appInputQueryMapping[ app.hash ] === undefined ) {
-                        this.page.appInputQueryMapping[ app.hash ] = {};
+    if ( this.loggedIn ) {
+      app.spinnerIsShowing = true;
+    }
+    // for ( const input of this.openAppsInThisPage[ app.type ].inputs ) {
+    const now = new Date();
+    // console.log(!this.page.serverUrl);
+    if ( !this.page.jsonId ) {
+      this.queryService.createQueryOfPage(this.page._id,
+        {title: 'page:' + this.page.title + ' | data stored in inseri'})
+        .subscribe(data => {
+          if (data.status === 201) {
+            const query = data.body.query;
+            this.page.queries.push( query._id );
+            this.requestService.createJson()
+              .subscribe(myOwnJson => {
+                  const jsonId = (myOwnJson as any).result._id;
+                  const serverURL = environment.node + '/api/myOwnJson/getJson/' + String((myOwnJson as any).result._id);
+                  this.page.jsonId = jsonId;
+                  this.page.ownQuery = query._id;
+                  query.serverUrl = serverURL;
+                  query.method = 'JSON';
+                  query.description = now.getFullYear() +
+                    ':' + now.getDate() +
+                    ':' + now.getHours() +
+                    ':' + now.getMinutes() +
+                    ':' + now.getSeconds();
+                  this.queryService.updateQueryOfPage(this.page._id, query._id, query)
+                    .subscribe((data3) => {
+                      if (data3.status === 200) {
+                      } else {
+                        // console.log('Updating query failed');
                       }
-                      this.page.appInputQueryMapping[ app.hash ][ input.inputName ] = {};
-                      this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'path' ] =
-                        [ 'result', 'content', 'info', app.hash, input.inputName ];
-                      this.page.appInputQueryMapping[ app.hash ][ input.inputName ].query = this.page.ownQuery;
-                      this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'serverUrl' ] =
-                        environment.node + '/api/myOwnJson/getJson/' + this.page.jsonId;
-                      this.page.appInputQueryMapping[ app.hash ].app = app.hash;
-                    this.requestService.updateJson(
-                      this.page.jsonId,
-                      {
-                        _id: this.page.jsonId,
-                        creator: this.page.creator,
-                        content: {
-                          info: {
-                            [app.hash]: {
-                              [input.inputName]: valueToAssign
-                            }
+                    }, error1 => console.log(error1));
+                  if ( this.page.appInputQueryMapping[ app.hash ] === undefined ) {
+                    this.page.appInputQueryMapping[ app.hash ] = {};
+                  }
+                  this.page.appInputQueryMapping[ app.hash ][ input.inputName ] = {};
+                  this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'path' ] =
+                    [ 'result', 'content', 'info', app.hash, input.inputName ];
+                  this.page.appInputQueryMapping[ app.hash ][ input.inputName ].query = this.page.ownQuery;
+                  this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'serverUrl' ] =
+                    environment.node + '/api/myOwnJson/getJson/' + this.page.jsonId;
+                  this.page.appInputQueryMapping[ app.hash ].app = app.hash;
+                  this.requestService.updateJson(
+                    this.page.jsonId,
+                    {
+                      _id: this.page.jsonId,
+                      creator: this.page.creator,
+                      content: {
+                        info: {
+                          [app.hash]: {
+                            [input.inputName]: valueToAssign
                           }
-                        },
-                        __v: 0
-                      }
-                    )
-                      .subscribe(updatedJson => {
+                        }
+                      },
+                      __v: 0
+                    }
+                  )
+                    .subscribe(updatedJson => {
                         this.updatePage();
                         setTimeout(() => {
                           // console.log( 'reload 702' );
                           this.reloadVariables = true;
                         }, 200);
-                        }, error => console.log(error)
-                      );
-                    }, error => {
-                      console.log(error);
-                    }
-                  );
+                      }, error => console.log(error)
+                    );
+                }, error => {
+                  console.log(error);
+                }
+              );
+          }
+        }, error1 => {
+          app.spinnerIsShowing = false;
+          console.log( error1 );
+        });
+    } else {
+      // console.log( 'update existing query', input );
+      let existingInputs: any;
+      this.requestService.get(  environment.node + '/api/myOwnJson/getJson/' + this.page.jsonId, undefined, undefined )
+        .subscribe(
+          myOwnJsonResponse => {
+            console.log( myOwnJsonResponse );
+            if ( myOwnJsonResponse.body.result.content ) {
+              existingInputs = myOwnJsonResponse.body.result.content.info;
+            } else {
+              existingInputs = {};
+            }
+            // console.log( existingInputs );
+            if ( existingInputs[app.hash] === undefined ) {
+              existingInputs[app.hash] = {};
+            }
+            existingInputs[app.hash][input.inputName] = valueToAssign;
+            this.requestService.updateJson(
+              this.page.jsonId,
+              {
+                _id: this.page.jsonId,
+                creator: this.page.creator,
+                content: {
+                  info: existingInputs
+                },
+                __v: 0
               }
-            }, error1 => {
-              app.spinnerIsShowing = false;
-              console.log( error1 );
-            });
-        } else {
-          // console.log( 'update existing query', input );
-          let existingInputs: any;
-          this.requestService.get(  environment.node + '/api/myOwnJson/getJson/' + this.page.jsonId, undefined, undefined )
-            .subscribe(
-              myOwnJsonResponse => {
-                console.log( myOwnJsonResponse );
-                if ( myOwnJsonResponse.body.result.content ) {
-                  existingInputs = myOwnJsonResponse.body.result.content.info;
-                } else {
-                  existingInputs = {};
-                }
-                // console.log( existingInputs );
-                if ( existingInputs[app.hash] === undefined ) {
-                  existingInputs[app.hash] = {};
-                }
-                existingInputs[app.hash][input.inputName] = valueToAssign;
-                this.requestService.updateJson(
-                  this.page.jsonId,
-                  {
-                    _id: this.page.jsonId,
-                    creator: this.page.creator,
-                    content: {
-                      info: existingInputs
-                    },
-                    __v: 0
+            )
+              .subscribe(updatedJson => {
+                  // console.log(updatedJson);
+                  if ( this.page.appInputQueryMapping[ app.hash ] === undefined ) {
+                    this.page.appInputQueryMapping[ app.hash ] = {};
                   }
-                )
-                  .subscribe(updatedJson => {
-                      // console.log(updatedJson);
-                    if ( this.page.appInputQueryMapping[ app.hash ] === undefined ) {
-                      this.page.appInputQueryMapping[ app.hash ] = {};
-                    }
-                    this.page.appInputQueryMapping[ app.hash ][ input.inputName ] = {};
-                    this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'path' ] =
-                      [ 'result', 'content', 'info', app.hash, input.inputName ];
-                    this.page.appInputQueryMapping[ app.hash ][ input.inputName ].query = this.page.ownQuery;
-                    this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'serverUrl' ] =
-                      environment.node + '/api/myOwnJson/getJson/' + this.page.jsonId;
-                    this.page.appInputQueryMapping[ app.hash ].app = app.hash;
-                    this.updatePage();
-                    setTimeout(() => {
-                      console.log( 'reload 753' );
-                      this.reloadVariables = true;
-                    }, 200);
-                    }, error => console.log(error)
-                  );
-              }, error => console.log( error )
-            );
-        }
-      // }
+                  this.page.appInputQueryMapping[ app.hash ][ input.inputName ] = {};
+                  this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'path' ] =
+                    [ 'result', 'content', 'info', app.hash, input.inputName ];
+                  this.page.appInputQueryMapping[ app.hash ][ input.inputName ].query = this.page.ownQuery;
+                  this.page.appInputQueryMapping[ app.hash ][ input.inputName ][ 'serverUrl' ] =
+                    environment.node + '/api/myOwnJson/getJson/' + this.page.jsonId;
+                  this.page.appInputQueryMapping[ app.hash ].app = app.hash;
+                  this.updatePage();
+                  setTimeout(() => {
+                    console.log( 'reload 753' );
+                    this.reloadVariables = true;
+                  }, 200);
+                }, error => console.log(error)
+              );
+          }, error => console.log( error )
+        );
+    }
+    // }
   }
 
   /**
@@ -857,6 +929,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.page.tiles = true;
     // console.log( this.page );
     this.action = pageAndAction[1];
+    console.log( this.action );
     this.reloadVariables = false;
     this.pageIsPublished = this.page.published;
     this.showAppTitlesOnPublish = this.page.showAppTitlesOnPublish;
@@ -915,7 +988,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     const dataAssignmentComponent = new DataAssignmentComponent();
     // console.log( this.index, input );
     if ( ( this.index as any ) === 'NaN' || this.index === NaN ) {
-      console.log( 'index is NaN' )
+      console.log( 'index is NaN' );
       this.index = 0;
     }
     if ( this.page && this.openAppsInThisPage && this.index === 0 ) {
@@ -991,42 +1064,42 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * generate the information in the the generated dialog.
    * */
   generateQueryAppPathInformation( queryId: string ): any {
-      // console.log( this.openAppArray );
-      let queryAppPathInformation;
-      for ( const appHash in this.page.appInputQueryMapping ) {
-        for ( const appType in this.openAppsInThisPage ) {
-          if (
-            this.openAppsInThisPage[ appType ].model.length > 0 &&
-            appType !== 'dataChooser'
-          ) {
-            for ( const appEntry of this.openAppsInThisPage[ appType ].model ) {
-              if ( appEntry.hash === appHash ) {
-                for ( const input in this.page.appInputQueryMapping[ appHash ] ) {
-                  if ( this.page.appInputQueryMapping[ appHash ][ input ].query === queryId ) {
-                    if ( queryAppPathInformation === undefined ) {
-                      queryAppPathInformation = [];
-                    }
-                    queryAppPathInformation.push(
-                      {
-                        appHash: appHash,
-                        appTitle: appEntry.title,
-                        path: this.page.appInputQueryMapping[ appHash ][ input ].path,
-                        input: input,
-                        type: appType
-                      }
-                    );
+    // console.log( this.openAppArray );
+    let queryAppPathInformation;
+    for ( const appHash in this.page.appInputQueryMapping ) {
+      for ( const appType in this.openAppsInThisPage ) {
+        if (
+          this.openAppsInThisPage[ appType ].model.length > 0 &&
+          appType !== 'dataChooser'
+        ) {
+          for ( const appEntry of this.openAppsInThisPage[ appType ].model ) {
+            if ( appEntry.hash === appHash ) {
+              for ( const input in this.page.appInputQueryMapping[ appHash ] ) {
+                if ( this.page.appInputQueryMapping[ appHash ][ input ].query === queryId ) {
+                  if ( queryAppPathInformation === undefined ) {
+                    queryAppPathInformation = [];
                   }
+                  queryAppPathInformation.push(
+                    {
+                      appHash: appHash,
+                      appTitle: appEntry.title,
+                      path: this.page.appInputQueryMapping[ appHash ][ input ].path,
+                      input: input,
+                      type: appType
+                    }
+                  );
                 }
               }
             }
           }
         }
       }
-      if ( queryAppPathInformation === undefined ) {
-        return undefined;
-      } else {
-        return queryAppPathInformation;
-      }
+    }
+    if ( queryAppPathInformation === undefined ) {
+      return undefined;
+    } else {
+      return queryAppPathInformation;
+    }
   }
 
   /**
@@ -1240,14 +1313,12 @@ export class PageComponent implements OnInit, AfterViewChecked {
       }
     });
     dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
       this.pageService.duplicatePage( result, this.action.hasPageSet._id )
         .subscribe(
           data => {
             this.alreadyLoaded = false;
-            this.generateNavigation(
-              this.actionID,
-              true
-            );
+            this.generateNavigation(this.actionID);
             console.log( this.pagesOfThisActtion );
           }, error => console.log( error )
         );
@@ -1268,9 +1339,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
         .subscribe(
           data => {
             this.alreadyLoaded = false;
-            this.generateNavigation(
-              this.actionID
-            );
+            this.generateNavigation(this.actionID);
           }, error => console.log( error )
         );
     });
@@ -1290,10 +1359,10 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   toggleShowInAppSettings(app: any, index: number) {
-      this.openAppArray[index]['showSettings'] = !this.openAppArray[index]['showSettings'] ;
-      if (!this.openAppArray[index]['showSettings']) { // RELOAD variables if settings are closed
-        this.reloadVariables = true;
-      }
+    this.openAppArray[index]['showSettings'] = !this.openAppArray[index]['showSettings'] ;
+    if (!this.openAppArray[index]['showSettings']) { // RELOAD variables if settings are closed
+      this.reloadVariables = true;
+    }
   }
 
   publishAsTemplate() {
@@ -1327,5 +1396,103 @@ export class PageComponent implements OnInit, AfterViewChecked {
       }, error => console.log( error )
     );
   }
-}
+  checkIfShortNameExist( shortName: string ) {
+    console.log( shortName );
+    this.actionService.checkIfShortNameExist( shortName )
+      .subscribe(
+        response => {
+          console.log( response );
+          this.shortNameExist = ( response as any ).exist;
+          this.shortName = shortName;
+        }, e => console.log( e )
+      );
+  }
+  setShortName() {
+    console.log( 'Set shortname', this.shortName );
+    this.actionService.setShortName( this.shortName, this.action._id )
+      .subscribe(
+        response => {
+          console.log( response );
+        }, e => console.log( e )
+      );
+  }
 
+  getSubPage(page) {
+    let targetPage;
+    for (let i = 0; i < this.subPagesOfPage.length; i++) {
+      // console.log(this.subPagesOfPage[i]);
+      targetPage = this.getPageFromHierarchy(page, this.subPagesOfPage[i]);
+      if (targetPage !== null) {
+        return targetPage;
+      }
+    }
+    return targetPage;
+  }
+  getPageFromHierarchy(page, current) {
+    let result;
+    if (!current || current.length === 0) {
+      return null;
+    }
+    if (page && page._id === current.page._id ) {
+      return current;
+    }
+    if (current.subPages !== null && current.subPages.length !== 0 && page) {
+      for (let i = 0; i < current.subPages.length; i++) {
+        result = this.getPageFromHierarchy(page, current[i] );
+        if (result !== null) {
+          return result;
+        }
+      }
+    }
+    return null;
+  }
+
+  selectSubPages(page: any) {
+    const target = this.getSubPage(page);
+    this.pageService.getAllSubPages(page._id)
+      .subscribe(
+        response => {
+          const tempSubPages = (response as any).subPages;
+          if (tempSubPages) {
+            const subs = [] as any;
+            for (let i = 0; i < tempSubPages.length; i++) {
+              subs.push({page: tempSubPages[i], subPages: null});
+              target.subPages = subs;
+              this.selectSubPages(tempSubPages[i]);
+            }
+          }
+        }, error => console.log(error)
+      );
+  }
+
+  addSubPageToSubPagesArr(parentPage: any, subPage: any) {
+    const oldParetnObj = this.getSubPage(parentPage);
+    if (oldParetnObj.subPages || oldParetnObj.subPages.length !== 0) {
+      oldParetnObj.subPages.push({page: subPage, subPages: []});
+    } else {
+      oldParetnObj.subPages = [{page: subPage, subPages: []}];
+    }
+    console.log( this.subPagesOfPage);
+  }
+
+  generateBrowserHeight(): string {
+    const size = window.screen.height - 200;
+    return size + 'px';
+  }
+
+  private updatePagesArray(newSubPagesOfPage: SubPageOfPageModel[]) {
+    // result = {page: result.page, parentPage: parentPageId}
+    // we need to update this.subPagesOfPage
+    console.log(newSubPagesOfPage);
+      this.subPagesOfPage = newSubPagesOfPage;
+
+  }
+
+  addSubPagesEvent() {
+    if (this.addSubPages) {
+      this.addSubPages = false;
+    } else {
+      this.addSubPages = true;
+    }
+  }
+}

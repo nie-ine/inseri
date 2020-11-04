@@ -5,7 +5,8 @@ const pageSetSchema = mongoose.Schema({
     description: { type: String, required: true },
     linkToImage: { type: String },
     hasPages: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Page' }],
-    hash: { type: String }
+    hash: { type: String },
+    //hasPages: [{_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Page' }, subPages:[{_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Page' }}]}],
 });
 
 module.exports = mongoose.model('PageSet', pageSetSchema);

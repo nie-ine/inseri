@@ -5,6 +5,7 @@ import {environment} from '../../../../environments/environment';
 import {GenerateHashService} from '../../../user-action-engine/other/generateHash.service';
 import {MicroserviceService} from '../../../user-action-engine/mongodb/microservice/microservice.service';
 import {FileService} from '../../../user-action-engine/file/file.service';
+import 'ace-builds/src-noconflict/mode-python';
 
 @Component({
   selector: 'app-json-environment',
@@ -36,6 +37,7 @@ export class JsonEnvironmentComponent implements OnChanges, HttpInterceptor {
         this.http.get( this.pythonFile, { responseType: 'text' } )
           .subscribe(
             data => {
+              // console.log( data );
               this.editor.text = data;
               this.submitToMicroservice();
             }, error => {
@@ -44,6 +46,7 @@ export class JsonEnvironmentComponent implements OnChanges, HttpInterceptor {
           );
       } else {
         this.editor.text = this.pythonFile;
+        this.submitToMicroservice();
       }
     }
   }
@@ -79,26 +82,29 @@ export class JsonEnvironmentComponent implements OnChanges, HttpInterceptor {
       codefile: 'yourCode.py',
       code: this.editor.text
     };
-    this.microserviceService.postToMicroservice( this.serivceId, body)
+    this.microserviceService.postToMicroservice( this.serivceId, body, {})
       .subscribe(
         data => {
-          console.log( data );
-          this.output = { [this.serivceId + ' output']: data.body.output } ;
-          const currentLocalStorage = JSON.parse( localStorage.getItem( this.serivceId ) );
-          // console.log( currentLocalStorage ) ;
-          if ( currentLocalStorage === null || currentLocalStorage['json'] !==
-            this.assignedJson ) {
-            localStorage.setItem(
-              this.serivceId,
-              JSON.stringify(
-                { hash: this.hash,
-                  json: this.assignedJson,
-                  pythonCode: this.editor.text,
-                  output: this.output
-                }));
+          // console.log( data );
+          this.output = { [this.serivceId + ' output']: data.output };
+          const localStorageBefore = JSON.parse( localStorage.getItem( this.serivceId ));
+          localStorage.setItem(
+            this.serivceId,
+            JSON.stringify(
+              {
+                hash: this.hash,
+                json: this.assignedJson,
+                pythonCode: this.editor.text,
+                output: this.output
+              }));
+          const localStorageAfter = JSON.parse( localStorage.getItem( this.serivceId ) );
+          setTimeout(() => {
+            // console.log( localStorageBefore, localStorageAfter );
+          }, 1000);
+          if ( JSON.stringify( localStorageBefore ) !== JSON.stringify( localStorageAfter ) ) {
+            console.log( 'emit' );
             this.reloadVariables.emit();
           }
-            // console.log( localStorage.getItem( this.serivceId ) );
         }
         , error => {
           console.log( error );
@@ -107,8 +113,7 @@ export class JsonEnvironmentComponent implements OnChanges, HttpInterceptor {
       );
   }
 
-  savePythonFile() {
-    console.log( JSON.parse(localStorage.getItem( this.serivceId )).pythonCode );
+  savePythonFile( submit?: boolean ) {
     this.fileService.getFileByUrl( this.pythonFile )
       .subscribe(response => {
         console.log( response );
@@ -121,6 +126,9 @@ export class JsonEnvironmentComponent implements OnChanges, HttpInterceptor {
           this.pythonFile)
           .subscribe(savedFile => {
             console.log( savedFile );
+              if ( submit ) {
+                this.submitToMicroservice();
+              }
           }, error1 => console.log( error1 )
           );
       }, error => console.log( error )

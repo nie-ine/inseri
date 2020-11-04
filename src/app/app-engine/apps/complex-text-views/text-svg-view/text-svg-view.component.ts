@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChange } from '@angular/core';
-import { IIIFImage } from '../../shared/IIIFImage';
+import { IIIFImage } from '../IIIFImage';
 import { PageTree } from '../models/page-tree.model';
 
 /**

@@ -1,4 +1,164 @@
-<button mat-button (click)="imgFileInput.click()">{{ !showSubmitButton ? 'Choose file' : 'Choose another file' }}</button> <br>
 
-<input style="display: none;" type="file" #imgFileInput (change)="onFileChange($event.target.files)"/>
-<button mat-button (click)="submitFile()" *ngIf="showSubmitButton">Submit {{ fileToUpload.name }} </button>
+
+<mat-form-field appearance="fill">
+  <mat-label>Base editor</mat-label>
+  <mat-select [(value)]="selectedBaseEditor" [disabled]="waitingForResponse">
+    <mat-option
+      value="ABEmax" matTooltip="{{ selectedAction === 'plot' ? 'not changeable in plot-mode' : '' }}"
+      [disabled]="selectedAction === 'plot'">ABEmax</mat-option>
+    <mat-option
+      value="BE4" matTooltip="{{ selectedAction === 'plot' ? 'not changeable in plot-mode' : '' }}"
+      [disabled]="selectedAction === 'plot'">BE4</mat-option>
+    <mat-option
+      value="ABE8e" matTooltip="{{ selectedAction === 'plot' ? 'not changeable in plot-mode' : '' }}"
+      [disabled]="selectedAction === 'plot'">ABE8e</mat-option>
+    <mat-option
+      value="AID" matTooltip="{{ selectedAction === 'plot' ? 'not changeable in plot-mode' : '' }}"
+      [disabled]="selectedAction === 'plot'">AID</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-form-field appearance="fill">
+  <mat-label>Prediction type</mat-label>
+  <mat-select [(value)]="selectedPredictionType" [disabled]="waitingForResponse" >
+    <mat-option value="mean">Mean</mat-option>
+    <mat-option value="median">Median</mat-option>
+    <mat-option value="max">Max</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-form-field appearance="fill">
+  <mat-label>Choose action</mat-label>
+  <mat-select [(value)]="selectedAction" [disabled]="waitingForResponse">
+    <mat-option value="download" >Perform prediction</mat-option>
+    <mat-option
+      value="plot"
+      [disabled]="sessionHash === undefined"
+      matTooltip="{{ sessionHash === undefined ? 'perform prediction first' : '' }}">
+      Plot sequences
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<br>
+
+<mat-form-field appearance="fill"
+                (click)="imgFileInput.click()"
+                style="cursor: pointer!important;"
+                *ngIf="selectedAction === 'download'">
+  <mat-label>{{ showSubmitButton ? 'Choose another csv' : 'Choose csv' }}</mat-label>
+  <mat-icon matSuffix>insert_drive_file</mat-icon>
+  <input matInput style="display: none;" [disabled]="waitingForResponse">
+</mat-form-field>
+
+<mat-form-field
+  appearance="fill"
+  (click)="submitFile()"
+  *ngIf="showSubmitButton && !csvContainsTooManyLines && selectedAction === 'download'"
+  style="cursor: pointer!important;"
+  matTooltip="Submit {{ fileToUpload.name }}">
+  <mat-label>Submit {{ fileToUpload.name }}</mat-label>
+  <mat-icon matSuffix>send</mat-icon>
+  <input matInput style="display: none;" [disabled]="waitingForResponse">
+</mat-form-field>
+
+<mat-progress-bar
+  *ngIf="waitingForResponse && selectedAction === 'download'"
+  mode="determinate"
+  [value]="progressBarValue"></mat-progress-bar>
+
+<br>
+
+
+<span *ngIf="errorMessage" style="color: darkred" > {{ errorMessage }} </span>
+<button mat-button (click)="errorMessage = undefined" *ngIf="errorMessage" ><mat-icon>close</mat-icon></button>
+
+
+<input [disabled]="waitingForResponse" style="display: none;" type="file" #imgFileInput (change)="onFileChange($event.target.files)"/>
+
+<input [disabled]="waitingForResponse" style="display: none;" type="file" #imgFileInput2 (change)="onFileChange2($event.target.files)"/>
+
+
+<span *ngIf="csvContainsTooManyLines" >Your csv contains too many lines</span>
+
+<mat-tab-group mat-align-tabs="start" *ngIf="selectedAction === 'plot' && showSubmitButton && sessionHash !== undefined">
+
+  <mat-tab label="Select Sequences"  >
+
+<!--    <mat-form-field>-->
+<!--      <mat-label>-->
+<!--        {{ sequencesArray.length > 100 ? 'Filter the first 100 sequences of this preview' : 'Filter' }}-->
+<!--      </mat-label>-->
+<!--      <input matInput (keyup)="applyFilter($event)" placeholder="Search for sequences" #input>-->
+<!--    </mat-form-field>   -->
+    <button mat-button (click)="submitFile( input.value )" [disabled]="waitingForResponse" style="margin-top: 20px">
+      <mat-icon>analytics</mat-icon>
+    </button>
+    <mat-form-field style="width: 75%">
+    <mat-label>Type Sequence Name from {{ sequencesArray.length }} processed sequences to plot</mat-label>
+    <input matInput placeholder="Enter Sequence Name" #input>
+  </mat-form-field>
+
+    <br>
+
+    <div style="color: #9d9d9d; margin-top: 20px;">
+      Preview of {{ sequencesArray.length }} processed sequences (max 100)
+    </div>
+
+    <br>
+
+
+    <div style="height: 400px!important; overflow: auto;">
+
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"  style="width: 100%;">
+
+        <!-- Checkbox Column -->
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            Plot Sequence
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <button mat-button (click)="submitFile( row.sequence )" [disabled]="waitingForResponse" >
+              <mat-icon>analytics</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="sequences">
+          <th mat-header-cell *matHeaderCellDef> Sequence Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.sequence}} </td>
+        </ng-container>
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="positions">
+          <th mat-header-cell *matHeaderCellDef> Protospacer Sequence </th>
+          <td mat-cell *matCellDef="let element"> {{element.positions}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+            (click)="selection.toggle(row)">
+        </tr>
+      </table>
+    </div>
+
+  </mat-tab>
+
+  <mat-tab
+    label="{{ waitingForResponse ? 'Plotting ' + this.selectedSequences[ 0 ] : 'Result for ' + this.selectedSequences[ 0 ] }}"
+    *ngIf="( pathToFile && !fileHasChanged && !csvContainsTooManyLines ) || waitingForResponse">
+
+    <h4 style="margin-top: 20px;" > Result for {{ fileToUpload.name }} | {{ submittedBaseEditor }} | {{ submittedPredictionType }} </h4>
+    <mat-spinner
+      *ngIf="waitingForResponse"
+      style="margin:0 auto; margin-top: 100px;"></mat-spinner>
+    <iframe
+      [src]= "pathToFile"
+      style="width: 100%; height: 800px;"
+      *ngIf="!waitingForResponse"></iframe>
+  </mat-tab>
+
+</mat-tab-group>
+
+

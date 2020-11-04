@@ -16,11 +16,12 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
   @Input() data: any;
   title = 'Grouped Bar Chart';
   alreadyInitialised = false;
-  width: number;
-  newWidth: number;
+  height = 350;
+  width: any;
+  newWidth: any;
   private posX: number;
   private posY: number;
-  chartWidthFactor = 100;
+  chartWidthFactor = 75;
   titleYaxis: string;
   isSorted = false;
 
@@ -29,15 +30,23 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
 
   ngAfterViewChecked() {
     // console.log( this.numberOfInitialisedComponent, this.data );
-    if (
-      this.initialised &&
-      !this.alreadyInitialised &&
-      this.data && this.data.data ) {
-      this.alreadyInitialised = true;
-      setTimeout(() => {
-        // console.log( this.data );
-        this.drawD3(this.data.data, 0);
-      }, 500);
+    if ( this.initialised && !this.alreadyInitialised && this.data && this.data.data ) {
+      if (typeof this.data === 'string' && IsJsonString(this.data) && JSON.parse(this.data).length > 0) {
+        const help = this.data;
+        this.data = {};
+        this.data.data = JSON.parse(help);
+        this.alreadyInitialised = true;
+        setTimeout(() => {
+          // console.log( this.data );
+          this.drawD3(this.data.data, 0);
+        }, 500);
+      } else if (typeof this.data !== 'string') {
+        this.alreadyInitialised = true;
+        setTimeout(() => {
+          // console.log(this.data);
+          this.drawD3(this.data.data, 0);
+        }, 500);
+      }
     }
   }
 
@@ -54,7 +63,6 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
     d3.select('#chart_' + this.numberOfInitialisedComponent).select('svg').remove();
     d3.select('#yaxis_' + this.numberOfInitialisedComponent).select('svg').remove();
     d3.select('#legend_' + this.numberOfInitialisedComponent).select('svg').remove();
-    // console.log('Initialized component: ' + this.numberOfInitialisedComponent);
 
     // getting all the key names for the legend
     const keys = Object.keys(data[0]).slice(1);
@@ -73,7 +81,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
 
     // setting svg chart dimensions
     // this.width = width !== undefined ? width : this.data.data.length * 100;
-    const height = 350;
+    // const height = 350;
 
     // setting margins
     const margin = {
@@ -91,7 +99,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
     const svgYaxis = d3.select('#yaxis_' + this.numberOfInitialisedComponent)
       .append('svg')
       .attr('width', 50)
-      .attr('height', height + margin.top + margin.bottom)
+      .attr('height', this.height + margin.top + margin.bottom)
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')'); // translate along x-axis and y-axis
 
@@ -99,7 +107,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
     const svgChart = d3.select('#chart_' + this.numberOfInitialisedComponent)
       .append('svg') // appending an <svg> element
       .attr('width', +width + +margin.left + +margin.right)
-      .attr('height', height + margin.top + margin.bottom)
+      .attr('height', this.height + margin.top + margin.bottom)
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
@@ -123,7 +131,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
 
     // Always sort data back by label
     data.sort((a: any, b: any) => a.label - b.label);
-    console.log(data);
+    // console.log(data);
     // ...and remove the 'total' key
     data.map((d) => {
       delete d.total;
@@ -142,7 +150,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
           return d[key]; // returns the highest of all values
         });
       })])
-      .range([height, 0])
+      .range([this.height, 0])
       .nice(); // nicing the scale (ending on round values)
 
     svgChart.append('g')
@@ -171,7 +179,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
       })
       .attr('width', x1.bandwidth())
       .attr('height', (d) => {
-        return height - y(d.value);
+        return this.height - y(d.value);
       })
       .attr('fill', (d) => {
         return color(d.key);
@@ -179,7 +187,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
 
     svgChart.append('g')
       .attr('class', 'axis')
-      .attr('transform', 'translate(0,' + height + ')')
+      .attr('transform', 'translate(0,' + this.height + ')')
       .call(d3Axis.axisBottom(x0));
 
     svgYaxis.append('g')
@@ -191,7 +199,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
         .append('text')
         .attr('transform', 'rotate(-90)')
         .attr('y', 0 - (margin.left + 3))
-        .attr('x', 0 - (height / 2))
+        .attr('x', 0 - (this.height / 2))
         .attr('dy', '1em')
         .attr('fill', 'black')
         .attr('font-weight', 'bold')
@@ -200,7 +208,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
 
       svgChart.append('g')
         .append('text')
-        .attr('transform', 'translate(' + width / 2 + ',' + (height + margin.top + 20) + ')')
+        .attr('transform', 'translate(' + width / 2 + ',' + (this.height + margin.top + 20) + ')')
         .attr('fill', 'black')
         .attr('font-weight', 'bold')
         .style('text-anchor', 'middle')
@@ -260,7 +268,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
       .attr('stroke-width', 2)
       .attr('cursor', 'pointer')
       .on('click', (d) => {
-        update(d);
+        update(d, this.height);
       });
 
     legend.append('text')
@@ -272,9 +280,8 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
 
     let filtered = [];
 
-    function update(d) {
+    function update(d, height) {
       // update the array to filter the chart by:
-
       // add the clicked key if not included:
       if (filtered.indexOf(d) === -1) {
         filtered.push(d);
@@ -285,7 +292,6 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
       } else {
         filtered.splice(filtered.indexOf(d), 1);
       }
-
       // update the scales for each group(/states)'s items:
       const newKeys = [];
       keys.forEach(function (d) {
@@ -293,6 +299,8 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
           newKeys.push(d);
         }
       });
+      console.log('filtered', filtered);
+      console.log('newKeys', newKeys);
       x1.domain(newKeys).rangeRound([0, x0.bandwidth()]);
       y.domain([0, d3Array.max(data, function (d) {
         return d3Array.max(keys, function (key) {
@@ -324,7 +332,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
           return (+d3.select(this).attr('x')) + (+d3.select(this).attr('width')) / 2;
         })
         .attr('height', 0)
-        .attr('width', 0)
+        // .attr('width', 0)
         .attr('y', function (d) {
           return height;
         })
@@ -344,7 +352,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
         .attr('height', function (d) {
           return height - y(d.value);
         })
-        .attr('width', x1.bandwidth())
+        // .attr('width', x1.bandwidth())
         .attr('fill', function (d) {
           return color(d.key);
         })
@@ -369,4 +377,13 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
 
   }
 
+}
+
+function IsJsonString(str) {
+  try {
+    JSON.parse(str);
+  } catch (e) {
+    return false;
+  }
+  return true;
 }

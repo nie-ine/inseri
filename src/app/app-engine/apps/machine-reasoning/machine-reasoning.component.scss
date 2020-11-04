@@ -1,0 +1,86 @@
+$containerHeight: 400px;
+$filesHeight: $containerHeight * 0.7;
+$urlsHeight: $containerHeight * 0.3;
+$backgroundGrey: #ebebeb;
+
+#input {
+  width: 550px;
+  float: left;
+  margin-right: 50px;
+}
+
+#results {
+  overflow: hidden;
+}
+
+.input_container {
+  position: relative;
+  height: $containerHeight;
+}
+
+.files {
+  position: relative;
+  height: $filesHeight;
+}
+
+.file_list {
+  position: relative;
+  height: $filesHeight * 0.75;
+  background-color: $backgroundGrey;
+  border-radius: 4px;
+  padding: 5px;
+  margin: 5px 0 15px 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.urls textarea {
+  position: relative;
+  height: $urlsHeight;
+  border-radius: 4px;
+  background-color: $backgroundGrey;
+}
+#data_url_list {
+  resize: none;
+  padding: 5px;
+}
+#rule_url_list {
+  resize: none;
+  padding: 5px;
+}
+#query_url_list {
+  resize: none;
+  padding: 5px;
+}
+
+#param_list {
+  position: relative;
+  height: $urlsHeight * 0.5;
+  background-color: $backgroundGrey;
+  border-radius: 4px;
+  padding: 5px;
+  margin: 5px 0 15px 0;
+  resize: none;
+}
+
+.file_chip {
+  height: 32px;
+  padding: 7px 8px 7px 12px;
+  margin-bottom: 5px;
+  border-radius: 25px;
+  background-color: #C6C6C6;
+}
+
+.the_spinner {
+  display: none;
+}
+
+.maximizedDiv {
+  position: fixed;
+  z-index: 9999;
+  height: 100vh;
+  width: 99.5vw;
+  top: 0;
+  left: 0;
+  background-color: white;
+}

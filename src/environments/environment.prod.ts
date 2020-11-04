@@ -8,5 +8,6 @@ export const environment = {
   sparqlVisualizer: 'http://sparqlvisualizer.nie-ine.ch/',
   salsah2: 'http://salsah2.nie-ine.ch/',
   raeber: 'http://raeber.nie-ine.ch/',
-  webern: 'https://edition.anton-webern.ch/'
+  webern: 'https://edition.anton-webern.ch/',
+  crispr: 'http://172.23.39.73:4321'
 };
