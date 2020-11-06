@@ -1,5 +1,47 @@
-<div style="margin-top: 30px; align-content: center">
+<div *ngIf="showRange" [ngStyle]="{'width':'250px', 'margin-left':'157px'}">
+  <div class="selectPieChartRange" [ngStyle]="{'width':'100%'}">
+    <div class="selectLowerPieRange" [ngStyle]="{'float':'left'}">
+      <div>
+        <div [innerHTML]="rangeLabel" [ngStyle]="{'font-weight':'bold'}"></div>
+        <mat-form-field [ngStyle]="{'width':'80px', 'margin-right':'10px'}">
+          <input matInput
+                 type="number"
+                 min="{{ rangeMinMin }}"
+                 max="{{ rangeMinMax }}"
+                 placeholder="Min"
+                 [value]="rangeLowest"
+                 [(ngModel)]="newRangeLowest"
+                 (change)="drawD3(this.data.data)">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="selectUpperPieRange" [ngStyle]="{'float':'left'}">
+      <div>
+        <div [ngStyle]="{'font-weight':'bold'}">&nbsp;</div>
+        <mat-form-field [ngStyle]="{'width':'80px', 'margin-left':'10px'}">
+          <input matInput
+                 type="number"
+                 min="{{ rangeMaxMin }}"
+                 max="{{ rangeMaxMax }}"
+                 placeholder="Max"
+                 [value]="rangeHighest"
+                 [(ngModel)]="newRangeHighest"
+                 (change)="drawD3(this.data.data)">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="custom-slider" [ngStyle]="{'width': '216px'}">
+    <ngx-slider [(value)]="newRangeLowest"
+                [(highValue)]="newRangeHighest"
+                [options]="RangeOptions"
+                (valueChange)="drawD3(this.data.data)"
+                (highValueChange)="drawD3(this.data.data)">
+    </ngx-slider>
+  </div>
+</div>
 
+<div style="margin-top: 30px; align-content: center">
   <div class="chart {{ generateComponentDivClass( 'chart' ) }}"  >
     <mat-spinner *ngIf="chartLoading" diameter="50" [ngStyle]="{'position':'absolute','top':'25%','left':'25%'}"></mat-spinner>
   </div>
@@ -13,5 +55,4 @@
     {{ chosenSection?.value }}<br/>
     {{ chosenSection?.percent + '%'}}
   </div>
-
 </div>

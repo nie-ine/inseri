@@ -5,6 +5,7 @@ import * as d3Shape from 'd3-shape';
 import * as d3ScaleChromatic from 'd3-scale-chromatic';
 import * as d3Array from 'd3-array';
 import * as d3Interpolate from 'd3-interpolate';
+import {Options} from '@angular-slider/ngx-slider';
 
 
 @Component({
@@ -34,6 +35,24 @@ export class PieChartV2Component implements AfterViewChecked {
   private tooltip: any;
   chartLoading = true;
 
+  showRange = false;
+  rangeLabel: string;
+
+  RangeOptions: Options = {
+    floor: 0,
+    ceil: 0
+  };
+
+  rangeMinMin: any;
+  rangeMinMax: any;
+  rangeLowest: any;
+  newRangeLowest: any;
+
+  rangeMaxMax: any;
+  rangeMaxMin: any;
+  rangeHighest: any;
+  newRangeHighest: any;
+
   constructor() {
     this.width = 600 - this.margin.left - this.margin.right;
     this.height = 400 - this.margin.top - this.margin.bottom;
@@ -53,14 +72,14 @@ export class PieChartV2Component implements AfterViewChecked {
         this.data.data = JSON.parse(help);
         this.alreadyInitialised = true;
         setTimeout(() => {
-          console.log( this.data );
+          // console.log( this.data );
           this.drawD3( this.data.data );
         }, 100);
         this.chartLoading = false;
       } else if ( typeof this.data !== 'string' ) {
         this.alreadyInitialised = true;
         setTimeout(() => {
-          console.log( this.data );
+          // console.log( this.data );
           this.drawD3( this.data.data );
         }, 100);
         this.chartLoading = false;
@@ -69,7 +88,46 @@ export class PieChartV2Component implements AfterViewChecked {
   }
 
   drawD3( data: Array<any> ) {
-    // const color = d3Scale.scaleOrdinal(d3ScaleChromatic.schemeRdYlBu[data.length]);
+    d3.select('.chart' + this.numberOfInitialisedComponent).select('svg').remove();
+    d3.select('.pieLegend' + this.numberOfInitialisedComponent).select('svg').remove();
+    if (this.data.metadata) {
+      if (this.data.metadata.rangeLabel) {
+        this.showRange = true;
+        this.rangeLabel = this.data.metadata.rangeLabel;
+
+        this.rangeMinMin = d3Array.min(this.data.data, (d) => d3Array.min(d.range, (r) => r.point));
+        this.rangeMaxMax = d3Array.max(this.data.data, (d) => d3Array.max(d.range, (r) => r.point));
+        this.rangeMinMax = this.rangeMaxMax;
+        this.rangeMaxMin = this.rangeMinMax;
+        if (this.newRangeLowest !== undefined) { // User indicated new lowest
+          this.rangeLowest = this.newRangeLowest;
+          this.rangeMaxMin = this.rangeLowest;
+        } else {
+          this.rangeLowest = d3Array.min(this.data.data, (d) => d3Array.min(d.range, (r) => r.point));
+          this.newRangeLowest = this.rangeLowest;
+        }
+        if (this.newRangeHighest !== undefined) { // User indicated new highest
+          this.rangeHighest = this.newRangeHighest;
+          this.rangeMinMax = this.rangeHighest;
+        } else {
+          this.rangeHighest = d3Array.max(this.data.data, (d) => d3Array.max(d.range, (r) => r.point));
+          this.newRangeHighest = this.rangeHighest;
+        }
+        const helpMin = this.rangeLowest;
+        const helpMax = this.rangeHighest;
+        this.data.data.forEach(function (d) {
+          d.value = 0;
+          d.range.forEach(function (r) {
+            if (r.point >= helpMin && r.point <= helpMax) {
+              d.value += r.value;
+            }
+          });
+        });
+        this.RangeOptions.floor = this.rangeLowest;
+        this.RangeOptions.ceil = this.rangeHighest;
+      }
+    }
+
     const color = d3Scale.scaleOrdinal(d3ScaleChromatic.schemePaired);
 
     this.svgChart = d3.select('.' + this.generateComponentDivClass('chart'))
