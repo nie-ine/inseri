@@ -12,6 +12,7 @@ import { PageService } from '../../mongodb/page/page.service';
 import { DuplicatePageComponent } from '../duplicate-page/duplicate-page.component';
 import {PageSetService} from '../../mongodb/pageset/page-set.service';
 import {AuthService} from '../../mongodb/auth/auth.service';
+import {SubPageOfPageModel} from '../../mongodb/page/subPageOfPage.model';
 
 @Component({
   selector: 'app-page-set-landing-page',
@@ -35,6 +36,7 @@ export class PageSetLandingPageComponent implements OnInit {
    * this variable indicates if page is shown in the preview - mode which indicates how the page would look published.
    * */
   preview = false;
+  subPagesOfPage: SubPageOfPageModel[] = [];
 
   constructor(
     public dialog: MatDialog,
@@ -62,12 +64,14 @@ export class PageSetLandingPageComponent implements OnInit {
   }
 
   checkIfPageSetExists(actionID: string) {
+    this.subPagesOfPage = [];
     this.actionService.getAction(actionID)
       .subscribe(data => {
         if ((data.status === 200) && (data.body.action.type === 'page-set')) {
           this.action = data.body.action;
           this.pageSet = this.action.hasPageSet;
           this.pagesOfThisPageSet = this.action.hasPageSet.hasPages;
+          this.subPagesOfPage = data.body.hierarchyOfPages;
           this.isLoading = false;
         } else {
           this.isLoading = false;

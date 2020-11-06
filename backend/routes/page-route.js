@@ -76,9 +76,11 @@ router.get('/undoPublishTemplate/:pageID', (req, res, next) => {
 router.get('/:id', checkAuth2, (req, res, next) => {
 
     if( req.loggedIn === true ) {
+      console.log('user logged In and page Id is ', req.params.id);
         Page.findById(req.params.id)
             .then(result => {
                 if (result) {
+                  console.log(result);
                     res.status(200).json({
                         message: 'Page was found',
                         page: result
@@ -96,6 +98,7 @@ router.get('/:id', checkAuth2, (req, res, next) => {
                 })
             })
     } else if ( req.loggedIn === false ) {
+      console.log('user is not logged, page id is ', req.params.id);
         Page.findById(req.params.id)
             .then(result => {
                 if (result) {

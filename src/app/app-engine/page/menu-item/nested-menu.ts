@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, Output, Renderer2, ViewChild} from '@angular/core';
 import {MatDialog, MatMenu} from '@angular/material';
 import {DialogCreateNewPageComponent} from '../../../user-action-engine/page-set/page-set-landing-page/page-set-landing-page.component';
 import {Router} from '@angular/router';
@@ -30,8 +30,13 @@ export class NestedMenu {
   private addSubPages: boolean;
   constructor(public dialog: MatDialog,
               public router: Router,
-              private pageService: PageService) {
+              private pageService: PageService,
+              private ren: Renderer2) {
   }
+  enteredButton = false;
+  isMatMenuOpen = false;
+  isMatMenu2Open = false;
+  prevButtonTrigger;
   addNewPage(page) {
     console.log('action Id ', this.actionIDInput);
     console.log('add New Page from the nested menu');
@@ -43,7 +48,7 @@ export class NestedMenu {
         parentPageId: page._id}
     });
     dialogRef.afterClosed().subscribe(result => {
-      // console.log( result);
+       console.log( result);
       // console.log('before any change');
       // console.log(this.allPages);
       this.searchInSubPages(this.allPages, result);
@@ -51,7 +56,8 @@ export class NestedMenu {
       console.log(this.allPages);
      // this.allPages.push({page: null, subPages: []});
       this.subPagesArray.emit(this.allPages);
-      // this.navigateToOtherView(result);
+
+       this.navigateToOtherView(result.page._id);
       // this.actionIDOutput.emit(this.actionIDInput);
     });
   }
@@ -96,11 +102,13 @@ export class NestedMenu {
 
   navigateToOtherView(pageId) {
     console.log(this.actionIDInput);
+    console.log(pageId);
     this.router.navigate( [ 'page' ], {
       queryParams: {
         'actionID': this.actionIDInput,
-        'page': pageId
-      }, queryParamsHandling: "merge"
+        'page': pageId ,
+        //'actionAlreadyLoaded': true
+      }, queryParamsHandling: 'merge'
     } );
   }
 
@@ -155,4 +163,43 @@ export class NestedMenu {
       this.addSubPages = true;
     }
   }
+
+  // buttonEnter(trigger) {
+  //   setTimeout(() => {
+  //     if (this.prevButtonTrigger && this.prevButtonTrigger !== trigger) {
+  //       this.prevButtonTrigger.closeMenu();
+  //       this.prevButtonTrigger = trigger;
+  //       this.isMatMenuOpen = false;
+  //       this.isMatMenu2Open = false;
+  //       trigger.openMenu();
+  //       this.ren.removeClass(trigger.menu.items.first['_elementRef'].nativeElement, 'cdk-focused');
+  //       this.ren.removeClass(trigger.menu.items.first['_elementRef'].nativeElement, 'cdk-program-focused');
+  //     } else if (!this.isMatMenuOpen) {
+  //       this.enteredButton = true;
+  //       this.prevButtonTrigger = trigger;
+  //       trigger.openMenu();
+  //       this.ren.removeClass(trigger.menu.items.first['_elementRef'].nativeElement, 'cdk-focused');
+  //       this.ren.removeClass(trigger.menu.items.first['_elementRef'].nativeElement, 'cdk-program-focused');
+  //     } else {
+  //       this.enteredButton = true;
+  //       this.prevButtonTrigger = trigger;
+  //     }
+  //   });
+  // }
+  //
+  // buttonLeave(trigger, button) {
+  //   setTimeout(() => {
+  //     if (this.enteredButton && !this.isMatMenuOpen) {
+  //       trigger.closeMenu();
+  //       this.ren.removeClass(button['_elementRef'].nativeElement, 'cdk-focused');
+  //       this.ren.removeClass(button['_elementRef'].nativeElement, 'cdk-program-focused');
+  //     } if (!this.isMatMenuOpen) {
+  //       trigger.closeMenu();
+  //       this.ren.removeClass(button['_elementRef'].nativeElement, 'cdk-focused');
+  //       this.ren.removeClass(button['_elementRef'].nativeElement, 'cdk-program-focused');
+  //     } else {
+  //       this.enteredButton = false;
+  //     }
+  //   }, 100);
+  // }
 }
