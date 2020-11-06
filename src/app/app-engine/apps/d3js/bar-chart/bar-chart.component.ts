@@ -175,29 +175,29 @@ export class BarChartComponent implements AfterViewChecked {
    */
   private initAxis() {
     if (this.data.metadata.rangeLabel) {
-      this.rangeMinMin = d3Array.min(this.data.data, (d) => d3Array.min(d.ranges, (r) => r.point));
-      this.rangeMaxMax = d3Array.max(this.data.data, (d) => d3Array.max(d.ranges, (r) => r.point));
+      this.rangeMinMin = d3Array.min(this.data.data, (d) => d3Array.min(d.range, (r) => r.point));
+      this.rangeMaxMax = d3Array.max(this.data.data, (d) => d3Array.max(d.range, (r) => r.point));
       this.rangeMinMax = this.rangeMaxMax;
       this.rangeMaxMin = this.rangeMinMax;
       if (this.newRangeLowest !== undefined) { // User indicated new lowest
         this.rangeLowest = this.newRangeLowest;
         this.rangeMaxMin = this.rangeLowest;
       } else {
-        this.rangeLowest = d3Array.min(this.data.data, (d) => d3Array.min(d.ranges, (r) => r.point));
+        this.rangeLowest = d3Array.min(this.data.data, (d) => d3Array.min(d.range, (r) => r.point));
         this.newRangeLowest = this.rangeLowest;
       }
       if (this.newRangeHighest !== undefined) { // User indicated new highest
         this.rangeHighest = this.newRangeHighest;
         this.rangeMinMax = this.rangeHighest;
       } else {
-        this.rangeHighest = d3Array.max(this.data.data, (d) => d3Array.max(d.ranges, (r) => r.point));
+        this.rangeHighest = d3Array.max(this.data.data, (d) => d3Array.max(d.range, (r) => r.point));
         this.newRangeHighest = this.rangeHighest;
       }
       const helpLow = this.rangeLowest;
       const helpHigh = this.rangeHighest;
       this.data.data.forEach( function (d) {
         d.value = 0;
-        d.ranges.forEach( function (r) {
+        d.range.forEach( function (r) {
           if (r.point >= helpLow && r.point <= helpHigh) {
             d.value += r.value;
           }
@@ -227,7 +227,6 @@ export class BarChartComponent implements AfterViewChecked {
     if (d3Array.max(this.data.data, (d) => d.value) !== 0) {
       this.y.domain([0, d3Array.max(this.data.data, (d) => d.value)]);
     }
-
     // Always sort back to initial state (by label)
     // this.data.data.sort((a: any, b: any) => a.label - b.label);
     this.data.data.sort( function (a: any, b: any) {
