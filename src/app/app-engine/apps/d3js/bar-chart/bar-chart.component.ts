@@ -139,9 +139,11 @@ export class BarChartComponent implements AfterViewChecked {
   }
 
   private initSvg() {
-    if (this.data.metadata.rangeLabel) {
-      this.showRange = true;
-      this.rangeLabel = this.data.metadata.rangeLabel;
+    if (this.data.metadata) {
+      if (this.data.metadata.rangeLabel) {
+        this.showRange = true;
+        this.rangeLabel = this.data.metadata.rangeLabel;
+      }
     }
     if (this.newChartWidth !== 0) {
       this.chartWidth = this.newChartWidth;
@@ -174,48 +176,46 @@ export class BarChartComponent implements AfterViewChecked {
    * Initialize the components for the axis.
    */
   private initAxis() {
-    if (this.data.metadata.rangeLabel) {
-      this.rangeMinMin = d3Array.min(this.data.data, (d) => d3Array.min(d.range, (r) => r.point));
-      this.rangeMaxMax = d3Array.max(this.data.data, (d) => d3Array.max(d.range, (r) => r.point));
-      this.rangeMinMax = this.rangeMaxMax;
-      this.rangeMaxMin = this.rangeMinMax;
-      if (this.newRangeLowest !== undefined) { // User indicated new lowest
-        this.rangeLowest = this.newRangeLowest;
-        this.rangeMaxMin = this.rangeLowest;
-      } else {
-        this.rangeLowest = d3Array.min(this.data.data, (d) => d3Array.min(d.range, (r) => r.point));
-        this.newRangeLowest = this.rangeLowest;
-      }
-      if (this.newRangeHighest !== undefined) { // User indicated new highest
-        this.rangeHighest = this.newRangeHighest;
-        this.rangeMinMax = this.rangeHighest;
-      } else {
-        this.rangeHighest = d3Array.max(this.data.data, (d) => d3Array.max(d.range, (r) => r.point));
-        this.newRangeHighest = this.rangeHighest;
-      }
-      const helpLow = this.rangeLowest;
-      const helpHigh = this.rangeHighest;
-      this.data.data.forEach( function (d) {
-        d.value = 0;
-        d.range.forEach( function (r) {
-          if (r.point >= helpLow && r.point <= helpHigh) {
-            d.value += r.value;
-          }
+    if (this.data.metadata) {
+      if (this.data.metadata.rangeLabel) {
+        this.rangeMinMin = d3Array.min(this.data.data, (d) => d3Array.min(d.range, (r) => r.point));
+        this.rangeMaxMax = d3Array.max(this.data.data, (d) => d3Array.max(d.range, (r) => r.point));
+        this.rangeMinMax = this.rangeMaxMax;
+        this.rangeMaxMin = this.rangeMinMax;
+        if (this.newRangeLowest !== undefined) { // User indicated new lowest
+          this.rangeLowest = this.newRangeLowest;
+          this.rangeMaxMin = this.rangeLowest;
+        } else {
+          this.rangeLowest = d3Array.min(this.data.data, (d) => d3Array.min(d.range, (r) => r.point));
+          this.newRangeLowest = this.rangeLowest;
+        }
+        if (this.newRangeHighest !== undefined) { // User indicated new highest
+          this.rangeHighest = this.newRangeHighest;
+          this.rangeMinMax = this.rangeHighest;
+        } else {
+          this.rangeHighest = d3Array.max(this.data.data, (d) => d3Array.max(d.range, (r) => r.point));
+          this.newRangeHighest = this.rangeHighest;
+        }
+        const helpLow = this.rangeLowest;
+        const helpHigh = this.rangeHighest;
+        this.data.data.forEach(function (d) {
+          d.value = 0;
+          d.range.forEach(function (r) {
+            if (r.point >= helpLow && r.point <= helpHigh) {
+              d.value += r.value;
+            }
+          });
         });
-      });
-      this.RangeOptions.floor = this.rangeLowest;
-      this.RangeOptions.ceil = this.rangeHighest;
+        this.RangeOptions.floor = this.rangeLowest;
+        this.RangeOptions.ceil = this.rangeHighest;
+      }
     }
 
     if (this.isSorted === true) {
       // Sort by value
       this.data.data.sort((a: any, b: any) => b.value - a.value);
     } else { // Sort by bar label
-      this.data.data.sort( function (a: any, b: any) {
-        if (a.label < b.label) { return -1; }
-        if (a.label > b.label) { return 1; }
-        return 0;
-      });
+      this.data.data.sort((a: any, b: any) => a.label - b.label);
     }
 
     this.x = d3Scale.scaleBand().range([0, this.chartWidth - this.margin.left - this.margin.right])
@@ -228,12 +228,7 @@ export class BarChartComponent implements AfterViewChecked {
       this.y.domain([0, d3Array.max(this.data.data, (d) => d.value)]);
     }
     // Always sort back to initial state (by label)
-    // this.data.data.sort((a: any, b: any) => a.label - b.label);
-    this.data.data.sort( function (a: any, b: any) {
-      if (a.label < b.label) { return -1; }
-      if (a.label > b.label) { return 1; }
-      return 0;
-    });
+    this.data.data.sort((a: any, b: any) => a.label - b.label);
   }
 
   /**
@@ -248,27 +243,28 @@ export class BarChartComponent implements AfterViewChecked {
     this.gYaxis.append('g')
       .attr('class', 'axis axis--y')
       .call(d3Axis.axisLeft(this.y).ticks(10));
+    if (this.data.metadata) {
+      if (this.data.metadata.axes) {
+        this.gYaxis.append('g')
+          .append('text')
+          .attr('transform', 'rotate(-90)')
+          .attr('y', 0 - (this.margin.left + 3))
+          .attr('x', 0 - (this.height / 2))
+          .attr('dy', '1em')
+          .attr('fill', 'black')
+          .attr('font-weight', 'bold')
+          .attr('text-anchor', 'middle')
+          .text(this.data.metadata.axes.y);
 
-    if (this.data.metadata.axes) {
-      this.gYaxis.append('g')
-        .append('text')
-        .attr('transform', 'rotate(-90)')
-        .attr('y', 0 - (this.margin.left + 3))
-        .attr('x', 0 - (this.height / 2))
-        .attr('dy', '1em')
-        .attr('fill', 'black')
-        .attr('font-weight', 'bold')
-        .attr('text-anchor', 'middle')
-        .text(this.data.metadata.axes.y);
-
-      this.g.append('g')
-        .append('text')
-        // tslint:disable-next-line:max-line-length
-        .attr('transform', 'translate(' + ((this.chartWidth - this.margin.left - this.margin.right) / 2) + ',' + (this.height + this.margin.top + 10) + ')')
-        .attr('fill', 'black')
-        .attr('font-weight', 'bold')
-        .style('text-anchor', 'middle')
-        .text(this.data.metadata.axes.x);
+        this.g.append('g')
+          .append('text')
+          // tslint:disable-next-line:max-line-length
+          .attr('transform', 'translate(' + ((this.chartWidth - this.margin.left - this.margin.right) / 2) + ',' + (this.height + this.margin.top + 10) + ')')
+          .attr('fill', 'black')
+          .attr('font-weight', 'bold')
+          .style('text-anchor', 'middle')
+          .text(this.data.metadata.axes.x);
+      }
     }
   }
 

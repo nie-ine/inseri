@@ -35,7 +35,7 @@
                      type="number"
                      min="{{ rangeMinMin }}"
                      max="{{ rangeMinMax }}"
-                     placeholder="Lowest"
+                     placeholder="Min"
                      [value]="rangeLowest"
                      [(ngModel)]="newRangeLowest"
                      (change)="drawBarChart()">
@@ -50,7 +50,7 @@
                      type="number"
                      min="{{ rangeMaxMin }}"
                      max="{{ rangeMaxMax }}"
-                     placeholder="Highest"
+                     placeholder="Max"
                      [value]="rangeHighest"
                      [(ngModel)]="newRangeHighest"
                      (change)="drawBarChart()">
