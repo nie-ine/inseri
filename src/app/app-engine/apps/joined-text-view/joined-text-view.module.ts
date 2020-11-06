@@ -5,8 +5,8 @@ import { JoinedTextBlockComponent } from './joined-text-block/joined-text-block.
 import { JoinedTextLineComponent } from './joined-text-line/joined-text-line.component';
 import { JoinedTextLinepartComponent } from './joined-text-linepart/joined-text-linepart.component';
 import { JoinedTextMarginComponent } from './joined-text-margin/joined-text-margin.component';
-import { RichTextModule } from '../shared/rich-text/rich-text.module';
 import { JoinedTextTextwrapperComponent } from './joined-text-textwrapper/joined-text-textwrapper.component';
+import { JoinedTextInnerhtmlComponent } from './joined-text-innerhtml/joined-text-innerhtml.component';
 
 @NgModule({
   declarations: [
@@ -15,10 +15,11 @@ import { JoinedTextTextwrapperComponent } from './joined-text-textwrapper/joined
     JoinedTextLineComponent,
     JoinedTextLinepartComponent,
     JoinedTextMarginComponent,
-    JoinedTextTextwrapperComponent  ],
+    JoinedTextTextwrapperComponent,
+    JoinedTextInnerhtmlComponent
+  ],
   imports: [
-    CommonModule,
-    RichTextModule
+    CommonModule
   ],
   exports: [JoinedTextViewComponent]
 })

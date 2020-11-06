@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HtmlViewerComponent } from './html-viewer/html-viewer.component';
-import { RichTextModule } from '../shared/rich-text/rich-text.module';
+import { HtmlViewerInnerhtmlComponent } from './html-viewer-innerhtml/html-viewer-innerhtml.component';
 
 @NgModule({
-  declarations: [HtmlViewerComponent],
+  declarations: [HtmlViewerComponent, HtmlViewerInnerhtmlComponent],
   imports: [
-    CommonModule,
-    RichTextModule
+    CommonModule
   ],
   exports: [HtmlViewerComponent]
 })

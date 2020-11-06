@@ -26,7 +26,6 @@ import { PizzaPartyComponent } from './header/header.component';
 import { ExtendSessionComponent } from './header/header.component';
 import { BrowserModule } from '@angular/platform-browser';
 import {MatChipsModule} from '@angular/material/chips';
-import { DevelopmentViewsModule } from '../app-engine/apps/development-views/development-views.module';
 import {MatIconModule} from '@angular/material/icon';
 import {PageComponent} from '../app-engine/page/page/page.component';
 
@@ -41,7 +40,6 @@ import {PageComponent} from '../app-engine/page/page/page.component';
     DashboardModule,
     SynopsisModule,
     FormsModule,
-    DevelopmentViewsModule,
     ReactiveFormsModule,
     BrowserModule,
     MatTooltipModule,

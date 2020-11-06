@@ -13,7 +13,6 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {SynopsisModule} from './apps/synopsis/synopsis.module';
 import {MyPageSetModule} from '../user-action-engine/page-set/page-set.module';
 import {GenerateHashService} from '../user-action-engine/other/generateHash.service';
-import {CreateResourceModule} from './apps/create-resource/create-resource.module';
 import {TextlistViewerComponent} from './apps/textlist-viewer/textlist-viewer.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDividerModule} from '@angular/material/divider';
@@ -55,15 +54,14 @@ import { MatCardModule } from '@angular/material/card';
 import {GrapesjsComponent} from './apps/grapesjs/grapesjs.component';
 import { ImageFrameModule } from './apps/image-frame/image-frame.module';
 import { ParzivalFassungComponent } from './apps/parzival-fassung/parzival-fassung.component';
-import { Project0041Module } from './apps/project-specific/project-0041/project-0041.module';
 import { ComplexTextViewsModule } from './apps/complex-text-views/complex-text-views.module';
-import { ResourceFormModule } from './apps/resource-form/resource-form.module';
+import { KnoraV2ViewerModule } from './apps/knora-v2-viewer/knora-v2-viewer.module';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { DataListViewComponent} from './apps/data-list-view/data-list-view.component';
 import { DataListViewSettingsComponent} from './apps/data-list-view/data-list-view-settings/data-list-view-settings';
 import { DataListViewTableComponent, HighlightPipe } from './apps/data-list-view/data-list-view-table/data-list-view-table.component';
 import { DataListViewInAppQueryService } from './apps/data-list-view/data-list-view-services/query.service';
-import { NavigationModule } from './apps/navigation/navigation.module';
+import { TreeNavigationModule } from './apps/tree-navigation/tree-navigation.module';
 import { HtmlViewerModule } from './apps/html-viewer/html-viewer.module';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { OpenbisLoginComponent } from './apps/openbis-login/openbis-login.component';
@@ -74,7 +72,7 @@ import { YoutubeVideoComponent } from './apps/youtube-video/youtube-video.compon
 import {MatRadioModule} from '@angular/material/radio';
 import { JoinedTextViewModule } from './apps/joined-text-view/joined-text-view.module';
 import { ResponseTreeComponent, FileDatabase } from '../query-app-interface/data-management/response-tree/response-tree.component';
-import { HierarchicalNavigationModule } from './apps/navigation/hierarchical-navigation/hierarchical-navigation.module';
+import { HierarchicalNavigationModule } from './apps/hierarchical-navigation-view/hierarchical-navigation.module';
 import { IframeComponent } from './apps/iframe/iframe.component';
 import { PrimeEditorComponent } from './apps/prime-editor/prime-editor.component';
 import {EditorModule} from 'primeng/editor';
@@ -103,7 +101,6 @@ import { GroupedBarChartV2Component } from './apps/grouped-bar-chart-v2/grouped-
 import { CommentOnIndicesComponent } from './apps/comment-on-indices/comment-on-indices.component';
 //import {DataListViewDetailsDialogComponent} from './apps/data-list-view/data-list-view-details-dialog/data-list-view-details-dialog.component';
 import { CalendarComponent } from './apps/calendar/calendar.component';
-
 import { CrisprComponent } from './apps/crispr/crispr.component';
 import { MatFileUploadModule } from 'angular-material-fileupload';
 import { BrowserModule } from '@angular/platform-browser';
@@ -111,6 +108,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MachineReasoningComponent } from './apps/machine-reasoning/machine-reasoning.component';
 import { MenuItemComponent } from './page/menu-item/menu-item.component';
 import { NestedMenu} from './page/menu-item/nested-menu';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
 @NgModule({
   imports: [
@@ -123,8 +121,7 @@ import { NestedMenu} from './page/menu-item/nested-menu';
     MatTooltipModule,
     SynopsisModule,
     MyPageSetModule,
-    CreateResourceModule,
-    ResourceFormModule,
+    KnoraV2ViewerModule,
     MatProgressSpinnerModule,
     MatExpansionModule,
     MatDividerModule,
@@ -155,9 +152,8 @@ import { NestedMenu} from './page/menu-item/nested-menu';
     MatCardModule,
     ImageFrameModule,
     ComplexTextViewsModule,
-    Project0041Module,
     HtmlViewerModule,
-    NavigationModule,
+    TreeNavigationModule,
     OverlayModule,
     MatCheckboxModule,
     StaticPagesModule,
@@ -180,7 +176,8 @@ import { NestedMenu} from './page/menu-item/nested-menu';
       { path: 'gnd', component: GndLobidComponent },
       { path: 'audio', component: AudioPlayerComponent },
       { path: 'calendar', component: CalendarComponent }
-    ])
+    ]),
+    NgxSliderModule
   ],
   providers: [
     GenerateHashService,

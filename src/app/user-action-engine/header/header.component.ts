@@ -84,9 +84,9 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   openExtendSessionBar() {
-    this.snackBar.openFromComponent(ExtendSessionComponent, {
-      duration: 100000,
-    });
+    // this.snackBar.openFromComponent(ExtendSessionComponent, {
+    //   duration: 100000,
+    // });
   }
 
   checkTimeUntilLogout() {

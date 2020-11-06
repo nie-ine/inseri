@@ -3,6 +3,7 @@ import * as d3 from 'd3-selection';
 import * as d3Scale from 'd3-scale';
 import * as d3Array from 'd3-array';
 import * as d3Axis from 'd3-axis';
+import { Options } from '@angular-slider/ngx-slider';
 
 /**
  * This component describes a bar chart, with a column for each value from left to right.
@@ -75,9 +76,27 @@ export class BarChartComponent implements AfterViewChecked {
    */
   alreadyInitialised = false;
 
-  imageWidth = 350;
-  newImageWidth = 0;
+  chartWidth: any = 350;
+  newChartWidth = 0;
   isSorted = false;
+
+  showRange = false;
+  rangeLabel: string;
+
+  RangeOptions: Options = {
+    floor: 0,
+    ceil: 0
+  };
+
+  rangeMinMin: any;
+  rangeMinMax: any;
+  rangeLowest: any;
+  newRangeLowest: any;
+
+  rangeMaxMax: any;
+  rangeMaxMin: any;
+  rangeHighest: any;
+  newRangeHighest: any;
 
   private posX: number;
   private posY: number;
@@ -111,8 +130,8 @@ export class BarChartComponent implements AfterViewChecked {
   }
 
   drawBarChart() {
-    // this.g = undefined;
-    // this.svgChart = undefined;
+    d3.select('#barChartChart_' + this.numberOfInitialisedComponent).select('svg').remove();
+    d3.select('#barChartYaxis_' + this.numberOfInitialisedComponent).select('svg').remove();
     this.initSvg();
     this.initAxis();
     this.drawAxis();
@@ -120,20 +139,24 @@ export class BarChartComponent implements AfterViewChecked {
   }
 
   private initSvg() {
-    if (this.newImageWidth !== 0) {
-      this.imageWidth = this.newImageWidth;
+    if (this.data.metadata.rangeLabel) {
+      this.showRange = true;
+      this.rangeLabel = this.data.metadata.rangeLabel;
+    }
+    if (this.newChartWidth !== 0) {
+      this.chartWidth = this.newChartWidth;
     } else {
-      if (this.data.data.length * 25 > this.imageWidth) {
-        this.imageWidth = this.data.data.length * 25;
+      if (this.data.data.length * 25 > this.chartWidth) {
+        this.chartWidth = this.data.data.length * 25;
       } else {
-        this.newImageWidth = this.imageWidth;
+        this.newChartWidth = this.chartWidth;
       }
     }
     this.svgChart = d3.select('#barChartChart_' + this.numberOfInitialisedComponent)
       .append('svg')
-      .attr('width', this.imageWidth)
+      .attr('width', this.chartWidth)
       .attr('height', 350);
-    this.width = this.imageWidth - this.margin.left - this.margin.right;
+    this.width = this.chartWidth - this.margin.left - this.margin.right;
     this.height = 350 - this.margin.top - this.margin.bottom;
     this.g = this.svgChart.append('g')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
@@ -151,21 +174,67 @@ export class BarChartComponent implements AfterViewChecked {
    * Initialize the components for the axis.
    */
   private initAxis() {
+    if (this.data.metadata.rangeLabel) {
+      this.rangeMinMin = d3Array.min(this.data.data, (d) => d3Array.min(d.ranges, (r) => r.point));
+      this.rangeMaxMax = d3Array.max(this.data.data, (d) => d3Array.max(d.ranges, (r) => r.point));
+      this.rangeMinMax = this.rangeMaxMax;
+      this.rangeMaxMin = this.rangeMinMax;
+      if (this.newRangeLowest !== undefined) { // User indicated new lowest
+        this.rangeLowest = this.newRangeLowest;
+        this.rangeMaxMin = this.rangeLowest;
+      } else {
+        this.rangeLowest = d3Array.min(this.data.data, (d) => d3Array.min(d.ranges, (r) => r.point));
+        this.newRangeLowest = this.rangeLowest;
+      }
+      if (this.newRangeHighest !== undefined) { // User indicated new highest
+        this.rangeHighest = this.newRangeHighest;
+        this.rangeMinMax = this.rangeHighest;
+      } else {
+        this.rangeHighest = d3Array.max(this.data.data, (d) => d3Array.max(d.ranges, (r) => r.point));
+        this.newRangeHighest = this.rangeHighest;
+      }
+      const helpLow = this.rangeLowest;
+      const helpHigh = this.rangeHighest;
+      this.data.data.forEach( function (d) {
+        d.value = 0;
+        d.ranges.forEach( function (r) {
+          if (r.point >= helpLow && r.point <= helpHigh) {
+            d.value += r.value;
+          }
+        });
+      });
+      this.RangeOptions.floor = this.rangeLowest;
+      this.RangeOptions.ceil = this.rangeHighest;
+    }
 
     if (this.isSorted === true) {
       // Sort by value
       this.data.data.sort((a: any, b: any) => b.value - a.value);
+    } else { // Sort by bar label
+      this.data.data.sort( function (a: any, b: any) {
+        if (a.label < b.label) { return -1; }
+        if (a.label > b.label) { return 1; }
+        return 0;
+      });
     }
-    this.x = d3Scale.scaleBand().range([0, this.imageWidth - this.margin.left - this.margin.right])
+
+    this.x = d3Scale.scaleBand().range([0, this.chartWidth - this.margin.left - this.margin.right])
       .paddingInner(0.1)
       .paddingOuter(0.1)
       .align(0.5);
     this.y = d3Scale.scaleLinear().rangeRound([this.height, 0]);
     this.x.domain(this.data.data.map((d) => d.label));
-    this.y.domain([0, d3Array.max(this.data.data, (d) => d.value)]);
+    if (d3Array.max(this.data.data, (d) => d.value) !== 0) {
+      this.y.domain([0, d3Array.max(this.data.data, (d) => d.value)]);
+    }
 
     // Always sort back to initial state (by label)
-    this.data.data.sort((a: any, b: any) => a.label - b.label);
+    // this.data.data.sort((a: any, b: any) => a.label - b.label);
+    this.data.data.sort( function (a: any, b: any) {
+      if (a.label < b.label) { return -1; }
+      if (a.label > b.label) { return 1; }
+      return 0;
+    });
   }
 
   /**
@@ -181,7 +250,7 @@ export class BarChartComponent implements AfterViewChecked {
       .attr('class', 'axis axis--y')
       .call(d3Axis.axisLeft(this.y).ticks(10));
 
-    if (this.data.metadata) {
+    if (this.data.metadata.axes) {
       this.gYaxis.append('g')
         .append('text')
         .attr('transform', 'rotate(-90)')
@@ -191,17 +260,17 @@ export class BarChartComponent implements AfterViewChecked {
         .attr('fill', 'black')
         .attr('font-weight', 'bold')
         .attr('text-anchor', 'middle')
-        .text(this.data.metadata.yAxis);
+        .text(this.data.metadata.axes.y);
 
       this.g.append('g')
         .append('text')
-        .attr('transform', 'translate(' + ((this.imageWidth - this.margin.left - this.margin.right) / 2) + ',' + (this.height + this.margin.top + 10) + ')')
+        // tslint:disable-next-line:max-line-length
+        .attr('transform', 'translate(' + ((this.chartWidth - this.margin.left - this.margin.right) / 2) + ',' + (this.height + this.margin.top + 10) + ')')
         .attr('fill', 'black')
         .attr('font-weight', 'bold')
         .style('text-anchor', 'middle')
-        .text(this.data.metadata.xAxis);
+        .text(this.data.metadata.axes.x);
     }
-
   }
 
 
@@ -246,17 +315,6 @@ export class BarChartComponent implements AfterViewChecked {
         tooltip.style('display', 'none');
       };
     });
-
-
-  }
-
-  reDrawBarChart() {
-    d3.select('#barChartChart_' + this.numberOfInitialisedComponent).select('svg').remove();
-    d3.select('#barChartYaxis_' + this.numberOfInitialisedComponent).select('svg').remove();
-    this.initSvg();
-    this.initAxis();
-    this.drawAxis();
-    this.drawBars();
   }
 }
 

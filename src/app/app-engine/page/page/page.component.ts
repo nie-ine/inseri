@@ -153,7 +153,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   hoveredElement: string;
 
   /**
-   * needed to generate the navigation in case that the page belongs to a pageSet
+   * needed to generate the hierarchical-navigation-view in case that the page belongs to a pageSet
    * */
   pagesOfThisActtion: Array<any>;
 
@@ -163,17 +163,17 @@ export class PageComponent implements OnInit, AfterViewChecked {
   hashOfThisPage: string;
 
   /**
-   *  - Needed to generate the navigation
+   *  - Needed to generate the hierarchical-navigation-view
    * */
   lastView: any;
 
   /**
-   * Needed to generate the navigation
+   * Needed to generate the hierarchical-navigation-view
    * */
   nextView: any;
   /**
-   * If an action is a pageSet, it contains an array with the pages, from this array the navigation is created,
-   * the following value is needed to generate the navigation
+   * If an action is a pageSet, it contains an array with the pages, from this array the hierarchical-navigation-view is created,
+   * the following value is needed to generate the hierarchical-navigation-view
    * */
   selectedPageIndex = 0;
 
@@ -283,6 +283,10 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   selectedSubPage: SubPageOfPageModel;
   subPagesOfPage: SubPageOfPageModel[] = [];
+  dataSourceOfSubPages: MatTableDataSource<any>;
+  pageSet: any;
+  private actionAlreadyLoaded: boolean;
+  addSubPages: boolean;
 
   constructor(
     public route: ActivatedRoute,
@@ -297,7 +301,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     public sanitizer: DomSanitizer,
     private stylemapping: StyleMappingService,
     private actionService: ActionService,
-    private router: Router,
+    public router: Router,
     public snackBar: MatSnackBar,
     public snackBar2: MatSnackBar,
     private authService: AuthService,
@@ -308,7 +312,11 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.route.queryParams.subscribe(params => {
       this.hashOfThisPage = params.page;
       this.actionID = params.actionID;
-      this.generateNavigation(params.actionID);
+      // console.log(params.actionAlreadyLoaded);
+      // if (!params.actionAlreadyLoaded) {
+        this.generateNavigation(params.actionID);
+     // }
+
     });
     // route
     if ( this.route.snapshot.queryParams.page ) {
@@ -388,8 +396,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
                       {
                         queryParams: {
                           'actionID': ( response as any).action._id,
-                          'page': pageSetResponse.pageset.hasPages[ 0 ]
-                        },
+                          'page': pageSetResponse.pageset.hasPages[ 0 ],
+                          //'actionAlreadyLoaded': true
+                        }, queryParamsHandling: "merge"
                       });
                   }, e2 => console.log( e2 )
                 );
@@ -508,19 +517,21 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   addNewPage(page) {
+    alert('add New Page');
     const dialogRef = this.dialog.open(DialogCreateNewPageComponent, {
       width: '700px',
       data: { pageset: this.action.hasPageSet,
-              parentPageId: page._id
+              parentPageId: null
               // subPage: ,
               // pageId:
              }
     });
     dialogRef.afterClosed().subscribe(result => {
       this.alreadyLoaded = false;
-      this.generateNavigation(
-        this.actionID
-      );
+      this.subPagesOfPage.push({page: result.page, subPages: []});
+      // this.updatePagesArray(result);
+      this.navigateToOtherView(result.page._id);
+      // this.generateNavigation(this.actionID, true);
     });
   }
 
@@ -528,6 +539,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * This function is used to navigate to another page belonging to the current pageSet
    * */
   selectPage(i: number, page: any, ) {
+    console.log(page);
+    console.log(i);
+    console.log(this.selectedPageIndex);
     this.selectedPageIndex = i;
     this.selectedPageToShow = i + 1;
     this.selectedPage = page;
@@ -538,27 +552,32 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * This function is used to navigate to another page belonging to the current pageSet
    * */
   navigateToOtherView(page: any) {
+    console.log( page );
     this.router.navigate( [ 'page' ], {
       queryParams: {
         'actionID': this.actionID,
-        'page': page._id
-      }
+        'page': page._id,
+       // 'actionAlreadyLoaded': true
+      }, queryParamsHandling: "merge"
     } );
   }
 
   /**
    * This function generates the pagesOfThisActtion Array
    * */
-  generateNavigation(actionID: string, goToPage?: boolean) {
+  generateNavigation(actionID: string) {
     if (!this.alreadyLoaded && actionID) {
       this.subPagesOfPage = [];
       this.actionService.getAction(actionID)
         .subscribe(data => {
+          this.pageSet = data.body.action.hasPageSet._id;
           console.log(data.body.action.hasPageSet.hasPages);
           console.log(data.body.hierarchyOfPages);
             if (data.body.action.type === 'page-set') {
               this.pagesOfThisActtion = [];
               this.subPagesOfPage = data.body.hierarchyOfPages;
+              this.dataSourceOfSubPages = new MatTableDataSource(this.subPagesOfPage);
+              console.log(this.subPagesOfPage);
               for (const page of ( data.body as any ).action.hasPageSet.hasPages as any ) {
                 if ( page._id === this.hashOfThisPage ) {
                   this.selectedPageIndex = this.pagesOfThisActtion.length;
@@ -568,15 +587,17 @@ export class PageComponent implements OnInit, AfterViewChecked {
                 this.pagesOfThisActtion[this.pagesOfThisActtion.length] = page;
                 this.alreadyLoaded = true;
               }
-              if ( goToPage ) {
-                this.selectedPageIndex = this.pagesOfThisActtion.length - 1;
+              console.log( this.pagesOfThisActtion, this.subPagesOfPage );
+              // if ( goToPage ) {
+                // this.selectedPageIndex = this.pagesOfThisActtion.length - 1;
                 this.router.navigate( [ 'page' ], {
                   queryParams: {
                     'actionID': this.actionID,
-                    'page': this.pagesOfThisActtion[ this.pagesOfThisActtion.length - 1 ]._id
-                  }
+                    'page': this.pagesOfThisActtion[ this.selectedPageIndex ]._id, // this.hashOfThisPage
+                    //'actionAlreadyLoaded': true
+                  }, queryParamsHandling: "merge"
                 } );
-              }
+              // }
             }
           },
           error => {
@@ -631,10 +652,10 @@ export class PageComponent implements OnInit, AfterViewChecked {
           setTimeout(() => {
             this.snackBarOpen = false;
           }, 2000);
-          this.snackBar2.open( 'Page successfully saved', 'ok',
-            {
-              duration: 2000
-            });
+          // this.snackBar2.open( 'Page successfully saved', 'ok',
+          //   {
+          //     duration: 2000
+          //   });
           if ( reload ) {
             this.reloadVariables = true;
           }
@@ -1292,14 +1313,12 @@ export class PageComponent implements OnInit, AfterViewChecked {
       }
     });
     dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
       this.pageService.duplicatePage( result, this.action.hasPageSet._id )
         .subscribe(
           data => {
             this.alreadyLoaded = false;
-            this.generateNavigation(
-              this.actionID,
-              true
-            );
+            this.generateNavigation(this.actionID);
             console.log( this.pagesOfThisActtion );
           }, error => console.log( error )
         );
@@ -1320,9 +1339,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
         .subscribe(
           data => {
             this.alreadyLoaded = false;
-            this.generateNavigation(
-              this.actionID
-            );
+            this.generateNavigation(this.actionID);
           }, error => console.log( error )
         );
     });
@@ -1458,4 +1475,24 @@ export class PageComponent implements OnInit, AfterViewChecked {
     console.log( this.subPagesOfPage);
   }
 
+  generateBrowserHeight(): string {
+    const size = window.screen.height - 200;
+    return size + 'px';
+  }
+
+  private updatePagesArray(newSubPagesOfPage: SubPageOfPageModel[]) {
+    // result = {page: result.page, parentPage: parentPageId}
+    // we need to update this.subPagesOfPage
+    console.log(newSubPagesOfPage);
+      this.subPagesOfPage = newSubPagesOfPage;
+
+  }
+
+  addSubPagesEvent() {
+    if (this.addSubPages) {
+      this.addSubPages = false;
+    } else {
+      this.addSubPages = true;
+    }
+  }
 }

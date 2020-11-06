@@ -70,14 +70,17 @@
       </mat-button-toggle-group>
 
     </mat-menu-->
-    <button *ngIf="pagesOfThisActtion"
-            [disabled]="selectedPage === 0"
+    <!--button *ngIf="pagesOfThisActtion"-->
+     <button *ngIf="pagesOfThisActtion"
+            [disabled]="selectedPageIndex === 0"
             mat-button
-            (click)="selectPage( selectedPage - 1, pagesOfThisActtion[ selectedPage - 1 ])">
+           (click)="selectPage( selectedPageIndex - 1, pagesOfThisActtion[ selectedPageIndex - 1 ])">
       <mat-icon> keyboard_arrow_left </mat-icon>
     </button>
-    <button mat-button [matMenuTriggerFor]="menu5" *ngIf="pagesOfThisActtion">{{ page.title }}
+    <button mat-button [matMenuTriggerFor]="menu5" *ngIf="subPagesOfPage">{{ page.title }}
     </button>
+    <!--button mat-button [matMenuTriggerFor]="menu5" *ngIf="pagesOfThisActtion">{{ page.title }}
+    </button-->
 
     <!--mat-menu #menuOpenFileApps="matMenu" >
       <div *ngFor="let app of inseriAppsMenu" style="display: inline-block">
@@ -91,36 +94,24 @@
     <mat-menu #menu5>
 
       <ng-container *ngFor="let page of subPagesOfPage">
-        <ng-container *ngIf="!!page.subPages.length">
-          <button [matMenuTriggerFor]="submenu.menu" mat-menu-item>
+
+        <button class="mat-menu-item" mat-menu-item >
+                 <!--[matMenuTriggerFor]="submenu.menu"-->
+          <span class="pm-menu-item" (click)="navigateToOtherView(page.page)"> {{ page.page.title }}</span>
+          <i style="float: right" class="material-icons pm-menu-icon-right" *ngIf="page.subPages.length!==0 ||addSubPages" (click)="$event.stopPropagation();" [matMenuTriggerFor]="submenu.menu"> keyboard_arrow_right</i>
+        </button>
+        <!--ng-container *ngIf="!!page.subPages.length"-->
+          <!--button  (click)="navigateToOtherView(page.page)" [matMenuTriggerFor]="submenu.menu" mat-menu-item>
             {{ page.page.title }}
-          </button>
-            <nested-menu [pages]="page.subPages" #submenu="nestedMenu" >
-              <mat-button-toggle-group
-                name="fontStyle"
-                *ngIf=" (!pageAsDemo) && !preview && loggedIn"
-                style="margin-left: 10px; margin-right: 10px; margin-top: 10px;">
-
-                <mat-button-toggle (click)="addNewPage(page)" matTooltip="Add new page">
-                  <mat-icon>add</mat-icon>
-                </mat-button-toggle>
-
-                <mat-button-toggle (click)="addDuplicatedPage()" matTooltip="Copy and add existing page">
-                  <mat-icon>file_copy</mat-icon>
-                </mat-button-toggle>
-
-                <mat-button-toggle matTooltip="Link existing page" (click)="linkExistingPage()">
-                  <mat-icon>link</mat-icon>
-                </mat-button-toggle>
-
-              </mat-button-toggle-group>
-
-            </nested-menu>
-        </ng-container>
+          </button-->
+            <app-nested-menu #submenu="nestedMenu" (subPagesArray)="updatePagesArray($event)" [pageSet]="pageSet" [parentPage]="page.page" [actionIDInput]="actionID" [pages]="page.subPages" [allPages]="subPagesOfPage" [pageAsDemo]="pageAsDemo" [preview]="preview" [loggedIn]="loggedIn" > <!--(actionIDOutput)="$event"-->
+            <ng-content></ng-content>
+            </app-nested-menu>
+        <!--/ng-container>
 
         <a *ngIf="!page.subPages.length" mat-menu-item>
-          {{ page.page.title }}
-        </a>
+      {{ page.page.title }}
+    </a-->
       </ng-container>
       <mat-button-toggle-group
         name="fontStyle"
@@ -137,6 +128,10 @@
 
         <mat-button-toggle matTooltip="Link existing page" (click)="linkExistingPage()">
           <mat-icon>link</mat-icon>
+        </mat-button-toggle>
+
+        <mat-button-toggle matTooltip="Add subPages" (click)="$event.stopPropagation();addSubPagesEvent()">
+          <mat-icon>library_add</mat-icon>
         </mat-button-toggle>
 
       </mat-button-toggle-group>
@@ -203,13 +198,18 @@
     </div>
     </mat-menu-->
 
-    <button [disabled]="selectedPageIndex === pagesOfThisActtion.length - 1"
+    <!--button [disabled]="selectedPageIndex === pagesOfThisActtion.length - 1"
+            *ngIf="pagesOfThisActtion"
+            mat-button
+            (click)="selectPage( selectedPageIndex + 1 , pagesOfThisActtion[ selectedPageIndex + 1 ] )">
+      <mat-icon > keyboard_arrow_right </mat-icon>
+    </button-->
+    <button [disabled]="selectedPageIndex === subPagesOfPage.length - 1"
             *ngIf="pagesOfThisActtion"
             mat-button
             (click)="selectPage( selectedPageIndex + 1 , pagesOfThisActtion[ selectedPageIndex + 1 ] )">
       <mat-icon > keyboard_arrow_right </mat-icon>
     </button>
-
     <button mat-icon-button *ngIf=" (!pageAsDemo) && !preview && page.publishedAsTemplate" style="color: #4cae4c!important;" matTooltip="This page is published as a template!" [matMenuTriggerFor]="menu4">
       <mat-icon style="margin-right: 10px">arrow_circle_up</mat-icon>
     </button>
@@ -393,7 +393,8 @@
   <mat-card
     *ngFor="let app of openAppArray.slice(); let i = index;"
     style="display: inline-grid; margin-bottom: 10px; margin-left: 60px; margin-top: 70px;"
-    [ngStyle]="{ 'width': ( app.fullWidth || app.panelExtended ) ? '92%' : app.width + 'px'}">
+    [ngStyle]="{
+    'width': ( app.fullWidth || app.panelExtended ) ? '92%' : app.width + 'px' }">
 
 
     <mat-card-header *ngIf=" !app.minimized " >
@@ -452,8 +453,8 @@
 
     </mat-card-header>
     <div style="pointer-events: auto!important;"
-         *ngIf=" !app.minimized && !app.panelExtended" [style.overflow]="'auto'"
-         [ngStyle]="{ 'height':  ( app.fullHeight || app.panelExtended ) ? '92%' : app.height + 'px'}">
+         [ngStyle]="{'height':  ( app.fullHeight || app.panelExtended ) ? generateBrowserHeight() : app.height + 'px'}"
+         *ngIf=" !app.minimized && !app.panelExtended" [style.overflow]="'auto'">
 
       <div *ngIf="app.hasOwnProperty('showSettings')">
         <button mat-raised-button color="primary" *ngIf="app.showSettings" (click)="toggleShowInAppSettings( app, i )">Close app settings</button>
@@ -636,7 +637,10 @@
   }
 </style>
 
-<div style=" position: fixed; top: 50%; left: 50%; margin-top: -100px; margin-left: -100px; z-index: -10000" class="text-center" *ngIf="!loggedIn">
+<div
+  style=" position: fixed; top: 50%; left: 50%; margin-top: -100px; margin-left: -100px; z-index: -10000"
+  class="text-center"
+  *ngIf="!loggedIn && router.url.split('/')[ 1 ].search( 'actionID=' ) === -1">
   <h1  style="text-transform: none!important; font-size: 45px" >
     <span class=" i i:before " >i</span>nser<span class=" i i:before ">i</span>
   </h1>

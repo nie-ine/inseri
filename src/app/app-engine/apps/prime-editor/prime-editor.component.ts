@@ -50,10 +50,11 @@ export class PrimeEditorComponent implements OnChanges {
   }
 
   save() {
-    console.log( this.appInputQueryMapping );
+    console.log( this.appInputQueryMapping, this.hash );
     const pathToTextList = this.appInputQueryMapping[ this.hash ][ 'textFile' ].path;
     const hashOfOriginalFileOwnerApp = pathToTextList.slice().reverse()[ 1 ];
     console.log( pathToTextList, pathToTextList.slice().reverse()[ 1 ] );
+    console.log( hashOfOriginalFileOwnerApp );
 
     this.requestService.updateFile(
       this.appInputQueryMapping[ hashOfOriginalFileOwnerApp ][ pathToTextList.slice().reverse()[ 0 ] ][ 'serverUrl' ].split('/')[ 6 ],

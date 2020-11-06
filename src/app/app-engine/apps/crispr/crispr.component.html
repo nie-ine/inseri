@@ -2,7 +2,7 @@
 
 <mat-form-field appearance="fill">
   <mat-label>Base editor</mat-label>
-  <mat-select [(value)]="selectedBaseEditor">
+  <mat-select [(value)]="selectedBaseEditor" [disabled]="waitingForResponse">
     <mat-option
       value="ABEmax" matTooltip="{{ selectedAction === 'plot' ? 'not changeable in plot-mode' : '' }}"
       [disabled]="selectedAction === 'plot'">ABEmax</mat-option>
@@ -20,7 +20,7 @@
 
 <mat-form-field appearance="fill">
   <mat-label>Prediction type</mat-label>
-  <mat-select [(value)]="selectedPredictionType">
+  <mat-select [(value)]="selectedPredictionType" [disabled]="waitingForResponse" >
     <mat-option value="mean">Mean</mat-option>
     <mat-option value="median">Median</mat-option>
     <mat-option value="max">Max</mat-option>
@@ -29,7 +29,7 @@
 
 <mat-form-field appearance="fill">
   <mat-label>Choose action</mat-label>
-  <mat-select [(value)]="selectedAction">
+  <mat-select [(value)]="selectedAction" [disabled]="waitingForResponse">
     <mat-option value="download" >Perform prediction</mat-option>
     <mat-option
       value="plot"
@@ -48,7 +48,7 @@
                 *ngIf="selectedAction === 'download'">
   <mat-label>{{ showSubmitButton ? 'Choose another csv' : 'Choose csv' }}</mat-label>
   <mat-icon matSuffix>insert_drive_file</mat-icon>
-  <input matInput style="display: none;" >
+  <input matInput style="display: none;" [disabled]="waitingForResponse">
 </mat-form-field>
 
 <mat-form-field
@@ -59,7 +59,7 @@
   matTooltip="Submit {{ fileToUpload.name }}">
   <mat-label>Submit {{ fileToUpload.name }}</mat-label>
   <mat-icon matSuffix>send</mat-icon>
-  <input matInput style="display: none;" >
+  <input matInput style="display: none;" [disabled]="waitingForResponse">
 </mat-form-field>
 
 <mat-progress-bar
@@ -74,9 +74,9 @@
 <button mat-button (click)="errorMessage = undefined" *ngIf="errorMessage" ><mat-icon>close</mat-icon></button>
 
 
-<input style="display: none;" type="file" #imgFileInput (change)="onFileChange($event.target.files)"/>
+<input [disabled]="waitingForResponse" style="display: none;" type="file" #imgFileInput (change)="onFileChange($event.target.files)"/>
 
-<input style="display: none;" type="file" #imgFileInput2 (change)="onFileChange2($event.target.files)"/>
+<input [disabled]="waitingForResponse" style="display: none;" type="file" #imgFileInput2 (change)="onFileChange2($event.target.files)"/>
 
 
 <span *ngIf="csvContainsTooManyLines" >Your csv contains too many lines</span>
@@ -85,18 +85,28 @@
 
   <mat-tab label="Select Sequences"  >
 
-    <mat-form-field>
-      <mat-label>
-        {{ sequencesArray.length > 100 ? 'Filter the first 100 sequences of this preview' : 'Filter' }}
-      </mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Search for sequences" #input>
-    </mat-form-field>    <mat-form-field>
-    <mat-label>Type Sequence to plot</mat-label>
-    <input matInput placeholder="Enter Sequence Name" #input>
-  </mat-form-field>
-    <button mat-button (click)="submitFile( input.value )" [disabled]="waitingForResponse" >
+<!--    <mat-form-field>-->
+<!--      <mat-label>-->
+<!--        {{ sequencesArray.length > 100 ? 'Filter the first 100 sequences of this preview' : 'Filter' }}-->
+<!--      </mat-label>-->
+<!--      <input matInput (keyup)="applyFilter($event)" placeholder="Search for sequences" #input>-->
+<!--    </mat-form-field>   -->
+    <button mat-button (click)="submitFile( input.value )" [disabled]="waitingForResponse" style="margin-top: 20px">
       <mat-icon>analytics</mat-icon>
     </button>
+    <mat-form-field style="width: 75%">
+    <mat-label>Type Sequence Name from {{ sequencesArray.length }} processed sequences to plot</mat-label>
+    <input matInput placeholder="Enter Sequence Name" #input>
+  </mat-form-field>
+
+    <br>
+
+    <div style="color: #9d9d9d; margin-top: 20px;">
+      Preview of {{ sequencesArray.length }} processed sequences (max 100)
+    </div>
+
+    <br>
+
 
     <div style="height: 400px!important; overflow: auto;">
 
@@ -116,13 +126,13 @@
 
         <!-- Position Column -->
         <ng-container matColumnDef="sequences">
-          <th mat-header-cell *matHeaderCellDef> Sequence Names </th>
+          <th mat-header-cell *matHeaderCellDef> Sequence Name </th>
           <td mat-cell *matCellDef="let element"> {{element.sequence}} </td>
         </ng-container>
 
         <!-- Position Column -->
         <ng-container matColumnDef="positions">
-          <th mat-header-cell *matHeaderCellDef> Positions </th>
+          <th mat-header-cell *matHeaderCellDef> Protospacer Sequence </th>
           <td mat-cell *matCellDef="let element"> {{element.positions}} </td>
         </ng-container>
 

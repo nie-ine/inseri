@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { IIIFImage } from '../../shared/IIIFImage';
+import { IIIFImage } from '../IIIFImage';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageTree } from '../models/page-tree.model';
-import { PAGETRANSCRIPTION } from '../../development-views/text-dev-view/text-dev-view/page-transcription';
+import { PAGETRANSCRIPTION } from '../page-transcription';
 
 /**
  * This component wraps a text-svg-view component to make it usable as a NIE-OS app.
@@ -76,7 +76,7 @@ export class TextSvgViewWrapperComponent implements OnInit, OnChanges {
   /**
    * Constructor initializes ActivatedRoute
    * @param _route  Enables access to the query parameters.
-   * @param _router   Router for navigation.
+   * @param _router   Router for hierarchical-navigation-view.
    */
   constructor(private _route: ActivatedRoute, private _router: Router) { }
 

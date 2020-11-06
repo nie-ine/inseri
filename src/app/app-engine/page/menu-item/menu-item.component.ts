@@ -10,6 +10,8 @@ import {SubPageOfPageModel} from '../../../user-action-engine/mongodb/page/subPa
 
 
 export class MenuItemComponent implements OnInit {
+  @Input() items: SubPageOfPageModel[];
+  @ViewChild('childMenu') public childMenu;
   // @Input() items: SubPageOfPageModel[];
   // @ViewChild('childMenu') public childMenu;
   pages: any[] = [

@@ -76,77 +76,80 @@ export class CrisprComponent {
 
   submitFile( sequence?: string ) {
 
-    let reader = new FileReader();
-    reader.readAsText( this.fileToUpload );
+    if ( !this.waitingForResponse ) {
+      this.progressBarValue = 0;
+      let reader = new FileReader();
+      reader.readAsText( this.fileToUpload );
 
-    reader.onload = () => {
+      reader.onload = () => {
 
-      const csvRecordsArray = (<string>reader.result).split(/\r\n|\n/);
+        const csvRecordsArray = (<string>reader.result).split(/\r\n|\n/);
 
-      if ( csvRecordsArray.length > 20001 ) {
-        this.csvContainsTooManyLines = true;
-      }
-
-      this.sequencesArray = [];
-
-      for ( const sequenceEntry of csvRecordsArray ) {
-        this.sequencesArray.push( {
-          sequence: sequenceEntry.split( ',')[ 0 ],
-          positions: sequenceEntry.split( ',')[ 1 ]
-        } );
-      }
-
-      this.sequencesArray.shift();
-
-      let arrayForTable = [];
-
-      if ( this.sequencesArray.length > 100 ) {
-        arrayForTable = this.sequencesArray.slice( 0, 100 );
-      } else {
-        arrayForTable = this.sequencesArray;
-      }
-
-      this.dataSource = new MatTableDataSource( arrayForTable );
-
-    };
-
-    reader.onerror = function () {
-      console.log('error is occured while reading file!');
-    };
-
-    this.errorMessage = undefined;
-
-    this.selectedSequences = [ sequence ];
-
-    this.form.set( 'selectedBaseEditor', this.selectedBaseEditor );
-    this.form.set( 'selectedPredictionType', this.selectedPredictionType );
-    this.form.set( 'selectedSequences', this.selectedAction === 'plot' ? this.selectedSequences.toString() : undefined );
-    this.form.set( 'selectedAction', this.selectedAction );
-
-    this.submittedBaseEditor = this.selectedBaseEditor;
-    this.submittedPredictionType = this.selectedPredictionType;
-
-    this.waitingForResponse = true;
-
-    this.updateProgressBar();
-
-    console.log( this.sessionHash );
-    this.http.post('http://172.23.39.73:4321', this.form, { responseType: 'blob' })
-      .subscribe((val) => {
-        if ( this.selectedAction === 'plot' ) {
-          const blob = new Blob([ val as any ], { type: 'application/pdf' });
-          const url = URL.createObjectURL(blob);
-          this.pathToFile = this.sanitizer.bypassSecurityTrustResourceUrl( url );
-          this.fileHasChanged = false;
-          this.waitingForResponse = false;
-        } else if ( this.selectedAction === 'download' ) {
-          saveAs(val, 'predictions_' + this.selectedBaseEditor + '_' + this.selectedPredictionType +  '.zip');
-          this.waitingForResponse = false;
+        if ( csvRecordsArray.length > 20001 ) {
+          this.csvContainsTooManyLines = true;
         }
-    }, error => {
-        this.errorMessage = error.message;
-        this.waitingForResponse = false;
-      });
+
+        this.sequencesArray = [];
+
+        for ( const sequenceEntry of csvRecordsArray ) {
+          this.sequencesArray.push( {
+            sequence: sequenceEntry.split( ',')[ 0 ],
+            positions: sequenceEntry.split( ',')[ 1 ]
+          } );
+        }
+
+        this.sequencesArray.shift();
+
+        let arrayForTable = [];
+
+        if ( this.sequencesArray.length > 100 ) {
+          arrayForTable = this.sequencesArray.slice( 0, 100 );
+        } else {
+          arrayForTable = this.sequencesArray;
+        }
+
+        this.dataSource = new MatTableDataSource( arrayForTable );
+
+      };
+
+      reader.onerror = function () {
+        console.log('error is occured while reading file!');
+      };
+
+      this.errorMessage = undefined;
+
+      this.selectedSequences = [ sequence ];
+
+      this.form.set( 'selectedBaseEditor', this.selectedBaseEditor );
+      this.form.set( 'selectedPredictionType', this.selectedPredictionType );
+      this.form.set( 'selectedSequences', this.selectedAction === 'plot' ? this.selectedSequences.toString() : undefined );
+      this.form.set( 'selectedAction', this.selectedAction );
+
+      this.submittedBaseEditor = this.selectedBaseEditor;
+      this.submittedPredictionType = this.selectedPredictionType;
+
+      this.waitingForResponse = true;
+
+      this.updateProgressBar();
+
+      console.log( this.sessionHash );
+      this.http.post('http://172.23.39.73:4321', this.form, { responseType: 'blob' })
+        .subscribe((val) => {
+          if ( this.selectedAction === 'plot' ) {
+            const blob = new Blob([ val as any ], { type: 'application/pdf' });
+            const url = URL.createObjectURL(blob);
+            this.pathToFile = this.sanitizer.bypassSecurityTrustResourceUrl( url );
+            this.fileHasChanged = false;
+            this.waitingForResponse = false;
+          } else if ( this.selectedAction === 'download' ) {
+            saveAs(val, 'predictions_' + this.selectedBaseEditor + '_' + this.selectedPredictionType +  '.zip');
+            this.waitingForResponse = false;
+          }
+        }, error => {
+          this.errorMessage = error.message;
+          this.waitingForResponse = false;
+        });
+    }
   }
 
   /** Whether the number of selected elements matches the total number of rows. */

@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { KnoraV2RequestService } from '../../../../query-engine/knora/knora-v2-request.service';
-import { JoinedTextViewKnoraRequestService } from '../joined-text-view-knora-request.service';
-import { SelectableEnvironments, StyleDeclaration } from '../../shared/rich-text/text-rich-innerhtml/text-rich-innerhtml.component';
+import { SelectableEnvironments, StyleDeclaration } from '../joined-text-innerhtml/joined-text-innerhtml.component';
 import { JoinedTextMargin } from './joined-text-margin';
+import { JoinedTextViewRequestService } from '../joined-text-view-request.service';
 
 /**
  * This component can be used in TextLineComponent to add text or objects left of the line.
@@ -82,7 +81,7 @@ export class JoinedTextMarginComponent implements OnChanges {
   /**
    * default written by angular-cli
    */
-  constructor(private knoraV2Request: KnoraV2RequestService, private joinedTextViewKnoraRequest: JoinedTextViewKnoraRequestService) { }
+  constructor(private requestService: JoinedTextViewRequestService) { }
 
   /**
    * load content on changing input variables
@@ -95,9 +94,9 @@ export class JoinedTextMarginComponent implements OnChanges {
 
     if ((this.backendAddress && this.marginConfiguration && this.parentIri) && (changes['parentIri'] || changes['backendAddress'] || changes['marginConfiguration'])) {
 
-      const gravSearchRequest = this.joinedTextViewKnoraRequest.getGravSearch(this.marginConfiguration, this.parentIri);
+      const gravSearchRequest = this.requestService.getGravSearch(this.marginConfiguration, this.parentIri);
 
-      this.knoraV2Request.extendedSearchFromSpecificInstance(gravSearchRequest, this.backendAddress)
+      this.requestService.extendedSearchFromSpecificInstance(gravSearchRequest, this.backendAddress)
         .subscribe(d => {
           if (d[ '@graph' ]) {
             this.margins = d[ '@graph' ];

@@ -1,9 +1,9 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
-import { SelectableEnvironments, StyleDeclaration } from '../../shared/rich-text/text-rich-innerhtml/text-rich-innerhtml.component';
+import { SelectableEnvironments, StyleDeclaration } from '../html-viewer-innerhtml/html-viewer-innerhtml.component';
 import { ActivatedRoute } from '@angular/router';
 
 /**
- * This app wraps the text-rich-innerhtml component and governs its input.
+ * This app wraps the joined-text-innerhtml component and governs its input.
  */
 @Component({
   selector: 'app-html-viewer',
