@@ -100,11 +100,8 @@ export class BarChartComponent implements AfterViewChecked {
 
   private posX: number;
   private posY: number;
-  /**
-   * written by angular-cli
-   */
-  constructor() {}
 
+  constructor() {}
 
   /**
    * After initializing the component, initialize the SVG image.
@@ -130,6 +127,7 @@ export class BarChartComponent implements AfterViewChecked {
   }
 
   drawBarChart() {
+    // Remove any already existing chart elements
     d3.select('#barChartChart_' + this.numberOfInitialisedComponent).select('svg').remove();
     d3.select('#barChartYaxis_' + this.numberOfInitialisedComponent).select('svg').remove();
     this.initSvg();
@@ -196,12 +194,12 @@ export class BarChartComponent implements AfterViewChecked {
           this.rangeHighest = d3Array.max(this.data.data, (d) => d3Array.max(d.range, (r) => r.point));
           this.newRangeHighest = this.rangeHighest;
         }
-        const helpLow = this.rangeLowest;
-        const helpHigh = this.rangeHighest;
+        const helpMin = this.rangeLowest;
+        const helpMax = this.rangeHighest;
         this.data.data.forEach(function (d) {
           d.value = 0;
           d.range.forEach(function (r) {
-            if (r.point >= helpLow && r.point <= helpHigh) {
+            if (r.point >= helpMin && r.point <= helpMax) {
               d.value += r.value;
             }
           });
@@ -214,7 +212,8 @@ export class BarChartComponent implements AfterViewChecked {
     if (this.isSorted === true) {
       // Sort by value
       this.data.data.sort((a: any, b: any) => b.value - a.value);
-    } else { // Sort by bar label
+    } else {
+      // Sort by bar label
       this.data.data.sort((a: any, b: any) => a.label - b.label);
     }
 
@@ -268,7 +267,6 @@ export class BarChartComponent implements AfterViewChecked {
     }
   }
 
-
   /**
    * Draw a bar to every entry, the height representing the value.
    */
@@ -297,7 +295,6 @@ export class BarChartComponent implements AfterViewChecked {
     bar.on('mouseover', (d) => {
       tooltip.select('#barChartTooltipValue_' + this.numberOfInitialisedComponent).html(d.value);
       tooltip.style('display', 'block');
-
       onmousemove = (e) => {
         this.posX = e.clientX + 20;
         this.posY = e.clientY - 20;
@@ -305,7 +302,6 @@ export class BarChartComponent implements AfterViewChecked {
           .style('left', (this.posX) + 'px')
           .style('top', (this.posY) + 'px');
       };
-
       onmouseout = (e) => {
         tooltip.style('display', 'none');
       };
