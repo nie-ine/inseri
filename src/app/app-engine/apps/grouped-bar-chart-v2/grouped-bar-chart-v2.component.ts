@@ -73,7 +73,6 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
         return v;
       });
       data.sort((a: any, b: any) => b.total - a.total);
-      console.log(data);
     } else {
       // Sort by bar labels
       if (isNaN(this.data.data[0].label)) {
@@ -91,10 +90,6 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
     const legendRectSize = 25;
     const legendSpacing = 6;
 
-    // setting svg chart dimensions
-    // this.width = width !== undefined ? width : this.data.data.length * 100;
-    // const height = 350;
-
     // setting margins
     const margin = {
       top: 20,
@@ -104,7 +99,6 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
     };
 
     // setting a d3.js color scheme for the legend
-    // const color = d3Scale.scaleOrdinal(d3ScaleChromatic.schemeRdYlBu[keys.length]);
     const color = d3Scale.scaleOrdinal(d3ScaleChromatic.schemePaired);
 
     // creating the yaxis
@@ -141,12 +135,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
       .paddingOuter(0.5)
       .align(0.5);
 
-    // // Always sort data back by label
-    // data.sort((a: any, b: any) => a.label - b.label);
-    // // console.log(data);
-    // // ...and remove the 'total' key
-
-    // Sort by bar labels
+    // // Always sort data back by label (duplicate code)
     if (isNaN(this.data.data[0].label)) {
       this.data.data.sort((a: any, b: any) => { // Works in an alphabetical way
         if (a.label < b.label) { return -1; }
@@ -156,7 +145,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
     } else {
       this.data.data.sort((a: any, b: any) => a.label - b.label); // Works with numeric labels only
     }
-
+    // ...and remove the 'total' key
     data.map((d) => {
       delete d.total;
     });

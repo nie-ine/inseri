@@ -75,6 +75,17 @@ export class StackedBarChartComponent implements AfterViewChecked {
 
     if (this.isSorted === true) {
       data.sort((a: any, b: any) => b.total - a.total);
+    } else {
+      // Sort by bar labels
+      if (isNaN(this.data.data[0].label)) {
+        this.data.data.sort((a: any, b: any) => { // Works in an alphabetical way
+          if (a.label < b.label) { return -1; }
+          if (a.label > b.label) { return 1; }
+          return 0;
+        });
+      } else {
+        this.data.data.sort((a: any, b: any) => a.label - b.label); // Works with numeric labels only
+      }
     }
 
     // setting size of and spacing between legend squares
@@ -297,9 +308,16 @@ export class StackedBarChartComponent implements AfterViewChecked {
         .duration(100);
     } // end of update()
 
-    // Always sort data back by label
-    data.sort((a: any, b: any) => a.label - b.label);
-    // console.log(data);
+    // Always sort data back by label (duplicate code)
+    if (isNaN(this.data.data[0].label)) {
+      this.data.data.sort((a: any, b: any) => { // Works in an alphabetical way
+        if (a.label < b.label) { return -1; }
+        if (a.label > b.label) { return 1; }
+        return 0;
+      });
+    } else {
+      this.data.data.sort((a: any, b: any) => a.label - b.label); // Works with numeric labels only
+    }
     // ...and remove the 'total' key
     data.map((d) => {
       delete d.total;
