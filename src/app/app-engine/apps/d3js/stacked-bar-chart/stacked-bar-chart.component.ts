@@ -135,10 +135,10 @@ export class StackedBarChartComponent implements AfterViewChecked {
       .range([height, 0])
       .nice(); // nicing the scale (ending on round values)
 
-    function drawStacks(currentKeys) {
-      d3.selectAll('.gStack').remove();
+    function drawStacks(currentKeys, numberOfInitialisedComponent) {
+      d3.selectAll('.gStack_' + numberOfInitialisedComponent).remove();
       svgChart.append('g')
-        .attr('class', 'gStack')
+        .attr('class', 'gStack_' + numberOfInitialisedComponent)
         .selectAll('g')
         .data(d3Shape.stack().keys(currentKeys)(data))
         .enter()
@@ -156,7 +156,7 @@ export class StackedBarChartComponent implements AfterViewChecked {
         .attr('width', x.bandwidth())
         .attr('height', d => y(d[0]) - y(d[1]));
     }
-    drawStacks(keys);
+    drawStacks(keys, this.numberOfInitialisedComponent);
 
     svgChart.append('g')
       .attr('class', 'axis')
@@ -259,7 +259,6 @@ export class StackedBarChartComponent implements AfterViewChecked {
 
     function update(d, component, posX, posY) {
       // update the array to filter the chart by:
-      console.log('d is just the legend label', d);
       // add the clicked key if not included:
       if (filtered.indexOf(d) === -1) {
         filtered.push(d);
@@ -278,7 +277,7 @@ export class StackedBarChartComponent implements AfterViewChecked {
         }
       });
       console.log(newKeys);
-      drawStacks(newKeys);
+      drawStacks(newKeys, component);
       doTooltip(component, posX, posY);
 
       // update legend:
@@ -300,7 +299,7 @@ export class StackedBarChartComponent implements AfterViewChecked {
 
     // Always sort data back by label
     data.sort((a: any, b: any) => a.label - b.label);
-    console.log(data);
+    // console.log(data);
     // ...and remove the 'total' key
     data.map((d) => {
       delete d.total;

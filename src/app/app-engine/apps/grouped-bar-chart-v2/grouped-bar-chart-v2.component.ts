@@ -73,6 +73,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
         return v;
       });
       data.sort((a: any, b: any) => b.total - a.total);
+      console.log(data);
     }
 
     // setting size of and spacing between legend squares
