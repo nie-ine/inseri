@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
-import { RouterModule } from "@angular/router";
+import { RouterModule } from '@angular/router';
 import { D3tutorialComponent } from './d3tutorial/d3tutorial.component';
 import { AceEditorModule } from 'ng2-ace-editor';
 import { MultiLineChartComponent } from './multi-line-chart/multi-line-chart.component';

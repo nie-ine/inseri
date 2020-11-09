@@ -548,46 +548,46 @@ export class OpenAppsModel {
           default: {
             'data': [
               {
-                'xValue': '1',
-                'Before 1350': 0,
+                'label': '1',
+                'Before 1350': 2,
                 '1350-1813': 3,
                 '1814-1850': 1,
-                '1851 and later': 0
+                '1851 and later': 8
               },
               {
-                'xValue': '2',
-                'Before 1350': 0,
+                'label': '2',
+                'Before 1350': 4,
                 '1350-1813': 3,
                 '1814-1850': 1,
-                '1851 and later': 0
+                '1851 and later': 4
               },
               {
-                'xValue': '3',
-                'Before 1350': 0,
+                'label': '3',
+                'Before 1350': 11,
                 '1350-1813': 3,
                 '1814-1850': 3,
-                '1851 and later': 0
+                '1851 and later': 4
               },
               {
-                'xValue': '4',
-                'Before 1350': 0,
+                'label': '4',
+                'Before 1350': 1,
                 '1350-1813': 3,
                 '1814-1850': 3,
-                '1851 and later': 0
+                '1851 and later': 9
               },
               {
-                'xValue': '5',
-                'Before 1350': 0,
+                'label': '5',
+                'Before 1350': 7,
                 '1350-1813': 4,
                 '1814-1850': 3,
-                '1851 and later': 0
+                '1851 and later': 10
               },
               {
-                'xValue': '6',
-                'Before 1350': 0,
+                'label': '6',
+                'Before 1350': 4,
                 '1350-1813': 3,
                 '1814-1850': 3,
-                '1851 and later': 0
+                '1851 and later': 8
               }
             ]
           }

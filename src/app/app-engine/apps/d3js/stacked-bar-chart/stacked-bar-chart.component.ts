@@ -16,7 +16,7 @@ export class StackedBarChartComponent implements AfterViewChecked {
   @Input() initialised = false;
   @Input() numberOfInitialisedComponent: number;
   @Input() data: any;
-  title = 'Grouped Bar Chart';
+  title = 'Stacked Bar Chart';
   alreadyInitialised = false;
   width: any;
   newWidth: number;
@@ -82,7 +82,6 @@ export class StackedBarChartComponent implements AfterViewChecked {
     const legendSpacing = 6;
 
     // setting svg chart dimensions
-    // this.width = width !== undefined ? width : this.data.data.length * 100;
     const height = 350;
 
     // setting margins

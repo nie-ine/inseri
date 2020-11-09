@@ -99,14 +99,14 @@ export class PieChartV2Component implements AfterViewChecked {
         this.rangeMaxMax = d3Array.max(this.data.data, (d) => d3Array.max(d.range, (r) => r.point));
         this.rangeMinMax = this.rangeMaxMax;
         this.rangeMaxMin = this.rangeMinMax;
-        if (this.newRangeLowest !== undefined) { // User indicated new lowest
+        if (this.newRangeLowest !== undefined) { // User indicated a new min
           this.rangeLowest = this.newRangeLowest;
           this.rangeMaxMin = this.rangeLowest;
         } else {
           this.rangeLowest = d3Array.min(this.data.data, (d) => d3Array.min(d.range, (r) => r.point));
           this.newRangeLowest = this.rangeLowest;
         }
-        if (this.newRangeHighest !== undefined) { // User indicated new highest
+        if (this.newRangeHighest !== undefined) { // User indicated a new max
           this.rangeHighest = this.newRangeHighest;
           this.rangeMinMax = this.rangeHighest;
         } else {
