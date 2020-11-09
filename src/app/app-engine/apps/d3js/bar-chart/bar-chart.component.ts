@@ -213,8 +213,16 @@ export class BarChartComponent implements AfterViewChecked {
       // Sort by value
       this.data.data.sort((a: any, b: any) => b.value - a.value);
     } else {
-      // Sort by bar label
-      this.data.data.sort((a: any, b: any) => a.label - b.label);
+      // Sort by bar labels
+      if (isNaN(this.data.data[0].label)) {
+        this.data.data.sort((a: any, b: any) => { // Works in an alphabetical way
+          if (a.label < b.label) { return -1; }
+          if (a.label > b.label) { return 1; }
+          return 0;
+        });
+      } else {
+        this.data.data.sort((a: any, b: any) => a.label - b.label); // Works with numeric labels only
+      }
     }
 
     this.x = d3Scale.scaleBand().range([0, this.chartWidth - this.margin.left - this.margin.right])
@@ -223,11 +231,21 @@ export class BarChartComponent implements AfterViewChecked {
       .align(0.5);
     this.y = d3Scale.scaleLinear().rangeRound([this.height, 0]);
     this.x.domain(this.data.data.map((d) => d.label));
+
     if (d3Array.max(this.data.data, (d) => d.value) !== 0) {
       this.y.domain([0, d3Array.max(this.data.data, (d) => d.value)]);
     }
-    // Always sort back to initial state (by label)
-    this.data.data.sort((a: any, b: any) => a.label - b.label);
+
+    // Sort back by bar labels
+    if (isNaN(this.data.data[0].label)) {
+      this.data.data.sort((a: any, b: any) => { // Works in an alphabetical way
+        if (a.label < b.label) { return -1; }
+        if (a.label > b.label) { return 1; }
+        return 0;
+      });
+    } else {
+      this.data.data.sort((a: any, b: any) => a.label - b.label); // Works with numeric labels only
+    }
   }
 
   /**

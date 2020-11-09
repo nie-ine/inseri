@@ -262,19 +262,19 @@ export class OpenAppsModel {
           default: {
             data: [
               {
-                'label': 'first bar',
+                'label': 'Aa',
                 'value': 0.3
               },
               {
-                'label': 'second bar',
+                'label': 'Bb',
                 'value': 0.6
               },
               {
-                'label': 'third bar',
+                'label': 'Cc',
                 'value': 0.9
               },
               {
-                'label': 'fourth bar',
+                'label': 'Dd',
                 'value': 1.2
               }
             ]
