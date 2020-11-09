@@ -74,6 +74,17 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
       });
       data.sort((a: any, b: any) => b.total - a.total);
       console.log(data);
+    } else {
+      // Sort by bar labels
+      if (isNaN(this.data.data[0].label)) {
+        this.data.data.sort((a: any, b: any) => { // Works in an alphabetical way
+          if (a.label < b.label) { return -1; }
+          if (a.label > b.label) { return 1; }
+          return 0;
+        });
+      } else {
+        this.data.data.sort((a: any, b: any) => a.label - b.label); // Works with numeric labels only
+      }
     }
 
     // setting size of and spacing between legend squares
@@ -130,10 +141,22 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
       .paddingOuter(0.5)
       .align(0.5);
 
-    // Always sort data back by label
-    data.sort((a: any, b: any) => a.label - b.label);
-    // console.log(data);
-    // ...and remove the 'total' key
+    // // Always sort data back by label
+    // data.sort((a: any, b: any) => a.label - b.label);
+    // // console.log(data);
+    // // ...and remove the 'total' key
+
+    // Sort by bar labels
+    if (isNaN(this.data.data[0].label)) {
+      this.data.data.sort((a: any, b: any) => { // Works in an alphabetical way
+        if (a.label < b.label) { return -1; }
+        if (a.label > b.label) { return 1; }
+        return 0;
+      });
+    } else {
+      this.data.data.sort((a: any, b: any) => a.label - b.label); // Works with numeric labels only
+    }
+
     data.map((d) => {
       delete d.total;
     });

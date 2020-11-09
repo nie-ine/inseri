@@ -236,7 +236,7 @@ export class BarChartComponent implements AfterViewChecked {
       this.y.domain([0, d3Array.max(this.data.data, (d) => d.value)]);
     }
 
-    // Sort back by bar labels
+    // Sort back by bar labels (duplicate code!)
     if (isNaN(this.data.data[0].label)) {
       this.data.data.sort((a: any, b: any) => { // Works in an alphabetical way
         if (a.label < b.label) { return -1; }
