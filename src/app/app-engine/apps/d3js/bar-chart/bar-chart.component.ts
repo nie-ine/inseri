@@ -64,7 +64,7 @@ export class BarChartComponent implements AfterViewChecked {
   // Show the range slider?
   showRange = false;
   // The label above the range slider
-  rangeLabel: string;
+  rangeLabel = 'Range';
 
   // Min/max value for the used ngx-slider as range slider
   // The values are set further down
@@ -104,7 +104,7 @@ export class BarChartComponent implements AfterViewChecked {
   ngAfterViewChecked() {
     if ( this.initialised && !this.alreadyInitialised && this.data ) {
       // Check if JSON input data is a string and therefore coming through the inseri microservice pipeline
-      // If yes, parse string to JSON first, if no, use JSON input data
+      // If yes, parse string to JSON first, if no, use JSON input data as is
       if ( typeof this.data === 'string' && IsJsonString(this.data) && JSON.parse(this.data).length > 0 ) {
         const help = this.data;
         this.data = {};
@@ -137,12 +137,15 @@ export class BarChartComponent implements AfterViewChecked {
   }
 
   private initSvg() {
+    // Check if there are ranges given in the data
+    if (this.data.data[0].range) {
+      // Show the range feature, if a ranges are given
+      this.showRange = true;
+    }
     // Check if there's metadata in the JSON input data
     if (this.data.metadata) {
       // Check if there's a range label
       if (this.data.metadata.rangeLabel) {
-        // Show the range feature, if a range label is given
-        this.showRange = true;
         // Use the value of key "rangeLabel" to display it in the GUI
         this.rangeLabel = this.data.metadata.rangeLabel;
       }
@@ -185,7 +188,7 @@ export class BarChartComponent implements AfterViewChecked {
     // Check if there's metadata in the JSON input data
     if (this.data.metadata) {
       // Check if the range feature if enabled (is a rangeLabel given?)
-      if (this.data.metadata.rangeLabel) {
+      if (this.showRange === true) {
         // Find the absolute minimal point in all the given ranges and use it as
         // the current value of the left range slider handle
         this.rangeMinMin = d3Array.min(this.data.data, (d) => d3Array.min(d.range, (r) => r.point));
