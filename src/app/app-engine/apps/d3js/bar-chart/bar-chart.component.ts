@@ -137,15 +137,21 @@ export class BarChartComponent implements AfterViewChecked {
   }
 
   private initSvg() {
+    // Check if there's metadata given in the JSON input
     if (this.data.metadata) {
+      // Check if there's a range label given
       if (this.data.metadata.rangeLabel) {
+        // Show the range feature, if a range label is given
         this.showRange = true;
         this.rangeLabel = this.data.metadata.rangeLabel;
       }
     }
+    // Check if the user indicated a new chart width
     if (this.newChartWidth !== 0) {
+      // If yes, set the chart width the the newly indicated width
       this.chartWidth = this.newChartWidth;
     } else {
+      // Check if the number of bars * 25 is higher than the initial chart width of 350 px
       if (this.data.data.length * 25 > this.chartWidth) {
         this.chartWidth = this.data.data.length * 25;
       } else {
