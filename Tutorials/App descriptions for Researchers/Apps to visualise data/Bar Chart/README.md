@@ -14,7 +14,7 @@ The Bar Chart app renders a bar chart based on JSON data input.
 #### Necessary Input
 In its basic form the Bar Chart app works with a JSON data input as follows: 
 
-```json
+```js
 "data": {
   "data": [
     {
@@ -43,7 +43,7 @@ In its basic form the Bar Chart app works with a JSON data input as follows:
 ##### Axis Labels
 You can label the x- and/or y-axis of the chart by providing some metadata: 
 
-```json
+```js
 "data": {
   "metadata": { // Indicate metadata
     "axes": {
@@ -80,7 +80,7 @@ Initially, the "value" key for each bar should hold the total value across all r
 
 The Bar Chart app will look for the minimal and maximal value across the ranges of all bars and will display them accordingly. If a user changes the displayed range, the app will iterate through the data to re-calculate the total value for each bar's "value" key and the chart will be re-drawn. 
 
-```json
+```js
 "data": {
   "metadata": {
     "axes": {
@@ -207,6 +207,3 @@ Initially, the x-axis is sorted by bar label.
 If you toggle the slider below the chart, the bars get sorted by value (descending). 
 
 You can always sort back to the initial state by toggling the slider again. 
-
-
-
