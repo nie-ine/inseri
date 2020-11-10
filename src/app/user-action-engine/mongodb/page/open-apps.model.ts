@@ -256,6 +256,7 @@ export class OpenAppsModel {
       materialIcon: 'bar_chart',
       initialWidth: '600',
       initialHeight: '350',
+      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/App%20descriptions%20for%20Researchers/Apps%20to%20visualise%20data/Bar%20Chart',
       inputs: [
         {
           'inputName': 'data',
