@@ -21,7 +21,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
   newWidth: any;
   private posX: number;
   private posY: number;
-  chartWidthFactor = 75;
+  chartWidthFactor = 100;
   titleYaxis: string;
   isSorted = false;
 
@@ -67,24 +67,37 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
     // getting all the key names for the legend
     const keys = Object.keys(data[0]).slice(1);
 
+    // Check if grouped bars should be sorted
     if (this.isSorted === true) {
+      // Add a total value of all bars of each x-axis item
       data = data.map(v => {
         v.total = keys.map(key => v[key]).reduce((a, b) => a + b, 0);
         return v;
       });
+      // Sort grouped bars by total value
       data.sort((a: any, b: any) => b.total - a.total);
     } else {
       // Sort by bar labels
+      // "Guess" if the grouped bar labels are numbers
       if (isNaN(this.data.data[0].label)) {
-        this.data.data.sort((a: any, b: any) => { // Works in an alphabetical way
+        // The grouped bar labels are not numbers
+        this.data.data.sort((a: any, b: any) => {
           if (a.label < b.label) { return -1; }
           if (a.label > b.label) { return 1; }
           return 0;
         });
       } else {
-        this.data.data.sort((a: any, b: any) => a.label - b.label); // Works with numeric labels only
+        // The grouped bar labels are numbers
+        this.data.data.sort((a: any, b: any) => a.label - b.label);
       }
     }
+
+    // Always remove the "total" key again
+    // otherwise it will be considered a group the next time you
+    // re-draw the chart because of a change in width
+    data.map((d) => {
+      delete d.total;
+    });
 
     // setting size of and spacing between legend squares
     const legendRectSize = 25;
@@ -134,21 +147,6 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
       .paddingInner(0.1)
       .paddingOuter(0.5)
       .align(0.5);
-
-    // // Always sort data back by label (duplicate code)
-    if (isNaN(this.data.data[0].label)) {
-      this.data.data.sort((a: any, b: any) => { // Works in an alphabetical way
-        if (a.label < b.label) { return -1; }
-        if (a.label > b.label) { return 1; }
-        return 0;
-      });
-    } else {
-      this.data.data.sort((a: any, b: any) => a.label - b.label); // Works with numeric labels only
-    }
-    // ...and remove the 'total' key
-    data.map((d) => {
-      delete d.total;
-    });
 
     // scale for the bars per above given group (spacing each group's bars)
     const x1 = d3Scale.scaleBand()
@@ -208,24 +206,29 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
       .call(d3Axis.axisLeft(y).ticks(null, 's'));
 
     if (this.data.metadata) {
-      svgYaxis.append('g')
-        .append('text')
-        .attr('transform', 'rotate(-90)')
-        .attr('y', 0 - (margin.left + 3))
-        .attr('x', 0 - (this.height / 2))
-        .attr('dy', '1em')
-        .attr('fill', 'black')
-        .attr('font-weight', 'bold')
-        .attr('text-anchor', 'middle')
-        .text(this.data.metadata.yAxis);
-
-      svgChart.append('g')
-        .append('text')
-        .attr('transform', 'translate(' + width / 2 + ',' + (this.height + margin.top + 20) + ')')
-        .attr('fill', 'black')
-        .attr('font-weight', 'bold')
-        .style('text-anchor', 'middle')
-        .text(this.data.metadata.xAxis);
+      if (this.data.metadata.axes) {
+        if (this.data.metadata.axes.y) {
+          svgYaxis.append('g')
+            .append('text')
+            .attr('transform', 'rotate(-90)')
+            .attr('y', 0 - (margin.left + 3))
+            .attr('x', 0 - (this.height / 2))
+            .attr('dy', '1em')
+            .attr('fill', 'black')
+            .attr('font-weight', 'bold')
+            .attr('text-anchor', 'middle')
+            .text(this.data.metadata.axes.y);
+        }
+        if (this.data.metadata.axes.x) {
+          svgChart.append('g')
+            .append('text')
+            .attr('transform', 'translate(' + width / 2 + ',' + (this.height + margin.top + 20) + ')')
+            .attr('fill', 'black')
+            .attr('font-weight', 'bold')
+            .style('text-anchor', 'middle')
+            .text(this.data.metadata.axes.x);
+        }
+      }
     }
 
     // define tooltip

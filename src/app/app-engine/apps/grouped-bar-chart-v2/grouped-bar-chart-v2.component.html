@@ -4,9 +4,11 @@
     <mat-form-field>
       <input matInput
              placeholder="Chart width:"
+             type="number"
+             [ngStyle]="{'width':'128px'}"
              [value]="this.width"
              [(ngModel)]="this.newWidth"
-             (keyup)="drawD3(this.data.data, this.newWidth )">
+             (change)="drawD3(this.data.data, this.newWidth )">
     </mat-form-field>
   </div>
   <div class="scaleGroupedBarChartSlider">

@@ -233,7 +233,7 @@ export class BarChartComponent implements AfterViewChecked {
       }
     }
 
-    // Check if bar should be sorted
+    // Check if bars should be sorted
     if (this.isSorted === true) {
       // Sort by value
       this.data.data.sort((a: any, b: any) => b.value - a.value);
