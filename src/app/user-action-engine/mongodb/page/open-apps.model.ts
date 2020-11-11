@@ -544,48 +544,49 @@ export class OpenAppsModel {
       materialIcon: 'subtitles',
       initialWidth: '700',
       initialHeight: '400',
+      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/App%20descriptions%20for%20Researchers/Apps%20to%20visualise%20data/Stacked%20Bar%20Chart',
       inputs: [
         {
           'inputName': 'data',
           default: {
             'data': [
               {
-                'label': '1',
+                'label': 'Verse 1',
                 'Before 1350': 2,
                 '1350-1813': 3,
                 '1814-1850': 1,
                 '1851 and later': 8
               },
               {
-                'label': '2',
+                'label': 'Verse 2',
                 'Before 1350': 4,
                 '1350-1813': 3,
                 '1814-1850': 1,
                 '1851 and later': 4
               },
               {
-                'label': '3',
+                'label': 'Verse 3',
                 'Before 1350': 11,
                 '1350-1813': 3,
                 '1814-1850': 3,
                 '1851 and later': 4
               },
               {
-                'label': '4',
+                'label': 'Verse 4',
                 'Before 1350': 1,
                 '1350-1813': 3,
                 '1814-1850': 3,
                 '1851 and later': 9
               },
               {
-                'label': '5',
+                'label': 'Verse 5',
                 'Before 1350': 7,
                 '1350-1813': 4,
                 '1814-1850': 3,
                 '1851 and later': 10
               },
               {
-                'label': '6',
+                'label': 'Verse 6',
                 'Before 1350': 4,
                 '1350-1813': 3,
                 '1814-1850': 3,

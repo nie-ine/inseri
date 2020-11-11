@@ -178,25 +178,34 @@ export class StackedBarChartComponent implements AfterViewChecked {
       .attr('class', 'y')
       .call(d3Axis.axisLeft(y).ticks(null, 's'));
 
+    // Check if there's metadata in the JSON data input
     if (this.data.metadata) {
-      svgYaxis.append('g')
-        .append('text')
-        .attr('transform', 'rotate(-90)')
-        .attr('y', 0 - (margin.left + 3))
-        .attr('x', 0 - (height / 2))
-        .attr('dy', '1em')
-        .attr('fill', 'black')
-        .attr('font-weight', 'bold')
-        .attr('text-anchor', 'middle')
-        .text(this.data.metadata.yAxis);
-
-      svgChart.append('g')
-        .append('text')
-        .attr('transform', 'translate(' + width / 2 + ',' + (height + margin.top + 20) + ')')
-        .attr('fill', 'black')
-        .attr('font-weight', 'bold')
-        .style('text-anchor', 'middle')
-        .text(this.data.metadata.xAxis);
+      // Check if there's axes information
+      if (this.data.metadata.axes) {
+        // Check if there's information about the y-axis label
+        if (this.data.metadata.axes.y) {
+          svgYaxis.append('g')
+            .append('text')
+            .attr('transform', 'rotate(-90)')
+            .attr('y', 0 - (margin.left + 3))
+            .attr('x', 0 - (height / 2))
+            .attr('dy', '1em')
+            .attr('fill', 'black')
+            .attr('font-weight', 'bold')
+            .attr('text-anchor', 'middle')
+            .text(this.data.metadata.axes.y);
+        }
+        // Check if there's information about the x-axis label
+        if (this.data.metadata.axes.x) {
+          svgChart.append('g')
+            .append('text')
+            .attr('transform', 'translate(' + width / 2 + ',' + (height + margin.top + 20) + ')')
+            .attr('fill', 'black')
+            .attr('font-weight', 'bold')
+            .style('text-anchor', 'middle')
+            .text(this.data.metadata.axes.x);
+        }
+      }
     }
 
     // define tooltip
