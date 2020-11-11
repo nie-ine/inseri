@@ -15,14 +15,11 @@ import { Options } from '@angular-slider/ngx-slider';
   styleUrls: ['./bar-chart.component.scss']
 })
 export class BarChartComponent implements AfterViewChecked {
-
-  // needed for NIE-OS
+  // needed by inseri
   @Input() initialised = false;
-
-  // needed for NIE-OS
   @Input() numberOfInitialisedComponent: number;
-
   @Input() data: any;
+  alreadyInitialised = false;
 
   // Title of the component
   title = 'Bar Chart';
@@ -50,12 +47,9 @@ export class BarChartComponent implements AfterViewChecked {
   private g: any;
   private gYaxis: any;
 
-  // needed by NIE-OS
-  alreadyInitialised = false;
-
   // Intial chart width (px)
   chartWidth: any = 350;
-  // User provided chart width in the GUI
+  // User provided chart width in the view
   newChartWidth = 0;
 
   // Bars sorted by value?
@@ -146,7 +140,7 @@ export class BarChartComponent implements AfterViewChecked {
     if (this.data.metadata) {
       // Check if there's a range label
       if (this.data.metadata.rangeLabel) {
-        // Use the value of key "rangeLabel" to display it in the GUI
+        // Use the value of key "rangeLabel" to display it in the view
         this.rangeLabel = this.data.metadata.rangeLabel;
       }
     }
@@ -181,9 +175,7 @@ export class BarChartComponent implements AfterViewChecked {
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
   }
 
-  /**
-   * Initialize the components for the axis.
-   */
+  // Initialize the components for the axis.
   private initAxis() {
     // Check if there's metadata in the JSON input data
     if (this.data.metadata) {
