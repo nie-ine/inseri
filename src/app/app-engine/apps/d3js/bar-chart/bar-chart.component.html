@@ -7,8 +7,8 @@
           <mat-form-field>
             <input matInput
                    type="number"
-                   [ngStyle]="{'width':'128px'}"
                    placeholder="Pixel"
+                   [ngStyle]="{'width':'128px'}"
                    [value]="chartWidth"
                    [(ngModel)]="newChartWidth"
                    (change)="drawBarChart()">
