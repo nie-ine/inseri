@@ -290,6 +290,7 @@ export class OpenAppsModel {
       initialWidth: '600',
       initialHeight: '800',
       fullWidth: true,
+      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/App%20descriptions%20for%20Researchers/Apps%20to%20visualise%20data/Grouped%20Bar%20Chart',
       inputs: [
         {
           'inputName': 'data',
