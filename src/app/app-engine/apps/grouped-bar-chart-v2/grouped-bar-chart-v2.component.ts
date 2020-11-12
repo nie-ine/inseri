@@ -346,15 +346,18 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
         }
       });
       x1.domain(newKeys).rangeRound([0, x0.bandwidth()]);
-      y.domain([0, d3Array.max(data, function (d) {
-        return d3Array.max(keys, function (key) {
-          if (filtered.indexOf(key) === -1) {
-            return d[key];
-          }
-        });
-      })]).nice();
 
-      // Update the y-axis:
+      // Commented out as you don't want to update the y-axis domain (!):
+
+      // y.domain([0, d3Array.max(data, function (d) {
+      //   return d3Array.max(keys, function (key) {
+      //     if (filtered.indexOf(key) === -1) {
+      //       return d[key];
+      //     }
+      //   });
+      // })]).nice();
+
+      // Update the y-axis
       svgYaxis.select('.y')
         .transition()
         .call(d3Axis.axisLeft(y).ticks(null, 's'))
