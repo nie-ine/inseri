@@ -19,6 +19,7 @@ export class BarChartComponent implements AfterViewChecked {
   @Input() initialised = false;
   @Input() numberOfInitialisedComponent: number;
   @Input() data: any;
+
   alreadyInitialised = false;
 
   // Title of the component
@@ -47,7 +48,7 @@ export class BarChartComponent implements AfterViewChecked {
   private g: any;
   private gYaxis: any;
 
-  // Intial chart width (px)
+  // Initial chart width (px)
   chartWidth: any = 350;
   // User provided chart width in the view
   newChartWidth = 0;
@@ -92,7 +93,11 @@ export class BarChartComponent implements AfterViewChecked {
   // Mouse y position for tooltip
   private posY: number;
 
-  constructor() {}
+  // The initial maximal value of a bar (before any possible change by the user through the range feature)
+  initialMaxValue: number;
+
+  constructor() {
+  }
 
   // After initializing the component, initialize the SVG image
   ngAfterViewChecked() {
@@ -103,12 +108,14 @@ export class BarChartComponent implements AfterViewChecked {
         const help = this.data;
         this.data = {};
         this.data.data = JSON.parse(help);
+        this.initialMaxValue = d3Array.max(this.data.data, (d) => d.value);
         this.alreadyInitialised = true;
         setTimeout(() => {
           this.drawBarChart();
         }, 100);
       } else if ( typeof this.data !== 'string' ) {
         this.alreadyInitialised = true;
+        this.initialMaxValue = d3Array.max(this.data.data, (d) => d.value);
         setTimeout(() => {
           this.drawBarChart();
         }, 100);
@@ -258,7 +265,10 @@ export class BarChartComponent implements AfterViewChecked {
     // Check if there are any bars to show (is the highest bar value not 0?)
     if (d3Array.max(this.data.data, (d) => d.value) !== 0) {
       // Get the values displayed along the y-axis (0 to highest bar value)
-      this.y.domain([0, d3Array.max(this.data.data, (d) => d.value)]);
+      // this.y.domain([0, d3Array.max(this.data.data, (d) => d.value)]);
+      // Alsways keep the inital max bar value as the max y-axis value
+      // ...this way it's easier to interpret potential changes of the bars by the user
+      this.y.domain([0, this.initialMaxValue]);
     }
   }
 
