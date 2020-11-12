@@ -13,89 +13,109 @@ import * as d3Shape from 'd3-shape';
 })
 
 export class StackedBarChartComponent implements AfterViewChecked {
+  // Needed by inseri
   @Input() initialised = false;
   @Input() numberOfInitialisedComponent: number;
   @Input() data: any;
-  title = 'Stacked Bar Chart';
   alreadyInitialised = false;
+
+  // Title of the component
+  title = 'Stacked Bar Chart';
+
+  // Dynamic initial width of the chart
   width: any;
-  newWidth: number;
-  private posX: number;
-  private posY: number;
+  // Factor to calculate initial chart width
   chartWidthFactor = 100;
-  titleYaxis: string;
+
+  // User provided chart width in the view
+  newWidth: number;
+
+  // Mouse x position for tooltip
+  private posX: number;
+  // Mouse y position for tooltip
+  private posY: number;
+
+  // Grouped bars sorted by total value?
   isSorted = false;
 
   constructor() {
   }
 
+  // After initializing the component, initialize the SVG image
   ngAfterViewChecked() {
-    // console.log( this.numberOfInitialisedComponent, this.data );
     if ( this.initialised && !this.alreadyInitialised && this.data && this.data.data ) {
+      // Check if JSON input data is a string and therefore coming through the inseri microservice pipeline
+      // If yes, parse string to JSON first, if no, use JSON input data as is
       if (typeof this.data === 'string' && IsJsonString(this.data) && JSON.parse(this.data).length > 0) {
         const help = this.data;
         this.data = {};
         this.data.data = JSON.parse(help);
         this.alreadyInitialised = true;
         setTimeout(() => {
-          // console.log( this.data );
           this.drawD3(this.data.data, 0);
         }, 500);
       } else if (typeof this.data !== 'string') {
         this.alreadyInitialised = true;
         setTimeout(() => {
-          // console.log(this.data);
           this.drawD3(this.data.data, 0);
         }, 500);
       }
     }
   }
 
+  // Function to draw the complete chart and legend
   drawD3(data: Array<any>, width: number) {
-    // console.log(width);
+    // Check if parameter width is 0 (which means the user did not manually provide a new chart width)
     if (width === 0) {
       width = this.data.data.length * this.chartWidthFactor;
     }
 
+    // Set width to provided width
     this.width = width;
+    // and the newWidth as well. The newWidth is shown in the width input field in the view
     this.newWidth = width;
 
-    // Remove current chart elements if already there
+    // Remove any already existing chart elements (needed if chart is re-drawn)
     d3.select('#chart_' + this.numberOfInitialisedComponent).select('svg').remove();
     d3.select('#yaxis_' + this.numberOfInitialisedComponent).select('svg').remove();
     d3.select('#legend_' + this.numberOfInitialisedComponent).select('svg').remove();
 
-    // getting all the key names for the legend
+    // Get all the group names for the legend
     const keys = Object.keys(data[0]).slice(1);
 
+    // Add a total value of all stacks to each bar
     data = data.map(v => {
       v.total = keys.map(key => v[key]).reduce((a, b) => a + b, 0);
       return v;
     });
 
+    // Check if grouped bars should be sorted
     if (this.isSorted === true) {
       data.sort((a: any, b: any) => b.total - a.total);
     } else {
       // Sort by bar labels
+      // "Guess" if the stacked bar labels are numbers
       if (isNaN(this.data.data[0].label)) {
-        this.data.data.sort((a: any, b: any) => { // Works in an alphabetical way
+        // The stacked bar labels are not numbers
+        this.data.data.sort((a: any, b: any) => {
           if (a.label < b.label) { return -1; }
           if (a.label > b.label) { return 1; }
           return 0;
         });
       } else {
-        this.data.data.sort((a: any, b: any) => a.label - b.label); // Works with numeric labels only
+        // The stacked bar labels are numbers
+        this.data.data.sort((a: any, b: any) => a.label - b.label);
       }
     }
 
-    // setting size of and spacing between legend squares
+    // Set the size of and spacing between legend squares
     const legendRectSize = 25;
     const legendSpacing = 6;
 
-    // setting svg chart dimensions
+    // Set the fixed chart height
     const height = 350;
 
-    // setting margins
+    // Set chart margins
     const margin = {
       top: 20,
       right: 20,
@@ -103,10 +123,10 @@ export class StackedBarChartComponent implements AfterViewChecked {
       left: 40
     };
 
-    // setting a d3.js color scheme for the legend
+    // Set d3.js color scheme for the legend
     const color = d3Scale.scaleOrdinal(d3ScaleChromatic.schemePaired);
 
-    // creating the yaxis
+    // Create the y-axis SVG container
     const svgYaxis = d3.select('#yaxis_' + this.numberOfInitialisedComponent)
       .append('svg')
       .attr('width', 50)
@@ -114,7 +134,7 @@ export class StackedBarChartComponent implements AfterViewChecked {
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')'); // translate along x-axis and y-axis
 
-    // creating the chart
+    // Create the chart SVG container
     const svgChart = d3.select('#chart_' + this.numberOfInitialisedComponent)
       .append('svg') // appending an <svg> element
       .attr('width', +width + +margin.left + +margin.right)
@@ -122,7 +142,7 @@ export class StackedBarChartComponent implements AfterViewChecked {
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-    // creating the legend
+    // Create the SVG legend container
     const svgLegend = d3.select('#legend_' + this.numberOfInitialisedComponent)
       .append('svg') // appending an <svg> element
       .attr('width', 650 + margin.left + margin.right) // setting its width
@@ -130,7 +150,7 @@ export class StackedBarChartComponent implements AfterViewChecked {
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-    // scale for the x-axis
+    // Set the scale for the x-axis
     const x = d3Scale.scaleBand()
       .domain(data.map((d) => {
         return d.label;
@@ -140,18 +160,29 @@ export class StackedBarChartComponent implements AfterViewChecked {
       .paddingOuter(0.5)
       .align(0.5);
 
-    // scale for the y-axis
+    // Set the scale for the y-axis
     const y = d3Scale.scaleLinear()
       .domain([0, d3Array.max(data, (d: any) => d.total)])
       .range([height, 0])
       .nice(); // nicing the scale (ending on round values)
 
+
+    // Always remove the "total" key again
+    // otherwise it will be considered a stack the next time you
+    // re-draw the chart because of a change in width
+    data.map((d) => {
+      delete d.total;
+    });
+
+    // Nested function to draw the stacks
+    // Use the currently selected keys from the legend and the inseri-specific component number
     function drawStacks(currentKeys, numberOfInitialisedComponent) {
+      // Remove any already present stacks for this chart (needed in case of re-drawing the chart)
       d3.selectAll('.gStack_' + numberOfInitialisedComponent).remove();
       svgChart.append('g')
         .attr('class', 'gStack_' + numberOfInitialisedComponent)
         .selectAll('g')
-        .data(d3Shape.stack().keys(currentKeys)(data))
+        .data(d3Shape.stack().keys(currentKeys)(data)) //// THIS IS WERE THE STACKS ARE MADE ////
         .enter()
         .append('g')
         .attr('fill', (d) => {
@@ -167,13 +198,16 @@ export class StackedBarChartComponent implements AfterViewChecked {
         .attr('width', x.bandwidth())
         .attr('height', d => y(d[0]) - y(d[1]));
     }
+    // Call the above function to draw the stacks
     drawStacks(keys, this.numberOfInitialisedComponent);
 
+    // Append G container for the x-axis
     svgChart.append('g')
       .attr('class', 'axis')
       .attr('transform', 'translate(0,' + height + ')')
       .call(d3Axis.axisBottom(x));
 
+    // Appen G container for the y-axis
     svgYaxis.append('g')
       .attr('class', 'y')
       .call(d3Axis.axisLeft(y).ticks(null, 's'));
@@ -208,7 +242,7 @@ export class StackedBarChartComponent implements AfterViewChecked {
       }
     }
 
-    // define tooltip
+    // Function to define tooltip for this chart
     function doTooltip( component, posX, posY ) {
       const tooltip = d3.select('#chart_' + component)
         .append('div')
@@ -223,28 +257,35 @@ export class StackedBarChartComponent implements AfterViewChecked {
         .attr('class', 'stackedBarChartTooltipCount')
         .attr('id', 'stackedBarChartTooltipCount_' + component);
 
+      // Get all the stacks
       const barPart = svgChart.selectAll('.barPart');
 
+      // Apply mouseover events to each single stack
       barPart.on('mouseover', (d) => {
-        // tooltip.select('#stackedBarChartTooltipLabel_' + this.numberOfInitialisedComponent).html();
+        // Get the value of the current stack
         tooltip.select('#stackedBarChartTooltipCount_' + component).html(d[1] - d[0]);
-        tooltip.style('display', 'block');
+        // Somebody might want to try to reach the label of the current stacked bar as well (?)
 
+        // Show the initially hidden tooltip div
+        tooltip.style('display', 'block');
+        // Calculate the tooltip position
         onmousemove = (e) => {
           posX = e.clientX + 20;
           posY = e.clientY - 20;
           tooltip.style('left', (posX) + 'px')
             .style('top', (posY) + 'px');
         };
-
+        // Hide the tooltip div
         onmouseout = (e) => {
           tooltip.style('display', 'none');
         };
       });
 
     }
+    // Call above tooltip function for this chart
     doTooltip(this.numberOfInitialisedComponent, this.posX, this.posY);
 
+    // Append the chart legend
     const legend = svgLegend.append('g')
       .selectAll('g')
       .data(keys.slice())
@@ -275,32 +316,36 @@ export class StackedBarChartComponent implements AfterViewChecked {
         return d;
       });
 
+    // Container to keep the unchecked groups of the legend
     let filtered = [];
 
+    // Function to update the legend and chart when legend item is clicked
     function update(d, component, posX, posY) {
-      // update the array to filter the chart by:
-      // add the clicked key if not included:
+      // Update the array to filter the chart by
       if (filtered.indexOf(d) === -1) {
+        // Add the clicked key if not in filtered[]
         filtered.push(d);
-        // if all bars are un-checked, reset:
+        // If all bars are un-checked, reset
         if (filtered.length === keys.length) {
           filtered = [];
         }
       } else {
+        // Remove clicked key from filtered[]
         filtered.splice(filtered.indexOf(d), 1);
       }
 
+      // Update the chart according to the currently selected stacks
       const newKeys = [];
       keys.forEach(function (d) {
         if (filtered.indexOf(d) === -1) {
           newKeys.push(d);
         }
       });
-      console.log(newKeys);
+      // Re-draw chart and re-do tooltips
       drawStacks(newKeys, component);
       doTooltip(component, posX, posY);
 
-      // update legend:
+      // Update the legend
       legend.selectAll('rect')
         .transition()
         .attr('fill', function (d) {
@@ -316,25 +361,11 @@ export class StackedBarChartComponent implements AfterViewChecked {
         })
         .duration(100);
     } // end of update()
-
-    // Always sort data back by label (duplicate code)
-    if (isNaN(this.data.data[0].label)) {
-      this.data.data.sort((a: any, b: any) => { // Works in an alphabetical way
-        if (a.label < b.label) { return -1; }
-        if (a.label > b.label) { return 1; }
-        return 0;
-      });
-    } else {
-      this.data.data.sort((a: any, b: any) => a.label - b.label); // Works with numeric labels only
-    }
-    // ...and remove the 'total' key
-    data.map((d) => {
-      delete d.total;
-    });
   }
 
 }
 
+// Function to check if JSON data input is string
 function IsJsonString(str) {
   try {
     JSON.parse(str);

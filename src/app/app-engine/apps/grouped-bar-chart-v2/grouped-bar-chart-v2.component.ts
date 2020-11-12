@@ -271,7 +271,9 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
 
     // Apply mouseover events to each single bar
     barPart.on('mouseover', (d) => {
+      // Get the label of the current bar
       tooltip.select('#groupedBarChartTooltipLabel_' + this.numberOfInitialisedComponent).html(d.key);
+      // Get the value of the current bar
       tooltip.select('#groupedBarChartTooltipCount_' + this.numberOfInitialisedComponent).html(d.value);
       // Show the initially hidden tooltip div
       tooltip.style('display', 'block');
@@ -288,6 +290,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
       };
     });
 
+    // Append the chart legend
     const legend = svgLegend.append('g')
       .selectAll('g')
       .data(keys.slice())
@@ -327,7 +330,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
       if (filtered.indexOf(d) === -1) {
         // Add the clicked key if not in filtered[]
         filtered.push(d);
-        // If all bars are un-checked, reset:
+        // If all bars are un-checked, reset
         if (filtered.length === keys.length) {
           filtered = [];
         }
@@ -335,7 +338,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
         // Remove clicked key from filtered[]
         filtered.splice(filtered.indexOf(d), 1);
       }
-      // Update the scales for each group's items:
+      // Update the scales for each group's items
       const newKeys = [];
       keys.forEach(function (d) {
         if (filtered.indexOf(d) === -1) {
