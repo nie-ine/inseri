@@ -90,42 +90,52 @@ export class PieChartV2Component implements AfterViewChecked {
   drawD3( data: Array<any> ) {
     d3.select('.chart' + this.numberOfInitialisedComponent).select('svg').remove();
     d3.select('.pieLegend' + this.numberOfInitialisedComponent).select('svg').remove();
-    if (this.data.metadata) {
-      if (this.data.metadata.rangeLabel) {
-        this.showRange = true;
-        this.rangeLabel = this.data.metadata.rangeLabel;
 
-        this.rangeMinMin = d3Array.min(this.data.data, (d) => d3Array.min(d.range, (r) => r.point));
-        this.rangeMaxMax = d3Array.max(this.data.data, (d) => d3Array.max(d.range, (r) => r.point));
-        this.rangeMinMax = this.rangeMaxMax;
-        this.rangeMaxMin = this.rangeMinMax;
-        if (this.newRangeLowest !== undefined) { // User indicated a new min
-          this.rangeLowest = this.newRangeLowest;
-          this.rangeMaxMin = this.rangeLowest;
-        } else {
-          this.rangeLowest = d3Array.min(this.data.data, (d) => d3Array.min(d.range, (r) => r.point));
-          this.newRangeLowest = this.rangeLowest;
-        }
-        if (this.newRangeHighest !== undefined) { // User indicated a new max
-          this.rangeHighest = this.newRangeHighest;
-          this.rangeMinMax = this.rangeHighest;
-        } else {
-          this.rangeHighest = d3Array.max(this.data.data, (d) => d3Array.max(d.range, (r) => r.point));
-          this.newRangeHighest = this.rangeHighest;
-        }
-        const helpMin = this.rangeLowest;
-        const helpMax = this.rangeHighest;
-        this.data.data.forEach(function (d) {
-          d.value = 0;
-          d.range.forEach(function (r) {
-            if (r.point >= helpMin && r.point <= helpMax) {
-              d.value += r.value;
-            }
-          });
-        });
-        this.RangeOptions.floor = this.rangeLowest;
-        this.RangeOptions.ceil = this.rangeHighest;
+    // Check if there are ranges given in the data
+    if (this.data.data[0].range) {
+      // Show the range feature, if a ranges are given
+      this.showRange = true;
+    }
+    // Check if there's metadata in the JSON input data
+    if (this.data.metadata) {
+      // Check if there's a range label
+      if (this.data.metadata.rangeLabel) {
+        // Use the value of key "rangeLabel" to display it in the view
+        this.rangeLabel = this.data.metadata.rangeLabel;
       }
+    }
+
+    if (this.showRange === true) {
+      this.rangeMinMin = d3Array.min(this.data.data, (d) => d3Array.min(d.range, (r) => r.point));
+      this.rangeMaxMax = d3Array.max(this.data.data, (d) => d3Array.max(d.range, (r) => r.point));
+      this.rangeMinMax = this.rangeMaxMax;
+      this.rangeMaxMin = this.rangeMinMax;
+      if (this.newRangeLowest !== undefined) { // User indicated a new min
+        this.rangeLowest = this.newRangeLowest;
+        this.rangeMaxMin = this.rangeLowest;
+      } else {
+        this.rangeLowest = d3Array.min(this.data.data, (d) => d3Array.min(d.range, (r) => r.point));
+        this.newRangeLowest = this.rangeLowest;
+      }
+      if (this.newRangeHighest !== undefined) { // User indicated a new max
+        this.rangeHighest = this.newRangeHighest;
+        this.rangeMinMax = this.rangeHighest;
+      } else {
+        this.rangeHighest = d3Array.max(this.data.data, (d) => d3Array.max(d.range, (r) => r.point));
+        this.newRangeHighest = this.rangeHighest;
+      }
+      const helpMin = this.rangeLowest;
+      const helpMax = this.rangeHighest;
+      this.data.data.forEach(function (d) {
+        d.value = 0;
+        d.range.forEach(function (r) {
+          if (r.point >= helpMin && r.point <= helpMax) {
+            d.value += r.value;
+          }
+        });
+      });
+      this.RangeOptions.floor = this.rangeLowest;
+      this.RangeOptions.ceil = this.rangeHighest;
     }
 
     const color = d3Scale.scaleOrdinal(d3ScaleChromatic.schemePaired);
