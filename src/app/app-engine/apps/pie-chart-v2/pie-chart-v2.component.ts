@@ -93,7 +93,7 @@ export class PieChartV2Component implements AfterViewChecked {
 
     // Check if there are ranges given in the data
     if (this.data.data[0].range) {
-      // Show the range feature, if a ranges are given
+      // Show the range feature
       this.showRange = true;
     }
     // Check if there's metadata in the JSON input data

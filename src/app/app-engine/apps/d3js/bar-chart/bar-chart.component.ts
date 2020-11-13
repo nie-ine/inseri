@@ -140,7 +140,7 @@ export class BarChartComponent implements AfterViewChecked {
   private initSvg() {
     // Check if there are ranges given in the data
     if (this.data.data[0].range) {
-      // Show the range feature, if a ranges are given
+      // Show the range feature
       this.showRange = true;
     }
     // Check if there's metadata in the JSON input data
@@ -184,8 +184,7 @@ export class BarChartComponent implements AfterViewChecked {
 
   // Initialize the components for the axis.
   private initAxis() {
-    // Check if there are ranges indicated
-    // Check if the range feature if enabled (is a rangeLabel given?)
+    // Check if the range feature if enabled
     if (this.showRange === true) {
       // Find the absolute minimal point in all the given ranges and use it as
       // the current value of the left range slider handle
