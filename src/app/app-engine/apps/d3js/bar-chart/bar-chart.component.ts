@@ -25,26 +25,26 @@ export class BarChartComponent implements AfterViewChecked {
   // Title of the component
   title = 'Bar Chart';
 
-  // Width of the component in pixels.
+  // Width of the component in pixels
   private width: number;
 
-  // Height of the component in pixels.
+  // Height of the component in pixels
   private height: number;
 
-  // Margin around the SVG image.
+  // Margin around the SVG image
   private margin = {top: 20, right: 20, bottom: 30, left: 50};
 
-  // Horizontal axis scale.
+  // Horizontal axis scale
   private x: any;
 
-  // Vertical axis scale.
+  // Vertical axis scale
   private y: any;
 
-  // Root element of the SVG image.
+  // Root element of the SVG image
   private svgChart: any;
   private svgYaxis: any;
 
-  // Group for the axis labels.
+  // Group for the axis labels
   private g: any;
   private gYaxis: any;
 
@@ -123,6 +123,7 @@ export class BarChartComponent implements AfterViewChecked {
     }
   }
 
+  // Function to draw the chart
   drawBarChart() {
     // Remove any already existing chart elements (needed if chart is re-drawn)
     d3.select('#barChartChart_' + this.numberOfInitialisedComponent).select('svg').remove();
