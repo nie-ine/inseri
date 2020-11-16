@@ -5,11 +5,15 @@ import * as d3Array from 'd3-array';
 import * as d3ScaleChromatic from 'd3-scale-chromatic';
 import * as d3Axis from 'd3-axis';
 
+// The Grouped Bar Chart app renders a grouped bar chart based on JSON data input
+// See inseri/Tutorials/App descriptions for Researchers/Apps to visualise data/Grouped Bar Chart
+
 @Component({
   selector: 'app-grouped-bar-chart-v2',
   templateUrl: './grouped-bar-chart-v2.component.html',
   styleUrls: ['./grouped-bar-chart-v2.component.scss']
 })
+
 export class GroupedBarChartV2Component implements AfterViewChecked {
   // Needed by inseri
   @Input() initialised = false;

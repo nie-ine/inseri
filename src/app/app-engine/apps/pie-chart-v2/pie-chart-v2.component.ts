@@ -1,4 +1,4 @@
-import {AfterViewChecked, Component, Input, OnInit} from '@angular/core';
+import {AfterViewChecked, Component, Input} from '@angular/core';
 import * as d3 from 'd3-selection';
 import * as d3Scale from 'd3-scale';
 import * as d3Shape from 'd3-shape';
@@ -7,6 +7,8 @@ import * as d3Array from 'd3-array';
 import * as d3Interpolate from 'd3-interpolate';
 import {Options} from '@angular-slider/ngx-slider';
 
+// The Pie Chart V2 app renders a pie chart based on JSON data input
+// See inseri/Tutorials/App descriptions for Researchers/Apps to visualise data/Pie Chart V2
 
 @Component({
   selector: 'app-pie-chart-v2',
@@ -36,7 +38,7 @@ export class PieChartV2Component implements AfterViewChecked {
   chartLoading = true;
 
   showRange = false;
-  rangeLabel: string;
+  rangeLabel: 'Range';
 
   RangeOptions: Options = {
     floor: 0,

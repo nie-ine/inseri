@@ -6,6 +6,9 @@ import * as d3ScaleChromatic from 'd3-scale-chromatic';
 import * as d3Axis from 'd3-axis';
 import * as d3Shape from 'd3-shape';
 
+// The Stacked Bar Chart app renders a stacked bar chart based on JSON data input
+// See inseri/Tutorials/App descriptions for Researchers/Apps to visualise data/Stacked Bar Chart
+
 @Component({
   selector: 'app-stacked-bar-chart',
   templateUrl: './stacked-bar-chart.component.html',
