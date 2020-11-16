@@ -52,7 +52,7 @@ In its basic form the Grouped Bar Chart app works with a JSON data input as foll
   ]
 }
 ```
-![Default bar chart](images/DefaultGroupedBarChart.gif)
+![Default grouped bar chart](images/DefaultGroupedBarChart.gif)
 
 #### Optional Input
 
@@ -103,7 +103,7 @@ You can label the x- and/or y-axis of the chart by providing some metadata:
   ]
 }
 ```
-![Bar chart with axis labels](images/LabelledGroupedBarChart.png)
+![Grouped bar chart with axis labels](images/LabelledGroupedBarChart.png)
 
 ### Chart Width
 

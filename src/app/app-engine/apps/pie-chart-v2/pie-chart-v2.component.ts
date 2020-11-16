@@ -300,12 +300,10 @@ export class PieChartV2Component implements AfterViewChecked {
       .style('stroke', color)
       .attr('cursor', 'pointer')
       // Add click event to legend items
-        // d is the current label in the array of labels (the datum)
+        // label (the datum (d) !!!) is the current label in the array of labels
         // i is the current index in the array of labels
         // n is the parent group of legend elements
-      .on('click', (d, i, n) => {
-        // console.log(this, n, i);
-        // console.log(n[i]);
+      .on('click', (label, i, n) => {
         // Select the clicked legend item
         const rect = d3.select(n[i]);
         let enabled = true; // Set enabled true to default
@@ -325,7 +323,7 @@ export class PieChartV2Component implements AfterViewChecked {
 
         // Update pie
         this.pie.value((d: any) => {
-          if (d.label === d) {
+          if (d.label === label) {
             d.enabled = enabled;
           } // If entry label matches legend label
           return (d.enabled) ? d.value : 0; // Update enabled property and return count or 0 based on the entry"s status

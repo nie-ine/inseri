@@ -74,7 +74,7 @@ You can label the x- and/or y-axis of the chart by providing some metadata:
 ![Bar chart with axis labels](images/LabelledBarChart.png)
 
 ##### Range Feature
-You can invoke the bar chart range feature by indicating according data for each bar. You can optionally set a label for the range feature in the metadata section.
+You can invoke the bar chart range feature by indicating according data for each bar. You can optionally set a label for the range feature in the metadata section. If not set, the range label will default to just "Range".
 
 Initially, the "value" key for each bar should hold the total value across all range points of this bar. 
 

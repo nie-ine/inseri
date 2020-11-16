@@ -62,7 +62,7 @@ In its basic form the Stacked Bar Chart app works with a JSON data input as foll
   ]
 }
 ```
-![Default bar chart](images/DefaultStackedBarChart.gif)
+![Default stacked bar chart](images/DefaultStackedBarChart.gif)
 
 #### Optional Input
 
@@ -123,7 +123,7 @@ You can label the x- and/or y-axis of the chart by providing some metadata:
   ]
 }
 ```
-![Bar chart with axis labels](images/LabelledStackedBarChart.png)
+![Stacked bar chart with axis labels](images/LabelledStackedBarChart.png)
 
 ### Chart Width
 
