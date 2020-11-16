@@ -297,36 +297,36 @@ export class OpenAppsModel {
           default: {
             data: [
               {
-                "label": "Verse 1",
-                "before 1800": 0,
-                "1800-1805": 5,
-                "1806-1813": 1,
-                "1814-1850": 1,
-                "1851 and after": 0
+                'label': 'Verse 1',
+                'before 1800': 0,
+                '1800-1805': 5,
+                '1806-1813': 1,
+                '1814-1850': 1,
+                '1851 and after': 0
               },
               {
-                "label": "Verse 2",
-                "before 1800": 0,
-                "1800-1805": 5,
-                "1806-1813": 1,
-                "1814-1850": 1,
-                "1851 and after": 0
+                'label': 'Verse 2',
+                'before 1800': 0,
+                '1800-1805': 5,
+                '1806-1813': 1,
+                '1814-1850': 1,
+                '1851 and after': 0
               },
               {
-                "label": "Verse 3",
-                "before 1800": 0,
-                "1800-1805": 6,
-                "1806-1813": 1,
-                "1814-1850": 4,
-                "1851 and after": 0
+                'label': 'Verse 3',
+                'before 1800': 0,
+                '1800-1805': 6,
+                '1806-1813': 1,
+                '1814-1850': 4,
+                '1851 and after': 0
               },
               {
-                "label": "Verse 4",
-                "before 1800": 0,
-                "1800-1805": 6,
-                "1806-1813": 1,
-                "1814-1850": 4,
-                "1851 and after": 0
+                'label': 'Verse 4',
+                'before 1800': 0,
+                '1800-1805': 6,
+                '1806-1813': 1,
+                '1814-1850': 4,
+                '1851 and after': 0
               }
             ]
           }
@@ -400,26 +400,27 @@ export class OpenAppsModel {
       initialWidth: '375',
       initialHeight: '600',
       fullWidth: true,
+      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/App%20descriptions%20for%20Researchers/Apps%20to%20visualise%20data/Pie%20Chart%20V2',
       inputs: [
         {
           'inputName': 'data',
           default: {
             'data': [
               {
-                "label": "Man of letters",
-                "value": 4451
+                'label': 'Man of letters',
+                'value': 4451
               },
               {
-                "label": "Scientist/vulgarizer",
-                "value": 865
+                'label': 'Scientist/vulgarizer',
+                'value': 865
               },
               {
-                "label": "Artist",
-                "value": 36
+                'label': 'Artist',
+                'value': 36
               },
               {
-                "label": "Other",
-                "value": 293
+                'label': 'Other',
+                'value': 293
               }
             ]
           }
@@ -483,19 +484,19 @@ export class OpenAppsModel {
             'data': {
               nodes: [{
                 nodeId: 0,
-                name: "node0"
+                name: 'node0'
               }, {
                 nodeId: 1,
-                name: "node1"
+                name: 'node1'
               }, {
                 nodeId: 2,
-                name: "node2"
+                name: 'node2'
               }, {
                 nodeId: 3,
-                name: "node3"
+                name: 'node3'
               }, {
                 nodeId: 4,
-                name: "node4"
+                name: 'node4'
               }],
               links: [{
                 source: 0,
@@ -676,23 +677,23 @@ export class OpenAppsModel {
         {
           'inputName': 'settings',
           default:   {
-            "inputMode":"input",
-            "jsonType":"any",
-            "pathToDataArray": "",
-            "columns":{
-              "manualColumns": false,
-              "columnMapping":[],
-              "stickyColumn":0
+            'inputMode': 'input',
+            'jsonType': 'any',
+            'pathToDataArray': '',
+            'columns': {
+              'manualColumns': false,
+              'columnMapping': [],
+              'stickyColumn': 0
             },
-            "filter":{
-              "showFilter": true,
-              "caseSensitive": false
+            'filter': {
+              'showFilter': true,
+              'caseSensitive': false
             },
-            "paginator":{
-              "paginate":true,
-              "pageIndex":"0",
-              "pageSize":"10",
-              "pageSizeOptions":[
+            'paginator': {
+              'paginate': true,
+              'pageIndex': '0',
+              'pageSize': '10',
+              'pageSizeOptions': [
                 5,
                 10,
                 25,
@@ -701,11 +702,11 @@ export class OpenAppsModel {
                 250
               ]
             },
-            "export":{
-              "showExport":true
+            'export': {
+              'showExport': true
             },
-            "sort":{
-              "disallowSorting":false
+            'sort': {
+              'disallowSorting': false
             }
           }
         }
