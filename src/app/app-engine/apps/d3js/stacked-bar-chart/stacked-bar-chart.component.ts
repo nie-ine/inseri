@@ -268,6 +268,7 @@ export class StackedBarChartComponent implements AfterViewChecked {
         // Get the value of the current stack
         tooltip.select('#stackedBarChartTooltipCount_' + component).html(d[1] - d[0]);
         // Somebody might want to try to reach the label of the current stacked bar as well (?)
+        // tooltip.select('#stackedBarChartTooltipCount_' + component).html( ... );
 
         // Show the initially hidden tooltip div
         tooltip.style('display', 'block');

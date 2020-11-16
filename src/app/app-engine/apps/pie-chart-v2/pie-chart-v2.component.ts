@@ -302,17 +302,15 @@ export class PieChartV2Component implements AfterViewChecked {
       // Add click event to legend items
         // d is the current label in the array of labels (the datum)
         // i is the current index in the array of labels
-        // n is the current group
+        // n is the parent group of legend elements
       .on('click', (d, i, n) => {
-        console.log('label', d);
-        console.log('i', i);
-        console.log('n', n);
         // console.log(this, n, i);
         // console.log(n[i]);
+        // Select the clicked legend item
         const rect = d3.select(n[i]);
         let enabled = true; // Set enabled true to default
         const totalEnabled = d3Array.sum(data.map((d) => { // Can't disable all options
-          return (d.enabled) ? 1 : 0; // Return 1 for each enabled entry. and summing it up
+          return (d.enabled) ? 1 : 0; // Return 1 for each enabled entry and summing it up
         }));
 
         if (rect.attr('class') === 'disabled') { // If class is disabled
