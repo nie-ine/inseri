@@ -25,26 +25,26 @@ export class BarChartComponent implements AfterViewChecked {
   // Title of the component
   title = 'Bar Chart';
 
-  // Width of the component in pixels.
+  // Width of the component in pixels
   private width: number;
 
-  // Height of the component in pixels.
+  // Height of the component in pixels
   private height: number;
 
-  // Margin around the SVG image.
+  // Margin around the SVG image
   private margin = {top: 20, right: 20, bottom: 30, left: 50};
 
-  // Horizontal axis scale.
+  // Horizontal axis scale
   private x: any;
 
-  // Vertical axis scale.
+  // Vertical axis scale
   private y: any;
 
-  // Root element of the SVG image.
+  // Root element of the SVG image
   private svgChart: any;
   private svgYaxis: any;
 
-  // Group for the axis labels.
+  // Group for the axis labels
   private g: any;
   private gYaxis: any;
 
@@ -123,6 +123,7 @@ export class BarChartComponent implements AfterViewChecked {
     }
   }
 
+  // Function to draw the chart
   drawBarChart() {
     // Remove any already existing chart elements (needed if chart is re-drawn)
     d3.select('#barChartChart_' + this.numberOfInitialisedComponent).select('svg').remove();
@@ -140,7 +141,7 @@ export class BarChartComponent implements AfterViewChecked {
   private initSvg() {
     // Check if there are ranges given in the data
     if (this.data.data[0].range) {
-      // Show the range feature, if a ranges are given
+      // Show the range feature
       this.showRange = true;
     }
     // Check if there's metadata in the JSON input data
@@ -184,52 +185,49 @@ export class BarChartComponent implements AfterViewChecked {
 
   // Initialize the components for the axis.
   private initAxis() {
-    // Check if there's metadata in the JSON input data
-    if (this.data.metadata) {
-      // Check if the range feature if enabled (is a rangeLabel given?)
-      if (this.showRange === true) {
-        // Find the absolute minimal point in all the given ranges and use it as
-        // the current value of the left range slider handle
-        this.rangeMinMin = d3Array.min(this.data.data, (d) => d3Array.min(d.range, (r) => r.point));
-        // Find the absolute highest point in all the given ranges and use it as
-        // the current value of the right range slider handle
-        this.rangeMaxMax = d3Array.max(this.data.data, (d) => d3Array.max(d.range, (r) => r.point));
-        // The currently possible highest value for the left range slider handle is equal to the right range slider handle
-        this.rangeMinMax = this.rangeMaxMax;
-        // The currently possible lowest value for the right range slider handle is equal to the left range slider handle
-        this.rangeMaxMin = this.rangeMinMax;
-        // Check if the user indicated a new minimal point on the range
-        if (this.newRangeLowest !== undefined) { // User indicated new lowest
-          this.rangeLowest = this.newRangeLowest;
-          this.rangeMaxMin = this.rangeLowest;
-        } else {
-          this.rangeLowest = d3Array.min(this.data.data, (d) => d3Array.min(d.range, (r) => r.point));
-          this.newRangeLowest = this.rangeLowest;
-        }
-        // Check if the user indicated a new maximal point on the range
-        if (this.newRangeHighest !== undefined) { // User indicated new highest
-          this.rangeHighest = this.newRangeHighest;
-          this.rangeMinMax = this.rangeHighest;
-        } else {
-          this.rangeHighest = d3Array.max(this.data.data, (d) => d3Array.max(d.range, (r) => r.point));
-          this.newRangeHighest = this.rangeHighest;
-        }
-
-        // Calculate bar value for current range
-        const helpMin = this.rangeLowest;
-        const helpMax = this.rangeHighest;
-        this.data.data.forEach(function (d) {
-          d.value = 0;
-          d.range.forEach(function (r) {
-            if (r.point >= helpMin && r.point <= helpMax) {
-              d.value += r.value;
-            }
-          });
-        });
-        // Set the options for the ngx-slider
-        this.RangeOptions.floor = this.rangeLowest;
-        this.RangeOptions.ceil = this.rangeHighest;
+    // Check if the range feature if enabled
+    if (this.showRange === true) {
+      // Find the absolute minimal point in all the given ranges and use it as
+      // the current value of the left range slider handle
+      this.rangeMinMin = d3Array.min(this.data.data, (d) => d3Array.min(d.range, (r) => r.point));
+      // Find the absolute highest point in all the given ranges and use it as
+      // the current value of the right range slider handle
+      this.rangeMaxMax = d3Array.max(this.data.data, (d) => d3Array.max(d.range, (r) => r.point));
+      // The currently possible highest value for the left range slider handle is equal to the right range slider handle
+      this.rangeMinMax = this.rangeMaxMax;
+      // The currently possible lowest value for the right range slider handle is equal to the left range slider handle
+      this.rangeMaxMin = this.rangeMinMax;
+      // Check if the user indicated a new minimal point on the range
+      if (this.newRangeLowest !== undefined) { // User indicated new lowest
+        this.rangeLowest = this.newRangeLowest;
+        this.rangeMaxMin = this.rangeLowest;
+      } else {
+        this.rangeLowest = d3Array.min(this.data.data, (d) => d3Array.min(d.range, (r) => r.point));
+        this.newRangeLowest = this.rangeLowest;
       }
+      // Check if the user indicated a new maximal point on the range
+      if (this.newRangeHighest !== undefined) { // User indicated new highest
+        this.rangeHighest = this.newRangeHighest;
+        this.rangeMinMax = this.rangeHighest;
+      } else {
+        this.rangeHighest = d3Array.max(this.data.data, (d) => d3Array.max(d.range, (r) => r.point));
+        this.newRangeHighest = this.rangeHighest;
+      }
+
+      // Calculate bar value for current range
+      const helpMin = this.rangeLowest;
+      const helpMax = this.rangeHighest;
+      this.data.data.forEach(function (d) {
+        d.value = 0;
+        d.range.forEach(function (r) {
+          if (r.point >= helpMin && r.point <= helpMax) {
+            d.value += r.value;
+          }
+        });
+      });
+      // Set the options for the ngx-slider
+      this.RangeOptions.floor = this.rangeLowest;
+      this.RangeOptions.ceil = this.rangeHighest;
     }
 
     // Check if bars should be sorted

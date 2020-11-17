@@ -6,6 +6,9 @@ import * as d3ScaleChromatic from 'd3-scale-chromatic';
 import * as d3Axis from 'd3-axis';
 import * as d3Shape from 'd3-shape';
 
+// The Stacked Bar Chart app renders a stacked bar chart based on JSON data input
+// See inseri/Tutorials/App descriptions for Researchers/Apps to visualise data/Stacked Bar Chart
+
 @Component({
   selector: 'app-stacked-bar-chart',
   templateUrl: './stacked-bar-chart.component.html',
@@ -265,6 +268,7 @@ export class StackedBarChartComponent implements AfterViewChecked {
         // Get the value of the current stack
         tooltip.select('#stackedBarChartTooltipCount_' + component).html(d[1] - d[0]);
         // Somebody might want to try to reach the label of the current stacked bar as well (?)
+        // tooltip.select('#stackedBarChartTooltipCount_' + component).html( ... );
 
         // Show the initially hidden tooltip div
         tooltip.style('display', 'block');
