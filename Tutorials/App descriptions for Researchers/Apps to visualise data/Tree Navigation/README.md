@@ -6,12 +6,15 @@ be shared this way.
 
 ![Screenshot of an example for the tree navigation](tree-navigation.png)
 
-The typical use is a table of contents where the lower level are connected to the upper level with a porperty
+The typical use is a table of contents where the lower level are connected to the upper level with a property
 similar to isPartOf.
 All the nodes in this table of contents are clickable and the selection can be made available to other components.
 
 This app expects special knowledge of the used ontology in Knora and the query parameters in the URL.
 It does not just show data but it has the aim to enable interaction with data through different apps.
+
+This app uses the [Angular Material Tree](https://material.angular.io/components/tree/overview) that brings in 
+predefined behaviours as the toggling of subtrees.
 
 ### Configuration
 
