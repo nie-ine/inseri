@@ -64,12 +64,24 @@ export class TreeNavigationComponent implements OnChanges, OnInit {
     };
   };
 
+  /**
+   * Flat tree control for recursive expansion and collapsing of subtrees
+   * https://material.angular.io/cdk/tree/api
+   */
   treeControl = new FlatTreeControl<ResourceFlatNode>(
     node => node.level, node => node.expandable);
 
+  /**
+   * Tree flattener as defined in @angular/material/tree
+   * https://material.angular.io/components/tree/api
+   */
   treeFlattener = new MatTreeFlattener(
     this.transformer, node => node.level, node => node.expandable, node => node.children);
 
+  /**
+   * Data source as defined in @angular/material/tree
+   * https://material.angular.io/components/tree/api
+   */
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
   constructor(private _route: ActivatedRoute, private _router: Router) { }
@@ -189,6 +201,9 @@ export class TreeNavigationComponent implements OnChanges, OnInit {
     }
   }
 
+  /**
+   * Boolean function that tells the template if a tree node is expandable.
+   */
   hasChild = (_: number, _nodeData: ResourceFlatNode) => _nodeData.expandable;
 
   /**
