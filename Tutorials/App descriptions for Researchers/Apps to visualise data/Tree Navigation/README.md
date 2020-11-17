@@ -16,6 +16,17 @@ It does not just show data but it has the aim to enable interaction with data th
 This app uses the [Angular Material Tree](https://material.angular.io/components/tree/overview) that brings in 
 predefined behaviours as the toggling of subtrees.
 
+### Using the app
+
+To open the tree navigation, open the menu by clicking the lighthouse, then navigate to the tab "Visualise" and click on 
+"Tree navigation":
+
+![Screenshot of the menu item for tree navigation](tree-navigation-open.png)
+
+This opens the app with default data:
+
+![Screenshot of the tree navigation with default data](tree-navigation-default.png)
+
 ### Configuration
 
 The default input for `queryResponse` is a JSON tree with Knora-flavoured JSON-LD with the depending resources located in a list of
@@ -111,6 +122,52 @@ lists.
 }
 ```
 
+This JSON object can be changed in the data management which can be reached by first cklicking the lighthouse icon, 
+which should open the settings.
+There, click the hamburger menu and select the entry "Data Management":
+
+![Screenshot on how to get to the data management](tree-navigation-data-management.png)
+
+Open data management:
+
+![Open data management](tree-nav-data-management-open.png)
+
+The button "page:<project name> | data stored in inseri" leads you to the configuration of the query.
+
+#### Static data
+
+Here you can copy a JSON object similar as above in a new variable `content`. Make sure to add a comma after the 
+object to keep the JSON structure valid.
+
+![JSON configuration for tree navigation](tree-navigation-json.png)
+
+You can then save the configuration by clicking on "Save or Update JSON Object" and close the query configuration view
+by clicking the X-button above.
+
+The last step is to map the JSON object to the input of the tree navigation.
+For this, on the data management view, click "map":
+
+![Open data management](tree-nav-data-management-open.png) 
+
+This opens the mapping view where you can navigate to the data inserted above by
+"Show abstract tree structure", "> result", "> content"
+
+Selecting the button "json" on the second line below "v content", sets the input.
+
+On the top of the view, "chosen inputs" should now show: "json" "-> result" "-> content".
+
+![Tree navigation mapping](tree-navigation-mapping-before.png)
+
+You can now save and close the configuration.
+
+#### Get equivalent data from Knora
+
+Instead of setting a JSON object manually, equivalent data can be queried from a Knora instance.
+The configuration is similar but instead of "Create your own JSON object in inseri" in the dropdown,
+the option "POST" has to be selected:
+
+![Defining a post request](tree-navigation-post.png)
+
 Such an input can be generated to a GravSearch query to Knora with the following content:
 
 ```sparql
@@ -137,11 +194,15 @@ CONSTRUCT {
 }
 ```
 
+No IDs and labels have to be queried through extra statements as they are per default given back by Knora.
+
 This GravSearch query has to be sent as HTTP Post request to a Knora server at the route `/v2/searchextended`.
 The domain may vary, for a local install it would usually be 
-`http://localhost:3333/v2/searchextended` (with full path).
+`http://localhost:3333/v2/searchextended` (with full path). Enter this in "Server URL".
 
-No IDs and labels have to be queried through extra statements as they are per default given back by Knora.
+The GravSearch query can be entered in the "General Query Editor" as "Body".
+
+As a last step, the response has to be mapped to the same variable as defined above for a JSON object.
 
 ### Connection to other apps
 
