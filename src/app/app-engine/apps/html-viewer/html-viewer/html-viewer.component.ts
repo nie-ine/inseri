@@ -1,5 +1,5 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
-import { SelectableEnvironments, StyleDeclaration } from '../html-viewer-innerhtml/html-viewer-innerhtml.component';
+import {Component, Input, OnChanges} from '@angular/core';
+import { SelectableEnvironments } from '../html-viewer-innerhtml/html-viewer-innerhtml.component';
 import { ActivatedRoute } from '@angular/router';
 
 /**
@@ -18,23 +18,25 @@ export class HtmlViewerComponent implements OnChanges {
   @Input() htmlContent = '<div><p class="lorem">Lorem ipsum.</p><p class="dolor">Dolor sit amet.</p></div>';
 
   /**
-   * Style declarations that are applied on init.
+   * Style declarations that are applied on init. The list of environments has to be included under the key `default`.
    */
-  @Input() styleDeclarations: Array<StyleDeclaration> = [
-    {
-      'type': 'tag',
-      'name': 'p',
-      'styles': {
-        'font-family': 'Times, serif',
-        'text-align': 'justify'
-      }
-    },
-    {
-      'type': 'class',
-      'name': 'lorem',
-      'styles': {'font-weight': 'bold'}
-    },
-  ];
+  @Input() styleDeclarations: SelectableEnvironments = {
+    'default': [
+      {
+        'type': 'tag',
+        'name': 'p',
+        'styles': {
+          'font-family': 'Times, serif',
+          'text-align': 'justify'
+        }
+      },
+      {
+        'type': 'class',
+        'name': 'lorem',
+        'styles': {'font-weight': 'bold'}
+      },
+    ]
+  };
 
   /**
    * Dynamic style declarations.
@@ -82,21 +84,23 @@ export class HtmlViewerComponent implements OnChanges {
       this.selectiveStyleDeclarations === undefined
     ) {
       this.htmlContent = '';
-      this.styleDeclarations = [
-        {
-          'type': 'tag',
-          'name': 'p',
-          'styles': {
-            'font-family': 'Times, serif',
-            'text-align': 'justify'
-          }
-        },
-        {
-          'type': 'class',
-          'name': 'lorem',
-          'styles': {'font-weight': 'bold'}
-        },
-      ];
+      this.styleDeclarations = {
+        'default': [
+          {
+            'type': 'tag',
+            'name': 'p',
+            'styles': {
+              'font-family': 'Times, serif',
+              'text-align': 'justify'
+            }
+          },
+          {
+            'type': 'class',
+            'name': 'lorem',
+            'styles': {'font-weight': 'bold'}
+          },
+        ]
+      };
       this.selectiveStyleDeclarations = {
         'dolor': [
           {
@@ -123,8 +127,5 @@ export class HtmlViewerComponent implements OnChanges {
       this.highlighted = [].concat(params.style);
     });
   }
-
-
-
 
 }
