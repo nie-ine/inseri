@@ -256,25 +256,26 @@ export class OpenAppsModel {
       materialIcon: 'bar_chart',
       initialWidth: '600',
       initialHeight: '350',
+      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/App%20descriptions%20for%20Researchers/Apps%20to%20visualise%20data/Bar%20Chart',
       inputs: [
         {
           'inputName': 'data',
           default: {
             data: [
               {
-                'label': 'first bar',
+                'label': 'Aa',
                 'value': 0.3
               },
               {
-                'label': 'second bar',
+                'label': 'Bb',
                 'value': 0.6
               },
               {
-                'label': 'third bar',
+                'label': 'Cc',
                 'value': 0.9
               },
               {
-                'label': 'fourth bar',
+                'label': 'Dd',
                 'value': 1.2
               }
             ]
@@ -289,42 +290,43 @@ export class OpenAppsModel {
       initialWidth: '600',
       initialHeight: '800',
       fullWidth: true,
+      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/App%20descriptions%20for%20Researchers/Apps%20to%20visualise%20data/Grouped%20Bar%20Chart',
       inputs: [
         {
           'inputName': 'data',
           default: {
             data: [
               {
-                "label": "Verse 1",
-                "before 1800": 0,
-                "1800-1805": 5,
-                "1806-1813": 1,
-                "1814-1850": 1,
-                "1851 and after": 0
+                'label': 'Verse 1',
+                'before 1800': 0,
+                '1800-1805': 5,
+                '1806-1813': 1,
+                '1814-1850': 1,
+                '1851 and after': 0
               },
               {
-                "label": "Verse 2",
-                "before 1800": 0,
-                "1800-1805": 5,
-                "1806-1813": 1,
-                "1814-1850": 1,
-                "1851 and after": 0
+                'label': 'Verse 2',
+                'before 1800': 0,
+                '1800-1805': 5,
+                '1806-1813': 1,
+                '1814-1850': 1,
+                '1851 and after': 0
               },
               {
-                "label": "Verse 3",
-                "before 1800": 0,
-                "1800-1805": 6,
-                "1806-1813": 1,
-                "1814-1850": 4,
-                "1851 and after": 0
+                'label': 'Verse 3',
+                'before 1800': 0,
+                '1800-1805': 6,
+                '1806-1813': 1,
+                '1814-1850': 4,
+                '1851 and after': 0
               },
               {
-                "label": "Verse 4",
-                "before 1800": 0,
-                "1800-1805": 6,
-                "1806-1813": 1,
-                "1814-1850": 4,
-                "1851 and after": 0
+                'label': 'Verse 4',
+                'before 1800': 0,
+                '1800-1805': 6,
+                '1806-1813': 1,
+                '1814-1850': 4,
+                '1851 and after': 0
               }
             ]
           }
@@ -398,26 +400,27 @@ export class OpenAppsModel {
       initialWidth: '375',
       initialHeight: '600',
       fullWidth: true,
+      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/App%20descriptions%20for%20Researchers/Apps%20to%20visualise%20data/Pie%20Chart%20V2',
       inputs: [
         {
           'inputName': 'data',
           default: {
             'data': [
               {
-                "label": "Man of letters",
-                "value": 4451
+                'label': 'Man of letters',
+                'value': 4451
               },
               {
-                "label": "Scientist/vulgarizer",
-                "value": 865
+                'label': 'Scientist/vulgarizer',
+                'value': 865
               },
               {
-                "label": "Artist",
-                "value": 36
+                'label': 'Artist',
+                'value': 36
               },
               {
-                "label": "Other",
-                "value": 293
+                'label': 'Other',
+                'value': 293
               }
             ]
           }
@@ -481,19 +484,19 @@ export class OpenAppsModel {
             'data': {
               nodes: [{
                 nodeId: 0,
-                name: "node0"
+                name: 'node0'
               }, {
                 nodeId: 1,
-                name: "node1"
+                name: 'node1'
               }, {
                 nodeId: 2,
-                name: "node2"
+                name: 'node2'
               }, {
                 nodeId: 3,
-                name: "node3"
+                name: 'node3'
               }, {
                 nodeId: 4,
-                name: "node4"
+                name: 'node4'
               }],
               links: [{
                 source: 0,
@@ -542,52 +545,53 @@ export class OpenAppsModel {
       materialIcon: 'subtitles',
       initialWidth: '700',
       initialHeight: '400',
+      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/App%20descriptions%20for%20Researchers/Apps%20to%20visualise%20data/Stacked%20Bar%20Chart',
       inputs: [
         {
           'inputName': 'data',
           default: {
             'data': [
               {
-                'xValue': '1',
-                'Before 1350': 0,
+                'label': 'Verse 1',
+                'Before 1350': 2,
                 '1350-1813': 3,
                 '1814-1850': 1,
-                '1851 and later': 0
+                '1851 and later': 8
               },
               {
-                'xValue': '2',
-                'Before 1350': 0,
+                'label': 'Verse 2',
+                'Before 1350': 4,
                 '1350-1813': 3,
                 '1814-1850': 1,
-                '1851 and later': 0
+                '1851 and later': 4
               },
               {
-                'xValue': '3',
-                'Before 1350': 0,
+                'label': 'Verse 3',
+                'Before 1350': 11,
                 '1350-1813': 3,
                 '1814-1850': 3,
-                '1851 and later': 0
+                '1851 and later': 4
               },
               {
-                'xValue': '4',
-                'Before 1350': 0,
+                'label': 'Verse 4',
+                'Before 1350': 1,
                 '1350-1813': 3,
                 '1814-1850': 3,
-                '1851 and later': 0
+                '1851 and later': 9
               },
               {
-                'xValue': '5',
-                'Before 1350': 0,
+                'label': 'Verse 5',
+                'Before 1350': 7,
                 '1350-1813': 4,
                 '1814-1850': 3,
-                '1851 and later': 0
+                '1851 and later': 10
               },
               {
-                'xValue': '6',
-                'Before 1350': 0,
+                'label': 'Verse 6',
+                'Before 1350': 4,
                 '1350-1813': 3,
                 '1814-1850': 3,
-                '1851 and later': 0
+                '1851 and later': 8
               }
             ]
           }
@@ -673,23 +677,23 @@ export class OpenAppsModel {
         {
           'inputName': 'settings',
           default:   {
-            "inputMode":"input",
-            "jsonType":"any",
-            "pathToDataArray": "",
-            "columns":{
-              "manualColumns": false,
-              "columnMapping":[],
-              "stickyColumn":0
+            'inputMode': 'input',
+            'jsonType': 'any',
+            'pathToDataArray': '',
+            'columns': {
+              'manualColumns': false,
+              'columnMapping': [],
+              'stickyColumn': 0
             },
-            "filter":{
-              "showFilter": true,
-              "caseSensitive": false
+            'filter': {
+              'showFilter': true,
+              'caseSensitive': false
             },
-            "paginator":{
-              "paginate":true,
-              "pageIndex":"0",
-              "pageSize":"10",
-              "pageSizeOptions":[
+            'paginator': {
+              'paginate': true,
+              'pageIndex': '0',
+              'pageSize': '10',
+              'pageSizeOptions': [
                 5,
                 10,
                 25,
@@ -698,11 +702,11 @@ export class OpenAppsModel {
                 250
               ]
             },
-            "export":{
-              "showExport":true
+            'export': {
+              'showExport': true
             },
-            "sort":{
-              "disallowSorting":false
+            'sort': {
+              'disallowSorting': false
             }
           }
         }

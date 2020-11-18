@@ -14,3 +14,50 @@
   overflow: hidden;
 }
 
+.selectPieChartRange {
+
+  width: 128px;
+  overflow: hidden;
+}
+
+:host /deep/ .custom-slider {
+  .ngx-slider {
+    margin: 23px 0 15px;
+    .ngx-slider-bar {
+      background: #BDBDBD;
+      height: 2px;
+    }
+    .ngx-slider-selection {
+      background: #ff4081;
+    }
+    .ngx-slider-pointer {
+      width: 14px;
+      height: 14px;
+      top: -7px;
+      background-color: #ff4081;
+      border-radius: 10px;
+      cursor: grab;
+    }
+    .ngx-slider-floor {
+      display: none;
+    }
+    .ngx-slider-ceil {
+      display: none;
+    }
+    .ngx-slider-model-value {
+      display: none;
+    }
+    .ngx-slider-model-high {
+      display: none;
+    }
+    .ngx-slider-combined {
+      display: none;
+    }
+    .ngx-slider-pointer-min::after {
+      display: none;
+    }
+    .ngx-slider-pointer-max::after {
+      display: none;
+    }
+  }
+}
