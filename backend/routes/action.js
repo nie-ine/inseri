@@ -117,7 +117,7 @@ router.get('/setShortName/:shortName/:id', checkAuth, (req, res, next ) => {
 });
 
 async function getHierarchyOfPages(pageObj) {
-  console.log('getHierarchyOfPages');
+  //console.log('getHierarchyOfPages');
   let page= await Page.findOne({_id: pageObj._id }).populate('hasSubPages');
   let subPagesOfSubPage=[];
   if(page) {
@@ -142,13 +142,6 @@ async function getHierarchyOfPages(pageObj) {
  // return  subPagesOfSubPage;
 }
 
-// async function getMainHierarchyOfPages(pages, hierarchyOfPages) {
-//   let temp = [];
-//   for (const page of pages) {
-//     await getHierarchyOfPages(page._id, hierarchyOfPages);
-//   }
-// }
-
 router.get('/:id', checkAuth2, (req, res, next) => {
   // Authorisation (only if user is also the creator of the action)
   if (req.loggedIn === true) {
@@ -168,21 +161,6 @@ router.get('/:id', checkAuth2, (req, res, next) => {
               for(let i=0;i<pages.length;i++){
                 hierarchyOfPages.push({page: pages[i], subPages:await getHierarchyOfPages(pages[i])});
               }
-             //for(let i=0;i<pages.length;i++) {
-               //pagesIds.push(page._id);
-               // const page=pages[i];
-               //
-               //hierarchyOfPages.push({page: page, subPages:await getHierarchyOfPages(page._id)});
-               // console.log('atest');
-               // console.log(subPages);
-               // const pageInHierarchy={page: page, subPages:subPages };
-               // hierarchyOfPages.push(pageInHierarchy);
-              // await getHierarchyOfPages(page._id, hierarchyOfPages);
-             //}
-
-             //await  getMainHierarchyOfPages(pages, hierarchyOfPages);
-             // console.log('final hierarchy');
-             // console.log(hierarchyOfPages);
             res.status(200).json({
               message: 'Action was found',
               action: actionResult[0],
@@ -225,21 +203,6 @@ router.get('/:id', checkAuth2, (req, res, next) => {
             for(let i=0;i<pages.length;i++){
               hierarchyOfPages.push({page: pages[i], subPages:await getHierarchyOfPages(pages[i])});
             }
-            //for(let i=0;i<pages.length;i++) {
-            //pagesIds.push(page._id);
-            // const page=pages[i];
-            //
-            //hierarchyOfPages.push({page: page, subPages:await getHierarchyOfPages(page._id)});
-            // console.log('atest');
-            // console.log(subPages);
-            // const pageInHierarchy={page: page, subPages:subPages };
-            // hierarchyOfPages.push(pageInHierarchy);
-            // await getHierarchyOfPages(page._id, hierarchyOfPages);
-            //}
-
-            //await  getMainHierarchyOfPages(pages, hierarchyOfPages);
-            // console.log('final hierarchy');
-            // console.log(hierarchyOfPages);
             res.status(200).json({
               message: 'Action was found',
               action: result[0],
@@ -306,14 +269,9 @@ function addFiles(req, res,oldHostUrl, newHostUrl) {
         });
         if (newFiles.length != 0) {
           Files.insertMany(newFiles, {ordered: false}).then(filesInserted => {
-            // console.log("files inserted");
-            // console.log(filesInserted);
             let counter = projectFiles.length;
             projectFiles.forEach(file => {
               let path = 'backend/files/' + file.fileName;
-              //console.log(path);
-              //console.log(file.fileContent);
-              //const data = new Uint8Array(Buffer.from(file.fileContent));
               var buf = new Buffer(file.fileContent, 'binary'); //base64
               fs.writeFile(path, buf,(err)=> {
                 if (err) {
@@ -323,7 +281,6 @@ function addFiles(req, res,oldHostUrl, newHostUrl) {
                     error: err
                   });
                 }
-               // console.log(file.fileName + "has been added to the server");
                 counter--;
               });
             });

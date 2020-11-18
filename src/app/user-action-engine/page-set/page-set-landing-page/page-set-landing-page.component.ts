@@ -1,11 +1,11 @@
 import {Component, OnInit, Inject, Output, EventEmitter} from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatTreeNestedDataSource} from '@angular/material';
 import {Router, ActivatedRoute} from '@angular/router';
 import {EditPageSetComponent} from '../edit-page-set/edit-page-set.component';
 import {ActionService} from '../../mongodb/action/action.service';
 import { Action } from '../../mongodb/action/action.model';
 import { EditPageComponent } from '../edit-page/edit-page.component';
-import { Page } from '../../mongodb/page/page.model';
+import { Page } from '../../../../../backend/models/page.js'; // '../../mongodb/page/page.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DeletePageComponent } from '../delete-page/delete-page.component';
 import { PageService } from '../../mongodb/page/page.service';
@@ -13,6 +13,7 @@ import { DuplicatePageComponent } from '../duplicate-page/duplicate-page.compone
 import {PageSetService} from '../../mongodb/pageset/page-set.service';
 import {AuthService} from '../../mongodb/auth/auth.service';
 import {SubPageOfPageModel} from '../../mongodb/page/subPageOfPage.model';
+import {NestedTreeControl} from '@angular/cdk/tree';
 
 @Component({
   selector: 'app-page-set-landing-page',
@@ -20,23 +21,6 @@ import {SubPageOfPageModel} from '../../mongodb/page/subPageOfPage.model';
   styleUrls: ['./page-set-landing-page.component.scss']
 })
 export class PageSetLandingPageComponent implements OnInit {
-  name: string;
-  actionID: string;
-  pageSet: any;
-  action: any;
-  pagesOfThisPageSet: any;
-  isLoading: boolean;
-
-  /**
-   * Describes if user is logged in
-   * */
-  loggedIn = true;
-
-  /**
-   * this variable indicates if page is shown in the preview - mode which indicates how the page would look published.
-   * */
-  preview = false;
-  subPagesOfPage: SubPageOfPageModel[] = [];
 
   constructor(
     public dialog: MatDialog,
@@ -48,7 +32,28 @@ export class PageSetLandingPageComponent implements OnInit {
     private pageSetService: PageSetService,
     private router: Router,
     private authService: AuthService
-  ) { }
+  ) {}
+  name: string;
+  actionID: string;
+  pageSet: any;
+  action: any;
+  pagesOfThisPageSet: any;
+  isLoading: boolean;
+  dataSource = new MatTreeNestedDataSource<SubPageOfPageModel>();
+  treeControl = new NestedTreeControl<SubPageOfPageModel>(node => node.subPages);
+  /**
+   * Describes if user is logged in
+   * */
+  loggedIn = true;
+
+  /**
+   * this variable indicates if page is shown in the preview - mode which indicates how the page would look published.
+   * */
+  preview = false;
+  subPagesOfPage: SubPageOfPageModel[] = [];
+  private pageToMove: any;
+
+  hasChild = (_: number, node: SubPageOfPageModel) => !!node.subPages && node.subPages.length > 0;
 
   ngOnInit() {
     this.isLoading = true;
@@ -72,6 +77,7 @@ export class PageSetLandingPageComponent implements OnInit {
           this.pageSet = this.action.hasPageSet;
           this.pagesOfThisPageSet = this.action.hasPageSet.hasPages;
           this.subPagesOfPage = data.body.hierarchyOfPages;
+          this.dataSource.data = this.subPagesOfPage;
           this.isLoading = false;
         } else {
           this.isLoading = false;
@@ -223,6 +229,16 @@ export class PageSetLandingPageComponent implements OnInit {
       });
   }
 
+  updatePagesArray(newSubPagesOfPage: SubPageOfPageModel[]) {
+    this.subPagesOfPage = newSubPagesOfPage;
+    this.dataSource.data = this.subPagesOfPage;
+  }
+
+  openMovePageMenu(page: any, menu: Event) {
+    this.pageToMove = page;
+    console.log(page);
+    menu.stopPropagation();
+  }
 }
 
 
@@ -236,7 +252,7 @@ export class DialogCreateNewPageComponent implements OnInit {
   isLoading: boolean;
   pageSetID: any;
   parentPageId: any;
-  //subPage: FormControl;
+  // subPage: FormControl;
   newPage: Page = {
     id: undefined,
     title: '',
@@ -251,7 +267,7 @@ export class DialogCreateNewPageComponent implements OnInit {
               private route: ActivatedRoute,
               private pageService: PageService) {
     this.pageSetID = data.pageset._id;
-    //this.subPage = new FormControl('false');
+    // this.subPage = new FormControl('false');
     this.parentPageId = data.parentPageId;
   }
 
@@ -264,7 +280,7 @@ export class DialogCreateNewPageComponent implements OnInit {
     this.form = new FormGroup({
       title: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
-      //subPageCtrl: this.subPage,
+      // subPageCtrl: this.subPage,
     });
   }
 
@@ -276,20 +292,20 @@ export class DialogCreateNewPageComponent implements OnInit {
     this.isLoading = true;
     this.newPage.title = this.form.get('title').value;
     this.newPage.description = this.form.get('description').value;
-    //const subPageVal = this.form.get('subPageCtrl').value;
-    //console.log(subPageVal);
+    // const subPageVal = this.form.get('subPageCtrl').value;
+    // console.log(subPageVal);
 
 
     if (this.parentPageId) {
       this.pageService.createPage(null, this.newPage, this.parentPageId, true)
         .subscribe((result) => {
           this.isLoading = false;
-          console.log(result);
-          //if (result.status === 201) {
-            //this.pageId.emit(result.body.subpage._id);
-            console.log('I am here in the add new subPage');
-            console.log(result);
-            console.log(result.subpage._id);
+          // console.log(result);
+          // //if (result.status === 201) {
+          //   //this.pageId.emit(result.body.subpage._id);
+          //   console.log('I am here in the add new subPage');
+          //   console.log(result);
+          //   console.log(result.subpage._id);
             this.dialogRef.close({page: result.subpage, parentPage: this.parentPageId});
           // } else {
           //   console.log('Dialog closed with no creation');
@@ -302,10 +318,10 @@ export class DialogCreateNewPageComponent implements OnInit {
       this.pageService.createPage(this.pageSetID, this.newPage)
         .subscribe((result) => {
           this.isLoading = false;
-          //if (result.status === 201) {
-            console.log('I am here in the add new Page of a subPage');
-            console.log(result);
-            console.log(result.page._id);
+          // if (result.status === 201) {
+          //   console.log('I am here in the add new Page of a subPage');
+          //   console.log(result);
+          //   console.log(result.page._id);
             this.dialogRef.close({page: result.page, parentPage: null});
           // } else {
           //   console.log('Dialog closed with no creation');

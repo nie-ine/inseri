@@ -718,4 +718,88 @@ router.get('/sub-pages/:pageId', checkAuth, (req, res, next) => {
   });
 });
 
+async function removeFromOldParent(pageToMove, oldParentPage, pageSet) {
+  if(oldParentPage !== null ) {// need to be removed from old Parent sub Pages
+    let deleteFromOldParent = await Page.updateOne({_id: oldParentPage._id}, {$pull: {hasSubPages: pageToMove}});
+    console.log('deleteFromOldParent');
+    console.log(deleteFromOldParent);
+    return deleteFromOldParent;
+  } else {
+    let removeFromPageSet = await PageSet.updateOne({_id: pageSet}, {$pull: {hasPages: pageToMove}});
+    console.log('removeFromPageSet');
+    console.log(removeFromPageSet);
+    return removeFromPageSet;
+  }
+}
+
+async function addToNewParent(pageToMove, newParentPage, pageSet) {
+  if(newParentPage !== null) {
+    let addToNewPage = await Page.updateOne({_id: newParentPage._id}, {$push: {hasSubPages: pageToMove}});
+    console.log('addToNewPage');
+    console.log(addToNewPage);
+    return addToNewPage;
+  } else {
+    let addToPageSet = await PageSet.updateOne({_id: pageSet}, {$push: {hasPages: pageToMove}});
+    console.log('addToPageSet');
+    console.log(addToPageSet);
+    return addToPageSet;
+  }
+}
+
+router.post('/movePage',checkAuth, (req, res, next) => {
+  console.log('move page, req.body is');
+  console.log(req.body);
+  removeFromOldParent(req.body.pageToMove, req.body.oldParentPage, req.body.pageSet).then( removedFromOldParent =>{
+    addToNewParent(req.body.pageToMove, req.body.newParentPage, req.body.pageSet).then( addedToNewParent =>{
+      PageSet.findOne({_id: req.body.pageSet},{hasPages:1, _id:0})
+        .populate('hasPages')
+        .then(async pagesResult => {
+          if (pagesResult) {
+            console.log('pagesResult');
+            console.log(pagesResult);
+            let hierarchyOfPages = [];
+            let pages=pagesResult.hasPages;
+            if(pages.length!==0){
+              for(let i=0;i<pages.length;i++){
+                hierarchyOfPages.push({page: pages[i], subPages:await getHierarchyOfPages(pages[i])});
+              }
+              res.status(200).json({
+                message: 'pages were found',
+                hierarchyOfPages: hierarchyOfPages
+              })
+            }
+          } else {
+            res.status(404).json({message: 'Action was not found'})
+          }
+        })
+        .catch(error => {
+          res.status(500).json({
+            message: 'Fetching action failed',
+            error: error
+          })
+        })
+    })
+  })
+
+});
+
+async function getHierarchyOfPages(pageObj) {
+  // console.log('getHierarchyOfPages');
+  let page= await Page.findOne({_id: pageObj._id }).populate('hasSubPages');
+  let subPagesOfSubPage=[];
+  if(page) {
+    console.log(page);
+    if (page.hasSubPages && page.hasSubPages.length!==0) {
+      let subPagesResult=page.hasSubPages;
+      for(let i=0;i<subPagesResult.length; i++) {
+        subPagesOfSubPage.push({page: subPagesResult[i], subPages:await getHierarchyOfPages(subPagesResult[i])});
+      }
+      return subPagesOfSubPage;
+    } else {
+      return subPagesOfSubPage;
+    }
+  }
+}
+
+
 module.exports = router;

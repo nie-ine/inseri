@@ -71,12 +71,12 @@
 
     </mat-menu-->
     <!--button *ngIf="pagesOfThisActtion"-->
-     <button *ngIf="pagesOfThisActtion"
+     <!--button *ngIf="pagesOfThisActtion"
             [disabled]="selectedPageIndex === 0"
             mat-button
-           (click)="selectPage( selectedPageIndex - 1, pagesOfThisActtion[ selectedPageIndex ])"> <!-- selectedPageIndex -1 -->
-      <mat-icon> keyboard_arrow_left </mat-icon>
-    </button>
+           (click)="selectPage( selectedPageIndex - 1, pagesOfThisActtion[ selectedPageIndex ])"--> <!-- selectedPageIndex -1 -->
+      <!--mat-icon> keyboard_arrow_left </mat-icon>
+    </button-->
     <button mat-button [matMenuTriggerFor]="menu5" *ngIf="subPagesOfPage">{{ page.title }}
     </button>
     <!--button mat-button [matMenuTriggerFor]="menu5" *ngIf="pagesOfThisActtion">{{ page.title }}
@@ -98,7 +98,7 @@
         <button class="mat-menu-item" mat-menu-item >
                  <!--[matMenuTriggerFor]="submenu.menu"-->
           <span class="pm-menu-item" (click)="navigateToOtherView(page.page)"> {{ page.page.title }}</span>
-          <i style="float: right" class="material-icons pm-menu-icon-right" *ngIf="page.subPages.length!==0 ||addSubPages" (click)="$event.stopPropagation();" [matMenuTriggerFor]="submenu.menu"> keyboard_arrow_right</i>
+          <i style="vertical-align: middle" class="material-icons pm-menu-icon-right" *ngIf="page.subPages.length!==0 ||addSubPages" (click)="$event.stopPropagation();" [matMenuTriggerFor]="submenu.menu"> keyboard_arrow_right</i>
         </button>
         <!--
         ng-container *ngIf="!!page.subPages.length"-->
@@ -205,12 +205,12 @@
             (click)="selectPage( selectedPageIndex + 1 , pagesOfThisActtion[ selectedPageIndex + 1 ] )">
       <mat-icon > keyboard_arrow_right </mat-icon>
     </button-->
-    <button [disabled]="selectedPageIndex === totalParentPages - 1"
+    <!--button [disabled]="selectedPageIndex === totalParentPages - 1"
             *ngIf="pagesOfThisActtion"
             mat-button
             (click)="selectPage( selectedPageIndex + 1 , pagesOfThisActtion[ selectedPageIndex + 1 ] )">
       <mat-icon > keyboard_arrow_right </mat-icon>
-    </button>
+    </button-->
     <button mat-icon-button *ngIf=" (!pageAsDemo) && !preview && page.publishedAsTemplate" style="color: #4cae4c!important;" matTooltip="This page is published as a template!" [matMenuTriggerFor]="menu4">
       <mat-icon style="margin-right: 10px">arrow_circle_up</mat-icon>
     </button>

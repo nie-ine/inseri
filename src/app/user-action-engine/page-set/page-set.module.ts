@@ -7,7 +7,7 @@ import {
 import {RouterModule} from '@angular/router';
 import {
   MatButtonModule, MatDialogModule, MatIconModule, MatRadioModule, MatFormFieldModule,
-  MatInputModule, MatProgressSpinnerModule, MatCheckboxModule
+  MatInputModule, MatProgressSpinnerModule, MatCheckboxModule, MatTreeModule
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatMenuModule} from '@angular/material/menu';
@@ -20,6 +20,7 @@ import { DeletePageComponent } from './delete-page/delete-page.component';
 import { DuplicatePageComponent } from './duplicate-page/duplicate-page.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {SharedPipeModule} from '../../../pipes/shared-pipe-module/shared-pipe.module';
+import { SubPageListComponent } from './sub-page-list/sub-page-list.component';
 
 @NgModule({
   imports: [
@@ -40,7 +41,8 @@ import {SharedPipeModule} from '../../../pipes/shared-pipe-module/shared-pipe.mo
     SharedPipeModule,
     RouterModule.forRoot([
       {path: 'page-set', component: PageSetLandingPageComponent}
-    ])
+    ]),
+    MatTreeModule
   ],
   declarations: [
     PageSetLandingPageComponent,
@@ -48,7 +50,8 @@ import {SharedPipeModule} from '../../../pipes/shared-pipe-module/shared-pipe.mo
     EditPageSetComponent,
     EditPageComponent,
     DeletePageComponent,
-    DuplicatePageComponent
+    DuplicatePageComponent,
+    SubPageListComponent
   ],
   entryComponents: [
     DialogCreateNewPageComponent,

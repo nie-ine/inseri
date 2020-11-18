@@ -1,0 +1,12 @@
+<mat-menu #childMenu="matMenu" [overlapTrigger]="false" >
+ <span *ngFor="let child of pages" >
+    <button class="mat-menu-item" style="display: inline-block" mat-button (click)="addPage( child.page)" > <mat-icon *ngIf="child.page._id !==pageToMove">add_circle</mat-icon>
+          {{ child.page.title }}
+            <i style="vertical-align: middle" class="material-icons pm-menu-icon-right" *ngIf="child.subPages.length!==0"  (click)="$event.stopPropagation();" [matMenuTriggerFor]="submenu.menu"> keyboard_arrow_right</i>
+      </button>
+     <app-sub-page-list #submenu="subPageList" [firstCall]="false" [pageSet]="pageSet" [allPages]="allPages" [actionIDInput]="actionIDInput" [pages]="child.subPages" [pageToMove]="pageToMove" [preview]="preview"  > <!--(actionIDOutput)="$event"-->
+       <ng-content></ng-content>
+     </app-sub-page-list>
+ </span>
+  <button mat-button *ngIf="firstCall" (click)="addPage( null)"> <mat-icon> control_point</mat-icon> Add to the root pages</button> <!--arrow_upward-->
+</mat-menu>

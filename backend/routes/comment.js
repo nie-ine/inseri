@@ -50,8 +50,8 @@ router.get('/:pageId', checkAuth, (req, res, next) => {
       } else {
         message = 'All comments were found'
       }
-      console.log('comments of the page');
-      console.log(comments);
+      // console.log('comments of the page');
+      // console.log(comments);
       res.status(200).json({
         message: message,
         comments: comments
@@ -80,8 +80,8 @@ router.get('', checkAuth, (req, res, next) => {
       } else {
         message = 'All comments were found'
       }
-      console.log('comments of the page');
-      console.log(comments);
+      // console.log('comments of the page');
+      // console.log(comments);
       res.status(200).json({
         message: message,
         comments: comments

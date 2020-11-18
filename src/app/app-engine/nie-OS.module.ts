@@ -106,7 +106,7 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MachineReasoningComponent } from './apps/machine-reasoning/machine-reasoning.component';
-import { MenuItemComponent } from './page/menu-item/menu-item.component';
+//import { MenuItemComponent } from './page/menu-item/menu-item.component';
 import { NestedMenu} from './page/menu-item/nested-menu';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
@@ -245,7 +245,7 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
     MachineReasoningComponent,
 
-    MenuItemComponent,
+    //MenuItemComponent,
     NestedMenu
   ],
   exports: [
@@ -268,8 +268,8 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
     FileListDialogComponent,
     AddAppGroupDialogComponent,
     PageListDialogComponent,
-    MenuItemComponent
-  ],
-  bootstrap: [MenuItemComponent]
+    //MenuItemComponent
+  ]//,
+  //bootstrap: [MenuItemComponent]
 })
 export class NIEOSModule { }

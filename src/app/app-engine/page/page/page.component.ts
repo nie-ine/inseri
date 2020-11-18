@@ -359,23 +359,16 @@ export class PageComponent implements OnInit, AfterViewChecked {
     for (let i = 0; i < subPagesOfPage.length; i++) {
       this.pagesOfThisActtion.push(subPagesOfPage[i].page);
       if (subPagesOfPage[i].page._id === this.hashOfThisPage) {
-        this.selectedPageIndex = this.pagesOfThisActtion.length;
+        this.selectedPageIndex = this.pagesOfThisActtion.length - 1;
         console.log(this.selectedPageIndex);
       }
     }
     for (let i = 0; i < subPagesOfPage.length; i++) {
-      // if (continueSearching) {
-      //   selectedPageIndex.push(i);
-      // }
-      // if (subPagesOfPage[i].page._id === this.hashOfThisPage) {
-      //   continueSearching = false;
-      // }
       if (subPagesOfPage[i].subPages.length !== 0) {
         this.fillPagesOfThisActionArray(subPagesOfPage[i].subPages); // , selectedPageIndex, continueSearching);
       }
     }
     this.alreadyLoaded = true;
-    // console.log(this.pagesOfThisActtion);
   }
 
 
@@ -544,7 +537,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   addNewPage(page) {
-    alert('add New Page');
+    // alert('add New Page');
     const dialogRef = this.dialog.open(DialogCreateNewPageComponent, {
       width: '700px',
       data: { pageset: this.action.hasPageSet,
@@ -557,7 +550,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
       this.alreadyLoaded = false;
       this.subPagesOfPage.push({page: result.page, subPages: []});
       // this.updatePagesArray(result);
-      this.navigateToOtherView(result.page._id);
+      this.navigateToOtherView(result.page);
       // this.generateNavigation(this.actionID, true);
     });
   }
@@ -617,12 +610,11 @@ export class PageComponent implements OnInit, AfterViewChecked {
               // let pageIndex: number [];
               console.log(this.subPagesOfPage);
                this.fillPagesOfThisActionArray(this.subPagesOfPage); // , pageIndex, true);
-              // this.selectedPageIndex = pageIndex[0];
-              console.log(this.pagesOfThisActtion);
                this.totalParentPages = ( data.body as any ).action.hasPageSet.hasPages.length;
-              // console.log( this.pagesOfThisActtion, this.subPagesOfPage );
-              // if ( goToPage ) {
-                // this.selectedPageIndex = this.pagesOfThisActtion.length - 1;
+              console.log('pagesOfThisActtion');
+              console.log(this.pagesOfThisActtion);
+              console.log('selectedIndex');
+              console.log(this.selectedPageIndex);
                 this.router.navigate( [ 'page' ], {
                   queryParams: {
                     'actionID': this.actionID,
