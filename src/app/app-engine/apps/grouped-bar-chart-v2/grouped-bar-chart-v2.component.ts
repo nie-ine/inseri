@@ -48,7 +48,7 @@ export class GroupedBarChartV2Component implements AfterViewChecked {
 
   // After initializing the component, initialize the SVG image
   ngAfterViewChecked() {
-    if ( this.initialised && !this.alreadyInitialised && this.data && this.data.data ) {
+    if ( this.initialised && !this.alreadyInitialised && this.data ) {
       // Check if JSON input data is a string and therefore coming through the inseri microservice pipeline
       // If yes, parse string to JSON first, if no, use JSON input data as is
       if (typeof this.data === 'string' && IsJsonString(this.data) && JSON.parse(this.data).length > 0) {
