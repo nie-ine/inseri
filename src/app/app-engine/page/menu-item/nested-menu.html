@@ -1,7 +1,8 @@
 <mat-menu #childMenu="matMenu" [overlapTrigger]="false">
     <span *ngFor="let child of pages">
       <button class="mat-menu-item" style="display: inline-block" mat-button>
-          <span class="pm-menu-item" style="width: 80%" (click)="navigateToOtherView(child.page._id)"> {{ child.page.title }}
+          <span class="pm-menu-item" style="width: 80%" (click)="navigateToOtherView(child.page._id)">
+            {{ (child.page.title.length>25)? (child.page.title | slice:0:25)+'..':(child.page.title) }}
           <i style="vertical-align: middle" class="material-icons pm-menu-icon-right" *ngIf="child.subPages.length!==0 ||addSubPages"  (click)="$event.stopPropagation();" [matMenuTriggerFor]="submenu.menu"> keyboard_arrow_right</i>
         </span>
       </button>

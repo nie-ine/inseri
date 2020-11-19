@@ -97,7 +97,10 @@
 
         <button class="mat-menu-item" mat-menu-item >
                  <!--[matMenuTriggerFor]="submenu.menu"-->
-          <span class="pm-menu-item" (click)="navigateToOtherView(page.page)"> {{ page.page.title }}</span>
+
+          <span class="pm-menu-item"  (click)="navigateToOtherView(page.page)">
+            {{ (page.page.title.length>25)? (page.page.title | slice:0:25)+'..':(page.page.title) }}
+            </span>
           <i style="vertical-align: middle" class="material-icons pm-menu-icon-right" *ngIf="page.subPages.length!==0 ||addSubPages" (click)="$event.stopPropagation();" [matMenuTriggerFor]="submenu.menu"> keyboard_arrow_right</i>
         </button>
         <!--

@@ -51,7 +51,8 @@
           <li class="mat-tree-node">
           <span>
           <button *ngIf="!preview" mat-button [matMenuTriggerFor]="menuSettings" ><mat-icon>settings</mat-icon>
-          <a (click)="goToPage(  page.page )" style="font-size: 25px; cursor: pointer; margin-left: 20%" >{{ page.page.title}}</a>
+          <a (click)="goToPage(  page.page )" style="font-size: 25px; cursor: pointer; margin-left: 20%" >
+             {{ (page.page.title.length>25)? (page.page.title | slice:0:25)+'..':(page.page.title) }}</a>
             <!--i style="vertical-align: middle" class="material-icons pm-menu-icon-right" *ngIf="page.subPages.length!==0"  (click)="$event.stopPropagation();" [matMenuTriggerFor]="subMenu.menu"> keyboard_arrow_right</i-->
           </button>
         <br>
@@ -76,7 +77,8 @@
           <button *ngIf="!preview" mat-button [matMenuTriggerFor]="menuSettings" ><mat-icon>settings</mat-icon> </button>
                 <button mat-icon-button matTreeNodeToggle style="font-size: 25px; cursor: pointer;"
                     [attr.aria-label]="'Toggle ' + page.page.title">
-                  <a (click)="goToPage(  page.page )" style="font-size: 25px; cursor: pointer; margin-left: 20%" >{{ page.page.title }}</a>
+                  <a (click)="goToPage(  page.page )" style="font-size: 25px; cursor: pointer; margin-left: 20%" >
+                    {{ (page.page.title.length>25)? (page.page.title | slice:0:25)+'..':(page.page.title) }}</a>
                 <mat-icon class="mat-icon-rtl-mirror">
                   {{treeControl.isExpanded(page) ? 'expand_more' : 'chevron_right'}}
                 </mat-icon>
