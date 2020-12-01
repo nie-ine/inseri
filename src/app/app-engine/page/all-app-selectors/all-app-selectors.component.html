@@ -1,7 +1,7 @@
-<app-json-environment *ngIf="app.type === 'jsonEnvironment'"  (reloadVariables)="reloadVariablesFunction()"
+<app-python-environment *ngIf="app.type === 'pythonEnvironment'"  (reloadVariables)="reloadVariablesFunction()"
                       [assignedJson]="app.assignedJson" [hash]="app.hash" [pythonFile]="app.pythonFile">
 
-</app-json-environment>
+</app-python-environment>
 
 <app-audio-player *ngIf="app.type === 'audioPlayer'"
                   [msbapAudioUrl]="app.audioURL">

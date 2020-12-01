@@ -95,7 +95,7 @@ import { UrlParamUpdaterComponent } from './apps/url-param-updater/url-param-upd
 import { MyFilesComponent } from './apps/my-files/my-files.component';
 import { AudioPlayerComponent } from './apps/audio-player/audio-player.component';
 import { NgxAudioPlayerModule } from 'ngx-audio-player';
-import { JsonEnvironmentComponent } from './apps/json-environment/json-environment.component';
+import { PythonEnvironmentComponent } from './apps/python-environment/python-environment.component';
 import { PieChartV2Component } from './apps/pie-chart-v2/pie-chart-v2.component';
 import { GroupedBarChartV2Component } from './apps/grouped-bar-chart-v2/grouped-bar-chart-v2.component';
 import { CommentOnIndicesComponent } from './apps/comment-on-indices/comment-on-indices.component';
@@ -233,7 +233,7 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
     UrlParamUpdaterComponent,
     MyFilesComponent,
     AudioPlayerComponent,
-    JsonEnvironmentComponent,
+    PythonEnvironmentComponent,
     PieChartV2Component,
     GroupedBarChartV2Component,
     CommentOnIndicesComponent,

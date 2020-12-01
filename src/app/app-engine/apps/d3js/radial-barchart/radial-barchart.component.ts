@@ -91,14 +91,14 @@ export class RadialBarchartComponent implements AfterViewChecked {
     this.extent = d3Array.extent(this.data.data, (d) => d.value );
     this.barscale = d3Scale.scaleLinear()
       .domain( this.extent )
-      .range([0, this.barHeight]
-      );
+      .range([0, this.barHeight]);
     this.keys = this.data.data.map((d) => d.label);
     console.log( this.keys );
     this.numBars = this.keys.length;
     this.x = d3Scale.scaleLinear()
       .domain(this.extent)
       .range([0, -this.barHeight]);
+
     this.xAxis = d3Axis.axisLeft(this.x);
       // .ticks(10);
       // .tickFormat(this.formatNumber);

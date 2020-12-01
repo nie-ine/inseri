@@ -56,12 +56,12 @@ export class AppMenuModel {
     },*/
     {
       id: 'input',
-      name: 'Json Environment ',
-      tags: 'json, python ',
+      name: 'Python Environment ',
+      tags: 'json, python',
       color: 'green',
       status: 'stable',
-      appType: 'jsonEnvironment',
-      description: 'Microservice for json manipulations',
+      appType: 'pythonEnvironment',
+      description: 'Microservice for Python script execution',
       showOnHome: false,
       appGroup: 'microservice'
     },

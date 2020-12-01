@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { JsonEnvironmentComponent } from './json-environment.component';
+import { PythonEnvironmentComponent } from './python-environment.component';
 
-describe('JsonEnvironmentComponent', () => {
-  let component: JsonEnvironmentComponent;
-  let fixture: ComponentFixture<JsonEnvironmentComponent>;
+describe('PythonEnvironmentComponent', () => {
+  let component: PythonEnvironmentComponent;
+  let fixture: ComponentFixture<PythonEnvironmentComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ JsonEnvironmentComponent ]
+      declarations: [ PythonEnvironmentComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(JsonEnvironmentComponent);
+    fixture = TestBed.createComponent(PythonEnvironmentComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

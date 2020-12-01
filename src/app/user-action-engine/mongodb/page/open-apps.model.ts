@@ -183,8 +183,8 @@ export class OpenAppsModel {
       initialWidth: '400',
       initialHeight: '400'
     },
-    jsonEnvironment: {
-      type: 'jsonEnvironment',
+    pythonEnvironment: {
+      type: 'pythonEnvironment',
       model: [],
       inputs: [
         {
