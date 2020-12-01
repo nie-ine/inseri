@@ -254,7 +254,7 @@ export class AppMenuModel {
     },
     {
       id: 'bar_chart',
-      name: 'Grouped Bar Chart V2',
+      name: 'Grouped Bar Chart',
       tags: 'd3.js, interactive',
       color: 'green',
       status: 'stable',
