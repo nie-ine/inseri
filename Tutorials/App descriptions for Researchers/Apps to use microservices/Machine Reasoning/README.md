@@ -10,3 +10,11 @@ In addition or alternatively to locally stored files, you can indicate file URLs
 Currently, each reasoning session is conducted with the --nope parameter only and you can not change this. 
 
 ![Machine reasoning app](images/machine-reasoning-app.png)
+
+## Conduct a Reasoning Session 
+
+1. Select data files or indicate data file URLs
+2. Select rule files or indicate rule file URLs
+3. Select query files or indicate query file URLs
+4. Click on button "Reason"
+5. Wait for reasoning results to be displayed in the right panel
