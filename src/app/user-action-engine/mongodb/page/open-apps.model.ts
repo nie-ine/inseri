@@ -37,7 +37,8 @@ export class OpenAppsModel {
       materialIcon: 'blur_on',
       initialWidth: '600',
       initialHeight: '800',
-      fullWidth: true
+      fullWidth: true,
+      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/App descriptions for Researchers/Apps to use microservices/Machine Reasoning/README.md'
     },
     crispr: {
       type: 'crispr',
