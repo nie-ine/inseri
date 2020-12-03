@@ -95,13 +95,13 @@
 
       <ng-container *ngFor="let page of subPagesOfPage">
 
-        <button class="mat-menu-item" mat-menu-item >
+        <button class="mat-menu-item" mat-menu-item style="width: 200px;">
                  <!--[matMenuTriggerFor]="submenu.menu"-->
 
-          <span class="pm-menu-item"  (click)="navigateToOtherView(page.page)">
+          <span class="pm-menu-item"  (click)="navigateToOtherView(page.page)" [ngStyle]="{'display': (page.subPages.length!==0 || addSubPages)? 'contents':'block'}">
             {{ (page.page.title.length>25)? (page.page.title | slice:0:25)+'..':(page.page.title) }}
             </span>
-          <i style="vertical-align: middle" class="material-icons pm-menu-icon-right" *ngIf="page.subPages.length!==0 ||addSubPages" (click)="$event.stopPropagation();" [matMenuTriggerFor]="submenu.menu"> keyboard_arrow_right</i>
+          <i style="vertical-align: middle; " class="material-icons pm-menu-icon-right"  *ngIf="page.subPages.length!==0 ||addSubPages" (click)="$event.stopPropagation();" [matMenuTriggerFor]="submenu.menu" > keyboard_arrow_right</i>
         </button>
         <!--
         ng-container *ngIf="!!page.subPages.length"-->
