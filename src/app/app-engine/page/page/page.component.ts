@@ -974,6 +974,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
         }
       }
     }
+    console.log( this.openAppArray );
     for ( const app of this.openAppArray ) {
       app.openAppArrayIndex = this.page.openApps[ app.hash ].openAppArrayIndex;
     }

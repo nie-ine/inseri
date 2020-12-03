@@ -109,6 +109,7 @@ import { MachineReasoningComponent } from './apps/machine-reasoning/machine-reas
 //import { MenuItemComponent } from './page/menu-item/menu-item.component';
 import { NestedMenu} from './page/menu-item/nested-menu';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { OurDemoAppComponent } from './apps/our-demo-app/our-demo-app.component';
 
 @NgModule({
   imports: [
@@ -246,7 +247,9 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
     MachineReasoningComponent,
 
     //MenuItemComponent,
-    NestedMenu
+    NestedMenu,
+
+    OurDemoAppComponent
   ],
   exports: [
     PageComponent,
