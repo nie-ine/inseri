@@ -437,16 +437,27 @@ router.get("/downloadProject/:actionId", checkAuth, (req, res, next) => {
             console.log(message);
           } else {
             returnedObj.pageSet = pageSet;
-            let pages = [];
-            Page.find({_id: {$in: pageSetResult[0].hasPages}}).then(pagesResult => {
+            let tempPages = [];
+            Page.find({_id: {$in: pageSetResult[0].hasPages}}).then(async pagesResult => {
+              console.log('printing parent pages');
+              console.log(pagesResult);
               for (let i = 0; i < pagesResult.length; i++) {
-                pages.push(pagesResult[i]);
-                if (pagesResult[i].queries.length != 0) {
-                  pagesResult[i].queries.forEach(item => {
-                    queryIds.push(item)
+                tempPages.push(pagesResult[i]);
+                if(pagesResult[i].hasSubPages && pagesResult[i].hasSubPages.length!==0){
+                  tempPages.push(await getHierarchyOfPages(pagesResult[i]));
+                }
+              }
+              console.log('printing pages');
+              console.log(tempPages);
+              let pages = flatten(tempPages);
+              for(let i=0;i<pages.length;i++){
+                if (pages[i].queries.length != 0) {
+                    pages[i].queries.forEach(item => {
+                    queryIds.push(item);
                   });
                 }
               }
+
               returnedObj.pages = (JSON.stringify(pages));
               returnedObj.oldHostUrl = req.protocol + '://' + req.get('host');
               if (queryIds.length === 0) {
@@ -485,6 +496,32 @@ router.get("/downloadProject/:actionId", checkAuth, (req, res, next) => {
       })
     });
 });
+
+function flatten(arr) {
+  return arr.reduce(function (flat, toFlatten) {
+    return flat.concat(Array.isArray(toFlatten) ? flatten(toFlatten) : toFlatten);
+  }, []);
+}
+
+async function getHierarchyOfPages(pageObj) {
+  let page= await Page.findOne({_id: pageObj._id }).populate('hasSubPages');
+  let subPagesOfSubPage=[];
+  if(page) {
+    console.log(page);
+    if (page.hasSubPages && page.hasSubPages.length!==0) {
+      let subPagesResult=page.hasSubPages;
+      for(let i=0;i<subPagesResult.length; i++) {
+        if(subPagesResult[i].hasSubPages && subPagesResult[i].hasSubPages.length!==0){
+          subPagesOfSubPage.push( await getHierarchyOfPages(subPagesResult[i]));
+        }
+        subPagesOfSubPage.push(subPagesResult[i]);
+      }
+      return subPagesOfSubPage;
+    } else {
+      return subPagesOfSubPage;
+    }
+  }
+}
 
 async function getFoldersOfFiles(fileIds, folderIds, userId, returnedObj) {
 //console.log("fileIds" + fileIds);

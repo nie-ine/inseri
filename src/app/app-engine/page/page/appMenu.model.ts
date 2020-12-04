@@ -32,6 +32,17 @@ export class AppMenuModel {
       showOnHome: false,
       appGroup: 'microservice'
     },
+    // {
+    //   id: 'short_text',
+    //   name: 'Our demo app',
+    //   tags: 'for the NIE-INE conference',
+    //   color: 'yellow',
+    //   status: 'under development',
+    //   appType: 'ourDemoApp',
+    //   description: 'just a demo app',
+    //   showOnHome: false,
+    //   appGroup: 'visualise'
+    // },
     {
       id: 'speaker_notes',
       name: 'Comment App',

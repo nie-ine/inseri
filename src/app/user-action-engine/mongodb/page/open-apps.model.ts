@@ -22,7 +22,8 @@ export class OpenAppsModel {
       materialIcon: 'image',
       initialWidth: '800',
       initialHeight: '500',
-      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/App descriptions for Researchers/Apps to visualise data/Image Viewer/README.md'
+      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/App' +
+        'descriptions for Researchers/Apps to visualise data/Image Viewer/README.md'
     },
     textViewer: {
       type: 'textViewer',
@@ -30,6 +31,19 @@ export class OpenAppsModel {
       materialIcon: 'short_text',
       initialWidth: '600',
       initialHeight: '400'
+    },
+    ourDemoApp: {
+      type: 'ourDemoApp',
+      model: [],
+      materialIcon: 'short_text',
+      initialWidth: '600',
+      initialHeight: '400',
+      inputs: [
+        {
+          'inputName': 'demoText',
+          default: 'Hi, this is the default text'
+        }
+      ],
     },
     machineReasoning: {
       type: 'machineReasoning',

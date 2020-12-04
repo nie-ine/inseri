@@ -58,6 +58,11 @@
 
 </app-key-value>
 
+<app-our-demo-app *ngIf="app.type === 'ourDemoApp'"
+               [demoText]="app.demoText"  >
+
+</app-our-demo-app>
+
 <app-textlist-viewer style="position: sticky;" *ngIf="app.type === 'textlistViewers'"
                      [textToDisplay]="app.textlist">
 </app-textlist-viewer>
