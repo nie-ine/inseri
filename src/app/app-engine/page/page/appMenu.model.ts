@@ -71,7 +71,7 @@ export class AppMenuModel {
       tags: 'json, python',
       color: 'green',
       status: 'stable',
-      appType: 'jsonEnvironment',
+      appType: 'jsonEnvironment', // The old name of the now called pythonEnvironment
       description: 'Microservice for Python script execution',
       showOnHome: false,
       appGroup: 'microservice'
