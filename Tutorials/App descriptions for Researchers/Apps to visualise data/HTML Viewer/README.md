@@ -80,12 +80,18 @@ The mapping is similar to above:
 
 Setting one of the included parameter values into the URL will change the app:
 
+`style` is set to `dolor`:
+
 ![Change URL](set-query-param.png)
+
+Styles for `dolor` are applied:
 
 ![With query param blue](with-query-param.png)
 
-Or.
+Or `style` is set to `all`:
 
 ![Change URL](set-query-param-2.png)
+
+Styles for `all` are applied:
 
 ![With query param all](with-query-param-2.png)
