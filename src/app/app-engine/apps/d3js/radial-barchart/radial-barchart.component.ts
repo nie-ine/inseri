@@ -26,7 +26,7 @@ export class RadialBarchartComponent implements AfterViewChecked {
   width = 600;
   height = 600;
   barHeight = this.height / 2 - 40;
-  formatNumber: any;
+  // formatNumber: any;
   color: any;
   svg: any;
   private x: any;
@@ -92,33 +92,42 @@ export class RadialBarchartComponent implements AfterViewChecked {
     this.barscale = d3Scale.scaleLinear()
       .domain( this.extent )
       .range([0, this.barHeight]);
+
     this.keys = this.data.data.map((d) => d.label);
-    console.log( this.keys );
+    // console.log( this.keys );
+
     this.numBars = this.keys.length;
+
     this.x = d3Scale.scaleLinear()
       .domain(this.extent)
       .range([0, -this.barHeight]);
 
     this.xAxis = d3Axis.axisLeft(this.x);
-      // .ticks(10);
+      // .ticks(3)
+      // .tickFormat(d3Format.format('s'));
       // .tickFormat(this.formatNumber);
-    this.circles = this.svg.selectAll('circle')
-      // .data(this.x.ticks(10))
-      .enter().append('circle')
-      .attr('r', (d) => this.barscale(d))
-      .style('fill', 'none')
-      .style('stroke', 'black')
-      .style('stroke-dasharray', '2,2')
-      .style('stroke-width', '.5px');
+
+    // this.circles = this.svg.selectAll('circle')
+    //   .data(this.x.ticks(3))
+    //   .enter()
+    //   .append('circle')
+    //   .attr('r', (d) => this.barscale(d))
+    //   .style('fill', 'none')
+    //   .style('stroke', 'black')
+    //   .style('stroke-dasharray', '2,2')
+    //   .style('stroke-width', '.5px');
+
     this.arc = d3Shape.arc()
       .startAngle( (d, i) => ( i * 2 * Math.PI) / this.numBars )
       .endAngle( ( d, i ) => ( (i + 1) * 2 * Math.PI) / this.numBars )
       .innerRadius(0);
+
     // how long the radius is of each segment
     this.segments = this.svg.selectAll('path')
       .data(this.data.data)
-      .enter().append('path')
-      .each( (d) => d.outerRadius = 2.5 * d.value)
+      .enter()
+      .append('path')
+      .each( (d) => d.outerRadius = this.barscale(+d.value))
       .style('fill',  (d) =>  this.color(d.label) )
       .attr('d', this.arc);
     // this.segments
@@ -147,7 +156,7 @@ export class RadialBarchartComponent implements AfterViewChecked {
       .attr('y2', -this.barHeight - 20)
       .style('stroke', 'black')
       .style('stroke-width', '.5px')
-      .attr('transform', (d, i) => { return 'rotate(' + (i * 360 / this.numBars) + ')'; });
+      .attr('transform', (d, i) => 'rotate(' + (i * 360 / this.numBars) + ')');
 
     // this.svg.append('g')
     //   .attr('class', 'x axis')
@@ -168,11 +177,17 @@ export class RadialBarchartComponent implements AfterViewChecked {
       .enter().append('text')
       .style('text-anchor', 'middle')
       .style('font-weight', 'bold')
-      .style('fill', (d, i) => { return '#3e3e3e';})
+      .style('fill', (d, i) => {
+        return '#3e3e3e';
+      })
       .append('textPath')
       .attr('xlink:href', '#label-path')
-      .attr('startOffset', (d, i) => {return i * 100 / this.numBars + 50 / this.numBars + '%';})
-      .text( (d) => { return d.toUpperCase(); });
+      .attr('startOffset', (d, i) => {
+        return i * 100 / this.numBars + 50 / this.numBars + '%';
+      })
+      .text( (d) => {
+        return d.toUpperCase();
+      });
   }
 
 }
