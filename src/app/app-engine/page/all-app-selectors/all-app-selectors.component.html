@@ -72,7 +72,8 @@
 
 </app-home>
 
-<app-crispr *ngIf="app.type === 'crispr'" >
+<app-crispr *ngIf="app.type === 'crispr'"
+            [crisprMicroserviceAddress]="app.crisprMicroserviceAddress">
 
 </app-crispr>
 

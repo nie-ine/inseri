@@ -52,14 +52,21 @@ export class OpenAppsModel {
       initialWidth: '600',
       initialHeight: '800',
       fullWidth: true,
-      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/App descriptions for Researchers/Apps to use microservices/Machine Reasoning/README.md'
+      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/App' +
+        'descriptions for Researchers/Apps to use microservices/Machine Reasoning/README.md'
     },
     crispr: {
       type: 'crispr',
       model: [],
       materialIcon: 'view_week',
       initialWidth: '600',
-      initialHeight: '400'
+      initialHeight: '400',
+      inputs: [
+        {
+          'inputName': 'crisprMicroserviceAddress',
+          default: 'http://172.23.39.73:4321'
+        }
+      ],
     },
     commentOnIndices: {
       type: 'commentOnIndices',
