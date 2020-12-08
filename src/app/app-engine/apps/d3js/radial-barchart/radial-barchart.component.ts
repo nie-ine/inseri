@@ -1,14 +1,12 @@
-import {AfterViewChecked, Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {AfterViewChecked, Component, Input, ViewEncapsulation} from '@angular/core';
 import * as d3 from 'd3-selection';
 import * as d3Scale from 'd3-scale';
 import * as d3Array from 'd3-array';
 import * as d3Axis from 'd3-axis';
-import * as d3Format from 'd3-format';
 import * as d3Shape from 'd3-shape';
-import * as d3Interpolate from 'd3-interpolate';
-
-import { STATISTICS } from './STATISTICS';
 import * as d3ScaleChromatic from 'd3-scale-chromatic';
+
+// Based on https://bl.ocks.org/bricedev/8aaef92e64007f882267
 
 @Component({
   selector: 'app-radial-barchart',
@@ -26,7 +24,6 @@ export class RadialBarchartComponent implements AfterViewChecked {
   width = 600;
   height = 600;
   barHeight = this.height / 2 - 40;
-  // formatNumber: any;
   color: any;
   svg: any;
   private x: any;
@@ -43,7 +40,14 @@ export class RadialBarchartComponent implements AfterViewChecked {
   lines: any;
   labelRadius: any;
   labels: any;
-  centreOfTheImage = 300;
+  centreOfTheImage = this.width / 2;
+
+  // x/y position of tooltip
+  private xPos: number;
+  private yPos: number;
+
+  // Helper object for the tooltip content
+  chosenSection: any = {};
 
   constructor() { }
 
@@ -51,22 +55,6 @@ export class RadialBarchartComponent implements AfterViewChecked {
     if (this.initialised && !this.alreadyInitialised && this.data) {
       this.alreadyInitialised = true;
       setTimeout(() => {
-      // this.formatNumber = d3Format.format('s');
-      // this.color = d3Scale.scaleOrdinal()
-      //   .range([
-      //     '#8dd3c7',
-      //     '#ffffb3',
-      //     '#bebada',
-      //     '#fb8072',
-      //     '#80b1d3',
-      //     '#fdb462',
-      //     '#b3de69',
-      //     '#fccde5',
-      //     '#d9d9d9',
-      //     '#bc80bd',
-      //     '#ccebc5',
-      //     '#ffed6f'
-      //   ]);
       this.color = d3Scale.scaleOrdinal(d3ScaleChromatic.schemePaired);
       this.initSvg();
       this.initAxis();
@@ -94,7 +82,6 @@ export class RadialBarchartComponent implements AfterViewChecked {
       .range([0, this.barHeight]);
 
     this.keys = this.data.data.map((d) => d.label);
-    // console.log( this.keys );
 
     this.numBars = this.keys.length;
 
@@ -103,6 +90,8 @@ export class RadialBarchartComponent implements AfterViewChecked {
       .range([0, -this.barHeight]);
 
     this.xAxis = d3Axis.axisLeft(this.x);
+    // Uncomment below lines if you want to display axis ticks (circles in this case)
+
       // .ticks(3)
       // .tickFormat(d3Format.format('s'));
       // .tickFormat(this.formatNumber);
@@ -122,26 +111,42 @@ export class RadialBarchartComponent implements AfterViewChecked {
       .endAngle( ( d, i ) => ( (i + 1) * 2 * Math.PI) / this.numBars )
       .innerRadius(0);
 
-    // how long the radius is of each segment
     this.segments = this.svg.selectAll('path')
       .data(this.data.data)
       .enter()
       .append('path')
+      .attr('class', 'segment')
       .each( (d) => d.outerRadius = this.barscale(+d.value))
       .style('fill',  (d) =>  this.color(d.label) )
       .attr('d', this.arc);
-    // this.segments
-    //   .transition()
-    //   // .ease('elastic')
-    //   .duration(1000)
-    //   .delay( (d, i) => ( 25 - i ) * 100 )
-    //   .attrTween('d', (d, index) => {
-    //     const i = d3Interpolate.interpolate(d.outerRadius, this.barscale(+d.value));
-    //     return (t) => {
-    //       d.outerRadius = i(t);
-    //       return this.arc(d, index);
-    //     };
-    //   });
+
+    // Define tooltip
+    const tooltip = d3.select('.radialBarChart' + this.numberOfInitialisedComponent)
+      .append('div')
+      .attr('class', 'count');
+
+    // Mouse event handlers
+    const segments = d3.selectAll('.segment');
+
+    segments.on('mouseover', (d) => {
+      // Set the values for the tooltip to be shown
+      this.chosenSection.value = +d.value;
+    });
+
+    segments.on('mouseout', () => {
+      // Hide the tooltip
+      tooltip.style('display', 'none');
+      this.chosenSection = {};
+    });
+
+    // Move the tooltip
+    segments.on('mousemove', (d) => {
+      onmousemove = (e) => {
+        this.xPos = e.clientX + 20;
+        this.yPos = e.clientY - 20;
+      };
+    });
+
     this.svg.append('circle')
       .attr('r', this.barHeight)
       .classed('outer', true)
@@ -153,14 +158,11 @@ export class RadialBarchartComponent implements AfterViewChecked {
     this.lines = this.svg.selectAll('line')
       .data(this.keys)
       .enter().append('line')
-      .attr('y2', -this.barHeight - 20)
+      // .attr('y2', -this.barHeight) - 20)
+      .attr('y2', -this.barHeight)
       .style('stroke', 'black')
       .style('stroke-width', '.5px')
       .attr('transform', (d, i) => 'rotate(' + (i * 360 / this.numBars) + ')');
-
-    // this.svg.append('g')
-    //   .attr('class', 'x axis')
-    //   .call(this.xAxis);
 
     this.labelRadius = this.barHeight * 1.025;
 
@@ -176,7 +178,6 @@ export class RadialBarchartComponent implements AfterViewChecked {
       .data(this.keys)
       .enter().append('text')
       .style('text-anchor', 'middle')
-      .style('font-weight', 'bold')
       .style('fill', (d, i) => {
         return '#3e3e3e';
       })
