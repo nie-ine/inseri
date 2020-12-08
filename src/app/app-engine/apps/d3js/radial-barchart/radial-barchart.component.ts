@@ -6,6 +6,9 @@ import * as d3Axis from 'd3-axis';
 import * as d3Shape from 'd3-shape';
 import * as d3ScaleChromatic from 'd3-scale-chromatic';
 
+// The Pie Chart app renders a basic radial bar chart based on JSON data input
+// See inseri/Tutorials/App descriptions for Researchers/Apps to visualise data/Radial Bar Chart
+
 // Based on https://bl.ocks.org/bricedev/8aaef92e64007f882267
 
 @Component({
@@ -14,32 +17,71 @@ import * as d3ScaleChromatic from 'd3-scale-chromatic';
   templateUrl: './radial-barchart.component.html',
   styleUrls: ['./radial-barchart.component.scss']
 })
-export class RadialBarchartComponent implements AfterViewChecked {
 
+export class RadialBarchartComponent implements AfterViewChecked {
+  // needed by inseri
   @Input() initialised = false;
   @Input() numberOfInitialisedComponent: number;
   @Input() data;
   alreadyInitialised = false;
 
+  // Chart width
   width = 600;
+
+  // Chart height
   height = 600;
+
+  // "Height" of each bar segment (it's the radius of the circle)
   barHeight = this.height / 2 - 40;
+
+  // Array of colors to use for the bars
   color: any;
+
+  // The svg container to draw the chart to
   svg: any;
+
+  // The circular x axis scale
   private x: any;
-  private y: any;
-  extent: any;
-  barscale: any;
-  keys: any;
-  numBars: any;
+  // The circular y axis scale (no y axis needed)
+  // private y: any;
+
+  // The actual x axis
   xAxis: any;
+
+  // An array holding the min and max value of the bars
+  extent: any;
+
+  // The scale of the possible (radial) bars
+  barscale: any;
+
+  // The labels to use for each bar segment
+  keys: any;
+
+  // The number of keys (this.keys.length)
+  numBars: any;
+
+  // A svg <g> element
   g: any;
-  circles: any;
+
+  // Circles for the radial x axis (currently not in use)
+  // circles: any;
+
+  // The arcs for the bar segments
   arc: any;
+
+  // The bar segments
   segments: any;
+
+  // The lines separating the bar segments
   lines: any;
+
+  // The radius to use for the placement of the bar segment labels
   labelRadius: any;
+
+  // The labels of the bar segments
   labels: any;
+
+  // The centre of the chart
   centreOfTheImage = this.width / 2;
 
   // x/y position of tooltip
@@ -76,10 +118,12 @@ export class RadialBarchartComponent implements AfterViewChecked {
     }
   }
 
+  // Small function to generate css classes for the DOM
   generateComponentDivClass() {
     return 'radialBarChart' + this.numberOfInitialisedComponent;
   }
 
+  // Function to create the svg container holding the chart
   initSvg() {
     this.svg = d3.select('.' + this.generateComponentDivClass())
       .append('svg')
@@ -89,10 +133,12 @@ export class RadialBarchartComponent implements AfterViewChecked {
       .attr('transform', 'translate(' + this.width / 2 + ',' + this.height / 2 + ')');
   }
 
+  // Function to create the radial bar chart
   private initAxis() {
     this.extent = d3Array.extent(this.data.data, (d) => d.value );
+
     this.barscale = d3Scale.scaleLinear()
-      .domain( this.extent )
+      .domain(this.extent)
       .range([0, this.barHeight]);
 
     this.keys = this.data.data.map((d) => d.label);
@@ -103,8 +149,10 @@ export class RadialBarchartComponent implements AfterViewChecked {
       .domain(this.extent)
       .range([0, -this.barHeight]);
 
+
     this.xAxis = d3Axis.axisLeft(this.x);
     // Uncomment below lines if you want to display axis ticks (circles in this case)
+    // ...along the radial x axis
 
       // .ticks(3)
       // .tickFormat(d3Format.format('s'));

@@ -1,7 +1,7 @@
 # Pie Chart
 The Pie Chart app renders a basic pie chart with labelled pie pieces based on JSON data input.
 
-### JSON Data Input
+## JSON Data Input
 
 The Pie Chart app works with a JSON data input as follows: 
 

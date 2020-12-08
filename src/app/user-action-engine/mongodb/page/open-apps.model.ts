@@ -459,6 +459,8 @@ export class OpenAppsModel {
       materialIcon: 'multiline_chart',
       initialWidth: '375',
       initialHeight: '350',
+      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/App ' +
+        'descriptions for Researchers/Apps to use microservices/Radial Bar Chart/README.md',
       inputs: [
         {
           'inputName': 'data',
