@@ -53,12 +53,26 @@ export class RadialBarchartComponent implements AfterViewChecked {
 
   ngAfterViewChecked() {
     if (this.initialised && !this.alreadyInitialised && this.data) {
-      this.alreadyInitialised = true;
-      setTimeout(() => {
-      this.color = d3Scale.scaleOrdinal(d3ScaleChromatic.schemePaired);
-      this.initSvg();
-      this.initAxis();
-      }, 100);
+      // Check if JSON input data is a string and therefore coming through the inseri microservice pipeline
+      // If yes, parse string to JSON first, if no, use JSON input data as is
+      if (typeof this.data === 'string' && IsJsonString(this.data) && JSON.parse(this.data).length > 0) {
+        const help = this.data;
+        this.data = {};
+        this.data.data = JSON.parse(help);
+        this.alreadyInitialised = true;
+        setTimeout(() => {
+          this.color = d3Scale.scaleOrdinal(d3ScaleChromatic.schemePaired);
+          this.initSvg();
+          this.initAxis();
+        }, 100);
+      } else if (typeof this.data !== 'string') {
+        this.alreadyInitialised = true;
+        setTimeout(() => {
+          this.color = d3Scale.scaleOrdinal(d3ScaleChromatic.schemePaired);
+          this.initSvg();
+          this.initAxis();
+        }, 100);
+      }
     }
   }
 
@@ -191,4 +205,14 @@ export class RadialBarchartComponent implements AfterViewChecked {
       });
   }
 
+}
+
+// Function to check if JSON data input is string
+function IsJsonString(str) {
+  try {
+    JSON.parse(str);
+  } catch (e) {
+    return false;
+  }
+  return true;
 }
