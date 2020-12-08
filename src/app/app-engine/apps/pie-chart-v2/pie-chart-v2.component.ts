@@ -208,7 +208,8 @@ export class PieChartV2Component implements AfterViewChecked {
     // Creating the pie generator
     this.pie = d3Shape.pie()
       .sort(null)
-      .value((d) =>  d.value); // Use the pie.value() function to set the value property of the data returned by the pie generator function
+      // Use the pie.value() function to set the value property of the data returned by the pie generator function
+      .value((d) =>  d.value);
 
     // Define tooltip
     const tooltip = d3.select('#chart')

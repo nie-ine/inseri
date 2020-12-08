@@ -22,7 +22,7 @@ export class OpenAppsModel {
       materialIcon: 'image',
       initialWidth: '800',
       initialHeight: '500',
-      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/App' +
+      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/App ' +
         'descriptions for Researchers/Apps to visualise data/Image Viewer/README.md'
     },
     textViewer: {
@@ -52,7 +52,7 @@ export class OpenAppsModel {
       initialWidth: '600',
       initialHeight: '800',
       fullWidth: true,
-      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/App' +
+      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/App ' +
         'descriptions for Researchers/Apps to use microservices/Machine Reasoning/README.md'
     },
     crispr: {
@@ -312,7 +312,8 @@ export class OpenAppsModel {
       initialWidth: '600',
       initialHeight: '800',
       fullWidth: true,
-      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/App%20descriptions%20for%20Researchers/Apps%20to%20visualise%20data/Grouped%20Bar%20Chart',
+      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/App ' +
+        'descriptions for Researchers/Apps to use microservices/Grouped Bar Chart/README.md',
       inputs: [
         {
           'inputName': 'data',
@@ -389,6 +390,8 @@ export class OpenAppsModel {
       materialIcon: 'pie_chart',
       initialWidth: '375',
       initialHeight: '350',
+      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/App ' +
+        'descriptions for Researchers/Apps to use microservices/Pie Chart/README.md',
       inputs: [
         {
           'inputName': 'data',
@@ -422,7 +425,8 @@ export class OpenAppsModel {
       initialWidth: '375',
       initialHeight: '600',
       fullWidth: true,
-      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/App%20descriptions%20for%20Researchers/Apps%20to%20visualise%20data/Pie%20Chart%20V2',
+      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/App ' +
+        'descriptions for Researchers/Apps to use microservices/Pie Chart V2/README.md',
       inputs: [
         {
           'inputName': 'data',
@@ -567,7 +571,8 @@ export class OpenAppsModel {
       materialIcon: 'subtitles',
       initialWidth: '700',
       initialHeight: '400',
-      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/App%20descriptions%20for%20Researchers/Apps%20to%20visualise%20data/Stacked%20Bar%20Chart',
+      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/App ' +
+        'descriptions for Researchers/Apps to use microservices/Stacked Bar Chart/README.md',
       inputs: [
         {
           'inputName': 'data',
