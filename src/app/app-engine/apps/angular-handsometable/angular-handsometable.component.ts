@@ -7,7 +7,7 @@ import { AgGridAngular } from 'ag-grid-angular';
   styleUrls: ['./angular-handsometable.component.scss']
 })
 export class AngularHandsometableComponent implements OnInit {
-  @ViewChild('agGrid') agGrid: AgGridAngular;
+  @ViewChild('agGrid', { static: true }) agGrid: AgGridAngular;
   columnDefs = [
     {headerName: 'Make', field: 'make', sortable: true, filter: true, editable: true },
     {headerName: 'Model', field: 'model', sortable: true, filter: true, editable: true },

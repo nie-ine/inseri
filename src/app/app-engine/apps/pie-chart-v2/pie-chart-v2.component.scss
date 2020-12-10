@@ -1,16 +1,16 @@
-:host /deep/ rect {
+:host ::ng-deep rect {
   stroke-width: 2;
 }
 
-:host /deep/ rect.disabled {
+:host ::ng-deep rect.disabled {
   fill: transparent !important;
 }
 
-:host /deep/ .chart {
+:host ::ng-deep .chart {
   float: left;
 }
 
-:host /deep/ .legend {
+:host ::ng-deep .legend {
   overflow: hidden;
 }
 
@@ -20,7 +20,7 @@
   overflow: hidden;
 }
 
-:host /deep/ .custom-slider {
+:host ::ng-deep .custom-slider {
   .ngx-slider {
     margin: 23px 0 15px;
     .ngx-slider-bar {

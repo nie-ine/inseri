@@ -16,7 +16,7 @@ import {SubPageOfPageModel} from '../../../user-action-engine/mongodb/page/subPa
 })
 export class NestedMenu {
   @Input() pages: any;
-  @ViewChild(MatMenu) menu;
+  @ViewChild(MatMenu, { static: true }) menu;
   @Input() pageSet: any;
   @Input() allPages: SubPageOfPageModel[];
   // @Output() addNewPage = new EventEmitter();

@@ -13,7 +13,7 @@ import {Page} from '../../mongodb/page/page.model';
 export class SubPageListComponent implements OnInit {
   @Input() pages: any;
   @Input() pageToMove: any;
-  @ViewChild(MatMenu) menu;
+  @ViewChild(MatMenu, { static: true }) menu;
   @Input() pageSet: any;
   @Input() allPages: SubPageOfPageModel[];
   // @Output() addNewPage = new EventEmitter();

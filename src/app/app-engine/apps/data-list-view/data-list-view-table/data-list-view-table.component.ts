@@ -19,9 +19,9 @@ export class DataListViewTableComponent implements OnChanges {
   definedColumns: Array<ColumnHeader>; // The columns defined by settings;
   displayedColumns: string[]; // The displayed columns used by mat table;
 
-  @ViewChild(MatTable) table: MatTable<any>;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatTable, { static: true }) table: MatTable<any>;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   dataSource: MatTableDataSource <any>;
   dataSourceForExport: MatTableDataSource <any>;

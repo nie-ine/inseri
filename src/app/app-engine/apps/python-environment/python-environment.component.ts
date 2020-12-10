@@ -18,7 +18,7 @@ export class PythonEnvironmentComponent implements OnChanges, HttpInterceptor {
   @Input() assignedJson: any;
   @Input() pythonFile: any;
   @Output() reloadVariables: EventEmitter<any> = new EventEmitter<any>();
-  @ViewChild('editor') editor;
+  @ViewChild('editor', { static: true }) editor;
   serivceId = 'pythonEnvironment';
   display = JSON.parse( localStorage.getItem( this.serivceId ) );
   output: any;

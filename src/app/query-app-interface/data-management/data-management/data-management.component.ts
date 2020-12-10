@@ -29,7 +29,7 @@ export class DataManagementComponent {
    * The table displays the mapping between the queries and the
    * apps.
    * */
-  @ViewChild(MatTable) table: MatTable<any>;
+  @ViewChild(MatTable, { static: true }) table: MatTable<any>;
 
   /**
    * This is the actionId of the current action that is the root of a page / pageSet

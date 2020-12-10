@@ -37,7 +37,7 @@ export class MachineReasoningComponent implements OnInit {
   data_bowl: SafeHtml;
   // The hidden HTML input of type="file" to upload multiple data files
   // This input is triggered by the according material button in the HTML template
-  @ViewChild('hidden_upl_data') hidden_upl_data: HTMLInputElement;
+  @ViewChild('hidden_upl_data', { static: true }) hidden_upl_data: HTMLInputElement;
   // Default string for listed data URLs
   data_url_content = '';
 
@@ -50,7 +50,7 @@ export class MachineReasoningComponent implements OnInit {
   rule_bowl: SafeHtml;
   // The hidden HTML input of type="file" to upload multiple rule files
   // This input is triggered by the according material button in the HTML template
-  @ViewChild('hidden_upl_rule') hidden_upl_rule: HTMLInputElement;
+  @ViewChild('hidden_upl_rule', { static: true }) hidden_upl_rule: HTMLInputElement;
   // Default string for listed data URLs
   rule_url_content = '';
 
@@ -63,7 +63,7 @@ export class MachineReasoningComponent implements OnInit {
   query_bowl: SafeHtml;
   // The hidden HTML input of type="file" to upload multiple query files
   // This input is triggered by the according material button in the HTML template
-  @ViewChild('hidden_upl_query') hidden_upl_query: HTMLInputElement;
+  @ViewChild('hidden_upl_query', { static: true }) hidden_upl_query: HTMLInputElement;
   // Default string for listed data URLs
   query_url_content = '';
 
@@ -76,11 +76,11 @@ export class MachineReasoningComponent implements OnInit {
   // Used by inseri
   serviceId = 'machineReasoning';
   // Div to display the reasoning results
-  @ViewChild('results') results;
+  @ViewChild('results', { static: false }) results;
   // Boolean to indicate whether reasoning results are maximized or not
   isMaximized: boolean;
   // Div of the ace editor to display the reasoning results
-  @ViewChild('editor') editor;
+  @ViewChild('editor', { static: true }) editor;
 
   ngOnInit() {
     // Don't display any selected files as the user did not select files yet
