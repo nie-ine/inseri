@@ -1,14 +1,15 @@
-import {AfterViewChecked, Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {AfterViewChecked, Component, Input, ViewEncapsulation} from '@angular/core';
 import * as d3 from 'd3-selection';
 import * as d3Scale from 'd3-scale';
 import * as d3Array from 'd3-array';
 import * as d3Axis from 'd3-axis';
-import * as d3Format from 'd3-format';
 import * as d3Shape from 'd3-shape';
-import * as d3Interpolate from 'd3-interpolate';
-
-import { STATISTICS } from './STATISTICS';
 import * as d3ScaleChromatic from 'd3-scale-chromatic';
+
+// The Pie Chart app renders a basic radial bar chart based on JSON data input
+// See inseri/Tutorials/App descriptions for Researchers/Apps to visualise data/Radial Bar Chart
+
+// Based on https://bl.ocks.org/bricedev/8aaef92e64007f882267
 
 @Component({
   selector: 'app-radial-barchart',
@@ -16,68 +17,113 @@ import * as d3ScaleChromatic from 'd3-scale-chromatic';
   templateUrl: './radial-barchart.component.html',
   styleUrls: ['./radial-barchart.component.scss']
 })
-export class RadialBarchartComponent implements AfterViewChecked {
 
+export class RadialBarchartComponent implements AfterViewChecked {
+  // needed by inseri
   @Input() initialised = false;
   @Input() numberOfInitialisedComponent: number;
   @Input() data;
   alreadyInitialised = false;
 
+  // Chart width
   width = 600;
+
+  // Chart height
   height = 600;
+
+  // "Height" of each bar segment (it's the radius of the circle)
   barHeight = this.height / 2 - 40;
-  formatNumber: any;
+
+  // Array of colors to use for the bars
   color: any;
+
+  // The svg container to draw the chart to
   svg: any;
+
+  // The circular x axis scale
   private x: any;
-  private y: any;
-  extent: any;
-  barscale: any;
-  keys: any;
-  numBars: any;
+  // The circular y axis scale (no y axis needed)
+  // private y: any;
+
+  // The actual x axis
   xAxis: any;
+
+  // An array holding the min and max value of the bars
+  extent: any;
+
+  // The scale of the possible (radial) bars
+  barscale: any;
+
+  // The labels to use for each bar segment
+  keys: any;
+
+  // The number of keys (this.keys.length)
+  numBars: any;
+
+  // A svg <g> element
   g: any;
-  circles: any;
+
+  // Circles for the radial x axis (currently not in use)
+  // circles: any;
+
+  // The arcs for the bar segments
   arc: any;
+
+  // The bar segments
   segments: any;
+
+  // The lines separating the bar segments
   lines: any;
+
+  // The radius to use for the placement of the bar segment labels
   labelRadius: any;
+
+  // The labels of the bar segments
   labels: any;
-  centreOfTheImage = 300;
+
+  // The centre of the chart
+  centreOfTheImage = this.width / 2;
+
+  // x/y position of tooltip
+  private xPos: number;
+  private yPos: number;
+
+  // Helper object for the tooltip content
+  chosenSection: any = {};
 
   constructor() { }
 
   ngAfterViewChecked() {
     if (this.initialised && !this.alreadyInitialised && this.data) {
-      this.alreadyInitialised = true;
-      setTimeout(() => {
-      // this.formatNumber = d3Format.format('s');
-      // this.color = d3Scale.scaleOrdinal()
-      //   .range([
-      //     '#8dd3c7',
-      //     '#ffffb3',
-      //     '#bebada',
-      //     '#fb8072',
-      //     '#80b1d3',
-      //     '#fdb462',
-      //     '#b3de69',
-      //     '#fccde5',
-      //     '#d9d9d9',
-      //     '#bc80bd',
-      //     '#ccebc5',
-      //     '#ffed6f'
-      //   ]);
-      this.color = d3Scale.scaleOrdinal(d3ScaleChromatic.schemePaired);
-      this.initSvg();
-      this.initAxis();
-      }, 100);
+      // Check if JSON input data is a string and therefore coming through the inseri microservice pipeline
+      // If yes, parse string to JSON first, if no, use JSON input data as is
+      if (typeof this.data === 'string' && IsJsonString(this.data) && JSON.parse(this.data).length > 0) {
+        const help = this.data;
+        this.data = {};
+        this.data.data = JSON.parse(help);
+        this.alreadyInitialised = true;
+        setTimeout(() => {
+          this.color = d3Scale.scaleOrdinal(d3ScaleChromatic.schemePaired);
+          this.initSvg();
+          this.initAxis();
+        }, 100);
+      } else if (typeof this.data !== 'string') {
+        this.alreadyInitialised = true;
+        setTimeout(() => {
+          this.color = d3Scale.scaleOrdinal(d3ScaleChromatic.schemePaired);
+          this.initSvg();
+          this.initAxis();
+        }, 100);
+      }
     }
   }
 
+  // Small function to generate css classes for the DOM
   generateComponentDivClass() {
     return 'radialBarChart' + this.numberOfInitialisedComponent;
   }
 
+  // Function to create the svg container holding the chart
   initSvg() {
     this.svg = d3.select('.' + this.generateComponentDivClass())
       .append('svg')
@@ -87,52 +133,82 @@ export class RadialBarchartComponent implements AfterViewChecked {
       .attr('transform', 'translate(' + this.width / 2 + ',' + this.height / 2 + ')');
   }
 
+  // Function to create the radial bar chart
   private initAxis() {
     this.extent = d3Array.extent(this.data.data, (d) => d.value );
+
     this.barscale = d3Scale.scaleLinear()
-      .domain( this.extent )
-      .range([0, this.barHeight]
-      );
+      .domain(this.extent)
+      .range([0, this.barHeight]);
+
     this.keys = this.data.data.map((d) => d.label);
-    console.log( this.keys );
+
     this.numBars = this.keys.length;
+
     this.x = d3Scale.scaleLinear()
       .domain(this.extent)
       .range([0, -this.barHeight]);
+
+
     this.xAxis = d3Axis.axisLeft(this.x);
-      // .ticks(10);
+    // Uncomment below lines if you want to display axis ticks (circles in this case)
+    // ...along the radial x axis
+
+      // .ticks(3)
+      // .tickFormat(d3Format.format('s'));
       // .tickFormat(this.formatNumber);
-    this.circles = this.svg.selectAll('circle')
-      // .data(this.x.ticks(10))
-      .enter().append('circle')
-      .attr('r', (d) => this.barscale(d))
-      .style('fill', 'none')
-      .style('stroke', 'black')
-      .style('stroke-dasharray', '2,2')
-      .style('stroke-width', '.5px');
+
+    // this.circles = this.svg.selectAll('circle')
+    //   .data(this.x.ticks(3))
+    //   .enter()
+    //   .append('circle')
+    //   .attr('r', (d) => this.barscale(d))
+    //   .style('fill', 'none')
+    //   .style('stroke', 'black')
+    //   .style('stroke-dasharray', '2,2')
+    //   .style('stroke-width', '.5px');
+
     this.arc = d3Shape.arc()
       .startAngle( (d, i) => ( i * 2 * Math.PI) / this.numBars )
       .endAngle( ( d, i ) => ( (i + 1) * 2 * Math.PI) / this.numBars )
       .innerRadius(0);
-    // how long the radius is of each segment
+
     this.segments = this.svg.selectAll('path')
       .data(this.data.data)
-      .enter().append('path')
-      .each( (d) => d.outerRadius = 2.5 * d.value)
+      .enter()
+      .append('path')
+      .attr('class', 'segment')
+      .each( (d) => d.outerRadius = this.barscale(+d.value))
       .style('fill',  (d) =>  this.color(d.label) )
       .attr('d', this.arc);
-    // this.segments
-    //   .transition()
-    //   // .ease('elastic')
-    //   .duration(1000)
-    //   .delay( (d, i) => ( 25 - i ) * 100 )
-    //   .attrTween('d', (d, index) => {
-    //     const i = d3Interpolate.interpolate(d.outerRadius, this.barscale(+d.value));
-    //     return (t) => {
-    //       d.outerRadius = i(t);
-    //       return this.arc(d, index);
-    //     };
-    //   });
+
+    // Define tooltip
+    const tooltip = d3.select('.radialBarChart' + this.numberOfInitialisedComponent)
+      .append('div')
+      .attr('class', 'count');
+
+    // Mouse event handlers
+    const segments = d3.selectAll('.segment');
+
+    segments.on('mouseover', (d) => {
+      // Set the values for the tooltip to be shown
+      this.chosenSection.value = +d.value;
+    });
+
+    segments.on('mouseout', () => {
+      // Hide the tooltip
+      tooltip.style('display', 'none');
+      this.chosenSection = {};
+    });
+
+    // Move the tooltip
+    segments.on('mousemove', (d) => {
+      onmousemove = (e) => {
+        this.xPos = e.clientX + 20;
+        this.yPos = e.clientY - 20;
+      };
+    });
+
     this.svg.append('circle')
       .attr('r', this.barHeight)
       .classed('outer', true)
@@ -144,14 +220,11 @@ export class RadialBarchartComponent implements AfterViewChecked {
     this.lines = this.svg.selectAll('line')
       .data(this.keys)
       .enter().append('line')
-      .attr('y2', -this.barHeight - 20)
+      // .attr('y2', -this.barHeight) - 20)
+      .attr('y2', -this.barHeight)
       .style('stroke', 'black')
       .style('stroke-width', '.5px')
-      .attr('transform', (d, i) => { return 'rotate(' + (i * 360 / this.numBars) + ')'; });
-
-    // this.svg.append('g')
-    //   .attr('class', 'x axis')
-    //   .call(this.xAxis);
+      .attr('transform', (d, i) => 'rotate(' + (i * 360 / this.numBars) + ')');
 
     this.labelRadius = this.barHeight * 1.025;
 
@@ -167,12 +240,27 @@ export class RadialBarchartComponent implements AfterViewChecked {
       .data(this.keys)
       .enter().append('text')
       .style('text-anchor', 'middle')
-      .style('font-weight', 'bold')
-      .style('fill', (d, i) => { return '#3e3e3e';})
+      .style('fill', (d, i) => {
+        return '#3e3e3e';
+      })
       .append('textPath')
       .attr('xlink:href', '#label-path')
-      .attr('startOffset', (d, i) => {return i * 100 / this.numBars + 50 / this.numBars + '%';})
-      .text( (d) => { return d.toUpperCase(); });
+      .attr('startOffset', (d, i) => {
+        return i * 100 / this.numBars + 50 / this.numBars + '%';
+      })
+      .text( (d) => {
+        return d.toUpperCase();
+      });
   }
 
+}
+
+// Function to check if JSON data input is string
+function IsJsonString(str) {
+  try {
+    JSON.parse(str);
+  } catch (e) {
+    return false;
+  }
+  return true;
 }

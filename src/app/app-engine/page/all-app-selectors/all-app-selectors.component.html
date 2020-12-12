@@ -1,7 +1,11 @@
-<app-json-environment *ngIf="app.type === 'jsonEnvironment'"  (reloadVariables)="reloadVariablesFunction()"
-                      [assignedJson]="app.assignedJson" [hash]="app.hash" [pythonFile]="app.pythonFile">
+<!-- jsonEnvironment is the old name of the python microservice -->
+<app-python-environment *ngIf="app.type === 'jsonEnvironment'"
+                        (reloadVariables)="reloadVariablesFunction()"
+                        [assignedJson]="app.assignedJson"
+                        [hash]="app.hash"
+                        [pythonFile]="app.pythonFile">
 
-</app-json-environment>
+</app-python-environment>
 
 <app-audio-player *ngIf="app.type === 'audioPlayer'"
                   [msbapAudioUrl]="app.audioURL">
@@ -55,6 +59,11 @@
 
 </app-key-value>
 
+<app-our-demo-app *ngIf="app.type === 'ourDemoApp'"
+               [demoText]="app.demoText"  >
+
+</app-our-demo-app>
+
 <app-textlist-viewer style="position: sticky;" *ngIf="app.type === 'textlistViewers'"
                      [textToDisplay]="app.textlist">
 </app-textlist-viewer>
@@ -64,7 +73,8 @@
 
 </app-home>
 
-<app-crispr *ngIf="app.type === 'crispr'" >
+<app-crispr *ngIf="app.type === 'crispr'"
+            [crisprMicroserviceAddress]="app.crisprMicroserviceAddress">
 
 </app-crispr>
 

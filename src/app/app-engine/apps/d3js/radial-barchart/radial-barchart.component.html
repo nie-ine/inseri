@@ -1,4 +1,10 @@
 <div style="margin-top: 30px">
   <div class="{{ generateComponentDivClass() }}"  style="margin: 0 auto; width: 50%; height: 50%;"></div>
+
+  <div *ngIf="chosenSection.value !== undefined "
+       [ngStyle]="{'position': 'fixed', 'top': yPos + 'px', 'left': xPos + 'px', 'text-align': 'center'}">
+    <b>{{ chosenSection?.value }}</b>
+  </div>
+
 </div>
 

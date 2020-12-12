@@ -320,7 +320,6 @@ export class BarChartComponent implements AfterViewChecked {
       }
     }
   }
-
   // Draw a bar to every entry, the height representing the value
   private drawBars() {
     this.g.selectAll('.bar')

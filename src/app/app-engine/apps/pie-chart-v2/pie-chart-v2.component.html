@@ -6,8 +6,8 @@
         <mat-form-field [ngStyle]="{'width':'80px', 'margin-right':'10px'}">
           <input matInput
                  type="number"
-                 min="{{ rangeMinMin }}"
-                 max="{{ rangeMinMax }}"
+                 [min]="rangeMinMin"
+                 [max]="rangeMinMax"
                  placeholder="Min"
                  [value]="rangeLowest"
                  [(ngModel)]="newRangeLowest"
@@ -21,8 +21,8 @@
         <mat-form-field [ngStyle]="{'width':'80px', 'margin-left':'10px'}">
           <input matInput
                  type="number"
-                 min="{{ rangeMaxMin }}"
-                 max="{{ rangeMaxMax }}"
+                 [min]="rangeMinMin"
+                 [max]="rangeMinMax"
                  placeholder="Max"
                  [value]="rangeHighest"
                  [(ngModel)]="newRangeHighest"

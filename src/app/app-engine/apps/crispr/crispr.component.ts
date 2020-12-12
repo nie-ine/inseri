@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
@@ -13,6 +13,7 @@ import { environment } from '../../../../environments/environment';
   styleUrls: ['./crispr.component.scss']
 })
 export class CrisprComponent {
+  @Input() crisprMicroserviceAddress:  'http://172.23.39.73:4321';
   fileToUpload: any;
   form = new FormData();
   showSubmitButton = false;
@@ -133,7 +134,7 @@ export class CrisprComponent {
       this.updateProgressBar();
 
       console.log( this.sessionHash );
-      this.http.post('http://172.23.39.73:4321', this.form, { responseType: 'blob' })
+      this.http.post( this.crisprMicroserviceAddress, this.form, { responseType: 'blob' })
         .subscribe((val) => {
           if ( this.selectedAction === 'plot' ) {
             const blob = new Blob([ val as any ], { type: 'application/pdf' });
