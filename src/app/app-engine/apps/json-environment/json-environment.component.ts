@@ -114,10 +114,12 @@ export class JsonEnvironmentComponent implements OnChanges, HttpInterceptor {
   }
 
   savePythonFile( submit?: boolean ) {
+    console.log(this.pythonFile);
     this.fileService.getFileByUrl( this.pythonFile )
       .subscribe(response => {
         console.log( response );
         const file = (response as any).file;
+        console.log(file);
         this.fileService.updateFile(
           file._id,
           file.title,

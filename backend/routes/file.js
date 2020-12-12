@@ -238,13 +238,13 @@ router.get("/getFileByUrl/:url", checkAuth, (req, res, next) => {
 
   console.log( req.params.url );
 
-  FileModel.find({urlPath: req.params.url}).then(file => {
+  FileModel.findOne({urlPath: req.params.url}).then(file => {
     if (file) {
       console.log('file:', file);
       res.status(200).json(
         {
           message: "file found",
-          file: file[0]
+          file: file
         });
     } else {
       res.status(404).json({message: "file not found!"});

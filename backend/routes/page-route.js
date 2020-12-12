@@ -1,9 +1,8 @@
-
-
 const express = require('express');
 
 const Page = require('../models/page');
 const Query = require('../models/query');
+const File=require('../models/files');
 const mongoose = require('mongoose');
 const checkAuth = require('../middleware/check-auth');
 const checkAuth2 = require('../middleware/check-auth-without-immediate-response');
@@ -11,6 +10,7 @@ const router = express.Router();
 const PageSet = require('../models/page-set');
 const MyOwnJson = require('../models/myOwnJson');
 const multer = require("multer");
+const fs = require('fs');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -24,21 +24,21 @@ const storage = multer.diskStorage({
 });
 
 router.get('/published', (req, res, next) => {
-    Page.find( { publishedAsTemplate: true } )
-        .then(pages => {
-            let message;
-            if (pages.length === 0) {
-                message = 'No pages were found'
-            } else if (pages.length === 1) {
-                message = 'One published page was found'
-            } else {
-                message = 'All published pages were found'
-            }
-            res.status(200).json({
-                message: message,
-                pages: pages
-            });
-        });
+  Page.find( { publishedAsTemplate: true } )
+    .then(pages => {
+      let message;
+      if (pages.length === 0) {
+        message = 'No pages were found'
+      } else if (pages.length === 1) {
+        message = 'One published page was found'
+      } else {
+        message = 'All published pages were found'
+      }
+      res.status(200).json({
+        message: message,
+        pages: pages
+      });
+    });
 });
 
 router.get('/publishAsTemplate/:pageID', (req, res, next) => {
@@ -75,149 +75,149 @@ router.get('/undoPublishTemplate/:pageID', (req, res, next) => {
 
 router.get('/:id', checkAuth2, (req, res, next) => {
 
-    if( req.loggedIn === true ) {
-      console.log('user logged In and page Id is ', req.params.id);
-        Page.findById(req.params.id)
-            .then(result => {
-                if (result) {
-                  console.log(result);
-                    res.status(200).json({
-                        message: 'Page was found',
-                        page: result
-                    });
-                } else {
-                    res.status(404).json({
-                        message: 'Page was not found'
-                    });
-                }
-            })
-            .catch(error => {
-                res.status(500).json({
-                    message: 'Fetching page failed',
-                    error: error
-                })
-            })
-    } else if ( req.loggedIn === false ) {
-      console.log('user is not logged, page id is ', req.params.id);
-        Page.findById(req.params.id)
-            .then(result => {
-                if (result) {
-                    res.status(200).json({
-                        message: 'Page was found',
-                        page: result
-                    });
-                } else {
-                    res.status(404).json({
-                        message: 'Page was not found'
-                    });
-                }
-            })
-            .catch(error => {
-                res.status(500).json({
-                    message: 'Fetching page failed',
-                    error: error
-                })
-            })
-    }
+  if( req.loggedIn === true ) {
+    //console.log('user logged In and page Id is ', req.params.id);
+    Page.findById(req.params.id)
+      .then(result => {
+        if (result) {
+          //console.log(result);
+          res.status(200).json({
+            message: 'Page was found',
+            page: result
+          });
+        } else {
+          res.status(404).json({
+            message: 'Page was not found'
+          });
+        }
+      })
+      .catch(error => {
+        res.status(500).json({
+          message: 'Fetching page failed',
+          error: error
+        })
+      })
+  } else if ( req.loggedIn === false ) {
+    //console.log('user is not logged, page id is ', req.params.id);
+    Page.findById(req.params.id)
+      .then(result => {
+        if (result) {
+          res.status(200).json({
+            message: 'Page was found',
+            page: result
+          });
+        } else {
+          res.status(404).json({
+            message: 'Page was not found'
+          });
+        }
+      })
+      .catch(error => {
+        res.status(500).json({
+          message: 'Fetching page failed',
+          error: error
+        })
+      })
+  }
 });
 
 router.get('/:id/queries', checkAuth, (req, res, next) => {
-    Page.findById(req.params.id)
+  Page.findById(req.params.id)
+    .then(result => {
+
+      // Checks if page ID is valid
+      if (!result) {
+        return res.status(404).json({
+          message: 'Page ID is not valid'
+        });
+      }
+
+      Query.find({_id: {$in: result.queries}})
         .then(result => {
-
-            // Checks if page ID is valid
-            if (!result) {
-                return res.status(404).json({
-                    message: 'Page ID is not valid'
-                });
-            }
-
-            Query.find({_id: {$in: result.queries}})
-                .then(result => {
-                    res.status(200).json({
-                        message: 'Queries were found',
-                        queries: result
-                    });
-                })
-                .catch(error => {
-                    res.status(500).json({
-                        message: 'Page cannot be updated',
-                        error: error
-                    });
-                });
+          res.status(200).json({
+            message: 'Queries were found',
+            queries: result
+          });
         })
         .catch(error => {
-            res.status(500).json({
-                message: 'Fetching page failed',
-                error: error
-            })
-        })
+          res.status(500).json({
+            message: 'Page cannot be updated',
+            error: error
+          });
+        });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Fetching page failed',
+        error: error
+      })
+    })
 });
 
 router.post('/:id/queries', checkAuth, (req, res, next) => {
-    // console.log(req.body);
-    let messages = [];
-    // Tests if title is undefined, null or is empty string
-    if (!Boolean(req.body.title)) messages.push('Your title is invalid!');
+  // console.log(req.body);
+  let messages = [];
+  // Tests if title is undefined, null or is empty string
+  if (!Boolean(req.body.title)) messages.push('Your title is invalid!');
 
-    // Tests if server url is undefined, null or is empty string
-    // if (!Boolean(req.body.serverUrl)) messages.push('Your server URL is invalid!');
+  // Tests if server url is undefined, null or is empty string
+  // if (!Boolean(req.body.serverUrl)) messages.push('Your server URL is invalid!');
 
-    // Attaches error messages to the response
-    if (messages.length > 0) return res.status(400).json({messages: messages});
+  // Attaches error messages to the response
+  if (messages.length > 0) return res.status(400).json({messages: messages});
 
-    Page.findById(req.params.id)
-        .then(result => {
+  Page.findById(req.params.id)
+    .then(result => {
 
-            // Checks if page ID is valid
-            if (!result) {
-                return res.status(404).json({
-                    message: 'Page ID is not valid'
-                })
-            }
+      // Checks if page ID is valid
+      if (!result) {
+        return res.status(404).json({
+          message: 'Page ID is not valid'
+        })
+      }
 
-            const newQuery = new Query({
-                title: req.body.title,
-                description: req.body.description,
-                serverUrl: req.body.serverUrl,
-                method: req.body.method,
-                params: req.body.params,
-                header: req.body.header,
-                body: req.body.body,
-                path: req.body.chosenPath,
-                isBoundToPage: true,
-                creator: req.userData.userId
-            });
+      const newQuery = new Query({
+        title: req.body.title,
+        description: req.body.description,
+        serverUrl: req.body.serverUrl,
+        method: req.body.method,
+        params: req.body.params,
+        header: req.body.header,
+        body: req.body.body,
+        path: req.body.chosenPath,
+        isBoundToPage: true,
+        creator: req.userData.userId
+      });
 
-            newQuery.save()
-                .then (resultQuery => {
-                    Page.update({_id: result._id}, { $push: { queries: resultQuery._id } })
-                        .then(updatedPage => {
-                            if (updatedPage.n > 0) {
-                                res.status(201).json({
-                                    message: 'Query in page was created successfully',
-                                    query: resultQuery
-                                });
-                            } else {
-                                res.status(400).json({
-                                    message: 'Query cannot be created'
-                                });
-                            }
-                        })
-                })
-                .catch(error => {
-                    res.status(500).json({
-                        message: 'Fetching page failed',
-                        error: error
-                    })
+      newQuery.save()
+        .then (resultQuery => {
+          Page.update({_id: result._id}, { $push: { queries: resultQuery._id } })
+            .then(updatedPage => {
+              if (updatedPage.n > 0) {
+                res.status(201).json({
+                  message: 'Query in page was created successfully',
+                  query: resultQuery
                 });
+              } else {
+                res.status(400).json({
+                  message: 'Query cannot be created'
+                });
+              }
+            })
         })
         .catch(error => {
-            res.status(500).json({
-                message: 'Fetching page failed',
-                error: error
-            })
+          res.status(500).json({
+            message: 'Fetching page failed',
+            error: error
+          })
         });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Fetching page failed',
+        error: error
+      })
+    });
 });
 
 router.put('/:id/addExistingQueryToPage', checkAuth, (req, res, next) => {
@@ -242,171 +242,171 @@ router.put('/:id/addExistingQueryToPage', checkAuth, (req, res, next) => {
         })
       }
 
-        Page.update({_id: pageResult._id}, { $push: { queries: req.body._id } })
-          .then(updatedPage => {
-            if (updatedPage.n > 0) {
-              res.status(201).json({
-                message: 'Query in page was created successfully',
-                query: updatedPage
+      Page.update({_id: pageResult._id}, { $push: { queries: req.body._id } })
+        .then(updatedPage => {
+          if (updatedPage.n > 0) {
+            res.status(201).json({
+              message: 'Query in page was created successfully',
+              query: updatedPage
+            });
+          } else {
+            res.status(400).json({
+              message: 'Query cannot be created'
+            })
+              .catch(error => {
+                res.status(500).json({
+                  message: 'Fetching page failed',
+                  error: error
+                })
               });
-            } else {
-              res.status(400).json({
-                message: 'Query cannot be created'
-              })
-                .catch(error => {
-                  res.status(500).json({
-                    message: 'Fetching page failed',
-                    error: error
-                  })
-                });
-            }
-          });
+          }
+        });
     })
-      .catch(error => {
-        res.status(500).json({
-          message: 'Fetching page failed',
-          error: error
-        })
-      });
+    .catch(error => {
+      res.status(500).json({
+        message: 'Fetching page failed',
+        error: error
+      })
+    });
 });
 
 router.put('/:pageID/queries/:queryID', checkAuth, (req, res, next) => {
-    let messages = [];
-    // Tests if title is undefined, null or is empty string
-    if (!Boolean(req.body.title)) messages.push('Your title is invalid!');
+  let messages = [];
+  // Tests if title is undefined, null or is empty string
+  if (!Boolean(req.body.title)) messages.push('Your title is invalid!');
 
-    // Tests if server url is undefined, null or is empty string
-    // if (!Boolean(req.body.serverUrl)) messages.push('Your server URL is invalid!');
+  // Tests if server url is undefined, null or is empty string
+  // if (!Boolean(req.body.serverUrl)) messages.push('Your server URL is invalid!');
 
-    // Attaches error messages to the response
-    if (messages.length > 0) return res.status(400).json({messages: messages});
+  // Attaches error messages to the response
+  if (messages.length > 0) return res.status(400).json({messages: messages});
 
-    Page.findById(req.params.pageID)
-        .then(result => {
+  Page.findById(req.params.pageID)
+    .then(result => {
 
-            // Checks if page ID is valid
-            if (!result) {
-                return res.status(404).json({
-                    message: 'Page ID is not valid'
-                })
-            }
-
-            // Checks if query ID is valid and updates query
-            if (result.queries.filter(a => {return a._id == req.params.queryID}).length === 1) {
-                Query.findByIdAndUpdate({_id: req.params.queryID}, {
-                    title: req.body.title,
-                    description: req.body.description,
-                    serverUrl: req.body.serverUrl,
-                    method: req.body.method,
-                    params: req.body.params,
-                    header: req.body.header,
-                    body: req.body.body,
-                    path: req.body.chosenPath
-                }, {new:true})
-                    .then(updatedPage => {
-                        res.status(200).json({
-                            message: 'Query was updated successfully',
-                            page: updatedPage
-                        });
-                    })
-                    .catch(error => {
-                        res.status(500).json({
-                            message: 'Query cannot be updated',
-                            error: error
-                        });
-                    });
-            } else {
-                res.status(404).json({
-                    message: 'query was not listed in page'
-                });
-            }
-
+      // Checks if page ID is valid
+      if (!result) {
+        return res.status(404).json({
+          message: 'Page ID is not valid'
         })
-        .catch(error => {
+      }
+
+      // Checks if query ID is valid and updates query
+      if (result.queries.filter(a => {return a._id == req.params.queryID}).length === 1) {
+        Query.findByIdAndUpdate({_id: req.params.queryID}, {
+          title: req.body.title,
+          description: req.body.description,
+          serverUrl: req.body.serverUrl,
+          method: req.body.method,
+          params: req.body.params,
+          header: req.body.header,
+          body: req.body.body,
+          path: req.body.chosenPath
+        }, {new:true})
+          .then(updatedPage => {
+            res.status(200).json({
+              message: 'Query was updated successfully',
+              page: updatedPage
+            });
+          })
+          .catch(error => {
             res.status(500).json({
-                message: 'Fetching page failed',
-                error: error
-            })
+              message: 'Query cannot be updated',
+              error: error
+            });
+          });
+      } else {
+        res.status(404).json({
+          message: 'query was not listed in page'
         });
+      }
+
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Fetching page failed',
+        error: error
+      })
+    });
 });
 
 router.delete('/:pageID/queries/:queryID', checkAuth, (req, res, next) => {
-    Page.findById(req.params.pageID)
-        .then(result => {
+  Page.findById(req.params.pageID)
+    .then(result => {
 
-            // Checks if page ID is valid
-            if (!result) {
-                return res.status(404).json({
-                    message: 'Page ID is not valid'
-                })
-            }
-
-            // Checks if query ID is valid and updates the query so it will not be bound to a page
-            if (result.queries.filter(a => {return a._id == req.params.queryID}).length === 1) {
-                Query.findByIdAndUpdate({_id: req.params.queryID}, {isBoundToPage: false})
-                    .then((updatedQuery) => {
-                        // Removes the reference to the query in the page
-                        Page.update({_id: req.params.pageID}, {$pull: {queries:req.params.queryID}})
-                            .then(() => {
-                                res.status(200).json({
-                                    message: 'Query deleted successfully'
-                                });
-                            })
-                            .catch(error => {
-                                res.status(500).json({
-                                    message: 'Updating page failed',
-                                    error: error
-                                });
-                            });
-                    })
-                    .catch(errorPage => {
-                        res.status(500).json({
-                            message: 'Updating query failed',
-                            error: errorPage
-                        });
-                    });
-            } else {
-                res.status(404).json({
-                    message: 'query was not listed in page'
-                });
-            }
-
+      // Checks if page ID is valid
+      if (!result) {
+        return res.status(404).json({
+          message: 'Page ID is not valid'
         })
-        .catch(error => {
+      }
+
+      // Checks if query ID is valid and updates the query so it will not be bound to a page
+      if (result.queries.filter(a => {return a._id == req.params.queryID}).length === 1) {
+        Query.findByIdAndUpdate({_id: req.params.queryID}, {isBoundToPage: false})
+          .then((updatedQuery) => {
+            // Removes the reference to the query in the page
+            Page.update({_id: req.params.pageID}, {$pull: {queries:req.params.queryID}})
+              .then(() => {
+                res.status(200).json({
+                  message: 'Query deleted successfully'
+                });
+              })
+              .catch(error => {
+                res.status(500).json({
+                  message: 'Updating page failed',
+                  error: error
+                });
+              });
+          })
+          .catch(errorPage => {
             res.status(500).json({
-                message: 'Query cannot be deleted',
-                error: error
+              message: 'Updating query failed',
+              error: errorPage
             });
+          });
+      } else {
+        res.status(404).json({
+          message: 'query was not listed in page'
         });
+      }
+
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Query cannot be deleted',
+        error: error
+      });
+    });
 });
 
 router.put('/:id', checkAuth, (req, res, next) => {
-    // console.log( 'arriving page:', req.body );
-    Page.findByIdAndUpdate({_id: req.params.id}, {
-        openApps: req.body.openApps,
-        appInputQueryMapping: req.body.appInputQueryMapping,
-        published: req.body.published,
-        showAppTitlesOnPublish: req.body.showAppTitlesOnPublish,
-        showAppSettingsOnPublish: req.body.showAppSettingsOnPublish,
-        showInseriLogoOnPublish: req.body.showInseriLogoOnPublish,
-        showDataBrowserOnPublish: req.body.showDataBrowserOnPublish,
-        tiles: req.body.tiles,
-        chosenWidth: req.body.chosenWidth,
-        jsonId: req.body.jsonId,
-        ownQuery: req.body.ownQuery
-    }, {new:true})
-        .then(resultPage => {
-            res.status(200).json({
-                message: 'Page was updated successfully',
-                page: resultPage
-            });
-        })
-        .catch(error => {
-            res.status(500).json({
-                message: 'Page cannot be updated',
-                error: error
-            });
-        });
+  // console.log( 'arriving page:', req.body );
+  Page.findByIdAndUpdate({_id: req.params.id}, {
+    openApps: req.body.openApps,
+    appInputQueryMapping: req.body.appInputQueryMapping,
+    published: req.body.published,
+    showAppTitlesOnPublish: req.body.showAppTitlesOnPublish,
+    showAppSettingsOnPublish: req.body.showAppSettingsOnPublish,
+    showInseriLogoOnPublish: req.body.showInseriLogoOnPublish,
+    showDataBrowserOnPublish: req.body.showDataBrowserOnPublish,
+    tiles: req.body.tiles,
+    chosenWidth: req.body.chosenWidth,
+    jsonId: req.body.jsonId,
+    ownQuery: req.body.ownQuery
+  }, {new:true})
+    .then(resultPage => {
+      res.status(200).json({
+        message: 'Page was updated successfully',
+        page: resultPage
+      });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Page cannot be updated',
+        error: error
+      });
+    });
 });
 
 router.get('/:pageId/link/:pageSetId', checkAuth, (req, res, next) => {
@@ -438,103 +438,225 @@ router.get('/:pageId/duplicate/:pageSetId', checkAuth, (req, res, next) => {
   // console.log( 'duplicate', req.params.pageId );
 
   Page.findById(req.params.pageId)
-    .then(pageResult => {
+    .then(async pageResult => {
+      console.log(pageResult.queries.length);
+      let newQueries = [];
+      let m = 0;
+      let oldAndNewServerUrls = [];
+      let oldAndNewQueries = [];
+      const folderPath =  req.protocol + "://" + req.get("host")+'/api/folder/getAllFilesAndFolders/';
+      const filePath = req.protocol + "://" + req.get("host")+ '/files/';
+      for ( const queryId of pageResult.queries ) {
+        Query.findById( queryId )
+          .then( async query => {
+            console.log('query is ');
+            console.log(query);
+            if ( query.method == 'JSON' ) {
 
-        let newQueries = [];
-        let m = 0;
-        let oldAndNewServerUrls = [];
-        let oldAndNewQueries = [];
+              let queryCopy = new Query({
+                title: query.title + '_Copy',
+                description: query.description,
+                serverUrl: query.serverUrl,
+                method: query.method,
+                params: query.params,
+                header: query.header,
+                body: query.body,
+                path: query.chosenPath
+              });
 
-        for ( const queryId of pageResult.queries ) {
+              MyOwnJson.findById( query.serverUrl.split('/')[6] )
+                .then( async myOwnJson => {
+                  console.log( 'printing my ownJson');
+                  console.log(myOwnJson);
+                  let filesQueried=[];
+                  let regexString = '"' + req.protocol + '://' + req.get("host") + '/files/' + '[^"]+"';
+                  let regex = new RegExp(regexString, "g");
+                    let arrayOfFilePaths = JSON.stringify(myOwnJson).match(regex);
+                    arrayOfFilePaths.forEach(filePath =>{
+                      if(!filesQueried.includes(filePath)){
+                        filesQueried.push(filePath);// arrayOfFilePaths;
+                      }
+                    });
+                    for (const file of filesQueried) {
+                      let extractedFile = await File.findOne({urlPath: file.split('"')[1]});
+                      //let x =file.lastIndexOf('/');
+                      //let y = file.indexOf('-',file.lastIndexOf('/'));
+                      console.log(extractedFile);
+                      let filePath= file.slice(0,file.lastIndexOf('/')+1);
+                      let fileName=file.slice(file.indexOf('-',file.lastIndexOf('/')));
+                      let newFilePath=filePath+Date.now().toString()+fileName;
 
-          Query.findById( queryId )
-            .then( query => {
+                          //fs.createReadStream('backend/files/'+file.substr(filePath.length).split('"')[0]).pipe(fs.createWriteStream('backend/files/'+newFilePath.substr(filePath.length).split('"')[0]));
 
-              if ( query.method == 'JSON' ) {
-
-                let queryCopy = new Query({
-                  title: query.title + '_Copy',
-                  description: query.description,
-                  serverUrl: query.serverUrl,
-                  method: query.method,
-                  params: query.params,
-                  header: query.header,
-                  body: query.body,
-                  path: query.chosenPath
-                });
-
-                MyOwnJson.findById( query.serverUrl.split('/')[6] )
-                  .then(myOwnJson => {
-
-                      const newJson = new MyOwnJson({
-                        creator: req.userData.userId,
-                        content: myOwnJson.content
-                      });
-
-                      newJson.save()
-                        .then(copiedMyOwnJson => {
-
-                          let newServerUrl = 'http://localhost:3000/api/myOwnJson/getJson/' + copiedMyOwnJson._id;
-                          oldAndNewServerUrls.push(
+                      // console.log("\nFile Contents of example_file:",
+                      //   fs.readFileSync('backend/files/'+file.substr(filePath.length).split('"')[0], "utf8"));
+                      fs.copyFileSync('backend/files/'+file.substr(filePath.length).split('"')[0],
+                        'backend/files/'+newFilePath.substr(filePath.length).split('"')[0]);
+                        // console.log('file copied successfully');
+                        // console.log("\nFile Contents of copied_file:",
+                        //   fs.readFileSync('backend/files/'+newFilePath.substr(filePath.length).split('"')[0], "utf8"));
+                        let newFileCopy = new File({
+                          title: extractedFile.title ,
+                          description: extractedFile.description,
+                          urlPath: newFilePath.split('"')[1],
+                          owner: req.userData.userId
+                        });
+                        console.log(newFileCopy);
+                      console.log('I am here ');
+                        let savedFile = await newFileCopy.save();
+                        console.log(savedFile);
+                        console.log(JSON.stringify(myOwnJson.content));
+                        myOwnJson.content= JSON.stringify(myOwnJson.content).split(file.split('"')[1]).join(newFilePath.split('"')[1]);
+                        //replace(file.split('"')[1],newFilePath.split('"')[1]);
+                        console.log('done replacing all occurances');
+                    }
+                    console.log(JSON.stringify(myOwnJson.content));
+                  const newJson = new MyOwnJson({
+                    creator: req.userData.userId,
+                    content: JSON.parse(myOwnJson.content)
+                  });
+                    console.log(newJson);
+                  newJson.save()
+                    .then(copiedMyOwnJson => {
+                      console.log(copiedMyOwnJson);
+                      let newServerUrl = req.protocol + "://" + req.get("host")+'/api/myOwnJson/getJson/' + copiedMyOwnJson._id; //'http://localhost:3000/api/myOwnJson/getJson/'
+                      console.log(newServerUrl);
+                      oldAndNewServerUrls.push(
+                        {
+                          oldUrl: queryCopy.serverUrl,
+                          newUrl: newServerUrl
+                        }
+                      );
+                      queryCopy.serverUrl = newServerUrl;
+                      console.log(queryCopy);
+                      queryCopy.save()
+                        .then(resultQuery => {
+                          newQueries[ m ] = resultQuery._id;
+                          m += 1;
+                          console.log(m);
+                          console.log('If');
+                          console.log(resultQuery);
+                          oldAndNewQueries.push(
                             {
-                              oldUrl: queryCopy.serverUrl,
-                              newUrl: newServerUrl
+                              oldQuery: queryId,
+                              newQuery: resultQuery._id
                             }
                           );
-                          queryCopy.serverUrl = newServerUrl;
 
-                          queryCopy.save()
-                            .then(resultQuery => {
-                              newQueries[ m ] = resultQuery._id;
-                              m += 1;
-                              oldAndNewQueries.push(
-                                {
-                                  oldQuery: queryId,
-                                  newQuery: resultQuery._id
-                                }
-                              );
-
-                              if ( m === pageResult.queries.length ) {
-                                updatePage(
-                                  pageResult,
-                                  newQueries, res, req, oldAndNewServerUrls, oldAndNewQueries )
-                              }
-                            })
-                            .catch(error => {
-                              res.status(500).json({
-                                message: 'Query cannot be copied',
-                                error: error
-                              });
-                            });
-
+                          if ( m === pageResult.queries.length ) {
+                            updatePage(
+                              pageResult,
+                              newQueries, res, req, oldAndNewServerUrls, oldAndNewQueries )
+                          }
                         })
-                        .catch(err => {
+                        .catch(error => {
                           res.status(500).json({
-                            error: err
-                          })
+                            message: 'Query cannot be copied',
+                            error: error
+                          });
                         });
-                  })
-                  .catch(error => {
-                    res.status(500).json({
-                      message: 'Fetching MyOwnJson failed',
-                      error: error
+
                     })
+                    .catch(err => {
+                      res.status(500).json({
+                        error: err
+                      })
+                    });
+                })
+                .catch(error => {
+                  res.status(500).json({
+                    message: 'Fetching MyOwnJson failed',
+                    error: error
                   })
-              } else {
-                newQueries[ m ] = queryId;
-                m += 1;
-                oldAndNewQueries.push(
-                  {
-                    oldQuery: queryId,
-                    newQuery: queryId
-                  }
-                );
-                if ( m === pageResult.queries.length ) {
-                  updatePage( pageResult, newQueries, res, req, oldAndNewServerUrls, oldAndNewQueries );
+                })
+             }
+              // else if (query.serverUrl.startsWith(folderPath)) {
+            //   /// To be implemented later
+            // } else if (query.serverUrl.startsWith(filePath)) {
+            //   console.log("Found filePath" + filePath.toString());
+            //   let fileId = query.serverUrl.substr(filePath.length);
+            //   console.log('old file ID');
+            //   console.log(fileId);
+            //   File.findById(fileId).then(file => {
+            //     let newFilePath=query.serverUrl.substr(filePath.length);
+            //     newFilePath= newFilePath.replace(newFilePath.substring(0,newFilePath.indexOf('-'))[0], Date.now().toString());
+            //     console.log('newFilePath');
+            //     console.log(newFilePath);
+            //     fs.createReadStream('backend/files/'+query.serverUrl.substr(filePath.length)).pipe(fs.createWriteStream('backend/files/'+newFilePath));
+            //     let newFileCopy = new File({
+            //       title: file.title + '_Copy',
+            //       description: file.description,
+            //       urlPath: query.serverUrl.substring(0,filePath.length)+newFilePath,
+            //       owner: req.userData.userId
+            //     });
+            //
+            //     let queryCopy = new Query({
+            //       title: query.title + '_Copy',
+            //       description: query.description,
+            //       serverUrl: query.serverUrl.substr(filePath.length)+newFilePath,
+            //       method: query.method,
+            //       params: query.params,
+            //       header: query.header,
+            //       body: query.body,
+            //       path: query.chosenPath
+            //     });
+            //     oldAndNewServerUrls.push(
+            //       {
+            //         oldUrl: query.serverUrl,
+            //         newUrl: query.serverUrl.substr(filePath.length)+newFilePath
+            //       });
+            //     newFileCopy.save().then(newSavedFile =>{
+            //       queryCopy.save()
+            //         .then(resultQuery => {
+            //           newQueries[ m ] = resultQuery._id;
+            //           m += 1;
+            //           oldAndNewQueries.push(
+            //             {
+            //               oldQuery: queryId,
+            //               newQuery: resultQuery._id
+            //             }
+            //           );
+            //
+            //           if ( m === pageResult.queries.length ) {
+            //             updatePage(
+            //               pageResult,
+            //               newQueries, res, req, oldAndNewServerUrls, oldAndNewQueries )
+            //           }
+            //         })
+            //         .catch(error => {
+            //           res.status(500).json({
+            //             message: 'Query cannot be copied',
+            //             error: error
+            //           });
+            //         });
+            //     })
+            //
+            //
+            //   }).catch(fileNotFoundError => {
+            //     res.status(404).json({
+            //       message: 'File Not found ',
+            //       error: fileNotFoundError
+            //     });
+            //   });
+            // }
+            else { // any other url
+
+              newQueries[ m ] = queryId;
+              m += 1;
+              console.log(m);
+              console.log('else ');
+              oldAndNewQueries.push(
+                {
+                  oldQuery: queryId,
+                  newQuery: queryId
                 }
+              );
+              if ( m === pageResult.queries.length ) {
+                updatePage( pageResult, newQueries, res, req, oldAndNewServerUrls, oldAndNewQueries );
               }
-            } );
-        }
+            }
+          } );
+      }
     })
     .catch(error => {
       res.status(500).json({
@@ -573,9 +695,11 @@ function updatePage( pageResult, queries, res, req, oldAndNewServerUrls, oldAndN
     showInseriLogoOnPublish: pageResult.showInseriLogoOnPublish,
     openApps: pageResult.openApps
   });
+  console.log(duplicate);
   duplicate.save()
     .then(
       copiedPage => {
+        console.log(copiedPage);
         PageSet.update({_id: req.params.pageSetId}, { $push: { hasPages: copiedPage._id } })
           .then(updatedPageSet => {
             if (updatedPageSet.n > 0) {
