@@ -446,12 +446,14 @@ router.get('/:pageId/duplicate/:pageSetId', checkAuth, (req, res, next) => {
       let oldAndNewQueries = [];
       const folderPath =  req.protocol + "://" + req.get("host")+'/api/folder/getAllFilesAndFolders/';
       const filePath = req.protocol + "://" + req.get("host")+ '/files/';
+      console.log('all queries are: ');
+      console.log(pageResult.queries);
       for ( const queryId of pageResult.queries ) {
-        Query.findById( queryId )
-          .then( async query => {
-            console.log('query is ');
-            console.log(query);
-            if ( query.method == 'JSON' ) {
+        console.log('current query: '+ queryId);
+        let query = await Query.findById( queryId );
+          //.then( async query => {
+        console.log(query.method);
+            if ( query.method === 'JSON' ) {
 
               let queryCopy = new Query({
                 title: query.title + '_Copy',
@@ -464,34 +466,41 @@ router.get('/:pageId/duplicate/:pageSetId', checkAuth, (req, res, next) => {
                 path: query.chosenPath
               });
 
-              MyOwnJson.findById( query.serverUrl.split('/')[6] )
-                .then( async myOwnJson => {
-                  console.log( 'printing my ownJson');
-                  console.log(myOwnJson);
+              let myOwnJson = await MyOwnJson.findById( query.serverUrl.split('/')[6] );
+              console.log(myOwnJson);
+               // .then( async myOwnJson => {
+                  //console.log( 'printing my ownJson');
+                  //console.log(myOwnJson);
                   let filesQueried=[];
                   let regexString = '"' + req.protocol + '://' + req.get("host") + '/files/' + '[^"]+"';
                   let regex = new RegExp(regexString, "g");
                     let arrayOfFilePaths = JSON.stringify(myOwnJson).match(regex);
-                    arrayOfFilePaths.forEach(filePath =>{
-                      if(!filesQueried.includes(filePath)){
-                        filesQueried.push(filePath);// arrayOfFilePaths;
-                      }
-                    });
-                    for (const file of filesQueried) {
-                      let extractedFile = await File.findOne({urlPath: file.split('"')[1]});
-                      //let x =file.lastIndexOf('/');
-                      //let y = file.indexOf('-',file.lastIndexOf('/'));
-                      console.log(extractedFile);
-                      let filePath= file.slice(0,file.lastIndexOf('/')+1);
-                      let fileName=file.slice(file.indexOf('-',file.lastIndexOf('/')));
-                      let newFilePath=filePath+Date.now().toString()+fileName;
+                    console.log(arrayOfFilePaths);
+                    if(arrayOfFilePaths!== null){
+                      arrayOfFilePaths.forEach(filePath =>{
+                        if(!filesQueried.includes(filePath)){
+                          filesQueried.push(filePath);// arrayOfFilePaths;
+                        }
+                      });
+                      console.log('done matching');
+                      console.log(arrayOfFilePaths);
+                      console.log(filesQueried);
+                      for (const file of filesQueried) {
+                        console.log(file.split('"')[1]);
+                        let extractedFile = await File.findOne({urlPath: file.split('"')[1]});
+                        //let x =file.lastIndexOf('/');
+                        //let y = file.indexOf('-',file.lastIndexOf('/'));
+                        console.log(extractedFile);
+                        let filePath= file.slice(0,file.lastIndexOf('/')+1);
+                        let fileName=file.slice(file.indexOf('-',file.lastIndexOf('/')));
+                        let newFilePath=filePath+Date.now().toString()+fileName;
 
-                          //fs.createReadStream('backend/files/'+file.substr(filePath.length).split('"')[0]).pipe(fs.createWriteStream('backend/files/'+newFilePath.substr(filePath.length).split('"')[0]));
+                        //fs.createReadStream('backend/files/'+file.substr(filePath.length).split('"')[0]).pipe(fs.createWriteStream('backend/files/'+newFilePath.substr(filePath.length).split('"')[0]));
 
-                      // console.log("\nFile Contents of example_file:",
-                      //   fs.readFileSync('backend/files/'+file.substr(filePath.length).split('"')[0], "utf8"));
-                      fs.copyFileSync('backend/files/'+file.substr(filePath.length).split('"')[0],
-                        'backend/files/'+newFilePath.substr(filePath.length).split('"')[0]);
+                        // console.log("\nFile Contents of example_file:",
+                        //   fs.readFileSync('backend/files/'+file.substr(filePath.length).split('"')[0], "utf8"));
+                        fs.copyFileSync('backend/files/'+file.substr(filePath.length).split('"')[0],
+                          'backend/files/'+newFilePath.substr(filePath.length).split('"')[0]);
                         // console.log('file copied successfully');
                         // console.log("\nFile Contents of copied_file:",
                         //   fs.readFileSync('backend/files/'+newFilePath.substr(filePath.length).split('"')[0], "utf8"));
@@ -501,26 +510,32 @@ router.get('/:pageId/duplicate/:pageSetId', checkAuth, (req, res, next) => {
                           urlPath: newFilePath.split('"')[1],
                           owner: req.userData.userId
                         });
-                        console.log(newFileCopy);
-                      console.log('I am here ');
+                        //   console.log(newFileCopy);
+                        // console.log('I am here ');
                         let savedFile = await newFileCopy.save();
                         console.log(savedFile);
                         console.log(JSON.stringify(myOwnJson.content));
-                        myOwnJson.content= JSON.stringify(myOwnJson.content).split(file.split('"')[1]).join(newFilePath.split('"')[1]);
+                        myOwnJson.content= JSON.parse(JSON.stringify(myOwnJson.content).split(file.split('"')[1]).join(newFilePath.split('"')[1]));
+                        console.log(JSON.stringify(myOwnJson.content));
                         //replace(file.split('"')[1],newFilePath.split('"')[1]);
-                        console.log('done replacing all occurances');
+                        //console.log('done replacing all occurances');
+                      }
                     }
-                    console.log(JSON.stringify(myOwnJson.content));
+                    console.log( 'no file paths');
+
+                    //console.log(JSON.stringify(myOwnJson.content));
                   const newJson = new MyOwnJson({
                     creator: req.userData.userId,
-                    content: JSON.parse(myOwnJson.content)
+                    content: myOwnJson.content
                   });
-                    console.log(newJson);
-                  newJson.save()
-                    .then(copiedMyOwnJson => {
+                   console.log('newJson');
+              console.log(newJson);
+                  let copiedMyOwnJson = await newJson.save();
+                    //.then(copiedMyOwnJson => {
+                      console.log('copied my own json ');
                       console.log(copiedMyOwnJson);
                       let newServerUrl = req.protocol + "://" + req.get("host")+'/api/myOwnJson/getJson/' + copiedMyOwnJson._id; //'http://localhost:3000/api/myOwnJson/getJson/'
-                      console.log(newServerUrl);
+                      //console.log(newServerUrl);
                       oldAndNewServerUrls.push(
                         {
                           oldUrl: queryCopy.serverUrl,
@@ -528,14 +543,16 @@ router.get('/:pageId/duplicate/:pageSetId', checkAuth, (req, res, next) => {
                         }
                       );
                       queryCopy.serverUrl = newServerUrl;
-                      console.log(queryCopy);
-                      queryCopy.save()
-                        .then(resultQuery => {
+                      //console.log(queryCopy);
+                      let resultQuery= await queryCopy.save();
+                        //.then(resultQuery => {
+                          console.log('copied query');
+                          console.log(resultQuery);
                           newQueries[ m ] = resultQuery._id;
                           m += 1;
                           console.log(m);
                           console.log('If');
-                          console.log(resultQuery);
+                          //console.log(resultQuery);
                           oldAndNewQueries.push(
                             {
                               oldQuery: queryId,
@@ -544,100 +561,110 @@ router.get('/:pageId/duplicate/:pageSetId', checkAuth, (req, res, next) => {
                           );
 
                           if ( m === pageResult.queries.length ) {
+                            console.log(m);
+                            console.log( 'update page');
                             updatePage(
                               pageResult,
                               newQueries, res, req, oldAndNewServerUrls, oldAndNewQueries )
                           }
-                        })
-                        .catch(error => {
-                          res.status(500).json({
-                            message: 'Query cannot be copied',
-                            error: error
-                          });
-                        });
-
-                    })
-                    .catch(err => {
-                      res.status(500).json({
-                        error: err
-                      })
-                    });
-                })
-                .catch(error => {
-                  res.status(500).json({
-                    message: 'Fetching MyOwnJson failed',
-                    error: error
-                  })
-                })
+                    //     })
+                    //     .catch(error => {
+                    //       res.status(500).json({
+                    //         message: 'Query cannot be copied',
+                    //         error: error
+                    //       });
+                    //     });
+                    //
+                    // })
+                    // .catch(err => {
+                    //   res.status(500).json({
+                    //     error: err
+                    //   })
+                    // });
+                // })
+                // .catch(error => {
+                //   res.status(500).json({
+                //     message: 'Fetching MyOwnJson failed',
+                //     error: error
+                //   })
+                // })
              }
-              // else if (query.serverUrl.startsWith(folderPath)) {
-            //   /// To be implemented later
-            // } else if (query.serverUrl.startsWith(filePath)) {
-            //   console.log("Found filePath" + filePath.toString());
-            //   let fileId = query.serverUrl.substr(filePath.length);
-            //   console.log('old file ID');
-            //   console.log(fileId);
-            //   File.findById(fileId).then(file => {
-            //     let newFilePath=query.serverUrl.substr(filePath.length);
-            //     newFilePath= newFilePath.replace(newFilePath.substring(0,newFilePath.indexOf('-'))[0], Date.now().toString());
-            //     console.log('newFilePath');
-            //     console.log(newFilePath);
-            //     fs.createReadStream('backend/files/'+query.serverUrl.substr(filePath.length)).pipe(fs.createWriteStream('backend/files/'+newFilePath));
-            //     let newFileCopy = new File({
-            //       title: file.title + '_Copy',
-            //       description: file.description,
-            //       urlPath: query.serverUrl.substring(0,filePath.length)+newFilePath,
-            //       owner: req.userData.userId
-            //     });
-            //
-            //     let queryCopy = new Query({
-            //       title: query.title + '_Copy',
-            //       description: query.description,
-            //       serverUrl: query.serverUrl.substr(filePath.length)+newFilePath,
-            //       method: query.method,
-            //       params: query.params,
-            //       header: query.header,
-            //       body: query.body,
-            //       path: query.chosenPath
-            //     });
-            //     oldAndNewServerUrls.push(
-            //       {
-            //         oldUrl: query.serverUrl,
-            //         newUrl: query.serverUrl.substr(filePath.length)+newFilePath
-            //       });
-            //     newFileCopy.save().then(newSavedFile =>{
-            //       queryCopy.save()
-            //         .then(resultQuery => {
-            //           newQueries[ m ] = resultQuery._id;
-            //           m += 1;
-            //           oldAndNewQueries.push(
-            //             {
-            //               oldQuery: queryId,
-            //               newQuery: resultQuery._id
-            //             }
-            //           );
-            //
-            //           if ( m === pageResult.queries.length ) {
-            //             updatePage(
-            //               pageResult,
-            //               newQueries, res, req, oldAndNewServerUrls, oldAndNewQueries )
-            //           }
-            //         })
-            //         .catch(error => {
-            //           res.status(500).json({
-            //             message: 'Query cannot be copied',
-            //             error: error
-            //           });
-            //         });
-            //     })
-            //
-            //
-            //   }).catch(fileNotFoundError => {
-            //     res.status(404).json({
-            //       message: 'File Not found ',
-            //       error: fileNotFoundError
-            //     });
-            //   });
+             else if (query.serverUrl.startsWith(filePath)) {
+              //console.log("Found filePath" + query.serverUrl);
+              //let fileId = query.serverUrl.substr(filePath.length).split('"').join('');
+              //console.log('old file ID');
+              //console.log(fileId);
+              let file = await File.findOne({urlPath: query.serverUrl});
+                // console.log( 'file is: ');
+                // console.log(file);
+                let newFilePath=filePath+Date.now().toString()+'-'+file.title;
+                // console.log('new file path after substring');
+                // console.log(newFilePath.substr(filePath.length));
+                // console.log('printing the src file path');
+                // console.log('backend/files/'+file.urlPath.substr(filePath.length).split('"')[0])
+                // console.log('printing the dest file path');
+                // console.log('backend/files/'+newFilePath.substr(filePath.length));
+                fs.copyFileSync('backend/files/'+file.urlPath.substr(filePath.length).split('"')[0],
+                  'backend/files/'+newFilePath.substr(filePath.length));
+                // console.log('newFilePath');
+                // console.log(newFilePath);
+                let newFileCopy = new File({
+                  title: file.title,
+                  description: file.description,
+                  urlPath: newFilePath,
+                  owner: req.userData.userId
+                });
+                // console.log(newFileCopy);
+                // console.log('new query server url');
+                // console.log(newFilePath);
+                let queryCopy = new Query({
+                  title: query.title + '_Copy',
+                  description: query.description,
+                  serverUrl: newFilePath,
+                  method: query.method,
+                  params: query.params,
+                  header: query.header,
+                  body: query.body,
+                  path: query.chosenPath
+                });
+                oldAndNewServerUrls.push(
+                  {
+                    oldUrl: query.serverUrl,
+                    newUrl: newFilePath
+                  });
+                let newSavedFile= await newFileCopy.save();//.then( =>{
+                  console.log('newsaved File');
+                  console.log(newSavedFile);
+                  let resultQuery = await queryCopy.save();
+                   // .then(resultQuery => {
+                      console.log('new query is ');
+                      console.log(resultQuery);
+                      console.log( queryId+':'+resultQuery._id);
+                      newQueries[ m ] = resultQuery._id;
+                      console.log(newQueries[m]);
+                      m += 1;
+                      oldAndNewQueries.push(
+                        {
+                          oldQuery: queryId,
+                          newQuery: resultQuery._id
+                        }
+                      );
+                      console.log(m);
+                      if ( m === pageResult.queries.length ) {
+                        updatePage(
+                          pageResult,
+                          newQueries, res, req, oldAndNewServerUrls, oldAndNewQueries )
+                      }
+                    // })
+                    // .catch(error => {
+                    //   res.status(500).json({
+                    //     message: 'Query cannot be copied',
+                    //     error: error
+                    //   });
+                    // });
+            }
+            //   else if (query.serverUrl.startsWith(folderPath)) {
+            //     /// To be implemented later
             // }
             else { // any other url
 
@@ -651,11 +678,13 @@ router.get('/:pageId/duplicate/:pageSetId', checkAuth, (req, res, next) => {
                   newQuery: queryId
                 }
               );
+              console.log('m: '+m);
+              console.log('pageResult.queries.length: '+ pageResult.queries.length);
               if ( m === pageResult.queries.length ) {
                 updatePage( pageResult, newQueries, res, req, oldAndNewServerUrls, oldAndNewQueries );
               }
             }
-          } );
+          //} );
       }
     })
     .catch(error => {
@@ -669,7 +698,11 @@ router.get('/:pageId/duplicate/:pageSetId', checkAuth, (req, res, next) => {
 function updatePage( pageResult, queries, res, req, oldAndNewServerUrls, oldAndNewQueries ) {
 
   // console.log( oldServerUrls, newServerUrls );
-
+console.log('update {age');
+console.log(pageResult);
+console.log(queries);
+console.log(oldAndNewQueries);
+console.log(oldAndNewServerUrls);
   for ( let i = 0; i < pageResult.appInputQueryMapping.length; i++ ) {
     for ( let j = 0; j < oldAndNewQueries.length; j++ ) {
       pageResult.appInputQueryMapping[ i ] = pageResult.appInputQueryMapping[ i ]
