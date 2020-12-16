@@ -34,8 +34,19 @@ To set up the pipeline, you should have an according API call and Python file re
      ```
    - The script has to read the response as a file. Make sure the script reads a file called **yourData.json** to read in the contents of the query response, e.g.:
      ```python
+     import json
+     
      with open("yourData.json") as json_file:
-         data = json.load(json_file)
+         response = json.load(json_file)
+     ```
+   - Due to the inseri pipeline, your original response is now inside a root key "json"
+     ```python
+     imort json
+     
+     with open("yourData.json") as json_file:
+         response = json.load(json_file)
+     
+     data = response["json"]
      ```
    - Return your output by printing it to the "console", e.g.:
      ```python
@@ -46,14 +57,16 @@ To set up the pipeline, you should have an according API call and Python file re
          # Read the JSON response and parse it to a Python dictionary
          with open(inpt) as json_file:
              response = json.load(json_file)
-     
-         # Do your transformation and create an output
-        
+         
+         data = response["json"]
+         
+         # Do your transformation and create the desired output
+         
          # Return the output as JSON
          return json.dumps(output)
      
      if __name__ == "__main__":
-         # Print the output of the function to the "console"
+         # Print the return statement of the function to the "console"
          print(example_function("yourData.json"))
      ```
    The Python script should now be executed correctly, and the output shown in the _Python Environment_ should be the one needed as the input for the other inseri app
