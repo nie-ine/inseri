@@ -41,7 +41,7 @@ To set up the pipeline, you should have an according API call and Python file re
      ```
    - Due to the inseri pipeline, your original response is now inside a root key "json"
      ```python
-     imort json
+     import json
      
      with open("yourData.json") as json_file:
          response = json.load(json_file)
