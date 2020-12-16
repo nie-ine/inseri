@@ -2,8 +2,8 @@ const express = require('express');
 
 const Page = require('../models/page');
 const Query = require('../models/query');
-const File=require('../models/files');
-const Folder=require('../models/folder');
+const File = require('../models/files');
+const Folder = require('../models/folder');
 const mongoose = require('mongoose');
 const checkAuth = require('../middleware/check-auth');
 const checkAuth2 = require('../middleware/check-auth-without-immediate-response');
@@ -25,7 +25,7 @@ const storage = multer.diskStorage({
 });
 
 router.get('/published', (req, res, next) => {
-  Page.find( { publishedAsTemplate: true } )
+  Page.find({publishedAsTemplate: true})
     .then(pages => {
       let message;
       if (pages.length === 0) {
@@ -43,7 +43,7 @@ router.get('/published', (req, res, next) => {
 });
 
 router.get('/publishAsTemplate/:pageID', (req, res, next) => {
-  console.log( req.params.pageID );
+  console.log(req.params.pageID);
   Page.findByIdAndUpdate({_id: req.params.pageID}, {publishedAsTemplate: true})
     .then(pages => {
       res.status(200).json({
@@ -60,7 +60,7 @@ router.get('/publishAsTemplate/:pageID', (req, res, next) => {
 });
 
 router.get('/undoPublishTemplate/:pageID', (req, res, next) => {
-  console.log( req.params.pageID );
+  console.log(req.params.pageID);
   Page.findByIdAndUpdate({_id: req.params.pageID}, {publishedAsTemplate: false})
     .then(pages => {
       res.status(200).json({
@@ -76,7 +76,7 @@ router.get('/undoPublishTemplate/:pageID', (req, res, next) => {
 
 router.get('/:id', checkAuth2, (req, res, next) => {
 
-  if( req.loggedIn === true ) {
+  if (req.loggedIn === true) {
     //console.log('user logged In and page Id is ', req.params.id);
     Page.findById(req.params.id)
       .then(result => {
@@ -98,7 +98,7 @@ router.get('/:id', checkAuth2, (req, res, next) => {
           error: error
         })
       })
-  } else if ( req.loggedIn === false ) {
+  } else if (req.loggedIn === false) {
     //console.log('user is not logged, page id is ', req.params.id);
     Page.findById(req.params.id)
       .then(result => {
@@ -191,8 +191,8 @@ router.post('/:id/queries', checkAuth, (req, res, next) => {
       });
 
       newQuery.save()
-        .then (resultQuery => {
-          Page.update({_id: result._id}, { $push: { queries: resultQuery._id } })
+        .then(resultQuery => {
+          Page.update({_id: result._id}, {$push: {queries: resultQuery._id}})
             .then(updatedPage => {
               if (updatedPage.n > 0) {
                 res.status(201).json({
@@ -243,7 +243,7 @@ router.put('/:id/addExistingQueryToPage', checkAuth, (req, res, next) => {
         })
       }
 
-      Page.update({_id: pageResult._id}, { $push: { queries: req.body._id } })
+      Page.update({_id: pageResult._id}, {$push: {queries: req.body._id}})
         .then(updatedPage => {
           if (updatedPage.n > 0) {
             res.status(201).json({
@@ -293,7 +293,9 @@ router.put('/:pageID/queries/:queryID', checkAuth, (req, res, next) => {
       }
 
       // Checks if query ID is valid and updates query
-      if (result.queries.filter(a => {return a._id == req.params.queryID}).length === 1) {
+      if (result.queries.filter(a => {
+        return a._id == req.params.queryID
+      }).length === 1) {
         Query.findByIdAndUpdate({_id: req.params.queryID}, {
           title: req.body.title,
           description: req.body.description,
@@ -303,7 +305,7 @@ router.put('/:pageID/queries/:queryID', checkAuth, (req, res, next) => {
           header: req.body.header,
           body: req.body.body,
           path: req.body.chosenPath
-        }, {new:true})
+        }, {new: true})
           .then(updatedPage => {
             res.status(200).json({
               message: 'Query was updated successfully',
@@ -343,11 +345,13 @@ router.delete('/:pageID/queries/:queryID', checkAuth, (req, res, next) => {
       }
 
       // Checks if query ID is valid and updates the query so it will not be bound to a page
-      if (result.queries.filter(a => {return a._id == req.params.queryID}).length === 1) {
+      if (result.queries.filter(a => {
+        return a._id == req.params.queryID
+      }).length === 1) {
         Query.findByIdAndUpdate({_id: req.params.queryID}, {isBoundToPage: false})
           .then((updatedQuery) => {
             // Removes the reference to the query in the page
-            Page.update({_id: req.params.pageID}, {$pull: {queries:req.params.queryID}})
+            Page.update({_id: req.params.pageID}, {$pull: {queries: req.params.queryID}})
               .then(() => {
                 res.status(200).json({
                   message: 'Query deleted successfully'
@@ -395,7 +399,7 @@ router.put('/:id', checkAuth, (req, res, next) => {
     chosenWidth: req.body.chosenWidth,
     jsonId: req.body.jsonId,
     ownQuery: req.body.ownQuery
-  }, {new:true})
+  }, {new: true})
     .then(resultPage => {
       res.status(200).json({
         message: 'Page was updated successfully',
@@ -412,7 +416,7 @@ router.put('/:id', checkAuth, (req, res, next) => {
 
 router.get('/:pageId/link/:pageSetId', checkAuth, (req, res, next) => {
   // console.log( req.params.pageSetId, req.params.pageId );
-  PageSet.update({_id: req.params.pageSetId}, { $push: { hasPages: req.params.pageId } })
+  PageSet.update({_id: req.params.pageSetId}, {$push: {hasPages: req.params.pageId}})
     .then(updatedPageSet => {
       if (updatedPageSet.n > 0) {
         res.status(201).json({
@@ -441,194 +445,191 @@ router.get('/:pageId/duplicate/:pageSetId', checkAuth, (req, res, next) => {
       let m = 0;
       let oldAndNewServerUrls = [];
       let oldAndNewQueries = [];
-      const folderPath =  req.protocol + "://" + req.get("host")+'/api/folder/getAllFilesAndFolders/';
-      const filePath = req.protocol + "://" + req.get("host")+ '/files/';
-      for ( const queryId of pageResult.queries ) {
-        let query = await Query.findById( queryId );
-            if ( query.method === 'JSON' ) {
-              let queryCopy = new Query({
-                title: query.title + '_Copy',
-                description: query.description,
-                serverUrl: query.serverUrl,
-                method: query.method,
-                params: query.params,
-                header: query.header,
-                body: query.body,
-                path: query.chosenPath
-              });
+      const folderPath = req.protocol + "://" + req.get("host") + '/api/folder/getAllFilesAndFolders/';
+      const filePath = req.protocol + "://" + req.get("host") + '/files/';
+      for (const queryId of pageResult.queries) {
+        let query = await Query.findById(queryId);
+        if (query.method === 'JSON') {
+          let queryCopy = new Query({
+            title: query.title + '_Copy',
+            description: query.description,
+            serverUrl: query.serverUrl,
+            method: query.method,
+            params: query.params,
+            header: query.header,
+            body: query.body,
+            path: query.chosenPath
+          });
 
-              let myOwnJson = await MyOwnJson.findById( query.serverUrl.split('/')[6] );
-                  let filesQueried=[];
-                  let regexString = '"' + req.protocol + '://' + req.get("host") + '/files/' + '[^"]+"';
-                  let regex = new RegExp(regexString, "g");
-                    let arrayOfFilePaths = JSON.stringify(myOwnJson).match(regex);
-                    if(arrayOfFilePaths!== null){
-                      arrayOfFilePaths.forEach(filePath =>{
-                        if(!filesQueried.includes(filePath)){
-                          filesQueried.push(filePath);// arrayOfFilePaths;
-                        }
-                      });
-                      for (const file of filesQueried) {
-                        let extractedFile = await File.findOne({urlPath: file.split('"')[1]});
-                        let filePath= file.slice(0,file.lastIndexOf('/')+1);
-                        let fileName=file.slice(file.indexOf('-',file.lastIndexOf('/')));
-                        let newFilePath=filePath+Date.now().toString()+fileName;
-                        //fs.createReadStream('backend/files/'+file.substr(filePath.length).split('"')[0]).pipe(fs.createWriteStream('backend/files/'+newFilePath.substr(filePath.length).split('"')[0]));
-                        //   fs.readFileSync('backend/files/'+file.substr(filePath.length).split('"')[0], "utf8"));
-                        fs.copyFileSync('backend/files/'+file.substr(filePath.length).split('"')[0],
-                          'backend/files/'+newFilePath.substr(filePath.length).split('"')[0]);
-                        let newFileCopy = new File({
-                          title: extractedFile.title ,
-                          description: extractedFile.description,
-                          urlPath: newFilePath.split('"')[1],
-                          owner: req.userData.userId
-                        });
-                        let savedFile = await newFileCopy.save();
-                        myOwnJson.content= JSON.parse(JSON.stringify(myOwnJson.content).split(file.split('"')[1]).join(newFilePath.split('"')[1]));
-                      }
-                    }
-                  const newJson = new MyOwnJson({
-                    creator: req.userData.userId,
-                    content: myOwnJson.content
-                  });
-                  let copiedMyOwnJson = await newJson.save();
-                      let newServerUrl = req.protocol + "://" + req.get("host")+'/api/myOwnJson/getJson/' + copiedMyOwnJson._id; //'http://localhost:3000/api/myOwnJson/getJson/'
-                      oldAndNewServerUrls.push(
-                        {
-                          oldUrl: queryCopy.serverUrl,
-                          newUrl: newServerUrl
-                        }
-                      );
-                      queryCopy.serverUrl = newServerUrl;
-                      let resultQuery= await queryCopy.save();
-                          newQueries[ m ] = resultQuery._id;
-                          m += 1;
-                          oldAndNewQueries.push(
-                            {
-                              oldQuery: queryId,
-                              newQuery: resultQuery._id
-                            }
-                          );
-
-                          if ( m === pageResult.queries.length ) {
-                            updatePage(
-                              pageResult,
-                              newQueries, res, req, oldAndNewServerUrls, oldAndNewQueries )
-                          }
-             }
-             else if (query.serverUrl.startsWith(filePath)) {
-              let file = await File.findOne({urlPath: query.serverUrl});
-                let newFilePath=filePath+Date.now().toString()+'-'+file.title;
-                fs.copyFileSync('backend/files/'+file.urlPath.substr(filePath.length).split('"')[0],
-                  'backend/files/'+newFilePath.substr(filePath.length));
-                let newFileCopy = new File({
-                  title: file.title,
-                  description: file.description,
-                  urlPath: newFilePath,
-                  owner: req.userData.userId
-                });
-                let queryCopy = new Query({
-                  title: query.title + '_Copy',
-                  description: query.description,
-                  serverUrl: newFilePath,
-                  method: query.method,
-                  params: query.params,
-                  header: query.header,
-                  body: query.body,
-                  path: query.chosenPath
-                });
-                oldAndNewServerUrls.push(
-                  {
-                    oldUrl: query.serverUrl,
-                    newUrl: newFilePath
-                  });
-                let newSavedFile= await newFileCopy.save();
-                  let resultQuery = await queryCopy.save();
-                      newQueries[ m ] = resultQuery._id;
-                      m += 1;
-                      oldAndNewQueries.push(
-                        {
-                          oldQuery: queryId,
-                          newQuery: resultQuery._id
-                        }
-                      );
-                      if ( m === pageResult.queries.length ) {
-                        updatePage(
-                          pageResult,
-                          newQueries, res, req, oldAndNewServerUrls, oldAndNewQueries )
-                      }
-            }
-              else if (query.serverUrl.startsWith(folderPath)) {
-                let folderId=query.serverUrl.substr(folderPath.length,query.serverUrl.length-1);
-                console.log(folderId);
-                let extractedFolder = await Folder.findById(folderId);
-                console.log(extractedFolder.hasFiles);
-                let newFileIds= [];
-                for(const file of extractedFolder.hasFiles){
-                  let extractedFile = await File.findById(file);
-                  console.log(extractedFile);
-                  let newFilePath=filePath+Date.now().toString()+'-'+extractedFile.title;
-                  fs.copyFileSync('backend/files/'+extractedFile.urlPath.substr(filePath.length).split('"')[0],
-                    'backend/files/'+newFilePath.substr(filePath.length));
-                  let newFileCopy = new File({
-                    title: extractedFile.title,
-                    description: extractedFile.description,
-                    urlPath: newFilePath,
-                    owner: req.userData.userId
-                  });
-                  let newSavedFile= await newFileCopy.save();
-                  newFileIds.push(newSavedFile._id);
-                }
-                console.log(newFileIds);
-                let newFolderCopy= new Folder({
-                  title: query.title+'_copy_'+extractedFolder.title ,
-                  owner: req.userData.userId,
-                  hasFiles: newFileIds,
-                });
-                let newSavedFolder = await newFolderCopy.save();
-                console.log(newSavedFolder);
-              let queryCopy = new Query({
-                title: query.title + '_Copy',
-                description: query.description,
-                serverUrl: folderPath+newSavedFolder._id,
-                method: query.method,
-                params: query.params,
-                header: query.header,
-                body: query.body,
-                path: query.chosenPath
+          let myOwnJson = await MyOwnJson.findById(query.serverUrl.split('/')[6]);
+          let filesQueried = [];
+          let regexString = '"' + req.protocol + '://' + req.get("host") + '/files/' + '[^"]+"';
+          let regex = new RegExp(regexString, "g");
+          let arrayOfFilePaths = JSON.stringify(myOwnJson).match(regex);
+          if (arrayOfFilePaths !== null) {
+            arrayOfFilePaths.forEach(filePath => {
+              if (!filesQueried.includes(filePath)) {
+                filesQueried.push(filePath);// arrayOfFilePaths;
+              }
+            });
+            for (const file of filesQueried) {
+              let extractedFile = await File.findOne({urlPath: file.split('"')[1]});
+              let filePath = file.slice(0, file.lastIndexOf('/') + 1);
+              let fileName = file.slice(file.indexOf('-', file.lastIndexOf('/')));
+              let newFilePath = filePath + Date.now().toString() + fileName;
+              //fs.createReadStream('backend/files/'+file.substr(filePath.length).split('"')[0]).pipe(fs.createWriteStream('backend/files/'+newFilePath.substr(filePath.length).split('"')[0]));
+              //   fs.readFileSync('backend/files/'+file.substr(filePath.length).split('"')[0], "utf8"));
+              fs.copyFileSync('backend/files/' + file.substr(filePath.length).split('"')[0],
+                'backend/files/' + newFilePath.substr(filePath.length).split('"')[0]);
+              let newFileCopy = new File({
+                title: extractedFile.title,
+                description: extractedFile.description,
+                urlPath: newFilePath.split('"')[1],
+                owner: req.userData.userId
               });
-              oldAndNewServerUrls.push(
-                {
-                  oldUrl: query.serverUrl,
-                  newUrl: folderPath+newSavedFolder._id
-                });
-              let resultQuery = await queryCopy.save();
-              console.log(resultQuery);
-              oldAndNewQueries.push(
-                {
-                  oldQuery: queryId,
-                  newQuery: resultQuery._id
-                });
-                m+=1;
-              if ( m === pageResult.queries.length ) {
-                updatePage(
-                  pageResult,
-                  newQueries, res, req, oldAndNewServerUrls, oldAndNewQueries )
-              }
+              let savedFile = await newFileCopy.save();
+              myOwnJson.content = JSON.parse(JSON.stringify(myOwnJson.content).split(file.split('"')[1]).join(newFilePath.split('"')[1]));
             }
-            else {
-              newQueries[m] = queryId;
-              m += 1;
-              oldAndNewQueries.push(
-                {
-                  oldQuery: queryId,
-                  newQuery: queryId
-                }
-              );
-              if (m === pageResult.queries.length) {
-                updatePage(pageResult, newQueries, res, req, oldAndNewServerUrls, oldAndNewQueries);
-              }
+          }
+          const newJson = new MyOwnJson({
+            creator: req.userData.userId,
+            content: myOwnJson.content
+          });
+          let copiedMyOwnJson = await newJson.save();
+          let newServerUrl = req.protocol + "://" + req.get("host") + '/api/myOwnJson/getJson/' + copiedMyOwnJson._id; //'http://localhost:3000/api/myOwnJson/getJson/'
+          oldAndNewServerUrls.push(
+            {
+              oldUrl: queryCopy.serverUrl,
+              newUrl: newServerUrl
             }
+          );
+          queryCopy.serverUrl = newServerUrl;
+          let resultQuery = await queryCopy.save();
+          newQueries[m] = resultQuery._id;
+          m += 1;
+          oldAndNewQueries.push(
+            {
+              oldQuery: queryId,
+              newQuery: resultQuery._id
+            }
+          );
+
+          if (m === pageResult.queries.length) {
+            updatePage(
+              pageResult,
+              newQueries, res, req, oldAndNewServerUrls, oldAndNewQueries)
+          }
+        } else if (query.serverUrl.startsWith(filePath)) {
+          let file = await File.findOne({urlPath: query.serverUrl});
+          let newFilePath = filePath + Date.now().toString() + '-' + file.title;
+          fs.copyFileSync('backend/files/' + file.urlPath.substr(filePath.length).split('"')[0],
+            'backend/files/' + newFilePath.substr(filePath.length));
+          let newFileCopy = new File({
+            title: file.title,
+            description: file.description,
+            urlPath: newFilePath,
+            owner: req.userData.userId
+          });
+          let queryCopy = new Query({
+            title: query.title + '_Copy',
+            description: query.description,
+            serverUrl: newFilePath,
+            method: query.method,
+            params: query.params,
+            header: query.header,
+            body: query.body,
+            path: query.chosenPath
+          });
+          oldAndNewServerUrls.push(
+            {
+              oldUrl: query.serverUrl,
+              newUrl: newFilePath
+            });
+          let newSavedFile = await newFileCopy.save();
+          let resultQuery = await queryCopy.save();
+          newQueries[m] = resultQuery._id;
+          m += 1;
+          oldAndNewQueries.push(
+            {
+              oldQuery: queryId,
+              newQuery: resultQuery._id
+            }
+          );
+          if (m === pageResult.queries.length) {
+            updatePage(
+              pageResult,
+              newQueries, res, req, oldAndNewServerUrls, oldAndNewQueries)
+          }
+        } else if (query.serverUrl.startsWith(folderPath)) {
+          let folderId = query.serverUrl.substr(folderPath.length, query.serverUrl.length - 1);
+          console.log(folderId);
+          let extractedFolder = await Folder.findById(folderId);
+          console.log(extractedFolder.hasFiles);
+          let newFileIds = [];
+          for (const file of extractedFolder.hasFiles) {
+            let extractedFile = await File.findById(file);
+            console.log(extractedFile);
+            let newFilePath = filePath + Date.now().toString() + '-' + extractedFile.title;
+            fs.copyFileSync('backend/files/' + extractedFile.urlPath.substr(filePath.length).split('"')[0],
+              'backend/files/' + newFilePath.substr(filePath.length));
+            let newFileCopy = new File({
+              title: extractedFile.title,
+              description: extractedFile.description,
+              urlPath: newFilePath,
+              owner: req.userData.userId
+            });
+            let newSavedFile = await newFileCopy.save();
+            newFileIds.push(newSavedFile._id);
+          }
+          console.log(newFileIds);
+          let newFolderCopy = new Folder({
+            title: query.title + '_copy_' + extractedFolder.title,
+            owner: req.userData.userId,
+            hasFiles: newFileIds,
+          });
+          let newSavedFolder = await newFolderCopy.save();
+          console.log(newSavedFolder);
+          let queryCopy = new Query({
+            title: query.title + '_Copy',
+            description: query.description,
+            serverUrl: folderPath + newSavedFolder._id,
+            method: query.method,
+            params: query.params,
+            header: query.header,
+            body: query.body,
+            path: query.chosenPath
+          });
+          oldAndNewServerUrls.push(
+            {
+              oldUrl: query.serverUrl,
+              newUrl: folderPath + newSavedFolder._id
+            });
+          let resultQuery = await queryCopy.save();
+          console.log(resultQuery);
+          oldAndNewQueries.push(
+            {
+              oldQuery: queryId,
+              newQuery: resultQuery._id
+            });
+          m += 1;
+          if (m === pageResult.queries.length) {
+            updatePage(
+              pageResult,
+              newQueries, res, req, oldAndNewServerUrls, oldAndNewQueries)
+          }
+        } else {
+          newQueries[m] = queryId;
+          m += 1;
+          oldAndNewQueries.push(
+            {
+              oldQuery: queryId,
+              newQuery: queryId
+            }
+          );
+          if (m === pageResult.queries.length) {
+            updatePage(pageResult, newQueries, res, req, oldAndNewServerUrls, oldAndNewQueries);
+          }
+        }
       }
     })
     .catch(error => {
@@ -639,15 +640,15 @@ router.get('/:pageId/duplicate/:pageSetId', checkAuth, (req, res, next) => {
     });
 });
 
-function updatePage( pageResult, queries, res, req, oldAndNewServerUrls, oldAndNewQueries ) {
-  for ( let i = 0; i < pageResult.appInputQueryMapping.length; i++ ) {
-    for ( let j = 0; j < oldAndNewQueries.length; j++ ) {
-      pageResult.appInputQueryMapping[ i ] = pageResult.appInputQueryMapping[ i ]
-        .replace( oldAndNewQueries[ j ].oldQuery, oldAndNewQueries[ j ].newQuery );
+function updatePage(pageResult, queries, res, req, oldAndNewServerUrls, oldAndNewQueries) {
+  for (let i = 0; i < pageResult.appInputQueryMapping.length; i++) {
+    for (let j = 0; j < oldAndNewQueries.length; j++) {
+      pageResult.appInputQueryMapping[i] = pageResult.appInputQueryMapping[i]
+        .replace(oldAndNewQueries[j].oldQuery, oldAndNewQueries[j].newQuery);
     }
-    for ( let k = 0; k < oldAndNewServerUrls.length; k++ ) {
-      pageResult.appInputQueryMapping[ i ] = pageResult.appInputQueryMapping[ i ]
-        .replace( oldAndNewServerUrls[ k ].oldUrl, oldAndNewServerUrls[ k ].newUrl );
+    for (let k = 0; k < oldAndNewServerUrls.length; k++) {
+      pageResult.appInputQueryMapping[i] = pageResult.appInputQueryMapping[i]
+        .replace(oldAndNewServerUrls[k].oldUrl, oldAndNewServerUrls[k].newUrl);
     }
   }
 
@@ -668,7 +669,7 @@ function updatePage( pageResult, queries, res, req, oldAndNewServerUrls, oldAndN
   duplicate.save()
     .then(
       copiedPage => {
-        PageSet.update({_id: req.params.pageSetId}, { $push: { hasPages: copiedPage._id } })
+        PageSet.update({_id: req.params.pageSetId}, {$push: {hasPages: copiedPage._id}})
           .then(updatedPageSet => {
             if (updatedPageSet.n > 0) {
               res.status(201).json({
@@ -698,13 +699,13 @@ function updatePage( pageResult, queries, res, req, oldAndNewServerUrls, oldAndN
 }
 
 router.post('/addProfileTemplate/:pageID', multer({storage: storage}).single("file"), (req, res, next) => {
-  let filePath='';
+  let filePath = '';
   console.log(req.file);
   console.log(req.body);
   if (req.file) {
     filePath = req.body.host + "/assets/img/pageTemplates/" + req.file.filename;
   }
-  Page.findOneAndUpdate({_id: req.params.pageID}, {templatePhotoURL: filePath} )
+  Page.findOneAndUpdate({_id: req.params.pageID}, {templatePhotoURL: filePath})
     .then(updatedPage => {
       res.status(201).json({
         message: 'Page updated successfully',
@@ -720,7 +721,7 @@ router.post('/addProfileTemplate/:pageID', multer({storage: storage}).single("fi
 });
 
 //create sub-page
-router.post('/:pageId/newSubPage',checkAuth, (req, res, next) => {
+router.post('/:pageId/newSubPage', checkAuth, (req, res, next) => {
   let messages = [];
   // Tests if title is undefined, null or is empty string
   if (!Boolean(req.body.title)) messages.push('Your title is invalid!');
@@ -743,7 +744,7 @@ router.post('/:pageId/newSubPage',checkAuth, (req, res, next) => {
       console.log(req.params);
       console.log('resultQuery');
       console.log(resultQuery);
-      Page.update({_id: req.params.pageId}, { $push: { hasSubPages: resultQuery._id } })
+      Page.update({_id: req.params.pageId}, {$push: {hasSubPages: resultQuery._id}})
         .then(updatedPage => {
           if (updatedPage.n > 0) {
             console.log(newSubPage);
@@ -811,7 +812,7 @@ router.get('/sub-pages/:pageId', checkAuth, (req, res, next) => {
 });
 
 async function removeFromOldParent(pageToMove, oldParentPage, pageSet) {
-  if(oldParentPage !== null ) {// need to be removed from old Parent sub Pages
+  if (oldParentPage !== null) {// need to be removed from old Parent sub Pages
     let deleteFromOldParent = await Page.updateOne({_id: oldParentPage._id}, {$pull: {hasSubPages: pageToMove}});
     console.log('deleteFromOldParent');
     console.log(deleteFromOldParent);
@@ -825,7 +826,7 @@ async function removeFromOldParent(pageToMove, oldParentPage, pageSet) {
 }
 
 async function addToNewParent(pageToMove, newParentPage, pageSet) {
-  if(newParentPage !== null) {
+  if (newParentPage !== null) {
     let addToNewPage = await Page.updateOne({_id: newParentPage._id}, {$push: {hasSubPages: pageToMove}});
     console.log('addToNewPage');
     console.log(addToNewPage);
@@ -838,22 +839,22 @@ async function addToNewParent(pageToMove, newParentPage, pageSet) {
   }
 }
 
-router.post('/movePage',checkAuth, (req, res, next) => {
+router.post('/movePage', checkAuth, (req, res, next) => {
   console.log('move page, req.body is');
   console.log(req.body);
-  removeFromOldParent(req.body.pageToMove, req.body.oldParentPage, req.body.pageSet).then( removedFromOldParent =>{
-    addToNewParent(req.body.pageToMove, req.body.newParentPage, req.body.pageSet).then( addedToNewParent =>{
-      PageSet.findOne({_id: req.body.pageSet},{hasPages:1, _id:0})
+  removeFromOldParent(req.body.pageToMove, req.body.oldParentPage, req.body.pageSet).then(removedFromOldParent => {
+    addToNewParent(req.body.pageToMove, req.body.newParentPage, req.body.pageSet).then(addedToNewParent => {
+      PageSet.findOne({_id: req.body.pageSet}, {hasPages: 1, _id: 0})
         .populate('hasPages')
         .then(async pagesResult => {
           if (pagesResult) {
             console.log('pagesResult');
             console.log(pagesResult);
             let hierarchyOfPages = [];
-            let pages=pagesResult.hasPages;
-            if(pages.length!==0){
-              for(let i=0;i<pages.length;i++){
-                hierarchyOfPages.push({page: pages[i], subPages:await getHierarchyOfPages(pages[i])});
+            let pages = pagesResult.hasPages;
+            if (pages.length !== 0) {
+              for (let i = 0; i < pages.length; i++) {
+                hierarchyOfPages.push({page: pages[i], subPages: await getHierarchyOfPages(pages[i])});
               }
               res.status(200).json({
                 message: 'pages were found',
@@ -877,14 +878,14 @@ router.post('/movePage',checkAuth, (req, res, next) => {
 
 async function getHierarchyOfPages(pageObj) {
   // console.log('getHierarchyOfPages');
-  let page= await Page.findOne({_id: pageObj._id }).populate('hasSubPages');
-  let subPagesOfSubPage=[];
-  if(page) {
+  let page = await Page.findOne({_id: pageObj._id}).populate('hasSubPages');
+  let subPagesOfSubPage = [];
+  if (page) {
     console.log(page);
-    if (page.hasSubPages && page.hasSubPages.length!==0) {
-      let subPagesResult=page.hasSubPages;
-      for(let i=0;i<subPagesResult.length; i++) {
-        subPagesOfSubPage.push({page: subPagesResult[i], subPages:await getHierarchyOfPages(subPagesResult[i])});
+    if (page.hasSubPages && page.hasSubPages.length !== 0) {
+      let subPagesResult = page.hasSubPages;
+      for (let i = 0; i < subPagesResult.length; i++) {
+        subPagesOfSubPage.push({page: subPagesResult[i], subPages: await getHierarchyOfPages(subPagesResult[i])});
       }
       return subPagesOfSubPage;
     } else {

@@ -64,6 +64,22 @@
           <mat-menu #menuSettings="matMenu">
             <button mat-menu-item (click)="editPage(page.page)"> <mat-icon>edit</mat-icon> Edit page</button>
             <button mat-button (click)="openMovePageMenu(page.page, $event);" [matMenuTriggerFor]="submenu.menu"><mat-icon>open_with</mat-icon> Move page</button>
+            <br>
+            <button
+              *ngIf="!preview"
+              (click)="switchPages( page.page,   true )"
+              mat-button>
+              <!--[disabled]=" indexOfPage === 0 "-->
+              <mat-icon>keyboard_arrow_up</mat-icon>
+            </button>
+            <br>
+            <button
+              *ngIf="!preview"
+              (click)="switchPages( page.page,  false )"
+              mat-button>
+              <!--[disabled]=" indexOfPage === subPagesOfPage.length - 1 "-->
+              <mat-icon>keyboard_arrow_down</mat-icon>
+            </button>
           </mat-menu>
           <app-sub-page-list #submenu="subPageList" [firstCall]="true"[pageToMove]="pageToMove" (subPagesArray)="updatePagesArray($event)" [pageSet]="pageSet" [allPages]="subPagesOfPage" [actionIDInput]="actionID" [pages]="subPagesOfPage" [preview]="preview"  > <!--(actionIDOutput)="$event"-->
             <ng-content></ng-content>
@@ -96,6 +112,22 @@
           <mat-menu #menuSettings="matMenu">
             <button mat-menu-item (click)="editPage(page.page)"> <mat-icon>edit</mat-icon> Edit page</button>
             <button mat-button (click)="openMovePageMenu(page.page, $event);" [matMenuTriggerFor]="submenu.menu"><mat-icon>open_with</mat-icon> Move page</button>
+            <br>
+            <button
+              *ngIf="!preview"
+              (click)="switchPages( page.page,   true )"
+              mat-button>
+              <!--[disabled]=" indexOfPage === 0 "-->
+              <mat-icon>keyboard_arrow_up</mat-icon>
+            </button>
+            <br>
+            <button
+              *ngIf="!preview"
+              (click)="switchPages( page.page,  false )"
+              mat-button>
+              <!--[disabled]=" indexOfPage === subPagesOfPage.length - 1 "-->
+              <mat-icon>keyboard_arrow_down</mat-icon>
+            </button>
           </mat-menu>
           <app-sub-page-list #submenu="subPageList" [firstCall]="true" [pageToMove]="pageToMove" (subPagesArray)="updatePagesArray($event)" [pageSet]="pageSet" [allPages]="subPagesOfPage" [actionIDInput]="actionID" [pages]="subPagesOfPage" [preview]="preview"  > <!--(actionIDOutput)="$event"-->
             <ng-content></ng-content>

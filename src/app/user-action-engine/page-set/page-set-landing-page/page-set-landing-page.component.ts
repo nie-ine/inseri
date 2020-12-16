@@ -21,6 +21,7 @@ import {NestedTreeControl} from '@angular/cdk/tree';
   styleUrls: ['./page-set-landing-page.component.scss']
 })
 export class PageSetLandingPageComponent implements OnInit {
+  private indexOfPage: number;
 
   constructor(
     public dialog: MatDialog,
@@ -187,17 +188,27 @@ export class PageSetLandingPageComponent implements OnInit {
         this.checkIfPageSetExists(this.actionID);
       });
   }
-
-  switchPages(currentPosition: number, newPosition: number) {
-    const currentPage = this.pagesOfThisPageSet[ currentPosition ];
-    this.pagesOfThisPageSet[ currentPosition ] = this.pagesOfThisPageSet[ newPosition ];
-    this.pagesOfThisPageSet[ newPosition ] = currentPage;
-    const pageIdArray = [];
-    let i = 0;
-    for ( const page of this.pagesOfThisPageSet ) {
-      pageIdArray[ i ] = page._id;
-      i++;
+switchPages(page: any, upOrDown: boolean) {
+  for (let i = 0 ; i < this.subPagesOfPage.length; i++) {
+    if ( page._id === this.subPagesOfPage[i].page._id) {
+      if (upOrDown && i !== 0) { // true means go up one level
+        const currentPage = this.subPagesOfPage[ i-1 ];
+        this.subPagesOfPage[ i-1 ] = this.subPagesOfPage[ i ];
+        this.subPagesOfPage[ i ] = currentPage;
+        break;
+      } else if (!upOrDown && i !== this.subPagesOfPage.length - 1 ) { // go down one level
+        const currentPage = this.subPagesOfPage[ i ];
+        this.subPagesOfPage[ i ] = this.subPagesOfPage[ i +1];
+        this.subPagesOfPage[ i+1 ] = currentPage;
+        break;
+      }
     }
+  }
+  this.dataSource.data = this.subPagesOfPage;
+  let pageIdArray=[];
+  for(let i=0;i <this.subPagesOfPage.length;i++){
+    pageIdArray.push(this.subPagesOfPage[i].page._id);
+  }
     this.pageSetService.getPageSet( this.action.hasPageSet._id )
       .subscribe(
         data => {
@@ -216,7 +227,43 @@ export class PageSetLandingPageComponent implements OnInit {
           console.log( error1 );
         }
       );
-  }
+
+}
+
+  // switchPages(currentPosition: number, newPosition: number) {
+  //   const currentPage = this.subPagesOfPage[ currentPosition ];
+  //   this.subPagesOfPage[ currentPosition ] = this.subPagesOfPage[ newPosition ];
+  //   this.subPagesOfPage[ newPosition ] = currentPage;
+  //   // const currentPage = this.pagesOfThisPageSet[ currentPosition ];
+  //   // this.pagesOfThisPageSet[ currentPosition ] = this.pagesOfThisPageSet[ newPosition ];
+  //   // this.pagesOfThisPageSet[ newPosition ] = currentPage;
+  //   const pageIdArray = [];
+  //   let i = 0;
+  //   console.log(this.subPagesOfPage);
+  //   for ( const page of this.subPagesOfPage ) {
+  //     pageIdArray[ i ] = this.subPagesOfPage[i].page._id;
+  //     i++;
+  //   }
+  //   console.log(this.subPagesOfPage);
+  //   this.pageSetService.getPageSet( this.action.hasPageSet._id )
+  //     .subscribe(
+  //       data => {
+  //         const pageSet = data.pageset;
+  //         pageSet.hasPages = pageIdArray;
+  //         pageSet.id = pageSet._id;
+  //         this.pageSetService.updatePageSet( pageSet )
+  //           .subscribe(
+  //             data1 => {
+  //               console.log( data1 );
+  //             }, error2 => {
+  //               console.log( error2 );
+  //             }
+  //           );
+  //       }, error1 => {
+  //         console.log( error1 );
+  //       }
+  //     );
+  // }
 
   goToPage( page: any ) {
     console.log( page );
@@ -238,6 +285,14 @@ export class PageSetLandingPageComponent implements OnInit {
     this.pageToMove = page;
     console.log(page);
     menu.stopPropagation();
+  }
+
+  getIndexOfPage(page: any) {
+    for (let i = 0; i < this.subPagesOfPage.length; i++) {
+      if (this.subPagesOfPage[i].page.id === page.id) {
+        return this.indexOfPage = i;
+      }
+    }
   }
 }
 
