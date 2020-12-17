@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {ThumbnailbarComponent} from './thumbnailbar.component';
 import {DraggableStubDirective} from '../stubs/directive-stubs';
@@ -10,7 +10,7 @@ describe('ThumbnailbarComponent', () => {
   let component: ThumbnailbarComponent;
   let fixture: ComponentFixture<ThumbnailbarComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         MatDialogModule

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { HtmlViewerComponent } from './html-viewer.component';
 
@@ -6,7 +6,7 @@ describe('HtmlViewerComponent', () => {
   let component: HtmlViewerComponent;
   let fixture: ComponentFixture<HtmlViewerComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ HtmlViewerComponent ]
     })

@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {TextViewCanvasComponent} from './text-view-canvas.component';
 import {StandoffReconcilerService} from '../../standoff/standoff-reconciler.service';
@@ -16,7 +16,7 @@ describe('TextViewCanvasComponent', () => {
     shiftIndexOfFocus$: new Subject<boolean>().asObservable()
   };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [TextViewCanvasComponent],
       providers: [

@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {FloatLightTableComponent} from './float-light-table.component';
 import {LightTableStashService} from '../light-table-stash.service';
@@ -11,7 +11,7 @@ describe('FloatLightTableComponent', () => {
   let fixture: ComponentFixture<FloatLightTableComponent>;
   const synopsisObjectSerializerServiceStub = new SynopsisObjectSerializerServiceStub();
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [FloatLightTableComponent],
       providers: [

@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {LoadLightTableComponent} from './load-light-table.component';
 import {MatDialogRef, MatSelectModule} from '@angular/material';
@@ -12,7 +12,7 @@ describe('LoadLightTableComponent', () => {
   let fixture: ComponentFixture<LoadLightTableComponent>;
   const synopsisObjectSerializerServiceStub = new SynopsisObjectSerializerServiceStub();
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         FormsModule,

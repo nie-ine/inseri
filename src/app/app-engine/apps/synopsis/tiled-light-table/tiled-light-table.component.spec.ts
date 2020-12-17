@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {TiledLightTableComponent} from './tiled-light-table.component';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
@@ -14,7 +14,7 @@ describe('TiledLightTableComponent', () => {
   let fixture: ComponentFixture<TiledLightTableComponent>;
   const synopsisObjectSerializerServiceStub = new SynopsisObjectSerializerServiceStub();
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [TiledLightTableComponent],
       providers: [

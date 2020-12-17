@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { HierarchicalNavigationRootComponent } from './hierarchical-navigation-root.component';
 
@@ -6,7 +6,7 @@ describe('HierarchicalNavigationRootComponent', () => {
   let component: HierarchicalNavigationRootComponent;
   let fixture: ComponentFixture<HierarchicalNavigationRootComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ HierarchicalNavigationRootComponent ]
     })

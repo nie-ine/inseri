@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { FloatingTextObjectComponent } from './floating-text-object.component';
 import { DraggableStubDirective, ModifiableStubDirective, SelectableStubDirective } from '../stubs/directive-stubs';
@@ -9,7 +9,7 @@ describe('FloatingTextObjectComponent', () => {
   let component: FloatingTextObjectComponent;
   let fixture: ComponentFixture<FloatingTextObjectComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
         FloatingTextObjectComponent,

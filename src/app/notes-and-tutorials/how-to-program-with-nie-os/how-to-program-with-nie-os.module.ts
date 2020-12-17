@@ -12,8 +12,8 @@ import { DictionaryComponent } from './dictionary/dictionary.component';
     CommonModule,
     MatButtonModule,
     RouterModule.forRoot([
-      {path: 'my-practise-component', component: MyPractiseComponentComponent}
-    ])
+    { path: 'my-practise-component', component: MyPractiseComponentComponent }
+], { relativeLinkResolution: 'legacy' })
   ],
   declarations: [MyPractiseComponentComponent, NavigationComponent, TextDisplayComponent, DictionaryComponent]
 })

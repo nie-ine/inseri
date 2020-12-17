@@ -40,8 +40,8 @@ import { SubPageListComponent } from './sub-page-list/sub-page-list.component';
     MatTooltipModule,
     SharedPipeModule,
     RouterModule.forRoot([
-      {path: 'page-set', component: PageSetLandingPageComponent}
-    ]),
+    { path: 'page-set', component: PageSetLandingPageComponent }
+], { relativeLinkResolution: 'legacy' }),
     MatTreeModule
   ],
   declarations: [

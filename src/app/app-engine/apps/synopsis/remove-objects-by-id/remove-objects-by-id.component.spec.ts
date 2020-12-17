@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {RemoveObjectsByIdComponent} from './remove-objects-by-id.component';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
@@ -8,7 +8,7 @@ describe('RemoveObjectsByIdComponent', () => {
   let component: RemoveObjectsByIdComponent;
   let fixture: ComponentFixture<RemoveObjectsByIdComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [RemoveObjectsByIdComponent],
       providers: [

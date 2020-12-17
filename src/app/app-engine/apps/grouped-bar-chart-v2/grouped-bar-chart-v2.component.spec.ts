@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { GroupedBarChartV2Component } from './grouped-bar-chart-v2.component';
 
@@ -6,7 +6,7 @@ describe('GroupedBarChartV2Component', () => {
   let component: GroupedBarChartV2Component;
   let fixture: ComponentFixture<GroupedBarChartV2Component>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ GroupedBarChartV2Component ]
     })

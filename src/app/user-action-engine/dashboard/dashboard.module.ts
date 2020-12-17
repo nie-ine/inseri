@@ -44,10 +44,10 @@ import {UserGroupComponent} from '../user-group/user-group.component';
     MatChipsModule,
     MatSelectModule,
     RouterModule.forRoot([
-      {path: 'dashboard', component: DashboardComponent},
-      {path: 'impressum', component: ImpressumComponent},
-      {path: 'user-group', component: UserGroupComponent},
-    ]),
+    { path: 'dashboard', component: DashboardComponent },
+    { path: 'impressum', component: ImpressumComponent },
+    { path: 'user-group', component: UserGroupComponent },
+], { relativeLinkResolution: 'legacy' }),
     NIEOSModule,
     MatTableModule
   ],

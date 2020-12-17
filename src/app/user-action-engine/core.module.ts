@@ -49,8 +49,8 @@ import {PageComponent} from '../app-engine/page/page/page.component';
     MatChipsModule,
     MatIconModule,
     RouterModule.forRoot([
-      { path: '**', component: PageComponent }
-      ])
+    { path: '**', component: PageComponent }
+], { relativeLinkResolution: 'legacy' })
   ],
   declarations: [
     MainComponent,

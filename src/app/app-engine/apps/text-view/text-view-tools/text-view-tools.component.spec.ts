@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {TextViewToolsComponent} from './text-view-tools.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -14,7 +14,7 @@ describe('TextViewToolsComponent', () => {
   };
 
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [TextViewToolsComponent],
       imports: [ReactiveFormsModule, FormsModule, MaterialModule],

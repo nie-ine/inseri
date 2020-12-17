@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ShareLightTableComponent } from './share-light-table.component';
 import {MatDialogRef} from '@angular/material';
@@ -11,7 +11,7 @@ describe('ShareLightTableComponent', () => {
   let fixture: ComponentFixture<ShareLightTableComponent>;
   const synopsisObjectSerializerServiceStub = new SynopsisObjectSerializerServiceStub();
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ShareLightTableComponent ],
       providers: [

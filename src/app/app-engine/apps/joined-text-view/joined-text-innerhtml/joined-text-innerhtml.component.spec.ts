@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { JoinedTextInnerhtmlComponent } from './joined-text-innerhtml.component';
 
@@ -6,7 +6,7 @@ describe('TextRichInnerhtmlComponent', () => {
   let component: JoinedTextInnerhtmlComponent;
   let fixture: ComponentFixture<JoinedTextInnerhtmlComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ JoinedTextInnerhtmlComponent ]
     })

@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {TiledImageObjectComponent} from './tiled-image-object.component';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
@@ -8,7 +8,7 @@ describe('TiledImageObjectComponent', () => {
   let component: TiledImageObjectComponent;
   let fixture: ComponentFixture<TiledImageObjectComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [TiledImageObjectComponent],
       schemas: [NO_ERRORS_SCHEMA]

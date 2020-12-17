@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {TiledTextObjectComponent} from './tiled-text-object.component';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
@@ -8,7 +8,7 @@ describe('TiledTextObjectComponent', () => {
   let component: TiledTextObjectComponent;
   let fixture: ComponentFixture<TiledTextObjectComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [TiledTextObjectComponent],
       schemas: [NO_ERRORS_SCHEMA]

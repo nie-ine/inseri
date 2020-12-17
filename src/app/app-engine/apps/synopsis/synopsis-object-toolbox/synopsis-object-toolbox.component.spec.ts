@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SynopsisObjectToolboxComponent } from './synopsis-object-toolbox.component';
 import { MatIconModule } from '@angular/material';
@@ -8,7 +8,7 @@ describe('SynopsisObjectToolboxComponent', () => {
   let component: SynopsisObjectToolboxComponent;
   let fixture: ComponentFixture<SynopsisObjectToolboxComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         MatIconModule,

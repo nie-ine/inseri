@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TextRichInnerhtmlComponent } from './text-rich-innerhtml.component';
 
@@ -6,7 +6,7 @@ describe('TextRichInnerhtmlComponent', () => {
   let component: TextRichInnerhtmlComponent;
   let fixture: ComponentFixture<TextRichInnerhtmlComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ TextRichInnerhtmlComponent ]
     })

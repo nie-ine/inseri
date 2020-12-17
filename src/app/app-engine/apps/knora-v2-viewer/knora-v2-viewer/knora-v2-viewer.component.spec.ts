@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { KnoraV2ViewerComponent } from './knora-v2-viewer.component';
 
@@ -6,7 +6,7 @@ describe('KnoraV2Viewer', () => {
   let component: KnoraV2ViewerComponent;
   let fixture: ComponentFixture<KnoraV2ViewerComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ KnoraV2ViewerComponent ]
     })

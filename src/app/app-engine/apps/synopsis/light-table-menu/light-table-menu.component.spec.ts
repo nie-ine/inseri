@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {LightTableMenuComponent} from './light-table-menu.component';
 import {MatButtonModule, MatDialogModule, MatIconModule, MatMenuModule} from '@angular/material';
@@ -8,7 +8,7 @@ describe('LightTableMenuComponent', () => {
   let component: LightTableMenuComponent;
   let fixture: ComponentFixture<LightTableMenuComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         MatButtonModule,

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ImageWithOverlayComponent } from './image-with-overlay.component';
 import { RegionToSvgService } from '../region-to-svg.service';
@@ -10,7 +10,7 @@ describe('ImageWithOverlayComponent', () => {
   let component: ImageWithOverlayComponent;
   let fixture: ComponentFixture<ImageWithOverlayComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ImageWithOverlayComponent ],
       providers: [ RegionToSvgService ]

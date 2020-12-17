@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TextLineMarginComponent } from './text-line-margin.component';
 
@@ -6,7 +6,7 @@ describe('TextLineMarginComponent', () => {
   let component: TextLineMarginComponent;
   let fixture: ComponentFixture<TextLineMarginComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ TextLineMarginComponent ]
     })
