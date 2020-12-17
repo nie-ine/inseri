@@ -60,7 +60,7 @@ export class Frame implements OnInit, OnChanges, AfterViewChecked {
   @Input() description = false;
   @Input() minimize = false;
   @Input() close = false;
-  @ViewChild('clickHoverMenuTrigger', { static: false }) clickHoverMenuTrigger: MatMenuTrigger;
+  @ViewChild('clickHoverMenuTrigger') clickHoverMenuTrigger: MatMenuTrigger;
   @Output() sendAppCoordinatesBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendAppSettingsBack: EventEmitter<any> = new EventEmitter<any>();
   @Output() sendIndexBack: EventEmitter<any> = new EventEmitter<any>();

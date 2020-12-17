@@ -76,7 +76,7 @@ export class MachineReasoningComponent implements OnInit {
   // Used by inseri
   serviceId = 'machineReasoning';
   // Div to display the reasoning results
-  @ViewChild('results', { static: false }) results;
+  @ViewChild('results') results;
   // Boolean to indicate whether reasoning results are maximized or not
   isMaximized: boolean;
   // Div of the ace editor to display the reasoning results

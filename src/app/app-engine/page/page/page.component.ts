@@ -60,12 +60,12 @@ export class PageComponent implements OnInit, AfterViewChecked {
   /**
    * paginator for the inseri app menu
    * */
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   /**
    * needed for the sorting for the inseri app menu
    * */
-  @ViewChild(MatSort, { static: false }) sort: MatSort;
+  @ViewChild(MatSort) sort: MatSort;
 
   /**
    * actionID - the actionID of the action that the page belongs to

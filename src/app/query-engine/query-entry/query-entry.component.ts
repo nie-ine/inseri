@@ -18,13 +18,13 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./query-entry.component.scss']
 })
 export class QueryEntryComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild('editor', { static: false }) editor;
-  @ViewChild('editor2', { static: false }) editor2;
+  @ViewChild('editor') editor;
+  @ViewChild('editor2') editor2;
 
-  @ViewChild('paramForm', { static: false })
+  @ViewChild('paramForm')
   private param: KeyValueFormComponent;
 
-  @ViewChild('headerForm', { static: false })
+  @ViewChild('headerForm')
   private header: KeyValueFormComponent;
 
   response: any;

@@ -1,9 +1,11 @@
+import { Injectable } from "@angular/core";
 /**
  * This service generates an abstract representation of a json.
  * The json that is returned by this function is the abstrac representation
  * of the input json which is the response of a query.
  * */
 
+@Injectable()
 export class AbstractJsonService {
   leafIndices = new Set();
   abstractTree: any = {};
