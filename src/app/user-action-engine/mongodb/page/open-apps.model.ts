@@ -810,34 +810,6 @@ export class OpenAppsModel {
       initialHeight: '500',
       description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/App descriptions for Researchers/Apps to visualise data/HTML Viewer/README.md'
     },
-    joinedTextView: {
-      type: 'joinedTextView',
-      model: [],
-      inputs: [
-        {
-          'inputName': 'textConfiguration'
-        },
-        {
-          'inputName': 'selectiveStyleDeclarations'
-        },
-        {
-          'inputName': 'styleDeclarations'
-        },
-        {
-          'inputName': 'backendAddress'
-        },
-        {
-          'inputName': 'textRootIri'
-        },
-        {
-          'inputName': 'queryParamForTextRootIri'
-        }
-      ],
-      materialIcon: 'aspect_ratio',
-      initialWidth: '375',
-      initialHeight: '350',
-      description: 'https://github.com/nie-ine/inseri/tree/devel/Tutorials/App descriptions for Researchers/Apps to visualise data/Joined Text View/README.md'
-    },
     login: {
       type: 'login',
       model: [],

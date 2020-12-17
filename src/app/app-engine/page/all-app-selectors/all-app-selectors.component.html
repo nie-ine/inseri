@@ -254,16 +254,6 @@
                    [numberOfInitialisedComponent] = " i " >
 </app-chord-diagram>
 
-<app-joined-text-view *ngIf="app.type === 'joinedTextView'"
-                      [backendAddress]="app.backendAddress"
-                      [textRootIri]="app.textRootIri"
-                      [queryParamForTextRootIri]="app['queryParamForTextRootIri']"
-                      [textConfiguration]="app.textConfiguration"
-                      [styleDeclarations]="app.styleDeclarations"
-                      [selectiveStyleDeclarations]="app.selectiveStyleDeclarations"
-                      [(hoveredResource)]="hoveredElement">
-</app-joined-text-view>
-
 <app-iframe *ngIf="app.type === 'sparqlVisualizer'"
             [url]="environment.sparqlVisualizer">
 </app-iframe>
