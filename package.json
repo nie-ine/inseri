@@ -20,7 +20,6 @@
     "@angular/common": "11.0.5",
     "@angular/compiler": "11.0.5",
     "@angular/core": "11.0.5",
-    "@angular/flex-layout": "7.0.0-beta.24",
     "@angular/forms": "11.0.5",
     "@angular/material": "^7.3.3",
     "@angular/platform-browser": "11.0.5",
