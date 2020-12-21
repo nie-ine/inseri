@@ -894,5 +894,21 @@ async function getHierarchyOfPages(pageObj) {
   }
 }
 
+router.put('/updateSubPages/:id', checkAuth, (req, res, next) => {
+  PageSet.findByIdAndUpdate({_id: req.params.id}, {
+    hasSubPages: req.body.subPages
+  })
+    .then((resultPage) => {
+      res.status(200).json({
+        message: 'Page was updated successfully',
+      });
+    })
+    .catch(error => {
+      res.status(401).json({
+        message: 'Page cannot be updated',
+        error: error
+      });
+    });
+});
 
 module.exports = router;

@@ -67,7 +67,7 @@
             <br>
             <button
               *ngIf="!preview"
-              (click)="switchPages( page.page,   true )"
+              (click)="switchPages( page,   true )"
               mat-button>
               <!--[disabled]=" indexOfPage === 0 "-->
               <mat-icon>keyboard_arrow_up</mat-icon>
@@ -75,7 +75,7 @@
             <br>
             <button
               *ngIf="!preview"
-              (click)="switchPages( page.page,  false )"
+              (click)="switchPages( page,  false )"
               mat-button>
               <!--[disabled]=" indexOfPage === subPagesOfPage.length - 1 "-->
               <mat-icon>keyboard_arrow_down</mat-icon>
@@ -115,7 +115,7 @@
             <br>
             <button
               *ngIf="!preview"
-              (click)="switchPages( page.page,   true )"
+              (click)="switchPages( page,   true )"
               mat-button>
               <!--[disabled]=" indexOfPage === 0 "-->
               <mat-icon>keyboard_arrow_up</mat-icon>
@@ -123,7 +123,7 @@
             <br>
             <button
               *ngIf="!preview"
-              (click)="switchPages( page.page,  false )"
+              (click)="switchPages( page,  false )"
               mat-button>
               <!--[disabled]=" indexOfPage === subPagesOfPage.length - 1 "-->
               <mat-icon>keyboard_arrow_down</mat-icon>
