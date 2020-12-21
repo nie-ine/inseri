@@ -70,7 +70,6 @@ import { DataChooserComponent } from '../query-app-interface/data-management/dat
 import { StaticPagesModule } from  '../user-action-engine/static-pages.module';
 import { YoutubeVideoComponent } from './apps/youtube-video/youtube-video.component';
 import {MatRadioModule} from '@angular/material/radio';
-import { JoinedTextViewModule } from './apps/joined-text-view/joined-text-view.module';
 import { ResponseTreeComponent, FileDatabase } from '../query-app-interface/data-management/response-tree/response-tree.component';
 import { HierarchicalNavigationModule } from './apps/hierarchical-navigation-view/hierarchical-navigation.module';
 import { IframeComponent } from './apps/iframe/iframe.component';
@@ -159,7 +158,6 @@ import { OurDemoAppComponent } from './apps/our-demo-app/our-demo-app.component'
     MatCheckboxModule,
     StaticPagesModule,
     MatRadioModule,
-    JoinedTextViewModule,
     HierarchicalNavigationModule,
     EditorModule,
     PdfViewerModule,

@@ -1,6 +1,6 @@
 # Microservice Pipeline
 
-This tutorial lists the steps needed to set up an inseri microservice pipeline. It describes how to set up an inseri page which will perform the following tasks: 
+This tutorial lists the steps to set up an inseri microservice pipeline on a new page which will perform the following tasks: 
 
 1. Send a request to an API
 1. Catch the response
@@ -11,7 +11,7 @@ This tutorial lists the steps needed to set up an inseri microservice pipeline. 
 
 ### Prerequisites
 
-To set up the pipeline, you should have an according API call and Python file ready to send a request and transform its response respectively. 
+To set up the pipeline, you should have an according API call and Python file ready to send a request and transform its response, respectively. 
 
 ### Steps to Perform
 
@@ -20,28 +20,28 @@ To set up the pipeline, you should have an according API call and Python file re
 1. Add your Python file
 1. Click on the newly added file
 1. Select _Python Environment_
-1. Select _pythonFile_ and a new _Python Environment_ with your selected Python code is added to the page
+1. Select _pythonFile_ - a new _Python Environment_ with your selected Python code is added to the page
 1. Open _Data Management_
-1. Create your request by creating a new query
-1. Assign the query to the page's _Python Environment_ (it might be called jsonEnvironment inside _Data Management_) by clicking on _assignedJson_
-1. Map the response to the needed key by clicking on _map_
-1. Close _Data Management_ - the needed part of the query response shows up in the _Python Environment_
-1. Make sure your Python scripts works correctly by adhering to the following principles: 
+1. Create your API request by creating a new query
+1. Click on _assignedJson_ to assign the query to the page's _Python Environment_ (it might be called jsonEnvironment in the _Data Management_)
+1. Click on _map_ to map the response to the appropriate key
+1. Close _Data Management_ - the appropriate part of the query response shows up in the _Python Environment_
+1. Adhere to the following principles to make sure your Python scripts works correctly: 
    
    - Import the json package
      ```python
      import json
      ```
-   - The script has to read the response as a file. Make sure the script reads a file called **yourData.json** to read in the contents of the query response, e.g.:
+   - Treat the query response as a file called **yourData.json**, e.g.:
      ```python
      import json
      
      with open("yourData.json") as json_file:
          response = json.load(json_file)
      ```
-   - Due to the inseri pipeline, your original response is now inside a root key "json"
+   - Look for the query response inside the "json" key, e.g.:
      ```python
-     imort json
+     import json
      
      with open("yourData.json") as json_file:
          response = json.load(json_file)
@@ -69,13 +69,13 @@ To set up the pipeline, you should have an according API call and Python file re
          # Print the return statement of the function to the "console"
          print(example_function("yourData.json"))
      ```
-   The Python script should now be executed correctly, and the output shown in the _Python Environment_ should be the one needed as the input for the other inseri app
-1. Edit the _Python Environment_'s description to see the apps unique hash
+   The Python script should now be executed correctly, and the according output is shown in the _Python Environment_
+1. Edit the _Python Environment_'s description to see the app's unique hash
 1. Copy the hash
 1. Open _Data Management_ and create a new GET query
-1. Use the previously copied hash as the server URL of the query - the query's response is now the _Python Environment_'s output
+1. Use the copied hash as the server URL of the query to get the _Python Environment_'s output
 1. Close _Data Management_ 
-1. Open the needed inseri app to use the _Python Environment_'s output as its input
+1. Open the inseri app which uses your _Python Environment_'s output as its input
 1. Open _Data Management_
-1. Assign the previously created query (the one querying the _Python Environment_ output) to the app
-1. Map the key "output" of the query to the app
+1. Assign the previously created query (the one querying the _Python Environment_'s output) to the app
+1. Map the "output" key of the query to the app
