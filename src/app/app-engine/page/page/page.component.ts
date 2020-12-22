@@ -11,7 +11,6 @@ import {GenerateHashService} from '../../../user-action-engine/other/generateHas
 import {OpenAppsModel} from '../../../user-action-engine/mongodb/page/open-apps.model';
 import {PageService} from '../../../user-action-engine/mongodb/page/page.service';
 import { DataManagementComponent } from '../../../query-app-interface/data-management/data-management/data-management.component';
-import {MatDialog, MatSnackBar} from '@angular/material';
 import { NgxSpinnerService } from 'ngx-spinner';
 import {GeneralRequestService} from '../../../query-engine/general/general-request.service';
 import {QueryInformationDialogComponent} from '../query-information-dialog/query-information-dialog.component';
@@ -37,6 +36,8 @@ import {OverlayContainer} from '@angular/cdk/overlay';
 import {PageSetService} from '../../../user-action-engine/mongodb/pageset/page-set.service';
 import {SubPageOfPageModel} from '../../../user-action-engine/mongodb/page/subPageOfPage.model';
 import {NestedMenu} from '../menu-item/nested-menu';
+import {MatDialog} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'nie-os',

@@ -3,7 +3,6 @@ import {CommonModule, DatePipe} from '@angular/common';
 import {DashboardComponent, DialogOverviewExampleDialog} from './dashboard/dashboard.component';
 import {RouterModule} from '@angular/router';
 import {MatButtonModule} from '@angular/material/button';
-import {MatDialogModule, MatProgressSpinnerModule, MatTableModule} from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatMenuModule} from '@angular/material/menu';
@@ -23,6 +22,9 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatSelectModule} from '@angular/material/select';
 import {NIEOSModule} from '../../app-engine/nie-OS.module';
 import {UserGroupComponent} from '../user-group/user-group.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   imports: [

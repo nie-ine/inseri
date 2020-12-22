@@ -1,10 +1,11 @@
 import {Component, EventEmitter, Input, Output, Renderer2, ViewChild} from '@angular/core';
-import {MatDialog, MatMenu} from '@angular/material';
 import {DialogCreateNewPageComponent} from '../../../user-action-engine/page-set/page-set-landing-page/page-set-landing-page.component';
 import {Router} from '@angular/router';
 import {PageListDialogComponent} from '../page-list-dialog/page-list-dialog.component';
 import {PageService} from '../../../user-action-engine/mongodb/page/page.service';
 import {SubPageOfPageModel} from '../../../user-action-engine/mongodb/page/subPageOfPage.model';
+import {MatMenu} from '@angular/material/menu';
+import {MatDialog} from '@angular/material/dialog';
 
 /**
  * @title Nested menu

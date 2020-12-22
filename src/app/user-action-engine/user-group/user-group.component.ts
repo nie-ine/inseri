@@ -3,11 +3,11 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ActionService} from '../mongodb/action/action.service';
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {MatTableDataSource} from '@angular/material';
 import {AuthService} from '../mongodb/auth/auth.service';
 import {environment} from '../../../environments/environment';
 import Stardog from 'stardog';
 import consistency = Stardog.db.reasoning.consistency;
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-user-group',

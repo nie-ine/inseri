@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { PageSetService } from '../../mongodb/pageset/page-set.service';
 import { PageSetModel } from '../../mongodb/pageset/page-set.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-update-page-set',

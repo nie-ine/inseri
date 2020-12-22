@@ -1,8 +1,0 @@
-<h3>Copy url</h3>
-<div (mouseenter)="setShowButton(true)" (mouseleave)="setShowButton(false)">
-  <button mat-flat-button (click)="copyToClipboardAndClose()" style="float:right"
-          [ngStyle]="{'visibility': showButton ? 'visible' : 'hidden'}">
-    Copy
-  </button>
-  <textarea title="url" #url>{{shareUrl}}</textarea>
-</div>

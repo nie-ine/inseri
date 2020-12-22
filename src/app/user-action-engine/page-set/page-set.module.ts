@@ -5,10 +5,6 @@ import {
   PageSetLandingPageComponent
 } from './page-set-landing-page/page-set-landing-page.component';
 import {RouterModule} from '@angular/router';
-import {
-  MatButtonModule, MatDialogModule, MatIconModule, MatRadioModule, MatFormFieldModule,
-  MatInputModule, MatProgressSpinnerModule, MatCheckboxModule, MatTreeModule
-} from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatMenuModule} from '@angular/material/menu';
 import {PageSetService} from '../mongodb/pageset/page-set.service';
@@ -21,6 +17,15 @@ import { DuplicatePageComponent } from './duplicate-page/duplicate-page.componen
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {SharedPipeModule} from '../../../pipes/shared-pipe-module/shared-pipe.module';
 import { SubPageListComponent } from './sub-page-list/sub-page-list.component';
+import {MatButtonModule} from '@angular/material/button';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatIconModule} from '@angular/material/icon';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatTreeModule} from '@angular/material/tree';
 
 @NgModule({
   imports: [

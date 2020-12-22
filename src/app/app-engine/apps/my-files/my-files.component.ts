@@ -10,7 +10,6 @@ import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angul
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {ActionService} from '../../../user-action-engine/mongodb/action/action.service';
 import {PageSetService} from '../../../user-action-engine/mongodb/pageset/page-set.service';
-import {MatDialog, MatTableDataSource} from '@angular/material';
 import {QueryService} from '../../../user-action-engine/mongodb/query/query.service';
 import {Action} from '../../../user-action-engine/mongodb/action/action.model';
 import { AppMenuModel } from '../../../app-engine/page/page/appMenu.model';
@@ -22,6 +21,8 @@ import {GeneralRequestService} from '../../../query-engine/general/general-reque
 import {GenerateHashService} from '../../../user-action-engine/other/generateHash.service';
 import {map} from 'rxjs/operators';
 import {QueryModel} from '../../../user-action-engine/mongodb/query/query.model';
+import {MatDialog} from '@angular/material/dialog';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-my-files',

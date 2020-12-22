@@ -1,9 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output, Renderer2, ViewChild} from '@angular/core';
-import {MatDialog, MatMenu} from '@angular/material';
 import {Router} from '@angular/router';
 import {PageService} from '../../../user-action-engine/mongodb/page/page.service';
 import {SubPageOfPageModel} from '../../../user-action-engine/mongodb/page/subPageOfPage.model';
 import {Page} from '../../mongodb/page/page.model';
+import {MatMenu} from '@angular/material/menu';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-sub-page-list',

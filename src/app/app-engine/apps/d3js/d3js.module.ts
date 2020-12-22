@@ -14,9 +14,13 @@ import { LeafletExampleComponent } from './leaflet-example/leaflet-example.compo
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { ChordDiagramComponent } from './chord-diagram/chord-diagram.component';
 import { SpiralBarChartComponent } from './spiral-bar-chart/spiral-bar-chart.component';
-import {MatButtonModule, MatFormFieldModule, MatInputModule, MatSliderModule, MatSlideToggleModule} from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import {NgxSliderModule} from '@angular-slider/ngx-slider';
+import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSliderModule} from '@angular/material/slider';
+import {MatInputModule} from '@angular/material/input';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
   imports: [

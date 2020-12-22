@@ -6,12 +6,12 @@
  * */
 
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {query} from '@angular/animations';
 import {HttpClient} from '@angular/common/http';
 import {AbstractJsonService} from '../data-management/services/abstract-json.service';
 import {PageService} from '../../user-action-engine/mongodb/page/page.service';
 import {GeneralRequestService} from '../../query-engine/general/general-request.service';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 
 @Component({

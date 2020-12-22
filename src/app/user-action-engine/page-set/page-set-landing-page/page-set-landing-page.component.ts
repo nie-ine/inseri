@@ -1,5 +1,4 @@
 import {Component, OnInit, Inject, Output, EventEmitter} from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatTreeNestedDataSource} from '@angular/material';
 import {Router, ActivatedRoute} from '@angular/router';
 import {EditPageSetComponent} from '../edit-page-set/edit-page-set.component';
 import {ActionService} from '../../mongodb/action/action.service';
@@ -14,6 +13,8 @@ import {PageSetService} from '../../mongodb/pageset/page-set.service';
 import {AuthService} from '../../mongodb/auth/auth.service';
 import {SubPageOfPageModel} from '../../mongodb/page/subPageOfPage.model';
 import {NestedTreeControl} from '@angular/cdk/tree';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MatTreeNestedDataSource} from '@angular/material/tree';
 
 @Component({
   selector: 'app-page-set-landing-page',

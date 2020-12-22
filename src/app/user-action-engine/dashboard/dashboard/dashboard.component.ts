@@ -1,5 +1,4 @@
 import {Component, OnInit, Inject} from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {Router, NavigationEnd} from '@angular/router';
 import {ActionService} from '../../mongodb/action/action.service';
 import {Action} from '../../mongodb/action/action.model';
@@ -21,9 +20,9 @@ import * as Fs from 'fs';
 import JSZip from 'jszip';
 import * as FileSaver from 'file-saver';
 import {CommentService} from '../../mongodb/comment/comment.service';
-import {error} from 'util';
 import {QueryService} from '../../mongodb/query/query.service';
 import {environment} from '../../../../environments/environment';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dashboard',

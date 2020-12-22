@@ -2,7 +2,6 @@ import {Component, OnInit, OnDestroy, Inject, AfterViewChecked, ChangeDetectorRe
 import {Router, ActivatedRoute} from '@angular/router';
 import {AuthService} from '../mongodb/auth/auth.service';
 import {Subscription} from 'rxjs';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {InitService} from '../init-popup/service/init.service';
 import {InitPopupComponent} from '../init-popup/init-popup.component';
@@ -15,6 +14,8 @@ import 'rxjs/add/observable/interval';
 import {ContactService} from '../mongodb/contact/contact.service';
 import {environment} from '../../../environments/environment';
 import {PasswordFormatCheckService} from '../shared/password-format-check.service';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 export interface ChipColor {
   name: string;
