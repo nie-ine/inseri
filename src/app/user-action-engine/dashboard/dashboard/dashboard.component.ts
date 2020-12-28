@@ -539,6 +539,10 @@ export class DialogOverviewExampleDialog {
   //     );
   // }
 
+  /**
+   * Import project used to upload the project configuration files as a zipFile.
+   * @param $event --> The uploaded zip file
+   */
   importProjectAsZip($event: Event) {
     const zipFile = (event.target as HTMLInputElement).files[0];
     let action, pageSet, pages, queries, allFiles, jsonQueries, oldHostUrl, filesJson, foldersJson, comments;

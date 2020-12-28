@@ -92,6 +92,8 @@ export class PageService {
 
   updateSubPage(page: any): Observable<any> {
     console.log(page);
-    return this.http.put(`${PageService.API_BASE_URL_PAGE}/updateSubPages/${page.page._id}`, page.subPages);
+    return this.http.put(`${PageService.API_BASE_URL_PAGE}/updateSubPages/${page.page._id}`,
+      page.subPages,
+      {observe: 'response'});
   }
 }

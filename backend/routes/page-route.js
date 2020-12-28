@@ -698,6 +698,9 @@ function updatePage(pageResult, queries, res, req, oldAndNewServerUrls, oldAndNe
     });
 }
 
+/**
+ * Adds a profile template for a page
+ */
 router.post('/addProfileTemplate/:pageID', multer({storage: storage}).single("file"), (req, res, next) => {
   let filePath = '';
   console.log(req.file);
@@ -721,6 +724,9 @@ router.post('/addProfileTemplate/:pageID', multer({storage: storage}).single("fi
 });
 
 //create sub-page
+/**
+ * Creates a subPage for the pageID associated in the request parameters.
+ */
 router.post('/:pageId/newSubPage', checkAuth, (req, res, next) => {
   let messages = [];
   // Tests if title is undefined, null or is empty string
@@ -774,6 +780,9 @@ router.post('/:pageId/newSubPage', checkAuth, (req, res, next) => {
     });
 });
 
+/**
+ * Returns the subPages for a specific pageId
+ */
 router.get('/sub-pages/:pageId', checkAuth, (req, res, next) => {
   Page.find({_id: req.params.pageId}, {_id: 0, hasSubPages: 1})
     .populate('hasSubPages')
@@ -811,6 +820,9 @@ router.get('/sub-pages/:pageId', checkAuth, (req, res, next) => {
   });
 });
 
+/**
+ * A helper function used to remove a page from its old parent, either from the pageSet or another page.
+ */
 async function removeFromOldParent(pageToMove, oldParentPage, pageSet) {
   if (oldParentPage !== null) {// need to be removed from old Parent sub Pages
     let deleteFromOldParent = await Page.updateOne({_id: oldParentPage._id}, {$pull: {hasSubPages: pageToMove}});
@@ -825,6 +837,9 @@ async function removeFromOldParent(pageToMove, oldParentPage, pageSet) {
   }
 }
 
+/**
+ * A helper function used to add a page to a new parent, either to the pageSet or another page.
+ */
 async function addToNewParent(pageToMove, newParentPage, pageSet) {
   if (newParentPage !== null) {
     let addToNewPage = await Page.updateOne({_id: newParentPage._id}, {$push: {hasSubPages: pageToMove}});
@@ -839,6 +854,9 @@ async function addToNewParent(pageToMove, newParentPage, pageSet) {
   }
 }
 
+/**
+ * Used to move a page
+ */
 router.post('/movePage', checkAuth, (req, res, next) => {
   console.log('move page, req.body is');
   console.log(req.body);
@@ -894,14 +912,25 @@ async function getHierarchyOfPages(pageObj) {
   }
 }
 
+/**
+ * Used to move pages up or down on the same level.
+ */
 router.put('/updateSubPages/:id', checkAuth, (req, res, next) => {
-  PageSet.findByIdAndUpdate({_id: req.params.id}, {
-    hasSubPages: req.body.subPages
+  console.log('updateSubPages');
+  console.log(req.params);
+  console.log(req.body);
+  Page.updateOne({_id: req.params.id}, {
+    $pullAll: {
+      hasSubPages: req.body
+    }
   })
     .then((resultPage) => {
-      res.status(200).json({
-        message: 'Page was updated successfully',
-      });
+      Page.updateOne({_id: req.params.id}, {$addToSet: {hasSubPages: {$each: req.body}}}).then((results => {
+        console.log(results);
+        res.status(200).json({
+          message: 'Page was updated successfully',
+        });
+      }))
     })
     .catch(error => {
       res.status(401).json({
