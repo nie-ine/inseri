@@ -89,4 +89,9 @@ export class PageService {
     return this.http.post(`${PageService.API_BASE_URL_PAGE}/movePage`,
       {pageToMove: pageToMove, oldParentPage: oldParentPage, newParentPage: newParentPage, pageSet: pageSet});
   }
+
+  updateSubPage(page: any): Observable<any> {
+    console.log(page);
+    return this.http.put(`${PageService.API_BASE_URL_PAGE}/updateSubPages/${page.page._id}`, page.subPages);
+  }
 }

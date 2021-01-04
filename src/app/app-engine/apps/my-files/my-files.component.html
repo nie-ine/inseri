@@ -222,6 +222,12 @@
       delete
     </mat-icon>
   </button>
+  <br>
+  <button mat-menu-item matTooltip="Show File URL" (click)="showFileUrl(file.id)">
+    <mat-icon>
+      my_location
+    </mat-icon>
+  </button>
 </mat-menu>
 <mat-menu #menuOpenFileApps="matMenu" >
   <div *ngFor="let app of inseriAppsMenu" style="display: inline-block">

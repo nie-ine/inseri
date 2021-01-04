@@ -22,6 +22,7 @@ import {MatTreeNestedDataSource} from '@angular/material/tree';
   styleUrls: ['./page-set-landing-page.component.scss']
 })
 export class PageSetLandingPageComponent implements OnInit {
+  private indexOfPage: number;
 
   constructor(
     public dialog: MatDialog,
@@ -32,13 +33,15 @@ export class PageSetLandingPageComponent implements OnInit {
     private actionService: ActionService,
     private pageSetService: PageSetService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private pageService: PageService
   ) {}
   name: string;
   actionID: string;
   pageSet: any;
   action: any;
   pagesOfThisPageSet: any;
+  parentPage: boolean;
   isLoading: boolean;
   dataSource = new MatTreeNestedDataSource<SubPageOfPageModel>();
   treeControl = new NestedTreeControl<SubPageOfPageModel>(node => node.subPages);
@@ -188,36 +191,143 @@ export class PageSetLandingPageComponent implements OnInit {
         this.checkIfPageSetExists(this.actionID);
       });
   }
-
-  switchPages(currentPosition: number, newPosition: number) {
-    const currentPage = this.pagesOfThisPageSet[ currentPosition ];
-    this.pagesOfThisPageSet[ currentPosition ] = this.pagesOfThisPageSet[ newPosition ];
-    this.pagesOfThisPageSet[ newPosition ] = currentPage;
-    const pageIdArray = [];
-    let i = 0;
-    for ( const page of this.pagesOfThisPageSet ) {
-      pageIdArray[ i ] = page._id;
-      i++;
+switchPages(page: any, upOrDown: boolean) {
+    this.updateParentPages(page, upOrDown);
+    if (!this.parentPage) {
+      this.updateSubPages(page, upOrDown);
     }
-    this.pageSetService.getPageSet( this.action.hasPageSet._id )
-      .subscribe(
-        data => {
-          const pageSet = data.pageset;
-          pageSet.hasPages = pageIdArray;
-          pageSet.id = pageSet._id;
-          this.pageSetService.updatePageSet( pageSet )
-            .subscribe(
-              data1 => {
-                console.log( data1 );
-              }, error2 => {
-                console.log( error2 );
-              }
-            );
-        }, error1 => {
-          console.log( error1 );
+  this.dataSource.data = this.subPagesOfPage;
+    console.log(this.dataSource.data);
+  this.parentPage = false;
+}
+
+  /**This function is used to get the list that contains the pageToSearch to be updated
+   */
+  private getParentList(pageToSearch: any, subPagesOfPage: SubPageOfPageModel[], upOrDown: boolean, parentPageParam: any) {
+    for ( let i = 0; i < subPagesOfPage.length; i++ ) {
+      if ( pageToSearch._id === subPagesOfPage[i].page._id) {
+        this.parentPage = true;
+        if (upOrDown && i !== 0) { // true means go up one level
+          const currentPage = subPagesOfPage[ i - 1 ];
+          subPagesOfPage[ i - 1 ] = subPagesOfPage[ i ];
+          subPagesOfPage[ i ] = currentPage;
+        } else if (!upOrDown && i !== subPagesOfPage.length - 1 ) { // go down one level
+          const currentPage = subPagesOfPage[ i ];
+          subPagesOfPage[ i ] = subPagesOfPage[ i + 1];
+          subPagesOfPage[ i + 1 ] = currentPage;
         }
-      );
+        const subPagesIds = [];
+        subPagesOfPage.forEach(item => { subPagesIds.push(item.page._id); });
+        this.pageService.updateSubPage({page: parentPageParam, subPages: subPagesIds })
+          .subscribe(data => {
+          }, error1 => {
+            console.log(error1);
+          }
+        );
+        break;
+        //return subPagesOfPage[i];//{page: parentPageParam, subPages: subPagesOfPage};
+      }
+    }
+    for ( let i = 0; i < subPagesOfPage.length; i++ ) {
+      if ( subPagesOfPage[i].subPages.length !== 0 ) {
+        subPagesOfPage[i] = this.getParentList(pageToSearch, subPagesOfPage[i].subPages, upOrDown, subPagesOfPage[i].page);
+        if (this.parentPage) {
+          //return subPagesOfPage[i];
+          break;
+        }
+      }
+    }
+    return { page: parentPageParam, subPages: subPagesOfPage};
   }
+
+  private updateSubPages(page: any, upOrDown) {
+    for (let i = 0; i < this.subPagesOfPage.length; i++) {
+      if (this.subPagesOfPage[i].subPages.length !== 0) {
+        this.subPagesOfPage[i] = this.getParentList(page.page, this.subPagesOfPage[i].subPages, upOrDown, this.subPagesOfPage[i].page);
+        if (this.parentPage) {
+          break;
+        }
+      }
+    }
+  }
+  private updateParentPages(page: any, upOrDown) {
+    for (let i = 0 ; i < this.subPagesOfPage.length; i++) {
+      if ( page.page._id === this.subPagesOfPage[i].page._id) {
+        this.parentPage = true;
+        if (upOrDown && i !== 0) { // true means go up one level
+          const currentPage = this.subPagesOfPage[ i - 1 ];
+          this.subPagesOfPage[ i - 1 ] = this.subPagesOfPage[ i ];
+          this.subPagesOfPage[ i ] = currentPage;
+          break;
+        } else if (!upOrDown && i !== this.subPagesOfPage.length - 1 ) { // go down one level
+          const currentPage = this.subPagesOfPage[ i ];
+          this.subPagesOfPage[ i ] = this.subPagesOfPage[ i + 1];
+          this.subPagesOfPage[ i + 1 ] = currentPage;
+          break;
+        }
+      }
+    }
+    if (this.parentPage) {
+      const pageIdArray = [];
+      for (let i = 0; i < this.subPagesOfPage.length; i++) {
+        pageIdArray.push(this.subPagesOfPage[i].page._id);
+      }
+      this.pageSetService.getPageSet(this.action.hasPageSet._id)
+        .subscribe(
+          data => {
+            const pageSet = data.pageset;
+            pageSet.hasPages = pageIdArray;
+            pageSet.id = pageSet._id;
+            this.pageSetService.updatePageSet(pageSet)
+              .subscribe(
+                data1 => {
+                  console.log(data1);
+                }, error2 => {
+                  console.log(error2);
+                }
+              );
+          }, error1 => {
+            console.log(error1);
+          }
+        );
+    }
+
+  }
+
+// switchPages(currentPosition: number, newPosition: number) {
+  //   const currentPage = this.subPagesOfPage[ currentPosition ];
+  //   this.subPagesOfPage[ currentPosition ] = this.subPagesOfPage[ newPosition ];
+  //   this.subPagesOfPage[ newPosition ] = currentPage;
+  //   // const currentPage = this.pagesOfThisPageSet[ currentPosition ];
+  //   // this.pagesOfThisPageSet[ currentPosition ] = this.pagesOfThisPageSet[ newPosition ];
+  //   // this.pagesOfThisPageSet[ newPosition ] = currentPage;
+  //   const pageIdArray = [];
+  //   let i = 0;
+  //   console.log(this.subPagesOfPage);
+  //   for ( const page of this.subPagesOfPage ) {
+  //     pageIdArray[ i ] = this.subPagesOfPage[i].page._id;
+  //     i++;
+  //   }
+  //   console.log(this.subPagesOfPage);
+  //   this.pageSetService.getPageSet( this.action.hasPageSet._id )
+  //     .subscribe(
+  //       data => {
+  //         const pageSet = data.pageset;
+  //         pageSet.hasPages = pageIdArray;
+  //         pageSet.id = pageSet._id;
+  //         this.pageSetService.updatePageSet( pageSet )
+  //           .subscribe(
+  //             data1 => {
+  //               console.log( data1 );
+  //             }, error2 => {
+  //               console.log( error2 );
+  //             }
+  //           );
+  //       }, error1 => {
+  //         console.log( error1 );
+  //       }
+  //     );
+  // }
 
   goToPage( page: any ) {
     console.log( page );
@@ -234,6 +344,7 @@ export class PageSetLandingPageComponent implements OnInit {
     this.subPagesOfPage = newSubPagesOfPage;
     this.dataSource.data = this.subPagesOfPage;
   }
+
 
   openMovePageMenu(page: any, menu: Event) {
     this.pageToMove = page;

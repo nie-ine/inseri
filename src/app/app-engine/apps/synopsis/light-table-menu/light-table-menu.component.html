@@ -1,0 +1,45 @@
+<button mat-icon-button [matMenuTriggerFor]="menu">
+  <mat-icon>menu</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="openAddObjectDialog()">
+    <mat-icon>add</mat-icon>
+    <span>Add object</span>
+  </button>
+  <button mat-menu-item (click)="toggleTiledLayout($event)">
+    <ng-container *ngIf="!tiled; else floatLayout">
+      <mat-icon>grid_on</mat-icon>
+      <span>Tiled layout</span>
+    </ng-container>
+    <ng-template #floatLayout>
+      <mat-icon>grid_off</mat-icon>
+      <span>Float layout</span>
+    </ng-template>
+  </button>
+  <span mat-menu-item *ngIf="tiled" [disableRipple]="true">
+    <mat-icon>view_column</mat-icon>
+    <span>
+      <button mat-icon-button (click)="decrementNumberOfColumns($event);" [disableRipple]="true"
+              [disabled]="numberOfColumns <= 1">
+        <mat-icon>remove_circle_outline</mat-icon>
+      </button>
+      {{numberOfColumns}}
+      <button mat-icon-button (click)="incrementNumberOfColumns($event)" [disableRipple]="true"
+              [disabled]="numberOfColumns >= 5">
+        <mat-icon>add_circle_outline</mat-icon>
+      </button>
+    </span>
+  </span>
+  <button mat-menu-item (click)="openSaveLightTableDialog()">
+    <mat-icon>cloud_upload</mat-icon>
+    <span>Save light table</span>
+  </button>
+  <button mat-menu-item (click)="openLoadLightTableDialog()">
+    <mat-icon>cloud_download</mat-icon>
+    <span>Load light table</span>
+  </button>
+  <button mat-menu-item (click)="openShareLightTableDialog()">
+    <mat-icon>share</mat-icon>
+    <span>Share light table</span>
+  </button>
+</mat-menu>

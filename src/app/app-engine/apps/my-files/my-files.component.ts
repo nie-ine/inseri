@@ -798,4 +798,12 @@ appInputsArray = [];
         }, error => console.log( error )
       );
   }
+
+  showFileUrl(id: string) {
+    for (let i = 0; i < this.files.length; i++) {
+      if ( this.files[i].id === id ) {
+        alert(this.files[i].urlPath);
+      }
+    }
+  }
 }

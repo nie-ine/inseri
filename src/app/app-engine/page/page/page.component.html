@@ -95,7 +95,7 @@
 
       <ng-container *ngFor="let page of subPagesOfPage">
 
-        <button class="mat-menu-item" mat-menu-item style="width: 200px;">
+        <button class="mat-menu-item" mat-menu-item style="width: 240px;">
                  <!--[matMenuTriggerFor]="submenu.menu"-->
 
           <span class="pm-menu-item"  (click)="navigateToOtherView(page.page)" [ngStyle]="{'display': (page.subPages.length!==0 || addSubPages)? 'contents':'block'}">

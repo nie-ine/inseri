@@ -1,0 +1,17 @@
+<div class="drop-target">
+  <div id="container" [ngClass]="setColumns(columns)">
+    <div class="tile" appTileDropTarget (appDrop)="onDrop($event, i)"
+         *ngFor="let obj of synopsisObjects; let i = index;">
+      <ng-container [ngSwitch]="obj.dataType">
+        <app-tiled-text-object *ngSwitchCase="synopsisObjectTypes.Text" [data]="obj"
+                               class="object-container"></app-tiled-text-object>
+        <app-tiled-image-object *ngSwitchCase="synopsisObjectTypes.Image" [data]="obj" class="object-container">
+        </app-tiled-image-object>
+      </ng-container>
+    </div>
+    <div class="tile" appTileDropTarget (appDrop)="onDrop($event)" id="new-drop-zone"
+         *ngIf="dragging">
+      <div class="object-container" style="height:50vh"></div>
+    </div>
+  </div>
+</div>

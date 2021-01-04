@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TextLineComponent } from './text-line.component';
 
@@ -6,7 +6,7 @@ describe('TextLineComponent', () => {
   let component: TextLineComponent;
   let fixture: ComponentFixture<TextLineComponent>;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ TextLineComponent ]
     })

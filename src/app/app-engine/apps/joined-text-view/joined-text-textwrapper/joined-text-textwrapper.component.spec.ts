@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { JoinedTextTextwrapperComponent } from './joined-text-textwrapper.component';
 
@@ -6,7 +6,7 @@ describe('JoinedTextTextwrapperComponent', () => {
   let component: JoinedTextTextwrapperComponent;
   let fixture: ComponentFixture<JoinedTextTextwrapperComponent>;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ JoinedTextTextwrapperComponent ]
     })
