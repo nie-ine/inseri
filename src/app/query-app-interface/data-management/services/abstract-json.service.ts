@@ -42,7 +42,13 @@ export class AbstractJsonService {
         abstractTree[ leaf ].type = typeof leafLayer[ leaf ];
         abstractTree[ leaf ].hash = this.generateHash();
         abstractTree[ leaf ].parent = parent;
-        if ( typeof leafLayer[ leaf ] !== 'string' && leafLayer[ leaf ] !== null ) {
+        if (
+          typeof leafLayer[ leaf ] !== 'string' &&
+          typeof leafLayer[ leaf ] !== 'number' &&
+          leafLayer[ leaf ] !== null &&
+          leafLayer[ leaf ].length !== undefined
+        ) {
+          // console.log( leafLayer[ leaf ].length );
           for ( const entry of leafLayer[ leaf ] ) {
             this.leafLoop(
               entry,

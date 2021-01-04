@@ -18,6 +18,8 @@ import {QueryEntryComponent} from '../../../query-engine/query-entry/query-entry
 import {OpenAppsModel} from '../../../user-action-engine/mongodb/page/open-apps.model';
 import {GeneralRequestService} from '../../../query-engine/general/general-request.service';
 import {GenerateHashService} from '../../../user-action-engine/other/generateHash.service';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-my-files',
@@ -366,6 +368,7 @@ export class MyFilesComponent implements OnInit, OnChanges {
    */
   get allFiles(): FormArray {
     return this.demoForm.get('files') as FormArray;
+  }
   /**
   }
 
