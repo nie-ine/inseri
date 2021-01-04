@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { HtmlViewerInnerhtmlComponent } from './html-viewer-innerhtml.component';
 
@@ -6,7 +6,7 @@ describe('HtmlViewerInnerhtmlComponent', () => {
   let component: HtmlViewerInnerhtmlComponent;
   let fixture: ComponentFixture<HtmlViewerInnerhtmlComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ HtmlViewerInnerhtmlComponent ]
     })

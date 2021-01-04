@@ -10,8 +10,8 @@ import {
   Input,
   Output,
   EventEmitter} from '@angular/core';
-import {MatDialog} from '@angular/material';
 import {ActivatedRoute, Router} from '@angular/router';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-data-chooser',

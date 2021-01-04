@@ -34,6 +34,9 @@ let actionRoute=require('../routes/action');
 // };
 
 
+/**
+ * Storage object to define the destination path and to generate the file name
+ */
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "backend/files");
@@ -49,6 +52,9 @@ const storage = multer.diskStorage({
   }
 });
 
+/**
+ * To upload zipFile to the server, not used yet.
+ */
 router.post('/uploadZipFile', multer({storage: storage}).single("zip"), (req, res, next) => {
   console.log(req.protocol + "://" + req.get("host") + "/files/" + req.file.filename);
   res.status(201).json({
@@ -59,6 +65,9 @@ router.post('/uploadZipFile', multer({storage: storage}).single("zip"), (req, re
   });
 });
 
+/**
+ * To upload a single file
+ */
 router.post('/singleFileUpload/:folderId/:newFile', checkAuth, multer({storage: storage}).single("file"), (req, res, next) => { ///multer fn that expect a single file from the incoming req and will try to find an file property in the req body
   let file = {};
   console.log(req.body);
@@ -149,6 +158,9 @@ router.post('/singleFileUpload/:folderId/:newFile', checkAuth, multer({storage: 
     });
 });
 
+/**
+ * To upload multiple files.
+ */
 router.post('/files/:folderId', checkAuth, multer({storage: storage}).array("file"),
   (req, res, next) => {
     //console.log(req.files);
@@ -202,6 +214,9 @@ router.post('/files/:folderId', checkAuth, multer({storage: storage}).array("fil
     });
   });
 
+/**
+ * returns a file by ID
+ */
 router.get("/:id", (req, res, next) => {
   FileModel.findById(req.params.id).then(file => {
     if (file) {
@@ -234,17 +249,20 @@ router.get("/:id", (req, res, next) => {
   });
 });
 
+/**
+ * returns a file by URL
+ */
 router.get("/getFileByUrl/:url", checkAuth, (req, res, next) => {
 
   console.log( req.params.url );
 
-  FileModel.find({urlPath: req.params.url}).then(file => {
+  FileModel.findOne({urlPath: req.params.url}).then(file => {
     if (file) {
       console.log('file:', file);
       res.status(200).json(
         {
           message: "file found",
-          file: file[0]
+          file: file
         });
     } else {
       res.status(404).json({message: "file not found!"});
@@ -252,24 +270,14 @@ router.get("/getFileByUrl/:url", checkAuth, (req, res, next) => {
   });
 });
 
+/**
+ * To update the file title or description using the file ID
+ */
 router.post("/:id", checkAuth, (req, res, next) => {
-  //let url = req.protocol + "://" + req.get("host")+"/";
-  //url += "/files/" ;
-  //console.log(req.params.id);
-  //console.log(req.body.urlPath);
   FileModel.updateOne({_id: req.params.id, owner: req.userData.userId},
     {$set: {title: req.body.title, description: req.body.description}})
     .then(result => {
-      //console.log('printing the result '+result);
-      //const fileUploadedOn=req.body.oldFileName.substring(0,req.body.oldFileName.indexOf('-'));
-      /*console.log(fileUploadedOn);
-       fs.rename(url+req.body.oldFileName, url+fileUploadedOn+'-'+req.body.title, function (err) {
-        if (err) throw err;
-        console.log('File Renamed.');
-      });*/
-      //console.log('starting writing to the file');
       let path = 'backend' + req.body.urlPath.substring(req.body.urlPath.indexOf('/files/'));
-      //console.log(path);
       if (path.match(/.*\.(txt)|(py)|(json)$/)) {
         fs.writeFile(path, req.body.content, function (err) {
           if (err) {
@@ -285,12 +293,6 @@ router.post("/:id", checkAuth, (req, res, next) => {
           });
         });
       }
-      // console.log(result);
-      // console.log(req.params.id, req.body.title, req.body.description);
-      // res.status(200).json({
-      //   message: "Update successful!",
-      //   file: result
-      // });
     }).catch(error => {
     console.log('error while saving to db: ' + error);
     res.status(500).json({
@@ -300,6 +302,9 @@ router.post("/:id", checkAuth, (req, res, next) => {
   });
 });
 
+/**
+ * To get all the file in a specific folder, using the folder ID
+ */
 router.get("/files/:folderId", checkAuth, (req, res, next) => {
   Folder.find({owner: req.userData.userId, _id: req.params.folderId}, {hasFiles: 1, _id: 0})
     .then(filesIds => {
@@ -344,7 +349,9 @@ router.get("/files/:folderId", checkAuth, (req, res, next) => {
     });
 });
 
-
+/**
+ * To delete a file using the File ID. The folder ID is used to delete the file from the folder as well.
+ */
 router.post("/deleteFiles/:fileId&:folderId", (req, res, next) => {
   FileModel.find({_id: req.params.fileId}).then(file => {
     console.log(req.params);
@@ -392,6 +399,9 @@ router.post("/deleteFiles/:fileId&:folderId", (req, res, next) => {
   });
 });
 
+/**
+ * A helper function for the export project to get all the project's comments
+ */
 function getComments(projectSpecific, objectId, returnedObj, res, req, queryIds) {
   if (projectSpecific) {
     Comment.find({action: objectId}).then(commentsResult => {
@@ -409,6 +419,9 @@ function getComments(projectSpecific, objectId, returnedObj, res, req, queryIds)
   }
 }
 
+/**
+ * Export the project configuration file as a zip folder.
+ */
 router.get("/downloadProject/:actionId", checkAuth, (req, res, next) => {
   let queryIds = [];
   let returnedObj = {};
@@ -437,16 +450,27 @@ router.get("/downloadProject/:actionId", checkAuth, (req, res, next) => {
             console.log(message);
           } else {
             returnedObj.pageSet = pageSet;
-            let pages = [];
-            Page.find({_id: {$in: pageSetResult[0].hasPages}}).then(pagesResult => {
+            let tempPages = [];
+            Page.find({_id: {$in: pageSetResult[0].hasPages}}).then(async pagesResult => {
+              console.log('printing parent pages');
+              console.log(pagesResult);
               for (let i = 0; i < pagesResult.length; i++) {
-                pages.push(pagesResult[i]);
-                if (pagesResult[i].queries.length != 0) {
-                  pagesResult[i].queries.forEach(item => {
-                    queryIds.push(item)
+                tempPages.push(pagesResult[i]);
+                if(pagesResult[i].hasSubPages && pagesResult[i].hasSubPages.length!==0){
+                  tempPages.push(await getHierarchyOfPages(pagesResult[i]));
+                }
+              }
+              console.log('printing pages');
+              console.log(tempPages);
+              let pages = flatten(tempPages);
+              for(let i=0;i<pages.length;i++){
+                if (pages[i].queries.length != 0) {
+                    pages[i].queries.forEach(item => {
+                    queryIds.push(item);
                   });
                 }
               }
+
               returnedObj.pages = (JSON.stringify(pages));
               returnedObj.oldHostUrl = req.protocol + '://' + req.get('host');
               if (queryIds.length === 0) {
@@ -486,11 +510,43 @@ router.get("/downloadProject/:actionId", checkAuth, (req, res, next) => {
     });
 });
 
+/**
+ * A helper function to flat an array of arrays to a single dimensional array
+ */
+function flatten(arr) {
+  return arr.reduce(function (flat, toFlatten) {
+    return flat.concat(Array.isArray(toFlatten) ? flatten(toFlatten) : toFlatten);
+  }, []);
+}
+
+/**
+ * A recursive helper function to get all the subPages of a page. It is used in to download all the pages related to a project while exporting the project.
+ */
+async function getHierarchyOfPages(pageObj) {
+  let page= await Page.findOne({_id: pageObj._id }).populate('hasSubPages');
+  let subPagesOfSubPage=[];
+  if(page) {
+    console.log(page);
+    if (page.hasSubPages && page.hasSubPages.length!==0) {
+      let subPagesResult=page.hasSubPages;
+      for(let i=0;i<subPagesResult.length; i++) {
+        if(subPagesResult[i].hasSubPages && subPagesResult[i].hasSubPages.length!==0){
+          subPagesOfSubPage.push( await getHierarchyOfPages(subPagesResult[i]));
+        }
+        subPagesOfSubPage.push(subPagesResult[i]);
+      }
+      return subPagesOfSubPage;
+    } else {
+      return subPagesOfSubPage;
+    }
+  }
+}
+
+/**
+ * A helper function to get all folders that have the files associated in the queries URL or in the my Own json. It is used while exporting the project configuration files.
+ */
 async function getFoldersOfFiles(fileIds, folderIds, userId, returnedObj) {
-//console.log("fileIds" + fileIds);
-//console.log("folderIds" + folderIds);
   let returnedFolders = [];
-  //let filesFoundInFolders=[];
   let promiseResult = '';
   try {
     let allFoldersForAUser = await Folder.find({owner: userId});
@@ -502,8 +558,6 @@ async function getFoldersOfFiles(fileIds, folderIds, userId, returnedObj) {
     }
 
     let foldersWithFiles = await Folder.find({$or: [{hasFiles: {$elemMatch: {$in: newObjectFileIds}}}, {_id: {$in: folderIds}}]});
-    //console.log("getFoldersOfFiles");
-    //console.log(foldersWithFiles);
     if(foldersWithFiles && foldersWithFiles.length!=0 ){
       foldersWithFiles.forEach(folder => {
         let folderFound=false;
@@ -519,15 +573,9 @@ async function getFoldersOfFiles(fileIds, folderIds, userId, returnedObj) {
         }
       });
     }
-
-    //returnedFolders.push(foldersWithFiles.flatten());
     for (let i = 0; i < foldersWithFiles.length; i++) {
       getParents(foldersWithFiles[i], allFoldersForAUser, returnedFolders);
     }
-
-   // console.log("folders with files and their parents ");
-   // console.log( returnedFolders);
-   // console.log( returnedFolders.length);
     for(let i=0; i< returnedFolders.length;i++){
       if(returnedFolders[i].hasFiles && returnedFolders[i].hasFiles.length!=0){
         console.log(returnedFolders[i].hasFiles);
@@ -537,8 +585,6 @@ async function getFoldersOfFiles(fileIds, folderIds, userId, returnedObj) {
     if(returnedFolders && returnedFolders.length!=0 ) {
       returnedFolders.forEach(folder => {
         let folderFound = false;
-        //console.log("before adding the returned Folders");
-        //console.log(returnedObj.folders);
         if (returnedObj.folders && returnedObj.folders.length != 0) {
           returnedObj.folders.forEach(item => {
             if (item._id.toString() == folder._id.toString()) {
@@ -551,10 +597,6 @@ async function getFoldersOfFiles(fileIds, folderIds, userId, returnedObj) {
         }
       });
     }
-    //console.log("returned Object with Folders");
-    //console.log(returnedObj.folders);
-    //returnedFolders.forEach(folder=>{returnedObj.folders.push(folder)});
-    //returnedObj.folders.push(returnedFolders);
     return promiseResult + ' get Folders done';
   } catch (error) {
     console.log("All Folders could not be found " + error);
@@ -562,13 +604,18 @@ async function getFoldersOfFiles(fileIds, folderIds, userId, returnedObj) {
   }
 }
 
+/**
+ * Returns the heirarchy of the parent folders
+ * @param folder --> The folder to returns its parents
+ * @param foldersSearchSpace --> All the folders that belongs to the current user. The folder search space
+ * @param returnTarget --> The returned folders
+ */
 function getParents(folder, foldersSearchSpace, returnTarget) {
   let parentIndex = getParent(folder, foldersSearchSpace);
   if (parentIndex === -1) {
     return;
   } else {
       let folderFound=false;
-      //console.log( "folder "+ folder._id.toString()+" has Parent folder "+ foldersSearchSpace[parentIndex]);
     if(returnTarget && returnTarget.length!=0 ) {
       returnTarget.forEach(folder => {
         if (folder._id.toString() == foldersSearchSpace[parentIndex]._id.toString()) {
@@ -580,11 +627,13 @@ function getParents(folder, foldersSearchSpace, returnTarget) {
         console.log("added "+ foldersSearchSpace[parentIndex]._id.toString()+" to the return Target");
       }
     }
-    //returnTarget.push(foldersSearchSpace[parentIndex]);
     getParents(foldersSearchSpace[parentIndex], foldersSearchSpace, returnTarget);
   }
 }
 
+/**
+ * A helper function to get the direct parent for a folder
+ */
 function getParent(folder, foldersSearchSpace) {
   let i = -1;
   for (i = 0; i < foldersSearchSpace.length; i++) {
@@ -603,6 +652,11 @@ function getParent(folder, foldersSearchSpace) {
   return i;
 }
 
+/**
+ * A helper function to get the file details for all the file Ids and the files' URL paths.
+ * @param arrayOfFilePaths --> Array of file URL paths.
+ * @param p_fileIds --> Array of file Ids
+ */
 async function getFiles(arrayOfFilePaths, p_fileIds, returnedObj) {
   console.log("getFiles************");
   let fileUrlPaths = [];
@@ -610,17 +664,13 @@ async function getFiles(arrayOfFilePaths, p_fileIds, returnedObj) {
   if (arrayOfFilePaths && arrayOfFilePaths.length != 0) {
     console.log(arrayOfFilePaths);
     for (let i = 0; i < arrayOfFilePaths.length; i++) {
-      //console.log(arrayOfFilePaths[i]);
       let x = arrayOfFilePaths[i];
       x = x.substring(1).substring(0, x.length - 2);
-      //console.log(x);
       fileUrlPaths.push(x);
     }
     console.log(fileUrlPaths);
   }
   try {
-    //console.log("fileUrlPaths "+ fileUrlPaths);
-    //console.log((p_fileIds.length!=0)? p_fileIds:fileUrlPaths);
     let filesResult = await FileModel.find({$or: [{urlPath: {$in: fileUrlPaths}}, {_id: {$in: p_fileIds}}]});
     console.log("print hehhabasfdknfdks");
     console.log(filesResult);
@@ -645,38 +695,6 @@ async function getFiles(arrayOfFilePaths, p_fileIds, returnedObj) {
       });
     }
 
-    // if(filesResult && filesResult.length!=0 ) {
-    //   filesResult.forEach(file => {
-    //     let fileFound = false;
-    //     if(returnedObj.arrayOfFilePaths && returnedObj.arrayOfFilePaths.length!=0)
-    //       returnedObj.arrayOfFilePaths.forEach(item => {
-    //         if (item === file.urlPath) {
-    //           fileFound = true;
-    //         }
-    //       });
-    //     if (!fileFound) {
-    //       returnedObj.arrayOfFilePaths.push(file.urlPath);
-    //     }
-    //   });
-    // }
-    // filesResult.forEach(file => {
-    //   if(!returnedObj.fileIds.includes(file._id)){
-    //     returnedObj.fileIds.push(file._id);
-    //   }
-    // });
-    //console.log(returnedObj.fileIds);
-    // let fileFound= false;
-    // filesResult.forEach(file=>{
-    //   returnedObj.files.forEach(item =>{
-    //     if(file._id === item._id){
-    //       fileFound=true;
-    //     }
-    //   });
-    //   if(!fileFound) {
-    //     returnedObj.files.push(file);
-    //   }
-    // });
-    //console.log(returnedObj.files);
    return 'getFiles done';
   } catch (error) {
     console.log("cannot find all files" + error);
@@ -684,6 +702,10 @@ async function getFiles(arrayOfFilePaths, p_fileIds, returnedObj) {
   }
 }
 
+/**
+ * A helper function to get the JSON Ids
+ * @param filesJsonIds --> Array of the Json Ids
+ */
 async function getJsonIds(filesJsonIds, returnedObj) {
   let arrayOfFilePaths;
   if (filesJsonIds.length != 0) {
@@ -696,22 +718,17 @@ async function getJsonIds(filesJsonIds, returnedObj) {
       arrayOfFilePaths.forEach(filePath =>{
         returnedObj.arrayOfFilePaths.push(filePath);// arrayOfFilePaths;
       });
-
-      //console.log("returned array of file paths from Json");
-      //console.log(returnedObj.arrayOfFilePaths);
-      // if (!arrayOfFilePaths || arrayOfFilePaths.length===0)
-      // {
-      //console.log("Zip File successfully that has JSON results");
       return 'Json Ids done';
-      //}
     } catch (error) {
       console.log("MyOwnJson is not found " + error);
       return 'JsonIds error ' + error.toString();
     }
   }
-
 }
 
+/**
+ * A helper function to get all queries that are defined with pages.
+ */
 async function getQueriesFromPages(queryIds, returnedObj, res, req) {
   let promiseResult = '';
   let queries = [];
@@ -719,8 +736,6 @@ async function getQueriesFromPages(queryIds, returnedObj, res, req) {
   let myOwnJsonIds = [];
   let folderIds = [];
   let filePaths = [];
-  //console.log("get queries form pages");
-  //console.log(queriesResult);
   for (let i = 0; i < queriesResult.length; i++) {
     queries.push(queriesResult[i]);
     const path = returnedObj.oldHostUrl + '/api/myOwnJson/getJson/';
@@ -729,18 +744,14 @@ async function getQueriesFromPages(queryIds, returnedObj, res, req) {
     ////{"content.info": {$regex: /http:\/\/localhost:3000\/.*/, $options: 'i'}}
     if (queriesResult[i].serverUrl.startsWith(path)) {
       myOwnJsonIds.push(queriesResult[i].serverUrl.substring(path.length));
-      //console.log("myOwmJson is added " + myOwnJsonIds[myOwnJsonIds.length - 1]);
     } else if (queriesResult[i].serverUrl.startsWith(folderPath)) {
-      //console.log( "Found folderPath"+folderPath.toString());
       if(!folderIds.includes(queriesResult[i].serverUrl.substring(folderPath.length))){
       folderIds.push(queriesResult[i].serverUrl.substring(folderPath.length));
       }
-      //console.log("folderPath is added " + folderIds[folderIds.length - 1]);
     } else if (queriesResult[i].serverUrl.startsWith(filePath)) {
       console.log( "Found filePath"+filePath.toString());
       if(!filePaths.includes(queriesResult[i].serverUrl)){
       filePaths.push(queriesResult[i].serverUrl);}
-      //console.log("filePaths is added " + filePaths[filePaths.length - 1]);
     }
   }
   returnedObj.queries = JSON.stringify(queries);
@@ -748,57 +759,39 @@ async function getQueriesFromPages(queryIds, returnedObj, res, req) {
   returnedObj.fileIds = [];
   returnedObj.arrayOfFilePaths = [];
   if (myOwnJsonIds.length > 0) {
-    //console.log("myOwnJsonIds");
-    //console.log(myOwnJsonIds);
     promiseResult += await getJsonIds(myOwnJsonIds, returnedObj);
   }
   if (filePaths.length > 0 || (returnedObj.arrayOfFilePaths && returnedObj.arrayOfFilePaths.length>0)) {
-   console.log("filePaths");
-   console.log(filePaths);
    if(returnedObj.arrayOfFilePaths){
      console.log("arrayOfFilePaths");
      console.log(returnedObj.arrayOfFilePaths);
    }
-    //let arrayOfFilePaths = returnedObj.arrayOfFilePaths;
     filePaths.forEach(filePath => {
       if (!returnedObj.arrayOfFilePaths.includes('"' || filePath || '"')) {
-        //arrayOfFilePaths.push('"' || filePath || '"');
         returnedObj.arrayOfFilePaths.push('"' || filePath || '"');
-
         if (returnedObj.arrayOfFilePaths[returnedObj.arrayOfFilePaths.length - 1] === '"') {
           returnedObj.arrayOfFilePaths.pop();
         }
       }
     });
-    console.log("arrayOfFilePaths after adding all the filePaths");
-    console.log(returnedObj.arrayOfFilePaths);
-   // console.log(arrayOfFilePaths);
-
     promiseResult += await getFiles(returnedObj.arrayOfFilePaths, [], returnedObj);
   }
   if (folderIds.length > 0 || returnedObj.fileIds.length>0) {
-    //console.log("folderIds");
-   // console.log(folderIds);
     returnedObj.folders = [];
     promiseResult += await getFoldersOfFiles(returnedObj.fileIds, folderIds, req.userData.userId, returnedObj);
   }
-  console.log("hehehehhe I am not lost");
   returnedObj.files = JSON.stringify(returnedObj.files);
-  console.log(returnedObj.files);
   returnedObj.folders = JSON.stringify(returnedObj.folders);
-  console.log(returnedObj.folders);
   returnedObj.arrayOfFilePaths = JSON.stringify(returnedObj.arrayOfFilePaths);
-  console.log(returnedObj.arrayOfFilePaths);
-  console.log(returnedObj);
-  // if (myOwnJsonIds.length === 0 && folderIds.length===0 && filePaths.length===0) {
   return res.status(200).json({
     message: 'Created Zip File successfully that has no files',
-    returnedObj: returnedObj,
-    //promiseResult: promiseResult.toString()
+    returnedObj: returnedObj
   });
-
 }
 
+/**
+ * Not used
+ */
 router.get("/restoreFiles/", (req, res, next) => {
   fs.readdir('backend/files').then(filenames => {
     return res.status(200).json({

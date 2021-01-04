@@ -1,3 +1,5 @@
+import { Injectable } from "@angular/core";
+@Injectable()
 export class TermsAndConditions {
   nutzungsbedingungen =
   '<h6>Gegenstand</h6>'  +

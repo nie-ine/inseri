@@ -10,7 +10,7 @@ import * as d3 from 'd3-selection';
   styleUrls: ['./d3tutorial.component.scss']
 })
 export class D3tutorialComponent implements OnInit{
-  @ViewChild('editor') editor;
+  @ViewChild('editor', { static: true }) editor;
   private canvas: any;
   private circle: any;
   private rectangle: any;

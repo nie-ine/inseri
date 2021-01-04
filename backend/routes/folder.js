@@ -7,10 +7,10 @@ const FileModel=require('..//models/files');
 const router = express.Router();
 
 //creating a new folder --> mainFolderId should be null if it is on the root folder otherwise it is the value of the Parent folder ID
-//folder CRUD operations.
+/**
+ * Creates a new Folder, If the mainFolderId is null, the folder is created on the root folder, otherwise the folder is a subFolder of the mainFolderId.
+ */
 router.post('/:mainFolderId',checkAuth, (req, res, next) => {
-  console.log(req.body);
-  console.log(req.params);
   let newFolder;
   Folder.find({title: req.body.title, owner:req.userData.userId})
     .then((result) => {
@@ -44,7 +44,6 @@ router.post('/:mainFolderId',checkAuth, (req, res, next) => {
           hasParent: req.params.mainFolderId
         });
       }
-      console.log(req.params.mainFolderId);
       newFolder.save()
         .then (resultQuery => {
           console.log("new Folder: "+ newFolder._id);
@@ -64,6 +63,9 @@ router.post('/:mainFolderId',checkAuth, (req, res, next) => {
 });
 
 //Fetching all folders of a user, if the folder is in the root then the mainFolderId is -1
+/**
+ * Gets all the subFolders of the mainFolderId, if the mainFolderId is '-1' then gets all the folders that don't have parent folder ID
+ */
 router.get('/:mainFolderId', checkAuth, (req, res, next) => {
   if(req.params.mainFolderId ==='-1'){
     Folder.find({owner: req.userData.userId, hasParent : { $exists: false }})
@@ -109,6 +111,9 @@ router.get('/:mainFolderId', checkAuth, (req, res, next) => {
   }
 });
 
+/**
+ * Updates the folder Title
+ */
 router.post('/update/title/:folderId',checkAuth, (req, res, next) => {
   console.log(req.userData.userId);
   Folder.updateOne({$and:[
@@ -138,6 +143,9 @@ router.post('/update/title/:folderId',checkAuth, (req, res, next) => {
 
 
 ///add and delete an existing PageSet and create a new PageSet in a folder
+/**
+ * Adds a PageSet to a specific folder
+ */
 router.post('/update/addPageSet/:folderId',checkAuth, (req, res, next) => {
   Folder.updateOne({$and:[
         {owner:  req.userData.userId},
@@ -165,6 +173,9 @@ router.post('/update/addPageSet/:folderId',checkAuth, (req, res, next) => {
 });
 
 //return an array of PageSetIds
+/**
+ * Returns all the pageSets associated in the FolderId
+ */
 router.get('/getPageSets/:folderId', checkAuth, (req, res, next) => {
     Folder.find({owner: req.userData.userId, _id: req.params.folderId},{hasPageSets:1,_id:0})
       .then(pageSets => {
@@ -188,6 +199,9 @@ router.get('/getPageSets/:folderId', checkAuth, (req, res, next) => {
       })
   });
 
+/**
+ * Removes a PageSet form a specified folder
+ */
 router.post('/update/removePageSet/:folderId',checkAuth, (req, res, next) => {
   Folder.updateOne({$and:[
             {owner: req.userData.userId},
@@ -215,6 +229,9 @@ router.post('/update/removePageSet/:folderId',checkAuth, (req, res, next) => {
 });
 
 ///add, update and delete Query
+/**
+ * Adds an existing query to the Folder Id
+ */
 router.post('/update/addQuery/:folderId&:queryId',checkAuth, (req, res, next) => {
   console.log(req.userData.userId+'\n'+req.params.folderId+'\n'+req.params.queryId+'\n'+req.body.queryTitle);
   Folder.updateOne({$and:[
@@ -243,6 +260,9 @@ router.post('/update/addQuery/:folderId&:queryId',checkAuth, (req, res, next) =>
 });
 
 //return an array of Queries
+/**
+ * Get all queries associated with the folder Id
+ */
 router.get('/getQueries/:folderId', checkAuth, (req, res, next) => {
   console.log(req.userData.userId+'\n'+req.params.folderId+'\n');
   Folder.find({owner: req.userData.userId, _id: req.params.folderId},{hasQueries:1,_id:0})
@@ -268,6 +288,9 @@ router.get('/getQueries/:folderId', checkAuth, (req, res, next) => {
     })
 });
 
+/**
+ * Removes a query from a specified folder Id
+ */
 router.post('/update/removeQuery/:folderId&:queryId',checkAuth, (req, res, next) => {
   Folder.updateOne({$and:[
         {owner: req.userData.userId},
@@ -294,83 +317,10 @@ router.post('/update/removeQuery/:folderId&:queryId',checkAuth, (req, res, next)
     });
 });
 
-///add and delete Page
-/*router.post('/update/addPage/:folderId&:pageId',checkAuth, (req, res, next) => {
-  Folder.updateOne({$and:[
-        {owner:  req.userData.userId},
-        {_id: req.params.folderId}
-      ]},
-    {$addToSet: {hasPages: req.params.pageId}})
-    .then((updatedDocument) => {
-      if (updatedDocument.n === 0) {
-        res.status(400).json({
-          message: 'Folder cannot be updated.'
-        });
-      } else {
-        return res.status(200).json({
-          message: 'Folder has been updated successfully',
-          updatedDocument: updatedDocument
-        });
-      }
-    })
-    .catch(error => {
-      res.status(500).json({
-        message: 'Updating Folder failed.',
-        error: error
-      })
-    });
-});
-
-//return an array of PagesIds
-router.get('getPages/:folderId', checkAuth, (req, res, next) => {
-  Folder.find({owner: req.userData.userId, _id: req.params.folderId},{hasPages:1,_id:0})
-    .then(pages => {
-      let message;
-      if (pages.length === 0) {
-        message = 'The Folder has no Pages'
-      } else {
-        message = 'All Pages were found'
-      }
-      res.status(200).json({
-        message: message,
-        pages: pages[0]
-      });
-    })
-    .catch(error => {
-      res.status(500).json({
-        message: 'Fetching all Pages failed',
-        error: error
-      })
-    })
-});
-
-router.post('/update/removePage/:folderId&:pageId',checkAuth, (req, res, next) => {
-  Folder.updateOne({$and:[
-        {owner: req.userData.userId},
-        {_id: req.params.folderId}
-      ]},
-    {$pull: {hasPages: req.params.pageId}})
-    .then((updatedDocument) => {
-      if (updatedDocument.n === 0) {
-        res.status(400).json({
-          message: 'Folder cannot be updated.'
-        });
-      } else {
-        return res.status(200).json({
-          message: 'Folder has been updated successfully',
-          updatedDocument: updatedDocument
-        });
-      }
-    })
-    .catch(error => {
-      res.status(500).json({
-        message: 'Updating Folder failed.',
-        error: error
-      })
-    });
-});
-*/
 ///add and delete Files
+/**
+ *  Not Used, We use singleFileUpload or /files/:folderId defined in the file.js
+ */
 router.post('/update/addFile/:folderId&:fileId',checkAuth, (req, res, next) => {
   Folder.updateOne({$and:[
         {owner:  req.userData.userId},
@@ -397,29 +347,9 @@ router.post('/update/addFile/:folderId&:fileId',checkAuth, (req, res, next) => {
     });
 });
 
-//return an array of Files
-/*router.get('getFiles/:folderId', checkAuth, (req, res, next) => {
-  Folder.find({owner: req.userData.userId, _id: req.params.folderId},{hasFiles:1,_id:0})
-    .then(files => {
-      let message;
-      if (files.length === 0) {
-        message = 'The Folder has no Files'
-      } else {
-        message = 'All Files were found'
-      }
-      res.status(200).json({
-        message: message,
-        files: files[0]
-      });
-    })
-    .catch(error => {
-      res.status(500).json({
-        message: 'Fetching all files failed',
-        error: error
-      })
-    })
-});*/
-
+/**
+ * Not Used, We use the deleteFiles defined in the file.js
+ */
 router.post('/update/removeFile/:folderId&:fileId',checkAuth, (req, res, next) => {
   Folder.updateOne({$and:[
         {owner: req.userData.userId},
@@ -446,6 +376,9 @@ router.post('/update/removeFile/:folderId&:fileId',checkAuth, (req, res, next) =
     });
 });
 
+/**
+ * delete Folder
+ */
 router.post('/delete/:folderId',checkAuth, (req, res, next) => {
   Folder.deleteOne({
     owner: req.userData.userId,
@@ -471,6 +404,10 @@ router.post('/delete/:folderId',checkAuth, (req, res, next) => {
     });
 });
 //upload a file to a folder
+
+/**
+ * Not Used
+ */
 router.post('/update/uploadFile/:folderId&:fileId',checkAuth, (req, res, next) => {
   Folder.updateOne({$and:[
         {owner:  req.userData.userId},
@@ -497,6 +434,10 @@ router.post('/update/uploadFile/:folderId&:fileId',checkAuth, (req, res, next) =
     });
 });
 
+
+/**
+ * Returns all the hierarchy of folders and their files in a JSON object. The files are categorized by file types.
+ */
 router.get('/getAllFilesAndFolders/:folderId', checkAuth, (req, res, next) => {
   //console.log(req.userData.userId+'\n'+req.params.folderId+'\n');
   let parentId=req.params.folderId;
@@ -530,10 +471,18 @@ router.get('/getAllFilesAndFolders/:folderId', checkAuth, (req, res, next) => {
       })
     });
 });
+
+/**
+ * A helper function to get the Folder from the map object
+ */
 function getFolder ( id, map)
 {
   return map.get(id.toHexString())
 }
+
+/**
+ * A recursive helper function that is used in combination with the getFolderHierarchy to return the folder hierarchy
+ */
 function checkFolderHierarchy(folder_id, targetParent_id, folderMap)
 {
   if(folder_id  == targetParent_id)
@@ -553,6 +502,11 @@ function checkFolderHierarchy(folder_id, targetParent_id, folderMap)
     return checkFolderHierarchy(parent_id, targetParent_id, folderMap);
   }
 }
+
+
+/**
+ * Returns the folder hierarchy
+ */
 function getFolderHierarchy(folder_id, targetParent_id, result, folderMap)
 {
   if(checkFolderHierarchy(folder_id,targetParent_id, folderMap))
@@ -563,8 +517,6 @@ function getFolderHierarchy(folder_id, targetParent_id, result, folderMap)
 }
 
   function constructFolderTree(folderDetails,parentId,output ) {
-    //console.log(folderDetails.length);
-    //output=(folderDetails.filter(obj=> {if(obj._id==parentId) return obj;}));
     let tempQueueToCheck= new Array();
     const temp = folderDetails.map((obj) => ({...obj, ['folders']: []}));
     folderDetails = temp;
@@ -590,6 +542,9 @@ function getFolderHierarchy(folder_id, targetParent_id, result, folderMap)
     return output=folderDetails[0];
 }
 
+/**
+ * Get all files'details that are defined in each folder of the targetFolderIds.
+ */
 function getAllFiles(owner, res, targetFolderIds,parentId){
   let sortedFiles=new Map();
   let folderTree={};
@@ -638,18 +593,11 @@ function getAllFiles(owner, res, targetFolderIds,parentId){
                   //const temp=folderDetails[k].map((obj)=>({...obj,['files']:sortedFiles}));
                   //folderDetails[k]=temp;
 
-
-
                  // f = [...sortedFiles];
                   const obj = Array.from(sortedFiles.entries()).reduce((main, [key, value]) => ({...main, [key]: value}), {});
                   folderDetails[k].files=obj;
-                  //console.log("after: ");
-                  //console.log(folderDetails[k]);
                   }
                 folderTree=constructFolderTree(folderDetails,parentId);
-
-                //console.log('from inside the loop');
-                //console.log(folderTree);
                 }
 
               /*setTimeout(() => {
@@ -673,6 +621,9 @@ function getAllFiles(owner, res, targetFolderIds,parentId){
     })
 }
 
+/**
+ * Searches for a file in the filesArray, and returns the file Object
+ */
 function getFileDetails(fileId, filesArray){
   for(let i=0;i<filesArray.length;i++){
     if(filesArray[i]._id.toString()===fileId.toString()){

@@ -6,8 +6,6 @@
  * */
 
 import {Component, Inject, OnInit, ViewChild} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
-import { MatTable } from '@angular/material';
 import { QueryEntryComponent } from '../../../query-engine/query-entry/query-entry.component';
 import { QueryAppInputMapComponent } from '../../query-app-input-map/query-app-input-map.component';
 import {PageService} from '../../../user-action-engine/mongodb/page/page.service';
@@ -17,6 +15,8 @@ import {OpenAppsModel} from '../../../user-action-engine/mongodb/page/open-apps.
 import {NgxSpinnerService} from 'ngx-spinner';
 import { QueryListComponent } from '../../../query-engine/query-list/query-list.component';
 import { QueryService } from '../../../user-action-engine/mongodb/query/query.service';
+import {MatTable} from '@angular/material/table';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-data-management',
@@ -29,7 +29,7 @@ export class DataManagementComponent {
    * The table displays the mapping between the queries and the
    * apps.
    * */
-  @ViewChild(MatTable) table: MatTable<any>;
+  @ViewChild(MatTable, { static: true }) table: MatTable<any>;
 
   /**
    * This is the actionId of the current action that is the root of a page / pageSet

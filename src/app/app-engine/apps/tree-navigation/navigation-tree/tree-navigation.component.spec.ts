@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TreeNavigationComponent } from './tree-navigation.component';
 
@@ -6,7 +6,7 @@ describe('TreeNavigationComponent', () => {
   let component: TreeNavigationComponent;
   let fixture: ComponentFixture<TreeNavigationComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ TreeNavigationComponent ]
     })

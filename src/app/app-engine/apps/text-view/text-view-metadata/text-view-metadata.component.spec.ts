@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TextViewMetadataComponent } from './text-view-metadata.component';
 
@@ -6,7 +6,7 @@ describe('TextViewMetadataComponent', () => {
   let component: TextViewMetadataComponent;
   let fixture: ComponentFixture<TextViewMetadataComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ TextViewMetadataComponent ]
     })

@@ -11,7 +11,7 @@ import {LightTableLayoutService} from '../light-table-layout.service';
 })
 export class ShareLightTableComponent {
 
-  @ViewChild('url') textarea;
+  @ViewChild('url', { static: true }) textarea;
   shareUrl: string;
   showButton = false;
   private tiled = false;

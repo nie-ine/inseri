@@ -74,8 +74,8 @@ export class CommentOnIndicesComponent implements OnInit {
     console.log( this.route.snapshot.queryParams );
 
     this.authService.getUser(localStorage.getItem('userId')).subscribe((result) => {
-      console.log( result );
-      console.log(result.user);
+      // console.log( result );
+     // console.log(result.user);
       const newComment = {
         commentText: this.newComment,
           date: date,

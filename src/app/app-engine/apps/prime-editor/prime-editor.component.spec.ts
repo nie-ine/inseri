@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { PrimeEditorComponent } from './prime-editor.component';
 
@@ -6,7 +6,7 @@ describe('PrimeEditorComponent', () => {
   let component: PrimeEditorComponent;
   let fixture: ComponentFixture<PrimeEditorComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ PrimeEditorComponent ]
     })

@@ -2,7 +2,7 @@ Our signature presentation for you: [https://nie-ine.github.io/inseri/](https://
 
 ------
 
-#### Presented or mentioned
+#### Presented or mentioned at
 
 [Open Access in Action | Swissuniversities Project Highlights 2020 | Switzerland](https://claireclivaz.hypotheses.org/930)
 

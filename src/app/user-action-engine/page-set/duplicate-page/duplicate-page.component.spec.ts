@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { DuplicatePageComponent } from './duplicate-page.component';
 
@@ -6,7 +6,7 @@ describe('DuplicatePageComponent', () => {
   let component: DuplicatePageComponent;
   let fixture: ComponentFixture<DuplicatePageComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ DuplicatePageComponent ]
     })

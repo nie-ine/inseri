@@ -32,6 +32,17 @@ export class AppMenuModel {
       showOnHome: false,
       appGroup: 'microservice'
     },
+    // {
+    //   id: 'short_text',
+    //   name: 'Our demo app',
+    //   tags: 'for the NIE-INE conference',
+    //   color: 'yellow',
+    //   status: 'under development',
+    //   appType: 'ourDemoApp',
+    //   description: 'just a demo app',
+    //   showOnHome: false,
+    //   appGroup: 'visualise'
+    // },
     {
       id: 'speaker_notes',
       name: 'Comment App',
@@ -56,12 +67,12 @@ export class AppMenuModel {
     },*/
     {
       id: 'input',
-      name: 'Json Environment ',
-      tags: 'json, python ',
+      name: 'Python Environment ',
+      tags: 'json, python',
       color: 'green',
       status: 'stable',
-      appType: 'jsonEnvironment',
-      description: 'Microservice for json manipulations',
+      appType: 'jsonEnvironment', // The old name of the now called pythonEnvironment
+      description: 'Microservice for Python script execution',
       showOnHome: false,
       appGroup: 'microservice'
     },
@@ -254,7 +265,7 @@ export class AppMenuModel {
     },
     {
       id: 'bar_chart',
-      name: 'Grouped Bar Chart V2',
+      name: 'Grouped Bar Chart',
       tags: 'd3.js, interactive',
       color: 'green',
       status: 'stable',

@@ -1,59 +1,59 @@
-:host /deep/ .scaleGroupedBarChartWidth {
+:host ::ng-deep .scaleGroupedBarChartWidth {
   margin: 10px 0 0 30px;
   width: 128px;
   overflow: hidden;
 }
 
-:host /deep/ .scaleGroupedBarChartInput {
+:host ::ng-deep .scaleGroupedBarChartInput {
 
 }
 
-:host /deep/ .scaleGroupedBarChartSlider {
+:host ::ng-deep .scaleGroupedBarChartSlider {
 
 }
 
-:host /deep/ rect {
+:host ::ng-deep rect {
   stroke-width: 2;
 }
-:host /deep/ rect.disabled {
+:host ::ng-deep rect.disabled {
   fill: transparent !important;
 }
 
-:host /deep/ .legend_container {
+:host ::ng-deep .legend_container {
   position: relative;
 }
 
-:host /deep/ .legend {
+:host ::ng-deep .legend {
   position: relative;
 }
 
-:host /deep/ .chart_container {
+:host ::ng-deep .chart_container {
   position: relative;
 }
 
-:host /deep/ .yaxis {
+:host ::ng-deep .yaxis {
   position: absolute;
   float: left;
   z-index: 3;
 }
 
-:host /deep/ .chart {
+:host ::ng-deep .chart {
   position: relative;
   overflow-x: auto;
 }
 
-:host /deep/ .sortChart {
+:host ::ng-deep .sortChart {
   margin:0 0 0 30px;
 }
 
 /* tooltip */
-:host /deep/ .groupedBarChartTooltip {
+:host ::ng-deep .groupedBarChartTooltip {
   position: fixed;
   display: none;
   text-align: center;
   z-index: 4;
 }
 
-:host /deep/ .groupedBarChartTooltipLabel {
+:host ::ng-deep .groupedBarChartTooltipLabel {
   font-weight: bold;
 }

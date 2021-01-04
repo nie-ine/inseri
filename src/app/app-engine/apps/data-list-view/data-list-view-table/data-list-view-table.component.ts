@@ -1,10 +1,12 @@
 import {Component, Input, OnChanges, ViewChild, EventEmitter, Output} from '@angular/core';
-import { MatPaginator, MatSort, MatTable, MatTableDataSource } from '@angular/material';
 import { PipeTransform, Pipe } from '@angular/core';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
 import {Router} from '@angular/router';
 import {ColumnHeader, DisplayedCollumnsService, SettingsService, DataCell} from '../data-list-view-services/data-list-view.service';
 import {Subscription} from 'rxjs';
+import {MatTable, MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
 
 @Component({
   selector: 'data-list-view-table',
@@ -19,9 +21,9 @@ export class DataListViewTableComponent implements OnChanges {
   definedColumns: Array<ColumnHeader>; // The columns defined by settings;
   displayedColumns: string[]; // The displayed columns used by mat table;
 
-  @ViewChild(MatTable) table: MatTable<any>;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatTable, { static: true }) table: MatTable<any>;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   dataSource: MatTableDataSource <any>;
   dataSourceForExport: MatTableDataSource <any>;

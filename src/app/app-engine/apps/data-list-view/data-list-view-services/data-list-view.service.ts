@@ -12,7 +12,7 @@ export class DisplayedCollumnsService {
     this.definedColumnsChange = new EventEmitter<Array<any>>();
   }
 
-  public createColumns(columns: Array<string>) {
+  public createColumns(columns: any) {
     const dispColumns = [];
     columns.forEach(colDef => {
 

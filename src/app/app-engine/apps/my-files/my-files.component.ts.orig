@@ -1,0 +1,910 @@
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../../environments/environment';
+import {FolderService} from '../../../user-action-engine/mongodb/folder/folder.service';
+import {PageService} from '../../../user-action-engine/mongodb/page/page.service';
+import {FileModel} from '../../../user-action-engine/file/file.model';
+import {FileService} from '../../../user-action-engine/file/file.service';
+import {Observable, Subject, Subscription} from 'rxjs';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import {ActionService} from '../../../user-action-engine/mongodb/action/action.service';
+import {PageSetService} from '../../../user-action-engine/mongodb/pageset/page-set.service';
+import {QueryService} from '../../../user-action-engine/mongodb/query/query.service';
+import {Action} from '../../../user-action-engine/mongodb/action/action.model';
+import {AppMenuModel} from '../../../app-engine/page/page/appMenu.model';
+import {PageComponent} from '../../page/page/page.component';
+import {QueryEntryComponent} from '../../../query-engine/query-entry/query-entry.component';
+import {OpenAppsModel} from '../../../user-action-engine/mongodb/page/open-apps.model';
+import {GeneralRequestService} from '../../../query-engine/general/general-request.service';
+import {GenerateHashService} from '../../../user-action-engine/other/generateHash.service';
+<<<<<<< HEAD
+import {map} from 'rxjs/operators';
+import {QueryModel} from '../../../user-action-engine/mongodb/query/query.model';
+import {MatDialog} from '@angular/material/dialog';
+import {MatTableDataSource} from '@angular/material/table';
+=======
+>>>>>>> ebe27152f68e039f6e86ef13c3f1a6cb5e1ba961
+
+@Component({
+  selector: 'app-my-files',
+  templateUrl: './my-files.component.html',
+  styleUrls: ['./my-files.component.scss']
+})
+export class MyFilesComponent implements OnInit, OnChanges {
+  @Input() folderPath: string;
+  @Input() appInputQueryMapping: string;
+  @Input() hash: string;
+  public demoForm: FormGroup;
+  private fileUrlPath: string;
+  fileExtension: any;
+  private fileContent: string;
+
+  constructor(
+    private http: HttpClient,
+    private folderService: FolderService,
+    private actionService: ActionService,
+    private queriesService: QueryService,
+    private pageSetService: PageSetService,
+    private pageService: PageService,
+    public fileService: FileService,
+    public route: ActivatedRoute,
+    public dialog: MatDialog,
+    public pageComponent: PageComponent,
+    private router: Router,
+    private generateHashService: GenerateHashService,
+    private requestService: GeneralRequestService,
+    private formBuilder: FormBuilder,
+  ) {
+    this.demoForm = this.formBuilder.group({
+      text_input: ['', Validators.required],
+      files: this.formBuilder.array([])
+    });
+  }
+
+  // private static API_BASE_URL_FILES = environment.node + '/api/files';
+  private filesUpdated = new Subject<FileModel[]>();
+  oldFileName: string;
+  addFolderForm = false;
+  updateFolderTitleForm = false;
+  updateFileForm = false;
+  pageSetForm = false;
+  createPageSetForm = false;
+  createQueryForm = false;
+  folderTitle: string;
+  foldersArray: Array<string>;
+  mainFolder_id = '-1';
+  file: { id: string, title: string, description: string, urlPath: string, content: string };
+  filePreview: string;
+  private fileId: string;
+  files: FileModel[] = [];
+  private fileSub: Subscription;
+  showUploadedFiles = false;
+  form: FormGroup;
+  private mode = 'add';
+  isLoading = false;
+  breadCrumbArray = [];
+  allPageSetsOfUser = [];
+  pages: any;
+  addedPageSets = [];
+  allQueriesOfUser = [];
+  addedQueries = [];
+  chosenApp: any = {};
+  action: Action = {
+    id: undefined,
+    title: '',
+    description: '',
+    isFinished: false,
+    deleted: false,
+    type: undefined,
+    hasPageSet: undefined,
+    hasPage: undefined,
+    creator: undefined
+  };
+  pageSet: [string, string, string];
+  dataSource: MatTableDataSource<any>;
+  displayedColumns: string[] = ['id', 'name'];
+  pageId: string;
+  actionId: string;
+  queryTitle: string;
+  openAppsInThisPage: any = (new OpenAppsModel).openApps;
+  page: any = {};
+  inseriAppsMenu = [];
+  menu = false;
+  appInputsArray = [];
+  fileDetailsId: any;
+  fileName: string;
+  fileDescription: string;
+  multipleFileUpload = false;
+  folderQuery: any = {
+    title: '',
+    serverUrl: '',
+    method: ''
+  };
+  showFileContent = false;
+  createNewFileForm = false;
+
+  /**
+   *Creating a new project and link it to the current folder.
+   * @param title  --> Title of the project
+   * @param description --> Description of the project.
+   */
+  createPageSet(title: string, description: string) {
+    this.action.type = 'page-set';
+    this.action.title = title;
+    this.action.description = description;
+    this.actionService.createAction(this.action)
+      .subscribe((result) => {
+        console.log('create Action result: ');
+        console.log(result);
+        const newPage: any = {};
+        newPage.title = title;
+        newPage.description = description;
+        this.pageService.createPage(result.action.hasPageSet, newPage)
+          .subscribe((result2) => {
+            console.log('pageService-createPage: result2 = ');
+            console.log(result2);
+            console.log('id: ' + result.action.hasPageSet + '\t title: ' + title + '\t actionId: ' + result.action._id);
+            this.addPageSetToFolder({id: result.action.hasPageSet, title: title, actionId: result.action._id});
+            /* this.router.navigate(['/page'],
+               { queryParams:
+                   { actionID: actionResult.body.action._id,
+                     page: result2.page._id
+                   }
+               });*/
+          }, error => {
+            console.log(error);
+          });
+      });
+  }
+
+  /**
+   * Angular lifecycle hook. Angular calls it after checking the input properties to initialize the component.
+   */
+  ngOnInit() {
+    this.showFolders();
+    this.fileSub = this.fileService.getFileUpdateListener()
+      .subscribe((files: FileModel[]) => {
+        this.showUploadedFiles = false;
+        this.files = files;
+      });
+    this.form = new FormGroup({
+      'title': new FormControl(null), // {validators: [Validators.required]}), // Validators.minLength(3)
+      'description': new FormControl(null), // {validators: [Validators.required]}),
+      'content': new FormControl(null),
+      'file': new FormControl(null), // {validators: [Validators.required]})// , asyncValidators: [mimeType]})
+    });
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      if (paramMap.has('fileId')) {
+        this.mode = 'edit';
+        this.fileId = paramMap.get('fileId');
+        this.isLoading = true;
+        this.fileService.getFile(this.fileId).subscribe(fileData => {
+          console.log('ngOninit');
+          console.log(fileData);
+          this.isLoading = false;
+          this.file = {
+            id: fileData._id, title: fileData.title, description: fileData.description,
+            urlPath: fileData.urlPath, content: fileData.content
+          };
+          this.form.setValue({'title': this.file.title, 'description': this.file.description, 'content': this.file.content});
+          console.log('ngOnInit: ' + this.file.title);
+        });
+      } else {
+        this.mode = 'add';
+        this.fileId = null;
+      }
+    });
+  }
+
+  /**
+   * Angular lifecycle hook. Angular calls it when set or reset one of the data-bound input properties.
+   * @param changes --> Current and previous property values.
+   */
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.folderPath);
+    if (this.folderPath) {
+      this.mainFolder_id = this.folderPath;
+      this.showFolders();
+    }
+  }
+
+  /**
+   * Enable/Disable a form
+   * @param form --> Name of the form to be viewed. If it is empty string, it closes all the opened forms.
+   */
+  showForm(form: string) {
+    switch (form) {
+      case 'AddFolder':
+        this.addFolderForm = true;
+        break;
+      case 'UpdateFolderTitle':
+        this.updateFolderTitleForm = true;
+        break;
+      case 'PageSet':
+        this.pageSetForm = true;
+        break;
+      case 'createPageSetForm':
+        this.createPageSetForm = true;
+        break;
+      /*case 'appMenuForm':
+        this.appMenuForm = true;
+        break;*/
+      case 'createQueryForm':
+        this.createQueryForm = true;
+        break;
+      case 'UpdateFileForm':
+        this.updateFileForm = true;
+        break;
+      default:
+        this.addFolderForm = false;
+        this.updateFolderTitleForm = false;
+        this.folderTitle = '';
+        this.pageSetForm = false;
+        this.createPageSetForm = false;
+        this.action.description = '';
+        this.action.title = '';
+        // this.appMenuForm = false;
+        this.createQueryForm = false;
+        this.queryTitle = '';
+        this.updateFileForm = false;
+        this.createNewFileForm = false;
+        this.fileName = '';
+        this.fileDescription = '';
+        this.fileContent = '';
+    }
+  }
+
+  /**
+   * Deletes from the breadcrumb that is used to navigate through the folder structure.
+   */
+  deleteFromBreadCrumb() {
+    for (let i = this.breadCrumbArray.length - 1; i >= 0; i--) {
+      if (this.breadCrumbArray[i].id === this.mainFolder_id) {
+        break;
+      } else {
+        this.breadCrumbArray.pop();
+      }
+    }
+    this.printFoldersTitle();
+  }
+
+  /**
+   * Adds one folder to the breadcrumb that is used to navigate through the folder structure.
+   * @param title --> The folder name to add to the breadcrumb
+   */
+  addToBreadCrumb(title: string) {
+    this.breadCrumbArray.push({id: this.mainFolder_id, title: title});
+    this.printFoldersTitle();
+  }
+
+  /**
+   * Updating the breadcrumb when the user changes one of the folders name
+   * @param title --> The new folder title
+   */
+  updateBreadCrumb(title: string) {
+    const index = this.breadCrumbArray.findIndex((obj => obj.id === this.mainFolder_id));
+    this.breadCrumbArray[index].title = title;
+    this.printFoldersTitle();
+  }
+
+  /**
+   * A function used to delete one of the files
+   * @param fileId
+   */
+  deleteFile(fileId: string) {
+    if (confirm('Would you really delete this file')) {
+      this.fileService.deleteFile(fileId, this.mainFolder_id).subscribe(() => {
+        console.log(this.files);
+        const updatedFiles = this.files.filter(file => file.id !== fileId);
+        this.files = updatedFiles;
+        console.log(this.files);
+        this.filesUpdated.next([...this.files]);
+        this.showFiles();
+      });
+    }
+  }
+
+  onSaveFile() {
+    this.addFile(this.form.value.file.name, this.form.value.description, this.form.value.file);
+    this.form.reset();
+  }
+
+  /**
+   * An event that is called after selecting a file from the user local storage, that fetches all the details of the file
+   * @param event
+   */
+  onFileSelected(event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    console.log(typeof file);
+    this.form.patchValue({file: file});
+    this.form.get('file').updateValueAndValidity();
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.filePreview = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+    this.onSaveFile();
+  }
+
+  /**
+   * An event that is called after selecting multiple files, that fetches all the files' details.
+   * @param event
+   */
+  detectFiles(event) {
+    // const inFiles = event.target.files;
+    this.multipleFileUpload = true;
+    const files = event.target.files;
+    console.log(typeof files);
+    /*if (files.length > 10) {
+      alert('Max limit exceeded, You can only upload upto 10 files at once.');
+      return false;
+    }*/
+    this.form.patchValue({file: files});
+    if (files) {
+      for (const file of files) {
+
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          this.allFiles.push(this.createItem({
+            file,
+            url: e.target.result  // Base64 string for preview image
+          }));
+        };
+        reader.readAsDataURL(<Blob>file);
+      }
+      console.log('calling add files from detect files');
+      this.addFiles(this.form.value.description, this.form.value.file);
+      this.form.reset();
+      this.multipleFileUpload = false;
+    }
+  }
+
+  /**
+   * A helper function that is used to fetch the data from each file uploaded with the "detectFiles" function
+   * @param data
+   */
+  createItem(data): FormGroup {
+    return this.formBuilder.group(data);
+  }
+
+  /**
+   * A helper function to gel all photos controls as FormArray
+   */
+  get allFiles(): FormArray {
+    return this.demoForm.get('files') as FormArray;
+  }
+
+  /**
+   * A function used to list all the folders of the current user. It is called in ngOnInit or when the user makes any changes to the folders
+   */
+  showFolders() {
+    this.folderService.showFolders(this.mainFolder_id)
+      .subscribe(
+        response => {
+          // console.log( (response as any).folders); // an array of subPages details'
+          this.foldersArray = (response as any).folders;
+        }, error => {
+          console.log(error);
+        }
+      );
+    this.files = [];
+    this.addedPageSets = [];
+    this.addedQueries = [];
+    this.showFiles();
+    this.showPageSetsForFolder();
+    this.showQueriesForFolder();
+  }
+
+  /**
+   * A function used to list all the files of the current folder.
+   */
+  showFiles() {
+    this.dataSource = null;
+    if (this.mainFolder_id === '-1') {
+      this.files = [];
+    } else {
+      this.fileService.getFiles(this.mainFolder_id)
+        .subscribe(transformedFiles => {
+          this.files = transformedFiles;
+          this.filesUpdated.next([...this.files]);
+          this.dataSource = new MatTableDataSource(this.files);
+        });
+    }
+  }
+
+  /**
+   * A function used to create a new folder
+   * @param title --> Folder name
+   */
+  createNewFolder(title: string) {
+    if (this.mainFolder_id === '-1') {
+      this.folderService.createNewFolder(title)
+        .subscribe(
+          response => {
+            console.log(' Create New Folder Response ' + (response as any).body.folder);
+            this.showFolders();
+          }, error => {
+            console.log(error);
+          }
+        );
+    } else {
+      this.folderService.createSubFolder(title, this.mainFolder_id)
+        .subscribe(
+          response => {
+            this.showFolders();
+          }, error => {
+            console.log(error);
+          }
+        );
+    }
+  }
+
+  /**
+   * A function used to update the current folder title
+   * @param title --> New Folder title
+   */
+  updateFolderTitle(title: string) {
+    this.folderService.updateFolderTitle(this.mainFolder_id, title)
+      .subscribe(
+        response => {
+          console.log((response as any).updatedDocument);
+        }, error => {
+          console.log(error);
+        }
+      );
+  }
+
+  /**
+   * Adding a project to a folder
+   * @param pageSet --> the pageSet Object
+   */
+  addPageSetToFolder(pageSet: { id: string, title: string, actionId: string }) {
+    console.log(pageSet);
+    const updatedPageSets = this.addedPageSets.filter(v_pageSet => v_pageSet.id !== pageSet.id);
+    this.addedPageSets = updatedPageSets;
+    this.addedPageSets.push(pageSet);
+    console.log(this.addedPageSets);
+    this.folderService.addPageSetsToFolder(this.mainFolder_id, pageSet)
+      .subscribe(
+        response => {
+          console.log((response as any).updatedDocument);
+        }, error => {
+          console.log(error);
+        }
+      );
+  }
+
+  /**
+   * Removing a project from the current folder
+   * @param pageSet --> the pageSet Object.
+   */
+  deletePageSetsFromFolder(pageSet: { id: string, title: string, actionId: string }) {
+    console.log('pageSet Id : ' + pageSet.id);
+    this.folderService.deletePageSetsFromFolder(this.mainFolder_id, pageSet)
+      .subscribe(
+        () => {
+          console.log(this.addedPageSets);
+          const updatedPageSets = this.addedPageSets.filter(v_pageSet => v_pageSet.id !== pageSet.id);
+          this.addedPageSets = updatedPageSets;
+          console.log(this.addedPageSets);
+        }, error => {
+          console.log(error);
+        }
+      );
+  }
+
+  /**
+   * Deletes a folder and all its contents, updating the breadcrumb and finally showing the folders of the user.
+   */
+  deleteFolder() {
+    this.folderService.deleteFolder(this.mainFolder_id)
+      .subscribe(
+        response => {
+          this.showFolders();
+          console.log((response as any).deletedGroup);
+        }, error => {
+          console.log(error);
+        }
+      );
+    this.breadCrumbArray.pop();
+    if (this.breadCrumbArray.length === 0) {
+      this.mainFolder_id = '-1';
+    } else {
+      this.mainFolder_id = this.breadCrumbArray[this.breadCrumbArray.length - 1].id;
+    }
+    this.showFolders();
+  }
+
+  /**
+   * A helper function used to get all the projects for a user to add one of the existing projects to the current folder.
+   */
+  getAllPageSetForUser() {
+    this.actionService.getAllActionsOfUser(localStorage.getItem('userId'))
+      .subscribe(
+        data => {
+          // console.log( data );
+          for (const action of data.actions) {
+            if (action.hasPageSet !== null) {
+              this.pageSetService.getPageSet(action.hasPageSet)
+                .subscribe(
+                  pageSets => {
+                    console.log(pageSets.pageset);
+                    console.log(pageSets.pageset._id, action.title);
+                    this.allPageSetsOfUser.push({id: pageSets.pageset._id, title: action.title, actionId: action._id});
+                    console.log(this.allPageSetsOfUser);
+                    /* if ( pageSets.pageset.hasPages ) {
+                       this.goThroughPageIdArray( pageSets.pageset.hasPages, action );
+                     }*/
+                  }, error1 => console.log(error1)
+                );
+            }
+          }
+        }, error => console.log(error)
+      );
+  }
+
+  /**
+   * A function used to show all the projects in the current folder.
+   */
+  showPageSetsForFolder() {
+    if (this.mainFolder_id === '-1') {
+      this.addedPageSets = [];
+    } else {
+      // console.log(this.mainFolder_id);
+      this.folderService.getPageSets(this.mainFolder_id)
+        .subscribe(response => {
+            // console.log( response); // an array of subPages details'
+            this.addedPageSets = [...response];
+            // console.log(this.addedPageSets);
+          }, error => {
+            console.log(error);
+          }
+        );
+    }
+  }
+
+  /**
+   * A function used to return all the quires in the current folder
+   */
+  getAllQueriesForUser() {
+    this.queriesService.getAllQueriesOfUser(localStorage.getItem('userId')).subscribe(
+      (response) => {
+        this.allQueriesOfUser = response.queries;
+        console.log(this.allQueriesOfUser);
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  /**
+   * Adding a new query to the current folder
+   * @param query --> query Object
+   */
+  addQueryToFolder(query: { id: string, title: string }) {
+    console.log(this.addedQueries);
+    this.folderService.addQueryToFolder(this.mainFolder_id, query)
+      .subscribe(
+        response => {
+          console.log((response as any).updatedDocument);
+          const updatedQueries = this.addedQueries.filter(v_query => v_query.id !== query.id);
+          this.addedQueries = updatedQueries;
+          this.addedQueries.push(query);
+        }, error => {
+          console.log(error);
+        }
+      );
+  }
+
+  /**
+   * Displays all the queries for the current folder.
+   */
+  showQueriesForFolder() {
+    if (this.mainFolder_id === '-1') {
+      this.addedQueries = [];
+    } else {
+      // console.log(this.mainFolder_id);
+      this.folderService.getQueries(this.mainFolder_id)
+        .subscribe(response => {
+            // console.log(response);
+            this.addedQueries = [...response];
+            // console.log(this.addedQueries);
+          }, error => {
+            console.log(error);
+          }
+        );
+    }
+  }
+
+  /**
+   * Deletes a query from the current folder.
+   * @param query
+   */
+  deleteQueryFromFolder(query: { id: string, title: string }) {
+    this.folderService.deleteQueryFromFolder(this.mainFolder_id, query)
+      .subscribe(
+        () => {
+          const updatedQueries = this.addedQueries.filter(v_query => v_query.id !== query.id);
+          this.addedQueries = updatedQueries;
+          console.log(this.addedQueries);
+        }, error => {
+          console.log(error);
+        }
+      );
+  }
+
+  /**
+   * This function is used to show all inseri apps. It is called while the user opens a file.
+   * @param file
+   */
+  showAvailableInseriApps(file: any) {
+    this.inseriAppsMenu = [];
+    console.log(file);
+    this.file = file;
+
+    for (const app of new AppMenuModel().appMenu.filter(item => item.name)) {
+      this.inseriAppsMenu.push(app);
+    }
+    /*this.dataSource = new MatTableDataSource(
+      inseriAppsMenu
+    );*/
+    console.log('this.dataSource has been filled');
+    console.log(this.inseriAppsMenu);
+    // this.showForm('appMenuForm');
+  }
+
+  /**
+   * This function navigate to a project. It is called when the user clicks on a project to open it.
+   * @param pageSet
+   */
+  navigateToPageSet(pageSet: any) {
+    console.log(pageSet);
+    this.pageSetService.getPageSet(pageSet.id)
+      .subscribe(
+        data => {
+          console.log(pageSet.actionId);
+          this.router.navigate(['/page'],
+            {
+              queryParams:
+                {
+                  actionID: pageSet.actionId,
+                  page: data.pageset.hasPages[0]
+                }, skipLocationChange: true
+            });
+          console.log(data.pageset.hasPages[0]);
+        }, error1 => {
+          console.log(error1);
+        }
+      );
+  }
+
+  /**
+   * This function creates a new query and links it to the current folder.
+   * @param queryTitle
+   */
+  createNewQuery(queryTitle: string) {
+    this.queriesService.createQuery({title: queryTitle})
+      .subscribe(data => {
+        console.log(data);
+        if (data.status === 201) {
+          this.addQueryToFolder({id: data.body.query._id, title: queryTitle});
+          this.showForm('');
+        }
+      });
+  }
+
+  /**
+   * This function is used to edit an existing query in the current folder.
+   * @param query
+   */
+  editQuery(query: any) {
+    const dialogRef = this.dialog.open(QueryEntryComponent, {
+      width: '100%',
+      height: '100%',
+      data: {
+        query: query,
+        pageID: null
+      }
+    });
+  }
+
+  /**
+   * This function is used to create a new query with the current folder url, displays the folder structure in the query results, and adds this query to the current folder.
+   */
+  showAllFolderStructure() {
+    this.folderQuery.title = this.folderTitle;
+    this.folderQuery.serverUrl = environment.node + '/api/folder/getAllFilesAndFolders/' + this.mainFolder_id;
+    this.folderQuery.method = 'GET';
+    this.folderService.getAllFoldersAndFiles(this.mainFolder_id)
+      .subscribe(data => {
+        this.queriesService.createQuery(this.folderQuery).subscribe(result => {
+          this.editQuery(result.body.query);
+          this.addQueryToFolder({id: result.body.query._id, title: this.folderTitle});
+        });
+      });
+  }
+
+  receiveOpenAppsInThisPage(openAppsInThisPage: any) {
+    this.openAppsInThisPage = openAppsInThisPage;
+    // console.log(this.openAppsInThisPage);
+  }
+
+  receivePage(pageAndAction: any) {
+    this.page = pageAndAction[0];
+    this.action = pageAndAction[1];
+  }
+
+  /**
+   * This function is used to open a file with an app
+   * @param appType --> This is the appType that is saved in the src/app/user-action-engine/mongodb/page/open-apps.model.ts
+   * @param name --> The name is also saved in the same file src/app/user-action-engine/mongodb/page/open-apps.model.ts
+   * @param inputName --> An optional parameter if the app opens with inputs
+   */
+  openApp(appType: string, name: string, inputName?: string) {
+    console.log(this.file, appType, this.openAppsInThisPage[appType].inputs, inputName);
+    this.pageComponent.addAnotherApp(appType, true, name, this.file.urlPath, inputName);
+  }
+
+  /**
+   * This function used to sets the global variables for opening a file with an app
+   * @param app
+   */
+  selectChosenApp(app: any) {
+    this.chosenApp = app;
+    this.appInputsArray = this.openAppsInThisPage[app.appType].inputs;
+  }
+
+  /**
+   * This function is used to update the file name, description or the content.
+   */
+  updateFile() {
+    this.oldFileName = this.file.title;
+    this.fileDetailsId = this.file.id;
+    this.fileExtension = this.file.title.substring(this.file.title.lastIndexOf('.') + 1);
+    const newFileTitle = this.fileName + '.' + this.fileExtension;
+    if (this.searchFiles(newFileTitle, this.files, this.file)) {
+      alert('You cannot rename a file with a name already in the file List, try changing it with another name.');
+      return;
+    }
+    this.fileService.updateFile(this.fileDetailsId, newFileTitle, this.fileDescription, this.fileContent, this.fileUrlPath)
+      .subscribe(response => {
+        const file = response.file;
+        console.log(file);
+        const updatedFiles = [...this.files];
+        const oldFileIndex = updatedFiles.findIndex(p => p.id === this.fileDetailsId);
+        updatedFiles[oldFileIndex] = file;
+        this.files = updatedFiles;
+        this.filesUpdated.next([...this.files]);
+        this.fileDetailsId = '';
+        this.fileName = '';
+        this.fileDescription = '';
+        this.fileExtension = '';
+        this.fileContent = '';
+        this.showFileContent = false;
+        this.showFiles();
+      });
+  }
+
+  /**
+   * A helper function that gets the file details
+   * @param file
+   */
+  getFileDetails(file: any) {
+    this.file = file;
+    this.fileService.getFile(file.id).subscribe(fileData => {
+      this.fileDescription = fileData.description;
+      this.fileName = fileData.title.substring(0, fileData.title.lastIndexOf('.'));
+      this.fileExtension = fileData.title.substring(fileData.title.lastIndexOf('.') + 1);
+      this.fileContent = fileData.content;
+      this.fileUrlPath = fileData.urlPath;
+      this.showFileContent = (this.fileExtension.match(/(txt)|(py)|(json)$/)) ? true : false;
+    });
+  }
+
+  /**
+   * A function used to add multiple files
+   * @param description
+   * @param uploadedFiles
+   */
+  addFiles(description: string, uploadedFiles: File[]) {
+    for (let i = 0; i < this.allFiles.length; i++) {
+      console.log(this.allFiles.controls[i].value.file.name);
+    }
+    this.fileService.addFiles(
+      description, uploadedFiles, this.mainFolder_id
+    ).subscribe(responseData => {
+      this.files.push(responseData.file);
+      this.filesUpdated.next([...this.files]);
+      this.showFiles();
+    });
+  }
+
+  /**
+   * A function used to add a single file
+   * @param title
+   * @param description
+   * @param uploadedFile
+   */
+  addFile(title: string, description: string, uploadedFile: File) {
+    this.fileService.addFile(title, description, this.mainFolder_id, uploadedFile)
+      .subscribe(responseData => {
+        console.log(responseData);
+        const file: FileModel = {
+          id: responseData.file.id,
+          title: title,
+          description: description,
+          urlPath: responseData.file.urlPath
+        };
+        // this.uploadFileToFolder(file.id);
+        this.files.push(file);
+        this.filesUpdated.next([...this.files]);
+        this.showFiles();
+      }, error => console.log(error));
+  }
+
+  /**
+   * A function used to create a new file
+   */
+  createNewFile() {
+    this.fileService.addFile(this.fileName, this.fileDescription, this.mainFolder_id, null, this.fileContent)
+      .subscribe(responseData => {
+        console.log(responseData);
+        const file: FileModel = {
+          id: responseData.file.id,
+          title: this.fileName,
+          description: this.fileDescription,
+          urlPath: responseData.file.urlPath
+        };
+        // this.uploadFileToFolder(file.id);
+        this.files.push(file);
+        this.filesUpdated.next([...this.files]);
+        this.showFiles();
+      }, error => console.log(error));
+  }
+
+  /**
+   * A helper function used to indicate if a file exists in the files array or not
+   *
+   */
+  searchFiles(fileName: string, files: FileModel[], file: FileModel) {
+    for (let i = 0; i < files.length; i++) {
+      if (files[i].title === fileName && files[i].id !== file.id) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * A helper function that used to print the folders title in the breadcrumb
+   */
+  printFoldersTitle() {
+    this.requestService.updateFile(
+      this.appInputQueryMapping[this.hash]['folderPath']['serverUrl'].split('/')[6],
+      {
+        [this.hash]: {
+          folderPath: this.mainFolder_id
+        }
+      }
+    )
+      .subscribe(
+        data => {
+          console.log(data);
+        }, error => console.log(error)
+      );
+  }
+
+  /**
+   * A function that is used to diplay the file url in an alert message, so the user can copy it and past it in a query for instance.
+   * @param id
+   */
+  showFileUrl(id: string) {
+    for (let i = 0; i < this.files.length; i++) {
+      if (this.files[i].id === id) {
+        alert(this.files[i].urlPath);
+      }
+    }
+  }
+}

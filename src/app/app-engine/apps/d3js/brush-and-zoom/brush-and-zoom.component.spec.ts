@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BrushAndZoomComponent } from './brush-and-zoom.component';
 
@@ -6,7 +6,7 @@ describe('BrushAndZoomComponent', () => {
   let component: BrushAndZoomComponent;
   let fixture: ComponentFixture<BrushAndZoomComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ BrushAndZoomComponent ]
     })

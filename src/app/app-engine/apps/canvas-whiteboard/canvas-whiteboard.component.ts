@@ -17,7 +17,7 @@ import {type} from 'os';
 export class CanvasWhiteboardComponent implements AfterViewInit, OnChanges {
 
   // a reference to the canvas element from our template
-  @ViewChild('canvas') public canvas: ElementRef;
+  @ViewChild('canvas', { static: true }) public canvas: ElementRef;
 
   // setting a width and height for the canvas
   @Input() public width = 400;

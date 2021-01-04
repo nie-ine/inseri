@@ -5,10 +5,10 @@
  * */
 
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
 import { QueryService } from '../../user-action-engine/mongodb/query/query.service';
 import { QueryEntryComponent } from '../query-entry/query-entry.component';
-import { MatTableDataSource } from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-query-list',

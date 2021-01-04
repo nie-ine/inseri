@@ -1,9 +1,11 @@
+import { Injectable } from "@angular/core";
 /**
  * This service generates an abstract representation of a json.
  * The json that is returned by this function is the abstrac representation
  * of the input json which is the response of a query.
  * */
 
+@Injectable()
 export class AbstractJsonService {
   leafIndices = new Set();
   abstractTree: any = {};
@@ -40,7 +42,13 @@ export class AbstractJsonService {
         abstractTree[ leaf ].type = typeof leafLayer[ leaf ];
         abstractTree[ leaf ].hash = this.generateHash();
         abstractTree[ leaf ].parent = parent;
-        if ( typeof leafLayer[ leaf ] !== 'string' && leafLayer[ leaf ] !== null ) {
+        if (
+          typeof leafLayer[ leaf ] !== 'string' &&
+          typeof leafLayer[ leaf ] !== 'number' &&
+          leafLayer[ leaf ] !== null &&
+          leafLayer[ leaf ].length !== undefined
+        ) {
+          // console.log( leafLayer[ leaf ].length );
           for ( const entry of leafLayer[ leaf ] ) {
             this.leafLoop(
               entry,

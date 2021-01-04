@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {error} from 'util';
 import {mimeType} from './mimeType.validator';
 import { FormControl, FormGroup , Validators} from '@angular/forms';
 import {ActivatedRoute, ParamMap} from '@angular/router';

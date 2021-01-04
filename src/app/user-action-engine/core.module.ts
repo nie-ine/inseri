@@ -13,9 +13,6 @@ import { TextViewModule } from '../app-engine/apps/text-view/text-view.module';
 import { KnoraRequestService } from '../query-engine/knora/knora-request.service';
 import { ResultToTextMapperService } from '../app-engine/apps/text-view/result-to-text-mapper.service';
 import { KnoraAuthService } from '../query-engine/knora/knora-auth.service';
-import { SynopsisModule } from '../app-engine/apps/synopsis/synopsis.module';
-import { SynopsisObjectStorageService } from '../app-engine/apps/synopsis/synopsis-object-storage.service';
-import { MatDialogModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InitPopupComponent } from './init-popup/init-popup.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -28,6 +25,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatIconModule} from '@angular/material/icon';
 import {PageComponent} from '../app-engine/page/page/page.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   imports: [
@@ -38,7 +36,6 @@ import {PageComponent} from '../app-engine/page/page/page.component';
     MatDialogModule,
     NIEOSModule,
     DashboardModule,
-    SynopsisModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserModule,
@@ -49,8 +46,8 @@ import {PageComponent} from '../app-engine/page/page/page.component';
     MatChipsModule,
     MatIconModule,
     RouterModule.forRoot([
-      { path: '**', component: PageComponent }
-      ])
+    { path: '**', component: PageComponent }
+], { relativeLinkResolution: 'legacy' })
   ],
   declarations: [
     MainComponent,
@@ -70,7 +67,6 @@ import {PageComponent} from '../app-engine/page/page/page.component';
     KnoraRequestService,
     ResultToTextMapperService,
     KnoraAuthService,
-    SynopsisObjectStorageService,
     DialogUserSettingsDialog
   ],
   exports: [MainComponent, RouterModule]

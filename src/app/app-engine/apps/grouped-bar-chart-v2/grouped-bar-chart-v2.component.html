@@ -3,10 +3,12 @@
   <div class="scaleGroupedBarChartInput">
     <mat-form-field>
       <input matInput
-             placeholder="Chart width:"
+             type="number"
+             placeholder="Chart width"
+             [ngStyle]="{'width':'128px'}"
              [value]="this.width"
              [(ngModel)]="this.newWidth"
-             (keyup)="drawD3(this.data.data, this.newWidth )">
+             (change)="drawD3(this.data.data, this.newWidth )">
     </mat-form-field>
   </div>
   <div class="scaleGroupedBarChartSlider">
@@ -17,7 +19,6 @@
       [value]="this.width"
       [(ngModel)]="this.newWidth"
       (change)="drawD3(this.data.data, this.newWidth)"></mat-slider>
-    <!-- thumbLabel -->
   </div>
 </div>
 

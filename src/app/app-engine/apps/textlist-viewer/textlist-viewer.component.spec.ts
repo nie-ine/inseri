@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TextlistViewerComponent } from './textlist-viewer.component';
 
@@ -6,7 +6,7 @@ describe('TextlistViewerComponent', () => {
   let component: TextlistViewerComponent;
   let fixture: ComponentFixture<TextlistViewerComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ TextlistViewerComponent ]
     })

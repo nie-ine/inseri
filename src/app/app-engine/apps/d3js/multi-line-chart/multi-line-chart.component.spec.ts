@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { MultiLineChartComponent } from './multi-line-chart.component';
 
@@ -6,7 +6,7 @@ describe('MultiLineChartComponent', () => {
   let component: MultiLineChartComponent;
   let fixture: ComponentFixture<MultiLineChartComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ MultiLineChartComponent ]
     })

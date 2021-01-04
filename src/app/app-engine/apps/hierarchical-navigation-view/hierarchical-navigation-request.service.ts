@@ -1,6 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { JoinedTextElement } from '../joined-text-view/joined-text-view/joined-text-view';
+
+class JoinedTextElement {
+  /** The property that links the lines to their parent */
+  propertyIri: string;
+
+  /** 'inverted' if the child links to the parent else 'direct' */
+  propertyDirection: string;
+
+  /** If sorting is needed, to by the value of this property */
+  sortByPropertyIri?: string;
+
+  /** The identifier that leads to the literal content for this resource. */
+  contentPropertyIri?: string;
+
+  /** 'self' if the chosen part is already a text value. */
+  contentProperty?: string;
+}
 
 /**
  * This service deals with requests to the Knora V2 API and centralizes parameters for it.

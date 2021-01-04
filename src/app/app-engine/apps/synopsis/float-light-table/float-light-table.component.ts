@@ -20,7 +20,7 @@ interface ComponentRefTracker {
   styleUrls: ['./float-light-table.component.scss']
 })
 export class FloatLightTableComponent implements OnInit, OnDestroy {
-  @ViewChild(SynopsisObjectAnchorDirective) synopsisObjectsHost: SynopsisObjectAnchorDirective;
+  @ViewChild(SynopsisObjectAnchorDirective, { static: true }) synopsisObjectsHost: SynopsisObjectAnchorDirective;
 
   private componentRefTracker: ComponentRefTracker = [];
   private closeObjectSubscriber: Subscription;

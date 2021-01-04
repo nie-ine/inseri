@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { RadialBarchartComponent } from './radial-barchart.component';
 
@@ -6,7 +6,7 @@ describe('RadialBarchartComponent', () => {
   let component: RadialBarchartComponent;
   let fixture: ComponentFixture<RadialBarchartComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ RadialBarchartComponent ]
     })

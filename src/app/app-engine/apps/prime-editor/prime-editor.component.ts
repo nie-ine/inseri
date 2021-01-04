@@ -13,7 +13,7 @@ export class PrimeEditorComponent implements OnChanges {
   @Input() appInputQueryMapping: string;
   @Input() hash: string;
   @Output() reloadVariables: EventEmitter<any> = new EventEmitter<any>();
-  @ViewChild('editor') editor;
+  @ViewChild('editor', { static: true }) editor;
   hidden = false;
   safeHtml: SafeHtml;
   constructor(

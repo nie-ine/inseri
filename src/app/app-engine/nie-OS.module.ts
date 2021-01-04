@@ -10,7 +10,6 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
 import {TextViewModule} from './apps/text-view/text-view.module';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import {SynopsisModule} from './apps/synopsis/synopsis.module';
 import {MyPageSetModule} from '../user-action-engine/page-set/page-set.module';
 import {GenerateHashService} from '../user-action-engine/other/generateHash.service';
 import {TextlistViewerComponent} from './apps/textlist-viewer/textlist-viewer.component';
@@ -32,7 +31,6 @@ import {AbstractJsonService} from '../query-app-interface/data-management/servic
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { KeyValueFormComponent } from '../query-engine/query-entry/key-value-form/key-value-form.component';
 import { QueryAppInputMapComponent } from '../query-app-interface/query-app-input-map/query-app-input-map.component';
-import {MatProgressSpinnerModule, MatTreeModule} from '@angular/material';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatListModule} from '@angular/material/list';
 import { FrameSettingsComponent } from './page/frame-settings/frame-settings.component';
@@ -44,11 +42,9 @@ import {LoadVariablesComponent} from './load-variables/load-variables.component'
 import { QueryListComponent } from '../query-engine/query-list/query-list.component';
 import { DataAssignmentComponent } from '../query-app-interface/data-management/data-assignment/data-assignment.component';
 import { NewGjsBoxDialogComponent } from './apps/grapesjs/new-gjs-box-dialog/new-gjs-box-dialog.component';
-import { MatDialogModule } from '@angular/material';
 import { SimpleImageAppComponent } from './apps/simple-image-app/simple-image-app.component';
 import { FileDatabaseForApp, ResponseTreeAppComponent } from './apps/response-tree/response-tree.component';
 import { CdkTableModule } from '@angular/cdk/table';
-import { MatPaginatorModule, MatSortModule } from '@angular/material';
 import { QueryInformationDialogComponent } from './page/query-information-dialog/query-information-dialog.component';
 import { MatCardModule } from '@angular/material/card';
 import {GrapesjsComponent} from './apps/grapesjs/grapesjs.component';
@@ -67,10 +63,9 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { OpenbisLoginComponent } from './apps/openbis-login/openbis-login.component';
 // import { KnoraJsonldSimplify } from 'knora-jsonld-simplify/dist';
 import { DataChooserComponent } from '../query-app-interface/data-management/data-chooser/data-chooser.component';
-import { StaticPagesModule } from  '../user-action-engine/static-pages.module';
+import { StaticPagesModule } from '../user-action-engine/static-pages.module';
 import { YoutubeVideoComponent } from './apps/youtube-video/youtube-video.component';
 import {MatRadioModule} from '@angular/material/radio';
-import { JoinedTextViewModule } from './apps/joined-text-view/joined-text-view.module';
 import { ResponseTreeComponent, FileDatabase } from '../query-app-interface/data-management/response-tree/response-tree.component';
 import { HierarchicalNavigationModule } from './apps/hierarchical-navigation-view/hierarchical-navigation.module';
 import { IframeComponent } from './apps/iframe/iframe.component';
@@ -94,8 +89,7 @@ import { PageListDialogComponent } from './page/page-list-dialog/page-list-dialo
 import { UrlParamUpdaterComponent } from './apps/url-param-updater/url-param-updater.component';
 import { MyFilesComponent } from './apps/my-files/my-files.component';
 import { AudioPlayerComponent } from './apps/audio-player/audio-player.component';
-import { NgxAudioPlayerModule } from 'ngx-audio-player';
-import { JsonEnvironmentComponent } from './apps/json-environment/json-environment.component';
+import { PythonEnvironmentComponent } from './apps/python-environment/python-environment.component';
 import { PieChartV2Component } from './apps/pie-chart-v2/pie-chart-v2.component';
 import { GroupedBarChartV2Component } from './apps/grouped-bar-chart-v2/grouped-bar-chart-v2.component';
 import { CommentOnIndicesComponent } from './apps/comment-on-indices/comment-on-indices.component';
@@ -106,9 +100,15 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MachineReasoningComponent } from './apps/machine-reasoning/machine-reasoning.component';
-import { MenuItemComponent } from './page/menu-item/menu-item.component';
+//import { MenuItemComponent } from './page/menu-item/menu-item.component';
 import { NestedMenu} from './page/menu-item/nested-menu';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { OurDemoAppComponent } from './apps/our-demo-app/our-demo-app.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatTreeModule} from '@angular/material/tree';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
 
 @NgModule({
   imports: [
@@ -119,7 +119,6 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
     MatIconModule,
     TextViewModule,
     MatTooltipModule,
-    SynopsisModule,
     MyPageSetModule,
     KnoraV2ViewerModule,
     MatProgressSpinnerModule,
@@ -158,14 +157,12 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
     MatCheckboxModule,
     StaticPagesModule,
     MatRadioModule,
-    JoinedTextViewModule,
     HierarchicalNavigationModule,
     EditorModule,
     PdfViewerModule,
     MatFileUploadModule,
     // KnoraJsonldSimplify,
     AgGridModule.withComponents([]),
-    NgxAudioPlayerModule,
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule.forChild([
@@ -233,7 +230,7 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
     UrlParamUpdaterComponent,
     MyFilesComponent,
     AudioPlayerComponent,
-    JsonEnvironmentComponent,
+    PythonEnvironmentComponent,
     PieChartV2Component,
     GroupedBarChartV2Component,
     CommentOnIndicesComponent,
@@ -245,8 +242,10 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
     MachineReasoningComponent,
 
-    MenuItemComponent,
-    NestedMenu
+    //MenuItemComponent,
+    NestedMenu,
+
+    OurDemoAppComponent
   ],
   exports: [
     PageComponent,
@@ -268,8 +267,8 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
     FileListDialogComponent,
     AddAppGroupDialogComponent,
     PageListDialogComponent,
-    MenuItemComponent
-  ],
-  bootstrap: [MenuItemComponent]
+    //MenuItemComponent
+  ]//,
+  //bootstrap: [MenuItemComponent]
 })
 export class NIEOSModule { }

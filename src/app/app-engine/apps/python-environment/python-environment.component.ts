@@ -8,18 +8,18 @@ import {FileService} from '../../../user-action-engine/file/file.service';
 import 'ace-builds/src-noconflict/mode-python';
 
 @Component({
-  selector: 'app-json-environment',
-  templateUrl: './json-environment.component.html',
-  styleUrls: ['./json-environment.component.scss']
+  selector: 'app-python-environment',
+  templateUrl: './python-environment.component.html',
+  styleUrls: ['./python-environment.component.scss']
 })
-export class JsonEnvironmentComponent implements OnChanges, HttpInterceptor {
+export class PythonEnvironmentComponent implements OnChanges, HttpInterceptor {
 
   @Input() hash: string;
   @Input() assignedJson: any;
   @Input() pythonFile: any;
   @Output() reloadVariables: EventEmitter<any> = new EventEmitter<any>();
-  @ViewChild('editor') editor;
-  serivceId = 'jsonEnvironment';
+  @ViewChild('editor', { static: true }) editor;
+  serivceId = 'pythonEnvironment';
   display = JSON.parse( localStorage.getItem( this.serivceId ) );
   output: any;
   constructor(
@@ -53,17 +53,17 @@ export class JsonEnvironmentComponent implements OnChanges, HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    const jsonEnvironmentInstances = JSON.parse( localStorage.getItem( this.serivceId ) );
-    const jsonEnvironmentSet = new Set();
+    const pythonEnvironmentInstances = JSON.parse( localStorage.getItem( this.serivceId ) );
+    const pythonEnvironmentSet = new Set();
 
-    for ( const service in jsonEnvironmentInstances ) {
-      jsonEnvironmentSet.add( jsonEnvironmentInstances[ 'hash' ] );
+    for ( const service in pythonEnvironmentInstances ) {
+      pythonEnvironmentSet.add( pythonEnvironmentInstances[ 'hash' ] );
     }
 
     return Observable.of(null).mergeMap(() => {
-      if ( jsonEnvironmentSet.has( request.url ) ) {
+      if ( pythonEnvironmentSet.has( request.url ) ) {
         // console.log( 'interceptor is triggered' );
-        const body = jsonEnvironmentInstances;
+        const body = pythonEnvironmentInstances;
         // localStorage.removeItem( this.serivceId );
         return Observable.of(new HttpResponse({ status: 200, body: JSON.parse( localStorage.getItem( this.serivceId ) ).output } ));
       } else {
@@ -114,10 +114,12 @@ export class JsonEnvironmentComponent implements OnChanges, HttpInterceptor {
   }
 
   savePythonFile( submit?: boolean ) {
+    console.log(this.pythonFile);
     this.fileService.getFileByUrl( this.pythonFile )
       .subscribe(response => {
         console.log( response );
         const file = (response as any).file;
+        console.log(file);
         this.fileService.updateFile(
           file._id,
           file.title,

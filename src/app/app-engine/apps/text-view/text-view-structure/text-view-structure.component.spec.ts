@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TextViewStructureComponent } from './text-view-structure.component';
 
@@ -6,7 +6,7 @@ describe('TextViewStructureComponent', () => {
   let component: TextViewStructureComponent;
   let fixture: ComponentFixture<TextViewStructureComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ TextViewStructureComponent ]
     })

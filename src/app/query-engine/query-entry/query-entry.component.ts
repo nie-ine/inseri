@@ -3,7 +3,6 @@
  * */
 
 import { AfterViewInit, Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef, MatTabChangeEvent } from '@angular/material';
 import {HttpClient} from '@angular/common/http';
 import { AbstractJsonService } from '../../query-app-interface/data-management/services/abstract-json.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -11,6 +10,8 @@ import { KeyValueFormComponent } from './key-value-form/key-value-form.component
 import { GeneralRequestService } from '../general/general-request.service';
 import { QueryService } from '../../user-action-engine/mongodb/query/query.service';
 import { environment } from '../../../environments/environment';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MatTabChangeEvent} from '@angular/material/tabs';
 
 @Component({
   selector: 'app-query-entry',

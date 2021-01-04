@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { QueryListComponent } from './query-list.component';
 
@@ -6,7 +6,7 @@ describe('QueryListComponent', () => {
   let component: QueryListComponent;
   let fixture: ComponentFixture<QueryListComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ QueryListComponent ]
     })

@@ -11,7 +11,6 @@ import {GenerateHashService} from '../../../user-action-engine/other/generateHas
 import {OpenAppsModel} from '../../../user-action-engine/mongodb/page/open-apps.model';
 import {PageService} from '../../../user-action-engine/mongodb/page/page.service';
 import { DataManagementComponent } from '../../../query-app-interface/data-management/data-management/data-management.component';
-import {MatDialog, MatSnackBar} from '@angular/material';
 import { NgxSpinnerService } from 'ngx-spinner';
 import {GeneralRequestService} from '../../../query-engine/general/general-request.service';
 import {QueryInformationDialogComponent} from '../query-information-dialog/query-information-dialog.component';
@@ -37,6 +36,8 @@ import {OverlayContainer} from '@angular/cdk/overlay';
 import {PageSetService} from '../../../user-action-engine/mongodb/pageset/page-set.service';
 import {SubPageOfPageModel} from '../../../user-action-engine/mongodb/page/subPageOfPage.model';
 import {NestedMenu} from '../menu-item/nested-menu';
+import {MatDialog} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'nie-os',
@@ -283,10 +284,11 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
   selectedSubPage: SubPageOfPageModel;
   subPagesOfPage: SubPageOfPageModel[] = [];
-  dataSourceOfSubPages: MatTableDataSource<any>;
+  // dataSourceOfSubPages: MatTableDataSource<any>;
   pageSet: any;
   private actionAlreadyLoaded: boolean;
   addSubPages: boolean;
+  private totalParentPages: 0;
 
   constructor(
     public route: ActivatedRoute,
@@ -312,6 +314,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.route.queryParams.subscribe(params => {
       this.hashOfThisPage = params.page;
       this.actionID = params.actionID;
+     // this.alreadyLoaded = params.alreadyLoaded;
       // console.log(params.actionAlreadyLoaded);
       // if (!params.actionAlreadyLoaded) {
         this.generateNavigation(params.actionID);
@@ -352,6 +355,24 @@ export class PageComponent implements OnInit, AfterViewChecked {
       this.reloadVariables = true;
     });
   }
+
+  fillPagesOfThisActionArray(subPagesOfPage: SubPageOfPageModel[]) {// , selectedPageIndex?: number[], continueSearching?: boolean) {
+    for (let i = 0; i < subPagesOfPage.length; i++) {
+      this.pagesOfThisActtion.push(subPagesOfPage[i].page);
+      if (subPagesOfPage[i].page._id === this.hashOfThisPage) {
+        this.selectedPageIndex = this.pagesOfThisActtion.length - 1;
+        console.log(this.selectedPageIndex);
+      }
+    }
+    for (let i = 0; i < subPagesOfPage.length; i++) {
+      if (subPagesOfPage[i].subPages.length !== 0) {
+        this.fillPagesOfThisActionArray(subPagesOfPage[i].subPages); // , selectedPageIndex, continueSearching);
+      }
+    }
+    this.alreadyLoaded = true;
+  }
+
+
 
   /**
    * if the pageID changes in URL, the page is updated through setting reloadViariables to true,
@@ -397,8 +418,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
                         queryParams: {
                           'actionID': ( response as any).action._id,
                           'page': pageSetResponse.pageset.hasPages[ 0 ],
-                          //'actionAlreadyLoaded': true
-                        }, queryParamsHandling: "merge"
+                          // 'actionAlreadyLoaded': true
+                        }, queryParamsHandling: 'merge'
                       });
                   }, e2 => console.log( e2 )
                 );
@@ -517,7 +538,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   addNewPage(page) {
-    alert('add New Page');
+    // alert('add New Page');
     const dialogRef = this.dialog.open(DialogCreateNewPageComponent, {
       width: '700px',
       data: { pageset: this.action.hasPageSet,
@@ -530,7 +551,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
       this.alreadyLoaded = false;
       this.subPagesOfPage.push({page: result.page, subPages: []});
       // this.updatePagesArray(result);
-      this.navigateToOtherView(result.page._id);
+      this.navigateToOtherView(result.page);
       // this.generateNavigation(this.actionID, true);
     });
   }
@@ -558,7 +579,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
         'actionID': this.actionID,
         'page': page._id,
        // 'actionAlreadyLoaded': true
-      }, queryParamsHandling: "merge"
+      }, queryParamsHandling: 'merge'
     } );
   }
 
@@ -571,31 +592,36 @@ export class PageComponent implements OnInit, AfterViewChecked {
       this.actionService.getAction(actionID)
         .subscribe(data => {
           this.pageSet = data.body.action.hasPageSet._id;
-          console.log(data.body.action.hasPageSet.hasPages);
-          console.log(data.body.hierarchyOfPages);
+          // console.log(data.body.action.hasPageSet.hasPages);
+          // console.log(data.body.hierarchyOfPages);
             if (data.body.action.type === 'page-set') {
               this.pagesOfThisActtion = [];
               this.subPagesOfPage = data.body.hierarchyOfPages;
-              this.dataSourceOfSubPages = new MatTableDataSource(this.subPagesOfPage);
+              // this.dataSourceOfSubPages = new MatTableDataSource(this.subPagesOfPage);
+              // console.log(this.subPagesOfPage);
+              // for (const page of ( data.body as any ).action.hasPageSet.hasPages as any ) {
+              //   if ( page._id === this.hashOfThisPage ) {
+              //     this.selectedPageIndex = this.pagesOfThisActtion.length;
+              //   }
+              //   // this.subPagesOfPage.push({page: page, subPages: null});
+              //   // this.selectSubPages(page);
+              //   this.pagesOfThisActtion[this.pagesOfThisActtion.length] = page;
+              //   this.alreadyLoaded = true;
+              // }
+              // let pageIndex: number [];
               console.log(this.subPagesOfPage);
-              for (const page of ( data.body as any ).action.hasPageSet.hasPages as any ) {
-                if ( page._id === this.hashOfThisPage ) {
-                  this.selectedPageIndex = this.pagesOfThisActtion.length;
-                }
-                // this.subPagesOfPage.push({page: page, subPages: null});
-                // this.selectSubPages(page);
-                this.pagesOfThisActtion[this.pagesOfThisActtion.length] = page;
-                this.alreadyLoaded = true;
-              }
-              console.log( this.pagesOfThisActtion, this.subPagesOfPage );
-              // if ( goToPage ) {
-                // this.selectedPageIndex = this.pagesOfThisActtion.length - 1;
+               this.fillPagesOfThisActionArray(this.subPagesOfPage); // , pageIndex, true);
+               this.totalParentPages = ( data.body as any ).action.hasPageSet.hasPages.length;
+              console.log('pagesOfThisActtion');
+              console.log(this.pagesOfThisActtion);
+              console.log('selectedIndex');
+              console.log(this.selectedPageIndex);
                 this.router.navigate( [ 'page' ], {
                   queryParams: {
                     'actionID': this.actionID,
                     'page': this.pagesOfThisActtion[ this.selectedPageIndex ]._id, // this.hashOfThisPage
-                    //'actionAlreadyLoaded': true
-                  }, queryParamsHandling: "merge"
+                   // 'actionAlreadyLoaded': true
+                  }, queryParamsHandling: 'merge'
                 } );
               // }
             }
@@ -949,6 +975,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
         }
       }
     }
+    console.log( this.openAppArray );
     for ( const app of this.openAppArray ) {
       app.openAppArrayIndex = this.page.openApps[ app.hash ].openAppArrayIndex;
     }

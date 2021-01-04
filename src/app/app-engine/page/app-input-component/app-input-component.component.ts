@@ -1,5 +1,4 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {QueryService} from '../../../user-action-engine/mongodb/query/query.service';
 import {environment} from '../../../../environments/environment';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -7,6 +6,7 @@ import {GeneralRequestService} from '../../../query-engine/general/general-reque
 import {PageService} from '../../../user-action-engine/mongodb/page/page.service';
 import {FileListDialogComponent} from '../file-list-dialog/file-list-dialog.component';
 import {QueryEntryComponent} from '../../../query-engine/query-entry/query-entry.component';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-app-input-component',

@@ -17,7 +17,6 @@ import {
   Renderer2, OnInit, OnChanges, AfterViewChecked, SimpleChanges, ViewChild, ChangeDetectorRef
 } from '@angular/core';
 import 'rxjs/add/operator/map';
-import {MatDialog} from '@angular/material';
 import { FrameSettingsComponent } from '../frame-settings/frame-settings.component';
 import {ActivatedRoute, Router} from '@angular/router';
 import { DataAssignmentComponent } from '../../../query-app-interface/data-management/data-assignment/data-assignment.component';
@@ -27,6 +26,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import {HttpClient} from '@angular/common/http';
 import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 import {MatMenuTrigger} from '@angular/material/menu';
+import {MatDialog} from '@angular/material/dialog';
 
 
 @Component({

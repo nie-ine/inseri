@@ -31,9 +31,9 @@ export class JoinedTextViewComponent implements OnChanges {
   @Input() textConfiguration: JoinedTextViewRoot;
 
   /**
-   * Default style declarations.
+   * Default style declarations. The list of environments has to be wrapped under the key `default`.
    */
-  @Input() styleDeclarations: Array<StyleDeclaration>;
+  @Input() styleDeclarations: SelectableEnvironments;
 
   /**
    * Dynamic style declarations.

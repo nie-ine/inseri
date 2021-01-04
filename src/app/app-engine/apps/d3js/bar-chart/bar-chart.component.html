@@ -7,8 +7,8 @@
           <mat-form-field>
             <input matInput
                    type="number"
-                   [ngStyle]="{'width':'128px'}"
                    placeholder="Pixel"
+                   [ngStyle]="{'width':'128px'}"
                    [value]="chartWidth"
                    [(ngModel)]="newChartWidth"
                    (change)="drawBarChart()">
@@ -33,9 +33,9 @@
             <mat-form-field [ngStyle]="{'width':'80px', 'margin-right':'10px'}">
               <input matInput
                      type="number"
-                     min="{{ rangeMinMin }}"
-                     max="{{ rangeMinMax }}"
-                     placeholder="Lowest"
+                     [min]="rangeMinMin"
+                     [max]="rangeMinMax"
+                     placeholder="Min"
                      [value]="rangeLowest"
                      [(ngModel)]="newRangeLowest"
                      (change)="drawBarChart()">
@@ -48,17 +48,18 @@
             <mat-form-field [ngStyle]="{'width':'80px', 'margin-left':'10px'}">
               <input matInput
                      type="number"
-                     min="{{ rangeMaxMin }}"
-                     max="{{ rangeMaxMax }}"
-                     placeholder="Highest"
+                     [min]="rangeMaxMin"
+                     [max]="rangeMaxMax"
+                     placeholder="Max"
                      [value]="rangeHighest"
                      [(ngModel)]="newRangeHighest"
+                     readonly
                      (change)="drawBarChart()">
             </mat-form-field>
           </div>
         </div>
       </div>
-      <div class="custom-slider" [ngStyle]="{'position':'relative', 'width': '100%', 'height': '100%', 'padding-left':'30px'}">
+      <div class="custom-slider" [ngStyle]="{'position':'relative', 'width': '100%', 'height': '100%', 'padding':'0 0 0 30px'}">
         <ngx-slider [(value)]="newRangeLowest"
                     [(highValue)]="newRangeHighest"
                     [options]="RangeOptions"
@@ -68,7 +69,6 @@
       </div>
     </div>
   </div>
-  <!-- <button id="scaleBarChartButton" mat-button (click)="reDrawBarChart()">Update</button> -->
   <div class="barChartContainer">
     <div>
       <div class="barChartYaxis" id="{{ 'barChartYaxis_' + numberOfInitialisedComponent }}"></div>

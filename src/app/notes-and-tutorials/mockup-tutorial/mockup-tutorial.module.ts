@@ -11,8 +11,8 @@ import { TextDisplayComponent } from './text-display/text-display.component';
     CommonModule,
     MatButtonModule,
     RouterModule.forRoot([
-      {path: 'my-main-component', component: MyMainComponentComponent}
-    ])
+    { path: 'my-main-component', component: MyMainComponentComponent }
+], { relativeLinkResolution: 'legacy' })
   ],
   declarations: [MyMainComponentComponent, NavigationComponent, TextDisplayComponent]
 })

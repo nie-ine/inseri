@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AngularHandsometableComponent } from './angular-handsometable.component';
 
@@ -6,7 +6,7 @@ describe('AngularHandsometableComponent', () => {
   let component: AngularHandsometableComponent;
   let fixture: ComponentFixture<AngularHandsometableComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ AngularHandsometableComponent ]
     })

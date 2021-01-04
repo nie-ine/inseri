@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { KnoraV2ViewerInnerhtmlComponent } from './knora-v2-viewer-innerhtml.component';
 
@@ -6,7 +6,7 @@ describe('TextRichInnerhtmlComponent', () => {
   let component: KnoraV2ViewerInnerhtmlComponent;
   let fixture: ComponentFixture<KnoraV2ViewerInnerhtmlComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ KnoraV2ViewerInnerhtmlComponent ]
     })

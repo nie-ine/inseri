@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
-import { RouterModule } from "@angular/router";
+import { RouterModule } from '@angular/router';
 import { D3tutorialComponent } from './d3tutorial/d3tutorial.component';
 import { AceEditorModule } from 'ng2-ace-editor';
 import { MultiLineChartComponent } from './multi-line-chart/multi-line-chart.component';
@@ -14,9 +14,13 @@ import { LeafletExampleComponent } from './leaflet-example/leaflet-example.compo
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { ChordDiagramComponent } from './chord-diagram/chord-diagram.component';
 import { SpiralBarChartComponent } from './spiral-bar-chart/spiral-bar-chart.component';
-import {MatButtonModule, MatFormFieldModule, MatInputModule, MatSliderModule, MatSlideToggleModule} from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import {NgxSliderModule} from '@angular-slider/ngx-slider';
+import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSliderModule} from '@angular/material/slider';
+import {MatInputModule} from '@angular/material/input';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
   imports: [
