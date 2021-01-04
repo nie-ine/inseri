@@ -18,6 +18,13 @@ import {QueryEntryComponent} from '../../../query-engine/query-entry/query-entry
 import {OpenAppsModel} from '../../../user-action-engine/mongodb/page/open-apps.model';
 import {GeneralRequestService} from '../../../query-engine/general/general-request.service';
 import {GenerateHashService} from '../../../user-action-engine/other/generateHash.service';
+<<<<<<< HEAD
+import {map} from 'rxjs/operators';
+import {QueryModel} from '../../../user-action-engine/mongodb/query/query.model';
+import {MatDialog} from '@angular/material/dialog';
+import {MatTableDataSource} from '@angular/material/table';
+=======
+>>>>>>> ebe27152f68e039f6e86ef13c3f1a6cb5e1ba961
 
 @Component({
   selector: 'app-my-files',
@@ -366,9 +373,9 @@ export class MyFilesComponent implements OnInit, OnChanges {
    */
   get allFiles(): FormArray {
     return this.demoForm.get('files') as FormArray;
-  /**
   }
 
+  /**
    * A function used to list all the folders of the current user. It is called in ngOnInit or when the user makes any changes to the folders
    */
   showFolders() {

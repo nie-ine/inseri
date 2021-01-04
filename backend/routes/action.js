@@ -116,8 +116,10 @@ router.get('/setShortName/:shortName/:id', checkAuth, (req, res, next ) => {
     );
 });
 
+/**
+ * Returns the hierarchy of pages and its subPages
+ */
 async function getHierarchyOfPages(pageObj) {
-  //console.log('getHierarchyOfPages');
   let page= await Page.findOne({_id: pageObj._id }).populate('hasSubPages');
   let subPagesOfSubPage=[];
   if(page) {
@@ -126,20 +128,12 @@ async function getHierarchyOfPages(pageObj) {
           let subPagesResult=page.hasSubPages;//.split();
           for(let i=0;i<subPagesResult.length; i++) {
             subPagesOfSubPage.push({page: subPagesResult[i], subPages:await getHierarchyOfPages(subPagesResult[i])});
-            //return subPagesOfSubPage;
-            //hierarchyOfPages.push({page: page, subPages: subPagesOfSubPage});
           }
           return subPagesOfSubPage;
           } else {
-          //hierarchyOfPages.push({page:page, subPages: []});
-            //subPagesOfSubPage.push({page:page, subPages: []});
             return subPagesOfSubPage;
           }
-
         }
-
-  //}
- // return  subPagesOfSubPage;
 }
 
 router.get('/:id', checkAuth2, (req, res, next) => {
@@ -173,9 +167,6 @@ router.get('/:id', checkAuth2, (req, res, next) => {
               hierarchyOfPages: []
             })
           }
-
-          // console.log('get action id');
-          // console.log(result[0]);
         } else {
           res.status(404).json({message: 'Action was not found'})
         }
@@ -229,6 +220,9 @@ router.get('/:id', checkAuth2, (req, res, next) => {
 
 });
 
+/**
+ * Searched for an Item in an array, if found returns its index otherwise returns -1
+ */
 function  searchItemInArray (itemToSearch, arrayOfItems) {
 if(arrayOfItems.length ==0){
   return -1;
@@ -244,23 +238,20 @@ if(arrayOfItems.length ==0){
   return -1;
 }
 
+/**
+ * Creates the Files extracted from the configuration files used to create a project --> Import project function
+ */
 function addFiles(req, res,oldHostUrl, newHostUrl) {
   if(req.body.filesJson) {
     let filesJsonExported = JSON.parse(JSON.parse(JSON.stringify(req.body.filesJson.split(oldHostUrl).join(newHostUrl))));
-
     let projectFiles = req.body.projectFiles;
-    //console.log('req.body.projectFiles');
-    //console.log(req.body.projectFiles);
-
     let newFiles = filesJsonExported.slice();
-    ///console.log(newFiles);
     let filesIndices = [];
     if (projectFiles.length != 0 || filesJsonExported) {
       filesJsonExported.forEach(file => {
         filesIndices.push(file._id);
       });
       Files.find({_id: {$in: filesIndices}}).then(foundFiles => {
-        //console.log("foundFiles " + foundFiles);
         foundFiles.forEach(item => {
           let index = searchItemInArray(item, newFiles);
           if (index != -1) {
@@ -307,6 +298,9 @@ function addFiles(req, res,oldHostUrl, newHostUrl) {
   }
 }
 
+/**
+ * Creates the Folders extracted from the configuration files used to create a project --> Import project function
+ */
 function addFolders(req, res,oldHostUrl,newHostUrl) {
   if(req.body.foldersJson) {
     let foldersJsonExported = JSON.parse(JSON.parse(JSON.stringify(req.body.foldersJson)));
@@ -350,10 +344,11 @@ function addFolders(req, res,oldHostUrl,newHostUrl) {
 
 }
 
+/**
+ * Creates the myOwnJsons extracted from the configuration files used to create a project --> Import project function
+ */
 function addMyOwnJsons(req, res, oldHostUrl, newHostUrl) {
 if(req.body.jsonQueries) {
-
-
   let myOwnJsonExported = JSON.parse(JSON.parse(JSON.stringify(req.body.jsonQueries.split(oldHostUrl).join(newHostUrl))));
   let newMyOwnJsons = myOwnJsonExported.slice();
   let myOwnJsonIndices = [];
@@ -395,6 +390,9 @@ else{
 }
 }
 
+/**
+ * Creates the queries extracted from the configuration files used to create a project --> Import project function
+ */
 function addQueries( req,  res,  oldHostUrl,newHostUrl) {
   if(req.body.queries){
     let queriesExported = JSON.parse(JSON.parse(JSON.stringify(req.body.queries.split(oldHostUrl).join(newHostUrl))));
@@ -439,6 +437,9 @@ function addQueries( req,  res,  oldHostUrl,newHostUrl) {
 
 }
 
+/**
+ * Creates the pages extracted from the configuration files used to create a project --> Import project function
+ */
 function addPages( req, res, oldHostUrl, newHostUrl) {
   let pagesExported = JSON.parse(JSON.parse(JSON.stringify(req.body.pages.split(oldHostUrl).join(newHostUrl))));
   Page.insertMany(pagesExported).then(pagesInserted => {
@@ -454,6 +455,9 @@ function addPages( req, res, oldHostUrl, newHostUrl) {
   });
 }
 
+/**
+ * Creates the comments extracted from the configuration files used to create a project --> Import project function
+ */
 function addComments(req, res, oldHostUrl, newHostUrl) {
 
   if(req.body.comments){
@@ -495,6 +499,9 @@ function addComments(req, res, oldHostUrl, newHostUrl) {
 
 }
 
+/**
+ * Creates a project based on the imported configuration files.
+ */
 router.post('/createProject/', checkAuth, (req, res, next) => {
 
   let oldHostUrl = req.body.oldHostUrl;
