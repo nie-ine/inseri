@@ -1,4 +1,4 @@
-Our signature presentation for you: [https://nie-ine.github.io/inseri/](https://nie-ine.github.io/inseri/) | Mandated by [swissuniversities](https://www.swissuniversities.ch/)
+Our signature presentation for you: [https://nie-ine.github.io/inseri/](https://nie-ine.github.io/inseri/) 
 
 ------
 
