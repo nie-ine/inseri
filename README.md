@@ -4,6 +4,8 @@ Our signature presentation for you: [https://nie-ine.github.io/inseri/](https://
 
 #### Presented or mentioned at
 
+[Nantional Swiss Schoarly Edition Infrastructure Conference 2020/11 | Switzerland | YouTube Playlist](https://www.youtube.com/playlist?list=PLkCga6LPxdgrZwu0xBxsZEJauJ8_pq8ru)
+
 [Open Access in Action | Swissuniversities Project Highlights 2020 | Switzerland](https://claireclivaz.hypotheses.org/930)
 
 [Virtual research environments and ancient manuscripts 2020/09 | University of Lausanne | Switzerland](https://claireclivaz.hypotheses.org/930)
@@ -70,7 +72,7 @@ module.exports = {
 #### Install and start Angular and Node.js
 
  - ``yarn``
- - ``ng s``
+ - ``ng s`` --> there is currently a bug, solved here: https://github.com/nie-ine/inseri/issues/658
 
 #### Start node.js
 ```npm run start:server```
