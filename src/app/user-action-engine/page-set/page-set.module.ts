@@ -26,6 +26,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatTreeModule} from '@angular/material/tree';
+import {MatCardModule} from '@angular/material/card';
+
 
 @NgModule({
   imports: [
@@ -44,6 +46,7 @@ import {MatTreeModule} from '@angular/material/tree';
     MatCheckboxModule,
     MatTooltipModule,
     SharedPipeModule,
+    MatCardModule,
     RouterModule.forRoot([
     { path: 'page-set', component: PageSetLandingPageComponent }
 ], { relativeLinkResolution: 'legacy' }),

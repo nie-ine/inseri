@@ -13,7 +13,7 @@ import { environment } from '../../../../environments/environment';
   styleUrls: ['./crispr.component.scss']
 })
 export class CrisprComponent {
-  @Input() crisprMicroserviceAddress:  'http://172.23.39.73:4321';
+  @Input() crisprMicroserviceAddress: string;
   fileToUpload: any;
   form = new FormData();
   showSubmitButton = false;

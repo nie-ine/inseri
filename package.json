@@ -107,6 +107,7 @@
     "@angular/cli": "11.0.4",
     "@angular/compiler-cli": "11.0.5",
     "@angular/language-service": "11.0.5",
+    "@angular/localize": "^11.0.5",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "^2.0.6",
     "@types/lodash": "^4.14.161",

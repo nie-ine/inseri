@@ -407,18 +407,16 @@ export class PageComponent implements OnInit, AfterViewChecked {
       this.actionService.checkIfShortNameExist( this.router.url.split('/')[ 1 ] )
         .subscribe(
           response => {
-            // console.log( response );
+            console.log( response );
             if ( (response as any).exist ) {
               this.pageSetService.getPageSet( ( response as any).action.hasPageSet )
                 .subscribe(
                   pageSetResponse => {
                     console.log( pageSetResponse );
-                    this.router.navigate(['/page'],
+                    this.router.navigate(['/page-set'],
                       {
                         queryParams: {
-                          'actionID': ( response as any).action._id,
-                          'page': pageSetResponse.pageset.hasPages[ 0 ],
-                          // 'actionAlreadyLoaded': true
+                          'actionID': ( response as any).action._id
                         }, queryParamsHandling: 'merge'
                       });
                   }, e2 => console.log( e2 )

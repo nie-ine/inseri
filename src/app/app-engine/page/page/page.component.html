@@ -93,6 +93,10 @@
 
     <mat-menu #menu5>
 
+      <button mat-button (click)="goToPageSet()" *ngIf="route.snapshot.queryParams.page" >
+        <mat-icon style="margin-right: 10px">list</mat-icon> Table of content
+      </button>
+
       <ng-container *ngFor="let page of subPagesOfPage">
 
         <button class="mat-menu-item" mat-menu-item style="width: 240px;">
@@ -503,9 +507,6 @@
                 <mat-icon style="margin-right: 10px" >{{app.id}}</mat-icon> {{app.name}}
               </button>
             </div>
-            <button mat-button (click)="goToPageSet()" *ngIf="route.snapshot.queryParams.page && !preview" >
-              <mat-icon style="margin-right: 10px">list</mat-icon> Table of content
-            </button> <br>
             <button mat-button *ngIf=" (!pageAsDemo) && !preview" (click)="logout()" >
               <mat-icon matTooltip="{{ 'click to logout - ' + userInfo }}" style="margin-right: 10px">lock_open</mat-icon> Log out
             </button>
