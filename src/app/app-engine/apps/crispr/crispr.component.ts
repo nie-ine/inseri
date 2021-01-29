@@ -133,7 +133,7 @@ export class CrisprComponent {
 
       this.updateProgressBar();
 
-      console.log( this.sessionHash );
+      console.log( this.sessionHash, this.crisprMicroserviceAddress );
       this.http.post( this.crisprMicroserviceAddress, this.form, { responseType: 'blob' })
         .subscribe((val) => {
           if ( this.selectedAction === 'plot' ) {
@@ -180,11 +180,14 @@ export class CrisprComponent {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     console.log( filterValue );
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if ( filterValue ) {
+      this.dataSource.filter = filterValue.trim().toLowerCase();
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+      if (this.dataSource.paginator) {
+        this.dataSource.paginator.firstPage();
+      }
     }
+
   }
 
   generateHash(): string {
