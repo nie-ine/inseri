@@ -38,6 +38,7 @@ import {SubPageOfPageModel} from '../../../user-action-engine/mongodb/page/subPa
 import {NestedMenu} from '../menu-item/nested-menu';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {GenerateDataChoosersService} from '../../../query-app-interface/data-management/services/generate-data-choosers.service';
 
 @Component({
   selector: 'nie-os',
@@ -289,6 +290,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   private actionAlreadyLoaded: boolean;
   addSubPages: boolean;
   private totalParentPages: 0;
+  currentParams: any;
 
   constructor(
     public route: ActivatedRoute,
@@ -389,6 +391,30 @@ export class PageComponent implements OnInit, AfterViewChecked {
         this.pageIDFromURL = this.route.snapshot.queryParams.page;
       }, 500);
       this.cdr.detectChanges();
+    }
+    if ( this.route.snapshot.queryParams !== this.currentParams ) {
+      this.currentParams = this.route.snapshot.queryParams;
+      if ( this.page.queries ) {
+        for ( const queryId of this.page.queries ) {
+          this.queryService.getQuery(queryId)
+            .subscribe((data) => {
+              // console.log( data );
+              for ( const param in this.currentParams ) {
+                // console.log( param );
+                if (
+                  ( data.query.body !== null &&
+                    data.query.body.search( 'inseriParam---' + param + '---' ) !== -1 ) ||
+                  ( data.query.serverUrl !== null &&
+                    data.query.serverUrl.search( 'inseriParam---' + param + '---' ) !== -1 )
+                )
+                {
+                  console.log( 'reload!' );
+                  this.reloadVariables = true;
+                }
+              }
+            });
+        }
+      }
     }
   }
 
@@ -607,13 +633,13 @@ export class PageComponent implements OnInit, AfterViewChecked {
               //   this.alreadyLoaded = true;
               // }
               // let pageIndex: number [];
-              console.log(this.subPagesOfPage);
+              // console.log(this.subPagesOfPage);
                this.fillPagesOfThisActionArray(this.subPagesOfPage); // , pageIndex, true);
                this.totalParentPages = ( data.body as any ).action.hasPageSet.hasPages.length;
-              console.log('pagesOfThisActtion');
-              console.log(this.pagesOfThisActtion);
-              console.log('selectedIndex');
-              console.log(this.selectedPageIndex);
+              // console.log('pagesOfThisActtion');
+              // console.log(this.pagesOfThisActtion);
+              // console.log('selectedIndex');
+              // console.log(this.selectedPageIndex);
                 this.router.navigate( [ 'page' ], {
                   queryParams: {
                     'actionID': this.actionID,
@@ -953,7 +979,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.page.tiles = true;
     // console.log( this.page );
     this.action = pageAndAction[1];
-    console.log( this.action );
+    // console.log( this.action );
     this.reloadVariables = false;
     this.pageIsPublished = this.page.published;
     this.showAppTitlesOnPublish = this.page.showAppTitlesOnPublish;
@@ -973,7 +999,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
         }
       }
     }
-    console.log( this.openAppArray );
+    // console.log( this.openAppArray );
     for ( const app of this.openAppArray ) {
       app.openAppArrayIndex = this.page.openApps[ app.hash ].openAppArrayIndex;
     }
