@@ -32,9 +32,12 @@ export class CrisprComponent {
   waitingForResponse = false;
   selectedSequences: Array<string> = [];
   errorMessage: string;
-  sessionHash: string;
+  sessionHash: string = undefined;
+  selectedBaseEditorCache: string;
+  ShowPlotSequenceButton: boolean = false;
   public selection = new SelectionModel<any>(true, []);
   progressBarValue = 0;
+  responseArrived = false;
   constructor(
     private http: HttpClient,
     private sanitizer: DomSanitizer
@@ -43,9 +46,10 @@ export class CrisprComponent {
   onFileChange(files: FileList): void {
 
     this.errorMessage = undefined;
-    this.sessionHash = undefined;
+    this.ShowPlotSequenceButton = false;
     this.selectedAction = 'download';
     this.pathToFile = undefined;
+    this.responseArrived = false;
 
     if ( files.item(0) ) {
 
@@ -58,7 +62,7 @@ export class CrisprComponent {
       this.showSubmitButton = true;
       this.fileHasChanged = true;
       this.progressBarValue = 0;
-      console.log( this.sessionHash );
+      console.log( this.sessionHash, this.responseArrived );
     }
   }
 
@@ -145,6 +149,8 @@ export class CrisprComponent {
           } else if ( this.selectedAction === 'download' ) {
             saveAs(val, 'predictions_' + this.selectedBaseEditor + '_' + this.selectedPredictionType +  '.zip');
             this.waitingForResponse = false;
+            this.responseArrived = true;
+            this.ShowPlotSequenceButton = true;
           }
         }, error => {
           this.errorMessage = error.message;
@@ -200,6 +206,11 @@ export class CrisprComponent {
       );
     }
     return text;
+  }
+
+  checkIfResetSession( chosenBaseEditor: string ) {
+    console.log( chosenBaseEditor, this.selectedBaseEditor );
+      this.ShowPlotSequenceButton = false;
   }
 
 }

@@ -1,29 +1,35 @@
-<h3>test</h3>
-
 <mat-form-field appearance="fill">
   <mat-label>Base editor</mat-label>
-  <mat-select [(value)]="selectedBaseEditor" [disabled]="waitingForResponse">
+  <mat-select [(value)]="selectedBaseEditor" [disabled]="waitingForResponse || selectedAction === 'plot'">
     <mat-option
-      value="ABEmax" matTooltip="{{ selectedAction === 'plot' ? 'not changeable in plot-mode' : '' }}"
-      [disabled]="selectedAction === 'plot'">ABEmax</mat-option>
+      value="ABEmax"
+      matTooltip="{{ sessionHash ? 'you will have to resubmit your data after choosing this base editor' : '' }}"
+      [disabled]="selectedBaseEditor === 'ABEmax'"
+      (click)="checkIfResetSession( 'ABEmax' )" >ABEmax</mat-option>
     <mat-option
-      value="BE4" matTooltip="{{ selectedAction === 'plot' ? 'not changeable in plot-mode' : '' }}"
-      [disabled]="selectedAction === 'plot'">BE4</mat-option>
+      value="BE4max"
+      matTooltip="{{ sessionHash ? 'you will have to resubmit your data after choosing this base editor' : '' }}"
+      [disabled]="selectedBaseEditor === 'BE4max'"
+      (click)="checkIfResetSession( 'BE4max' )">BE4max</mat-option>
     <mat-option
-      value="ABE8e" matTooltip="{{ selectedAction === 'plot' ? 'not changeable in plot-mode' : '' }}"
-      [disabled]="selectedAction === 'plot'">ABE8e</mat-option>
+      value="ABE8e"
+      matTooltip="{{ sessionHash ? 'you will have to resubmit your data after choosing this base editor' : '' }}"
+      [disabled]="selectedBaseEditor === 'ABE8e'"
+      (click)="checkIfResetSession( 'ABE8e' )">ABE8e</mat-option>
     <mat-option
-      value="AID" matTooltip="{{ selectedAction === 'plot' ? 'not changeable in plot-mode' : '' }}"
-      [disabled]="selectedAction === 'plot'">AID</mat-option>
+      value="Target-AID"
+      matTooltip="{{ sessionHash ? 'you will have to resubmit your data after choosing this base editor' : '' }}"
+      [disabled]="selectedBaseEditor === 'Target-AID'"
+      (click)="checkIfResetSession( 'Target-AID' )">Target-AID</mat-option>
   </mat-select>
 </mat-form-field>
 
 <mat-form-field appearance="fill">
   <mat-label>Prediction type</mat-label>
-  <mat-select [(value)]="selectedPredictionType" [disabled]="waitingForResponse" >
+  <mat-select [(value)]="selectedPredictionType" [disabled]="waitingForResponse || selectedAction === 'plot'" >
     <mat-option value="mean">Mean</mat-option>
-    <mat-option value="median">Median</mat-option>
-    <mat-option value="max">Max</mat-option>
+    <mat-option value="median" [disabled]="true">Median</mat-option>
+    <mat-option value="max" [disabled]="true">Max</mat-option>
   </mat-select>
 </mat-form-field>
 
@@ -33,8 +39,8 @@
     <mat-option value="download" >Perform prediction</mat-option>
     <mat-option
       value="plot"
-      [disabled]="sessionHash === undefined"
-      matTooltip="{{ sessionHash === undefined ? 'perform prediction first' : '' }}">
+      [disabled]="sessionHash === undefined || !responseArrived || !ShowPlotSequenceButton"
+      matTooltip="{{ sessionHash === undefined || !responseArrived || !ShowPlotSequenceButton ? 'submit or re-submit data first' : '' }}">
       Plot sequences
     </mat-option>
   </mat-select>
