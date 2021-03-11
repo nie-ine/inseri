@@ -147,7 +147,9 @@ export class CrisprComponent {
             this.fileHasChanged = false;
             this.waitingForResponse = false;
           } else if ( this.selectedAction === 'download' ) {
-            saveAs(val, 'predictions_' + this.selectedBaseEditor + '_' + this.selectedPredictionType +  '.zip');
+            const blob = new Blob([ val as any ], { type: 'application/zip' });
+            const filename = 'predictions_' + this.selectedBaseEditor + '_' + this.selectedPredictionType +  '.zip';
+            saveAs(blob, filename);
             this.waitingForResponse = false;
             this.responseArrived = true;
             this.ShowPlotSequenceButton = true;

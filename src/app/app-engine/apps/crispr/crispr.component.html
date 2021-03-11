@@ -26,7 +26,7 @@
 
 <mat-form-field appearance="fill">
   <mat-label>Prediction type</mat-label>
-  <mat-select [(value)]="selectedPredictionType" [disabled]="waitingForResponse || selectedAction === 'plot'" >
+  <mat-select [(value)]="selectedPredictionType" [disabled]="true" >
     <mat-option value="mean">Mean</mat-option>
     <mat-option value="median" [disabled]="true">Median</mat-option>
     <mat-option value="max" [disabled]="true">Max</mat-option>
@@ -74,6 +74,12 @@
   [value]="progressBarValue"></mat-progress-bar>
 
 <br>
+
+<span style="color: #8c8c8c" >Please find sample data
+  <a target="_blank" href="https://raw.githubusercontent.com/uzh-dqbm-cmi/crispr/master/sample_data/abemax_sampledata.csv" >
+    here
+  </a>
+</span>
 
 
 <span *ngIf="errorMessage" style="color: darkred" > {{ errorMessage }} </span>
