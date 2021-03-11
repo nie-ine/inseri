@@ -97,4 +97,8 @@ export class HomeComponent implements OnInit {
     this.startLoginProcess();
   }
 
+  navigateToGithubRepo() {
+    window.open('https://github.com/nie-ine/inseri', '_blank');
+  }
+
 }

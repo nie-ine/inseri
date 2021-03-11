@@ -109,6 +109,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatTreeModule} from '@angular/material/tree';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
+import { MatCardComponent } from './apps/mat-card/mat-card.component';
 
 @NgModule({
   imports: [
@@ -172,7 +173,8 @@ import {MatSortModule} from '@angular/material/sort';
       { path: 'app-our-new-component', component: OurNewComponentComponent },
       { path: 'gnd', component: GndLobidComponent },
       { path: 'audio', component: AudioPlayerComponent },
-      { path: 'calendar', component: CalendarComponent }
+      { path: 'calendar', component: CalendarComponent },
+      { path: 'card', component: MatCardComponent }
     ]),
     NgxSliderModule
   ],
@@ -245,7 +247,9 @@ import {MatSortModule} from '@angular/material/sort';
     //MenuItemComponent,
     NestedMenu,
 
-    OurDemoAppComponent
+    OurDemoAppComponent,
+
+    MatCardComponent
   ],
   exports: [
     PageComponent,

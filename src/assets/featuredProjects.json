@@ -1,0 +1,60 @@
+{
+  "featuredProjects": [
+    {
+      "backgroundImage": "/assets/img/cultural-japan.png",
+      "myTitle": "Cultural Japan IIIF",
+      "subtitle": "Import, comment on and analyse content from the Cultural Japan IIIF interface",
+      "image": "/assets/img/cultural-japan-image.png",
+      "myDescription": "myDescription",
+      "mylink": "http://inseri.swiss/page?actionID=5f33f1e652f4f2001eba19f2&page=5f33f1e752f4f2001eba19f4&iiif=https:%2F%2Fsammlungen.uni-goettingen.de%2Frest%2Fiiif%2Fmanifests%2Frecord_naniweb_365197%2Fmanifest&5f33f1f652f4f2001eba19f5=0&5f33f21152f4f2001eba19f6=0"
+    },
+    {
+      "backgroundImage": "/assets/img/goettingen-logo.png",
+      "myTitle": "Univ. Göttingen Sammlungsportal",
+      "subtitle": "Import, comment on and analyse content from the University Göttingen",
+      "image": "/assets/img/auditorium-goettingen.jpeg",
+      "myDescription": "myDescription",
+      "mylink": "http://inseri.swiss/page?actionID=5f33f1e652f4f2001eba19f2&page=5f33f1e752f4f2001eba19f4&iiif=https:%2F%2Fsammlungen.uni-goettingen.de%2Frest%2Fiiif%2Fmanifests%2Frecord_naniweb_365197%2Fmanifest&5f33f1f652f4f2001eba19f5=0&5f33f21152f4f2001eba19f6=0"
+    },
+    {
+      "backgroundImage": "/assets/img/gallicagoogle_web.png",
+      "myTitle": "Gallica Arsenal Library",
+      "subtitle": "Import, comment on and analyse content from Gallica BNF",
+      "image": "/assets/img/Lieu_Arsenal_header.jpeg",
+      "myDescription": "myDescription",
+      "mylink": "http://inseri.swiss/page?actionID=5f33e0d152f4f2001eba19d0&page=5f33e0d252f4f2001eba19d2&iiif=https:%2F%2Fgallica.bnf.fr%2Fiiif%2Fark:%2F12148%2Fbtv1b550134228%2Fmanifest.json&5f33e12552f4f2001eba19d4=0&5f33e10352f4f2001eba19d3=0"
+    },
+    {
+      "backgroundImage": "/assets/img/bl-logo.png",
+      "myTitle": "Polonsky Pre-1200 Project",
+      "subtitle": "Import, comment on and analyse content from the British Library",
+      "image": "/assets/img/British-Library.jpeg",
+      "myDescription": "myDescription",
+      "mylink": "http://inseri.swiss/page?actionID=5f33bc9452f4f2001eba19a1&page=5f33bc9552f4f2001eba19a3&iiif=https:%2F%2Fapi.bl.uk%2Fmetadata%2Fiiif%2Fark:%2F81055%2Fvdc_100063638724.0x000001%2Fmanifest.json&5f33bcc652f4f2001eba19a7=0&5f33bca852f4f2001eba19a4=0"
+    },
+    {
+      "backgroundImage": "/assets/img/logo_transparent.png",
+      "myTitle": "inseri online conference",
+      "subtitle": "Critical historical edition infrastructure conference on the 26th of November 2020",
+      "image": "/assets/img/conference-start.png",
+      "myDescription": "myDescription",
+      "mylink": "https://www.youtube.com/playlist?list=PLkCga6LPxdgrZwu0xBxsZEJauJ8_pq8ru"
+    },
+    {
+      "backgroundImage": "/assets/img/cambridge-logo.svg",
+      "myTitle": "Cambridge Manuscripts",
+      "subtitle": "Import, comment on and analyse content from the Cambridge IIIF Library",
+      "image": "/assets/img/university-library-cambridge.jpeg",
+      "myDescription": "myDescription",
+      "mylink": "http://inseri.swiss/page?actionID=5f338abb52f4f2001eba199b&page=5f338abe52f4f2001eba199d&5f338ad052f4f2001eba199e=0"
+    },
+    {
+      "backgroundImage": "/assets/img/uzh-logo.jpeg",
+      "myTitle": "BE-DICT WEB APP",
+      "subtitle": "An attention-based deep learning algorithm / University of Zurich",
+      "image": "/assets/img/bedict_logo.png",
+      "myDescription": "myDescription",
+      "mylink": "http://be-dict.org/crispr"
+    }
+  ]
+}

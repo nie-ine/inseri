@@ -34,6 +34,41 @@ export class OpenAppsModel {
       initialWidth: '600',
       initialHeight: '400'
     },
+    matCard: {
+      type: 'matCard',
+      model: [],
+      inputs: [
+        {
+          'inputName': 'backgroundImage',
+          default: 'https://material.angular.io/assets/img/examples/shiba1.jpg'
+        },
+        {
+          'inputName': 'myTitle',
+          default: 'Shiba Inu'
+        },
+        {
+          'inputName': 'subtitle',
+          default: 'Dog Breed'
+        },
+        {
+          'inputName': 'image',
+          default: 'https://material.angular.io/assets/img/examples/shiba2.jpg'
+        },
+        {
+          'inputName': 'myDescription',
+          default: 'The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.\n' +
+            '      A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally\n' +
+            '      bred for hunting.'
+        },
+        {
+          'inputName': 'mylink',
+          default: 'http://inseri.swiss/'
+        },
+      ],
+      materialIcon: 'label',
+      initialWidth: '450',
+      initialHeight: '450'
+    },
     ourDemoApp: {
       type: 'ourDemoApp',
       model: [],

@@ -39,6 +39,7 @@ import {NestedMenu} from '../menu-item/nested-menu';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {GenerateDataChoosersService} from '../../../query-app-interface/data-management/services/generate-data-choosers.service';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'nie-os',
@@ -291,6 +292,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   addSubPages: boolean;
   private totalParentPages: 0;
   currentParams: any;
+  featuredProjects: Array<any>;
 
   constructor(
     public route: ActivatedRoute,
@@ -312,6 +314,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     private queryService: QueryService,
     private overlayContainer: OverlayContainer,
     private pageSetService: PageSetService,
+    private http: HttpClient
   ) {
     this.route.queryParams.subscribe(params => {
       this.hashOfThisPage = params.page;
@@ -496,6 +499,26 @@ export class PageComponent implements OnInit, AfterViewChecked {
     ) {
       this.page.tiles = true;
       this.preview = false;
+      this.http.get( 'assets/featuredProjects.json' )
+        .subscribe(
+          data => {
+            this.featuredProjects = (data as any).featuredProjects;
+            console.log( this.featuredProjects );
+            for ( const project of this.featuredProjects ) {
+              this.addAnotherApp( 'matCard', true, project.myTitle );
+              this.openAppArray[ 0 ].backgroundImage = project.backgroundImage;
+              this.openAppArray[ 0 ].myTitle = project.myTitle;
+              this.openAppArray[ 0 ].subtitle = project.subtitle;
+              this.openAppArray[ 0 ].image = project.image;
+              this.openAppArray[ 0 ].myDescription = project.myDescription;
+              this.openAppArray[ 0 ].mylink = project.mylink;
+
+            }
+            this.addAnotherApp( 'login', true, 'login' );
+          }, error => {
+            this.addAnotherApp( 'login', true, 'login' );
+          }
+        );
     }
 
     this.actionID = this.route.snapshot.queryParams.actionID;
@@ -734,6 +757,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     }
     this.dataSource.filter = undefined;
     const appModel = this.openAppsInThisPage[ appType ].model;
+    console.log( appModel );
     const length = appModel.length;
     appModel[ length ] = {};
     if ( generateHash ) {
@@ -755,6 +779,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
       if ( !this.page.openApps ) {
         this.page.openApps = {};
       }
+
       if (
         this.page.openApps &&
         this.page.openApps[ appModel[ length ].hash ] === null
@@ -769,7 +794,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
       } else {
         this.openAppArray = [ appModel[ length ] ].concat( this.openAppArray );
       }
-      if ( appType !== 'pageMenu' &&  this.openAppsInThisPage[ appModel[ length ].type ].inputs ) {
+      console.log( 'here', appType, this.openAppsInThisPage[ appModel[ length ].type ].inputs );
+      if ( appType !== 'pageMenu' &&  this.openAppsInThisPage[ appModel[ length ].type ].inputs && this.loggedIn ) {
+        console.log( 'create inputs' );
         for ( const input of this.openAppsInThisPage[ appModel[ length ].type ].inputs ) {
           this.createDefaultInputAndMappToAppInput(
             appType,
@@ -796,7 +823,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     }
     // for ( const input of this.openAppsInThisPage[ app.type ].inputs ) {
     const now = new Date();
-    // console.log(!this.page.serverUrl);
+    console.log(!this.page.serverUrl);
     if ( !this.page.jsonId ) {
       this.queryService.createQueryOfPage(this.page._id,
         {title: 'page:' + this.page.title + ' | data stored in inseri'})
@@ -821,7 +848,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
                     .subscribe((data3) => {
                       if (data3.status === 200) {
                       } else {
-                        // console.log('Updating query failed');
+                        console.log('Updating query failed');
                       }
                     }, error1 => console.log(error1));
                   if ( this.page.appInputQueryMapping[ app.hash ] === undefined ) {
@@ -864,7 +891,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
           }
         }, error1 => {
           app.spinnerIsShowing = false;
-          console.log( error1 );
+          // console.log( error1 );
         });
     } else {
       // console.log( 'update existing query', input );
@@ -872,7 +899,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
       this.requestService.get(  environment.node + '/api/myOwnJson/getJson/' + this.page.jsonId, undefined, undefined )
         .subscribe(
           myOwnJsonResponse => {
-            console.log( myOwnJsonResponse );
+            // console.log( myOwnJsonResponse );
             if ( myOwnJsonResponse.body.result.content ) {
               existingInputs = myOwnJsonResponse.body.result.content.info;
             } else {
