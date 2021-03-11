@@ -83,6 +83,15 @@
                 <a href="https://www.nie-ine.ch/technik-de" *ngIf="emailSent">here.</a>
               </span>
               <a href="https://www.nie-ine.ch/technik-de" *ngIf="noEmailSent">here.</a>
+              <button
+                type="button"
+                mat-button
+                style="margin-top: 15px; float: right; margin-right: 20px;">
+                <img
+                  (click)="navigateToGithubRepo()"
+                  [src]="'../../../../assets/img/github-logo.png'"
+                  style="width: 40px; margin-bottom: 2px; vertical-align: bottom; " matTooltip="view code on Github" >
+              </button>
             </div>
           </div>
         </form>

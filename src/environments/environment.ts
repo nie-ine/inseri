@@ -14,5 +14,5 @@ export const environment = {
   webern: 'https://edition.anton-webern.ch/',
   pythonEnvironment: 'http://localhost:50000',
   machineReasoning: 'http://localhost:50001',
-  crispr: 'http://172.23.39.73:4321'
+  crispr: 'http://130.60.24.130:4321'
 };

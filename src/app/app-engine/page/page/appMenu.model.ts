@@ -22,6 +22,17 @@ export class AppMenuModel {
       appGroup: 'visualise'
     },
     {
+      id: 'label',
+      name: 'Mat Card',
+      tags: 'id',
+      color: 'green',
+      status: 'stable',
+      appType: 'matCard',
+      description: '',
+      showOnHome: false,
+      appGroup: 'visualise'
+    },
+    {
       id: 'blur_on',
       name: 'Machine Reasoning',
       tags: 'N3, rdfs, rdf, owl',

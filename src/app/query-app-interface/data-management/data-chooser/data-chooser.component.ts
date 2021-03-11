@@ -85,8 +85,10 @@ export class DataChooserComponent implements AfterViewChecked {
 
   ngAfterViewChecked() {
     if ( this.pathWithArray &&
-      this.currentPath !== this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ] ) {
+      this.currentPath !== this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ]
+    ) {
       this.currentPath = this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ];
+      // console.log( 'params have changed' );
       setTimeout(() => {
         // console.log(  this._route.snapshot.queryParams[ this.queryId + this.pathWithArray.toString() ] );
         // console.log(this.pathWithArray);

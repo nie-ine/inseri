@@ -16,6 +16,7 @@ import {NestedTreeControl} from '@angular/cdk/tree';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
 
+
 @Component({
   selector: 'app-page-set-landing-page',
   templateUrl: './page-set-landing-page.component.html',
@@ -76,6 +77,7 @@ export class PageSetLandingPageComponent implements OnInit {
     this.subPagesOfPage = [];
     this.actionService.getAction(actionID)
       .subscribe(data => {
+        console.log( data );
         if ((data.status === 200) && (data.body.action.type === 'page-set')) {
           this.action = data.body.action;
           this.pageSet = this.action.hasPageSet;

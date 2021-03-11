@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit {
   }
 
   goToRegister() {
-    this.router.navigate(['/register' ]);
+    window.open('https://www.zi.uzh.ch/en/teaching-and-research/science-it/about/contact.html', '_blank');
   }
 
   startLoginProcess() {
@@ -87,13 +87,18 @@ export class HomeComponent implements OnInit {
   }
 
   forgotPasswordMethod() {
-    console.log( this.forgotPassword );
-    this.forgotPassword = !this.forgotPassword;
-    return this.forgotPassword;
+    // console.log( this.forgotPassword );
+    // this.forgotPassword = !this.forgotPassword;
+    // return this.forgotPassword;
+    window.open('https://www.zi.uzh.ch/en/teaching-and-research/science-it/about/contact.html', '_blank');
   }
 
   onKey() {
     this.startLoginProcess();
+  }
+
+  navigateToGithubRepo() {
+    window.open('https://github.com/nie-ine/inseri', '_blank');
   }
 
 }
