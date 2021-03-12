@@ -1,13 +1,15 @@
-<mat-form-field class="example-form-field" style="width: 100%; margin-top: 20px;" *ngIf="!forDashboard">
+<mat-form-field class="example-form-field" style="width: 100%; margin-top: 20px;" *ngIf="!forDashboard && loggedIn">
   <mat-label>New comment</mat-label>
-  <textarea matInput type="text" [(ngModel)]="newComment"></textarea>
+  <textarea matInput type="text" [(ngModel)]="newComment" ></textarea>
 </mat-form-field>
 
 <br *ngIf="!forDashboard">
 
-<button mat-button (click)="addComment()" (keyup.enter)="addComment()" *ngIf="!forDashboard">
+<button mat-button (click)="addComment()" (keyup.enter)="addComment()" *ngIf="!forDashboard && loggedIn">
   Add comment
 </button>
+
+<h4 *ngIf="!forDashboard && !loggedIn" >Comments</h4>
 
 <mat-card *ngFor="let comment of commentArray.slice().reverse(); let i = index;">
 
@@ -16,7 +18,7 @@
   <mat-card-header style="margin-top: 15px; margin-bottom: 15px;" >
 
     <div mat-card-avatar [matMenuTriggerFor]="menu" style="cursor: pointer"> <!-- matTooltip="{{ comment.user }} + test"-->
-      <img [src]="comment.creator.usrProfileFilePath"  style="display: inline-block;border-radius: 50%;width:50px;height: 50px;">
+      <img [src]="'/assets/img/logo_transparent.png'"  style="display: inline-block;border-radius: 50%;width:50px;height: 50px;"> <!-- comment.creator.usrProfileFilePath -->
     </div>
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)=" comment.inputField = true; " >Edit comment</button>

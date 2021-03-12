@@ -37,7 +37,7 @@ router.post('', checkAuth, (req, res, next) => {
     });
 });
 
-router.get('/:pageId', checkAuth, (req, res, next) => {
+router.get('/:pageId', checkAuth2, (req, res, next) => {
   console.log( req.params );
   Comment.find( {page: req.params.pageId } ).populate('creator')
     .then(comments => {

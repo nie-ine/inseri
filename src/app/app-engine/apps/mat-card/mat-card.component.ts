@@ -12,6 +12,7 @@ export class MatCardComponent implements OnChanges {
   @Input() image;
   @Input() myDescription;
   @Input() mylink;
+  @Input() buttonDescription;
 
 
   constructor() { }

@@ -512,6 +512,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
               this.openAppArray[ 0 ].image = project.image;
               this.openAppArray[ 0 ].myDescription = project.myDescription;
               this.openAppArray[ 0 ].mylink = project.mylink;
+              this.openAppArray[ 0 ].buttonDescription = project.buttonDescription;
 
             }
             this.addAnotherApp( 'login', true, 'login' );
