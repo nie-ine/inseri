@@ -1021,8 +1021,9 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.openAppArray = [];
     for ( const appType in openApps ) {
       for ( const app of openApps[ appType ].model ) {
-        // console.log( app );
+        console.log( app );
         if ( app.x ) {
+          console.log( app );
           this.openAppArray.push( app );
         }
       }
@@ -1379,8 +1380,12 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.page.tiles = !this.page.tiles;
   }
 
-  minimizeApp( openAppArrayIndex: number ) {
+  minimizeApp( openAppArrayIndex: number, app: any ) {
+    console.log( 'minimize' );
     this.openAppArray[ openAppArrayIndex ].minimized = true;
+    this.page.openApps[ app.hash ].minimized = true;
+    this.page.openApps[ app.hash ].minimize = true;
+    this.updatePage();
   }
 
   addDuplicatedPage() {
@@ -1573,5 +1578,16 @@ export class PageComponent implements OnInit, AfterViewChecked {
     } else {
       this.addSubPages = true;
     }
+  }
+
+  openMinimizedApp(i: number, app: any) {
+    this.openAppArray[ i ].minimized = false;
+    this.page.openApps[ app.hash ].minimized = false;
+    this.page.openApps[ app.hash ].minimize = false;
+    this.updatePage();
+  }
+
+  openPasswordDialog() {
+
   }
 }

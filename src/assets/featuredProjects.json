@@ -1,6 +1,24 @@
 {
   "featuredProjects": [
     {
+      "backgroundImage": "/assets/img/durham-logo.png",
+      "myTitle": "Durham University Library",
+      "subtitle": "Import, comment on and analyse content from the Europeana Regia Project IIIF interface",
+      "image": "/assets/img/durham-image.jpeg",
+      "myDescription": "myDescription",
+      "mylink": "http://inseri.swiss/page?actionID=5f3b795052f4f2001eba1a00&page=5f3b795152f4f2001eba1a02",
+      "buttonDescription": "Explore example of an imported fragment"
+    },
+    {
+      "backgroundImage": "/assets/img/Europeana_Regia.jpeg",
+      "myTitle": "Europeana Regia Project",
+      "subtitle": "Import, comment on and analyse content from the Europeana Regia Project IIIF interface",
+      "image": "/assets/img/europeana-building.jpeg",
+      "myDescription": "myDescription",
+      "mylink": "http://inseri.swiss/page?actionID=5f3b795052f4f2001eba1a00&page=5f3b795152f4f2001eba1a02",
+      "buttonDescription": "Explore example of an imported book"
+    },
+    {
       "backgroundImage": "/assets/img/cultural-japan.jpeg",
       "myTitle": "Cultural Japan IIIF",
       "subtitle": "Import, comment on and analyse content from the Cultural Japan IIIF interface",
