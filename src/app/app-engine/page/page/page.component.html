@@ -90,7 +90,7 @@
       </mat-button-toggle-group>
 
       <div *ngFor="let app of openAppArray; let i = index;">
-        <button mat-button (click)="openPasswordDialog()" >
+        <button mat-button (click)="openPasswordDialog()" *ngIf="app.minimized">
           <mat-icon>lock_open</mat-icon>
         </button>
         <button mat-button *ngIf="app.minimized" style="margin-top: 10px" (click)="openMinimizedApp( i, app )" >
@@ -131,11 +131,6 @@
       </div>
     </div>
   </div>
-
-
-
-
-
 
   <div style=" position: fixed; bottom: 0; left: 0; z-index: 200; overflow-x: auto; margin-top: 70px; width: 300px;" *ngIf="preview && loggedIn">
     <mat-expansion-panel [ngStyle]="{
@@ -198,14 +193,15 @@
   </div>
 </div>
 
-<div *ngFor="let app of openAppArray.slice(); let i = index;" >
-  <mat-card *ngIf="!app.minimized"
+<div *ngFor="let app of openAppArray.slice(); let i = index;"
+     [ngStyle]="{ 'display': app.minimized ? 'none' : 'inline-block' }">
+  <mat-card
     style="display: inline-grid; margin-bottom: 10px; margin-left: 60px; margin-top: 70px;"
     [ngStyle]="{
     'width': ( app.fullWidth || app.panelExtended ) ? '92%' : app.width + 'px' }">
 
 
-    <mat-card-header *ngIf=" !app.minimized " >
+    <mat-card-header  >
 
       <button mat-icon-button [matMenuTriggerFor]="menu2" [disabled]="!loggedIn">
         <mat-icon>{{ this.openAppsInThisPage[ app.type ].materialIcon }}</mat-icon>
@@ -262,7 +258,7 @@
     </mat-card-header>
     <div style="pointer-events: auto!important;"
          [ngStyle]="{'height':  ( app.fullHeight || app.panelExtended ) ? generateBrowserHeight() : app.height + 'px'}"
-         *ngIf=" !app.minimized && !app.panelExtended" [style.overflow]="'auto'">
+         *ngIf="  !app.panelExtended" [style.overflow]="'auto'">
 
       <div *ngIf="app.hasOwnProperty('showSettings')">
         <button mat-raised-button color="primary" *ngIf="app.showSettings" (click)="toggleShowInAppSettings( app, i )">Close app settings</button>
@@ -390,7 +386,7 @@
 
     </div>
 
-    <popup #appId *ngIf="app.minimized"
+    <popup #appId
            [appIndex]="i"
            [app]="app"
            [pathsWithArrays]="app.pathsWithArrays"
@@ -407,7 +403,6 @@
            [tileAndSize]="app.tileAndSize"
            [fileOptions]="app.fileOptions"
            [description]="app.showDescription"
-           [minimize]="app.minimize"
            [close]="app.close">
 
     </popup>
