@@ -3,7 +3,7 @@
  * Data for the apps are loaded with the help of the load-variables component.
  * */
 
-import {AfterViewChecked, ChangeDetectorRef, Component, HostListener, NgModule, OnInit, VERSION, ViewChild} from '@angular/core';
+import {AfterViewChecked, ChangeDetectorRef, Component, HostListener, Inject, NgModule, OnInit, VERSION, ViewChild} from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
 import 'rxjs/add/operator/map';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -36,7 +36,8 @@ import {OverlayContainer} from '@angular/cdk/overlay';
 import {PageSetService} from '../../../user-action-engine/mongodb/pageset/page-set.service';
 import {SubPageOfPageModel} from '../../../user-action-engine/mongodb/page/subPageOfPage.model';
 import {NestedMenu} from '../menu-item/nested-menu';
-import {MatDialog} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {GenerateDataChoosersService} from '../../../query-app-interface/data-management/services/generate-data-choosers.service';
 import {HttpClient} from '@angular/common/http';
@@ -273,6 +274,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     'Your appshore in the cloud'
   ];
 
+
   slogan: string;
 
   shortNameExist: boolean;
@@ -294,6 +296,21 @@ export class PageComponent implements OnInit, AfterViewChecked {
   currentParams: any;
   featuredProjects: Array<any>;
 
+  /**
+   * userName of the Minimize Password Dialog
+   */
+  userEmail: string;
+  /**
+   * password of the Minimize Password Dialog
+   */
+  password: string;
+  /**
+   * parameter to the Minimize Password Dialog
+   * indicates if this is the first time the user adds his credentials or his credentials is already saved before
+   * This parameter should be extracted from the db along side the minimize app
+   */
+  firstTime: boolean;
+
   constructor(
     public route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
@@ -314,7 +331,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
     private queryService: QueryService,
     private overlayContainer: OverlayContainer,
     private pageSetService: PageSetService,
-    private http: HttpClient
+    private http: HttpClient,
+    public minimizePasswordDialog: MatDialog,
   ) {
     this.route.queryParams.subscribe(params => {
       this.hashOfThisPage = params.page;
@@ -409,8 +427,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
                     data.query.body.search( 'inseriParam---' + param + '---' ) !== -1 ) ||
                   ( data.query.serverUrl !== null &&
                     data.query.serverUrl.search( 'inseriParam---' + param + '---' ) !== -1 )
-                )
-                {
+                ) {
                   console.log( 'reload!' );
                   this.reloadVariables = true;
                 }
@@ -1588,6 +1605,48 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   openPasswordDialog() {
+    const dialogRef = this.minimizePasswordDialog.open(MinimizePasswordDialog, {
+      width: '500px',
+      data: {userEmail: this.userEmail, password: this.password, firstTime: this.firstTime}
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+}
+@Component({
+  selector: 'minimize-password-dialog',
+  templateUrl: 'minimize-password-dialog.html',
+})
+export class MinimizePasswordDialog {
+
+  userEmail: string;
+  password: string;
+
+  constructor(
+    public dialogRef: MatDialogRef<MinimizePasswordDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: { userEmail: string,
+    password: string,
+    firstTime: boolean}) {}
+
+  submit() {
+    if (this.data.firstTime) {
+      // save the credentials and set the firstTime to false
+    } else {
+      // update the credentials
+    }
+  }
+
+  cancel() {
+    this.dialogRef.close();
+  }
+
+  update() {
+    if ( this.userEmail === this.data.userEmail || this.password === this.data.password) {
+      this.userEmail="";
+      this.password ="";
+      confirm("Please Enter the new credentials");
+    }
   }
 }

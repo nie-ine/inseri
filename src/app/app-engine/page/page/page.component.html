@@ -93,7 +93,7 @@
         <button mat-button (click)="openPasswordDialog()" *ngIf="app.minimized">
           <mat-icon>lock_open</mat-icon>
         </button>
-        <button mat-button *ngIf="app.minimized" style="margin-top: 10px" (click)="openMinimizedApp( i, app )" >
+        <button mat-raised-button *ngIf="app.minimized" style="margin-top: 10px" (click)="openMinimizedApp( i, app )" >
           Open min. {{ app.type }}
         </button>
       </div>
