@@ -1408,8 +1408,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.userName = result.userName;
-      this.password = result.password;
+      this.userName = result.data.userName;
+      this.password = result.data.password;
       console.log('The dialog was closed');
       if (this.userName !== '' && this.password !== '') {
         this.openAppArray[ openAppArrayIndex ].minimized = true;
@@ -1615,17 +1615,18 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   openMinimizedApp(i: number, app: any) {
+    console.log(this.userName);
     const dialogRef = this.minimizePasswordDialog.open(MinimizePasswordDialog, {
       width: '500px',
       data: {userName: '', password: '' }
     });
-
     dialogRef.afterClosed().subscribe(result => {
-      if (this.userName === result.userName && this.password === result.password) {
+      console.log(result);
+      if (this.userName === result.data.userName && this.password === result.data.password) {
         this.openAppArray[ i ].minimized = false;
         this.page.openApps[ app.hash ].minimized = false;
         this.page.openApps[ app.hash ].minimize = false;
-        console.log(this.page.openApps[ app.hash ].minimized)
+        console.log(this.page.openApps[ app.hash ].minimized);
         this.updatePage();
       } else {
         alert('Please enter the correct credentials');
@@ -1645,10 +1646,8 @@ export class MinimizePasswordDialog {
     password: string}) {}
 
   submit() {
-    this.dialogRef.close({
-        message: 'confirmed data',
-        data: this.data
-      });
+    console.log(this.data);
+    this.dialogRef.close({data: this.data});
   }
 
   cancel() {
