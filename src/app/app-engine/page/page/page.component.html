@@ -90,10 +90,11 @@
       </mat-button-toggle-group>
 
       <div *ngFor="let app of openAppArray; let i = index;">
-        <button mat-button (click)="openPasswordDialog()" *ngIf="app.minimized">
-          <mat-icon>lock_open</mat-icon>
-        </button>
-        <button mat-raised-button *ngIf="app.minimized" style="margin-top: 10px" (click)="openMinimizedApp( i, app )" >
+        <button
+          mat-button
+          *ngIf="app.minimized"
+          style="margin-top: 10px"
+          (click)="openMinimizedApp( i, app, true )" >
           Open min. {{ app.type }}
         </button>
       </div>

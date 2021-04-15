@@ -1042,7 +1042,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.openAppArray = [];
     for ( const appType in openApps ) {
       for ( const app of openApps[ appType ].model ) {
-        console.log( app );
+        // console.log( app );
         if ( app.x ) {
           console.log( app );
           this.openAppArray.push( app );
@@ -1404,22 +1404,33 @@ export class PageComponent implements OnInit, AfterViewChecked {
   minimizeApp( openAppArrayIndex: number, app: any ) {
     const dialogRef = this.minimizePasswordDialog.open(MinimizePasswordDialog, {
       width: '500px',
-      data: {userName: '', password: ''}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.userName = result.data.userName;
-      this.password = result.data.password;
-      console.log('The dialog was closed');
-      if (this.userName !== '' && this.password !== '') {
-        this.openAppArray[ openAppArrayIndex ].minimized = true;
-        this.page.openApps[ app.hash ].minimized = true;
-        this.page.openApps[ app.hash ].minimize = true;
-        this.updatePage();
+      data: {
+        password: undefined
       }
     });
 
-    console.log( 'minimize' );
+    dialogRef.afterClosed().subscribe(result => {
+      if ( result && result.data.password ) {
+        this.openAppArray[ openAppArrayIndex ].password = result.data.password;
+        this.page.openApps[ app.hash ].password = result.data.password;
+        setTimeout(() => {
+          this.setAppToMinimized( openAppArrayIndex, app );
+        }, 500);
+      } else {
+        this.openAppArray[ openAppArrayIndex ].password = undefined;
+        this.page.openApps[ app.hash ].password = undefined;
+        setTimeout(() => {
+          this.setAppToMinimized( openAppArrayIndex, app );
+        }, 500);
+      }
+    });
+  }
+
+  setAppToMinimized( openAppArrayIndex, app ) {
+    this.openAppArray[ openAppArrayIndex ].minimized = true;
+    this.page.openApps[ app.hash ].minimized = true;
+    this.page.openApps[ app.hash ].minimize = true;
+    this.updatePage();
   }
 
   addDuplicatedPage() {
@@ -1614,24 +1625,32 @@ export class PageComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  openMinimizedApp(i: number, app: any) {
-    console.log(this.userName);
-    const dialogRef = this.minimizePasswordDialog.open(MinimizePasswordDialog, {
-      width: '500px',
-      data: {userName: '', password: '' }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-      if (this.userName === result.data.userName && this.password === result.data.password) {
-        this.openAppArray[ i ].minimized = false;
-        this.page.openApps[ app.hash ].minimized = false;
-        this.page.openApps[ app.hash ].minimize = false;
-        console.log(this.page.openApps[ app.hash ].minimized);
-        this.updatePage();
-      } else {
-        alert('Please enter the correct credentials');
-      }
-    });
+  openMinimizedApp( i: number, app: any, unlock?: boolean ) {
+    console.log( app.password );
+
+    if ( app.password !== undefined ) {
+      const dialogRef = this.minimizePasswordDialog.open(MinimizePasswordDialog, {
+        width: '500px',
+        data: {
+          givenPassword: app.password,
+          askToUnlock: unlock,
+          password: undefined
+        }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if ( result === 'openMinimizedApp' ) {
+          this.openAppArray[ i ].minimized = false;
+          this.page.openApps[ app.hash ].minimized = false;
+          this.page.openApps[ app.hash ].minimize = false;
+          this.updatePage();
+        }
+      });
+    } else {
+      this.openAppArray[ i ].minimized = false;
+      this.page.openApps[ app.hash ].minimized = false;
+      this.page.openApps[ app.hash ].minimize = false;
+      this.updatePage();
+    }
   }
 }
 @Component({
@@ -1642,15 +1661,23 @@ export class MinimizePasswordDialog {
 
   constructor(
     public dialogRef: MatDialogRef<MinimizePasswordDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: { userName: string,
-    password: string}) {}
+    @Inject(MAT_DIALOG_DATA) public data: {
+      password: string,
+      askToUnlock: boolean,
+      givenPassword: string
+    }
+    ) {}
 
   submit() {
     console.log(this.data);
     this.dialogRef.close({data: this.data});
   }
 
-  cancel() {
+  continueWithoutPassword() {
     this.dialogRef.close();
+  }
+
+  openApp() {
+    this.dialogRef.close( 'openMinimizedApp' );
   }
 }
