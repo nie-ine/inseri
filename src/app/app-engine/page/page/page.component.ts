@@ -299,7 +299,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
   /**
    * userName of the Minimize Password Dialog
    */
-  userEmail: string;
+  userName: string;
   /**
    * password of the Minimize Password Dialog
    */
@@ -309,7 +309,11 @@ export class PageComponent implements OnInit, AfterViewChecked {
    * indicates if this is the first time the user adds his credentials or his credentials is already saved before
    * This parameter should be extracted from the db along side the minimize app
    */
-  firstTime: boolean;
+  // firstTime: boolean;
+  /**
+   * A parameter that indicates if the user added the correct credentails during opening the minimized app or not
+   */
+  private correctCredentials: boolean;
 
   constructor(
     public route: ActivatedRoute,
@@ -1398,11 +1402,24 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   minimizeApp( openAppArrayIndex: number, app: any ) {
+    const dialogRef = this.minimizePasswordDialog.open(MinimizePasswordDialog, {
+      width: '500px',
+      data: {userName: '', password: ''}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.userName = result.userName;
+      this.password = result.password;
+      console.log('The dialog was closed');
+      if (this.userName !== '' && this.password !== '') {
+        this.openAppArray[ openAppArrayIndex ].minimized = true;
+        this.page.openApps[ app.hash ].minimized = true;
+        this.page.openApps[ app.hash ].minimize = true;
+        this.updatePage();
+      }
+    });
+
     console.log( 'minimize' );
-    this.openAppArray[ openAppArrayIndex ].minimized = true;
-    this.page.openApps[ app.hash ].minimized = true;
-    this.page.openApps[ app.hash ].minimize = true;
-    this.updatePage();
   }
 
   addDuplicatedPage() {
@@ -1598,20 +1615,21 @@ export class PageComponent implements OnInit, AfterViewChecked {
   }
 
   openMinimizedApp(i: number, app: any) {
-    this.openAppArray[ i ].minimized = false;
-    this.page.openApps[ app.hash ].minimized = false;
-    this.page.openApps[ app.hash ].minimize = false;
-    this.updatePage();
-  }
-
-  openPasswordDialog() {
     const dialogRef = this.minimizePasswordDialog.open(MinimizePasswordDialog, {
       width: '500px',
-      data: {userEmail: this.userEmail, password: this.password, firstTime: this.firstTime}
+      data: {userName: '', password: '' }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      if (this.userName === result.userName && this.password === result.password) {
+        this.openAppArray[ i ].minimized = false;
+        this.page.openApps[ app.hash ].minimized = false;
+        this.page.openApps[ app.hash ].minimize = false;
+        console.log(this.page.openApps[ app.hash ].minimized)
+        this.updatePage();
+      } else {
+        alert('Please enter the correct credentials');
+      }
     });
   }
 }
@@ -1621,32 +1639,19 @@ export class PageComponent implements OnInit, AfterViewChecked {
 })
 export class MinimizePasswordDialog {
 
-  userEmail: string;
-  password: string;
-
   constructor(
     public dialogRef: MatDialogRef<MinimizePasswordDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: { userEmail: string,
-    password: string,
-    firstTime: boolean}) {}
+    @Inject(MAT_DIALOG_DATA) public data: { userName: string,
+    password: string}) {}
 
   submit() {
-    if (this.data.firstTime) {
-      // save the credentials and set the firstTime to false
-    } else {
-      // update the credentials
-    }
+    this.dialogRef.close({
+        message: 'confirmed data',
+        data: this.data
+      });
   }
 
   cancel() {
     this.dialogRef.close();
-  }
-
-  update() {
-    if ( this.userEmail === this.data.userEmail || this.password === this.data.password) {
-      this.userEmail="";
-      this.password ="";
-      confirm("Please Enter the new credentials");
-    }
   }
 }
