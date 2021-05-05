@@ -537,6 +537,11 @@ export class PageComponent implements OnInit, AfterViewChecked {
 
             }
             this.addAnotherApp( 'login', true, 'login' );
+            this.addAnotherApp( 'iframe', true, 'Hans Cools' );
+            console.log( this.openAppArray );
+            this.openAppArray[ 0 ][ 'url' ] = 'https://e-editiones.ch/';
+            this.openAppArray[ 0 ][ 'fullHeight' ] = true;
+            this.openAppArray[ 0 ][ 'width' ] = '1000';
           }, error => {
             this.addAnotherApp( 'login', true, 'login' );
           }

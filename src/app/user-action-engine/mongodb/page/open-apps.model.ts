@@ -924,7 +924,7 @@ export class OpenAppsModel {
       inputs: [
         {
           'inputName': 'url',
-          default: 'https://www.nie-ine.ch/'
+          default: 'https://inseri.swiss'
         }
       ],
     },
