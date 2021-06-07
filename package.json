@@ -86,7 +86,7 @@
     "ngx-csv": "0.3.1",
     "ngx-spinner": "^7.0.0",
     "ngx-store": "^2.1.0",
-    "nodemailer": "^5.1.1",
+    "nodemailer": "^6.4.16",
     "nodemon": "^1.18.10",
     "openseadragon": "^2.4.0",
     "primeflex": "^1.0.0",
