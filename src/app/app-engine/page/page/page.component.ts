@@ -520,32 +520,32 @@ export class PageComponent implements OnInit, AfterViewChecked {
     ) {
       this.page.tiles = true;
       this.preview = false;
-      this.http.get( 'assets/featuredProjects.json' )
-        .subscribe(
-          data => {
-            this.featuredProjects = (data as any).featuredProjects;
-            console.log( this.featuredProjects );
-            for ( const project of this.featuredProjects ) {
-              this.addAnotherApp( 'matCard', true, project.myTitle );
-              this.openAppArray[ 0 ].backgroundImage = project.backgroundImage;
-              this.openAppArray[ 0 ].myTitle = project.myTitle;
-              this.openAppArray[ 0 ].subtitle = project.subtitle;
-              this.openAppArray[ 0 ].image = project.image;
-              this.openAppArray[ 0 ].myDescription = project.myDescription;
-              this.openAppArray[ 0 ].mylink = project.mylink;
-              this.openAppArray[ 0 ].buttonDescription = project.buttonDescription;
-
-            }
-            this.addAnotherApp( 'login', true, 'login' );
-            this.addAnotherApp( 'iframe', true, 'Hans Cools' );
-            console.log( this.openAppArray );
-            this.openAppArray[ 0 ][ 'url' ] = 'https://e-editiones.ch/';
-            this.openAppArray[ 0 ][ 'fullHeight' ] = true;
-            this.openAppArray[ 0 ][ 'width' ] = '1000';
-          }, error => {
-            this.addAnotherApp( 'login', true, 'login' );
-          }
-        );
+      // this.http.get( 'assets/featuredProjects.json' )
+      //   .subscribe(
+      //     data => {
+      //       this.featuredProjects = (data as any).featuredProjects;
+      //       console.log( this.featuredProjects );
+      //       for ( const project of this.featuredProjects ) {
+      //         this.addAnotherApp( 'matCard', true, project.myTitle );
+      //         this.openAppArray[ 0 ].backgroundImage = project.backgroundImage;
+      //         this.openAppArray[ 0 ].myTitle = project.myTitle;
+      //         this.openAppArray[ 0 ].subtitle = project.subtitle;
+      //         this.openAppArray[ 0 ].image = project.image;
+      //         this.openAppArray[ 0 ].myDescription = project.myDescription;
+      //         this.openAppArray[ 0 ].mylink = project.mylink;
+      //         this.openAppArray[ 0 ].buttonDescription = project.buttonDescription;
+      //
+      //       }
+      //       this.addAnotherApp( 'login', true, 'login' );
+      //       // this.addAnotherApp( 'iframe', true, 'Hans Cools' );
+      //       // console.log( this.openAppArray );
+      //       // this.openAppArray[ 0 ][ 'url' ] = 'https://e-editiones.ch/';
+      //       // this.openAppArray[ 0 ][ 'fullHeight' ] = true;
+      //       // this.openAppArray[ 0 ][ 'width' ] = '1000';
+      //     }, error => {
+      //       this.addAnotherApp( 'login', true, 'login' );
+      //     }
+      //   );
     }
 
     this.actionID = this.route.snapshot.queryParams.actionID;

@@ -1,0 +1,1574 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>nie-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">nie-frontend documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>ChordDiagramComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/app-engine/apps/d3js/chord-diagram/chord-diagram.component.ts</code>
+</p>
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Chord diagram in angular for showing the intensity of letter exchange between people.
+Original in javascript by Mike Bostock <a href="https://bl.ocks.org/mbostock/4062006">https://bl.ocks.org/mbostock/4062006</a></p>
+
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/AfterViewChecked" target="_blank" >AfterViewChecked</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-chord-diagram</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./chord-diagram.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./chord-diagram.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#alreadyInitialised">alreadyInitialised</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#arc">arc</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#chord">chord</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#color">color</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#dataMatrix">dataMatrix</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#height">height</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#indexByName">indexByName</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#innerRadius">innerRadius</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#nameByIndex">nameByIndex</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#outerRadius">outerRadius</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#ribbon">ribbon</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#svg">svg</a>
+                            </li>
+                            <li>
+                                <a href="#title">title</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#width">width</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#drawChord">drawChord</a>
+                            </li>
+                            <li>
+                                <a href="#formatArcTitle">formatArcTitle</a>
+                            </li>
+                            <li>
+                                <a href="#formatRibbonTitle">formatRibbonTitle</a>
+                            </li>
+                            <li>
+                                <a href="#generateComponentDivClass">generateComponentDivClass</a>
+                            </li>
+                            <li>
+                                <a href="#initSvg">initSvg</a>
+                            </li>
+                            <li>
+                                <a href="#ngAfterViewChecked">ngAfterViewChecked</a>
+                            </li>
+                            <li>
+                                <a href="#prepareData">prepareData</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#fromLabel">fromLabel</a>
+                            </li>
+                            <li>
+                                <a href="#initialised">initialised</a>
+                            </li>
+                            <li>
+                                <a href="#numberOfInitialisedComponent">numberOfInitialisedComponent</a>
+                            </li>
+                            <li>
+                                <a href="#toLabel">toLabel</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+    <section>
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="fromLabel"></a>
+                        <b>fromLabel</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;von&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/app-engine/apps/d3js/chord-diagram/chord-diagram.component.ts:35</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Label/preposition for incoming connections &quot;from&quot;.</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="initialised"></a>
+                        <b>initialised</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/app-engine/apps/d3js/chord-diagram/chord-diagram.component.ts:25</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Variable for NIE-OS</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="numberOfInitialisedComponent"></a>
+                        <b>numberOfInitialisedComponent</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/app-engine/apps/d3js/chord-diagram/chord-diagram.component.ts:30</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Variable for NIE-OS</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="toLabel"></a>
+                        <b>toLabel</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;an&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/app-engine/apps/d3js/chord-diagram/chord-diagram.component.ts:40</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Label/preposition for outgoing connecitons &quot;to&quot;.</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="drawChord"></a>
+                    <span class="name">
+                        <b>
+                            drawChord
+                        </b>
+                        <a href="#drawChord"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>drawChord()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="198"
+                            class="link-to-prism">src/app/app-engine/apps/d3js/chord-diagram/chord-diagram.component.ts:198</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Apply data to SVG image.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatArcTitle"></a>
+                    <span class="name">
+                        <b>
+                            formatArcTitle
+                        </b>
+                        <a href="#formatArcTitle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>formatArcTitle(d)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="287"
+                            class="link-to-prism">src/app/app-engine/apps/d3js/chord-diagram/chord-diagram.component.ts:287</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Write the text for the mouseover explanation of an entity in the chord diagram.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>d</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>The data of the entity.</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatRibbonTitle"></a>
+                    <span class="name">
+                        <b>
+                            formatRibbonTitle
+                        </b>
+                        <a href="#formatRibbonTitle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>formatRibbonTitle(d)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="272"
+                            class="link-to-prism">src/app/app-engine/apps/d3js/chord-diagram/chord-diagram.component.ts:272</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Write the text for the mouseover explanation of a connection.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>d</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>A bidirectional connection between source and target.</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="generateComponentDivClass"></a>
+                    <span class="name">
+                        <b>
+                            generateComponentDivClass
+                        </b>
+                        <a href="#generateComponentDivClass"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>generateComponentDivClass()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="164"
+                            class="link-to-prism">src/app/app-engine/apps/d3js/chord-diagram/chord-diagram.component.ts:164</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>NIE-OS specific</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="initSvg"></a>
+                    <span class="name">
+                        <b>
+                            initSvg
+                        </b>
+                        <a href="#initSvg"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>initSvg()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="171"
+                            class="link-to-prism">src/app/app-engine/apps/d3js/chord-diagram/chord-diagram.component.ts:171</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Initialize variables for SVG image</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngAfterViewChecked"></a>
+                    <span class="name">
+                        <b>
+                            ngAfterViewChecked
+                        </b>
+                        <a href="#ngAfterViewChecked"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngAfterViewChecked()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="115"
+                            class="link-to-prism">src/app/app-engine/apps/d3js/chord-diagram/chord-diagram.component.ts:115</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>When the component has been drawn, initialize the SVG image.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="prepareData"></a>
+                    <span class="name">
+                        <b>
+                            prepareData
+                        </b>
+                        <a href="#prepareData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>prepareData()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="129"
+                            class="link-to-prism">src/app/app-engine/apps/d3js/chord-diagram/chord-diagram.component.ts:129</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Write the dataMatrix, indexByName, nameByIndex</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="alreadyInitialised"></a>
+                        <span class="name">
+                            <b>
+                            alreadyInitialised</b>
+                            <a href="#alreadyInitialised"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/app-engine/apps/d3js/chord-diagram/chord-diagram.component.ts:45</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Control over the initialization state of the component.</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="arc"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            arc</b>
+                            <a href="#arc"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="100" class="link-to-prism">src/app/app-engine/apps/d3js/chord-diagram/chord-diagram.component.ts:100</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Part of the circle that represents an entity in the chord diagram.</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="chord"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            chord</b>
+                            <a href="#chord"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="95" class="link-to-prism">src/app/app-engine/apps/d3js/chord-diagram/chord-diagram.component.ts:95</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The chord element that characterizes the component.</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="color"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            color</b>
+                            <a href="#color"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="110" class="link-to-prism">src/app/app-engine/apps/d3js/chord-diagram/chord-diagram.component.ts:110</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Construct that assigns colors to entities in the chord diagram.</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="dataMatrix"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            dataMatrix</b>
+                            <a href="#dataMatrix"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/app-engine/apps/d3js/chord-diagram/chord-diagram.component.ts:55</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The connections between source and target.</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="height"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            height</b>
+                            <a href="#height"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="80" class="link-to-prism">src/app/app-engine/apps/d3js/chord-diagram/chord-diagram.component.ts:80</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Height of the image in pixels.</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="indexByName"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            indexByName</b>
+                            <a href="#indexByName"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>{}</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">src/app/app-engine/apps/d3js/chord-diagram/chord-diagram.component.ts:65</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Index for a label in the matrix row.</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="innerRadius"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            innerRadius</b>
+                            <a href="#innerRadius"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="90" class="link-to-prism">src/app/app-engine/apps/d3js/chord-diagram/chord-diagram.component.ts:90</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Inner radius of the chord in pixels.</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="nameByIndex"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            nameByIndex</b>
+                            <a href="#nameByIndex"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>{}</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/app-engine/apps/d3js/chord-diagram/chord-diagram.component.ts:60</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Label for a row/column in the matrix.</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="outerRadius"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            outerRadius</b>
+                            <a href="#outerRadius"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="85" class="link-to-prism">src/app/app-engine/apps/d3js/chord-diagram/chord-diagram.component.ts:85</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Outer radius of the chord in pixels.</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ribbon"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            ribbon</b>
+                            <a href="#ribbon"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="105" class="link-to-prism">src/app/app-engine/apps/d3js/chord-diagram/chord-diagram.component.ts:105</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>A connection between a source and a target.</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="svg"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            svg</b>
+                            <a href="#svg"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="70" class="link-to-prism">src/app/app-engine/apps/d3js/chord-diagram/chord-diagram.component.ts:70</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Root element for the image.</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="title"></a>
+                        <span class="name">
+                            <b>
+                            title</b>
+                            <a href="#title"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>&#x27;Chord Diagram&#x27;</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/app-engine/apps/d3js/chord-diagram/chord-diagram.component.ts:50</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Title of the component</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="width"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            width</b>
+                            <a href="#width"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="75" class="link-to-prism">src/app/app-engine/apps/d3js/chord-diagram/chord-diagram.component.ts:75</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Width of the image in pixels.</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { AfterViewChecked, Component, Input } from &#x27;@angular/core&#x27;;
+import * as d3 from &#x27;d3-selection&#x27;;
+import * as d3Array from &#x27;d3-array&#x27;;
+import * as d3Chord from &#x27;d3-chord&#x27;;
+import * as d3Color from &#x27;d3-color&#x27;;
+import * as d3Scale from &#x27;d3-scale&#x27;;
+import * as d3ScaleChromatic from &#x27;d3-scale-chromatic&#x27;;
+import * as d3Shape from &#x27;d3-shape&#x27;;
+import { CONNECTIONS } from &#x27;./connections&#x27;;
+
+/**
+ Chord diagram in angular for showing the intensity of letter exchange between people.
+ Original in javascript by Mike Bostock https://bl.ocks.org/mbostock/4062006
+ */
+@Component({
+  selector: &#x27;app-chord-diagram&#x27;,
+  templateUrl: &#x27;./chord-diagram.component.html&#x27;,
+  styleUrls: [&#x27;./chord-diagram.component.scss&#x27;]
+})
+export class ChordDiagramComponent implements AfterViewChecked {
+
+  /**
+   * Variable for NIE-OS
+   */
+  @Input() initialised &#x3D; false;
+
+  /**
+   * Variable for NIE-OS
+   */
+  @Input() numberOfInitialisedComponent: number;
+
+  /**
+   * Label/preposition for incoming connections &quot;from&quot;.
+   */
+  @Input() fromLabel &#x3D; &#x27;von&#x27;;
+
+  /**
+   * Label/preposition for outgoing connecitons &quot;to&quot;.
+   */
+  @Input() toLabel &#x3D; &#x27;an&#x27;;
+
+  /**
+   * Control over the initialization state of the component.
+   */
+  alreadyInitialised &#x3D; false;
+
+  /**
+   * Title of the component
+   */
+  title &#x3D; &#x27;Chord Diagram&#x27;;
+
+  /**
+   * The connections between source and target.
+   */
+  private dataMatrix;
+
+  /**
+   * Label for a row/column in the matrix.
+   */
+  private nameByIndex &#x3D; {};
+
+  /**
+   * Index for a label in the matrix row.
+   */
+  private indexByName &#x3D; {};
+
+  /**
+   * Root element for the image.
+   */
+  private svg;
+
+  /**
+   * Width of the image in pixels.
+   */
+  private width;
+
+  /**
+   * Height of the image in pixels.
+   */
+  private height;
+
+  /**
+   * Outer radius of the chord in pixels.
+   */
+  private outerRadius;
+
+  /**
+   * Inner radius of the chord in pixels.
+   */
+  private innerRadius;
+
+  /**
+   * The chord element that characterizes the component.
+   */
+  private chord;
+
+  /**
+   * Part of the circle that represents an entity in the chord diagram.
+   */
+  private arc;
+
+  /**
+   * A connection between a source and a target.
+   */
+  private ribbon;
+
+  /**
+   * Construct that assigns colors to entities in the chord diagram.
+   */
+  private color;
+
+  /**
+   * When the component has been drawn, initialize the SVG image.
+   */
+  ngAfterViewChecked() {
+    if ( this.initialised &amp;&amp; !this.alreadyInitialised ) {
+      setTimeout(() &#x3D;&gt; {
+      this.alreadyInitialised &#x3D; true;
+      this.prepareData();
+      this.initSvg();
+      this.drawChord();
+      }, 100);
+    }
+  }
+
+  /**
+   * Write the dataMatrix, indexByName, nameByIndex
+   */
+  prepareData() {
+    this.dataMatrix &#x3D; [];
+    let n &#x3D; 0;
+    // Compute a unique index for each node.
+    for (const d of CONNECTIONS) {
+      if (this.indexByName[d.from] &#x3D;&#x3D;&#x3D; undefined) {
+        this.nameByIndex[n] &#x3D; d.from;
+        this.indexByName[d.from] &#x3D; n;
+        n++;
+      }
+      if (this.indexByName[d.to] &#x3D;&#x3D;&#x3D; undefined) {
+        this.nameByIndex[n] &#x3D; d.to;
+        this.indexByName[d.to] &#x3D; n;
+        n++;
+      }
+    }
+
+    // make empty matrix
+    for (const xContent in this.indexByName) {
+      const xDim &#x3D; [];
+      for (const yContent in this.indexByName) {
+        xDim.push(0);
+      }
+      this.dataMatrix.push(xDim);
+    }
+
+    // Fill matrix with numbers
+    for (const row of CONNECTIONS) {
+      this.dataMatrix[this.indexByName[row.from]][this.indexByName[row.to]] &#x3D; row.value;
+    }
+  }
+
+  /**
+   * NIE-OS specific
+   */
+  generateComponentDivClass() {
+    return &#x27;chord&#x27; + this.numberOfInitialisedComponent;
+  }
+
+  /**
+   * Initialize variables for SVG image
+   */
+  initSvg() {
+    this.svg &#x3D; d3.select(&#x27;.&#x27; + this.generateComponentDivClass())
+      .append(&#x27;svg&#x27;)
+      .attr(&#x27;width&#x27;, 600) // Change here for size of the bars
+      .attr(&#x27;height&#x27;, 500);
+    this.width &#x3D; this.svg.attr(&#x27;width&#x27;);
+    this.height &#x3D; this.svg.attr(&#x27;height&#x27;);
+    this.outerRadius &#x3D; Math.min(this.width, this.height) * 0.5 - 40;
+    this.innerRadius &#x3D; this.outerRadius - 20;
+
+    this.chord &#x3D; d3Chord.chord()
+      .padAngle(0.05)
+      .sortSubgroups(d3Array.descending);
+
+    this.arc &#x3D; d3Shape.arc()
+      .innerRadius(this.innerRadius)
+      .outerRadius(this.outerRadius);
+
+    this.ribbon &#x3D; d3Chord.ribbon()
+      .radius(this.innerRadius);
+
+    this.color &#x3D; d3Scale.scaleOrdinal(d3ScaleChromatic.schemeCategory10);
+  }
+
+  /**
+   * Apply data to SVG image.
+   */
+  drawChord() {
+    const g &#x3D; this.svg.append(&#x27;g&#x27;)
+      .attr(&#x27;transform&#x27;, &#x27;translate(&#x27; + this.width / 2 + &#x27;,&#x27; + this.height / 2 + &#x27;)&#x27;)
+      .datum(this.chord(this.dataMatrix));
+
+    const group &#x3D; g.append(&#x27;g&#x27;)
+      .attr(&#x27;class&#x27;, &#x27;groups&#x27;)
+      .selectAll(&#x27;g&#x27;)
+      .data(chords &#x3D;&gt; {
+        return chords.groups;
+      })
+      .enter().append(&#x27;g&#x27;);
+
+    group.append(&#x27;path&#x27;)
+      .style(&#x27;fill&#x27;, d &#x3D;&gt; {
+        return this.color(d.index);
+      })
+      .style(&#x27;stroke&#x27;, d &#x3D;&gt; {
+        return d3Color.color( this.color(d.index) ).darker();
+      })
+      .attr(&#x27;d&#x27;, this.arc)
+      .append(&#x27;svg:title&#x27;)
+      .text(d &#x3D;&gt; {
+        return this.formatArcTitle(d);
+      });
+
+    const groupTick &#x3D; group.selectAll(&#x27;.group-tick&#x27;)
+      .data(d &#x3D;&gt; {
+        return [ {angle: (d.endAngle + d.startAngle) / 2, index: d.index} ];
+      })
+      .enter().append(&#x27;g&#x27;)
+      .attr(&#x27;class&#x27;, &#x27;group-tick&#x27;)
+      .attr(&#x27;transform&#x27;, d &#x3D;&gt; {
+        return &#x27;rotate(&#x27; + (d.angle * 180 / Math.PI - 90) + &#x27;) translate(&#x27; + this.outerRadius + &#x27;,0)&#x27;;
+      });
+
+    groupTick
+      .append(&#x27;text&#x27;)
+      .attr(&#x27;x&#x27;, 8)
+      .attr(&#x27;dy&#x27;, &#x27;.35em&#x27;)
+      .attr(&#x27;transform&#x27;, d &#x3D;&gt; {
+        return d.angle &gt; Math.PI ? &#x27;rotate(180) translate(-16)&#x27; : null;
+      })
+      .style(&#x27;text-anchor&#x27;, d &#x3D;&gt; {
+        return d.angle &gt; Math.PI ? &#x27;end&#x27; : null;
+      })
+      .text(d &#x3D;&gt; {
+        return this.nameByIndex[d.index];
+      });
+
+    g.append(&#x27;g&#x27;)
+      .attr(&#x27;class&#x27;, &#x27;ribbons&#x27;)
+      .selectAll(&#x27;path&#x27;)
+      .data(chords &#x3D;&gt; {
+        return chords;
+      })
+      .enter().append(&#x27;path&#x27;)
+      .attr(&#x27;d&#x27;, this.ribbon)
+      .style(&#x27;fill&#x27;, d &#x3D;&gt; {
+        return this.color(d.target.index);
+      })
+      .style(&#x27;stroke&#x27;, d &#x3D;&gt; {
+        return d3Color.color( this.color(d.target.index) ).darker();
+      })
+      .append(&#x27;svg:title&#x27;)
+      .text(d &#x3D;&gt; {
+        return this.formatRibbonTitle(d);
+      });
+  }
+
+  /**
+   * Write the text for the mouseover explanation of a connection.
+   * @param d  A bidirectional connection between source and target.
+   */
+  formatRibbonTitle(d) {
+    return this.nameByIndex[d.source.index] + &#x27; &#x27;
+      + this.toLabel + &#x27; &#x27;
+      + this.nameByIndex[d.source.subindex] + &#x27;: &#x27;
+      + d.source.value.toLocaleString() + &#x27;\n&#x27;
+      + this.nameByIndex[d.target.index] + &#x27; &#x27;
+      + this.toLabel + &#x27; &#x27;
+      + this.nameByIndex[d.target.subindex] + &#x27;: &#x27;
+      + d.target.value.toLocaleString();
+  }
+
+  /**
+   * Write the text for the mouseover explanation of an entity in the chord diagram.
+   * @param d  The data of the entity.
+   */
+  formatArcTitle(d) {
+    return this.fromLabel + &#x27; &#x27;
+      + this.nameByIndex[d.index] + &#x27;: &#x27;
+      + d.value.toLocaleString();
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div style&#x3D;&quot;margin-top: 30px&quot;&gt;
+  &lt;div class&#x3D;&quot;{{ generateComponentDivClass() }}&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./chord-diagram.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss"></code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div style="margin-top: 30px">  <div class="{{ generateComponentDivClass() }}"></div></div></div>'
+    var COMPONENTS = [{'name': 'AddAppGroupDialogComponent', 'selector': 'app-add-app-group-dialog'},{'name': 'AllAppSelectorsComponent', 'selector': 'app-all-app-selectors'},{'name': 'AngularHandsometableComponent', 'selector': 'app-angular-handsometable'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppInputComponentComponent', 'selector': 'app-app-input-component'},{'name': 'AudioPlayerComponent', 'selector': 'app-audio-player'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'BrowserlingComponent', 'selector': 'app-browserling'},{'name': 'BrushAndZoomComponent', 'selector': 'app-brush-and-zoom'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CanvasWhiteboardComponent', 'selector': 'app-canvas-whiteboard'},{'name': 'ChordDiagramComponent', 'selector': 'app-chord-diagram'},{'name': 'CommentOnIndicesComponent', 'selector': 'app-comment-on-indices'},{'name': 'CrisprComponent', 'selector': 'app-crispr'},{'name': 'D3tutorialComponent', 'selector': 'app-d3tutorial'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataAssignmentComponent', 'selector': 'app-data-assignment'},{'name': 'DataChooserComponent', 'selector': 'app-data-chooser'},{'name': 'DataListViewComponent', 'selector': 'data-list-view'},{'name': 'DataListViewSettingsComponent', 'selector': 'data-list-view-settings'},{'name': 'DataListViewTableComponent', 'selector': 'data-list-view-table'},{'name': 'DataManagementComponent', 'selector': 'app-data-management'},{'name': 'DeactivateNewsletterComponent', 'selector': 'app-deactivate-newsletter'},{'name': 'DeleteActionComponent', 'selector': 'app-delete-action'},{'name': 'DeletePageComponent', 'selector': 'app-delete-page'},{'name': 'DialogCreateNewPageComponent', 'selector': 'dialog-create-new-page'},{'name': 'DialogOverviewExampleDialog', 'selector': 'dialog-overview-example-dialog'},{'name': 'DialogUserSettingsDialog', 'selector': 'dialog-user-settings-dialog'},{'name': 'DictionaryComponent', 'selector': 'app-dictionary'},{'name': 'DuplicatePageComponent', 'selector': 'app-duplicate-page'},{'name': 'EditActionComponent', 'selector': 'app-edit-action'},{'name': 'EditPageComponent', 'selector': 'app-edit-page'},{'name': 'EditPageSetComponent', 'selector': 'app-update-page-set'},{'name': 'ExtendSessionComponent', 'selector': 'session-component'},{'name': 'FileListDialogComponent', 'selector': 'app-file-list-dialog'},{'name': 'FloatingImageObjectComponent', 'selector': 'app-floating-image-object'},{'name': 'FloatingTextObjectComponent', 'selector': 'app-floating-text-object'},{'name': 'FloatLightTableComponent', 'selector': 'app-float-light-table'},{'name': 'Frame', 'selector': 'popup'},{'name': 'FrameSettingsComponent', 'selector': 'app-frame-settings'},{'name': 'GndLobidComponent', 'selector': 'app-gnd-lobid'},{'name': 'GrapesjsComponent', 'selector': 'app-grapesjs'},{'name': 'GroupedBarChartV2Component', 'selector': 'app-grouped-bar-chart-v2'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HierarchicalNavigationNodeComponent', 'selector': 'app-hierarchical-navigation-node'},{'name': 'HierarchicalNavigationRootComponent', 'selector': 'app-hierarchical-navigation-root'},{'name': 'HierarchicalNavigationViewComponent', 'selector': 'app-hierarchical-navigation-view'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HtmlViewerComponent', 'selector': 'app-html-viewer'},{'name': 'HtmlViewerInnerhtmlComponent', 'selector': 'app-html-viewer-innerhtml'},{'name': 'IframeComponent', 'selector': 'app-iframe'},{'name': 'ImageWithOverlayComponent', 'selector': 'app-image-with-overlay'},{'name': 'ImpressumComponent', 'selector': 'app-impressum'},{'name': 'InitPopupComponent', 'selector': 'app-init-popup'},{'name': 'JoinedTextBlockComponent', 'selector': 'app-joined-text-block'},{'name': 'JoinedTextInnerhtmlComponent', 'selector': 'app-joined-text-innerhtml'},{'name': 'JoinedTextLineComponent', 'selector': 'app-joined-text-line'},{'name': 'JoinedTextLinepartComponent', 'selector': 'app-joined-text-linepart'},{'name': 'JoinedTextMarginComponent', 'selector': 'app-joined-text-margin'},{'name': 'JoinedTextTextwrapperComponent', 'selector': 'app-joined-text-textwrapper'},{'name': 'JoinedTextViewComponent', 'selector': 'app-joined-text-view'},{'name': 'KeyValueComponent', 'selector': 'app-key-value'},{'name': 'KeyValueFormComponent', 'selector': 'app-key-value-form'},{'name': 'KnoraV2ViewerComponent', 'selector': 'app-knora-v2-viewer'},{'name': 'KnoraV2ViewerInnerhtmlComponent', 'selector': 'app-knora-v2-viewer-innerhtml'},{'name': 'LeafletExampleComponent', 'selector': 'app-leaflet-example'},{'name': 'LightTableComponent', 'selector': 'app-light-table'},{'name': 'LightTableMenuComponent', 'selector': 'app-light-table-menu'},{'name': 'LoadLightTableComponent', 'selector': 'app-load-light-table'},{'name': 'LoadVariablesComponent', 'selector': 'app-load-variables'},{'name': 'MachineReasoningComponent', 'selector': 'app-machine-reasoning'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MatCardComponent', 'selector': 'app-mat-card'},{'name': 'MinimizePasswordDialog', 'selector': 'minimize-password-dialog'},{'name': 'MultiLineChartComponent', 'selector': 'app-multi-line-chart'},{'name': 'MyFilesComponent', 'selector': 'app-my-files'},{'name': 'MyMainComponentComponent', 'selector': 'app-my-main-component'},{'name': 'MyPractiseComponentComponent', 'selector': 'app-my-practise-component'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NestedMenu', 'selector': 'app-nested-menu'},{'name': 'NewGjsBoxDialogComponent', 'selector': 'app-new-gjs-box-dialog'},{'name': 'OpenbisLoginComponent', 'selector': 'app-openbis-login'},{'name': 'OurDemoAppComponent', 'selector': 'app-our-demo-app'},{'name': 'OurNewComponentComponent', 'selector': 'app-our-new-component'},{'name': 'PageComponent', 'selector': 'nie-os'},{'name': 'PageListDialogComponent', 'selector': 'app-page-list-dialog'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'PageSetLandingPageComponent', 'selector': 'app-page-set-landing-page'},{'name': 'ParzivalFassungComponent', 'selector': 'app-parzival-fassung'},{'name': 'PdfViewerComponent', 'selector': 'app-pdf-viewer'},{'name': 'PieChartComponent', 'selector': 'app-pie-chart'},{'name': 'PieChartV2Component', 'selector': 'app-pie-chart-v2'},{'name': 'PizzaPartyComponent', 'selector': 'snack-bar-component-example-snack'},{'name': 'PrimeEditorComponent', 'selector': 'app-prime-editor'},{'name': 'PythonEnvironmentComponent', 'selector': 'app-python-environment'},{'name': 'QueryAppInputMapComponent', 'selector': 'app-query-app-input-map'},{'name': 'QueryEntryComponent', 'selector': 'app-query-entry'},{'name': 'QueryInformationDialogComponent', 'selector': 'app-query-information-dialog'},{'name': 'QueryListComponent', 'selector': 'app-query-list'},{'name': 'RadialBarchartComponent', 'selector': 'app-radial-barchart'},{'name': 'RaeberNavigationComponent', 'selector': 'app-raeber-navigation'},{'name': 'ReactivateAccountComponent', 'selector': 'app-reactivate-account'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'RemoveObjectsByIdComponent', 'selector': 'app-remove-objects-by-id'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'ResponseTreeAppComponent', 'selector': 'response-tree'},{'name': 'ResponseTreeComponent', 'selector': 'app-response-tree'},{'name': 'SankeyComponent', 'selector': 'app-sankey'},{'name': 'SaveLightTableComponent', 'selector': 'app-save-light-table'},{'name': 'ShareLightTableComponent', 'selector': 'app-share-light-table'},{'name': 'SimpleImageAppComponent', 'selector': 'app-simple-image-app'},{'name': 'SpiralBarChartComponent', 'selector': 'app-spiral-bar-chart'},{'name': 'StackedBarChartComponent', 'selector': 'app-stacked-bar-chart'},{'name': 'SubPageListComponent', 'selector': 'app-sub-page-list'},{'name': 'SynopsisComponent', 'selector': 'app-synopsis'},{'name': 'SynopsisObjectManagerComponent', 'selector': 'app-synopsis-object-manager'},{'name': 'SynopsisObjectToolboxComponent', 'selector': 'app-synopsis-object-toolbox'},{'name': 'TextDisplayComponent', 'selector': 'app-text-display'},{'name': 'TextDisplayComponent', 'selector': 'app-text-display'},{'name': 'TextLineComponent', 'selector': 'app-text-line'},{'name': 'TextLineMarginComponent', 'selector': 'app-text-line-margin'},{'name': 'TextlistViewerComponent', 'selector': 'app-textlist-viewer'},{'name': 'TextPageOfWordsComponent', 'selector': 'app-text-page-of-words'},{'name': 'TextRichInnerhtmlComponent', 'selector': 'app-text-rich-innerhtml'},{'name': 'TextSvgViewComponent', 'selector': 'app-text-svg-view'},{'name': 'TextSvgViewWrapperComponent', 'selector': 'app-text-svg-view-wrapper'},{'name': 'TextViewCanvasComponent', 'selector': 'app-text-view-canvas'},{'name': 'TextViewComponent', 'selector': 'app-text-view'},{'name': 'TextViewMetadataComponent', 'selector': 'app-text-view-metadata'},{'name': 'TextViewStructureComponent', 'selector': 'app-text-view-structure'},{'name': 'TextViewToolsComponent', 'selector': 'app-text-view-tools'},{'name': 'ThumbnailbarComponent', 'selector': 'app-thumbnailbar'},{'name': 'TiledImageObjectComponent', 'selector': 'app-tiled-image-object'},{'name': 'TiledLightTableComponent', 'selector': 'app-tiled-light-table'},{'name': 'TiledTextObjectComponent', 'selector': 'app-tiled-text-object'},{'name': 'TreeNavigationComponent', 'selector': 'app-tree-navigation'},{'name': 'UrlParamUpdaterComponent', 'selector': 'app-url-param-updater'},{'name': 'UserGroupComponent', 'selector': 'app-user-group'},{'name': 'YoutubeVideoComponent', 'selector': 'app-youtube-video'}];
+    var DIRECTIVES = [{'name': 'DraggableDirective', 'selector': '[appDraggable]'},{'name': 'DraggableStubDirective', 'selector': '[appDraggable]'},{'name': 'FloatDropTargetDirective', 'selector': '[appDropTarget]'},{'name': 'ModifiableDirective', 'selector': '[appModifiable]'},{'name': 'ModifiableStubDirective', 'selector': '[appModifiable]'},{'name': 'SelectableDirective', 'selector': '[appSelectable]'},{'name': 'SelectableStubDirective', 'selector': '[appSelectable]'},{'name': 'SynopsisObjectAnchorDirective', 'selector': '[appSynopsisObjectAnchor]'},{'name': 'TileDropTargetDirective', 'selector': '[appTileDropTarget]'}];
+    var ACTUAL_COMPONENT = {'name': 'ChordDiagramComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ChordDiagramComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

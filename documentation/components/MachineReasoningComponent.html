@@ -1,0 +1,2004 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>nie-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">nie-frontend documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>MachineReasoningComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/app-engine/apps/machine-reasoning/machine-reasoning.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+            <tr>
+                <td class="col-md-3">encapsulation</td>
+                <td class="col-md-9"><code>ViewEncapsulation.None</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-machine-reasoning</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./machine-reasoning.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./machine-reasoning.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#data_bowl">data_bowl</a>
+                            </li>
+                            <li>
+                                <a href="#data_files">data_files</a>
+                            </li>
+                            <li>
+                                <a href="#data_url_content">data_url_content</a>
+                            </li>
+                            <li>
+                                <a href="#data_urls">data_urls</a>
+                            </li>
+                            <li>
+                                <a href="#editor">editor</a>
+                            </li>
+                            <li>
+                                <a href="#errorMessage">errorMessage</a>
+                            </li>
+                            <li>
+                                <a href="#hidden_upl_data">hidden_upl_data</a>
+                            </li>
+                            <li>
+                                <a href="#hidden_upl_query">hidden_upl_query</a>
+                            </li>
+                            <li>
+                                <a href="#hidden_upl_rule">hidden_upl_rule</a>
+                            </li>
+                            <li>
+                                <a href="#init_bowl_text">init_bowl_text</a>
+                            </li>
+                            <li>
+                                <a href="#init_urls_text">init_urls_text</a>
+                            </li>
+                            <li>
+                                <a href="#isMaximized">isMaximized</a>
+                            </li>
+                            <li>
+                                <a href="#query_bowl">query_bowl</a>
+                            </li>
+                            <li>
+                                <a href="#query_files">query_files</a>
+                            </li>
+                            <li>
+                                <a href="#query_url_content">query_url_content</a>
+                            </li>
+                            <li>
+                                <a href="#query_urls">query_urls</a>
+                            </li>
+                            <li>
+                                <a href="#reasoning">reasoning</a>
+                            </li>
+                            <li>
+                                <a href="#results">results</a>
+                            </li>
+                            <li>
+                                <a href="#rule_bowl">rule_bowl</a>
+                            </li>
+                            <li>
+                                <a href="#rule_files">rule_files</a>
+                            </li>
+                            <li>
+                                <a href="#rule_url_content">rule_url_content</a>
+                            </li>
+                            <li>
+                                <a href="#rule_urls">rule_urls</a>
+                            </li>
+                            <li>
+                                <a href="#serviceId">serviceId</a>
+                            </li>
+                            <li>
+                                <a href="#timestamp">timestamp</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#addChips">addChips</a>
+                            </li>
+                            <li>
+                                <a href="#download">download</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onFileSelect">onFileSelect</a>
+                            </li>
+                            <li>
+                                <a href="#readFile">readFile</a>
+                            </li>
+                            <li>
+                                <a href="#reason">reason</a>
+                            </li>
+                            <li>
+                                <a href="#resetFiles">resetFiles</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(sanitizer: <a href="https://angular.io/api/platform-browser/DomSanitizer" target="_blank">DomSanitizer</a>, http: <a href="https://angular.io/api/common/http/HttpClient" target="_blank">HttpClient</a>, microserviceService: <a href="../injectables/MicroserviceService.html">MicroserviceService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/app-engine/apps/machine-reasoning/machine-reasoning.component.ts:17</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>sanitizer</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/platform-browser/DomSanitizer" target="_blank" >DomSanitizer</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>http</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/common/http/HttpClient" target="_blank" >HttpClient</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>microserviceService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/MicroserviceService.html" target="_self" >MicroserviceService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addChips"></a>
+                    <span class="name">
+                        <b>
+                            addChips
+                        </b>
+                        <a href="#addChips"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addChips(source)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="106"
+                            class="link-to-prism">src/app/app-engine/apps/machine-reasoning/machine-reasoning.component.ts:106</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>source</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="download"></a>
+                    <span class="name">
+                        <b>
+                            download
+                        </b>
+                        <a href="#download"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>download()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="260"
+                            class="link-to-prism">src/app/app-engine/apps/machine-reasoning/machine-reasoning.component.ts:260</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="85"
+                            class="link-to-prism">src/app/app-engine/apps/machine-reasoning/machine-reasoning.component.ts:85</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onFileSelect"></a>
+                    <span class="name">
+                        <b>
+                            onFileSelect
+                        </b>
+                        <a href="#onFileSelect"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onFileSelect(event: <a href="https://angular.io/api/router/Event" target="_blank">Event</a>, target)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="114"
+                            class="link-to-prism">src/app/app-engine/apps/machine-reasoning/machine-reasoning.component.ts:114</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>event</td>
+                                    <td>
+                                                <code><a href="https://angular.io/api/router/Event" target="_blank" >Event</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>target</td>
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="readFile"></a>
+                    <span class="name">
+                        <b>
+                            readFile
+                        </b>
+                        <a href="#readFile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>readFile(file, onLoadCallback)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="99"
+                            class="link-to-prism">src/app/app-engine/apps/machine-reasoning/machine-reasoning.component.ts:99</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>file</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>onLoadCallback</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="reason"></a>
+                    <span class="name">
+                        <b>
+                            reason
+                        </b>
+                        <a href="#reason"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>reason()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="171"
+                            class="link-to-prism">src/app/app-engine/apps/machine-reasoning/machine-reasoning.component.ts:171</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetFiles"></a>
+                    <span class="name">
+                        <b>
+                            resetFiles
+                        </b>
+                        <a href="#resetFiles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>resetFiles(target)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="157"
+                            class="link-to-prism">src/app/app-engine/apps/machine-reasoning/machine-reasoning.component.ts:157</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>target</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="data_bowl"></a>
+                        <span class="name">
+                            <b>
+                            data_bowl</b>
+                            <a href="#data_bowl"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://angular.io/api/platform-browser/SafeHtml" target="_blank" >SafeHtml</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/app-engine/apps/machine-reasoning/machine-reasoning.component.ts:37</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="data_files"></a>
+                        <span class="name">
+                            <b>
+                            data_files</b>
+                            <a href="#data_files"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/app-engine/apps/machine-reasoning/machine-reasoning.component.ts:33</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="data_url_content"></a>
+                        <span class="name">
+                            <b>
+                            data_url_content</b>
+                            <a href="#data_url_content"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>&#x27;&#x27;</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/app-engine/apps/machine-reasoning/machine-reasoning.component.ts:42</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="data_urls"></a>
+                        <span class="name">
+                            <b>
+                            data_urls</b>
+                            <a href="#data_urls"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Array&lt;string&gt;</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/app-engine/apps/machine-reasoning/machine-reasoning.component.ts:35</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="editor"></a>
+                        <span class="name">
+                            <b>
+                            editor</b>
+                            <a href="#editor"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Decorators : </b>
+                            <br />
+                            <code>
+                                @ViewChild(&#x27;editor&#x27;, {static: true})<br />
+                            </code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="83" class="link-to-prism">src/app/app-engine/apps/machine-reasoning/machine-reasoning.component.ts:83</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="errorMessage"></a>
+                        <span class="name">
+                            <b>
+                            errorMessage</b>
+                            <a href="#errorMessage"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="75" class="link-to-prism">src/app/app-engine/apps/machine-reasoning/machine-reasoning.component.ts:75</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="hidden_upl_data"></a>
+                        <span class="name">
+                            <b>
+                            hidden_upl_data</b>
+                            <a href="#hidden_upl_data"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>HTMLInputElement</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Decorators : </b>
+                            <br />
+                            <code>
+                                @ViewChild(&#x27;hidden_upl_data&#x27;, {static: true})<br />
+                            </code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/app-engine/apps/machine-reasoning/machine-reasoning.component.ts:40</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="hidden_upl_query"></a>
+                        <span class="name">
+                            <b>
+                            hidden_upl_query</b>
+                            <a href="#hidden_upl_query"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>HTMLInputElement</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Decorators : </b>
+                            <br />
+                            <code>
+                                @ViewChild(&#x27;hidden_upl_query&#x27;, {static: true})<br />
+                            </code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="66" class="link-to-prism">src/app/app-engine/apps/machine-reasoning/machine-reasoning.component.ts:66</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="hidden_upl_rule"></a>
+                        <span class="name">
+                            <b>
+                            hidden_upl_rule</b>
+                            <a href="#hidden_upl_rule"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>HTMLInputElement</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Decorators : </b>
+                            <br />
+                            <code>
+                                @ViewChild(&#x27;hidden_upl_rule&#x27;, {static: true})<br />
+                            </code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/app-engine/apps/machine-reasoning/machine-reasoning.component.ts:53</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="init_bowl_text"></a>
+                        <span class="name">
+                            <b>
+                            init_bowl_text</b>
+                            <a href="#init_bowl_text"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>&#x27;&#x27;</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/app-engine/apps/machine-reasoning/machine-reasoning.component.ts:27</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="init_urls_text"></a>
+                        <span class="name">
+                            <b>
+                            init_urls_text</b>
+                            <a href="#init_urls_text"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>&#x27;List file URLs line by line&#x27;</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/app-engine/apps/machine-reasoning/machine-reasoning.component.ts:29</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isMaximized"></a>
+                        <span class="name">
+                            <b>
+                            isMaximized</b>
+                            <a href="#isMaximized"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="81" class="link-to-prism">src/app/app-engine/apps/machine-reasoning/machine-reasoning.component.ts:81</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="query_bowl"></a>
+                        <span class="name">
+                            <b>
+                            query_bowl</b>
+                            <a href="#query_bowl"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://angular.io/api/platform-browser/SafeHtml" target="_blank" >SafeHtml</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/app/app-engine/apps/machine-reasoning/machine-reasoning.component.ts:63</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="query_files"></a>
+                        <span class="name">
+                            <b>
+                            query_files</b>
+                            <a href="#query_files"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">src/app/app-engine/apps/machine-reasoning/machine-reasoning.component.ts:59</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="query_url_content"></a>
+                        <span class="name">
+                            <b>
+                            query_url_content</b>
+                            <a href="#query_url_content"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>&#x27;&#x27;</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">src/app/app-engine/apps/machine-reasoning/machine-reasoning.component.ts:68</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="query_urls"></a>
+                        <span class="name">
+                            <b>
+                            query_urls</b>
+                            <a href="#query_urls"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Array&lt;string&gt;</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/app/app-engine/apps/machine-reasoning/machine-reasoning.component.ts:61</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="reasoning"></a>
+                        <span class="name">
+                            <b>
+                            reasoning</b>
+                            <a href="#reasoning"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">src/app/app-engine/apps/machine-reasoning/machine-reasoning.component.ts:71</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="results"></a>
+                        <span class="name">
+                            <b>
+                            results</b>
+                            <a href="#results"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Decorators : </b>
+                            <br />
+                            <code>
+                                @ViewChild(&#x27;results&#x27;)<br />
+                            </code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="79" class="link-to-prism">src/app/app-engine/apps/machine-reasoning/machine-reasoning.component.ts:79</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="rule_bowl"></a>
+                        <span class="name">
+                            <b>
+                            rule_bowl</b>
+                            <a href="#rule_bowl"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://angular.io/api/platform-browser/SafeHtml" target="_blank" >SafeHtml</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/app-engine/apps/machine-reasoning/machine-reasoning.component.ts:50</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="rule_files"></a>
+                        <span class="name">
+                            <b>
+                            rule_files</b>
+                            <a href="#rule_files"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/app-engine/apps/machine-reasoning/machine-reasoning.component.ts:46</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="rule_url_content"></a>
+                        <span class="name">
+                            <b>
+                            rule_url_content</b>
+                            <a href="#rule_url_content"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>&#x27;&#x27;</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/app-engine/apps/machine-reasoning/machine-reasoning.component.ts:55</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="rule_urls"></a>
+                        <span class="name">
+                            <b>
+                            rule_urls</b>
+                            <a href="#rule_urls"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Array&lt;string&gt;</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/app-engine/apps/machine-reasoning/machine-reasoning.component.ts:48</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="serviceId"></a>
+                        <span class="name">
+                            <b>
+                            serviceId</b>
+                            <a href="#serviceId"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>&#x27;machineReasoning&#x27;</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="77" class="link-to-prism">src/app/app-engine/apps/machine-reasoning/machine-reasoning.component.ts:77</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="timestamp"></a>
+                        <span class="name">
+                            <b>
+                            timestamp</b>
+                            <a href="#timestamp"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="73" class="link-to-prism">src/app/app-engine/apps/machine-reasoning/machine-reasoning.component.ts:73</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {Component, OnInit, ViewChild, ViewEncapsulation} from &#x27;@angular/core&#x27;;
+import {DomSanitizer, SafeHtml} from &#x27;@angular/platform-browser&#x27;;
+import {HttpClient} from &#x27;@angular/common/http&#x27;;
+import {MicroserviceService} from &#x27;../../../user-action-engine/mongodb/microservice/microservice.service&#x27;;
+import &#x27;ace-builds/src-noconflict/mode-turtle&#x27;;
+import &#x27;ace-builds/src-noconflict/theme-chrome&#x27;;
+
+// This app communicates with the machine reasoning microservice (https://github.com/nie-ine/microservice-reasoning-task)
+
+@Component({
+  selector: &#x27;app-machine-reasoning&#x27;,
+  templateUrl: &#x27;./machine-reasoning.component.html&#x27;,
+  styleUrls: [&#x27;./machine-reasoning.component.scss&#x27;],
+  encapsulation: ViewEncapsulation.None
+})
+
+export class MachineReasoningComponent implements OnInit {
+
+  constructor(
+    private sanitizer: DomSanitizer,
+    private http: HttpClient,
+    private microserviceService: MicroserviceService
+  ) {
+  }
+
+  // The initial text to be displayed in the div of the selected files
+  init_bowl_text &#x3D; &#x27;&#x27;;
+  // The initial text ot be displayed in the div of possible file URLs
+  init_urls_text &#x3D; &#x27;List file URLs line by line&#x27;;
+
+  // The list of data files to be used in the reasoning session
+  // This will be an array of objects like [ { &quot;file&quot;: &quot;rule1.n3&quot;, &quot;content&quot;: ... }, { &quot;file&quot;: &quot;rule2.n3&quot;, &quot;content&quot;: ... } ]
+  data_files &#x3D; [];
+  // Array of URLs instead of local data files
+  data_urls: Array&lt;string&gt;;
+  // The HTML representation of the selected data files
+  data_bowl: SafeHtml;
+  // The hidden HTML input of type&#x3D;&quot;file&quot; to upload multiple data files
+  // This input is triggered by the according material button in the HTML template
+  @ViewChild(&#x27;hidden_upl_data&#x27;, { static: true }) hidden_upl_data: HTMLInputElement;
+  // Default string for listed data URLs
+  data_url_content &#x3D; &#x27;&#x27;;
+
+  // The list of rule files to be used in the reasoning session
+  // This will be an array of objects like [ { &quot;file&quot;: &quot;data1.ttl&quot;, &quot;content&quot;: ... }, { &quot;file&quot;: &quot;data2.ttl&quot;, &quot;content&quot;: ... } ]
+  rule_files &#x3D; [];
+  // Array of URLs instead of local rule files
+  rule_urls: Array&lt;string&gt;;
+  // The HTML representation of the selected rule files
+  rule_bowl: SafeHtml;
+  // The hidden HTML input of type&#x3D;&quot;file&quot; to upload multiple rule files
+  // This input is triggered by the according material button in the HTML template
+  @ViewChild(&#x27;hidden_upl_rule&#x27;, { static: true }) hidden_upl_rule: HTMLInputElement;
+  // Default string for listed data URLs
+  rule_url_content &#x3D; &#x27;&#x27;;
+
+  // The list of query files to be used in the reasoning session
+  // This will be an array of objects like [ { &quot;file&quot;: &quot;query1.n3&quot;, &quot;content&quot;: ... }, { &quot;file&quot;: &quot;query2.n3&quot;, &quot;content&quot;: ... } ]
+  query_files &#x3D; [];
+  // Array of URLs instead of local query files
+  query_urls: Array&lt;string&gt;;
+  // The HTML representation of the selected query files
+  query_bowl: SafeHtml;
+  // The hidden HTML input of type&#x3D;&quot;file&quot; to upload multiple query files
+  // This input is triggered by the according material button in the HTML template
+  @ViewChild(&#x27;hidden_upl_query&#x27;, { static: true }) hidden_upl_query: HTMLInputElement;
+  // Default string for listed data URLs
+  query_url_content &#x3D; &#x27;&#x27;;
+
+  // State of the reasoning session. True if reasoning microservice is reasoning.
+  reasoning &#x3D; false;
+  // Prepare a timestamp string to use for results file
+  timestamp: string;
+  // Something to display an error message (or not)
+  errorMessage;
+  // Used by inseri
+  serviceId &#x3D; &#x27;machineReasoning&#x27;;
+  // Div to display the reasoning results
+  @ViewChild(&#x27;results&#x27;) results;
+  // Boolean to indicate whether reasoning results are maximized or not
+  isMaximized: boolean;
+  // Div of the ace editor to display the reasoning results
+  @ViewChild(&#x27;editor&#x27;, { static: true }) editor;
+
+  ngOnInit() {
+    // Don&#x27;t display any selected files as the user did not select files yet
+    this.data_bowl &#x3D; this.init_bowl_text;
+    this.rule_bowl &#x3D; this.init_bowl_text;
+    this.query_bowl &#x3D; this.init_bowl_text;
+    // Set the theme for the ace editor
+    this.editor.setTheme(&#x27;chrome&#x27;);
+    // Set the syntax of the ace editor
+    this.editor.setMode(&#x27;turtle&#x27;);
+    // Do not maximize the reasoning results
+    this.isMaximized &#x3D; false;
+  }
+
+  // Function to read contents of a selected file
+  readFile(file, onLoadCallback) {
+    const reader &#x3D; new FileReader();
+    reader.onload &#x3D; onLoadCallback;
+    reader.readAsText(file);
+  }
+
+  // Function to create the HTML for the file chips of selected files
+  addChips(source) {
+    return source.map((object) &#x3D;&gt; ([
+      &#x27;&lt;div class&#x3D;\&#x27;file_chip\&#x27;&gt;&lt;b&gt;&#x27;
+      + object.file
+      + &#x27;&lt;/b&gt;&lt;/div&gt;&#x27;])).join(&#x27;&#x27;);
+  }
+
+  // Selecting data, rule, or query files
+  onFileSelect(event: Event, target) {
+    // Save the FileList object
+    const selectedFiles &#x3D; (event.target as HTMLInputElement).files;
+
+    // Iterate over each selected file
+    for (let i &#x3D; 0; i &lt; selectedFiles.length; ++i) {
+      // For each file, create a new object
+      const thisFile &#x3D; {};
+
+      // Ad key &#x27;file&#x27; with the filename as the value to the object
+      thisFile[&#x27;file&#x27;] &#x3D; selectedFiles[i][&#x27;name&#x27;];
+
+      // Read the content of the file...
+      // ...and add the key &#x27;content&#x27; with the file&#x27;s content as text to the object
+      this.readFile(selectedFiles[i], function (e) {
+        thisFile[&#x27;content&#x27;] &#x3D; e.target.result;
+      });
+
+      // Push the created object for this file to the according global array of all selected files
+      if (target &#x3D;&#x3D;&#x3D; &#x27;data&#x27;) {
+        this.data_files.push(thisFile);
+      } else if (target &#x3D;&#x3D;&#x3D; &#x27;rule&#x27;) {
+        this.rule_files.push(thisFile);
+      } else if (target &#x3D;&#x3D;&#x3D; &#x27;query&#x27;) {
+        this.query_files.push(thisFile);
+      }
+    }
+
+    // List the names of the selected files in the view
+    if (target &#x3D;&#x3D;&#x3D; &#x27;data&#x27;) {
+      this.data_bowl &#x3D; this.sanitizer.bypassSecurityTrustHtml(this.addChips(this.data_files));
+    } else if (target &#x3D;&#x3D;&#x3D; &#x27;rule&#x27;) {
+      this.rule_bowl &#x3D; this.sanitizer.bypassSecurityTrustHtml(this.addChips(this.rule_files));
+    } else if (target &#x3D;&#x3D;&#x3D; &#x27;query&#x27;) {
+      this.query_bowl &#x3D; this.sanitizer.bypassSecurityTrustHtml(this.addChips(this.query_files));
+    }
+
+    // Always empty the current button&#x27;s FileList after file selection
+    (event.target as HTMLInputElement).value &#x3D; &#x27;&#x27;;
+  }
+
+  // Function to remove selected files (from view and arrays)
+  // A bit redundant
+  resetFiles(target) {
+    if (target &#x3D;&#x3D;&#x3D; &#x27;data&#x27;) {
+      this.data_bowl &#x3D; this.init_bowl_text;
+      this.data_files &#x3D; [];
+    } else if (target &#x3D;&#x3D;&#x3D; &#x27;rule&#x27;) {
+      this.rule_bowl &#x3D; this.init_bowl_text;
+      this.rule_files &#x3D; [];
+    } else if (target &#x3D;&#x3D;&#x3D; &#x27;query&#x27;) {
+      this.query_bowl &#x3D; this.init_bowl_text;
+      this.query_files &#x3D; [];
+    }
+  }
+
+  // Function to communicate with the machine reasoning microservice
+  reason() {
+    // Remove any currently displayed error messages in the view
+    this.errorMessage &#x3D; false;
+
+    // Create array of URL strings, if according textarea is not empty and not only whitespace
+    // Otherwise create empty array
+
+    // ...for data
+    if  (this.data_url_content.trim() !&#x3D;&#x3D; &#x27;&#x27;) {
+      this.data_urls &#x3D; this.data_url_content.split(/\r?\n/);
+    } else {
+      this.data_urls &#x3D; [];
+    }
+    // ...for rules
+    if  (this.rule_url_content.trim() !&#x3D;&#x3D; &#x27;&#x27;) {
+      this.rule_urls &#x3D; this.rule_url_content.split(/\r?\n/);
+    } else {
+      this.rule_urls &#x3D; [];
+    }
+    // ... for queries
+    if  (this.query_url_content.trim() !&#x3D;&#x3D; &#x27;&#x27;) {
+      this.query_urls &#x3D; this.query_url_content.split(/\r?\n/);
+    } else {
+      this.query_urls &#x3D; [];
+    }
+
+    // Check if there&#x27;s at least one input for data, rules, and queries (files or URLs)
+    if (this.data_files.concat(this.data_urls).length &gt; 0
+      &amp;&amp; this.rule_files.concat(this.rule_urls).length &gt; 0
+      &amp;&amp; this.query_files.concat(this.query_urls).length &gt; 0) {
+
+      // Get current timestamp
+      const nowDate &#x3D; new Date();
+      this.timestamp &#x3D; nowDate.getFullYear().toString()
+        + (nowDate.getMonth() + 1).toString()
+        + nowDate.getDate().toString()
+        + nowDate.getHours().toString()
+        + nowDate.getMinutes().toString();
+
+      // Remove any already shown results of a previous reasoning session
+      this.editor.text &#x3D; &#x27;&#x27;;
+
+      // Show the spinner to indicate that the microservice is reasoning
+      this.reasoning &#x3D; true;
+
+      // Create the body to POST to the microservice
+      const body &#x3D; {
+        &#x27;data&#x27;: {
+          &#x27;files&#x27;: this.data_files,
+          &#x27;urls&#x27;: this.data_urls
+        },
+        &#x27;rules&#x27;: {
+          &#x27;files&#x27;: this.rule_files,
+          &#x27;urls&#x27;: this.rule_urls
+        },
+        &#x27;queries&#x27;: {
+          &#x27;files&#x27;: this.query_files,
+          &#x27;urls&#x27;: this.query_urls
+        }
+      };
+
+      console.log(&#x27;POST&#x27;, body);
+
+      // POST the object to the reasoning microservice
+      this.microserviceService.postToMicroservice( this.serviceId, body, {} )
+        .subscribe((val) &#x3D;&gt; {
+          console.log(&#x27;Response:&#x27;, val);
+          this.editor.text &#x3D; val.output;
+
+          // Hide the spinner
+          this.reasoning &#x3D; false;
+          }, error &#x3D;&gt; {
+            // Display error message
+            console.log(&#x27;Error&#x27;, error);
+            this.errorMessage &#x3D; error.message;
+            // Hide the spinner
+            this.reasoning &#x3D; false;
+          }
+        );
+    } else { // If there&#x27;s no data, no rules, or queries
+      // Remove any already shown results of a previous reasoning session
+      this.editor.text &#x3D; &#x27;&#x27;;
+      this.errorMessage &#x3D; &#x27;Data, rule, or query input is missing&#x27;;
+      // Hide the spinner
+      this.reasoning &#x3D; false;
+    }
+  }
+
+  // Function to download reasoning results as a .ttl file
+  download() {
+    const a &#x3D; document.createElement(&#x27;a&#x27;);
+    const textToBLOB &#x3D; new Blob([this.editor.text], { type: &#x27;text/plain&#x27; });
+    const url &#x3D; window.URL.createObjectURL(textToBLOB);
+    a.href &#x3D; url;
+    // Use the timestamp of the reasoning session as part of the filename
+    a.download &#x3D; &#x27;inseriReasoningResults_&#x27; + this.timestamp + &#x27;.ttl&#x27;;
+    a.click();
+    a.remove();
+    window.URL.revokeObjectURL(url);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div id&#x3D;&quot;input&quot;&gt;
+    &lt;mat-tab-group animationDuration&#x3D;&quot;500ms&quot;&gt;
+      &lt;mat-tab label&#x3D;&quot;Data&quot;&gt;
+        &lt;div class&#x3D;&quot;input_container&quot;&gt;
+          &lt;div class&#x3D;&quot;files&quot;&gt;
+            &lt;div class&#x3D;&quot;file_list&quot; [innerHTML]&#x3D;&quot;data_bowl&quot;&gt;&lt;/div&gt;
+            &lt;input #hidden_upl_data [ngStyle]&#x3D;&quot;{&#x27;display&#x27;:&#x27;none&#x27;}&quot; type&#x3D;&quot;file&quot; (change)&#x3D;&quot;onFileSelect($event, &#x27;data&#x27;)&quot; multiple&gt;
+            &lt;button mat-button (click)&#x3D;&quot;hidden_upl_data.click()&quot;&gt;Select data...&lt;/button&gt;
+            &lt;button *ngIf&#x3D;&quot;data_files.length &gt; 0&quot; mat-button (click)&#x3D;&quot;resetFiles(&#x27;data&#x27;)&quot; [ngStyle]&#x3D;&quot;{&#x27;color&#x27;:&#x27;#ff4d4d&#x27;}&quot;&gt;Reset&lt;/button&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;urls&quot;&gt;
+            &lt;textarea matInput id&#x3D;&quot;data_url_list&quot; aria-label&#x3D;&quot;list of data URLs&quot; [(ngModel)]&#x3D;&quot;data_url_content&quot; [placeholder]&#x3D;&quot;init_urls_text&quot;&gt;&lt;/textarea&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/mat-tab&gt;
+      &lt;mat-tab label&#x3D;&quot;Rules&quot;&gt;
+        &lt;div class&#x3D;&quot;input_container&quot;&gt;
+          &lt;div class&#x3D;&quot;files&quot;&gt;
+            &lt;div class&#x3D;&quot;file_list&quot; [innerHTML]&#x3D;&quot;rule_bowl&quot;&gt;&lt;/div&gt;
+            &lt;input #hidden_upl_rule [ngStyle]&#x3D;&quot;{&#x27;display&#x27;:&#x27;none&#x27;}&quot; type&#x3D;&quot;file&quot; (change)&#x3D;&quot;onFileSelect($event, &#x27;rule&#x27;)&quot; multiple&gt;
+            &lt;button mat-button (click)&#x3D;&quot;hidden_upl_rule.click()&quot;&gt;Select rules...&lt;/button&gt;
+            &lt;button *ngIf&#x3D;&quot;rule_files.length &gt; 0&quot; mat-button (click)&#x3D;&quot;resetFiles(&#x27;rule&#x27;)&quot; [ngStyle]&#x3D;&quot;{&#x27;color&#x27;:&#x27;#ff4d4d&#x27;}&quot;&gt;Reset&lt;/button&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;urls&quot;&gt;
+            &lt;textarea matInput id&#x3D;&quot;rule_url_list&quot; aria-label&#x3D;&quot;list of rule URLs&quot; [(ngModel)]&#x3D;&quot;rule_url_content&quot; [placeholder]&#x3D;&quot;init_urls_text&quot;&gt;&lt;/textarea&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/mat-tab&gt;
+      &lt;mat-tab label&#x3D;&quot;Queries&quot;&gt;
+        &lt;div class&#x3D;&quot;input_container&quot;&gt;
+          &lt;div class&#x3D;&quot;files&quot;&gt;
+            &lt;div class&#x3D;&quot;file_list&quot; [innerHTML]&#x3D;&quot;query_bowl&quot;&gt;&lt;/div&gt;
+            &lt;input #hidden_upl_query [ngStyle]&#x3D;&quot;{&#x27;display&#x27;:&#x27;none&#x27;}&quot; type&#x3D;&quot;file&quot; (change)&#x3D;&quot;onFileSelect($event, &#x27;query&#x27;)&quot; multiple&gt;
+            &lt;button mat-button (click)&#x3D;&quot;hidden_upl_query.click()&quot;&gt;Select queries...&lt;/button&gt;
+            &lt;button *ngIf&#x3D;&quot;query_files.length &gt; 0&quot; mat-button (click)&#x3D;&quot;resetFiles(&#x27;query&#x27;)&quot; [ngStyle]&#x3D;&quot;{&#x27;color&#x27;:&#x27;#ff4d4d&#x27;}&quot;&gt;Reset&lt;/button&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;urls&quot;&gt;
+            &lt;textarea matInput id&#x3D;&quot;query_url_list&quot; aria-label&#x3D;&quot;list of query URLs&quot; [(ngModel)]&#x3D;&quot;query_url_content&quot; [placeholder]&#x3D;&quot;init_urls_text&quot;&gt;&lt;/textarea&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/mat-tab&gt;
+    &lt;/mat-tab-group&gt;
+    &lt;hr&gt;
+    &lt;div id&#x3D;&quot;parameters&quot;&gt;
+      &lt;span class&#x3D;&quot;param&quot;&gt;The parameters (currently readonly)&lt;/span&gt;
+      &lt;textarea id&#x3D;&quot;param_list&quot; matInput aria-label&#x3D;&quot;reasoning parameters&quot; readonly&gt;--nope&lt;/textarea&gt;
+    &lt;/div&gt;
+    &lt;button mat-button (click)&#x3D;&quot;reason()&quot; [ngStyle]&#x3D;&quot;{&#x27;background-color&#x27;:&#x27;#FFE46D&#x27;}&quot;&gt;Reason&lt;/button&gt;
+    &lt;mat-spinner *ngIf&#x3D;&quot;reasoning&quot; diameter&#x3D;&quot;25&quot; [ngStyle]&#x3D;&quot;{&#x27;float&#x27;:&#x27;right&#x27;, &#x27;right&#x27;:&#x27;20px&#x27;}&quot;&gt;&lt;/mat-spinner&gt;
+  &lt;/div&gt;
+  &lt;div id&#x3D;&quot;results&quot; [class.maximizedDiv]&#x3D;&quot;isMaximized &#x3D;&#x3D;&#x3D; true&quot;&gt;
+
+    &lt;mat-tab-group animationDuration&#x3D;&quot;0ms&quot;&gt;
+      &lt;mat-tab label&#x3D;&quot;Results&quot;&gt;
+        &lt;div *ngIf&#x3D;&quot;errorMessage&quot; [innerText]&#x3D;&quot;errorMessage&quot; [ngStyle]&#x3D;&quot;{&#x27;position&#x27;:&#x27;absolute&#x27;,&#x27;top&#x27;:&#x27;18px&#x27;,&#x27;left&#x27;:&#x27;45px&#x27;,&#x27;width&#x27;:&#x27;90%&#x27;,&#x27;z-index&#x27;:&#x27;999&#x27;,&#x27;padding&#x27;:&#x27;5px&#x27;, &#x27;background-color&#x27;:&#x27;#ff4d4d&#x27;, &#x27;border-radius&#x27;:&#x27;4px&#x27;, &#x27;color&#x27;:&#x27;white&#x27;}&quot;&gt;&lt;/div&gt;
+        &lt;div [ngStyle]&#x3D;&quot;{&#x27;height&#x27; : isMaximized &#x3D;&#x3D;&#x3D; false ? &#x27;532px&#x27; : &#x27;85vh&#x27;}&quot;&gt;
+          &lt;ace-editor #editor [readOnly]&#x3D;&quot;true&quot; [ngStyle]&#x3D;&quot;{&#x27;height&#x27;:&#x27;100%&#x27;,&#x27;width&#x27;:&#x27;100%&#x27;,&#x27;font-size&#x27;:&#x27;14px&#x27;,&#x27;margin-bottom&#x27;:&#x27;15px&#x27;}&quot;&gt;&lt;/ace-editor&gt;
+        &lt;/div&gt;
+        &lt;div [ngStyle]&#x3D;&quot;{&#x27;float&#x27;: &#x27;right&#x27;}&quot;&gt;
+          &lt;button mat-button *ngIf&#x3D;&quot;this.editor.text.length &gt; 0&quot; (click)&#x3D;&quot;download()&quot;&gt;Download&lt;/button&gt;
+          &lt;button mat-button (click)&#x3D;&quot;isMaximized &#x3D; !isMaximized&quot; [ngStyle]&#x3D;&quot;{&#x27;color&#x27; : isMaximized &#x3D;&#x3D;&#x3D; false ? &#x27;rgba(0,0,0,.87)&#x27; : &#x27;#ff4d4d&#x27;}&quot;&gt;{{ isMaximized &#x3D;&#x3D;&#x3D; true ? &#x27;Minimize&#x27; : &#x27;Maximize&#x27; }}&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/mat-tab&gt;
+    &lt;/mat-tab-group&gt;
+  &lt;/div&gt;
+
+
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./machine-reasoning.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">$containerHeight: 400px;
+$filesHeight: $containerHeight * 0.7;
+$urlsHeight: $containerHeight * 0.3;
+$backgroundGrey: #ebebeb;
+
+#input {
+  width: 550px;
+  float: left;
+  margin-right: 50px;
+}
+
+#results {
+  overflow: hidden;
+}
+
+.input_container {
+  position: relative;
+  height: $containerHeight;
+}
+
+.files {
+  position: relative;
+  height: $filesHeight;
+}
+
+.file_list {
+  position: relative;
+  height: $filesHeight * 0.75;
+  background-color: $backgroundGrey;
+  border-radius: 4px;
+  padding: 5px;
+  margin: 5px 0 15px 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.urls textarea {
+  position: relative;
+  height: $urlsHeight;
+  border-radius: 4px;
+  background-color: $backgroundGrey;
+}
+#data_url_list {
+  resize: none;
+  padding: 5px;
+}
+#rule_url_list {
+  resize: none;
+  padding: 5px;
+}
+#query_url_list {
+  resize: none;
+  padding: 5px;
+}
+
+#param_list {
+  position: relative;
+  height: $urlsHeight * 0.5;
+  background-color: $backgroundGrey;
+  border-radius: 4px;
+  padding: 5px;
+  margin: 5px 0 15px 0;
+  resize: none;
+}
+
+.file_chip {
+  height: 32px;
+  padding: 7px 8px 7px 12px;
+  margin-bottom: 5px;
+  border-radius: 25px;
+  background-color: #C6C6C6;
+}
+
+.the_spinner {
+  display: none;
+}
+
+.maximizedDiv {
+  position: fixed;
+  z-index: 9999;
+  height: 100vh;
+  width: 99.5vw;
+  top: 0;
+  left: 0;
+  background-color: white;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div id="input">    <mat-tab-group animationDuration="500ms">      <mat-tab label="Data">        <div class="input_container">          <div class="files">            <div class="file_list" [innerHTML]="data_bowl"></div>            <input #hidden_upl_data [ngStyle]="{\'display\':\'none\'}" type="file" (change)="onFileSelect($event, \'data\')" multiple>            <button mat-button (click)="hidden_upl_data.click()">Select data...</button>            <button *ngIf="data_files.length > 0" mat-button (click)="resetFiles(\'data\')" [ngStyle]="{\'color\':\'#ff4d4d\'}">Reset</button>          </div>          <div class="urls">            <textarea matInput id="data_url_list" aria-label="list of data URLs" [(ngModel)]="data_url_content" [placeholder]="init_urls_text"></textarea>          </div>        </div>      </mat-tab>      <mat-tab label="Rules">        <div class="input_container">          <div class="files">            <div class="file_list" [innerHTML]="rule_bowl"></div>            <input #hidden_upl_rule [ngStyle]="{\'display\':\'none\'}" type="file" (change)="onFileSelect($event, \'rule\')" multiple>            <button mat-button (click)="hidden_upl_rule.click()">Select rules...</button>            <button *ngIf="rule_files.length > 0" mat-button (click)="resetFiles(\'rule\')" [ngStyle]="{\'color\':\'#ff4d4d\'}">Reset</button>          </div>          <div class="urls">            <textarea matInput id="rule_url_list" aria-label="list of rule URLs" [(ngModel)]="rule_url_content" [placeholder]="init_urls_text"></textarea>          </div>        </div>      </mat-tab>      <mat-tab label="Queries">        <div class="input_container">          <div class="files">            <div class="file_list" [innerHTML]="query_bowl"></div>            <input #hidden_upl_query [ngStyle]="{\'display\':\'none\'}" type="file" (change)="onFileSelect($event, \'query\')" multiple>            <button mat-button (click)="hidden_upl_query.click()">Select queries...</button>            <button *ngIf="query_files.length > 0" mat-button (click)="resetFiles(\'query\')" [ngStyle]="{\'color\':\'#ff4d4d\'}">Reset</button>          </div>          <div class="urls">            <textarea matInput id="query_url_list" aria-label="list of query URLs" [(ngModel)]="query_url_content" [placeholder]="init_urls_text"></textarea>          </div>        </div>      </mat-tab>    </mat-tab-group>    <hr>    <div id="parameters">      <span class="param">The parameters (currently readonly)</span>      <textarea id="param_list" matInput aria-label="reasoning parameters" readonly>--nope</textarea>    </div>    <button mat-button (click)="reason()" [ngStyle]="{\'background-color\':\'#FFE46D\'}">Reason</button>    <mat-spinner *ngIf="reasoning" diameter="25" [ngStyle]="{\'float\':\'right\', \'right\':\'20px\'}"></mat-spinner>  </div>  <div id="results" [class.maximizedDiv]="isMaximized === true">    <mat-tab-group animationDuration="0ms">      <mat-tab label="Results">        <div *ngIf="errorMessage" [innerText]="errorMessage" [ngStyle]="{\'position\':\'absolute\',\'top\':\'18px\',\'left\':\'45px\',\'width\':\'90%\',\'z-index\':\'999\',\'padding\':\'5px\', \'background-color\':\'#ff4d4d\', \'border-radius\':\'4px\', \'color\':\'white\'}"></div>        <div [ngStyle]="{\'height\' : isMaximized === false ? \'532px\' : \'85vh\'}">          <ace-editor #editor [readOnly]="true" [ngStyle]="{\'height\':\'100%\',\'width\':\'100%\',\'font-size\':\'14px\',\'margin-bottom\':\'15px\'}"></ace-editor>        </div>        <div [ngStyle]="{\'float\': \'right\'}">          <button mat-button *ngIf="this.editor.text.length > 0" (click)="download()">Download</button>          <button mat-button (click)="isMaximized = !isMaximized" [ngStyle]="{\'color\' : isMaximized === false ? \'rgba(0,0,0,.87)\' : \'#ff4d4d\'}">{{ isMaximized === true ? \'Minimize\' : \'Maximize\' }}</button>        </div>      </mat-tab>    </mat-tab-group>  </div></div>'
+    var COMPONENTS = [{'name': 'AddAppGroupDialogComponent', 'selector': 'app-add-app-group-dialog'},{'name': 'AllAppSelectorsComponent', 'selector': 'app-all-app-selectors'},{'name': 'AngularHandsometableComponent', 'selector': 'app-angular-handsometable'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppInputComponentComponent', 'selector': 'app-app-input-component'},{'name': 'AudioPlayerComponent', 'selector': 'app-audio-player'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'BrowserlingComponent', 'selector': 'app-browserling'},{'name': 'BrushAndZoomComponent', 'selector': 'app-brush-and-zoom'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CanvasWhiteboardComponent', 'selector': 'app-canvas-whiteboard'},{'name': 'ChordDiagramComponent', 'selector': 'app-chord-diagram'},{'name': 'CommentOnIndicesComponent', 'selector': 'app-comment-on-indices'},{'name': 'CrisprComponent', 'selector': 'app-crispr'},{'name': 'D3tutorialComponent', 'selector': 'app-d3tutorial'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataAssignmentComponent', 'selector': 'app-data-assignment'},{'name': 'DataChooserComponent', 'selector': 'app-data-chooser'},{'name': 'DataListViewComponent', 'selector': 'data-list-view'},{'name': 'DataListViewSettingsComponent', 'selector': 'data-list-view-settings'},{'name': 'DataListViewTableComponent', 'selector': 'data-list-view-table'},{'name': 'DataManagementComponent', 'selector': 'app-data-management'},{'name': 'DeactivateNewsletterComponent', 'selector': 'app-deactivate-newsletter'},{'name': 'DeleteActionComponent', 'selector': 'app-delete-action'},{'name': 'DeletePageComponent', 'selector': 'app-delete-page'},{'name': 'DialogCreateNewPageComponent', 'selector': 'dialog-create-new-page'},{'name': 'DialogOverviewExampleDialog', 'selector': 'dialog-overview-example-dialog'},{'name': 'DialogUserSettingsDialog', 'selector': 'dialog-user-settings-dialog'},{'name': 'DictionaryComponent', 'selector': 'app-dictionary'},{'name': 'DuplicatePageComponent', 'selector': 'app-duplicate-page'},{'name': 'EditActionComponent', 'selector': 'app-edit-action'},{'name': 'EditPageComponent', 'selector': 'app-edit-page'},{'name': 'EditPageSetComponent', 'selector': 'app-update-page-set'},{'name': 'ExtendSessionComponent', 'selector': 'session-component'},{'name': 'FileListDialogComponent', 'selector': 'app-file-list-dialog'},{'name': 'FloatingImageObjectComponent', 'selector': 'app-floating-image-object'},{'name': 'FloatingTextObjectComponent', 'selector': 'app-floating-text-object'},{'name': 'FloatLightTableComponent', 'selector': 'app-float-light-table'},{'name': 'Frame', 'selector': 'popup'},{'name': 'FrameSettingsComponent', 'selector': 'app-frame-settings'},{'name': 'GndLobidComponent', 'selector': 'app-gnd-lobid'},{'name': 'GrapesjsComponent', 'selector': 'app-grapesjs'},{'name': 'GroupedBarChartV2Component', 'selector': 'app-grouped-bar-chart-v2'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HierarchicalNavigationNodeComponent', 'selector': 'app-hierarchical-navigation-node'},{'name': 'HierarchicalNavigationRootComponent', 'selector': 'app-hierarchical-navigation-root'},{'name': 'HierarchicalNavigationViewComponent', 'selector': 'app-hierarchical-navigation-view'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HtmlViewerComponent', 'selector': 'app-html-viewer'},{'name': 'HtmlViewerInnerhtmlComponent', 'selector': 'app-html-viewer-innerhtml'},{'name': 'IframeComponent', 'selector': 'app-iframe'},{'name': 'ImageWithOverlayComponent', 'selector': 'app-image-with-overlay'},{'name': 'ImpressumComponent', 'selector': 'app-impressum'},{'name': 'InitPopupComponent', 'selector': 'app-init-popup'},{'name': 'JoinedTextBlockComponent', 'selector': 'app-joined-text-block'},{'name': 'JoinedTextInnerhtmlComponent', 'selector': 'app-joined-text-innerhtml'},{'name': 'JoinedTextLineComponent', 'selector': 'app-joined-text-line'},{'name': 'JoinedTextLinepartComponent', 'selector': 'app-joined-text-linepart'},{'name': 'JoinedTextMarginComponent', 'selector': 'app-joined-text-margin'},{'name': 'JoinedTextTextwrapperComponent', 'selector': 'app-joined-text-textwrapper'},{'name': 'JoinedTextViewComponent', 'selector': 'app-joined-text-view'},{'name': 'KeyValueComponent', 'selector': 'app-key-value'},{'name': 'KeyValueFormComponent', 'selector': 'app-key-value-form'},{'name': 'KnoraV2ViewerComponent', 'selector': 'app-knora-v2-viewer'},{'name': 'KnoraV2ViewerInnerhtmlComponent', 'selector': 'app-knora-v2-viewer-innerhtml'},{'name': 'LeafletExampleComponent', 'selector': 'app-leaflet-example'},{'name': 'LightTableComponent', 'selector': 'app-light-table'},{'name': 'LightTableMenuComponent', 'selector': 'app-light-table-menu'},{'name': 'LoadLightTableComponent', 'selector': 'app-load-light-table'},{'name': 'LoadVariablesComponent', 'selector': 'app-load-variables'},{'name': 'MachineReasoningComponent', 'selector': 'app-machine-reasoning'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MatCardComponent', 'selector': 'app-mat-card'},{'name': 'MinimizePasswordDialog', 'selector': 'minimize-password-dialog'},{'name': 'MultiLineChartComponent', 'selector': 'app-multi-line-chart'},{'name': 'MyFilesComponent', 'selector': 'app-my-files'},{'name': 'MyMainComponentComponent', 'selector': 'app-my-main-component'},{'name': 'MyPractiseComponentComponent', 'selector': 'app-my-practise-component'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NestedMenu', 'selector': 'app-nested-menu'},{'name': 'NewGjsBoxDialogComponent', 'selector': 'app-new-gjs-box-dialog'},{'name': 'OpenbisLoginComponent', 'selector': 'app-openbis-login'},{'name': 'OurDemoAppComponent', 'selector': 'app-our-demo-app'},{'name': 'OurNewComponentComponent', 'selector': 'app-our-new-component'},{'name': 'PageComponent', 'selector': 'nie-os'},{'name': 'PageListDialogComponent', 'selector': 'app-page-list-dialog'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'PageSetLandingPageComponent', 'selector': 'app-page-set-landing-page'},{'name': 'ParzivalFassungComponent', 'selector': 'app-parzival-fassung'},{'name': 'PdfViewerComponent', 'selector': 'app-pdf-viewer'},{'name': 'PieChartComponent', 'selector': 'app-pie-chart'},{'name': 'PieChartV2Component', 'selector': 'app-pie-chart-v2'},{'name': 'PizzaPartyComponent', 'selector': 'snack-bar-component-example-snack'},{'name': 'PrimeEditorComponent', 'selector': 'app-prime-editor'},{'name': 'PythonEnvironmentComponent', 'selector': 'app-python-environment'},{'name': 'QueryAppInputMapComponent', 'selector': 'app-query-app-input-map'},{'name': 'QueryEntryComponent', 'selector': 'app-query-entry'},{'name': 'QueryInformationDialogComponent', 'selector': 'app-query-information-dialog'},{'name': 'QueryListComponent', 'selector': 'app-query-list'},{'name': 'RadialBarchartComponent', 'selector': 'app-radial-barchart'},{'name': 'RaeberNavigationComponent', 'selector': 'app-raeber-navigation'},{'name': 'ReactivateAccountComponent', 'selector': 'app-reactivate-account'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'RemoveObjectsByIdComponent', 'selector': 'app-remove-objects-by-id'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'ResponseTreeAppComponent', 'selector': 'response-tree'},{'name': 'ResponseTreeComponent', 'selector': 'app-response-tree'},{'name': 'SankeyComponent', 'selector': 'app-sankey'},{'name': 'SaveLightTableComponent', 'selector': 'app-save-light-table'},{'name': 'ShareLightTableComponent', 'selector': 'app-share-light-table'},{'name': 'SimpleImageAppComponent', 'selector': 'app-simple-image-app'},{'name': 'SpiralBarChartComponent', 'selector': 'app-spiral-bar-chart'},{'name': 'StackedBarChartComponent', 'selector': 'app-stacked-bar-chart'},{'name': 'SubPageListComponent', 'selector': 'app-sub-page-list'},{'name': 'SynopsisComponent', 'selector': 'app-synopsis'},{'name': 'SynopsisObjectManagerComponent', 'selector': 'app-synopsis-object-manager'},{'name': 'SynopsisObjectToolboxComponent', 'selector': 'app-synopsis-object-toolbox'},{'name': 'TextDisplayComponent', 'selector': 'app-text-display'},{'name': 'TextDisplayComponent', 'selector': 'app-text-display'},{'name': 'TextLineComponent', 'selector': 'app-text-line'},{'name': 'TextLineMarginComponent', 'selector': 'app-text-line-margin'},{'name': 'TextlistViewerComponent', 'selector': 'app-textlist-viewer'},{'name': 'TextPageOfWordsComponent', 'selector': 'app-text-page-of-words'},{'name': 'TextRichInnerhtmlComponent', 'selector': 'app-text-rich-innerhtml'},{'name': 'TextSvgViewComponent', 'selector': 'app-text-svg-view'},{'name': 'TextSvgViewWrapperComponent', 'selector': 'app-text-svg-view-wrapper'},{'name': 'TextViewCanvasComponent', 'selector': 'app-text-view-canvas'},{'name': 'TextViewComponent', 'selector': 'app-text-view'},{'name': 'TextViewMetadataComponent', 'selector': 'app-text-view-metadata'},{'name': 'TextViewStructureComponent', 'selector': 'app-text-view-structure'},{'name': 'TextViewToolsComponent', 'selector': 'app-text-view-tools'},{'name': 'ThumbnailbarComponent', 'selector': 'app-thumbnailbar'},{'name': 'TiledImageObjectComponent', 'selector': 'app-tiled-image-object'},{'name': 'TiledLightTableComponent', 'selector': 'app-tiled-light-table'},{'name': 'TiledTextObjectComponent', 'selector': 'app-tiled-text-object'},{'name': 'TreeNavigationComponent', 'selector': 'app-tree-navigation'},{'name': 'UrlParamUpdaterComponent', 'selector': 'app-url-param-updater'},{'name': 'UserGroupComponent', 'selector': 'app-user-group'},{'name': 'YoutubeVideoComponent', 'selector': 'app-youtube-video'}];
+    var DIRECTIVES = [{'name': 'DraggableDirective', 'selector': '[appDraggable]'},{'name': 'DraggableStubDirective', 'selector': '[appDraggable]'},{'name': 'FloatDropTargetDirective', 'selector': '[appDropTarget]'},{'name': 'ModifiableDirective', 'selector': '[appModifiable]'},{'name': 'ModifiableStubDirective', 'selector': '[appModifiable]'},{'name': 'SelectableDirective', 'selector': '[appSelectable]'},{'name': 'SelectableStubDirective', 'selector': '[appSelectable]'},{'name': 'SynopsisObjectAnchorDirective', 'selector': '[appSynopsisObjectAnchor]'},{'name': 'TileDropTargetDirective', 'selector': '[appTileDropTarget]'}];
+    var ACTUAL_COMPONENT = {'name': 'MachineReasoningComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'MachineReasoningComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

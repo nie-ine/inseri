@@ -19,15 +19,6 @@
       "buttonDescription": "Explore example of an imported book"
     },
     {
-      "backgroundImage": "/assets/img/cultural-japan.jpeg",
-      "myTitle": "Cultural Japan IIIF",
-      "subtitle": "Import, comment on and analyse content from the Cultural Japan IIIF interface",
-      "image": "/assets/img/cultural-japan-image.png",
-      "myDescription": "myDescription",
-      "mylink": "http://inseri.swiss/page?actionID=5f33f6d952f4f2001eba19f8&page=5f33f6da52f4f2001eba19fa",
-      "buttonDescription": "Explore example of an imported fine arts museum piece"
-    },
-    {
       "backgroundImage": "/assets/img/goettingen-logo.png",
       "myTitle": "Univ. Göttingen Sammlungsportal",
       "subtitle": "Import, comment on and analyse content from the University Göttingen",

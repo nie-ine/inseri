@@ -1,0 +1,1768 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>nie-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">nie-frontend documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>DialogOverviewExampleDialog</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/user-action-engine/dashboard/dashboard/dashboard.component.ts</code>
+</p>
+
+
+
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>dialog-overview-example-dialog</code></td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./dialog-overview-example-dialog.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#action">action</a>
+                            </li>
+                            <li>
+                                <a href="#chooseNewAction">chooseNewAction</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#data">data</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#dialog">dialog</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#dialogRef">dialogRef</a>
+                            </li>
+                            <li>
+                                <a href="#loading">loading</a>
+                            </li>
+                            <li>
+                                <a href="#p_pageSetId">p_pageSetId</a>
+                            </li>
+                            <li>
+                                <a href="#pageSet">pageSet</a>
+                            </li>
+                            <li>
+                                <a href="#usergroup">usergroup</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#close">close</a>
+                            </li>
+                            <li>
+                                <a href="#createUserGroup">createUserGroup</a>
+                            </li>
+                            <li>
+                                <a href="#importProjectAsZip">importProjectAsZip</a>
+                            </li>
+                            <li>
+                                <a href="#register">register</a>
+                            </li>
+                            <li>
+                                <a href="#reloadFiles">reloadFiles</a>
+                            </li>
+                            <li>
+                                <a href="#reloadProject">reloadProject</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(dialogRef: <a href="../components/DialogOverviewExampleDialog.html">MatDialogRef<DialogOverviewExampleDialog></a>, data: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, dialog: MatDialog, router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>, actionService: <a href="../injectables/ActionService.html">ActionService</a>, pageSetService: <a href="../injectables/PageSetService.html">PageSetService</a>, pageService: <a href="../injectables/PageService.html">PageService</a>, usergroupService: <a href="../injectables/UsergroupService.html">UsergroupService</a>, fileService: <a href="../injectables/FileService.html">FileService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="467" class="link-to-prism">src/app/user-action-engine/dashboard/dashboard/dashboard.component.ts:467</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>dialogRef</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../components/DialogOverviewExampleDialog.html" target="_self" >MatDialogRef&lt;DialogOverviewExampleDialog&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>data</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dialog</td>
+                                                  
+                                                        <td>
+                                                                    <code>MatDialog</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>actionService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ActionService.html" target="_self" >ActionService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>pageSetService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PageSetService.html" target="_self" >PageSetService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>pageService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PageService.html" target="_self" >PageService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>usergroupService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UsergroupService.html" target="_self" >UsergroupService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>fileService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/FileService.html" target="_self" >FileService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="close"></a>
+                    <span class="name">
+                        <b>
+                            close
+                        </b>
+                        <a href="#close"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>close()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="497"
+                            class="link-to-prism">src/app/user-action-engine/dashboard/dashboard/dashboard.component.ts:497</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createUserGroup"></a>
+                    <span class="name">
+                        <b>
+                            createUserGroup
+                        </b>
+                        <a href="#createUserGroup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>createUserGroup()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="513"
+                            class="link-to-prism">src/app/user-action-engine/dashboard/dashboard/dashboard.component.ts:513</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="importProjectAsZip"></a>
+                    <span class="name">
+                        <b>
+                            importProjectAsZip
+                        </b>
+                        <a href="#importProjectAsZip"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>importProjectAsZip($event: <a href="https://angular.io/api/router/Event" target="_blank">Event</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="545"
+                            class="link-to-prism">src/app/user-action-engine/dashboard/dashboard/dashboard.component.ts:545</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Import project used to upload the project configuration files as a zipFile.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>$event</td>
+                                    <td>
+                                                <code><a href="https://angular.io/api/router/Event" target="_blank" >Event</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>--&gt; The uploaded zip file</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="register"></a>
+                    <span class="name">
+                        <b>
+                            register
+                        </b>
+                        <a href="#register"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>register()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="501"
+                            class="link-to-prism">src/app/user-action-engine/dashboard/dashboard/dashboard.component.ts:501</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="reloadFiles"></a>
+                    <span class="name">
+                        <b>
+                            reloadFiles
+                        </b>
+                        <a href="#reloadFiles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>reloadFiles()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="659"
+                            class="link-to-prism">src/app/user-action-engine/dashboard/dashboard/dashboard.component.ts:659</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="reloadProject"></a>
+                    <span class="name">
+                        <b>
+                            reloadProject
+                        </b>
+                        <a href="#reloadProject"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>reloadProject(pageSetId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="648"
+                            class="link-to-prism">src/app/user-action-engine/dashboard/dashboard/dashboard.component.ts:648</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>pageSetId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="action"></a>
+                        <span class="name">
+                            <b>
+                            action</b>
+                            <a href="#action"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/Action.html" target="_self" >Action</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>{
+    id: undefined,
+    title: &#x27;&#x27;,
+    description: &#x27;&#x27;,
+    isFinished: false,
+    deleted: false,
+    type: undefined,
+    hasPageSet: undefined,
+    hasPage: undefined,
+    creator: undefined
+  }</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="480" class="link-to-prism">src/app/user-action-engine/dashboard/dashboard/dashboard.component.ts:480</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="chooseNewAction"></a>
+                        <span class="name">
+                            <b>
+                            chooseNewAction</b>
+                            <a href="#chooseNewAction"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="492" class="link-to-prism">src/app/user-action-engine/dashboard/dashboard/dashboard.component.ts:492</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="data"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            data</b>
+                            <a href="#data"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Decorators : </b>
+                            <br />
+                            <code>
+                                @Inject(MAT_DIALOG_DATA)<br />
+                            </code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="470" class="link-to-prism">src/app/user-action-engine/dashboard/dashboard/dashboard.component.ts:470</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="dialog"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            dialog</b>
+                            <a href="#dialog"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>MatDialog</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="471" class="link-to-prism">src/app/user-action-engine/dashboard/dashboard/dashboard.component.ts:471</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="dialogRef"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            dialogRef</b>
+                            <a href="#dialogRef"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../components/DialogOverviewExampleDialog.html" target="_self" >MatDialogRef&lt;DialogOverviewExampleDialog&gt;</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="469" class="link-to-prism">src/app/user-action-engine/dashboard/dashboard/dashboard.component.ts:469</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="loading"></a>
+                        <span class="name">
+                            <b>
+                            loading</b>
+                            <a href="#loading"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="491" class="link-to-prism">src/app/user-action-engine/dashboard/dashboard/dashboard.component.ts:491</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="p_pageSetId"></a>
+                        <span class="name">
+                            <b>
+                            p_pageSetId</b>
+                            <a href="#p_pageSetId"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="495" class="link-to-prism">src/app/user-action-engine/dashboard/dashboard/dashboard.component.ts:495</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="pageSet"></a>
+                        <span class="name">
+                            <b>
+                            pageSet</b>
+                            <a href="#pageSet"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>[string, string]</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="493" class="link-to-prism">src/app/user-action-engine/dashboard/dashboard/dashboard.component.ts:493</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="usergroup"></a>
+                        <span class="name">
+                            <b>
+                            usergroup</b>
+                            <a href="#usergroup"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>{}</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="494" class="link-to-prism">src/app/user-action-engine/dashboard/dashboard/dashboard.component.ts:494</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {Component, OnInit, Inject} from &#x27;@angular/core&#x27;;
+import {Router, NavigationEnd} from &#x27;@angular/router&#x27;;
+import {ActionService} from &#x27;../../mongodb/action/action.service&#x27;;
+import {Action} from &#x27;../../mongodb/action/action.model&#x27;;
+import {map} from &#x27;rxjs/operators&#x27;;
+import {ContactService} from &#x27;../../mongodb/contact/contact.service&#x27;;
+import {EditActionComponent} from &#x27;./edit-action/edit-action.component&#x27;;
+import {DeleteActionComponent} from &#x27;./delete-action/delete-action.component&#x27;;
+import {QueryListComponent} from &#x27;../../../query-engine/query-list/query-list.component&#x27;;
+import {PageService} from &#x27;../../mongodb/page/page.service&#x27;;
+import {Observable} from &#x27;rxjs&#x27;;
+import {AuthService} from &#x27;../../mongodb/auth/auth.service&#x27;;
+import {UsergroupService} from &#x27;../../mongodb/usergroup/usergroup.service&#x27;;
+import {PageListDialogComponent} from &#x27;../../../app-engine/page/page-list-dialog/page-list-dialog.component&#x27;;
+import {NgxSpinnerService} from &#x27;ngx-spinner&#x27;;
+import {PageSetService} from &#x27;../../mongodb/pageset/page-set.service&#x27;;
+import {FileService} from &#x27;../../file/file.service&#x27;;
+import * as JSZipUtils from &#x27;jszip-utils&#x27;;
+import * as Fs from &#x27;fs&#x27;;
+import JSZip from &#x27;jszip&#x27;;
+import * as FileSaver from &#x27;file-saver&#x27;;
+import {CommentService} from &#x27;../../mongodb/comment/comment.service&#x27;;
+import {QueryService} from &#x27;../../mongodb/query/query.service&#x27;;
+import {environment} from &#x27;../../../../environments/environment&#x27;;
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from &#x27;@angular/material/dialog&#x27;;
+
+@Component({
+  selector: &#x27;app-dashboard&#x27;,
+  templateUrl: &#x27;./dashboard.component.html&#x27;,
+  styleUrls: [&#x27;./dashboard.component.scss&#x27;]
+})
+export class DashboardComponent implements OnInit {
+  user: any[] &#x3D; JSON.parse(localStorage.getItem(&#x27;currentUser&#x27;)) || [];
+  userFirstName: string;
+  userID: string;
+  actions: Action[] &#x3D; [];
+  message: string;
+  successfullySendMessage &#x3D; false;
+  showArchivedDocuments &#x3D; false;
+  showUserGroups &#x3D; false;
+  userGroups: Array&lt;any&gt; &#x3D; [];
+  selected &#x3D; &#x27;option1&#x27;;
+  usergroup: any &#x3D; {};
+  groupMembers: Array&lt;any&gt; &#x3D; [];
+  email: string;
+  showComments &#x3D; false;
+  commentArray: Array&lt;any&gt; &#x3D; [];
+
+
+  /**
+   * Describes if user is logged in
+   * */
+  loggedIn &#x3D; true;
+
+
+  constructor(
+    public dialog: MatDialog,
+    private router: Router,
+    private actionService: ActionService,
+    private contactService: ContactService,
+    private pageService: PageService,
+    private authService: AuthService,
+    private usergroupService: UsergroupService,
+    private spinner: NgxSpinnerService,
+    private commentService: CommentService,
+    private queryService: QueryService,
+    private fileService: FileService
+  ) {
+
+    router.events.subscribe(s &#x3D;&gt; {
+      if (s instanceof NavigationEnd) {
+        const tree &#x3D; router.parseUrl(router.url);
+        if (tree.fragment) {
+          const element &#x3D; document.querySelector(&#x27;#&#x27; + tree.fragment);
+          if (element) {
+            element.scrollIntoView(true);
+          }
+        }
+      }
+    });
+  }
+
+  ngOnInit() {
+    this.userFirstName &#x3D; localStorage.getItem(&#x27;firstName&#x27;);
+    this.userID &#x3D; localStorage.getItem(&#x27;userId&#x27;);
+    this.updateActions();
+
+    /**
+     * If not logged in, preview instatiates the published page options.
+     * */
+    if (!this.authService.getIsAuth()) {
+      this.loggedIn &#x3D; false;
+    }
+    this.getUserGroups();
+    this.commentService.getAllCommentsOfUser()
+      .subscribe(
+        data &#x3D;&gt; {
+          // console.log(data);
+          this.commentArray &#x3D; (data as any).comments;
+          for (let i &#x3D; 0; i &lt; this.commentArray.length; i++) {
+            if (!this.commentArray[i].creator.usrProfileFilePath) {
+              this.commentArray[i].creator.usrProfileFilePath &#x3D; environment.app + &#x27;/assets/img/team/user-icon-vector.jpg&#x27;;
+             // console.log(this.commentArray[i].creator.usrProfileFilePath);
+            }
+            this.createQueryInformationOfComment(i);
+          }
+        }, error1 &#x3D;&gt; console.log(error1)
+      );
+  }
+
+  browseToComment(comment: any) {
+    this.router.navigate([&#x27;/page&#x27;], {
+      queryParams: comment.params,
+      queryParamsHandling: &#x27;merge&#x27;
+    });
+  }
+
+  createQueryInformationOfComment(index: number) {
+    for (const param in this.commentArray[index].params) {
+      if (param.search(&#x27;,&#x27;) !&#x3D;&#x3D; -1) {
+        // console.log( param );
+        // console.log( param.slice( 0, 24 ) );
+        this.queryService.getQuery(param.slice(0, 24))
+          .subscribe(
+            data &#x3D;&gt; {
+              // console.log( data );
+              const serverUrl &#x3D; this.replaceParam(data.query.serverUrl, index);
+              this.commentArray[index].queries &#x3D; [];
+              this.commentArray[index].queries.push({
+                title: data.query.title,
+                index: this.commentArray[index].params[param],
+                serverUrl: serverUrl
+              });
+            }, error &#x3D;&gt; console.log(error)
+          );
+      }
+    }
+  }
+
+  replaceParam(toBeChecked: string, index: number): string {
+    if (toBeChecked.search(&#x27;inseriParam---&#x27;) !&#x3D;&#x3D; -1) {
+      const param &#x3D; toBeChecked.replace(&#x27;inseriParam---&#x27;, &#x27;&#x27;).replace(&#x27;---&#x27;, &#x27;&#x27;);
+      const replaced &#x3D; toBeChecked.replace(
+        &#x27;inseriParam---&#x27; + param + &#x27;---&#x27;,
+        this.commentArray[index].params[param]
+      );
+      return replaced;
+    } else {
+      return toBeChecked;
+    }
+  }
+
+  getUserGroups() {
+    console.log(&#x27;get user groups&#x27;);
+    this.usergroupService.getAllUserGroups()
+      .subscribe(
+        usergroupresponse &#x3D;&gt; {
+         // console.log(usergroupresponse);
+          this.userGroups &#x3D; (usergroupresponse as any).body.groups;
+        },
+        error &#x3D;&gt; console.log(error)
+      );
+  }
+
+  private updateActions() {
+    this.actionService.getAllActionsOfUser(this.userID)
+      .pipe(
+        map((response) &#x3D;&gt; {
+          return (response as any).actions.map(action &#x3D;&gt; {
+            return {
+              title: action.title,
+              description: action.description,
+              type: action.type,
+              id: action._id,
+              creator: action.creator,
+              hasPage: (action.hasPage) ? action.hasPage : null,
+              hasPageSet: (action.hasPageSet) ? action.hasPageSet : null,
+              isFinished: action.isFinished
+            };
+          });
+        }))
+      .subscribe(transformedActions &#x3D;&gt; {
+        // console.log(transformedActions);
+        this.actions &#x3D; transformedActions;
+      });
+  }
+
+  createHasPage() {
+  }
+
+  openDialog(): void {
+    const dialogRef &#x3D; this.dialog.open(DialogOverviewExampleDialog, {
+      width: &#x27;700px&#x27;,
+      data: {
+        showUserGroups: this.showUserGroups
+      }
+    });
+    dialogRef.afterClosed().subscribe((result) &#x3D;&gt; {
+      // console.log(result);
+      this.updateActions();
+      this.getUserGroups();
+      if (result) {
+        // console.log(result);
+        const newPage: any &#x3D; {};
+        this.actionService.getAction(result[1])
+          .subscribe(
+            actionResult &#x3D;&gt; {
+              // console.log(&#x27;actionService - get Action: &#x27;);
+             // console.log(actionResult);
+              newPage.title &#x3D; actionResult.body.action.title;
+              newPage.description &#x3D; actionResult.body.action.description;
+              this.pageService.createPage(actionResult.body.action.hasPageSet._id, newPage)
+                .subscribe((result2) &#x3D;&gt; {
+                  // console.log(&#x27;open dialog&#x27;);
+                  this.router.navigate([&#x27;/page&#x27;],
+                    {
+                      queryParams:
+                        {
+                          actionID: actionResult.body.action._id,
+                          page: result2.page._id
+                        }
+                    });
+                }, error &#x3D;&gt; {
+                  console.log(error);
+                });
+            }, error &#x3D;&gt; {
+              console.log(error);
+            }
+          );
+      }
+    });
+  }
+
+  editAction(action: any) {
+    const dialogRef &#x3D; this.dialog.open(EditActionComponent, {
+      width: &#x27;700px&#x27;,
+      data: action
+    });
+    dialogRef.afterClosed()
+      .subscribe(result &#x3D;&gt; {
+        this.updateActions();
+      });
+  }
+
+  deleteAction(action: any) {
+    const dialogRef &#x3D; this.dialog.open(DeleteActionComponent, {
+      width: &#x27;700px&#x27;,
+      data: action
+    });
+    dialogRef.afterClosed()
+      .subscribe(result &#x3D;&gt; {
+        this.updateActions();
+      });
+  }
+
+  markAsDone(action: any) {
+    if (action.isFinished &#x3D;&#x3D;&#x3D; true) {
+      action.isFinished &#x3D; false;
+    } else {
+      action.isFinished &#x3D; true;
+    }
+    this.actionService.updateAction(action)
+      .subscribe(
+        data &#x3D;&gt; {
+          // console.log(data);
+        }, error &#x3D;&gt; {
+          // console.log(error);
+        }
+      );
+  }
+
+  continueAction(action: any) {
+    if (action.type &#x3D;&#x3D;&#x3D; &#x27;page-set&#x27;) {
+      this.actionService.getAction(action.id)
+        .subscribe(data &#x3D;&gt; {
+          // console.log(&#x27;continue action&#x27;);
+          if (data.body.action.hasPageSet.hasPages !&#x3D;&#x3D; null &amp;&amp; data.body.action.hasPageSet.hasPages[0]._id) {
+            action.hasPage &#x3D; data.body.action.hasPageSet.hasPages[0]._id;
+            this.router.navigate([&#x27;/page&#x27;],
+              {
+                queryParams: {
+                  &#x27;actionID&#x27;: action.id,
+                  &#x27;page&#x27;: action.hasPage
+                },
+              });
+          }
+        }, error &#x3D;&gt; {
+          // console.log(error);
+        });
+    }
+  }
+
+  goToDocumentIndex(action: any) {
+    // console.log(&#x27;goToDocumentIndex&#x27;);
+    this.router.navigate([&#x27;/page-set&#x27;],
+      {
+        queryParams: {
+          &#x27;actionID&#x27;: action.id
+        },
+      });
+  }
+
+  sendMessage() {
+    // console.log(&#x27;Send Message&#x27;);
+    // console.log(this.message);
+    this.contactService.sendMessage(this.message)
+      .subscribe(response &#x3D;&gt; {
+        console.log(response);
+        this.successfullySendMessage &#x3D; true;
+        this.message &#x3D; &#x27;&#x27;;
+      }, error1 &#x3D;&gt; {
+        console.log(error1);
+      });
+  }
+
+  openQueryList() {
+    const dialogRef &#x3D; this.dialog.open(QueryListComponent, {
+      width: &#x27;100%&#x27;,
+      height: &#x27;100%&#x27;,
+      data: {
+        enableAdd: false
+      }
+    });
+  }
+
+  // assignUserToGroup() {
+  //   this.usergroupService.assignUserToGroup(
+  //     this.usergroup, this.email)
+  //     .subscribe(
+  //       response &#x3D;&gt; {
+  //         console.log(response);
+  //       },
+  //       error &#x3D;&gt; {
+  //         console.log(error);
+  //       }
+  //     );
+  // }
+  //
+  // removeUserFromGroup() {
+  //   this.usergroupService.removeUserFromGroup(
+  //     this.usergroup, this.email)
+  //     .subscribe(
+  //       response &#x3D;&gt; {
+  //         console.log(response);
+  //       },
+  //       error &#x3D;&gt; {
+  //         console.log(error);
+  //       }
+  //     );
+  // }
+  //
+  // showGroupMembers(title: string) {
+  //   console.log(&#x27;show group members&#x27;);
+  //   this.usergroupService.showGroupMembers(title)
+  //     .subscribe(
+  //       groupMembers &#x3D;&gt; {
+  //         console.log(groupMembers);
+  //         this.groupMembers &#x3D; (groupMembers as any).body.result.users;
+  //       },
+  //       error &#x3D;&gt; {
+  //         console.log(error);
+  //       });
+  // }
+
+  openAllPagesDialog() {
+    const dialogRef &#x3D; this.dialog.open(PageListDialogComponent, {
+      width: &#x27;100%&#x27;,
+      height: &#x27;80%&#x27;,
+      data: {
+        showDuplicateButton: false
+      }
+    });
+    dialogRef.afterClosed().subscribe((result) &#x3D;&gt; {
+      // console.log(result);
+    });
+  }
+
+  exportProjectAsZip(action: Action) {
+    console.log(action.id);
+    if (action.type &#x3D;&#x3D;&#x3D; &#x27;page-set&#x27;) {
+      this.fileService.downloadProject(action.id)
+        .subscribe(data &#x3D;&gt; {
+          // console.log(data);
+          console.log(&#x27;data returned successfully&#x27;);
+          const a &#x3D; document.createElement(&#x27;a&#x27;);
+          document.body.appendChild(a);
+          a.setAttribute(&#x27;display&#x27;, &#x27;none&#x27;);
+          const zip &#x3D; new JSZip();
+          let numOfFiles &#x3D; 0;
+          zip.file(&#x27;action.json&#x27;, data.returnedObj.action);
+          zip.file(&#x27;pageSet.json&#x27;, data.returnedObj.pageSet);
+          zip.file(&#x27;pages.json&#x27;, data.returnedObj.pages);
+          zip.file(&#x27;oldHostUrl.txt&#x27;, data.returnedObj.oldHostUrl);
+          if (data.returnedObj.comments) {
+            zip.file(&#x27;comments.json&#x27;, data.returnedObj.comments);
+          }
+          if (data.returnedObj.queries) {
+            zip.file(&#x27;queries.json&#x27;, data.returnedObj.queries);
+          }
+          if (data.returnedObj.jsonIds) {
+            zip.file(&#x27;JSONFile.json&#x27;, data.returnedObj.jsonIds);
+          }
+          if (data.returnedObj.folders) {
+            zip.file(&#x27;folders.json&#x27;, data.returnedObj.folders);
+          }
+          if (data.returnedObj.files) {
+            zip.file(&#x27;files.json&#x27;, data.returnedObj.files);
+            const arrayOfFilePaths &#x3D; JSON.parse(data.returnedObj.arrayOfFilePaths);
+            numOfFiles &#x3D; arrayOfFilePaths.length;
+            console.log(numOfFiles);
+            console.log(&#x27;printing number of files&#x27;);
+            if (arrayOfFilePaths) {
+              const files &#x3D; zip.folder(&#x27;files&#x27;);
+              for (let i &#x3D; 0; i &lt; arrayOfFilePaths.length; i++) {
+                let url &#x3D; arrayOfFilePaths[i];
+                url &#x3D; url.split(&#x27; &#x27;).join(&#x27;%20&#x27;);
+                url &#x3D; url.split(&#x27;&quot;&#x27;).join(&#x27;&#x27;);
+                JSZipUtils.getBinaryContent(url, function (err, data) {
+                  if (err) {
+                    console.log(err);
+                    // throw err; // or handle the error
+                  }
+                  console.log(url);
+                  let filename &#x3D; url.substr(url.indexOf(&#x27;/files/&#x27;) + 7);
+                  console.log(filename);
+                  filename &#x3D; filename.split(&#x27;%20&#x27;).join(&#x27; &#x27;);
+                  files.file(filename, data, {binary: true});
+                  console.log(files);
+                  console.log(numOfFiles);
+                  numOfFiles--;
+                });
+              }
+            }
+          }
+          const timeout &#x3D; setInterval(function () {
+            // console.log(numOfFiles);
+            if (numOfFiles &#x3D;&#x3D;&#x3D; 0) {
+              clearInterval(timeout);
+              // console.log(zip);
+              zip.generateAsync({type: &#x27;blob&#x27;}).then(function (content) {
+
+                FileSaver.saveAs(content, &#x27;Project_&#x27; + action.title + &#x27;.zip&#x27;);
+              });
+            }
+          }, 100);
+
+        });
+    }
+  }
+
+  showUserGroupDetails(_id: any) {
+   // console.log(_id);
+
+    this.router.navigate([&#x27;user-group&#x27;], {
+      queryParams: {
+        usrGroupId: _id
+      }, replaceUrl: true
+    });
+  }
+}
+
+
+@Component({
+  selector: &#x27;dialog-overview-example-dialog&#x27;,
+  templateUrl: &#x27;./dialog-overview-example-dialog.html&#x27;,
+})
+export class DialogOverviewExampleDialog {
+
+  constructor(public dialogRef: MatDialogRef&lt;DialogOverviewExampleDialog&gt;,
+              @Inject(MAT_DIALOG_DATA) public data: any,
+              public dialog: MatDialog,
+              private router: Router,
+              private actionService: ActionService,
+              private pageSetService: PageSetService,
+              private pageService: PageService,
+              private usergroupService: UsergroupService,
+              private fileService: FileService) {
+  }
+
+  action: Action &#x3D; {
+    id: undefined,
+    title: &#x27;&#x27;,
+    description: &#x27;&#x27;,
+    isFinished: false,
+    deleted: false,
+    type: undefined,
+    hasPageSet: undefined,
+    hasPage: undefined,
+    creator: undefined
+  };
+  loading &#x3D; false;
+  chooseNewAction: string;
+  pageSet: [string, string];
+  usergroup: any &#x3D; {};
+  p_pageSetId: string;
+
+  close() {
+    this.dialogRef.close(this.pageSet);
+  }
+
+  register() {
+    this.loading &#x3D; true;
+    this.action.type &#x3D; &#x27;page-set&#x27;;
+    this.actionService.createAction(this.action)
+      .subscribe((result) &#x3D;&gt; {
+        if (this.action.type &#x3D;&#x3D;&#x3D; &#x27;page-set&#x27;) {
+          this.pageSet &#x3D; [&#x27;pageSet&#x27;, result.action._id];
+        }
+        this.dialogRef.close(this.pageSet);
+      });
+  }
+
+  createUserGroup() {
+    console.log(this.usergroup.title, this.usergroup.description);
+    this.usergroupService.createGroup(
+      this.usergroup.title,
+      this.usergroup.description)
+      .subscribe(
+        data &#x3D;&gt; {
+          // console.log(data);
+          this.dialogRef.close(data);
+        }, error &#x3D;&gt; {
+          // console.log(error);
+        }
+      );
+  }
+
+  // deleteUserGroup(title: string) {
+  //   console.log(&#x27;show group members&#x27;);
+  //   this.usergroupService.deleteGroup(title)
+  //     .subscribe(
+  //       response &#x3D;&gt; {
+  //         console.log(response);
+  //       },
+  //       error &#x3D;&gt; {
+  //         console.log(error);
+  //       }
+  //     );
+  // }
+
+  /**
+   * Import project used to upload the project configuration files as a zipFile.
+   * @param $event --&gt; The uploaded zip file
+   */
+  importProjectAsZip($event: Event) {
+    const zipFile &#x3D; (event.target as HTMLInputElement).files[0];
+    let action, pageSet, pages, queries, allFiles, jsonQueries, oldHostUrl, filesJson, foldersJson, comments;
+    // const projectFiles &#x3D; [];
+    let fileType;
+    const projectFiles &#x3D; new Array&lt;{ fileName: string, fileContent: string }&gt;();
+    let counter &#x3D; 0;
+    JSZip.loadAsync(zipFile)
+      .then(function (zip) {
+        allFiles &#x3D; Object.entries(zip.files);
+        counter &#x3D; allFiles.length;
+        zip.forEach(function (relativePath, zipEntry) {
+          if (!zipEntry.dir) {
+            if (relativePath &#x3D;&#x3D;&#x3D; &#x27;action.json&#x27;) {
+              zip.file(relativePath).async(&#x27;text&#x27;).then(function (content) {
+                action &#x3D; content; // JSON.parse(JSON.parse(JSON.stringify(content)));
+                counter--;
+              });
+            } else if (relativePath &#x3D;&#x3D;&#x3D; &#x27;pageSet.json&#x27;) {
+              zip.file(relativePath).async(&#x27;text&#x27;).then(function (content) {
+                pageSet &#x3D; content; // JSON.parse(JSON.parse(JSON.stringify(content)));
+                counter--;
+              });
+            } else if (relativePath &#x3D;&#x3D;&#x3D; &#x27;comments.json&#x27;) {
+              zip.file(relativePath).async(&#x27;text&#x27;).then(function (content) {
+                comments &#x3D; content; // JSON.parse(JSON.parse(JSON.stringify(content)));
+                counter--;
+              });
+            } else if (relativePath &#x3D;&#x3D;&#x3D; &#x27;pages.json&#x27;) {
+              zip.file(relativePath).async(&#x27;text&#x27;).then(function (content) {
+                pages &#x3D; content; // JSON.parse(JSON.parse(JSON.stringify(content)));
+                counter--;
+              });
+            } else if (relativePath &#x3D;&#x3D;&#x3D; &#x27;queries.json&#x27;) {
+              zip.file(relativePath).async(&#x27;text&#x27;).then(function (content) {
+                if (content.length &gt; 0) {
+                  queries &#x3D; content; // JSON.parse(JSON.parse(JSON.stringify(content)));
+                }
+                counter--;
+              });
+            } else if (relativePath &#x3D;&#x3D;&#x3D; &#x27;JSONFile.json&#x27;) {
+              zip.file(relativePath).async(&#x27;text&#x27;).then(function (content) {
+                if (content.length &gt; 0) {
+                  jsonQueries &#x3D; content; // JSON.parse(JSON.parse(JSON.stringify(content)));
+                }
+                counter--;
+              });
+            } else if (relativePath &#x3D;&#x3D;&#x3D; &#x27;files.json&#x27;) {
+              zip.file(relativePath).async(&#x27;text&#x27;).then(function (content) {
+                if (content.length &gt; 0) {
+                  filesJson &#x3D; content; // JSON.parse(JSON.parse(JSON.stringify(content)));
+                }
+                counter--;
+              });
+            } else if (relativePath &#x3D;&#x3D;&#x3D; &#x27;folders.json&#x27;) {
+              zip.file(relativePath).async(&#x27;text&#x27;).then(function (content) {
+                if (content.length &gt; 0) {
+                  foldersJson &#x3D; content;
+                }
+                counter--;
+              });
+            } else if (relativePath &#x3D;&#x3D;&#x3D; &#x27;oldHostUrl.txt&#x27;) {
+              zip.file(relativePath).async(&#x27;text&#x27;).then(function (content) {
+                if (content.length &gt; 0) {
+                  oldHostUrl &#x3D; content;
+                  counter--;
+                }
+              });
+            } else {
+              zip.file(relativePath).async(&#x27;binarystring&#x27;).then(content &#x3D;&gt; {  // base64  ///binarystring
+                console.log(&#x27;content&#x27;);
+                console.log(content);
+                projectFiles.push({fileName: relativePath.substr(6), fileContent: content});
+                // console.log(projectFiles);
+                counter--;
+              });
+            }
+          } else { // The folders were counted as well
+            counter--;
+          }
+        });
+      });
+    let isFinished &#x3D; false;
+    const mainObject &#x3D; this;
+    const timeout &#x3D; setInterval(function () {
+      if (!isFinished &amp;&amp; counter &#x3D;&#x3D;&#x3D; 0) {
+        clearInterval(timeout);
+        isFinished &#x3D; true;
+        // console.log(&#x27;dashboard component printing comments&#x27;);
+        // console.log(comments);
+        console.log(&#x27;project Files&#x27;);
+        console.log(projectFiles);
+        mainObject.actionService.createProject(action, pageSet, comments, pages, queries, jsonQueries, oldHostUrl, filesJson, foldersJson, projectFiles)
+          .subscribe((actionResult) &#x3D;&gt; {
+            if (action.type &#x3D;&#x3D;&#x3D; &#x27;page-set&#x27;) {
+              mainObject.pageSet &#x3D; [&#x27;pageSet&#x27;, action._id];
+            }
+            mainObject.dialogRef.close(mainObject.pageSet);
+          });
+      }
+    }, 100);
+  }
+
+  reloadProject(pageSetId: string) {
+    console.log(pageSetId);
+    this.actionService.reloadProject(pageSetId)
+      .subscribe((actionResult) &#x3D;&gt; {
+        if (actionResult.type &#x3D;&#x3D;&#x3D; &#x27;page-set&#x27;) {
+          this.pageSet &#x3D; [&#x27;pageSet&#x27;, actionResult._id];
+        }
+        this.dialogRef.close(this.pageSet);
+      });
+  }
+
+  reloadFiles() {
+    this.fileService.reloadFiles().subscribe(fileResults &#x3D;&gt; {
+      console.log(fileResults);
+    });
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;h1 mat-dialog-title&gt;Create project and User Groups&lt;/h1&gt;
+
+&lt;div&gt;
+  &lt;form name&#x3D;&quot;form&quot; (ngSubmit)&#x3D;&quot;f.form.valid &amp;&amp; register()&quot; #f&#x3D;&quot;ngForm&quot; novalidate&gt;
+    &lt;mat-accordion&gt;
+      &lt;mat-expansion-panel [expanded]&#x3D;&quot;!data.showUserGroups&quot; &gt;
+        &lt;mat-expansion-panel-header&gt;
+          &lt;mat-panel-title&gt;
+            Project
+          &lt;/mat-panel-title&gt;
+          &lt;mat-panel-description&gt;
+            Create new project
+          &lt;/mat-panel-description&gt;
+        &lt;/mat-expansion-panel-header&gt;
+
+        &lt;div class&#x3D;&quot;form-group&quot; &gt;
+          &lt;label for&#x3D;&quot;firstName&quot;&gt;Title of project&lt;/label&gt;
+          &lt;input type&#x3D;&quot;text&quot; class&#x3D;&quot;form-control&quot; name&#x3D;&quot;firstName&quot; [(ngModel)]&#x3D;&quot;action.title&quot; #firstName&#x3D;&quot;ngModel&quot; required /&gt;
+          &lt;div *ngIf&#x3D;&quot;f.submitted &amp;&amp; !firstName.valid&quot; class&#x3D;&quot;help-block&quot;&gt;Please enter the title&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;form-group&quot; &gt;
+          &lt;label for&#x3D;&quot;lastName&quot;&gt;Description&lt;/label&gt;
+          &lt;input type&#x3D;&quot;text&quot; class&#x3D;&quot;form-control&quot; name&#x3D;&quot;lastName&quot; [(ngModel)]&#x3D;&quot;action.description&quot; #lastName&#x3D;&quot;ngModel&quot; required /&gt;
+          &lt;div *ngIf&#x3D;&quot;f.submitted &amp;&amp; !lastName.valid&quot; class&#x3D;&quot;help-block&quot;&gt;Please enter the description for the project&lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;button [disabled]&#x3D;&quot;loading&quot; class&#x3D;&quot;btn btn-primary&quot; style&#x3D;&quot;margin-top: 20px&quot;&gt;Create project&lt;/button&gt;
+        &lt;input type&#x3D;&quot;file&quot; #filePicker multiple style&#x3D;&quot;visibility: hidden&quot; (change)&#x3D;&quot;importProjectAsZip($event)&quot; &gt;
+        &lt;button [disabled]&#x3D;&quot;loading&quot; class&#x3D;&quot;btn btn-primary&quot; style&#x3D;&quot;margin-top: 20px&quot; (click)&#x3D;&quot;filePicker.click();&quot;&gt;Import project&lt;/button&gt;
+        &lt;img *ngIf&#x3D;&quot;loading&quot; src&#x3D;&quot;data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA&#x3D;&#x3D;&quot;/&gt;
+
+      &lt;/mat-expansion-panel&gt;
+
+
+      &lt;mat-expansion-panel [expanded]&#x3D;&quot;data.showUserGroups&quot;&gt;
+        &lt;mat-expansion-panel-header&gt;
+          &lt;mat-panel-title&gt;
+            User Groups
+          &lt;/mat-panel-title&gt;
+          &lt;mat-panel-description&gt;
+            work collaboratively
+          &lt;/mat-panel-description&gt;
+        &lt;/mat-expansion-panel-header&gt;
+
+        &lt;div class&#x3D;&quot;form-group&quot; &gt;
+          &lt;label for&#x3D;&quot;firstName&quot;&gt;Title&lt;/label&gt;
+          &lt;input type&#x3D;&quot;text&quot; class&#x3D;&quot;form-control&quot; name&#x3D;&quot;firstName&quot; [(ngModel)]&#x3D;&quot;usergroup.title&quot; #firstName&#x3D;&quot;ngModel&quot; required /&gt;
+          &lt;div *ngIf&#x3D;&quot;f.submitted &amp;&amp; !firstName.valid&quot; class&#x3D;&quot;help-block&quot;&gt;Please enter the title&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;form-group&quot; &gt;
+          &lt;label for&#x3D;&quot;lastName&quot;&gt;Description&lt;/label&gt;
+          &lt;input type&#x3D;&quot;text&quot; class&#x3D;&quot;form-control&quot; name&#x3D;&quot;lastName&quot; [(ngModel)]&#x3D;&quot;usergroup.description&quot; #lastName&#x3D;&quot;ngModel&quot; required /&gt;
+          &lt;div *ngIf&#x3D;&quot;f.submitted &amp;&amp; !lastName.valid&quot; class&#x3D;&quot;help-block&quot;&gt;Please enter the description&lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;button [disabled]&#x3D;&quot;loading&quot; class&#x3D;&quot;btn btn-primary&quot; style&#x3D;&quot;margin-top: 20px&quot; (click)&#x3D;&quot;createUserGroup()&quot; &gt;Create User Group&lt;/button&gt;
+
+      &lt;/mat-expansion-panel&gt;
+
+    &lt;/mat-accordion&gt;
+
+    &lt;div&gt;
+      &lt;button  type&#x3D;&quot;button&quot; mat-button (click)&#x3D;&quot;close()&quot;&gt;Close&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><h1 mat-dialog-title>Create project and User Groups</h1><div>  <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>    <mat-accordion>      <mat-expansion-panel [expanded]="!data.showUserGroups" >        <mat-expansion-panel-header>          <mat-panel-title>            Project          </mat-panel-title>          <mat-panel-description>            Create new project          </mat-panel-description>        </mat-expansion-panel-header>        <div class="form-group" >          <label for="firstName">Title of project</label>          <input type="text" class="form-control" name="firstName" [(ngModel)]="action.title" #firstName="ngModel" required />          <div *ngIf="f.submitted && !firstName.valid" class="help-block">Please enter the title</div>        </div>        <div class="form-group" >          <label for="lastName">Description</label>          <input type="text" class="form-control" name="lastName" [(ngModel)]="action.description" #lastName="ngModel" required />          <div *ngIf="f.submitted && !lastName.valid" class="help-block">Please enter the description for the project</div>        </div>        <button [disabled]="loading" class="btn btn-primary" style="margin-top: 20px">Create project</button>        <input type="file" #filePicker multiple style="visibility: hidden" (change)="importProjectAsZip($event)" >        <button [disabled]="loading" class="btn btn-primary" style="margin-top: 20px" (click)="filePicker.click();">Import project</button>        <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>      </mat-expansion-panel>      <mat-expansion-panel [expanded]="data.showUserGroups">        <mat-expansion-panel-header>          <mat-panel-title>            User Groups          </mat-panel-title>          <mat-panel-description>            work collaboratively          </mat-panel-description>        </mat-expansion-panel-header>        <div class="form-group" >          <label for="firstName">Title</label>          <input type="text" class="form-control" name="firstName" [(ngModel)]="usergroup.title" #firstName="ngModel" required />          <div *ngIf="f.submitted && !firstName.valid" class="help-block">Please enter the title</div>        </div>        <div class="form-group" >          <label for="lastName">Description</label>          <input type="text" class="form-control" name="lastName" [(ngModel)]="usergroup.description" #lastName="ngModel" required />          <div *ngIf="f.submitted && !lastName.valid" class="help-block">Please enter the description</div>        </div>        <button [disabled]="loading" class="btn btn-primary" style="margin-top: 20px" (click)="createUserGroup()" >Create User Group</button>      </mat-expansion-panel>    </mat-accordion>    <div>      <button  type="button" mat-button (click)="close()">Close</button>    </div>  </form></div></div>'
+    var COMPONENTS = [{'name': 'AddAppGroupDialogComponent', 'selector': 'app-add-app-group-dialog'},{'name': 'AllAppSelectorsComponent', 'selector': 'app-all-app-selectors'},{'name': 'AngularHandsometableComponent', 'selector': 'app-angular-handsometable'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppInputComponentComponent', 'selector': 'app-app-input-component'},{'name': 'AudioPlayerComponent', 'selector': 'app-audio-player'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'BrowserlingComponent', 'selector': 'app-browserling'},{'name': 'BrushAndZoomComponent', 'selector': 'app-brush-and-zoom'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CanvasWhiteboardComponent', 'selector': 'app-canvas-whiteboard'},{'name': 'ChordDiagramComponent', 'selector': 'app-chord-diagram'},{'name': 'CommentOnIndicesComponent', 'selector': 'app-comment-on-indices'},{'name': 'CrisprComponent', 'selector': 'app-crispr'},{'name': 'D3tutorialComponent', 'selector': 'app-d3tutorial'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataAssignmentComponent', 'selector': 'app-data-assignment'},{'name': 'DataChooserComponent', 'selector': 'app-data-chooser'},{'name': 'DataListViewComponent', 'selector': 'data-list-view'},{'name': 'DataListViewSettingsComponent', 'selector': 'data-list-view-settings'},{'name': 'DataListViewTableComponent', 'selector': 'data-list-view-table'},{'name': 'DataManagementComponent', 'selector': 'app-data-management'},{'name': 'DeactivateNewsletterComponent', 'selector': 'app-deactivate-newsletter'},{'name': 'DeleteActionComponent', 'selector': 'app-delete-action'},{'name': 'DeletePageComponent', 'selector': 'app-delete-page'},{'name': 'DialogCreateNewPageComponent', 'selector': 'dialog-create-new-page'},{'name': 'DialogOverviewExampleDialog', 'selector': 'dialog-overview-example-dialog'},{'name': 'DialogUserSettingsDialog', 'selector': 'dialog-user-settings-dialog'},{'name': 'DictionaryComponent', 'selector': 'app-dictionary'},{'name': 'DuplicatePageComponent', 'selector': 'app-duplicate-page'},{'name': 'EditActionComponent', 'selector': 'app-edit-action'},{'name': 'EditPageComponent', 'selector': 'app-edit-page'},{'name': 'EditPageSetComponent', 'selector': 'app-update-page-set'},{'name': 'ExtendSessionComponent', 'selector': 'session-component'},{'name': 'FileListDialogComponent', 'selector': 'app-file-list-dialog'},{'name': 'FloatingImageObjectComponent', 'selector': 'app-floating-image-object'},{'name': 'FloatingTextObjectComponent', 'selector': 'app-floating-text-object'},{'name': 'FloatLightTableComponent', 'selector': 'app-float-light-table'},{'name': 'Frame', 'selector': 'popup'},{'name': 'FrameSettingsComponent', 'selector': 'app-frame-settings'},{'name': 'GndLobidComponent', 'selector': 'app-gnd-lobid'},{'name': 'GrapesjsComponent', 'selector': 'app-grapesjs'},{'name': 'GroupedBarChartV2Component', 'selector': 'app-grouped-bar-chart-v2'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HierarchicalNavigationNodeComponent', 'selector': 'app-hierarchical-navigation-node'},{'name': 'HierarchicalNavigationRootComponent', 'selector': 'app-hierarchical-navigation-root'},{'name': 'HierarchicalNavigationViewComponent', 'selector': 'app-hierarchical-navigation-view'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HtmlViewerComponent', 'selector': 'app-html-viewer'},{'name': 'HtmlViewerInnerhtmlComponent', 'selector': 'app-html-viewer-innerhtml'},{'name': 'IframeComponent', 'selector': 'app-iframe'},{'name': 'ImageWithOverlayComponent', 'selector': 'app-image-with-overlay'},{'name': 'ImpressumComponent', 'selector': 'app-impressum'},{'name': 'InitPopupComponent', 'selector': 'app-init-popup'},{'name': 'JoinedTextBlockComponent', 'selector': 'app-joined-text-block'},{'name': 'JoinedTextInnerhtmlComponent', 'selector': 'app-joined-text-innerhtml'},{'name': 'JoinedTextLineComponent', 'selector': 'app-joined-text-line'},{'name': 'JoinedTextLinepartComponent', 'selector': 'app-joined-text-linepart'},{'name': 'JoinedTextMarginComponent', 'selector': 'app-joined-text-margin'},{'name': 'JoinedTextTextwrapperComponent', 'selector': 'app-joined-text-textwrapper'},{'name': 'JoinedTextViewComponent', 'selector': 'app-joined-text-view'},{'name': 'KeyValueComponent', 'selector': 'app-key-value'},{'name': 'KeyValueFormComponent', 'selector': 'app-key-value-form'},{'name': 'KnoraV2ViewerComponent', 'selector': 'app-knora-v2-viewer'},{'name': 'KnoraV2ViewerInnerhtmlComponent', 'selector': 'app-knora-v2-viewer-innerhtml'},{'name': 'LeafletExampleComponent', 'selector': 'app-leaflet-example'},{'name': 'LightTableComponent', 'selector': 'app-light-table'},{'name': 'LightTableMenuComponent', 'selector': 'app-light-table-menu'},{'name': 'LoadLightTableComponent', 'selector': 'app-load-light-table'},{'name': 'LoadVariablesComponent', 'selector': 'app-load-variables'},{'name': 'MachineReasoningComponent', 'selector': 'app-machine-reasoning'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MatCardComponent', 'selector': 'app-mat-card'},{'name': 'MinimizePasswordDialog', 'selector': 'minimize-password-dialog'},{'name': 'MultiLineChartComponent', 'selector': 'app-multi-line-chart'},{'name': 'MyFilesComponent', 'selector': 'app-my-files'},{'name': 'MyMainComponentComponent', 'selector': 'app-my-main-component'},{'name': 'MyPractiseComponentComponent', 'selector': 'app-my-practise-component'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NestedMenu', 'selector': 'app-nested-menu'},{'name': 'NewGjsBoxDialogComponent', 'selector': 'app-new-gjs-box-dialog'},{'name': 'OpenbisLoginComponent', 'selector': 'app-openbis-login'},{'name': 'OurDemoAppComponent', 'selector': 'app-our-demo-app'},{'name': 'OurNewComponentComponent', 'selector': 'app-our-new-component'},{'name': 'PageComponent', 'selector': 'nie-os'},{'name': 'PageListDialogComponent', 'selector': 'app-page-list-dialog'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'PageSetLandingPageComponent', 'selector': 'app-page-set-landing-page'},{'name': 'ParzivalFassungComponent', 'selector': 'app-parzival-fassung'},{'name': 'PdfViewerComponent', 'selector': 'app-pdf-viewer'},{'name': 'PieChartComponent', 'selector': 'app-pie-chart'},{'name': 'PieChartV2Component', 'selector': 'app-pie-chart-v2'},{'name': 'PizzaPartyComponent', 'selector': 'snack-bar-component-example-snack'},{'name': 'PrimeEditorComponent', 'selector': 'app-prime-editor'},{'name': 'PythonEnvironmentComponent', 'selector': 'app-python-environment'},{'name': 'QueryAppInputMapComponent', 'selector': 'app-query-app-input-map'},{'name': 'QueryEntryComponent', 'selector': 'app-query-entry'},{'name': 'QueryInformationDialogComponent', 'selector': 'app-query-information-dialog'},{'name': 'QueryListComponent', 'selector': 'app-query-list'},{'name': 'RadialBarchartComponent', 'selector': 'app-radial-barchart'},{'name': 'RaeberNavigationComponent', 'selector': 'app-raeber-navigation'},{'name': 'ReactivateAccountComponent', 'selector': 'app-reactivate-account'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'RemoveObjectsByIdComponent', 'selector': 'app-remove-objects-by-id'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'ResponseTreeAppComponent', 'selector': 'response-tree'},{'name': 'ResponseTreeComponent', 'selector': 'app-response-tree'},{'name': 'SankeyComponent', 'selector': 'app-sankey'},{'name': 'SaveLightTableComponent', 'selector': 'app-save-light-table'},{'name': 'ShareLightTableComponent', 'selector': 'app-share-light-table'},{'name': 'SimpleImageAppComponent', 'selector': 'app-simple-image-app'},{'name': 'SpiralBarChartComponent', 'selector': 'app-spiral-bar-chart'},{'name': 'StackedBarChartComponent', 'selector': 'app-stacked-bar-chart'},{'name': 'SubPageListComponent', 'selector': 'app-sub-page-list'},{'name': 'SynopsisComponent', 'selector': 'app-synopsis'},{'name': 'SynopsisObjectManagerComponent', 'selector': 'app-synopsis-object-manager'},{'name': 'SynopsisObjectToolboxComponent', 'selector': 'app-synopsis-object-toolbox'},{'name': 'TextDisplayComponent', 'selector': 'app-text-display'},{'name': 'TextDisplayComponent', 'selector': 'app-text-display'},{'name': 'TextLineComponent', 'selector': 'app-text-line'},{'name': 'TextLineMarginComponent', 'selector': 'app-text-line-margin'},{'name': 'TextlistViewerComponent', 'selector': 'app-textlist-viewer'},{'name': 'TextPageOfWordsComponent', 'selector': 'app-text-page-of-words'},{'name': 'TextRichInnerhtmlComponent', 'selector': 'app-text-rich-innerhtml'},{'name': 'TextSvgViewComponent', 'selector': 'app-text-svg-view'},{'name': 'TextSvgViewWrapperComponent', 'selector': 'app-text-svg-view-wrapper'},{'name': 'TextViewCanvasComponent', 'selector': 'app-text-view-canvas'},{'name': 'TextViewComponent', 'selector': 'app-text-view'},{'name': 'TextViewMetadataComponent', 'selector': 'app-text-view-metadata'},{'name': 'TextViewStructureComponent', 'selector': 'app-text-view-structure'},{'name': 'TextViewToolsComponent', 'selector': 'app-text-view-tools'},{'name': 'ThumbnailbarComponent', 'selector': 'app-thumbnailbar'},{'name': 'TiledImageObjectComponent', 'selector': 'app-tiled-image-object'},{'name': 'TiledLightTableComponent', 'selector': 'app-tiled-light-table'},{'name': 'TiledTextObjectComponent', 'selector': 'app-tiled-text-object'},{'name': 'TreeNavigationComponent', 'selector': 'app-tree-navigation'},{'name': 'UrlParamUpdaterComponent', 'selector': 'app-url-param-updater'},{'name': 'UserGroupComponent', 'selector': 'app-user-group'},{'name': 'YoutubeVideoComponent', 'selector': 'app-youtube-video'}];
+    var DIRECTIVES = [{'name': 'DraggableDirective', 'selector': '[appDraggable]'},{'name': 'DraggableStubDirective', 'selector': '[appDraggable]'},{'name': 'FloatDropTargetDirective', 'selector': '[appDropTarget]'},{'name': 'ModifiableDirective', 'selector': '[appModifiable]'},{'name': 'ModifiableStubDirective', 'selector': '[appModifiable]'},{'name': 'SelectableDirective', 'selector': '[appSelectable]'},{'name': 'SelectableStubDirective', 'selector': '[appSelectable]'},{'name': 'SynopsisObjectAnchorDirective', 'selector': '[appSynopsisObjectAnchor]'},{'name': 'TileDropTargetDirective', 'selector': '[appTileDropTarget]'}];
+    var ACTUAL_COMPONENT = {'name': 'DialogOverviewExampleDialog'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'DialogOverviewExampleDialog.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

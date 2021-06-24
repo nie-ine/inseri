@@ -1,0 +1,1860 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>nie-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">nie-frontend documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>FloatLightTableComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/app-engine/apps/synopsis/float-light-table/float-light-table.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+                    <code><a href="https://angular.io/api/core/OnDestroy" target="_blank" >OnDestroy</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-float-light-table</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./float-light-table.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./float-light-table.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#closeObjectsByIdSubscriber">closeObjectsByIdSubscriber</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#closeObjectSubscriber">closeObjectSubscriber</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#componentRefTracker">componentRefTracker</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#invertColorsSubscriber">invertColorsSubscriber</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#loadLightTableSnapshotSubscriber">loadLightTableSnapshotSubscriber</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#makeLightTableSnapshotSubscriber">makeLightTableSnapshotSubscriber</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#resizeObjectSubscriber">resizeObjectSubscriber</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#rotateObjectSubscriber">rotateObjectSubscriber</a>
+                            </li>
+                            <li>
+                                <a href="#synopsisObjectsHost">synopsisObjectsHost</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#closeObject">closeObject</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#closeObjectsById">closeObjectsById</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#createNewComponentRef">createNewComponentRef</a>
+                            </li>
+                            <li>
+                                <a href="#load">load</a>
+                            </li>
+                            <li>
+                                <a href="#makeSnapshot">makeSnapshot</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy">ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onDrop">onDrop</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#serializeData">serializeData</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#setObjectViewProperty">setObjectViewProperty</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#updateDimensions">updateDimensions</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#updateInversion">updateInversion</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#updateRotation">updateRotation</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#viewRefIndex">viewRefIndex</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(componentFactoryResolver: <a href="https://angular.io/api/core/ComponentFactoryResolver" target="_blank">ComponentFactoryResolver</a>, lightTableStashService: <a href="../injectables/LightTableStashService.html">LightTableStashService</a>, synopsisObjectModifierService: <a href="../injectables/SynopsisObjectModifierService.html">SynopsisObjectModifierService</a>, synopsisObjectSerializerService: <a href="../injectables/SynopsisObjectSerializerService.html">SynopsisObjectSerializerService</a>, el: <a href="https://angular.io/api/core/ElementRef" target="_blank">ElementRef</a>, renderer: <a href="https://angular.io/api/core/Renderer2" target="_blank">Renderer2</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/app-engine/apps/synopsis/float-light-table/float-light-table.component.ts:32</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>componentFactoryResolver</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/core/ComponentFactoryResolver" target="_blank" >ComponentFactoryResolver</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>lightTableStashService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/LightTableStashService.html" target="_self" >LightTableStashService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>synopsisObjectModifierService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/SynopsisObjectModifierService.html" target="_self" >SynopsisObjectModifierService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>synopsisObjectSerializerService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/SynopsisObjectSerializerService.html" target="_self" >SynopsisObjectSerializerService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>el</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/core/ElementRef" target="_blank" >ElementRef</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>renderer</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/core/Renderer2" target="_blank" >Renderer2</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeObject"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            closeObject
+                        </b>
+                        <a href="#closeObject"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>closeObject(uid: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="120"
+                            class="link-to-prism">src/app/app-engine/apps/synopsis/float-light-table/float-light-table.component.ts:120</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>uid</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeObjectsById"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            closeObjectsById
+                        </b>
+                        <a href="#closeObjectsById"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>closeObjectsById(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="163"
+                            class="link-to-prism">src/app/app-engine/apps/synopsis/float-light-table/float-light-table.component.ts:163</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createNewComponentRef"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            createNewComponentRef
+                        </b>
+                        <a href="#createNewComponentRef"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createNewComponentRef(data: <a href="../interfaces/SynopsisObjectData.html">SynopsisObjectData</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="112"
+                            class="link-to-prism">src/app/app-engine/apps/synopsis/float-light-table/float-light-table.component.ts:112</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>data</td>
+                                    <td>
+                                                <code><a href="../interfaces/SynopsisObjectData.html" target="_self" >SynopsisObjectData</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="load"></a>
+                    <span class="name">
+                        <b>
+                            load
+                        </b>
+                        <a href="#load"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>load(snapshot: SynopsisObjectData[])</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="86"
+                            class="link-to-prism">src/app/app-engine/apps/synopsis/float-light-table/float-light-table.component.ts:86</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>snapshot</td>
+                                    <td>
+                                            <code>SynopsisObjectData[]</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="makeSnapshot"></a>
+                    <span class="name">
+                        <b>
+                            makeSnapshot
+                        </b>
+                        <a href="#makeSnapshot"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>makeSnapshot()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="82"
+                            class="link-to-prism">src/app/app-engine/apps/synopsis/float-light-table/float-light-table.component.ts:82</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <b>
+                            ngOnDestroy
+                        </b>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="62"
+                            class="link-to-prism">src/app/app-engine/apps/synopsis/float-light-table/float-light-table.component.ts:62</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="54"
+                            class="link-to-prism">src/app/app-engine/apps/synopsis/float-light-table/float-light-table.component.ts:54</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onDrop"></a>
+                    <span class="name">
+                        <b>
+                            onDrop
+                        </b>
+                        <a href="#onDrop"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onDrop(data: <a href="../interfaces/SynopsisObjectData.html">SynopsisObjectData</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="73"
+                            class="link-to-prism">src/app/app-engine/apps/synopsis/float-light-table/float-light-table.component.ts:73</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>data</td>
+                                    <td>
+                                                <code><a href="../interfaces/SynopsisObjectData.html" target="_self" >SynopsisObjectData</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="serializeData"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            serializeData
+                        </b>
+                        <a href="#serializeData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>serializeData()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="157"
+                            class="link-to-prism">src/app/app-engine/apps/synopsis/float-light-table/float-light-table.component.ts:157</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>SynopsisObjectData[]</code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setObjectViewProperty"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            setObjectViewProperty
+                        </b>
+                        <a href="#setObjectViewProperty"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>setObjectViewProperty(componentRef: <a href="../interfaces/SynopsisObject.html">ComponentRef<SynopsisObject></a>, property: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, value: string | number)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="151"
+                            class="link-to-prism">src/app/app-engine/apps/synopsis/float-light-table/float-light-table.component.ts:151</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>componentRef</td>
+                                    <td>
+                                                <code><a href="../interfaces/SynopsisObject.html" target="_self" >ComponentRef&lt;SynopsisObject&gt;</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>property</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>value</td>
+                                    <td>
+                                            <code>string | number</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateDimensions"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            updateDimensions
+                        </b>
+                        <a href="#updateDimensions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>updateDimensions(uid: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, width: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, height: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="129"
+                            class="link-to-prism">src/app/app-engine/apps/synopsis/float-light-table/float-light-table.component.ts:129</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>uid</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>width</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>height</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateInversion"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            updateInversion
+                        </b>
+                        <a href="#updateInversion"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>updateInversion(uid: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="144"
+                            class="link-to-prism">src/app/app-engine/apps/synopsis/float-light-table/float-light-table.component.ts:144</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>uid</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateRotation"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            updateRotation
+                        </b>
+                        <a href="#updateRotation"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>updateRotation(uid: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, angle: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="136"
+                            class="link-to-prism">src/app/app-engine/apps/synopsis/float-light-table/float-light-table.component.ts:136</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>uid</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>angle</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="viewRefIndex"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            viewRefIndex
+                        </b>
+                        <a href="#viewRefIndex"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>viewRefIndex(uid: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="125"
+                            class="link-to-prism">src/app/app-engine/apps/synopsis/float-light-table/float-light-table.component.ts:125</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>uid</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="closeObjectsByIdSubscriber"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            closeObjectsByIdSubscriber</b>
+                            <a href="#closeObjectsByIdSubscriber"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Subscription</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/app-engine/apps/synopsis/float-light-table/float-light-table.component.ts:27</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="closeObjectSubscriber"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            closeObjectSubscriber</b>
+                            <a href="#closeObjectSubscriber"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Subscription</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/app-engine/apps/synopsis/float-light-table/float-light-table.component.ts:26</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="componentRefTracker"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            componentRefTracker</b>
+                            <a href="#componentRefTracker"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/ComponentRefTracker.html" target="_self" >ComponentRefTracker</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/app-engine/apps/synopsis/float-light-table/float-light-table.component.ts:25</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="invertColorsSubscriber"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            invertColorsSubscriber</b>
+                            <a href="#invertColorsSubscriber"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Subscription</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/app-engine/apps/synopsis/float-light-table/float-light-table.component.ts:30</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="loadLightTableSnapshotSubscriber"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            loadLightTableSnapshotSubscriber</b>
+                            <a href="#loadLightTableSnapshotSubscriber"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Subscription</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/app-engine/apps/synopsis/float-light-table/float-light-table.component.ts:28</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="makeLightTableSnapshotSubscriber"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            makeLightTableSnapshotSubscriber</b>
+                            <a href="#makeLightTableSnapshotSubscriber"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Subscription</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/app-engine/apps/synopsis/float-light-table/float-light-table.component.ts:29</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="resizeObjectSubscriber"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            resizeObjectSubscriber</b>
+                            <a href="#resizeObjectSubscriber"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Subscription</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/app-engine/apps/synopsis/float-light-table/float-light-table.component.ts:31</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="rotateObjectSubscriber"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            rotateObjectSubscriber</b>
+                            <a href="#rotateObjectSubscriber"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Subscription</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/app-engine/apps/synopsis/float-light-table/float-light-table.component.ts:32</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="synopsisObjectsHost"></a>
+                        <span class="name">
+                            <b>
+                            synopsisObjectsHost</b>
+                            <a href="#synopsisObjectsHost"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/SynopsisObject.html" target="_self" >SynopsisObjectAnchorDirective</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Decorators : </b>
+                            <br />
+                            <code>
+                                @ViewChild(SynopsisObjectAnchorDirective, {static: true})<br />
+                            </code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/app-engine/apps/synopsis/float-light-table/float-light-table.component.ts:23</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {Component, ComponentFactoryResolver, ComponentRef, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild} from &#x27;@angular/core&#x27;;
+import {SynopsisObjectAnchorDirective} from &#x27;../synopsis-object-anchor.directive&#x27;;
+import {SynopsisObjectSerializerService} from &#x27;../synopsis-object-serializer.service&#x27;;
+import {SynopsisObjectModifierService} from &#x27;../synopsis-object-modifier.service&#x27;;
+import {SynopsisObjectData, SynopsisObjectType} from &#x27;../synopsis-object-data&#x27;;
+import {SynopsisObject} from &#x27;../synopsis-object&#x27;;
+import {FloatingTextObjectComponent} from &#x27;../floating-text-object/floating-text-object.component&#x27;;
+import {FloatingImageObjectComponent} from &#x27;../floating-image-object/floating-image-object.component&#x27;;
+import {SynopsisItem} from &#x27;../synopsis-item&#x27;;
+import {LightTableStashService} from &#x27;../light-table-stash.service&#x27;;
+import {Subscription} from &#x27;rxjs/Subscription&#x27;;
+
+interface ComponentRefTracker {
+  [uid: number]: ComponentRef&lt;SynopsisObject&gt;;
+}
+
+@Component({
+  selector: &#x27;app-float-light-table&#x27;,
+  templateUrl: &#x27;./float-light-table.component.html&#x27;,
+  styleUrls: [&#x27;./float-light-table.component.scss&#x27;]
+})
+export class FloatLightTableComponent implements OnInit, OnDestroy {
+  @ViewChild(SynopsisObjectAnchorDirective, { static: true }) synopsisObjectsHost: SynopsisObjectAnchorDirective;
+
+  private componentRefTracker: ComponentRefTracker &#x3D; [];
+  private closeObjectSubscriber: Subscription;
+  private closeObjectsByIdSubscriber: Subscription;
+  private loadLightTableSnapshotSubscriber: Subscription;
+  private makeLightTableSnapshotSubscriber: Subscription;
+  private invertColorsSubscriber: Subscription;
+  private resizeObjectSubscriber: Subscription;
+  private rotateObjectSubscriber: Subscription;
+
+  constructor(private componentFactoryResolver: ComponentFactoryResolver,
+              private lightTableStashService: LightTableStashService,
+              private synopsisObjectModifierService: SynopsisObjectModifierService,
+              private synopsisObjectSerializerService: SynopsisObjectSerializerService,
+              private el: ElementRef,
+              private renderer: Renderer2) {
+    this.closeObjectSubscriber &#x3D;
+      synopsisObjectModifierService.closeObject$.subscribe(uid &#x3D;&gt; this.closeObject(uid));
+    this.closeObjectsByIdSubscriber &#x3D;
+      synopsisObjectModifierService.closeObjectsById$.subscribe(id &#x3D;&gt; this.closeObjectsById(id));
+    this.resizeObjectSubscriber &#x3D;
+      synopsisObjectModifierService.resizeObject$.subscribe(obj &#x3D;&gt; this.updateDimensions(obj[0], obj[1], obj[2]));
+    this.rotateObjectSubscriber &#x3D;
+      synopsisObjectModifierService.rotateObject$.subscribe(obj &#x3D;&gt; this.updateRotation(obj[0], obj[1]));
+    this.invertColorsSubscriber &#x3D;
+      synopsisObjectModifierService.invertColors$.subscribe(uid &#x3D;&gt; this.updateInversion(uid));
+    this.makeLightTableSnapshotSubscriber &#x3D;
+      synopsisObjectSerializerService.makeLightTableSnapshot$.subscribe(() &#x3D;&gt; this.makeSnapshot());
+  }
+
+  ngOnInit() {
+    if (this.lightTableStashService.fetch()) {
+      this.load(this.lightTableStashService.fetch());
+    }
+    this.loadLightTableSnapshotSubscriber &#x3D;
+      this.synopsisObjectSerializerService.loadLightTableSnapshot$.subscribe(snapshot &#x3D;&gt; this.load(snapshot));
+  }
+
+  ngOnDestroy() {
+    this.lightTableStashService.stash(this.serializeData());
+    this.closeObjectSubscriber.unsubscribe();
+    this.closeObjectsByIdSubscriber.unsubscribe();
+    this.makeLightTableSnapshotSubscriber.unsubscribe();
+    this.loadLightTableSnapshotSubscriber.unsubscribe();
+    this.resizeObjectSubscriber.unsubscribe();
+    this.invertColorsSubscriber.unsubscribe();
+    this.rotateObjectSubscriber.unsubscribe();
+  }
+
+  onDrop(data: SynopsisObjectData) {
+    const componentRef &#x3D; data.uid ? this.componentRefTracker[data.uid] : this.createNewComponentRef(data);
+    if (!data.uid) {
+      data.uid &#x3D; +(Math.random().toString().substr(2));
+      this.componentRefTracker[data.uid] &#x3D; componentRef;
+    }
+    (&lt;SynopsisObject&gt;componentRef.instance).data &#x3D; data;
+  }
+
+  makeSnapshot() {
+    this.synopsisObjectSerializerService.sendLightTableSnapshot(this.serializeData());
+  }
+
+  load(snapshot: SynopsisObjectData[]) {
+    if (this.synopsisObjectsHost) {
+      this.synopsisObjectsHost.viewContainerRef.clear();
+    }
+    this.componentRefTracker &#x3D; [];
+    for (const obj of snapshot) {
+      const dropZoneLeft &#x3D; this.el.nativeElement.getBoundingClientRect().left;
+      const dropZoneTop &#x3D; this.el.nativeElement.getBoundingClientRect().top;
+      if (obj.left &lt; dropZoneLeft) {
+        obj.left &#x3D; dropZoneLeft;
+      }
+      if (obj.top &lt; dropZoneTop) {
+        obj.top &#x3D; dropZoneTop;
+      }
+      const componentRef &#x3D; this.createNewComponentRef(&lt;SynopsisObjectData&gt;obj);
+      this.componentRefTracker[obj.uid] &#x3D; componentRef;
+      (&lt;SynopsisObject&gt;componentRef.instance).data &#x3D; &lt;SynopsisObjectData&gt;obj;
+      this.setObjectViewProperty(componentRef, &#x27;width&#x27;, obj.width + &#x27;px&#x27;);
+      this.setObjectViewProperty(componentRef, &#x27;height&#x27;, obj.height + &#x27;px&#x27;);
+      this.setObjectViewProperty(componentRef, &#x27;transform&#x27;, &#x27;rotate(&#x27; + obj.transform + &#x27;deg)&#x27;);
+      if (obj.invertedColors) {
+        this.renderer.addClass(componentRef.location.nativeElement.querySelector(&#x27;div&#x27;), &#x27;night-view&#x27;);
+      }
+    }
+  }
+
+  private createNewComponentRef(data: SynopsisObjectData) {
+    const synopsisItem &#x3D; (data.dataType &#x3D;&#x3D;&#x3D; SynopsisObjectType.Text) ?
+      new SynopsisItem(FloatingTextObjectComponent, data) :
+      new SynopsisItem(FloatingImageObjectComponent, data);
+    const componentFactory &#x3D; this.componentFactoryResolver.resolveComponentFactory(synopsisItem.component);
+    return this.synopsisObjectsHost.viewContainerRef.createComponent(componentFactory);
+  }
+
+  private closeObject(uid: number) {
+    this.synopsisObjectsHost.viewContainerRef.remove(this.viewRefIndex(uid));
+    delete this.componentRefTracker[uid];
+  }
+
+  private viewRefIndex(uid: number): number {
+    return this.synopsisObjectsHost.viewContainerRef.indexOf(this.componentRefTracker[uid].hostView);
+  }
+
+  private updateDimensions(uid: number, width: number, height: number) {
+    if (this.componentRefTracker[uid]) {
+      (&lt;SynopsisObject&gt;this.componentRefTracker[uid].instance).data.width &#x3D; width;
+      (&lt;SynopsisObject&gt;this.componentRefTracker[uid].instance).data.height &#x3D; height;
+    }
+  }
+
+  private updateRotation(uid: number, angle: number) {
+    if (this.componentRefTracker[uid]) {
+      (&lt;SynopsisObject&gt;this.componentRefTracker[uid].instance).data.transform &#x3D;
+        ((&lt;SynopsisObject&gt;this.componentRefTracker[uid].instance).data.transform ?
+          (&lt;SynopsisObject&gt;this.componentRefTracker[uid].instance).data.transform : 0) + angle;
+    }
+  }
+
+  private updateInversion(uid: number) {
+    if (this.componentRefTracker[uid]) {
+      (&lt;SynopsisObject&gt;this.componentRefTracker[uid].instance).data.invertedColors &#x3D;
+        !(&lt;SynopsisObject&gt;this.componentRefTracker[uid].instance).data.invertedColors;
+    }
+  }
+
+  private setObjectViewProperty(componentRef: ComponentRef&lt;SynopsisObject&gt;, property: string, value: string | number) {
+    if ((&lt;SynopsisObject&gt;componentRef.instance).data[property]) {
+      this.renderer.setStyle(componentRef.location.nativeElement.querySelector(&#x27;div&#x27;), property, value);
+    }
+  }
+
+  private serializeData(): SynopsisObjectData[] {
+    return Object.keys(this.componentRefTracker).map(key &#x3D;&gt;
+      (&lt;SynopsisObject&gt;this.componentRefTracker[key].instance).data
+    );
+  }
+
+  private closeObjectsById(id: string) {
+    Object.keys(this.componentRefTracker).filter(uid &#x3D;&gt;
+      (&lt;SynopsisObject&gt;this.componentRefTracker[uid].instance).data.id &#x3D;&#x3D;&#x3D; id)
+      .forEach(uid &#x3D;&gt; this.closeObject(+uid));
+  }
+
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div appDropTarget (appDrop)&#x3D;&quot;onDrop($event)&quot; class&#x3D;&quot;drop-target&quot;&gt;
+  &lt;ng-template appSynopsisObjectAnchor&gt;&lt;/ng-template&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./float-light-table.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.drop-target {
+  border: 1px dashed #ebebeb;
+  margin: 1rem;
+  padding: 1rem;
+  width: 100%;
+  height:100vh;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div appDropTarget (appDrop)="onDrop($event)" class="drop-target">  <ng-template appSynopsisObjectAnchor></ng-template></div></div>'
+    var COMPONENTS = [{'name': 'AddAppGroupDialogComponent', 'selector': 'app-add-app-group-dialog'},{'name': 'AllAppSelectorsComponent', 'selector': 'app-all-app-selectors'},{'name': 'AngularHandsometableComponent', 'selector': 'app-angular-handsometable'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppInputComponentComponent', 'selector': 'app-app-input-component'},{'name': 'AudioPlayerComponent', 'selector': 'app-audio-player'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'BrowserlingComponent', 'selector': 'app-browserling'},{'name': 'BrushAndZoomComponent', 'selector': 'app-brush-and-zoom'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CanvasWhiteboardComponent', 'selector': 'app-canvas-whiteboard'},{'name': 'ChordDiagramComponent', 'selector': 'app-chord-diagram'},{'name': 'CommentOnIndicesComponent', 'selector': 'app-comment-on-indices'},{'name': 'CrisprComponent', 'selector': 'app-crispr'},{'name': 'D3tutorialComponent', 'selector': 'app-d3tutorial'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataAssignmentComponent', 'selector': 'app-data-assignment'},{'name': 'DataChooserComponent', 'selector': 'app-data-chooser'},{'name': 'DataListViewComponent', 'selector': 'data-list-view'},{'name': 'DataListViewSettingsComponent', 'selector': 'data-list-view-settings'},{'name': 'DataListViewTableComponent', 'selector': 'data-list-view-table'},{'name': 'DataManagementComponent', 'selector': 'app-data-management'},{'name': 'DeactivateNewsletterComponent', 'selector': 'app-deactivate-newsletter'},{'name': 'DeleteActionComponent', 'selector': 'app-delete-action'},{'name': 'DeletePageComponent', 'selector': 'app-delete-page'},{'name': 'DialogCreateNewPageComponent', 'selector': 'dialog-create-new-page'},{'name': 'DialogOverviewExampleDialog', 'selector': 'dialog-overview-example-dialog'},{'name': 'DialogUserSettingsDialog', 'selector': 'dialog-user-settings-dialog'},{'name': 'DictionaryComponent', 'selector': 'app-dictionary'},{'name': 'DuplicatePageComponent', 'selector': 'app-duplicate-page'},{'name': 'EditActionComponent', 'selector': 'app-edit-action'},{'name': 'EditPageComponent', 'selector': 'app-edit-page'},{'name': 'EditPageSetComponent', 'selector': 'app-update-page-set'},{'name': 'ExtendSessionComponent', 'selector': 'session-component'},{'name': 'FileListDialogComponent', 'selector': 'app-file-list-dialog'},{'name': 'FloatingImageObjectComponent', 'selector': 'app-floating-image-object'},{'name': 'FloatingTextObjectComponent', 'selector': 'app-floating-text-object'},{'name': 'FloatLightTableComponent', 'selector': 'app-float-light-table'},{'name': 'Frame', 'selector': 'popup'},{'name': 'FrameSettingsComponent', 'selector': 'app-frame-settings'},{'name': 'GndLobidComponent', 'selector': 'app-gnd-lobid'},{'name': 'GrapesjsComponent', 'selector': 'app-grapesjs'},{'name': 'GroupedBarChartV2Component', 'selector': 'app-grouped-bar-chart-v2'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HierarchicalNavigationNodeComponent', 'selector': 'app-hierarchical-navigation-node'},{'name': 'HierarchicalNavigationRootComponent', 'selector': 'app-hierarchical-navigation-root'},{'name': 'HierarchicalNavigationViewComponent', 'selector': 'app-hierarchical-navigation-view'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HtmlViewerComponent', 'selector': 'app-html-viewer'},{'name': 'HtmlViewerInnerhtmlComponent', 'selector': 'app-html-viewer-innerhtml'},{'name': 'IframeComponent', 'selector': 'app-iframe'},{'name': 'ImageWithOverlayComponent', 'selector': 'app-image-with-overlay'},{'name': 'ImpressumComponent', 'selector': 'app-impressum'},{'name': 'InitPopupComponent', 'selector': 'app-init-popup'},{'name': 'JoinedTextBlockComponent', 'selector': 'app-joined-text-block'},{'name': 'JoinedTextInnerhtmlComponent', 'selector': 'app-joined-text-innerhtml'},{'name': 'JoinedTextLineComponent', 'selector': 'app-joined-text-line'},{'name': 'JoinedTextLinepartComponent', 'selector': 'app-joined-text-linepart'},{'name': 'JoinedTextMarginComponent', 'selector': 'app-joined-text-margin'},{'name': 'JoinedTextTextwrapperComponent', 'selector': 'app-joined-text-textwrapper'},{'name': 'JoinedTextViewComponent', 'selector': 'app-joined-text-view'},{'name': 'KeyValueComponent', 'selector': 'app-key-value'},{'name': 'KeyValueFormComponent', 'selector': 'app-key-value-form'},{'name': 'KnoraV2ViewerComponent', 'selector': 'app-knora-v2-viewer'},{'name': 'KnoraV2ViewerInnerhtmlComponent', 'selector': 'app-knora-v2-viewer-innerhtml'},{'name': 'LeafletExampleComponent', 'selector': 'app-leaflet-example'},{'name': 'LightTableComponent', 'selector': 'app-light-table'},{'name': 'LightTableMenuComponent', 'selector': 'app-light-table-menu'},{'name': 'LoadLightTableComponent', 'selector': 'app-load-light-table'},{'name': 'LoadVariablesComponent', 'selector': 'app-load-variables'},{'name': 'MachineReasoningComponent', 'selector': 'app-machine-reasoning'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MatCardComponent', 'selector': 'app-mat-card'},{'name': 'MinimizePasswordDialog', 'selector': 'minimize-password-dialog'},{'name': 'MultiLineChartComponent', 'selector': 'app-multi-line-chart'},{'name': 'MyFilesComponent', 'selector': 'app-my-files'},{'name': 'MyMainComponentComponent', 'selector': 'app-my-main-component'},{'name': 'MyPractiseComponentComponent', 'selector': 'app-my-practise-component'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NestedMenu', 'selector': 'app-nested-menu'},{'name': 'NewGjsBoxDialogComponent', 'selector': 'app-new-gjs-box-dialog'},{'name': 'OpenbisLoginComponent', 'selector': 'app-openbis-login'},{'name': 'OurDemoAppComponent', 'selector': 'app-our-demo-app'},{'name': 'OurNewComponentComponent', 'selector': 'app-our-new-component'},{'name': 'PageComponent', 'selector': 'nie-os'},{'name': 'PageListDialogComponent', 'selector': 'app-page-list-dialog'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'PageSetLandingPageComponent', 'selector': 'app-page-set-landing-page'},{'name': 'ParzivalFassungComponent', 'selector': 'app-parzival-fassung'},{'name': 'PdfViewerComponent', 'selector': 'app-pdf-viewer'},{'name': 'PieChartComponent', 'selector': 'app-pie-chart'},{'name': 'PieChartV2Component', 'selector': 'app-pie-chart-v2'},{'name': 'PizzaPartyComponent', 'selector': 'snack-bar-component-example-snack'},{'name': 'PrimeEditorComponent', 'selector': 'app-prime-editor'},{'name': 'PythonEnvironmentComponent', 'selector': 'app-python-environment'},{'name': 'QueryAppInputMapComponent', 'selector': 'app-query-app-input-map'},{'name': 'QueryEntryComponent', 'selector': 'app-query-entry'},{'name': 'QueryInformationDialogComponent', 'selector': 'app-query-information-dialog'},{'name': 'QueryListComponent', 'selector': 'app-query-list'},{'name': 'RadialBarchartComponent', 'selector': 'app-radial-barchart'},{'name': 'RaeberNavigationComponent', 'selector': 'app-raeber-navigation'},{'name': 'ReactivateAccountComponent', 'selector': 'app-reactivate-account'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'RemoveObjectsByIdComponent', 'selector': 'app-remove-objects-by-id'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'ResponseTreeAppComponent', 'selector': 'response-tree'},{'name': 'ResponseTreeComponent', 'selector': 'app-response-tree'},{'name': 'SankeyComponent', 'selector': 'app-sankey'},{'name': 'SaveLightTableComponent', 'selector': 'app-save-light-table'},{'name': 'ShareLightTableComponent', 'selector': 'app-share-light-table'},{'name': 'SimpleImageAppComponent', 'selector': 'app-simple-image-app'},{'name': 'SpiralBarChartComponent', 'selector': 'app-spiral-bar-chart'},{'name': 'StackedBarChartComponent', 'selector': 'app-stacked-bar-chart'},{'name': 'SubPageListComponent', 'selector': 'app-sub-page-list'},{'name': 'SynopsisComponent', 'selector': 'app-synopsis'},{'name': 'SynopsisObjectManagerComponent', 'selector': 'app-synopsis-object-manager'},{'name': 'SynopsisObjectToolboxComponent', 'selector': 'app-synopsis-object-toolbox'},{'name': 'TextDisplayComponent', 'selector': 'app-text-display'},{'name': 'TextDisplayComponent', 'selector': 'app-text-display'},{'name': 'TextLineComponent', 'selector': 'app-text-line'},{'name': 'TextLineMarginComponent', 'selector': 'app-text-line-margin'},{'name': 'TextlistViewerComponent', 'selector': 'app-textlist-viewer'},{'name': 'TextPageOfWordsComponent', 'selector': 'app-text-page-of-words'},{'name': 'TextRichInnerhtmlComponent', 'selector': 'app-text-rich-innerhtml'},{'name': 'TextSvgViewComponent', 'selector': 'app-text-svg-view'},{'name': 'TextSvgViewWrapperComponent', 'selector': 'app-text-svg-view-wrapper'},{'name': 'TextViewCanvasComponent', 'selector': 'app-text-view-canvas'},{'name': 'TextViewComponent', 'selector': 'app-text-view'},{'name': 'TextViewMetadataComponent', 'selector': 'app-text-view-metadata'},{'name': 'TextViewStructureComponent', 'selector': 'app-text-view-structure'},{'name': 'TextViewToolsComponent', 'selector': 'app-text-view-tools'},{'name': 'ThumbnailbarComponent', 'selector': 'app-thumbnailbar'},{'name': 'TiledImageObjectComponent', 'selector': 'app-tiled-image-object'},{'name': 'TiledLightTableComponent', 'selector': 'app-tiled-light-table'},{'name': 'TiledTextObjectComponent', 'selector': 'app-tiled-text-object'},{'name': 'TreeNavigationComponent', 'selector': 'app-tree-navigation'},{'name': 'UrlParamUpdaterComponent', 'selector': 'app-url-param-updater'},{'name': 'UserGroupComponent', 'selector': 'app-user-group'},{'name': 'YoutubeVideoComponent', 'selector': 'app-youtube-video'}];
+    var DIRECTIVES = [{'name': 'DraggableDirective', 'selector': '[appDraggable]'},{'name': 'DraggableStubDirective', 'selector': '[appDraggable]'},{'name': 'FloatDropTargetDirective', 'selector': '[appDropTarget]'},{'name': 'ModifiableDirective', 'selector': '[appModifiable]'},{'name': 'ModifiableStubDirective', 'selector': '[appModifiable]'},{'name': 'SelectableDirective', 'selector': '[appSelectable]'},{'name': 'SelectableStubDirective', 'selector': '[appSelectable]'},{'name': 'SynopsisObjectAnchorDirective', 'selector': '[appSynopsisObjectAnchor]'},{'name': 'TileDropTargetDirective', 'selector': '[appTileDropTarget]'}];
+    var ACTUAL_COMPONENT = {'name': 'FloatLightTableComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'FloatLightTableComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
