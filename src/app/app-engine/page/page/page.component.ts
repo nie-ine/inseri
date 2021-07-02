@@ -3,7 +3,7 @@
  * Data for the apps are loaded with the help of the load-variables component.
  * */
 
-import {AfterViewChecked, ChangeDetectorRef, Component, HostListener, NgModule, OnInit, VERSION, ViewChild} from '@angular/core';
+import {AfterViewChecked, ChangeDetectorRef, Component, HostListener, Inject, NgModule, OnInit, VERSION, ViewChild} from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
 import 'rxjs/add/operator/map';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -36,7 +36,8 @@ import {OverlayContainer} from '@angular/cdk/overlay';
 import {PageSetService} from '../../../user-action-engine/mongodb/pageset/page-set.service';
 import {SubPageOfPageModel} from '../../../user-action-engine/mongodb/page/subPageOfPage.model';
 import {NestedMenu} from '../menu-item/nested-menu';
-import {MatDialog} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {GenerateDataChoosersService} from '../../../query-app-interface/data-management/services/generate-data-choosers.service';
 import {HttpClient} from '@angular/common/http';
@@ -273,6 +274,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
     'Your appshore in the cloud'
   ];
 
+
   slogan: string;
 
   shortNameExist: boolean;
@@ -294,6 +296,25 @@ export class PageComponent implements OnInit, AfterViewChecked {
   currentParams: any;
   featuredProjects: Array<any>;
 
+  /**
+   * userName of the Minimize Password Dialog
+   */
+  userName: string;
+  /**
+   * password of the Minimize Password Dialog
+   */
+  password: string;
+  /**
+   * parameter to the Minimize Password Dialog
+   * indicates if this is the first time the user adds his credentials or his credentials is already saved before
+   * This parameter should be extracted from the db along side the minimize app
+   */
+  // firstTime: boolean;
+  /**
+   * A parameter that indicates if the user added the correct credentails during opening the minimized app or not
+   */
+  private correctCredentials: boolean;
+
   constructor(
     public route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
@@ -314,7 +335,8 @@ export class PageComponent implements OnInit, AfterViewChecked {
     private queryService: QueryService,
     private overlayContainer: OverlayContainer,
     private pageSetService: PageSetService,
-    private http: HttpClient
+    private http: HttpClient,
+    public minimizePasswordDialog: MatDialog,
   ) {
     this.route.queryParams.subscribe(params => {
       this.hashOfThisPage = params.page;
@@ -409,8 +431,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
                     data.query.body.search( 'inseriParam---' + param + '---' ) !== -1 ) ||
                   ( data.query.serverUrl !== null &&
                     data.query.serverUrl.search( 'inseriParam---' + param + '---' ) !== -1 )
-                )
-                {
+                ) {
                   console.log( 'reload!' );
                   this.reloadVariables = true;
                 }
@@ -499,26 +520,32 @@ export class PageComponent implements OnInit, AfterViewChecked {
     ) {
       this.page.tiles = true;
       this.preview = false;
-      this.http.get( 'assets/featuredProjects.json' )
-        .subscribe(
-          data => {
-            this.featuredProjects = (data as any).featuredProjects;
-            console.log( this.featuredProjects );
-            for ( const project of this.featuredProjects ) {
-              this.addAnotherApp( 'matCard', true, project.myTitle );
-              this.openAppArray[ 0 ].backgroundImage = project.backgroundImage;
-              this.openAppArray[ 0 ].myTitle = project.myTitle;
-              this.openAppArray[ 0 ].subtitle = project.subtitle;
-              this.openAppArray[ 0 ].image = project.image;
-              this.openAppArray[ 0 ].myDescription = project.myDescription;
-              this.openAppArray[ 0 ].mylink = project.mylink;
-
-            }
-            this.addAnotherApp( 'login', true, 'login' );
-          }, error => {
-            this.addAnotherApp( 'login', true, 'login' );
-          }
-        );
+      // this.http.get( 'assets/featuredProjects.json' )
+      //   .subscribe(
+      //     data => {
+      //       this.featuredProjects = (data as any).featuredProjects;
+      //       console.log( this.featuredProjects );
+      //       for ( const project of this.featuredProjects ) {
+      //         this.addAnotherApp( 'matCard', true, project.myTitle );
+      //         this.openAppArray[ 0 ].backgroundImage = project.backgroundImage;
+      //         this.openAppArray[ 0 ].myTitle = project.myTitle;
+      //         this.openAppArray[ 0 ].subtitle = project.subtitle;
+      //         this.openAppArray[ 0 ].image = project.image;
+      //         this.openAppArray[ 0 ].myDescription = project.myDescription;
+      //         this.openAppArray[ 0 ].mylink = project.mylink;
+      //         this.openAppArray[ 0 ].buttonDescription = project.buttonDescription;
+      //
+      //       }
+      //       this.addAnotherApp( 'login', true, 'login' );
+      //       // this.addAnotherApp( 'iframe', true, 'Hans Cools' );
+      //       // console.log( this.openAppArray );
+      //       // this.openAppArray[ 0 ][ 'url' ] = 'https://e-editiones.ch/';
+      //       // this.openAppArray[ 0 ][ 'fullHeight' ] = true;
+      //       // this.openAppArray[ 0 ][ 'width' ] = '1000';
+      //     }, error => {
+      //       this.addAnotherApp( 'login', true, 'login' );
+      //     }
+      //   );
     }
 
     this.actionID = this.route.snapshot.queryParams.actionID;
@@ -1022,6 +1049,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
       for ( const app of openApps[ appType ].model ) {
         // console.log( app );
         if ( app.x ) {
+          console.log( app );
           this.openAppArray.push( app );
         }
       }
@@ -1378,8 +1406,36 @@ export class PageComponent implements OnInit, AfterViewChecked {
     this.page.tiles = !this.page.tiles;
   }
 
-  minimizeApp( openAppArrayIndex: number ) {
+  minimizeApp( openAppArrayIndex: number, app: any ) {
+    const dialogRef = this.minimizePasswordDialog.open(MinimizePasswordDialog, {
+      width: '500px',
+      data: {
+        password: undefined
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if ( result && result.data.password ) {
+        this.openAppArray[ openAppArrayIndex ].password = result.data.password;
+        this.page.openApps[ app.hash ].password = result.data.password;
+        setTimeout(() => {
+          this.setAppToMinimized( openAppArrayIndex, app );
+        }, 500);
+      } else {
+        this.openAppArray[ openAppArrayIndex ].password = undefined;
+        this.page.openApps[ app.hash ].password = undefined;
+        setTimeout(() => {
+          this.setAppToMinimized( openAppArrayIndex, app );
+        }, 500);
+      }
+    });
+  }
+
+  setAppToMinimized( openAppArrayIndex, app ) {
     this.openAppArray[ openAppArrayIndex ].minimized = true;
+    this.page.openApps[ app.hash ].minimized = true;
+    this.page.openApps[ app.hash ].minimize = true;
+    this.updatePage();
   }
 
   addDuplicatedPage() {
@@ -1572,5 +1628,61 @@ export class PageComponent implements OnInit, AfterViewChecked {
     } else {
       this.addSubPages = true;
     }
+  }
+
+  openMinimizedApp( i: number, app: any, unlock?: boolean ) {
+    console.log( app.password );
+
+    if ( app.password !== undefined ) {
+      const dialogRef = this.minimizePasswordDialog.open(MinimizePasswordDialog, {
+        width: '500px',
+        data: {
+          givenPassword: app.password,
+          askToUnlock: unlock,
+          password: undefined
+        }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if ( result === 'openMinimizedApp' ) {
+          this.openAppArray[ i ].minimized = false;
+          this.page.openApps[ app.hash ].minimized = false;
+          this.page.openApps[ app.hash ].minimize = false;
+          this.updatePage();
+        }
+      });
+    } else {
+      this.openAppArray[ i ].minimized = false;
+      this.page.openApps[ app.hash ].minimized = false;
+      this.page.openApps[ app.hash ].minimize = false;
+      this.updatePage();
+    }
+  }
+}
+@Component({
+  selector: 'minimize-password-dialog',
+  templateUrl: 'minimize-password-dialog.html',
+})
+export class MinimizePasswordDialog {
+
+  constructor(
+    public dialogRef: MatDialogRef<MinimizePasswordDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: {
+      password: string,
+      askToUnlock: boolean,
+      givenPassword: string
+    }
+    ) {}
+
+  submit() {
+    console.log(this.data);
+    this.dialogRef.close({data: this.data});
+  }
+
+  continueWithoutPassword() {
+    this.dialogRef.close();
+  }
+
+  openApp() {
+    this.dialogRef.close( 'openMinimizedApp' );
   }
 }

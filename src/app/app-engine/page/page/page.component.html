@@ -32,62 +32,9 @@
         [src]=" lightHouse ?  '../../../../assets/img/logo_transparent.png' : '../../../../assets/img/logo_transparent2.png'"
         style="width: 40px; margin-bottom: 2px; vertical-align: bottom;" matTooltip="inseri apps" >
     </button>
-    <!--button *ngIf="pagesOfThisActtion"
-            [disabled]="selectedPageIndex === 0"
-            mat-button
-            (click)="selectPage( selectedPageIndex - 1 , pagesOfThisActtion[ selectedPageIndex - 1 ] )">
-      <mat-icon> keyboard_arrow_left </mat-icon>
-    </button>
-    <button mat-button [matMenuTriggerFor]="menu3" *ngIf="pagesOfThisActtion">{{ page.title }}
-    </button>
-    <mat-menu #menu3="matMenu" >
-      <button
-        style="display: block"
-        [color]=" i === selectedPageIndex ? 'primary' : 'null'"
-        *ngFor="let page of pagesOfThisActtion; let i = index;"
-        matTooltip="{{ page.description }}"
-        mat-button
-        (click)="selectPage( i, page )">{{ page.title }}</button>
-      <mat-button-toggle-group
-        name="fontStyle"
-        *ngIf=" (!pageAsDemo) && !preview && loggedIn"
-        style="margin-left: 10px; margin-right: 10px; margin-top: 10px;">
 
-        <mat-button-toggle (click)="addNewPage(page)" matTooltip="Add new page">
-          <mat-icon>add</mat-icon>
-        </mat-button-toggle>
-
-        <mat-button-toggle (click)="addDuplicatedPage()" matTooltip="Copy and add existing page">
-          <mat-icon>file_copy</mat-icon>
-        </mat-button-toggle>
-
-        <mat-button-toggle matTooltip="Link existing page" (click)="linkExistingPage()" >
-          <mat-icon>link</mat-icon>
-        </mat-button-toggle>
-
-      </mat-button-toggle-group>
-
-    </mat-menu-->
-    <!--button *ngIf="pagesOfThisActtion"-->
-     <!--button *ngIf="pagesOfThisActtion"
-            [disabled]="selectedPageIndex === 0"
-            mat-button
-           (click)="selectPage( selectedPageIndex - 1, pagesOfThisActtion[ selectedPageIndex ])"--> <!-- selectedPageIndex -1 -->
-      <!--mat-icon> keyboard_arrow_left </mat-icon>
-    </button-->
     <button mat-button [matMenuTriggerFor]="menu5" *ngIf="subPagesOfPage">{{ page.title }}
     </button>
-    <!--button mat-button [matMenuTriggerFor]="menu5" *ngIf="pagesOfThisActtion">{{ page.title }}
-    </button-->
-
-    <!--mat-menu #menuOpenFileApps="matMenu" >
-      <div *ngFor="let app of inseriAppsMenu" style="display: inline-block">
-        <button mat-menu-item [matMenuTriggerFor]="menuOpenFileAppsItems" (mouseover)="selectChosenApp(app);" >
-          <mat-icon>{{app.id}}</mat-icon>
-          {{app.name}}
-        </button>
-      </div>
-    </mat-menu-->
 
     <mat-menu #menu5>
 
@@ -142,80 +89,18 @@
 
       </mat-button-toggle-group>
 
-    </mat-menu>
-    <!--mat-menu #menu5>
-      <div class="mat-app-background basic-container">
-        <app-menu-item>loading</app-menu-item>
+      <div *ngFor="let app of openAppArray; let i = index;">
+        <button
+          mat-button
+          *ngIf="app.minimized"
+          style="margin-top: 10px"
+          (click)="openMinimizedApp( i, app, true )" >
+          Open min. {{ app.type }}
+        </button>
       </div>
-    </mat-menu-->
-      <!--ng-container *ngFor="let subPage of subPagesOfPage">
-        <ng-container *ngIf="!!subPage.subPages.length">
-          <button [matMenuTriggerFor]="submenu.menu" mat-menu-item>
-            {{ subPage.page.title }}
-          </button>
-          <nested-menu [items]="subPage.subPages" #submenu="nestedMenu"></nested-menu>
-        </ng-container>
 
-        <a *ngIf="!subPage.subPages.length" mat-menu-item>
-          {{ subPage.page.title }}
-        </a>
-      </ng-container>
+    </mat-menu>
 
-    </mat-menu-->
-
-
-    <!--mat-menu #menu5="matMenu"[overlapTrigger]="false">
-    <div class="basic-container">
-
-      <span *ngFor="let subPage of subPagesOfPage">
-   <div class="button-row">
-    <span *ngIf="subPage.subPages && subPage.subPages.length > 0">
-        <button mat-button (click)="navigateToOtherView(subPage.page)"> {{subPage.page.title}} </button>
-     <button mat-button [mat-menu-trigger-for]="menu.childMenu" (mouseover)="selectSubPages(subPage.page);" > <mat-icon>expand_more</mat-icon> </button>
-
-      <app-menu-item #menu [items]="subPage.subPages"></app-menu-item>
-    </span>
-     </div>
-        <div class="button-row">
-    <span *ngIf="!subPage.subPages || subPage.subPages.length === 0">
-        <button mat-button (click)="navigateToOtherView(subPage.page)"> {{subPage.page.title}} </button>
-   </span>
-    </div>
-
-  </span>
-      <mat-button-toggle-group
-        name="fontStyle"
-        *ngIf=" (!pageAsDemo) && !preview && loggedIn"
-        style="margin-left: 10px; margin-right: 10px; margin-top: 10px;">
-
-        <mat-button-toggle (click)="addNewPage(page)" matTooltip="Add new page">
-          <mat-icon>add</mat-icon>
-        </mat-button-toggle>
-
-        <mat-button-toggle (click)="addDuplicatedPage()" matTooltip="Copy and add existing page">
-          <mat-icon>file_copy</mat-icon>
-        </mat-button-toggle>
-
-        <mat-button-toggle matTooltip="Link existing page" (click)="linkExistingPage()">
-          <mat-icon>link</mat-icon>
-        </mat-button-toggle>
-
-      </mat-button-toggle-group>
-    </div>
-    </mat-menu-->
-
-    <!--button [disabled]="selectedPageIndex === pagesOfThisActtion.length - 1"
-            *ngIf="pagesOfThisActtion"
-            mat-button
-            (click)="selectPage( selectedPageIndex + 1 , pagesOfThisActtion[ selectedPageIndex + 1 ] )">
-      <mat-icon > keyboard_arrow_right </mat-icon>
-    </button-->
-    <!--button [disabled]="selectedPageIndex === totalParentPages - 1"
-            *ngIf="pagesOfThisActtion"
-            mat-button
-            (click)="selectPage( selectedPageIndex + 1 , pagesOfThisActtion[ selectedPageIndex + 1 ] )">
-      <mat-icon > keyboard_arrow_right </mat-icon>
-    </button-->
     <button mat-icon-button *ngIf=" (!pageAsDemo) && !preview && page.publishedAsTemplate" style="color: #4cae4c!important;" matTooltip="This page is published as a template!" [matMenuTriggerFor]="menu4">
       <mat-icon style="margin-right: 10px">arrow_circle_up</mat-icon>
     </button>
@@ -247,11 +132,6 @@
       </div>
     </div>
   </div>
-
-
-
-
-
 
   <div style=" position: fixed; bottom: 0; left: 0; z-index: 200; overflow-x: auto; margin-top: 70px; width: 300px;" *ngIf="preview && loggedIn">
     <mat-expansion-panel [ngStyle]="{
@@ -312,98 +192,17 @@
       </div>
     </mat-expansion-panel>
   </div>
-
-
-  <div *ngFor="let app of openAppArray; let i = index;" >
-    <popup #appId *ngIf="innerWidth > page.chosenWidth && !page.tiles && app.showContent"
-           [app]="app"
-           [pathsWithArrays]="app.pathsWithArrays"
-           [showAppSettingsOnPublish]="!preview || showAppSettingsOnPublish"
-           [preview]="preview && !showAppTitlesOnPublish"
-           (sendTiledPositionBack) = "updateTiledPosition( $event )"
-           [position]="appFramePosition"
-           (sendAppCoordinatesBack)="updateAppCoordinates($event)"
-           (sendAppSettingsBack)="updateAppSettings($event)"
-           (sendAssignInputCommandBack)="openAssignInputDialog($event)"
-           (closeAppEmitter)="closeApp( app.hash, i )" (minimizeApp)="app.showContent = false;">
-      <div  [ngStyle]="{
-          'height': app.fullHeight ? '100%' :  app.height + 'px',
-          'width': app.fullWidth ? '100%' : app.width + 'px'}">
-
-        <!--            <app-all-app-selectors-->
-        <!--              [app]="app" (reloadVariables)="reloadVariablesFunction()"-->
-        <!--              [appInputQueryMapping]="page.appInputQueryMapping"-->
-        <!--              [i]="i"-->
-        <!--              [(hoveredElement)]="hoveredElement">-->
-
-        <!--            </app-all-app-selectors>-->
-
-        <div *ngIf="pageAsDemo && app.type === 'pageMenu'">
-          <h4>Tutorial Videos</h4>
-          <button mat-button color="primary" (click)="addVideoApp( 'https://www.youtube.com/embed/9An1cGPrv9Q' )"> <mat-icon>video_library</mat-icon> Watch Video "First steps in Inseri"</button>
-          <h4 style="margin-top: 15px;" >Apps</h4>
-        </div>
-
-        <mat-form-field style="width: 100%" *ngIf="app.type === 'pageMenu'">
-          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-        </mat-form-field>
-
-        <div style="width: 100%" *ngIf="app.type === 'pageMenu'">
-          <table mat-table [dataSource]="dataSource" matSort>
-
-            <!-- ID Column -->
-            <ng-container matColumnDef="id"  >
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Icon </th>
-              <td mat-cell *matCellDef="let row" (click)="addAnotherApp(row.appType, true, row.appType)" style="cursor: pointer; width: 25%;"> <button mat-button><mat-icon>{{row.id}}</mat-icon> </button></td>
-            </ng-container>
-
-            <!-- Tag Column -->
-            <ng-container matColumnDef="tags"  >
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Tags </th>
-              <td mat-cell *matCellDef="let row" (click)="addAnotherApp(row.appType, true, row.appType)" style="cursor: pointer; width: 25%;"> {{row.tags}} </td>
-            </ng-container>
-
-            <!-- Name Column -->
-            <ng-container matColumnDef="name" >
-              <th mat-header-cell *matHeaderCellDef mat-sort-header > Name </th>
-              <td mat-cell *matCellDef="let row"
-                  (click)="addAnotherApp(row.appType, true, row.name)"
-                  style="cursor: pointer; width: 25%;" > {{row.name}} </td>
-            </ng-container>
-
-            <!-- Color Column -->
-            <ng-container matColumnDef="status"  >
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-              <td mat-cell *matCellDef="let row" [style.color]="row.color" (click)="addAnotherApp(row.appType, true, row.appType)" style="cursor: pointer; width: 25%;" matTooltip="{{row.description}}"> {{row.status}} </td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="displayedColumns" style="width: 100%;"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;" style="width: 100%;"></tr>
-          </table>
-
-        </div>
-
-      </div>
-    </popup>
-  </div>
 </div>
 
-
-
-
-
-
-
-
-<div *ngIf="innerWidth < page.chosenWidth || page.tiles" >
+<div *ngFor="let app of openAppArray.slice(); let i = index;"
+     [ngStyle]="{ 'display': app.minimized ? 'none' : 'inline-block' }">
   <mat-card
-    *ngFor="let app of openAppArray.slice(); let i = index;"
     style="display: inline-grid; margin-bottom: 10px; margin-left: 60px; margin-top: 70px;"
     [ngStyle]="{
     'width': ( app.fullWidth || app.panelExtended ) ? '92%' : app.width + 'px' }">
 
 
-    <mat-card-header *ngIf=" !app.minimized " >
+    <mat-card-header  >
 
       <button mat-icon-button [matMenuTriggerFor]="menu2" [disabled]="!loggedIn">
         <mat-icon>{{ this.openAppsInThisPage[ app.type ].materialIcon }}</mat-icon>
@@ -436,7 +235,7 @@
           <span *ngIf="!app.showSettings">Show app settings</span>
         </button>
 
-        <button mat-menu-item (click)="appMenu( app, 'minimize' )">
+        <button mat-menu-item (click)="minimizeApp(i, app)">
           Minimize
         </button>
 
@@ -460,7 +259,7 @@
     </mat-card-header>
     <div style="pointer-events: auto!important;"
          [ngStyle]="{'height':  ( app.fullHeight || app.panelExtended ) ? generateBrowserHeight() : app.height + 'px'}"
-         *ngIf=" !app.minimized && !app.panelExtended" [style.overflow]="'auto'">
+         *ngIf="  !app.panelExtended" [style.overflow]="'auto'">
 
       <div *ngIf="app.hasOwnProperty('showSettings')">
         <button mat-raised-button color="primary" *ngIf="app.showSettings" (click)="toggleShowInAppSettings( app, i )">Close app settings</button>
@@ -588,7 +387,7 @@
 
     </div>
 
-    <popup #appId *ngIf=" !app.minimized "
+    <popup #appId
            [appIndex]="i"
            [app]="app"
            [pathsWithArrays]="app.pathsWithArrays"
@@ -597,7 +396,7 @@
            (sendTiledPositionBack) = "updateTiledPosition( $event )"
            [position]="'static'"
            [openAppArrayIndex]="i"
-           (minimizeApp)="minimizeApp($event)"
+           (minimizeApp)="minimizeApp($event, app)"
            (sendAppCoordinatesBack)="updateAppCoordinates($event)"
            (sendAppSettingsBack)="updateAppSettings($event)"
            (sendAssignInputCommandBack)="openAssignInputDialog($event)"
@@ -605,30 +404,12 @@
            [tileAndSize]="app.tileAndSize"
            [fileOptions]="app.fileOptions"
            [description]="app.showDescription"
-           [minimize]="app.minimize"
            [close]="app.close">
 
     </popup>
 
   </mat-card>
 </div>
-
-
-
-<div
-  [ngStyle]="{'border-left': '3px solid', 'height': '500px', 'margin-left': page.chosenWidth + 'px', 'color': 'C9D6FF'}"
-  *ngIf="showResponsiveWidthMenu">
-
-</div>
-
-<mat-slider *ngIf="showResponsiveWidthMenu"
-            style="width: 100%"
-            [max]="innerWidth"
-            [min]="0"
-            [step]="10"
-            [thumbLabel]="true"
-            [(ngModel)]="page.chosenWidth">
-</mat-slider>
 
 <style>
   .i {

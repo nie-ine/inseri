@@ -1,0 +1,1522 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>nie-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">nie-frontend documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>RadialBarchartComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/app-engine/apps/d3js/radial-barchart/radial-barchart.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/AfterViewChecked" target="_blank" >AfterViewChecked</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+            <tr>
+                <td class="col-md-3">encapsulation</td>
+                <td class="col-md-9"><code>ViewEncapsulation.None</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-radial-barchart</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./radial-barchart.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./radial-barchart.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#alreadyInitialised">alreadyInitialised</a>
+                            </li>
+                            <li>
+                                <a href="#arc">arc</a>
+                            </li>
+                            <li>
+                                <a href="#barHeight">barHeight</a>
+                            </li>
+                            <li>
+                                <a href="#barscale">barscale</a>
+                            </li>
+                            <li>
+                                <a href="#centreOfTheImage">centreOfTheImage</a>
+                            </li>
+                            <li>
+                                <a href="#chosenSection">chosenSection</a>
+                            </li>
+                            <li>
+                                <a href="#color">color</a>
+                            </li>
+                            <li>
+                                <a href="#extent">extent</a>
+                            </li>
+                            <li>
+                                <a href="#g">g</a>
+                            </li>
+                            <li>
+                                <a href="#height">height</a>
+                            </li>
+                            <li>
+                                <a href="#keys">keys</a>
+                            </li>
+                            <li>
+                                <a href="#labelRadius">labelRadius</a>
+                            </li>
+                            <li>
+                                <a href="#labels">labels</a>
+                            </li>
+                            <li>
+                                <a href="#lines">lines</a>
+                            </li>
+                            <li>
+                                <a href="#numBars">numBars</a>
+                            </li>
+                            <li>
+                                <a href="#segments">segments</a>
+                            </li>
+                            <li>
+                                <a href="#svg">svg</a>
+                            </li>
+                            <li>
+                                <a href="#width">width</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#x">x</a>
+                            </li>
+                            <li>
+                                <a href="#xAxis">xAxis</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#xPos">xPos</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#yPos">yPos</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#generateComponentDivClass">generateComponentDivClass</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#initAxis">initAxis</a>
+                            </li>
+                            <li>
+                                <a href="#initSvg">initSvg</a>
+                            </li>
+                            <li>
+                                <a href="#ngAfterViewChecked">ngAfterViewChecked</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#data">data</a>
+                            </li>
+                            <li>
+                                <a href="#initialised">initialised</a>
+                            </li>
+                            <li>
+                                <a href="#numberOfInitialisedComponent">numberOfInitialisedComponent</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="92" class="link-to-prism">src/app/app-engine/apps/d3js/radial-barchart/radial-barchart.component.ts:92</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="data"></a>
+                        <b>data</b>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/app-engine/apps/d3js/radial-barchart/radial-barchart.component.ts:25</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="initialised"></a>
+                        <b>initialised</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/app-engine/apps/d3js/radial-barchart/radial-barchart.component.ts:23</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="numberOfInitialisedComponent"></a>
+                        <b>numberOfInitialisedComponent</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/app-engine/apps/d3js/radial-barchart/radial-barchart.component.ts:24</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="generateComponentDivClass"></a>
+                    <span class="name">
+                        <b>
+                            generateComponentDivClass
+                        </b>
+                        <a href="#generateComponentDivClass"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>generateComponentDivClass()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="122"
+                            class="link-to-prism">src/app/app-engine/apps/d3js/radial-barchart/radial-barchart.component.ts:122</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="initAxis"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            initAxis
+                        </b>
+                        <a href="#initAxis"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>initAxis()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="137"
+                            class="link-to-prism">src/app/app-engine/apps/d3js/radial-barchart/radial-barchart.component.ts:137</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="initSvg"></a>
+                    <span class="name">
+                        <b>
+                            initSvg
+                        </b>
+                        <a href="#initSvg"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>initSvg()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="127"
+                            class="link-to-prism">src/app/app-engine/apps/d3js/radial-barchart/radial-barchart.component.ts:127</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngAfterViewChecked"></a>
+                    <span class="name">
+                        <b>
+                            ngAfterViewChecked
+                        </b>
+                        <a href="#ngAfterViewChecked"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngAfterViewChecked()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="96"
+                            class="link-to-prism">src/app/app-engine/apps/d3js/radial-barchart/radial-barchart.component.ts:96</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="alreadyInitialised"></a>
+                        <span class="name">
+                            <b>
+                            alreadyInitialised</b>
+                            <a href="#alreadyInitialised"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/app-engine/apps/d3js/radial-barchart/radial-barchart.component.ts:26</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="arc"></a>
+                        <span class="name">
+                            <b>
+                            arc</b>
+                            <a href="#arc"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="70" class="link-to-prism">src/app/app-engine/apps/d3js/radial-barchart/radial-barchart.component.ts:70</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="barHeight"></a>
+                        <span class="name">
+                            <b>
+                            barHeight</b>
+                            <a href="#barHeight"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>this.height / 2 - 40</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/app-engine/apps/d3js/radial-barchart/radial-barchart.component.ts:35</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="barscale"></a>
+                        <span class="name">
+                            <b>
+                            barscale</b>
+                            <a href="#barscale"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/app-engine/apps/d3js/radial-barchart/radial-barchart.component.ts:55</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="centreOfTheImage"></a>
+                        <span class="name">
+                            <b>
+                            centreOfTheImage</b>
+                            <a href="#centreOfTheImage"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>this.width / 2</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="85" class="link-to-prism">src/app/app-engine/apps/d3js/radial-barchart/radial-barchart.component.ts:85</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="chosenSection"></a>
+                        <span class="name">
+                            <b>
+                            chosenSection</b>
+                            <a href="#chosenSection"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>{}</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="92" class="link-to-prism">src/app/app-engine/apps/d3js/radial-barchart/radial-barchart.component.ts:92</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="color"></a>
+                        <span class="name">
+                            <b>
+                            color</b>
+                            <a href="#color"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/app-engine/apps/d3js/radial-barchart/radial-barchart.component.ts:38</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="extent"></a>
+                        <span class="name">
+                            <b>
+                            extent</b>
+                            <a href="#extent"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/app-engine/apps/d3js/radial-barchart/radial-barchart.component.ts:52</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="g"></a>
+                        <span class="name">
+                            <b>
+                            g</b>
+                            <a href="#g"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">src/app/app-engine/apps/d3js/radial-barchart/radial-barchart.component.ts:64</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="height"></a>
+                        <span class="name">
+                            <b>
+                            height</b>
+                            <a href="#height"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>600</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/app-engine/apps/d3js/radial-barchart/radial-barchart.component.ts:32</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="keys"></a>
+                        <span class="name">
+                            <b>
+                            keys</b>
+                            <a href="#keys"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/app/app-engine/apps/d3js/radial-barchart/radial-barchart.component.ts:58</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="labelRadius"></a>
+                        <span class="name">
+                            <b>
+                            labelRadius</b>
+                            <a href="#labelRadius"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="79" class="link-to-prism">src/app/app-engine/apps/d3js/radial-barchart/radial-barchart.component.ts:79</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="labels"></a>
+                        <span class="name">
+                            <b>
+                            labels</b>
+                            <a href="#labels"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="82" class="link-to-prism">src/app/app-engine/apps/d3js/radial-barchart/radial-barchart.component.ts:82</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="lines"></a>
+                        <span class="name">
+                            <b>
+                            lines</b>
+                            <a href="#lines"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="76" class="link-to-prism">src/app/app-engine/apps/d3js/radial-barchart/radial-barchart.component.ts:76</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="numBars"></a>
+                        <span class="name">
+                            <b>
+                            numBars</b>
+                            <a href="#numBars"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/app/app-engine/apps/d3js/radial-barchart/radial-barchart.component.ts:61</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="segments"></a>
+                        <span class="name">
+                            <b>
+                            segments</b>
+                            <a href="#segments"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="73" class="link-to-prism">src/app/app-engine/apps/d3js/radial-barchart/radial-barchart.component.ts:73</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="svg"></a>
+                        <span class="name">
+                            <b>
+                            svg</b>
+                            <a href="#svg"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/app-engine/apps/d3js/radial-barchart/radial-barchart.component.ts:41</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="width"></a>
+                        <span class="name">
+                            <b>
+                            width</b>
+                            <a href="#width"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>600</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/app-engine/apps/d3js/radial-barchart/radial-barchart.component.ts:29</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="x"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            x</b>
+                            <a href="#x"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/app-engine/apps/d3js/radial-barchart/radial-barchart.component.ts:44</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="xAxis"></a>
+                        <span class="name">
+                            <b>
+                            xAxis</b>
+                            <a href="#xAxis"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/app-engine/apps/d3js/radial-barchart/radial-barchart.component.ts:49</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="xPos"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            xPos</b>
+                            <a href="#xPos"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="88" class="link-to-prism">src/app/app-engine/apps/d3js/radial-barchart/radial-barchart.component.ts:88</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="yPos"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            yPos</b>
+                            <a href="#yPos"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="89" class="link-to-prism">src/app/app-engine/apps/d3js/radial-barchart/radial-barchart.component.ts:89</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {AfterViewChecked, Component, Input, ViewEncapsulation} from &#x27;@angular/core&#x27;;
+import * as d3 from &#x27;d3-selection&#x27;;
+import * as d3Scale from &#x27;d3-scale&#x27;;
+import * as d3Array from &#x27;d3-array&#x27;;
+import * as d3Axis from &#x27;d3-axis&#x27;;
+import * as d3Shape from &#x27;d3-shape&#x27;;
+import * as d3ScaleChromatic from &#x27;d3-scale-chromatic&#x27;;
+
+// The Pie Chart app renders a basic radial bar chart based on JSON data input
+// See inseri/Tutorials/App descriptions for Researchers/Apps to visualise data/Radial Bar Chart
+
+// Based on https://bl.ocks.org/bricedev/8aaef92e64007f882267
+
+@Component({
+  selector: &#x27;app-radial-barchart&#x27;,
+  encapsulation: ViewEncapsulation.None,
+  templateUrl: &#x27;./radial-barchart.component.html&#x27;,
+  styleUrls: [&#x27;./radial-barchart.component.scss&#x27;]
+})
+
+export class RadialBarchartComponent implements AfterViewChecked {
+  // needed by inseri
+  @Input() initialised &#x3D; false;
+  @Input() numberOfInitialisedComponent: number;
+  @Input() data;
+  alreadyInitialised &#x3D; false;
+
+  // Chart width
+  width &#x3D; 600;
+
+  // Chart height
+  height &#x3D; 600;
+
+  // &quot;Height&quot; of each bar segment (it&#x27;s the radius of the circle)
+  barHeight &#x3D; this.height / 2 - 40;
+
+  // Array of colors to use for the bars
+  color: any;
+
+  // The svg container to draw the chart to
+  svg: any;
+
+  // The circular x axis scale
+  private x: any;
+  // The circular y axis scale (no y axis needed)
+  // private y: any;
+
+  // The actual x axis
+  xAxis: any;
+
+  // An array holding the min and max value of the bars
+  extent: any;
+
+  // The scale of the possible (radial) bars
+  barscale: any;
+
+  // The labels to use for each bar segment
+  keys: any;
+
+  // The number of keys (this.keys.length)
+  numBars: any;
+
+  // A svg &lt;g&gt; element
+  g: any;
+
+  // Circles for the radial x axis (currently not in use)
+  // circles: any;
+
+  // The arcs for the bar segments
+  arc: any;
+
+  // The bar segments
+  segments: any;
+
+  // The lines separating the bar segments
+  lines: any;
+
+  // The radius to use for the placement of the bar segment labels
+  labelRadius: any;
+
+  // The labels of the bar segments
+  labels: any;
+
+  // The centre of the chart
+  centreOfTheImage &#x3D; this.width / 2;
+
+  // x/y position of tooltip
+  private xPos: number;
+  private yPos: number;
+
+  // Helper object for the tooltip content
+  chosenSection: any &#x3D; {};
+
+  constructor() { }
+
+  ngAfterViewChecked() {
+    if (this.initialised &amp;&amp; !this.alreadyInitialised &amp;&amp; this.data) {
+      // Check if JSON input data is a string and therefore coming through the inseri microservice pipeline
+      // If yes, parse string to JSON first, if no, use JSON input data as is
+      if (typeof this.data &#x3D;&#x3D;&#x3D; &#x27;string&#x27; &amp;&amp; IsJsonString(this.data) &amp;&amp; JSON.parse(this.data).length &gt; 0) {
+        const help &#x3D; this.data;
+        this.data &#x3D; {};
+        this.data.data &#x3D; JSON.parse(help);
+        this.alreadyInitialised &#x3D; true;
+        setTimeout(() &#x3D;&gt; {
+          this.color &#x3D; d3Scale.scaleOrdinal(d3ScaleChromatic.schemePaired);
+          this.initSvg();
+          this.initAxis();
+        }, 100);
+      } else if (typeof this.data !&#x3D;&#x3D; &#x27;string&#x27;) {
+        this.alreadyInitialised &#x3D; true;
+        setTimeout(() &#x3D;&gt; {
+          this.color &#x3D; d3Scale.scaleOrdinal(d3ScaleChromatic.schemePaired);
+          this.initSvg();
+          this.initAxis();
+        }, 100);
+      }
+    }
+  }
+
+  // Small function to generate css classes for the DOM
+  generateComponentDivClass() {
+    return &#x27;radialBarChart&#x27; + this.numberOfInitialisedComponent;
+  }
+
+  // Function to create the svg container holding the chart
+  initSvg() {
+    this.svg &#x3D; d3.select(&#x27;.&#x27; + this.generateComponentDivClass())
+      .append(&#x27;svg&#x27;)
+      .attr(&#x27;width&#x27;, this.width)
+      .attr(&#x27;height&#x27;, this.height)
+      .append(&#x27;g&#x27;)
+      .attr(&#x27;transform&#x27;, &#x27;translate(&#x27; + this.width / 2 + &#x27;,&#x27; + this.height / 2 + &#x27;)&#x27;);
+  }
+
+  // Function to create the radial bar chart
+  private initAxis() {
+    this.extent &#x3D; d3Array.extent(this.data.data, (d) &#x3D;&gt; d.value );
+
+    this.barscale &#x3D; d3Scale.scaleLinear()
+      .domain(this.extent)
+      .range([0, this.barHeight]);
+
+    this.keys &#x3D; this.data.data.map((d) &#x3D;&gt; d.label);
+
+    this.numBars &#x3D; this.keys.length;
+
+    this.x &#x3D; d3Scale.scaleLinear()
+      .domain(this.extent)
+      .range([0, -this.barHeight]);
+
+
+    this.xAxis &#x3D; d3Axis.axisLeft(this.x);
+    // Uncomment below lines if you want to display axis ticks (circles in this case)
+    // ...along the radial x axis
+
+      // .ticks(3)
+      // .tickFormat(d3Format.format(&#x27;s&#x27;));
+      // .tickFormat(this.formatNumber);
+
+    // this.circles &#x3D; this.svg.selectAll(&#x27;circle&#x27;)
+    //   .data(this.x.ticks(3))
+    //   .enter()
+    //   .append(&#x27;circle&#x27;)
+    //   .attr(&#x27;r&#x27;, (d) &#x3D;&gt; this.barscale(d))
+    //   .style(&#x27;fill&#x27;, &#x27;none&#x27;)
+    //   .style(&#x27;stroke&#x27;, &#x27;black&#x27;)
+    //   .style(&#x27;stroke-dasharray&#x27;, &#x27;2,2&#x27;)
+    //   .style(&#x27;stroke-width&#x27;, &#x27;.5px&#x27;);
+
+    this.arc &#x3D; d3Shape.arc()
+      .startAngle( (d, i) &#x3D;&gt; ( i * 2 * Math.PI) / this.numBars )
+      .endAngle( ( d, i ) &#x3D;&gt; ( (i + 1) * 2 * Math.PI) / this.numBars )
+      .innerRadius(0);
+
+    this.segments &#x3D; this.svg.selectAll(&#x27;path&#x27;)
+      .data(this.data.data)
+      .enter()
+      .append(&#x27;path&#x27;)
+      .attr(&#x27;class&#x27;, &#x27;segment&#x27;)
+      .each( (d) &#x3D;&gt; d.outerRadius &#x3D; this.barscale(+d.value))
+      .style(&#x27;fill&#x27;,  (d) &#x3D;&gt;  this.color(d.label) )
+      .attr(&#x27;d&#x27;, this.arc);
+
+    // Define tooltip
+    const tooltip &#x3D; d3.select(&#x27;.radialBarChart&#x27; + this.numberOfInitialisedComponent)
+      .append(&#x27;div&#x27;)
+      .attr(&#x27;class&#x27;, &#x27;count&#x27;);
+
+    // Mouse event handlers
+    const segments &#x3D; d3.selectAll(&#x27;.segment&#x27;);
+
+    segments.on(&#x27;mouseover&#x27;, (d) &#x3D;&gt; {
+      // Set the values for the tooltip to be shown
+      this.chosenSection.value &#x3D; +d.value;
+    });
+
+    segments.on(&#x27;mouseout&#x27;, () &#x3D;&gt; {
+      // Hide the tooltip
+      tooltip.style(&#x27;display&#x27;, &#x27;none&#x27;);
+      this.chosenSection &#x3D; {};
+    });
+
+    // Move the tooltip
+    segments.on(&#x27;mousemove&#x27;, (d) &#x3D;&gt; {
+      onmousemove &#x3D; (e) &#x3D;&gt; {
+        this.xPos &#x3D; e.clientX + 20;
+        this.yPos &#x3D; e.clientY - 20;
+      };
+    });
+
+    this.svg.append(&#x27;circle&#x27;)
+      .attr(&#x27;r&#x27;, this.barHeight)
+      .classed(&#x27;outer&#x27;, true)
+      .style(&#x27;fill&#x27;, &#x27;none&#x27;)
+      .style(&#x27;stroke&#x27;, &#x27;black&#x27;)
+      .style(&#x27;stroke-width&#x27;, &#x27;1.5px&#x27;
+      );
+
+    this.lines &#x3D; this.svg.selectAll(&#x27;line&#x27;)
+      .data(this.keys)
+      .enter().append(&#x27;line&#x27;)
+      // .attr(&#x27;y2&#x27;, -this.barHeight) - 20)
+      .attr(&#x27;y2&#x27;, -this.barHeight)
+      .style(&#x27;stroke&#x27;, &#x27;black&#x27;)
+      .style(&#x27;stroke-width&#x27;, &#x27;.5px&#x27;)
+      .attr(&#x27;transform&#x27;, (d, i) &#x3D;&gt; &#x27;rotate(&#x27; + (i * 360 / this.numBars) + &#x27;)&#x27;);
+
+    this.labelRadius &#x3D; this.barHeight * 1.025;
+
+    this.labels &#x3D; this.svg.append(&#x27;g&#x27;)
+      .classed(&#x27;labels&#x27;, true);
+
+    this.labels.append(&#x27;def&#x27;)
+      .append(&#x27;path&#x27;)
+      .attr(&#x27;id&#x27;, &#x27;label-path&#x27;)
+      .attr(&#x27;d&#x27;, &#x27;m0 &#x27; + -this.labelRadius + &#x27;a&#x27; + this.labelRadius + &#x27; &#x27; + this.labelRadius + &#x27; 0 1,1 -0.01 0&#x27;);
+
+    this.labels.selectAll(&#x27;text&#x27;)
+      .data(this.keys)
+      .enter().append(&#x27;text&#x27;)
+      .style(&#x27;text-anchor&#x27;, &#x27;middle&#x27;)
+      .style(&#x27;fill&#x27;, (d, i) &#x3D;&gt; {
+        return &#x27;#3e3e3e&#x27;;
+      })
+      .append(&#x27;textPath&#x27;)
+      .attr(&#x27;xlink:href&#x27;, &#x27;#label-path&#x27;)
+      .attr(&#x27;startOffset&#x27;, (d, i) &#x3D;&gt; {
+        return i * 100 / this.numBars + 50 / this.numBars + &#x27;%&#x27;;
+      })
+      .text( (d) &#x3D;&gt; {
+        return d.toUpperCase();
+      });
+  }
+
+}
+
+// Function to check if JSON data input is string
+function IsJsonString(str) {
+  try {
+    JSON.parse(str);
+  } catch (e) {
+    return false;
+  }
+  return true;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div style&#x3D;&quot;margin-top: 30px&quot;&gt;
+  &lt;div class&#x3D;&quot;{{ generateComponentDivClass() }}&quot;  style&#x3D;&quot;margin: 0 auto; width: 50%; height: 50%;&quot;&gt;&lt;/div&gt;
+
+  &lt;div *ngIf&#x3D;&quot;chosenSection.value !&#x3D;&#x3D; undefined &quot;
+       [ngStyle]&#x3D;&quot;{&#x27;position&#x27;: &#x27;fixed&#x27;, &#x27;top&#x27;: yPos + &#x27;px&#x27;, &#x27;left&#x27;: xPos + &#x27;px&#x27;, &#x27;text-align&#x27;: &#x27;center&#x27;}&quot;&gt;
+    &lt;b&gt;{{ chosenSection?.value }}&lt;/b&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;
+
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./radial-barchart.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div style="margin-top: 30px">  <div class="{{ generateComponentDivClass() }}"  style="margin: 0 auto; width: 50%; height: 50%;"></div>  <div *ngIf="chosenSection.value !== undefined "       [ngStyle]="{\'position\': \'fixed\', \'top\': yPos + \'px\', \'left\': xPos + \'px\', \'text-align\': \'center\'}">    <b>{{ chosenSection?.value }}</b>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AddAppGroupDialogComponent', 'selector': 'app-add-app-group-dialog'},{'name': 'AllAppSelectorsComponent', 'selector': 'app-all-app-selectors'},{'name': 'AngularHandsometableComponent', 'selector': 'app-angular-handsometable'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppInputComponentComponent', 'selector': 'app-app-input-component'},{'name': 'AudioPlayerComponent', 'selector': 'app-audio-player'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'BrowserlingComponent', 'selector': 'app-browserling'},{'name': 'BrushAndZoomComponent', 'selector': 'app-brush-and-zoom'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CanvasWhiteboardComponent', 'selector': 'app-canvas-whiteboard'},{'name': 'ChordDiagramComponent', 'selector': 'app-chord-diagram'},{'name': 'CommentOnIndicesComponent', 'selector': 'app-comment-on-indices'},{'name': 'CrisprComponent', 'selector': 'app-crispr'},{'name': 'D3tutorialComponent', 'selector': 'app-d3tutorial'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataAssignmentComponent', 'selector': 'app-data-assignment'},{'name': 'DataChooserComponent', 'selector': 'app-data-chooser'},{'name': 'DataListViewComponent', 'selector': 'data-list-view'},{'name': 'DataListViewSettingsComponent', 'selector': 'data-list-view-settings'},{'name': 'DataListViewTableComponent', 'selector': 'data-list-view-table'},{'name': 'DataManagementComponent', 'selector': 'app-data-management'},{'name': 'DeactivateNewsletterComponent', 'selector': 'app-deactivate-newsletter'},{'name': 'DeleteActionComponent', 'selector': 'app-delete-action'},{'name': 'DeletePageComponent', 'selector': 'app-delete-page'},{'name': 'DialogCreateNewPageComponent', 'selector': 'dialog-create-new-page'},{'name': 'DialogOverviewExampleDialog', 'selector': 'dialog-overview-example-dialog'},{'name': 'DialogUserSettingsDialog', 'selector': 'dialog-user-settings-dialog'},{'name': 'DictionaryComponent', 'selector': 'app-dictionary'},{'name': 'DuplicatePageComponent', 'selector': 'app-duplicate-page'},{'name': 'EditActionComponent', 'selector': 'app-edit-action'},{'name': 'EditPageComponent', 'selector': 'app-edit-page'},{'name': 'EditPageSetComponent', 'selector': 'app-update-page-set'},{'name': 'ExtendSessionComponent', 'selector': 'session-component'},{'name': 'FileListDialogComponent', 'selector': 'app-file-list-dialog'},{'name': 'FloatingImageObjectComponent', 'selector': 'app-floating-image-object'},{'name': 'FloatingTextObjectComponent', 'selector': 'app-floating-text-object'},{'name': 'FloatLightTableComponent', 'selector': 'app-float-light-table'},{'name': 'Frame', 'selector': 'popup'},{'name': 'FrameSettingsComponent', 'selector': 'app-frame-settings'},{'name': 'GndLobidComponent', 'selector': 'app-gnd-lobid'},{'name': 'GrapesjsComponent', 'selector': 'app-grapesjs'},{'name': 'GroupedBarChartV2Component', 'selector': 'app-grouped-bar-chart-v2'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HierarchicalNavigationNodeComponent', 'selector': 'app-hierarchical-navigation-node'},{'name': 'HierarchicalNavigationRootComponent', 'selector': 'app-hierarchical-navigation-root'},{'name': 'HierarchicalNavigationViewComponent', 'selector': 'app-hierarchical-navigation-view'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HtmlViewerComponent', 'selector': 'app-html-viewer'},{'name': 'HtmlViewerInnerhtmlComponent', 'selector': 'app-html-viewer-innerhtml'},{'name': 'IframeComponent', 'selector': 'app-iframe'},{'name': 'ImageWithOverlayComponent', 'selector': 'app-image-with-overlay'},{'name': 'ImpressumComponent', 'selector': 'app-impressum'},{'name': 'InitPopupComponent', 'selector': 'app-init-popup'},{'name': 'JoinedTextBlockComponent', 'selector': 'app-joined-text-block'},{'name': 'JoinedTextInnerhtmlComponent', 'selector': 'app-joined-text-innerhtml'},{'name': 'JoinedTextLineComponent', 'selector': 'app-joined-text-line'},{'name': 'JoinedTextLinepartComponent', 'selector': 'app-joined-text-linepart'},{'name': 'JoinedTextMarginComponent', 'selector': 'app-joined-text-margin'},{'name': 'JoinedTextTextwrapperComponent', 'selector': 'app-joined-text-textwrapper'},{'name': 'JoinedTextViewComponent', 'selector': 'app-joined-text-view'},{'name': 'KeyValueComponent', 'selector': 'app-key-value'},{'name': 'KeyValueFormComponent', 'selector': 'app-key-value-form'},{'name': 'KnoraV2ViewerComponent', 'selector': 'app-knora-v2-viewer'},{'name': 'KnoraV2ViewerInnerhtmlComponent', 'selector': 'app-knora-v2-viewer-innerhtml'},{'name': 'LeafletExampleComponent', 'selector': 'app-leaflet-example'},{'name': 'LightTableComponent', 'selector': 'app-light-table'},{'name': 'LightTableMenuComponent', 'selector': 'app-light-table-menu'},{'name': 'LoadLightTableComponent', 'selector': 'app-load-light-table'},{'name': 'LoadVariablesComponent', 'selector': 'app-load-variables'},{'name': 'MachineReasoningComponent', 'selector': 'app-machine-reasoning'},{'name': 'MainComponent', 'selector': 'app-main'},{'name': 'MatCardComponent', 'selector': 'app-mat-card'},{'name': 'MinimizePasswordDialog', 'selector': 'minimize-password-dialog'},{'name': 'MultiLineChartComponent', 'selector': 'app-multi-line-chart'},{'name': 'MyFilesComponent', 'selector': 'app-my-files'},{'name': 'MyMainComponentComponent', 'selector': 'app-my-main-component'},{'name': 'MyPractiseComponentComponent', 'selector': 'app-my-practise-component'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NestedMenu', 'selector': 'app-nested-menu'},{'name': 'NewGjsBoxDialogComponent', 'selector': 'app-new-gjs-box-dialog'},{'name': 'OpenbisLoginComponent', 'selector': 'app-openbis-login'},{'name': 'OurDemoAppComponent', 'selector': 'app-our-demo-app'},{'name': 'OurNewComponentComponent', 'selector': 'app-our-new-component'},{'name': 'PageComponent', 'selector': 'nie-os'},{'name': 'PageListDialogComponent', 'selector': 'app-page-list-dialog'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'PageSetLandingPageComponent', 'selector': 'app-page-set-landing-page'},{'name': 'ParzivalFassungComponent', 'selector': 'app-parzival-fassung'},{'name': 'PdfViewerComponent', 'selector': 'app-pdf-viewer'},{'name': 'PieChartComponent', 'selector': 'app-pie-chart'},{'name': 'PieChartV2Component', 'selector': 'app-pie-chart-v2'},{'name': 'PizzaPartyComponent', 'selector': 'snack-bar-component-example-snack'},{'name': 'PrimeEditorComponent', 'selector': 'app-prime-editor'},{'name': 'PythonEnvironmentComponent', 'selector': 'app-python-environment'},{'name': 'QueryAppInputMapComponent', 'selector': 'app-query-app-input-map'},{'name': 'QueryEntryComponent', 'selector': 'app-query-entry'},{'name': 'QueryInformationDialogComponent', 'selector': 'app-query-information-dialog'},{'name': 'QueryListComponent', 'selector': 'app-query-list'},{'name': 'RadialBarchartComponent', 'selector': 'app-radial-barchart'},{'name': 'RaeberNavigationComponent', 'selector': 'app-raeber-navigation'},{'name': 'ReactivateAccountComponent', 'selector': 'app-reactivate-account'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'RemoveObjectsByIdComponent', 'selector': 'app-remove-objects-by-id'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'ResponseTreeAppComponent', 'selector': 'response-tree'},{'name': 'ResponseTreeComponent', 'selector': 'app-response-tree'},{'name': 'SankeyComponent', 'selector': 'app-sankey'},{'name': 'SaveLightTableComponent', 'selector': 'app-save-light-table'},{'name': 'ShareLightTableComponent', 'selector': 'app-share-light-table'},{'name': 'SimpleImageAppComponent', 'selector': 'app-simple-image-app'},{'name': 'SpiralBarChartComponent', 'selector': 'app-spiral-bar-chart'},{'name': 'StackedBarChartComponent', 'selector': 'app-stacked-bar-chart'},{'name': 'SubPageListComponent', 'selector': 'app-sub-page-list'},{'name': 'SynopsisComponent', 'selector': 'app-synopsis'},{'name': 'SynopsisObjectManagerComponent', 'selector': 'app-synopsis-object-manager'},{'name': 'SynopsisObjectToolboxComponent', 'selector': 'app-synopsis-object-toolbox'},{'name': 'TextDisplayComponent', 'selector': 'app-text-display'},{'name': 'TextDisplayComponent', 'selector': 'app-text-display'},{'name': 'TextLineComponent', 'selector': 'app-text-line'},{'name': 'TextLineMarginComponent', 'selector': 'app-text-line-margin'},{'name': 'TextlistViewerComponent', 'selector': 'app-textlist-viewer'},{'name': 'TextPageOfWordsComponent', 'selector': 'app-text-page-of-words'},{'name': 'TextRichInnerhtmlComponent', 'selector': 'app-text-rich-innerhtml'},{'name': 'TextSvgViewComponent', 'selector': 'app-text-svg-view'},{'name': 'TextSvgViewWrapperComponent', 'selector': 'app-text-svg-view-wrapper'},{'name': 'TextViewCanvasComponent', 'selector': 'app-text-view-canvas'},{'name': 'TextViewComponent', 'selector': 'app-text-view'},{'name': 'TextViewMetadataComponent', 'selector': 'app-text-view-metadata'},{'name': 'TextViewStructureComponent', 'selector': 'app-text-view-structure'},{'name': 'TextViewToolsComponent', 'selector': 'app-text-view-tools'},{'name': 'ThumbnailbarComponent', 'selector': 'app-thumbnailbar'},{'name': 'TiledImageObjectComponent', 'selector': 'app-tiled-image-object'},{'name': 'TiledLightTableComponent', 'selector': 'app-tiled-light-table'},{'name': 'TiledTextObjectComponent', 'selector': 'app-tiled-text-object'},{'name': 'TreeNavigationComponent', 'selector': 'app-tree-navigation'},{'name': 'UrlParamUpdaterComponent', 'selector': 'app-url-param-updater'},{'name': 'UserGroupComponent', 'selector': 'app-user-group'},{'name': 'YoutubeVideoComponent', 'selector': 'app-youtube-video'}];
+    var DIRECTIVES = [{'name': 'DraggableDirective', 'selector': '[appDraggable]'},{'name': 'DraggableStubDirective', 'selector': '[appDraggable]'},{'name': 'FloatDropTargetDirective', 'selector': '[appDropTarget]'},{'name': 'ModifiableDirective', 'selector': '[appModifiable]'},{'name': 'ModifiableStubDirective', 'selector': '[appModifiable]'},{'name': 'SelectableDirective', 'selector': '[appSelectable]'},{'name': 'SelectableStubDirective', 'selector': '[appSelectable]'},{'name': 'SynopsisObjectAnchorDirective', 'selector': '[appSynopsisObjectAnchor]'},{'name': 'TileDropTargetDirective', 'selector': '[appTileDropTarget]'}];
+    var ACTUAL_COMPONENT = {'name': 'RadialBarchartComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'RadialBarchartComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

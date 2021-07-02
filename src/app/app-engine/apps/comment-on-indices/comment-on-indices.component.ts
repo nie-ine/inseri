@@ -17,6 +17,7 @@ export class CommentOnIndicesComponent implements OnInit {
   @Input() hash: string;
   @Input() forDashboard: boolean;
   @Input() commentArray: Array<any> = [];
+  loggedIn = false;
   newComment: string;
   constructor(
     private requestService: GeneralRequestService,
@@ -28,6 +29,12 @@ export class CommentOnIndicesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
+    if ( !this.authService.getIsAuth() ) {
+      this.loggedIn = false;
+    } else {
+      this.loggedIn = true;
+    }
     if ( !this.forDashboard ) {
       this.commentService.getCommentsOfPage( this.route.snapshot.queryParams.page )
         .subscribe(

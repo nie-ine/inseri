@@ -214,5 +214,8 @@ export class LoadVariablesComponent implements OnInit, OnChanges {
     appModel[ length ].initialized = true;
     appModel[ length ].text = appFromViewModel.text;
     appModel[ length ].showContent = true;
+    appModel[ length ].minimized = appFromViewModel.minimized;
+    appModel[ length ].minimize = appFromViewModel.minimize;
+    appModel[ length ].password = appFromViewModel.password;
   }
 }

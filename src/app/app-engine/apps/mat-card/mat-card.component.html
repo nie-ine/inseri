@@ -20,7 +20,7 @@
 <!--      {{ myDescription }}-->
 <!--    </p>-->
 <!--  </mat-card-content>-->
-  <mat-card-actions>
-    <button mat-button (click)="navigateToSite()" >Explore site</button>
+  <mat-card-actions *ngIf="buttonDescription" >
+    <button mat-button (click)="navigateToSite()" >{{ buttonDescription }}</button>
   </mat-card-actions>
 </mat-card>

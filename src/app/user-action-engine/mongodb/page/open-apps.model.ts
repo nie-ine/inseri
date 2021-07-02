@@ -64,6 +64,10 @@ export class OpenAppsModel {
           'inputName': 'mylink',
           default: 'http://inseri.swiss/'
         },
+        {
+          'inputName': 'buttonDescription',
+          default: 'Explore site'
+        },
       ],
       materialIcon: 'label',
       initialWidth: '450',
@@ -920,7 +924,7 @@ export class OpenAppsModel {
       inputs: [
         {
           'inputName': 'url',
-          default: 'https://www.nie-ine.ch/'
+          default: 'https://inseri.swiss'
         }
       ],
     },

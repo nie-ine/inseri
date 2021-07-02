@@ -9,7 +9,7 @@
        'margin-top': app.fullHeight ? '70px' : ''
        }">
 
-        <div class=" popup-drag" (mousedown)="mousedown($event)" *ngIf="!preview && !app.panelExtended" (mousedown)="setNewZIndex()"
+        <div class=" popup-drag" (mousedown)="mousedown($event)" *ngIf=" !app.panelExtended" (mousedown)="setNewZIndex()"
                          [ngClass]="{'popup-title-bar': position === 'absolute'}" >
 
             <button mat-button *ngIf="pathsWithArrays" (click)="moveBack()" [disabled]="!(index > 0)" >
@@ -120,7 +120,6 @@
     </div>
 
       </mat-card>
-
 
   <p-editor
     [(ngModel)]="app.description"

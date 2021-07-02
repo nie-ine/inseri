@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {PageComponent} from './page/page/page.component';
+import {MinimizePasswordDialog, PageComponent} from './page/page/page.component';
 import {RouterModule} from '@angular/router';
 import {Frame} from './page/frame/frame';
 import {MatSidenavModule} from '@angular/material/sidenav';
@@ -110,6 +110,7 @@ import {MatTreeModule} from '@angular/material/tree';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import { MatCardComponent } from './apps/mat-card/mat-card.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   imports: [
@@ -166,6 +167,7 @@ import { MatCardComponent } from './apps/mat-card/mat-card.component';
     AgGridModule.withComponents([]),
     BrowserModule,
     BrowserAnimationsModule,
+    MatFormFieldModule,
     RouterModule.forChild([
       { path: 'page', component: PageComponent },
       { path: 'browserling', component: BrowserlingComponent },
@@ -207,6 +209,7 @@ import { MatCardComponent } from './apps/mat-card/mat-card.component';
     SimpleImageAppComponent,
     ResponseTreeAppComponent,
     QueryInformationDialogComponent,
+    MinimizePasswordDialog,
     GrapesjsComponent,
     ParzivalFassungComponent,
     HighlightPipe,
