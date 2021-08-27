@@ -16,6 +16,7 @@
 *.launch
 *.icloud
 backend/.settings/
+backend/settings/
 backend/.mongoData/
 #backend/Downloads/
 # backend/files --> has its own .gitignore
