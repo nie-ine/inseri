@@ -25,6 +25,10 @@
 
 </app-audio-player>
 
+<app-demo-app *ngIf="app.type === 'demoApp'" [ourTestInput]="app.ourTestInput">
+
+</app-demo-app>
+
 <app-my-files *ngIf="app.type === 'myFiles'"
               [folderPath]="app.folderPath"
               [appInputQueryMapping]="appInputQueryMapping"

@@ -18,6 +18,8 @@ const pageSchema = mongoose.Schema({
     publishedAsTemplate: { type: Boolean },
     templatePhotoURL: {type: String},
     hasSubPages: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Page'  }],
+    featured: { type: Boolean },
+    featuredDescription: { type: String }
     //hasParent:{ type: mongoose.Schema.Types.ObjectId, ref: 'Page'  }
 });
 

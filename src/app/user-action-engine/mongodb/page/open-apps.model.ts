@@ -34,6 +34,19 @@ export class OpenAppsModel {
       initialWidth: '600',
       initialHeight: '400'
     },
+    demoApp: {
+      type: 'demoApp',
+      model: [],
+      inputs: [
+        {
+          'inputName': 'ourTestInput',
+          default: 'ourdefineddefaultInput'
+        }
+      ],
+      materialIcon: 'short_text',
+      initialWidth: '600',
+      initialHeight: '400'
+    },
     matCard: {
       type: 'matCard',
       model: [],

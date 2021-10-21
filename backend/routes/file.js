@@ -255,8 +255,10 @@ router.get("/:id", (req, res, next) => {
 router.get("/getFileByUrl/:url", checkAuth, (req, res, next) => {
 
   console.log( req.params.url );
-
-  FileModel.findOne({urlPath: req.params.url}).then(file => {
+  fileName = req.params.url.split( "/")[ 4 ]
+  console.log( req.params.url.split( "/"), fileName )
+ 
+  FileModel.findOne({urlPath: {$regex : fileName}}).then(file => {
     if (file) {
       console.log('file:', file);
       res.status(200).json(

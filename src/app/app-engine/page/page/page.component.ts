@@ -1049,7 +1049,7 @@ export class PageComponent implements OnInit, AfterViewChecked {
       for ( const app of openApps[ appType ].model ) {
         // console.log( app );
         if ( app.x ) {
-          console.log( app );
+          // console.log( app );
           this.openAppArray.push( app );
         }
       }

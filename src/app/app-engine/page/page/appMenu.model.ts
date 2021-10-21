@@ -572,6 +572,17 @@ export class AppMenuModel {
       appGroup: 'application'
     },
     {
+      id: 'short_text',
+      name: 'Aru and Jan demo app',
+      tags: 'gnd url param subscriber',
+      color: 'green',
+      status: 'stable',
+      appType: 'demoApp',
+      description: 'demo text',
+      showOnHome: false,
+      appGroup: 'application'
+    },
+    {
       id: 'leak_add',
       name: 'Url Param Updater',
       tags: 'generic url updater',

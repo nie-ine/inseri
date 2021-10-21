@@ -27,6 +27,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
+      // console.log(request);
+
         // // array in local storage for registered users
         // const users: any[] = JSON.parse(localStorage.getItem('users')) || [];
         // const actions: any[] = JSON.parse(localStorage.getItem('actions')) || [];
@@ -603,7 +605,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           // console.log('Pass on request');
           // console.log(request);
           // attach Token from nodejs
-          // console.log(request.url);
+          
           if( request.url.search( environment.node ) !== -1 ) {
             const authToken = this.authService.getToken();
             const authRequest = request.clone({

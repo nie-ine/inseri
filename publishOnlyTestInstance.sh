@@ -4,8 +4,6 @@ DATE=`date +%y-%m-%d`
 
 VERSION="v2"
 
-docker login
-
 ng build --optimization=false --configuration=test
 docker build -t nieos-test-instance .
 docker tag nieos-test-instance:latest nieine/nieos-test-instance:${DATE}${VERSION}

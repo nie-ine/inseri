@@ -17,7 +17,28 @@ const generatedHash = require('../middleware/hash-generator');
 
 const router = express.Router();
 
-router.get('', checkAuth, (req, res, next) => {
+router.get('/featured', (req, res, next) => {
+  Page.find({featured: true})
+    .then(pages => {
+      let newArray = [];
+      pages.forEach( function( page ) {
+        console.log( page );
+        newArray.push(
+          {
+            title: page.title,
+            description: page.featuredDescription,
+            id: page._id
+          }
+        );
+      });
+      res.status(200).json({
+        message: "here are the featured responses",
+        pages: newArray
+      });
+    });
+});
+
+/*router.get('', checkAuth, (req, res, next) => {
   Action.find()
     .populate('creator')
     .then(actions => {
@@ -40,7 +61,7 @@ router.get('', checkAuth, (req, res, next) => {
         error: error
       })
     })
-});
+});*/
 
 router.get('/allActionsAndItsPages/:userId', (req, res, next)=>{
   Action.find({creator: req.params.userId}).populate('hasPage')
