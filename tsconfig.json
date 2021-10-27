@@ -1,6 +1,9 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "types": [
+      "hammerjs"
+    ],
     "downlevelIteration": true,
     "module": "es2020",
     "outDir": "./dist/out-tsc",
@@ -16,6 +19,17 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "paths": {
+      "assert": [
+        "./assert.ts"
+      ],
+      "path": [
+        "./node_modules/path-browserify"
+      ],
+      "jszip": [
+        "../node_modules/jszip/dist/jszip.min.js"
+      ]
+    }
   }
 }

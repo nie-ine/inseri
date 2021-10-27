@@ -1,13 +1,12 @@
-
 // Custom Theming for Angular Material
+@use '~@angular/material' as mat;
 // For more information: https://material.angular.io/guide/theming
-@import '~@angular/material/theming';
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
-@include mat-core();
+@include mat.core();
 
 // importing the themes from our theme files
 @import "./themes/standard-theme";
@@ -18,15 +17,15 @@
 // that you are using.
 
 .standard-theme {
-  @include angular-material-theme($standard-theme);
+  @include mat.all-component-themes($standard-theme);
 }
 
 .dark-theme {
-  @include angular-material-theme($dark-theme);
+  @include mat.all-component-themes($dark-theme);
 }
 
 .other-theme {
-  @include angular-material-theme($other-theme);
+  @include mat.all-component-themes($other-theme);
 }
 
 /* You can add global styles to this file, and also import other style files */
