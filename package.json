@@ -64,7 +64,7 @@
     "json2typescript": "^1.1.1",
     "jsonld": "1.5.3",
     "jsonwebtoken": "^8.5.0",
-    "jszip": "^3.4.0",
+    "jszip": "^3.7.0",
     "jszip-utils": "^0.1.0",
     "langs": "^2.0.0",
     "leaflet": "1.4",
