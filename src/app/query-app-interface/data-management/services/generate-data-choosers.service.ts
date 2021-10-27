@@ -11,6 +11,7 @@ import { QueryService } from '../../../user-action-engine/mongodb/query/query.se
 import {cloneDate} from 'ngx-bootstrap/chronos/create/clone';
 import {type} from 'os';
 import {DataAssignmentComponent} from '../data-assignment/data-assignment.component';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -57,13 +58,16 @@ export class GenerateDataChoosersService {
       let pathArray = [];
       this.queryService.getQuery(queryId)
         .subscribe((data) => {
+          console.log( data );
           queryTitle = data.query.title;
           if ( data.query.method === 'JSON' ) {
             queryTitle = queryTitle + ' (file / own query)';
           }
           pathArray = data.query.path;       // path array is the path chosen for the entries to be displayed in the data chooser dropdown
-          // console.log( data.query );
+          console.log( data.query );
           this.query = data;
+          console.log( this.query );
+
           this.requestService.request(queryId)
             .subscribe((data1) => {
               if (data1.status === 200) {

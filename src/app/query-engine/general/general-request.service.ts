@@ -62,7 +62,15 @@ export class GeneralRequestService {
         return this.goThroughParams( query, data );
       }, 2000);
     }
-    // console.log( query.serverUrl );
+    console.log( query.serverUrl );
+    if ( query.serverUrl.search( 'test-node.nie-ine' ) !== -1 ) {
+      console.log( 'replace query', environment.node );
+      var oldUrl = query.serverUrl;
+      var newUrl = oldUrl.replace( 'http://test-node.nie-ine.ch', environment.node );
+      console.log( newUrl );
+      query.serverUrl = newUrl;
+      console.log( query.serverUrl );
+    }
     switch (query.method) {
       case 'GET':
         return this.get(query.serverUrl, data.query.params, query.header);
@@ -106,7 +114,7 @@ export class GeneralRequestService {
   }
 
   get(url: string, parameter?: any, header?: any): Observable<any> {
-    // console.log('GET Request', url, parameter, header);
+    console.log('GET Request', url, parameter, header);
     return this.http.get(url, {headers: this.transformHeader(header), params : this.transformParam(parameter), observe: 'response'});
   }
 
