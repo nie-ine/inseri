@@ -22,11 +22,11 @@ Our signature presentation for you: [https://inseri.swiss/](https://inseri.swiss
 
 ## Start inseri with docker-compose
 
-If you want to use it locally or on your server, but you don't want to contribute own code.  If questions appear, don't hesitate to contact jan.stoffregen@uzh.ch.
+If you want to use it locally or on your server, but you don't want to contribute own code.
 
  - ``git clone https://github.com/nie-ine/inseri.git``
  - ``cd inseri``
-  - ```mv ./backend/settings_default ./backend/.settings```
+  - ```cp ./backend/settings_default ./backend/.settings```
   - replace salt in ./backend/.settings/slat.js to own secret string
   - ```docker-compose up```
   
@@ -44,25 +44,21 @@ Inseri:  [http://localhost:4200](http://localhost:4200)
 MongoDB - Admin - Interface: [http://localhost:8081](http://localhost:8081)
 
 ## Get it up and running for development
-If you want to contribute own code. If questions appear, don't hesiate to contact jan.stoffregen@uzh.ch.
+If you want to contribute own code.
 
 #### Clone inseri
  - ``git clone https://github.com/nie-ine/inseri.git``
  - ``cd inseri``
- - ```mv ./backend/settings_default ./backend/.settings```
+ - ```cp ./backend/settings_default ./backend/.settings```
  - replace salt in ./backend/.settings/salt.js to own secret string
 
-#### Create MongoDB instance:
+#### MongoDB:
 
- - Create a sandbox on [the mongoDB cloud](https://account.mongodb.com/account/login), choose a free instance.
- - In this sandbox, add your IP to the whitelist
- - Get the server-connect string, similiar to this: ```mongodb+srv://user:dfgsdbdtrgr@cluster567-7kilp.mongodb.net/node-angular``` via klick on Connect, klick on connect your application, klick one nodejs
-
-#### Connect inseri to MongoDB: 
+ - `docker run --network some-net -v /my/own/datadir:/data/db --name some-mongo -p 27017:27017 -d mongo:4.4`
  - In the folder .settings, change the file mongodbServer.js Your file should look similar to the following:
 
  ```
-const mongodbServer = 'mongodb+srv://user:dfgsdbdtrgr@cluster567-7kilp.mongodb.net/node-angular';
+const mongodbServer = 'mongodb+srv://localhost:27017/node-angular';
 
 module.exports = {
   mongodbServer: mongodbServer
@@ -72,10 +68,8 @@ module.exports = {
 #### Install and start Angular and Node.js
 
  - ``yarn``
- - ``ng s`` --> there is currently a bug, solved here: https://github.com/nie-ine/inseri/issues/658
-
-#### Start node.js
-```npm run start:server```
+ - ``npm run start`` for frontend
+ - ``npm run start:server`` for backend
 
 ## Generate documentation
 
