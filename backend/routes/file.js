@@ -8,30 +8,10 @@ const Action = require("../models/action");
 const PageSet = require("../models/page-set");
 const Page = require("../models/page");
 const Query = require("../models/query");
-const SubPage = require("../models/sub-page");
-let JSZip = require("jszip");
-let FileSaver = require('file-saver');
 const fs = require('fs');
 let MyOwnJson = require("../models/myOwnJson");
 let Comment = require("../models/comment");
 const {ObjectId} = require('mongodb');
-let actionRoute=require('../routes/action');
-
-// let MyBlobBuilder = function () {
-//   this.parts = [];
-// }
-//
-// MyBlobBuilder.prototype.append = function (part) {
-//   this.parts.push(part);
-//   this.blob = undefined; // Invalidate the blob
-// };
-//
-// MyBlobBuilder.prototype.getBlob = function () {
-//   if (!this.blob) {
-//     this.blob = new Blob(this.parts, {type: "text/plain"});
-//   }
-//   return this.blob;
-// };
 
 
 /**
