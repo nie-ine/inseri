@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from '../mongodb/auth/auth.service';
 import {ContactService} from '../mongodb/contact/contact.service';
 import {environment} from '../../../environments/environment';
 import { PasswordFormatCheckService } from '../shared/password-format-check.service';
 import { TermsAndConditions } from './termsAndConditions/termsAndConditions';
-import {FileModel} from '../file/file.model';
 import {FileService} from '../file/file.service';
 
 @Component({
@@ -26,7 +24,6 @@ export class RegisterComponent implements OnInit {
   profilePic: File;
 
   constructor(
-    private router: Router,
     public authService: AuthService,
     private contactService: ContactService,
     private passwordFormatCheckService: PasswordFormatCheckService,
@@ -38,7 +35,7 @@ export class RegisterComponent implements OnInit {
     console.log( this.environment );
     this.model.newsletter = false;
     this.neededSpecialCharacters = this.passwordFormatCheckService.neededSpecialCharacters;
-    this.imagePreview = environment.app + '/assets/img/team/user-icon-vector.jpg';
+    this.imagePreview = environment.app + '/assets/img/user-icon.png';
   }
 
   register() {
