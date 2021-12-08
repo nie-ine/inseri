@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "compodoc": "./node_modules/.bin/compodoc -p src/tsconfig.app.json",
+    "compodoc": "npx compodoc -p tsconfig.doc.json",
     "start:server": "nodemon server.js"
   },
   "private": true,
@@ -107,6 +107,7 @@
     "@angular/compiler-cli": "12.2.11",
     "@angular/language-service": "12.2.11",
     "@angular/localize": "^12.2.11",
+    "@compodoc/compodoc": "^1.1.16",
     "@types/hammerjs": "^2.0.40",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "^2.0.6",
