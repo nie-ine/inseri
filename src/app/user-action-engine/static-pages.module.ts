@@ -19,7 +19,8 @@ import {PageComponent} from '../app-engine/page/page/page.component';
     FormsModule,
     RouterModule.forChild([
       { path: 'home', component: PageComponent },
-      { path: 'register', component: RegisterComponent },
+      // registeration is not open for public
+      // { path: 'register', component: RegisterComponent },
       { path: 'reactivate', component: ReactivateAccountComponent },
       { path: 'deactivate-newsletter', component: DeactivateNewsletterComponent },
       { path: 'reset-password', component: ResetPasswordComponent },
