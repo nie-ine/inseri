@@ -13,6 +13,7 @@ bower_components
 .classpath
 *.launch
 .settings/
+./backend/.settings/
 
 # misc
 .sass-cache
