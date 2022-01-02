@@ -1,0 +1,18 @@
+# stage builder
+FROM node:16-slim as builder
+
+WORKDIR /usr/src/app
+
+# package*.json, tsconfig*.json, tslint.json
+COPY *.json ./
+RUN npm ci
+
+# because frontend has reference on backend
+COPY backend/ backend/
+COPY src/ src/
+
+RUN npm run build
+
+# stage run-time
+FROM nginx:stable-alpine
+COPY --from=builder /usr/src/app/dist /usr/share/nginx/html
