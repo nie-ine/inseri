@@ -1,6 +1,5 @@
 # stage builder
 FROM node:16-slim as builder
-
 WORKDIR /usr/src/app
 
 # package*.json, tsconfig*.json, tslint.json
@@ -11,7 +10,8 @@ RUN npm ci
 COPY backend/ backend/
 COPY src/ src/
 
-RUN npm run build
+ARG NG_CONFIG=production
+RUN npx ng build --configuration $NG_CONFIG
 
 # stage run-time
 FROM nginx:stable-alpine
