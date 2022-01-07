@@ -15,4 +15,5 @@ RUN npx ng build --configuration $NG_CONFIG
 
 # stage run-time
 FROM nginx:stable-alpine
+COPY ./nginx/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder /usr/src/app/dist /usr/share/nginx/html
