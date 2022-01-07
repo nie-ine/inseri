@@ -12,6 +12,7 @@ COPY src/ src/
 
 ARG NG_CONFIG=production
 RUN npx ng build --configuration $NG_CONFIG
+RUN gzip -kr9 dist/*
 
 # stage run-time
 FROM nginx:stable-alpine
