@@ -24,24 +24,14 @@ Our signature presentation for you: [https://inseri.swiss/](https://inseri.swiss
 
 If you want to use it locally or on your server, but you don't want to contribute own code.
 
- - ``git clone https://github.com/nie-ine/inseri.git``
- - ``cd inseri``
+  - ``git clone https://github.com/nie-ine/inseri.git``
+  - ``cd inseri``
   - ```cp ./backend/settings_default ./backend/.settings```
   - replace salt in ./backend/.settings/slat.js to own secret string
-  - ```docker-compose up```
-  
-  
-Wait until the mongodb - container has a first terminal output, then restart the nieine/mean container, the last terminal output of the node container should say  "connected to database". So, in another terminal, type:
-
-```docker ps``` to find out the < container id > of nieine/mean
-
-```docker restart < container id >```
-
-You can find the software on the following ports:
-
-Inseri:  [http://localhost:4200](http://localhost:4200)
-
-MongoDB - Admin - Interface: [http://localhost:8081](http://localhost:8081)
+  - ```docker network create inseri-net```
+  - start reverse-proxy ```docker-compose -f docker-compose.nginx.yml up -d```
+  - start extras ```docker-compose -f docker-compose.extras.yml up -d```
+  - start inseri ```docker-compose -f docker-compose.inseri.yml up -d```
 
 ## Get it up and running for development
 If you want to contribute own code.
@@ -67,7 +57,7 @@ module.exports = {
 
 #### Install and start Angular and Node.js
 
- - ``yarn``
+ - ``npm ci``
  - ``npm run start`` for frontend
  - ``npm run start:server`` for backend
 

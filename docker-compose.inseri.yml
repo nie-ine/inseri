@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  frontend:
+    image: nieine/inseri-frontend:2022-01-03 #nieos-test-instance:21-10-21v2
+    expose:
+      - "80"
+    environment:
+      - VIRTUAL_HOST=apps.inseri.swiss
+      - VIRTUAL_PORT=80
+      - LETSENCRYPT_HOST=apps.inseri.swiss
+      - LETSENCRYPT_EMAIL=arooran.thanabalasingam@uzh.ch
+
+  backend:
+    image: nieine/inseri-backend:2022-01-03 #mean:2021-09-09
+    expose:
+      - "3000"
+    environment:
+      - PORT=3000
+      - VIRTUAL_HOST=node.inseri.swiss
+      - VIRTUAL_PORT=3000
+      - LETSENCRYPT_HOST=node.inseri.swiss
+      - LETSENCRYPT_EMAIL=arooran.thanabalasingam@uzh.ch
+    volumes:
+      - ./inseriPersistentDataVolume/backend/.settings:/usr/src/app/.settings
+      - ./inseriPersistentDataVolume/backend/files:/usr/src/app/files
+    restart: unless-stopped
+
+networks:
+  default:
+    external: true
+    name: inseri-net

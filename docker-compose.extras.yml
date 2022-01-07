@@ -1,0 +1,55 @@
+version: "3"
+
+services:
+  sparqlvisualiser:
+    image: nieine/sparqlvisualiser
+    restart: always
+    expose:
+      - 80
+    environment:
+      - VIRTUAL_HOST=sparqlvisualiser.inseri.swiss
+      - VIRTUAL_PORT=80
+      - LETSENCRYPT_HOST=sparqlvisualiser.inseri.swiss
+      - LETSENCRYPT_EMAIL=arooran.thanabalasingam@uzh.ch
+
+  jsonenvironment:
+    image: nieine/microservice-json-task:20200828
+    restart: always
+    expose:
+      - 50000
+
+  machinereasoning:
+    image: nieine/microservice-reasoning-task:2020-09-30
+    restart: always
+    expose:
+      - 50001
+
+  e-editiones:
+    image: nieine/e-editiones:20210504
+    ports:
+      - 200:80
+    environment:
+      - VIRTUAL_HOST=e-editiones.ch
+      - VIRTUAL_PORT=80
+      - LETSENCRYPT_HOST=e-editiones.ch
+      - LETSENCRYPT_EMAIL=arooran.thanabalasingam@uzh.ch
+
+  #fuseki:
+  #image: nieine/fuseki:2019-10-31v2
+  #entrypoint: ./fuseki-server
+  #environment:
+  #  - FUSEKI_HOME=/apache-jena-fuseki-3.13.1/
+  #ports:
+  #  - 3030:3030 # external:internal
+  #volumes:
+  #  - ./inseriPersistentDataVolume/fuseki/apache-jena-fuseki-3.13.1/run:/apache-jena-fuseki-3.13.1/run
+  #  - ./inseriPersistentDataVolume/fuseki/apache-jena-fuseki-3.13.1/scripts:/apache-jena-fuseki-3.13.1/scripts
+  #  - ./inseriPersistentDataVolume/fuseki/apache-jena-fuseki-3.13.1/lib/fuseki-server.jar:/apache-jena-fuseki-3.13.1/lib/fuseki-server.jar
+  #environment:
+  #  - NGINX_HOST=fuseki.nie-ine.ch
+  #  - VIRTUAL_HOST=fuseki.nie-ine.ch
+
+networks:
+  default:
+    external: true
+    name: inseri-net
