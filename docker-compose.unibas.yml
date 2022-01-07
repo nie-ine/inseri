@@ -1,0 +1,42 @@
+version: "3"
+
+services:
+  inseri_unibas:
+    image: nieine/nieos-test-instance-unibas:21-10-21v2 #21-09-23v2
+    volumes:
+      - ./inseriPersistentDataVolume/nie-os/nginx/conf.d:/etc/nginx/conf.d
+      - ./inseriPersistentDataVolume/nie-os/config:/usr/share/nginx/html/assets/config
+    expose:
+      - "80"
+    environment:
+      - VIRTUAL_HOST=unibas.inseri.swiss
+      - VIRTUAL_PORT=80
+      - LETSENCRYPT_HOST=unibas.inseri.swiss
+      - LETSENCRYPT_EMAIL=arooran.thanabalasingam@uzh.ch
+
+  node_unibas:
+    image: nieine/mean:2021-10-22-unibas #2021-09-09 #2020-11-18
+    entrypoint: npm run start:server
+    expose:
+      - "3000"
+    environment:
+      - VIRTUAL_HOST=node-unibas.inseri.swiss
+      - VIRTUAL_PORT=3000
+      - LETSENCRYPT_HOST=node-unibas.inseri.swiss
+      - LETSENCRYPT_EMAIL=arooran.thanabalasingam@uzh.ch
+    volumes:
+      - ./inseriPersistentDataVolume/backend/.settings_unibas:/nieOS/backend/.settings
+      - ./inseriPersistentDataVolume/backend/files:/nieOS/backend/files
+
+  mongodb:
+    image: mongo:5.0
+    # ports:
+      # - 27017:27017 do not publish unprotected access
+    volumes:
+      - ./inseriPersistentDataVolume/mongoData_unibas:/data/db
+    restart: always
+
+networks:
+  default:
+    external: true
+    name: inseri-net

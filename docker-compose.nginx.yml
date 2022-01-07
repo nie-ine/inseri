@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  nginx-proxy:
+    image: nginxproxy/nginx-proxy:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./inseriPersistentDataVolume/nginx/vhost:/etc/nginx/vhost.d
+      - ./inseriPersistentDataVolume/nginx/html:/usr/share/nginx/html
+      - ./inseriPersistentDataVolume/nginx/certs:/etc/nginx/certs
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+  nginx-proxy-acme:
+    image: nginxproxy/acme-companion
+    volumes_from:
+      - nginx-proxy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./inseriPersistentDataVolume/nginx/acme:/etc/acme.sh
+    environment:
+      - "DEFAULT_EMAIL=arooran.thanabalasingam@uzh.ch"
+
+networks:
+  default:
+    external: true
+    name: inseri-net
