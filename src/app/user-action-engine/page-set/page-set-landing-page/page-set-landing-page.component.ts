@@ -4,7 +4,7 @@ import {EditPageSetComponent} from '../edit-page-set/edit-page-set.component';
 import {ActionService} from '../../mongodb/action/action.service';
 import { Action } from '../../mongodb/action/action.model';
 import { EditPageComponent } from '../edit-page/edit-page.component';
-import { Page } from '../../../../../backend/models/page.js'; // '../../mongodb/page/page.model';
+import { Page } from '../../mongodb/page/page.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DeletePageComponent } from '../delete-page/delete-page.component';
 import { PageService } from '../../mongodb/page/page.service';

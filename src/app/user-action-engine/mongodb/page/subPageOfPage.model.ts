@@ -1,5 +1,4 @@
-//import {Page} from './page.model';
-import {Page} from '../../../../../backend/models/page.js';
+import {Page} from './page.model';
 
 export interface SubPageOfPageModel {
   page: Page;

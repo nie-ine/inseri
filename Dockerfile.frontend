@@ -5,9 +5,6 @@ WORKDIR /usr/src/app
 # package*.json, tsconfig*.json, tslint.json
 COPY *.json ./
 RUN npm ci
-
-# because frontend has reference on backend
-COPY backend/ backend/
 COPY src/ src/
 
 ARG NG_CONFIG=production
