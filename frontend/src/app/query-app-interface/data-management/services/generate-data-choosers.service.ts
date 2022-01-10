@@ -8,8 +8,6 @@ import {AbstractJsonService} from './abstract-json.service';
 import {GenerateArrayFromLeafsService} from './generate-array-from-leafs.service';
 import {GeneralRequestService} from '../../../query-engine/general/general-request.service';
 import { QueryService } from '../../../user-action-engine/mongodb/query/query.service';
-import {cloneDate} from 'ngx-bootstrap/chronos/create/clone';
-import {type} from 'os';
 import {DataAssignmentComponent} from '../data-assignment/data-assignment.component';
 import { environment } from '../../../../environments/environment';
 
