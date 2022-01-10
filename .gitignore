@@ -16,7 +16,7 @@ node_modules
 .c9/
 *.launch
 *.icloud
-backend/.settings/
+.settings/
 backend/settings/
 backend/.mongoData/
 #backend/Downloads/

@@ -5,7 +5,7 @@ WORKDIR /usr/src/app
 # package*.json, tsconfig*.json, tslint.json
 COPY *.json ./
 RUN npm ci
-COPY src/ src/
+COPY . ./
 
 ARG NG_CONFIG=production
 RUN npx ng build --configuration $NG_CONFIG
