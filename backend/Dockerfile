@@ -8,7 +8,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm ci --only=production
 
-COPY --chown=node:node backend/. .
+COPY --chown=node:node src/. .
 USER node
 
 EXPOSE $PORT

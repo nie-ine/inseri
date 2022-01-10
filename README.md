@@ -39,7 +39,7 @@ If you want to contribute own code.
 #### Clone inseri
  - ``git clone https://github.com/nie-ine/inseri.git``
  - ``cd inseri``
- - ```cp ./backend/settings_default ./backend/.settings```
+ - ```cp ./backend/src/settings_default ./backend/src/.settings```
  - replace salt in ./backend/.settings/salt.js to own secret string
 
 #### MongoDB:
