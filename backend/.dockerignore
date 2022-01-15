@@ -12,6 +12,8 @@ bower_components
 .project
 .classpath
 *.launch
+dist/.settings/
+dist/files/*
 src/.settings/
 src/files/*
 
