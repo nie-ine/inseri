@@ -1,6 +1,21 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, PopulatedDoc, Document } from 'mongoose';
+import { PageSet } from './page-set'
+import { Page } from './page'
+import { User } from './user';
+export interface Action {
+    title: string,
+    description: string,
+    isFinished?: boolean
+    deleted?: boolean,
+    type?: string,
+    hasPage?: PopulatedDoc<Page & Document>,
+    hasPageSet?: PopulatedDoc<PageSet & Document>,
+    creator: PopulatedDoc<User>,
+    published?: boolean,
+    shortName?: string
+}
 
-const actionSchema = new Schema({
+const actionSchema = new Schema<Action>({
     title: { type: String, required: true },
     description: { type: String, required: true },
     isFinished: { type: Boolean }, // isInProgress, isFinished
@@ -13,4 +28,4 @@ const actionSchema = new Schema({
     shortName: { type: String }
 });
 
-export default model('Action', actionSchema);
+export default model<Action>('Action', actionSchema);

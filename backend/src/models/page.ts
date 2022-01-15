@@ -1,6 +1,29 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, PopulatedDoc, Document } from 'mongoose';
+import { Query } from './query';
 
-const pageSchema = new Schema({
+export interface Page {
+    title?: string
+    description?: string
+    openApps?: string[]
+    appInputQueryMapping?: string[]
+    queries?: Array<PopulatedDoc<Query & Document>>,
+    published?: boolean,
+    showAppTitlesOnPublish?: boolean,
+    showAppSettingsOnPublish?: boolean,
+    showInseriLogoOnPublish?: boolean,
+    showDataBrowserOnPublish?: boolean,
+    tiles?: boolean,
+    chosenWidth?: number,
+    jsonId?: string,
+    ownQuery?: string,
+    publishedAsTemplate?: boolean,
+    templatePhotoURL?: string,
+    hasSubPages?: Array<PopulatedDoc<Page & Document>>,
+    featured?: boolean,
+    featuredDescription?: string
+}
+
+const pageSchema = new Schema<Page>({
     title: { type: String },
     description: { type: String },
     openApps: { type: [String] },
@@ -23,4 +46,4 @@ const pageSchema = new Schema({
     //hasParent:{ type: mongoose.Schema.Types.ObjectId, ref: 'Page'  }
 });
 
-export default model('Page', pageSchema);
+export default model<Page>('Page', pageSchema);

@@ -1,6 +1,18 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, PopulatedDoc, Document } from 'mongoose';
+import { Action } from './action';
+import { Page } from './page';
+import { User } from './user';
 
-const commentSchema = new Schema({
+export interface Comment {
+  commentText: string
+  page?: PopulatedDoc<Page & Document>
+  action?: PopulatedDoc<Action & Document>
+  creator: PopulatedDoc<User & Document>
+  date: string
+  params: any
+}
+
+const commentSchema = new Schema<Comment>({
   commentText: { type: String, required: true },
   page: { type: Schema.Types.ObjectId, ref: 'Page' },
   action: { type: Schema.Types.ObjectId, ref: 'Action' },
@@ -10,4 +22,4 @@ const commentSchema = new Schema({
   params: {}
 });
 
-export default model('Comment', commentSchema);
+export default model<Comment>('Comment', commentSchema);

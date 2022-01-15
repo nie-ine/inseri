@@ -1,4 +1,19 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, PopulatedDoc, Document } from 'mongoose';
+import { Action } from './action';
+import { Page } from './page';
+import { User } from './user';
+
+export interface UserGroup {
+  title: string
+  description: string
+  users?: Array<PopulatedDoc<User & Document>>
+  adminUsers?: Array<PopulatedDoc<User & Document>>
+  hasPages?: Array<PopulatedDoc<Page & Document>>
+  hasActions?: [{
+    actionId?: PopulatedDoc<Action & Document>
+    hasPages?: Array<PopulatedDoc<Page & Document>>
+  }]
+}
 
 const userGroup = new Schema({
   title: {type: String, required: true},
