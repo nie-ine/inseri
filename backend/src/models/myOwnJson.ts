@@ -1,9 +1,16 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, PopulatedDoc, Document } from 'mongoose';
+import { User } from './user';
 
-const myOwnJsonSchema = new Schema({
+export interface MyOwnJson {
+  creator: PopulatedDoc<User & Document>
+  content?: any
+  published?: string
+}
+
+const myOwnJsonSchema = new Schema<MyOwnJson>({
   creator: { type: Schema.Types.ObjectId, ref: 'User', require: true },
   content: {},
   published: { type: String }
 }, {strict: false});
 
-export default model('MyOwnJson', myOwnJsonSchema);
+export default model<MyOwnJson>('MyOwnJson', myOwnJsonSchema);

@@ -1,7 +1,17 @@
 import { Schema, model } from 'mongoose';
 import uniqueValidator from 'mongoose-unique-validator';
 
-const userSchema = new Schema({
+export interface User {
+    email: string
+    password: string
+    firstName?: string
+    lastName?: string
+    newsletter?: boolean
+    delete?: Date
+    usrProfileFilePath?: string
+}
+
+const userSchema = new Schema<User>({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     firstName: { type: String },
@@ -13,4 +23,4 @@ const userSchema = new Schema({
 
 userSchema.plugin(uniqueValidator);
 
-export default model('User', userSchema);
+export default model<User>('User', userSchema);

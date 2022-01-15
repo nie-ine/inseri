@@ -1,6 +1,15 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, PopulatedDoc, Document } from 'mongoose';
+import { User } from './user';
 
-const file = new Schema({
+export interface File {
+  title: string
+  description?: string
+  urlPath: string
+  owner: PopulatedDoc<User & Document>
+  uploadedOn?: Date
+}
+
+const file = new Schema<File>({
   title: { type: String, required: true },
   description: { type: String, required: false },
   urlPath: { type: String, required: true },
@@ -9,4 +18,4 @@ const file = new Schema({
   uploadedOn: {type: Date, default: Date.now},
 });
 
-export default model('File', file);
+export default model<File>('File', file);
