@@ -1,27 +1,26 @@
-const path = require("path");
-const express = require("express");
-const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
+import path from "path";
+import express from "express";
+import bodyParser from "body-parser";
+import mongoose from "mongoose";
+import cors from "cors";
 
-const userRoutes = require("./routes/user");
-const actionRoutes = require("./routes/action");
-const pageSetRoutes = require("./routes/page-set");
-const pageRoutes = require("./routes/page-route");
-const messageRoutes = require('./routes/message');
-const queryRoutes = require('./routes/query');
-const myOwnJsonRoutes = require('./routes/myOwnJson');
-const userGroupRoutes = require('./routes/userGroups');
-const subPageRoutes = require('./routes/sub-page');
-const folderRoutes = require('./routes/folder');
-const fileRoutes = require('./routes/file');
-const commentRoutes = require("./routes/comment");
-const microServices = require('./routes/microservice');
+import userRoutes from "./routes/user";
+import actionRoutes from "./routes/action";
+import pageSetRoutes from "./routes/page-set";
+import pageRoutes from "./routes/page-route";
+import messageRoutes from './routes/message';
+import queryRoutes from './routes/query';
+import myOwnJsonRoutes from './routes/myOwnJson';
+import userGroupRoutes from './routes/userGroups';
+import subPageRoutes from './routes/sub-page';
+import folderRoutes from './routes/folder';
+import fileRoutes from './routes/file';
+import commentRoutes from "./routes/comment";
+import microServices from './routes/microservice';
+
+import mongodbServer from './.settings/mongodbServer';
 
 const app = express();
-
-const mongodbServer = require('./.settings/mongodbServer');
-
-var cors = require('cors');
 
 mongoose
   .connect(
@@ -81,4 +80,4 @@ app.use("/api/comments", commentRoutes);
 app.use("/api/microservices", microServices);
 
 
-module.exports = app;
+export default app;

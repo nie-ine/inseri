@@ -1,12 +1,12 @@
-const mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
 
-const pageSetSchema = mongoose.Schema({
+const pageSetSchema = new Schema({
     title: { type: String, required: true },
     description: { type: String, required: true },
     linkToImage: { type: String },
-    hasPages: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Page' }],
+    hasPages: [{ type: Schema.Types.ObjectId, ref: 'Page' }],
     hash: { type: String },
     //hasPages: [{_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Page' }, subPages:[{_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Page' }}]}],
 });
 
-module.exports = mongoose.model('PageSet', pageSetSchema);
+export default model('PageSet', pageSetSchema);

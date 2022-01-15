@@ -1,4 +1,4 @@
-module.exports = () => {
+export default () => {
     let text = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
