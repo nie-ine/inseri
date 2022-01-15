@@ -1,11 +1,11 @@
-const mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
 
-const pageSchema = mongoose.Schema({
+const pageSchema = new Schema({
     title: { type: String },
     description: { type: String },
     openApps: { type: [String] },
     appInputQueryMapping: { type: [String] },
-    queries: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Query' }],
+    queries: [{ type: Schema.Types.ObjectId, ref: 'Query' }],
     published: { type: Boolean },
     showAppTitlesOnPublish: { type: Boolean },
     showAppSettingsOnPublish: { type: Boolean },
@@ -17,10 +17,10 @@ const pageSchema = mongoose.Schema({
     ownQuery: { type: String },
     publishedAsTemplate: { type: Boolean },
     templatePhotoURL: {type: String},
-    hasSubPages: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Page'  }],
+    hasSubPages: [{ type: Schema.Types.ObjectId, ref: 'Page'  }],
     featured: { type: Boolean },
     featuredDescription: { type: String }
     //hasParent:{ type: mongoose.Schema.Types.ObjectId, ref: 'Page'  }
 });
 
-module.exports = mongoose.model('Page', pageSchema);
+export default model('Page', pageSchema);

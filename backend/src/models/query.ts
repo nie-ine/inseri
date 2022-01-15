@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
 
-const querySchema = mongoose.Schema({
+const querySchema = new Schema({
     title: { type: String, required: true },
     description: { type: String },
     serverUrl: { type: String },
@@ -22,8 +22,8 @@ const querySchema = mongoose.Schema({
     body: { type: String},
     isBoundToPage: { type: String },
     path: [ { type: String } ],
-    creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User', require: true },
+    creator: { type: Schema.Types.ObjectId, ref: 'User', require: true },
     published: { type: Boolean }
 });
 
-module.exports = mongoose.model('Query', querySchema);
+export default model('Query', querySchema);
