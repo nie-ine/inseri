@@ -1,9 +1,7 @@
-const express = require('express');
-const User = require('../models/user');
-const checkAuth = require('../middleware/check-auth');
-const PageSet = require('../models/page-set');
-const Folder = require('../models/folder');
-const FileModel=require('..//models/files');
+import express from 'express';
+import checkAuth from '../middleware/check-auth';
+import Folder from '../models/folder';
+import FileModel from '..//models/files';
 const router = express.Router();
 
 //creating a new folder --> mainFolderId should be null if it is on the root folder otherwise it is the value of the Parent folder ID
@@ -516,7 +514,7 @@ function getFolderHierarchy(folder_id, targetParent_id, result, folderMap)
   }
 }
 
-  function constructFolderTree(folderDetails,parentId,output ) {
+  function constructFolderTree(folderDetails, parentId, output?) {
     let tempQueueToCheck= new Array();
     const temp = folderDetails.map((obj) => ({...obj, ['folders']: []}));
     folderDetails = temp;
@@ -549,7 +547,8 @@ function getAllFiles(owner, res, targetFolderIds,parentId){
   let sortedFiles=new Map();
   let folderTree={};
   Folder.find({owner: owner, _id:{$in: targetFolderIds}}, {hasFiles: 1, title: 1, hasParent:1})
-    .then(folderDetails => {
+    // TODO remove any and fix me
+    .then((folderDetails: any) => {
       let message;
       if (folderDetails.length === 0) {
         message = 'The Folder has no files';
@@ -631,5 +630,5 @@ function getFileDetails(fileId, filesArray){
     }
   }
 }
-module.exports = router;
+export default router;
 
