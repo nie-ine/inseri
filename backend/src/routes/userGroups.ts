@@ -1,13 +1,12 @@
-const express = require('express');
-const User = require('../models/user');
-const UserGroup = require('../models/userGroups');
-const checkAuth = require('../middleware/check-auth');
-const checkAuth2 = require('../middleware/check-auth-without-immediate-response');
-//const generatedHash = require('../middleware/hash-generator');
-const Page = require('../models/page');
-const PageSet = require('../models/page-set');
+import express from 'express';
+import UserGroup from '../models/userGroups';
+import checkAuth from '../middleware/check-auth';
+//import generatedHash from '../middleware/hash-generator';
+import Page from '../models/page';
+import PageSet from '../models/page-set';
+import Action from '../models/action';
+
 const router = express.Router();
-const Action = require('../models/action');
 
 router.post('', checkAuth, (req, res, next) => { // done with the new logic
   console.log(req.body);
@@ -320,7 +319,6 @@ router.post('/updateUserGroup/:title&:description', checkAuth, (req, res, next) 
         message: 'Error while updating the group',
         error: error
       });
-      git
     })
 });
 
@@ -534,5 +532,4 @@ router.post('/removePageFromProject/', checkAuth, (req, res, next) => {
 });
 
 
-module.exports = router;
-
+export default router;

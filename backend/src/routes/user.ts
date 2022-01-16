@@ -1,17 +1,14 @@
-const express = require('express');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-let settings = require('../.settings/mailDetails');
-const User = require('../models/user');
-const Action = require('../models/action');
-const Query = require('../models/query');
-let nodemailer = require('nodemailer');
-const nieOsServer = require('../.settings/nieOsServer');
-const multer = require("multer");
-
-
-const checkAuth = require('../middleware/check-auth');
-const salt = require('../.settings/salt');
+import express from 'express';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import User from '../models/user';
+import Action from '../models/action';
+import Query from '../models/query';
+import nodemailer from 'nodemailer';
+import nieOsServer from '../.settings/nieOsServer';
+import multer from "multer";
+import checkAuth from '../middleware/check-auth';
+import salt from '../.settings/salt';
 
 const router = express.Router();
 
@@ -50,7 +47,7 @@ router.get('/:id', (req, res, next) => {
     .then((user) => {
 
       // Tests if ID was found in the mongoDB
-      if (user.length === 0) {
+      if (!user) {
         return res.status(404).json({
           message: 'User with such an ID was not found!'
         })
@@ -60,7 +57,7 @@ router.get('/:id', (req, res, next) => {
       res.status(200).json({
         message: 'User was found!',
         user: {
-          userId: user.userId,
+          userId: user._id,
           email: user.email,
           firstName: user.firstName,
           lastName: user.lastName,
@@ -627,4 +624,4 @@ router.post('/updateUsrProfilePic/:email', multer({storage: storage}).single("fi
 });
 
 
-module.exports = router;
+export default router;
