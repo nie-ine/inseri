@@ -1,17 +1,17 @@
-const express = require('express');
+import express from 'express';
 
-const Page = require('../models/page');
-const Query = require('../models/query');
-const File = require('../models/files');
-const Folder = require('../models/folder');
-const mongoose = require('mongoose');
-const checkAuth = require('../middleware/check-auth');
-const checkAuth2 = require('../middleware/check-auth-without-immediate-response');
+import Page from '../models/page';
+import Query from '../models/query';
+import File from '../models/files';
+import Folder from '../models/folder';
+import checkAuth from '../middleware/check-auth';
+import checkAuth2 from '../middleware/check-auth-without-immediate-response';
+import PageSet from '../models/page-set';
+import MyOwnJson from '../models/myOwnJson';
+import multer from "multer";
+import fs from 'fs';
+
 const router = express.Router();
-const PageSet = require('../models/page-set');
-const MyOwnJson = require('../models/myOwnJson');
-const multer = require("multer");
-const fs = require('fs');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -348,7 +348,7 @@ router.delete('/:pageID/queries/:queryID', checkAuth, (req, res, next) => {
       if (result.queries.filter(a => {
         return a._id == req.params.queryID
       }).length === 1) {
-        Query.findByIdAndUpdate({_id: req.params.queryID}, {isBoundToPage: false})
+        Query.findByIdAndUpdate({_id: req.params.queryID}, {isBoundToPage: String(false)})
           .then((updatedQuery) => {
             // Removes the reference to the query in the page
             Page.update({_id: req.params.pageID}, {$pull: {queries: req.params.queryID}})
@@ -458,7 +458,7 @@ router.get('/:pageId/duplicate/:pageSetId', checkAuth, (req, res, next) => {
             params: query.params,
             header: query.header,
             body: query.body,
-            path: query.chosenPath
+            path: query.path
           });
 
           let myOwnJson = await MyOwnJson.findById(query.serverUrl.split('/')[6]);
@@ -538,7 +538,7 @@ router.get('/:pageId/duplicate/:pageSetId', checkAuth, (req, res, next) => {
             params: query.params,
             header: query.header,
             body: query.body,
-            path: query.chosenPath
+            path: query.path
           });
           oldAndNewServerUrls.push(
             {
@@ -597,7 +597,7 @@ router.get('/:pageId/duplicate/:pageSetId', checkAuth, (req, res, next) => {
             params: query.params,
             header: query.header,
             body: query.body,
-            path: query.chosenPath
+            path: query.path
           });
           oldAndNewServerUrls.push(
             {
@@ -940,4 +940,4 @@ router.put('/updateSubPages/:id', checkAuth, (req, res, next) => {
     });
 });
 
-module.exports = router;
+export default router;
