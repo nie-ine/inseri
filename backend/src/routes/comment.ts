@@ -1,13 +1,7 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const Action = require('../models/action');
-const Page = require('../models/page');
-const PageSet = require('../models/page-set');
-const Query = require('../models/query');
-const ObjectId = require('mongoose');
-const Comment = require('../models/comment');
-const checkAuth = require('../middleware/check-auth');
-const checkAuth2 = require('../middleware/check-auth-without-immediate-response');
+import express from 'express';
+import Comment from '../models/comment';
+import checkAuth from '../middleware/check-auth';
+import checkAuth2 from '../middleware/check-auth-without-immediate-response';
 
 const router = express.Router();
 
@@ -137,4 +131,4 @@ router.put('/:id', checkAuth, (req, res, next) => {
     })
 });
 
-module.exports = router;
+export default router;
