@@ -1,10 +1,10 @@
-const express = require('express');
+import express from 'express';
 
-const PageSet = require('../models/page-set');
-const Page = require('../models/page');
-const Query = require('../models/query');
+import PageSet from '../models/page-set';
+import Page from '../models/page';
+import Query from '../models/query';
 
-const checkAuth = require('../middleware/check-auth');
+import checkAuth from '../middleware/check-auth';
 
 const router = express.Router();
 
@@ -212,7 +212,7 @@ router.delete('/:pageSetID/pages/:pageID', checkAuth, (req, res, next) => {
                     .then(result => {
                         // Updates the query so it will not be bound to a page
                         if (result.queries.length > 0) {
-                            Query.updateMany({ _id: { $in: result.queries } }, { isBoundToPage: false})
+                            Query.updateMany({ _id: { $in: result.queries } }, { isBoundToPage: String(false)})
                                 .catch((error) => {
                                     console.log(error);
                                 });
@@ -266,4 +266,4 @@ router.delete('/:pageSetID/pages/:pageID', checkAuth, (req, res, next) => {
         });
 });
 
-module.exports = router;
+export default router;
