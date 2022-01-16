@@ -1,7 +1,8 @@
-const express = require('express');
-const Page = require('../models/page');
-const SubPage=require('../models/sub-page');
-const checkAuth = require('../middleware/check-auth');
+import express from 'express';
+import Page from '../models/page';
+import SubPage from '../models/sub-page';
+import checkAuth from '../middleware/check-auth';
+
 const router = express.Router();
 //create sub-page
 router.post('/New/:pageId',checkAuth, (req, res, next) => {
@@ -153,4 +154,4 @@ router.post('/update/:subPageId',checkAuth, (req, res, next) => {
     })
 });
 
-module.exports = router;
+export default router;
