@@ -1,9 +1,7 @@
-const express = require('express');
-
-const Query = require('../models/query');
-
-const checkAuth = require('../middleware/check-auth');
-const checkAuth2 = require('../middleware/check-auth-without-immediate-response');
+import express from 'express';
+import Query from '../models/query';
+import checkAuth from '../middleware/check-auth';
+import checkAuth2 from '../middleware/check-auth-without-immediate-response';
 
 const router = express.Router();
 
@@ -131,7 +129,7 @@ router.post('', checkAuth, (req, res, next) => {
     header: req.body.header,
     body: req.body.body,
     path: req.body.chosenPath,
-    isBoundToPage: false,
+    isBoundToPage: String(false),
     creator: req.userData.userId
   });
 
@@ -154,7 +152,7 @@ router.delete('/:id', checkAuth, (req, res, next) => {
     // Only deletes the query if it is not bound to a page
     Query.deleteOne({
         _id: req.params.id,
-        isBoundToPage: false
+        isBoundToPage: String(false)
     })
         .then((deletedQuery) => {
             if (deletedQuery.n === 0) {
@@ -175,4 +173,4 @@ router.delete('/:id', checkAuth, (req, res, next) => {
         });
 });
 
-module.exports = router;
+export default router;
