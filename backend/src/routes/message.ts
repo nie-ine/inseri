@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import settings from '../.settings/mailDetails';
+const settings = require('../.settings/mailDetails');
 import checkAuth from '../middleware/check-auth';
 import nodemailer from 'nodemailer';
 const router = express.Router();

@@ -5,10 +5,10 @@ import User from '../models/user';
 import Action from '../models/action';
 import Query from '../models/query';
 import nodemailer from 'nodemailer';
-import nieOsServer from '../.settings/nieOsServer';
+const nieOsServer = require('../.settings/nieOsServer');
 import multer from "multer";
 import checkAuth from '../middleware/check-auth';
-import salt from '../.settings/salt';
+const salt = require('../.settings/salt');
 
 const router = express.Router();
 
