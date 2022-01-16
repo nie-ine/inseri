@@ -18,7 +18,7 @@ import fileRoutes from './routes/file';
 import commentRoutes from "./routes/comment";
 import microServices from './routes/microservice';
 
-import mongodbServer from './.settings/mongodbServer';
+const mongodbServer = require('./.settings/mongodbServer');
 
 const app = express();
 

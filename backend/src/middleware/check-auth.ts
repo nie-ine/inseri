@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import salt from '../.settings/salt';
+const salt = require('../.settings/salt');
 
 export default (req, res, next) => {
     try {
