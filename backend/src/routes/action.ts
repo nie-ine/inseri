@@ -1,19 +1,17 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const Action = require('../models/action');
-const Page = require('../models/page');
-const PageSet = require('../models/page-set');
-const Query = require('../models/query');
-const MyOwnJSON = require('../models/myOwnJson');
-const Files = require('../models/files');
-const Folder = require('../models/folder');
-const Comment = require('../models/comment');
-const fs = require('fs');
-const ObjectId = require('mongoose');
+import express from 'express';
+import Action from '../models/action';
+import Page from '../models/page';
+import PageSet from '../models/page-set';
+import Query from '../models/query';
+import MyOwnJSON from '../models/myOwnJson';
+import Files from '../models/files';
+import Folder from '../models/folder';
+import Comment from '../models/comment';
+import fs from 'fs';
 
-const checkAuth = require('../middleware/check-auth');
-const checkAuth2 = require('../middleware/check-auth-without-immediate-response');
-const generatedHash = require('../middleware/hash-generator');
+import checkAuth from '../middleware/check-auth';
+import checkAuth2 from '../middleware/check-auth-without-immediate-response';
+import generatedHash from '../middleware/hash-generator';
 
 const router = express.Router();
 
@@ -95,6 +93,7 @@ router.get('/checkIfShortNameExist/:shortName', (req, res, next ) => {
     .then(actions => {
       console.log( actions );
       let exist;
+      let message;
     if (actions.length === 0) {
       message = 'No actions were found';
       exist = false;
@@ -690,7 +689,7 @@ router.post('', checkAuth, (req, res, next) => {
             });
           })
           .catch(errorAction => {
-            newPageSet.findByIdAndRemove({_id: resultPageSet._id})
+            PageSet.findByIdAndRemove({_id: resultPageSet._id})
               .then(() => {
                 res.status(500).json({
                   message: 'Action cannot be created',
@@ -737,7 +736,7 @@ router.post('', checkAuth, (req, res, next) => {
             });
           })
           .catch(errorAction => {
-            newPage.findByIdAndRemove({_id: resultPage._id})
+            PageSet.findByIdAndRemove({_id: resultPage._id})
               .then(() => {
                 res.status(500).json({
                   message: 'Action cannot be created',
@@ -837,7 +836,7 @@ router.delete('/:id', checkAuth, (req, res, next) => {
           const allQueries = resultAction.hasPage.queries.map(query => query._id);
 
           // Sets the queries to unbound
-          Query.updateMany({_id: {$in: allQueries}}, {isBoundToPage: false})
+          Query.updateMany({_id: {$in: allQueries}}, {isBoundToPage: String(false)})
             .catch((error) => {
               console.log(error);
             });
@@ -886,7 +885,7 @@ router.delete('/:id', checkAuth, (req, res, next) => {
           const allPages = resultAction.hasPageSet.hasPages.map(page => page._id);
 
           // Sets the queries to unbound
-          Query.updateMany({_id: {$in: allQueries}}, {isBoundToPage: false})
+          Query.updateMany({_id: {$in: allQueries}}, {isBoundToPage: String(false)})
             .catch((error) => {
               console.log(error);
             });
@@ -954,5 +953,4 @@ router.delete('/:id', checkAuth, (req, res, next) => {
     );
 });
 
-module.exports = router;
-
+export default router;
