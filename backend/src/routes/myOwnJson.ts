@@ -1,9 +1,7 @@
-const express = require('express');
-
-const MyOwnJson = require('../models/myOwnJson');
-
-const checkAuth = require('../middleware/check-auth');
-const checkAuth2 = require('../middleware/check-auth-without-immediate-response');
+import express from 'express';
+import MyOwnJson from '../models/myOwnJson';
+import checkAuth from '../middleware/check-auth';
+import checkAuth2 from '../middleware/check-auth-without-immediate-response';
 
 const router = express.Router();
 
@@ -82,7 +80,7 @@ router.put('/updateJson/:id', checkAuth, (req, res, next) => {
     {
       content: req.body.content
     }, {
-      returnNewDocument: true
+      new: true
     })
     .then((resultJSON) => {
       res.status(200).json({
@@ -102,7 +100,7 @@ router.put('/updateFile/:id', checkAuth, (req, res, next) => {
   MyOwnJson.find( {_id: req.params.id} )
     .then( result => {
         console.log( result[ 0 ].content.info );
-        newValue = result[ 0 ].content.info;
+        const newValue = result[ 0 ].content.info;
         newValue[ Object.keys(req.body)[0] ] = req.body[ Object.keys(req.body)[0] ];
         MyOwnJson.findOneAndUpdate(
           {_id: req.params.id},
@@ -111,7 +109,7 @@ router.put('/updateFile/:id', checkAuth, (req, res, next) => {
               info: newValue
             }
           }, {
-            returnNewDocument: true
+            new: true
           })
           .then((resultJSON) => {
             res.status(200).json({
@@ -147,4 +145,4 @@ router.put('/publishJSON/:id', checkAuth, (req, res, next) => {
     })
 });
 
-module.exports = router;
+export default router;

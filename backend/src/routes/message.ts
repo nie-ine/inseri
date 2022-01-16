@@ -1,9 +1,8 @@
-const express = require('express');
-var cors = require('cors');
-let settings = require('../.settings/mailDetails');
-
-const checkAuth = require('../middleware/check-auth');
-let nodemailer = require('nodemailer');
+import express from 'express';
+import cors from 'cors';
+import settings from '../.settings/mailDetails';
+import checkAuth from '../middleware/check-auth';
+import nodemailer from 'nodemailer';
 const router = express.Router();
 
 
@@ -41,4 +40,4 @@ router.post('', cors(), checkAuth, (req, res, next) => {
     });
 });
 
-module.exports = router;
+export default router;
