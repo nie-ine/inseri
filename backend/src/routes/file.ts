@@ -1,17 +1,19 @@
-const express = require("express");
-const FileModel = require("../models/files");
-const Folder = require("../models/folder");
+import express from "express";
+import FileModel, { File } from "../models/files";
+import Folder from "../models/folder";
+import multer from "multer";
+import checkAuth from '../middleware/check-auth';
+import Action from "../models/action";
+import PageSet from "../models/page-set";
+import Page from "../models/page";
+import Query from "../models/query";
+import fs from 'fs';
+import MyOwnJson from "../models/myOwnJson";
+import Comment from "../models/comment";
+import { ObjectId } from "mongodb";
+import { Document } from "mongoose";
+
 const router = express.Router();
-const multer = require("multer");
-const checkAuth = require('../middleware/check-auth');
-const Action = require("../models/action");
-const PageSet = require("../models/page-set");
-const Page = require("../models/page");
-const Query = require("../models/query");
-const fs = require('fs');
-let MyOwnJson = require("../models/myOwnJson");
-let Comment = require("../models/comment");
-const {ObjectId} = require('mongodb');
 
 
 /**
@@ -49,7 +51,7 @@ router.post('/uploadZipFile', multer({storage: storage}).single("zip"), (req, re
  * To upload a single file
  */
 router.post('/singleFileUpload/:folderId/:newFile', checkAuth, multer({storage: storage}).single("file"), (req, res, next) => { ///multer fn that expect a single file from the incoming req and will try to find an file property in the req body
-  let file = {};
+  let file: Document<File> & File;
   console.log(req.body);
   console.log(req.params);
   console.log(req.file);
@@ -92,7 +94,7 @@ router.post('/singleFileUpload/:folderId/:newFile', checkAuth, multer({storage: 
               console.log(err);
               res.status(500).json({
                 message: 'Creating File on Server failed',
-                error: error
+                error: err
               });
             }
             console.log('File Created');
@@ -145,7 +147,7 @@ router.post('/files/:folderId', checkAuth, multer({storage: storage}).array("fil
   (req, res, next) => {
     //console.log(req.files);
     const url = req.protocol + "://" + req.get("host");
-    let filesArr = [];
+    let filesArr: File[]= [];
     for (let i = 0; i < req.files.length; i++) {
       filesArr.push({
         title: req.files[i].originalname,
@@ -155,7 +157,7 @@ router.post('/files/:folderId', checkAuth, multer({storage: storage}).array("fil
       });
     }
     //console.log(filesArr);
-    FileModel.insertMany(filesArr, function (error, docs) {
+    FileModel.insertMany(filesArr).then(docs => {
       console.log("line 87" + docs);
       console.log(docs.map(file => {
         return file._id;
@@ -235,7 +237,7 @@ router.get("/:id", (req, res, next) => {
 router.get("/getFileByUrl/:url", checkAuth, (req, res, next) => {
 
   console.log( req.params.url );
-  fileName = req.params.url.split( "/")[ 4 ]
+  const fileName = req.params.url.split( "/")[ 4 ]
   console.log( req.params.url.split( "/"), fileName )
  
   FileModel.findOne({urlPath: {$regex : fileName}}).then(file => {
@@ -406,7 +408,7 @@ function getComments(projectSpecific, objectId, returnedObj, res, req, queryIds)
  */
 router.get("/downloadProject/:actionId", checkAuth, (req, res, next) => {
   let queryIds = [];
-  let returnedObj = {};
+  let returnedObj: any = {};
   Action.find({creator: req.userData.userId, _id: req.params.actionId})
     .populate('hasPage')
     .populate({
@@ -535,7 +537,7 @@ async function getFoldersOfFiles(fileIds, folderIds, userId, returnedObj) {
     let newObjectFileIds = [];
     if(fileIds && fileIds.length!=0){
       fileIds.forEach(item => {
-        newObjectFileIds.push(ObjectId(item))
+        newObjectFileIds.push(new ObjectId(item))
       });
     }
 
@@ -775,7 +777,7 @@ async function getQueriesFromPages(queryIds, returnedObj, res, req) {
  * Not used
  */
 router.get("/restoreFiles/", (req, res, next) => {
-  fs.readdir('backend/files').then(filenames => {
+  fs.promises.readdir('backend/files').then(filenames => {
     return res.status(200).json({
       message: 'Files retuned ',
       files: filenames
@@ -788,4 +790,4 @@ router.get("/restoreFiles/", (req, res, next) => {
   });
 });
 
-module.exports = router;
+export default router;
