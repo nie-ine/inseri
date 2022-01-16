@@ -1,8 +1,6 @@
-const express = require('express');
-const Comment = require('../models/comment');
-const checkAuth = require('../middleware/check-auth');
-const request = require('request');
-const http = require('http')
+import express from 'express';
+import checkAuth from '../middleware/check-auth';
+import request from 'request';
 const router = express.Router();
 
 router.post('/:microserviceAddress', checkAuth, (req, res, next) => {
@@ -27,4 +25,4 @@ router.post('/:microserviceAddress', checkAuth, (req, res, next) => {
 
 });
 
-module.exports = router;
+export default router;
