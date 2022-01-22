@@ -7,9 +7,12 @@ jobs:
       - image: 'cimg/node:16.13'
     steps:
       - checkout
-      - run: cd backend
-      - node/install-packages
+      - run: 
+          command: cd frontend
+      - node/install-packages:
+          app-dir: ~/project/backend
       - run: ls -l
+      - run : echo "foo test"
 workflows:
   backend:
     jobs:
