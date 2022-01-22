@@ -3,6 +3,7 @@ jobs:
   build:
     docker:
       - image: 'cimg/node:16.13'
+    # at least medium needed for frontend build
     resource_class: medium
 
     parameters:
@@ -15,7 +16,6 @@ jobs:
       - checkout
       - restore_cache:
           key: deps-{{ .Environment.CACHE_VERSION }}-{{ checksum "<< parameters.app_path >>/package-lock.json" }}
-      - run: ls -l << parameters.app_path >>/
       - run: |
           cd << parameters.app_path >>
           npm ci
@@ -33,27 +33,24 @@ jobs:
           root: .
           paths:
             - << parameters.app_path >>/
-  test:
-    docker:
-      - image: 'cimg/node:16.13'
-    resource_class: small
-    steps:
-      - attach_workspace:
-          at: .
-      - run: ls -l backend/
+  # test:
+  #   docker:
+  #     - image: 'cimg/node:16.13'
+  #   resource_class: small
+  #   steps:
+  #     - attach_workspace:
+  #         at: .
+  #     - run: ls -l backend/
 
 workflows:
   backend:
     jobs:
       - build:
           app_path: backend
-      - test:
-          requires:
-            - build
+      # - test:
+      #     requires:
+      #       - build
   frontend:
     jobs:
       - build:
           app_path: frontend
-      - test:
-          requires:
-            - build
