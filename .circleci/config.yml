@@ -7,7 +7,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: v1-deps-{{ checksum "backend/package-lock.json" }}
+          key: deps-{{ .Environment.CACHE_VERSION }}-{{ checksum "backend/package-lock.json" }}
       - run: ls -l backend/
       - run: |
           cd backend
@@ -17,7 +17,7 @@ jobs:
 
       # cache for across pipelines
       - save_cache:
-          key: v1-deps-{{ checksum "backend/package-lock.json" }}
+          key: deps-{{ .Environment.CACHE_VERSION }}-{{ checksum "backend/package-lock.json" }}
           paths: 
             - backend/node_modules
       # cache for subsequent jobs
@@ -31,7 +31,7 @@ jobs:
     resource_class: small
     steps:
       - attach_workspace:
-          at: backend/
+          at: .
       - run: ls -l backend/
 
 workflows:
