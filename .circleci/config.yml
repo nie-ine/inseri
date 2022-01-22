@@ -1,18 +1,16 @@
 version: '2.1'
-orbs:
-  node: circleci/node@5.0.0
 jobs:
   build:
-    resource_class: small
     docker:
       - image: 'cimg/node:16.13'
+    resource_class: small
     steps:
       - checkout
-      - node/install-packages:
-          app-dir: ~/project/backend
-      - node/run:
-          npm-run: build
-      - run: ls ~/project/backend
+      - run: |
+          cd backend
+          npm ci
+          npm run build
+          ls -l
 workflows:
   backend:
     jobs:
