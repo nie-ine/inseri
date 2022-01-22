@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/nie-ine/inseri/tree/devel.svg?style=svg)](https://circleci.com/gh/nie-ine/inseri/tree/devel)
+
 Our signature presentation for you: [https://inseri.swiss/](https://inseri.swiss/) 
 
 ------
