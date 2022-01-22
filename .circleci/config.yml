@@ -1,0 +1,16 @@
+version: '2.1'
+orbs:
+  node: circleci/node@5.0.0
+jobs:
+  build:
+    docker:
+      - image: 'cimg/node:16.13'
+    steps:
+      - checkout
+      - run: cd backend
+      - node/install-packages
+      - run: ls -l
+workflows:
+  backend:
+    jobs:
+      - build
