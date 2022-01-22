@@ -3,16 +3,16 @@ orbs:
   node: circleci/node@5.0.0
 jobs:
   build:
+    resource_class: small
     docker:
       - image: 'cimg/node:16.13'
     steps:
       - checkout
-      - run: 
-          command: cd frontend
       - node/install-packages:
           app-dir: ~/project/backend
-      - run: ls -l
-      - run : echo "foo test"
+      - node/run:
+          npm-run: build
+      - run: ls ~/project/backend
 workflows:
   backend:
     jobs:
