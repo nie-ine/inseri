@@ -3,7 +3,7 @@ jobs:
   build:
     docker:
       - image: 'cimg/node:16.13'
-    resource_class: small
+    resource_class: medium
 
     parameters:
       app_path:
