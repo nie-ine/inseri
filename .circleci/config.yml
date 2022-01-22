@@ -19,12 +19,19 @@ jobs:
       - save_cache:
           key: v1-deps-{{ checksum "backend/package-lock.json" }}
           paths: 
-            - node_modules
+            - backend/node_modules
+      # cache for subsequent jobs
+      - persist_to_workspace:
+          root: .
+          paths:
+            - backend/
   test:
     docker:
       - image: 'cimg/node:16.13'
     resource_class: small
     steps:
+      - attach_workspace:
+          at: backend/
       - run: ls -l backend/
 
 workflows:
