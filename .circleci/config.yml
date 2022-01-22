@@ -8,6 +8,7 @@ jobs:
       - checkout
       - restore_cache:
           key: v1-deps-{{ checksum "backend/package-lock.json" }}
+      - run: ls -l backend/
       - run: |
           cd backend
           npm ci
@@ -19,18 +20,11 @@ jobs:
           key: v1-deps-{{ checksum "backend/package-lock.json" }}
           paths: 
             - node_modules
-      # cache for subsequent jobs
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
   test:
     docker:
       - image: 'cimg/node:16.13'
     resource_class: small
     steps:
-      - attach_workspace:
-          at: .
       - run: ls -l backend/
 
 workflows:
