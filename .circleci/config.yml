@@ -4,27 +4,35 @@ jobs:
     docker:
       - image: 'cimg/node:16.13'
     resource_class: small
+
+    parameters:
+      app_path:
+        description: "is it backend or frontend path?"
+        default: "backend"
+        type: string
+
     steps:
       - checkout
       - restore_cache:
-          key: deps-{{ .Environment.CACHE_VERSION }}-{{ checksum "backend/package-lock.json" }}
-      - run: ls -l backend/
+          key: deps-{{ .Environment.CACHE_VERSION }}-{{ checksum "<< parameters.app_path >>/package-lock.json" }}
+      - run: ls -l << parameters.app_path >>/
       - run: |
-          cd backend
+          cd << parameters.app_path >>
           npm ci
           npm run build
           ls -l
 
       # cache for across pipelines
       - save_cache:
-          key: deps-{{ .Environment.CACHE_VERSION }}-{{ checksum "backend/package-lock.json" }}
+          key: deps-{{ .Environment.CACHE_VERSION }}-{{ checksum "<< parameters.app_path >>/package-lock.json" }}
           paths: 
-            - backend/node_modules
+            - << parameters.app_path >>/node_modules
+
       # cache for subsequent jobs
       - persist_to_workspace:
           root: .
           paths:
-            - backend/
+            - << parameters.app_path >>/
   test:
     docker:
       - image: 'cimg/node:16.13'
@@ -37,7 +45,15 @@ jobs:
 workflows:
   backend:
     jobs:
-      - build
+      - build:
+          app_path: backend
+      - test:
+          requires:
+            - build
+  frontend:
+    jobs:
+      - build:
+          app_path: frontend
       - test:
           requires:
             - build
