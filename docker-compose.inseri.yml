@@ -15,14 +15,14 @@ services:
     image: nieine/inseri-backend:2022-01-03 #mean:2021-09-09
     expose:
       - "3000"
+    env_file:
+      - ./inseriPersistentDataVolume/backend/.settings/.env.prod
     environment:
-      - PORT=3000
       - VIRTUAL_HOST=node.inseri.swiss
       - VIRTUAL_PORT=3000
       - LETSENCRYPT_HOST=node.inseri.swiss
       - LETSENCRYPT_EMAIL=arooran.thanabalasingam@uzh.ch
     volumes:
-      - ./inseriPersistentDataVolume/backend/.settings:/usr/src/app/.settings
       - ./inseriPersistentDataVolume/backend/files:/usr/src/app/files
     restart: unless-stopped
 
