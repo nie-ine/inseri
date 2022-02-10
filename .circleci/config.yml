@@ -37,11 +37,10 @@ jobs:
     docker:
       - image: 'cimg/node:16.13'
       - image: 'mongo:4.4'
-    resource_class: medium
+    resource_class: small
     steps:
       - attach_workspace:
           at: .
-      - run: ls -lA backend/
       - run: |
           cd backend
           npm run test
