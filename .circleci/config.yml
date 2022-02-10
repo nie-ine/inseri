@@ -1,4 +1,4 @@
-version: '2.1'
+version: 2.1
 jobs:
   build:
     docker:
@@ -25,7 +25,7 @@ jobs:
       # cache for across pipelines
       - save_cache:
           key: deps-{{ .Environment.CACHE_VERSION }}-{{ checksum "<< parameters.app_path >>/package-lock.json" }}
-          paths: 
+          paths:
             - << parameters.app_path >>/node_modules
 
       # cache for subsequent jobs
@@ -33,23 +33,27 @@ jobs:
           root: .
           paths:
             - << parameters.app_path >>/
-  # test:
-  #   docker:
-  #     - image: 'cimg/node:16.13'
-  #   resource_class: small
-  #   steps:
-  #     - attach_workspace:
-  #         at: .
-  #     - run: ls -l backend/
+  test:
+    docker:
+      - image: 'cimg/node:16.13'
+      - image: 'mongo:4.4'
+    resource_class: medium
+    steps:
+      - attach_workspace:
+          at: .
+      - run: ls -lA backend/
+      - run: |
+          cd backend
+          npm run test
 
 workflows:
   backend:
     jobs:
       - build:
           app_path: backend
-      # - test:
-      #     requires:
-      #       - build
+      - test:
+           requires:
+             - build
   frontend:
     jobs:
       - build:
