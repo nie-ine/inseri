@@ -1,22 +1,21 @@
 import express from 'express';
 import cors from 'cors';
-const settings = require('../.settings/mailDetails');
 import checkAuth from '../middleware/check-auth';
 import nodemailer from 'nodemailer';
 const router = express.Router();
-
+const {MAIL_EMAIL_ADDRESS, MAIL_PW, MAIL_RECIPIENT, MAIL_TYPE} = process.env;
 
 router.post('', cors(), checkAuth, (req, res, next) => {
     const transporter = nodemailer.createTransport({
-        // service: settings.type,
+        // service: MAIL_TYPE,
         // auth: {
-        //      pass: settings.pw // Your password
+        //      pass: MAIL_PW // Your password
         // }
       host: 'mailgateway.zhdk.cloud.switch.ch',
       port: 587
     });
 
-    let recipient = settings.recipient;
+    let recipient = MAIL_RECIPIENT;
 
     if ( req.body.recipient ) {
       recipient = req.body.recipient;

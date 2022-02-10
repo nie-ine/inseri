@@ -5,11 +5,9 @@ import User from '../models/user';
 import Action from '../models/action';
 import Query from '../models/query';
 import nodemailer from 'nodemailer';
-const nieOsServer = require('../.settings/nieOsServer');
 import multer from "multer";
 import checkAuth from '../middleware/check-auth';
-const salt = require('../.settings/salt');
-
+const {NIE_OS_SERVER, SALT} = process.env;
 const router = express.Router();
 
 const storage = multer.diskStorage({
@@ -125,7 +123,7 @@ router.put('/:id', checkAuth, (req, res, next) => {
               email: req.body.email,
               userId: req.body.userId
             },
-            salt.salt,
+            SALT,
             {
               expiresIn: '1h'
             });
@@ -310,7 +308,7 @@ router.get('/:email/reset-password', (req, res, next) => {
         to: result.email, // list of receivers
         subject: 'Reset Password', // Subject line
         text: 'Please klick on the following link to restore your password: \n\n' +
-          nieOsServer.nieOSServer +
+        NIE_OS_SERVER +
           '/reset-password?email=' +
           encodeURIComponent(result.email) +
           '&temp=' +
@@ -577,7 +575,7 @@ router.post('/login', (req, res, next) => {
           email: fetchedUser.email,
           userId: fetchedUser._id
         },
-        salt.salt,
+        SALT,
         {
           expiresIn: '1h'
         });

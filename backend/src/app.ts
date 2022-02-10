@@ -18,13 +18,12 @@ import fileRoutes from './routes/file';
 import commentRoutes from "./routes/comment";
 import microServices from './routes/microservice';
 
-const mongodbServer = require('./.settings/mongodbServer');
-
+const {MONGO_DB} = process.env;
 const app = express();
 
 mongoose
   .connect(
-    mongodbServer.mongodbServer
+    MONGO_DB
   )
   .then(() => {
     console.log("Connected to database!");
