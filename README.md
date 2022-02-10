@@ -6,7 +6,7 @@ Our signature presentation for you: [https://inseri.swiss/](https://inseri.swiss
 
 #### Presented or mentioned at  
 
-[National Swiss Scholarly Edition Infrastructure Conference 2020/11 | Switzerland | 22 YouTube Videos](https://www.youtube.com/playlist?list=PLkCga6LPxdgrZwu0xBxsZEJauJ8_pq8ru)
+[National Swiss Scholarly Edition Infrastructure Conference 2020/11 | Switzerland | 22 YouTube Videos](https://www.youtube.com/playlist?list=PLkCga6LPxdgrZwu0xBxsZEJauJ8_pq8ru)
 
 [Open Access in Action | Swissuniversities Project Highlights 2020 | Switzerland](https://claireclivaz.hypotheses.org/930)
 
@@ -22,50 +22,35 @@ Our signature presentation for you: [https://inseri.swiss/](https://inseri.swiss
 
 -----
 
-## Start inseri with docker-compose
-
-If you want to use it locally or on your server, but you don't want to contribute own code.
-
+## Start inseri using docker-compose
   - ``git clone https://github.com/nie-ine/inseri.git``
-  - ``cd inseri``
-  - ```cp ./backend/settings_default ./backend/.settings```
-  - replace salt in ./backend/.settings/slat.js to own secret string
+  - create an equivalent file `.env.prod` to `./backend/.env.dev`
+  - point the `env_file` to the `.env.prod` in docker-compose.inseri.yml
   - ```docker network create inseri-net```
   - start reverse-proxy ```docker-compose -f docker-compose.nginx.yml up -d```
   - start extras ```docker-compose -f docker-compose.extras.yml up -d```
   - start inseri ```docker-compose -f docker-compose.inseri.yml up -d```
 
-## Get it up and running for development
-If you want to contribute own code.
+## Prepare for development
+  - ``git clone https://github.com/nie-ine/inseri.git``
+  - ``cd inseri``
+  - run MongoDb locally:
+    - `docker run -v /my/own/datadir:/data/db --name some-mongo -p 27017:27017 -d mongo:4.4`
+  - replace the values in `./backend/.env.dev` accordingly
+  - install the dependencies first by executing `npm ci` in backend and frontend paths separately
+  - now backend and fronted can be started using `npm start` (again in both paths separately)
 
-#### Clone inseri
- - ``git clone https://github.com/nie-ine/inseri.git``
- - ``cd inseri``
- - ```cp ./backend/src/settings_default ./backend/src/.settings```
- - replace salt in ./backend/.settings/salt.js to own secret string
+## Docker
+To build and publish both docker images at the same
 
-#### MongoDB:
+```./buildAndPublishDockerImages.sh```
 
- - `docker run --network some-net -v /my/own/datadir:/data/db --name some-mongo -p 27017:27017 -d mongo:4.4`
- - In the folder .settings, change the file mongodbServer.js Your file should look similar to the following:
+To build individually, change the directory to either backend or frontend and then
 
- ```
-const mongodbServer = 'mongodb+srv://localhost:27017/node-angular';
-
-module.exports = {
-  mongodbServer: mongodbServer
-};
-```
-
-#### Install and start Angular and Node.js
-
- - ``npm ci``
- - ``npm run start`` for frontend
- - ``npm run start:server`` for backend
+```docker build -t my-image .```
 
 ## Generate documentation
 
 npm run compodoc
 
 compodoc -p src/tsconfig.app.json -s
-
