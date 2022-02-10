@@ -1,5 +1,9 @@
 {
   "exit": true,
-  "require": ["ts-node/register", "test/hooks.ts"],
+  "require": [
+    "dotenv/config",
+    "ts-node/register",
+    "test/hooks.ts"
+  ],
   "spec": ["test/**/*.ts"]
 }
