@@ -35,12 +35,13 @@ jobs:
             - << parameters.app_path >>/
   test:
     docker:
-      - image: 'cimg/node:16.13'
+      - image: 'cimg/node:16.13-browsers'
       - image: 'mongo:4.4'
     resource_class: small
     steps:
       - attach_workspace:
           at: .
+      - run: dockerize -wait tcp://localhost:27017 -timeout 1m
       - run: |
           cd backend
           npm run test

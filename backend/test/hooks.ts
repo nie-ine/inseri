@@ -1,8 +1,9 @@
 import User from '../src/models/user';
 import { ObjectId } from "mongodb";
+import { RootHookObject } from 'mocha';
 
-export const mochaHooks = {
-    before: async () => {
+export const mochaHooks: RootHookObject = {
+    beforeAll: async () => {
       await User.collection.drop()
 
       const user = new User({
@@ -17,8 +18,4 @@ export const mochaHooks = {
 
       await user.save()
     },
-
-    afterEach(done) {
-        done()
-    }
 }
