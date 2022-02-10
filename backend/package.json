@@ -2,9 +2,9 @@
   "name": "inseri-backend",
   "version": "1.0.0",
   "scripts": {
-    "start": "nodemon -r dotenv/config src/server.ts dotenv_config_path='.env.dev'",
+    "start": "DOTENV_CONFIG_PATH='.env.dev' nodemon -r dotenv/config src/server.ts",
     "build": "tsc",
-    "test": "mocha dotenv_config_path='.env.test'"
+    "test": "DOTENV_CONFIG_PATH='.env.test' mocha"
   },
   "license": "MIT",
   "private": true,
