@@ -1,7 +1,21 @@
+import User from '../src/models/user';
+import { ObjectId } from "mongodb";
+
 export const mochaHooks = {
-    // TODO setup and teardown data
-    beforeEach(done) {
-        done()
+    before: async () => {
+      await User.collection.drop()
+
+      const user = new User({
+        _id: new ObjectId('620522b4fc13ae03b300031b'),
+        email: 'foo.bar@inseri.swiss',
+        password: 'mysecret1234',
+        firstName: 'Foo',
+        lastName: 'Bar',
+        newsletter: false,
+        usrProfileFilePath: ''
+      });
+
+      await user.save()
     },
 
     afterEach(done) {
