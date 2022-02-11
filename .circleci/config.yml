@@ -44,8 +44,9 @@ jobs:
       - run: dockerize -wait tcp://localhost:27017 -timeout 1m
       - run: |
           cd backend
-          npm run test
-
+          npm run test:ci
+      - store_test_results:
+          path: backend/test_output
 workflows:
   backend:
     jobs:
