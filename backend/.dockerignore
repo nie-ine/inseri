@@ -1,6 +1,9 @@
 # compiled output
 tmp
 sme
+test_output/
+coverage/
+.nyc_output
 
 # dependencies
 node_modules
