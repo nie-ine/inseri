@@ -1,10 +1,11 @@
 import User from '../src/models/user';
 import { ObjectId } from "mongodb";
 import { RootHookObject } from 'mocha';
+import mongoose from 'mongoose';
 
 export const mochaHooks: RootHookObject = {
     beforeAll: async () => {
-      await User.collection.drop()
+      await mongoose.connection.dropDatabase();
 
       const user = new User({
         _id: new ObjectId('620522b4fc13ae03b300031b'),

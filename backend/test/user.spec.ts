@@ -1,6 +1,5 @@
 import server from '../src/server';
 import chai from 'chai';
-import mongoose from 'mongoose';
 import chaiHttp = require('chai-http');
 import 'mocha';
 
@@ -10,8 +9,6 @@ const expect = chai.expect
 
 describe('endpoint /users', () => {
   it('returns 404', async () => {
-    console.log("CONN")
-    console.log(mongoose.connection.readyState);
     const res = await chai.request(server).get('/api/users/020522b4fc13ae03b30003aa')
     chai.expect(res.status).to.eql(404)
   })
