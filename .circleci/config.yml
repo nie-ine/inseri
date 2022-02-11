@@ -45,8 +45,12 @@ jobs:
       - run: |
           cd backend
           npm run test:ci
+          npm run test:coverage
       - store_test_results:
           path: backend/test_output
+      - store_artifacts:
+          path: backend/coverage
+
 workflows:
   backend:
     jobs:
