@@ -14,7 +14,7 @@ export const mochaHooks: RootHookObject = {
         firstName: 'Foo',
         lastName: 'Bar',
         newsletter: false,
-        usrProfileFilePath: ''
+        usrProfileFilePath: '/home/pic/foo.jpg'
       });
 
       await user.save()

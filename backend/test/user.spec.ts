@@ -4,37 +4,55 @@ import chaiHttp = require('chai-http');
 import 'mocha';
 
 chai.use(chaiHttp);
-const expect = chai.expect
+chai.should()
 
 
-describe('endpoint /users', () => {
-  it('returns 404', async () => {
-    const res = await chai.request(server).get('/api/users/020522b4fc13ae03b30003aa')
-    chai.expect(res.status).to.eql(404)
+describe('GET /users/:id', () => {
+  describe('given non-existing user', () => {
+    it("returns 404", async() => {
+      const {status} = await chai.request(server).get('/api/users/020522b4fc13ae03b30003aa')
+      status.should.equal(404)
+    })
+
+    it("returns message", async() => {
+      const {body} = await chai.request(server).get('/api/users/020522b4fc13ae03b30003aa')
+      body.message.should.equal('User with such an ID was not found!')
+    })
   })
 
-  it('returns 200', async () => {
-    const res = await chai.request(server).get('/api/users/620522b4fc13ae03b300031b')
-    expect(res.status).to.eql(200)
+  describe('given nonsense as id', () => {
+    it("returns 500", async() => {
+      const {status} = await chai.request(server).get('/api/users/nonsense')
+      status.should.equal(500)
+    })
+
+    it("returns message", async() => {
+      const {body} = await chai.request(server).get('/api/users/nonsense')
+      body.error.message.should.equal('Cast to ObjectId failed for value "nonsense" (type string) at path "_id" for model "User"')
+    })
   })
 
-  it('returns email', async () => {
-    const res = await chai.request(server).get('/api/users/620522b4fc13ae03b300031b')
-    expect(res.body.user.email).to.eql('foo.bar@inseri.swiss')
-  })
+  describe('given existing user', () => {
+    it("returns 200", async() => {
+      const {status} = await chai.request(server).get('/api/users/620522b4fc13ae03b300031b')
+      status.should.equal(200)
+    })
 
-  it('returns firstName', async () => {
-    const res = await chai.request(server).get('/api/users/620522b4fc13ae03b300031b')
-    expect(res.body.user.firstName).to.eql('Foo')
-  })
+    it("returns message", async() => {
+      const {body} = await chai.request(server).get('/api/users/620522b4fc13ae03b300031b')
+      body.message.should.equal('User was found!')
+    })
 
-  it('returns lastName', async () => {
-    const res = await chai.request(server).get('/api/users/620522b4fc13ae03b300031b')
-    expect(res.body.user.lastName).to.eql('Bar')
-  })
-
-  it('returns newsletter', async () => {
-    const res = await chai.request(server).get('/api/users/620522b4fc13ae03b300031b')
-    expect(res.body.user.newsletter).to.eql(false)
+    it("returns user object", async() => {
+      const {body} = await chai.request(server).get('/api/users/620522b4fc13ae03b300031b')
+      body.user.should.deep.equal({
+        userId: '620522b4fc13ae03b300031b',
+        email: 'foo.bar@inseri.swiss',
+        firstName: 'Foo',
+        lastName: 'Bar',
+        newsletter: false,
+        usrProfileFilePath: '/home/pic/foo.jpg'
+      })
+    })
   })
 })
