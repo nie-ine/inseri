@@ -87,7 +87,7 @@ router.put('/:id', checkAuth, (req, res, next) => {
 
   // Tests if last name is undefined, null or is empty string
   if (!Boolean(req.body.lastName)) {
-    messages.push('Your last name is invalid');
+    messages.push('Your last name is invalid!');
   }
 
   // Attaches error messages to the response
