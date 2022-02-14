@@ -2,20 +2,20 @@ import server from '../src/server';
 import chai from 'chai';
 import chaiHttp = require('chai-http');
 import 'mocha';
-import User from '../src/models/user';
 import mongoose from 'mongoose';
 import { createJWTToken } from './helper';
-import { user1 } from './fixture';
+import { initUser1 } from './fixture';
 
 chai.use(chaiHttp);
 chai.should()
+const jwtToken62 = createJWTToken('620522b4fc13ae03b300031b', 'foo.bar@inseri.swiss')
 
 // TODO verify if endpoint is still needed
 describe('GET /users', () => {
   describe('given one user', () => {
     before(async () => {
       await mongoose.connection.dropDatabase()
-      await User.collection.insertOne(user1)
+      await initUser1()
     })
 
     it("returns 200", async() => {
@@ -37,7 +37,7 @@ describe('GET /users', () => {
         lastName: 'Bar',
         newsletter: false,
         usrProfileFilePath: '/home/pic/foo.jpg',
-        password: "mysecret1234"
+        password: "$2b$10$CYjApIE4xeoUQlxq9kh9Q.DKUsRoTLySUp1ylKbV7qn1nWN5jmzoy"
       }])
     })
   })
@@ -46,7 +46,7 @@ describe('GET /users', () => {
 describe('GET /users/:id', () => {
   before(async () => {
     await mongoose.connection.dropDatabase()
-    await User.collection.insertOne(user1)
+    await initUser1()
   })
 
   describe('given non-existing user', () => {
@@ -103,7 +103,7 @@ describe('GET /users/:id', () => {
 describe('PUT /users/:id', () => {
   before(async () => {
     await mongoose.connection.dropDatabase()
-    await User.collection.insertOne(user1)
+    await initUser1()
   })
 
   describe('given invalid auth token', () => {
@@ -130,12 +130,11 @@ describe('PUT /users/:id', () => {
       lastName: 'Bar',
       newsletter: true
     }
-    const jwtToken = createJWTToken('620522b4fc13ae03b300031b', 'foo.bar@inseri.swiss')
 
     it("returns 200", async() => {
       const {status} = await chai.request(server)
                                  .put('/api/users/620522b4fc13ae03b300031b')
-                                 .auth(jwtToken, { type: 'bearer' })
+                                 .auth(jwtToken62, { type: 'bearer' })
                                  .send(payload)
       status.should.equal(200)
     })
@@ -143,14 +142,11 @@ describe('PUT /users/:id', () => {
     it("returns response object", async() => {
       const {body} = await chai.request(server)
                                .put('/api/users/620522b4fc13ae03b300031b')
-                               .auth(jwtToken, { type: 'bearer' })
+                               .auth(jwtToken62, { type: 'bearer' })
                                .send(payload)
-      body.should.deep.equal({
-        token: jwtToken,
-        expiresIn: '3600',
-        firstName: 'Updated Name',
-        userId: '620522b4fc13ae03b300031b'
-      })
+      body.expiresIn.should.deep.equal('3600')
+      body.firstName.should.deep.equal('Updated Name')
+      body.userId.should.deep.equal('620522b4fc13ae03b300031b')
     })
   })
 
@@ -162,12 +158,11 @@ describe('PUT /users/:id', () => {
       lastName: 'Bar',
       newsletter: true
     }
-    const jwtToken = createJWTToken('620522b4fc13ae03b300031b', 'foo.bar@inseri.swiss')
 
     it("returns 500", async() => {
       const {status} = await chai.request(server)
                                .put('/api/users/620522b4fc13ae03b300031b')
-                               .auth(jwtToken, { type: 'bearer' })
+                               .auth(jwtToken62, { type: 'bearer' })
                                .send(payload)
       status.should.equal(500)
     })
@@ -175,7 +170,7 @@ describe('PUT /users/:id', () => {
     it("returns message", async() => {
       const {body} = await chai.request(server)
                                .put('/api/users/620522b4fc13ae03b300031b')
-                               .auth(jwtToken, { type: 'bearer' })
+                               .auth(jwtToken62, { type: 'bearer' })
                                .send(payload)
       body.error.message.should.equal('Cast to ObjectId failed for value "nonsense" (type string) at path "_id" for model "User"')
     })
@@ -189,12 +184,11 @@ describe('PUT /users/:id', () => {
       lastName: 'Bar',
       newsletter: true
     }
-    const jwtToken = createJWTToken('42086f6cfc13ae209000194c', 'foo.bar@inseri.swiss')
 
     it("returns 409", async() => {
       const {status} = await chai.request(server)
                                  .put('/api/users/42086f6cfc13ae209000194c')
-                                 .auth(jwtToken, { type: 'bearer' })
+                                 .auth(jwtToken62, { type: 'bearer' })
                                  .send(payload)
       status.should.equal(409)
     })
@@ -202,7 +196,7 @@ describe('PUT /users/:id', () => {
     it("returns message", async() => {
       const {body} = await chai.request(server)
                                .put('/api/users/42086f6cfc13ae209000194c')
-                               .auth(jwtToken, { type: 'bearer' })
+                               .auth(jwtToken62, { type: 'bearer' })
                                .send(payload)
       body.should.deep.equal({ message: "This email address is already taken!" })
     })
@@ -216,12 +210,11 @@ describe('PUT /users/:id', () => {
       lastName: 'Bar',
       newsletter: true
     }
-    const jwtToken = createJWTToken('620522b4fc13ae03b300031b', 'foo.bar@inseri.swiss')
 
     it("returns 400", async() => {
       const {status} = await chai.request(server)
                                  .put('/api/users/620522b4fc13ae03b300031b')
-                                 .auth(jwtToken, { type: 'bearer' })
+                                 .auth(jwtToken62, { type: 'bearer' })
                                  .send(payload)
       status.should.equal(400)
     })
@@ -229,7 +222,7 @@ describe('PUT /users/:id', () => {
     it("returns message", async() => {
       const {body} = await chai.request(server)
                                .put('/api/users/620522b4fc13ae03b300031b')
-                               .auth(jwtToken, { type: 'bearer' })
+                               .auth(jwtToken62, { type: 'bearer' })
                                .send(payload)
       body.should.deep.equal({ messages: ["Your email address is invalid!"] })
     })
@@ -243,12 +236,11 @@ describe('PUT /users/:id', () => {
       lastName: 'Bar',
       newsletter: true
     }
-    const jwtToken = createJWTToken('620522b4fc13ae03b300031b', 'foo.bar@inseri.swiss')
 
     it("returns 400", async() => {
       const {status} = await chai.request(server)
                                  .put('/api/users/620522b4fc13ae03b300031b')
-                                 .auth(jwtToken, { type: 'bearer' })
+                                 .auth(jwtToken62, { type: 'bearer' })
                                  .send(payload)
       status.should.equal(400)
     })
@@ -256,7 +248,7 @@ describe('PUT /users/:id', () => {
     it("returns message", async() => {
       const {body} = await chai.request(server)
                                .put('/api/users/620522b4fc13ae03b300031b')
-                               .auth(jwtToken, { type: 'bearer' })
+                               .auth(jwtToken62, { type: 'bearer' })
                                .send(payload)
       body.should.deep.equal({ messages: ["Your first name is invalid!"] })
     })
@@ -270,12 +262,11 @@ describe('PUT /users/:id', () => {
       lastName: '',
       newsletter: true
     }
-    const jwtToken = createJWTToken('620522b4fc13ae03b300031b', 'foo.bar@inseri.swiss')
 
     it("returns 400", async() => {
       const {status} = await chai.request(server)
                                  .put('/api/users/620522b4fc13ae03b300031b')
-                                 .auth(jwtToken, { type: 'bearer' })
+                                 .auth(jwtToken62, { type: 'bearer' })
                                  .send(payload)
       status.should.equal(400)
     })
@@ -283,9 +274,201 @@ describe('PUT /users/:id', () => {
     it("returns message", async() => {
       const {body} = await chai.request(server)
                                .put('/api/users/620522b4fc13ae03b300031b')
-                               .auth(jwtToken, { type: 'bearer' })
+                               .auth(jwtToken62, { type: 'bearer' })
                                .send(payload)
       body.should.deep.equal({ messages: ["Your last name is invalid!"] })
+    })
+  })
+
+})
+
+describe('PUT /users/:id/pwd', () => {
+  beforeEach(async () => {
+    await mongoose.connection.dropDatabase()
+    await initUser1()
+  })
+
+  describe('given invalid auth token', () => {
+    it("returns 401", async() => {
+      const {status} = await chai.request(server)
+                                 .put('/api/users/620522b4fc13ae03b300031b/pwd')
+                                 .send({})
+      status.should.equal(401)
+    })
+
+    it("returns message", async() => {
+      const {body} = await chai.request(server)
+                               .put('/api/users/620522b4fc13ae03b300031b/pwd')
+                               .send({})
+      body.message.should.equal('Auth Failed')
+    })
+  })
+
+  describe('given valid password', () => {
+    const payload = {
+      userId: '620522b4fc13ae03b300031b',
+      newPwd: 'new1234secret',
+      oldPwd: 'mysecret1234',
+    }
+
+    it("returns 201", async() => {
+      const {status} = await chai.request(server)
+                                 .put('/api/users/620522b4fc13ae03b300031b/pwd')
+                                 .auth(jwtToken62, { type: 'bearer' })
+                                 .send(payload)
+      status.should.equal(201)
+    })
+
+    it("returns message", async() => {
+      const {body} = await chai.request(server)
+                               .put('/api/users/620522b4fc13ae03b300031b/pwd')
+                               .auth(jwtToken62, { type: 'bearer' })
+                               .send(payload)
+      body.should.deep.equal({message: "Pwd updated"})
+    })
+  })
+
+  describe('given empty old password', () => {
+    const payload = {
+      userId: '620522b4fc13ae03b300031b',
+      newPwd: 'new1234secret',
+      oldPwd: '',
+    }
+
+    it("returns 400", async() => {
+      const {status} = await chai.request(server)
+                                 .put('/api/users/620522b4fc13ae03b300031b/pwd')
+                                 .auth(jwtToken62, { type: 'bearer' })
+                                 .send(payload)
+      status.should.equal(400)
+    })
+
+    it("returns message", async() => {
+      const {body} = await chai.request(server)
+                               .put('/api/users/620522b4fc13ae03b300031b/pwd')
+                               .auth(jwtToken62, { type: 'bearer' })
+                               .send(payload)
+      body.should.deep.equal({ messages: ["Your old password input is invalid!"] })
+    })
+  })
+
+  describe('given empty new password', () => {
+    const payload = {
+      userId: '620522b4fc13ae03b300031b',
+      newPwd: '',
+      oldPwd: 'mysecret1234',
+    }
+
+    it("returns 400", async() => {
+      const {status} = await chai.request(server)
+                                 .put('/api/users/620522b4fc13ae03b300031b/pwd')
+                                 .auth(jwtToken62, { type: 'bearer' })
+                                 .send(payload)
+      status.should.equal(400)
+    })
+
+    it("returns message", async() => {
+      const {body} = await chai.request(server)
+                               .put('/api/users/620522b4fc13ae03b300031b/pwd')
+                               .auth(jwtToken62, { type: 'bearer' })
+                               .send(payload)
+      body.should.deep.equal({ messages: ["Your new password input is invalid!"] })
+    })
+  })
+
+  describe('given too short password', () => {
+    const payload = {
+      userId: '620522b4fc13ae03b300031b',
+      newPwd: '123',
+      oldPwd: 'mysecret1234',
+    }
+
+    it("returns 400", async() => {
+      const {status} = await chai.request(server)
+                                 .put('/api/users/620522b4fc13ae03b300031b/pwd')
+                                 .auth(jwtToken62, { type: 'bearer' })
+                                 .send(payload)
+      status.should.equal(400)
+    })
+
+    it("returns message", async() => {
+      const {body} = await chai.request(server)
+                               .put('/api/users/620522b4fc13ae03b300031b/pwd')
+                               .auth(jwtToken62, { type: 'bearer' })
+                               .send(payload)
+      body.should.deep.equal({ message: "Your new password should contain minimum 4 characters!" })
+    })
+  })
+
+  describe('given same password', () => {
+    const payload = {
+      userId: '620522b4fc13ae03b300031b',
+      newPwd: 'mysecret1234',
+      oldPwd: 'mysecret1234',
+    }
+
+    it("returns 420", async() => {
+      const {status} = await chai.request(server)
+                                 .put('/api/users/620522b4fc13ae03b300031b/pwd')
+                                 .auth(jwtToken62, { type: 'bearer' })
+                                 .send(payload)
+      status.should.equal(420)
+    })
+
+    it("returns message", async() => {
+      const {body} = await chai.request(server)
+                               .put('/api/users/620522b4fc13ae03b300031b/pwd')
+                               .auth(jwtToken62, { type: 'bearer' })
+                               .send(payload)
+      body.should.deep.equal({ message: "Your new password is the same as the old one!" })
+    })
+  })
+
+  describe('given wrong password', () => {
+    const payload = {
+      userId: '620522b4fc13ae03b300031b',
+      newPwd: '1234new1234',
+      oldPwd: 'wrongpassword',
+    }
+
+    it("returns 400", async() => {
+      const {status} = await chai.request(server)
+                                 .put('/api/users/620522b4fc13ae03b300031b/pwd')
+                                 .auth(jwtToken62, { type: 'bearer' })
+                                 .send(payload)
+      status.should.equal(400)
+    })
+
+    it("returns message", async() => {
+      const {body} = await chai.request(server)
+                               .put('/api/users/620522b4fc13ae03b300031b/pwd')
+                               .auth(jwtToken62, { type: 'bearer' })
+                               .send(payload)
+      body.should.deep.equal({ message: "Your old password input is wrong!" })
+    })
+  })
+
+  describe('given non-existing userId', () => {
+    const payload = {
+      userId: '420522b4fc13ae03b300031b',
+      newPwd: 'new1234secret',
+      oldPwd: 'mysecret1234',
+    }
+
+    it("returns 401", async() => {
+      const {status} = await chai.request(server)
+                                 .put('/api/users/620522b4fc13ae03b300031b/pwd')
+                                 .auth(jwtToken62, { type: 'bearer' })
+                                 .send(payload)
+      status.should.equal(401)
+    })
+
+    it("returns message", async() => {
+      const {body} = await chai.request(server)
+                               .put('/api/users/620522b4fc13ae03b300031b/pwd')
+                               .auth(jwtToken62, { type: 'bearer' })
+                               .send(payload)
+      body.should.deep.equal({ message: "Auth failed" })
     })
   })
 
