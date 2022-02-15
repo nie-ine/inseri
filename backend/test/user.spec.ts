@@ -706,3 +706,42 @@ describe('GET /users/:email/getUserByEmail', () => {
     })
   })
 })
+
+describe('POST /users/:email/reset-password-set-new-password', () => {
+  beforeEach(async () => {
+    await mongoose.connection.dropDatabase()
+    await initUser1()
+  })
+
+  describe('given existing user', () => {
+    const payload = {
+      temp: "$2b$10$CYjApIE",
+      newPwd: "1234new1234"
+    }
+
+    it("returns 201", async() => {
+      const {status} = await chai.request(server)
+                                 .post('/api/users/foo.bar@inseri.swiss/reset-password-set-new-password')
+                                 .send(payload)
+      status.should.equal(201)
+    })
+
+    it("returns message", async() => {
+      const {body} = await chai.request(server)
+                               .post('/api/users/foo.bar@inseri.swiss/reset-password-set-new-password')
+                               .send(payload)
+      body.message.should.equal("Pwd updated")
+    })
+
+
+    it("updates password", async() => {
+      const response = await chai.request(server)
+                                 .post('/api/users/foo.bar@inseri.swiss/reset-password-set-new-password')
+                                 .send(payload)
+
+      const dbUser = await User.findById('620522b4fc13ae03b300031b')
+      const isPasswordUpdated = bcrypt.compareSync('1234new1234', dbUser.password)
+      isPasswordUpdated.should.be.true
+    })
+  })
+})
