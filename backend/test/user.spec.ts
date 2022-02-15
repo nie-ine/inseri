@@ -673,3 +673,36 @@ describe('GET /users/:id/deactivate-newsletter', () => {
   })
 
 })
+
+describe('GET /users/:email/getUserByEmail', () => {
+  before(async () => {
+    await mongoose.connection.dropDatabase()
+    await initUser1()
+  })
+
+  describe('given existing user', () => {
+    it("returns 201", async() => {
+      const {status} = await chai.request(server)
+                                 .get('/api/users/foo.bar@inseri.swiss/getUserByEmail')
+      status.should.equal(201)
+    })
+
+    it("returns message", async() => {
+      const {body} = await chai.request(server)
+                               .get('/api/users/foo.bar@inseri.swiss/getUserByEmail')
+      body.message.should.equal("User Successfully found ")
+    })
+
+    it("returns user object", async() => {
+      const {body} = await chai.request(server)
+                               .get('/api/users/foo.bar@inseri.swiss/getUserByEmail')
+      body.user.should.deep.equal({
+        _id: '620522b4fc13ae03b300031b',
+        email: 'foo.bar@inseri.swiss',
+        firstName: 'Foo',
+        lastName: 'Bar',
+        newsletter: false,
+        usrProfileFilePath: '/home/pic/foo.jpg'})
+    })
+  })
+})
