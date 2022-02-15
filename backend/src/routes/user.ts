@@ -331,6 +331,7 @@ router.get('/:email/reset-password', (req, res, next) => {
 router.get('/:email/getUserByEmail', (req, res, next) => {
   User.findOne({email: req.params.email})
     .then(result => {
+        result.password = undefined
         res.status(201).json({
           message: 'User Successfully found ',
           user: result
