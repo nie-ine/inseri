@@ -14,3 +14,17 @@ export const initUser1 = async () => {
 
   await User.collection.insertOne(user)
 }
+
+export const initUser2 = async () => {
+  const user = {
+    _id: new ObjectId('720522b4fc13ae03b300031b'),
+    email: 'foo.bar2@inseri.swiss',
+    password: "$2b$10$CYjApIE4xeoUQlxq9kh9Q.DKUsRoTLySUp1ylKbV7qn1nWN5jmzoy",
+    firstName: 'Foo',
+    lastName: 'Bar',
+    newsletter: true,
+    usrProfileFilePath: '/home/pic/foo.jpg'
+  }
+
+  await User.collection.insertOne(user)
+}

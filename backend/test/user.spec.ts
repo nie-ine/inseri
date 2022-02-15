@@ -4,7 +4,7 @@ import chaiHttp = require('chai-http');
 import 'mocha';
 import mongoose from 'mongoose';
 import { createJWTToken } from './helper';
-import { initUser1 } from './fixture';
+import { initUser1, initUser2 } from './fixture';
 import User from '../src/models/user';
 import bcrypt from 'bcrypt';
 
@@ -355,6 +355,30 @@ describe('PUT /users/:id/pwd', () => {
     })
   })
 
+  describe('given nonsense as userId', () => {
+    const payload = {
+      userId: 'nonsense',
+      newPwd: 'new1234secret',
+      oldPwd: 'mysecret1234',
+    }
+
+    it("returns 401", async() => {
+      const {status} = await chai.request(server)
+                                 .put('/api/users/620522b4fc13ae03b300031b/pwd')
+                                 .auth(jwtToken62, { type: 'bearer' })
+                                 .send(payload)
+      status.should.equal(401)
+    })
+
+    it("returns message", async() => {
+      const {body} = await chai.request(server)
+                               .put('/api/users/620522b4fc13ae03b300031b/pwd')
+                               .auth(jwtToken62, { type: 'bearer' })
+                               .send(payload)
+      body.should.deep.equal({ message: "Auth failed" })
+    })
+  })
+
   describe('given empty old password', () => {
     const payload = {
       userId: '620522b4fc13ae03b300031b',
@@ -537,6 +561,29 @@ describe('PUT /users/:id/delete', () => {
     })
   })
 
+  describe('given nonsense as userId', () => {
+    const payload = {
+      userId: 'nonsense',
+      oldPwd: 'mysecret1234',
+    }
+
+    it("returns 401", async() => {
+      const {status} = await chai.request(server)
+                                 .put('/api/users/620522b4fc13ae03b300031b/delete')
+                                 .auth(jwtToken62, { type: 'bearer' })
+                                 .send(payload)
+      status.should.equal(401)
+    })
+
+    it("returns message", async() => {
+      const {body} = await chai.request(server)
+                               .put('/api/users/620522b4fc13ae03b300031b/delete')
+                               .auth(jwtToken62, { type: 'bearer' })
+                               .send(payload)
+      body.should.deep.equal({ message: "Auth failed" })
+    })
+  })
+
   describe('given wrong password', () => {
     const payload = {
       userId: '620522b4fc13ae03b300031b',
@@ -582,4 +629,47 @@ describe('PUT /users/:id/delete', () => {
       body.should.deep.equal({ messages: ["Your old password input is invalid!"] })
     })
   })
+})
+
+describe('GET /users/:id/deactivate-newsletter', () => {
+  beforeEach(async () => {
+    await mongoose.connection.dropDatabase()
+    await initUser2()
+  })
+
+  describe('given existing user', () => {
+    it("returns 201", async() => {
+      const {status} = await chai.request(server)
+                                 .get('/api/users/720522b4fc13ae03b300031b/deactivate-newsletter')
+      status.should.equal(201)
+    })
+
+    it("returns message", async() => {
+      const {body} = await chai.request(server)
+                               .get('/api/users/720522b4fc13ae03b300031b/deactivate-newsletter')
+      body.should.deep.equal({ message: "User does not receive newsletter anymore" })
+    })
+
+    it("sets newsletter to false", async() => {
+      const res = await chai.request(server)
+                            .get('/api/users/720522b4fc13ae03b300031b/deactivate-newsletter')
+      const dbUser = await User.findById('720522b4fc13ae03b300031b')
+      dbUser.newsletter.should.be.false
+    })
+  })
+
+  describe('given nonsense as userId', () => {
+    it("returns 401", async() => {
+      const {status} = await chai.request(server)
+                                 .get('/api/users/nonsense/deactivate-newsletter')
+      status.should.equal(401)
+    })
+
+    it("returns message", async() => {
+      const {body} = await chai.request(server)
+                               .get('/api/users/nonsense/deactivate-newsletter')
+      body.should.deep.equal({ message: "Did not find user" })
+    })
+  })
+
 })

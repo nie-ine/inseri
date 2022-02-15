@@ -218,7 +218,6 @@ router.put('/:id/pwd', checkAuth, (req, res, next) => {
       })
     })
     .catch(err => {
-      console.log(err);
       return res.status(401).json({
         message: 'Auth failed'
       });
@@ -252,8 +251,6 @@ router.put('/:id/delete', checkAuth, (req, res, next) => {
           })
           // Tests if the password input is wrong
         } else if (result[0]) {
-          let date = new Date();
-          console.log(date);
           User.findOneAndUpdate({_id: req.body.userId},
             {
               delete: new Date()
@@ -268,7 +265,6 @@ router.put('/:id/delete', checkAuth, (req, res, next) => {
       })
     })
     .catch(err => {
-      console.log(err);
       return res.status(401).json({
         message: 'Auth failed'
       });
@@ -287,7 +283,6 @@ router.get('/:id/deactivate-newsletter', (req, res, next) => {
       });
     })
     .catch(err => {
-      console.log(err);
       return res.status(401).json({
         message: 'Did not find user'
       });
