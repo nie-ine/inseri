@@ -15,7 +15,6 @@ chai.should()
 const { expect } = chai
 const jwtToken62 = createJWTToken('620522b4fc13ae03b300031b', 'foo.bar@inseri.swiss')
 
-// TODO verify if endpoint is still needed
 describe('GET /users', () => {
   describe('given one user', () => {
     before(async () => {
@@ -66,8 +65,6 @@ describe('GET /users/:id', () => {
     })
   })
 
-  // TODO hide error object
-  // TODO return 400
   describe('given nonsense as id', () => {
     it("returns 500", async() => {
       const {status} = await chai.request(server).get('/api/users/nonsense')
@@ -1253,6 +1250,105 @@ describe('POST /users/signup/:newsLetter', () => {
                                .field('usrProfileFilePath', 'assets/img/team/user-icon-vector.jpg')
 
       body.message.should.equal('Email address already exists!')
+    })
+  })
+
+})
+
+describe('POST /users/login', () => {
+  beforeEach(async () => {
+    await mongoose.connection.dropDatabase()
+    await initUser1()
+    await initUser2()
+  })
+
+  describe('given correct login', () => {
+    const payload = {
+      email: 'foo.bar@inseri.swiss',
+      password: 'mysecret1234'
+    }
+
+    it("returns 200", async() => {
+      const {status} = await chai.request(server)
+                                 .post('/api/users/login')
+                                 .send(payload)
+      status.should.equal(200)
+    })
+
+    it("returns object", async() => {
+      const {body} = await chai.request(server)
+                               .post('/api/users/login')
+                               .send(payload)
+
+      body.expiresIn.should.equal('3600')
+      body.firstName.should.equal('Foo')
+      body.userId.should.equal('620522b4fc13ae03b300031b')
+    })
+  })
+
+  describe('given non-existing user', () => {
+    const payload = {
+      email: 'foo.non-existing@inseri.swiss',
+      password: 'mysecret1234'
+    }
+
+    it("returns 401", async() => {
+      const {status} = await chai.request(server)
+                                 .post('/api/users/login')
+                                 .send(payload)
+      status.should.equal(401)
+    })
+
+    it("returns message", async() => {
+      const {body} = await chai.request(server)
+                               .post('/api/users/login')
+                               .send(payload)
+
+      body.should.deep.equal({ message: 'Auth failed' })
+    })
+  })
+
+  describe('given wrong password', () => {
+    const payload = {
+      email: 'foo.bar@inseri.swiss',
+      password: 'wrongpassword'
+    }
+
+    it("returns 401", async() => {
+      const {status} = await chai.request(server)
+                                 .post('/api/users/login')
+                                 .send(payload)
+      status.should.equal(401)
+    })
+
+    it("returns message", async() => {
+      const {body} = await chai.request(server)
+                               .post('/api/users/login')
+                               .send(payload)
+
+      body.should.deep.equal({ message: 'Auth failed' })
+    })
+  })
+
+  describe('given deactivated user', () => {
+    const payload = {
+      email: 'foo.bar2@inseri.swiss',
+      password: 'mysecret1234'
+    }
+
+    it("returns 405", async() => {
+      const {status} = await chai.request(server)
+                                 .post('/api/users/login')
+                                 .send(payload)
+      status.should.equal(405)
+    })
+
+    it("returns message", async() => {
+      const {body} = await chai.request(server)
+                               .post('/api/users/login')
+                               .send(payload)
+
+      body.should.deep.equal({ message: 'User has been deactivated' })
     })
   })
 
