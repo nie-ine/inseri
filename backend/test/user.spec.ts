@@ -4,7 +4,7 @@ import chaiHttp = require('chai-http');
 import 'mocha';
 import mongoose from 'mongoose';
 import { createJWTToken } from './helper';
-import { initUser1, initUser2 } from './fixture';
+import { initAction1, initAction2, initUser1, initUser2 } from './fixture';
 import User from '../src/models/user';
 import bcrypt from 'bcrypt';
 
@@ -753,9 +753,9 @@ describe('PUT /users/:id/reactivate', () => {
     await initUser2()
   })
 
-  describe('given existing user', () => {
+  describe('given delete-marked user', () => {
     const payload = {
-      userId: "620522b4fc13ae03b300031b",
+      userId: "720522b4fc13ae03b300031b",
       oldPwd: "mysecret1234",
     }
 
@@ -772,7 +772,6 @@ describe('PUT /users/:id/reactivate', () => {
                                .send(payload)
       body.message.should.equal("User account has been reactivated")
     })
-
 
     it("updates delete field", async() => {
       const response = await chai.request(server)
@@ -825,4 +824,125 @@ describe('PUT /users/:id/reactivate', () => {
       body.messages.should.deep.equal(["Your old password input is invalid!"])
     })
   })
+})
+
+describe('GET /users/:id/actions', () => {
+  beforeEach(async () => {
+    await mongoose.connection.dropDatabase()
+    await initUser1()
+  })
+
+  describe('given invalid auth token', () => {
+    it("returns 401", async() => {
+      const {status} = await chai.request(server)
+                                 .get('/api/users/620522b4fc13ae03b300031b/actions')
+      status.should.equal(401)
+    })
+
+    it("returns message", async() => {
+      const {body} = await chai.request(server)
+                               .get('/api/users/620522b4fc13ae03b300031b/actions')
+      body.message.should.equal('Auth Failed')
+    })
+  })
+
+  describe('given no action', () => {
+    it("returns 200", async() => {
+      const {status} = await chai.request(server)
+                                 .get('/api/users/620522b4fc13ae03b300031b/actions')
+                                 .auth(jwtToken62, { type: 'bearer' })
+      status.should.equal(200)
+    })
+
+    it("returns message", async() => {
+      const {body} = await chai.request(server)
+                               .get('/api/users/620522b4fc13ae03b300031b/actions')
+                               .auth(jwtToken62, { type: 'bearer' })
+      body.message.should.equal("No actions were found")
+    })
+
+    it("returns empty array", async() => {
+      const {body} = await chai.request(server)
+                               .get('/api/users/620522b4fc13ae03b300031b/actions')
+                               .auth(jwtToken62, { type: 'bearer' })
+      body.actions.should.deep.equal([])
+    })
+  })
+
+  describe('given 1 action', () => {
+    beforeEach(async () => {
+      await initAction1()
+    })
+
+    it("returns 200", async() => {
+      const {status} = await chai.request(server)
+                                 .get('/api/users/620522b4fc13ae03b300031b/actions')
+                                 .auth(jwtToken62, { type: 'bearer' })
+      status.should.equal(200)
+    })
+
+    it("returns message", async() => {
+      const {body} = await chai.request(server)
+                               .get('/api/users/620522b4fc13ae03b300031b/actions')
+                               .auth(jwtToken62, { type: 'bearer' })
+      body.message.should.equal("One action was found")
+    })
+
+    it("returns action", async() => {
+      const {body} = await chai.request(server)
+                               .get('/api/users/620522b4fc13ae03b300031b/actions')
+                               .auth(jwtToken62, { type: 'bearer' })
+      body.actions.should.deep.equal([{
+        _id: 'a20522b4fc13ae03b300031b',
+        title: 'my project',
+        description: 'super project description',
+        type: 'page-set',
+        creator: '620522b4fc13ae03b300031b'
+      }])
+    })
+  })
+
+  describe('given multiple actions', () => {
+    beforeEach(async () => {
+      await initAction1()
+      await initAction2()
+    })
+
+    it("returns 200", async() => {
+      const {status} = await chai.request(server)
+                                 .get('/api/users/620522b4fc13ae03b300031b/actions')
+                                 .auth(jwtToken62, { type: 'bearer' })
+      status.should.equal(200)
+    })
+
+    it("returns message", async() => {
+      const {body} = await chai.request(server)
+                               .get('/api/users/620522b4fc13ae03b300031b/actions')
+                               .auth(jwtToken62, { type: 'bearer' })
+      body.message.should.equal("All actions were found")
+    })
+
+    it("returns actions", async() => {
+      const {body} = await chai.request(server)
+                               .get('/api/users/620522b4fc13ae03b300031b/actions')
+                               .auth(jwtToken62, { type: 'bearer' })
+      body.actions.should.deep.equal([
+      {
+        _id: 'a20522b4fc13ae03b300031b',
+        title: 'my project',
+        description: 'super project description',
+        type: 'page-set',
+        creator: '620522b4fc13ae03b300031b'
+      },
+      {
+        _id: 'b20522b4fc13ae03b300031b',
+        title: 'my proj',
+        description: 'magnificent description',
+        type: 'page-set',
+        creator: '620522b4fc13ae03b300031b'
+      }
+      ])
+    })
+  })
+
 })
