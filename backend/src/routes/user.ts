@@ -592,7 +592,7 @@ router.post('/updateUsrProfilePic/:email', multer({storage: storage}).single("fi
   let filePath = "";
   User.findOne({email: req.params.email}).then(userFound => {
     if (req.file) {
-      filePath = req.body.hostname + "/assets/img/team/" + req.file.filename;
+      filePath = req.headers.host + "/files/" + req.file.filename;
     } else if (!userFound.usrProfileFilePath) {
       filePath = req.body.usrProfileFilePath;
     } else {

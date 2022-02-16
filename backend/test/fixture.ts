@@ -25,7 +25,7 @@ export const initUser2 = async () => {
     firstName: 'Foo',
     lastName: 'Bar',
     newsletter: true,
-    usrProfileFilePath: '/home/pic/foo.jpg',
+    usrProfileFilePath: null,
     delete: new Date(2020,1,31)
   }
 
