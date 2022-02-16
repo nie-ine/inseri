@@ -1,4 +1,5 @@
 import express from 'express';
+import path from 'path';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/user';
@@ -12,11 +13,10 @@ const router = express.Router();
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "src/assets/img/team");
+    cb(null, path.join(__dirname, "..", "files"));
   },
   filename: (req, file, cb) => {
     const name = file.originalname;//req.file._id+"_"
-    console.log("The expected filename form the multer package = " + Date.now() + "-" + name);
     cb(null, Date.now() + "-" + name);
   }
 });
@@ -506,8 +506,7 @@ router.post('/signup/:newsLetter', multer({storage: storage}).single("file"), (r
         .then(hashPwd => {
           let filePath = req.body.usrProfileFilePath;
           if (req.file) {
-
-            filePath = req.body.host + "/assets/img/team/" + req.file.filename;
+            filePath = req.headers.host + "/files/" + req.file.filename;
 
           }
           const user = new User({
@@ -515,11 +514,12 @@ router.post('/signup/:newsLetter', multer({storage: storage}).single("file"), (r
             password: hashPwd,
             firstName: req.body.firstName,
             lastName: req.body.lastName,
-            newsletter: req.param.newsLetter,
+            newsletter: req.params.newsLetter === 'true',
             usrProfileFilePath: filePath
           });
           user.save()
             .then(result => {
+              result.password = undefined
 
               res.status(201).json({
                 message: 'User was created',
