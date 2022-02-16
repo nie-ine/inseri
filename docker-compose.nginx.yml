@@ -20,7 +20,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./inseriPersistentDataVolume/nginx/acme:/etc/acme.sh
     environment:
-      - "DEFAULT_EMAIL=arooran.thanabalasingam@uzh.ch"
+      - "DEFAULT_EMAIL=my.email@test.email" # <--- please change to your email
 
 networks:
   default:
