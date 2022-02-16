@@ -408,8 +408,6 @@ router.put('/:id/reactivate', (req, res, next) => {
           })
           // Tests if the password input is wrong
         } else if (result[0]) {
-          let date = new Date();
-          console.log(date);
           User.findOneAndUpdate({_id: req.body.userId},
             {
               delete: undefined
