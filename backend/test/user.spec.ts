@@ -4,7 +4,7 @@ import chaiHttp = require('chai-http');
 import 'mocha';
 import mongoose from 'mongoose';
 import { createJWTToken } from './helper';
-import { initAction1, initAction2, initUser1, initUser2 } from './fixture';
+import { initAction1, initAction2, initQuery1, initQuery2, initUser1, initUser2 } from './fixture';
 import User from '../src/models/user';
 import bcrypt from 'bcrypt';
 
@@ -941,6 +941,142 @@ describe('GET /users/:id/actions', () => {
         type: 'page-set',
         creator: '620522b4fc13ae03b300031b'
       }
+      ])
+    })
+  })
+
+})
+
+describe('GET /users/:id/queries', () => {
+  beforeEach(async () => {
+    await mongoose.connection.dropDatabase()
+    await initUser1()
+  })
+
+  describe('given invalid auth token', () => {
+    it("returns 401", async() => {
+      const {status} = await chai.request(server)
+                                 .get('/api/users/620522b4fc13ae03b300031b/queries')
+      status.should.equal(401)
+    })
+
+    it("returns message", async() => {
+      const {body} = await chai.request(server)
+                               .get('/api/users/620522b4fc13ae03b300031b/queries')
+      body.message.should.equal('Auth Failed')
+    })
+  })
+
+  describe('given no queries', () => {
+    it("returns 200", async() => {
+      const {status} = await chai.request(server)
+                                 .get('/api/users/620522b4fc13ae03b300031b/queries')
+                                 .auth(jwtToken62, { type: 'bearer' })
+      status.should.equal(200)
+    })
+
+    it("returns message", async() => {
+      const {body} = await chai.request(server)
+                               .get('/api/users/620522b4fc13ae03b300031b/queries')
+                               .auth(jwtToken62, { type: 'bearer' })
+      body.message.should.equal("No queries were found")
+    })
+
+    it("returns empty array", async() => {
+      const {body} = await chai.request(server)
+                               .get('/api/users/620522b4fc13ae03b300031b/queries')
+                               .auth(jwtToken62, { type: 'bearer' })
+      body.queries.should.deep.equal([])
+    })
+  })
+
+  describe('given 1 query', () => {
+    beforeEach(async () => {
+      await initQuery1()
+    })
+
+    it("returns 200", async() => {
+      const {status} = await chai.request(server)
+                                 .get('/api/users/620522b4fc13ae03b300031b/queries')
+                                 .auth(jwtToken62, { type: 'bearer' })
+      status.should.equal(200)
+    })
+
+    it("returns message", async() => {
+      const {body} = await chai.request(server)
+                               .get('/api/users/620522b4fc13ae03b300031b/queries')
+                               .auth(jwtToken62, { type: 'bearer' })
+      body.message.should.equal("One query was found")
+    })
+
+    it("returns query", async() => {
+      const {body} = await chai.request(server)
+                               .get('/api/users/620522b4fc13ae03b300031b/queries')
+                               .auth(jwtToken62, { type: 'bearer' })
+      body.queries.should.deep.equal([{
+        _id: 'a00cc58569210f3c29428faf',
+        path: [],
+        title: 'page:my project | data stored in inseri',
+        params: [],
+        header: [],
+        isBoundToPage: 'true',
+        creator: '620522b4fc13ae03b300031b',
+        description: '2022:16:10:36:5',
+        method: 'JSON',
+        serverUrl: 'http://localhost:3000/api/myOwnJson/getJson/a00cc58569210f3c29428faf'
+      }])
+    })
+  })
+
+  describe('given multiple queries', () => {
+    beforeEach(async () => {
+      await initQuery1()
+      await initQuery2()
+    })
+
+    it("returns 200", async() => {
+      const {status} = await chai.request(server)
+                                 .get('/api/users/620522b4fc13ae03b300031b/queries')
+                                 .auth(jwtToken62, { type: 'bearer' })
+      status.should.equal(200)
+    })
+
+    it("returns message", async() => {
+      const {body} = await chai.request(server)
+                               .get('/api/users/620522b4fc13ae03b300031b/queries')
+                               .auth(jwtToken62, { type: 'bearer' })
+      body.message.should.equal("All queries were found")
+    })
+
+    it("returns queries", async() => {
+      const {body} = await chai.request(server)
+                               .get('/api/users/620522b4fc13ae03b300031b/queries')
+                               .auth(jwtToken62, { type: 'bearer' })
+      body.queries.should.deep.equal([
+        {
+          _id: 'a00cc58569210f3c29428faf',
+          path: [],
+          title: 'page:my project | data stored in inseri',
+          params: [],
+          header: [],
+          isBoundToPage: 'true',
+          creator: '620522b4fc13ae03b300031b',
+          description: '2022:16:10:36:5',
+          method: 'JSON',
+          serverUrl: 'http://localhost:3000/api/myOwnJson/getJson/a00cc58569210f3c29428faf'
+        },
+        {
+          _id: 'b00cc58569210f3c29428faf',
+          path: [],
+          title: 'page:my proj | data stored in inseri',
+          params: [],
+          header: [],
+          isBoundToPage: 'true',
+          creator: '620522b4fc13ae03b300031b',
+          description: '2022:16:10:36:5',
+          method: 'JSON',
+          serverUrl: 'http://localhost:3000/api/myOwnJson/getJson/b00cc58569210f3c29428faf'
+        }
       ])
     })
   })
