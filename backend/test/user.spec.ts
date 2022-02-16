@@ -1,4 +1,5 @@
 import server from '../src/server';
+import path from 'path'
 import chai from 'chai';
 import chaiHttp = require('chai-http');
 import 'mocha';
@@ -1078,6 +1079,180 @@ describe('GET /users/:id/queries', () => {
           serverUrl: 'http://localhost:3000/api/myOwnJson/getJson/b00cc58569210f3c29428faf'
         }
       ])
+    })
+  })
+
+})
+
+describe('POST /users/signup/:newsLetter', () => {
+  beforeEach(async () => {
+    await mongoose.connection.dropDatabase()
+  })
+
+  describe('given full data', () => {
+    it("returns 201", async() => {
+      const {status} = await chai.request(server)
+                                 .post('/api/users/signup/true')
+                                 .attach('file',  path.join(__dirname, 'icon.png'))
+                                 .field('email', 'max.muster@inseri.swiss')
+                                 .field('password', 'mysecret1234')
+                                 .field('firstName', 'Max')
+                                 .field('lastName', 'Mustermann')
+                                 .field('host', 'localhost:3000')
+      status.should.equal(201)
+    })
+
+    it("returns message", async() => {
+      const {body} = await chai.request(server)
+                                 .post('/api/users/signup/true')
+                                 .attach('file', path.join(__dirname, 'icon.png'))
+                                 .field('email', 'max.muster@inseri.swiss')
+                                 .field('password', 'mysecret1234')
+                                 .field('firstName', 'Max')
+                                 .field('lastName', 'Mustermann')
+                                 .field('host', 'localhost:3000')
+
+      body.message.should.equal("User was created")
+    })
+
+    it("returns user object", async() => {
+      const {body} = await chai.request(server)
+                                 .post('/api/users/signup/true')
+                                 .attach('file', path.join(__dirname, 'icon.png'))
+                                 .field('email', 'max.muster@inseri.swiss')
+                                 .field('password', 'mysecret1234')
+                                 .field('firstName', 'Max')
+                                 .field('lastName', 'Mustermann')
+                                 .field('host', 'localhost:3000')
+
+      body.result._id.should.exist
+      body.result.email.should.equal("max.muster@inseri.swiss")
+      body.result.firstName.should.equal("Max")
+      body.result.lastName.should.equal("Mustermann")
+      body.result.usrProfileFilePath.should.match(/files\/(.)*-icon.png/)
+    })
+
+    it("saves user in DB", async() => {
+      const {body} = await chai.request(server)
+                                 .post('/api/users/signup/true')
+                                 .attach('file', path.join(__dirname, 'icon.png'))
+                                 .field('email', 'max.muster@inseri.swiss')
+                                 .field('password', 'mysecret1234')
+                                 .field('firstName', 'Max')
+                                 .field('lastName', 'Mustermann')
+                                 .field('host', 'localhost:3000')
+
+      const user = (await User.find({}))[0]
+      user.should.exist
+      user.newsletter.should.be.true
+    })
+
+    it("saves newsletter option", async() => {
+      const {body} = await chai.request(server)
+                                 .post('/api/users/signup/false')
+                                 .attach('file', path.join(__dirname, 'icon.png'))
+                                 .field('email', 'max.muster@inseri.swiss')
+                                 .field('password', 'mysecret1234')
+                                 .field('firstName', 'Max')
+                                 .field('lastName', 'Mustermann')
+                                 .field('host', 'localhost:3000')
+
+      const user = (await User.find({}))[0]
+      user.newsletter.should.be.false
+    })
+  })
+
+  describe('given data without icon', () => {
+    it("returns 201", async() => {
+      const {status} = await chai.request(server)
+                                 .post('/api/users/signup/true')
+                                 .field('email', 'max.muster@inseri.swiss')
+                                 .field('password', 'mysecret1234')
+                                 .field('firstName', 'Max')
+                                 .field('lastName', 'Mustermann')
+                                 .field('host', 'localhost:3000')
+                                 .field('usrProfileFilePath', 'assets/img/team/user-icon-vector.jpg')
+      status.should.equal(201)
+    })
+
+    it("returns message", async() => {
+      const {body} = await chai.request(server)
+                               .post('/api/users/signup/true')
+                               .field('email', 'max.muster@inseri.swiss')
+                               .field('password', 'mysecret1234')
+                               .field('firstName', 'Max')
+                               .field('lastName', 'Mustermann')
+                               .field('host', 'localhost:3000')
+                               .field('usrProfileFilePath', 'assets/img/team/user-icon-vector.jpg')
+
+      body.message.should.equal("User was created")
+    })
+
+    it("returns user object", async() => {
+      const {body} = await chai.request(server)
+                               .post('/api/users/signup/true')
+                               .field('email', 'max.muster@inseri.swiss')
+                               .field('password', 'mysecret1234')
+                               .field('firstName', 'Max')
+                               .field('lastName', 'Mustermann')
+                               .field('host', 'localhost:3000')
+                               .field('usrProfileFilePath', 'assets/img/team/user-icon-vector.jpg')
+
+      body.result._id.should.exist
+      body.result.email.should.equal("max.muster@inseri.swiss")
+      body.result.firstName.should.equal("Max")
+      body.result.lastName.should.equal("Mustermann")
+      body.result.usrProfileFilePath.should.equal("assets/img/team/user-icon-vector.jpg")
+    })
+  })
+
+  describe('given invalid email', () => {
+    it("returns 400", async() => {
+      const {status} = await chai.request(server)
+                                 .post('/api/users/signup/true')
+                                 .field('email', 'max.muster')
+                                 .field('password', 'mysecret1234')
+      status.should.equal(400)
+    })
+
+    it("returns message", async() => {
+      const { body } = await chai.request(server)
+                                 .post('/api/users/signup/true')
+                                 .field('email', 'max.muster')
+                                 .field('password', 'mysecret1234')
+
+      body.message.should.equal('Your email address is invalid!')
+    })
+  })
+
+  describe('given existing email', () => {
+    beforeEach(async () => {
+      await initUser1()
+    })
+
+    it("returns 409", async() => {
+      const {status} = await chai.request(server)
+                                 .post('/api/users/signup/true')
+                                 .field('email', 'foo.bar@inseri.swiss')
+                                 .field('password', 'mysecret1234')
+                                 .field('firstName', 'Max')
+                                 .field('lastName', 'Mustermann')
+                                 .field('host', 'localhost:3000')
+                                 .field('usrProfileFilePath', 'assets/img/team/user-icon-vector.jpg')
+      status.should.equal(409)
+    })
+
+    it("returns message", async() => {
+      const {body} = await chai.request(server)
+                               .post('/api/users/signup/true')
+                               .field('email', 'foo.bar@inseri.swiss')
+                               .field('password', 'mysecret1234')
+                               .field('firstName', 'Max')
+                               .field('lastName', 'Mustermann')
+                               .field('host', 'localhost:3000')
+                               .field('usrProfileFilePath', 'assets/img/team/user-icon-vector.jpg')
+
+      body.message.should.equal('Email address already exists!')
     })
   })
 
