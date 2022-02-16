@@ -1353,3 +1353,85 @@ describe('POST /users/login', () => {
   })
 
 })
+
+describe('POST /users/updateUsrProfilePic/:email', () => {
+  beforeEach(async () => {
+    await mongoose.connection.dropDatabase()
+    await initUser1()
+    await initUser2()
+  })
+
+  describe('given image', () => {
+    it("returns 201", async() => {
+      const {status} = await chai.request(server)
+                                 .post('/api/users/updateUsrProfilePic/foo.bar@inseri.swiss')
+                                 .attach('file',  path.join(__dirname, 'icon.png'))
+      status.should.equal(201)
+    })
+
+    it("returns message", async() => {
+      const { body } = await chai.request(server)
+                                 .post('/api/users/updateUsrProfilePic/foo.bar@inseri.swiss')
+                                 .attach('file',  path.join(__dirname, 'icon.png'))
+      body.message.should.equal('user profile photo updated')
+    })
+
+    it("updates usrProfilePic", async() => {
+      const { body } = await chai.request(server)
+                                 .post('/api/users/updateUsrProfilePic/foo.bar@inseri.swiss')
+                                 .attach('file',  path.join(__dirname, 'icon.png'))
+      const dbUser = await User.findById('620522b4fc13ae03b300031b')
+      dbUser.usrProfileFilePath.should.match(/127.0.0.1(.)*\/files\/(.)*-icon.png/)
+    })
+  })
+
+  describe('not given image', () => {
+    it("returns 201", async() => {
+      const {status} = await chai.request(server)
+                                 .post('/api/users/updateUsrProfilePic/foo.bar@inseri.swiss')
+      status.should.equal(201)
+    })
+
+    it("returns message", async() => {
+      const { body } = await chai.request(server)
+                                 .post('/api/users/updateUsrProfilePic/foo.bar@inseri.swiss')
+
+      body.message.should.equal('user profile photo updated')
+    })
+
+    it("keeps usrProfilePic", async() => {
+      const { body } = await chai.request(server)
+                                 .post('/api/users/updateUsrProfilePic/foo.bar@inseri.swiss')
+
+      const dbUser = await User.findById('620522b4fc13ae03b300031b')
+      dbUser.usrProfileFilePath.should.equal('/home/pic/foo.jpg')
+    })
+  })
+
+  describe('not given image and given user with no profile picture', () => {
+    it("returns 201", async() => {
+      const {status} = await chai.request(server)
+                                 .post('/api/users/updateUsrProfilePic/foo.bar2@inseri.swiss')
+                                 .field('usrProfileFilePath', 'localhost:3000/assets/img/team/user-icon-vector.jpg')
+      status.should.equal(201)
+    })
+
+    it("returns message", async() => {
+      const { body } = await chai.request(server)
+                                 .post('/api/users/updateUsrProfilePic/foo.bar2@inseri.swiss')
+                                 .field('usrProfileFilePath', 'localhost:3000/assets/img/team/user-icon-vector.jpg')
+
+      body.message.should.equal('user profile photo updated')
+    })
+
+    it("updates usrProfilePic", async() => {
+      const { body } = await chai.request(server)
+                                 .post('/api/users/updateUsrProfilePic/foo.bar2@inseri.swiss')
+                                 .field('usrProfileFilePath', 'localhost:3000/assets/img/team/user-icon-vector.jpg')
+
+      const dbUser = await User.findById('720522b4fc13ae03b300031b')
+      dbUser.usrProfileFilePath.should.equal('localhost:3000/assets/img/team/user-icon-vector.jpg')
+    })
+  })
+
+})
