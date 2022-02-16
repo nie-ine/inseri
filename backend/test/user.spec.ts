@@ -11,6 +11,7 @@ import bcrypt from 'bcrypt';
 
 chai.use(chaiHttp);
 chai.should()
+const { expect } = chai
 const jwtToken62 = createJWTToken('620522b4fc13ae03b300031b', 'foo.bar@inseri.swiss')
 
 // TODO verify if endpoint is still needed
@@ -742,6 +743,86 @@ describe('POST /users/:email/reset-password-set-new-password', () => {
       const dbUser = await User.findById('620522b4fc13ae03b300031b')
       const isPasswordUpdated = bcrypt.compareSync('1234new1234', dbUser.password)
       isPasswordUpdated.should.be.true
+    })
+  })
+})
+
+describe('PUT /users/:id/reactivate', () => {
+  beforeEach(async () => {
+    await mongoose.connection.dropDatabase()
+    await initUser2()
+  })
+
+  describe('given existing user', () => {
+    const payload = {
+      userId: "620522b4fc13ae03b300031b",
+      oldPwd: "mysecret1234",
+    }
+
+    it("returns 201", async() => {
+      const {status} = await chai.request(server)
+                                 .put('/api/users/720522b4fc13ae03b300031b/reactivate')
+                                 .send(payload)
+      status.should.equal(201)
+    })
+
+    it("returns message", async() => {
+      const {body} = await chai.request(server)
+                               .put('/api/users/720522b4fc13ae03b300031b/reactivate')
+                               .send(payload)
+      body.message.should.equal("User account has been reactivated")
+    })
+
+
+    it("updates delete field", async() => {
+      const response = await chai.request(server)
+                                 .put('/api/users/720522b4fc13ae03b300031b/reactivate')
+                                 .send(payload)
+
+      const dbUser = await User.findById('720522b4fc13ae03b300031b')
+      expect(dbUser.delete).to.be.not.exist
+    })
+  })
+
+  describe('given wrong password', () => {
+    const payload = {
+      userId: "720522b4fc13ae03b300031b",
+      oldPwd: "1234",
+    }
+
+    it("returns 400", async() => {
+      const {status} = await chai.request(server)
+                                 .put('/api/users/720522b4fc13ae03b300031b/reactivate')
+                                 .send(payload)
+      status.should.equal(400)
+    })
+
+    it("returns message", async() => {
+      const {body} = await chai.request(server)
+                               .put('/api/users/720522b4fc13ae03b300031b/reactivate')
+                               .send(payload)
+      body.message.should.equal("Your old password input is wrong!")
+    })
+  })
+
+  describe('given empty password', () => {
+    const payload = {
+      userId: "720522b4fc13ae03b300031b",
+      oldPwd: "",
+    }
+
+    it("returns 400", async() => {
+      const {status} = await chai.request(server)
+                                 .put('/api/users/720522b4fc13ae03b300031b/reactivate')
+                                 .send(payload)
+      status.should.equal(400)
+    })
+
+    it("returns message", async() => {
+      const {body} = await chai.request(server)
+                               .put('/api/users/720522b4fc13ae03b300031b/reactivate')
+                               .send(payload)
+      body.messages.should.deep.equal(["Your old password input is invalid!"])
     })
   })
 })
