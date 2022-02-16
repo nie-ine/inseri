@@ -1,6 +1,7 @@
 import { ObjectId } from "mongodb";
 import User from '../src/models/user';
 import Action from '../src/models/action';
+import Query from '../src/models/query';
 
 export const initUser1 = async () => {
   const user = {
@@ -53,4 +54,38 @@ export const initAction2 = async () => {
   }
 
   await Action.collection.insertOne(action)
+}
+
+export const initQuery1 = async () => {
+  const query = {
+    _id: new ObjectId('a00cc58569210f3c29428faf'),
+    path: [],
+    title: 'page:my project | data stored in inseri',
+    params: [],
+    header: [],
+    isBoundToPage: 'true',
+    creator: new ObjectId('620522b4fc13ae03b300031b'),
+    description: '2022:16:10:36:5',
+    method: 'JSON',
+    serverUrl: 'http://localhost:3000/api/myOwnJson/getJson/a00cc58569210f3c29428faf'
+  }
+
+  await Query.collection.insertOne(query)
+}
+
+export const initQuery2 = async () => {
+  const query = {
+    _id: new ObjectId('b00cc58569210f3c29428faf'),
+    path: [],
+    title: 'page:my proj | data stored in inseri',
+    params: [],
+    header: [],
+    isBoundToPage: 'true',
+    creator: new ObjectId('620522b4fc13ae03b300031b'),
+    description: '2022:16:10:36:5',
+    method: 'JSON',
+    serverUrl: 'http://localhost:3000/api/myOwnJson/getJson/b00cc58569210f3c29428faf'
+  }
+
+  await Query.collection.insertOne(query)
 }
